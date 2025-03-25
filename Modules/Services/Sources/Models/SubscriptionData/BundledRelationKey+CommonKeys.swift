@@ -69,6 +69,8 @@ public extension BundledRelationKey {
             BundledRelationKey.titleKeys
             // Open bookmark in whole app
             BundledRelationKey.source
+            // Open Chat
+            BundledRelationKey.chatId
         }.uniqued()
     }
 }

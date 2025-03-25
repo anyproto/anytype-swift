@@ -42,6 +42,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var iconColorService: any IconColorServiceProtocol
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -69,6 +71,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
     @Published var typesForCreateObject: [ObjectType] = []
+    @Published var participantSpaceView: ParticipantSpaceViewData?
     private var photosItems: [PhotosPickerItem] = []
     private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
@@ -87,9 +90,15 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
     private var participants: [Participant] = []
+    private var inviteLinkShown = false
     private var firstUnreadMessageOrderId: String?
     private var bottomVisibleOrderId: String?
+
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    var conversationType: ConversationType {
+        participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
+    }
+    var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts
     
@@ -141,14 +150,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onWidgetsSelected()
     }
     
+    func onTapInviteLink() {
+        output?.onInviteLinkSelected()
+    }
+    
     func startSubscriptions() async {
         async let permissionsSub: () = subscribeOnPermissions()
         async let participantsSub: () = subscribeOnParticipants()
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let spaceViewSub: () = subscribeOnSpaceView()
         async let chatStateSub: () = subscribeOnChatState()
         
-        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, chatStateSub)
+        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, chatStateSub)
     }
     
     func subscribeOnMessages() async throws {
@@ -170,7 +184,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             }
         }
     }
-    
+
     func subscribeOnChatState() async {
         guard FeatureFlags.chatCounters else { return }
         for await chatState in chatStorage.chatStateStream {
@@ -541,6 +555,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
+    private func subscribeOnSpaceView() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            self.participantSpaceView = participantSpaceView
+            handleInviteLinkShow()
+        }
+    }
+    
     private func updateMessages() async {
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
             messages: messages,
@@ -649,6 +670,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             loading: false
         )
         linkedObjects[index] = .localBookmark(bookmark)
+    }
+    
+    private func handleInviteLinkShow() {
+        guard !inviteLinkShown,
+              participantPermissions == .owner,
+              let createdDate = participantSpaceView?.spaceView.createdDate,
+              Date().timeIntervalSince(createdDate) < 5 else {
+            return
+        }
+        output?.onInviteLinkSelected()
+        inviteLinkShown = true
     }
     
     private func updateActions() {

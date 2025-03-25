@@ -3,16 +3,16 @@ import PhotosUI
 import SwiftUI
 import Services
 
-struct ChatCoordinatorData: Hashable {
+struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
-    let spaceInfo: AccountInfo
+    let spaceId: String
 }
 
 @MainActor
 final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     let chatId: String
-    var spaceId: String { info.accountSpaceId }
+    let spaceId: String
     
     @Published var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
     @Published var showEmojiData: MessageReactionPickerData?
@@ -27,10 +27,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var cameraData: SimpleCameraData?
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var newLinkedObject: EditorScreenData?
+    @Published var inviteLinkData: SpaceShareData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
-    private let info: AccountInfo
     
     var pageNavigation: PageNavigation?
     
@@ -39,7 +39,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     init(data: ChatCoordinatorData) {
         self.chatId = data.chatId
-        self.info = data.spaceInfo
+        self.spaceId = data.spaceId
     }
     
     func onLinkObjectSelected(data: ObjectSearchWithMetaModuleData) {
@@ -92,6 +92,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onWidgetsSelected() {
         pageNavigation?.pushHome()
+    }
+    
+    func onInviteLinkSelected() {
+        inviteLinkData = SpaceShareData(spaceId: spaceId, route: .chat)
     }
     
     func didSelectCreateObject(type: ObjectType) {

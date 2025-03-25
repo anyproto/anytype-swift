@@ -7,6 +7,10 @@ struct GalleryWidgetRowModel {
     let icon: Icon?
     let cover: ObjectHeaderCoverType?
     let onTap: @MainActor () -> Void
+    
+    var shouldIncreaseCoverHeight: Bool {
+        cover.isNotNil && icon.isNil && title.isNil
+    }
 }
 
 struct GalleryWidgetRow: View {
@@ -21,7 +25,7 @@ struct GalleryWidgetRow: View {
             VStack(alignment: .leading, spacing: 0) {
                 if let cover = model.cover {
                     ObjectHeaderCoverView(objectCover: cover, fitImage: false)
-                        .frame(height: 80)
+                        .frame(height: model.shouldIncreaseCoverHeight ? 136 : 80)
                 }
                 if model.icon.isNotNil || model.title.isNotNil {
                     info

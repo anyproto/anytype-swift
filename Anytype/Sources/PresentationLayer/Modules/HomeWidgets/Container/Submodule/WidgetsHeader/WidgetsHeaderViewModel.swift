@@ -20,7 +20,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
     
     @Published var spaceName = ""
     @Published var spaceIcon: Icon?
-    @Published var spaceAccessType = ""
+    @Published var spaceUxType = ""
     @Published var spaceMembers = ""
     @Published var sharedSpace = false
     @Published var canEdit = false
@@ -49,7 +49,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
             guard let space = spaces.first(where: { $0.targetSpaceId == accountSpaceId }) else { continue }
             spaceName = space.title
             spaceIcon = space.objectIconImage
-            spaceAccessType = space.spaceAccessType?.name ?? ""
+            spaceUxType = space.uxType.name
             sharedSpace = space.isShared
         }
     }

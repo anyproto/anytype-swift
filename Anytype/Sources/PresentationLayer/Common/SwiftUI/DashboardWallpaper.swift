@@ -75,6 +75,8 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
             } placeholder: {
                 LoadingPlaceholderIconView()
             }
+        case .localPath(let path):
+            LocalIconView(contentsOfFile: path)
         }
     }
     

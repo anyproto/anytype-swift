@@ -40,6 +40,9 @@ struct MessageView: View {
             bubble
             reactions
         }
+        .if(UIDevice.isPad) {
+            $0.frame(maxWidth: 350, alignment: data.position.isRight ? .trailing : .leading)
+        }
     }
     
     @ViewBuilder
@@ -120,7 +123,7 @@ struct MessageView: View {
         if let objects = data.linkedObjects {
             switch objects {
             case .list(let items):
-                MessageListAttachmentsViewContainer(objects: items, isYour: data.isYourMessage) {
+                MessageListAttachmentsViewContainer(objects: items, position: data.position) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.attachmentsPadding)
@@ -160,7 +163,7 @@ struct MessageView: View {
             MessageReactionList(
                 rows: data.reactions,
                 canAddReaction: data.canAddReaction,
-                isYourMessage: data.isYourMessage,
+                position: data.position,
                 onTapRow: { reaction in
                     try await output?.didTapOnReaction(data: data, reaction: reaction)
                 },
@@ -176,7 +179,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var leadingView: some View {
-        if data.isYourMessage {
+        if data.position.isRight {
             horizontalBubbleSpacing
         } else {
             authorIcon
@@ -185,7 +188,7 @@ struct MessageView: View {
     
     @ViewBuilder
     private var trailingView: some View {
-        if data.isYourMessage {
+        if data.position.isRight {
             authorIcon
         } else {
             horizontalBubbleSpacing
@@ -270,11 +273,11 @@ struct MessageView: View {
     }
     
     private var messageBackgorundColor: Color {
-        return data.isYourMessage ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+        return data.position.isRight ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
     }
     
     private var messageTimeColor: Color {
-        return data.isYourMessage ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive
+        return data.position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive
     }
 }
 

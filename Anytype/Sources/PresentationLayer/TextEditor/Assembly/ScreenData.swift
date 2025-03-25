@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 enum ScreenType {
     case page
@@ -8,8 +9,8 @@ enum ScreenType {
     case participant
     case mediaFile
     case bookmark
+    case chat
 }
-
 
 enum ScreenData: Hashable, Identifiable, Sendable {
     case editor(EditorScreenData)
@@ -17,7 +18,8 @@ enum ScreenData: Hashable, Identifiable, Sendable {
     case preview(MediaFileScreenData)
     case bookmark(BookmarkScreenData)
     case spaceInfo(SpaceInfoScreenData)
-        
+    case chat(ChatCoordinatorData)
+    
     var id: Int { hashValue }
 }
 
@@ -30,7 +32,7 @@ extension ScreenData {
             return alertScreenData.objectId
         case .bookmark(let data):
             return data.editorScreenData.objectId
-        case .preview, .spaceInfo:
+        case .preview, .spaceInfo, .chat:
             return nil
         }
     }
@@ -47,6 +49,8 @@ extension ScreenData {
             data.editorScreenData.spaceId
         case .spaceInfo(let data):
             data.spaceId
+        case .chat(let data):
+            data.spaceId
         }
     }
     
@@ -54,8 +58,17 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData
-        case .alert, .preview, .bookmark, .spaceInfo:
+        case .alert, .preview, .bookmark, .spaceInfo, .chat:
             return nil
+        }
+    }
+    
+    var isSimpleSet: Bool {
+        switch self {
+        case .editor(let editorScreenData):
+            return FeatureFlags.objectTypeWidgets ? editorScreenData.isSimpleSet : false
+        case .alert, .preview, .bookmark, .spaceInfo, .chat:
+            return false
         }
     }
 }

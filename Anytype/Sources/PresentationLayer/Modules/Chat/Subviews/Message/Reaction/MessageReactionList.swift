@@ -6,7 +6,7 @@ struct MessageReactionList: View {
 
     let rows: [MessageReactionModel]
     let canAddReaction: Bool
-    let isYourMessage: Bool
+    let position: MessageHorizontalPosition
     let onTapRow: (MessageReactionModel) async throws -> Void
     let onLongTapRow: (MessageReactionModel) -> Void
     let onTapAdd: () -> Void
@@ -21,7 +21,7 @@ struct MessageReactionList: View {
                 )
             }
             if rows.isNotEmpty && canAddReaction {
-                MessageReactionAddView(isYourMessage: isYourMessage, onTap: onTapAdd)
+                MessageReactionAddView(position: position, onTap: onTapAdd)
             }
         }
     }
@@ -30,12 +30,12 @@ struct MessageReactionList: View {
 #Preview {
     MessageReactionList(
         rows: [
-            MessageReactionModel(emoji: "😍", content: .count(2), selected: false, isYourMessage: false),
-            MessageReactionModel(emoji: "😗", content: .count(100), selected: true, isYourMessage: false),
-            MessageReactionModel(emoji: "😎", content: .icon(.asset(.X18.delete)), selected: false, isYourMessage: true)
+            MessageReactionModel(emoji: "😍", content: .count(2), selected: false, position: .left),
+            MessageReactionModel(emoji: "😗", content: .count(100), selected: true, position: .left),
+            MessageReactionModel(emoji: "😎", content: .icon(.asset(.X18.delete)), selected: false, position: .right)
         ],
         canAddReaction: true,
-        isYourMessage: true,
+        position: .right,
         onTapRow: { _ in },
         onLongTapRow: { _ in },
         onTapAdd: {}

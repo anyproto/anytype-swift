@@ -7,14 +7,14 @@ struct MessageBookmarkView: View {
     let icon: Icon
     let title: String
     let description: String
-    let isYour: Bool
+    let position: MessageHorizontalPosition
     
     var body: some View {
         MessageCommonBookmarkView(
             icon: icon,
             title: title,
             description: description,
-            style: isYour ? .messageYour : .messageOther
+            style: position.isRight ? .messageYour : .messageOther
         )
         .frame(height: 64)
         .frame(minWidth: 231)
@@ -24,12 +24,12 @@ struct MessageBookmarkView: View {
 }
 
 extension MessageBookmarkView {
-    init(details: MessageAttachmentDetails, isYour: Bool) {
+    init(details: MessageAttachmentDetails, position: MessageHorizontalPosition) {
         self = MessageBookmarkView(
             icon: details.objectIconImage,
             title: details.source ?? details.title,
             description: details.title,
-            isYour: isYour
+            position: position
         )
     }
 }

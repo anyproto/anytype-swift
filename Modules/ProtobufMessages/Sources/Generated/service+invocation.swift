@@ -2844,4 +2844,44 @@ public struct ClientCommands {
         }
     }
 
+    public static func aIWritingTools(
+        _ request: Anytype_Rpc.AI.WritingTools.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.WritingTools.Request, Anytype_Rpc.AI.WritingTools.Response> {
+        return Invocation(messageName: "AIWritingTools", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIWritingTools(requestData) ?? Data()
+            return try Anytype_Rpc.AI.WritingTools.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIAutofill(
+        _ request: Anytype_Rpc.AI.Autofill.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.Autofill.Request, Anytype_Rpc.AI.Autofill.Response> {
+        return Invocation(messageName: "AIAutofill", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIAutofill(requestData) ?? Data()
+            return try Anytype_Rpc.AI.Autofill.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIListSummary(
+        _ request: Anytype_Rpc.AI.ListSummary.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.ListSummary.Request, Anytype_Rpc.AI.ListSummary.Response> {
+        return Invocation(messageName: "AIListSummary", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIListSummary(requestData) ?? Data()
+            return try Anytype_Rpc.AI.ListSummary.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIObjectCreateFromUrl(
+        _ request: Anytype_Rpc.AI.ObjectCreateFromUrl.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.ObjectCreateFromUrl.Request, Anytype_Rpc.AI.ObjectCreateFromUrl.Response> {
+        return Invocation(messageName: "AIObjectCreateFromUrl", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIObjectCreateFromUrl(requestData) ?? Data()
+            return try Anytype_Rpc.AI.ObjectCreateFromUrl.Response(serializedBytes: responseData)
+        }
+    }
+
 }

@@ -8,7 +8,7 @@ import AnytypeCore
 final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private enum Constants {
-        static let newObjectId = "NewObjectId"
+        static let objectTypesId = "ObjectTypesId"
         static let anytypeId = "AnytypeId"
         static let searchId = "SearchId"
     }
@@ -17,6 +17,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
+    private var objectTypes: [ObjectDetails] = []
     private var objects: [ObjectDetails] = []
     private var libraryObjects: [WidgetAnytypeLibrarySource] = []
     private let interactor: any WidgetSourceSearchInteractorProtocol
@@ -36,11 +37,14 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func search(text: String) async throws {
         self.searchText = text
-        let objects = try await interactor.objectSearch(text: text)
+        
+        let objectTypes = FeatureFlags.objectTypeWidgets ? try await interactor.objectsTypesSearch(text: text) : []
+        let objects = try await interactor.objectsSearch(text: text)
         let libraryObjects = interactor.anytypeLibrarySearch(text: text)
         
-        handleSearchResults(objects: objects, libraryObjects: libraryObjects)
+        handleSearchResults(objectTypes: objectTypes, objects: objects, libraryObjects: libraryObjects)
         
+        self.objectTypes = objectTypes
         self.objects = objects
         self.libraryObjects = libraryObjects
     }
@@ -50,12 +54,9 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     func handleConfirmSelection(ids: [String]) {
         
         guard let id = ids.first else { return }
-
-        if id == Constants.newObjectId {
-            Task { @MainActor in
-                let details = try await interactor.createNewObject(name: searchText)
-                internalModel.onSelect(source: .object(details), openObject: details.screenData())
-            }
+        
+        if let object = objectTypes.first(where: { $0.id == id}) {
+            internalModel.onSelect(source: .object(object), openObject: nil)
             return
         }
         
@@ -74,11 +75,17 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     
     // MARK: - Private
     
-    private func handleSearchResults(objects: [ObjectDetails], libraryObjects: [WidgetAnytypeLibrarySource]) {
+    private func handleSearchResults(objectTypes: [ObjectDetails], objects: [ObjectDetails], libraryObjects: [WidgetAnytypeLibrarySource]) {
         viewStateSubject.send(
             .resultsList(
                 .sectioned(sectinos: .builder {
-                    newSectionConfiguration()
+                    if objectTypes.isNotEmpty {
+                        ListSectionConfiguration.smallHeader(
+                            id: Constants.objectTypesId,
+                            title: Loc.Widgets.Source.suggested,
+                            rows:  objectTypes.asRowConfigurations()
+                        )
+                    }
                     if libraryObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.anytypeId,
@@ -96,33 +103,6 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
                 })
             )
         )
-    }
-    
-    func newSectionConfiguration() -> ListSectionConfiguration {
-        return ListSectionConfiguration(
-            id: Constants.newObjectId,
-            rows: [
-                ListRowConfiguration(
-                    id: Constants.newObjectId,
-                    contentHash: Constants.newObjectId.hashValue,
-                    viewBuilder:  {
-                        SearchObjectRowView(
-                            viewModel: SearchObjectRowView.Model(
-                                id: Constants.newObjectId, 
-                                icon: .asset(.X32.plus),
-                                title: Loc.Widgets.Actions.newObject,
-                                subtitle: nil,
-                                style: .default,
-                                isChecked: false
-                            ),
-                            selectionIndicatorViewModel: nil
-                        ).eraseToAnyView()
-                    }
-                )
-            ]
-        ) {
-            EmptyView().eraseToAnyView()
-        }
     }
 }
 

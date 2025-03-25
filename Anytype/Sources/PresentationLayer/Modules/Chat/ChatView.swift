@@ -91,6 +91,7 @@ struct ChatView: View {
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
                 disableAddButton: model.sendMessageTaskInProgress,
                 createObjectTypes: model.typesForCreateObject,
+                conversationType: model.conversationType,
                 onTapAddPage: {
                     model.onTapAddPageToMessage()
                 },
@@ -151,7 +152,13 @@ struct ChatView: View {
     }
     
     private var emptyView: some View {
-        ChatEmptyStateView()
+        ConversationEmptyStateView(
+            conversationType: model.conversationType,
+            participantPermissions: model.participantPermissions,
+            action: {
+                model.onTapInviteLink()
+            }
+        )
     }
     
     private var actionView: some View {

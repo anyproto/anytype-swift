@@ -31,7 +31,7 @@ final class ObjectSearchViewModel: ObservableObject {
             let result: [ObjectDetails]
             
             if data.layoutLimits.isNotEmpty {
-                result = try await searchService.searchObjectsWithLayouts(text: text, layouts: data.layoutLimits, spaceId: data.spaceId)
+                result = try await searchService.searchObjectsWithLayouts(text: text, layouts: data.layoutLimits, excludedIds: [], spaceId: data.spaceId)
             } else {
                 result = try await searchService.search(text: text, spaceId: data.spaceId)
             }

@@ -48,14 +48,12 @@ struct SetGalleryViewCell: View {
     @ViewBuilder
     private var coverContent: some View {
         if configuration.hasCover, let coverType = configuration.coverType {
+            let defaultHeight = configuration.isSmallCardSize ? Constants.smallItemHeight : Constants.largeItemHeight
+            let height: CGFloat = configuration.shouldIncreaseCoverHeight ? width : defaultHeight
             ObjectHeaderCoverView(objectCover: coverType, fitImage: configuration.coverFit)
-            .frame(
-                height: configuration.isSmallCardSize ?
-                Constants.smallItemHeight :
-                    Constants.largeItemHeight
-            )
-            .frame(maxWidth: .infinity)
-            .background(Color.Shape.transperentSecondary)
+                .frame(height: height)
+                .frame(maxWidth: .infinity)
+                .background(Color.Shape.transperentSecondary)
         }
     }
     

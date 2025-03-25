@@ -69,6 +69,7 @@ internal enum Loc {
   internal static let changeIcon = Loc.tr("Localizable", "Change icon", fallback: "Change icon")
   internal static let changeType = Loc.tr("Localizable", "Change type", fallback: "Change type")
   internal static let changeWallpaper = Loc.tr("Localizable", "Change wallpaper", fallback: "Change wallpaper")
+  internal static let chat = Loc.tr("Localizable", "Chat", fallback: "Chat")
   internal static let chooseDefaultObjectType = Loc.tr("Localizable", "Choose default object type", fallback: "Choose default object type")
   internal static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   internal static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
@@ -221,6 +222,7 @@ internal enum Loc {
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
   internal static let myChannels = Loc.tr("Localizable", "My Channels", fallback: "My Channels")
   internal static let myFirstSpace = Loc.tr("Localizable", "My First Space", fallback: "My First Space")
+  internal static let mySpaces = Loc.tr("Localizable", "My spaces", fallback: "My Spaces")
   internal static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   internal static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   internal static let new = Loc.tr("Localizable", "New", fallback: "New")
@@ -422,6 +424,11 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   internal static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
   internal static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
+  internal enum AITool {
+    internal static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
+    internal static let placeholder = Loc.tr("Localizable", "AITool.placeholder", fallback: "For example, Summarise")
+    internal static let title = Loc.tr("Localizable", "AITool.title", fallback: "Ask AI")
+  }
   internal enum About {
     internal static func analyticsId(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")
@@ -696,8 +703,16 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     internal enum Empty {
-      internal static let description = Loc.tr("Localizable", "Chat.Empty.Description", fallback: "Write a first one to start a conversation")
-      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages here yet...")
+      internal static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages yet")
+      internal enum Button {
+        internal static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Share invite link")
+      }
+      internal enum Editor {
+        internal static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first one to spark it up!")
+      }
+      internal enum Owner {
+        internal static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and spark it up!")
+      }
     }
     internal enum Participant {
       internal static let badge = Loc.tr("Localizable", "Chat.Participant.Badge", fallback: "(You)")
@@ -1250,7 +1265,12 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Message.ChatTitle.Placeholder", fallback: "Untitled Chat")
     }
     internal enum Input {
-      internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder", fallback: "Write a message...")
+      internal enum Chat {
+        internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.Chat.EmptyPlaceholder", fallback: "Write a message...")
+      }
+      internal enum Stream {
+        internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.Stream.EmptyPlaceholder", fallback: "Broadcast")
+      }
     }
   }
   internal enum Migration {
@@ -1662,6 +1682,8 @@ internal enum Loc {
     }
   }
   internal enum Settings {
+    internal static let chatDisabled = Loc.tr("Localizable", "Settings.ChatDisabled", fallback: "Chat is disabled")
+    internal static let chatEnabled = Loc.tr("Localizable", "Settings.ChatEnabled", fallback: "Chat is enabled")
     internal static let dataManagement = Loc.tr("Localizable", "Settings.DataManagement", fallback: "Data Management")
     internal static let editPicture = Loc.tr("Localizable", "Settings.Edit picture", fallback: "Edit picture")
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
@@ -1766,7 +1788,15 @@ internal enum Loc {
     }
   }
   internal enum SpaceCreate {
-    internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
+    internal enum Chat {
+      internal static let title = Loc.tr("Localizable", "SpaceCreate.Chat.Title", fallback: "Create a chat")
+    }
+    internal enum Space {
+      internal static let title = Loc.tr("Localizable", "SpaceCreate.Space.Title", fallback: "Create a space")
+    }
+    internal enum Stream {
+      internal static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Title", fallback: "Create a stream")
+    }
   }
   internal enum SpaceManager {
     internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Join Request")
@@ -1829,6 +1859,9 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.Approve.Toast", String(describing: p1), fallback: "You approved %@'s request.")
       }
     }
+    internal enum CopyInviteLink {
+      internal static let title = Loc.tr("Localizable", "SpaceShare.CopyInviteLink.Title", fallback: "Copy invite link")
+    }
     internal enum DeleteSharingLink {
       internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytime")
       internal static let title = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Title", fallback: "Delete link")
@@ -1848,6 +1881,9 @@ internal enum Loc {
       }
       internal static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       internal static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
+      internal enum Stream {
+        internal static let description = Loc.tr("Localizable", "SpaceShare.Invite.Stream.Description", fallback: "Share this link so that others can join your Stream.")
+      }
     }
     internal enum Join {
       internal static let button = Loc.tr("Localizable", "SpaceShare.Join.Button", fallback: "Request to join")
@@ -1883,6 +1919,9 @@ internal enum Loc {
         return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
       }
       internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
+    }
+    internal enum Share {
+      internal static let link = Loc.tr("Localizable", "SpaceShare.Share.link", fallback: "Share link")
     }
     internal enum StopSharing {
       internal static let action = Loc.tr("Localizable", "SpaceShare.StopSharing.Action", fallback: "Stop sharing")
@@ -1920,10 +1959,30 @@ internal enum Loc {
     internal enum Search {
       internal static let title = Loc.tr("Localizable", "Spaces.Search.Title", fallback: "Search spaces")
     }
+    internal enum UxType {
+      internal enum Chat {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Chat.Description", fallback: "For real-time conversations")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Chat.Title", fallback: "Chat")
+      }
+      internal enum Space {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Space.Description", fallback: "For organized content and data")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Space.Title", fallback: "Space")
+      }
+      internal enum Stream {
+        internal static let description = Loc.tr("Localizable", "Spaces.UxType.Stream.Description", fallback: "For broadcasting your vibe")
+        internal static let title = Loc.tr("Localizable", "Spaces.UxType.Stream.Title", fallback: "Stream")
+      }
+    }
   }
   internal enum StoreKitServiceError {
     internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction", fallback: "Payment unsuccessfull, User Actions on Apple side required to pay.")
     internal static let userCancelled = Loc.tr("Localizable", "StoreKitServiceError.userCancelled", fallback: "Purchase cancelled")
+  }
+  internal enum Stream {
+    internal enum Empty {
+      internal static let description = Loc.tr("Localizable", "Stream.Empty.Description", fallback: "Invite people and start sharing your vibe")
+      internal static let title = Loc.tr("Localizable", "Stream.Empty.Title", fallback: "This stream is empty")
+    }
   }
   internal enum StyleMenu {
     internal enum Color {
@@ -2114,7 +2173,6 @@ internal enum Loc {
       internal static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: \"%#@object@\"")
       }
-      internal static let changeSource = Loc.tr("Localizable", "Widgets.Actions.ChangeSource", fallback: "Change Source")
       internal static let changeWidgetType = Loc.tr("Localizable", "Widgets.Actions.ChangeWidgetType", fallback: "Change Widget Type")
       internal static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit Widgets")
       internal static let emptyBin = Loc.tr("Localizable", "Widgets.Actions.EmptyBin", fallback: "Empty Bin")
@@ -2160,9 +2218,13 @@ internal enum Loc {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
       }
     }
+    internal enum List {
+      internal static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "There is no widgets yet")
+    }
     internal enum Source {
       internal static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "Default sets")
       internal static let objects = Loc.tr("Localizable", "Widgets.Source.Objects", fallback: "Your objects")
+      internal static let suggested = Loc.tr("Localizable", "Widgets.Source.Suggested", fallback: "Suggested")
     }
   }
 }

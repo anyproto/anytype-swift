@@ -62,6 +62,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.objectIconImageKeys
             BundledRelationKey.spaceId
             BundledRelationKey.source
+            BundledRelationKey.chatId
         }.uniqued().map(\.rawValue)
         
         keys.append(contentsOf: data.options.map { $0.key })

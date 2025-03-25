@@ -30,6 +30,8 @@ extension WidgetSource {
                 return [.compactList, .list, .tree]
             case .sets, .collections, .lists, .media, .bookmarks, .files:
                 return [.compactList, .list]
+            case .bin:
+                return [.link]
             }
         }
     }
@@ -40,11 +42,11 @@ extension ObjectDetails {
         switch editorViewType {
         case .page, .bookmark:
            return [.tree, .link]
-        case .list:
+        case .list, .type:
             return [.view, .compactList, .list, .link]
         case .date:
             return [.link]
-        case .type, .participant, .mediaFile:
+        case .participant, .mediaFile,. chat:
             return []
         }
     }

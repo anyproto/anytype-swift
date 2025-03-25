@@ -47,7 +47,7 @@ extension BundledRelationsValueProvider {
     var editorViewType: ScreenType {
         switch resolvedLayoutValue {
         case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag, .chat, .chatDerived:
+                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag:
             return .page
         case .set, .collection:
             return .list
@@ -61,6 +61,8 @@ extension BundledRelationsValueProvider {
             return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
         case .bookmark:
             return FeatureFlags.openBookmarkAsLink ? .bookmark : .page
+        case .chat, .chatDerived:
+            return FeatureFlags.chatLayoutInsideSpace ? .chat : .page
         }
     }
     
@@ -74,6 +76,10 @@ extension BundledRelationsValueProvider {
     
     var isNotDeletedAndSupportedForOpening: Bool {
         return !isDeleted && !isArchived && isSupportedForOpening && !isHiddenDiscovery
+    }
+    
+    var isNotDeletedAndArchived: Bool {
+        return !isDeleted && !isArchived
     }
     
     var isTemplateType: Bool { objectType.isTemplateType }

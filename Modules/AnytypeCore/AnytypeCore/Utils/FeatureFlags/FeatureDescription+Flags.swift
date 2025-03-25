@@ -64,6 +64,13 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let objectTypeWidgets = FeatureDescription(
+        title: "Object Type widgets",
+        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
@@ -97,6 +104,27 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let spaceUxTypes = FeatureDescription(
+        title: "Space UX Types",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
+    )
+    
+    static let enableStreamSpaceType = FeatureDescription(
+        title: "Enable stream space type",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false
+    )
+    
+    static let firebasePushMessages = FeatureDescription(
+        title: "Firebase push messages",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
+    )
+
     static let enablePushMessages = FeatureDescription(
         title: "Firebase config and enable push messages",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
@@ -104,6 +132,13 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let aiToolInSet = FeatureDescription(
+        title: "Add AI tool in Set / Collection",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false
+    )
+
     static let newOnboarding = FeatureDescription(
         title: "New onboarding",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
@@ -121,13 +156,28 @@ public extension FeatureDescription {
         title: "Open type in Set View",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
+        releaseAnyAppValue: false,
         debugValue: false
+    )
+    
+    static let binWidgetFromLibrary = FeatureDescription(
+        title: "Bin widget from library",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true
     )
     
     static let anyAppBetaTip = FeatureDescription(
         title: "Show any app beta alert",
         type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
+    static let guideUseCaseForDataSpace = FeatureDescription(
+        title: "Guide usecase for data space",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -141,6 +191,22 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let spaceHubNewTitle = FeatureDescription(
+        title: "New title for Space Hub",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
+    static let chatLayoutInsideSpace = FeatureDescription(
+        title: "Chat Layout Inside Space",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
+    )
+        
     static let chatCounters = FeatureDescription(
         title: "Counters",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
@@ -149,6 +215,14 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let joinStream = FeatureDescription(
+        title: "Join to stream after login",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+
     static let httpsLinkForObjectCopy = FeatureDescription(
         title: "https link for objects copy action",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),

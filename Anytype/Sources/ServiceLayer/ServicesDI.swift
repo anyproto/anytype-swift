@@ -362,6 +362,10 @@ extension Container {
         self { ProfileStorage() }.singleton
     }
     
+    var simpleSetSubscriptionService: Factory<any SimpleSetSubscriptionServiceProtocol> {
+        self { SimpleSetSubscriptionService() }
+    }
+    
     var iconColorService: Factory<any IconColorServiceProtocol> {
         self { IconColorService() }.shared
     }

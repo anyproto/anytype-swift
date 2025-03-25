@@ -99,5 +99,10 @@ jobs:
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           LINEAR_TOKEN: ${{ secrets.LINEAR_TOKEN }}
           AMPLITUDE_API_KEY: ${{ secrets.AMPLITUDE_API_KEY }}
+          OPENAI_TOKEN: ${{ secrets.OPENAI_TOKEN }}
+          AI_ENDPOINT: ${{ secrets.AI_ENDPOINT }}
+          AI_MODEL: ${{ secrets.AI_MODEL }}
+          ANY_APP_MEMBERSHIP_TIER_SECRET: ${{ secrets.ANY_APP_MEMBERSHIP_TIER_SECRET }}
+          JOIN_STREAM_URL: ${{ secrets.JOIN_STREAM_URL }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900

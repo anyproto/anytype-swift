@@ -1,6 +1,26 @@
 // Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
+extension Anytype_Rpc.AI.Autofill.Response: ResultWithError {}
+extension Anytype_Rpc.AI.Autofill.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.AI.ListSummary.Response: ResultWithError {}
+extension Anytype_Rpc.AI.ListSummary.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response: ResultWithError {}
+extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.AI.WritingTools.Response: ResultWithError {}
+extension Anytype_Rpc.AI.WritingTools.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response: ResultWithError {}
 extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

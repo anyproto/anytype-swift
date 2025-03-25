@@ -7,9 +7,6 @@ struct PageNavigationBackButton: View {
     
     var body: some View {
         IncreaseTapButton {
-            if #available(iOS 17.0, *) {
-                ReturnToWidgetsTip.numberOfBackTaps += 1
-            }
             pageNavigation.pop()
         } label: {
             Image(asset: .X24.back)
@@ -18,9 +15,6 @@ struct PageNavigationBackButton: View {
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.3)
                 .onEnded { _ in
-                    if #available(iOS 17.0, *) {
-                        ReturnToWidgetsTip.usedLongpress = true
-                    }
                     pageNavigation.popToFirstInSpace()
                 }
         )

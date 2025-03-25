@@ -41,9 +41,8 @@ platform :ios do
       no_badge: true
     )
 
-    set_amplitude_api_key_to_info_plist
-    set_sentry_dsn_to_info_plist
-    
+    set_all_env_to_info_plist
+
     build_app(
       scheme: ENV["APP_TARGET"], 
       configuration: ENV["APP_CONF_DEVELOP"],
