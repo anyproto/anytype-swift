@@ -589,7 +589,7 @@
 "Nothing found" = "未找到任何內容";
 "No type found text" = "找不到 \"%@\" 類型。請更改您的請求或新建類型。";
 "Create type" = "建立類型";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "限制物件類型";
 "Type" = "類型";
