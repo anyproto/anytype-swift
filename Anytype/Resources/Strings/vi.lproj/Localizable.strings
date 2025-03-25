@@ -589,7 +589,7 @@
 "Nothing found" = "Không tìm thấy gì";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Giới hạn loại đối tượng";
 "Type" = "Loại";
