@@ -1328,7 +1328,7 @@ Please provide specific details of your needs here.";
 "Chat.CreateObject.Dismiss.Ok" = "Yes, close";
 "Chat.Attach.Page.title" = "Attach Page";
 "Chat.Attach.List.title" = "Attach List";
-"Chat.NewMessages" = "New messages";
+"Chat.NewMessages" = "New Messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Upgrading your search experience";
