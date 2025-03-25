@@ -371,4 +371,10 @@ enum EditTypeRoute: String {
 enum OpenObjectByLinkType: String {
     case object = "Object"
     case invite = "Invite"
+    case notShared = "NotShared"
+}
+
+enum OpenObjectByLinkRoute: String {
+    case app = "App"
+    case web = "Web"
 }
