@@ -45,6 +45,10 @@ extension BundledRelationsValueProvider {
     }
 
     var mentionTitle: String {
-        String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
+        if FeatureFlags.pluralNames {
+            String(pluralTitle.prefix(30)).replacingOccurrences(of: "\n", with: " ")
+        } else {
+            String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
+        }
     }
 }

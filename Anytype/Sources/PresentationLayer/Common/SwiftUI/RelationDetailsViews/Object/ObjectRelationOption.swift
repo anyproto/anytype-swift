@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+
 
 struct ObjectRelationOption: Equatable, Identifiable {
     let id: String
@@ -23,7 +25,7 @@ extension ObjectRelationOption {
     init(objectDetails: ObjectDetails) {
         id = objectDetails.id
         icon = objectDetails.objectIconImage
-        title = objectDetails.title
+        title = FeatureFlags.pluralNames ? objectDetails.pluralTitle : objectDetails.title
         type = objectDetails.objectType.displayName
         isArchived = objectDetails.isArchived
         isDeleted = objectDetails.isDeleted
