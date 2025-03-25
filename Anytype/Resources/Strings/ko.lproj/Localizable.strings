@@ -588,7 +588,7 @@
 "Nothing found" = "아무것도 찾을 수 없음";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = " 유형 생성";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "오브젝트 유형 제한";
 "Type" = "유형";
