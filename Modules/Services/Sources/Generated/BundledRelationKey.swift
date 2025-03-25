@@ -131,6 +131,8 @@ public enum BundledRelationKey: String, Sendable {
 
     case dueDate = "dueDate"
 
+    case duration = "duration"
+
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     case iconEmoji = "iconEmoji"
 
@@ -420,7 +422,22 @@ public enum BundledRelationKey: String, Sendable {
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
 
-    /// Automatically generated widget. Used to avoid creating widget if was removed by user
+    /// Total cooking time in text format
+    case cookingTime = "cookingTime"
+
+    /// Number of servings the recipe yields
+    case servings = "servings"
+
+    /// Cuisine type associated with the recipe (e.g., Italian, Chinese)
+    case cuisine = "cuisine"
+
+    /// Course type (e.g., appetizer, main course, dessert)
+    case courseType = "courseType"
+
+    /// Difficulty level of the recipe (e.g., easy, medium, hard)
+    case difficulty = "difficulty"
+
+    /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
     case autoWidgetTargets = "autoWidgetTargets"
 
     /// Name of Object type in plural form

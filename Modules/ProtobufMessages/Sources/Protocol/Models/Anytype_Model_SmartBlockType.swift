@@ -53,6 +53,9 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
 
   /// Container for account data in tech space
   case accountObject // = 545
+
+  /// used to show virtual objects, like AI response generated on the fly
+  case ephemeralVirtualObject // = 546
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -89,6 +92,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     case 537: self = .chatObject
     case 544: self = .chatDerivedObject
     case 545: self = .accountObject
+    case 546: self = .ephemeralVirtualObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -123,6 +127,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     case .chatObject: return 537
     case .chatDerivedObject: return 544
     case .accountObject: return 545
+    case .ephemeralVirtualObject: return 546
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -157,6 +162,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     .chatObject,
     .chatDerivedObject,
     .accountObject,
+    .ephemeralVirtualObject,
   ]
 
 }
@@ -191,6 +197,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     537: .same(proto: "ChatObject"),
     544: .same(proto: "ChatDerivedObject"),
     545: .same(proto: "AccountObject"),
+    546: .same(proto: "EphemeralVirtualObject"),
   ]
 }
 

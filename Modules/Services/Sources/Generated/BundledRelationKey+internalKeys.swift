@@ -13,6 +13,7 @@ public extension BundledRelationKey {
         .lastModifiedDate,
         .lastModifiedBy,
         .lastOpenedDate,
+        .guestKey,
         .isFavorite,
         .isArchived,
         .workspaceId,
