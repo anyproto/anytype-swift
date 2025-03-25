@@ -68,7 +68,8 @@ struct ObjectTypeInfoView: View {
                     .frame(width: 32, height: 32)
             }
             Spacer.fixedWidth(10)
-            AnytypeTextField(placeholder: Loc.puzzle, font: .heading, text: $model.name)
+            AutofocusedTextField(placeholder: Loc.puzzle, font: .heading, text: $model.name)
+                .autocorrectionDisabled()
             Spacer()
             Spacer.fixedWidth(8)
         }
@@ -82,6 +83,7 @@ struct ObjectTypeInfoView: View {
             VStack(alignment: .leading, spacing: 4) {
                 AnytypeText(Loc.pluralName, style: .caption1Regular).foregroundColor(.Text.secondary)
                 AnytypeTextField(placeholder: Loc.puzzles, font: .previewTitle1Regular, text: $model.pluralName)
+                    .autocorrectionDisabled()
             }
             Spacer()
         }
