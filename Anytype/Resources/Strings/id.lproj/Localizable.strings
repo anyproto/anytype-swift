@@ -589,7 +589,7 @@
 "Nothing found" = "Nothing found";
 "No type found text" = "Tipe “%@” tidak ditemukan. Ubah permintaanmu atau buatlah tipe yang baru.";
 "Create type" = "Buat tipe";
-
+"Edit type" = "Sunting tipe";
 
 "Limit object types" = "Batasi tipe objek";
 "Type" = "Tipe";

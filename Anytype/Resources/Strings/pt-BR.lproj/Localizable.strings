@@ -588,7 +588,7 @@
 "Nothing found" = "Nada encontrado";
 "No type found text" = "Nenhum tipo “%@\" foi encontrado. Altere sua solicitação ou crie um novo tipo.";
 "Create type" = "Criar tipo";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo";

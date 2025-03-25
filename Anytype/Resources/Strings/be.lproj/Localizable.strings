@@ -588,7 +588,7 @@
 "Nothing found" = "Нічога не знойдзена";
 "No type found text" = "Тып “%@” не знойдзена. Змяніце запыт або стварыце новы тып.";
 "Create type" = "Стварыць тып";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Абмежаваць тыпы аб'ектаў";
 "Type" = "Тып";

@@ -589,7 +589,7 @@
 "Nothing found" = "未找到任何内容";
 "No type found text" = "找不到类型“%@”，请更改您的请求或创建新类型。";
 "Create type" = "创建类型";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "限制对象类型";
 "Type" = "类型";

@@ -588,7 +588,7 @@
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";

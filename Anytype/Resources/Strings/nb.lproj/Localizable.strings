@@ -588,7 +588,7 @@
 "Nothing found" = "Ingenting funnet";
 "No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
 "Create type" = "Opprett type";
-
+"Edit type" = "Edit type";
 
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
