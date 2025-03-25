@@ -53,7 +53,6 @@ public protocol BundledRelationsValueProvider {
     var author: [ObjectId] { get }
     var artist: String { get }
     var dueDate: Date? { get }
-    var duration: String { get }
     var iconEmoji: Emoji? { get }
     var coverType: Int? { get }
     var coverY: Int? { get }
@@ -155,11 +154,6 @@ public protocol BundledRelationsValueProvider {
     var recommendedFileRelations: [ObjectId] { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
-    var cookingTime: String { get }
-    var servings: Int? { get }
-    var cuisine: String { get }
-    var courseType: String { get }
-    var difficulty: String { get }
     var autoWidgetTargets: [ObjectId] { get }
     var pluralName: String { get }
 } 
@@ -334,9 +328,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     }
     var dueDate: Date? {
         return value(for: BundledRelationKey.dueDate.rawValue)
-    }
-    var duration: String {
-        return value(for: BundledRelationKey.duration.rawValue)
     }
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     var iconEmoji: Emoji? {
@@ -728,27 +719,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var defaultTypeId: ObjectId {
         return value(for: BundledRelationKey.defaultTypeId.rawValue)
     }
-    /// Total cooking time in text format
-    var cookingTime: String {
-        return value(for: BundledRelationKey.cookingTime.rawValue)
-    }
-    /// Number of servings the recipe yields
-    var servings: Int? {
-        return value(for: BundledRelationKey.servings.rawValue)
-    }
-    /// Cuisine type associated with the recipe (e.g., Italian, Chinese)
-    var cuisine: String {
-        return value(for: BundledRelationKey.cuisine.rawValue)
-    }
-    /// Course type (e.g., appetizer, main course, dessert)
-    var courseType: String {
-        return value(for: BundledRelationKey.courseType.rawValue)
-    }
-    /// Difficulty level of the recipe (e.g., easy, medium, hard)
-    var difficulty: String {
-        return value(for: BundledRelationKey.difficulty.rawValue)
-    }
-    /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
+    /// Automatically generated widget. Used to avoid creating widget if was removed by user
     var autoWidgetTargets: [ObjectId] {
         return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
     }
