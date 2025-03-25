@@ -264,6 +264,15 @@ public class SearchHelper {
         return filter
     }
     
+    public static func filterOutTypeType() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.relationKey = "\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.objectType.value.protobufValue
+
+        return filter
+    }
+    
     public static func isHiddenDiscovery(_ isHidden: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = isHidden ? .equal : .notEqual
@@ -280,6 +289,7 @@ public class SearchHelper {
             if hideHiddenDescoveryFiles { SearchHelper.isHiddenDiscovery(false) }
             SearchHelper.isDeletedFilter(isDeleted: false)
             SearchHelper.isArchivedFilter(isArchived: isArchive)
+            SearchHelper.filterOutTypeType()
         }
     }
     

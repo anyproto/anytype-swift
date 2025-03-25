@@ -11,7 +11,8 @@ final class ObjectTypeSubscriptionDataBuilder: MultispaceSubscriptionDataBuilder
             type: .asc
         )
         let filters = [
-            SearchHelper.layoutFilter([DetailsLayout.objectType])
+            SearchHelper.layoutFilter([DetailsLayout.objectType]),
+            SearchHelper.filterOutTypeType()
         ]
         
         return .search(
