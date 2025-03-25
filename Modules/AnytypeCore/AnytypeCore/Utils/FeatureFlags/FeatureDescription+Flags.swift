@@ -177,8 +177,9 @@ public extension FeatureDescription {
     static let countersOnSpaceHub = FeatureDescription(
         title: "Counters on Space Hub",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: true
     )
     
     // MARK: - Debug
