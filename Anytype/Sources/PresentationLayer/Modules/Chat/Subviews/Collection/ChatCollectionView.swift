@@ -40,6 +40,7 @@ struct ChatCollectionView<
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .top
             )
+            header.pinToVisibleBounds = true
             
             section.boundarySupplementaryItems = [header]
             
