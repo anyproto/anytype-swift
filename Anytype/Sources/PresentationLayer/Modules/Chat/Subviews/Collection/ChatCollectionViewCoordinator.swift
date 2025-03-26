@@ -126,7 +126,7 @@ final class ChatCollectionViewCoordinator<
             CATransaction.commit()
             
             updateVisibleRangeIfNeeded(collectionView: collectionView)
-            UpdateHeaders(collectionView: collectionView, animated: false)
+            updateHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -158,7 +158,7 @@ final class ChatCollectionViewCoordinator<
         
         if let collectionView = scrollView as? UICollectionView {
             updateVisibleRangeIfNeeded(collectionView: collectionView)
-            UpdateHeaders(collectionView: collectionView, animated: false)
+            updateHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -169,19 +169,19 @@ final class ChatCollectionViewCoordinator<
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         decelerating = false
         if let collectionView = scrollView as? UICollectionView {
-            UpdateHeaders(collectionView: collectionView)
+            updateHeaders(collectionView: collectionView)
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let collectionView = scrollView as? UICollectionView {
-            UpdateHeaders(collectionView: collectionView, animated: true)
+            updateHeaders(collectionView: collectionView)
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate, let collectionView = scrollView as? UICollectionView {
-            UpdateHeaders(collectionView: collectionView)
+            updateHeaders(collectionView: collectionView)
         }
     }
     
@@ -257,10 +257,10 @@ final class ChatCollectionViewCoordinator<
         collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
     }
     
-    private func UpdateHeaders(collectionView: UICollectionView, animated: Bool = true) {
+    private func updateHeaders(collectionView: UICollectionView, animated: Bool = true) {
         let headers = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
         let cells = collectionView.visibleCells
-        let visibleBounds = collectionView.bounds.inset(by: UIEdgeInsets(top: collectionView.adjustedContentInset.top, left: 0, bottom: 0, right: 0))
+        let visibleBounds = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
         
         for header in headers {
             guard let header = header as? UICollectionViewCell else { continue }
@@ -273,8 +273,8 @@ final class ChatCollectionViewCoordinator<
             let interactive = collectionView.isDragging || collectionView.isDecelerating
             
             if !insideSafeArea {
-                // Outside visible area. Hidden
-                updateContentAlpha(cell: header, alpha: 0.0, animated: animated)
+                // Outside visible area. Show
+                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
             } else if !overCell {
                 // Normal position in list. Show
                 updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
