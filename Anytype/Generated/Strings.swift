@@ -1889,13 +1889,20 @@ internal enum Loc {
       internal static let button = Loc.tr("Localizable", "SpaceShare.Join.Button", fallback: "Request to join")
       internal static let commentPlaceholder = Loc.tr("Localizable", "SpaceShare.Join.CommentPlaceholder", fallback: "Leave a private comment for a space owner")
       internal static let info = Loc.tr("Localizable", "SpaceShare.Join.Info", fallback: "Once the space owner approves your request, you'll join the space with the access rights owner determined.")
-      internal static let inviteNotFound = Loc.tr("Localizable", "SpaceShare.Join.InviteNotFound", fallback: "This link doesn’t seem to work")
       internal static func message(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "SpaceShare.Join.Message", String(describing: p1), String(describing: p2), fallback: "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.")
       }
-      internal static let objectIsNotAvailable = Loc.tr("Localizable", "SpaceShare.Join.ObjectIsNotAvailable", fallback: "Object is not available. Ask the owner to share it.")
       internal static let spaceDeleted = Loc.tr("Localizable", "SpaceShare.Join.SpaceDeleted", fallback: "The space you try to access has been deleted")
       internal static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
+      internal enum InviteNotFound {
+        internal static let message = Loc.tr("Localizable", "SpaceShare.Join.InviteNotFound.Message", fallback: "The link you are using does not seem to work. Please ask the owner to share a new one with you.")
+      }
+      internal enum NoAccess {
+        internal static let title = Loc.tr("Localizable", "SpaceShare.Join.NoAccess.Title", fallback: "No access to this space")
+      }
+      internal enum ObjectIsNotAvailable {
+        internal static let message = Loc.tr("Localizable", "SpaceShare.Join.ObjectIsNotAvailable.Message", fallback: "Ask the owner to share it with you.")
+      }
     }
     internal enum JoinConfirmation {
       internal static let message = Loc.tr("Localizable", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
