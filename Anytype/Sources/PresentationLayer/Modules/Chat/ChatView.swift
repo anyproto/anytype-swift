@@ -191,9 +191,6 @@ struct ChatView: View {
             model.visibleRangeChanged(from: from, to: to)
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
-        .onTapGesture {
-            model.onTapDismissKeyboard()
-        }
     }
     
     @ViewBuilder
