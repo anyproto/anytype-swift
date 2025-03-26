@@ -5,9 +5,10 @@ struct ObjectIsNotAvailableAlert: View {
     
     var body: some View {
         BottomAlertView(
-            title: Loc.SpaceShare.Join.objectIsNotAvailable,
-            icon: .BottomAlert.sadMail,
-            color: .blue
+            title: Loc.SpaceShare.Join.ObjectIsNotAvailable.title,
+            message:  Loc.SpaceShare.Join.ObjectIsNotAvailable.message,
+            icon: .BottomAlert.error,
+            color: .red
         ) {
             BottomAlertButton(
                 text: Loc.okay,
