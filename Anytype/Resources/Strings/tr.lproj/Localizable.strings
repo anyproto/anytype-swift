@@ -215,6 +215,7 @@
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 "Lets Go" = "Haydi Başlayalım";
+"My spaces" = "Alanlarım";
 "My Channels" = "Kanallarım";
 "Open file" = "Dosya aç";
 "Open Set" = "Open Query";
@@ -588,6 +589,7 @@
 "Nothing found" = "Hiçbir şey bulunamadı";
 "No type found text" = "\"%@\" türü bulunamadı. İsteğinizi değiştirin veya yeni tür oluşturun.";
 "Create type" = "Tür oluştur";
+"Chat" = "Sohbet";
 "Edit type" = "Edit type";
 
 "Limit object types" = "Nesne türlerini sınırla";
@@ -841,7 +843,6 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Widget kaynağı";
-"Widgets.Actions.ChangeSource" = "Kaynağı Değiştir";
 "Widgets.Actions.ChangeWidgetType" = "Widget türünü değiştir";
 "Widgets.Actions.RemoveWidget" = "Widget'ı kaldır";
 "Widgets.Actions.EditWidgets" = "Widget'ları düzenle";
@@ -868,8 +869,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Yakın zamanda açıldı";
 "Widgets.Library.RecentlyOpened.Description" = "Bu cihazda";
 "Widgets.AppUpdate" = "Anytype güncellenmeye hazır";
+"Widgets.Source.Suggested" = "Suggested";
 "Widgets.Source.Library" = "Varsayılan setler";
 "Widgets.Source.Objects" = "Nesneleriniz";
+"Widgets.List.Empty" = "There is no widgets yet";
 
 // MARK: - About
 "About.AppVersion" = "Uygulama sürümü: %@";
@@ -905,6 +908,8 @@
 "Settings.Edit picture" = "Resmi düzenle";
 "Settings.Updated" = "Alan bilgisi güncellendi";
 "Settings.DataManagement" = "Veri Yönetimi";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dosya depolama alanı";
@@ -940,6 +945,12 @@
 "Spaces.Search.Title" = "Alanlarda Ara";
 "Spaces.Title" = "Alanlar";
 "Spaces.Info.Network" = "Ağ:";
+"Spaces.UxType.Chat.Title" = "Sohbet";
+"Spaces.UxType.Space.Title" = "Alan";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "For real-time conversations";
+"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Bilinmeyen";
@@ -979,7 +990,9 @@
 "SpaceShare.Permissions.Grand.View" = "Görüntüle";
 "SpaceShare.Invite.Title" = "Davet bağlantısı";
 "SpaceShare.Invite.Description" = "Başkalarının alanınıza katılabilmesi için bu davet bağlantısını paylaşın. Bağlantınıza tıklayıp erişim talep ettiklerinde, erişim haklarını ayarlayabilirsiniz.";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "Davet bağlantısını paylaş";
+"SpaceShare.Share.link" = "Share link";
 "SpaceShare.Invite.Generate" = "Davet bağlantısı oluştur";
 "SpaceShare.Invite.Empty" = "Alan paylaşmak ve yeni üyeler eklemek için davet bağlantısı oluşturun";
 "SpaceShare.JoinRequest" = "Katılma talebi";
@@ -987,6 +1000,7 @@
 "SpaceShare.Action.ViewRequest" = "İsteği görüntüle";
 "SpaceShare.Action.Approve" = "Onayla";
 "SpaceShare.DeleteSharingLink.Title" = "Bağlantıyı sil";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "Yeni üyeler alanınıza katılamayacaklar. İstediğiniz zaman yeni bir bağlantı oluşturabilirsiniz.";
 "SpaceShare.Approve.Toast" = "%@'nin talebini onayladınız.";
 "SpaceShare.ViewRequest.Title" = "%@, %@ alanına katılmak istiyor";
@@ -1043,7 +1057,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Alan oluştur";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Anytype'a ekle";
@@ -1258,9 +1274,10 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tepki Ekle";
 "Message.Action.Reply" = "Yanıtla";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.Action.Unread" = "Mark Unread";
 "Message.Action.CopyPlainText" = "Copy Plain Text";
-"Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
 "Message.ChatTitle.Placeholder" = "Başlıksız Sohbet";
 
 // MARK: - Date
@@ -1283,8 +1300,12 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Yanıtla: %@";
-"Chat.Empty.Title" = "Burada henüz mesaj yok...";
-"Chat.Empty.Description" = "Bir konuşma başlatmak için ilk mesajı siz yazın";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Button.title" = "Davet bağlantısını paylaş";
 "Chat.DeleteMessage.Title" = "Bu mesaj silinsin mi?";
 "Chat.DeleteMessage.Description" = "Onaylandıktan sonra geri getirilemez";
 "Chat.Reactions.Empty.Title" = "Henüz tepki verilmemiş";
@@ -1309,7 +1330,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Chat.CreateObject.Dismiss.Ok" = "Evet, kapat";
 "Chat.Attach.Page.title" = "Sayfa Ekle";
 "Chat.Attach.List.title" = "Liste Ekle";
-"Chat.NewMessages" = "New messages";
+"Chat.NewMessages" = "New Messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Arama deneyiminizi yükseltin";
@@ -1326,6 +1347,11 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "ObjectSearchWithMeta.Create.Note" = "Yeni Not";
 "ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Yeni Koleksiyon";
+
+// MARK: - AI Tool
+"AITool.title" = "Ask AI";
+"AITool.placeholder" = "For example, Summarise";
+"AITool.button" = "Generate";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "Alpha sürümüne hoş geldiniz";
