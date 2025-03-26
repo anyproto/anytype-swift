@@ -18,8 +18,9 @@ final class ChatCollectionViewCoordinator<
     private var sections: [Section] = []
     private var dataSourceApplyTransaction = false
     private var oldVisibleRange: [String] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
+    private weak var collectionView: UICollectionView? // SwiftUI view owned
     
-    var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     var scrollToTop: (() async -> Void)?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
@@ -28,38 +29,75 @@ final class ChatCollectionViewCoordinator<
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
     
-    func setupDataSource(collectionView: UICollectionView) {
-        let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
-        { [weak self] view, _, indexPath in
-            guard let header = self?.sections[safe: indexPath.section]?.header else { return }
-            view.contentConfiguration = UIHostingConfiguration {
-                self?.headerBuilder?(header)
-            }
-            .margins(.all, 0)
-            view.layer.zPosition = 1
+    func createCollectionView() -> UICollectionView {
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
+            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+            configuration.showsSeparators = false
+            
+            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+            section.interGroupSpacing = 0
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.decorationItems = [] // Delete section background
+            
+            let header = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            header.pinToVisibleBounds = true
+            
+            section.boundarySupplementaryItems = [header]
+            
+//            section.visibleItemsInvalidationHandler = { [weak self] (items, offset, environment) in
+//                guard let collectionView = self?.collectionView else { return }
+//                for item in items {
+//                    guard item.representedElementKind == UICollectionView.elementKindSectionHeader else { continue }
+////                    print("top \(environment.container.contentInsets.top)")
+//                    print("\(item.frame.minY), \((offset.y - collectionView.topOffset.y))")
+//                    let offsetY = offset.y - collectionView.topOffset.y
+//                    let isPinned = abs(item.frame.minY - offsetY) < 2
+//                    print("is pinned \(isPinned)")
+//                    print("Z index \(item.zIndex)")
+//                    
+//                    let view = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: item.indexPath)
+//                    
+//                    guard let cell = view as? UICollectionViewCell else { continue }
+//                    
+////                    print("minY \(item.frame.minY), offset \(offset.y), goodOffset: \(self.collectionView?.topOffset.y)")
+//                    if isPinned && !collectionView.isDragging && !collectionView.isDecelerating {
+//                        // если пользователь скроллит — показываем
+//                        // если скролл остановился — скрываем
+////                        item.transform = CGAffineTransform(scaleX: 1.0, y: 0.2)
+//                        cell.contentView.alpha = 0.0
+//                    } else {
+//                        cell.contentView.alpha = 1.0
+//                        // если секция на своём месте — всегда показываем
+////                        item.transform = CGAffineTransform(scaleX: 1.0, y: 0.2)
+//                    }
+//                }
+//            }
+            
+            return section
+        }
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.allowsSelection = false
+        collectionView.delegate = self
+        collectionView.scrollsToTop = false
+        collectionView.showsVerticalScrollIndicator = false
+        
+        if #available(iOS 16.4, *) {
+            collectionView.keyboardDismissMode = .interactive
+        } else {
+            // Safe area regions can be disabled starting from iOS 16.4.
+            // Without disabling safe area regions on iOS 16.0, interactive behavior will not work correctly.
+            collectionView.keyboardDismissMode = .onDrag
         }
         
-        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { [weak self] cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                self?.itemBuilder?(item)
-            }
-            .margins(.all, 0)
-            .minSize(height: 0)
-        }
-    
-        let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
-            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
-            return cell
-        }
+        setupDataSource(collectionView: collectionView)
+        self.collectionView = collectionView
         
-        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
-            let cell = collectionView.dequeueConfiguredReusableSupplementary(using: sectionRegistration, for: indexPath)
-            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
-            return cell
-        }
-        
-        self.dataSource = dataSource
+        return collectionView
     }
     
     // MARK: Update
@@ -126,6 +164,7 @@ final class ChatCollectionViewCoordinator<
             CATransaction.commit()
             
             updateVisibleRangeIfNeeded(collectionView: collectionView)
+            hideHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -157,6 +196,7 @@ final class ChatCollectionViewCoordinator<
         
         if let collectionView = scrollView as? UICollectionView {
             updateVisibleRangeIfNeeded(collectionView: collectionView)
+            showHeaders(collectionView: collectionView)
         }
     }
     
@@ -166,9 +206,62 @@ final class ChatCollectionViewCoordinator<
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         decelerating = false
+        if let collectionView = scrollView as? UICollectionView {
+            hideHeaders(collectionView: collectionView)
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate, let collectionView = scrollView as? UICollectionView {
+            hideHeaders(collectionView: collectionView)
+        }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplaySupplementaryView view: UICollectionReusableView,
+        forElementKind elementKind: String,
+        at indexPath: IndexPath
+    ) {
+//        hideHeaders(collectionView: collectionView, headers: [view])
+        hideHeaders(collectionView: collectionView, views: [view], animated: false)
     }
     
     // MARK: - Private
+    
+    private func setupDataSource(collectionView: UICollectionView) {
+        let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
+        { [weak self] view, _, indexPath in
+            guard let header = self?.sections[safe: indexPath.section]?.header else { return }
+            view.contentConfiguration = UIHostingConfiguration {
+                self?.headerBuilder?(header)
+            }
+            .margins(.all, 0)
+            view.layer.zPosition = 1
+        }
+        
+        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { [weak self] cell, indexPath, item in
+            cell.contentConfiguration = UIHostingConfiguration {
+                self?.itemBuilder?(item)
+            }
+            .margins(.all, 0)
+            .minSize(height: 0)
+        }
+    
+        let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
+            return cell
+        }
+        
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
+            let cell = collectionView.dequeueConfiguredReusableSupplementary(using: sectionRegistration, for: indexPath)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
+            return cell
+        }
+        
+        self.dataSource = dataSource
+    }
     
     private func updateVisibleRangeIfNeeded(collectionView: UICollectionView) {
         guard let handleVisibleRange else { return }
@@ -238,5 +331,59 @@ final class ChatCollectionViewCoordinator<
     
     private func scrollToBottom(collectionView: UICollectionView) {
         collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
+    }
+    
+    private func showHeaders(collectionView: UICollectionView) {
+        let views = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+        
+        let visibleBounds = visibleBoundsForHeader(collectionView: collectionView)
+        
+        for header in views {
+            guard let header = header as? UICollectionViewCell else { continue }
+            
+            let insideSafeArea = !header.frame.intersects(visibleBounds)
+            
+            if !insideSafeArea, header.contentView.alpha != 1 {
+                UIView.animate(withDuration: 0.3) {
+                    header.contentView.alpha = 1.0
+                }
+            }
+        }
+    }
+    
+    private func hideHeaders(collectionView: UICollectionView, animated: Bool = true) {
+        let views = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+        hideHeaders(collectionView: collectionView, views: views, animated: animated)
+    }
+    
+    private func hideHeaders(collectionView: UICollectionView, views: [UIView], animated: Bool = true) {
+//        let views = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+        let cells = collectionView.visibleCells
+        let visibleBounds = visibleBoundsForHeader(collectionView: collectionView)
+        print("headers count \(views.count)")
+        
+        for header in views {
+            guard let header = header as? UICollectionViewCell else { continue }
+            print("header frame \(header.frame)")
+            let insideSafeArea = !header.frame.intersects(visibleBounds)
+            
+            let intersectionHeight = cells.reduce(0) { $0 + $1.frame.intersection(header.frame).height }
+            
+            let hidden = intersectionHeight > header.frame.height * 0.5 || insideSafeArea
+            
+            if hidden, header.contentView.alpha != 0 {
+                if animated {
+                    UIView.animate(withDuration: 0.3) {
+                        header.contentView.alpha = 0.0
+                    }
+                } else {
+                    header.contentView.alpha = 0.0
+                }
+            }
+        }
+    }
+    
+    private func visibleBoundsForHeader(collectionView: UICollectionView) -> CGRect {
+        collectionView.bounds.inset(by: UIEdgeInsets(top: collectionView.adjustedContentInset.top, left: 0, bottom: 0, right: 0))
     }
 }
