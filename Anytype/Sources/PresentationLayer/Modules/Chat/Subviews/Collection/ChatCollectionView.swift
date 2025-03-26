@@ -26,60 +26,42 @@ struct ChatCollectionView<
     let handleVisibleRange: (_ from: Item, _ to: Item) -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
-//        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-//            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-//            configuration.showsSeparators = false
-//            
-//            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
-//            section.interGroupSpacing = 0
-//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-//            section.decorationItems = [] // Delete section background
-//            
-//            let header = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
-//                elementKind: UICollectionView.elementKindSectionHeader,
-//                alignment: .top
-//            )
-//            header.pinToVisibleBounds = true
-//            
-//            section.boundarySupplementaryItems = [header]
-//            
-//            section.visibleItemsInvalidationHandler = { (items, offset, environment) in
-//                for item in items {
-//                    guard item.representedElementKind == UICollectionView.elementKindSectionHeader else { continue }
-//                    print("top \(environment.container.contentInsets.top)")
-//                    let isPinned = item.frame.minY <= offset.y
-//                    print("minY \(item.frame.minY), offset \(offset.y)")
-//                    if isPinned {
-//                        // если пользователь скроллит — показываем
-//                        // если скролл остановился — скрываем
-//                        item.alpha = 0.0 //self.isScrolling ? 1.0 : 0.0
-//                    } else {
-//                        // если секция на своём месте — всегда показываем
-//                        item.alpha = 1.0
-//                    }
-//                }
-//            }
-//            
-//            return section
-//        }
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        collectionView.backgroundColor = .clear
-//        collectionView.allowsSelection = false
-//        collectionView.delegate = context.coordinator
-//        collectionView.scrollsToTop = false
-//        collectionView.showsVerticalScrollIndicator = false
-//        
-//        if #available(iOS 16.4, *) {
-//            collectionView.keyboardDismissMode = .interactive
-//        } else {
-//            // Safe area regions can be disabled starting from iOS 16.4.
-//            // Without disabling safe area regions on iOS 16.0, interactive behavior will not work correctly.
-//            collectionView.keyboardDismissMode = .onDrag
-//        }
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
+            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+            configuration.showsSeparators = false
+            
+            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+            section.interGroupSpacing = 0
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+            section.decorationItems = [] // Delete section background
+            
+            let header = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            header.pinToVisibleBounds = true
+            
+            section.boundarySupplementaryItems = [header]
+            
+            return section
+        }
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.allowsSelection = false
+        collectionView.delegate = context.coordinator
+        collectionView.scrollsToTop = false
+        collectionView.showsVerticalScrollIndicator = false
         
-//        context.coordinator.setupDataSource(collectionView: collectionView)
-        let collectionView = context.coordinator.createCollectionView()
+        if #available(iOS 16.4, *) {
+            collectionView.keyboardDismissMode = .interactive
+        } else {
+            // Safe area regions can be disabled starting from iOS 16.4.
+            // Without disabling safe area regions on iOS 16.0, interactive behavior will not work correctly.
+            collectionView.keyboardDismissMode = .onDrag
+        }
+        
+        context.coordinator.setupDataSource(collectionView: collectionView)
         
         let bottomPanel = UIHostingController(rootView: bottomPanel)
         bottomPanel.view.backgroundColor = .clear
