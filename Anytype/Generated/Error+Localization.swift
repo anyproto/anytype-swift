@@ -1639,6 +1639,30 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: @retroactive
     }
 }
 
+extension Anytype_Rpc.BlockDataview.Relation.Set.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "BlockDataview.Relation.Set.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "BlockDataview.Relation.Set.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3319,6 +3343,30 @@ extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: @retroactive LocalizedErr
             case .badInput:
                 return String(localized: "Chat.Unsubscribe.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Chat.Unsubscribe.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.UnsubscribeFromMessagePreviews.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.UnsubscribeFromMessagePreviews.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
