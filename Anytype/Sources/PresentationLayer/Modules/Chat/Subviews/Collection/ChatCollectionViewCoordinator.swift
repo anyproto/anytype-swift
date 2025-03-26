@@ -27,6 +27,7 @@ final class ChatCollectionViewCoordinator<
     var itemBuilder: ((Item) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
+    var onTapCollectionBackground: (() -> Void)?
     
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
@@ -60,6 +61,12 @@ final class ChatCollectionViewCoordinator<
         }
         
         self.dataSource = dataSource
+    }
+    
+    func setupDismissKeyboardOnTap(collectionView: UICollectionView) {
+        collectionView.addTapGesture { [weak self] _ in
+            self?.onTapCollectionBackground?()
+        }
     }
     
     // MARK: Update

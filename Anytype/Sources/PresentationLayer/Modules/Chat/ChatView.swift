@@ -189,11 +189,10 @@ struct ChatView: View {
             await model.scrollToBottom()
         } handleVisibleRange: { from, to in
             model.visibleRangeChanged(from: from, to: to)
-        }
-        .messageYourBackgroundColor(model.messageYourBackgroundColor)
-        .onTapGesture {
+        } onTapCollectionBackground: {
             model.onTapDismissKeyboard()
         }
+        .messageYourBackgroundColor(model.messageYourBackgroundColor)
     }
     
     @ViewBuilder
