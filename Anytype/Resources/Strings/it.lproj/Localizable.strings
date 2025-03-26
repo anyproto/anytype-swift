@@ -215,6 +215,7 @@
 "Join" = "Unisciti";
 "Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Lets Go" = "Iniziamo!";
+"My spaces" = "I miei Spazi";
 "My Channels" = "I miei Canali";
 "Open file" = "Apri file";
 "Open Set" = "Open Query";
@@ -588,6 +589,7 @@
 "Nothing found" = "Nessun risultato trovato";
 "No type found text" = "Nessun tipo “%@” trovato. Modifica la tua richiesta o crea un nuovo tipo.";
 "Create type" = "Crea tipo";
+"Chat" = "Chat";
 "Edit type" = "Edit type";
 
 "Limit object types" = "Limita tipi di oggetto";
@@ -841,7 +843,6 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Fonte del widget";
-"Widgets.Actions.ChangeSource" = "Cambia fonte";
 "Widgets.Actions.ChangeWidgetType" = "Cambia Tipo di Widget";
 "Widgets.Actions.RemoveWidget" = "Rimuovi Widget";
 "Widgets.Actions.EditWidgets" = "Modifica Widgets";
@@ -867,8 +868,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Aperti di recente";
 "Widgets.Library.RecentlyOpened.Description" = "Su questo dispositivo";
 "Widgets.AppUpdate" = "Anytype è pronto per l'aggiornamento";
+"Widgets.Source.Suggested" = "Suggested";
 "Widgets.Source.Library" = "Insieme di default";
 "Widgets.Source.Objects" = "I tuoi oggetti";
+"Widgets.List.Empty" = "There is no widgets yet";
 
 // MARK: - About
 "About.AppVersion" = "Versione applicazione: %@";
@@ -904,6 +907,8 @@
 "Settings.Edit picture" = "Modifica foto";
 "Settings.Updated" = "Informazioni sullo spazio aggiornate";
 "Settings.DataManagement" = "Gestione Dati";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Archiviazione file";
@@ -939,6 +944,12 @@
 "Spaces.Search.Title" = "Cerca spazi";
 "Spaces.Title" = "Spazi";
 "Spaces.Info.Network" = "Rete:";
+"Spaces.UxType.Chat.Title" = "Chat";
+"Spaces.UxType.Space.Title" = "Spazio";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "For real-time conversations";
+"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Sconosciuto";
@@ -978,7 +989,9 @@
 "SpaceShare.Permissions.Grand.View" = "Vista";
 "SpaceShare.Invite.Title" = "Link di invito";
 "SpaceShare.Invite.Description" = "Condividi questo link di invito in modo che altri possano unirsi al tuo Spazio. Una volta che cliccano sul tuo link e richiedono l'accesso, puoi impostare i loro diritti di accesso.";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "Condividi il link di invito";
+"SpaceShare.Share.link" = "Share link";
 "SpaceShare.Invite.Generate" = "Genera link di invito";
 "SpaceShare.Invite.Empty" = "Crea un link di invito per condividere lo spazio e aggiungere nuovi membri";
 "SpaceShare.JoinRequest" = "Richiesta di partecipazione";
@@ -986,6 +999,7 @@
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
 "SpaceShare.Action.Approve" = "Approva";
 "SpaceShare.DeleteSharingLink.Title" = "Elimina link";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
@@ -1042,7 +1056,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Crea uno spazio";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Aggiungi a Anytype";
@@ -1256,9 +1272,10 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Aggiungi una Reazione";
 "Message.Action.Reply" = "Rispondi";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.Action.Unread" = "Segna come non letto";
 "Message.Action.CopyPlainText" = "Copia Testo Semplice";
-"Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
 "Message.ChatTitle.Placeholder" = "Chat senza titolo";
 
 // MARK: - Date
@@ -1281,8 +1298,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Rispondi a %@";
-"Chat.Empty.Title" = "Ancora nessun messaggio qui...";
-"Chat.Empty.Description" = "Scrivi un primo messaggio per iniziare una conversazione";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Button.title" = "Condividi il link di invito";
 "Chat.DeleteMessage.Title" = "Eliminare questo messaggio?";
 "Chat.DeleteMessage.Description" = "Non può essere ripristinato dopo la conferma";
 "Chat.Reactions.Empty.Title" = "Ancora nessuna reazione";
@@ -1307,7 +1328,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.CreateObject.Dismiss.Ok" = "Sì, chiudi";
 "Chat.Attach.Page.title" = "Allega Pagina";
 "Chat.Attach.List.title" = "Allega Lista";
-"Chat.NewMessages" = "Nuovi messaggi";
+"Chat.NewMessages" = "New Messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
@@ -1324,6 +1345,11 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ObjectSearchWithMeta.Create.Note" = "Nuova Nota";
 "ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
+
+// MARK: - AI Tool
+"AITool.title" = "Ask AI";
+"AITool.placeholder" = "For example, Summarise";
+"AITool.button" = "Generate";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "Benvenuto nella versione Alpha";
