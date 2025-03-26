@@ -23,7 +23,7 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     @Published var showDefaultObjectTypeSearch = false
     
     let workspaceInfo: AccountInfo
-    var accountSpaceId: String { workspaceInfo.accountSpaceId }
+    var spaceId: String { workspaceInfo.accountSpaceId }
     
     init(workspaceInfo: AccountInfo) {
         self.workspaceInfo = workspaceInfo
@@ -44,11 +44,11 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     }
     
     func onSpaceShareSelected() {
-        showSpaceShareData = SpaceShareData(spaceId: workspaceInfo.accountSpaceId, route: .settings)
+        showSpaceShareData = SpaceShareData(spaceId: spaceId, route: .settings)
     }
     
     func onSpaceMembersSelected() {
-        showSpaceMembersData = SpaceMembersData(spaceId: workspaceInfo.accountSpaceId, route: .settings)
+        showSpaceMembersData = SpaceMembersData(spaceId: spaceId, route: .settings)
     }
     
     func onSelectDefaultObjectType(type: ObjectType) {
@@ -57,7 +57,7 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
     }
     
     func onObjectTypesSelected() {
-        pageNavigation?.open(.spaceInfo(.typeLibrary(spaceId: accountSpaceId)))
+        pageNavigation?.open(.spaceInfo(.typeLibrary(spaceId: spaceId)))
     }
     
     // MARK: - RemoteStorageModuleOutput
