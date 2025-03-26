@@ -65,24 +65,24 @@
 "Object.Deleted.Placeholder" = "Verwijderd object";
 
 // MARK: - Fields // old name: Relations
-"Fields.Created" = "Property ‘%@’ has been created";
-"Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.Created" = "Eigenschap %@ is aangemaakt";
+"Fields.Updated" = "Eigenschap ‘%@’ is bijgewerkt";
+"Fields.menu" = "Eigenschappen menu";
+"Fields.local" = "Lokale eigenschappen";
+"Fields.missingInfo" = "Sommige eigenschappen zijn niet inbegrepen in het objecttype. Voeg ze alsjeblieft toe als je ze in alle objecten van dit type wilt zien, of verwijder ze.";
 "Fields.addToType" = "Voeg toe aan het huidige type";
 "Fields.removeFromObject" = "Verwijder uit het object";
 
 
-"Featured relations" = "Featured properties";
-"Create relation" = "Create property ‘%@’";
+"Featured relations" = "Uitgelichte eigenschappen";
+"Create relation" = "Maak eigenschap '%@’";
 "Relation.View.Hint.Empty" = "leeg";
-"Relation.MyRelations" = "My properties";
-"Relation.Deleted" = "Deleted property";
+"Relation.MyRelations" = "Mijn eigenschappen";
+"Relation.Deleted" = "Verwijderde eigenschap";
 "Relation.From.Type" = "Van type %@";
 "Relation.EmptyState.title" = "Geen opties";
 "Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie om te starten.";
-"Relation.EmptyState.Blocked.title" = "The property is empty";
+"Relation.EmptyState.Blocked.title" = "De eigenschap is leeg";
 "Relation.Create.Row.title" = "Maak \"%@\"";
 "Relation.View.Create.title" = "Maak optie";
 "Relation.View.Edit.title" = "Bewerk optie";
@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
 "Relation.Object.Delete.Alert.Description" = "Het object wordt naar de prullenmand verplaatst.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Object relatie";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Nummer";
 "Relation.Format.Status.Title" = "Selecteer";
@@ -106,7 +106,7 @@
 "Relation.Format.Email.Title" = "E-mailadres";
 "Relation.Format.Phone.Title" = "Telefoonnummer";
 
-"Relation.Search.View.Placeholder" = "Search or create a new property";
+"Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe eigenschap";
 
 // Origin Relation
 
@@ -197,16 +197,16 @@
 "Green background" = "Groene achtergrond";
 "Create new object" = "Maak nieuw object";
 "Create new object with name" = "Maak nieuw object \"%@\"";
-"Create new type" = "Create new type";
+"Create new type" = "Maak nieuw type";
 "Cancel" = "Annuleren";
 "Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
 "Unsupported block" = "Blok niet ondersteund";
 "Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
-"Plural name" = "Plural name";
+"Plural name" = "Naam in meervoud";
 "Description" = "Beschrijving";
-"Add a description" = "Add a description...";
+"Add a description" = "Voeg een beschrijving toe...";
 "Paste processing..." = "Bezig met plakken...";
 "Anytype Library" = "Anytype bibliotheek";
 "Copied" = "Gekopieerd";
@@ -215,22 +215,23 @@
 "Join" = "Neem deel";
 "Agreement Disclamer" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Lets Go" = "Laten we beginnen";
+"My spaces" = "Mijn Ruimtes";
 "My Channels" = "Mijn kanalen";
 "Open file" = "Open bestand";
-"Open Set" = "Open Query";
-"Create Set" = "Create Query";
+"Open Set" = "Open opdracht";
+"Create Set" = "Maak opdracht";
 "Unsupported deeplink" = "Niet-ondersteunde deeplink";
 "Edit Profile" = "Bewerk profiel";
 "Object Types" = "Objecttypes";
-"Resolve layout conflict" = "Resolve layout conflict";
-"Reset to default" = "Reset to default";
-"Puzzle" = "Puzzle";
-"Puzzles" = "Puzzles";
+"Resolve layout conflict" = "Los opmaak conflict op";
+"Reset to default" = "Zet terug naar standaard";
+"Puzzle" = "Puzzel";
+"Puzzles" = "Puzzels";
 
-"Add property" = "Add property";
-"Search or create new" = "Search or create new";
-"Existing properties" = "Existing properties";
-"Properties formats" = "Properties formats";
+"Add property" = "Voeg eigenschap toe";
+"Search or create new" = "Zoek of maak nieuwe";
+"Existing properties" = "Bestaande eigenschappen";
+"Properties formats" = "Eigenschappen formaten";
 
 // Home
 "Favorites" = "Favorieten";
@@ -282,7 +283,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dit is jouw sleutel";
-"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Jouw sleutel vervangt een login en wachtwoord. Houd het veilig  jij beheert jouw gegevens. Je vindt het later in de app instellingen.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Tik om te onthullen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Niet nu";
@@ -357,7 +358,7 @@
 "Actions.CopyLink" = "Kopieer link";
 
 // Object Type
-"Set" = "Query";
+"Set" = "Opdracht";
 "Collection" = "Verzameling";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll om een plaats te selecteren";
@@ -373,7 +374,7 @@
 // MARK: - Main search
 "There is no object named" = "Er is geen object genaamd %@";
 "There is no type named" = "Er is geen type genaamd %@";
-"There is no property named" = "There is no property named %@";
+"There is no property named" = "Er is geen eigenschap genaamd %@";
 "Create a new one or search for something else" = "Maak een nieuwe of zoek naar iets anders";
 "Search.Links.Show.title" = "Toon verwante objecten";
 "Search.Links.Header.title" = "Gerelateerd aan: %@";
@@ -440,7 +441,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Bovenaan";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Onderaan";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Toon lege waarden";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een eigenschap om te sorteren";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filters";
@@ -500,8 +501,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Selecteer zoekopdracht";
-"Set.FeaturedRelations.RelationsList" = "Properties:";
-"Set.FeaturedRelations.Relation" = "Property:";
+"Set.FeaturedRelations.RelationsList" = "Eigenschappen:";
+"Set.FeaturedRelations.Relation" = "Eigenschap:";
 "Set.FeaturedRelations.Type" = "Type:";
 
 // MARK: - Set.Bookmarks
@@ -517,7 +518,7 @@
 "Set.View.Settings.GroupBy.Title" = "Groepeer op";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Kleur kolommen";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No properties";
+"Set.View.Settings.NoRelations.Placeholder" = "Geen eigenschappen";
 "Set.View.Settings.NoFilters.Placeholder" = "Geen filters";
 "Set.View.Settings.NoSorts.Placeholder" = "Geen sortering";
 "Set.View.Settings.Objects.Applied.Title" = "%d toegepast";
@@ -532,7 +533,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
+"Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten te verzamelen met gelijke types en eigenschappen in een live omgeving";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Weergave wordt niet ondersteund op mobiel";
@@ -542,7 +543,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Deze zoekopdracht kan alleen op het bureaublad worden gewijzigd";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Zet opdracht om naar collectie";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Verander zoekopdracht";
 
 // MARK: - Collection: empty view
@@ -582,20 +583,21 @@
 "Enter number" = "Voer nummer in";
 "Enter text" = "Voer tekst in";
 "Unsupported value" = "Niet-ondersteunde waarde";
-"Select relation type" = "Select property type";
+"Select relation type" = "Selecteer eigenschap type";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
 "AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
 "No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type.";
 "Create type" = "Maak type";
-"Edit type" = "Edit type";
+"Chat" = "Chat";
+"Edit type" = "Bewerk type";
 
 "Limit object types" = "Beperkt objecttypes";
 "Type" = "Type";
 "Types" = "Types";
 "No name" = "Geen naam";
-"New field" = "New property";
-"Edit field" = "Edit property";
+"New field" = "Nieuwe eigenschap";
+"Edit field" = "Bewerk eigenschap";
 "Non-existent object" = "Niet-bestaand object";
 
 "Select all" = "Selecteer alle";
@@ -603,7 +605,7 @@
 "Deselect all" = "Deselecteer alle";
 "Deselect" = "Deselecteer";
 "Shared" = "Gedeeld";
-"Sets" = "Queries";
+"Sets" = "Opdrachten";
 "Collections" = "Collecties";
 "Default object type" = "Standaard objecttype";
 "Personalization" = "Personalisatie";
@@ -631,7 +633,7 @@
 "Edit" = "Bewerk";
 "Hidden" = "Verborgen";
 "In this object" = "Binnen dit object";
-"Other relations" = "Other properties";
+"Other relations" = "Andere eigenschappen";
 "Collection of objects" = "Verzameling van objecten";
 "Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
 "Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
@@ -718,8 +720,8 @@
 "My First Space" = "Mijn eerste ruimte";
 "Copy space info" = "Kopieer ruimte informatie";
 "Save" = "Sla op";
-"Set of" = "Query of %@";
-"New set" = "New query";
+"Set of" = "Opdracht van %@";
+"New set" = "Nieuwe opdracht";
 "Show" = "Toon";
 "Hide" = "Verberg";
 "Apply" = "Pas toe";
@@ -824,13 +826,13 @@
 "Content.Common.Error" = "Er is iets verkeerd gegaan, probeer het opnieuw";
 "Content.Bookmark.Add" = "Voeg een webbladwijzer toe";
 "Content.Bookmark.Loading" = "Laden, even geduld...";
-"Content.DataView.InlineSet.Subtitle" = "Inline query";
+"Content.DataView.InlineSet.Subtitle" = "Gealigneerde opdracht";
 "Content.DataView.InlineCollection.Subtitle" = "Collectie in lijn";
 "Content.DataView.InlineSet.NoSource" = "Geen bron";
 "Content.DataView.InlineSet.NoData" = "Geen gegevens";
-"Content.DataView.InlineSet.Untitled" = "Untitled query";
+"Content.DataView.InlineSet.Untitled" = "Naamloze opdracht";
 "Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "Deze inline opdracht heeft geen bron";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "gelinkt naar";
@@ -841,7 +843,6 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Widget bron";
-"Widgets.Actions.ChangeSource" = "Wijzig bron";
 "Widgets.Actions.ChangeWidgetType" = "Wijzig widget type";
 "Widgets.Actions.RemoveWidget" = "Verwijder widget";
 "Widgets.Actions.EditWidgets" = "Bewerk widget";
@@ -859,7 +860,7 @@
 "Widgets.Layout.Link.Description" = "Compacte widget weergave";
 "Widgets.Layout.Tree.Description" = "Widget met een hiërarchische structuur";
 "Widgets.Layout.List.Description" = "Widget met een lijstweergave";
-"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
+"Widgets.Layout.View.Description" = "Widget met een opdracht of collectie opmaak";
 "Widgets.Layout.CompactList.Description" = "Widget met een compacte lijstweergave";
 "Widgets.Empty.Title" = "Er zijn hier geen objecten";
 "Widgets.Empty.CreateObject" = "Maak object";
@@ -867,8 +868,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Onlangs geopend";
 "Widgets.Library.RecentlyOpened.Description" = "Op dit apparaat";
 "Widgets.AppUpdate" = "Anytype is gereed voor bijwerken";
+"Widgets.Source.Suggested" = "Voorgesteld";
 "Widgets.Source.Library" = "Standaard sets";
 "Widgets.Source.Objects" = "Jouw objecten";
+"Widgets.List.Empty" = "Er zijn nog geen widgets";
 
 // MARK: - About
 "About.AppVersion" = "App versie: %@";
@@ -905,6 +908,8 @@
 "Settings.Edit picture" = "Bewerk afbeelding";
 "Settings.Updated" = "Ruimte-informatie bijgewerkt";
 "Settings.DataManagement" = "Gegevensbeheer";
+"Settings.ChatEnabled" = "Chat is ingeschakeld";
+"Settings.ChatDisabled" = "Chat is uitgeschakeld.";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Bestandsopslag";
@@ -940,6 +945,12 @@
 "Spaces.Search.Title" = "Zoek ruimten";
 "Spaces.Title" = "Ruimtes";
 "Spaces.Info.Network" = "Netwerk:";
+"Spaces.UxType.Chat.Title" = "Chat";
+"Spaces.UxType.Space.Title" = "Ruimte";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "Voor real-time gesprekken";
+"Spaces.UxType.Space.Description" = "Voor georganiseerde inhoud en gegevens";
+"Spaces.UxType.Stream.Description" = "Voor het uitzenden van jouw vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Onbekend";
@@ -979,7 +990,9 @@
 "SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
 "SpaceShare.Invite.Description" = "Deel deze uitnodigingslink zodat anderen zich bij jouw ruimte kunnen aansluiten. Zodra ze op jouw link klikken en toegang vragen, kun je hun toegangsrechten instellen.";
+"SpaceShare.Invite.Stream.Description" = "Deel deze koppeling zodat anderen kunnen deelnemen aan jouw Stream.";
 "SpaceShare.Invite.Share" = "Deel uitnodigingslink";
+"SpaceShare.Share.link" = "Deel koppeling";
 "SpaceShare.Invite.Generate" = "Genereer uitnodigingslink";
 "SpaceShare.Invite.Empty" = "Maak uitnodigingslink om ruimte te delen en nieuwe leden toe te voegen";
 "SpaceShare.JoinRequest" = "Deelnameverzoek";
@@ -987,6 +1000,7 @@
 "SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
 "SpaceShare.Action.Approve" = "Goedkeuren";
 "SpaceShare.DeleteSharingLink.Title" = "Verwijder link";
+"SpaceShare.CopyInviteLink.Title" = "Kopieer uitnodigingskoppeling";
 "SpaceShare.DeleteSharingLink.Message" = "Nieuwe leden zullen niet kunnen deelnemen aan de ruimte. Je kunt op elk gewenst moment een nieuwe link genereren";
 "SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
@@ -1043,7 +1057,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Maak een ruimte";
+"SpaceCreate.Chat.Title" = "Maak een chat";
+"SpaceCreate.Space.Title" = "Maak een ruimte";
+"SpaceCreate.Stream.Title" = "Maak een stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Voeg toe aan Anytype";
@@ -1258,9 +1274,10 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Voeg reactie toe";
 "Message.Action.Reply" = "Antwoord";
-"Message.Action.Unread" = "Mark Unread";
-"Message.Action.CopyPlainText" = "Copy Plain Text";
-"Message.Input.EmptyPlaceholder" = "Schrijf een bericht...";
+"Message.Input.Chat.EmptyPlaceholder" = "Schrijf een bericht...";
+"Message.Input.Stream.EmptyPlaceholder" = "Zend uit";
+"Message.Action.Unread" = "Markeer als ongelezen";
+"Message.Action.CopyPlainText" = "Kopieer platte tekst";
 "Message.ChatTitle.Placeholder" = "Naamloze chat";
 
 // MARK: - Date
@@ -1283,8 +1300,12 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Antwoord op %@";
-"Chat.Empty.Title" = "Nog geen berichten hier...";
-"Chat.Empty.Description" = "Schrijf een eerste om een gesprek te beginnen";
+"Chat.Empty.Title" = "Nog geen berichten";
+"Chat.Empty.Owner.Description" = "Nodig mensen uit en schud het op!";
+"Chat.Empty.Editor.Description" = "Schrijf de eerste om op te schudden!";
+"Stream.Empty.Title" = "Deze stream is leeg";
+"Stream.Empty.Description" = "Nodig mensen uit en begin met het delen van jouw vibe";
+"Chat.Empty.Button.title" = "Deel uitnodigingslink";
 "Chat.DeleteMessage.Title" = "Verwijder dit bericht?";
 "Chat.DeleteMessage.Description" = "Het kan niet worden hersteld na bevestiging";
 "Chat.Reactions.Empty.Title" = "Nog geen reacties";
@@ -1309,7 +1330,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Chat.CreateObject.Dismiss.Ok" = "Ja, sluiten";
 "Chat.Attach.Page.title" = "Voeg pagina bij";
 "Chat.Attach.List.title" = "Voeg lijst bij";
-"Chat.NewMessages" = "New messages";
+"Chat.NewMessages" = "Nieuwe berichten";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
@@ -1324,31 +1345,36 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nieuwe pagina";
 "ObjectSearchWithMeta.Create.Note" = "Nieuwe notitie";
-"ObjectSearchWithMeta.Create.Set" = "New Query";
+"ObjectSearchWithMeta.Create.Set" = "Nieuwe opdracht";
 "ObjectSearchWithMeta.Create.Collection" = "Nieuwe collectie";
+
+// MARK: - AI Tool
+"AITool.title" = "Vraag het AI";
+"AITool.placeholder" = "Bijvoorbeeld, vat samen";
+"AITool.button" = "Genereer";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "Welkom bij de Alpha versie";
 "AnyApp.BetaAlert.Description" = "Je loopt voor op de rest! Sommige functies zijn nog in ontwikkeling of niet klaar voor productie – blijf in de gaten houden voor updates.";
 
 // MARK: - Migration
-"Migration.Initial.title" = "New Version Update";
-"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
-"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
-"Migration.Initial.startUpdate" = "Start Update";
-"Migration.Initial.readMore" = "Read More";
+"Migration.Initial.title" = "Nieuwe versie update";
+"Migration.Initial.subtitle1" = "We leggen de basis voor onze nieuwe chats. Inclusief tellers, meldingen en andere functies die nodig zijn voor een soepele chatervaring.";
+"Migration.Initial.subtitle2" = "Het kan even duren, maar maak je geen zorgen, jouw gegevens zijn veilig.";
+"Migration.Initial.startUpdate" = "Start update";
+"Migration.Initial.readMore" = "Lees meer";
 
-"Migration.Progress.title" = "Update is in progress...";
+"Migration.Progress.title" = "Update is bezig...";
 "Migration.Progress.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
 "Migration.Error.NotEnoughtSpace.title" = "Niet genoeg ruimte";
 "Migration.Error.NotEnoughtSpace.message" = "Maak alsjeblieft ruimte vrij en voer het proces opnieuw uit.";
 
-"Migration.ReadMore.option1" = "What to Expect";
-"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
-"Migration.ReadMore.option2" = "Your Data Remains Safe";
-"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
-"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+"Migration.ReadMore.option1" = "Wat kun je verwachten";
+"Migration.ReadMore.description1" = "Je zult een laadscherm zien tijdens de update. Eenmaal voltooid, kun je de app normaal blijven gebruiken.";
+"Migration.ReadMore.option2" = "Jouw gegevens blijven veilig";
+"Migration.ReadMore.description2" = "Tijdens deze update blijven jouw gegevens volledig beveiligd. De update wordt direct op jouw apparaat uitgevoerd en jouw gesynchroniseerde gegevens blijven onaangetast. We zullen het gewoon kopiëren naar een nieuw formaat, en er zal een lokale back-up worden gemaakt op jouw apparaat, die al jouw gegevens in het vorige formaat bevat.";
+"Migration.ReadMore.description3" = "De reden dat we deze back-up behouden is om te debuggen en jou te helpen in het geval van onvoorziene problemen.";
 
 
 // MARK: - Primitives
-"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";
+"Primitives.LayoutConflict.Description" = "Deze opmaak verschilt van de standaard van het type. Terugzetten om overeen te laten komen?";
