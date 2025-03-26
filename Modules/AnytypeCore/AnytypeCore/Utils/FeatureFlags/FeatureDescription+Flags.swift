@@ -230,12 +230,6 @@ public extension FeatureDescription {
         debugValue: true
     )
     
-    static let fixChatEmptyState = FeatureDescription(
-        title: "Fix chat empty state",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: true
-    )
-    
     static let pluralNames = FeatureDescription(
         title: "Plura type names",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
