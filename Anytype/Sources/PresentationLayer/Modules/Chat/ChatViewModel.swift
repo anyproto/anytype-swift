@@ -430,6 +430,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
+    func onTapDismissKeyboard() {
+        inputFocused = false
+    }
+    
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
