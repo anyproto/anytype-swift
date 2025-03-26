@@ -164,7 +164,7 @@ final class ChatCollectionViewCoordinator<
             CATransaction.commit()
             
             updateVisibleRangeIfNeeded(collectionView: collectionView)
-            hideHeaders(collectionView: collectionView, animated: false)
+            UpdateHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -196,7 +196,7 @@ final class ChatCollectionViewCoordinator<
         
         if let collectionView = scrollView as? UICollectionView {
             updateVisibleRangeIfNeeded(collectionView: collectionView)
-            showHeaders(collectionView: collectionView)
+            UpdateHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -207,24 +207,20 @@ final class ChatCollectionViewCoordinator<
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         decelerating = false
         if let collectionView = scrollView as? UICollectionView {
-            hideHeaders(collectionView: collectionView)
+            UpdateHeaders(collectionView: collectionView)
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if let collectionView = scrollView as? UICollectionView {
+            UpdateHeaders(collectionView: collectionView, animated: true)
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate, let collectionView = scrollView as? UICollectionView {
-            hideHeaders(collectionView: collectionView)
+            UpdateHeaders(collectionView: collectionView)
         }
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplaySupplementaryView view: UICollectionReusableView,
-        forElementKind elementKind: String,
-        at indexPath: IndexPath
-    ) {
-//        hideHeaders(collectionView: collectionView, headers: [view])
-        hideHeaders(collectionView: collectionView, views: [view], animated: false)
     }
     
     // MARK: - Private
@@ -333,57 +329,46 @@ final class ChatCollectionViewCoordinator<
         collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
     }
     
-    private func showHeaders(collectionView: UICollectionView) {
-        let views = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
-        
-        let visibleBounds = visibleBoundsForHeader(collectionView: collectionView)
-        
-        for header in views {
-            guard let header = header as? UICollectionViewCell else { continue }
-            
-            let insideSafeArea = !header.frame.intersects(visibleBounds)
-            
-            if !insideSafeArea, header.contentView.alpha != 1 {
-                UIView.animate(withDuration: 0.3) {
-                    header.contentView.alpha = 1.0
-                }
-            }
-        }
-    }
-    
-    private func hideHeaders(collectionView: UICollectionView, animated: Bool = true) {
-        let views = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
-        hideHeaders(collectionView: collectionView, views: views, animated: animated)
-    }
-    
-    private func hideHeaders(collectionView: UICollectionView, views: [UIView], animated: Bool = true) {
-//        let views = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+    private func UpdateHeaders(collectionView: UICollectionView, animated: Bool = true) {
+        let headers = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
         let cells = collectionView.visibleCells
-        let visibleBounds = visibleBoundsForHeader(collectionView: collectionView)
-        print("headers count \(views.count)")
+        let visibleBounds = collectionView.bounds.inset(by: UIEdgeInsets(top: collectionView.adjustedContentInset.top, left: 0, bottom: 0, right: 0))
         
-        for header in views {
+        for header in headers {
             guard let header = header as? UICollectionViewCell else { continue }
-            print("header frame \(header.frame)")
-            let insideSafeArea = !header.frame.intersects(visibleBounds)
+            
+            let insideSafeArea = header.frame.intersects(visibleBounds)
             
             let intersectionHeight = cells.reduce(0) { $0 + $1.frame.intersection(header.frame).height }
+            let overCell = intersectionHeight > header.frame.height * 0.5
             
-            let hidden = intersectionHeight > header.frame.height * 0.5 || insideSafeArea
+            let interactive = collectionView.isDragging || collectionView.isDecelerating
             
-            if hidden, header.contentView.alpha != 0 {
-                if animated {
-                    UIView.animate(withDuration: 0.3) {
-                        header.contentView.alpha = 0.0
-                    }
-                } else {
-                    header.contentView.alpha = 0.0
-                }
+            if !insideSafeArea {
+                // Outside visible area. Hidden
+                updateContentAlpha(cell: header, alpha: 0.0, animated: animated)
+            } else if !overCell {
+                // Normal position in list. Show
+                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+            } else if interactive {
+                // Over cell and interactive. Show
+                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+            } else {
+                // Over cell and not interactive. Hidden
+                updateContentAlpha(cell: header, alpha: 0.0, animated: animated)
             }
         }
     }
     
-    private func visibleBoundsForHeader(collectionView: UICollectionView) -> CGRect {
-        collectionView.bounds.inset(by: UIEdgeInsets(top: collectionView.adjustedContentInset.top, left: 0, bottom: 0, right: 0))
+    private func updateContentAlpha(cell: UICollectionViewCell, alpha: CGFloat, animated: Bool) {
+        if cell.contentView.alpha != alpha {
+            if animated {
+                UIView.animate(withDuration: 0.3) {
+                    cell.contentView.alpha = alpha
+                }
+            } else {
+                cell.contentView.alpha = alpha
+            }
+        }
     }
 }
