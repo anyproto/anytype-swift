@@ -215,6 +215,7 @@
 "Join" = "Присоединись";
 "Agreement Disclamer" = "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)";
 "Lets Go" = "Давайте начнём";
+"My spaces" = "Мои пространства";
 "My Channels" = "Мои каналы";
 "Open file" = "Открыть файл";
 "Open Set" = "Open Query";
@@ -588,6 +589,7 @@
 "Nothing found" = "Ничего не найдено";
 "No type found text" = "Тип \"%@\" не найден. Измените ваш запрос или создайте новый тип.";
 "Create type" = "Создать тип";
+"Chat" = "Чат";
 "Edit type" = "Edit type";
 
 "Limit object types" = "Ограничить типы объектов";
@@ -841,7 +843,6 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Источник виджета";
-"Widgets.Actions.ChangeSource" = "Изменить источник";
 "Widgets.Actions.ChangeWidgetType" = "Изменить тип виджета";
 "Widgets.Actions.RemoveWidget" = "Удалить виджет";
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
@@ -867,8 +868,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
 "Widgets.AppUpdate" = "Anytype готов к обновлению";
+"Widgets.Source.Suggested" = "Suggested";
 "Widgets.Source.Library" = "Стандартные наборы";
 "Widgets.Source.Objects" = "Ваши объекты";
+"Widgets.List.Empty" = "There is no widgets yet";
 
 // MARK: - About
 "About.AppVersion" = "Версия приложения: %@";
@@ -904,6 +907,8 @@
 "Settings.Edit picture" = "Редактировать фотографию";
 "Settings.Updated" = "Информация о пространстве обновлена";
 "Settings.DataManagement" = "Управление данными";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файловое хранилище";
@@ -939,6 +944,12 @@
 "Spaces.Search.Title" = "Поиск пространств";
 "Spaces.Title" = "Пространства";
 "Spaces.Info.Network" = "Сеть:";
+"Spaces.UxType.Chat.Title" = "Чат";
+"Spaces.UxType.Space.Title" = "Пространство";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "For real-time conversations";
+"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Неизвестно";
@@ -978,7 +989,9 @@
 "SpaceShare.Permissions.Grand.View" = "Вид";
 "SpaceShare.Invite.Title" = "Ссылка на приглашение ";
 "SpaceShare.Invite.Description" = "Поделитесь этой ссылкой-приглашением, чтобы другие могли присоединиться к вашему пространсту. После того, как они нажмут на ссылку и запросят доступ, вы можете выбирать их права доступа.";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "Поделится ссылкой на приглашение ";
+"SpaceShare.Share.link" = "Share link";
 "SpaceShare.Invite.Generate" = "Создать ссылку на приглашение";
 "SpaceShare.Invite.Empty" = "Создать ссылку-приглашение для совместного использования и добавления новых участников";
 "SpaceShare.JoinRequest" = "Запрос на присоединение";
@@ -986,6 +999,7 @@
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Утверждено";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к пространству. Вы можете создать новую ссылку в любое время";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
@@ -1042,7 +1056,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Создать пространство";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Добавить в Anytype";
@@ -1259,9 +1275,10 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "Добавить реакцию";
 "Message.Action.Reply" = "Ответить";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.Action.Unread" = "Mark Unread";
 "Message.Action.CopyPlainText" = "Copy Plain Text";
-"Message.Input.EmptyPlaceholder" = "Написать сообщение...";
 "Message.ChatTitle.Placeholder" = "Чат без названия";
 
 // MARK: - Date
@@ -1284,8 +1301,12 @@
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Ответить %@";
-"Chat.Empty.Title" = "Здесь пока нет сообщений...";
-"Chat.Empty.Description" = "Напишите первый, чтобы начать диалог";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Button.title" = "Поделится ссылкой на приглашение ";
 "Chat.DeleteMessage.Title" = "Удалить это сообщение?";
 "Chat.DeleteMessage.Description" = "Его нельзя восстановить после подтверждения";
 "Chat.Reactions.Empty.Title" = "Пока нет реакций";
@@ -1310,7 +1331,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "Да, закрыть";
 "Chat.Attach.Page.title" = "Прикрепить страницу";
 "Chat.Attach.List.title" = "Прикрепить список";
-"Chat.NewMessages" = "New messages";
+"Chat.NewMessages" = "New Messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Улучшение вашего поиска";
@@ -1327,6 +1348,11 @@
 "ObjectSearchWithMeta.Create.Note" = "Новая заметка";
 "ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Новая коллекция";
+
+// MARK: - AI Tool
+"AITool.title" = "Ask AI";
+"AITool.placeholder" = "For example, Summarise";
+"AITool.button" = "Generate";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
