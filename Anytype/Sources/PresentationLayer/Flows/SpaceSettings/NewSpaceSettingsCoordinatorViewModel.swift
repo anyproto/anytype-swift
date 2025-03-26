@@ -60,6 +60,10 @@ final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSett
         pageNavigation?.open(.spaceInfo(.typeLibrary(spaceId: spaceId)))
     }
     
+    func onBinSelected() {
+        pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
+    }
+    
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {

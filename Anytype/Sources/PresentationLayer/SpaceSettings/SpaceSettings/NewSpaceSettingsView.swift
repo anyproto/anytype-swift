@@ -264,6 +264,12 @@ struct NewSpaceSettingsView: View {
                 }
                 .border(12, color: .Shape.primary, lineWidth: 0.5)
             }
+            
+            Spacer.fixedHeight(6)
+        }
+        
+        RoundedButton(Loc.bin, icon: .Widget.bin, decoration: .chervon) {
+            model.onBinTap()
         }
     }
     
