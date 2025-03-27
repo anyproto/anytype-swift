@@ -31,11 +31,12 @@ struct SetFullHeader: View {
     
     @ViewBuilder
     private var headerBlocks: some View {
+        description
+        
         if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
             Spacer.fixedHeight(10)
             typeButtons
         } else {
-            description
             featuredRelationsView
         }
     }
