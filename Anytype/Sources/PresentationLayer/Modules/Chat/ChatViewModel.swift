@@ -665,7 +665,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func updateLocalBookmark(linkPreview: LinkPreview) {
-        guard let index = linkedObjects.firstIndex(where: { $0.localBookmark?.url == linkPreview.url }) else { return }
+        guard let index = linkedObjects.firstIndex(where: { linkPreview.url.caseInsensitiveCompare($0.localBookmark?.url ?? "") == .orderedSame }) else { return }
         let bookmark = ChatLocalBookmark(
             url: linkPreview.url,
             title: linkPreview.title,
