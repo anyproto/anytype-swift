@@ -98,14 +98,14 @@ struct ChatInput: View {
     
     @ViewBuilder
     private var sendButton: some View {
-        if hasAdditionalData || !text.string.isEmpty {
-            Button {
-                onTapSend()
-            } label: {
-                EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
-            }
-            .disabled(disableSendButton)
-            .frame(width: 32, height: 56)
+        Button {
+            onTapSend()
+        } label: {
+            EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
         }
+        .disabled(disableSendButton)
+        .frame(width: 32, height: 56)
+        // Store in layout for calculate correct textview height when user paste in empty textview
+        .opacity(hasAdditionalData || !text.string.isEmpty ? 1 : 0)
     }
 }

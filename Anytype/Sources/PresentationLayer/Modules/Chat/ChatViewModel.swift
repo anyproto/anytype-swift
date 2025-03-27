@@ -307,12 +307,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onLinkAdded(link: URL) {
+        guard link.containsHttpProtocol else { return }
         let contains = linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
         linkedObjects.append(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
         let task = Task { [bookmarkService, weak self] in
-            let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
-            self?.updateLocalBookmark(linkPreview: linkPreview)
+            do {
+                let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
+                self?.updateLocalBookmark(linkPreview: linkPreview)
+            } catch {
+                self?.linkedObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
+            }
             self?.linkPreviewTasks[link] = nil
         }
         linkPreviewTasks[link] = task.cancellable()

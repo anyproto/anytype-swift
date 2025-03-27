@@ -23,10 +23,15 @@ extension URL {
         return urlBySettingScheme(Constants.http)
     }
     
+    func urlByAddingHttpsIfSchemeIsEmpty() -> URL {
+        guard scheme.isNil || scheme == "" else {
+            return self
+        }
+        return urlBySettingScheme(Constants.https)
+    }
+    
     private func urlBySettingScheme(_ scheme: String) -> URL {
-        var components = URLComponents(string: absoluteString)
-        components?.scheme = scheme
-        return components?.url ?? self
+        return URL(string: "\(scheme)://\(absoluteString)") ?? self
     }
     
     enum Constants {
