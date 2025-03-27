@@ -125,34 +125,10 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     // MARK: - New api
-    func updateRecommendedRelations(typeId: String, relations: [RelationDetails]) async throws {
-        try await ClientCommands.objectTypeRecommendedRelationsSet(.with {
-            $0.typeObjectID = typeId
-            $0.relationObjectIds = relations.map(\.id)
-        }).invoke()
-    }
-    
-    func updateRecommendedFeaturedRelations(typeId: String, relations: [RelationDetails]) async throws {
-        try await ClientCommands.objectTypeRecommendedFeaturedRelationsSet(.with {
-            $0.typeObjectID = typeId
-            $0.relationObjectIds = relations.map(\.id)
-        }).invoke()
-    }
-    
-    func updateRecommendedHiddenRelations(typeId: String, relations: [RelationDetails]) async throws {
-        try await ClientCommands.objectSetDetails(.with {
-            $0.contextID = typeId
-            $0.details = [
-                Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
-                    $0.value = relations.map(\.id).protobufValue
-                }
-            ]
-        }).invoke()
-    }
-    
+    // Updating both relations in type and dataview to preserve integrity between them
     func updateTypeRelations(
         typeId: String,
+        dataviewId: String,
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
         recommendedHiddenRelations: [RelationDetails]
@@ -173,6 +149,13 @@ final class RelationsService: RelationsServiceProtocol {
                     $0.value = recommendedHiddenRelations.map(\.id).protobufValue
                 }
             ]
+        }).invoke()
+        
+        let compoundRelations = recommendedFeaturedRelations + recommendedRelations + recommendedHiddenRelations
+        try await ClientCommands.blockDataviewRelationSet(.with {
+            $0.contextID = typeId
+            $0.blockID = dataviewId
+            $0.relationKeys = compoundRelations.map(\.key)
         }).invoke()
     }
     
