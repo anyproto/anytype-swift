@@ -23,6 +23,8 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let data: RelationsSearchData
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     init(data: RelationsSearchData) {
         self.data = data
@@ -95,10 +97,12 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         switch typeData {
         case .recommendedFeaturedRelations(var relationIds):
             relationIds.insert(relation.id, at: 0)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: data.objectId, relationIds: relationIds)
+            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: data.spaceId)
+            try await relationsService.updateRecommendedFeaturedRelations(typeId: data.objectId, relations: relations)
         case .recommendedRelations(var relationIds):
             relationIds.insert(relation.id, at: 0)
-            try await relationsService.updateRecommendedRelations(typeId: data.objectId, relationIds: relationIds)
+            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: data.spaceId)
+            try await relationsService.updateRecommendedRelations(typeId: data.objectId, relations: relations)
         }
     }
     
