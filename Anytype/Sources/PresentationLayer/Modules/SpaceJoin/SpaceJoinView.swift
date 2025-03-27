@@ -115,9 +115,10 @@ struct SpaceJoinView: View {
     
     private var inviteNotFound: some View {
         BottomAlertView(
-            title: Loc.SpaceShare.Join.inviteNotFound,
-            icon: .BottomAlert.sadMail,
-            color: .blue
+            title: Loc.SpaceShare.Join.NoAccess.title,
+            message: Loc.SpaceShare.Join.InviteNotFound.message,
+            icon: .BottomAlert.error,
+            color: .red
         ) {
             BottomAlertButton(
                 text: Loc.okay,

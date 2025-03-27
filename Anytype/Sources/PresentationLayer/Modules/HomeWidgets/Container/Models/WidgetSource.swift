@@ -26,9 +26,9 @@ extension WidgetSource {
             return objectDetails.availableWidgetLayout
         case .library(let library):
             switch library {
-            case .favorite, .recent, .recentOpen, .pages:
+            case .favorite, .recent, .recentOpen:
                 return [.compactList, .list, .tree]
-            case .sets, .collections, .lists, .media, .bookmarks, .files:
+            case .sets, .collections:
                 return [.compactList, .list]
             case .bin:
                 return [.link]

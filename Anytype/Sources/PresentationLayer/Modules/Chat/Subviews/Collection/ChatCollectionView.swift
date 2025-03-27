@@ -24,6 +24,7 @@ struct ChatCollectionView<
     let scrollToTop: () async -> Void
     let scrollToBottom: () async -> Void
     let handleVisibleRange: (_ from: Item, _ to: Item) -> Void
+    let onTapCollectionBackground: () -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
@@ -40,6 +41,7 @@ struct ChatCollectionView<
                 elementKind: UICollectionView.elementKindSectionHeader,
                 alignment: .top
             )
+            header.pinToVisibleBounds = true
             
             section.boundarySupplementaryItems = [header]
             
@@ -61,6 +63,7 @@ struct ChatCollectionView<
         }
         
         context.coordinator.setupDataSource(collectionView: collectionView)
+        context.coordinator.setupDismissKeyboardOnTap(collectionView: collectionView)
         
         let bottomPanel = UIHostingController(rootView: bottomPanel)
         bottomPanel.view.backgroundColor = .clear
@@ -94,6 +97,7 @@ struct ChatCollectionView<
         context.coordinator.scrollToBottom = scrollToBottom
         context.coordinator.handleVisibleRange = handleVisibleRange
         context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
+        context.coordinator.onTapCollectionBackground = onTapCollectionBackground
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView> {

@@ -215,6 +215,7 @@
 "Join" = "加入";
 "Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Lets Go" = "让我们开始！";
+"My spaces" = "我的空间";
 "My Channels" = "我的频道";
 "Open file" = "打开文件";
 "Open Set" = "打开查询";
@@ -589,6 +590,7 @@
 "Nothing found" = "未找到任何内容";
 "No type found text" = "找不到类型“%@”，请更改您的请求或创建新类型。";
 "Create type" = "创建类型";
+"Chat" = "聊天";
 "Edit type" = "Edit type";
 
 "Limit object types" = "限制对象类型";
@@ -842,7 +844,6 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "小部件来源";
-"Widgets.Actions.ChangeSource" = "更改来源";
 "Widgets.Actions.ChangeWidgetType" = "更改小部件类型";
 "Widgets.Actions.RemoveWidget" = "删除小部件";
 "Widgets.Actions.EditWidgets" = "编辑小部件";
@@ -868,8 +869,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
 "Widgets.AppUpdate" = "Anytype 准备好更新了";
+"Widgets.Source.Suggested" = "Suggested";
 "Widgets.Source.Library" = "默认集合";
 "Widgets.Source.Objects" = "您的对象";
+"Widgets.List.Empty" = "There is no widgets yet";
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
@@ -905,6 +908,8 @@
 "Settings.Edit picture" = "编辑图片";
 "Settings.Updated" = "空间信息已更新";
 "Settings.DataManagement" = "数据管理";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
 
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
@@ -940,6 +945,12 @@
 "Spaces.Search.Title" = "搜索空间";
 "Spaces.Title" = "空间";
 "Spaces.Info.Network" = "网络:";
+"Spaces.UxType.Chat.Title" = "聊天";
+"Spaces.UxType.Space.Title" = "空间";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "For real-time conversations";
+"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "未知";
@@ -979,7 +990,9 @@
 "SpaceShare.Permissions.Grand.View" = "视图";
 "SpaceShare.Invite.Title" = "邀请链接";
 "SpaceShare.Invite.Description" = "分享此邀请链接以便其他人可以加入您的空间。一旦他们点击您的链接并请求访问，您可以设置他们的访问权限。";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "分享邀请链接";
+"SpaceShare.Share.link" = "Share link";
 "SpaceShare.Invite.Generate" = "生成邀请链接";
 "SpaceShare.Invite.Empty" = "创建邀请链接以共享空间并添加新成员";
 "SpaceShare.JoinRequest" = "加入请求";
@@ -987,6 +1000,7 @@
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "接受";
 "SpaceShare.DeleteSharingLink.Title" = "删除链接";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接。";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
@@ -1043,7 +1057,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "创建空间";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "添加至 Anytype";
@@ -1258,9 +1274,10 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
 "Message.Action.Reply" = "回复";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.Action.Unread" = "标记未读";
 "Message.Action.CopyPlainText" = "复制纯文本";
-"Message.Input.EmptyPlaceholder" = "写一段话…";
 "Message.ChatTitle.Placeholder" = "未命名对话";
 
 // MARK: - Date
@@ -1283,8 +1300,12 @@
 
 // MARK: - Chats
 "Chat.ReplyTo" = "回复 %@";
-"Chat.Empty.Title" = "暂时还没有消息…";
-"Chat.Empty.Description" = "发一条消息来开始对话";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Button.title" = "分享邀请链接";
 "Chat.DeleteMessage.Title" = "删除此消息？";
 "Chat.DeleteMessage.Description" = "确认后无法恢复";
 "Chat.Reactions.Empty.Title" = "暂无回应";
@@ -1309,7 +1330,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "确认关闭";
 "Chat.Attach.Page.title" = "附加页面";
 "Chat.Attach.List.title" = "附加列表";
-"Chat.NewMessages" = "新消息";
+"Chat.NewMessages" = "New Messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
@@ -1326,6 +1347,11 @@
 "ObjectSearchWithMeta.Create.Note" = "新便签";
 "ObjectSearchWithMeta.Create.Set" = "新查询";
 "ObjectSearchWithMeta.Create.Collection" = "新集锦";
+
+// MARK: - AI Tool
+"AITool.title" = "Ask AI";
+"AITool.placeholder" = "For example, Summarise";
+"AITool.button" = "Generate";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "欢迎使用 Alpha 版本";

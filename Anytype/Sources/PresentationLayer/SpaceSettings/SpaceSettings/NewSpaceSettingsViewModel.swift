@@ -186,6 +186,10 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         )
     }
     
+    func onBinTap() {
+        output?.onBinSelected()
+    }
+    
     // MARK: - Subscriptions
     
     func startSubscriptions() async {

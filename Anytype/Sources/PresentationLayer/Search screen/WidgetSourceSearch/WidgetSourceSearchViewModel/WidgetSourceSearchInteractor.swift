@@ -119,41 +119,6 @@ private extension AnytypeWidgetId {
                 description: nil,
                 icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.bin) : .object(.emoji(Emoji("🗑️")!))
             )
-        case .pages:
-            return WidgetAnytypeLibrarySource(
-                type: .pages,
-                name: Loc.pages,
-                description: nil,
-                icon: .object(.emoji(Emoji("📄")!))
-            )
-        case .lists:
-            return WidgetAnytypeLibrarySource(
-                type: .lists,
-                name: Loc.lists,
-                description: nil,
-                icon: .object(.emoji(Emoji("📦")!))
-            )
-        case .media:
-            return WidgetAnytypeLibrarySource(
-                type: .media,
-                name: Loc.media,
-                description: nil,
-                icon: .object(.emoji(Emoji("🎞️")!))
-            )
-        case .bookmarks:
-            return WidgetAnytypeLibrarySource(
-                type: .bookmarks,
-                name: Loc.bookmarks,
-                description: nil,
-                icon: .object(.emoji(Emoji("🌎")!))
-            )
-        case .files:
-            return WidgetAnytypeLibrarySource(
-                type: .files,
-                name: Loc.files,
-                description: nil,
-                icon: .object(.emoji(Emoji("📁")!))
-            )
         }
     }
 }

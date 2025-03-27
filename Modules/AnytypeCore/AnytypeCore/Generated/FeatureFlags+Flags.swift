@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .newSpacesLoading)
     }
 
-    static var allContentWidgets: Bool {
-        value(for: .allContentWidgets)
-    }
-
     static var objectTypeWidgets: Bool {
         value(for: .objectTypeWidgets)
     }
@@ -138,10 +134,6 @@ public extension FeatureFlags {
         value(for: .newPropertiesCreation)
     }
 
-    static var fixChatEmptyState: Bool {
-        value(for: .fixChatEmptyState)
-    }
-
     static var pluralNames: Bool {
         value(for: .pluralNames)
     }
@@ -216,7 +208,6 @@ public extension FeatureFlags {
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,
-        .allContentWidgets,
         .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
@@ -241,7 +232,6 @@ public extension FeatureFlags {
         .joinStream,
         .httpsLinkForObjectCopy,
         .newPropertiesCreation,
-        .fixChatEmptyState,
         .pluralNames,
         .countersOnSpaceHub,
         .rainbowViews,

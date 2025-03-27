@@ -7,10 +7,4 @@ public enum AnytypeWidgetId: String, CaseIterable, Sendable {
     case recent = "recent"
     case recentOpen = "recentOpen"
     case bin = "bin"
-    // All object types
-    case pages = "pages"
-    case lists = "lists"
-    case media = "media"
-    case bookmarks = "bookmark"
-    case files = "files"
 }

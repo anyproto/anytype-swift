@@ -189,6 +189,8 @@ struct ChatView: View {
             await model.scrollToBottom()
         } handleVisibleRange: { from, to in
             model.visibleRangeChanged(from: from, to: to)
+        } onTapCollectionBackground: {
+            model.onTapDismissKeyboard()
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
     }
@@ -199,7 +201,7 @@ struct ChatView: View {
         case .message(let data):
             MessageView(data: data, output: model)
         case .unread:
-            ChatMessageHeaderView(text: Loc.Chat.newMessages)
+            ChatMessageUnreadView()
         }
     }
 }

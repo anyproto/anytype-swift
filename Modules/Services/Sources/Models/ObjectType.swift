@@ -7,6 +7,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     
     public let id: String
     public let name: String
+    public let pluralName: String
     public let icon: ObjectIcon
     public let description: String
     public let hidden: Bool
@@ -30,6 +31,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public init(
         id: String,
         name: String,
+        pluralName: String,
         icon: ObjectIcon,
         description: String,
         hidden: Bool,
@@ -50,6 +52,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     ) {
         self.id = id
         self.name = name
+        self.pluralName = pluralName
         self.icon = icon
         self.description = description
         self.hidden = hidden
@@ -76,6 +79,7 @@ extension ObjectType: DetailsModel {
         self.init(
             id: details.id,
             name: details.name,
+            pluralName: details.pluralName,
             icon: details.objectIcon ?? .emptyTypeIcon,
             description: details.description,
             hidden: details.isHidden,

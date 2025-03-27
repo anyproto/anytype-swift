@@ -215,6 +215,7 @@
 "Join" = "Rejoindre";
 "Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
 "Lets Go" = "C’est parti ";
+"My spaces" = "Mes espaces";
 "My Channels" = "Mes chaînes";
 "Open file" = "Ouvrir le fichier";
 "Open Set" = "Open Query";
@@ -588,6 +589,7 @@
 "Nothing found" = "Aucun résultat";
 "No type found text" = "Aucun type “%@” trouvé. Modifiez votre demande ou créez un nouveau type.";
 "Create type" = "Créer un type";
+"Chat" = "Messagerie";
 "Edit type" = "Edit type";
 
 "Limit object types" = "Limiter les types d'objet";
@@ -841,7 +843,6 @@
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "Source du widget";
-"Widgets.Actions.ChangeSource" = "Changer la Source";
 "Widgets.Actions.ChangeWidgetType" = "Modifier le type de widget";
 "Widgets.Actions.RemoveWidget" = "Supprimer le Widget";
 "Widgets.Actions.EditWidgets" = "Modifier les widgets";
@@ -867,8 +868,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
 "Widgets.Library.RecentlyOpened.Description" = "Sur cet appareil";
 "Widgets.AppUpdate" = "Anytype est prêt pour la mise à jour";
+"Widgets.Source.Suggested" = "Suggested";
 "Widgets.Source.Library" = "Ensembles par défaut";
 "Widgets.Source.Objects" = "Vos objets";
+"Widgets.List.Empty" = "There is no widgets yet";
 
 // MARK: - About
 "About.AppVersion" = "Version de l'application : %@";
@@ -904,6 +907,8 @@
 "Settings.Edit picture" = "Modifier l'image";
 "Settings.Updated" = "Informations sur l'espace mises à jour";
 "Settings.DataManagement" = "Gestion de données";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Stockage des fichiers";
@@ -939,6 +944,12 @@
 "Spaces.Search.Title" = "Rechercher des espaces";
 "Spaces.Title" = "Espaces";
 "Spaces.Info.Network" = "Réseau :";
+"Spaces.UxType.Chat.Title" = "Messagerie";
+"Spaces.UxType.Space.Title" = "Espace";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "For real-time conversations";
+"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Inconnu";
@@ -978,7 +989,9 @@
 "SpaceShare.Permissions.Grand.View" = "Vue";
 "SpaceShare.Invite.Title" = "Lien d'invitation";
 "SpaceShare.Invite.Description" = "Partagez ce lien d'invitation pour que d'autres puissent rejoindre votre espace. Une fois qu'ils cliquent sur votre lien et demandent l'accès, vous pouvez définir leurs droits d'accès.";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "Partager le lien d'invitation";
+"SpaceShare.Share.link" = "Share link";
 "SpaceShare.Invite.Generate" = "Générer un lien d'invitation";
 "SpaceShare.Invite.Empty" = "Créer un lien d'invitation pour partager de l'espace et ajouter de nouveaux membres";
 "SpaceShare.JoinRequest" = "Demande d'admission !";
@@ -986,6 +999,7 @@
 "SpaceShare.Action.ViewRequest" = "Afficher la demande";
 "SpaceShare.Action.Approve" = "Approuver";
 "SpaceShare.DeleteSharingLink.Title" = "Supprimer le lien";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "Les nouveaux membres ne pourront pas rejoindre l'espace. Vous pouvez générer un nouveau lien à tout moment";
 "SpaceShare.Approve.Toast" = "Vous avez approuvé la demande de %@";
 "SpaceShare.ViewRequest.Title" = "%@ a demandé à rejoindre l'espace %@";
@@ -1042,7 +1056,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Créer un espace";
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Ajouter à Anytype";
@@ -1257,9 +1273,10 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Ajouter une Réaction";
 "Message.Action.Reply" = "Répondre";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.Action.Unread" = "Marquer comme non lu";
 "Message.Action.CopyPlainText" = "Copier le texte brut";
-"Message.Input.EmptyPlaceholder" = "Ecrire un message...";
 "Message.ChatTitle.Placeholder" = "Chat sans titre";
 
 // MARK: - Date
@@ -1282,8 +1299,12 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Réponse à %@";
-"Chat.Empty.Title" = "Aucun message pour l'instant...";
-"Chat.Empty.Description" = "Écrivez une première pour démarrer une conversation";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Button.title" = "Partager le lien d'invitation";
 "Chat.DeleteMessage.Title" = "Supprimer ce message ?";
 "Chat.DeleteMessage.Description" = "Il ne pourra pas être restauré après confirmation";
 "Chat.Reactions.Empty.Title" = "Aucune réaction pour l'instant";
@@ -1308,7 +1329,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Chat.CreateObject.Dismiss.Ok" = "Oui, fermer";
 "Chat.Attach.Page.title" = "Joindre une page";
 "Chat.Attach.List.title" = "Joindre une liste";
-"Chat.NewMessages" = "Nouveaux messages";
+"Chat.NewMessages" = "New Messages";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Améliorer votre expérience de recherche";
@@ -1325,6 +1346,11 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "ObjectSearchWithMeta.Create.Note" = "Nouvelle note";
 "ObjectSearchWithMeta.Create.Set" = "New Query";
 "ObjectSearchWithMeta.Create.Collection" = "Nouvelle collection";
+
+// MARK: - AI Tool
+"AITool.title" = "Ask AI";
+"AITool.placeholder" = "For example, Summarise";
+"AITool.button" = "Generate";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "Bienvenue dans la version Alpha";

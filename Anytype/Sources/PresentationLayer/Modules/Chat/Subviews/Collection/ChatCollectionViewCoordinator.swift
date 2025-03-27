@@ -18,8 +18,8 @@ final class ChatCollectionViewCoordinator<
     private var sections: [Section] = []
     private var dataSourceApplyTransaction = false
     private var oldVisibleRange: [String] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     
-    var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     var scrollToTop: (() async -> Void)?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
@@ -27,6 +27,7 @@ final class ChatCollectionViewCoordinator<
     var itemBuilder: ((Item) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
+    var onTapCollectionBackground: (() -> Void)?
     
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
@@ -60,6 +61,12 @@ final class ChatCollectionViewCoordinator<
         }
         
         self.dataSource = dataSource
+    }
+    
+    func setupDismissKeyboardOnTap(collectionView: UICollectionView) {
+        collectionView.addTapGesture { [weak self] _ in
+            self?.onTapCollectionBackground?()
+        }
     }
     
     // MARK: Update
@@ -126,6 +133,7 @@ final class ChatCollectionViewCoordinator<
             CATransaction.commit()
             
             updateVisibleRangeIfNeeded(collectionView: collectionView)
+            updateHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -157,6 +165,7 @@ final class ChatCollectionViewCoordinator<
         
         if let collectionView = scrollView as? UICollectionView {
             updateVisibleRangeIfNeeded(collectionView: collectionView)
+            updateHeaders(collectionView: collectionView, animated: false)
         }
     }
     
@@ -166,6 +175,21 @@ final class ChatCollectionViewCoordinator<
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         decelerating = false
+        if let collectionView = scrollView as? UICollectionView {
+            updateHeaders(collectionView: collectionView)
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if let collectionView = scrollView as? UICollectionView {
+            updateHeaders(collectionView: collectionView)
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate, let collectionView = scrollView as? UICollectionView {
+            updateHeaders(collectionView: collectionView)
+        }
     }
     
     // MARK: - Private
@@ -238,5 +262,48 @@ final class ChatCollectionViewCoordinator<
     
     private func scrollToBottom(collectionView: UICollectionView) {
         collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
+    }
+    
+    private func updateHeaders(collectionView: UICollectionView, animated: Bool = true) {
+        let headers = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
+        let cells = collectionView.visibleCells
+        let visibleBounds = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
+        
+        for header in headers {
+            guard let header = header as? UICollectionViewCell else { continue }
+            
+            let insideSafeArea = header.frame.intersects(visibleBounds)
+            
+            let intersectionHeight = cells.reduce(0) { $0 + $1.frame.intersection(header.frame).height }
+            let overCell = intersectionHeight > header.frame.height * 0.5
+            
+            let interactive = collectionView.isDragging || collectionView.isDecelerating
+            
+            if !insideSafeArea {
+                // Outside visible area. Show
+                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+            } else if !overCell {
+                // Normal position in list. Show
+                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+            } else if interactive {
+                // Over cell and interactive. Show
+                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+            } else {
+                // Over cell and not interactive. Hidden
+                updateContentAlpha(cell: header, alpha: 0.0, animated: animated)
+            }
+        }
+    }
+    
+    private func updateContentAlpha(cell: UICollectionViewCell, alpha: CGFloat, animated: Bool) {
+        if cell.contentView.alpha != alpha {
+            if animated {
+                UIView.animate(withDuration: 0.3) {
+                    cell.contentView.alpha = alpha
+                }
+            } else {
+                cell.contentView.alpha = alpha
+            }
+        }
     }
 }

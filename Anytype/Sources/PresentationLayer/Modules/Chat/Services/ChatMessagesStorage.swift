@@ -287,6 +287,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         if updateRepliesAndAttachments {
             await loadReplies()
             await loadAttachments()
+            await updateAttachmentSubscription()
         }
         
         if updates.contains(.messages) {

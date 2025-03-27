@@ -1884,6 +1884,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func blockDataviewRelationSet(
+        _ request: Anytype_Rpc.BlockDataview.Relation.Set.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockDataview.Relation.Set.Request, Anytype_Rpc.BlockDataview.Relation.Set.Response> {
+        return Invocation(messageName: "BlockDataviewRelationSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockDataviewRelationSet(requestData) ?? Data()
+            return try Anytype_Rpc.BlockDataview.Relation.Set.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func blockDataviewRelationAdd(
         _ request: Anytype_Rpc.BlockDataview.Relation.Add.Request = .init()
     ) -> Invocation<Anytype_Rpc.BlockDataview.Relation.Add.Request, Anytype_Rpc.BlockDataview.Relation.Add.Response> {
@@ -2831,6 +2841,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceChatSubscribeToMessagePreviews(requestData) ?? Data()
             return try Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatUnsubscribeFromMessagePreviews(
+        _ request: Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Request, Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response> {
+        return Invocation(messageName: "ChatUnsubscribeFromMessagePreviews", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatUnsubscribeFromMessagePreviews(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response(serializedBytes: responseData)
         }
     }
 

@@ -8,7 +8,7 @@ extension ChatInternalMessageStorage {
     
     @discardableResult
     mutating func chatAdd(_ data: Anytype_Event.Chat.Add) -> Bool {
-        if FeatureFlags.fixChatEmptyState, messages.isEmpty {
+        if messages.isEmpty {
             add(data.message)
             return true
         }

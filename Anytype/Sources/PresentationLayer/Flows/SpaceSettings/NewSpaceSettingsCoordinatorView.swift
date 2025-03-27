@@ -18,18 +18,18 @@ struct NewSpaceSettingsCoordinatorView: View {
             }
         
             .sheet(isPresented: $model.showRemoteStorage) {
-                RemoteStorageView(spaceId: model.accountSpaceId, output: model)
+                RemoteStorageView(spaceId: model.spaceId, output: model)
                     .sheet(isPresented: $model.showFiles) {
-                        WidgetObjectListFilesManagerView(spaceId: model.accountSpaceId)
+                        WidgetObjectListFilesManagerView(spaceId: model.spaceId)
                     }
             }
             .sheet(isPresented: $model.showWallpaperPicker) {
-                WallpaperPickerView(spaceId: model.accountSpaceId)
+                WallpaperPickerView(spaceId: model.spaceId)
             }
             .sheet(isPresented: $model.showDefaultObjectTypeSearch) {
                 ObjectTypeSearchView(
                     title: Loc.chooseDefaultObjectType,
-                    spaceId: model.accountSpaceId,
+                    spaceId: model.spaceId,
                     settings: .spaceDefaultObject
                 ) { type in
                     model.onSelectDefaultObjectType(type: type)

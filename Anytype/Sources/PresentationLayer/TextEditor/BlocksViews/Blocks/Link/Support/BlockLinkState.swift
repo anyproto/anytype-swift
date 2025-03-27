@@ -1,4 +1,6 @@
 import Services
+import AnytypeCore
+
 
 struct BlockLinkState: Hashable, Equatable {
     let title: String
@@ -37,8 +39,10 @@ struct BlockLinkState: Hashable, Equatable {
             iconSize = .small
         }
 
+        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        
         self.init(
-            title: details.title.trimmed(numberOfCharacters: Constants.maxTitleLength),
+            title: title.trimmed(numberOfCharacters: Constants.maxTitleLength),
             cardStyle: blockLink.appearance.cardStyle,
             description: description,
             icon: details.objectIconImage,

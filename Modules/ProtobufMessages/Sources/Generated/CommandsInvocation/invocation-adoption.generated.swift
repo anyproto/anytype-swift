@@ -296,6 +296,11 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: ResponseErro
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.BlockDataview.Relation.Set.Response: ResultWithError {}
+extension Anytype_Rpc.BlockDataview.Relation.Set.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.BlockDataview.SetSource.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -643,6 +648,11 @@ extension Anytype_Rpc.Chat.Unread.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Chat.Unsubscribe.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

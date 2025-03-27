@@ -102,11 +102,6 @@ enum AnalyticsWidgetSource {
     case sets
     case collections
     case bin
-    case pages
-    case lists
-    case media
-    case bookmarks
-    case files
     case object(type: AnalyticsObjectType)
     
     var analyticsId: String {
@@ -123,16 +118,6 @@ enum AnalyticsWidgetSource {
             return "Collections"
         case .bin:
             return "Bin"
-        case .pages:
-            return "Pages"
-        case .lists:
-            return "Lists"
-        case .media:
-            return "Media"
-        case .bookmarks:
-            return "Bookmarks"
-        case .files:
-            return "Files"
         case .object(let type):
             return type.analyticsId
         }
