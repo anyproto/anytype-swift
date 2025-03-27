@@ -125,27 +125,27 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     // MARK: - New api
-    func updateRecommendedRelations(typeId: String, relationIds: [String]) async throws {
+    func updateRecommendedRelations(typeId: String, relations: [RelationDetails]) async throws {
         try await ClientCommands.objectTypeRecommendedRelationsSet(.with {
             $0.typeObjectID = typeId
-            $0.relationObjectIds = relationIds
+            $0.relationObjectIds = relations.map(\.id)
         }).invoke()
     }
     
-    func updateRecommendedFeaturedRelations(typeId: String, relationIds: [String]) async throws {
+    func updateRecommendedFeaturedRelations(typeId: String, relations: [RelationDetails]) async throws {
         try await ClientCommands.objectTypeRecommendedFeaturedRelationsSet(.with {
             $0.typeObjectID = typeId
-            $0.relationObjectIds = relationIds
+            $0.relationObjectIds = relations.map(\.id)
         }).invoke()
     }
     
-    func updateRecommendedHiddenRelations(typeId: String, relationIds: [ObjectId]) async throws {
+    func updateRecommendedHiddenRelations(typeId: String, relations: [RelationDetails]) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = typeId
             $0.details = [
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
-                    $0.value = relationIds.protobufValue
+                    $0.value = relations.map(\.id).protobufValue
                 }
             ]
         }).invoke()
@@ -153,24 +153,24 @@ final class RelationsService: RelationsServiceProtocol {
     
     func updateTypeRelations(
         typeId: String,
-        recommendedRelationIds: [ObjectId],
-        recommendedFeaturedRelationsIds: [ObjectId],
-        recommendedHiddenRelationsIds: [ObjectId]
+        recommendedRelations: [RelationDetails],
+        recommendedFeaturedRelations: [RelationDetails],
+        recommendedHiddenRelations: [RelationDetails]
     ) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = typeId
             $0.details = [
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedRelations.rawValue
-                    $0.value = recommendedRelationIds.protobufValue
+                    $0.value = recommendedRelations.map(\.id).protobufValue
                 },
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedFeaturedRelations.rawValue
-                    $0.value = recommendedFeaturedRelationsIds.protobufValue
+                    $0.value = recommendedFeaturedRelations.map(\.id).protobufValue
                 },
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
-                    $0.value = recommendedHiddenRelationsIds.protobufValue
+                    $0.value = recommendedHiddenRelations.map(\.id).protobufValue
                 }
             ]
         }).invoke()

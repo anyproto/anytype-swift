@@ -15,6 +15,9 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     
     private let document: any BaseDocumentProtocol
     
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    
     init(objectId: String, spaceId: String) {
         let documentsProvider = Container.shared.openedDocumentProvider()
         document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
@@ -34,11 +37,13 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
         if isFeatured {
             var relationIds = details.recommendedFeaturedRelations
             relationIds.insert(relation.id, at: 0)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: relationIds)
+            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: document.spaceId)
+            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relations: relations)
         } else {
             var relationIds = details.recommendedRelations
             relationIds.insert(relation.id, at: 0)
-            try await self.relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: relationIds)
+            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: document.spaceId)
+            try await self.relationsService.updateRecommendedRelations(typeId: document.objectId, relations: relations)
         }
     }
     

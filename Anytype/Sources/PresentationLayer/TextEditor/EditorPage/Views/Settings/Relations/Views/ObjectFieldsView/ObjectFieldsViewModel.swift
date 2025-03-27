@@ -66,8 +66,10 @@ final class ObjectFieldsViewModel: ObservableObject {
         var newRecommendedRelations = document.parsedRelations.sidebarRelations
         newRecommendedRelations.append(relation)
         
+        let relationsDetails = relationDetailsStorage.relationsDetails(ids: newRecommendedRelations.map(\.id), spaceId: document.spaceId)
+        
         Task {
-            try await relationsService.updateRecommendedRelations(typeId: details.type, relationIds: newRecommendedRelations.map(\.id))
+            try await relationsService.updateRecommendedRelations(typeId: details.type, relations: relationsDetails)
         }
     }
     
