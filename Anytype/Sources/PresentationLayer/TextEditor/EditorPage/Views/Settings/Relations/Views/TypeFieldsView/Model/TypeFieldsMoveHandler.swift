@@ -16,7 +16,6 @@ protocol TypeFieldsMoveHandlerProtocol: Sendable {
 
 final class TypeFieldsMoveHandler: Sendable {
     private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
-    private let relationStorage: any RelationDetailsStorageProtocol = Container.shared.relationDetailsStorage()
     
     func onMove(from: Int, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
         guard let fromRow = relationRows[safe: from], case let .relation(fromRelation) = fromRow else {
