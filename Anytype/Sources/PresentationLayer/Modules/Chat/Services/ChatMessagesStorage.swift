@@ -270,9 +270,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
-            case let .chatUpdateReadStatus(data):
+            case let .chatUpdateMessageReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateReadStatus(data)
+                messages.chatUpdateMessageReadStatus(data)
+            case let .chatUpdateMentionReadStatus(data):
+                guard data.subIds.contains(subId) else { break }
+                messages.chatUpdateMentionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
                 chatState = data.state

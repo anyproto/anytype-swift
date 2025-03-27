@@ -60,6 +60,8 @@ public struct Anytype_Model_ChatMessage: Sendable {
   /// Message read status
   public var read: Bool = false
 
+  public var mentionRead: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -82,6 +84,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     7: .same(proto: "attachments"),
     8: .same(proto: "reactions"),
     10: .same(proto: "read"),
+    12: .same(proto: "mentionRead"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -101,6 +104,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.read) }()
       case 11: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.mentionRead) }()
       default: break
       }
     }
@@ -144,6 +148,9 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.addedAt != 0 {
       try visitor.visitSingularInt64Field(value: self.addedAt, fieldNumber: 11)
     }
+    if self.mentionRead != false {
+      try visitor.visitSingularBoolField(value: self.mentionRead, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -159,6 +166,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.attachments != rhs.attachments {return false}
     if lhs._reactions != rhs._reactions {return false}
     if lhs.read != rhs.read {return false}
+    if lhs.mentionRead != rhs.mentionRead {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
