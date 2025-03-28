@@ -88,6 +88,18 @@ extension BundledRelationsValueProvider {
         resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty && !isObjectType
     }
     
+    // Properties
+    var recommendedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+    }
+    var recommendedFeaturedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+    }
+
+    var recommendedHiddenRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
+    }
+    
     // MARK: - DetailsLayout proxy
     
     var isList: Bool { resolvedLayoutValue.isList }

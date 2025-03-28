@@ -32,7 +32,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateFeaturedRelations,
+            mockRelationsService.lastUpdateRecommendedFeaturedRelations?.relations.map(\.id),
             ["h2", "h3", "h1", "h4"]
         )
     }
@@ -51,7 +51,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateFeaturedRelations,
+            mockRelationsService.lastUpdateRecommendedFeaturedRelations?.relations.map(\.id),
             ["h2", "h3", "h4", "h1"]
         )
     }
@@ -70,7 +70,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateFeaturedRelations,
+            mockRelationsService.lastUpdateRecommendedFeaturedRelations?.relations.map(\.id),
             ["h2", "h1", "h3", "h4"]
         )
     }
@@ -89,7 +89,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateFeaturedRelations,
+            mockRelationsService.lastUpdateRecommendedFeaturedRelations?.relations.map(\.id),
             ["h1", "h3", "h4", "h2"]
         )
     }
@@ -108,7 +108,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateFeaturedRelations,
+            mockRelationsService.lastUpdateRecommendedFeaturedRelations?.relations.map(\.id),
             ["h4", "h1", "h2", "h3"]
         )
     }
@@ -127,7 +127,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateFeaturedRelations,
+            mockRelationsService.lastUpdateRecommendedFeaturedRelations?.relations.map(\.id),
             ["h1", "h4", "h2", "h3"]
         )
     }
@@ -147,7 +147,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
+            mockRelationsService.lastUpdateRecommendedRelations?.relations.map(\.id),
             ["f2", "f3", "f1", "f4"]
         )
     }
@@ -166,7 +166,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
+            mockRelationsService.lastUpdateRecommendedRelations?.relations.map(\.id),
             ["f2", "f3", "f4", "f1"]
         )
     }
@@ -185,7 +185,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
+            mockRelationsService.lastUpdateRecommendedRelations?.relations.map(\.id),
             ["f2", "f1", "f3", "f4"]
         )
     }
@@ -204,7 +204,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
+            mockRelationsService.lastUpdateRecommendedRelations?.relations.map(\.id),
             ["f1", "f3", "f4", "f2"]
         )
     }
@@ -223,7 +223,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
+            mockRelationsService.lastUpdateRecommendedRelations?.relations.map(\.id),
             ["f4", "f1", "f2", "f3"]
         )
     }
@@ -242,7 +242,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateRecommendedRelations?.relationIds,
+            mockRelationsService.lastUpdateRecommendedRelations?.relations.map(\.id),
             ["f1", "f4", "f2", "f3"]
         )
     }

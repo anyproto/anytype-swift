@@ -1014,10 +1014,11 @@
 "SpaceShare.Join.Button" = "Отправить запрос на вступление";
 "SpaceShare.Join.Info" = "Как только владелец сообщества одобрит ваш запрос, вы присоединитесь к разделу с определенными правами доступа.";
 "SpaceShare.Join.Message" = "Вас пригласили присоединиться к пространству **%@**, созданному **%@**. Отправьте запрос, чтобы владелец пространства смог принять вас.";
-"SpaceShare.Join.InviteNotFound" = "Эта ссылка, похоже, не работает";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Объект не доступен. Попросите владельца поделиться им.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "Пространство, к которому вы пытаетесь получить доступ, было удалено";
 
 "SpaceShare.YouSuffix" = "%@ (вы)";

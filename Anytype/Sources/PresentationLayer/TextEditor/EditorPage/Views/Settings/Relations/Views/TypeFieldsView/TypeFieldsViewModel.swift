@@ -123,11 +123,11 @@ final class TypeFieldsViewModel: ObservableObject {
         Task {
             let relationsId = row.relation.id
             
-            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ relationsId != $0 }) {
-                try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: recommendedFeaturedRelations)
+            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelationsDetails.filter({ relationsId != $0.id }) {
+                try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relations: recommendedFeaturedRelations)
             }
-            if let recommendedRelations = document.details?.recommendedRelations.filter({ relationsId != $0 }) {
-                try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: recommendedRelations)
+            if let recommendedRelations = document.details?.recommendedRelationsDetails.filter({ relationsId != $0.id }) {
+                try await relationsService.updateRecommendedRelations(typeId: document.objectId, relations: recommendedRelations)
             }
             
             
@@ -141,11 +141,12 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddConflictRelation(_ relation: RelationDetails) {
         AnytypeAnalytics.instance().logAddConflictRelation()
-        var newRecommendedRelations = parsedRelations.sidebarRelations.map(\.id)
-        newRecommendedRelations.append(relation.id)
+        var newRecommendedRelationsIds = parsedRelations.sidebarRelations.map(\.id)
+        newRecommendedRelationsIds.append(relation.id)
+        let newRecommendedRelations = relationDetailsStorage.relationsDetails(ids: newRecommendedRelationsIds, spaceId: document.spaceId)
         
         Task {
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
+            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relations: newRecommendedRelations)
             if let details = document.details { try await updateConflictRelations(details: details) }
         }
     }

@@ -11,6 +11,8 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
         super.setUp()
         let mockRelationsService = MockRelationsService()
         Container.shared.relationsService.register { mockRelationsService }
+        let mockRelationDetailsStorage = MockRelationDetailsStorage()
+        Container.shared.relationDetailsStorage.register { mockRelationDetailsStorage }
         self.mockRelationsService = mockRelationsService
         mockDocument = MockBaseDocument()
         moveHandler = TypeFieldsMoveHandler()
@@ -39,11 +41,11 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             []
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["f1"]
         )
     }
@@ -69,11 +71,11 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h1"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             []
         )
     }
@@ -118,7 +120,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
             document: mockDocument
         )
         
-        XCTAssertNil(mockRelationsService.lastUpdateFeaturedRelations)
+        XCTAssertNil(mockRelationsService.lastUpdateRecommendedFeaturedRelations)
     }
     
     // MARK: - Concurrent Updates Tests
@@ -142,7 +144,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
         try await (move1, move2)
         
         // The last update should be applied
-        XCTAssertNotNil(mockRelationsService.lastUpdateFeaturedRelations)
+        XCTAssertNotNil(mockRelationsService.lastUpdateRecommendedFeaturedRelations)
     }
     
     // MARK: - Header Navigation Tests

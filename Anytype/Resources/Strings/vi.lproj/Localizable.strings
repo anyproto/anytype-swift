@@ -1015,10 +1015,11 @@
 "SpaceShare.Join.Button" = "Yêu cầu gia nhập";
 "SpaceShare.Join.Info" = "Một khi chủ không gian chấp thuận yêu cầu, bạn sẽ gia nhập không gian với các quyền truy cập do chủ không gian đặt cho.";
 "SpaceShare.Join.Message" = "Bạn được mời vào không gian **%@**, do **%@** tạo. Gửi yêu cầu để chủ không gian cho bạn vào.";
-"SpaceShare.Join.InviteNotFound" = "Link này có vẻ như không hoạt động";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "Đã gửi yêu cầu";
 "SpaceShare.JoinConfirmation.Message" = "Bạn sẽ nhận được thông báo khi chủ không gian chấp thuận yêu cầu của bạn.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (bạn)";

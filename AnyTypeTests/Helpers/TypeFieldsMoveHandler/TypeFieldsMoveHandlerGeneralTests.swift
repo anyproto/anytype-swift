@@ -68,7 +68,7 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
             document: mockDocument
         )
         // No error should be thrown, and no service calls should be made
-        XCTAssertNil(mockRelationsService.lastUpdateFeaturedRelations)
+        XCTAssertNil(mockRelationsService.lastUpdateRecommendedFeaturedRelations)
         XCTAssertNil(mockRelationsService.lastUpdateTypeRelations)
     }
 }

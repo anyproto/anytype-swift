@@ -1015,10 +1015,11 @@
 "SpaceShare.Join.Button" = "申请加入";
 "SpaceShare.Join.Info" = "一旦空间所有者批准您的请求，您将与访问权所有者一起加入该空间。";
 "SpaceShare.Join.Message" = "您已被邀请加入 **%@** 空间，此空间由 **%@** 创建。发送请求使空间所有者可以让您进入。";
-"SpaceShare.Join.InviteNotFound" = "这个链接似乎无法工作";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
-"SpaceShare.Join.ObjectIsNotAvailable" = "对象不可用。请所有者分享一下。";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "您尝试访问的空间已被删除";
 
 "SpaceShare.YouSuffix" = "%@ （您）";
