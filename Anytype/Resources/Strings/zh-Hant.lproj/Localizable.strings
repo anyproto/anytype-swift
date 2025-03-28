@@ -1018,10 +1018,11 @@
 "SpaceShare.Join.Button" = "請求加入";
 "SpaceShare.Join.Info" = "一旦空間擁有者批准了您的請求，您將加入空間並擁有指定的存取權限。";
 "SpaceShare.Join.Message" = "您已被邀請加入由 **%@** 建立的 **%@** 空間。 發送請求，以便空間所有者可以讓​​您加入。";
-"SpaceShare.Join.InviteNotFound" = "這個連結似乎不起作用";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "已送出請求";
 "SpaceShare.JoinConfirmation.Message" = "當空間所有者批准您的請求後，您將會收到通知。";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (您)";

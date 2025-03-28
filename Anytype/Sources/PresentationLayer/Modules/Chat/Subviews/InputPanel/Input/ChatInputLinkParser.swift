@@ -13,10 +13,7 @@ protocol ChatInputLinkParserProtocol: AnyObject {
 
 final class ChatInputLinkParser: ChatInputLinkParserProtocol {
     
-    private let regex = try? NSRegularExpression(
-        pattern: "([a-zA-Z]+:\\/\\/[^\\s/$.?#].[^\\s]*)",
-        options: .caseInsensitive
-    )
+    let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
     
     // MARK: - ChatInputLinkParserProtocol
     
@@ -25,7 +22,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         range: NSRange,
         replacementText: String
     ) -> ChatInputLinkParserChange? {
-        guard let regex else { return nil }
+        guard let detector else { return nil }
         
         guard replacementText == " " || replacementText == "\n" else { return nil }
         
@@ -34,7 +31,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         
         let replacedText = replacedAttributedText.string
 
-        let matches = regex.matches(
+        let matches = detector.matches(
             in: replacedText,
             options: [],
             range: NSRange(location: 0, length: range.location + replacementText.count)
@@ -45,15 +42,15 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         
         let link = (replacedText as NSString).substring(with: match.range).lowercased()
     
-        guard let linkUrl = URL(string: link) else { return nil }
+        guard let linkUrl = URL(string: link)?.urlByAddingHttpsIfSchemeIsEmpty() else { return nil }
         
         return .addLinkStyle(range: match.range, link: linkUrl)
     }
         
     func handlePaste(text: String) -> [ChatInputLinkParserChange] {
-        guard let regex else { return [] }
+        guard let detector else { return [] }
         
-        let matches = regex.matches(
+        let matches = detector.matches(
             in: text,
             options: [],
             range: NSRange(location: 0, length: text.count)
@@ -61,7 +58,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         
         let changes = matches.compactMap { match -> ChatInputLinkParserChange? in
             let link = (text as NSString).substring(with: match.range).lowercased()
-            guard let linkUrl = URL(string: link) else { return nil }
+            guard let linkUrl = URL(string: link)?.urlByAddingHttpsIfSchemeIsEmpty() else { return nil }
             return .addLinkStyle(range: match.range, link: linkUrl)
         }
         

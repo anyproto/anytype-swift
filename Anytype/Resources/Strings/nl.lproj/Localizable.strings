@@ -1015,10 +1015,11 @@
 "SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
 "SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
 "SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij ** %@** ruimte, gemaakt door **%@**. Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
-"SpaceShare.Join.InviteNotFound" = "Deze link lijkt niet te werken";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is niet beschikbaar. Vraag de eigenaar om het te delen.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "De ruimte die je probeert te openen is verwijderd";
 
 "SpaceShare.YouSuffix" = "%@ (jij)";

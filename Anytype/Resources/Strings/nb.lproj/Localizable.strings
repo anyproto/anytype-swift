@@ -1014,10 +1014,11 @@
 "SpaceShare.Join.Button" = "Be om å bli med";
 "SpaceShare.Join.Info" = "Når eieren av rommet godkjenner forespørselen din, vil du bli med i rommet med tilgangsrettigheter eieren har satt.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
 "SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (du)";

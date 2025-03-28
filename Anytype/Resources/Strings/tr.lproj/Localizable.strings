@@ -1015,10 +1015,11 @@
 "SpaceShare.Join.Button" = "Katılma isteği gönder";
 "SpaceShare.Join.Info" = "Alan sahibi talebinizi onayladığında, alana erişim hakları sahibinin belirlediği şekilde katılırsınız.";
 "SpaceShare.Join.Message" = "Siz **%@** tarafından oluşturulan **%@** alanına katılmaya davet edildiniz. Alan sahibinin sizi içeri alabilmesi için bir istek gönderin.";
-"SpaceShare.Join.InviteNotFound" = "Bu bağlantı çalışmıyor gibi görünüyor";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "İstek gönderildi";
 "SpaceShare.JoinConfirmation.Message" = "Alan sahibi talebinizi onayladığında bir bildirim alacaksınız.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Nesne mevcut değil. Nesnenin sahibinden paylaşmasını isteyin.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "Erişmeye çalıştığınız alan silindi";
 
 "SpaceShare.YouSuffix" = "%@ (siz)";

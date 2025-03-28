@@ -1015,10 +1015,11 @@
 "SpaceShare.Join.Button" = "Адправіць запыт на далучэнне";
 "SpaceShare.Join.Info" = "Як толькі ўладальнік прасторы ўхваліць ваш запыт, вы далучыцеся да прасторы з пэўнымі правамі доступу.";
 "SpaceShare.Join.Message" = "Вас запрасілі далучыцца да прасторы **%@**, створанай **%@**. Адпраўце запыт, каб уладальнік прасторы змог прыняць вас.";
-"SpaceShare.Join.InviteNotFound" = "Здаецца, гэтая спасылка не працуе";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "Запыт адпраўлены";
 "SpaceShare.JoinConfirmation.Message" = "Вы атрымаеце паведамленне, калі ўладальнік прасторы зацвердзіць ваш запыт.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Object is not available. Ask the owner to share it.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
 
 "SpaceShare.YouSuffix" = "%@ (вы)";

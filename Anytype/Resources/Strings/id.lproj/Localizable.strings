@@ -1015,10 +1015,11 @@
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung ke ruang **%@** buatan **%@**. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
-"SpaceShare.Join.InviteNotFound" = "Sepertinya tautan ini tidak bisa digunakan";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
-"SpaceShare.Join.ObjectIsNotAvailable" = "Objek tidak tersedia. Mintalah pemiliknya untuk membagikannya.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
 "SpaceShare.Join.SpaceDeleted" = "Ruang yang ingin kamu akses sudah dihapus";
 
 "SpaceShare.YouSuffix" = "%@ (kamu)";
