@@ -246,7 +246,7 @@ public extension FeatureDescription {
         title: "Simple set for types",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        releaseAnyAppValue: true,
         debugValue: false
     )
     
