@@ -630,6 +630,7 @@ extension ImageAsset {
     public static let textCheckMark = ImageAsset.bundle(name: "System/Text check mark")
   }
   public enum SystemWidgets {
+    public static let allObjects = ImageAsset.bundle(name: "SystemWidgets/AllObjects")
     public static let bin = ImageAsset.bundle(name: "SystemWidgets/Bin")
     public static let favorites = ImageAsset.bundle(name: "SystemWidgets/Favorites")
     public static let members = ImageAsset.bundle(name: "SystemWidgets/Members")
@@ -1014,7 +1015,7 @@ extension ImageAsset {
       public static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
     public static let addTop = ImageAsset.bundle(name: "Widget/add_top")
-    public static let allContent = ImageAsset.bundle(name: "Widget/allContent")
+    public static let allObjects = ImageAsset.bundle(name: "Widget/allObjects")
     public static let bin = ImageAsset.bundle(name: "Widget/bin")
     public static let settings = ImageAsset.bundle(name: "Widget/settings")
     public static let tick = ImageAsset.bundle(name: "Widget/tick")
