@@ -142,6 +142,10 @@ public extension FeatureFlags {
         value(for: .countersOnSpaceHub)
     }
 
+    static var simpleSetForTypes: Bool {
+        value(for: .simpleSetForTypes)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -234,6 +238,7 @@ public extension FeatureFlags {
         .newPropertiesCreation,
         .pluralNames,
         .countersOnSpaceHub,
+        .simpleSetForTypes,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

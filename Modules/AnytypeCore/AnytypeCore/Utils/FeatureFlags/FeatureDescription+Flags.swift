@@ -242,6 +242,14 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let simpleSetForTypes = FeatureDescription(
+        title: "Simple set for types",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

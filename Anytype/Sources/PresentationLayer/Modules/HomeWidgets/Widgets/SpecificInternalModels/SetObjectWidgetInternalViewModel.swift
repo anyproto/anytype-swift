@@ -3,6 +3,7 @@ import Services
 import Combine
 import UIKit
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class SetObjectWidgetInternalViewModel: ObservableObject {
@@ -106,7 +107,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
         let screenData: ScreenData
-        if details.editorViewType == .type {
+        if details.editorViewType == .type && FeatureFlags.simpleSetForTypes {
             screenData = .editor(.simpleSet(EditorSimpleSetObject(objectId: details.id, spaceId: details.spaceId)))
         } else {
             screenData = ScreenData(details: details, activeViewId: activeViewId)
