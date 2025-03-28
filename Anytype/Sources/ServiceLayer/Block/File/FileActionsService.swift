@@ -58,20 +58,24 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         }
     }
     
-    func createFileData(source: FileUploadingSource) async throws -> FileData {
+    func createFileData(source: FileUploadingSource, onlyUniversalTypes: Bool) async throws -> FileData {
         switch source {
         case .path(let path):
             return FileData(path: path, type: .data, sizeInBytes: nil, isTemporary: false)
         case .itemProvider(let itemProvider):
-            let typeIdentifier = itemProvider.registeredTypeIdentifiers.compactMap { typeId in
-                Constants.supportedUploadedTypes.first { $0.identifier == typeId }
-            }.first
-            guard let typeIdentifier else {
-                throw FileServiceError.undefiled
+            if onlyUniversalTypes {
+                let typeIdentifier = itemProvider.registeredTypeIdentifiers.compactMap { typeId in
+                    Constants.supportedUploadedTypes.first { $0.identifier == typeId }
+                }.first
+                guard let typeIdentifier else {
+                    throw FileServiceError.undefiled
+                }
+                let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier.identifier, directory: tempDirectoryPath())
+                let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+                return FileData(path: url.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
+            } else {
+                
             }
-            let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier.identifier, directory: tempDirectoryPath())
-            let resources = try url.resourceValues(forKeys: [.fileSizeKey])
-            return FileData(path: url.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         }
     }
  
@@ -164,12 +168,12 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
     }
     
     func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws {
-        let data = try await createFileData(source: source)
+        let data = try await createFileData(source: source, onlyUniversalTypes: false)
         try await uploadDataAt(data: data, contextID: contextID, blockID: blockID)
     }
     
     func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin, createTypeWidgetIfMissing: Bool) async throws -> FileDetails {
-        let data = try await createFileData(source: source)
+        let data = try await createFileData(source: source, onlyUniversalTypes: true)
         return try await uploadFileObject(spaceId: spaceId, data: data, origin: origin, createTypeWidgetIfMissing: createTypeWidgetIfMissing)
     }
     

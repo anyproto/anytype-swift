@@ -4,6 +4,7 @@ import UIKit
 
 protocol AnytypeUITextViewDelegate: AnyObject {
     func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?)
+    func textViewHasPasteAction(_ textView: AnytypeUITextView) -> Bool
 }
 
 // Text view providing common additional logic:
@@ -109,5 +110,14 @@ final class AnytypeUITextView: UITextView {
         } else {
             super.paste(sender)
         }
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(paste(_:)) {
+            if let anytypeDelegate {
+                return anytypeDelegate.textViewHasPasteAction(self)
+            }
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 }

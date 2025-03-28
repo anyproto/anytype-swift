@@ -318,6 +318,21 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         linkPreviewTasks[link] = task.cancellable()
     }
     
+    func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
+        Task {
+            for item in items {
+                if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    showFileLimitAlert()
+                    return
+                }
+                
+                if let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) {
+                    linkedObjects.append(.localBinaryFile(fileData))
+                }
+            }
+        }
+    }
+    
     func onTapDeleteReply() {
         withAnimation {
             replyToMessage = nil
