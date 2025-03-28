@@ -17,7 +17,7 @@ final class AllObjectsWidgetViewModel: ObservableObject {
     
     func onHeaderTap() {
         AnytypeAnalytics.instance().logSelectHomeTab(source: .allObjects)
-        data.output?.onObjectSelected(screenData: .editor(.allContent(spaceId: data.workspaceInfo.accountSpaceId)))
+        data.output?.onObjectSelected(screenData: .editor(.allObjects(spaceId: data.workspaceInfo.accountSpaceId)))
     }
     
     func onDeleteWidgetTap() {

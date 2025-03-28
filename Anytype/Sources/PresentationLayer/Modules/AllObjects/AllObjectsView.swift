@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct AllContentView: View {
+struct AllObjectsView: View {
     
-    @StateObject private var model: AllContentViewModel
+    @StateObject private var model: AllObjectsViewModel
     
-    init(spaceId: String, output: (any AllContentModuleOutput)?) {
-        _model = StateObject(wrappedValue: AllContentViewModel(spaceId: spaceId, output: output))
+    init(spaceId: String, output: (any AllObjectsModuleOutput)?) {
+        _model = StateObject(wrappedValue: AllObjectsViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {
@@ -45,7 +45,7 @@ struct AllContentView: View {
     }
     
     private var settingsMenu: some View {
-        AllContentSettingsMenu(
+        AllObjectsSettingsMenu(
             state: $model.state,
             binTapped: {
                 model.binTapped()
@@ -98,7 +98,7 @@ struct AllContentView: View {
     private var sections: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(ObjectTypeSection.allContentSupportedSections, id: \.self) { section in
+                ForEach(ObjectTypeSection.allObjectsSupportedSections, id: \.self) { section in
                     Button {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.sectionChanged(section)
@@ -119,7 +119,7 @@ struct AllContentView: View {
     private var onlyUnlinkedBanner: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(14)
-            AnytypeText(Loc.AllContent.Settings.Unlinked.description, style: .caption1Regular)
+            AnytypeText(Loc.AllObjects.Settings.Unlinked.description, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
             Spacer.fixedHeight(14)
         }
@@ -129,8 +129,8 @@ struct AllContentView: View {
     
     private var emptyState: some View {
         let emptySearchText = model.searchText.isEmpty
-        let title = emptySearchText ? Loc.EmptyView.Default.title : Loc.AllContent.Search.Empty.State.title
-        let subtitle = emptySearchText ? Loc.EmptyView.Default.subtitle : Loc.AllContent.Search.Empty.State.subtitle
+        let title = emptySearchText ? Loc.EmptyView.Default.title : Loc.AllObjects.Search.Empty.State.title
+        let subtitle = emptySearchText ? Loc.EmptyView.Default.subtitle : Loc.AllObjects.Search.Empty.State.subtitle
         return EmptyStateView(
             title: title,
             subtitle: subtitle,
@@ -140,5 +140,5 @@ struct AllContentView: View {
 }
 
 #Preview {
-    AllContentView(spaceId: "", output: nil)
+    AllObjectsView(spaceId: "", output: nil)
 }

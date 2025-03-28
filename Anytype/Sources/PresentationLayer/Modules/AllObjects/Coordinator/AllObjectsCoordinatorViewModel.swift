@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-final class AllContentCoordinatorViewModel: ObservableObject, AllContentModuleOutput {
+final class AllObjectsCoordinatorViewModel: ObservableObject, AllObjectsModuleOutput {
     
     let spaceId: String
     private weak var output: (any WidgetObjectListCommonModuleOutput)?
@@ -11,7 +11,7 @@ final class AllContentCoordinatorViewModel: ObservableObject, AllContentModuleOu
         self.output = output
     }
     
-    // MARK: - AllContentModuleOutput
+    // MARK: - AllObjectsModuleOutput
     
     func onObjectSelected(screenData: ScreenData) {
         output?.onObjectSelected(screenData: screenData)
