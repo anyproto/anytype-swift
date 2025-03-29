@@ -197,16 +197,16 @@
 "Green background" = "浮萍绿背景";
 "Create new object" = "创建新对象";
 "Create new object with name" = "创建对象 “%@”";
-"Create new type" = "Create new type";
+"Create new type" = "新建类型";
 "Cancel" = "取消";
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
 "Unsupported block" = "不支持的数据块";
 "Unsupported" = "暂不支持";
 "Name" = "名称";
-"Plural name" = "Plural name";
+"Plural name" = "复数名称";
 "Description" = "描述";
-"Add a description" = "Add a description...";
+"Add a description" = "添加描述...";
 "Paste processing..." = "粘贴处理...";
 "Anytype Library" = "Anytype 文库";
 "Copied" = "已复制";
@@ -230,8 +230,8 @@
 
 "Add property" = "添加属性";
 "Search or create new" = "搜索或新建";
-"Existing properties" = "Existing properties";
-"Properties formats" = "Properties formats";
+"Existing properties" = "现有属性";
+"Properties formats" = "属性格式";
 
 // Home
 "Favorites" = "收藏夹";
@@ -283,7 +283,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "这是您的密钥";
-"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
+"Auth.JoinFlow.Key.Description" = "您的密钥代表着用户名与密码。妥善保管，使您的数据只由您掌握。之后您可以在应用的设置中找到它。";
 "Auth.JoinFlow.Key.Button.Show.Title" = "点按以显示";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
 "Auth.JoinFlow.Key.Button.Later.Title" = "暂不";
@@ -375,7 +375,7 @@
 // MARK: - Main search
 "There is no object named" = "没有命名为 %@ 的对象";
 "There is no type named" = "没有命名为 %@ 的类型";
-"There is no property named" = "There is no property named %@";
+"There is no property named" = "没有名为 %@ 的属性";
 "Create a new one or search for something else" = "创建一个新的或搜索其他内容";
 "Search.Links.Show.title" = "显示相关对象";
 "Search.Links.Header.title" = "与之相关的：%@";
@@ -591,7 +591,7 @@
 "No type found text" = "找不到类型“%@”，请更改您的请求或创建新类型。";
 "Create type" = "创建类型";
 "Chat" = "聊天";
-"Edit type" = "Edit type";
+"Edit type" = "编辑类型";
 
 "Limit object types" = "限制对象类型";
 "Type" = "类型";
@@ -869,10 +869,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
 "Widgets.AppUpdate" = "Anytype 准备好更新了";
-"Widgets.Source.Suggested" = "Suggested";
+"Widgets.Source.Suggested" = "建议";
 "Widgets.Source.Library" = "默认集合";
 "Widgets.Source.Objects" = "您的对象";
-"Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.List.Empty" = "还没有部件";
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
@@ -908,8 +908,8 @@
 "Settings.Edit picture" = "编辑图片";
 "Settings.Updated" = "空间信息已更新";
 "Settings.DataManagement" = "数据管理";
-"Settings.ChatEnabled" = "Chat is enabled";
-"Settings.ChatDisabled" = "Chat is disabled";
+"Settings.ChatEnabled" = "聊天已启用";
+"Settings.ChatDisabled" = "聊天已禁用";
 
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
@@ -947,10 +947,10 @@
 "Spaces.Info.Network" = "网络:";
 "Spaces.UxType.Chat.Title" = "聊天";
 "Spaces.UxType.Space.Title" = "空间";
-"Spaces.UxType.Stream.Title" = "Stream";
-"Spaces.UxType.Chat.Description" = "For real-time conversations";
-"Spaces.UxType.Space.Description" = "For organized content and data";
-"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
+"Spaces.UxType.Stream.Title" = "流媒体";
+"Spaces.UxType.Chat.Description" = "实时对话";
+"Spaces.UxType.Space.Description" = "用于有组织的内容与数据";
+"Spaces.UxType.Stream.Description" = "用于直播您的内容";
 
 // MARK: - Space
 "Space.Status.Unknown" = "未知";
@@ -990,9 +990,9 @@
 "SpaceShare.Permissions.Grand.View" = "视图";
 "SpaceShare.Invite.Title" = "邀请链接";
 "SpaceShare.Invite.Description" = "分享此邀请链接以便其他人可以加入您的空间。一旦他们点击您的链接并请求访问，您可以设置他们的访问权限。";
-"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
+"SpaceShare.Invite.Stream.Description" = "分享此链接以便其他人可以加入您的流媒体。";
 "SpaceShare.Invite.Share" = "分享邀请链接";
-"SpaceShare.Share.link" = "Share link";
+"SpaceShare.Share.link" = "分享链接";
 "SpaceShare.Invite.Generate" = "生成邀请链接";
 "SpaceShare.Invite.Empty" = "创建邀请链接以共享空间并添加新成员";
 "SpaceShare.JoinRequest" = "加入请求";
@@ -1000,7 +1000,7 @@
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "接受";
 "SpaceShare.DeleteSharingLink.Title" = "删除链接";
-"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
+"SpaceShare.CopyInviteLink.Title" = "复制邀请链接";
 "SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接。";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
@@ -1015,11 +1015,11 @@
 "SpaceShare.Join.Button" = "申请加入";
 "SpaceShare.Join.Info" = "一旦空间所有者批准您的请求，您将与访问权所有者一起加入该空间。";
 "SpaceShare.Join.Message" = "您已被邀请加入 **%@** 空间，此空间由 **%@** 创建。发送请求使空间所有者可以让您进入。";
-"SpaceShare.Join.NoAccess.Title" = "No access to this space";
-"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
+"SpaceShare.Join.NoAccess.Title" = "没有访问此空间的权限";
+"SpaceShare.Join.InviteNotFound.Message" = "您使用的链接似乎不能用。请让所有者给您分享一个新链接。";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
-"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "请求所有者分享给您。";
 "SpaceShare.Join.SpaceDeleted" = "您尝试访问的空间已被删除";
 
 "SpaceShare.YouSuffix" = "%@ （您）";
@@ -1058,9 +1058,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Chat.Title" = "Create a chat";
-"SpaceCreate.Space.Title" = "Create a space";
-"SpaceCreate.Stream.Title" = "Create a stream";
+"SpaceCreate.Chat.Title" = "创建聊天";
+"SpaceCreate.Space.Title" = "创建空间";
+"SpaceCreate.Stream.Title" = "创建直播流";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "添加至 Anytype";
@@ -1275,8 +1275,8 @@
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
 "Message.Action.Reply" = "回复";
-"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
-"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
+"Message.Input.Chat.EmptyPlaceholder" = "写点什么...";
+"Message.Input.Stream.EmptyPlaceholder" = "直播";
 "Message.Action.Unread" = "标记未读";
 "Message.Action.CopyPlainText" = "复制纯文本";
 "Message.ChatTitle.Placeholder" = "未命名对话";
@@ -1301,8 +1301,8 @@
 
 // MARK: - Chats
 "Chat.ReplyTo" = "回复 %@";
-"Chat.Empty.Title" = "No messages yet";
-"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Title" = "尚无消息";
+"Chat.Empty.Owner.Description" = "邀请别人并燃起来！";
 "Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
 "Stream.Empty.Title" = "This stream is empty";
 "Stream.Empty.Description" = "Invite people and start sharing your vibe";
@@ -1331,7 +1331,7 @@
 "Chat.CreateObject.Dismiss.Ok" = "确认关闭";
 "Chat.Attach.Page.title" = "附加页面";
 "Chat.Attach.List.title" = "附加列表";
-"Chat.NewMessages" = "New Messages";
+"Chat.NewMessages" = "新消息";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "升级您的搜索体验";
@@ -1350,9 +1350,9 @@
 "ObjectSearchWithMeta.Create.Collection" = "新集锦";
 
 // MARK: - AI Tool
-"AITool.title" = "Ask AI";
-"AITool.placeholder" = "For example, Summarise";
-"AITool.button" = "Generate";
+"AITool.title" = "询问 AI";
+"AITool.placeholder" = "例如，总结";
+"AITool.button" = "生成";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "欢迎使用 Alpha 版本";
