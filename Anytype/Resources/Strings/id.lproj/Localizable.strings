@@ -869,10 +869,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
 "Widgets.AppUpdate" = "Anytype siap diperbarui";
-"Widgets.Source.Suggested" = "Suggested";
+"Widgets.Source.Suggested" = "Disarankan";
 "Widgets.Source.Library" = "Default sets";
 "Widgets.Source.Objects" = "Objekmu";
-"Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.List.Empty" = "Belum ada gawit";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
@@ -908,8 +908,8 @@
 "Settings.Edit picture" = "Sunting gambar";
 "Settings.Updated" = "Informasi ruang diperbarui";
 "Settings.DataManagement" = "Manajemen Data";
-"Settings.ChatEnabled" = "Chat is enabled";
-"Settings.ChatDisabled" = "Chat is disabled";
+"Settings.ChatEnabled" = "Obrolan diaktifkan";
+"Settings.ChatDisabled" = "Obrolan dinonaktifkan";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Penyimpanan berkas";
@@ -948,8 +948,8 @@
 "Spaces.UxType.Chat.Title" = "Chat";
 "Spaces.UxType.Space.Title" = "Ruang";
 "Spaces.UxType.Stream.Title" = "Stream";
-"Spaces.UxType.Chat.Description" = "For real-time conversations";
-"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Chat.Description" = "Untuk percakapan langsung";
+"Spaces.UxType.Space.Description" = "Untuk konten dan data yang tertata";
 "Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
 
 // MARK: - Space
@@ -992,7 +992,7 @@
 "SpaceShare.Invite.Description" = "Bagikan tautan undangan ini agar orang lain dapat bergabung ke Ruangmu. Begitu mereka mengeklik tautan dan meminta akses, kamu bisa mengatur hak akses mereka.";
 "SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
 "SpaceShare.Invite.Share" = "Bagikan tautan undangan";
-"SpaceShare.Share.link" = "Share link";
+"SpaceShare.Share.link" = "Bagikan tautan";
 "SpaceShare.Invite.Generate" = "Buat tautan undangan";
 "SpaceShare.Invite.Empty" = "Buat tautan undangan untuk membagikan ruang dan menambah anggota baru";
 "SpaceShare.JoinRequest" = "Permintaan bergabung";
@@ -1000,7 +1000,7 @@
 "SpaceShare.Action.ViewRequest" = "Lihat permintaan";
 "SpaceShare.Action.Approve" = "Terima";
 "SpaceShare.DeleteSharingLink.Title" = "Hapus tautan";
-"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
+"SpaceShare.CopyInviteLink.Title" = "Salin tautan undangan";
 "SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan baru kapan saja";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
@@ -1015,11 +1015,11 @@
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung ke ruang **%@** buatan **%@**. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
-"SpaceShare.Join.NoAccess.Title" = "No access to this space";
-"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
+"SpaceShare.Join.NoAccess.Title" = "Tidak ada akses ke ruang";
+"SpaceShare.Join.InviteNotFound.Message" = "Tautan yang kamu gunakan tidak berfungsi. Silakan minta pemilik tautan untuk mengirimkan tautan baru kepadamu.";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
-"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Mintalah pemiliknya membaginya denganmu.";
 "SpaceShare.Join.SpaceDeleted" = "Ruang yang ingin kamu akses sudah dihapus";
 
 "SpaceShare.YouSuffix" = "%@ (kamu)";
@@ -1058,8 +1058,8 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Chat.Title" = "Create a chat";
-"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Chat.Title" = "Buat obrolan";
+"SpaceCreate.Space.Title" = "Buat ruang";
 "SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
@@ -1274,8 +1274,8 @@ Please provide specific details of your needs here.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tambahkan Reaksi";
 "Message.Action.Reply" = "Balas";
-"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
-"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
+"Message.Input.Chat.EmptyPlaceholder" = "Tulis pesan …";
+"Message.Input.Stream.EmptyPlaceholder" = "Siarkan";
 "Message.Action.Unread" = "Tandai Belum Dibaca";
 "Message.Action.CopyPlainText" = "Salin Teks Polos";
 "Message.ChatTitle.Placeholder" = "Obrolan Nirjudul";
@@ -1300,7 +1300,7 @@ Please provide specific details of your needs here.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Balas %@";
-"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Title" = "Belum ada pesan";
 "Chat.Empty.Owner.Description" = "Invite people and spark it up!";
 "Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
 "Stream.Empty.Title" = "This stream is empty";
@@ -1330,7 +1330,7 @@ Please provide specific details of your needs here.";
 "Chat.CreateObject.Dismiss.Ok" = "Ya, tutup";
 "Chat.Attach.Page.title" = "Lampirkan Halaman";
 "Chat.Attach.List.title" = "Lampirkan Daftar";
-"Chat.NewMessages" = "New Messages";
+"Chat.NewMessages" = "Pesan Baru";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Meningkatkan pengalaman penelusuranmu";
@@ -1349,8 +1349,8 @@ Please provide specific details of your needs here.";
 "ObjectSearchWithMeta.Create.Collection" = "Koleksi Baru";
 
 // MARK: - AI Tool
-"AITool.title" = "Ask AI";
-"AITool.placeholder" = "For example, Summarise";
+"AITool.title" = "Tanya AI";
+"AITool.placeholder" = "Misalnya, rangkumkan";
 "AITool.button" = "Generate";
 
 // MARK: - Any App
