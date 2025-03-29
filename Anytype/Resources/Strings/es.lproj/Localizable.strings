@@ -84,7 +84,7 @@
 "Relation.EmptyState.description" = "No se ha encontrado nada. Crea la primera opción para comenzar.";
 "Relation.EmptyState.Blocked.title" = "La propiedad está vacía";
 "Relation.Create.Row.title" = "Crear “%@”";
-"Relation.View.Create.title" = "Crear opción ";
+"Relation.View.Create.title" = "Crear opción";
 "Relation.View.Edit.title" = "Editar opción";
 "Relation.Create.Textfield.placeholder" = "Introducir nombre…";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
@@ -94,7 +94,7 @@
 "Relation.Delete.Alert.Description" = "La opción se eliminará definitivamente de tu espacio.";
 "Relation.Object.Delete.Alert.Description" = "El objeto será movido a la papelera.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relación de objeto";
 "Relation.Format.Text.Title" = "Texto";
 "Relation.Format.Number.Title" = "Número";
 "Relation.Format.Status.Title" = "Seleccionar";
@@ -197,14 +197,14 @@
 "Green background" = "Fondo verde";
 "Create new object" = "Crear un objeto";
 "Create new object with name" = "Crear nuevo objeto «%@»";
-"Create new type" = "Create new type";
+"Create new type" = "Crear un tipo";
 "Cancel" = "Cancelar";
 "Paste or type URL" = "Pega o escribe una URL";
 "No items match filter" = "Ningún elemento coincide con este filtro";
 "Unsupported block" = "Bloque no compatible";
 "Unsupported" = "No compatible";
 "Name" = "Nombre";
-"Plural name" = "Plural name";
+"Plural name" = "Nombre plural";
 "Description" = "Descripción";
 "Add a description" = "Añadir una descripción…";
 "Paste processing..." = "Procesando pegado…";
@@ -218,20 +218,20 @@
 "My spaces" = "Mis espacios";
 "My Channels" = "Mis canales";
 "Open file" = "Abrir archivo";
-"Open Set" = "Open Query";
-"Create Set" = "Create Query";
+"Open Set" = "Abrir consulta";
+"Create Set" = "Crear consulta";
 "Unsupported deeplink" = "Enlace no compatible";
 "Edit Profile" = "Editar perfil";
-"Object Types" = "Object Types";
-"Resolve layout conflict" = "Resolve layout conflict";
-"Reset to default" = "Reset to default";
-"Puzzle" = "Puzzle";
-"Puzzles" = "Puzzles";
+"Object Types" = "Tipos de objeto";
+"Resolve layout conflict" = "Resolver conflicto de diseño";
+"Reset to default" = "Restablecer por defecto";
+"Puzzle" = "Puzle";
+"Puzzles" = "Puzles";
 
-"Add property" = "Add property";
-"Search or create new" = "Search or create new";
-"Existing properties" = "Existing properties";
-"Properties formats" = "Properties formats";
+"Add property" = "Añadir propiedad";
+"Search or create new" = "Buscar o crear";
+"Existing properties" = "Propiedades existentes";
+"Properties formats" = "Formatos de propiedades";
 
 // Home
 "Favorites" = "Favoritos";
@@ -242,7 +242,7 @@
 // Settings
 "Wallpaper" = "Fondo de pantalla";
 "Log out" = "Cerrar sesión";
-"Content Model" = "Content Model";
+"Content Model" = "Modelo de contenido";
 "Misc" = "Varios";
 
 // Action
@@ -283,7 +283,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Esta es tu clave";
-"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
+"Auth.JoinFlow.Key.Description" = "Tu clave es el equivalente de tu usuario y contraseña. Guárdala bien; tus datos están bajo tu control. Podrás volver a verla en los ajustes de la aplicación.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Pulsa para mostrar";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Siguiente";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Ahora no";
@@ -358,7 +358,7 @@
 "Actions.CopyLink" = "Copiar enlace";
 
 // Object Type
-"Set" = "Query";
+"Set" = "Consulta";
 "Collection" = "Colección";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Desplaza para elegir un lugar";
@@ -374,7 +374,7 @@
 // MARK: - Main search
 "There is no object named" = "No hay ningún objeto llamado %@";
 "There is no type named" = "No hay ningún tipo llamado %@";
-"There is no property named" = "There is no property named %@";
+"There is no property named" = "No hay ninguna propiedad llamada %@";
 "Create a new one or search for something else" = "Crea uno nuevo o busca otro distinto.";
 "Search.Links.Show.title" = "Mostrar objetos relacionados";
 "Search.Links.Header.title" = "Relacionado con: %@";
@@ -441,7 +441,7 @@
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Al principio";
 "EditSet.Popup.Sort.EmptyTypes.End" = "Al final";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Mostrar valores vacíos";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Elige la propiedad para el orden";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtrar";
@@ -501,8 +501,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Seleccionar consulta";
-"Set.FeaturedRelations.RelationsList" = "Properties:";
-"Set.FeaturedRelations.Relation" = "Property:";
+"Set.FeaturedRelations.RelationsList" = "Propiedades:";
+"Set.FeaturedRelations.Relation" = "Propiedad:";
 "Set.FeaturedRelations.Type" = "Tipo:";
 
 // MARK: - Set.Bookmarks
@@ -518,7 +518,7 @@
 "Set.View.Settings.GroupBy.Title" = "Agrupar por";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Colorear columnas";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No properties";
+"Set.View.Settings.NoRelations.Placeholder" = "Sin propiedades";
 "Set.View.Settings.NoFilters.Placeholder" = "Sin filtros";
 "Set.View.Settings.NoSorts.Placeholder" = "Sin orden";
 "Set.View.Settings.Objects.Applied.Title" = "%d aplicado";
@@ -533,7 +533,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Ninguna consulta seleccionada";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
+"Set.View.Empty.Subtitle" = "Añade una consulta para obtener una lista actualizada de objetos con un tipo o propiedad en común";
 
 // MARK: - Sets: unsupported View
 "Set.View.UnsupportedAlert" = "Esta vista no es compatible con la versión móvil";
@@ -543,7 +543,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "Esta consulta solo puede cambiarse en la versión de escritorio";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Convertir consulta en colección";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Cambiar consulta";
 
 // MARK: - Collection: empty view
@@ -583,21 +583,21 @@
 "Enter number" = "Introducir número";
 "Enter text" = "Introducir texto";
 "Unsupported value" = "Valor no soportado";
-"Select relation type" = "Select property type";
+"Select relation type" = "Seleccionar tipo de propiedad";
 "CommonOpenErrorView.Message" = "No se han encontrado datos";
 "AreYouSure" = "¿Seguro?";
 "Nothing found" = "No se ha encontrado nada";
 "No type found text" = "No se ha encontrado el tipo «%@». Cambia la consulta o crea un tipo nuevo.";
 "Create type" = "Crear tipo";
 "Chat" = "Chat";
-"Edit type" = "Edit type";
+"Edit type" = "Editar tipo";
 
 "Limit object types" = "Limitar tipos de objeto";
 "Type" = "Tipo:";
 "Types" = "Tipos";
 "No name" = "Sin nombre";
-"New field" = "New property";
-"Edit field" = "Edit property";
+"New field" = "Nueva propiedad";
+"Edit field" = "Editar propiedad";
 "Non-existent object" = "Objeto inexistente";
 
 "Select all" = "Seleccionar todo";
@@ -605,7 +605,7 @@
 "Deselect all" = "Deseleccionar todo";
 "Deselect" = "Deseleccionar";
 "Shared" = "Compartido";
-"Sets" = "Queries";
+"Sets" = "Consultas";
 "Collections" = "Colecciones";
 "Default object type" = "Tipo de objeto por defecto";
 "Personalization" = "Personalización";
@@ -631,9 +631,9 @@
 "Vault.Select.Incompatible.Version.Error.Text" = "No hemos podido recuperar los datos de tu arca porque tu versión de Anytype está anticuada. Actualiza Anytype a la versión más reciente.";
 "Restore from keychain" = "Restaurar desde el llavero";
 "Edit" = "Editar";
-"Hidden" = "Hidden";
+"Hidden" = "Oculto";
 "In this object" = "En este objeto";
-"Other relations" = "Other properties";
+"Other relations" = "Otras propiedades";
 "Collection of objects" = "Colección de objetos";
 "Designed to capture thoughts quickly" = "Para capturar pensamientos rápidamente";
 "Action-focused layout with a checkbox" = "Diseño con casillas para verificar acciones";
@@ -720,12 +720,12 @@
 "My First Space" = "Mi Primer Espacio";
 "Copy space info" = "Copiar información del espacio";
 "Save" = "Guardar";
-"Set of" = "Query of %@";
-"New set" = "New query";
+"Set of" = "Consulta de %@";
+"New set" = "Nueva consulta";
 "Show" = "Mostrar";
 "Hide" = "Ocultar";
 "Apply" = "Aplicar";
-"Got it" = "I got it!";
+"Got it" = "¡Entendido!";
 "Leave a space" = "Abandonar un espacio";
 "Collaboration" = "Colaboración";
 "Members" = "Miembros";
@@ -826,13 +826,13 @@
 "Content.Common.Error" = "Se ha producido un error. Inténtalo de nuevo.";
 "Content.Bookmark.Add" = "Agregar un marcador web";
 "Content.Bookmark.Loading" = "Cargando. Espera, por favor…";
-"Content.DataView.InlineSet.Subtitle" = "Inline query";
+"Content.DataView.InlineSet.Subtitle" = "Consulta insertada";
 "Content.DataView.InlineCollection.Subtitle" = "Colección insertada";
 "Content.DataView.InlineSet.NoSource" = "Sin origen";
 "Content.DataView.InlineSet.NoData" = "Sin datos";
-"Content.DataView.InlineSet.Untitled" = "Untitled query";
+"Content.DataView.InlineSet.Untitled" = "Consulta sin título";
 "Content.DataView.InlineCollection.Untitled" = "Colección sin título";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "Este consulta insertada no tiene un origen";
 
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "enlazado a";
@@ -860,7 +860,7 @@
 "Widgets.Layout.Link.Description" = "Vista de widget compacto";
 "Widgets.Layout.Tree.Description" = "Widget con estructura jerárquica";
 "Widgets.Layout.List.Description" = "Widget con vista de lista";
-"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
+"Widgets.Layout.View.Description" = "Widget con diseño de consulta o colección";
 "Widgets.Layout.CompactList.Description" = "Widget con vista de lista compacta";
 "Widgets.Empty.Title" = "Aquí no hay objetos";
 "Widgets.Empty.CreateObject" = "Crear objeto";
@@ -868,10 +868,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Abierto recientemente";
 "Widgets.Library.RecentlyOpened.Description" = "En este dispositivo";
 "Widgets.AppUpdate" = "Anytype tiene una actualización";
-"Widgets.Source.Suggested" = "Suggested";
+"Widgets.Source.Suggested" = "Sugerencia";
 "Widgets.Source.Library" = "Conjuntos por defecto";
 "Widgets.Source.Objects" = "tus objetos";
-"Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.List.Empty" = "Aún no hay ningún widget";
 
 // MARK: - About
 "About.AppVersion" = "Versión de la aplicación: %@";
@@ -907,8 +907,8 @@
 "Settings.Edit picture" = "Editar imagen";
 "Settings.Updated" = "Actualizada la información del espacio";
 "Settings.DataManagement" = "Gestión de datos";
-"Settings.ChatEnabled" = "Chat is enabled";
-"Settings.ChatDisabled" = "Chat is disabled";
+"Settings.ChatEnabled" = "El chat está habilitado";
+"Settings.ChatDisabled" = "El chat está deshabilitado";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Almacenamiento de archivos";
@@ -918,7 +918,7 @@
 "FileStorage.Space.GetMore" = "Conseguir más espacio";
 "FileStorage.Local.Title" = "Almacenamiento local";
 "FileStorage.Local.Instruction" = "Para ahorrar espacio en tu dispositivo local, puedes guardar todos tus archivos en nuestro nodo de respaldo cifrado. Los archivos se cargarán de nuevo cuando los abras.";
-"FileStorage.Local.Used" = "%@ utilizados";
+"FileStorage.Local.Used" = "%@ usados";
 "FileStorage.OffloadTitle" = "Guardar en el nodo";
 "FileStorage.CleanUpFiles" = "Limpiar archivos";
 "FileStorage.LimitError" = "Has superado el límite de carga de archivos";
@@ -946,10 +946,10 @@
 "Spaces.Info.Network" = "Red:";
 "Spaces.UxType.Chat.Title" = "Chat";
 "Spaces.UxType.Space.Title" = "Espacio";
-"Spaces.UxType.Stream.Title" = "Stream";
-"Spaces.UxType.Chat.Description" = "For real-time conversations";
-"Spaces.UxType.Space.Description" = "For organized content and data";
-"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
+"Spaces.UxType.Stream.Title" = "Transmisión";
+"Spaces.UxType.Chat.Description" = "Para conversaciones en tiempo real";
+"Spaces.UxType.Space.Description" = "Para contenido y datos organizados";
+"Spaces.UxType.Stream.Description" = "Para difundir tus novedades";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Desconocido";
@@ -989,9 +989,9 @@
 "SpaceShare.Permissions.Grand.View" = "Vista";
 "SpaceShare.Invite.Title" = "Enlace de invitación";
 "SpaceShare.Invite.Description" = "Comparte este enlace con quien quieras que acceda a tu espacio. Cuando haga clic en el enlace y envíe su solicitud, podrás definir sus derechos de acceso.";
-"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
+"SpaceShare.Invite.Stream.Description" = "Comparte este enlace con quien quieras que acceda a tu transmisión.";
 "SpaceShare.Invite.Share" = "Compartir enlace de invitación";
-"SpaceShare.Share.link" = "Share link";
+"SpaceShare.Share.link" = "Compartir enlace";
 "SpaceShare.Invite.Generate" = "Generar enlace de invitación";
 "SpaceShare.Invite.Empty" = "Crea un enlace de invitación para compartir el espacio y añadir miembros";
 "SpaceShare.JoinRequest" = "Solicitud de acceso";
@@ -999,7 +999,7 @@
 "SpaceShare.Action.ViewRequest" = "Ver solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
 "SpaceShare.DeleteSharingLink.Title" = "Eliminar enlace";
-"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
+"SpaceShare.CopyInviteLink.Title" = "Copiar enlace de invitación";
 "SpaceShare.DeleteSharingLink.Message" = "No podrán acceder nuevos miembros al espacio. Puedes generar un enlace nuevo en cualquier momento";
 "SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ solicita acceder al espacio %@";
@@ -1014,11 +1014,11 @@
 "SpaceShare.Join.Button" = "Solicitar acceso";
 "SpaceShare.Join.Info" = "Cuando el propietario del espacio apruebe tu solicitud, tendrás acceso al espacio con los derechos que el propietario determine.";
 "SpaceShare.Join.Message" = "Tienes una invitación al espacio **%@**, creado por **%@**. Envía una solicitud para que el propietario del espacio te dé acceso.";
-"SpaceShare.Join.NoAccess.Title" = "No access to this space";
-"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
+"SpaceShare.Join.NoAccess.Title" = "Sin acceso a este espacio";
+"SpaceShare.Join.InviteNotFound.Message" = "El enlace que estás usando no parece válido. Pide al propietario que te envíe un enlace nuevo.";
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
-"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Pide al propietario que lo comparta contigo.";
 "SpaceShare.Join.SpaceDeleted" = "El espacio al que intentas acceder se ha eliminado";
 
 "SpaceShare.YouSuffix" = "%@ (tú)";
@@ -1057,9 +1057,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Chat.Title" = "Create a chat";
-"SpaceCreate.Space.Title" = "Create a space";
-"SpaceCreate.Stream.Title" = "Create a stream";
+"SpaceCreate.Chat.Title" = "Crear un chat";
+"SpaceCreate.Space.Title" = "Crear un espacio";
+"SpaceCreate.Stream.Title" = "Crear una transmisión";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Añadir a Anytype";
@@ -1245,7 +1245,7 @@ En concreto,
 "Membership.Feature.Viewers" = "%@ visitantes por espacio compartido";
 "Membership.Feature.SharedSpaces" = "Hasta %@ espacios compartidos";
 
-"MembershipServiceError.tierNotFound" = "No sse encuentran los datos del nivel, reinicia la aplicación e inténtalo de nuevo";
+"MembershipServiceError.tierNotFound" = "No se encuentran los datos del nivel, reinicia la aplicación e inténtalo de nuevo";
 "MembershipServiceError.invalidBillingIdFormat" = "Hubo un problema interno con el formato de facturación y lo estamos resolviendo. Inténtelo de nuevo más tarde o ponte en contacto con el soporte técnico.";
 
 
@@ -1273,10 +1273,10 @@ En concreto,
 // MARK: - Messages
 "Message.Action.AddReaction" = "Añadir reacción";
 "Message.Action.Reply" = "Responder";
-"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
-"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
-"Message.Action.Unread" = "Mark Unread";
-"Message.Action.CopyPlainText" = "Copy Plain Text";
+"Message.Input.Chat.EmptyPlaceholder" = "Escribir mensaje…";
+"Message.Input.Stream.EmptyPlaceholder" = "Difundir";
+"Message.Action.Unread" = "Marcar como no leído";
+"Message.Action.CopyPlainText" = "Copiar texto simple";
 "Message.ChatTitle.Placeholder" = "Chat sin título";
 
 // MARK: - Date
@@ -1299,11 +1299,11 @@ En concreto,
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Responder a %@";
-"Chat.Empty.Title" = "No messages yet";
-"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
-"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
-"Stream.Empty.Title" = "This stream is empty";
-"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Title" = "Aún no hay mensajes";
+"Chat.Empty.Owner.Description" = "¡Invita a alguien y anima la fiesta!";
+"Chat.Empty.Editor.Description" = "¡Escribe el primero para animar la fiesta!";
+"Stream.Empty.Title" = "Esta transmisión está vacía";
+"Stream.Empty.Description" = "Invita a alguien y comparte tus novedades.";
 "Chat.Empty.Button.title" = "Compartir enlace de invitación";
 "Chat.DeleteMessage.Title" = "¿Eliminar este mensaje?";
 "Chat.DeleteMessage.Description" = "Después de confirmar esto, no podrás restaurarlo.";
@@ -1329,7 +1329,7 @@ En concreto,
 "Chat.CreateObject.Dismiss.Ok" = "Sí, cerrarla";
 "Chat.Attach.Page.title" = "Adjuntar página";
 "Chat.Attach.List.title" = "Adjuntar lista";
-"Chat.NewMessages" = "New Messages";
+"Chat.NewMessages" = "Mensajes nuevos";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Mejorando tu experiencia de búsqueda";
@@ -1344,36 +1344,36 @@ En concreto,
 // MARK: - Object Search with meta
 "ObjectSearchWithMeta.Create.Page" = "Nueva página";
 "ObjectSearchWithMeta.Create.Note" = "Nueva nota";
-"ObjectSearchWithMeta.Create.Set" = "New Query";
+"ObjectSearchWithMeta.Create.Set" = "Nueva consulta";
 "ObjectSearchWithMeta.Create.Collection" = "Nueva colección";
 
 // MARK: - AI Tool
-"AITool.title" = "Ask AI";
-"AITool.placeholder" = "For example, Summarise";
-"AITool.button" = "Generate";
+"AITool.title" = "Pregunta a la IA";
+"AITool.placeholder" = "Por ejemplo, resume";
+"AITool.button" = "Generar";
 
 // MARK: - Any App
-"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
-"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+"AnyApp.BetaAlert.Title" = "Te damos la bienvenida a la versión alfa";
+"AnyApp.BetaAlert.Description" = "¡Estás en la vanguardia! Algunas funciones están aún en desarrollo o no están listas para un entorno de producción. Presta atención a las actualizaciones.";
 
 // MARK: - Migration
-"Migration.Initial.title" = "New Version Update";
-"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
-"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
-"Migration.Initial.startUpdate" = "Start Update";
-"Migration.Initial.readMore" = "Read More";
+"Migration.Initial.title" = "Nueva actualización de versión";
+"Migration.Initial.subtitle1" = "Estamos poniendo los cimientos de los nuevos chats. Esto incluye notificaciones, contadores y otras funciones necesarias para una experiencia de chat completa.";
+"Migration.Initial.subtitle2" = "Puede llevarnos algo de tiempo, pero no te preocupes: tus datos están a salvo.";
+"Migration.Initial.startUpdate" = "Iniciar actualización";
+"Migration.Initial.readMore" = "Más información";
 
-"Migration.Progress.title" = "Update is in progress...";
+"Migration.Progress.title" = "La actualización está en curso…";
 "Migration.Progress.subtitle" = "Esto puede llevar algún tiempo. No cierres la aplicación hasta que termine el proceso.";
 "Migration.Error.NotEnoughtSpace.title" = "No hay suficiente espacio";
 "Migration.Error.NotEnoughtSpace.message" = "Libera algo de espacio y vuelve a ejecutar el proceso.";
 
-"Migration.ReadMore.option1" = "What to Expect";
-"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
-"Migration.ReadMore.option2" = "Your Data Remains Safe";
-"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
-"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+"Migration.ReadMore.option1" = "Qué ocurrirá";
+"Migration.ReadMore.description1" = "Verás una pantalla de carga durante la actualización. Cuando termine, podrás seguir usando la aplicación como siempre.";
+"Migration.ReadMore.option2" = "Tus datos están a salvo";
+"Migration.ReadMore.description2" = "Durante esta actualización, tus datos están protegidos por completo. La actualización se realiza en tu dispositivo y no afecta a los datos sincronizados. Lo que hacemos es copiarlos con un formato nuevo y crear en tu dispositivo una copia de respaldo que contiene todos los datos en el formato anterior.";
+"Migration.ReadMore.description3" = "Esta copia de respaldo nos sirve para depurar errores y ofrecerte ayuda si se presenta algún imprevisto.";
 
 
 // MARK: - Primitives
-"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";
+"Primitives.LayoutConflict.Description" = "Este diseño es distinto del establecido por defecto para este tipo. ¿Restablecer el diseño por defecto?";

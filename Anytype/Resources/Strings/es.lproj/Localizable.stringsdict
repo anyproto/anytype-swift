@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d objeto de marcador</string>
+        <string>Objeto marcador</string>
         <key>other</key>
-        <string>%d objetos de marcador</string>
+        <string>%d objetos marcador</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>This type has %d template</string>
+        <string>Este tipo tiene %d plantilla</string>
         <key>other</key>
-        <string>This type has %d templates</string>
+        <string>Este tipo tiene %d plantillas</string>
       </dict>
     </dict>
   </dict>
