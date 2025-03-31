@@ -96,27 +96,9 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let details):
-            var recommendedFeaturedRelations = details.recommendedFeaturedRelationsDetails
-            recommendedFeaturedRelations.insert(relation, at: 0)
-            
-            try await relationsService
-                .updateTypeRelations(
-                    typeId: data.objectId,
-                    recommendedRelations: details.recommendedRelationsDetails,
-                    recommendedFeaturedRelations: recommendedFeaturedRelations,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
+            try await relationsService.addTypeFeaturedRecommendedRelation(details: details, relation: relation)
         case .recommendedRelations(let details):
-            var recommendedRelations = details.recommendedRelationsDetails
-            recommendedRelations.insert(relation, at: 0)
-            
-            try await relationsService
-                .updateTypeRelations(
-                    typeId: data.objectId,
-                    recommendedRelations: recommendedRelations,
-                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
+            try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)
         }
     }
     

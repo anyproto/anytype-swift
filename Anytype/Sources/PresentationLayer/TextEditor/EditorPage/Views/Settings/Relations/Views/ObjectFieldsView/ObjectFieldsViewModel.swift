@@ -63,19 +63,9 @@ final class ObjectFieldsViewModel: ObservableObject {
         AnytypeAnalytics.instance().logAddConflictRelation()
         guard let details = document.details else { return }
         
-        var newRecommendedRelations = document.parsedRelations.sidebarRelations
-        newRecommendedRelations.append(relation)
-        
-        let relationsDetails = relationDetailsStorage.relationsDetails(ids: newRecommendedRelations.map(\.id), spaceId: document.spaceId)
-        
         Task {
-            try await relationsService
-                .updateTypeRelations(
-                    typeId: details.type,
-                    recommendedRelations: relationsDetails,
-                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
+            let relationsDetail = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: details.spaceId)
+            try await relationsService.addTypeRecommendedRelation(details: details, relation: relationsDetail)
         }
     }
     

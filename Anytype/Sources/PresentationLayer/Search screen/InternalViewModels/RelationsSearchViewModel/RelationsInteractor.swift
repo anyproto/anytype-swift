@@ -53,15 +53,6 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     }
     
     private func addRelationToType(relation: RelationDetails, details: ObjectDetails) async throws {
-        var recommendedRelations = details.recommendedRelationsDetails
-        recommendedRelations.insert(relation, at: 0)
-        
-        try await relationsService
-            .updateTypeRelations(
-                typeId: details.id,
-                recommendedRelations: recommendedRelations,
-                recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-            )
+        try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)
     }
 }
