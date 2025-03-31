@@ -96,7 +96,7 @@ private extension AnytypeWidgetId {
                 type: .sets,
                 name: Loc.sets,
                 description: nil,
-                icon: .object(.emoji(Emoji("📚")!))
+                icon: .object(.emoji(Emoji("🔎")!))
             )
         case .collections:
             return WidgetAnytypeLibrarySource(
