@@ -1,0 +1,1381 @@
+// style menu
+"StyleMenu.Color.TextColor.Placeholder" = "A";
+
+// MARK: Text Style in Slash and Style menu
+"TextStyle.Text.Title" = "Tekst";
+"TextStyle.Text.Subtitle" = "Begin met schrijven";
+
+"TextStyle.Title.Title" = "Titel";
+"TextStyle.Title.Subtitle" = "Grote sectie koptekst";
+
+"TextStyle.Heading.Title" = "Koptekst";
+"TextStyle.Heading.Subtitle" = "Middelgrote koptekst";
+
+"TextStyle.Subheading.Title" = "Subkoptekst";
+"TextStyle.Subheading.Subtitle" = "Kleine koptekst";
+
+"TextStyle.Highlighted.Title" = "Gemarkeerd";
+"TextStyle.Highlighted.Subtitle" = "Spotlight, hetgeen speciale aandacht verdient";
+
+"TextStyle.Callout.Title" = "Toelichting";
+"TextStyle.Callout.Subtitle" = "Omrande tekst met icoon";
+
+"TextStyle.Checkbox.Title" = "Selectievakje";
+"TextStyle.Checkbox.Subtitle" = "Maak en volg taken met een to-do lijst";
+
+"TextStyle.Bulleted.Title" = "Opsommingslijst";
+"TextStyle.Bulleted.Subtitle" = "Eenvoudige lijst";
+
+"TextStyle.Numbered.Title" = "Genummerde lijst";
+"TextStyle.Numbered.Subtitle" = "Genummerde lijst";
+
+"TextStyle.Toggle.Title" = "In-/uitvouwen";
+"TextStyle.Toggle.Subtitle" = "Verberg en toon de inhoud binnenin";
+
+"TextStyle.Bold.Title" = "Vetgedrukt";
+"TextStyle.Italic.Title" = "Cursief";
+"TextStyle.Strikethrough.Title" = "Doorhalen";
+"TextStyle.Underline.Title" = "Onderstrepen";
+"TextStyle.Code.Title" = "Code";
+"TextStyle.Link.Title" = "Koppeling";
+
+// MARK: - Block Text
+
+"BlockText.ContentType.Title.Placeholder" = "Naamloos";
+"BlockText.ContentType.Description.Placeholder" = "Voeg een beschrijving toe";
+"BlockText.ContentType.Toggle.Placeholder" = "Open/sluit blok";
+"BlockText.ContentType.Bulleted.Placeholder" = "Onderdeel van lijst met opsommingstekens";
+"BlockText.ContentType.Checkbox.Placeholder" = "Selectievakje";
+"BlockText.ContentType.Numbered.Placeholder" = "Onderdeel van genummerde lijst";
+"BlockText.ContentType.Quote.Placeholder" = "Gemarkeerde tekst";
+"BlockText.ContentType.Header.Placeholder" = "Titel";
+"BlockText.ContentType.Header2.Placeholder" = "Koptekst";
+"BlockText.ContentType.Header3.Placeholder" = "Subkoptekst";
+
+// MARK: - Block Link
+
+"BlockLink.PreviewSettings.IconSize.None" = "Geen";
+"BlockLink.PreviewSettings.IconSize.Small" = "Klein";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Gemiddeld";
+
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kaart";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
+
+// MARK: - Object
+"Object.Deleted.Placeholder" = "Verwijderd object";
+
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Eigenschap %@ is aangemaakt";
+"Fields.Updated" = "Eigenschap ‘%@’ is bijgewerkt";
+"Fields.menu" = "Eigenschappen menu";
+"Fields.local" = "Lokale eigenschappen";
+"Fields.missingInfo" = "Sommige eigenschappen zijn niet inbegrepen in het objecttype. Voeg ze alsjeblieft toe als je ze in alle objecten van dit type wilt zien, of verwijder ze.";
+"Fields.addToType" = "Voeg toe aan het huidige type";
+"Fields.removeFromObject" = "Verwijder uit het object";
+
+
+"Featured relations" = "Uitgelichte eigenschappen";
+"Create relation" = "Maak eigenschap '%@’";
+"Relation.View.Hint.Empty" = "leeg";
+"Relation.MyRelations" = "Mijn eigenschappen";
+"Relation.Deleted" = "Verwijderde eigenschap";
+"Relation.From.Type" = "Van type %@";
+"Relation.EmptyState.title" = "Geen opties";
+"Relation.EmptyState.description" = "Niets gevonden. Maak een eerste optie om te starten.";
+"Relation.EmptyState.Blocked.title" = "De eigenschap is leeg";
+"Relation.Create.Row.title" = "Maak \"%@\"";
+"Relation.View.Create.title" = "Maak optie";
+"Relation.View.Edit.title" = "Bewerk optie";
+"Relation.Create.Textfield.placeholder" = "Voer naam... in";
+"Relation.ObjectTypes.Header.title" = "Objecttypes:";
+"Relation.ObjectType.Header.title" = "Objecttype:";
+
+"Relation.Delete.Alert.Title" = "Weet je het zeker?";
+"Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
+"Relation.Object.Delete.Alert.Description" = "Het object wordt naar de prullenmand verplaatst.";
+
+"Relation.Format.Object.Title" = "Object relatie";
+"Relation.Format.Text.Title" = "Tekst";
+"Relation.Format.Number.Title" = "Nummer";
+"Relation.Format.Status.Title" = "Selecteer";
+"Relation.Format.Tag.Title" = "Selecteer meerdere";
+"Relation.Format.Date.Title" = "Datum";
+"Relation.Format.FileMedia.Title" = "Bestand & media";
+"Relation.Format.Checkbox.Title" = "Selectievakje";
+"Relation.Format.Url.Title" = "URL";
+"Relation.Format.Email.Title" = "E-mailadres";
+"Relation.Format.Phone.Title" = "Telefoonnummer";
+
+"Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe eigenschap";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "Klembord";
+"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.Import" = "Geïmporteerd object";
+"Relation.Origin.WebClipper" = "Webclipper";
+"Relation.Origin.SharingExtension" = "Mobiel delen extensie";
+"Relation.Origin.UseCase" = "Gebruikerstoepassing";
+"Relation.Origin.Builtin" = "Bibliotheek geïnstalleerd";
+"Relation.Origin.Bookmark" = "Bladwijzer";
+"Relation.Origin.API" = "API";
+
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
+// MARK: - Mention
+"Mention.Subtitle.Placeholder" = "Object";
+
+"Untitled" = "Naamloos";
+"None" = "Geen";
+"Callout" = "Toelichting";
+"Toggle empty. Tap to create block." = "Uitvouwbare lijst is leeg. Tik om nieuw blok te maken.";
+"Loading, please wait" = "Bezig met laden, een ogenblik geduld";
+"Done" = "Gereed";
+"Next" = "Volgende";
+"Style" = "Stijl";
+"Color" = "Kleur";
+"Background" = "Achtergrond";
+"Other" = "Andere";
+"Media" = "Media";
+"Alignment" = "Uitlijning";
+"Actions" = "Acties";
+"Fields" = "Eigenschappen";
+"History" = "Geschiedenis";
+"Objects" = "Objecten";
+"All" = "Alles";
+"Pages" = "Pagina's";
+"Lists" = "Lijsten";
+"Bookmarks" = "Bladwijzers";
+"Files" = "Bestanden";
+"Media" = "Media";
+"Lists" = "Lijsten";
+"Dates" = "Datums";
+"Pinned" = "Vastgezet";
+"Delete" = "Verwijder";
+"Export" = "Export";
+"Duplicate" = "Dupliceer";
+"Copy" = "Kopiëren";
+"Preview" = "Voorvertoning";
+"View" = "Weergave";
+"Paste" = "Plakken";
+"Move" = "Verplaats";
+"Move to" = "Verplaats naar";
+"Back" = "Terug";
+"Pin" = "Zet vast";
+"Unpin" = "Maak los";
+"Pin on top" = "Zet vast bovenaan";
+"File block subtitle" = "Sla bestand op in oorspronkelijke staat";
+"Image block subtitle" = "Upload en verrijk de pagina met afbeelding";
+"Video block subtitle" = "Upload afspeelbare video";
+"Bookmark block subtitle" = "Sla je favoriete link op met samenvatting";
+"Code block subtitle" = "Codefragment vastleggen";
+"Align right" = "Lijn rechts uit";
+"Align left" = "Lijn links uit";
+"Align center" = "Centreer";
+"Align justify" = "Uitvullen";
+"Black" = "Zwart";
+"Amber" = "Amber";
+"Red" = "Rood";
+"Pink" = "Roze";
+"Purple" = "Paars";
+"Blue" = "Blauw";
+"Teal" = "Groenblauw";
+"Green" = "Groen";
+"Default background" = "Standaard achtergrond";
+"Amber background" = "Amber achtergrond";
+"Red background" = "Rode achtergrond";
+"Pink background" = "Roze achtergrond";
+"Purple background" = "Paarse achtergrond";
+"Blue background" = "Blauwe achtergrond";
+"Green background" = "Groene achtergrond";
+"Create new object" = "Maak nieuw object";
+"Create new object with name" = "Maak nieuw object \"%@\"";
+"Create new type" = "Maak nieuw type";
+"Cancel" = "Annuleren";
+"Paste or type URL" = "Plak of type URL";
+"No items match filter" = "Geen items die met filter overeenkomen";
+"Unsupported block" = "Blok niet ondersteund";
+"Unsupported" = "Niet ondersteund";
+"Name" = "Naam";
+"Plural name" = "Naam in meervoud";
+"Description" = "Beschrijving";
+"Add a description" = "Voeg een beschrijving toe...";
+"Paste processing..." = "Bezig met plakken...";
+"Anytype Library" = "Anytype bibliotheek";
+"Copied" = "Gekopieerd";
+"Share" = "Deel";
+"Okay" = "Okay";
+"Join" = "Neem deel";
+"Agreement Disclamer" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
+"Lets Go" = "Laten we beginnen";
+"My spaces" = "Mijn Ruimtes";
+"My Channels" = "Mijn kanalen";
+"Open file" = "Open bestand";
+"Open Set" = "Open opdracht";
+"Create Set" = "Maak opdracht";
+"Unsupported deeplink" = "Niet-ondersteunde deeplink";
+"Edit Profile" = "Bewerk profiel";
+"Object Types" = "Objecttypes";
+"Resolve layout conflict" = "Los opmaak conflict op";
+"Reset to default" = "Zet terug naar standaard";
+"Puzzle" = "Puzzel";
+"Puzzles" = "Puzzels";
+
+"Add property" = "Voeg eigenschap toe";
+"Search or create new" = "Zoek of maak nieuwe";
+"Existing properties" = "Bestaande eigenschappen";
+"Properties formats" = "Eigenschappen formaten";
+
+// Home
+"Favorites" = "Favorieten";
+"Recent" = "Recent";
+"Bin" = "Prullenbak";
+"All objects" = "Alle objecten";
+
+// Settings
+"Wallpaper" = "Achtergrond";
+"Log out" = "Meld af";
+"Content Model" = "Inhoud model";
+"Misc" = "Overig";
+
+// Action
+"Restore" = "Herstel";
+
+// Keychain screen
+"Keychain.Key" = "Sleutel";
+"Keychain.Key.Copy.Toast.title" = "Sleutel gekopieerd";
+"Keychain.Key.description" = "Je zult dit nodig hebben om in jouw kluis in te loggen. Bewaar het op een veilige plaats. Als je het verliest, heb je niet langer toegang tot jouw kluis.";
+"Keychain.Show and copy key" = "Toon en kopieer sleutel";
+"Keychain.Have you backed up your key?" = "Heb je een back-up van jouw sleutel gemaakt?";
+"Keychain.Error.String to Data conversion error" = "Tekst-naar-data conversiefout";
+"Keychain.Error.Data to String conversion error" = "Data-naar-tekst conversiefout";
+"Keychain.Error.Unknown Keychain Error" = "Onbekende fout door keychain";
+"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
+
+// Auth
+"Create" = "Maak";
+"Scan QR code" = "Scan QR code";
+"Auth.CameraPermissionTitle" = "Geef toegang";
+"Restore key from keychain" = "Herstel sleutel vanuit de sleutelhanger";
+"Auth.LogIn" = "Ik heb de sleutel al";
+"Auth.Button.Join" = "Ik ben nieuw hier";
+"Auth.Welcome.Subtitle" = "Maak & werk samen in jouw ruimten. Versleuteld, offline & [open](%@).";
+"Auth.Next" = "Volgende";
+
+"Vault recover error" = "Fout bij herstellen van kluis, probeer het opnieuw";
+"Vault recover error no internet" = "Fout bij herstellen van kluis, waarschijnlijk geen internetverbinding";
+
+// Auth Errors
+"Error creating wallet" = "Fout bij aanmaken wallet";
+"Error select vault" = "Fout, selecteer kluis";
+"Error wallet recover vault" = "Fout, herstellen kluis uit portemonnee";
+"Wallet.Recovery.Error.description" = "Ongeldige sleutel";
+
+"Search for language" = "Zoek naar taal";
+
+// Auth - Join flow
+
+"Auth.JoinFlow.Key.Title" = "Dit is jouw sleutel";
+"Auth.JoinFlow.Key.Description" = "Jouw sleutel vervangt een login en wachtwoord. Houd het veilig  jij beheert jouw gegevens. Je vindt het later in de app instellingen.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tik om te onthullen";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Niet nu";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Kopieer naar klembord";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Lees meer over Sleutel";
+
+"Auth.JoinFlow.Key.ReadMore.Title" = "Wat is de sleutel?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Het bestaat uit een herstelzin –  12 willekeurige woorden van waaruit jouw kluis op magische wijze wordt aangemaakt op dit apparaat.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wie de combinatie van deze woorden kent, is eigenaar van jouw kluis. **Op dit moment ben jij de enige persoon in de wereld die deze kent.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle rekenmiddelen op aarde zijn niet genoeg om in te breken. Als je het verliest, kan het niet worden hersteld. Dus sla het ergens veilig op!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Hoe bewaar ik mijn sleutel?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "De eenvoudigste manier om jouw sleutel op te slaan is door deze op te slaan in jouw wachtwoordmanager.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "De meest veilige manier is om het op papier op te schrijven en het offline te houden, op een veilige plek. ";
+
+"Auth.JoinFlow.Soul.Title" = "Voer jouw naam in";
+"Auth.JoinFlow.Soul.Description" = "Alleen zichtbaar voor mensen met wie je iets deelt. Er is geen centraal register van deze namen.";
+"Auth.JoinFlow.Soul.Placeholder" = "Naam";
+"Auth.JoinFlow.Soul.Button" = "Gereed";
+
+// Auth - Login flow
+"Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
+"Auth.LoginFlow.Or" = "OF";
+"Auth.LoginFlow.Textfield.Placeholder" = "Voer je sleutel in";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Entering.Void.Title" = "De Void binnengaan";
+
+// Object settings
+
+"Icon" = "Icoon";
+"Cover" = "Omslag";
+"Layout" = "Opmaak";
+
+// Version history
+"VersionHistory.Title" = "Versiegeschiedenis";
+"VersionHistory.Toast.message" = "Versie %@ is hersteld";
+
+"Search" = "Zoeken";
+"There is no emoji named" = "Er is geen emoji genaamd";
+"There is no icon named" = "Er is geen icoon met naam";
+"Try to find a new one or upload your image" = "Probeer een nieuwe te vinden of upload jouw afbeelding";
+"Try to find a new one" = "Probeer een nieuwe te vinden";
+
+"Emoji" = "Emoji";
+"Random" = "Willekeurig";
+"Upload" = "Upload";
+"Change icon" = "Wijzig icoon";
+"Change cover" = "Wijzig omslag";
+"Remove" = "Verwijder";
+
+"Solid colors" = "Effen kleuren";
+"Gradients" = "Gradiënten";
+"Gallery" = "Galerij";
+
+"Remove photo" = "Verwijder foto";
+"Basic" = "Basis";
+"Profile" = "Profiel";
+"Task" = "Taak";
+"Note" = "Notitie";
+"Choose layout type" = "Kies type lay-out";
+
+"Templates" = "Sjablonen";
+"Header" = "Koptekst";
+
+"Undo typing" = "Typen ongedaan maken";
+"Undo" = "Ongedaan maken";
+"Redo" = "Voer opnieuw uit";
+"Actions.LinkItself" = "Link naar";
+"Actions.MakeAsTemplate" = "Maak sjabloon";
+"Actions.TemplateMakeDefault" = "Maak standaard";
+"Actions.CreateWidget.Title" = "Naar widgets";
+"Actions.CreateWidget.Success" = "Nieuwe widget is gemaakt";
+"Actions.CopyLink" = "Kopieer link";
+
+// Object Type
+"Set" = "Opdracht";
+"Collection" = "Verzameling";
+
+"Editor.MovingState.ScrollToSelectedPlace" = "Scroll om een plaats te selecteren";
+
+// MARK: - Link to search
+
+"Editor.LinkToObject.SearchPlaceholder" = "Plak link of zoek objecten";
+"Editor.LinkToObject.PasteFromClipboard" = "Plak vanaf klembord";
+"Editor.LinkToObject.LinkedTo" = "Gekoppeld aan";
+"Editor.LinkToObject.CopyLink" = "Kopieer link";
+"Editor.LinkToObject.RemoveLink" = "Verwijder link";
+
+// MARK: - Main search
+"There is no object named" = "Er is geen object genaamd %@";
+"There is no type named" = "Er is geen type genaamd %@";
+"There is no property named" = "Er is geen eigenschap genaamd %@";
+"Create a new one or search for something else" = "Maak een nieuwe of zoek naar iets anders";
+"Search.Links.Show.title" = "Toon verwante objecten";
+"Search.Links.Header.title" = "Gerelateerd aan: %@";
+"Search.Links.Swipe.title" = "Gerelateerd aan";
+"GlobalSearch.EmptyState.subtitle" = "Maak een nieuw object of zoek naar iets anders";
+"GlobalSearch.EmptyFilteredState.title" = "Geen gerelateerde objecten gevonden";
+"GlobalSearch.Swipe.Tip.title" = "Gerelateerde objecten";
+"GlobalSearch.Swipe.Tip.subtitle" = "Swipe naar links om gerelateerde objecten te zien. Let op, het werkt alleen voor objecten die gerelateerde objecten hebben.";
+
+// MARK: - Home
+
+"Home.Snackbar.Library" = "Bibliotheek is beschikbaar in de desktopapplicatie";
+
+// MARK: - Alerts
+"Alert.CameraPermissions.Settings" = "Instellingen";
+"Alert.CameraPermissions.GoToSettings" = "Anytype heeft toegang nodig tot je camera om QR-codes te scannen.\n\nGa naar de instellingen van je apparaat -> Privacy -> Camera en zet Anytype naar AAN";
+
+// MARK: - Deletion
+"Pending deletion text" = "We vinden het jammer dat je vertrekt. Je hebt 30 dagen om dit verzoek te annuleren. Na 30 dagen worden jouw versleutelde kluisgegevens permanent verwijderd uit de backup node.";
+
+// MARK: - Object Settings
+"Undo/Redo" = "Ongedaan maken / Opnieuw doen";
+
+
+// MARK: - Templates
+"TemplateSelection.Available.Title" = "Dit type heeft %d sjablonen";
+"TemplatePicker.ChooseTemplate" = "Sjabloon kiezen";
+"TemplatePicker.Buttons.UseTemplate" = "Sjabloon gebruiken";
+"TemplateSelection.SelectTemplate" = "Sjabloon selecteren";
+"TemplateSelection.Template.Subtitle" = "Sjabloon";
+"TemplateSelection.ObjectType.Subtitle" = "Objecttype";
+
+"TemplateOptions.Alert.EditTemplate" = "Sjabloon bewerken";
+"TemplateOptions.Alert.Duplicate" = "Dupliceer";
+"TemplateOptions.Alert.Delete" = "Verwijder";
+
+"TemplateEditing.Title" = "Sjabloon bewerken";
+
+"Templates.Popup.WasAddedTo.title" = "Nieuw sjabloon werd toegevoegd aan het type %@";
+"Templates.Popup.WasAddedTo" = "Nieuw sjabloon is toegevoegd aan het type";
+"Templates.Popup.Duplicated" = "Dit sjabloon is gedupliceerd";
+"Templates.Popup.Removed" = "Dit sjabloon is verwijderd";
+"Templates.Popup.Default" = "Dit sjabloon werd als standaard ingesteld";
+
+"To Bin" = "Naar Prullenbak";
+"Set as default" = "Stel in als standaard";
+
+// MARK: - Context Menu
+"Remove From Favorite" = "Verwijder uit Favorieten";
+"Add To Favorite" = "Toevoegen aan Favorieten";
+"Move To Bin" = "Verplaats naar prullenbak";
+
+
+"LinkAppearance.Description.None.Title" = "Geen";
+"LinkAppearance.Description.Object.Title" = "Objectomschrijving";
+"LinkAppearance.Description.Content.Title" = "Voorvertoning inhoud";
+"LinkAppearance.ObjectType.Title" = "Objecttype";
+
+// MARK: - Sets: Sorts
+"EditSet.Popup.Sorts.NavigationView.Title" = "Sortering";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Geen sorteringen hier. Je kunt er een paar toevoegen";
+"EditSet.Popup.Sort.Types.Ascending" = "Oplopend";
+"EditSet.Popup.Sort.Types.Descending" = "Aflopend";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Bovenaan";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Onderaan";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Toon lege waarden";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een eigenschap om te sorteren";
+
+// MARK: - Sets: Filters
+"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
+"EditSet.Popup.Filters.EmptyView.Title" = "Geen filters hier. Je kunt er een paar toevoegen";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Waarde";
+
+// MARK: - Sets: Filters.Conditions
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is niet";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Bevat";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Bevat niet";
+
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Is gelijk aan";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is niet gelijk aan";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Is groter dan";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Is kleiner dan";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is groter dan of gelijk aan";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is kleiner dan of gelijk aan";
+
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.After" = "Na";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Voor";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is op of na";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is op of voor";
+"EditSet.Popup.Filter.Condition.Date.In" = "Is binnen";
+
+"EditSet.Popup.Filter.Condition.Selected.In" = "Bevat ieder van";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Bevat alle van";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Bevat geen van";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is precies";
+
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is niet";
+
+"EditSet.Popup.Filter.Condition.General.Empty" = "Is leeg";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is niet leeg";
+"EditSet.Popup.Filter.Condition.General.None" = "Alles";
+
+"EditSet.Popup.Filter.Value.Checked" = "Geselecteerd";
+"EditSet.Popup.Filter.Value.Unchecked" = "Niet geselecteerd";
+
+"EditSet.Popup.Filter.Date.Option.Today" = "Vandaag";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Gisteren";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Morgen";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Afgelopen week";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Deze week";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Volgende week";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Afgelopen maand";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Deze maand";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Volgende maand";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Aantal dagen geleden";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Aantal dagen vanaf nu";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exacte datum";
+
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ dagen geleden";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ dagen vanaf nu";
+
+// MARK: - Sets: Featured relations
+"Set.FeaturedRelations.Query" = "Selecteer zoekopdracht";
+"Set.FeaturedRelations.RelationsList" = "Eigenschappen:";
+"Set.FeaturedRelations.Relation" = "Eigenschap:";
+"Set.FeaturedRelations.Type" = "Type:";
+
+// MARK: - Set.Bookmarks
+"Set.Bookmark.Create.Placeholder" = "Plak link";
+"Set.Bookmark.Error.Message" = "Oeps - er is iets misgegaan. Probeer het nogmaals.";
+
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Maak afbeelding passend";
+"Set.View.Settings.CardSize.Title" = "Kaartgrootte";
+"Set.View.Settings.CardSize.Small.Title" = "Klein";
+"Set.View.Settings.CardSize.Large.Title" = "Groot";
+"Set.View.Settings.ImagePreview.Title" = "Afbeeldingsvoorbeeld";
+"Set.View.Settings.GroupBy.Title" = "Groepeer op";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Kleur kolommen";
+
+"Set.View.Settings.NoRelations.Placeholder" = "Geen eigenschappen";
+"Set.View.Settings.NoFilters.Placeholder" = "Geen filters";
+"Set.View.Settings.NoSorts.Placeholder" = "Geen sortering";
+"Set.View.Settings.Objects.Applied.Title" = "%d toegepast";
+
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "Niet gecategoriseerd";
+"Set.View.Kanban.Column.Title.Checked" = "%@ is geselecteerd";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ is niet geselecteerd";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Toon meer objecten";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Kleur kolom";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Verberg kolom";
+
+// MARK: - Sets: empty view
+"Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
+"Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten te verzamelen met gelijke types en eigenschappen in een live omgeving";
+
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "Weergave wordt niet ondersteund op mobiel";
+
+// MARK: - Set source type
+"Set.SourceType.SelectQuery" = "Selecteer zoekopdracht";
+"Set.SourceType.Cancel.Toast.Title" = "Deze zoekopdracht kan alleen op het bureaublad worden gewijzigd";
+
+// MARK: - Set: Type context menu
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Zet opdracht om naar collectie";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Verander zoekopdracht";
+
+// MARK: - Collection: empty view
+"Collection.View.Empty.Title" = "Geen objecten";
+"Collection.View.Empty.Subtitle" = "Maak eerst object om door te gaan";
+"Collection.View.Empty.Button.Title" = "Maak object";
+
+// MARK: Slash Menu
+"SlashMenu.DotsDivider" = "Gestippelde scheidingslijn";
+"SlashMenu.LineDivider" = "Scheidingslijn";
+"SlashMenu.TableOfContents" = "Inhoudsopgave";
+"SlashMenu.Table" = "Tabel";
+
+"Error" = "Foutmelding";
+"Unknown error" = "Onbekende foutmelding";
+"Open Type Error" = "Niet ondersteund type \"%@\". Je kunt het openen via het bureaublad.";
+"Close" = "Sluit";
+"Add phone" = "Voeg telefoonnummer toe";
+"Nothing to redo" = "Niets om opnieuw te doen";
+"Nothing to undo" = "Niets om ongedaan te maken";
+"Progress..." = "Voortgang...";
+"Grey" = "Grijs";
+"Sky" = "Lucht";
+"Yellow" = "Geel";
+"Grey background" = "Grijze achtergrond";
+"Teal background" = "Blauwgroene achtergrond";
+"Sky background" = "Luchtkleurige achtergrond";
+"Yellow background" = "Gele achtergrond";
+"Enter value" = "Voer waarde in";
+"Select object" = "Selecteer object";
+"Select file" = "Selecteer bestand";
+"Select options" = "Selecteer opties";
+"Select option" = "Selecteer optie";
+"Select date" = "Selecteer datum";
+"Add email" = "Voeg e-mailadres toe";
+"Add link" = "Voeg link toe";
+"Enter number" = "Voer nummer in";
+"Enter text" = "Voer tekst in";
+"Unsupported value" = "Niet-ondersteunde waarde";
+"Select relation type" = "Selecteer eigenschap type";
+"CommonOpenErrorView.Message" = "Geen gegevens gevonden";
+"AreYouSure" = "Weet je het zeker?";
+"Nothing found" = "Niets gevonden";
+"No type found text" = "Geen type \"%@\" gevonden. Wijzig uw verzoek of maak een nieuw type.";
+"Create type" = "Maak type";
+"Chat" = "Chat";
+"Edit type" = "Bewerk type";
+
+"Limit object types" = "Beperkt objecttypes";
+"Type" = "Type";
+"Types" = "Types";
+"No name" = "Geen naam";
+"New field" = "Nieuwe eigenschap";
+"Edit field" = "Bewerk eigenschap";
+"Non-existent object" = "Niet-bestaand object";
+
+"Select all" = "Selecteer alle";
+"Unselect all" = "Deselecteer alle";
+"Deselect all" = "Deselecteer alle";
+"Deselect" = "Deselecteer";
+"Shared" = "Gedeeld";
+"Sets" = "Opdrachten";
+"Collections" = "Collecties";
+"Default object type" = "Standaard objecttype";
+"Personalization" = "Personalisatie";
+"Choose default object type" = "Kies het standaard objecttype";
+"About" = "Over";
+"Appearance" = "Weergave";
+"Change wallpaper" = "Wijzig achtergrond";
+"Application icon" = "App pictogram";
+"Mode" = "Instelling";
+"copied to clipboard" = "%@ gekopieerd naar klembord";
+"Create object from clipboard" = "Maak object vanaf klembord";
+"Access to key from keychain" = "Toegang tot sleutel vanuit sleutelhanger";
+"Back up your key" = "Maak een backup van jouw sleutel";
+"Vault" = "Kluis";
+"Access" = "Toegang";
+"Back up key" = "Backup sleutel";
+"Removing cache" = "Cache wordt verwijderd";
+"Deletion error" = "Fout bij het verwijderen";
+"Start" = "Start";
+"On analytics" = "On analytics";
+"Select vault error" = "Selecteer kluis fout";
+"Vault deleted" = "Kluis verwijderd";
+"Vault.Select.Incompatible.Version.Error.Text" = "We konden jouw kluisgegevens niet ophalen omdat jouw versie verouderd is. Update Anytype naar de nieuwste versie.";
+"Restore from keychain" = "Herstellen vanuit de sleutelhanger";
+"Edit" = "Bewerk";
+"Hidden" = "Verborgen";
+"In this object" = "Binnen dit object";
+"Other relations" = "Andere eigenschappen";
+"Collection of objects" = "Verzameling van objecten";
+"Designed to capture thoughts quickly" = "Ontworpen om snel gedachten te bewaren";
+"Action-focused layout with a checkbox" = "Actiegerichte lay-out met een checkbox";
+"Standard layout for canvas blocks" = "Standaard layout voor canvas blokken";
+"Lock" = "Vergrendel";
+"Unlock" = "Ontgrendel";
+"Favorite" = "Maak favoriet";
+"Unfavorite" = "Verwijder als favoriet";
+"Unsplash" = "Unsplash";
+"Go back" = "Ga terug";
+"Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
+"Node is not connected" = "Node is niet verbonden";
+"Initializing sync" = "Synchronisatie wordt opgestart";
+"Incompatible version" = "Niet-compatibele versie";
+"Connecting" = "Verbinden…";
+"P2P Connecting" = "P2P-verbinding...";
+"P2P Connection" = "P2P-verbinding";
+"Anytype Network" = "Anytype netwerk";
+"Self Host" = "Zelf hosten";
+"Local Only" = "Local-only";
+"Synced" = "Gesynchroniseerd";
+"No connection" = "Geen verbinding";
+"Deleted" = "Verwijderd";
+"Download" = "Downloaden";
+"Open object" = "Open object";
+"Open as Object" = "Open als object";
+"Open source" = "Open bron";
+"Into object" = "Naar object";
+"Add below" = "Voeg toe hieronder";
+"Change type" = "Verander type";
+"Show types" = "Toon types";
+"Hide types" = "Verberg types";
+"SlashMenu.LinkTo.Description" = "Maak link naar een ander object";
+"Upload playable audio" = "Upload afspeelbare video";
+"Code snippet" = "Codefragment";
+"Bookmark" = "Bladwijzer";
+"Audio" = "Audio";
+"Video" = "Video";
+"Picture" = "Afbeelding";
+"Image" = "Afbeelding";
+"File" = "Bestand";
+"No related options here" = "Geen gerelateerde opties hier. Je kunt er enkele toevoegen";
+"Empty" = "Leeg";
+"Link to" = "Link naar";
+"Unknown" = "Onbekend";
+"Settings" = "Instellingen";
+"Preferences" = "Voorkeuren";
+"Views" = "Weergaven";
+"Filter" = "Filter";
+"Sort" = "Sorteer";
+"View" = "Weergave";
+"Home" = "Home";
+"Highlight" = "Markeer";
+"Create object" = "Maak object";
+"Web pages" = "Internetpagina's";
+"Preview layout" = "Voorbeeldweergave lay-out";
+"Everywhere" = "Overal";
+"Exact day" = "Exacte dag";
+"Tomorrow" = "Morgen";
+"Yesterday" = "Gisteren";
+"Today" = "Vandaag";
+"No date" = "Geen datum";
+"Clear" = "Wis";
+"Create option with" = "Maak optie '%@'";
+"Enter URL" = "Voer URL in";
+"Enter email" = "Voer e-mailadres in";
+"Enter phone number" = "Voer telefoonnummer in";
+"Enter number" = "Voer nummer in";
+"Enter text" = "Voer tekst in";
+"Ok" = "Ok";
+"Error occurred. Please try again" = "Er is een fout opgetreden. Probeer het alsjeblieft opnieuw";
+"Add" = "Voeg toe";
+"Companies, contacts, friends and family" = "Bedrijven, contacten, vrienden en familie";
+"Failed to sync, trying again..." = "Synchroniseren mislukt, opnieuw proberen…";
+"Sync.Status.Version.Outdated.Description" = "Versie verouderd. Update Anytype alsjeblieft";
+"This object doesn't exist" = "Dit object bestaat niet";
+"Setting up encrypted storage\nPlease wait" = "Versleutelde opslag\n wordt aangemaakt,  een ogenblik geduld";
+"These objects will be deleted irrevocably" = "Deze objecten zullen permanent worden verwijderd. Je kunt dit niet ongedaan maken.";
+"Delete vault" = "Verwijder kluis";
+"Cancel deletion" = "Annuleer verwijdering";
+"Logout and clear data" = "Log uit en wis gegevens";
+"New" = "Nieuw";
+"Blurred icon" = "Vervaagde\n icoon";
+"My First Space" = "Mijn eerste ruimte";
+"Copy space info" = "Kopieer ruimte informatie";
+"Save" = "Sla op";
+"Set of" = "Opdracht van %@";
+"New set" = "Nieuwe opdracht";
+"Show" = "Toon";
+"Hide" = "Verberg";
+"Apply" = "Pas toe";
+"Got it" = "Ik snap het!";
+"Leave a space" = "Verlaat een ruimte";
+"Collaboration" = "Samenwerking";
+"Members" = "Leden";
+"Invite" = "Nodig uit";
+"QR Code" = "QR-code";
+
+// MARK: - DeletionAlert
+"DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
+"DeletionAlert.description" = "Je zult op alle andere apparaten worden uitgelogd. Je hebt 30 dagen om jouw kluis te herstellen. Daarna zal deze permanent worden verwijderd.";
+
+// MARK: - DataviewType
+"DataviewType.grid" = "Raster";
+"DataviewType.list" = "Lijst";
+"DataviewType.gallery" = "Galerij";
+"DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Kalender";
+"DataviewType.graph" = "Weergave";
+
+// MARK: - ObjectType
+"ObjectType.fallbackDescription" = "Leeg canvas zonder titel";
+"ObjectType.SearchOrInstall" = "Zoek of installeer een nieuw type";
+"ObjectType.Search" = "Zoek naar type";
+"ObjectType.MyTypes" = "Mijn types";
+"ObjectType.AddedToLibrary" = "Type '%@' is gemaakt";
+"ObjectType.DeletedName" = "Verwijderd type";
+"ObjectType.editingType" = "Je bewerkt het type";
+
+// MARK: - QuickAction
+"QuickAction.create" = "Maak %@";
+
+// MARK: - RedactedText
+"RedactedText.pageTitle" = "Word wakker, Neo";
+"RedactedText.pageType" = "Rode pil";
+
+// MARK: - InterfaceStyle
+"InterfaceStyle.light" = "Licht";
+"InterfaceStyle.dark" = "Donker";
+"InterfaceStyle.system" = "Systeem";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "Voeg koppen toe om een inhoudsopgave te maken";
+
+// MARK: - Simple tables
+"SimpleTableMenu.Item.clearContents" = "Wis";
+"SimpleTableMenu.Item.color" = "Kleur";
+"SimpleTableMenu.Item.style" = "Stijl";
+"SimpleTableMenu.Item.clearStyle" = "Reset stijl";
+
+"SimpleTableMenu.Item.InsertLeft" = "Voeg links in";
+"SimpleTableMenu.Item.InsertRight" = "Voeg rechts in";
+"SimpleTableMenu.Item.MoveLeft" = "Verplaats naar links";
+"SimpleTableMenu.Item.MoveRight" = "Verplaats naar rechts";
+"SimpleTableMenu.Item.Duplicate" = "Dupliceer";
+"SimpleTableMenu.Item.Delete" = "Verwijder";
+"SimpleTableMenu.Item.Sort" = "Sorteer";
+
+"SimpleTableMenu.Item.InsertAbove" = "Voeg boven in";
+"SimpleTableMenu.Item.InsertBelow" = "Voeg beneden in";
+"SimpleTableMenu.Item.MoveUp" = "Verplaats naar boven";
+"SimpleTableMenu.Item.MoveDown" = "Verplaats naar beneden";
+
+"DebugMenu.ToggleAuthor" = "Versie: %@, %@";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "Plak als tekst";
+"LinkPaste.link" = "Plak als link";
+"LinkPaste.bookmark" = "Maak bladwijzer";
+
+// Relation Actions
+"RelationAction.CopyPhone" = "Telefoonnummer kopiëren";
+"RelationAction.CopyEmail" = "Kopieer e-mailadres";
+"RelationAction.CopyLink" = "Kopieer link";
+"RelationAction.Copied" = "Gekopieerd";
+"RelationAction.ReloadingContent" = "Inhoud wordt herladen";
+"RelationAction.ReloadContent" = "Herlaad inhoud object";
+"RelationAction.CallPhone" = "Bel telefoonnummer";
+"RelationAction.SendEmail" = "Verstuur e-mail";
+"RelationAction.OpenLink" = "Open link";
+
+// MARK: Edit view type
+"SetViewTypesPicker.Title" = "Bewerk weergave";
+"SetViewTypesPicker.New.Title" = "Nieuwe weergave";
+"SetViewTypesPicker.Section.Types.Title" = "Geef weer als";
+"SetViewTypesPicker.Settings.Duplicate.View" = "Dupliceer";
+"SetViewTypesPicker.Settings.Delete.View" = "Verwijder weergave";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nieuwe weergave";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Naamloos";
+
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Niet ondersteund";
+
+// BlockContent
+"Content.File.Upload" = "Upload een bestand";
+"Content.Audio.Upload" = "Upload audio";
+"Content.Video.Upload" = "Upload een video";
+"Content.Picture.Upload" = "Upload een afbeelding";
+"Content.Common.Uploading" = "Uploaden...";
+"Content.Common.Error" = "Er is iets verkeerd gegaan, probeer het opnieuw";
+"Content.Bookmark.Add" = "Voeg een webbladwijzer toe";
+"Content.Bookmark.Loading" = "Laden, even geduld...";
+"Content.DataView.InlineSet.Subtitle" = "Gealigneerde opdracht";
+"Content.DataView.InlineCollection.Subtitle" = "Collectie in lijn";
+"Content.DataView.InlineSet.NoSource" = "Geen bron";
+"Content.DataView.InlineSet.NoData" = "Geen gegevens";
+"Content.DataView.InlineSet.Untitled" = "Naamloze opdracht";
+"Content.DataView.InlineCollection.Untitled" = "Naamloze collectie";
+"Content.DataView.InlineSet.Toast.Failure" = "Deze inline opdracht heeft geen bron";
+
+// MARK: - Toast
+"Editor.Toast.LinkedTo" = "gelinkt naar";
+"Editor.Toast.MovedTo" = "Blok verplaatst naar";
+
+// MARK: - Scanner
+"Scanner.Error.Scanning not supported" = "Scannen wordt niet ondersteund";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget bron";
+"Widgets.Actions.ChangeWidgetType" = "Wijzig widget type";
+"Widgets.Actions.RemoveWidget" = "Verwijder widget";
+"Widgets.Actions.EditWidgets" = "Bewerk widget";
+"Widgets.Actions.AddWidget" = "Voeg widget toe";
+"Widgets.Actions.EmptyBin" = "Leeg prullenbak";
+"Widgets.Actions.AddBelow" = "Voeg onder toe";
+"Widgets.Actions.NewObject" = "Nieuw object";
+"Widgets.Actions.SeeAllObjects" = "Toon alle objecten";
+"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.Layout.Link.Title" = "Koppeling";
+"Widgets.Layout.Tree.Title" = "Boomstructuur";
+"Widgets.Layout.List.Title" = "Lijst";
+"Widgets.Layout.CompactList.Title" = "Compacte lijst";
+"Widgets.Layout.View.Title" = "Weergave";
+"Widgets.Layout.Link.Description" = "Compacte widget weergave";
+"Widgets.Layout.Tree.Description" = "Widget met een hiërarchische structuur";
+"Widgets.Layout.List.Description" = "Widget met een lijstweergave";
+"Widgets.Layout.View.Description" = "Widget met een opdracht of collectie opmaak";
+"Widgets.Layout.CompactList.Description" = "Widget met een compacte lijstweergave";
+"Widgets.Empty.Title" = "Er zijn hier geen objecten";
+"Widgets.Empty.CreateObject" = "Maak object";
+"Widgets.Library.RecentlyEdited.Name" = "Onlangs bewerkt";
+"Widgets.Library.RecentlyOpened.Name" = "Onlangs geopend";
+"Widgets.Library.RecentlyOpened.Description" = "Op dit apparaat";
+"Widgets.AppUpdate" = "Anytype is gereed voor bijwerken";
+"Widgets.Source.Suggested" = "Voorgesteld";
+"Widgets.Source.Library" = "Standaard sets";
+"Widgets.Source.Objects" = "Jouw objecten";
+"Widgets.List.Empty" = "Er zijn nog geen widgets";
+
+// MARK: - About
+"About.AppVersion" = "App versie: %@";
+"About.BuildNumber" = "Build nummer: %@";
+"About.Library" = "Bibliotheek versie: %@";
+"About.anytypeId" = "Anytype ID: %@";
+"About.analyticsId" = "Analytics ID: %@";
+"About.deviceId" = "Apparaat ID: %@
+";
+"About.Device" = "Apparaat: %@";
+"About.OSVersion" = "OS versie: %@";
+"About.HelpCommunity" = "Help & Community";
+"About.WhatsNew" = "Wat is er nieuw";
+"About.AnytypeCommunity" = "Anytype Community";
+"About.HelpTutorials" = "Hulp & Handleidingen";
+"About.ContactUs" = "Contacteer ons";
+"About.Legal" = "Juridisch";
+"About.TermsOfUse" = "Gebruikersvoorwaarden";
+"About.PrivacyPolicy" = "Privacybeleid";
+"About.TechInfo" = "Technische informatie";
+"About.Mail.Subject" = "Ondersteuningsverzoek, kluis ID %@";
+"About.Mail.Body" = "\n\nTechnische informatie\n%@";
+
+// MARK: - Cache
+"ClearCache.Success" = "Cache succesvol gewist";
+"ClearCache.Error" = "Fout, probeer het later opnieuw";
+
+// MARK: - Settings
+"Settings.Title" = "Instellingen";
+"Settings.SpaceName" = "Naam ruimte";
+"Settings.SpaceType" = "Ruimte type";
+"Settings.VaultAndAccess" = "Kluis en toegang";
+"Settings.SpaceName" = "Naam ruimte";
+"Settings.Edit picture" = "Bewerk afbeelding";
+"Settings.Updated" = "Ruimte-informatie bijgewerkt";
+"Settings.DataManagement" = "Gegevensbeheer";
+"Settings.ChatEnabled" = "Chat is ingeschakeld";
+"Settings.ChatDisabled" = "Chat is uitgeschakeld.";
+
+// MARK: - File Storage
+"FileStorage.Title" = "Bestandsopslag";
+"FileStorage.Space.Title" = "Externe opslag";
+"FileStorage.Space.Instruction" = "Je kunt maximaal %@ van je bestanden gratis opslaan op onze versleutelde back-up node. Als je de limiet bereikt, zullen bestanden alleen lokaal worden opgeslagen.";
+"FileStorage.Space.Used" = "%@ van %@ gebruikt";
+"FileStorage.Space.GetMore" = "Krijg meer ruimte";
+"FileStorage.Local.Title" = "Lokale opslag";
+"FileStorage.Local.Instruction" = "Om ruimte op jouw lokale apparaat te besparen, kun je al jouw bestanden naar onze versleutelde back-up node verplaatsen. De bestanden worden opnieuw geladen wanneer je ze opent.";
+"FileStorage.Local.Used" = "%@ gebruikt";
+"FileStorage.OffloadTitle" = "Offload bestanden";
+"FileStorage.CleanUpFiles" = "Schoon bestanden op";
+"FileStorage.LimitError" = "Je hebt de upload bestandslimiet overschreden";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Andere ruimten | %@";
+"FileStorage.LimitLegend.Free" = "Maak vrij |  %@";
+
+// MARK: - Files List
+"FilesList.Title" = "Schoon bestanden op";
+"FilesList.ForceDelete.Title" = "Weet je zeker dat je de bestanden permanent wilt verwijderen?";
+
+// MARK: - Widget object list
+"WidgetObjectList.ForceDelete.Message" = "Je kunt deze actie niet ongedaan maken.";
+
+// MARK: - Cpear cache alert
+"ClearCacheAlert.Title" = "Weet je het zeker?";
+"ClearCacheAlert.Description" = "Alle mediabestanden die in Anytype zijn opgeslagen, zullen van het huidige apparaat worden verwijderd. Ze kunnen opnieuw van een back-up node of een ander apparaat worden gedownload.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Shared" = "Gedeelde ruimte";
+"Spaces.Accessibility.Private" = "Persoonlijke ruimte";
+"Spaces.Accessibility.Personal" = "Standaard ruimte";
+"Spaces.Search.Title" = "Zoek ruimten";
+"Spaces.Title" = "Ruimtes";
+"Spaces.Info.Network" = "Netwerk:";
+"Spaces.UxType.Chat.Title" = "Chat";
+"Spaces.UxType.Space.Title" = "Ruimte";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "Voor real-time gesprekken";
+"Spaces.UxType.Space.Description" = "Voor georganiseerde inhoud en gegevens";
+"Spaces.UxType.Stream.Description" = "Voor het uitzenden van jouw vibe";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Onbekend";
+"Space.Status.Loading" = "Aan het laden";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Ontbrekend";
+"Space.Status.Error" = "Foutmelding";
+"Space.Status.RemoteWaitingDeletion" = "Aan het wachten op verwijdering";
+"Space.Status.RemoteDeleted" = "Op afstand verwijderd";
+"Space.Status.SpaceDeleted" = "Verwijderd";
+"Space.Status.SpaceActive" = "Actief";
+"Space.Status.SpaceJoining" = "Aan het aansluiten";
+"Space.Status.SpaceRemoving" = "Aan het verwijderen";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Ruimte instellingen";
+"SpaceSettings.RemoteStorage" = "Externe opslag";
+"SpaceSettings.Info" = "Ruimte-informatie";
+"SpaceSettings.NetworkId" = "Netwerk ID";
+"SpaceSettings.DeleteAlert.Title" = "Verwijder '%@' ruimte";
+"SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
+"SpaceSettings.DeleteButton" = "Verwijder ruimte";
+"SpaceSettings.Share" = "Deel";
+"SpaceSettings.LeaveButton" = "Verlaat";
+"SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
+"SpaceSettings.LeaveAlert.Toast" = "Je hebt de %@ verlaten.";
+
+// MARK: - Space Share
+"MoreInfo" = "Meer informatie";
+
+"SpaceShare.Title" = "Aan het delen";
+"SpaceShare.Members" = "Leden";
+"SpaceShare.Permissions.Owner" = "Eigenaar";
+"SpaceShare.Permissions.Reader" = "Lezer";
+"SpaceShare.Permissions.Writer" = "Bewerker";
+"SpaceShare.Permissions.Grand.Edit" = "Bewerk";
+"SpaceShare.Permissions.Grand.View" = "Weergave";
+"SpaceShare.Invite.Title" = "Uitnodigingslink";
+"SpaceShare.Invite.Description" = "Deel deze uitnodigingslink zodat anderen zich bij jouw ruimte kunnen aansluiten. Zodra ze op jouw link klikken en toegang vragen, kun je hun toegangsrechten instellen.";
+"SpaceShare.Invite.Stream.Description" = "Deel deze koppeling zodat anderen kunnen deelnemen aan jouw Stream.";
+"SpaceShare.Invite.Share" = "Deel uitnodigingslink";
+"SpaceShare.Share.link" = "Deel koppeling";
+"SpaceShare.Invite.Generate" = "Genereer uitnodigingslink";
+"SpaceShare.Invite.Empty" = "Maak uitnodigingslink om ruimte te delen en nieuwe leden toe te voegen";
+"SpaceShare.JoinRequest" = "Deelnameverzoek";
+"SpaceShare.LeaveRequest" = "Afmeldverzoek";
+"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
+"SpaceShare.Action.Approve" = "Goedkeuren";
+"SpaceShare.DeleteSharingLink.Title" = "Verwijder link";
+"SpaceShare.CopyInviteLink.Title" = "Kopieer uitnodigingskoppeling";
+"SpaceShare.DeleteSharingLink.Message" = "Nieuwe leden zullen niet kunnen deelnemen aan de ruimte. Je kunt op elk gewenst moment een nieuwe link genereren";
+"SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
+"SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Voeg toe als lezer";
+"SpaceShare.ViewRequest.EditAccess" = "Voeg toe als schrijver";
+"SpaceShare.ViewRequest.Reject" = "Weiger";
+"SpaceShare.RemoveMember.Title" = "Verwijder lid";
+"SpaceShare.RemoveMember.Message" = "%@ zal worden verwijderd uit de ruimte.";
+"SpaceShare.ChangePermissions" = "%@ toegang tot de ruimte zou %@ worden.";
+"SpaceShare.Join.Title" = "Sluit je aan bij een ruimte";
+"SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
+"SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
+"SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
+"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij ** %@** ruimte, gemaakt door **%@**. Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
+"SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
+"SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
+"SpaceShare.Join.SpaceDeleted" = "De ruimte die je probeert te openen is verwijderd";
+
+"SpaceShare.YouSuffix" = "%@ (jij)";
+"SpaceShare.ManageSpaces" = "Beheer ruimten";
+"SpaceShare.AccessChanged" = "De toegangsrechten zijn gewijzigd.";
+"SpaceShare.StopSharing.Action" = "Delen stoppen";
+"SpaceShare.StopSharing.Title" = "Stop met delen van de ruimte";
+"SpaceShare.StopSharing.Message" = "Leden zullen niet langer synchroniseren met deze ruimte en de deellink zal worden gedeactiveerd.";
+"SpaceShare.StopSharing.Toast" = "De ruimte wordt niet langer gedeeld";
+"SpaceShare.QR.Title" = "QR-code voor het deelnemen aan een ruimte";
+"SpaceShare.QR.Button" = "Toon QR-code";
+"SpaceShare.HowToShare.Title" = "Hoe deel je een ruimte?";
+"SpaceShare.HowToShare.Step1" = "Geef alsjeblieft een link naar de persoon met wie je wilt samenwerken.";
+"SpaceShare.HowToShare.Step2" = "Door op de link te klikken, vraagt een persoon om aan de ruimte deel te nemen.";
+"SpaceShare.HowToShare.Step3" = "Na goedkeuring van het verzoek, kun je de toegangsrechten voor deze persoon kiezen.";
+"SpaceShare.Manage" = "Beheer";
+"SpaceShare.AlreadyJoin.Title" = "Je bent al lid van deze ruimte";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Ruimte openen";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Jouw toegangsrechten werden veranderd naar  **%@** in de ruimte **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte **%@** is goedgekeurd met **%@** toegangsrechten. De ruimte zal binnenkort beschikbaar zijn op jouw apparaat.";
+"ParticipantRequestDeclineNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte**%@** is afgewezen.";
+"RequestToLeaveNotification.Text" = "**%@** wil de ruimte **%@** verlaten.";
+"ParticipantRemoveNotification.Text" = "Je werd verwijderd uit de ruimte '%@' of de ruimte is verwijderd door de eigenaar.";
+"RequestToJoinNotification.Text" = "**%@** heeft verzocht om aan de ruimte **%@** deel te nemen.";
+"RequestToJoinNotification.GoToSpace" = "Ga naar ruimte";
+"RequestToJoinNotification.ViewRequest" = "Bekijk verzoek";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Annuleer deelnameverzoek";
+"SpaceManager.DoNotCancel" = "Annuleer niet";
+"SpaceManager.CancelRequestAlert.Title" = "Je zult het toegangsverzoek opnieuw moeten sturen";
+"SpaceManager.CancelRequestAlert.Toast" = "Het verzoek werd geannuleerd.";
+
+
+
+// MARK: - Space Create
+"SpaceCreate.Chat.Title" = "Maak een chat";
+"SpaceCreate.Space.Title" = "Maak een ruimte";
+"SpaceCreate.Stream.Title" = "Maak een stream";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "Voeg toe aan Anytype";
+"Sharing.Navigation.LeftButton.Title" = "Annuleren";
+"Sharing.Navigation.RightButton.Title" = "Gereed";
+
+"Sharing.SaveAs" = "OPSLAAN ALS";
+"Sharing.SelectSpace" = "Ruimte";
+"Sharing.AddTo" = "Voeg toe aan";
+"Sharing.LinkTo" = "Link naar";
+
+"Sharing.Text.NoteObject" = "Noteer object";
+"Sharing.Text.TextBlock" = "Blokken";
+"Sharing.Any.Block" = "Blokken";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Deel extensie";
+"Sharing.Tip.Button.title" = "Toon deel menu";
+
+"Sharing.Tip.Steps.1" = "Tik op de iOS deel knop";
+"Sharing.Tip.Steps.2" = "Scroll voorbij de app en tik op Meer";
+"Sharing.Tip.Steps.3" = "Tik op Bewerken om \"Anytype\" te vinden en tik op";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe om objecten te maken";
+"Swipe.Tip.Subtitle" = "Maak objecten binnen widgets door ze naar links te swipen.";
+
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Samenwerken aan ruimtes";
+"SpaceShare.Tip.Steps.1" = "Tik op de ruimte widget om toegang te krijgen tot instellingen";
+"SpaceShare.Tip.Steps.2" = "Open delen sectie";
+"SpaceShare.Tip.Steps.3" = "Genereer een uitnodigingskoppeling en deel deze";
+
+// MARK: - Space switcher tip
+"ReturnToWidgets.Tip.Title" = "Druk lang in om terug te keren naar widgets";
+"ReturnToWidgets.Tip.Text" = "Druk lang op de terugknop om terug te keren naar widgets in plaats van deze herhaaldelijk te tikken.";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Waarschuwing";
+"Initial.UnstableMiddle.Message" = "Je start de app op met instabiele middleware. Gebruik niet jouw productie kluis. Jouw kluis kan beschadigd zijn.";
+"Initial.UnstableMiddle.Title" = "Waarschuwing";
+"Initial.UnstableMiddle.Logout" = "Meld af bij de huidige kluis";
+"Initial.UnstableMiddle.Continue" = "Ga verder met huidige kluis";
+"Initial.UnstableMiddle.WontUseProd" = "Ik zal niet mijn productie kluis gebruiken";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Maak objecten met specifiek type";
+"LongTapCreateTip.Message" = "Druk lang op de knop maak object om het menu te openen met types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update jouw app";
+"Error.AnytypeNeedsUpgrate.Message" = "Dit object is gewijzigd in een nieuwere versie van Anytype. Update alsjeblieft de app om het op dit apparaat te openen";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
+"Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
+"Error.Common.Title" = "Oeps!";
+"Error.Common.Message" = "Controleer alsjeblieft jouw internetverbinding en probeer het opnieuw of [rapporteer op forum](http://community.anytype.io/report-bug).";
+"Error.Common.TryAgain" = "Probeer opnieuw";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Afgelopen 7 dagen";
+"RelativeFormatter.days14" = "Afgelopen 14 dagen";
+
+// MARK: - Server
+"Server.Network" = "Netwerk";
+"Server.Networks" = "Netwerken";
+"Server.AddButton" = "Voeg zelfgehost netwerk toe";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Alleen lokaal";
+"Server.LocalOnly.Alert.title" = "Weet je het zeker?";
+"Server.LocalOnly.Alert.message" = "Local-only modus is een experimentele functie en biedt geen beveiligingsvoordelen. Gebruik deze op eigen risico, aangezien gegevensverlies kan optreden.";
+"Server.LocalOnly.Alert.Action.agree" = "Ja, ik accepteer de risico's";
+"Server.LocalOnly.Alert.Action.disagree" = "Nee, gebruik het niet";
+
+// MARK: - Gallery
+"Gallery.Author" = "Gemaakt door @%@";
+"Gallery.Install" = "Installeer";
+"Gallery.InstallToNew" = "Installeer in nieuwe ruimte";
+"Gallery.Notification.Success" = "Experience werd succesvol geïnstalleerd in de \"%@\" ruimte. Je kunt het nu openen en gebruiken.";
+"Gallery.Notification.Button" = "Ga naar ruimte";
+"Gallery.Notification.Error" = "Oeps! \"%@\" werd niet geïnstalleerd. Controleer jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
+
+// MARK: - Membership
+"Membership" = "Lidmaatschap";
+"Just e-mail" = "Alleen e-mail";
+"E-mail" = "E-mailadres";
+"Learn more" = "Ontdek meer";
+"per" = "per";
+"unlimited" = "Onbeperkt";
+
+
+"Upgrade" = "Upgrade";
+"What’s included" = "Wat is inbegrepen";
+"Submit" = "Verstuur";
+"Resend" = "Verstuur opnieuw";
+"Resend in" = "Verstuur opnieuw over %@ seconden";
+"Current" = "Huidige";
+"Forever free" = "Voor altijd gratis";
+"Forever" = "Voor altijd";
+"Valid until date" = "Geldig tot %@";
+"Your current status" = "Je huidige status:";
+"Valid until" = "Geldig tot:";
+"Paid by" = "Betaald door %@";
+"Myself" = "Mijzelf";
+"Pay by Card" = "Betaal met kaart";
+"Min X characters" = "Min %@ tekens";
+"Pending" = "In behandeling...";
+"Manage payment" = "Beheer betaling";
+"Change email" = "Wijzig e-mailadres";
+"Email successfully validated" = "E-mailadres succesvol gevalideerd";
+"Confirm" = "Bevestigen";
+
+"StoreKitServiceError.userCancelled" = "Aankoop geannuleerd";
+"StoreKitServiceError.needUserAction" = "Betaling mislukt, gebruikersacties van Apple zijn vereist om te betalen.";
+
+"Membership.Ad.Title" = "Lidmaatschap";
+"Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
+
+"Membership.Legal.Details" = "Lidmaatschap details";
+"Membership.Legal.Privacy" = "Privacybeleid";
+"Membership.Legal.Terms" = "Algemene voorwaarden";
+"Membership.Legal.WouldYouLike" = "Wil je Anytype gebruiken voor werk, opleiding, etc.?";
+"Membership.Legal.LetUsKnow" = "Laat het ons hier weten.";
+"Membership.Legal.AlreadyPurchasedTier" = "Al een abonnement aangeschaft?";
+"Membership.Legal.RestorePurchases" = "Herstel aankopen";
+
+"Membership.Email.Body" = "Halllo Anytype team! Ik zou graag mijn huidige lidmaatschap willen uitbreiden voor meer (kies alsjeblieft een optie):
+- Extra opslag
+- Meer ruimte bewerkers
+- Aanvullende gedeelde ruimtes
+
+Specifiek,
+Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
+
+"Membership.Upgrade.Title" = "Lidmaatschap upgrade";
+"Membership.Upgrade.Text" = "Contacteer ons voor extra opslagruimte, ruimte bewerkers of meer gedeelde ruimten. Het team van Anytype zal details en voorwaarden geven die zijn afgestemd op jouw behoeften.";
+"Membership.Upgrade.Button" = "Contacteer Anytype team";
+
+"Membership.Upgrade.MoreSpaces" = "Upgrade om meer ruimten toe te voegen";
+"Membership.Upgrade.MoreMembers" = "Upgrade om meer leden toe te voegen";
+"Membership.Upgrade.NoMoreMembers" = "Je kunt niet meer deelnemers toevoegen";
+"Membership.Upgrade.NoMoreEditors" = "Je kunt niet meer bewerkers toevoegen";
+
+
+"Membership.Banner.Title1" = "Bouw de visie samen";
+"Membership.Banner.Subtitle1" = "Als gewaardeerd lid telt jouw stem! Neem deel aan exclusieve evenementen, geef vorm aan strategische keuzes en beïnvloed onze roadmap.";
+"Membership.Banner.Title2" = "Ontgrendel ledenvoordelen";
+"Membership.Banner.Subtitle2" = "Leden hebben meer backup opslagcapaciteit & synchronisatielimieten, uitnodigingen voor meerdere gasten om samen te werken in gedeelde ruimten, en een unieke identiteit in het Anytype netwerk.";
+"Membership.Banner.Title3" = "Ondersteun digitale onafhankelijkheid ";
+"Membership.Banner.Subtitle3" = "Jouw bijdrage ondersteunt ons team en ondersteunt onze visie van een door gebruikers beheerd, veilig en samenwerkend digitaal netwerk.";
+"Membership.Banner.Title4" = "Investeer in verbinding";
+"Membership.Banner.Subtitle4" = "De waarde van ons netwerk overschrijdt de som der delen. Je lidmaatschap houdt de infrastructuur in stand voor de groei die aan dit netwerk ten grondslag ligt.";
+
+"Membership.EmailForm.Title" = "Ontvang updates en geniet van gratis voordelen!";
+"Membership.EmailForm.Subtitle" = "Het is op geen enkele manier gekoppeld met jouw account.";
+"Membership.EmailValidation" = "Voer de code in die naar jouw e-mailadres is verstuurd";
+
+"Membership.NameForm.Title" = "Kies jouw unieke naam";
+"Membership.NameForm.Subtitle" = "Dit is je unieke naam op het Anytype netwerk, die je lidmaatschap bevestigt. Het fungeert als je persoonlijke domein en kan niet worden gewijzigd.";
+"Membership.NameForm.Validating" = "Even geduld...";
+"Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
+
+"Membership.Success.Title" = "Welkom bij het netwerk, %@";
+"Membership.Success.Curiosity" = "Hulde voor jouw nieuwsgierigheid!";
+"Membership.Success.Support" = "Hulde voor jouw ondersteuning!";
+
+"Membership.Payment.Card" = "Kaart";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Apple subscription" = "Apple abonnement";
+"Membership.Payment.Google subscription" = "Google abonnement";
+
+
+"Membership.Explorer.Subtitle" = "Synchroniseer jouw apparaten, verkrijg backup opslag, en ga op in samenwerking.";
+"Membership.Builder.Subtitle" = "Ontgrendel samenwerking met meerdere partijen en breid je netwerkopslag uit.";
+"Membership.CoCreator.Subtitle" = "Ondersteun ons avontuur en ontgrendel exclusieve toegang en voordelen.";
+"Membership.Custom.Subtitle" = "Aangepaste voorwaarden voor lidmaatschap. Als je vragen hebt, neem dan contact op met support.";
+
+"Membership.Feature.LocalName" = "Locale, niet-unieke naam";
+"Membership.Feature.UniqueName" = "Unieke netwerknaam (%@+ tekens)";
+"Membership.Feature.StorageGB" = "%@ GB aan backup- & synchronisatieruimte op het Anytype netwerk";
+"Membership.Feature.Invites" = "%@ Uitnodigingen";
+"Membership.Feature.SpaceWriters" = "%@ Bewerkers per gedeelde ruimte";
+"Membership.Feature.UnlimitedViewers" = "Onbeperkt aantal Lezers voor gedeelde ruimten";
+"Membership.Feature.Viewers" = "%@ Lezers voor gedeelde ruimten";
+"Membership.Feature.SharedSpaces" = "Tot %@ Gedeelde ruimten";
+
+"MembershipServiceError.tierNotFound" = "Abonnementsgegevens niet gevonden, herstart app en probeer het opnieuw";
+"MembershipServiceError.invalidBillingIdFormat" = "Intern probleem met factuurformaat, we werken hieraan. Probeer het later opnieuw of neem contact op met ondersteuning.";
+
+
+"Membership.ManageTier.Desktop" = "Je kunt het abonnement op het desktopplatform beheren";
+"Membership.ManageTier.Android" = "Je kunt het abonnement op het Android platform beheren";
+"Membership.ManageTier.AppleId" = "Je kunt het abonnement op een andere AppleId account beheren";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Gegevens back-up is uitgeschakeld";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end versleuteld";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Synchronisatie kan traag zijn. Update de app.";
+"SyncStatus.Error.storageLimitExceed" = "Opslaglimiet bereikt";
+"SyncStatus.Error.incompatibleVersion" = "Niet-compatibele versie";
+"SyncStatus.Error.networkError" = "Geen toegang tot de ruimte";
+"SyncStatus.Error.UNRECOGNIZED" = "Onbekende fout";
+"SyncStatus.P2P.Restricted" = "Verhinderd. Controleer de apparaatinstellingen.";
+"SyncStatus.P2P.NotConnected" = "Niet verbonden";
+"SyncStatus.P2P.NotPossible" = "Verbinding niet mogelijk";
+
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Media types - %@";
+"Debug.Info" = "Debug informatie";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Voeg reactie toe";
+"Message.Action.Reply" = "Antwoord";
+"Message.Input.Chat.EmptyPlaceholder" = "Schrijf een bericht...";
+"Message.Input.Stream.EmptyPlaceholder" = "Zend uit";
+"Message.Action.Unread" = "Markeer als ongelezen";
+"Message.Action.CopyPlainText" = "Kopieer platte tekst";
+"Message.ChatTitle.Placeholder" = "Naamloze chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "Er is hier nog niets voor deze datum";
+"Date.Open.Action.title" = "Open geselecteerde datum";
+
+// MARK: - All Content
+"AllContent.Settings.Sort.Title" = "Sorteer op";
+"AllContent.Sort.DateUpdated" = "Datum geüpdatet";
+"AllContent.Sort.DateCreated" = "Datum gemaakt";
+"AllContent.Sort.Date.Asc" = "Oudste eerst";
+"AllContent.Sort.Date.Desc" = "Nieuwste eerst";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Alleen niet-gelinkt";
+"AllContent.Settings.Unlinked.Description" = "Niet-gelinkte objecten die geen directe link of teruglink hebben met andere objecten in de weergave.";
+"AllContent.Settings.ViewBin" = "Prullenmand weergeven";
+"AllContent.Search.Empty.State.title" = "Geen resultaten gevonden.";
+"AllContent.Search.Empty.State.subtitle" = "Probeer te zoeken met andere trefwoorden.";
+
+// MARK: - Chats
+"Chat.ReplyTo" = "Antwoord op %@";
+"Chat.Empty.Title" = "Nog geen berichten";
+"Chat.Empty.Owner.Description" = "Nodig mensen uit en schud het op!";
+"Chat.Empty.Editor.Description" = "Schrijf de eerste om op te schudden!";
+"Stream.Empty.Title" = "Deze stream is leeg";
+"Stream.Empty.Description" = "Nodig mensen uit en begin met het delen van jouw vibe";
+"Chat.Empty.Button.title" = "Deel uitnodigingslink";
+"Chat.DeleteMessage.Title" = "Verwijder dit bericht?";
+"Chat.DeleteMessage.Description" = "Het kan niet worden hersteld na bevestiging";
+"Chat.Reactions.Empty.Title" = "Nog geen reacties";
+"Chat.Reactions.Empty.Subtitle" = "Waarschijnlijk heeft iemand zojuist de reactie verwijderd of was er een technisch probleem";
+"Chat.EditMessage" = "Bewerk bericht";
+"Chat.Actions.Menu.Pages" = "Pagina's";
+"Chat.Actions.Menu.Lists" = "Lijsten";
+"Chat.Actions.Menu.Photos" = "Foto's";
+"Chat.Actions.Menu.Files" = "Bestanden";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "Meer";
+"Chat.Participant.Badge" = "(Jij)";
+"Chat.Reply.Images" = "Afbeeldingen (%@)";
+"Chat.Reply.Attachments" = "Bijlagen (%@)";
+"Chat.Reply.Files" = "Bestanden (%@)";
+"Chat.SendLimitAlert.Title" = "Wacht even! Turbo typen gedetecteerd!";
+"Chat.SendLimitAlert.Message" = "Het lijkt erop dat je berichten met lichtsnelheid verstuurt. Wacht even voor je volgende bericht.";
+"Chat.AttachmentsLimit.Alert" = "Je kunt slechts %@ bestanden tegelijk uploaden";
+"Chat.AttachedObject.Attach" = "Voeg bij";
+"Chat.CreateObject.Dismiss.Title" = "Weet je zeker dat je dit schermt wilt sluiten?";
+"Chat.CreateObject.Dismiss.Message" = "Als je het verlaat, zullen alle wijzigingen verloren gaan.";
+"Chat.CreateObject.Dismiss.Ok" = "Ja, sluiten";
+"Chat.Attach.Page.title" = "Voeg pagina bij";
+"Chat.Attach.List.title" = "Voeg lijst bij";
+"Chat.NewMessages" = "Nieuwe berichten";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Jouw zoekervaring upgraden";
+"ReindexingWarningAlert.Description" = "We hebben een nieuwe zoekbibliotheek geïmplementeerd voor snellere en nauwkeurigere resultaten.\nOpnieuw indexeren kan een paar minuten duren.";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "Het is hier leeg.";
+"EmptyView.Default.subtitle" = "Maak je eerste objecten om te beginnen.";
+"EmptyView.Bin.title" = "Jouw prullenmand is leeg.";
+"EmptyView.Bin.subtitle" = "Het lijkt erop dat je alles netjes en georganiseerd hebt!";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "Nieuwe pagina";
+"ObjectSearchWithMeta.Create.Note" = "Nieuwe notitie";
+"ObjectSearchWithMeta.Create.Set" = "Nieuwe opdracht";
+"ObjectSearchWithMeta.Create.Collection" = "Nieuwe collectie";
+
+// MARK: - AI Tool
+"AITool.title" = "Vraag het AI";
+"AITool.placeholder" = "Bijvoorbeeld, vat samen";
+"AITool.button" = "Genereer";
+
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welkom bij de Alpha versie";
+"AnyApp.BetaAlert.Description" = "Je loopt voor op de rest! Sommige functies zijn nog in ontwikkeling of niet klaar voor productie – blijf in de gaten houden voor updates.";
+
+// MARK: - Migration
+"Migration.Initial.title" = "Nieuwe versie update";
+"Migration.Initial.subtitle1" = "We leggen de basis voor onze nieuwe chats. Inclusief tellers, meldingen en andere functies die nodig zijn voor een soepele chatervaring.";
+"Migration.Initial.subtitle2" = "Het kan even duren, maar maak je geen zorgen, jouw gegevens zijn veilig.";
+"Migration.Initial.startUpdate" = "Start update";
+"Migration.Initial.readMore" = "Lees meer";
+
+"Migration.Progress.title" = "Update is bezig...";
+"Migration.Progress.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
+"Migration.Error.NotEnoughtSpace.title" = "Niet genoeg ruimte";
+"Migration.Error.NotEnoughtSpace.message" = "Maak alsjeblieft ruimte vrij en voer het proces opnieuw uit.";
+
+"Migration.ReadMore.option1" = "Wat kun je verwachten";
+"Migration.ReadMore.description1" = "Je zult een laadscherm zien tijdens de update. Eenmaal voltooid, kun je de app normaal blijven gebruiken.";
+"Migration.ReadMore.option2" = "Jouw gegevens blijven veilig";
+"Migration.ReadMore.description2" = "Tijdens deze update blijven jouw gegevens volledig beveiligd. De update wordt direct op jouw apparaat uitgevoerd en jouw gesynchroniseerde gegevens blijven onaangetast. We zullen het gewoon kopiëren naar een nieuw formaat, en er zal een lokale back-up worden gemaakt op jouw apparaat, die al jouw gegevens in het vorige formaat bevat.";
+"Migration.ReadMore.description3" = "De reden dat we deze back-up behouden is om te debuggen en jou te helpen in het geval van onvoorziene problemen.";
+
+
+// MARK: - Primitives
+"Primitives.LayoutConflict.Description" = "Deze opmaak verschilt van de standaard van het type. Terugzetten om overeen te laten komen?";

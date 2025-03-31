@@ -1,0 +1,1379 @@
+// style menu
+"StyleMenu.Color.TextColor.Placeholder" = "A";
+
+// MARK: Text Style in Slash and Style menu
+"TextStyle.Text.Title" = "텍스트";
+"TextStyle.Text.Subtitle" = "그냥 일반 텍스트로 글쓰기를 시작하세요.";
+
+"TextStyle.Title.Title" = "제목";
+"TextStyle.Title.Subtitle" = "큰 섹션 제목";
+
+"TextStyle.Heading.Title" = "제목";
+"TextStyle.Heading.Subtitle" = "중간 제목";
+
+"TextStyle.Subheading.Title" = "부제목";
+"TextStyle.Subheading.Subtitle" = "작은 제목";
+
+"TextStyle.Highlighted.Title" = "강조";
+"TextStyle.Highlighted.Subtitle" = "특별한 주의가 필요한 스포트라이트";
+
+"TextStyle.Callout.Title" = "범례";
+"TextStyle.Callout.Subtitle" = "아이콘이 있는 테두리 텍스트";
+
+"TextStyle.Checkbox.Title" = "체크박스";
+"TextStyle.Checkbox.Subtitle" = "할 일 목록으로 작업 생성 및 추적";
+
+"TextStyle.Bulleted.Title" = "글머리기호";
+"TextStyle.Bulleted.Subtitle" = "간단한 목록";
+
+"TextStyle.Numbered.Title" = "번호 매기기 목록";
+"TextStyle.Numbered.Subtitle" = "번호 매기기 목록";
+
+"TextStyle.Toggle.Title" = "토글";
+"TextStyle.Toggle.Subtitle" = "내부 콘텐츠 숨김 및 표시";
+
+"TextStyle.Bold.Title" = "굵게";
+"TextStyle.Italic.Title" = "기울임";
+"TextStyle.Strikethrough.Title" = "취소선";
+"TextStyle.Underline.Title" = "밑줄";
+"TextStyle.Code.Title" = "코드";
+"TextStyle.Link.Title" = "링크";
+
+// MARK: - Block Text
+
+"BlockText.ContentType.Title.Placeholder" = "Untitled";
+"BlockText.ContentType.Description.Placeholder" = "설명 추가";
+"BlockText.ContentType.Toggle.Placeholder" = "블록 토글";
+"BlockText.ContentType.Bulleted.Placeholder" = "글머리 기호 목록";
+"BlockText.ContentType.Checkbox.Placeholder" = "체크박스";
+"BlockText.ContentType.Numbered.Placeholder" = "번호 매기기 목록";
+"BlockText.ContentType.Quote.Placeholder" = "강조된 텍스트";
+"BlockText.ContentType.Header.Placeholder" = "제목";
+"BlockText.ContentType.Header2.Placeholder" = "제목";
+"BlockText.ContentType.Header3.Placeholder" = "부제목";
+
+// MARK: - Block Link
+
+"BlockLink.PreviewSettings.IconSize.None" = "없음";
+"BlockLink.PreviewSettings.IconSize.Small" = "작음";
+"BlockLink.PreviewSettings.IconSize.Medium" = "중간";
+
+"BlockLink.PreviewSettings.Layout.Card.Title" = "카드";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "텍스트";
+
+// MARK: - Object
+"Object.Deleted.Placeholder" = "삭제된 개체";
+
+// MARK: - Fields // old name: Relations
+"Fields.Created" = "Property ‘%@’ has been created";
+"Fields.Updated" = "Property ‘%@’ has been updated";
+"Fields.menu" = "Properties menu";
+"Fields.local" = "Local properties";
+"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.addToType" = "Add to the current type";
+"Fields.removeFromObject" = "Remove from the object";
+
+
+"Featured relations" = "Featured properties";
+"Create relation" = "Create property ‘%@’";
+"Relation.View.Hint.Empty" = "비어 있음";
+"Relation.MyRelations" = "My properties";
+"Relation.Deleted" = "Deleted property";
+"Relation.From.Type" = "%@ 유형으로 부터";
+"Relation.EmptyState.title" = "옵션 없음";
+"Relation.EmptyState.description" = "찾을 수 없습니다. 첫 번째 옵션을 생성하여 시작합니다.";
+"Relation.EmptyState.Blocked.title" = "The property is empty";
+"Relation.Create.Row.title" = "\"%@\" 만들기";
+"Relation.View.Create.title" = "옵션 생성";
+"Relation.View.Edit.title" = "옵션 편집";
+"Relation.Create.Textfield.placeholder" = "이름 입력...";
+"Relation.ObjectTypes.Header.title" = "객체 유형:";
+"Relation.ObjectType.Header.title" = "오브젝트 유형:";
+
+"Relation.Delete.Alert.Title" = "Are you sure?";
+"Relation.Delete.Alert.Description" = "이 옵션은 스페이스에서 영구적으로 제거됩니다.";
+"Relation.Object.Delete.Alert.Description" = "오브젝트가 휴지통으로 이동됩니다.";
+
+"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Text.Title" = "텍스트";
+"Relation.Format.Number.Title" = "숫자";
+"Relation.Format.Status.Title" = "선택";
+"Relation.Format.Tag.Title" = "다중 선택";
+"Relation.Format.Date.Title" = "날짜";
+"Relation.Format.FileMedia.Title" = "파일 및 미디어";
+"Relation.Format.Checkbox.Title" = "체크박스";
+"Relation.Format.Url.Title" = "URL";
+"Relation.Format.Email.Title" = "이메일";
+"Relation.Format.Phone.Title" = "전화번호";
+
+"Relation.Search.View.Placeholder" = "Search or create a new property";
+
+// Origin Relation
+
+"Relation.Origin.Clipboard" = "클립보드";
+"Relation.Origin.DragAndDrop" = "드래그 앤 드롭";
+"Relation.Origin.Import" = "가져온 오브젝트";
+"Relation.Origin.WebClipper" = "웹 클리퍼";
+"Relation.Origin.SharingExtension" = "모바일 공유 확장";
+"Relation.Origin.UseCase" = "활용 예시";
+"Relation.Origin.Builtin" = "라이브러리 설치됨";
+"Relation.Origin.Bookmark" = "북마크";
+"Relation.Origin.API" = "API";
+
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "마크다운";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
+// MARK: - Mention
+"Mention.Subtitle.Placeholder" = "개체";
+
+"Untitled" = "Untitled";
+"None" = "없음";
+"Callout" = "범례";
+"Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
+"Loading, please wait" = "로드 중, 잠시만 기다려주세요";
+"Done" = "완료";
+"Next" = "다음";
+"Style" = "스타일";
+"Color" = "색상";
+"Background" = "배경";
+"Other" = "기타";
+"Media" = "미디어";
+"Alignment" = "정렬";
+"Actions" = "액션";
+"Fields" = "속성";
+"History" = "히스토리";
+"Objects" = "오브젝트";
+"All" = "All";
+"Pages" = "페이지 ";
+"Lists" = "목록";
+"Bookmarks" = "북마크";
+"Files" = "파일";
+"Media" = "미디어";
+"Lists" = "목록";
+"Dates" = "날짜";
+"Pinned" = "고정됨";
+"Delete" = "삭제";
+"Export" = "내보내기";
+"Duplicate" = "복제하기";
+"Copy" = "복사";
+"Preview" = "미리보기";
+"View" = "보기";
+"Paste" = "붙여넣기";
+"Move" = "이동";
+"Move to" = "이동하기";
+"Back" = "뒤로가기";
+"Pin" = "고정";
+"Unpin" = "고정 해제";
+"Pin on top" = "상단에 고정";
+"File block subtitle" = "파일을 원본 상태로 저장";
+"Image block subtitle" = "Upload and enrich the page with image";
+"Video block subtitle" = "재생 가능한 비디오 업로드";
+"Bookmark block subtitle" = "즐겨찾는 링크를 요약과 함께 저장";
+"Code block subtitle" = "코드 스니펫 캡처";
+"Align right" = "오른쪽 맞춤";
+"Align left" = "왼쪽 맞춤";
+"Align center" = "가운데 맞춤";
+"Align justify" = "양쪽 맞춤";
+"Black" = "검은색";
+"Amber" = "주황색";
+"Red" = "빨간색";
+"Pink" = "분홍색";
+"Purple" = "보라색";
+"Blue" = "파란색";
+"Teal" = "청록색";
+"Green" = "초록색";
+"Default background" = "기본 배경";
+"Amber background" = "주황색 배경";
+"Red background" = "빨간색 배경";
+"Pink background" = "핑크색 배경";
+"Purple background" = "보라색 배경";
+"Blue background" = "파란색 배경";
+"Green background" = "초록색 배경";
+"Create new object" = "새  오브젝트 생성";
+"Create new object with name" = "\"%@\" 오브젝트 생성";
+"Create new type" = "Create new type";
+"Cancel" = "취소";
+"Paste or type URL" = "Paste or type URL";
+"No items match filter" = "필터와 일치하는 항목 없음";
+"Unsupported block" = "지원하지 않는 블록";
+"Unsupported" = "Unsupported";
+"Name" = "이름";
+"Plural name" = "Plural name";
+"Description" = "설명";
+"Add a description" = "Add a description...";
+"Paste processing..." = "붙여넣기 처리중...";
+"Anytype Library" = "Anytype 라이브러리";
+"Copied" = "복사됨";
+"Share" = "Share";
+"Okay" = "확인";
+"Join" = "Join";
+"Agreement Disclamer" = "계속 진행하면 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것입니다";
+"Lets Go" = "Let’s Go";
+"My spaces" = "내 스페이스";
+"My Channels" = "My Channels";
+"Open file" = "파일 열기";
+"Open Set" = "Open Query";
+"Create Set" = "Create Query";
+"Unsupported deeplink" = "지원하지 않는 딥링크";
+"Edit Profile" = "프로필 수정";
+"Object Types" = "Object Types";
+"Resolve layout conflict" = "Resolve layout conflict";
+"Reset to default" = "Reset to default";
+"Puzzle" = "Puzzle";
+"Puzzles" = "Puzzles";
+
+"Add property" = "Add property";
+"Search or create new" = "Search or create new";
+"Existing properties" = "Existing properties";
+"Properties formats" = "Properties formats";
+
+// Home
+"Favorites" = "즐겨찾기";
+"Recent" = "최근";
+"Bin" = "휴지통";
+"All objects" = "모든 객체";
+
+// Settings
+"Wallpaper" = "배경화면";
+"Log out" = "로그아웃";
+"Content Model" = "Content Model";
+"Misc" = "Misc";
+
+// Action
+"Restore" = "복원";
+
+// Keychain screen
+"Keychain.Key" = "키";
+"Keychain.Key.Copy.Toast.title" = "키 복사됨";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "키 표시 및 복사";
+"Keychain.Have you backed up your key?" = "키를 백업하셨나요?";
+"Keychain.Error.String to Data conversion error" = "문자열을 데이터로 변환중 오류";
+"Keychain.Error.Data to String conversion error" = "데이터를 문자열로 변환중 오류";
+"Keychain.Error.Unknown Keychain Error" = "알 수 없는 키체인 오류";
+"Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
+
+// Auth
+"Create" = "생성";
+"Scan QR code" = "QR 코드 스캔";
+"Auth.CameraPermissionTitle" = "엑세스를 허용해주세요";
+"Restore key from keychain" = "키체인에서 키를 복원합니다";
+"Auth.LogIn" = "I already have the key";
+"Auth.Button.Join" = "I am new here";
+"Auth.Welcome.Subtitle" = "당신의 스페이스에서 만들고 협업하세요. 암호화, 오프라인 및 공개(%@).";
+"Auth.Next" = "다음";
+
+"Vault recover error" = "보관소 복원 중 에러가 발생했습니다. 다시 시도해주세요.";
+"Vault recover error no internet" = "보관소 복원 중 에러가 발생했습니다. 인터넷 연결을 확인해주세요.";
+
+// Auth Errors
+"Error creating wallet" = "Error creating wallet";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "잘못된 키";
+
+"Search for language" = "언어 검색";
+
+// Auth - Join flow
+
+"Auth.JoinFlow.Key.Title" = "당신의 키입니다";
+"Auth.JoinFlow.Key.Description" = "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tap to Reveal";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "다음";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Not now";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "클립보드로 복사";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Read more about Key";
+
+"Auth.JoinFlow.Key.ReadMore.Title" = "키는 무엇인가요?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "이 장치에서 보관소가 마술처럼 생성되는 12개의 무작위 단어인 복구 문구로 표시됩니다.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "이 단어 조합을 아는 사람은 누구든지 당신의 보관소를 가질 수 있습니다. **지금은 이것을 아는 사람은 당신 뿐입니다.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "지구상의 모든 컴퓨팅 리소스로도 해독하기 어려우며, 분실하면 복구할 수 없습니다. 따라서 안전한 곳에 보관하세요!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "키를 어떻게 저장하나요?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "키를 보관하는 가장 쉬운 방법은 비밀번호 관리자에 저장하는 것입니다.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "가장 안전한 방법은 종이에 적어 오프라인의 안전한 장소에 보관하는 것입니다.";
+
+"Auth.JoinFlow.Soul.Title" = "이름 설정";
+"Auth.JoinFlow.Soul.Description" = "공유한 사람들만 볼 수 있습니다. 이러한 이름에 대한 중앙 레지스트리는 없습니다.";
+"Auth.JoinFlow.Soul.Placeholder" = "이름";
+"Auth.JoinFlow.Soul.Button" = "완료";
+
+// Auth - Login flow
+"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
+"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+
+// Object settings
+
+"Icon" = "아이콘";
+"Cover" = "표지";
+"Layout" = "레이아웃";
+
+// Version history
+"VersionHistory.Title" = "버전 기록";
+"VersionHistory.Toast.message" = "Version %@ was restored";
+
+"Search" = "검색";
+"There is no emoji named" = "There is no emoji named";
+"There is no icon named" = "There is no icon named";
+"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Try to find a new one" = "Try to find a new one";
+
+"Emoji" = "이모티콘";
+"Random" = "무작위";
+"Upload" = "업로드";
+"Change icon" = "아이콘 변경";
+"Change cover" = "Change cover";
+"Remove" = "제거";
+
+"Solid colors" = "Solid colors";
+"Gradients" = "Gradients";
+"Gallery" = "Gallery";
+
+"Remove photo" = "Remove photo";
+"Basic" = "Basic";
+"Profile" = "프로필";
+"Task" = "작업";
+"Note" = "메모";
+"Choose layout type" = "레이아웃 종류 선택";
+
+"Templates" = "템플릿";
+"Header" = "헤더";
+
+"Undo typing" = "입력 실행 취소";
+"Undo" = "Undo";
+"Redo" = "다시 실행";
+"Actions.LinkItself" = "Link to";
+"Actions.MakeAsTemplate" = "템플릿으로 만들기";
+"Actions.TemplateMakeDefault" = "기본값으로 설정";
+"Actions.CreateWidget.Title" = "위젯으로 보내기";
+"Actions.CreateWidget.Success" = "새로운 위젯이 생성되었습니다.";
+"Actions.CopyLink" = "Copy link";
+
+// Object Type
+"Set" = "Query";
+"Collection" = "컬렉션";
+
+"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+
+// MARK: - Link to search
+
+"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.LinkedTo" = "Linked to";
+"Editor.LinkToObject.CopyLink" = "Copy link";
+"Editor.LinkToObject.RemoveLink" = "Remove link";
+
+// MARK: - Main search
+"There is no object named" = "There is no object named %@";
+"There is no type named" = "There is no type named %@";
+"There is no property named" = "There is no property named %@";
+"Create a new one or search for something else" = "Create a new one or search for something else";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
+"GlobalSearch.Swipe.Tip.title" = "Related objects";
+"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+
+// MARK: - Home
+
+"Home.Snackbar.Library" = "Library is available in desktop app";
+
+// MARK: - Alerts
+"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
+
+// MARK: - Deletion
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+
+// MARK: - Object Settings
+"Undo/Redo" = "Undo/Redo";
+
+
+// MARK: - Templates
+"TemplateSelection.Available.Title" = "This type has %d templates";
+"TemplatePicker.ChooseTemplate" = "Choose template";
+"TemplatePicker.Buttons.UseTemplate" = "Use template";
+"TemplateSelection.SelectTemplate" = "Select template";
+"TemplateSelection.Template.Subtitle" = "Template";
+"TemplateSelection.ObjectType.Subtitle" = "Object type";
+
+"TemplateOptions.Alert.EditTemplate" = "템플릿 편집";
+"TemplateOptions.Alert.Duplicate" = "복제하기";
+"TemplateOptions.Alert.Delete" = "삭제";
+
+"TemplateEditing.Title" = "템플릿 편집";
+
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
+"Templates.Popup.WasAddedTo" = "New template was added to the type";
+"Templates.Popup.Duplicated" = "The template was duplicated";
+"Templates.Popup.Removed" = "The template was removed";
+"Templates.Popup.Default" = "The template was set as default";
+
+"To Bin" = "휴지통으로";
+"Set as default" = "Set as default";
+
+// MARK: - Context Menu
+"Remove From Favorite" = "Remove From Favorite";
+"Add To Favorite" = "Add To Favorite";
+"Move To Bin" = "휴지통으로 이동";
+
+
+"LinkAppearance.Description.None.Title" = "없음";
+"LinkAppearance.Description.Object.Title" = "Object description";
+"LinkAppearance.Description.Content.Title" = "Content preview";
+"LinkAppearance.ObjectType.Title" = "Object type";
+
+// MARK: - Sets: Sorts
+"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
+"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
+"EditSet.Popup.Sort.Types.Ascending" = "오름차순";
+"EditSet.Popup.Sort.Types.Descending" = "내림차순";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "상단";
+"EditSet.Popup.Sort.EmptyTypes.End" = "하단";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "빈 값 표시";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a property to sort";
+
+// MARK: - Sets: Filters
+"EditSet.Popup.Filters.NavigationView.Title" = "필터";
+"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
+"EditSet.Popup.Filters.TextView.Placeholder" = "값";
+
+// MARK: - Sets: Filters.Conditions
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
+"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+
+"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSet.Popup.Filter.Condition.General.None" = "All";
+
+"EditSet.Popup.Filter.Value.Checked" = "Checked";
+"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+
+"EditSet.Popup.Filter.Date.Option.Today" = "오늘";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "어제";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "내일";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "지난 주";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "이번 주";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "다음 주";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "지난 달";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "현재 달";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "다음 달";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "며칠 전";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "며칠 후";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+
+// MARK: - Sets: Featured relations
+"Set.FeaturedRelations.Query" = "Select query";
+"Set.FeaturedRelations.RelationsList" = "Properties:";
+"Set.FeaturedRelations.Relation" = "Property:";
+"Set.FeaturedRelations.Type" = "Type:";
+
+// MARK: - Set.Bookmarks
+"Set.Bookmark.Create.Placeholder" = "링크 붙여넣기";
+"Set.Bookmark.Error.Message" = "이런 문제가 발생했습니다. 다시 시도해 주세요.";
+
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Small.Title" = "작음";
+"Set.View.Settings.CardSize.Large.Title" = "Large";
+"Set.View.Settings.ImagePreview.Title" = "Image preview";
+"Set.View.Settings.GroupBy.Title" = "Group by";
+"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+
+"Set.View.Settings.NoRelations.Placeholder" = "No properties";
+"Set.View.Settings.NoFilters.Placeholder" = "No filters";
+"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
+"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+
+// MARK: - Sets: Kanban
+"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
+"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
+"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+
+// MARK: - Sets: empty view
+"Set.View.Empty.Title" = "No query selected";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and properties in a live mode";
+
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
+
+// MARK: - Set source type
+"Set.SourceType.SelectQuery" = "Select query";
+"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+
+// MARK: - Set: Type context menu
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Query into Collection";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+
+// MARK: - Collection: empty view
+"Collection.View.Empty.Title" = "No objects";
+"Collection.View.Empty.Subtitle" = "Create first object to continue";
+"Collection.View.Empty.Button.Title" = "Create object";
+
+// MARK: Slash Menu
+"SlashMenu.DotsDivider" = "Dots divider";
+"SlashMenu.LineDivider" = "Line divider";
+"SlashMenu.TableOfContents" = "Table of contents";
+"SlashMenu.Table" = "Table";
+
+"Error" = "오류";
+"Unknown error" = "알 수 없는 오류";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
+"Close" = "닫기";
+"Add phone" = "전화번호 추가";
+"Nothing to redo" = "다시 실행할 작업이 없습니다.";
+"Nothing to undo" = "실행 취소할 작업이 없습니다";
+"Progress..." = "Progress...";
+"Grey" = "회색";
+"Sky" = "하늘색";
+"Yellow" = "노란색";
+"Grey background" = "Grey background";
+"Teal background" = "Teal background";
+"Sky background" = "Sky background";
+"Yellow background" = "Yellow background";
+"Enter value" = "Enter value";
+"Select object" = "Select object";
+"Select file" = "파일 선택";
+"Select options" = "옵션 선택";
+"Select option" = "옵션 선택";
+"Select date" = "Select date";
+"Add email" = "이메일 추가";
+"Add link" = "링크 추가";
+"Enter number" = "번호 입력";
+"Enter text" = "텍스트 입력";
+"Unsupported value" = "지원되지 않는 값";
+"Select relation type" = "Select property type";
+"CommonOpenErrorView.Message" = "데이터를 찾을 수 없습니다";
+"AreYouSure" = "Are you sure?";
+"Nothing found" = "아무것도 찾을 수 없음";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = " 유형 생성";
+"Chat" = "채팅";
+"Edit type" = "Edit type";
+
+"Limit object types" = "오브젝트 유형 제한";
+"Type" = "유형";
+"Types" = "유형";
+"No name" = "이름 없음";
+"New field" = "New property";
+"Edit field" = "Edit property";
+"Non-existent object" = "Non-existent object";
+
+"Select all" = "전체 선택";
+"Unselect all" = "전체 선택 해제";
+"Deselect all" = "전체 선택 해제";
+"Deselect" = "선택 해제";
+"Shared" = "Shared";
+"Sets" = "Queries";
+"Collections" = "컬렉션";
+"Default object type" = "기본 오브젝트 유형";
+"Personalization" = "Personalization";
+"Choose default object type" = "기본 오브젝트 유형 선택";
+"About" = "정보";
+"Appearance" = "모양";
+"Change wallpaper" = "Change wallpaper";
+"Application icon" = "앱 아이콘";
+"Mode" = "모드";
+"copied to clipboard" = "%@가 클립보드에 복사됨";
+"Create object from clipboard" = "Create object from clipboard";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "보관소";
+"Access" = "Access";
+"Back up key" = "Back up key";
+"Removing cache" = "Removing cache";
+"Deletion error" = "Deletion error";
+"Start" = "시작";
+"On analytics" = "On analytics";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
+"Restore from keychain" = "Restore from keychain";
+"Edit" = "Edit";
+"Hidden" = "Hidden";
+"In this object" = "In this object";
+"Other relations" = "Other properties";
+"Collection of objects" = "Collection of objects";
+"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
+"Lock" = "Lock";
+"Unlock" = "Unlock";
+"Favorite" = "Favorite";
+"Unfavorite" = "Unfavorite";
+"Unsplash" = "Unsplash";
+"Go back" = "Go back";
+"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
+"Node is not connected" = "Node is not connected";
+"Initializing sync" = "Initializing sync";
+"Incompatible version" = "호환되지 않는 버전";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
+"Synced" = "Synced";
+"No connection" = "No connection";
+"Deleted" = "Deleted";
+"Download" = "Download";
+"Open object" = "Open object";
+"Open as Object" = "Open as Object";
+"Open source" = "Open source";
+"Into object" = "Into object";
+"Add below" = "Add below";
+"Change type" = "Change type";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
+"Upload playable audio" = "Upload playable audio";
+"Code snippet" = "Code snippet";
+"Bookmark" = "북마크";
+"Audio" = "Audio";
+"Video" = "Video";
+"Picture" = "Picture";
+"Image" = "이미지";
+"File" = "File";
+"No related options here" = "No related options here. You can add some";
+"Empty" = "Empty";
+"Link to" = "Link to";
+"Unknown" = "Unknown";
+"Settings" = "Settings";
+"Preferences" = "Preferences";
+"Views" = "Views";
+"Filter" = "Filter";
+"Sort" = "Sort";
+"View" = "보기";
+"Home" = "Home";
+"Highlight" = "Highlight";
+"Create object" = "Create Object";
+"Web pages" = "Web pages";
+"Preview layout" = "Preview layout";
+"Everywhere" = "Everywhere";
+"Exact day" = "Exact day";
+"Tomorrow" = "내일";
+"Yesterday" = "어제";
+"Today" = "오늘";
+"No date" = "No date";
+"Clear" = "Clear";
+"Create option with" = "Create option ‘%@’";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "번호 입력";
+"Enter text" = "텍스트 입력";
+"Ok" = "Ok";
+"Error occurred. Please try again" = "Error occurred. Please try again";
+"Add" = "Add";
+"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
+"Failed to sync, trying again..." = "Failed to sync, trying again...";
+"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
+"This object doesn't exist" = "This object doesn't exist";
+"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
+"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
+"Delete vault" = "Delete vault";
+"Cancel deletion" = "Cancel deletion";
+"Logout and clear data" = "Logout and clear data";
+"New" = "New";
+"Blurred icon" = "Blurred\n icon";
+"My First Space" = "My First Space";
+"Copy space info" = "Copy space info";
+"Save" = "Save";
+"Set of" = "Query of %@";
+"New set" = "New query";
+"Show" = "표시하기";
+"Hide" = "숨기기";
+"Apply" = "Apply";
+"Got it" = "I got it!";
+"Leave a space" = "Leave a space";
+"Collaboration" = "Collaboration";
+"Members" = "Members";
+"Invite" = "Invite";
+"QR Code" = "QR Code";
+
+// MARK: - DeletionAlert
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+
+// MARK: - DataviewType
+"DataviewType.grid" = "Grid";
+"DataviewType.list" = "List";
+"DataviewType.gallery" = "Gallery";
+"DataviewType.kanban" = "Kanban";
+"DataviewType.calendar" = "Calendar";
+"DataviewType.graph" = "Graph";
+
+// MARK: - ObjectType
+"ObjectType.fallbackDescription" = "Blank canvas with no title";
+"ObjectType.SearchOrInstall" = "Search or install a new type";
+"ObjectType.Search" = "Search for Type";
+"ObjectType.MyTypes" = "My Types";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ has been created";
+"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.editingType" = "You're editing type";
+
+// MARK: - QuickAction
+"QuickAction.create" = "Create %@";
+
+// MARK: - RedactedText
+"RedactedText.pageTitle" = "Wake up, Neo";
+"RedactedText.pageType" = "Red pill";
+
+// MARK: - InterfaceStyle
+"InterfaceStyle.light" = "라이트";
+"InterfaceStyle.dark" = "다크";
+"InterfaceStyle.system" = "시스템";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+
+// MARK: - Simple tables
+"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.color" = "색상";
+"SimpleTableMenu.Item.style" = "스타일";
+"SimpleTableMenu.Item.clearStyle" = "Reset style";
+
+"SimpleTableMenu.Item.InsertLeft" = "Insert left";
+"SimpleTableMenu.Item.InsertRight" = "Insert right";
+"SimpleTableMenu.Item.MoveLeft" = "Move left";
+"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.Duplicate" = "복제하기";
+"SimpleTableMenu.Item.Delete" = "삭제";
+"SimpleTableMenu.Item.Sort" = "Sort";
+
+"SimpleTableMenu.Item.InsertAbove" = "Insert above";
+"SimpleTableMenu.Item.InsertBelow" = "Insert below";
+"SimpleTableMenu.Item.MoveUp" = "Move up";
+"SimpleTableMenu.Item.MoveDown" = "Move down";
+
+"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "Paste as text";
+"LinkPaste.link" = "Paste as link";
+"LinkPaste.bookmark" = "북마크 생성";
+
+// Relation Actions
+"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyLink" = "Copy link";
+"RelationAction.Copied" = "복사됨";
+"RelationAction.ReloadingContent" = "Reloading content";
+"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.SendEmail" = "Send email";
+"RelationAction.OpenLink" = "Open link";
+
+// MARK: Edit view type
+"SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.New.Title" = "New view";
+"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Settings.Duplicate.View" = "복제하기";
+"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+
+// MARK: Select view
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
+
+// BlockContent
+"Content.File.Upload" = "Upload a file";
+"Content.Audio.Upload" = "Upload audio";
+"Content.Video.Upload" = "Upload a video";
+"Content.Picture.Upload" = "Upload a picture";
+"Content.Common.Uploading" = "Uploading...";
+"Content.Common.Error" = "Something went wrong, try again";
+"Content.Bookmark.Add" = "외부 북마크 추가";
+"Content.Bookmark.Loading" = "로딩 중입니다. 잠시만 기다려주세요...";
+"Content.DataView.InlineSet.Subtitle" = "Inline query";
+"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
+"Content.DataView.InlineSet.NoSource" = "No source";
+"Content.DataView.InlineSet.NoData" = "No data";
+"Content.DataView.InlineSet.Untitled" = "Untitled query";
+"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline query doesn’t have a source";
+
+// MARK: - Toast
+"Editor.Toast.LinkedTo" = "linked to";
+"Editor.Toast.MovedTo" = "Block moved to";
+
+// MARK: - Scanner
+"Scanner.Error.Scanning not supported" = "Scanning not supported";
+
+// MARK: - Widgets
+"Widgets.SourceSearch" = "Widget source";
+"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
+"Widgets.Actions.RemoveWidget" = "Remove Widget";
+"Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.EmptyBin" = "빈 휴지통";
+"Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.Layout.Link.Title" = "링크";
+"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.CompactList.Title" = "Сompact list";
+"Widgets.Layout.View.Title" = "보기";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Query or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
+"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
+"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Suggested" = "Suggested";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
+"Widgets.List.Empty" = "There is no widgets yet";
+
+// MARK: - About
+"About.AppVersion" = "App version: %@";
+"About.BuildNumber" = "Build number: %@";
+"About.Library" = "Library version: %@";
+"About.anytypeId" = "Anytype ID: %@";
+"About.analyticsId" = "Analytics ID: %@";
+"About.deviceId" = "Device ID: %@";
+"About.Device" = "Device: %@";
+"About.OSVersion" = "OS version: %@";
+"About.HelpCommunity" = "도움말 및 커뮤니티";
+"About.WhatsNew" = "What’s New";
+"About.AnytypeCommunity" = "Anytype 커뮤니티";
+"About.HelpTutorials" = "도움말 및 튜토리얼";
+"About.ContactUs" = "문의하기";
+"About.Legal" = "법률";
+"About.TermsOfUse" = "이용 약관";
+"About.PrivacyPolicy" = "개인정보 보호정책";
+"About.TechInfo" = "기술 정보";
+"About.Mail.Subject" = "Support request, Vault ID %@";
+"About.Mail.Body" = "\n\nTechnical information\n%@";
+
+// MARK: - Cache
+"ClearCache.Success" = "Cache sucessfully cleared";
+"ClearCache.Error" = "Error, try again later";
+
+// MARK: - Settings
+"Settings.Title" = "Settings";
+"Settings.SpaceName" = "공간 이름";
+"Settings.SpaceType" = "Space type";
+"Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceName" = "공간 이름";
+"Settings.Edit picture" = "Edit picture";
+"Settings.Updated" = "Space information updated";
+"Settings.DataManagement" = "Data Management";
+"Settings.ChatEnabled" = "Chat is enabled";
+"Settings.ChatDisabled" = "Chat is disabled";
+
+// MARK: - File Storage
+"FileStorage.Title" = "File storage";
+"FileStorage.Space.Title" = "Remote storage";
+"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
+"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.GetMore" = "Get more space";
+"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
+"FileStorage.Local.Used" = "%@ used";
+"FileStorage.OffloadTitle" = "Offload files";
+"FileStorage.CleanUpFiles" = "Clean up files files";
+"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.LimitLegend.Current" = "%@ | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
+
+// MARK: - Files List
+"FilesList.Title" = "Clean up files";
+"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+
+// MARK: - Widget object list
+"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+
+// MARK: - Cpear cache alert
+"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+
+// MARK: - Spaces
+"Spaces.Accessibility.Shared" = "Shared Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Search.Title" = "Search spaces";
+"Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+"Spaces.UxType.Chat.Title" = "채팅";
+"Spaces.UxType.Space.Title" = "Space";
+"Spaces.UxType.Stream.Title" = "Stream";
+"Spaces.UxType.Chat.Description" = "For real-time conversations";
+"Spaces.UxType.Space.Description" = "For organized content and data";
+"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Unknown";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "오류";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Deleted";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
+
+// MARK: - Space Settings
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space information";
+"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Share" = "Share";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+
+// MARK: - Space Share
+"MoreInfo" = "More info";
+
+"SpaceShare.Title" = "Sharing";
+"SpaceShare.Members" = "Members";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Grand.Edit" = "Edit";
+"SpaceShare.Permissions.Grand.View" = "보기";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Share.link" = "Share link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "요청 보기";
+"SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytime";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "멤버 삭제";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.NoAccess.Title" = "No access to this space";
+"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
+"SpaceShare.Join.SpaceDeleted" = "The space you try to access has been deleted";
+
+"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.StopSharing.Action" = "공유 중지";
+"SpaceShare.StopSharing.Title" = "스페이스 공유 중지";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "관리";
+"SpaceShare.AlreadyJoin.Title" = "당신은 이미 이 스페이스의 구성원입니다";
+"SpaceShare.AlreadyJoin.OpenSpace" = "스페이스 열기";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You were removed from **%@** space, or the space has been deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@**가 **%@** 스페이스에 참여하기를 요청했습니다.";
+"RequestToJoinNotification.GoToSpace" = "스페이스로 이동";
+"RequestToJoinNotification.ViewRequest" = "요청 보기";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
+
+// MARK: - Space Create
+"SpaceCreate.Chat.Title" = "Create a chat";
+"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Stream.Title" = "Create a stream";
+
+// MARK: - Sharing
+"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.LeftButton.Title" = "취소";
+"Sharing.Navigation.RightButton.Title" = "완료";
+
+"Sharing.SaveAs" = "SAVE AS";
+"Sharing.SelectSpace" = "Space";
+"Sharing.AddTo" = "Add to";
+"Sharing.LinkTo" = "Link to";
+
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
+
+// MARK: - Sharing tips
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
+
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+
+// MARK: - Space switcher tip
+"ReturnToWidgets.Tip.Title" = "Long Press to Return to Widgets";
+"ReturnToWidgets.Tip.Text" = "Long press the back button to return to widgets instead of tapping it repeatedly.";
+
+// MARK: - Initial
+
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+
+// MARK: - Create tip
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+
+// MARK: - Error
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
+"Error.Common.Title" = "Oops!";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.TryAgain" = "Try again";
+
+// MARK: - Relative date formatter
+"RelativeFormatter.days7" = "Previous 7 days";
+"RelativeFormatter.days14" = "Previous 14 days";
+
+// MARK: - Server
+"Server.Network" = "Network";
+"Server.Networks" = "Networks";
+"Server.AddButton" = "Add Self-hosted Network";
+"Server.Anytype" = "Anytype";
+"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly.Alert.title" = "Are you sure?";
+"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
+
+// MARK: - Gallery
+"Gallery.Author" = "Made by @%@";
+"Gallery.Install" = "Install";
+"Gallery.InstallToNew" = "Install to new space";
+"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
+"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
+"Just e-mail" = "Just e-mail";
+"E-mail" = "E-mail";
+"Learn more" = "Learn more";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
+"Upgrade" = "Upgrade";
+"What’s included" = "What’s included";
+"Submit" = "Submit";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Forever";
+"Valid until date" = "Valid until %@";
+"Your current status" = "Your current status:";
+"Valid until" = "Valid until:";
+"Paid by" = "Paid by %@";
+"Myself" = "Myself";
+"Pay by Card" = "Pay by Card";
+"Min X characters" = "Min %@ characters";
+"Pending" = "Pending...";
+"Manage payment" = "Manage payment";
+"Change email" = "Change email";
+"Email successfully validated" = "Email successfully validated";
+"Confirm" = "확인";
+
+"StoreKitServiceError.userCancelled" = "구매 취소됨";
+"StoreKitServiceError.needUserAction" = "결제에 실패했습니다. 결제를 위해 Apple 측에서 사용자 조치가 필요합니다.";
+
+"Membership.Ad.Title" = "Membership";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Privacy" = "개인정보 보호정책";
+"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.LetUsKnow" = "Please let us know here.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
+
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
+"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
+"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+
+
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "소중한 회원으로서 여러분의 목소리가 중요합니다! 독점 이벤트에 참여하고, 전략적인 선택을 하고, 로드맵에 영향을 미치세요.";
+"Membership.Banner.Title2" = "멤버 혜택 잠금 해제";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Support Digital Independence";
+"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validated" = "This name is up for grabs";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
+
+"Membership.Payment.Card" = "카드";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
+
+
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "호환되지 않는 버전";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Not connected";
+"SyncStatus.P2P.NotPossible" = "Connection not possible";
+
+
+// MARK: - Debug
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.Reply" = "Reply";
+"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
+"Message.Action.Unread" = "Mark Unread";
+"Message.Action.CopyPlainText" = "Copy Plain Text";
+"Message.ChatTitle.Placeholder" = "Untitled Chat";
+
+// MARK: - Date
+"Date.Object.Empty.State.title" = "There is nothing here for this date yet";
+"Date.Open.Action.title" = "Open selected date";
+
+// MARK: - All Content
+"AllContent.Settings.Sort.Title" = "정렬";
+"AllContent.Sort.DateUpdated" = "Date updated";
+"AllContent.Sort.DateCreated" = "Date created";
+"AllContent.Sort.Date.Asc" = "Oldest first";
+"AllContent.Sort.Date.Desc" = "Newest first";
+"AllContent.Sort.Name.Asc" = "A → Z";
+"AllContent.Sort.Name.Desc" = "Z → A";
+"AllContent.Settings.Unlinked.Title" = "Only unlinked";
+"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllContent.Settings.ViewBin" = "휴지통 보기";
+"AllContent.Search.Empty.State.title" = "No results found.";
+"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+
+// MARK: - Chats
+"Chat.ReplyTo" = "Reply to %@";
+"Chat.Empty.Title" = "No messages yet";
+"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
+"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
+"Stream.Empty.Title" = "This stream is empty";
+"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Button.title" = "Share invite link";
+"Chat.DeleteMessage.Title" = "Delete this message?";
+"Chat.DeleteMessage.Description" = "It cannot be restored after confirmation";
+"Chat.Reactions.Empty.Title" = "No reactions yet";
+"Chat.Reactions.Empty.Subtitle" = "Probably someone has just removed the reaction or technical issue happened";
+"Chat.EditMessage" = "Edit Message";
+"Chat.Actions.Menu.Pages" = "페이지 ";
+"Chat.Actions.Menu.Lists" = "목록";
+"Chat.Actions.Menu.Photos" = "Photos";
+"Chat.Actions.Menu.Files" = "파일";
+"Chat.Actions.Menu.Camera" = "Camera";
+"Chat.Actions.Menu.More" = "더보기";
+"Chat.Participant.Badge" = "(You)";
+"Chat.Reply.Images" = "Images (%@)";
+"Chat.Reply.Attachments" = "Attachments (%@)";
+"Chat.Reply.Files" = "Files (%@)";
+"Chat.SendLimitAlert.Title" = "Hold up! Turbo typing detected!";
+"Chat.SendLimitAlert.Message" = "Looks like you're sending messages at lightning speed. Give it a sec before your next one.";
+"Chat.AttachmentsLimit.Alert" = "You can upload only %@ attachments at a time";
+"Chat.AttachedObject.Attach" = "Attach";
+"Chat.CreateObject.Dismiss.Title" = "Are you sure you want to close this screen?";
+"Chat.CreateObject.Dismiss.Message" = "If you leave it, all your changes will be lost.";
+"Chat.CreateObject.Dismiss.Ok" = "Yes, close";
+"Chat.Attach.Page.title" = "Attach Page";
+"Chat.Attach.List.title" = "Attach List";
+"Chat.NewMessages" = "New Messages";
+
+// MARK: - Reindexing warning alert
+"ReindexingWarningAlert.Title" = "Upgrading your search experience";
+"ReindexingWarningAlert.Description" = "We've implemented a new search library for faster and more accurate results.\nReindexing may take a few minutes.";
+
+// MARK: - Empty view
+"EmptyView.Default.title" = "It’s empty here.";
+"EmptyView.Default.subtitle" = "Create your first objects to get started.";
+"EmptyView.Bin.title" = "휴지통이 비어있음.";
+"EmptyView.Bin.subtitle" = "Looks like you’re all tidy and organized!";
+
+// MARK: - Object Search with meta
+"ObjectSearchWithMeta.Create.Page" = "New Page";
+"ObjectSearchWithMeta.Create.Note" = "New Note";
+"ObjectSearchWithMeta.Create.Set" = "New Query";
+"ObjectSearchWithMeta.Create.Collection" = "New Collection";
+
+// MARK: - AI Tool
+"AITool.title" = "Ask AI";
+"AITool.placeholder" = "For example, Summarise";
+"AITool.button" = "Generate";
+
+// MARK: - Any App
+"AnyApp.BetaAlert.Title" = "Welcome to the Alpha version";
+"AnyApp.BetaAlert.Description" = "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.";
+
+// MARK: - Migration
+"Migration.Initial.title" = "New Version Update";
+"Migration.Initial.subtitle1" = "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.";
+"Migration.Initial.subtitle2" = "It might take a little while, but don't worry, your data is safe.";
+"Migration.Initial.startUpdate" = "Start Update";
+"Migration.Initial.readMore" = "Read More";
+
+"Migration.Progress.title" = "Update is in progress...";
+"Migration.Progress.subtitle" = "This may take some time. Please don’t close the app until the process is complete.";
+"Migration.Error.NotEnoughtSpace.title" = "Not enough space";
+"Migration.Error.NotEnoughtSpace.message" = "Please free up space and run the process again.";
+
+"Migration.ReadMore.option1" = "What to Expect";
+"Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
+"Migration.ReadMore.option2" = "Your Data Remains Safe";
+"Migration.ReadMore.description2" = "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format.";
+"Migration.ReadMore.description3" = "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen.";
+
+
+// MARK: - Primitives
+"Primitives.LayoutConflict.Description" = "This layout differs from the type's default. Reset to match?";

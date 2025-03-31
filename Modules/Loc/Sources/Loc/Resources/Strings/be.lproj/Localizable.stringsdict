@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Items syncing</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@item@ сінхранізацыя...</string>
+      <key>item</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld элемент</string>
+        <key>few</key>
+        <string>%ld элементы</string>
+        <key>many</key>
+        <string>%ld элементаў</string>
+        <key>other</key>
+        <string>%ld элементаў</string>
+      </dict>
+    </dict>
+    <key>Devices connected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@device@ падключана(-ы)</string>
+      <key>device</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld прылада</string>
+        <key>few</key>
+        <string>%ld прылады</string>
+        <key>many</key>
+        <string>%ld прылад</string>
+        <key>other</key>
+        <string>%ld прылад</string>
+      </dict>
+    </dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Ці вы сапраўды хочаце выдаліць  %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d аб'ект</string>
+        <key>few</key>
+        <string>%d  аб'екты</string>
+        <key>many</key>
+        <string>%d  аб'ектаў</string>
+        <key>other</key>
+        <string>%d  аб'ектаў</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@ выбран</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d аб'ект</string>
+        <key>few</key>
+        <string>%d  аб'екты</string>
+        <key>many</key>
+        <string>%d  аб'ектаў</string>
+        <key>other</key>
+        <string>%d  аб'ектаў</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d блок выбраны</string>
+        <key>few</key>
+        <string>%d блокі выбрана</string>
+        <key>many</key>
+        <string>%d блокаў выбрана</string>
+        <key>other</key>
+        <string>%d блокаў выбрана</string>
+      </dict>
+    </dict>
+    <key>Links count</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d спасылка</string>
+        <key>few</key>
+        <string>%d спасылкі</string>
+        <key>many</key>
+        <string>%d спасылак</string>
+        <key>other</key>
+        <string>%d спасылак</string>
+      </dict>
+    </dict>
+    <key>Backlinks count</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d зваротная спасылка</string>
+        <key>few</key>
+        <string>%d зваротныя спасылкі</string>
+        <key>many</key>
+        <string>%d зваротных спасылак</string>
+        <key>other</key>
+        <string>%d зваротных спасылак</string>
+      </dict>
+    </dict>
+    <key>Days to deletion vault</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Гэтае сховішча будзе выдалена праз %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>заўтра</string>
+        <key>few</key>
+        <string>праз %d дні</string>
+        <key>many</key>
+        <string>праз %d дзён</string>
+        <key>other</key>
+        <string>праз %d дзён</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Адзін аб'ект выдалены</string>
+        <key>few</key>
+        <string>%d аб'екты выдалены</string>
+        <key>many</key>
+        <string>%d аб'ектаў выдалена</string>
+        <key>other</key>
+        <string>%d аб'ектаў выдалена</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Файлавы аб'ект</string>
+        <key>few</key>
+        <string>%d Файлавыя аб'екты</string>
+        <key>many</key>
+        <string>%d Файлавых аб'ектаў</string>
+        <key>other</key>
+        <string>%d Файлавых аб'ектаў</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Файлавы блок</string>
+        <key>few</key>
+        <string>%d файлавыя блокі</string>
+        <key>many</key>
+        <string>%d файлавых блокаў</string>
+        <key>other</key>
+        <string>%d файлавых блокаў</string>
+      </dict>
+    </dict>
+    <key>Membership.Upgrade.SpacesLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Вы дасягнулі ліміту %d прасторы, якую можна абагуліць</string>
+        <key>few</key>
+        <string>Вы дасягнулі ліміту %d прасторы, якія можна абагуліць</string>
+        <key>many</key>
+        <string>Вы дасягнулі ліміту %d прастор, якія можна абагуліць</string>
+        <key>other</key>
+        <string>Вы дасягнулі ліміту %d прастор, якія можна абагуліць</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Закладка аб'екта</string>
+        <key>few</key>
+        <string>%d Закладкі аб'екта</string>
+        <key>many</key>
+        <string>%d Закладак аб'екта</string>
+        <key>other</key>
+        <string>%d Закладак аб'екта</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Сувязь блока</string>
+        <key>few</key>
+        <string>Сувязь %d блокаў</string>
+        <key>many</key>
+        <string>Сувязь %d блокаў</string>
+        <key>other</key>
+        <string>Сувязь %d блокаў</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Вы дасягнулі ліміту %d удзельніка. Новыя ўдзельнікі не змогуць далучыцца.</string>
+        <key>few</key>
+        <string>Вы дасягнулі ліміту ў %d удзельнікаў. Новыя ўдзельнікі не змогуць далучыцца.</string>
+        <key>many</key>
+        <string>Вы дасягнулі ліміту ў %d удзельнікаў. Новыя ўдзельнікі не змогуць далучыцца.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Вы дасягнулі ліміту ў %d удзельнікаў. Новыя ўдзельнікі не змогуць далучыцца.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d удзельнікаў</string>
+        <key>one</key>
+        <string>%d удзельнік</string>
+        <key>few</key>
+        <string>%d удзельнікі</string>
+        <key>many</key>
+        <string>%d удзельнікаў</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d запытаў</string>
+        <key>one</key>
+        <string>%d запыт</string>
+        <key>few</key>
+        <string>%d запыты</string>
+        <key>many</key>
+        <string>%d запытаў</string>
+      </dict>
+    </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>у  %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>месяц</string>
+        <key>few</key>
+        <string>%d месяца</string>
+        <key>many</key>
+        <string>%d месяцы</string>
+        <key>other</key>
+        <string>%d месяцаў</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>у  %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>тыдзень</string>
+        <key>few</key>
+        <string>%d тыдні</string>
+        <key>many</key>
+        <string>%d тыдняў</string>
+        <key>other</key>
+        <string>%d тыдняў</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>у  %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>год</string>
+        <key>few</key>
+        <string>%d гады</string>
+        <key>many</key>
+        <string>%d гадоў</string>
+        <key>other</key>
+        <string>%d гадоў</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>у  %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>дзень</string>
+        <key>few</key>
+        <string>%d дні</string>
+        <key>many</key>
+        <string>%d дзён</string>
+        <key>other</key>
+        <string>%d дзён</string>
+      </dict>
+    </dict>
+    <key>TemplateSelection.Available.Title</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>This type has %d template</string>
+        <key>few</key>
+        <string>This type has %d templates</string>
+        <key>many</key>
+        <string>This type has %d templates</string>
+        <key>other</key>
+        <string>This type has %d templates</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

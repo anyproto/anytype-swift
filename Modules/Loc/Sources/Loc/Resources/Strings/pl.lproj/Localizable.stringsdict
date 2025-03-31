@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Items syncing</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@item@ syncing...</string>
+      <key>item</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld item</string>
+        <key>few</key>
+        <string>%ld items</string>
+        <key>many</key>
+        <string>%ld items</string>
+        <key>other</key>
+        <string>%ld items</string>
+      </dict>
+    </dict>
+    <key>Devices connected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@device@ connected</string>
+      <key>device</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>%ld device</string>
+        <key>few</key>
+        <string>%ld devices</string>
+        <key>many</key>
+        <string>%ld devices</string>
+        <key>other</key>
+        <string>%ld devices</string>
+      </dict>
+    </dict>
+    <key>Are you sure you want to delete</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Czy na pewno chcesz usunąć  %#@object@?</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d obiekt</string>
+        <key>few</key>
+        <string>%d obiekty</string>
+        <key>many</key>
+        <string>%d obiektów</string>
+        <key>other</key>
+        <string>%d obiektów</string>
+      </dict>
+    </dict>
+    <key>Object selected</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Wybrano %#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d obiekt</string>
+        <key>few</key>
+        <string>%d obiekty</string>
+        <key>many</key>
+        <string>%d obiektów</string>
+        <key>other</key>
+        <string>%d obiektów</string>
+      </dict>
+    </dict>
+    <key>Selected blocks</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d wybrany blok</string>
+        <key>few</key>
+        <string>%d wybrane bloki</string>
+        <key>many</key>
+        <string>%d wybranych bloków</string>
+        <key>other</key>
+        <string>%d wybranych bloków</string>
+      </dict>
+    </dict>
+    <key>Links count</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>link: %d</string>
+        <key>few</key>
+        <string>Linki: %d</string>
+        <key>many</key>
+        <string>Linki: %d</string>
+        <key>other</key>
+        <string>Linki: %d</string>
+      </dict>
+    </dict>
+    <key>Backlinks count</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d link wsteczny</string>
+        <key>few</key>
+        <string>%d linków wstecznych</string>
+        <key>many</key>
+        <string>%d linków wstecznych</string>
+        <key>other</key>
+        <string>%d linków wstecznych</string>
+      </dict>
+    </dict>
+    <key>Days to deletion vault</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Ten sejf zostanie usunięty za %#@days@</string>
+      <key>days</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>jutro</string>
+        <key>few</key>
+        <string>za %d dni</string>
+        <key>many</key>
+        <string>za %d dni</string>
+        <key>other</key>
+        <string>w %d dni</string>
+      </dict>
+    </dict>
+    <key>Widgets.Actions.BinConfirm</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Usunięto jeden obiekt</string>
+        <key>few</key>
+        <string>%d usunięte obiekty</string>
+        <key>many</key>
+        <string>%d usuniętych obiektów</string>
+        <key>other</key>
+        <string>Usunięto %d obiektów</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Obiekt plikowy</string>
+        <key>few</key>
+        <string>%d File Objects (Obiekty plików)</string>
+        <key>many</key>
+        <string>%d File Objects (Obiekty plików)</string>
+        <key>other</key>
+        <string>%d File Objects (Obiekty plików)</string>
+      </dict>
+    </dict>
+    <key>Sharing.File.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Blok plików</string>
+        <key>few</key>
+        <string>%d bloki plików</string>
+        <key>many</key>
+        <string>%d bloki plików</string>
+        <key>other</key>
+        <string>%d bloki plików</string>
+      </dict>
+    </dict>
+    <key>Membership.Upgrade.SpacesLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+        <key>few</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+        <key>many</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+        <key>other</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.NewObject</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Obiekt zakładki</string>
+        <key>few</key>
+        <string>%d Obiekty zakładek</string>
+        <key>many</key>
+        <string>%d Obiekty zakładek</string>
+        <key>other</key>
+        <string>%d Obiekty zakładek</string>
+      </dict>
+    </dict>
+    <key>Sharing.URL.Block</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Blok z odnośnikiem</string>
+        <key>few</key>
+        <string>Bloki %d linków</string>
+        <key>many</key>
+        <string>Bloki %d linków</string>
+        <key>other</key>
+        <string>Bloki %d linków</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
+        <key>few</key>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
+        <key>many</key>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d członków</string>
+        <key>one</key>
+        <string>%d użytkownik</string>
+        <key>few</key>
+        <string>%d członków</string>
+        <key>many</key>
+        <string>%d członków</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d żądań</string>
+        <key>one</key>
+        <string>%d żądanie</string>
+        <key>few</key>
+        <string>%d żądań</string>
+        <key>many</key>
+        <string>%d żądań</string>
+      </dict>
+    </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>na %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>miesiąc</string>
+        <key>few</key>
+        <string>%d miesięcy</string>
+        <key>many</key>
+        <string>%d miesięcy</string>
+        <key>other</key>
+        <string>%d miesięcy</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>na %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>tydzień</string>
+        <key>few</key>
+        <string>%d tygodni</string>
+        <key>many</key>
+        <string>%d tygodni</string>
+        <key>other</key>
+        <string>%d tygodni</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>na %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>rok</string>
+        <key>few</key>
+        <string>%d lat</string>
+        <key>many</key>
+        <string>%d lat</string>
+        <key>other</key>
+        <string>%d lat</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>na %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>dzień</string>
+        <key>few</key>
+        <string>%d dni</string>
+        <key>many</key>
+        <string>%d dni</string>
+        <key>other</key>
+        <string>%d dni</string>
+      </dict>
+    </dict>
+    <key>TemplateSelection.Available.Title</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>This type has %d template</string>
+        <key>few</key>
+        <string>This type has %d templates</string>
+        <key>many</key>
+        <string>This type has %d templates</string>
+        <key>other</key>
+        <string>This type has %d templates</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>
