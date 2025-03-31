@@ -75,10 +75,11 @@ final class MigrationViewModel: ObservableObject {
             await data.onFinish()
         } catch is CancellationError {
             // Ignore cancellations
-        } catch AccountMigrationError.notEnoughFreeSpace {
+        } catch let AccountMigrationError.notEnoughFreeSpace(requaredSpace) {
+            let size = ByteCountFormatter.fileFormatter.string(fromByteCount: requaredSpace)
             state = .error(
                 title: Loc.Migration.Error.NotEnoughtSpace.title,
-                message: Loc.Migration.Error.NotEnoughtSpace.message
+                message: Loc.Migration.Error.NotEnoughtSpace.message(size)
             )
         } catch {
             state = .error(
