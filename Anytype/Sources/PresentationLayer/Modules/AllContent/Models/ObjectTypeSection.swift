@@ -18,7 +18,10 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
         }
     }
     
-    static var allContentSupportedSections: [ObjectTypeSection] { allCases.filter { $0 != .all } }
+    static var allObjectsSupportedSections: [ObjectTypeSection] {
+        let sections = allCases.filter { $0 != .all }
+        return FeatureFlags.newSettings ? sections.filter { $0 != .types } : sections
+    }
     
     var title: String {
         switch self {

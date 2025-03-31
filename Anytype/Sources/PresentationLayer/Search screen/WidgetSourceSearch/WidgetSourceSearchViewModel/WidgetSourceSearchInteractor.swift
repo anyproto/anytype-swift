@@ -82,7 +82,7 @@ private extension AnytypeWidgetId {
                 type: .allObjects,
                 name: Loc.allObjects,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.allObjects) : .object(.emoji(Emoji("🗄")!)) // ??
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.allObjects) : .object(.emoji(Emoji("🗄")!))
             )
         case .favorite:
             return WidgetAnytypeLibrarySource(

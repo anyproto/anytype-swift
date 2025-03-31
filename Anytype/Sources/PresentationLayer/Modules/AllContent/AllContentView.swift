@@ -98,7 +98,7 @@ struct AllContentView: View {
     private var sections: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(ObjectTypeSection.allContentSupportedSections, id: \.self) { section in
+                ForEach(ObjectTypeSection.allObjectsSupportedSections, id: \.self) { section in
                     Button {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.sectionChanged(section)
