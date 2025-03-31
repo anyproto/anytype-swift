@@ -68,13 +68,10 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
             }.first
             
             if let typeIdentifier {
-                let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier.identifier, directory: tempDirectoryPath())
-                let resources = try url.resourceValues(forKeys: [.fileSizeKey])
-                return FileData(path: url.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
+                return try await loadData(itemProvider: itemProvider, type: typeIdentifier)
             } else {
-                let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.data.identifier, directory: tempDirectoryPath())
-                let resources = try url.resourceValues(forKeys: [.fileSizeKey])
-                return FileData(path: url.relativePath, type: UTType.data, sizeInBytes: resources.fileSize, isTemporary: true)
+                // Try to represent in data format
+                return try await loadData(itemProvider: itemProvider, type: UTType.data)
             }
         }
     }
@@ -211,6 +208,12 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         } catch {}
         
         return nil
+    }
+    
+    private func loadData(itemProvider: NSItemProvider, type: UTType) async throws -> FileData {
+        let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: type.identifier, directory: tempDirectoryPath())
+        let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+        return FileData(path: url.relativePath, type: type, sizeInBytes: resources.fileSize, isTemporary: true)
     }
 
 }
