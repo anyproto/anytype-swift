@@ -1,0 +1,13 @@
+input_dir: ../../Sources/Loc
+output_dir: ../../Sources/Loc
+
+strings:
+  inputs: 
+    - Resources/Strings/en.lproj/Localizable.strings
+    - Resources/Strings/en.lproj/Localizable.stringsdict
+  outputs:
+    - templateName: structured-swift5
+      output: Generated/Strings.swift
+      params:
+        enumName: Loc
+        publicAccess: true
