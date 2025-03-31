@@ -590,7 +590,7 @@
 "No type found text" = "Nessun tipo “%@” trovato. Modifica la tua richiesta o crea un nuovo tipo.";
 "Create type" = "Crea tipo";
 "Chat" = "Chat";
-"Edit type" = "Edit type";
+"Edit type" = "Modifica tipo";
 
 "Limit object types" = "Limita tipi di oggetto";
 "Type" = "Tipo";
@@ -868,10 +868,10 @@
 "Widgets.Library.RecentlyOpened.Name" = "Aperti di recente";
 "Widgets.Library.RecentlyOpened.Description" = "Su questo dispositivo";
 "Widgets.AppUpdate" = "Anytype è pronto per l'aggiornamento";
-"Widgets.Source.Suggested" = "Suggested";
-"Widgets.Source.Library" = "Insieme di default";
+"Widgets.Source.Suggested" = "Suggerito";
+"Widgets.Source.Library" = "Sistema";
 "Widgets.Source.Objects" = "I tuoi oggetti";
-"Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.List.Empty" = "Non ci sono ancora widget";
 
 // MARK: - About
 "About.AppVersion" = "Versione applicazione: %@";
@@ -907,8 +907,8 @@
 "Settings.Edit picture" = "Modifica foto";
 "Settings.Updated" = "Informazioni sullo spazio aggiornate";
 "Settings.DataManagement" = "Gestione Dati";
-"Settings.ChatEnabled" = "Chat is enabled";
-"Settings.ChatDisabled" = "Chat is disabled";
+"Settings.ChatEnabled" = "La chat è abilitata";
+"Settings.ChatDisabled" = "La chat è disattivata";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Archiviazione file";
@@ -947,9 +947,9 @@
 "Spaces.UxType.Chat.Title" = "Chat";
 "Spaces.UxType.Space.Title" = "Spazio";
 "Spaces.UxType.Stream.Title" = "Stream";
-"Spaces.UxType.Chat.Description" = "For real-time conversations";
-"Spaces.UxType.Space.Description" = "For organized content and data";
-"Spaces.UxType.Stream.Description" = "For broadcasting your vibe";
+"Spaces.UxType.Chat.Description" = "Per conversazioni in tempo reale";
+"Spaces.UxType.Space.Description" = "Per contenuti e dati organizzati";
+"Spaces.UxType.Stream.Description" = "Per trasmettere il tuo vibe";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Sconosciuto";
@@ -989,9 +989,9 @@
 "SpaceShare.Permissions.Grand.View" = "Vista";
 "SpaceShare.Invite.Title" = "Link di invito";
 "SpaceShare.Invite.Description" = "Condividi questo link di invito in modo che altri possano unirsi al tuo Spazio. Una volta che cliccano sul tuo link e richiedono l'accesso, puoi impostare i loro diritti di accesso.";
-"SpaceShare.Invite.Stream.Description" = "Share this link so that others can join your Stream.";
+"SpaceShare.Invite.Stream.Description" = "Condividi questo link in modo che altri possano unirsi al tuo Stream.";
 "SpaceShare.Invite.Share" = "Condividi il link di invito";
-"SpaceShare.Share.link" = "Share link";
+"SpaceShare.Share.link" = "Condividi link";
 "SpaceShare.Invite.Generate" = "Genera link di invito";
 "SpaceShare.Invite.Empty" = "Crea un link di invito per condividere lo spazio e aggiungere nuovi membri";
 "SpaceShare.JoinRequest" = "Richiesta di partecipazione";
@@ -999,7 +999,7 @@
 "SpaceShare.Action.ViewRequest" = "Visualizza richiesta";
 "SpaceShare.Action.Approve" = "Approva";
 "SpaceShare.DeleteSharingLink.Title" = "Elimina link";
-"SpaceShare.CopyInviteLink.Title" = "Copy invite link";
+"SpaceShare.CopyInviteLink.Title" = "Copia il link di invito";
 "SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
@@ -1014,11 +1014,11 @@
 "SpaceShare.Join.Button" = "Richiesta di adesione";
 "SpaceShare.Join.Info" = "Una volta che il proprietario dello spazio approva la tua richiesta, entrerai nello spazio con i diritti di accesso determinati dal proprietario.";
 "SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio **%@**, creato da **%@**. Invia una richiesta così il proprietario dello spazio può farti entrare.";
-"SpaceShare.Join.NoAccess.Title" = "No access to this space";
-"SpaceShare.Join.InviteNotFound.Message" = "The link you are using does not seem to work. Please ask the owner to share a new one with you.";
+"SpaceShare.Join.NoAccess.Title" = "Nessun accesso a questo spazio";
+"SpaceShare.Join.InviteNotFound.Message" = "Il link utilizzato non sembra funzionare. Chiedetre al proprietario di condividerne uno nuovo.";
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
-"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Ask the owner to share it with you.";
+"SpaceShare.Join.ObjectIsNotAvailable.Message" = "Chiedi al proprietario di condividerlo con te.";
 "SpaceShare.Join.SpaceDeleted" = "Lo spazio a cui si cerca di accedere è stato cancellato";
 
 "SpaceShare.YouSuffix" = "%@ (tu)";
@@ -1057,9 +1057,9 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Chat.Title" = "Create a chat";
-"SpaceCreate.Space.Title" = "Create a space";
-"SpaceCreate.Stream.Title" = "Create a stream";
+"SpaceCreate.Chat.Title" = "Crea una chat";
+"SpaceCreate.Space.Title" = "Crea uno spazio";
+"SpaceCreate.Stream.Title" = "Crea una stream";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Aggiungi a Anytype";
@@ -1273,8 +1273,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Aggiungi una Reazione";
 "Message.Action.Reply" = "Rispondi";
-"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
-"Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
+"Message.Input.Chat.EmptyPlaceholder" = "Scrivi un messaggio...";
+"Message.Input.Stream.EmptyPlaceholder" = "Trasmissione";
 "Message.Action.Unread" = "Segna come non letto";
 "Message.Action.CopyPlainText" = "Copia Testo Semplice";
 "Message.ChatTitle.Placeholder" = "Chat senza titolo";
@@ -1284,26 +1284,26 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Date.Open.Action.title" = "Apri la data selezionata";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort by";
-"AllContent.Sort.DateUpdated" = "Data di aggiornamento";
-"AllContent.Sort.DateCreated" = "Data di creazione";
-"AllContent.Sort.Date.Asc" = "Dal più vecchio";
-"AllContent.Sort.Date.Desc" = "Prima i più recenti";
-"AllContent.Sort.Name.Asc" = "A → Z";
-"AllContent.Sort.Name.Desc" = "Z → A";
-"AllContent.Settings.Unlinked.Title" = "Solo non collegati";
-"AllContent.Settings.Unlinked.Description" = "Oggetti non collegati che non hanno un collegamento diretto o un backlink con altri oggetti nel grafo.";
-"AllContent.Settings.ViewBin" = "Visualizza Cestino";
-"AllContent.Search.Empty.State.title" = "Nessun risultato trovato.";
-"AllContent.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
+"AllObjects.Settings.Sort.Title" = "Sort by";
+"AllObjects.Sort.DateUpdated" = "Date updated";
+"AllObjects.Sort.DateCreated" = "Date created";
+"AllObjects.Sort.Date.Asc" = "Oldest first";
+"AllObjects.Sort.Date.Desc" = "Newest first";
+"AllObjects.Sort.Name.Asc" = "A → Z";
+"AllObjects.Sort.Name.Desc" = "Z → A";
+"AllObjects.Settings.Unlinked.Title" = "Only unlinked";
+"AllObjects.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllObjects.Settings.ViewBin" = "View Bin";
+"AllObjects.Search.Empty.State.title" = "Nessun risultato trovato.";
+"AllObjects.Search.Empty.State.subtitle" = "Prova a cercare con parole chiave diverse.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Rispondi a %@";
-"Chat.Empty.Title" = "No messages yet";
-"Chat.Empty.Owner.Description" = "Invite people and spark it up!";
-"Chat.Empty.Editor.Description" = "Write the first one to spark it up!";
-"Stream.Empty.Title" = "This stream is empty";
-"Stream.Empty.Description" = "Invite people and start sharing your vibe";
+"Chat.Empty.Title" = "Nessun messaggio";
+"Chat.Empty.Owner.Description" = "Invita le persone e fate scintille!";
+"Chat.Empty.Editor.Description" = "Scrivi il primo a fai scintille!";
+"Stream.Empty.Title" = "Questa stream è vuota";
+"Stream.Empty.Description" = "Invita le persone e inizia a condividere il tuo vibe";
 "Chat.Empty.Button.title" = "Condividi il link di invito";
 "Chat.DeleteMessage.Title" = "Eliminare questo messaggio?";
 "Chat.DeleteMessage.Description" = "Non può essere ripristinato dopo la conferma";
@@ -1329,7 +1329,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Chat.CreateObject.Dismiss.Ok" = "Sì, chiudi";
 "Chat.Attach.Page.title" = "Allega Pagina";
 "Chat.Attach.List.title" = "Allega Lista";
-"Chat.NewMessages" = "New Messages";
+"Chat.NewMessages" = "Nuovi Messaggi";
 
 // MARK: - Reindexing warning alert
 "ReindexingWarningAlert.Title" = "Stiamo migliorando la tua esperienza di ricerca";
@@ -1348,9 +1348,9 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "ObjectSearchWithMeta.Create.Collection" = "Nuova Collezione";
 
 // MARK: - AI Tool
-"AITool.title" = "Ask AI";
-"AITool.placeholder" = "For example, Summarise";
-"AITool.button" = "Generate";
+"AITool.title" = "Chiedi all'IA";
+"AITool.placeholder" = "Ad esempio, Riassumere";
+"AITool.button" = "Genera";
 
 // MARK: - Any App
 "AnyApp.BetaAlert.Title" = "Benvenuto nella versione Alpha";
