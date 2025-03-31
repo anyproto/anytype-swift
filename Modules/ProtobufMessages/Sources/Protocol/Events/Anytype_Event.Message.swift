@@ -639,10 +639,10 @@ extension Anytype_Event {
     }
 
     /// received to update per-message mention read status (if needed to highlight the unread mentions in the UI)
-    public var chatUpdateMentionReadStatus: Anytype_Event.Chat.UpdateMessageReadStatus {
+    public var chatUpdateMentionReadStatus: Anytype_Event.Chat.UpdateMentionReadStatus {
       get {
         if case .chatUpdateMentionReadStatus(let v)? = _storage._value {return v}
-        return Anytype_Event.Chat.UpdateMessageReadStatus()
+        return Anytype_Event.Chat.UpdateMentionReadStatus()
       }
       set {_uniqueStorage()._value = .chatUpdateMentionReadStatus(newValue)}
     }
@@ -1745,7 +1745,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
         }()
         case 135: try {
-          var v: Anytype_Event.Chat.UpdateMessageReadStatus?
+          var v: Anytype_Event.Chat.UpdateMentionReadStatus?
           var hadOneofValue = false
           if let current = _storage._value {
             hadOneofValue = true

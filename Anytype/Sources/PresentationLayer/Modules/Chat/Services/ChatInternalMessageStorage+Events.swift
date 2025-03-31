@@ -62,7 +62,7 @@ extension ChatInternalMessageStorage {
     }
     
     @discardableResult
-    mutating func chatUpdateMentionReadStatus(_ data: Anytype_Event.Chat.UpdateMessageReadStatus) -> Bool {
+    mutating func chatUpdateMentionReadStatus(_ data: Anytype_Event.Chat.UpdateMentionReadStatus) -> Bool {
         var updated = false
         for messageId in data.ids {
             if var message = message(id: messageId) {

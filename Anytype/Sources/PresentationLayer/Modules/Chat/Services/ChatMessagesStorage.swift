@@ -420,7 +420,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             chatObjectId: chatObjectId,
             afterOrderId: afterOrderId,
             beforeOrderId: beforeOrderId,
-            type: .replies,
+            type: .mentions,
             lastDbTimestamp: chatState.dbTimestamp
         )
     }
