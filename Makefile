@@ -30,7 +30,6 @@ generate:
 	./Modules/Loc/Scripts/generate.sh
 
 update-xcfilelists:
-	./Tools/SwiftGen/swiftgen config generate-xcfilelists --config ./Tools/SwiftGen/swiftgen.yml --inputs ./Tools/SwiftGen/swiftgen-inputs-files.xcfilelist --outputs ./Tools/SwiftGen/swiftgen-outputs-files.xcfilelist
 	./Tools/SwiftGen/swiftgen config generate-xcfilelists --config ./Tools/SwiftGen/swiftgen-we.yml --inputs ./Tools/SwiftGen/swiftgen-inputs-files-we.xcfilelist --outputs ./Tools/SwiftGen/swiftgen-outputs-files-we.xcfilelist
 
 install-middle-local:
