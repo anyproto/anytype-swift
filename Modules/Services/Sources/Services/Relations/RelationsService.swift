@@ -152,10 +152,11 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
         
         let compoundRelations = recommendedFeaturedRelations + recommendedRelations + recommendedHiddenRelations
+        let relationKeys = NSOrderedSet(array: compoundRelations.map(\.key)).array as! [String]
         try await ClientCommands.blockDataviewRelationSet(.with {
             $0.contextID = typeId
             $0.blockID = dataviewId
-            $0.relationKeys = compoundRelations.map(\.key)
+            $0.relationKeys = relationKeys
         }).invoke()
     }
     
