@@ -20,6 +20,7 @@ struct ChatInput: View {
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     let onLinkAdded: (_ url: URL) -> Void
+    let onPasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
@@ -91,7 +92,8 @@ struct ChatInput: View {
                 minHeight: 56,
                 maxHeight: 156,
                 linkTo: onTapLinkTo,
-                linkParsed: onLinkAdded
+                linkParsed: onLinkAdded,
+                pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
             )
         }
     }

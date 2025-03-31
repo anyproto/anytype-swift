@@ -118,6 +118,9 @@ struct ChatView: View {
                 },
                 onLinkAdded: { link in
                     model.onLinkAdded(link: link)
+                },
+                onPasteAttachmentsFromBuffer: { items in
+                    model.onPasteAttachmentsFromBuffer(items: items)
                 }
             )
             .overlay(alignment: .top) {

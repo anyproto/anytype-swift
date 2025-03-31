@@ -20,7 +20,7 @@ protocol PasteboardHelperProtocol: Sendable {
     func obtainHTMLSlot() -> String?
     func obtainTextSlot() -> String?
     func obtainUrlSlot() -> URL?
-    func obtainAsFiles() -> [NSItemProvider]
+    func obtainFileSlots() -> [NSItemProvider]
     func obtainAllItems() -> [[String: Any]]
     
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
@@ -128,8 +128,19 @@ final class PasteboardHelper: PasteboardHelperProtocol, Sendable {
         return nil
     }
 
-    func obtainAsFiles() -> [NSItemProvider] {
+    func obtainFileSlots() -> [NSItemProvider] {
+        // Filters out not data types, but those that can be represented as data.
+        // For example: any text can be represented as data.
+        let filterTypes = [UTType.url, UTType.text, UTType.html, UTType.blockSlot]
         return pasteboard.itemProviders
+            .filter {
+                for type in filterTypes {
+                    if $0.hasItemConformingToTypeIdentifier(type.identifier) {
+                        return false
+                    }
+                }
+                return true
+            }
     }
     
     func obtainAllItems() -> [[String: Any]] {

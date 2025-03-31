@@ -23,6 +23,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     
     var linkTo: ((_ range: NSRange) -> Void)?
     var linkParsed: ((_ url: URL) -> Void)?
+    var pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)?
     var defaultTypingAttributes: [NSAttributedString.Key : Any] = [:]
     
     // MARK: - State
@@ -204,6 +205,15 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
                 linkParsed?(link)
             }
         }
+        
+        let attachments = chatPasteboardHelper.attachments()
+        if attachments.isNotEmpty {
+            pasteAttachmentsFromBuffer?(attachments)
+        }
+    }
+    
+    func textViewHasPasteAction(_ textView: AnytypeUITextView) -> Bool {
+        return UIPasteboard.general.hasSlots
     }
     
     // MARK: - Private

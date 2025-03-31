@@ -4,6 +4,7 @@ import UIKit
 
 protocol ChatPasteboardHelperProtocol: AnyObject {
     func attributedString() -> NSAttributedString?
+    func attachments() -> [NSItemProvider]
 }
 
 final class ChatPasteboardHelper: ChatPasteboardHelperProtocol {
@@ -23,6 +24,10 @@ final class ChatPasteboardHelper: ChatPasteboardHelperProtocol {
             return parseAttributedString(atrsString)
         }
         return nil
+    }
+    
+    func attachments() -> [NSItemProvider] {
+        pasteboardHelper.obtainFileSlots()
     }
     
     private func parseAttributedString(_ string: NSAttributedString) -> NSAttributedString? {
