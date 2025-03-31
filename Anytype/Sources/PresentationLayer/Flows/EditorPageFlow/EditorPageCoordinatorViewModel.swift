@@ -102,7 +102,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
             objectId: details.type,
             spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            target: .type(.recommendedRelations(details.recommendedRelations)),
+            target: .type(.recommendedRelations(details)),
             onRelationSelect: onSelect
         )
     }

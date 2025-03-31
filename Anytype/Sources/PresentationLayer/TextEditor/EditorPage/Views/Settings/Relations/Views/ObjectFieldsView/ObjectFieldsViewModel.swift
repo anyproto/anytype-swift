@@ -69,7 +69,13 @@ final class ObjectFieldsViewModel: ObservableObject {
         let relationsDetails = relationDetailsStorage.relationsDetails(ids: newRecommendedRelations.map(\.id), spaceId: document.spaceId)
         
         Task {
-            try await relationsService.updateRecommendedRelations(typeId: details.type, relations: relationsDetails)
+            try await relationsService
+                .updateTypeRelations(
+                    typeId: details.type,
+                    recommendedRelations: relationsDetails,
+                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
+                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+                )
         }
     }
     

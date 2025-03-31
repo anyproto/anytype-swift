@@ -86,7 +86,7 @@ final class TypeFieldsViewModel: ObservableObject {
         guard let details = document.details else { return }
         guard let format = data.relation.format else { return }
         
-        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(details.recommendedFeaturedRelations) : .recommendedRelations(details.recommendedRelations)
+        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(details) : .recommendedRelations(details)
         
         relationData = RelationInfoData(
             name: data.relation.name,
@@ -99,7 +99,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddRelationTap(section: TypeFieldsSectionRow) {
         guard let details = document.details else { return }
-        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details.recommendedFeaturedRelations) : .recommendedRelations(details.recommendedRelations)
+        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details) : .recommendedRelations(details)
         
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
@@ -120,14 +120,26 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onDeleteRelation(_ row: TypeFieldsRelationRow) {
+        guard let details = document.details else { return }
+        
         Task {
             let relationsId = row.relation.id
             
             if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelationsDetails.filter({ relationsId != $0.id }) {
-                try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relations: recommendedFeaturedRelations)
+                try await relationsService.updateTypeRelations(
+                    typeId: document.objectId,
+                    recommendedRelations: details.recommendedRelationsDetails,
+                    recommendedFeaturedRelations: recommendedFeaturedRelations,
+                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+                )
             }
             if let recommendedRelations = document.details?.recommendedRelationsDetails.filter({ relationsId != $0.id }) {
-                try await relationsService.updateRecommendedRelations(typeId: document.objectId, relations: recommendedRelations)
+                try await relationsService.updateTypeRelations(
+                    typeId: document.objectId,
+                    recommendedRelations: recommendedRelations,
+                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
+                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+                )
             }
             
             
@@ -140,13 +152,21 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onAddConflictRelation(_ relation: RelationDetails) {
+        guard let details = document.details else { return }
+        
         AnytypeAnalytics.instance().logAddConflictRelation()
         var newRecommendedRelationsIds = parsedRelations.sidebarRelations.map(\.id)
         newRecommendedRelationsIds.append(relation.id)
         let newRecommendedRelations = relationDetailsStorage.relationsDetails(ids: newRecommendedRelationsIds, spaceId: document.spaceId)
         
         Task {
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relations: newRecommendedRelations)
+            try await relationsService.updateTypeRelations(
+                typeId: document.objectId,
+                recommendedRelations: newRecommendedRelations,
+                recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+            )
+            
             if let details = document.details { try await updateConflictRelations(details: details) }
         }
     }

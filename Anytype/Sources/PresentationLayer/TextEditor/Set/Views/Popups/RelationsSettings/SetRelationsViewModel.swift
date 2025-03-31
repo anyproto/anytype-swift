@@ -8,6 +8,7 @@ import Combine
 @MainActor
 final class SetRelationsViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
+    @Published var relations = [SetViewSettingsRelation]()
     
     private let setDocument: any SetDocumentProtocol
     private let viewId: String
@@ -18,21 +19,6 @@ final class SetRelationsViewModel: ObservableObject {
     private weak var output: (any SetRelationsCoordinatorOutput)?
     
     private var cancellable: (any Cancellable)?
-    
-    var relations: [SetViewSettingsRelation] {
-        setDocument.sortedRelations(for: viewId).map { relation in
-            SetViewSettingsRelation(
-                id: relation.id,
-                image: relation.relationDetails.format.iconAsset,
-                title: relation.relationDetails.name,
-                isOn: relation.option.isVisible,
-                canBeRemovedFromObject: relation.relationDetails.canBeRemovedFromObject,
-                onChange: { [weak self] isVisible in
-                    self?.onRelationVisibleChange(relation, isVisible: isVisible)
-                }
-            )
-        }
-    }
     
     init(
         setDocument: some SetDocumentProtocol,
@@ -119,6 +105,19 @@ final class SetRelationsViewModel: ObservableObject {
         cancellable = setDocument.syncPublisher.receiveOnMain().sink {  [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
+            
+            relations = setDocument.sortedRelations(for: viewId).map { relation in
+                SetViewSettingsRelation(
+                    id: relation.id,
+                    image: relation.relationDetails.format.iconAsset,
+                    title: relation.relationDetails.name,
+                    isOn: relation.option.isVisible,
+                    canBeRemovedFromObject: relation.relationDetails.canBeRemovedFromObject,
+                    onChange: { [weak self] isVisible in
+                        self?.onRelationVisibleChange(relation, isVisible: isVisible)
+                    }
+                )
+            }
         }
     }
     

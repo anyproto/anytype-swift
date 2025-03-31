@@ -36,7 +36,8 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 (!$0.isHidden && !$0.isDeleted) ||
                 (view.canSwitchItemName && $0.key == BundledRelationKey.name.rawValue)
             }
-        let relations: [SetRelation] = view.options
+        
+        let relationsPresentInView: [SetRelation] = view.options
             .compactMap { option in
                 let relationsDetails = storageRelationsDetails
                     .first { $0.key == option.key }
@@ -44,8 +45,13 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 
                 return SetRelation(relationDetails: relationsDetails, option: option)
             }
+        
+        let relationsNotPresentInView: [SetRelation] = storageRelationsDetails
+            .filter { !view.options.map(\.key).contains($0.key) }
+            .map { SetRelation(relationDetails: $0, option: DataviewRelationOption(key: $0.key, isVisible: false)) }
 
-        return NSOrderedSet(array: relations).array as! [SetRelation]
+        
+        return NSOrderedSet(array: relationsPresentInView + relationsNotPresentInView).array as! [SetRelation]
     }
     
     func activeViewRelations(

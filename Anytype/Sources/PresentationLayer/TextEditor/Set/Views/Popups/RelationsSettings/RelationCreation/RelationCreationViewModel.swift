@@ -95,14 +95,28 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     
     private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
         switch typeData {
-        case .recommendedFeaturedRelations(var relationIds):
-            relationIds.insert(relation.id, at: 0)
-            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: data.spaceId)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: data.objectId, relations: relations)
-        case .recommendedRelations(var relationIds):
-            relationIds.insert(relation.id, at: 0)
-            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: data.spaceId)
-            try await relationsService.updateRecommendedRelations(typeId: data.objectId, relations: relations)
+        case .recommendedFeaturedRelations(let details):
+            var recommendedFeaturedRelations = details.recommendedFeaturedRelationsDetails
+            recommendedFeaturedRelations.insert(relation, at: 0)
+            
+            try await relationsService
+                .updateTypeRelations(
+                    typeId: data.objectId,
+                    recommendedRelations: details.recommendedRelationsDetails,
+                    recommendedFeaturedRelations: recommendedFeaturedRelations,
+                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+                )
+        case .recommendedRelations(let details):
+            var recommendedRelations = details.recommendedRelationsDetails
+            recommendedRelations.insert(relation, at: 0)
+            
+            try await relationsService
+                .updateTypeRelations(
+                    typeId: data.objectId,
+                    recommendedRelations: recommendedRelations,
+                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
+                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+                )
         }
     }
     

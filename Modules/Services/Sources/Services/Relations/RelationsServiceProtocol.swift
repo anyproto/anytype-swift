@@ -21,13 +21,11 @@ public protocol RelationsServiceProtocol: AnyObject, Sendable {
     // New api
     func updateTypeRelations(
         typeId: String,
+        dataviewId: String,
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
         recommendedHiddenRelations: [RelationDetails]
     ) async throws
-    func updateRecommendedRelations(typeId: String, relations: [RelationDetails]) async throws
-    func updateRecommendedFeaturedRelations(typeId: String, relations: [RelationDetails]) async throws
-    func updateRecommendedHiddenRelations(typeId: String, relations: [RelationDetails]) async throws
     func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String]
     
     func toggleDescription(objectId: String, isOn: Bool) async throws

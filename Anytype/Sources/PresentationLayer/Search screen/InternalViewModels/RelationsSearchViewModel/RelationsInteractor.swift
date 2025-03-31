@@ -35,15 +35,23 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
         guard let details = document.details else { return }
         
         if isFeatured {
-            var relationIds = details.recommendedFeaturedRelations
-            relationIds.insert(relation.id, at: 0)
-            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: document.spaceId)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relations: relations)
+            var recommendedFeaturedRelationsDetails = details.recommendedFeaturedRelationsDetails
+            recommendedFeaturedRelationsDetails.insert(relation, at: 0)
+            try await relationsService.updateTypeRelations(
+                typeId: document.objectId,
+                recommendedRelations: details.recommendedRelationsDetails,
+                recommendedFeaturedRelations: recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+            )
         } else {
-            var relationIds = details.recommendedRelations
-            relationIds.insert(relation.id, at: 0)
-            let relations = relationDetailsStorage.relationsDetails(ids: relationIds, spaceId: document.spaceId)
-            try await self.relationsService.updateRecommendedRelations(typeId: document.objectId, relations: relations)
+            var recommendedRelationsDetails = details.recommendedRelationsDetails
+            recommendedRelationsDetails.insert(relation, at: 0)
+            try await relationsService.updateTypeRelations(
+                typeId: document.objectId,
+                recommendedRelations: recommendedRelationsDetails,
+                recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+            )
         }
     }
     

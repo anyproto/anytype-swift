@@ -186,24 +186,48 @@ final class TypeFieldsMoveHandler: Sendable {
         case .header:
             guard let fromIndex = details.recommendedFeaturedRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedFeaturedRelations.firstIndex(of: to.relation.id) else { return }
-            var newRelations = details.recommendedFeaturedRelationsDetails
-            newRelations.moveElement(from: fromIndex, to: toIndex)
+            var recommendedFeaturedRelationsDetails = details.recommendedFeaturedRelationsDetails
+            recommendedFeaturedRelationsDetails.moveElement(from: fromIndex, to: toIndex)
             AnytypeAnalytics.instance().logReorderRelation(group: nil)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relations: newRelations)
+            
+            try await move(
+                typeId: document.objectId,
+                from: from.section,
+                to: to.section,
+                recommendedRelationIds: details.recommendedRelationsDetails,
+                recommendedFeaturedRelationsIds: recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
+            )
         case .fieldsMenu:
             guard let fromIndex = details.recommendedRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedRelations.firstIndex(of: to.relation.id) else { return }
-            var newRelations = details.recommendedRelationsDetails
-            newRelations.moveElement(from: fromIndex, to: toIndex)
+            var recommendedRelationsDetails = details.recommendedRelationsDetails
+            recommendedRelationsDetails.moveElement(from: fromIndex, to: toIndex)
             AnytypeAnalytics.instance().logReorderRelation(group: nil)
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relations: newRelations)
+            
+            try await move(
+                typeId: document.objectId,
+                from: from.section,
+                to: to.section,
+                recommendedRelationIds: recommendedRelationsDetails,
+                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
+            )
         case .hidden:
             guard let fromIndex = details.recommendedHiddenRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedHiddenRelations.firstIndex(of: to.relation.id) else { return }
-            var newRelations = details.recommendedHiddenRelationsDetails
-            newRelations.moveElement(from: fromIndex, to: toIndex)
+            var recommendedHiddenRelationsDetails = details.recommendedHiddenRelationsDetails
+            recommendedHiddenRelationsDetails.moveElement(from: fromIndex, to: toIndex)
             AnytypeAnalytics.instance().logReorderRelation(group: nil)
-            try await relationsService.updateRecommendedHiddenRelations(typeId: document.objectId, relations: newRelations)
+            
+            try await move(
+                typeId: document.objectId,
+                from: from.section,
+                to: to.section,
+                recommendedRelationIds: details.recommendedRelationsDetails,
+                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelationsIds: recommendedHiddenRelationsDetails
+            )
         }
     }
     
