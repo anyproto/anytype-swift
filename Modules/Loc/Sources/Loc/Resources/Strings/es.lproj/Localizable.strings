@@ -84,7 +84,7 @@
 "Relation.EmptyState.description" = "No se ha encontrado nada. Crea la primera opción para comenzar.";
 "Relation.EmptyState.Blocked.title" = "La propiedad está vacía";
 "Relation.Create.Row.title" = "Crear “%@”";
-"Relation.View.Create.title" = "Crear opción";
+"Relation.View.Create.title" = "Crear opción ";
 "Relation.View.Edit.title" = "Editar opción";
 "Relation.Create.Textfield.placeholder" = "Introducir nombre…";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
@@ -291,7 +291,7 @@
 "Auth.JoinFlow.Key.Button.Info.Title" = "Más información sobre la clave";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "¿Qué es una clave?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Consiste en una frase de recuperación de 12 palabras con las que se genera mágicamente tu arca en este dispositivo.";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Consiste en una frase de recuperación de 12 palabras aleatorias con las que se genera mágicamente tu arca en este dispositivo.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Quien conozca esta combinación de palabras tendrá la propiedad de tu arca. **En este momento, tú eres la única persona del mundo que la conoce.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "No hay recursos computacionales en la Tierra suficientes para descifrarla. Si la pierdes, es imposible recuperarla. ¡Guárdala en un lugar seguro!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "¿Cómo guardo mi clave?";
@@ -611,7 +611,7 @@
 "Personalization" = "Personalización";
 "Choose default object type" = "Elige el tipo de objeto por defecto";
 "About" = "Información";
-"Appearance" = "Apariencia";
+"Appearance" = "Aspecto";
 "Change wallpaper" = "Cambiar fondo de pantalla";
 "Application icon" = "Icono de aplicación";
 "Mode" = "Modo";
@@ -869,7 +869,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "En este dispositivo";
 "Widgets.AppUpdate" = "Anytype tiene una actualización";
 "Widgets.Source.Suggested" = "Sugerencia";
-"Widgets.Source.Library" = "Conjuntos por defecto";
+"Widgets.Source.Library" = "Sistema";
 "Widgets.Source.Objects" = "tus objetos";
 "Widgets.List.Empty" = "Aún no hay ningún widget";
 
@@ -1284,18 +1284,18 @@ En concreto,
 "Date.Open.Action.title" = "Abrir fecha seleccionada";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Ordenar por";
-"AllContent.Sort.DateUpdated" = "Fecha de modificación";
-"AllContent.Sort.DateCreated" = "Fecha de creación";
-"AllContent.Sort.Date.Asc" = "Antiguos primero";
-"AllContent.Sort.Date.Desc" = "Recientes primero";
-"AllContent.Sort.Name.Asc" = "A → Z";
-"AllContent.Sort.Name.Desc" = "Z → A";
-"AllContent.Settings.Unlinked.Title" = "Solo desconectados";
-"AllContent.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
-"AllContent.Settings.ViewBin" = "Ver papelera";
-"AllContent.Search.Empty.State.title" = "No se encuentran resultados.";
-"AllContent.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
+"AllObjects.Settings.Sort.Title" = "Ordenar por";
+"AllObjects.Sort.DateUpdated" = "Fecha de modificación";
+"AllObjects.Sort.DateCreated" = "Fecha de creación";
+"AllObjects.Sort.Date.Asc" = "Antiguos primero";
+"AllObjects.Sort.Date.Desc" = "Recientes primero";
+"AllObjects.Sort.Name.Asc" = "A → Z";
+"AllObjects.Sort.Name.Desc" = "Z → A";
+"AllObjects.Settings.Unlinked.Title" = "Solo desconectados";
+"AllObjects.Settings.Unlinked.Description" = "Objetos desconectados que no tienen un enlace a o desde otro objeto del gráfico.";
+"AllObjects.Settings.ViewBin" = "Ver papelera";
+"AllObjects.Search.Empty.State.title" = "No se encuentran resultados.";
+"AllObjects.Search.Empty.State.subtitle" = "Prueba a buscar otros términos.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Responder a %@";
