@@ -76,11 +76,6 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
                 let resources = try url.resourceValues(forKeys: [.fileSizeKey])
                 return FileData(path: url.relativePath, type: UTType.data, sizeInBytes: resources.fileSize, isTemporary: true)
             }
-//            } else {
-//                let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.data.identifier, directory: tempDirectoryPath())
-//                let resources = try url.resourceValues(forKeys: [.fileSizeKey])
-//                return FileData(path: url.relativePath, type: UTType.data, sizeInBytes: resources.fileSize, isTemporary: true)
-//            }
         }
     }
  

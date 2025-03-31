@@ -26,7 +26,7 @@ final class ChatPasteboardHelper: ChatPasteboardHelperProtocol {
     }
     
     func attachments() -> [NSItemProvider] {
-        pasteboardHelper.obtainAsFiles()
+        pasteboardHelper.obtainFileSlots()
     }
     
     private func parseAttributedString(_ string: NSAttributedString) -> NSAttributedString? {
