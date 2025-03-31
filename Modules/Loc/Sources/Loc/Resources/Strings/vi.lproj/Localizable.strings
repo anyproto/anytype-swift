@@ -870,7 +870,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "Trên thiết bị này";
 "Widgets.AppUpdate" = "Anytype is ready to update";
 "Widgets.Source.Suggested" = "Suggested";
-"Widgets.Source.Library" = "Các tập mặc định";
+"Widgets.Source.Library" = "Theo hệ thống";
 "Widgets.Source.Objects" = "Your objects";
 "Widgets.List.Empty" = "There is no widgets yet";
 
@@ -1285,18 +1285,18 @@ Please provide specific details of your needs here.";
 "Date.Open.Action.title" = "Open selected date";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sắp xếp theo";
-"AllContent.Sort.DateUpdated" = "Date updated";
-"AllContent.Sort.DateCreated" = "Date created";
-"AllContent.Sort.Date.Asc" = "Oldest first";
-"AllContent.Sort.Date.Desc" = "Newest first";
-"AllContent.Sort.Name.Asc" = "A → Z";
-"AllContent.Sort.Name.Desc" = "Z → A";
-"AllContent.Settings.Unlinked.Title" = "Only unlinked";
-"AllContent.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllContent.Settings.ViewBin" = "View Bin";
-"AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllObjects.Settings.Sort.Title" = "Sắp xếp theo";
+"AllObjects.Sort.DateUpdated" = "Date updated";
+"AllObjects.Sort.DateCreated" = "Date created";
+"AllObjects.Sort.Date.Asc" = "Oldest first";
+"AllObjects.Sort.Date.Desc" = "Newest first";
+"AllObjects.Sort.Name.Asc" = "A → Z";
+"AllObjects.Sort.Name.Desc" = "Z → A";
+"AllObjects.Settings.Unlinked.Title" = "Only unlinked";
+"AllObjects.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllObjects.Settings.ViewBin" = "View Bin";
+"AllObjects.Search.Empty.State.title" = "No results found.";
+"AllObjects.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Reply to %@";

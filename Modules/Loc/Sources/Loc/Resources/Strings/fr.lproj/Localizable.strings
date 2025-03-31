@@ -869,7 +869,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "Sur cet appareil";
 "Widgets.AppUpdate" = "Anytype est prêt pour la mise à jour";
 "Widgets.Source.Suggested" = "Suggested";
-"Widgets.Source.Library" = "Ensembles par défaut";
+"Widgets.Source.Library" = "Système";
 "Widgets.Source.Objects" = "Vos objets";
 "Widgets.List.Empty" = "There is no widgets yet";
 
@@ -1285,18 +1285,18 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Date.Open.Action.title" = "Ouvrir la date sélectionnée";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Sort by";
-"AllContent.Sort.DateUpdated" = "Date de mise à jour";
-"AllContent.Sort.DateCreated" = "Date de création";
-"AllContent.Sort.Date.Asc" = "Du plus ancien au plus récent";
-"AllContent.Sort.Date.Desc" = "Les plus récents en premier";
-"AllContent.Sort.Name.Asc" = "A → Z";
-"AllContent.Sort.Name.Desc" = "Z → A";
-"AllContent.Settings.Unlinked.Title" = "Uniquement non liés";
-"AllContent.Settings.Unlinked.Description" = "Objets non liés qui n'ont pas de lien direct ou de lien en retour avec d'autres objets dans le graphique.";
-"AllContent.Settings.ViewBin" = "Voir la corbeille";
-"AllContent.Search.Empty.State.title" = "Aucun résultat trouvé.";
-"AllContent.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";
+"AllObjects.Settings.Sort.Title" = "Sort by";
+"AllObjects.Sort.DateUpdated" = "Date updated";
+"AllObjects.Sort.DateCreated" = "Date created";
+"AllObjects.Sort.Date.Asc" = "Oldest first";
+"AllObjects.Sort.Date.Desc" = "Newest first";
+"AllObjects.Sort.Name.Asc" = "A → Z";
+"AllObjects.Sort.Name.Desc" = "Z → A";
+"AllObjects.Settings.Unlinked.Title" = "Only unlinked";
+"AllObjects.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllObjects.Settings.ViewBin" = "View Bin";
+"AllObjects.Search.Empty.State.title" = "Aucun résultat trouvé.";
+"AllObjects.Search.Empty.State.subtitle" = "Essayez de rechercher avec différents mots-clés.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Réponse à %@";

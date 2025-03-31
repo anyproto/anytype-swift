@@ -869,7 +869,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
 "Widgets.AppUpdate" = "Anytype готов к обновлению";
 "Widgets.Source.Suggested" = "Suggested";
-"Widgets.Source.Library" = "Стандартные наборы";
+"Widgets.Source.Library" = "Системный";
 "Widgets.Source.Objects" = "Ваши объекты";
 "Widgets.List.Empty" = "There is no widgets yet";
 
@@ -995,9 +995,9 @@
 "SpaceShare.Invite.Generate" = "Создать ссылку на приглашение";
 "SpaceShare.Invite.Empty" = "Создать ссылку-приглашение для совместного использования и добавления новых участников";
 "SpaceShare.JoinRequest" = "Запрос на присоединение";
-"SpaceShare.LeaveRequest" = "Оставить запрос";
+"SpaceShare.LeaveRequest" = "Запрос на выход";
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
-"SpaceShare.Action.Approve" = "Утверждено";
+"SpaceShare.Action.Approve" = "Подтвердить";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
 "SpaceShare.CopyInviteLink.Title" = "Copy invite link";
 "SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к пространству. Вы можете создать новую ссылку в любое время";
@@ -1287,18 +1287,18 @@
 "Date.Open.Action.title" = "Открыть выбранную дату";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Сортировать по";
-"AllContent.Sort.DateUpdated" = "Дата обновления";
-"AllContent.Sort.DateCreated" = "Дата создания";
-"AllContent.Sort.Date.Asc" = "Сначала старые";
-"AllContent.Sort.Date.Desc" = "Сначала новые";
-"AllContent.Sort.Name.Asc" = "А → Я";
-"AllContent.Sort.Name.Desc" = "Я → А";
-"AllContent.Settings.Unlinked.Title" = "Только несвязанные";
-"AllContent.Settings.Unlinked.Description" = "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графике.";
-"AllContent.Settings.ViewBin" = "Просмотр корзины";
-"AllContent.Search.Empty.State.title" = "Результаты не найдены.";
-"AllContent.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
+"AllObjects.Settings.Sort.Title" = "Сортировать по";
+"AllObjects.Sort.DateUpdated" = "Date updated";
+"AllObjects.Sort.DateCreated" = "Date created";
+"AllObjects.Sort.Date.Asc" = "Oldest first";
+"AllObjects.Sort.Date.Desc" = "Newest first";
+"AllObjects.Sort.Name.Asc" = "А → Я";
+"AllObjects.Sort.Name.Desc" = "Я → А";
+"AllObjects.Settings.Unlinked.Title" = "Only unlinked";
+"AllObjects.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllObjects.Settings.ViewBin" = "View Bin";
+"AllObjects.Search.Empty.State.title" = "Результаты не найдены.";
+"AllObjects.Search.Empty.State.subtitle" = "Попробуйте искать по другим ключевым словам.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Ответить %@";
