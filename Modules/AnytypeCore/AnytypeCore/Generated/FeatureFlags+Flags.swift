@@ -22,8 +22,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var allContent: Bool {
-        value(for: .allContent)
+    static var allObjectsFromLibrary: Bool {
+        value(for: .allObjectsFromLibrary)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -208,7 +208,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .allContent,
+        .allObjectsFromLibrary,
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,

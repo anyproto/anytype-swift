@@ -77,6 +77,13 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
 private extension AnytypeWidgetId {
     var librarySource: WidgetAnytypeLibrarySource {
         switch self {
+        case .allObjects:
+            return WidgetAnytypeLibrarySource(
+                type: .allObjects,
+                name: Loc.allObjects,
+                description: nil,
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.allObjects) : .object(.emoji(Emoji("🗄")!))
+            )
         case .favorite:
             return WidgetAnytypeLibrarySource(
                 type: .favorite,
@@ -89,7 +96,7 @@ private extension AnytypeWidgetId {
                 type: .sets,
                 name: Loc.sets,
                 description: nil,
-                icon: .object(.emoji(Emoji("📚")!))
+                icon: .object(.emoji(Emoji("🔎")!))
             )
         case .collections:
             return WidgetAnytypeLibrarySource(

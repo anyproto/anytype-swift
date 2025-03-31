@@ -318,12 +318,12 @@ extension Container {
         self { SpaceSetupManager() }.singleton
     }
     
-    var allContentSubscriptionService: Factory<any AllContentSubscriptionServiceProtocol> {
-        self { AllContentSubscriptionService() }
+    var allObjectsSubscriptionService: Factory<any AllObjectsSubscriptionServiceProtocol> {
+        self { AllObjectsSubscriptionService() }
     }
     
-    var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
-        self { AllContentStateStorageService() }.shared
+    var allObjectsStateStorageService: Factory<any AllObjectsStateStorageServiceProtocol> {
+        self { AllObjectsStateStorageService() }.shared
     }
     
     var chatActionService: Factory<any ChatActionServiceProtocol> {

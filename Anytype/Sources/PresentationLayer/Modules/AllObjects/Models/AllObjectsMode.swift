@@ -1,21 +1,21 @@
 import Services
 
-enum AllContentMode: String, CaseIterable {
-    case allContent
+enum AllObjectsMode: String, CaseIterable {
+    case allObjects
     case unlinked
     
     var title: String {
         switch self {
-        case .allContent:
+        case .allObjects:
             Loc.allObjects
         case .unlinked:
-            Loc.AllContent.Settings.Unlinked.title
+            Loc.AllObjects.Settings.Unlinked.title
         }
     }
     
     var analyticsValue: String {
         switch self {
-        case .allContent:
+        case .allObjects:
             "All"
         case .unlinked:
             "Unlinked"

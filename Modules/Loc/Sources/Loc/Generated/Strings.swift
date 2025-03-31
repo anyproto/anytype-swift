@@ -488,35 +488,35 @@ public enum Loc {
       public static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
   }
-  public enum AllContent {
+  public enum AllObjects {
     public enum Search {
       public enum Empty {
         public enum State {
-          public static let subtitle = Loc.tr("Localizable", "AllContent.Search.Empty.State.subtitle", fallback: "Try searching with different keywords.")
-          public static let title = Loc.tr("Localizable", "AllContent.Search.Empty.State.title", fallback: "No results found.")
+          public static let subtitle = Loc.tr("Localizable", "AllObjects.Search.Empty.State.subtitle", fallback: "Try searching with different keywords.")
+          public static let title = Loc.tr("Localizable", "AllObjects.Search.Empty.State.title", fallback: "No results found.")
         }
       }
     }
     public enum Settings {
-      public static let viewBin = Loc.tr("Localizable", "AllContent.Settings.ViewBin", fallback: "View Bin")
+      public static let viewBin = Loc.tr("Localizable", "AllObjects.Settings.ViewBin", fallback: "View Bin")
       public enum Sort {
-        public static let title = Loc.tr("Localizable", "AllContent.Settings.Sort.Title", fallback: "Sort by")
+        public static let title = Loc.tr("Localizable", "AllObjects.Settings.Sort.Title", fallback: "Sort by")
       }
       public enum Unlinked {
-        public static let description = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Description", fallback: "Unlinked objects that do not have a direct link or backlink with other objects in the graph.")
-        public static let title = Loc.tr("Localizable", "AllContent.Settings.Unlinked.Title", fallback: "Only unlinked")
+        public static let description = Loc.tr("Localizable", "AllObjects.Settings.Unlinked.Description", fallback: "Unlinked objects that do not have a direct link or backlink with other objects in the graph.")
+        public static let title = Loc.tr("Localizable", "AllObjects.Settings.Unlinked.Title", fallback: "Only unlinked")
       }
     }
     public enum Sort {
-      public static let dateCreated = Loc.tr("Localizable", "AllContent.Sort.DateCreated", fallback: "Date created")
-      public static let dateUpdated = Loc.tr("Localizable", "AllContent.Sort.DateUpdated", fallback: "Date updated")
+      public static let dateCreated = Loc.tr("Localizable", "AllObjects.Sort.DateCreated", fallback: "Date created")
+      public static let dateUpdated = Loc.tr("Localizable", "AllObjects.Sort.DateUpdated", fallback: "Date updated")
       public enum Date {
-        public static let asc = Loc.tr("Localizable", "AllContent.Sort.Date.Asc", fallback: "Oldest first")
-        public static let desc = Loc.tr("Localizable", "AllContent.Sort.Date.Desc", fallback: "Newest first")
+        public static let asc = Loc.tr("Localizable", "AllObjects.Sort.Date.Asc", fallback: "Oldest first")
+        public static let desc = Loc.tr("Localizable", "AllObjects.Sort.Date.Desc", fallback: "Newest first")
       }
       public enum Name {
-        public static let asc = Loc.tr("Localizable", "AllContent.Sort.Name.Asc", fallback: "A → Z")
-        public static let desc = Loc.tr("Localizable", "AllContent.Sort.Name.Desc", fallback: "Z → A")
+        public static let asc = Loc.tr("Localizable", "AllObjects.Sort.Name.Asc", fallback: "A → Z")
+        public static let desc = Loc.tr("Localizable", "AllObjects.Sort.Name.Desc", fallback: "Z → A")
       }
     }
   }
