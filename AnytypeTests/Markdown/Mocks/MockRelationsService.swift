@@ -157,6 +157,10 @@ class MockRelationsService: RelationsServiceProtocol {
             throw error
         }
     }
+    
+    func updateTypeRelations(typeId: String, dataviewId: String, recommendedRelations: [Services.RelationDetails], recommendedFeaturedRelations: [Services.RelationDetails], recommendedHiddenRelations: [Services.RelationDetails]) async throws {
+        fatalError()
+    }
 
     // Convenience method to reset all last call data
     func reset() {
