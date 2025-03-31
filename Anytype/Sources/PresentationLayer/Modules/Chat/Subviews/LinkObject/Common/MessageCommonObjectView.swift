@@ -14,6 +14,7 @@ struct MessageCommonObjectView: View {
         HStack(spacing: 12) {
             IconView(icon: icon)
                 .frame(width: 48, height: 48)
+                .allowsHitTesting(false)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
