@@ -123,25 +123,7 @@ final class TypeFieldsViewModel: ObservableObject {
         guard let details = document.details else { return }
         
         Task {
-            let relationsId = row.relation.id
-            
-            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelationsDetails.filter({ relationsId != $0.id }) {
-                try await relationsService.updateTypeRelations(
-                    typeId: document.objectId,
-                    recommendedRelations: details.recommendedRelationsDetails,
-                    recommendedFeaturedRelations: recommendedFeaturedRelations,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
-            }
-            if let recommendedRelations = document.details?.recommendedRelationsDetails.filter({ relationsId != $0.id }) {
-                try await relationsService.updateTypeRelations(
-                    typeId: document.objectId,
-                    recommendedRelations: recommendedRelations,
-                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
-            }
-            
+            try await relationsService.deleteTypeRelation(details: details, relationId: row.relation.id)
             
             guard let format = row.relation.format?.format else {
                 anytypeAssertionFailure("Empty relation format for onDeleteRelation")

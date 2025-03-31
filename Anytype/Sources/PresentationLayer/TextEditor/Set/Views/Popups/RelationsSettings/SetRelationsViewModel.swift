@@ -15,6 +15,8 @@ final class SetRelationsViewModel: ObservableObject {
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: any RelationsServiceProtocol
     
     private weak var output: (any SetRelationsCoordinatorOutput)?
     
@@ -44,12 +46,16 @@ final class SetRelationsViewModel: ObservableObject {
                     blockId: setDocument.blockId,
                     relationKey: key
                 )
-                try await dataviewService.removeViewRelations(
-                    objectId: setDocument.objectId,
-                    blockId: setDocument.blockId,
-                    keys: [key],
-                    viewId: viewId
-                )
+                if let details = setDocument.details, FeatureFlags.openTypeAsSet && details.isObjectType {
+                    try await relationsService.deleteTypeRelation(details: details, relationId: relation.relationDetails.id)
+                } else {
+                    try await dataviewService.removeViewRelations(
+                        objectId: setDocument.objectId,
+                        blockId: setDocument.blockId,
+                        keys: [key],
+                        viewId: viewId
+                    )
+                }
             }
         }
     }

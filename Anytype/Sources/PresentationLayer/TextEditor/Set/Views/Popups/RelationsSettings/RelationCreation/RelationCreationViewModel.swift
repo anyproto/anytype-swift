@@ -88,8 +88,8 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         switch data.target {
         case let .type(data):
             try await addRelationToType(relation: details, typeData: data)
-        case .dataview(let activeViewId):
-            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId)
+        case let .dataview(activeViewId, typeDetails):
+            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
         }
     }
     
@@ -120,8 +120,13 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         }
     }
     
-    private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws {
-        try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
+    private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+        if FeatureFlags.openTypeAsSet, let typeDetails {
+            try await addRelationToType(relation: relation, typeData: .recommendedRelations(typeDetails))
+        } else {
+            try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
+        }
+        
         let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
         try await dataviewService.addViewRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)
     }
