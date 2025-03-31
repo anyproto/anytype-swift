@@ -19,6 +19,7 @@ struct ChatInputLocalImageView: View {
             if let image {
                 Image(uiImage: image)
                     .resizable()
+                    .scaledToFill()
             }
         }
         .onChange(of: contentsOfFile) { newValue in
