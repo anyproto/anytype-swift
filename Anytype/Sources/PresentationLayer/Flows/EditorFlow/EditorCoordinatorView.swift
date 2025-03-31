@@ -37,8 +37,8 @@ struct EditorCoordinatorView: View {
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case let .list(data):
             EditorSetCoordinatorView(data: data, showHeader: true)
-        case let .allContent(spaceId):
-            AllContentCoordinatorView(spaceId: spaceId, output: model)
+        case let .allObjects(spaceId):
+            AllObjectsCoordinatorView(spaceId: spaceId, output: model)
         case let .date(data):
             DateCoordinatorView(data: data)
         case let .simpleSet(data):

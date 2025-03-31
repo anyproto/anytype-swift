@@ -30,11 +30,10 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let allContent = FeatureDescription(
-        title: "All content",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
-        defaultValue: false, // improve Global search instead of it
-        debugValue: false
+    static let allObjectsFromLibrary = FeatureDescription(
+        title: "All objects from library",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let homeSpaceLevelChat = FeatureDescription(

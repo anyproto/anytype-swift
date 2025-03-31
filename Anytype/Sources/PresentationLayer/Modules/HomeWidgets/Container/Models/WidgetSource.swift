@@ -30,7 +30,7 @@ extension WidgetSource {
                 return [.compactList, .list, .tree]
             case .sets, .collections:
                 return [.compactList, .list]
-            case .bin:
+            case .allObjects, .bin:
                 return [.link]
             }
         }

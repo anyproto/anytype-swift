@@ -1,5 +1,5 @@
-struct AllContentState: Equatable, Hashable {
-    var mode = AllContentMode.allContent { didSet { resetLimit() } }
+struct AllObjectsState: Equatable, Hashable {
+    var mode = AllObjectsMode.allObjects { didSet { resetLimit() } }
     var section = ObjectTypeSection.pages { didSet { resetLimit()} }
     var sort = ObjectSort(relation: .dateUpdated) { didSet { resetLimit() } }
     var limitedObjectsIds: [String]? = nil { didSet { resetLimit() } }

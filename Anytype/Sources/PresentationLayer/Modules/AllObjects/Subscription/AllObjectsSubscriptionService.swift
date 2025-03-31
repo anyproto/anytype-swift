@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 @MainActor
-protocol AllContentSubscriptionServiceProtocol: AnyObject {
+protocol AllObjectsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         spaceId: String,
         section: ObjectTypeSection,
@@ -16,14 +16,14 @@ protocol AllContentSubscriptionServiceProtocol: AnyObject {
 }
 
 @MainActor
-final class AllContentSubscriptionService: AllContentSubscriptionServiceProtocol {
+final class AllObjectsSubscriptionService: AllObjectsSubscriptionServiceProtocol {
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
-    private let subscriptionId = "AllContent-\(UUID().uuidString)"
+    private let subscriptionId = "AllObjects-\(UUID().uuidString)"
     
     nonisolated init() {}
     
