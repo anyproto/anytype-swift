@@ -4,28 +4,28 @@ import OrderedCollections
 import UIKit
 
 @MainActor
-protocol AllContentModuleOutput: AnyObject {
+protocol AllObjectsModuleOutput: AnyObject {
     func onObjectSelected(screenData: ScreenData)
 }
 
 @MainActor
-final class AllContentViewModel: ObservableObject {
+final class AllObjectsViewModel: ObservableObject {
     
     private var details = [ObjectDetails]()
     private var objectsToLoad = 0
     var firstOpen = true
     
     @Published var sections = [ListSectionData<String?, WidgetObjectListRowModel>]()
-    @Published var state = AllContentState()
+    @Published var state = AllObjectsState()
     @Published var searchText = ""
     @Published private var participantCanEdit = false
     
-    @Injected(\.allContentSubscriptionService)
-    private var allContentSubscriptionService: any AllContentSubscriptionServiceProtocol
+    @Injected(\.allObjectsSubscriptionService)
+    private var allObjectsSubscriptionService: any AllObjectsSubscriptionServiceProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @Injected(\.allContentStateStorageService)
-    private var allContentStateStorageService: any AllContentStateStorageServiceProtocol
+    @Injected(\.allObjectsStateStorageService)
+    private var allObjectsStateStorageService: any AllObjectsStateStorageServiceProtocol
     
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
@@ -35,9 +35,9 @@ final class AllContentViewModel: ObservableObject {
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
     private let spaceId: String
-    private weak var output: (any AllContentModuleOutput)?
+    private weak var output: (any AllObjectsModuleOutput)?
     
-    init(spaceId: String, output: (any AllContentModuleOutput)?) {
+    init(spaceId: String, output: (any AllObjectsModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
         self.restoreSort()
@@ -55,7 +55,7 @@ final class AllContentViewModel: ObservableObject {
     }
     
     func restartSubscription() async {
-        await allContentSubscriptionService.startSubscription(
+        await allObjectsSubscriptionService.startSubscription(
             spaceId: spaceId,
             section: state.section,
             sort: state.sort,
@@ -133,7 +133,7 @@ final class AllContentViewModel: ObservableObject {
     
     private func stopSubscription() {
         Task {
-            await allContentSubscriptionService.stopSubscription()
+            await allObjectsSubscriptionService.stopSubscription()
         }
     }
     
@@ -194,11 +194,11 @@ final class AllContentViewModel: ObservableObject {
     // MARK: - Save states
     
     private func storeSort() {
-        allContentStateStorageService.storeSort(state.sort, spaceId: spaceId)
+        allObjectsStateStorageService.storeSort(state.sort, spaceId: spaceId)
     }
     
     private func restoreSort() {
-        guard let sort = allContentStateStorageService.restoreSort(for: spaceId) else { return }
+        guard let sort = allObjectsStateStorageService.restoreSort(for: spaceId) else { return }
         state.sort = sort
     }
 }

@@ -43,7 +43,7 @@ struct ObjectTypeObjectsListView: View {
             
             Menu {
                 AsyncButton(model.setButtonText) { try await model.onSetButtonTap() }
-                AllContentSortMenu(sort: $model.sort)
+                AllObjectsSortMenu(sort: $model.sort)
             } label: {
                 IconView(asset: .X24.more).frame(width: 24, height: 24)
             }
