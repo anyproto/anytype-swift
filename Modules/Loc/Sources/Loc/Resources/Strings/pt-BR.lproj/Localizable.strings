@@ -869,7 +869,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "Neste dispositivo";
 "Widgets.AppUpdate" = "Anytype está pronto para ser atualizado";
 "Widgets.Source.Suggested" = "Suggested";
-"Widgets.Source.Library" = "Conjuntos padrão";
+"Widgets.Source.Library" = "Sistema";
 "Widgets.Source.Objects" = "Seus objetos";
 "Widgets.List.Empty" = "There is no widgets yet";
 
@@ -1285,18 +1285,18 @@ forneça detalhes específicos das suas necessidades aqui.";
 "Date.Open.Action.title" = "Abrir data selecionada";
 
 // MARK: - All Content
-"AllContent.Settings.Sort.Title" = "Ordenar por";
-"AllContent.Sort.DateUpdated" = "Atualização de data";
-"AllContent.Sort.DateCreated" = "Data Criada";
-"AllContent.Sort.Date.Asc" = "Mais antigo primeiro";
-"AllContent.Sort.Date.Desc" = "Mais recente primeiro";
-"AllContent.Sort.Name.Asc" = "A → Z";
-"AllContent.Sort.Name.Desc" = "Z → A";
-"AllContent.Settings.Unlinked.Title" = "Apenas desvinculados";
-"AllContent.Settings.Unlinked.Description" = "Objetos não vinculados que não tenham um link direto ou backlink com outros objetos no gráfico.";
-"AllContent.Settings.ViewBin" = "Visualizar lixeira";
-"AllContent.Search.Empty.State.title" = "No results found.";
-"AllContent.Search.Empty.State.subtitle" = "Try searching with different keywords.";
+"AllObjects.Settings.Sort.Title" = "Ordenar por";
+"AllObjects.Sort.DateUpdated" = "Date updated";
+"AllObjects.Sort.DateCreated" = "Date created";
+"AllObjects.Sort.Date.Asc" = "Oldest first";
+"AllObjects.Sort.Date.Desc" = "Newest first";
+"AllObjects.Sort.Name.Asc" = "A → Z";
+"AllObjects.Sort.Name.Desc" = "Z → A";
+"AllObjects.Settings.Unlinked.Title" = "Only unlinked";
+"AllObjects.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
+"AllObjects.Settings.ViewBin" = "View Bin";
+"AllObjects.Search.Empty.State.title" = "No results found.";
+"AllObjects.Search.Empty.State.subtitle" = "Try searching with different keywords.";
 
 // MARK: - Chats
 "Chat.ReplyTo" = "Respondendo a %@";
