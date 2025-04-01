@@ -18,6 +18,7 @@ final class TreeWidgetViewModel: ObservableObject {
     
     // MARK: - DI
     
+    private let widgetBlockId: String
     private let widgetObject: any BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private weak var output: (any CommonWidgetModuleOutput)?
@@ -36,7 +37,7 @@ final class TreeWidgetViewModel: ObservableObject {
     // MARK: - WidgetContainerContentViewModelProtocol
     
     @Published private(set) var name: String = ""
-    let dragId: String?
+    var dragId: String? { widgetBlockId }
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
@@ -45,7 +46,7 @@ final class TreeWidgetViewModel: ObservableObject {
         internalModel: any WidgetInternalViewModelProtocol,
         output: (any CommonWidgetModuleOutput)?
     ) {
-        self.dragId = widgetBlockId
+        self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.internalModel = internalModel
         self.output = output
@@ -164,7 +165,7 @@ final class TreeWidgetViewModel: ObservableObject {
                     self?.onTapCollapse(model: model)
                 },
                 tapObject: { [weak self] _ in
-                    self?.output?.onObjectSelected(screenData: details.screenData())
+                    self?.handleTapOnObject(details: details)
                 }
             )
             
@@ -179,6 +180,12 @@ final class TreeWidgetViewModel: ObservableObject {
     
     private var subscriptionData: [ObjectDetails] {
         return (firstLevelSubscriptionData ?? []) + (childSubscriptionData ?? [])
+    }
+    
+    private func handleTapOnObject(details: ObjectDetails) {
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
+        output?.onObjectSelected(screenData: details.screenData())
     }
 }
 

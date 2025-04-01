@@ -1325,7 +1325,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logOpenSidebarObject() {
-        logEvent("OpenSidebarObject")
+    func logOpenSidebarObject(createType: WidgetCreateType) {
+        logEvent(
+            "OpenSidebarObject",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue,
+            ]
+        )
     }
 }

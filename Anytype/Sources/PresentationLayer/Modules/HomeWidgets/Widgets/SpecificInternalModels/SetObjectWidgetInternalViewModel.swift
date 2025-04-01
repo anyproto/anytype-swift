@@ -283,9 +283,15 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in
-                self?.output?.onObjectSelected(screenData: $0.screenData())
+                self?.handleTapOnObject(details: $0)
             }
         )
         updateRows(rowDetails: rowDetails)
+    }
+    
+    private func handleTapOnObject(details: ObjectDetails) {
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
+        output?.onObjectSelected(screenData: details.screenData())
     }
 }
