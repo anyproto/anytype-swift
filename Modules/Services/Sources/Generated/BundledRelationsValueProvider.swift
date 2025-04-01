@@ -155,6 +155,7 @@ public protocol BundledRelationsValueProvider {
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
     var autoWidgetTargets: [ObjectId] { get }
+    var autoWidgetDisabled: [Bool] { get }
     var pluralName: String { get }
 } 
 
@@ -722,6 +723,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Automatically generated widget. Used to avoid creating widget if was removed by user
     var autoWidgetTargets: [ObjectId] {
         return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
+    }
+    var autoWidgetDisabled: [Bool] {
+        return value(for: BundledRelationKey.autoWidgetDisabled.rawValue)
     }
     /// Name of Object type in plural form
     var pluralName: String {

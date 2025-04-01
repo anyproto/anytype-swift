@@ -581,6 +581,14 @@ extension Anytype_Event {
       set {_uniqueStorage()._value = .spaceSyncStatusUpdate(newValue)}
     }
 
+    public var spaceAutoWidgetAdded: Anytype_Event.Space.AutoWidgetAdded {
+      get {
+        if case .spaceAutoWidgetAdded(let v)? = _storage._value {return v}
+        return Anytype_Event.Space.AutoWidgetAdded()
+      }
+      set {_uniqueStorage()._value = .spaceAutoWidgetAdded(newValue)}
+    }
+
     public var p2PStatusUpdate: Anytype_Event.P2PStatus.Update {
       get {
         if case .p2PStatusUpdate(let v)? = _storage._value {return v}
@@ -728,6 +736,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     116: .same(proto: "payloadBroadcast"),
     117: .same(proto: "membershipUpdate"),
     119: .same(proto: "spaceSyncStatusUpdate"),
+    122: .same(proto: "spaceAutoWidgetAdded"),
     120: .same(proto: "p2pStatusUpdate"),
     121: .same(proto: "importFinish"),
     128: .same(proto: "chatAdd"),
@@ -1568,6 +1577,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
             _storage._value = .importFinish(v)
           }
         }()
+        case 122: try {
+          var v: Anytype_Event.Space.AutoWidgetAdded?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .spaceAutoWidgetAdded(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .spaceAutoWidgetAdded(v)
+          }
+        }()
         case 123: try {
           var v: Anytype_Event.Block.Dataview.RelationSet?
           var hadOneofValue = false
@@ -2033,6 +2055,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       case .importFinish?: try {
         guard case .importFinish(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 121)
+      }()
+      case .spaceAutoWidgetAdded?: try {
+        guard case .spaceAutoWidgetAdded(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 122)
       }()
       case .blockDataviewRelationSet?: try {
         guard case .blockDataviewRelationSet(let v)? = _storage._value else { preconditionFailure() }
