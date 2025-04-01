@@ -872,6 +872,7 @@
 "Widgets.Source.Library" = "Системный";
 "Widgets.Source.Objects" = "Ваши объекты";
 "Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.AutoAddedAlert" = "Widget %@ was added";
 
 // MARK: - About
 "About.AppVersion" = "Версия приложения: %@";
@@ -1369,7 +1370,7 @@
 "Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Это может занять некоторое время. Пожалуйста, не закрывайте приложение, пока процесс не завершится.";
 "Migration.Error.NotEnoughtSpace.title" = "Недостаточно места";
-"Migration.Error.NotEnoughtSpace.message" = "Пожалуйста, освободите пространство и запустите процесс снова.";
+"Migration.Error.NotEnoughtSpace.message" = "Please clear approximately %@ of space and run the process again.";
 
 "Migration.ReadMore.option1" = "What to Expect";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
