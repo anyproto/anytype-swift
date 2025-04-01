@@ -873,6 +873,7 @@
 "Widgets.Source.Library" = "Sistem";
 "Widgets.Source.Objects" = "Nesneleriniz";
 "Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.AutoAddedAlert" = "Widget %@ was added";
 
 // MARK: - About
 "About.AppVersion" = "Uygulama sürümü: %@";
@@ -1368,7 +1369,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Migration.Progress.title" = "Update is in progress...";
 "Migration.Progress.subtitle" = "Bu işlem biraz zaman alabilir. Lütfen işlem tamamlanana kadar uygulamayı kapatmayın.";
 "Migration.Error.NotEnoughtSpace.title" = "Yeterli yer yok";
-"Migration.Error.NotEnoughtSpace.message" = "Lütfen biraz yer açın ve işlemi tekrarlayın.";
+"Migration.Error.NotEnoughtSpace.message" = "Please clear approximately %@ of space and run the process again.";
 
 "Migration.ReadMore.option1" = "What to Expect";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
