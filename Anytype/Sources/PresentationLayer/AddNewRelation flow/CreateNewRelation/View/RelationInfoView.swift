@@ -41,7 +41,7 @@ struct RelationInfoView: View {
         NewRelationSectionView(
             title: Loc.name,
             contentViewBuilder: {
-                TextField(Loc.noName, text: $viewModel.name)
+                TextField(Loc.untitled, text: $viewModel.name)
                     .foregroundColor(.Text.primary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .heading))
             },
@@ -53,7 +53,7 @@ struct RelationInfoView: View {
     private var formatSection: some View {
         if viewModel.mode.canEditRelationType {
             NewRelationSectionView(
-                title: Loc.type,
+                title: Loc.format,
                 contentViewBuilder: {
                     NewRelationFormatSectionView(model: viewModel.formatModel)
                 },
