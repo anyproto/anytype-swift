@@ -56,7 +56,8 @@ final class TreeWidgetViewModel: ObservableObject {
     
     func onHeaderTap() {
         guard let screenData = internalModel.screenData() else { return }
-        AnytypeAnalytics.instance().logClickWidgetTitle(source: internalModel.analyticsSource())
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: internalModel.analyticsSource(), createType: info.widgetCreateType)
         output?.onObjectSelected(screenData: screenData)
     }
     

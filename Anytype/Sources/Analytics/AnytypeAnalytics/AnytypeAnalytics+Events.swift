@@ -566,11 +566,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logClickWidgetTitle(source: AnalyticsWidgetSource) {
+    func logClickWidgetTitle(source: AnalyticsWidgetSource, createType: WidgetCreateType) {
         logEvent(
             "ClickWidgetTitle",
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.tab: source.analyticsId
+                AnalyticsEventsPropertiesKey.tab: source.analyticsId,
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue,
             ]
         )
     }
