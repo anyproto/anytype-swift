@@ -537,11 +537,12 @@ extension AnytypeAnalytics {
         logEvent("EditWidget")
     }
     
-    func logAddWidget(context: AnalyticsWidgetContext) {
+    func logAddWidget(context: AnalyticsWidgetContext, createType: WidgetCreateType) {
         logEvent(
             "AddWidget",
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.context: context.rawValue
+                AnalyticsEventsPropertiesKey.context: context.rawValue,
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue
             ]
         )
     }

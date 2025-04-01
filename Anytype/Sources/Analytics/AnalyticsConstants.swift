@@ -169,6 +169,7 @@ enum AnalyticsWidgetContext: String, Hashable {
     case editor = "Editor"
     case main = "Main"
     case object = "Object"
+    case auto = "Auto"
 }
 
 enum RemoveCompletelyRoute: String {
