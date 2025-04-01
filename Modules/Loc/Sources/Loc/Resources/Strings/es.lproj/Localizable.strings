@@ -872,6 +872,7 @@
 "Widgets.Source.Library" = "Sistema";
 "Widgets.Source.Objects" = "tus objetos";
 "Widgets.List.Empty" = "Aún no hay ningún widget";
+"Widgets.AutoAddedAlert" = "Se ha añadido el widget %@";
 
 // MARK: - About
 "About.AppVersion" = "Versión de la aplicación: %@";
@@ -1366,7 +1367,7 @@ En concreto,
 "Migration.Progress.title" = "La actualización está en curso…";
 "Migration.Progress.subtitle" = "Esto puede llevar algún tiempo. No cierres la aplicación hasta que termine el proceso.";
 "Migration.Error.NotEnoughtSpace.title" = "No hay suficiente espacio";
-"Migration.Error.NotEnoughtSpace.message" = "Libera algo de espacio y vuelve a ejecutar el proceso.";
+"Migration.Error.NotEnoughtSpace.message" = "Libera aproximadamente %@ de espacio y vuelve a ejecutar el proceso.";
 
 "Migration.ReadMore.option1" = "Qué ocurrirá";
 "Migration.ReadMore.description1" = "Verás una pantalla de carga durante la actualización. Cuando termine, podrás seguir usando la aplicación como siempre.";
