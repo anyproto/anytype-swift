@@ -1005,6 +1005,11 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.Export.Response: ResultWithError {}
+extension Anytype_Rpc.Object.Export.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Graph.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Graph.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

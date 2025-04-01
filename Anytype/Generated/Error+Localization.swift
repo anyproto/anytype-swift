@@ -5311,6 +5311,30 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error: @retroactive LocalizedErr
     }
 }
 
+extension Anytype_Rpc.Object.Export.Response.Error: @retroactive LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.Export.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.Export.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Object.Graph.Response.Error: @retroactive LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

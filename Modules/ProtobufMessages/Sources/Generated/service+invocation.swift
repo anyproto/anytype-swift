@@ -954,6 +954,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectExport(
+        _ request: Anytype_Rpc.Object.Export.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.Export.Request, Anytype_Rpc.Object.Export.Response> {
+        return Invocation(messageName: "ObjectExport", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectExport(requestData) ?? Data()
+            return try Anytype_Rpc.Object.Export.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectBookmarkFetch(
         _ request: Anytype_Rpc.Object.BookmarkFetch.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.BookmarkFetch.Request, Anytype_Rpc.Object.BookmarkFetch.Response> {

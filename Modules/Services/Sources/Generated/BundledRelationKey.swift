@@ -423,6 +423,8 @@ public enum BundledRelationKey: String, Sendable {
     /// Automatically generated widget. Used to avoid creating widget if was removed by user
     case autoWidgetTargets = "autoWidgetTargets"
 
+    case autoWidgetDisabled = "autoWidgetDisabled"
+
     /// Name of Object type in plural form
     case pluralName = "pluralName"
 }
