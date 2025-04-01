@@ -872,6 +872,7 @@
 "Widgets.Source.Library" = "System";
 "Widgets.Source.Objects" = "Your objects";
 "Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.AutoAddedAlert" = "Widget %@ was added";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";

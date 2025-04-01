@@ -2175,6 +2175,9 @@ public enum Loc {
   }
   public enum Widgets {
     public static let appUpdate = Loc.tr("Localizable", "Widgets.AppUpdate", fallback: "Anytype is ready to update")
+    public static func autoAddedAlert(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Widgets.AutoAddedAlert", String(describing: p1), fallback: "Widget %@ was added")
+    }
     public static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
     public enum Actions {
       public static let addBelow = Loc.tr("Localizable", "Widgets.Actions.AddBelow", fallback: "Add Below")
