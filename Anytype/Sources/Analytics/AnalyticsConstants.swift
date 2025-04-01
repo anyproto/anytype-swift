@@ -41,6 +41,7 @@ enum AnalyticsEventsPropertiesKey {
     static let color = "color"
     static let name = "name"
     static let sort = "sort"
+    static let widgetType = "widgetType"
     
     static let middleTime = "middleTime"
     static let permissions = "permissions"
@@ -366,4 +367,9 @@ enum OpenObjectByLinkType: String {
 enum OpenObjectByLinkRoute: String {
     case app = "App"
     case web = "Web"
+}
+
+enum WidgetCreateType: String {
+    case manual = "Manual"
+    case auto = "Auto"
 }

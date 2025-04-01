@@ -555,12 +555,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext) {
+    func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext, createType: WidgetCreateType) {
         logEvent(
             "DeleteWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
-                AnalyticsEventsPropertiesKey.context: context.rawValue
+                AnalyticsEventsPropertiesKey.context: context.rawValue,
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue,
             ]
         )
     }

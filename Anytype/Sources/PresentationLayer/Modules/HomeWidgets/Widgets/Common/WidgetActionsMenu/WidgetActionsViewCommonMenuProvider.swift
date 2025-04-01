@@ -39,7 +39,8 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         if let info = widgetObject.widgetInfo(blockId: widgetBlockId) {
             AnytypeAnalytics.instance().logDeleteWidget(
                 source: info.source.analyticsSource,
-                context: homeState.analyticsWidgetContext
+                context: homeState.analyticsWidgetContext,
+                createType: info.widgetCreateType
             )
         }
         
