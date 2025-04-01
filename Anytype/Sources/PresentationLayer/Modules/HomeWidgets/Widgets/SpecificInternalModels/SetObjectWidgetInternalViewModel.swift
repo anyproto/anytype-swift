@@ -112,7 +112,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         } else {
             screenData = ScreenData(details: details, activeViewId: activeViewId)
         }
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
         output?.onObjectSelected(screenData: screenData)
     }
     

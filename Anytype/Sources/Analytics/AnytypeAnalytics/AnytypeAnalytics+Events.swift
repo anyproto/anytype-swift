@@ -565,9 +565,9 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logSelectHomeTab(source: AnalyticsWidgetSource) {
+    func logClickWidgetTitle(source: AnalyticsWidgetSource) {
         logEvent(
-            "SelectHomeTab",
+            "ClickWidgetTitle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.tab: source.analyticsId
             ]

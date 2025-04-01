@@ -30,7 +30,7 @@ final class LinkWidgetViewModel: ObservableObject {
     
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: linkedObjectDetails.analyticsType))
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: .object(type: linkedObjectDetails.analyticsType))
         output?.onObjectSelected(screenData: linkedObjectDetails.screenData())
     }
     

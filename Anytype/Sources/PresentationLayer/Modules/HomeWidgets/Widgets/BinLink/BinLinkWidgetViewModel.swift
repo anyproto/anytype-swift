@@ -25,7 +25,7 @@ final class BinLinkWidgetViewModel: ObservableObject {
     }
     
     func onHeaderTap() {
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .bin)
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: .bin)
         output?.onObjectSelected(screenData: .editor(.bin(spaceId: spaceId)))
     }
     
