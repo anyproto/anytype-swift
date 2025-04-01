@@ -155,7 +155,7 @@ private extension SearchObjectRowView.Model {
 private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
-        let title = FeatureFlags.pluralNames ? details.pluralName : details.title
+        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
