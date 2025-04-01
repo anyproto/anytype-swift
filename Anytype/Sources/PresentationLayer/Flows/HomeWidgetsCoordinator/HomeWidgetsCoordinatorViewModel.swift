@@ -47,6 +47,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onObjectSelected(screenData: ScreenData) {
+        AnytypeAnalytics.instance().logOpenSidebarObject()
         pageNavigation?.open(screenData)
     }
     

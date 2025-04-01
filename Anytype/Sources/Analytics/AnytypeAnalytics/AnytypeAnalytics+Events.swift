@@ -1323,4 +1323,8 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logOpenSidebarObject() {
+        logEvent("OpenSidebarObject")
+    }
 }
