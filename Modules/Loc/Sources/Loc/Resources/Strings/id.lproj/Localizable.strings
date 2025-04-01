@@ -873,6 +873,7 @@
 "Widgets.Source.Library" = "Sistem";
 "Widgets.Source.Objects" = "Objekmu";
 "Widgets.List.Empty" = "Belum ada gawit";
+"Widgets.AutoAddedAlert" = "Widget %@ was added";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
@@ -1367,7 +1368,7 @@ Please provide specific details of your needs here.";
 "Migration.Progress.title" = "Pembaruan sedang berlangsung …";
 "Migration.Progress.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
 "Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
-"Migration.Error.NotEnoughtSpace.message" = "Bersihkan ruang penyimpanan lalu coba lagi.";
+"Migration.Error.NotEnoughtSpace.message" = "Please clear approximately %@ of space and run the process again.";
 
 "Migration.ReadMore.option1" = "What to Expect";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";
