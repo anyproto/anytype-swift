@@ -1276,7 +1276,9 @@ public enum Loc {
   public enum Migration {
     public enum Error {
       public enum NotEnoughtSpace {
-        public static let message = Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.message", fallback: "Please free up space and run the process again.")
+        public static func message(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.message", String(describing: p1), fallback: "Please clear approximately %@ of space and run the process again.")
+        }
         public static let title = Loc.tr("Localizable", "Migration.Error.NotEnoughtSpace.title", fallback: "Not enough space")
       }
     }
