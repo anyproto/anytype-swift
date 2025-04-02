@@ -52,7 +52,8 @@ final class ListWidgetViewModel: ObservableObject {
     
     func onHeaderTap() {
         guard let screenData = internalModel.screenData() else { return }
-        AnytypeAnalytics.instance().logSelectHomeTab(source: internalModel.analyticsSource())
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: internalModel.analyticsSource(), createType: info.widgetCreateType)
         output?.onObjectSelected(screenData: screenData)
     }
     
@@ -100,8 +101,8 @@ final class ListWidgetViewModel: ObservableObject {
             rows = rowDetails?.map { details in
                 ListWidgetRowModel(
                     details: details,
-                    onTap: { [weak self] in
-                        self?.output?.onObjectSelected(screenData: $0)
+                    onTap: { [weak self] _ in
+                        self?.handleTapOnObject(details: details)
                     }
                 )
             }
@@ -121,5 +122,11 @@ final class ListWidgetViewModel: ObservableObject {
                 )
             }
         }
+    }
+    
+    private func handleTapOnObject(details: ObjectDetails) {
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
+        output?.onObjectSelected(screenData: details.screenData())
     }
 }

@@ -164,6 +164,7 @@ public enum Loc {
   public static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
   public static let forever = Loc.tr("Localizable", "Forever", fallback: "Forever")
   public static let foreverFree = Loc.tr("Localizable", "Forever free", fallback: "Forever free")
+  public static let format = Loc.tr("Localizable", "Format", fallback: "Format")
   public static let gallery = Loc.tr("Localizable", "Gallery", fallback: "Gallery")
   public static let goBack = Loc.tr("Localizable", "Go back", fallback: "Go back")
   public static let gotIt = Loc.tr("Localizable", "Got it", fallback: "I got it!")
@@ -232,7 +233,6 @@ public enum Loc {
   public static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
   public static let noDate = Loc.tr("Localizable", "No date", fallback: "No date")
   public static let noItemsMatchFilter = Loc.tr("Localizable", "No items match filter", fallback: "No items match filter")
-  public static let noName = Loc.tr("Localizable", "No name", fallback: "No name")
   public static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here", fallback: "No related options here. You can add some")
   public static func noTypeFoundText(_ p1: Any) -> String {
     return Loc.tr("Localizable", "No type found text", String(describing: p1), fallback: "No type “%@” found. Change your request or create new type.")
@@ -294,7 +294,6 @@ public enum Loc {
   public static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   public static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")
   public static let pinned = Loc.tr("Localizable", "Pinned", fallback: "Pinned")
-  public static let pluralName = Loc.tr("Localizable", "Plural name", fallback: "Plural name")
   public static let preferences = Loc.tr("Localizable", "Preferences", fallback: "Preferences")
   public static let preview = Loc.tr("Localizable", "Preview", fallback: "Preview")
   public static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")
@@ -335,7 +334,7 @@ public enum Loc {
   public static let selectObject = Loc.tr("Localizable", "Select object", fallback: "Select object")
   public static let selectOption = Loc.tr("Localizable", "Select option", fallback: "Select option")
   public static let selectOptions = Loc.tr("Localizable", "Select options", fallback: "Select options")
-  public static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select property type")
+  public static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select property format")
   public static let selectVaultError = Loc.tr("Localizable", "Select vault error", fallback: "Select vault error")
   public static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -385,6 +384,7 @@ public enum Loc {
   public static let tryToFindANewOne = Loc.tr("Localizable", "Try to find a new one", fallback: "Try to find a new one")
   public static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   public static let type = Loc.tr("Localizable", "Type", fallback: "Type")
+  public static let typeListName = Loc.tr("Localizable", "Type List name", fallback: "Type List name")
   public static let types = Loc.tr("Localizable", "Types", fallback: "Types")
   public static let undo = Loc.tr("Localizable", "Undo", fallback: "Undo")
   public static let undoTyping = Loc.tr("Localizable", "Undo typing", fallback: "Undo typing")
@@ -1001,9 +1001,10 @@ public enum Loc {
     public static func created(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Fields.Created", String(describing: p1), fallback: "Property ‘%@’ has been created")
     }
+    public static let foundInObjects = Loc.tr("Localizable", "Fields.foundInObjects", fallback: "Found in objects")
     public static let local = Loc.tr("Localizable", "Fields.local", fallback: "Local properties")
-    public static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Properties menu")
-    public static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.")
+    public static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Properties panel")
+    public static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.")
     public static let removeFromObject = Loc.tr("Localizable", "Fields.removeFromObject", fallback: "Remove from the object")
     public static func updated(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Fields.Updated", String(describing: p1), fallback: "Property ‘%@’ has been updated")
@@ -1406,7 +1407,7 @@ public enum Loc {
         public static let title = Loc.tr("Localizable", "Relation.Format.Number.Title", fallback: "Number")
       }
       public enum Object {
-        public static let title = Loc.tr("Localizable", "Relation.Format.Object.Title", fallback: "Object relation")
+        public static let title = Loc.tr("Localizable", "Relation.Format.Object.Title", fallback: "Relation object")
       }
       public enum Phone {
         public static let title = Loc.tr("Localizable", "Relation.Format.Phone.Title", fallback: "Phone number")

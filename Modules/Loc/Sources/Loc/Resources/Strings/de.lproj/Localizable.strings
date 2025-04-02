@@ -872,6 +872,7 @@
 "Widgets.Source.Library" = "System";
 "Widgets.Source.Objects" = "Deine Objekte";
 "Widgets.List.Empty" = "There is no widgets yet";
+"Widgets.AutoAddedAlert" = "Widget %@ was added";
 
 // MARK: - About
 "About.AppVersion" = "App-Version: %@";
@@ -1367,7 +1368,7 @@ Bitte gebe hier gegebenenfalls genauere Informationen zu deinen Wünschen an.";
 "Migration.Progress.title" = "Aktualisierung ist im Gang...";
 "Migration.Progress.subtitle" = "Dies kann einige Zeit dauern. Bitte schließe die App nicht, bis der Vorgang abgeschlossen ist.";
 "Migration.Error.NotEnoughtSpace.title" = "Nicht genügend Platz";
-"Migration.Error.NotEnoughtSpace.message" = "Bitte gib Speicherplatz frei und führe den Vorgang erneut aus.";
+"Migration.Error.NotEnoughtSpace.message" = "Please clear approximately %@ of space and run the process again.";
 
 "Migration.ReadMore.option1" = "Was dich erwartet";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";

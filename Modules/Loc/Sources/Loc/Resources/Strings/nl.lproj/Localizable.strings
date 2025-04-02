@@ -872,6 +872,7 @@
 "Widgets.Source.Library" = "Systeem";
 "Widgets.Source.Objects" = "Jouw objecten";
 "Widgets.List.Empty" = "Er zijn nog geen widgets";
+"Widgets.AutoAddedAlert" = "Widget %@ was added";
 
 // MARK: - About
 "About.AppVersion" = "App versie: %@";
@@ -1368,7 +1369,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Migration.Progress.title" = "Update is bezig...";
 "Migration.Progress.subtitle" = "Dit kan enige tijd duren. Sluit de app alsjeblieft niet voordat het proces is voltooid.";
 "Migration.Error.NotEnoughtSpace.title" = "Niet genoeg ruimte";
-"Migration.Error.NotEnoughtSpace.message" = "Maak alsjeblieft ruimte vrij en voer het proces opnieuw uit.";
+"Migration.Error.NotEnoughtSpace.message" = "Please clear approximately %@ of space and run the process again.";
 
 "Migration.ReadMore.option1" = "Wat kun je verwachten";
 "Migration.ReadMore.description1" = "Je zult een laadscherm zien tijdens de update. Eenmaal voltooid, kun je de app normaal blijven gebruiken.";

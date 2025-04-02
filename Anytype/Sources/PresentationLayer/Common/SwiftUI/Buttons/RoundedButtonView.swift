@@ -51,7 +51,7 @@ struct RoundedButtonView: View {
         switch decoration {
         case .chervon:
             Spacer.fixedWidth(8)
-            IconView(asset: .X24.Arrow.right).frame(width: 24, height: 24)
+            IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .badge(let count):
             AnytypeText("\(count)", style: .caption1Regular)
                 .foregroundColor(.Control.white)

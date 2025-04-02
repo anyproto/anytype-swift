@@ -81,7 +81,7 @@ struct ObjectTypeInfoView: View {
     private var pluralNameInput: some View {
         HStack(alignment: .center, spacing: 0) {
             VStack(alignment: .leading, spacing: 4) {
-                AnytypeText(Loc.pluralName, style: .caption1Regular).foregroundColor(.Text.secondary)
+                AnytypeText(Loc.typeListName, style: .caption1Regular).foregroundColor(.Text.secondary)
                 AnytypeTextField(placeholder: Loc.puzzles, font: .previewTitle1Regular, text: $model.pluralName)
                     .autocorrectionDisabled()
             }

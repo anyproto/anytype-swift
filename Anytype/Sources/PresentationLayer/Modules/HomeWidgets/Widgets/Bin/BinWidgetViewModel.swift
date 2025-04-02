@@ -30,7 +30,8 @@ final class BinWidgetViewModel: ObservableObject {
     }
     
     func onHeaderTap() {
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .bin)
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: .bin, createType: info.widgetCreateType)
         data.output?.onObjectSelected(screenData: .editor(.bin(spaceId: data.workspaceInfo.accountSpaceId)))
     }
     
