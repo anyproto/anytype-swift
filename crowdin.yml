@@ -7,6 +7,6 @@ files:
     translation: /AnytypeWidget/Resources/%osx_code%/%original_file_name%
   - source: /Modules/Loc/Sources/Loc/Resources/Strings/en.lproj/*
     translation: /Modules/Loc/Sources/Loc/Resources/Strings/%osx_code%/%original_file_name%
-  - source: /Anytype/Resources/Strings/LocalizableError.xcstrings
-    translation: /Anytype/Resources/Strings/LocalizableError.xcstrings
+  - source: /Modules/ProtobufMessages/Sources/Loc/Resources/LocalizableError.xcstrings
+    translation: /Modules/ProtobufMessages/Sources/Loc/Resources/LocalizableError.xcstrings
     multilingual: 1
