@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
 "Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Число";
 "Relation.Format.Status.Title" = "Select";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Непідтримуваний блок";
 "Unsupported" = "Unsupported";
 "Name" = "Назва";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Опис";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Обробка вставки...";
@@ -583,7 +584,7 @@
 "Enter number" = "Введіть номер";
 "Enter text" = "Введіть текст";
 "Unsupported value" = "Непідтримуване значення";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "No data found";
 "AreYouSure" = "Ви впевнені?";
 "Nothing found" = "Nothing found";
@@ -595,7 +596,7 @@
 "Limit object types" = "Обмежити типи об'єктів";
 "Type" = "Тип";
 "Types" = "Types";
-"No name" = "Без назви";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Відсутній об'єкт";

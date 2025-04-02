@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "該選項將從您的空間中永久刪除";
 "Relation.Object.Delete.Alert.Description" = "該物件將被移至垃圾桶";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "文字";
 "Relation.Format.Number.Title" = "數字";
 "Relation.Format.Status.Title" = "選項";
@@ -204,7 +205,7 @@
 "Unsupported block" = "不支援的區塊";
 "Unsupported" = "不支援";
 "Name" = "名稱";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "描述";
 "Add a description" = "Add a description...";
 "Paste processing..." = "貼上處理中...";
@@ -584,7 +585,7 @@
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
 "Unsupported value" = "不支援的值";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "尚無資料";
 "AreYouSure" = "您確定嗎?";
 "Nothing found" = "未找到任何內容";
@@ -596,7 +597,7 @@
 "Limit object types" = "限制物件類型";
 "Type" = "類型";
 "Types" = "類型";
-"No name" = "無名稱";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "不存在的物件";

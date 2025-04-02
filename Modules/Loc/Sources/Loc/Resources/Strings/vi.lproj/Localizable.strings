@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Lựa chọn này sẽ bị xoá vĩnh viễn khỏi không gian của bạn.";
 "Relation.Object.Delete.Alert.Description" = "Đối tượng này sẽ được đưa vào Thùng rác.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Văn bản";
 "Relation.Format.Number.Title" = "Số";
 "Relation.Format.Status.Title" = "Chọn";
@@ -205,7 +206,7 @@
 "Unsupported block" = "Khối không được hỗ trợ";
 "Unsupported" = "Không được hỗ trợ";
 "Name" = "Tên";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Mô tả";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Paste processing...";
@@ -584,7 +585,7 @@
 "Enter number" = "Nhập số";
 "Enter text" = "Nhập văn bản";
 "Unsupported value" = "Giá trị không được hỗ trợ";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Không tìm thấy dữ liệu nào";
 "AreYouSure" = "Bạn chắc chưa?";
 "Nothing found" = "Không tìm thấy gì";
@@ -596,7 +597,7 @@
 "Limit object types" = "Giới hạn loại đối tượng";
 "Type" = "Loại";
 "Types" = "Loại";
-"No name" = "Không tên";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Đối tượng không tồn tại";

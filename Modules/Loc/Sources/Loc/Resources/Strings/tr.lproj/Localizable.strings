@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Geçerli türe ekle";
 "Fields.removeFromObject" = "Nesneden sil";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Seçenek, alanınızdan kalıcı olarak kaldırılacaktır.";
 "Relation.Object.Delete.Alert.Description" = "Nesne Çöp Kutusuna taşınacaktır.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Metin";
 "Relation.Format.Number.Title" = "Sayı";
 "Relation.Format.Status.Title" = "Seç";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Desteklenmeyen blok";
 "Unsupported" = "Desteklenmiyor";
 "Name" = "İsim";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Açıklama";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Yapıştırma işleniyor...";
@@ -583,7 +584,7 @@
 "Enter number" = "Numara gir";
 "Enter text" = "Metin gir";
 "Unsupported value" = "Desteklenmeyen değer";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Veri bulunamadı";
 "AreYouSure" = "Emin misiniz?";
 "Nothing found" = "Hiçbir şey bulunamadı";
@@ -595,7 +596,7 @@
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
 "Types" = "Türler";
-"No name" = "İsim yok";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Var olmayan nesne";
