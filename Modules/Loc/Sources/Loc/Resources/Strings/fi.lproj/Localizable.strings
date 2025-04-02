@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Tämä vaihtoehto poistetaan pysyvästi tilastasi.";
 "Relation.Object.Delete.Alert.Description" = "Tämä vaihtoehto siirretään roskakoriin.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Teksti";
 "Relation.Format.Number.Title" = "Numero";
 "Relation.Format.Status.Title" = "Valitse";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Tukematon pala";
 "Unsupported" = "Ei tuettu";
 "Name" = "Nimi";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Kuvaus";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Sijoitus käynnissä...";
@@ -583,7 +584,7 @@
 "Enter number" = "Syötä numero";
 "Enter text" = "Syötä teksti";
 "Unsupported value" = "Ei tuettu arvo";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Tietoja ei löytynyt";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "Mitään ei löytynyt";
@@ -595,7 +596,7 @@
 "Limit object types" = "Rajoita objekti tyyppejä";
 "Type" = "Tyyppi";
 "Types" = "Types";
-"No name" = "Ei nimeä";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Non-existent object";
