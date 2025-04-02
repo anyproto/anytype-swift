@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "已创建属性“%@”";
 "Fields.Updated" = "已更新属性“%@”";
-"Fields.menu" = "属性菜单";
+"Fields.menu" = "属性面板";
 "Fields.local" = "本地属性";
-"Fields.missingInfo" = "此对象类型中未包含某些属性。如果您想在此类型的所有对象中看到，请添加或移除属性。";
+"Fields.foundInObjects" = "在对象中找到";
+"Fields.missingInfo" = "这些属性仅存在于某些对象中，不是其类型的一部分。添加后可供在此类型的所有对象中使用。";
 "Fields.addToType" = "添加到当前类型";
 "Fields.removeFromObject" = "从对象中移除";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "此选项将从您的空间永久删除。";
 "Relation.Object.Delete.Alert.Description" = "对象将被移动到回收站。";
 
-"Relation.Format.Object.Title" = "对象关系";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "正文";
 "Relation.Format.Number.Title" = "数目";
 "Relation.Format.Status.Title" = "选择";
@@ -204,7 +205,7 @@
 "Unsupported block" = "不支持的数据块";
 "Unsupported" = "暂不支持";
 "Name" = "名称";
-"Plural name" = "复数名称";
+"Type List name" = "Type List name";
 "Description" = "描述";
 "Add a description" = "添加描述...";
 "Paste processing..." = "粘贴处理...";
@@ -584,7 +585,7 @@
 "Enter number" = "输入号码";
 "Enter text" = "输入文本";
 "Unsupported value" = "不支持该值";
-"Select relation type" = "选择属性类型";
+"Select relation type" = "选择属性格式";
 "CommonOpenErrorView.Message" = "未找到数据";
 "AreYouSure" = "是否确定?";
 "Nothing found" = "未找到任何内容";
@@ -596,7 +597,7 @@
 "Limit object types" = "限制对象类型";
 "Type" = "类型";
 "Types" = "类型";
-"No name" = "无名称";
+"Format" = "格式";
 "New field" = "新建属性";
 "Edit field" = "编辑属性";
 "Non-existent object" = "对象不存在";
