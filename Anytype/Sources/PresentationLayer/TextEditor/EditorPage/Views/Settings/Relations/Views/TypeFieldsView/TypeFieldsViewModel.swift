@@ -123,25 +123,7 @@ final class TypeFieldsViewModel: ObservableObject {
         guard let details = document.details else { return }
         
         Task {
-            let relationsId = row.relation.id
-            
-            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelationsDetails.filter({ relationsId != $0.id }) {
-                try await relationsService.updateTypeRelations(
-                    typeId: document.objectId,
-                    recommendedRelations: details.recommendedRelationsDetails,
-                    recommendedFeaturedRelations: recommendedFeaturedRelations,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
-            }
-            if let recommendedRelations = document.details?.recommendedRelationsDetails.filter({ relationsId != $0.id }) {
-                try await relationsService.updateTypeRelations(
-                    typeId: document.objectId,
-                    recommendedRelations: recommendedRelations,
-                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
-            }
-            
+            try await relationsService.deleteTypeRelation(details: details, relationId: row.relation.id)
             
             guard let format = row.relation.format?.format else {
                 anytypeAssertionFailure("Empty relation format for onDeleteRelation")
@@ -153,20 +135,10 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddConflictRelation(_ relation: RelationDetails) {
         guard let details = document.details else { return }
-        
         AnytypeAnalytics.instance().logAddConflictRelation()
-        var newRecommendedRelationsIds = parsedRelations.sidebarRelations.map(\.id)
-        newRecommendedRelationsIds.append(relation.id)
-        let newRecommendedRelations = relationDetailsStorage.relationsDetails(ids: newRecommendedRelationsIds, spaceId: document.spaceId)
         
         Task {
-            try await relationsService.updateTypeRelations(
-                typeId: document.objectId,
-                recommendedRelations: newRecommendedRelations,
-                recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-            )
-            
+            try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)    
             if let details = document.details { try await updateConflictRelations(details: details) }
         }
     }

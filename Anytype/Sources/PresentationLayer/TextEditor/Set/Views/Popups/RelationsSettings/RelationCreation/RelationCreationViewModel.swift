@@ -88,40 +88,27 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         switch data.target {
         case let .type(data):
             try await addRelationToType(relation: details, typeData: data)
-        case .dataview(let activeViewId):
-            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId)
+        case let .dataview(activeViewId, typeDetails):
+            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
         }
     }
     
     private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let details):
-            var recommendedFeaturedRelations = details.recommendedFeaturedRelationsDetails
-            recommendedFeaturedRelations.insert(relation, at: 0)
-            
-            try await relationsService
-                .updateTypeRelations(
-                    typeId: data.objectId,
-                    recommendedRelations: details.recommendedRelationsDetails,
-                    recommendedFeaturedRelations: recommendedFeaturedRelations,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
+            try await relationsService.addTypeFeaturedRecommendedRelation(details: details, relation: relation)
         case .recommendedRelations(let details):
-            var recommendedRelations = details.recommendedRelationsDetails
-            recommendedRelations.insert(relation, at: 0)
-            
-            try await relationsService
-                .updateTypeRelations(
-                    typeId: data.objectId,
-                    recommendedRelations: recommendedRelations,
-                    recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-                    recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
-                )
+            try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)
         }
     }
     
-    private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws {
-        try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
+    private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+        if FeatureFlags.openTypeAsSet, let typeDetails {
+            try await addRelationToType(relation: relation, typeData: .recommendedRelations(typeDetails))
+        } else {
+            try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
+        }
+        
         let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
         try await dataviewService.addViewRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)
     }

@@ -123,8 +123,8 @@ extension RelationInfoViewModel {
             switch target {
             case .type(let data):
                 try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: data.isFeatured)
-            case .dataview(let activeViewId):
-                try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId)
+            case let .dataview(activeViewId, typeDetails):
+                try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId, typeDetails: typeDetails)
             }
             
             onSuccessfullAction(relationDetails: createdRelation)
