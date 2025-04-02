@@ -95,16 +95,17 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     
     private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
         switch typeData {
-        case .recommendedFeaturedRelations(let details):
-            try await relationsService.addTypeFeaturedRecommendedRelation(details: details, relation: relation)
-        case .recommendedRelations(let details):
-            try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)
+        case .recommendedFeaturedRelations(let type):
+            try await relationsService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)
+        case .recommendedRelations(let type):
+            try await relationsService.addTypeRecommendedRelation(type: type, relation: relation)
         }
     }
     
     private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         if FeatureFlags.openTypeAsSet, let typeDetails {
-            try await addRelationToType(relation: relation, typeData: .recommendedRelations(typeDetails))
+            let type = ObjectType(details: typeDetails)
+            try await addRelationToType(relation: relation, typeData: .recommendedRelations(type))
         } else {
             try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
         }

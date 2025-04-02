@@ -17,24 +17,32 @@ extension RelationsServiceProtocol {
     }
     
     func addTypeRecommendedRelation(details: ObjectDetails, relation: RelationDetails) async throws {
-        var recommendedRelationsDetails = details.recommendedRelationsDetails
+        try await addTypeRecommendedRelation(type: ObjectType(details: details), relation: relation)
+    }
+    
+    func addTypeRecommendedRelation(type: ObjectType, relation: RelationDetails) async throws {
+        var recommendedRelationsDetails = type.recommendedRelationsDetails
         recommendedRelationsDetails.insert(relation, at: 0)
         try await updateTypeRelations(
-            typeId: details.id,
+            typeId: type.id,
             recommendedRelations: recommendedRelationsDetails,
-            recommendedFeaturedRelations: details.recommendedFeaturedRelationsDetails,
-            recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+            recommendedFeaturedRelations: type.recommendedFeaturedRelationsDetails,
+            recommendedHiddenRelations: type.recommendedHiddenRelationsDetails
         )
     }
     
     func addTypeFeaturedRecommendedRelation(details: ObjectDetails, relation: RelationDetails) async throws {
-        var recommendedFeaturedRelationsDetails = details.recommendedFeaturedRelationsDetails
+        try await addTypeFeaturedRecommendedRelation(type: ObjectType(details: details), relation: relation)
+    }
+    
+    func addTypeFeaturedRecommendedRelation(type: ObjectType, relation: RelationDetails) async throws {
+        var recommendedFeaturedRelationsDetails = type.recommendedFeaturedRelationsDetails
         recommendedFeaturedRelationsDetails.insert(relation, at: 0)
         try await updateTypeRelations(
-            typeId: details.id,
-            recommendedRelations: details.recommendedRelationsDetails,
+            typeId: type.id,
+            recommendedRelations: type.recommendedRelationsDetails,
             recommendedFeaturedRelations: recommendedFeaturedRelationsDetails,
-            recommendedHiddenRelations: details.recommendedHiddenRelationsDetails
+            recommendedHiddenRelations: type.recommendedHiddenRelationsDetails
         )
     }
         

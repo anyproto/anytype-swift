@@ -86,7 +86,9 @@ final class TypeFieldsViewModel: ObservableObject {
         guard let details = document.details else { return }
         guard let format = data.relation.format else { return }
         
-        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(details) : .recommendedRelations(details)
+        let type = ObjectType(details: details)
+        
+        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
         relationData = RelationInfoData(
             name: data.relation.name,
@@ -99,7 +101,7 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddRelationTap(section: TypeFieldsSectionRow) {
         guard let details = document.details else { return }
-        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details) : .recommendedRelations(details)
+        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details.objectType) : .recommendedRelations(details.objectType)
         
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
