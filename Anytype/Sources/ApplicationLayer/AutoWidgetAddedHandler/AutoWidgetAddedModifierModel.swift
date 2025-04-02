@@ -11,6 +11,7 @@ final class AutoWidgetAddedModifierModel: ObservableObject {
             for event in events.middlewareEvents {
                 switch event.value {
                 case let .spaceAutoWidgetAdded(data):
+                    AnytypeAnalytics.instance().logAddWidget(context: .auto, createType: .auto)
                     toastBarData = ToastBarData(
                         text: Loc.Widgets.autoAddedAlert(data.targetName),
                         showSnackBar: true,

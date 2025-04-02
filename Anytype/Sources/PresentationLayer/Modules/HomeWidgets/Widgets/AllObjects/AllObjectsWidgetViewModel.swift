@@ -16,7 +16,8 @@ final class AllObjectsWidgetViewModel: ObservableObject {
     }
     
     func onHeaderTap() {
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .allObjects)
+        guard let info = data.widgetObject.widgetInfo(blockId: data.widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logClickWidgetTitle(source: .allObjects, createType: info.widgetCreateType)
         data.output?.onObjectSelected(screenData: .editor(.allObjects(spaceId: data.workspaceInfo.accountSpaceId)))
     }
     

@@ -29,7 +29,7 @@ final class WidgetSourceSearchSelectInternalViewModel: WidgetSourceSearchInterna
                 limit: layout.limits.first ?? 0,
                 position: data.position
             )
-            AnytypeAnalytics.instance().logAddWidget(context: data.context)
+            AnytypeAnalytics.instance().logAddWidget(context: data.context, createType: .manual)
         }
         
         onSelectClosure(source, openObject)

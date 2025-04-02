@@ -537,11 +537,12 @@ extension AnytypeAnalytics {
         logEvent("EditWidget")
     }
     
-    func logAddWidget(context: AnalyticsWidgetContext) {
+    func logAddWidget(context: AnalyticsWidgetContext, createType: WidgetCreateType) {
         logEvent(
             "AddWidget",
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.context: context.rawValue
+                AnalyticsEventsPropertiesKey.context: context.rawValue,
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue
             ]
         )
     }
@@ -555,21 +556,23 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext) {
+    func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext, createType: WidgetCreateType) {
         logEvent(
             "DeleteWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
-                AnalyticsEventsPropertiesKey.context: context.rawValue
+                AnalyticsEventsPropertiesKey.context: context.rawValue,
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue,
             ]
         )
     }
     
-    func logSelectHomeTab(source: AnalyticsWidgetSource) {
+    func logClickWidgetTitle(source: AnalyticsWidgetSource, createType: WidgetCreateType) {
         logEvent(
-            "SelectHomeTab",
+            "ClickWidgetTitle",
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.tab: source.analyticsId
+                AnalyticsEventsPropertiesKey.tab: source.analyticsId,
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue,
             ]
         )
     }
@@ -1320,6 +1323,15 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
+            ]
+        )
+    }
+    
+    func logOpenSidebarObject(createType: WidgetCreateType) {
+        logEvent(
+            "OpenSidebarObject",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.widgetType: createType.rawValue,
             ]
         )
     }
