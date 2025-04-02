@@ -1,8 +1,8 @@
 import Foundation
 
 public enum AnytypeWidgetId: String, CaseIterable, Sendable {
-    case allObjects = "allObjects"
     case favorite = "favorite"
+    case allObjects = "allObjects"
     case sets = "set"
     case collections = "collection"
     case recent = "recent"
