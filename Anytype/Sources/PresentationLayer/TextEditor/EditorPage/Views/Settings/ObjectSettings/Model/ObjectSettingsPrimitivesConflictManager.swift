@@ -20,9 +20,11 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         let layoutsInObjectAndTypeAreDifferent = details.resolvedLayoutValue != type.recommendedLayout
         if layoutsInObjectAndTypeAreDifferent { return true }
         
+        let allTypeRelations = details.objectType.recommendedRelations + details.objectType.recommendedFeaturedRelations + details.objectType.recommendedHiddenRelations
         let haveAnyLegacyFeaturedRelations = relationDetailsStorage
             .relationsDetails(ids: details.featuredRelations, spaceId: details.spaceId)
             .filter { $0.key != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+            .filter { !allTypeRelations.contains($0.id) }
             .isNotEmpty
         if haveAnyLegacyFeaturedRelations { return true }
         
@@ -30,8 +32,10 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
     }
     
     func resolveConflicts(details: ObjectDetails) async throws {
-        // Remove legacy layout relation
+        // Remove legacy relations
         try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layout.rawValue)
+        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutAlign.rawValue)
+        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutWidth.rawValue)
         
         // Remove all legacy relations except for description if present (description uses legacy mechanism to preserve its visibility)
         let featuredRelationIds = relationDetailsStorage
