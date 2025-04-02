@@ -1,12 +1,11 @@
 import Foundation
-import ProtobufMessages
 
 {% for type in types.types %}
 {% if type.localName == "Error" %}
-extension {{ type.name }}: @retroactive LocalizedError {
+extension {{ type.name }}: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"

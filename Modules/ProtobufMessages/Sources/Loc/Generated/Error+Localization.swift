@@ -2,12 +2,11 @@
 // DO NOT EDIT
 
 import Foundation
-import ProtobufMessages
 
-extension Anytype_Rpc.AI.Autofill.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.AI.Autofill.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -40,10 +39,10 @@ extension Anytype_Rpc.AI.Autofill.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.AI.ListSummary.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.AI.ListSummary.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -76,10 +75,10 @@ extension Anytype_Rpc.AI.ListSummary.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -112,10 +111,10 @@ extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.AI.WritingTools.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.AI.WritingTools.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -151,10 +150,10 @@ extension Anytype_Rpc.AI.WritingTools.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -178,10 +177,10 @@ extension Anytype_Rpc.Account.ChangeJsonApiAddr.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -217,10 +216,10 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: @ret
     }
 }
 
-extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -247,10 +246,10 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Account.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -298,10 +297,10 @@ extension Anytype_Rpc.Account.Create.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Account.Delete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -328,10 +327,10 @@ extension Anytype_Rpc.Account.Delete.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -355,10 +354,10 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: @retroactiv
     }
 }
 
-extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -385,10 +384,10 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: @retroactiv
     }
 }
 
-extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -421,10 +420,10 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: @retroact
     }
 }
 
-extension Anytype_Rpc.Account.Migrate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Migrate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -454,10 +453,10 @@ extension Anytype_Rpc.Account.Migrate.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Account.MigrateCancel.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.MigrateCancel.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -478,10 +477,10 @@ extension Anytype_Rpc.Account.MigrateCancel.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Account.Move.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Move.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -520,10 +519,10 @@ extension Anytype_Rpc.Account.Move.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Account.Recover.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Recover.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -547,10 +546,10 @@ extension Anytype_Rpc.Account.Recover.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -574,10 +573,10 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: @retroacti
     }
 }
 
-extension Anytype_Rpc.Account.RevertDeletion.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.RevertDeletion.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -604,10 +603,10 @@ extension Anytype_Rpc.Account.RevertDeletion.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Account.Select.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Select.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -670,10 +669,10 @@ extension Anytype_Rpc.Account.Select.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Account.Stop.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Account.Stop.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -703,10 +702,10 @@ extension Anytype_Rpc.Account.Stop.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.App.GetVersion.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.App.GetVersion.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -727,10 +726,10 @@ extension Anytype_Rpc.App.GetVersion.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.App.SetDeviceState.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.App.SetDeviceState.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -751,10 +750,10 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.App.Shutdown.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.App.Shutdown.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -775,10 +774,10 @@ extension Anytype_Rpc.App.Shutdown.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Copy.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Copy.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -799,10 +798,10 @@ extension Anytype_Rpc.Block.Copy.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -823,10 +822,10 @@ extension Anytype_Rpc.Block.Create.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.CreateWidget.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.CreateWidget.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -847,10 +846,10 @@ extension Anytype_Rpc.Block.CreateWidget.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Block.Cut.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Cut.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -871,10 +870,10 @@ extension Anytype_Rpc.Block.Cut.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Download.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Download.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -895,10 +894,10 @@ extension Anytype_Rpc.Block.Download.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Block.Export.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Export.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -919,10 +918,10 @@ extension Anytype_Rpc.Block.Export.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -943,10 +942,10 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.Block.ListDelete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListDelete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -967,10 +966,10 @@ extension Anytype_Rpc.Block.ListDelete.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Block.ListDuplicate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListDuplicate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -991,10 +990,10 @@ extension Anytype_Rpc.Block.ListDuplicate.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1015,10 +1014,10 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: @retroactiv
     }
 }
 
-extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1039,10 +1038,10 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.Block.ListSetAlign.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListSetAlign.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1063,10 +1062,10 @@ extension Anytype_Rpc.Block.ListSetAlign.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1087,10 +1086,10 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: @retroactive 
     }
 }
 
-extension Anytype_Rpc.Block.ListSetFields.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListSetFields.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1111,10 +1110,10 @@ extension Anytype_Rpc.Block.ListSetFields.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1135,10 +1134,10 @@ extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.Block.ListTurnInto.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.ListTurnInto.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1159,10 +1158,10 @@ extension Anytype_Rpc.Block.ListTurnInto.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Block.Merge.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Merge.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1183,10 +1182,10 @@ extension Anytype_Rpc.Block.Merge.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Paste.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Paste.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1207,10 +1206,10 @@ extension Anytype_Rpc.Block.Paste.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Preview.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Preview.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1231,10 +1230,10 @@ extension Anytype_Rpc.Block.Preview.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Block.Replace.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Replace.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1255,10 +1254,10 @@ extension Anytype_Rpc.Block.Replace.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Block.SetCarriage.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.SetCarriage.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1279,10 +1278,10 @@ extension Anytype_Rpc.Block.SetCarriage.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Block.SetFields.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.SetFields.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1303,10 +1302,10 @@ extension Anytype_Rpc.Block.SetFields.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Block.Split.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Split.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1327,10 +1326,10 @@ extension Anytype_Rpc.Block.Split.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Block.Upload.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Block.Upload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1351,10 +1350,10 @@ extension Anytype_Rpc.Block.Upload.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1375,10 +1374,10 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: @retroactive 
     }
 }
 
-extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1399,10 +1398,10 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1423,10 +1422,10 @@ extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: @re
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1447,10 +1446,10 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1471,10 +1470,10 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1495,10 +1494,10 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: @retroactive 
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1519,10 +1518,10 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1543,10 +1542,10 @@ extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: @retroacti
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1567,10 +1566,10 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: @retroactiv
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1591,10 +1590,10 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: @retroact
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1615,10 +1614,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1639,10 +1638,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: @retroactive
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Set.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Relation.Set.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1663,10 +1662,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Set.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1687,10 +1686,10 @@ extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1711,10 +1710,10 @@ extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1735,10 +1734,10 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1759,10 +1758,10 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1783,10 +1782,10 @@ extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1807,10 +1806,10 @@ extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1831,10 +1830,10 @@ extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1855,10 +1854,10 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: @retroactive 
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1879,10 +1878,10 @@ extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: @retroactiv
     }
 }
 
-extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1903,10 +1902,10 @@ extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1927,10 +1926,10 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: @retroactiv
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1951,10 +1950,10 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: @retroac
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1975,10 +1974,10 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: @retroa
     }
 }
 
-extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -1999,10 +1998,10 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: @retroacti
     }
 }
 
-extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2023,10 +2022,10 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2047,10 +2046,10 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2071,10 +2070,10 @@ extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.BlockFile.SetName.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockFile.SetName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2095,10 +2094,10 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2119,10 +2118,10 @@ extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.BlockImage.SetName.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockImage.SetName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2143,10 +2142,10 @@ extension Anytype_Rpc.BlockImage.SetName.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2167,10 +2166,10 @@ extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2191,10 +2190,10 @@ extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockLatex.SetText.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockLatex.SetText.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2215,10 +2214,10 @@ extension Anytype_Rpc.BlockLatex.SetText.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2239,10 +2238,10 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2263,10 +2262,10 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.BlockRelation.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockRelation.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2287,10 +2286,10 @@ extension Anytype_Rpc.BlockRelation.Add.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2311,10 +2310,10 @@ extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2335,10 +2334,10 @@ extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2359,10 +2358,10 @@ extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2383,10 +2382,10 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2407,10 +2406,10 @@ extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2431,10 +2430,10 @@ extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.BlockTable.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2455,10 +2454,10 @@ extension Anytype_Rpc.BlockTable.Create.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockTable.Expand.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.Expand.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2479,10 +2478,10 @@ extension Anytype_Rpc.BlockTable.Expand.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2503,10 +2502,10 @@ extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2527,10 +2526,10 @@ extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2551,10 +2550,10 @@ extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2575,10 +2574,10 @@ extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2599,10 +2598,10 @@ extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2623,10 +2622,10 @@ extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockTable.Sort.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockTable.Sort.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2647,10 +2646,10 @@ extension Anytype_Rpc.BlockTable.Sort.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2671,10 +2670,10 @@ extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2695,10 +2694,10 @@ extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2719,10 +2718,10 @@ extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2743,10 +2742,10 @@ extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2767,10 +2766,10 @@ extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.BlockText.SetChecked.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.SetChecked.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2791,10 +2790,10 @@ extension Anytype_Rpc.BlockText.SetChecked.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.BlockText.SetColor.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.SetColor.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2815,10 +2814,10 @@ extension Anytype_Rpc.BlockText.SetColor.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockText.SetIcon.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.SetIcon.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2839,10 +2838,10 @@ extension Anytype_Rpc.BlockText.SetIcon.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2863,10 +2862,10 @@ extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.BlockText.SetStyle.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.SetStyle.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2887,10 +2886,10 @@ extension Anytype_Rpc.BlockText.SetStyle.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockText.SetText.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockText.SetText.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2911,10 +2910,10 @@ extension Anytype_Rpc.BlockText.SetText.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.BlockVideo.SetName.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockVideo.SetName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2935,10 +2934,10 @@ extension Anytype_Rpc.BlockVideo.SetName.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2959,10 +2958,10 @@ extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -2983,10 +2982,10 @@ extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3007,10 +3006,10 @@ extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3031,10 +3030,10 @@ extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3055,10 +3054,10 @@ extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3082,10 +3081,10 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Chat.AddMessage.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.AddMessage.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3106,10 +3105,10 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3130,10 +3129,10 @@ extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3154,10 +3153,10 @@ extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.Chat.GetMessages.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.GetMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3178,10 +3177,10 @@ extension Anytype_Rpc.Chat.GetMessages.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3202,10 +3201,10 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Chat.ReadMessages.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.ReadMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3229,10 +3228,10 @@ extension Anytype_Rpc.Chat.ReadMessages.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3253,10 +3252,10 @@ extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3277,10 +3276,10 @@ extension Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response.Error: @retroacti
     }
 }
 
-extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3301,10 +3300,10 @@ extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.Chat.Unread.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.Unread.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3325,10 +3324,10 @@ extension Anytype_Rpc.Chat.Unread.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3349,10 +3348,10 @@ extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3373,10 +3372,10 @@ extension Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response.Error: @retro
     }
 }
 
-extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3397,10 +3396,10 @@ extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3421,10 +3420,10 @@ extension Anytype_Rpc.Debug.AnystoreObjectChanges.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3445,10 +3444,10 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Debug.ExportLog.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.ExportLog.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3472,10 +3471,10 @@ extension Anytype_Rpc.Debug.ExportLog.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Debug.NetCheck.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.NetCheck.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3496,10 +3495,10 @@ extension Anytype_Rpc.Debug.NetCheck.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3520,10 +3519,10 @@ extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Debug.Ping.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.Ping.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3544,10 +3543,10 @@ extension Anytype_Rpc.Debug.Ping.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.RunProfiler.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.RunProfiler.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3568,10 +3567,10 @@ extension Anytype_Rpc.Debug.RunProfiler.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3592,10 +3591,10 @@ extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3616,10 +3615,10 @@ extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Debug.Stat.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.Stat.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3640,10 +3639,10 @@ extension Anytype_Rpc.Debug.Stat.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.Subscriptions.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.Subscriptions.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3664,10 +3663,10 @@ extension Anytype_Rpc.Debug.Subscriptions.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Debug.Tree.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.Tree.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3688,10 +3687,10 @@ extension Anytype_Rpc.Debug.Tree.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Debug.TreeHeads.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Debug.TreeHeads.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3712,10 +3711,10 @@ extension Anytype_Rpc.Debug.TreeHeads.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Device.List.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Device.List.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3736,10 +3735,10 @@ extension Anytype_Rpc.Device.List.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3763,10 +3762,10 @@ extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.Device.SetName.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3787,10 +3786,10 @@ extension Anytype_Rpc.Device.SetName.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.File.Download.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.Download.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3811,10 +3810,10 @@ extension Anytype_Rpc.File.Download.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.File.Drop.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.Drop.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3835,10 +3834,10 @@ extension Anytype_Rpc.File.Drop.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.ListOffload.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.ListOffload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3862,10 +3861,10 @@ extension Anytype_Rpc.File.ListOffload.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.File.NodeUsage.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.NodeUsage.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3886,10 +3885,10 @@ extension Anytype_Rpc.File.NodeUsage.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.File.Offload.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.Offload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3913,10 +3912,10 @@ extension Anytype_Rpc.File.Offload.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.File.Reconcile.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.Reconcile.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3937,10 +3936,10 @@ extension Anytype_Rpc.File.Reconcile.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.File.SpaceOffload.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.SpaceOffload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3964,10 +3963,10 @@ extension Anytype_Rpc.File.SpaceOffload.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.File.SpaceUsage.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.SpaceUsage.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -3988,10 +3987,10 @@ extension Anytype_Rpc.File.SpaceUsage.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.File.Upload.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.File.Upload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4012,10 +4011,10 @@ extension Anytype_Rpc.File.Upload.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4042,10 +4041,10 @@ extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4066,10 +4065,10 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.GenericErrorResponse.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.GenericErrorResponse.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4090,10 +4089,10 @@ extension Anytype_Rpc.GenericErrorResponse.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.History.DiffVersions.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.History.DiffVersions.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4114,10 +4113,10 @@ extension Anytype_Rpc.History.DiffVersions.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.History.GetVersions.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.History.GetVersions.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4138,10 +4137,10 @@ extension Anytype_Rpc.History.GetVersions.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.History.SetVersion.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.History.SetVersion.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4162,10 +4161,10 @@ extension Anytype_Rpc.History.SetVersion.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.History.ShowVersion.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.History.ShowVersion.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4186,10 +4185,10 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Initial.SetParameters.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Initial.SetParameters.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4210,10 +4209,10 @@ extension Anytype_Rpc.Initial.SetParameters.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.LinkPreview.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.LinkPreview.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4234,10 +4233,10 @@ extension Anytype_Rpc.LinkPreview.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Log.Send.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Log.Send.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4258,10 +4257,10 @@ extension Anytype_Rpc.Log.Send.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Membership.Finalize.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4303,10 +4302,10 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4339,10 +4338,10 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.Membership.GetStatus.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.GetStatus.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4381,10 +4380,10 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Membership.GetTiers.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.GetTiers.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4417,10 +4416,10 @@ extension Anytype_Rpc.Membership.GetTiers.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4468,10 +4467,10 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: @retroacti
     }
 }
 
-extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4501,10 +4500,10 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: @ret
     }
 }
 
-extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4558,10 +4557,10 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4612,10 +4611,10 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: @retroac
     }
 }
 
-extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4654,10 +4653,10 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: @retroact
     }
 }
 
-extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4705,10 +4704,10 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4732,10 +4731,10 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.NameService.ResolveName.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.NameService.ResolveName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4759,10 +4758,10 @@ extension Anytype_Rpc.NameService.ResolveName.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4786,10 +4785,10 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4819,10 +4818,10 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4843,10 +4842,10 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: @retroac
     }
 }
 
-extension Anytype_Rpc.Navigation.ListObjects.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Navigation.ListObjects.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4867,10 +4866,10 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Notification.List.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Notification.List.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4894,10 +4893,10 @@ extension Anytype_Rpc.Notification.List.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Notification.Reply.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Notification.Reply.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4921,10 +4920,10 @@ extension Anytype_Rpc.Notification.Reply.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Notification.Test.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Notification.Test.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4948,10 +4947,10 @@ extension Anytype_Rpc.Notification.Test.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4972,10 +4971,10 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -4996,10 +4995,10 @@ extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.ChatAdd.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ChatAdd.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5020,10 +5019,10 @@ extension Anytype_Rpc.Object.ChatAdd.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Object.Close.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Close.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5044,10 +5043,10 @@ extension Anytype_Rpc.Object.Close.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5068,10 +5067,10 @@ extension Anytype_Rpc.Object.Create.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Object.CreateBookmark.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5092,10 +5091,10 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5116,10 +5115,10 @@ extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.CreateObjectType.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CreateObjectType.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5140,10 +5139,10 @@ extension Anytype_Rpc.Object.CreateObjectType.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.Object.CreateRelation.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CreateRelation.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5164,10 +5163,10 @@ extension Anytype_Rpc.Object.CreateRelation.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5188,10 +5187,10 @@ extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.Object.CreateSet.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CreateSet.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5215,10 +5214,10 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5239,10 +5238,10 @@ extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: @retroact
     }
 }
 
-extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5263,10 +5262,10 @@ extension Anytype_Rpc.Object.CrossSpaceSearchUnsubscribe.Response.Error: @retroa
     }
 }
 
-extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5287,10 +5286,10 @@ extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Object.Duplicate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Duplicate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5311,10 +5310,10 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Object.Export.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Export.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5335,10 +5334,10 @@ extension Anytype_Rpc.Object.Export.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Object.Graph.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Graph.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5359,10 +5358,10 @@ extension Anytype_Rpc.Object.Graph.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5383,10 +5382,10 @@ extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5422,10 +5421,10 @@ extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: @retroa
     }
 }
 
-extension Anytype_Rpc.Object.Import.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Import.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5464,10 +5463,10 @@ extension Anytype_Rpc.Object.Import.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Object.ImportExperience.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ImportExperience.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5491,10 +5490,10 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.Object.ImportList.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ImportList.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5518,10 +5517,10 @@ extension Anytype_Rpc.Object.ImportList.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Object.ImportUseCase.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ImportUseCase.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5542,10 +5541,10 @@ extension Anytype_Rpc.Object.ImportUseCase.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.ListDelete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListDelete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5566,10 +5565,10 @@ extension Anytype_Rpc.Object.ListDelete.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Object.ListDuplicate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListDuplicate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5590,10 +5589,10 @@ extension Anytype_Rpc.Object.ListDuplicate.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.ListExport.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListExport.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5614,10 +5613,10 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5638,10 +5637,10 @@ extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: @retroactive
     }
 }
 
-extension Anytype_Rpc.Object.ListSetDetails.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListSetDetails.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5662,10 +5661,10 @@ extension Anytype_Rpc.Object.ListSetDetails.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5686,10 +5685,10 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5710,10 +5709,10 @@ extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5734,10 +5733,10 @@ extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.Object.Open.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Open.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5767,10 +5766,10 @@ extension Anytype_Rpc.Object.Open.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5791,10 +5790,10 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Object.Redo.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Redo.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5818,10 +5817,10 @@ extension Anytype_Rpc.Object.Redo.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Search.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Search.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5842,10 +5841,10 @@ extension Anytype_Rpc.Object.Search.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5866,10 +5865,10 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5890,10 +5889,10 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5914,10 +5913,10 @@ extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5938,10 +5937,10 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Object.SetDetails.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetDetails.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5962,10 +5961,10 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -5986,10 +5985,10 @@ extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.Object.SetIsArchived.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6010,10 +6009,10 @@ extension Anytype_Rpc.Object.SetIsArchived.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6034,10 +6033,10 @@ extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.SetLayout.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetLayout.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6058,10 +6057,10 @@ extension Anytype_Rpc.Object.SetLayout.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Object.SetObjectType.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetObjectType.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6082,10 +6081,10 @@ extension Anytype_Rpc.Object.SetObjectType.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Object.SetSource.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SetSource.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6106,10 +6105,10 @@ extension Anytype_Rpc.Object.SetSource.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Object.ShareByLink.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ShareByLink.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6130,10 +6129,10 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Object.Show.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Show.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6163,10 +6162,10 @@ extension Anytype_Rpc.Object.Show.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.SubscribeIds.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.SubscribeIds.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6187,10 +6186,10 @@ extension Anytype_Rpc.Object.SubscribeIds.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Object.ToBookmark.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ToBookmark.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6211,10 +6210,10 @@ extension Anytype_Rpc.Object.ToBookmark.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Object.ToCollection.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ToCollection.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6235,10 +6234,10 @@ extension Anytype_Rpc.Object.ToCollection.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Object.ToSet.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.ToSet.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6259,10 +6258,10 @@ extension Anytype_Rpc.Object.ToSet.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Undo.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.Undo.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6286,10 +6285,10 @@ extension Anytype_Rpc.Object.Undo.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6310,10 +6309,10 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: @retroactive 
     }
 }
 
-extension Anytype_Rpc.ObjectCollection.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectCollection.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6334,10 +6333,10 @@ extension Anytype_Rpc.ObjectCollection.Add.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6358,10 +6357,10 @@ extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6382,10 +6381,10 @@ extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectRelation.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6406,10 +6405,10 @@ extension Anytype_Rpc.ObjectRelation.Add.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6430,10 +6429,10 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6454,10 +6453,10 @@ extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6478,10 +6477,10 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: @retroactive 
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6502,10 +6501,10 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: @retroactive
     }
 }
 
-extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6529,10 +6528,10 @@ extension Anytype_Rpc.ObjectType.ListConflictingRelations.Response.Error: @retro
     }
 }
 
-extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6556,10 +6555,10 @@ extension Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response.Error
     }
 }
 
-extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6583,10 +6582,10 @@ extension Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response.Error: @retro
     }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6610,10 +6609,10 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6637,10 +6636,10 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: @retroactive Lo
     }
 }
 
-extension Anytype_Rpc.Process.Cancel.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Process.Cancel.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6661,10 +6660,10 @@ extension Anytype_Rpc.Process.Cancel.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Process.Subscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Process.Subscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6685,10 +6684,10 @@ extension Anytype_Rpc.Process.Subscribe.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Process.Unsubscribe.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Process.Unsubscribe.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6709,10 +6708,10 @@ extension Anytype_Rpc.Process.Unsubscribe.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Publishing.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Publishing.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6742,10 +6741,10 @@ extension Anytype_Rpc.Publishing.Create.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Publishing.GetStatus.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Publishing.GetStatus.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6772,10 +6771,10 @@ extension Anytype_Rpc.Publishing.GetStatus.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Publishing.List.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Publishing.List.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6799,10 +6798,10 @@ extension Anytype_Rpc.Publishing.List.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Publishing.Remove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Publishing.Remove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6829,10 +6828,10 @@ extension Anytype_Rpc.Publishing.Remove.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6856,10 +6855,10 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: @retroactive Localiz
     }
 }
 
-extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6883,10 +6882,10 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.Relation.ListWithValue.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Relation.ListWithValue.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6907,10 +6906,10 @@ extension Anytype_Rpc.Relation.ListWithValue.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Relation.Options.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Relation.Options.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6931,10 +6930,10 @@ extension Anytype_Rpc.Relation.Options.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Space.Delete.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -6970,10 +6969,10 @@ extension Anytype_Rpc.Space.Delete.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.InviteGenerate.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.InviteGenerate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7009,10 +7008,10 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7036,10 +7035,10 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: @retroactive Locali
     }
 }
 
-extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7063,10 +7062,10 @@ extension Anytype_Rpc.Space.InviteGetGuest.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Space.InviteRevoke.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.InviteRevoke.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7102,10 +7101,10 @@ extension Anytype_Rpc.Space.InviteRevoke.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Space.InviteView.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.InviteView.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7135,10 +7134,10 @@ extension Anytype_Rpc.Space.InviteView.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Space.Join.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.Join.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7183,10 +7182,10 @@ extension Anytype_Rpc.Space.Join.Response.Error: @retroactive LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Space.JoinCancel.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.JoinCancel.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7225,10 +7224,10 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Space.LeaveApprove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.LeaveApprove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7267,10 +7266,10 @@ extension Anytype_Rpc.Space.LeaveApprove.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Space.MakeShareable.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.MakeShareable.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7303,10 +7302,10 @@ extension Anytype_Rpc.Space.MakeShareable.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7348,10 +7347,10 @@ extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: @retroa
     }
 }
 
-extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7390,10 +7389,10 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: @retroactive Local
     }
 }
 
-extension Anytype_Rpc.Space.RequestApprove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.RequestApprove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7435,10 +7434,10 @@ extension Anytype_Rpc.Space.RequestApprove.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Space.RequestDecline.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.RequestDecline.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7477,10 +7476,10 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Space.SetOrder.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.SetOrder.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7501,10 +7500,10 @@ extension Anytype_Rpc.Space.SetOrder.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Space.StopSharing.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.StopSharing.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7537,10 +7536,10 @@ extension Anytype_Rpc.Space.StopSharing.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Space.UnsetOrder.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Space.UnsetOrder.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7561,10 +7560,10 @@ extension Anytype_Rpc.Space.UnsetOrder.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Template.Clone.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Template.Clone.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7585,10 +7584,10 @@ extension Anytype_Rpc.Template.Clone.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Template.CreateFromObject.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Template.CreateFromObject.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7609,10 +7608,10 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error: @retroactive Loc
     }
 }
 
-extension Anytype_Rpc.Template.ExportAll.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Template.ExportAll.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7633,10 +7632,10 @@ extension Anytype_Rpc.Template.ExportAll.Response.Error: @retroactive LocalizedE
     }
 }
 
-extension Anytype_Rpc.Unsplash.Download.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Unsplash.Download.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7660,10 +7659,10 @@ extension Anytype_Rpc.Unsplash.Download.Response.Error: @retroactive LocalizedEr
     }
 }
 
-extension Anytype_Rpc.Unsplash.Search.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Unsplash.Search.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7687,10 +7686,10 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: @retroactive LocalizedErro
     }
 }
 
-extension Anytype_Rpc.Wallet.CloseSession.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Wallet.CloseSession.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7711,10 +7710,10 @@ extension Anytype_Rpc.Wallet.CloseSession.Response.Error: @retroactive Localized
     }
 }
 
-extension Anytype_Rpc.Wallet.Convert.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Wallet.Convert.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7735,10 +7734,10 @@ extension Anytype_Rpc.Wallet.Convert.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Wallet.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Wallet.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7762,10 +7761,10 @@ extension Anytype_Rpc.Wallet.Create.Response.Error: @retroactive LocalizedError 
     }
 }
 
-extension Anytype_Rpc.Wallet.CreateSession.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7789,10 +7788,10 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Wallet.Recover.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Wallet.Recover.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7816,10 +7815,10 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Workspace.Create.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Create.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7840,10 +7839,10 @@ extension Anytype_Rpc.Workspace.Create.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Workspace.Export.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Export.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7864,10 +7863,10 @@ extension Anytype_Rpc.Workspace.Export.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Workspace.GetAll.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.GetAll.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7888,10 +7887,10 @@ extension Anytype_Rpc.Workspace.GetAll.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7912,10 +7911,10 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Workspace.Object.Add.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Object.Add.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7936,10 +7935,10 @@ extension Anytype_Rpc.Workspace.Object.Add.Response.Error: @retroactive Localize
     }
 }
 
-extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7960,10 +7959,10 @@ extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: @retroactive Loca
     }
 }
 
-extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -7984,10 +7983,10 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: @retroactive L
     }
 }
 
-extension Anytype_Rpc.Workspace.Open.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Open.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -8008,10 +8007,10 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: @retroactive LocalizedError
     }
 }
 
-extension Anytype_Rpc.Workspace.Select.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.Select.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -8032,10 +8031,10 @@ extension Anytype_Rpc.Workspace.Select.Response.Error: @retroactive LocalizedErr
     }
 }
 
-extension Anytype_Rpc.Workspace.SetInfo.Response.Error: @retroactive LocalizedError {
+extension Anytype_Rpc.Workspace.SetInfo.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"

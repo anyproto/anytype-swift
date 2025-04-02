@@ -21,7 +21,7 @@ generate-middle: setup-tools
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
-	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
+	./Modules/ProtobufMessages/Scripts/generate.sh
 
 generate:
 	# We also have code generation in XCode Build phases for main target and widgets

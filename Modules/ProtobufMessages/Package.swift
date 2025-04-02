@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "ProtobufMessages",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v16),
     ],
@@ -23,6 +24,7 @@ let package = Package(
                 "Lib"
             ],
             path: "Sources",
+            resources: [.process("Loc/Resources")],
             swiftSettings: [
                 .swiftLanguageMode(.v6)
             ],
