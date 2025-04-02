@@ -222,7 +222,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             afterOrderId: "",
             beforeOrderId: last.orderID,
             type: .messages,
-            lastDbTimestamp: chatState.dbTimestamp
+            lastDatabaseId: chatState.lastDatabaseID
         )
         return last
     }
@@ -413,7 +413,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             afterOrderId: afterOrderId,
             beforeOrderId: beforeOrderId,
             type: .messages,
-            lastDbTimestamp: chatState.dbTimestamp
+            lastDatabaseId: chatState.lastDatabaseID
         )
         
         try? await chatService.readMessages(
@@ -421,7 +421,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             afterOrderId: afterOrderId,
             beforeOrderId: beforeOrderId,
             type: .mentions,
-            lastDbTimestamp: chatState.dbTimestamp
+            lastDatabaseId: chatState.lastDatabaseID
         )
     }
     

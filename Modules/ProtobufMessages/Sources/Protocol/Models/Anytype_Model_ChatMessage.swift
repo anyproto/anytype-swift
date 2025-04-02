@@ -28,8 +28,8 @@ public struct Anytype_Model_ChatMessage: Sendable {
 
   public var modifiedAt: Int64 = 0
 
-  /// Message received and added to db at
-  public var addedAt: Int64 = 0
+  /// Ever increasing id (BSON ObjectId) for this message
+  public var databaseID: String = String()
 
   /// Identifier for the message being replied to
   public var replyToMessageID: String = String()
@@ -78,7 +78,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     3: .same(proto: "creator"),
     4: .same(proto: "createdAt"),
     9: .same(proto: "modifiedAt"),
-    11: .same(proto: "addedAt"),
+    11: .same(proto: "databaseId"),
     5: .same(proto: "replyToMessageId"),
     6: .same(proto: "message"),
     7: .same(proto: "attachments"),
@@ -103,7 +103,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
       case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.read) }()
-      case 11: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.databaseID) }()
       case 12: try { try decoder.decodeSingularBoolField(value: &self.mentionRead) }()
       default: break
       }
@@ -145,8 +145,8 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.read != false {
       try visitor.visitSingularBoolField(value: self.read, fieldNumber: 10)
     }
-    if self.addedAt != 0 {
-      try visitor.visitSingularInt64Field(value: self.addedAt, fieldNumber: 11)
+    if !self.databaseID.isEmpty {
+      try visitor.visitSingularStringField(value: self.databaseID, fieldNumber: 11)
     }
     if self.mentionRead != false {
       try visitor.visitSingularBoolField(value: self.mentionRead, fieldNumber: 12)
@@ -160,7 +160,7 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.creator != rhs.creator {return false}
     if lhs.createdAt != rhs.createdAt {return false}
     if lhs.modifiedAt != rhs.modifiedAt {return false}
-    if lhs.addedAt != rhs.addedAt {return false}
+    if lhs.databaseID != rhs.databaseID {return false}
     if lhs.replyToMessageID != rhs.replyToMessageID {return false}
     if lhs._message != rhs._message {return false}
     if lhs.attachments != rhs.attachments {return false}
