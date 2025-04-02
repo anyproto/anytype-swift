@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "이 옵션은 스페이스에서 영구적으로 제거됩니다.";
 "Relation.Object.Delete.Alert.Description" = "오브젝트가 휴지통으로 이동됩니다.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "텍스트";
 "Relation.Format.Number.Title" = "숫자";
 "Relation.Format.Status.Title" = "선택";
@@ -204,7 +205,7 @@
 "Unsupported block" = "지원하지 않는 블록";
 "Unsupported" = "Unsupported";
 "Name" = "이름";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "설명";
 "Add a description" = "Add a description...";
 "Paste processing..." = "붙여넣기 처리중...";
@@ -583,7 +584,7 @@
 "Enter number" = "번호 입력";
 "Enter text" = "텍스트 입력";
 "Unsupported value" = "지원되지 않는 값";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "데이터를 찾을 수 없습니다";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "아무것도 찾을 수 없음";
@@ -595,7 +596,7 @@
 "Limit object types" = "오브젝트 유형 제한";
 "Type" = "유형";
 "Types" = "유형";
-"No name" = "이름 없음";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Non-existent object";
