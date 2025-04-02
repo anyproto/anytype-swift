@@ -405,6 +405,7 @@ public enum CustomIcon: String, CaseIterable, Sendable, Codable, Identifiable {
     case triangle
     case trophy
     case tv
+    case type
     case umbrella
     case unlink
     case videocam
