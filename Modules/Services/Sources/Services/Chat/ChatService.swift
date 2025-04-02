@@ -19,7 +19,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
         type: ChatMessagesReadType,
         lastDatabaseId: String
     ) async throws
-    func unreadMessage(chatObjectId: String, afterOrderId: String) async throws
+    func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws
 }
 
 public extension ChatServiceProtocol {
@@ -123,10 +123,11 @@ final class ChatService: ChatServiceProtocol {
         }).invoke()
     }
     
-    func unreadMessage(chatObjectId: String, afterOrderId: String) async throws {
+    func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws {
         try await ClientCommands.chatUnreadMessages(.with {
             $0.chatObjectID = chatObjectId
             $0.afterOrderID = afterOrderId
+            $0.type = type
         }).invoke()
     }
 }

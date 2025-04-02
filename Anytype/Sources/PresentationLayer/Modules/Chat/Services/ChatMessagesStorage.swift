@@ -402,27 +402,31 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func markAsRead(startMessageId: String, endMessageId: String) async throws {
         guard let chatState,
-              chatState.messages.oldestOrderID.isNotEmpty,
               let afterOrderId = messages.message(id: startMessageId)?.orderID,
-              let beforeOrderId = messages.message(id: endMessageId)?.orderID,
-              chatState.messages.oldestOrderID <= beforeOrderId
+              let beforeOrderId = messages.message(id: endMessageId)?.orderID
               else { return }
         
-        try? await chatService.readMessages(
-            chatObjectId: chatObjectId,
-            afterOrderId: afterOrderId,
-            beforeOrderId: beforeOrderId,
-            type: .messages,
-            lastDatabaseId: chatState.lastDatabaseID
-        )
+        if chatState.messages.oldestOrderID.isNotEmpty,
+            chatState.messages.oldestOrderID <= beforeOrderId {
+            try? await chatService.readMessages(
+                chatObjectId: chatObjectId,
+                afterOrderId: afterOrderId,
+                beforeOrderId: beforeOrderId,
+                type: .messages,
+                lastDatabaseId: chatState.lastDatabaseID
+            )
+        }
         
-        try? await chatService.readMessages(
-            chatObjectId: chatObjectId,
-            afterOrderId: afterOrderId,
-            beforeOrderId: beforeOrderId,
-            type: .mentions,
-            lastDatabaseId: chatState.lastDatabaseID
-        )
+        if chatState.mentions.oldestOrderID.isNotEmpty,
+           chatState.mentions.oldestOrderID <= beforeOrderId {
+            try? await chatService.readMessages(
+                chatObjectId: chatObjectId,
+                afterOrderId: afterOrderId,
+                beforeOrderId: beforeOrderId,
+                type: .mentions,
+                lastDatabaseId: chatState.lastDatabaseID
+            )
+        }
     }
     
     private func handleAttachmentSubscription(details: [ObjectDetails]) async {
