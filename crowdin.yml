@@ -3,10 +3,9 @@ commit_message: '%language% [skip ci]'
 files:
   - source: /Anytype/Resources/Strings/en.lproj/*
     translation: /Anytype/Resources/Strings/%osx_code%/%original_file_name%
-  - source: /AnytypeWidget/Resources/en.lproj/*
-    translation: /AnytypeWidget/Resources/%osx_code%/%original_file_name%
-  - source: /Modules/Loc/Sources/Loc/Resources/Strings/en.lproj/*
-    translation: /Modules/Loc/Sources/Loc/Resources/Strings/%osx_code%/%original_file_name%
+  - source: /Modules/Loc/Sources/Loc/Resources/Localizable.xcstrings
+    translation: /Modules/Loc/Sources/Loc/Resources/Localizable.xcstrings
+    multilingual: 1
   - source: /Modules/ProtobufMessages/Sources/Loc/Resources/LocalizableError.xcstrings
     translation: /Modules/ProtobufMessages/Sources/Loc/Resources/LocalizableError.xcstrings
     multilingual: 1

@@ -40,8 +40,8 @@ public enum Loc {
   public static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   public static let applicationIcon = Loc.tr("Localizable", "Application icon", fallback: "Application icon")
   public static let apply = Loc.tr("Localizable", "Apply", fallback: "Apply")
-  public static func areYouSureYouWantToDelete(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Plural format key: \"Are you sure you want to delete %#@object@?\"")
+  public static func areYouSureYouWantToDelete(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Are you sure you want to delete", String(describing: p1), fallback: "Are you sure you want to delete %#@object@?")
   }
   public static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
   public static let audio = Loc.tr("Localizable", "Audio", fallback: "Audio")
@@ -50,7 +50,7 @@ public enum Loc {
   public static let backUpYourKey = Loc.tr("Localizable", "Back up your key", fallback: "Back up your key")
   public static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   public static func backlinksCount(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Backlinks count", p1, fallback: "Plural format key: \"%#@object@\"")
+    return Loc.tr("Localizable", "Backlinks count", p1, fallback: "Plural format key: Backlinks count")
   }
   public static let basic = Loc.tr("Localizable", "Basic", fallback: "Basic")
   public static let bin = Loc.tr("Localizable", "Bin", fallback: "Bin")
@@ -111,8 +111,8 @@ public enum Loc {
   public static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   public static let current = Loc.tr("Localizable", "Current", fallback: "Current")
   public static let dates = Loc.tr("Localizable", "Dates", fallback: "Dates")
-  public static func daysToDeletionVault(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Days to deletion vault", p1, fallback: "Plural format key: \"This vault will be deleted %#@days@\"")
+  public static func daysToDeletionVault(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Days to deletion vault", String(describing: p1), fallback: "This vault will be deleted %#@days@")
   }
   public static let defaultBackground = Loc.tr("Localizable", "Default background", fallback: "Default background")
   public static let defaultObjectType = Loc.tr("Localizable", "Default object type", fallback: "Default object type")
@@ -124,8 +124,8 @@ public enum Loc {
   public static let deselect = Loc.tr("Localizable", "Deselect", fallback: "Deselect")
   public static let deselectAll = Loc.tr("Localizable", "Deselect all", fallback: "Deselect all")
   public static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly", fallback: "Designed to capture thoughts quickly")
-  public static func devicesConnected(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Devices connected", p1, fallback: "Plural format key: \"%#@device@ connected\"")
+  public static func devicesConnected(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Devices connected", String(describing: p1), fallback: "%#@device@ connected")
   }
   public static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   public static let download = Loc.tr("Localizable", "Download", fallback: "Download")
@@ -188,8 +188,8 @@ public enum Loc {
   public static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   public static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
   public static let invite = Loc.tr("Localizable", "Invite", fallback: "Invite")
-  public static func itemsSyncing(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Items syncing", p1, fallback: "Plural format key: \"%#@item@ syncing...\"")
+  public static func itemsSyncing(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Items syncing", String(describing: p1), fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
@@ -200,7 +200,7 @@ public enum Loc {
   public static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
   public static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
   public static func linksCount(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: \"%#@object@\"")
+    return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: Links count")
   }
   public static let lists = Loc.tr("Localizable", "Lists", fallback: "Lists")
   public static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
@@ -244,8 +244,8 @@ public enum Loc {
   public static let nothingFound = Loc.tr("Localizable", "Nothing found", fallback: "Nothing found")
   public static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo", fallback: "Nothing to redo")
   public static let nothingToUndo = Loc.tr("Localizable", "Nothing to undo", fallback: "Nothing to undo")
-  public static func objectSelected(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Object selected", p1, fallback: "Plural format key: \"%#@object@ selected\"")
+  public static func objectSelected(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Object selected", String(describing: p1), fallback: "%#@object@ selected")
   }
   public static let objectTypes = Loc.tr("Localizable", "Object Types", fallback: "Object Types")
   public static let objects = Loc.tr("Localizable", "Objects", fallback: "Objects")
@@ -275,17 +275,17 @@ public enum Loc {
   public static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
   public static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.")
   public static let per = Loc.tr("Localizable", "per", fallback: "per")
-  public static func perDay(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Per Day", p1, fallback: "Plural format key: \"per %#@day@\"")
+  public static func perDay(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Per Day", String(describing: p1), fallback: "per %#@day@")
   }
-  public static func perMonth(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Per Month", p1, fallback: "Plural format key: \"per %#@month@\"")
+  public static func perMonth(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Per Month", String(describing: p1), fallback: "per %#@month@")
   }
-  public static func perWeek(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Per Week", p1, fallback: "Plural format key: \"per %#@week@\"")
+  public static func perWeek(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Per Week", String(describing: p1), fallback: "per %#@week@")
   }
-  public static func perYear(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Per Year", p1, fallback: "Plural format key: \"per %#@year@\"")
+  public static func perYear(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "Per Year", String(describing: p1), fallback: "per %#@year@")
   }
   public static let personalization = Loc.tr("Localizable", "Personalization", fallback: "Personalization")
   public static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")
@@ -337,7 +337,7 @@ public enum Loc {
   public static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select property format")
   public static let selectVaultError = Loc.tr("Localizable", "Select vault error", fallback: "Select vault error")
   public static func selectedBlocks(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
+    return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: Selected blocks")
   }
   public static let selfHost = Loc.tr("Localizable", "Self Host", fallback: "Self Host")
   public static let `set` = Loc.tr("Localizable", "Set", fallback: "Query")
@@ -1240,7 +1240,7 @@ public enum Loc {
       public static let noMoreEditors = Loc.tr("Localizable", "Membership.Upgrade.NoMoreEditors", fallback: "You can’t add more editors")
       public static let noMoreMembers = Loc.tr("Localizable", "Membership.Upgrade.NoMoreMembers", fallback: "You can’t add more members")
       public static func spacesLimit(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Membership.Upgrade.SpacesLimit", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "Membership.Upgrade.SpacesLimit", p1, fallback: "Plural format key: Membership.Upgrade.SpacesLimit")
       }
       public static let text = Loc.tr("Localizable", "Membership.Upgrade.Text", fallback: "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.")
       public static let title = Loc.tr("Localizable", "Membership.Upgrade.Title", fallback: "Membership upgrade")
@@ -1705,10 +1705,10 @@ public enum Loc {
     }
     public enum File {
       public static func block(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.File.Block", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "Sharing.File.Block", p1, fallback: "Plural format key: Sharing.File.Block")
       }
       public static func newObject(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.File.NewObject", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "Sharing.File.NewObject", p1, fallback: "Plural format key: Sharing.File.NewObject")
       }
     }
     public enum Navigation {
@@ -1737,10 +1737,10 @@ public enum Loc {
     }
     public enum Url {
       public static func block(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.URL.Block", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "Sharing.URL.Block", p1, fallback: "Plural format key: Sharing.URL.Block")
       }
       public static func newObject(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.URL.NewObject", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "Sharing.URL.NewObject", p1, fallback: "Plural format key: Sharing.URL.NewObject")
       }
     }
   }
@@ -1774,7 +1774,7 @@ public enum Loc {
   }
   public enum Space {
     public static func membersCount(_ p1: Int) -> String {
-      return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: \"%#@object@\"")
+      return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: Space.MembersCount")
     }
     public enum Status {
       public static let error = Loc.tr("Localizable", "Space.Status.Error", fallback: "Error")
@@ -1843,7 +1843,7 @@ public enum Loc {
     public static let manageSpaces = Loc.tr("Localizable", "SpaceShare.ManageSpaces", fallback: "Manage Spaces")
     public static let members = Loc.tr("Localizable", "SpaceShare.Members", fallback: "Members")
     public static func requestsCount(_ p1: Int) -> String {
-      return Loc.tr("Localizable", "SpaceShare.RequestsCount", p1, fallback: "Plural format key: \"%#@object@\"")
+      return Loc.tr("Localizable", "SpaceShare.RequestsCount", p1, fallback: "Plural format key: SpaceShare.RequestsCount")
     }
     public static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Sharing")
     public static func youSuffix(_ p1: Any) -> String {
@@ -1880,7 +1880,7 @@ public enum Loc {
       public static let empty = Loc.tr("Localizable", "SpaceShare.Invite.Empty", fallback: "Create invite link to share space and add new members")
       public static let generate = Loc.tr("Localizable", "SpaceShare.Invite.Generate", fallback: "Generate invite link")
       public static func maxLimit(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "SpaceShare.Invite.MaxLimit", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "SpaceShare.Invite.MaxLimit", p1, fallback: "Plural format key: SpaceShare.Invite.MaxLimit")
       }
       public static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       public static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
@@ -2057,7 +2057,7 @@ public enum Loc {
     public static let selectTemplate = Loc.tr("Localizable", "TemplateSelection.SelectTemplate", fallback: "Select template")
     public enum Available {
       public static func title(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "TemplateSelection.Available.Title", p1, fallback: "Plural format key: TemplateSelection.Available.Title")
       }
     }
     public enum ObjectType {
@@ -2169,6 +2169,12 @@ public enum Loc {
       }
     }
   }
+  public enum WidgetExtension {
+    public enum LockScreen {
+      public static let description = Loc.tr("Localizable", "WidgetExtension.LockScreen.Description", fallback: "Create a new object on the fly")
+      public static let title = Loc.tr("Localizable", "WidgetExtension.LockScreen.Title", fallback: "New object")
+    }
+  }
   public enum WidgetObjectList {
     public enum ForceDelete {
       public static let message = Loc.tr("Localizable", "WidgetObjectList.ForceDelete.Message", fallback: "You can’t undo this action.")
@@ -2184,7 +2190,7 @@ public enum Loc {
       public static let addBelow = Loc.tr("Localizable", "Widgets.Actions.AddBelow", fallback: "Add Below")
       public static let addWidget = Loc.tr("Localizable", "Widgets.Actions.AddWidget", fallback: "Add Widget")
       public static func binConfirm(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: \"%#@object@\"")
+        return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: Widgets.Actions.BinConfirm")
       }
       public static let changeWidgetType = Loc.tr("Localizable", "Widgets.Actions.ChangeWidgetType", fallback: "Change Widget Type")
       public static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit Widgets")
