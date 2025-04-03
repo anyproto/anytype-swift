@@ -247,10 +247,8 @@ public extension FeatureDescription {
     
     static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
         title: "Do not wait completion in Anytype Preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
-        debugValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     // MARK: - Debug
