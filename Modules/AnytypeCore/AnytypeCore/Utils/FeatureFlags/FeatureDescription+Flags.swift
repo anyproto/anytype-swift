@@ -79,9 +79,8 @@ public extension FeatureDescription {
     
     static let openBookmarkAsLink = FeatureDescription(
         title: "Open bookmark as link",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let newSettings = FeatureDescription(
@@ -153,9 +152,8 @@ public extension FeatureDescription {
     
     static let binWidgetFromLibrary = FeatureDescription(
         title: "Bin widget from library",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let anyAppBetaTip = FeatureDescription(
