@@ -30,6 +30,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
+    private let openedDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -53,6 +54,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
+    @Published var isEditCreateTypeWidget: Bool? = nil
     @Published var shareSection: NewSpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
@@ -67,6 +69,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     private var owner: Participant?
+    private let widgetsObject: any BaseDocumentProtocol
     
     var isChatOn: Bool? {
         guard FeatureFlags.showHomeSpaceLevelChat(spaceId: workspaceInfo.accountSpaceId) else { return nil }
@@ -84,6 +87,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
+        self.widgetsObject = openedDocumentProvider.document(objectId: workspaceInfo.widgetsId, spaceId: workspaceInfo.accountSpaceId)
     }
     
     func onInfoTap() {
@@ -159,6 +163,14 @@ final class NewSpaceSettingsViewModel: ObservableObject {
             snackBarData = ToastBarData(text: isOn ? Loc.Settings.chatEnabled : Loc.Settings.chatDisabled, showSnackBar: true)
         }
     }
+    
+    func toggleCreateTypeWidgetState(isOn: Bool) {
+        Task {
+            try await objectActionsService.updateBundledDetails(contextID: workspaceInfo.widgetsId, details: [
+                .autoWidgetDisabled(!isOn)
+            ])
+        }
+    }
 
     func onTitleTap() {
         editingData = SettingsInfoEditingViewData(
@@ -197,7 +209,8 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         async let joiningTask: () = startJoiningTask()
         async let participantTask: () = startParticipantTask()
         async let defaultTypeTask: () = startDefaultTypeTask()
-        (_,_,_, _) = await (storageTask, joiningTask, participantTask, defaultTypeTask)
+        async let widgetsObjectTask: () = startWidgetsObjectTask()
+        (_,_,_, _, _) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask)
     }
     
     private func startStorageTask() async {
@@ -227,6 +240,12 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
     }
     
+    private func startWidgetsObjectTask() async {
+        for await _ in widgetsObject.detailsPublisher.values {
+            updateViewState()
+        }
+    }
+    
     // MARK: - Private
     
     private func saveDetails(name: String, description: String) {
@@ -253,6 +272,12 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
+        if participantSpaceView.isOwner, let widgetsDetails = widgetsObject.details {
+            isEditCreateTypeWidget = widgetsDetails.autoWidgetDisabled.first ?? false
+        } else {
+            isEditCreateTypeWidget = nil
+        }
+        
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
         }

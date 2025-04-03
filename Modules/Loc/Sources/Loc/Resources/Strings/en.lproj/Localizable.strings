@@ -911,6 +911,7 @@
 "Settings.DataManagement" = "Data Management";
 "Settings.ChatEnabled" = "Chat is enabled";
 "Settings.ChatDisabled" = "Chat is disabled";
+"Settings.AutoCreateTypeWidgets" = "Auto Create Type Widgets";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";

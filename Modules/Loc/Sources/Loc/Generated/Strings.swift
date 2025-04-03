@@ -1685,6 +1685,7 @@ public enum Loc {
     }
   }
   public enum Settings {
+    public static let autoCreateTypeWidgets = Loc.tr("Localizable", "Settings.AutoCreateTypeWidgets", fallback: "Auto Create Type Widgets")
     public static let chatDisabled = Loc.tr("Localizable", "Settings.ChatDisabled", fallback: "Chat is disabled")
     public static let chatEnabled = Loc.tr("Localizable", "Settings.ChatEnabled", fallback: "Chat is enabled")
     public static let dataManagement = Loc.tr("Localizable", "Settings.DataManagement", fallback: "Data Management")
