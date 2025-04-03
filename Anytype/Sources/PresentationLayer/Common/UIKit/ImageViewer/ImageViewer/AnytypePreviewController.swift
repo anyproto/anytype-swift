@@ -52,13 +52,21 @@ final class AnytypePreviewController: QLPreviewController {
 
         items.forEach { item in
             item.didUpdateContentSubject.receiveOnMain().sinkWithResult { [weak self] _ in
-                guard let self else { return }
-                if didFinishTransition {
-                    refreshCurrentPreviewItem()
-                } else {
-                    hasUpdates = true
-                }
+                self?.handleItemUpdate()
             }.store(in: &itemsSubscriptions)
+        }
+    }
+    
+    private func handleItemUpdate() {
+        if FeatureFlags.doNotWaitCompletionInAnytypePreview {
+            refreshCurrentPreviewItem()
+            return
+        }
+        
+        if didFinishTransition {
+            refreshCurrentPreviewItem()
+        } else {
+            hasUpdates = true
         }
     }
 }
