@@ -1,12 +1,11 @@
 import Foundation
-import ProtobufMessages
 
 {% for type in types.types %}
 {% if type.localName == "Error" %}
-extension {{ type.name }}: @retroactive LocalizedError {
+extension {{ type.name }}: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
-        if localizeError.isNotEmpty {
+        if !localizeError.isEmpty {
             return localizeError
         }
         return "Error: \(description_p) (\(code))"
@@ -22,8 +21,7 @@ extension {{ type.name }}: @retroactive LocalizedError {
                 return ""
                 {% else %}
                 {% set locKey %}{{ type.name | replace:"Anytype_Rpc.","" | replace:".Response.Error","" }}.{{ case.name }}{% endset %}
-                return String(localized: "{{ locKey }}", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "{{ locKey }}")
+                return LocHelper.tr(table: "LocalizableError", key: "{{ locKey }}")
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -35,13 +33,25 @@ extension {{ type.name }}: @retroactive LocalizedError {
 {% endif %}
 {% endfor %}
 
-private extension String {
-    // If default value is emplty, Apple return key. But we expect that localziation return empty string
-    func checkValue(key: String) -> String {
-        if self == key {
+private struct LocHelper {
+    static func tr(table: String, key: String) -> String {
+        let format = BundleToken.bundle.localizedString(forKey: key, value: "", table: table)
+        let locValue = String(format: format, locale: Locale.current, arguments: [])
+        if key == locValue {
             return ""
         } else {
-            return self
+            return locValue
         }
     }
+}
+
+// swiftlint:disable convenience_type
+private final class BundleToken {
+    static let bundle: Bundle = {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
+        return Bundle(for: BundleToken.self)
+        #endif
+    }()
 }
