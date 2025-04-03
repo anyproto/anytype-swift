@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Properti '%@' telah dibuat";
 "Fields.Updated" = "Properti '%@' telah diperbarui";
-"Fields.menu" = "Menu properti";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Properti lokal";
-"Fields.missingInfo" = "Beberapa properti tidak dimasukkan dalam tipe objek ini. Silakan tambahkan jika kamu ingin melihatnya pada semua objek dalam tipe ini, atau hapus saja propertinya.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Tambahkan ke tipe saat ini";
 "Fields.removeFromObject" = "Hapus dari objek";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Opsi ini akan dihapus secara permanen dari ruang Anda.";
 "Relation.Object.Delete.Alert.Description" = "Objek ini akan dipindah ke Bak Sampah.";
 
-"Relation.Format.Object.Title" = "Relasi objek";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Teks";
 "Relation.Format.Number.Title" = "Angka";
 "Relation.Format.Status.Title" = "Pilih";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Balok tak didukung";
 "Unsupported" = "Tidak didukung";
 "Name" = "Nama";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Deskripsi";
 "Add a description" = "Tambahkan deskripsi …";
 "Paste processing..." = "Memproses penempelan ...";
@@ -584,7 +585,7 @@
 "Enter number" = "Masukkan angka";
 "Enter text" = "Masukkan teks";
 "Unsupported value" = "Nilai tak didukung";
-"Select relation type" = "Pilih jenis properti";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Tidak ada data yang ditemukan";
 "AreYouSure" = "Apakah kamu yakin?";
 "Nothing found" = "Nothing found";
@@ -596,7 +597,7 @@
 "Limit object types" = "Batasi tipe objek";
 "Type" = "Tipe";
 "Types" = "Tipe";
-"No name" = "Tanpa nama";
+"Format" = "Format";
 "New field" = "Properti baru";
 "Edit field" = "Sunting properti";
 "Non-existent object" = "Objek tidak ada";
@@ -873,7 +874,7 @@
 "Widgets.Source.Library" = "Sistem";
 "Widgets.Source.Objects" = "Objekmu";
 "Widgets.List.Empty" = "Belum ada gawit";
-"Widgets.AutoAddedAlert" = "Widget %@ was added";
+"Widgets.AutoAddedAlert" = "Gawit %@ telah ditambahkan";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
@@ -1368,7 +1369,7 @@ Please provide specific details of your needs here.";
 "Migration.Progress.title" = "Pembaruan sedang berlangsung …";
 "Migration.Progress.subtitle" = "Ini mungkin perlu beberapa waktu. Mohon tidak menutup aplikasi hingga proses selesai.";
 "Migration.Error.NotEnoughtSpace.title" = "Penyimpanan tidak cukup";
-"Migration.Error.NotEnoughtSpace.message" = "Please clear approximately %@ of space and run the process again.";
+"Migration.Error.NotEnoughtSpace.message" = "Silakan bersihkan kurang lebih %@ ruang penyimpanan, lalu coba lagi.";
 
 "Migration.ReadMore.option1" = "What to Expect";
 "Migration.ReadMore.description1" = "You'll see a loading screen during the update. Once finished, you can continue using the app normally.";

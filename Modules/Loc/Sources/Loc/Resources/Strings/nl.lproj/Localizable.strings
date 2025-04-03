@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Eigenschap %@ is aangemaakt";
 "Fields.Updated" = "Eigenschap ‘%@’ is bijgewerkt";
-"Fields.menu" = "Eigenschappen menu";
+"Fields.menu" = "Eigenschappen paneel";
 "Fields.local" = "Lokale eigenschappen";
-"Fields.missingInfo" = "Sommige eigenschappen zijn niet inbegrepen in het objecttype. Voeg ze alsjeblieft toe als je ze in alle objecten van dit type wilt zien, of verwijder ze.";
+"Fields.foundInObjects" = "Gevonden in objecten";
+"Fields.missingInfo" = "Deze eigenschappen bestaan in sommige objecten, maar maken geen deel uit van het type. Voeg ze toe om ze zichtbaar te maken in alle objecten van dit type.";
 "Fields.addToType" = "Voeg toe aan het huidige type";
 "Fields.removeFromObject" = "Verwijder uit het object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "De optie wordt permanent verwijderd uit jouw ruimte.";
 "Relation.Object.Delete.Alert.Description" = "Het object wordt naar de prullenmand verplaatst.";
 
-"Relation.Format.Object.Title" = "Object relatie";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Nummer";
 "Relation.Format.Status.Title" = "Selecteer";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Blok niet ondersteund";
 "Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
-"Plural name" = "Naam in meervoud";
+"Type List name" = "Type List name";
 "Description" = "Beschrijving";
 "Add a description" = "Voeg een beschrijving toe...";
 "Paste processing..." = "Bezig met plakken...";
@@ -583,7 +584,7 @@
 "Enter number" = "Voer nummer in";
 "Enter text" = "Voer tekst in";
 "Unsupported value" = "Niet-ondersteunde waarde";
-"Select relation type" = "Selecteer eigenschap type";
+"Select relation type" = "Selecteer eigenschapsformaat";
 "CommonOpenErrorView.Message" = "Geen gegevens gevonden";
 "AreYouSure" = "Weet je het zeker?";
 "Nothing found" = "Niets gevonden";
@@ -595,7 +596,7 @@
 "Limit object types" = "Beperkt objecttypes";
 "Type" = "Type";
 "Types" = "Types";
-"No name" = "Geen naam";
+"Format" = "Formaat";
 "New field" = "Nieuwe eigenschap";
 "Edit field" = "Bewerk eigenschap";
 "Non-existent object" = "Niet-bestaand object";

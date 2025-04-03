@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "ବିକଳ୍ପ ଆପଣଙ୍କ ସ୍ଥାନରୁ ସ୍ଥାୟୀ ଭାବରେ ଅପସାରଣ ହେବ।";
 "Relation.Object.Delete.Alert.Description" = "ଅବଜେକ୍ଟକୁ ବିନ୍ କୁ ସ୍ଥାନାନ୍ତର କରାଯିବ।";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "ଲେଖା";
 "Relation.Format.Number.Title" = "ନମ୍ବର";
 "Relation.Format.Status.Title" = "ଚୟନ କରନ୍ତୁ";
@@ -204,7 +205,7 @@
 "Unsupported block" = "ଅସମର୍ଥିତ ବ୍ଲକ";
 "Unsupported" = "Unsupported";
 "Name" = "ନାମ";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "ଵର୍ଣ୍ଣନା";
 "Add a description" = "Add a description...";
 "Paste processing..." = "ପେଷ୍ଟ ପ୍ରୋସେସିଂ...";
@@ -583,7 +584,7 @@
 "Enter number" = "ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ";
 "Enter text" = "ଟେକ୍ସଟ୍ ପ୍ରବେଶ କରନ୍ତୁ";
 "Unsupported value" = "ସମର୍ଥିତ ମୂଲ୍ୟ ନୁହେଁ";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "କୌଣସି ଡାଟା ମିଳିଲା ନାହିଁ";
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "କିଛି ମିଳିଲା ନାହିଁ";
@@ -595,7 +596,7 @@
 "Limit object types" = "ଅବଜେକ୍ଟ ପ୍ରକାର ସୀମିତ କରନ୍ତୁ";
 "Type" = "ପ୍ରକାର";
 "Types" = "Types";
-"No name" = "କୌଣସି ନାମ ନାହିଁ";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Non-existent object";

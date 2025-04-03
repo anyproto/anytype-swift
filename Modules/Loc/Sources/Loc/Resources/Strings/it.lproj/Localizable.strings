@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Pannello delle proprietà";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Trovato in oggetti";
+"Fields.missingInfo" = "Queste proprietà esistono in alcuni oggetti, ma non fanno parte del Tipo. Aggiungerle per farle apparire in tutti gli oggetti di questo Tipo.";
 "Fields.addToType" = "Aggiungi al tipo corrente";
 "Fields.removeFromObject" = "Rimuovi dall'oggetto";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "L'opzione verrà rimossa definitivamente dal tuo spazio.";
 "Relation.Object.Delete.Alert.Description" = "L'oggetto verrà spostato nel Cestino.";
 
-"Relation.Format.Object.Title" = "Relazione oggetto";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Testo";
 "Relation.Format.Number.Title" = "Numero";
 "Relation.Format.Status.Title" = "Seleziona";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Blocco non supportato";
 "Unsupported" = "Non supportato";
 "Name" = "Nome";
-"Plural name" = "Nome plurale";
+"Type List name" = "Type List name";
 "Description" = "Descrizione";
 "Add a description" = "Aggiungi una descrizione...";
 "Paste processing..." = "Contenuto in elaborazione...";
@@ -583,7 +584,7 @@
 "Enter number" = "Inserisci numero";
 "Enter text" = "Inserisci testo";
 "Unsupported value" = "Valore non supportato";
-"Select relation type" = "Select property type";
+"Select relation type" = "Seleziona formato proprietà";
 "CommonOpenErrorView.Message" = "Nessun dato trovato";
 "AreYouSure" = "Sei sicuro/a?";
 "Nothing found" = "Nessun risultato trovato";
@@ -595,7 +596,7 @@
 "Limit object types" = "Limita tipi di oggetto";
 "Type" = "Tipo";
 "Types" = "Types";
-"No name" = "Nessun nome";
+"Format" = "Formato";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Oggetto inesistente";

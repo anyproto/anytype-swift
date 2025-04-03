@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Параметр будзе назаўсёды выдалены з вашай прасторы.";
 "Relation.Object.Delete.Alert.Description" = "Аб'ект будзе перамешчаны ў сметніцу.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Тэкст";
 "Relation.Format.Number.Title" = "Нумар";
 "Relation.Format.Status.Title" = "Выбраць";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Блок не падтрымліваецца";
 "Unsupported" = "Не падтрымліваецца";
 "Name" = "Назва";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Апісанне";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Апрацоўка ўстаўкі...";
@@ -583,7 +584,7 @@
 "Enter number" = "Увядзіце нумар";
 "Enter text" = "Увядзіце тэкст";
 "Unsupported value" = "Значэнне не падтрымліваецца";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Даныя не знойдзеныя";
 "AreYouSure" = "Вы ўпэўнены?";
 "Nothing found" = "Нічога не знойдзена";
@@ -595,7 +596,7 @@
 "Limit object types" = "Абмежаваць тыпы аб'ектаў";
 "Type" = "Тып";
 "Types" = "Тыпы";
-"No name" = "Без назвы";
+"Format" = "Фармат";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Неіснуючы аб'ект";

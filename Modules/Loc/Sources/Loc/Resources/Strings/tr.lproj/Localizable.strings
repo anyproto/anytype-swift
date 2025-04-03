@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
-"Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.menu" = "Özellikler paneli";
+"Fields.local" = "Yerel özellikler";
+"Fields.foundInObjects" = "Nesnelerin içinde bulundu";
+"Fields.missingInfo" = "Bu özellikler bazı nesnelerde bulunur ama Türün bir parçası değildir. Bu Türün tüm nesnelerinde görünmelerini sağlamak için onları ekleyin.";
 "Fields.addToType" = "Geçerli türe ekle";
 "Fields.removeFromObject" = "Nesneden sil";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Seçenek, alanınızdan kalıcı olarak kaldırılacaktır.";
 "Relation.Object.Delete.Alert.Description" = "Nesne Çöp Kutusuna taşınacaktır.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Metin";
 "Relation.Format.Number.Title" = "Sayı";
 "Relation.Format.Status.Title" = "Seç";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Desteklenmeyen blok";
 "Unsupported" = "Desteklenmiyor";
 "Name" = "İsim";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Açıklama";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Yapıştırma işleniyor...";
@@ -358,7 +359,7 @@
 "Actions.CopyLink" = "Bağlantıyı kopyala";
 
 // Object Type
-"Set" = "Query";
+"Set" = "Sorgu";
 "Collection" = "Koleksiyon";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Yer seçmek için kaydır";
@@ -583,7 +584,7 @@
 "Enter number" = "Numara gir";
 "Enter text" = "Metin gir";
 "Unsupported value" = "Desteklenmeyen değer";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Veri bulunamadı";
 "AreYouSure" = "Emin misiniz?";
 "Nothing found" = "Hiçbir şey bulunamadı";
@@ -595,7 +596,7 @@
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
 "Types" = "Türler";
-"No name" = "İsim yok";
+"Format" = "Biçim";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Var olmayan nesne";
@@ -1060,7 +1061,7 @@
 
 // MARK: - Space Create
 "SpaceCreate.Chat.Title" = "Create a chat";
-"SpaceCreate.Space.Title" = "Create a space";
+"SpaceCreate.Space.Title" = "Bir alan oluştur";
 "SpaceCreate.Stream.Title" = "Create a stream";
 
 // MARK: - Sharing
@@ -1276,7 +1277,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Messages
 "Message.Action.AddReaction" = "Tepki Ekle";
 "Message.Action.Reply" = "Yanıtla";
-"Message.Input.Chat.EmptyPlaceholder" = "Write a message...";
+"Message.Input.Chat.EmptyPlaceholder" = "Bir mesaj yazın...";
 "Message.Input.Stream.EmptyPlaceholder" = "Broadcast";
 "Message.Action.Unread" = "Mark Unread";
 "Message.Action.CopyPlainText" = "Copy Plain Text";
@@ -1288,15 +1289,15 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 
 // MARK: - All Content
 "AllObjects.Settings.Sort.Title" = "Şuna göre sırala";
-"AllObjects.Sort.DateUpdated" = "Date updated";
-"AllObjects.Sort.DateCreated" = "Date created";
-"AllObjects.Sort.Date.Asc" = "Oldest first";
-"AllObjects.Sort.Date.Desc" = "Newest first";
+"AllObjects.Sort.DateUpdated" = "Güncellenme tarihi";
+"AllObjects.Sort.DateCreated" = "Oluşturulma tarihi";
+"AllObjects.Sort.Date.Asc" = "Önce en eski";
+"AllObjects.Sort.Date.Desc" = "Önce en yeni";
 "AllObjects.Sort.Name.Asc" = "A → Z";
 "AllObjects.Sort.Name.Desc" = "Z → A";
-"AllObjects.Settings.Unlinked.Title" = "Only unlinked";
-"AllObjects.Settings.Unlinked.Description" = "Unlinked objects that do not have a direct link or backlink with other objects in the graph.";
-"AllObjects.Settings.ViewBin" = "View Bin";
+"AllObjects.Settings.Unlinked.Title" = "Sadece bağlantısız";
+"AllObjects.Settings.Unlinked.Description" = "Grafikteki diğer nesnelerle doğrudan bağlantısı veya geri bağlantısı olmayan bağlantısız nesneler.";
+"AllObjects.Settings.ViewBin" = "Geri Dönüşüm Kutusunu Görüntüle";
 "AllObjects.Search.Empty.State.title" = "Hiçbir sonuç bulunamadı.";
 "AllObjects.Search.Empty.State.subtitle" = "Farklı anahtar kelimelerle aramayı deneyin.";
 

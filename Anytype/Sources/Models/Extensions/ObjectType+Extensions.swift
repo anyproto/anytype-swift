@@ -49,5 +49,17 @@ extension ObjectType {
         return recommendedLayout.isEditorLayout || recommendedLayout.isSet
     }
     
+    // Properties
+    var recommendedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+    }
+    var recommendedFeaturedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+    }
+
+    var recommendedHiddenRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
+    }
+    
 }
 

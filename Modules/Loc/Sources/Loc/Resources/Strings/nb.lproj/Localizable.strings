@@ -67,9 +67,10 @@
 // MARK: - Fields // old name: Relations
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
-"Fields.menu" = "Properties menu";
+"Fields.menu" = "Properties panel";
 "Fields.local" = "Local properties";
-"Fields.missingInfo" = "Some properties are not included in the object type. Please add them if you want to see them in all objects of this type, or remove them.";
+"Fields.foundInObjects" = "Found in objects";
+"Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
 "Fields.removeFromObject" = "Remove from the object";
 
@@ -94,7 +95,7 @@
 "Relation.Delete.Alert.Description" = "Alternativet vil bli permanent fjernet fra ditt rom.";
 "Relation.Object.Delete.Alert.Description" = "Objektet vil bli flyttet til papirkurven.";
 
-"Relation.Format.Object.Title" = "Object relation";
+"Relation.Format.Object.Title" = "Relation object";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Tall";
 "Relation.Format.Status.Title" = "Velg";
@@ -204,7 +205,7 @@
 "Unsupported block" = "Blokk støttet ikke";
 "Unsupported" = "Ikke støttet";
 "Name" = "Navn";
-"Plural name" = "Plural name";
+"Type List name" = "Type List name";
 "Description" = "Beskrivelse";
 "Add a description" = "Add a description...";
 "Paste processing..." = "Behandler innliming...";
@@ -583,7 +584,7 @@
 "Enter number" = "Skriv inn tall";
 "Enter text" = "Skriv inn tekst";
 "Unsupported value" = "Ikke-støttet verdi";
-"Select relation type" = "Select property type";
+"Select relation type" = "Select property format";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
 "AreYouSure" = "Er du sikker?";
 "Nothing found" = "Ingenting funnet";
@@ -595,7 +596,7 @@
 "Limit object types" = "Begrens objekttyper";
 "Type" = "Type";
 "Types" = "Types";
-"No name" = "Ingen navn";
+"Format" = "Format";
 "New field" = "New property";
 "Edit field" = "Edit property";
 "Non-existent object" = "Ikke-eksisterende objekt";
