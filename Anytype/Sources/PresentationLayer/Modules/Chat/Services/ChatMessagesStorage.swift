@@ -222,7 +222,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             afterOrderId: "",
             beforeOrderId: last.orderID,
             type: .messages,
-            lastDatabaseId: chatState.lastDatabaseID
+            lastStateId: chatState.lastStateID
         )
         return last
     }
@@ -413,7 +413,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 afterOrderId: afterOrderId,
                 beforeOrderId: beforeOrderId,
                 type: .messages,
-                lastDatabaseId: chatState.lastDatabaseID
+                lastStateId: chatState.lastStateID
             )
         }
         
@@ -424,7 +424,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 afterOrderId: afterOrderId,
                 beforeOrderId: beforeOrderId,
                 type: .mentions,
-                lastDatabaseId: chatState.lastDatabaseID
+                lastStateId: chatState.lastStateID
             )
         }
     }

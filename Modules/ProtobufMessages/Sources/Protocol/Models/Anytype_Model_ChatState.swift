@@ -36,7 +36,7 @@ public struct Anytype_Model_ChatState: Sendable {
   public mutating func clearMentions() {self._mentions = nil}
 
   /// reflects the state of the chat db at the moment of sending response/event that includes this state
-  public var lastDatabaseID: String = String()
+  public var lastStateID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -51,7 +51,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "messages"),
     2: .same(proto: "mentions"),
-    3: .same(proto: "lastDatabaseId"),
+    3: .same(proto: "lastStateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -62,7 +62,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._messages) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._mentions) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.lastDatabaseID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.lastStateID) }()
       default: break
       }
     }
@@ -79,8 +79,8 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
     try { if let v = self._mentions {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    if !self.lastDatabaseID.isEmpty {
-      try visitor.visitSingularStringField(value: self.lastDatabaseID, fieldNumber: 3)
+    if !self.lastStateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.lastStateID, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -88,7 +88,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
   public static func ==(lhs: Anytype_Model_ChatState, rhs: Anytype_Model_ChatState) -> Bool {
     if lhs._messages != rhs._messages {return false}
     if lhs._mentions != rhs._mentions {return false}
-    if lhs.lastDatabaseID != rhs.lastDatabaseID {return false}
+    if lhs.lastStateID != rhs.lastStateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

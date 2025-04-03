@@ -17,7 +17,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
         afterOrderId: String,
         beforeOrderId: String,
         type: ChatMessagesReadType,
-        lastDatabaseId: String
+        lastStateId: String
     ) async throws
     func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws
 }
@@ -112,13 +112,13 @@ final class ChatService: ChatServiceProtocol {
         afterOrderId: String,
         beforeOrderId: String,
         type: ChatMessagesReadType,
-        lastDatabaseId: String
+        lastStateId: String
     ) async throws {
         try await ClientCommands.chatReadMessages(.with {
             $0.chatObjectID = chatObjectId
             $0.afterOrderID = afterOrderId
             $0.beforeOrderID = beforeOrderId
-            $0.lastDatabaseID = lastDatabaseId
+            $0.lastStateID = lastStateId
             $0.type = type
         }).invoke()
     }

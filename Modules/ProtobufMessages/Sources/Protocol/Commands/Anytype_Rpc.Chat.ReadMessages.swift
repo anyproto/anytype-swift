@@ -69,8 +69,8 @@ extension Anytype_Rpc.Chat {
         /// read til this orderId
         public var beforeOrderID: String = String()
 
-        /// databaseId from the last processed ChatState event(or GetMessages). Used to prevent race conditions
-        public var lastDatabaseID: String = String()
+        /// stateId from the last processed ChatState event(or GetMessages). Used to prevent race conditions
+        public var lastStateID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -203,7 +203,7 @@ extension Anytype_Rpc.Chat.ReadMessages.Request: SwiftProtobuf.Message, SwiftPro
     2: .same(proto: "chatObjectId"),
     3: .same(proto: "afterOrderId"),
     4: .same(proto: "beforeOrderId"),
-    5: .same(proto: "lastDatabaseId"),
+    5: .same(proto: "lastStateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -216,7 +216,7 @@ extension Anytype_Rpc.Chat.ReadMessages.Request: SwiftProtobuf.Message, SwiftPro
       case 2: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.beforeOrderID) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.lastDatabaseID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.lastStateID) }()
       default: break
       }
     }
@@ -235,8 +235,8 @@ extension Anytype_Rpc.Chat.ReadMessages.Request: SwiftProtobuf.Message, SwiftPro
     if !self.beforeOrderID.isEmpty {
       try visitor.visitSingularStringField(value: self.beforeOrderID, fieldNumber: 4)
     }
-    if !self.lastDatabaseID.isEmpty {
-      try visitor.visitSingularStringField(value: self.lastDatabaseID, fieldNumber: 5)
+    if !self.lastStateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.lastStateID, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -246,7 +246,7 @@ extension Anytype_Rpc.Chat.ReadMessages.Request: SwiftProtobuf.Message, SwiftPro
     if lhs.chatObjectID != rhs.chatObjectID {return false}
     if lhs.afterOrderID != rhs.afterOrderID {return false}
     if lhs.beforeOrderID != rhs.beforeOrderID {return false}
-    if lhs.lastDatabaseID != rhs.lastDatabaseID {return false}
+    if lhs.lastStateID != rhs.lastStateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
