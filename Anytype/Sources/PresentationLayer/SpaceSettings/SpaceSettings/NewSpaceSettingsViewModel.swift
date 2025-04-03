@@ -166,6 +166,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     func toggleCreateTypeWidgetState(isOn: Bool) {
         Task {
+            AnytypeAnalytics.instance().logAutoCreateTypeWidgetToggle(value: isOn)
             try await objectActionsService.updateBundledDetails(contextID: workspaceInfo.widgetsId, details: [
                 .autoWidgetDisabled(!isOn)
             ])
