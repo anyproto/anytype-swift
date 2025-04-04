@@ -20,7 +20,7 @@ generate-middle: setup-tools
 	cp -r Dependencies/Middleware/protobuf/localstore.pb.swift Modules/ProtobufMessages/Sources/Protocol
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
-	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
+	./build/swiftgen --config ./Modules/Services/swiftgen.yml
 	./Modules/ProtobufMessages/Scripts/generate.sh
 
 generate:
@@ -44,6 +44,7 @@ setup-middle-local: build-middle-local install-middle-local
 setup-env:
 	brew install sourcery
 	brew install ubi
+	ubi --project "rakuyoMo/SwiftGen" --tag "6.6.4-alpha.0" --matching "swiftgen-6.6.4-alpha.0-macos.zip" --exe swiftgen --in ./build
 
 set-middle-version:
 	echo "MIDDLE_VERSION=$(v)" > Libraryfile
@@ -54,5 +55,4 @@ setup-tools:
 		mkdir -p build; \
 		cp Tools/anytype-swift-filesplit/build/anytype-swift-filesplit $(FILE_SPLITTER); \
 	fi
-	ubi --project "rakuyoMo/SwiftGen" --tag "6.6.4-alpha.0" --matching "swiftgen-6.6.4-alpha.0-macos.zip" --exe swiftgen --in ./build
 	
