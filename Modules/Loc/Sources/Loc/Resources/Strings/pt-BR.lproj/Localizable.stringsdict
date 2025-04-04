@@ -277,7 +277,7 @@
     <key>Per Month</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Por  %#@mês@</string>
+      <string>por  %#@month@</string>
       <key>month</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -309,7 +309,7 @@
     <key>Per Year</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>por  %#@ano@</string>
+      <string>por %#@year@</string>
       <key>year</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
