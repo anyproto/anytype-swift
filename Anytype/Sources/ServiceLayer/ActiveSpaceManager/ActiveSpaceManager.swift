@@ -3,18 +3,13 @@ import Combine
 import AnytypeCore
 import Services
 
-// Used in SpaceSetupManager
 @MainActor
-protocol ActiveSpaceSetterProtocol: AnyObject, Sendable {
-    func setActiveSpace(spaceId: String?) async throws
-}
-
-// Storage for store active space id for each screen.
-@MainActor
-protocol ActiveSpaceManagerProtocol: AnyObject, ActiveSpaceSetterProtocol {
+protocol ActiveSpaceManagerProtocol: AnyObject {
     var workspaceInfo: AccountInfo? { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo?, Never> { get }
+    func setActiveSpace(spaceId: String?) async throws
     func startSubscription()
+    func stopSubscription()
 }
 
 @MainActor
@@ -81,6 +76,13 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
             }
     }
     
+    func stopSubscription() {
+        workspaceSubscription?.cancel()
+        workspaceSubscription = nil
+        activeSpaceId = nil
+        workspaceInfoSubject.send(nil)
+    }
+    
     // MARK: - Private
     
     private func handleSpaces(spaceIds: [String]) async {
@@ -102,14 +104,5 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
             latestNonNilSpaceId = spaceId
             AnytypeAnalytics.instance().logSwitchSpace()
         }
-    }
-}
-
-extension Container {
-    
-    // Instance for each scene
-    
-    var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
-        self { ActiveSpaceManager() }
     }
 }

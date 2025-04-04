@@ -37,7 +37,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let p2pStatusStorage: any P2PStatusStorageProtocol = Container.shared.p2pStatusStorage()
     private let networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol = Container.shared.networkConnectionStatusDaemon()
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
-    private let spaceSetupManager: any SpaceSetupManagerProtocol = Container.shared.spaceSetupManager()
+    private let activeSpaceManager: any ActiveSpaceManagerProtocol = Container.shared.activeSpaceManager()
     private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
     
     // MARK: - LoginStateServiceProtocol
@@ -66,7 +66,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         userDefaults.cleanStateAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
-        await spaceSetupManager.cleanupState()
         await stopSubscriptions()
     }
     
@@ -84,6 +83,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await networkConnectionStatusDaemon.start()
         await storeKitService.startListenForTransactions()
         await profileStorage.startSubscription()
+        await activeSpaceManager.startSubscription()
         
         Task {
             // Time-heavy operation
@@ -106,5 +106,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await networkConnectionStatusDaemon.stop()
         await storeKitService.stopListenForTransactions()
         await profileStorage.stopSubscription()
+        await activeSpaceManager.stopSubscription()
     }
 }

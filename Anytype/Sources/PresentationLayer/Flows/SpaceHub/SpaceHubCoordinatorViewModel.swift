@@ -65,14 +65,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     var keyboardDismiss: KeyboardDismiss?
     var dismissAllPresented: DismissAllPresented?
     
-    let sceneId = UUID().uuidString
-    
     @Injected(\.appActionStorage)
     private var appActionsStorage: AppActionStorage
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.spaceSetupManager)
-    private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.documentsProvider)
@@ -123,7 +119,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     // MARK: - Setup
     func setup() async {
         if needSetup {
-            await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
             await setupInitialScreen()
             await handleVersionAlerts()
             needSetup = false
@@ -170,7 +165,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     private func startHandleWorkspaceInfo() async {
-        activeSpaceManager.startSubscription()
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
@@ -203,7 +197,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         Task {
             // After dismiss spaceCreateData, alert will appear again. Fix it.
             await dismissAllPresented?()
-            spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: type)
+            spaceCreateData = SpaceCreateData(spaceUxType: type)
         }
     }
     
@@ -213,7 +207,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         if FeatureFlags.spaceUxTypes {
             showSpaceTypeForCreate = true
         } else {
-            spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: .data)
+            spaceCreateData = SpaceCreateData(spaceUxType: .data)
         }
     }
     
@@ -262,7 +256,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         
         currentSpaceId = spaceId
-        try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+        try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
         currentSpaceId = spaceId
         
         if let spaceInfo {
@@ -375,7 +369,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
-            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
         case let .object(objectId, spaceId, cid, key):
             await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key, source: source)
         case .membership(let tierId):
@@ -401,7 +395,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
                 return
             }
             
-            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
             AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: route)
         }
     }
