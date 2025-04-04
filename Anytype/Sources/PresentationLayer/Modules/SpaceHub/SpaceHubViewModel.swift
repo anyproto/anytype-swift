@@ -2,6 +2,7 @@ import Services
 import SwiftUI
 import Combine
 import AnytypeCore
+import FirebaseMessaging
 
 
 @MainActor
@@ -38,6 +39,8 @@ final class SpaceHubViewModel: ObservableObject {
     private var profileStorage: any ProfileStorageProtocol
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.pushNotificationsService)
+    private var pushNotificationsService: any PushNotificationsServiceProtocol
     
     init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
         self.sceneId = sceneId
@@ -90,6 +93,15 @@ final class SpaceHubViewModel: ObservableObject {
         async let messagesPreviewsSub: () = subscribeOnMessagesPreviews()
         
         (_, _, _, _) = await (spacesSub, wallpapersSub, profileSub, messagesPreviewsSub)
+    }
+    
+    func registerForPushNotifications() async {
+        Messaging.messaging().token { [weak self] token, error in
+            guard let token else { return }
+            Task {
+                try await self?.pushNotificationsService.pushNotificationRegisterToken(token: token)
+            }
+        }
     }
     
     // MARK: - Private

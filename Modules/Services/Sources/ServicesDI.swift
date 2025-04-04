@@ -151,4 +151,8 @@ public extension Container {
     var aiService: Factory<AIServiceProtocol> {
         self { AIService() }.shared
     }
+    
+    var pushNotificationsService: Factory<PushNotificationsServiceProtocol> {
+        self { PushNotificationsService() }.shared
+    }
 }

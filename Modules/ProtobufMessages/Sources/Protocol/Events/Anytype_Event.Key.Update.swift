@@ -11,14 +11,17 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Event.Block {
-    public struct Add: Sendable {
+extension Anytype_Event.Key {
+    public struct Update: @unchecked Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      /// id -> block
-      public var blocks: [Anytype_Model_Block] = []
+      public var spaceKeyID: String = String()
+
+      public var encryptionKeyID: String = String()
+
+      public var encryptionKey: Data = Data()
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -26,10 +29,12 @@ extension Anytype_Event.Block {
     }    
 }
 
-extension Anytype_Event.Block.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.protoMessageName + ".Add"
+extension Anytype_Event.Key.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Key.protoMessageName + ".Update"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "blocks"),
+    1: .same(proto: "spaceKeyId"),
+    2: .same(proto: "encryptionKeyId"),
+    3: .same(proto: "encryptionKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -38,21 +43,31 @@ extension Anytype_Event.Block.Add: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.blocks) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceKeyID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.encryptionKeyID) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.encryptionKey) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.blocks.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 1)
+    if !self.spaceKeyID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceKeyID, fieldNumber: 1)
+    }
+    if !self.encryptionKeyID.isEmpty {
+      try visitor.visitSingularStringField(value: self.encryptionKeyID, fieldNumber: 2)
+    }
+    if !self.encryptionKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.encryptionKey, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Block.Add, rhs: Anytype_Event.Block.Add) -> Bool {
-    if lhs.blocks != rhs.blocks {return false}
+  public static func ==(lhs: Anytype_Event.Key.Update, rhs: Anytype_Event.Key.Update) -> Bool {
+    if lhs.spaceKeyID != rhs.spaceKeyID {return false}
+    if lhs.encryptionKeyID != rhs.encryptionKeyID {return false}
+    if lhs.encryptionKey != rhs.encryptionKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

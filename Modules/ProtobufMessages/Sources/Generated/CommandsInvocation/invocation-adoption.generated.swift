@@ -1305,6 +1305,11 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.PushNotification.RegisterToken.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Relation.ListRemoveOption.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Event {
-    public struct Process: Sendable {
+    public struct Key: Sendable {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -23,8 +23,8 @@ extension Anytype_Event {
   }    
 }
 
-extension Anytype_Event.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Process"
+extension Anytype_Event.Key: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Key"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -36,7 +36,7 @@ extension Anytype_Event.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Process, rhs: Anytype_Event.Process) -> Bool {
+  public static func ==(lhs: Anytype_Event.Key, rhs: Anytype_Event.Key) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
