@@ -1,6 +1,7 @@
 import Services
 import Combine
 import QuickLook
+import os.signpost
 
 enum PreviewRemoteItemType {
     case image(_ previewImage: UIImage? = nil)
@@ -33,12 +34,12 @@ final class PreviewRemoteItem: NSObject, QLPreviewItem, Identifiable, PreviewMed
         super.init()
         handler.output = self
         
-        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
-        if FileManager.default.fileExists(atPath: path.relativePath) {
-            self.previewItemURL = path
-        } else {
+//        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
+//        if FileManager.default.fileExists(atPath: path.relativePath) {
+//            self.previewItemURL = path
+//        } else {
             startDownloading()
-        }
+//        }
     }
     
     private func startDownloading() {

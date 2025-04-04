@@ -17,9 +17,11 @@ enum ImageSource {
                     return
                 }
 
+               
                 AnytypeImageDownloader.retrieveImage(
                     with: url, options: [.memoryCacheExpiration(.expired), .diskCacheExpiration(.expired)]
                 ) { image, data in
+                    
                     promise(.success((image, data)))
                 }
             }

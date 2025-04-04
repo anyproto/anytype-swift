@@ -347,6 +347,6 @@ public extension FeatureDescription {
         title: "Enable network requests logger for images and other https requests",
         type: .debug,
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
 }

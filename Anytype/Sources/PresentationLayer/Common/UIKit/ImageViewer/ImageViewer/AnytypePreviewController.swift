@@ -2,6 +2,7 @@ import QuickLook
 import Combine
 import Services
 import AnytypeCore
+import os.signpost
 
 final class AnytypePreviewController: QLPreviewController {
     var didFinishTransition = false {
@@ -50,9 +51,25 @@ final class AnytypePreviewController: QLPreviewController {
         dataSource = self
         currentPreviewItemIndex = initialPreviewItemIndex
 
+        let log = OSLog(subsystem: "anytype", category: .pointsOfInterest)
+        let signpostID = OSSignpostID(log: log)
+        os_signpost(.begin, log: log, name: "show_anytype_preview", signpostID: signpostID)
+        
         items.forEach { item in
-            item.didUpdateContentSubject.receiveOnMain().sinkWithResult { [weak self] _ in
-                self?.handleItemUpdate()
+            item.didUpdateContentSubject.sinkWithResult { [weak self] _ in
+//                self?.handleItemUpdate()
+//                DispatchQueue.main.async { [weak self] in
+                os_signpost(.end, log: log, name: "show_anytype_preview", signpostID: signpostID)
+                
+                let log = OSLog(subsystem: "anytype", category: .pointsOfInterest)
+                let signpostID = OSSignpostID(log: log)
+                os_signpost(.begin, log: log, name: "switch_background_thread_to_main", signpostID: signpostID)
+//                Task(priority: .userInitiated) { @MainActor in
+                DispatchQueue.main.async { [weak self] in
+                    os_signpost(.end, log: log, name: "switch_background_thread_to_main", signpostID: signpostID)
+                    self?.refreshCurrentPreviewItem()
+                }
+//                }
             }.store(in: &itemsSubscriptions)
         }
     }

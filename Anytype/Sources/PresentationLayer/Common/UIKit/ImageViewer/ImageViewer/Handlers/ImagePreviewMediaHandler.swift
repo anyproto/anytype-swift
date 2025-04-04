@@ -2,6 +2,7 @@ import Services
 import UIKit
 import Combine
 import AnytypeCore
+import os.signpost
 
 final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
     
@@ -15,6 +16,7 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
     
     init(fileDetails: FileDetails, previewImage: UIImage?) {
         self.fileDetails = fileDetails
+//        let imageId = ImageMetadata(id: fileDetails.id, side: .width(640))
         let imageId = ImageMetadata(id: fileDetails.id, side: .original)
         self.imageSource = .middleware(imageId)
         self.previewImage = previewImage
@@ -24,7 +26,7 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
         if let previewImage {
             updatePreviewItemURL(with: previewImage, data: nil, isPreview: true)
         }
-
+        
         imageSource.image.sinkWithResult { [weak self] result in
             let _ = result.map { result in
                 guard let image = result.0 else {
@@ -38,6 +40,10 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
 
 
     func updatePreviewItemURL(with image: UIImage, data: Data?, isPreview: Bool) {
+        let log = OSLog(subsystem: "anytype", category: .pointsOfInterest)
+        let signpostID = OSSignpostID(log: log)
+        os_signpost(.begin, log: log, name: "wrile_to_file", signpostID: signpostID)
+        
         let data = data.isNil ? image.pngData() : data
         guard let data else { return }
 
@@ -54,6 +60,9 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
                 )
                 
                 try data.write(to: path, options: [.atomic])
+                
+                os_signpost(.end, log: log, name: "wrile_to_file", signpostID: signpostID)
+                
                 output?.onUpdate(path: path)
             } catch {
                 anytypeAssertionFailure("Failed to write image into temporary directory")
