@@ -23,6 +23,8 @@ extension ObjectType {
         defaultTemplateId: "",
         canCreateObjectOfThisType: true,
         isDeletable: false,
+        layoutAlign: .justify,
+        layoutWidth: nil,
         recommendedRelations: [],
         recommendedFeaturedRelations: [],
         recommendedHiddenRelations: [],
