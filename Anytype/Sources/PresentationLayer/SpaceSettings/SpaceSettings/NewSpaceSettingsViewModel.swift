@@ -54,7 +54,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
-    @Published var isEditCreateTypeWidget: Bool? = nil
+    @Published var isCreateTypeWidget: Bool? = nil
     @Published var shareSection: NewSpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
@@ -274,9 +274,9 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
         if participantSpaceView.isOwner, let widgetsDetails = widgetsObject.details {
-            isEditCreateTypeWidget = widgetsDetails.autoWidgetDisabled.first ?? false
+            isCreateTypeWidget = !widgetsDetails.autoWidgetDisabled
         } else {
-            isEditCreateTypeWidget = nil
+            isCreateTypeWidget = nil
         }
         
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
