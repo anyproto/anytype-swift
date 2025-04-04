@@ -1,19 +1,16 @@
 import Foundation
-import Combine
 import AnytypeCore
 import Services
+import AsyncTools
 
-@MainActor
-protocol ActiveSpaceManagerProtocol: AnyObject {
-    var workspaceInfo: AccountInfo? { get }
-    var workspaceInfoPublisher: AnyPublisher<AccountInfo?, Never> { get }
+protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
+    var workspaceInfoStream: AnyAsyncSequence<AccountInfo> { get }
     func setActiveSpace(spaceId: String?) async throws
-    func startSubscription()
-    func stopSubscription()
+    func startSubscription() async
+    func stopSubscription() async
 }
 
-@MainActor
-final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
+actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     // MARK: - DI
     
@@ -23,30 +20,32 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
     private var workspaceService: any WorkspaceServiceProtocol
     
     // MARK: - State
-    private var workspaceSubscription: AnyCancellable?
+    private var workspaceSubscription: Task<Void, Never>?
     private var activeSpaceId: String?
-    lazy var workspaceInfoSubject = CurrentValueSubject<AccountInfo?, Never>(nil)
+    private let workspaceInfoStreamInternal = AsyncToManyStream<AccountInfo?>()
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
-    nonisolated init() {}
+    init() {}
     
-    var workspaceInfo: AccountInfo? {
-        workspaceInfoSubject.value
-    }
-    
-    var workspaceInfoPublisher: AnyPublisher<AccountInfo?, Never> {
-        return workspaceInfoSubject.removeDuplicates().filter { $0 != .empty }.eraseToAnyPublisher()
+    nonisolated var workspaceInfoStream: AnyAsyncSequence<AccountInfo> {
+        AsyncStream.task { iterator in
+            for await info in workspaceInfoStreamInternal {
+                if let info {
+                    iterator(info)
+                }
+            }
+        }.eraseToAnyAsyncSequence()
     }
     
     func setActiveSpace(spaceId: String?) async throws {
         guard activeSpaceId != spaceId else { return }
         
         guard let spaceId else {
-            workspaceInfoSubject.send(nil)
+            workspaceInfoStreamInternal.send(nil)
             activeSpaceId = nil
             await objectTypeProvider.stopSubscription(cleanCache: false)
             await relationDetailsStorage.stopSubscription(cleanCache: false)
@@ -60,27 +59,24 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
         
         logSwitchSpace(spaceId: spaceId)
         
-        workspaceInfoSubject.send(info)
+        workspaceInfoStreamInternal.send(info)
         activeSpaceId = spaceId
     }
     
     func startSubscription() {
-        workspaceSubscription = workspaceStorage.activeWorkspsacesPublisher
-            .map { $0.map(\.targetSpaceId) }
-            .receiveOnMain()
-            .sink { [weak self] spaceIds in
-                guard let self else { return }
-                Task {
-                    await self.handleSpaces(spaceIds: spaceIds)
-                }
+        workspaceSubscription = Task { [weak self, workspaceStorage] in
+            for await workspaces in workspaceStorage.activeWorkspsacesPublisher.values {
+                let spaceIds = workspaces.map(\.targetSpaceId)
+                await self?.handleSpaces(spaceIds: spaceIds)
             }
+        }
     }
     
     func stopSubscription() {
         workspaceSubscription?.cancel()
         workspaceSubscription = nil
         activeSpaceId = nil
-        workspaceInfoSubject.send(nil)
+        workspaceInfoStreamInternal.send(nil)
     }
     
     // MARK: - Private

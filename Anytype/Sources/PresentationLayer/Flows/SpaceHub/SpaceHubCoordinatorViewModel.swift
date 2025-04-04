@@ -165,7 +165,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     private func startHandleWorkspaceInfo() async {
-        for await info in activeSpaceManager.workspaceInfoPublisher.values {
+        for await info in activeSpaceManager.workspaceInfoStream {
             switchSpace(info: info)
         }
     }
