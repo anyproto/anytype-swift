@@ -1335,4 +1335,13 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logAutoCreateTypeWidgetToggle(value: Bool) {
+        logEvent(
+            "AutoCreateTypeWidgetToggle",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: value,
+            ]
+        )
+    }
 }
