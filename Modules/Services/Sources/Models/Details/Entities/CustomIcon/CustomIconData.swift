@@ -47,7 +47,7 @@ public extension ObjectIcon {
     }
     
     static var emptyTypeIcon: ObjectIcon {
-        .customIcon(CustomIconData(placeholderIcon: .extensionPuzzle))
+        .customIcon(CustomIconData(placeholderIcon: .type))
     }
 }
 

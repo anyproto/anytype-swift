@@ -101,7 +101,8 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddRelationTap(section: TypeFieldsSectionRow) {
         guard let details = document.details else { return }
-        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details.objectType) : .recommendedRelations(details.objectType)
+        let type = ObjectType(details: details)
+        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,

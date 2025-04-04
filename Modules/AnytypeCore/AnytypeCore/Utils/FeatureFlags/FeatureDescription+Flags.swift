@@ -219,8 +219,7 @@ public extension FeatureDescription {
     static let newPropertiesCreation = FeatureDescription(
         title: "New properties creation flow",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let pluralNames = FeatureDescription(
@@ -243,6 +242,12 @@ public extension FeatureDescription {
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
+    )
+    
+    static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
+        title: "Do not wait completion in Anytype Preview",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     // MARK: - Debug

@@ -146,6 +146,10 @@ public extension FeatureFlags {
         value(for: .simpleSetForTypes)
     }
 
+    static var doNotWaitCompletionInAnytypePreview: Bool {
+        value(for: .doNotWaitCompletionInAnytypePreview)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -239,6 +243,7 @@ public extension FeatureFlags {
         .pluralNames,
         .countersOnSpaceHub,
         .simpleSetForTypes,
+        .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

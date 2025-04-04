@@ -20,6 +20,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public let defaultTemplateId: String
     public let canCreateObjectOfThisType: Bool
     public let isDeletable: Bool
+    public let layoutAlign: LayoutAlignment
+    public let layoutWidth: Int?
     
     public let recommendedRelations: [ObjectId]
     public let recommendedFeaturedRelations: [ObjectId]
@@ -44,6 +46,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         defaultTemplateId: String,
         canCreateObjectOfThisType: Bool,
         isDeletable: Bool,
+        layoutAlign: LayoutAlignment,
+        layoutWidth: Int?,
         recommendedRelations: [ObjectId],
         recommendedFeaturedRelations: [ObjectId],
         recommendedHiddenRelations: [ObjectId],
@@ -65,6 +69,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         self.defaultTemplateId = defaultTemplateId
         self.canCreateObjectOfThisType = canCreateObjectOfThisType
         self.isDeletable = isDeletable
+        self.layoutAlign = layoutAlign
+        self.layoutWidth = layoutWidth
         self.recommendedRelations = recommendedRelations
         self.recommendedFeaturedRelations = recommendedFeaturedRelations
         self.recommendedHiddenRelations = recommendedHiddenRelations
@@ -92,6 +98,8 @@ extension ObjectType: DetailsModel {
             defaultTemplateId: details.defaultTemplateId,
             canCreateObjectOfThisType: !details.restrictionsValue.contains(.createObjectOfThisType),
             isDeletable: !details.restrictionsValue.contains(.delete),
+            layoutAlign: details.layoutAlignValue,
+            layoutWidth: details.layoutWidth,
             recommendedRelations: details.recommendedRelations,
             recommendedFeaturedRelations: details.recommendedFeaturedRelations,
             recommendedHiddenRelations: details.recommendedHiddenRelations,
@@ -124,6 +132,8 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.defaultTemplateId,
             BundledRelationKey.restrictions,
             BundledRelationKey.resolvedLayout,
+            BundledRelationKey.layoutAlign,
+            BundledRelationKey.layoutWidth,
             BundledRelationKey.type,
             BundledRelationKey.lastUsedDate
         ]

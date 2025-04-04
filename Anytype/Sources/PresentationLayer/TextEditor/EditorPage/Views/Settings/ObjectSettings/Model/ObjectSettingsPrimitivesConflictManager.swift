@@ -18,15 +18,21 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         let typeId = details.isTemplateType ? details.targetObjectType : details.type
         guard let type = try? objectTypeProvider.objectType(id: typeId) else { return false }
         let layoutsInObjectAndTypeAreDifferent = details.resolvedLayoutValue != type.recommendedLayout
-        if layoutsInObjectAndTypeAreDifferent { return true }
+        let layoutAlignInObjectAndTypeAreDifferent = details.layoutAlignValue != type.layoutAlign
+        let layoutWidthInObjectAndTypeAreDifferent = details.layoutWidth != type.layoutWidth
+        if layoutsInObjectAndTypeAreDifferent || layoutAlignInObjectAndTypeAreDifferent || layoutWidthInObjectAndTypeAreDifferent { return true }
         
-        let allTypeRelations = details.objectType.recommendedRelations + details.objectType.recommendedFeaturedRelations + details.objectType.recommendedHiddenRelations
-        let haveAnyLegacyFeaturedRelations = relationDetailsStorage
+        let typeFeaturedRelationKeys = details.objectType.recommendedFeaturedRelationsDetails
+            .map(\.key)
+            .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+        let objectFeaturedRelationKeys = relationDetailsStorage
             .relationsDetails(ids: details.featuredRelations, spaceId: details.spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
-            .filter { !allTypeRelations.contains($0.id) }
-            .isNotEmpty
-        if haveAnyLegacyFeaturedRelations { return true }
+            .map(\.key)
+            .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+            
+        let featuredRelationsInObjectAndTypeAreDifferent = typeFeaturedRelationKeys != objectFeaturedRelationKeys
+        
+        if objectFeaturedRelationKeys.isNotEmpty && featuredRelationsInObjectAndTypeAreDifferent { return true }
         
         return false
     }

@@ -748,6 +748,8 @@ extension CustomIcon {
             return ImageAsset.CustomIcons.trophy
         case .tv:
             return ImageAsset.CustomIcons.tv
+        case .type:
+            return ImageAsset.CustomIcons.type
         case .umbrella:
             return ImageAsset.CustomIcons.umbrella
         case .unlink:

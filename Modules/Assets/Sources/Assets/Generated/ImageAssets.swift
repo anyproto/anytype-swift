@@ -529,6 +529,7 @@ extension ImageAsset {
     public static let triangle = ImageAsset.bundle(name: "CustomIcons/triangle")
     public static let trophy = ImageAsset.bundle(name: "CustomIcons/trophy")
     public static let tv = ImageAsset.bundle(name: "CustomIcons/tv")
+    public static let type = ImageAsset.bundle(name: "CustomIcons/type")
     public static let umbrella = ImageAsset.bundle(name: "CustomIcons/umbrella")
     public static let unlink = ImageAsset.bundle(name: "CustomIcons/unlink")
     public static let videocamOff = ImageAsset.bundle(name: "CustomIcons/videocam-off")

@@ -80,7 +80,7 @@ struct SetFullHeader: View {
     }
     
     private var typeButtons: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             
             if (model.details?.recommendedLayoutValue.isEditorLayout ?? false) && model.setDocument.document.permissions.canEditDetails {
                 StandardButton(
