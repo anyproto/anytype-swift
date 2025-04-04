@@ -12,4 +12,4 @@ TEMPLATE_DIR=$(pwd)
 # Project Root
 cd ../../../
 
-./Tools/SwiftGen/swiftgen config run --config ${TEMPLATE_DIR}/swiftgen.yml
+./build/swiftgen config run --config ${TEMPLATE_DIR}/swiftgen.yml
