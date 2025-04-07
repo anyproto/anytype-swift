@@ -252,14 +252,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2E30581A2D81DF7F00BF4F25 /* Exceptions for "AnytypeNotificationServiceExtension" folder in "AnytypeNotificationServiceExtension" target */ = {
+		2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 2E30580C2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */;
 		};
-		3D69777F2CAE9EC5003F5A91 /* Exceptions for "Supporting files" folder in "Anytype" target */ = {
+		3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/LaunchScreen.storyboard,
@@ -269,7 +269,7 @@
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
-		3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */ = {
+		3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/MainInterface.storyboard,
@@ -277,14 +277,14 @@
 			);
 			target = 862D558F2A8F78330018103F /* AnytypeShareExtension */;
 		};
-		742023292D633BD5004655B5 /* Exceptions for "Chat" folder in "AnytypeTests" target */ = {
+		742023292D633BD5004655B5 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ChatInputLinkParserTests.swift,
 			);
 			target = 03C5C53F22DFD90C00DD91DE /* AnytypeTests */;
 		};
-		7450C2992D95743A00926A3D /* Exceptions for "Helpers" folder in "AnytypeTests" target */ = {
+		7450C2992D95743A00926A3D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				URLHttpTests.swift,
@@ -294,81 +294,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2E30581A2D81DF7F00BF4F25 /* Exceptions for "AnytypeNotificationServiceExtension" folder in "AnytypeNotificationServiceExtension" target */,
-			);
-			path = AnytypeNotificationServiceExtension;
-			sourceTree = "<group>";
-		};
-		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				3D69777F2CAE9EC5003F5A91 /* Exceptions for "Supporting files" folder in "Anytype" target */,
-			);
-			path = "Supporting files";
-			sourceTree = "<group>";
-		};
-		3D6977812CAE9ED0003F5A91 /* Video */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Video;
-			sourceTree = "<group>";
-		};
-		3D6977892CAE9EE9003F5A91 /* Fonts */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
-		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */,
-			);
-			path = AnytypeShareExtension;
-			sourceTree = "<group>";
-		};
-		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		742023262D633BC1004655B5 /* Chat */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				742023292D633BD5004655B5 /* Exceptions for "Chat" folder in "AnytypeTests" target */,
-			);
-			path = Chat;
-			sourceTree = "<group>";
-		};
-		7424EFB92D79C71B00E51377 /* Modules */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		7450C28F2D9573F500926A3D /* Helpers */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				7450C2992D95743A00926A3D /* Exceptions for "Helpers" folder in "AnytypeTests" target */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
+		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeNotificationServiceExtension; sourceTree = "<group>"; };
+		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting files"; sourceTree = "<group>"; };
+		3D6977812CAE9ED0003F5A91 /* Video */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Video; sourceTree = "<group>"; };
+		3D6977892CAE9EE9003F5A91 /* Fonts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Fonts; sourceTree = "<group>"; };
+		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
+		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeShareExtension; sourceTree = "<group>"; };
+		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (74792EA82DA3C40E00A47DCD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
+		742023262D633BC1004655B5 /* Chat */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (742023292D633BD5004655B5 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Chat; sourceTree = "<group>"; };
+		7424EFB92D79C71B00E51377 /* Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Modules; sourceTree = "<group>"; };
+		7450C28F2D9573F500926A3D /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7450C2992D95743A00926A3D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -767,8 +702,6 @@
 			dependencies = (
 				03C5C54622DFD90C00DD91DE /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-			);
 			name = AnytypeTests;
 			packageProductDependencies = (
 				2A90C465285B5A9100B6B44E /* AnytypeCore */,
@@ -814,8 +747,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-			);
 			name = AnytypeShareExtension;
 			packageProductDependencies = (
 				2ACDC9B32B553F840063BFBD /* SharedContentManager */,
@@ -838,8 +769,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
 			);
 			name = AnytypeWidgetExtension;
 			packageProductDependencies = (

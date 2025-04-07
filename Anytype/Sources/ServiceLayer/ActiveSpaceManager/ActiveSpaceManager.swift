@@ -23,6 +23,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     private var workspaceSubscription: Task<Void, Never>?
     private var activeSpaceId: String?
     private let workspaceInfoStreamInternal = AsyncToManyStream<AccountInfo?>()
+    private var setActiveSpaceTask: Task<Void, any Error>?
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
@@ -42,25 +43,37 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     }
     
     func setActiveSpace(spaceId: String?) async throws {
-        guard activeSpaceId != spaceId else { return }
-        
-        guard let spaceId else {
-            workspaceInfoStreamInternal.send(nil)
-            activeSpaceId = nil
-            await objectTypeProvider.stopSubscription(cleanCache: false)
-            await relationDetailsStorage.stopSubscription(cleanCache: false)
+        if activeSpaceId == spaceId {
+            try await setActiveSpaceTask?.value
             return
         }
         
-        let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: FeatureFlags.homeSpaceLevelChat)
-        workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
-        await objectTypeProvider.startSubscription(spaceId: spaceId)
-        await relationDetailsStorage.startSubscription(spaceId: spaceId)
-        
-        logSwitchSpace(spaceId: spaceId)
-        
-        workspaceInfoStreamInternal.send(info)
         activeSpaceId = spaceId
+        setActiveSpaceTask?.cancel()
+        
+        setActiveSpaceTask = Task {
+            if let spaceId {
+                do {
+                    let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: FeatureFlags.homeSpaceLevelChat)
+                    workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
+                    await objectTypeProvider.startSubscription(spaceId: spaceId)
+                    await relationDetailsStorage.startSubscription(spaceId: spaceId)
+                    
+                    logSwitchSpace(spaceId: spaceId)
+                    
+                    workspaceInfoStreamInternal.send(info)
+                } catch {
+                    // Reset active space for try open again in next time
+                    await clearActiveSpace()
+                    throw error
+                }
+            } else {
+                await clearActiveSpace()
+            }
+        }
+        
+        try await setActiveSpaceTask?.value
+        return
     }
     
     func startSubscription() {
@@ -100,5 +113,12 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
             latestNonNilSpaceId = spaceId
             AnytypeAnalytics.instance().logSwitchSpace()
         }
+    }
+    
+    private func clearActiveSpace() async {
+        workspaceInfoStreamInternal.send(nil)
+        activeSpaceId = nil
+        await objectTypeProvider.stopSubscription(cleanCache: false)
+        await relationDetailsStorage.stopSubscription(cleanCache: false)
     }
 }

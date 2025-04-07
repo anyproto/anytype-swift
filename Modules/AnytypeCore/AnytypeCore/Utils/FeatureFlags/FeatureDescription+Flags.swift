@@ -250,6 +250,14 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let spaceLoadingForScreen = FeatureDescription(
+        title: "Space Loading State Inside Screen",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
