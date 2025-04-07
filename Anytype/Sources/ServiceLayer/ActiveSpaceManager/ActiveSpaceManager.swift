@@ -23,6 +23,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     // MARK: - State
     private var workspaceSubscription: Task<Void, Never>?
     private var activeSpaceId: String?
+    private var spaceIsLoading: Bool = false
     private let workspaceInfoStreamInternal = AsyncToManyStream<AccountInfo?>()
     private var setActiveSpaceTask: Task<AccountInfo?, any Error>?
     
@@ -47,6 +48,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         setActiveSpaceTask?.cancel()
         
         setActiveSpaceTask = Task {
+            spaceIsLoading = true
+            defer { spaceIsLoading = false }
             if let spaceId {
                 do {
                     let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: FeatureFlags.homeSpaceLevelChat)
@@ -74,9 +77,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     func startSubscription() {
         workspaceSubscription = Task { [weak self, workspaceStorage] in
-            for await workspaces in workspaceStorage.activeWorkspsacesPublisher.values {
-                let spaceIds = workspaces.map(\.targetSpaceId)
-                await self?.handleSpaces(spaceIds: spaceIds)
+            for await workspaces in workspaceStorage.allWorkspsacesPublisher.values {
+                await self?.handleSpaces(workspaces: workspaces)
             }
         }
     }
@@ -90,10 +92,20 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     // MARK: - Private
     
-    private func handleSpaces(spaceIds: [String]) async {
-        guard let activeSpaceId, spaceIds.contains(activeSpaceId) else {
-            try? await setActiveSpace(spaceId: nil)
-            return
+    private func handleSpaces(workspaces: [SpaceView]) async {
+        if FeatureFlags.spaceLoadingForScreen {
+            guard let activeSpaceId,
+                  let currentView = workspaces.first(where: { $0.targetSpaceId == activeSpaceId }),
+                  (currentView.isLoading && spaceIsLoading) || currentView.isActive else {
+                _ = try? await setActiveSpace(spaceId: nil)
+                return
+            }
+        } else {
+            let spaceIds = workspaces.map(\.targetSpaceId)
+            guard let activeSpaceId, spaceIds.contains(activeSpaceId) else {
+                _ = try? await setActiveSpace(spaceId: nil)
+                return
+            }
         }
     }
     
