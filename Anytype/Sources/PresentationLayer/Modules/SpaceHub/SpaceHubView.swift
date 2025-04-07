@@ -7,8 +7,8 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId, output: output))
+    init(output: (any SpaceHubModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
     }
     
     var body: some View {
@@ -225,5 +225,5 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView(sceneId: "1337", output: nil)
+    SpaceHubView(output: nil)
 }
