@@ -3,7 +3,7 @@ import AnytypeCore
 import Services
 
 struct HomeWidgetData: Hashable {
-    let info: AccountInfo
+    let spaceId: String
 }
 
 struct HomeWidgetsCoordinatorView: View {
@@ -16,7 +16,13 @@ struct HomeWidgetsCoordinatorView: View {
     }
     
     var body: some View {
-        HomeWidgetsView(info: model.spaceInfo, output: model)
+        if let spaceInfo = model.spaceInfo {
+            content(info: spaceInfo)
+        }
+    }
+    
+    private func content(info: AccountInfo) -> some View {
+        HomeWidgetsView(info: info, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
