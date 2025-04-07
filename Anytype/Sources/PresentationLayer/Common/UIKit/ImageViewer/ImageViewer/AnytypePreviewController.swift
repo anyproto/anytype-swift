@@ -71,9 +71,10 @@ final class AnytypePreviewController: QLPreviewController {
     }
 }
 
-extension AnytypePreviewController: QLPreviewControllerDataSource, QLPreviewControllerDelegate {
+@MainActor
+extension AnytypePreviewController: QLPreviewControllerDataSource, @preconcurrency QLPreviewControllerDelegate {
     // MARK: - QLPreviewControllerDataSource
-
+    
     func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: any QLPreviewItem) -> Bool {
         return false
     }

@@ -1,6 +1,7 @@
 import UIKit
 
 protocol DynamicHeightView: AnyObject {
+    @MainActor
     var heightDidChanged: (() -> Void)? { get set }
 }
 
@@ -9,6 +10,7 @@ protocol ReusableContent {
 }
 
 protocol FirstResponder: AnyObject {
+    @MainActor
     var isFirstResponderValueChangeHandler: ((Bool) -> Void)? { get set }
 }
 
