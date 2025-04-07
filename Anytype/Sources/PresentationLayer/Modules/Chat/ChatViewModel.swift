@@ -524,7 +524,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectUnread(message: MessageViewData) {
         Task {
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
         }
     }
 
