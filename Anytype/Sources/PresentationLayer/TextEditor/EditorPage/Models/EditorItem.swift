@@ -1,6 +1,6 @@
 typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
 
-enum EditorItem: Hashable {
+enum EditorItem: Hashable, @unchecked Sendable {
     case header(ObjectHeader)
     case block(any BlockViewModelProtocol)
     case system(any SystemContentConfiguationProvider)
