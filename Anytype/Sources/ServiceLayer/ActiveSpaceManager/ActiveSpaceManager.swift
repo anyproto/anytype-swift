@@ -4,7 +4,7 @@ import Services
 import AsyncTools
 
 protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
-    var workspaceInfoStream: AnyAsyncSequence<AccountInfo> { get }
+    var workspaceInfoStream: AnyAsyncSequence<AccountInfo?> { get }
     func setActiveSpace(spaceId: String?) async throws
     func startSubscription() async
     func stopSubscription() async
@@ -32,14 +32,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     init() {}
     
-    nonisolated var workspaceInfoStream: AnyAsyncSequence<AccountInfo> {
-        AsyncStream.task { iterator in
-            for await info in workspaceInfoStreamInternal {
-                if let info {
-                    iterator(info)
-                }
-            }
-        }.eraseToAnyAsyncSequence()
+    nonisolated var workspaceInfoStream: AnyAsyncSequence<AccountInfo?> {
+        workspaceInfoStreamInternal.eraseToAnyAsyncSequence()
     }
     
     func setActiveSpace(spaceId: String?) async throws {
