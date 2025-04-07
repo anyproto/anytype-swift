@@ -1,4 +1,5 @@
 import Combine
+import Services
 
 @MainActor
 final class SpaceLoadingContainerViewModel: ObservableObject {
@@ -7,20 +8,35 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     
     private let spaceId: String
+    private var task: Task<Void, Never>?
     
-    @Published var showPlaceholder: Bool = true
+    @Published var info: AccountInfo?
+    @Published var errorText: String?
     
     init(spaceId: String) {
         self.spaceId = spaceId
+        // Open space as fast as possible
+        openSpace()
     }
     
-    func openSpace() async {
-        do {
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-            showPlaceholder = false
-        } catch {
-            // Show error state
+    func onTryOpenSpaceAgain() {
+        openSpace()
+    }
+    
+    private func openSpace() {
+        task = Task { [activeSpaceManager, weak self, spaceId] in
+            self?.errorText = nil
+            self?.info = nil
+            do {
+                self?.info = try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+            } catch {
+                self?.errorText = error.localizedDescription
+            }
         }
     }
     
+    deinit {
+        task?.cancel()
+        task = nil
+    }
 }

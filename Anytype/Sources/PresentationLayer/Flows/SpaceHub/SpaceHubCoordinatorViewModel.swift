@@ -112,7 +112,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         }
         
         if navigationPath.count == 1 {
-            Task { try await activeSpaceManager.setActiveSpace(spaceId: nil) }
+            Task {
+                currentSpaceId = nil
+                try await activeSpaceManager.setActiveSpace(spaceId: nil)
+            }
         }
     }
     
@@ -211,6 +214,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         }
     }
     
+    func onSelectSpace(spaceId: String) {
+        Task { try await openSpace(spaceId: spaceId) }
+    }
+    
     // MARK: - Private
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
@@ -256,7 +263,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         
         currentSpaceId = spaceId
-        try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+        if FeatureFlags.spaceLoadingForScreen {
+            // This is not required. But it help to load space as fast as possible
+            Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
+        } else {
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+        }
         currentSpaceId = spaceId
         
         navigationPath = HomePath(initialPath: initialHomePath(spaceView: spaceView, addWidgets: addWidgets))

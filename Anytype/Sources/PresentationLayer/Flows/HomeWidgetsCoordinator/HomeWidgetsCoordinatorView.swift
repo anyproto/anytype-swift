@@ -7,22 +7,26 @@ struct HomeWidgetData: Hashable {
 }
 
 struct HomeWidgetsCoordinatorView: View {
+    let data: HomeWidgetData
+    
+    var body: some View {
+        SpaceLoadingContainerView(spaceId: data.spaceId) {
+            HomeWidgetsCoordinatorInternalView(info: $0)
+        }
+    }
+}
+
+private struct HomeWidgetsCoordinatorInternalView: View {
     
     @StateObject private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     
-    init(data: HomeWidgetData) {
-        self._model = StateObject(wrappedValue: HomeWidgetsCoordinatorViewModel(data: data))
+    init(info: AccountInfo) {
+        self._model = StateObject(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
     }
     
     var body: some View {
-        if let spaceInfo = model.spaceInfo {
-            content(info: spaceInfo)
-        }
-    }
-    
-    private func content(info: AccountInfo) -> some View {
-        HomeWidgetsView(info: info, output: model)
+        HomeWidgetsView(info: model.spaceInfo, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

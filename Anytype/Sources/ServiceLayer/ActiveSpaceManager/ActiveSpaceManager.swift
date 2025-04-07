@@ -5,7 +5,8 @@ import AsyncTools
 
 protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
     var workspaceInfoStream: AnyAsyncSequence<AccountInfo?> { get }
-    func setActiveSpace(spaceId: String?) async throws
+    @discardableResult
+    func setActiveSpace(spaceId: String?) async throws -> AccountInfo?
     func startSubscription() async
     func stopSubscription() async
 }
@@ -23,7 +24,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     private var workspaceSubscription: Task<Void, Never>?
     private var activeSpaceId: String?
     private let workspaceInfoStreamInternal = AsyncToManyStream<AccountInfo?>()
-    private var setActiveSpaceTask: Task<Void, any Error>?
+    private var setActiveSpaceTask: Task<AccountInfo?, any Error>?
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
@@ -36,10 +37,10 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceInfoStreamInternal.eraseToAnyAsyncSequence()
     }
     
-    func setActiveSpace(spaceId: String?) async throws {
+    @discardableResult
+    func setActiveSpace(spaceId: String?) async throws -> AccountInfo? {
         if activeSpaceId == spaceId {
-            try await setActiveSpaceTask?.value
-            return
+            return try await setActiveSpaceTask?.value
         }
         
         activeSpaceId = spaceId
@@ -56,6 +57,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                     logSwitchSpace(spaceId: spaceId)
                     
                     workspaceInfoStreamInternal.send(info)
+                    return info
                 } catch {
                     // Reset active space for try open again in next time
                     await clearActiveSpace()
@@ -63,11 +65,11 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                 }
             } else {
                 await clearActiveSpace()
+                return nil
             }
         }
         
-        try await setActiveSpaceTask?.value
-        return
+        return try await setActiveSpaceTask?.value
     }
     
     func startSubscription() {
