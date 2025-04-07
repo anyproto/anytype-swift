@@ -13,8 +13,9 @@ protocol HashableProvier {
 }
 
 protocol ContentConfigurationProvider: HashableProvier, BlockFocusing {
+    @MainActor
     func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration
-
+    @MainActor
     func makeSpreadsheetConfiguration() -> any UIContentConfiguration
 }
 
@@ -32,8 +33,9 @@ extension ContentConfigurationProvider {
 }
 
 protocol BlockFocusing {
+    @MainActor
     func didSelectRowInTableView(editorEditingState: EditorEditingState)
-
+    @MainActor
     func set(focus: BlockFocusPosition)
 }
 

@@ -3,8 +3,8 @@ import UIKit
 import AnytypeCore
 
 struct VideoBlockViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { info.id }
-    var info: BlockInformation { informantionProvider.info }
+    nonisolated var hashable: AnyHashable { info.id }
+    nonisolated var info: BlockInformation { informantionProvider.info }
     let informantionProvider: BlockModelInfomationProvider
     var fileData: BlockFile? {
         guard case let .file(fileData) = info.content else { return nil }

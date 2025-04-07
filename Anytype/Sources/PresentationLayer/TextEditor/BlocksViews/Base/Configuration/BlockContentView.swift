@@ -12,6 +12,7 @@ protocol FirstResponder: AnyObject {
     var isFirstResponderValueChangeHandler: ((Bool) -> Void)? { get set }
 }
 
+@MainActor
 protocol BlockContentView: ReusableContent where Self: UIView {
     associatedtype Configuration: BlockConfiguration
 
