@@ -7,7 +7,7 @@ import AnytypeCore
 @MainActor
 final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModuleOutput, SetObjectCreationCoordinatorOutput {
     
-    var spaceInfo: AccountInfo?
+    let spaceInfo: AccountInfo
     var pageNavigation: PageNavigation?
     
     @Published var showChangeTypeData: WidgetTypeChangeData?
@@ -16,11 +16,9 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
     
-    init(data: HomeWidgetData) {
-        self.spaceInfo = workspaceStorage.workspaceInfo(spaceId: data.spaceId)
+    init(info: AccountInfo) {
+        self.spaceInfo = info
     }
     
     func onFinishCreateSource(screenData: ScreenData?) {
@@ -32,7 +30,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
-        guard let spaceInfo = spaceInfo else { return }
         if FeatureFlags.newSettings {
             pageNavigation?.open(.spaceInfo(.mainScreen(info: spaceInfo)))
         } else {
@@ -41,7 +38,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        guard let spaceInfo = spaceInfo else { return }
         showCreateWidgetData = CreateWidgetCoordinatorModel(
             spaceId: spaceInfo.accountSpaceId,
             widgetObjectId: spaceInfo.widgetsId,
@@ -55,7 +51,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo = spaceInfo else { return }
         showChangeTypeData = WidgetTypeChangeData(
             widgetObjectId: spaceInfo.widgetsId,
             widgetSpaceId: spaceInfo.accountSpaceId,
@@ -68,7 +63,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        guard let spaceInfo = spaceInfo else { return }
         showCreateWidgetData = CreateWidgetCoordinatorModel(
             spaceId: spaceInfo.accountSpaceId,
             widgetObjectId: spaceInfo.widgetsId,

@@ -122,8 +122,12 @@ struct SpaceHubView: View {
         } label: {
             spaceCardLabel(space)
         }
-        .disabled(space.spaceView.isLoading)
-        .contextMenu { menuItems(space: space) }
+        .if(!FeatureFlags.spaceLoadingForScreen) {
+            $0.disabled(space.spaceView.isLoading)
+        }
+        .if(!space.spaceView.isLoading) {
+            $0.contextMenu { menuItems(space: space) }
+        }
         .padding(.horizontal, 8)
         .onDrop(
             of: [.text],
