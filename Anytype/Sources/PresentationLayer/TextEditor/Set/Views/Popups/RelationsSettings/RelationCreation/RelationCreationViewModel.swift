@@ -90,6 +90,8 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
             try await addRelationToType(relation: details, typeData: data)
         case let .dataview(activeViewId, typeDetails):
             try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
+        case .object(let objectId):
+            try await addRelationToObject(objectId: objectId, relation: details)
         }
     }
     
@@ -112,5 +114,10 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         
         let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
         try await dataviewService.addViewRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)
+    }
+    
+    
+    func addRelationToObject(objectId: String, relation: RelationDetails) async throws {
+        try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
 }

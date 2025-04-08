@@ -150,6 +150,10 @@ public extension FeatureFlags {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
+    static var plusButtonOnWidgets: Bool {
+        value(for: .plusButtonOnWidgets)
+    }
+
     static var spaceLoadingForScreen: Bool {
         value(for: .spaceLoadingForScreen)
     }
@@ -248,6 +252,7 @@ public extension FeatureFlags {
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
+        .plusButtonOnWidgets,
         .spaceLoadingForScreen,
         .rainbowViews,
         .showAlertOnAssert,

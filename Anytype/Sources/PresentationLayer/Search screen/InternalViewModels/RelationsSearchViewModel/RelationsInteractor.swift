@@ -8,6 +8,7 @@ protocol RelationsInteractorProtocol: Sendable {
     func updateRelation(spaceId: String, relation: RelationDetails) async throws
     func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws
+    func addRelationToObject(objectId: String, relation: RelationDetails) async throws
 }
 
 final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
@@ -54,5 +55,9 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     
     private func addRelationToType(relation: RelationDetails, details: ObjectDetails) async throws {
         try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)
+    }
+    
+    func addRelationToObject(objectId: String, relation: RelationDetails) async throws {
+        try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
 }

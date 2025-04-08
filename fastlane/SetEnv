@@ -28,7 +28,7 @@ lane :set_openai_token_to_info_plist do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
         key: "OpenAIToken",
-        value: ENV["OPENAI_TOKEN"]
+        value: ENV["OPENAI_TOKEN"] || ""
     )
 end
 
@@ -36,7 +36,7 @@ lane :set_ai_endpoint_to_info_plist do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
         key: "AIEndpoint",
-        value: ENV["AI_ENDPOINT"]
+        value: ENV["AI_ENDPOINT"] || ""
     )
 end
 
@@ -44,7 +44,7 @@ lane :set_ai_model_to_info_plist do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
         key: "AIModel",
-        value: ENV["AI_MODEL"]
+        value: ENV["AI_MODEL"] || ""
     )
 end
 
@@ -52,7 +52,7 @@ lane :set_anyapp_membership_secret_to_info_plist do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
         key: "AnyAppMembershipTierSecret",
-        value: ENV["ANY_APP_MEMBERSHIP_TIER_SECRET"]
+        value: ENV["ANY_APP_MEMBERSHIP_TIER_SECRET"] || ""
     )
 end
 
@@ -60,6 +60,6 @@ lane :set_join_stream_url do |options|
     set_info_plist_value(
         path: "./Anytype/Supporting files/Info.plist", 
         key: "JoinStreamURL",
-        value: ENV["JOIN_STREAM_URL"]
+        value: ENV["JOIN_STREAM_URL"] || ""
     )
 end
