@@ -250,6 +250,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let plusButtonOnWidgets = FeatureDescription(
+        title: "Wodgets - add plus button",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
