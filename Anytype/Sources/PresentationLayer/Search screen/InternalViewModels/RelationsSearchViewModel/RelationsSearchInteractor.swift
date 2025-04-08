@@ -38,4 +38,8 @@ final class RelationsSearchInteractor {
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: relation, activeViewId: activeViewId, typeDetails: typeDetails)
     }
+    
+    func addRelationToObject(objectId: String, relation: RelationDetails) async throws {
+        try await relationsInteractor.addRelationToObject(objectId: objectId, relation: relation)
+    }
 }

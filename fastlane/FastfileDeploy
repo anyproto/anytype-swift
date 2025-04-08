@@ -51,7 +51,9 @@ platform :ios do
     
     xcodeproj = ENV["APP_PROJECT"]
     version = get_version_number(xcodeproj: xcodeproj, target: ENV["APP_TARGET"])
-    build_number = latest_testflight_build_number(version: version, initial_build_number: 0) + 1
+    # Release build should be started from last dev build
+    build_number_dev = latest_testflight_build_number(app_identifier: ENV["APP_ID_DEVELOP"], version: version, initial_build_number: 0)
+    build_number = latest_testflight_build_number(version: version, initial_build_number: build_number_dev) + 1
     
     if settings[:add_badge]
       add_badge(

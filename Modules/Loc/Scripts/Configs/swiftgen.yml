@@ -3,10 +3,9 @@ output_dir: ../../Sources/Loc
 
 strings:
   inputs: 
-    - Resources/Strings/en.lproj/Localizable.strings
-    - Resources/Strings/en.lproj/Localizable.stringsdict
+    - Resources/Localizable.xcstrings
   outputs:
-    - templateName: structured-swift5
+    - templatePath: Templates/structured-swift5.stencil
       output: Generated/Strings.swift
       params:
         enumName: Loc

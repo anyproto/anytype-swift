@@ -222,7 +222,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             afterOrderId: "",
             beforeOrderId: last.orderID,
             type: .messages,
-            lastDbTimestamp: chatState.dbTimestamp
+            lastStateId: chatState.lastStateID
         )
         return last
     }
@@ -270,9 +270,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 if messages.chatUpdateReactions(data) {
                     updates.insert(.messages)
                 }
-            case let .chatUpdateReadStatus(data):
+            case let .chatUpdateMessageReadStatus(data):
                 guard data.subIds.contains(subId) else { break }
-                messages.chatUpdateReadStatus(data)
+                messages.chatUpdateMessageReadStatus(data)
+            case let .chatUpdateMentionReadStatus(data):
+                guard data.subIds.contains(subId) else { break }
+                messages.chatUpdateMentionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
                 chatState = data.state
@@ -399,27 +402,31 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private func markAsRead(startMessageId: String, endMessageId: String) async throws {
         guard let chatState,
-              chatState.messages.oldestOrderID.isNotEmpty,
               let afterOrderId = messages.message(id: startMessageId)?.orderID,
-              let beforeOrderId = messages.message(id: endMessageId)?.orderID,
-              chatState.messages.oldestOrderID <= beforeOrderId
+              let beforeOrderId = messages.message(id: endMessageId)?.orderID
               else { return }
         
-        try? await chatService.readMessages(
-            chatObjectId: chatObjectId,
-            afterOrderId: afterOrderId,
-            beforeOrderId: beforeOrderId,
-            type: .messages,
-            lastDbTimestamp: chatState.dbTimestamp
-        )
+        if chatState.messages.oldestOrderID.isNotEmpty,
+            chatState.messages.oldestOrderID <= beforeOrderId {
+            try? await chatService.readMessages(
+                chatObjectId: chatObjectId,
+                afterOrderId: afterOrderId,
+                beforeOrderId: beforeOrderId,
+                type: .messages,
+                lastStateId: chatState.lastStateID
+            )
+        }
         
-        try? await chatService.readMessages(
-            chatObjectId: chatObjectId,
-            afterOrderId: afterOrderId,
-            beforeOrderId: beforeOrderId,
-            type: .replies,
-            lastDbTimestamp: chatState.dbTimestamp
-        )
+        if chatState.mentions.oldestOrderID.isNotEmpty,
+           chatState.mentions.oldestOrderID <= beforeOrderId {
+            try? await chatService.readMessages(
+                chatObjectId: chatObjectId,
+                afterOrderId: afterOrderId,
+                beforeOrderId: beforeOrderId,
+                type: .mentions,
+                lastStateId: chatState.lastStateID
+            )
+        }
     }
     
     private func handleAttachmentSubscription(details: [ObjectDetails]) async {

@@ -19,12 +19,47 @@ extension Anytype_Rpc.Chat {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+      public enum ReadType: SwiftProtobuf.Enum, Swift.CaseIterable {
+        public typealias RawValue = Int
+        case messages // = 0
+        case mentions // = 1
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .messages
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .messages
+          case 1: self = .mentions
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .messages: return 0
+          case .mentions: return 1
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static let allCases: [Anytype_Rpc.Chat.Unread.ReadType] = [
+          .messages,
+          .mentions,
+        ]
+
+      }
+
       public struct Request: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// id of the chat object
+        public var type: Anytype_Rpc.Chat.Unread.ReadType = .messages
+
         public var chatObjectID: String = String()
 
         public var afterOrderID: String = String()
@@ -140,9 +175,17 @@ extension Anytype_Rpc.Chat.Unread: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
+extension Anytype_Rpc.Chat.Unread.ReadType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Messages"),
+    1: .same(proto: "Mentions"),
+  ]
+}
+
 extension Anytype_Rpc.Chat.Unread.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.Unread.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
     2: .same(proto: "chatObjectId"),
     3: .same(proto: "afterOrderId"),
   ]
@@ -153,6 +196,7 @@ extension Anytype_Rpc.Chat.Unread.Request: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.type) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.afterOrderID) }()
       default: break
@@ -161,6 +205,9 @@ extension Anytype_Rpc.Chat.Unread.Request: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.type != .messages {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
+    }
     if !self.chatObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 2)
     }
@@ -171,6 +218,7 @@ extension Anytype_Rpc.Chat.Unread.Request: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.Unread.Request, rhs: Anytype_Rpc.Chat.Unread.Request) -> Bool {
+    if lhs.type != rhs.type {return false}
     if lhs.chatObjectID != rhs.chatObjectID {return false}
     if lhs.afterOrderID != rhs.afterOrderID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
