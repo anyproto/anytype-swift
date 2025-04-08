@@ -150,6 +150,10 @@ public extension FeatureFlags {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
+    static var plusButtonOnWidgets: Bool {
+        value(for: .plusButtonOnWidgets)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -244,6 +248,7 @@ public extension FeatureFlags {
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
+        .plusButtonOnWidgets,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

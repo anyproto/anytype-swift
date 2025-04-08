@@ -69,6 +69,7 @@ struct WidgetContainerView<Content: View>: View {
                     onHeaderTap()
                 },
                 removeAction: removeAction(),
+                createObjectAction: onCreateObjectTap,
                 menu: {
                     menuItemsView
                 },
