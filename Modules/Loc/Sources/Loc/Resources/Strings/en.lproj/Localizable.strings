@@ -68,7 +68,7 @@
 "Fields.Created" = "Property ‘%@’ has been created";
 "Fields.Updated" = "Property ‘%@’ has been updated";
 "Fields.menu" = "Properties panel";
-"Fields.local" = "Local properties";
+"Fields.local" = "Local";
 "Fields.foundInObjects" = "Found in objects";
 "Fields.missingInfo" = "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.";
 "Fields.addToType" = "Add to the current type";
