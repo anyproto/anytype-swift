@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct HomeUpdateGradient: View, Animatable {
+struct HomeUpdateGradient: View, @preconcurrency Animatable {
     
     var percent: CGFloat
     

@@ -20,6 +20,7 @@ private struct LayoutItem {
     var indexPath: IndexPath
     
     /// Creates layout attributes for item at given indexPath
+    @MainActor
     func attributes(collectionViewWidth: CGFloat) -> UICollectionViewLayoutAttributes {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attributes.frame = CGRect(

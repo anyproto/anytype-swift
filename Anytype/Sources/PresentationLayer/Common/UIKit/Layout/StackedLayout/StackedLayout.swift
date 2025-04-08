@@ -349,8 +349,10 @@ private final class GapView: UIView, FixedGapViewConstraintProtocol, MinMaxGapVi
         super.init(frame: .zero)
 
         observation = relatedView?.observe(\.isHidden, options: [.new, .initial]) { [weak self] _, change in
-            change.newValue.map {
-                self?.isHidden = reversely ? !$0 : $0
+            if let newValue = change.newValue {
+                MainActor.assumeIsolated {
+                    self?.isHidden = reversely ? !newValue : newValue
+                }
             }
         }
     }
