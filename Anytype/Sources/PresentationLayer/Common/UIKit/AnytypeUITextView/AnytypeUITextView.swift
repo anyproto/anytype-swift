@@ -3,7 +3,9 @@ import SwiftUI
 import UIKit
 
 protocol AnytypeUITextViewDelegate: AnyObject {
+    @MainActor
     func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?)
+    @MainActor
     func textViewHasPasteAction(_ textView: AnytypeUITextView) -> Bool
 }
 

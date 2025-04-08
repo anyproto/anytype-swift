@@ -3,7 +3,7 @@ import UIKit
 import AnytypeCore
 
 final class OpenFileBlockViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable { info.id }
+    nonisolated var hashable: AnyHashable { info.id }
     
     let info: BlockInformation
     

@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-protocol AIConfigBuilderProtocol {
+protocol AIConfigBuilderProtocol: Sendable {
     func makeOpenAIConfig() -> AIProviderConfig?
 }
 

@@ -4,8 +4,8 @@ import Combine
 import AnytypeCore
 
 final class BlockFileViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable { info.id }
-    var info: BlockInformation { informationProvider.info }
+    nonisolated var hashable: AnyHashable { info.id }
+    nonisolated var info: BlockInformation { informationProvider.info }
     
     let informationProvider: BlockModelInfomationProvider
     let documentId: String

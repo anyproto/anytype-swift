@@ -60,6 +60,7 @@ extension CollectionDifference where ChangeElement == EditorItem {
 }
 
 extension EditorItem {
+    @MainActor
     func didSelect(in state: EditorEditingState) {
         switch self {
         case .header(let objectHeader):
