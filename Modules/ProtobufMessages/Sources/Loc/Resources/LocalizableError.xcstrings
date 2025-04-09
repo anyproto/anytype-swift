@@ -82,7 +82,7 @@
             "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
-        "no" : {
+        "nb" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Noe gikk galt, vennligst prøv på nytt"
