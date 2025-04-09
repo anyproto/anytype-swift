@@ -1002,7 +1002,7 @@ public enum Loc {
       return Loc.tr("Localizable", "Fields.Created", String(describing: p1), fallback: "Property ‘%@’ has been created")
     }
     public static let foundInObjects = Loc.tr("Localizable", "Fields.foundInObjects", fallback: "Found in objects")
-    public static let local = Loc.tr("Localizable", "Fields.local", fallback: "Local properties")
+    public static let local = Loc.tr("Localizable", "Fields.local", fallback: "Local")
     public static let menu = Loc.tr("Localizable", "Fields.menu", fallback: "Properties panel")
     public static let missingInfo = Loc.tr("Localizable", "Fields.missingInfo", fallback: "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type.")
     public static let removeFromObject = Loc.tr("Localizable", "Fields.removeFromObject", fallback: "Remove from the object")
