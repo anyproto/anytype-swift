@@ -9,9 +9,9 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
-    var hashable: AnyHashable { info.id }
+    nonisolated var hashable: AnyHashable { info.id }
     
-    var info: BlockInformation { blockInformationProvider.info }
+    nonisolated var info: BlockInformation { blockInformationProvider.info }
     let documentId: String
     let spaceId: String
     let blockInformationProvider: BlockModelInfomationProvider

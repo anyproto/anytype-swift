@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 final class TextBlockLeadingViewBuilder {
     static func checkableLeftTitleView(model: TextBlockLeadingStyle.TitleModel) -> UIView {
         TextBlockIconView(viewType: .titleCheckbox(isSelected: model.checked)) {

@@ -26,7 +26,7 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     
     // MARK: - Coordinator
     
-    class Coordinator: NSObject, UINavigationControllerDelegate, ScannerViewControllerDeleage {
+    class Coordinator: NSObject, ScannerViewControllerDeleage {
         @Binding var qrCode: String
         @Binding var error: String?
 

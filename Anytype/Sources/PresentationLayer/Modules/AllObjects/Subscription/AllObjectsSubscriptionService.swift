@@ -10,7 +10,7 @@ protocol AllObjectsSubscriptionServiceProtocol: AnyObject {
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         limit: Int,
-        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
 }
@@ -34,7 +34,7 @@ final class AllObjectsSubscriptionService: AllObjectsSubscriptionServiceProtocol
         onlyUnlinked: Bool,
         limitedObjectsIds: [String]?,
         limit: Int,
-        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
+        update: @escaping @Sendable @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
         let filters: [DataviewFilter] = .builder {
