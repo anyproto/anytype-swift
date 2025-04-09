@@ -9,3 +9,6 @@ files:
   - source: /Modules/ProtobufMessages/Sources/Loc/Resources/LocalizableError.xcstrings
     translation: /Modules/ProtobufMessages/Sources/Loc/Resources/LocalizableError.xcstrings
     multilingual: 1
+languages_mapping:
+  norwegian:
+    locale: nb
