@@ -44,7 +44,7 @@ setup-middle-local: build-middle-local install-middle-local
 setup-env:
 	brew install sourcery
 	brew install ubi
-	ubi --project "rakuyoMo/SwiftGen" --tag "6.6.4-alpha.0" --matching "swiftgen-6.6.4-alpha.0-macos.zip" --exe swiftgen --in ./build
+	ubi --project "mgolovko/SwiftGen" --tag "6.6.4-alpha.0" --matching "swiftgen-6.6.4-alpha.0-macos.zip" --exe swiftgen --in ./build
 
 set-middle-version:
 	echo "MIDDLE_VERSION=$(v)" > Libraryfile
