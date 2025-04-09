@@ -1,6 +1,7 @@
 import UIKit
 
 /// The protocol describing a factory object for creating size-based layout constraint objects.
+@MainActor
 public protocol LayoutDimension: LayoutAnchorType {
     
     /// Returns a constraint that defines a constant size for the anchor’s size attribute.

@@ -2,6 +2,7 @@ import UIKit
 
 
 protocol CustomizableHitTestAreaView: UIView {
+    @MainActor
     var minHitTestArea: CGSize { get }
 }
 

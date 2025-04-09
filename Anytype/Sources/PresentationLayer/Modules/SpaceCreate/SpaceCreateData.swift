@@ -3,7 +3,6 @@ import Services
 import AnytypeCore
 
 struct SpaceCreateData: Equatable, Identifiable, Hashable {
-    let sceneId: String
     let spaceUxType: SpaceUxType
     
     var id: Int { hashValue }

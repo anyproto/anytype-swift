@@ -2,17 +2,21 @@ import UIKit
 import AnytypeCore
 
 
-final class EmojiProvider {
+final class EmojiProvider: @unchecked Sendable {
         
     static let shared = EmojiProvider()
     
     // MARK: - Private variables
     
+    private let lock = NSLock()
     private(set) lazy var emojiGroups: [EmojiGroup] = loadEmojiGroups()
     
     // MARK: - Internal functions
     
     func filteredEmojiGroups(keyword: String) -> [EmojiGroup] {
+        lock.lock()
+        defer { lock.unlock() }
+        
         guard !keyword.isEmpty else { return emojiGroups }
         
         let lowercasedKeyword = keyword.lowercased()
@@ -36,14 +40,17 @@ final class EmojiProvider {
     }
     
     func randomEmoji() -> EmojiData? {
-        emojiGroups.randomElement()?.emojis.randomElement()
+        lock.lock()
+        defer { lock.unlock() }
+        
+        return emojiGroups.randomElement()?.emojis.randomElement()
     }
     
 }
 
 // MARK: - Private extension
 
-private extension EmojiProvider{
+private extension EmojiProvider {
     
     func loadEmojiGroups() -> [EmojiGroup] {
         // source https://github.com/github/gemoji/blob/master/db/emoji.json

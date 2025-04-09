@@ -19,6 +19,7 @@ struct TextViewAccessoryConfiguration {
     }
     
     private weak var _textView: UITextView?
+    @MainActor
     var textView: UITextView { _textView ?? UITextView(frame: .zero) }
     let contentType: BlockContentType
     let usecase: TextBlockUsecase
