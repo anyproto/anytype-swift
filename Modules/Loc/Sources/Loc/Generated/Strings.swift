@@ -40,8 +40,8 @@ public enum Loc {
   public static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
   public static let applicationIcon = Loc.tr("Localizable", "Application icon", fallback: "Application icon")
   public static let apply = Loc.tr("Localizable", "Apply", fallback: "Apply")
-  public static func areYouSureYouWantToDelete(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Are you sure you want to delete", String(describing: p1), fallback: "Are you sure you want to delete %#@object@?")
+  public static func areYouSureYouWantToDelete(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Are you sure you want to delete %#@object@?")
   }
   public static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
   public static let audio = Loc.tr("Localizable", "Audio", fallback: "Audio")
@@ -111,8 +111,8 @@ public enum Loc {
   public static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   public static let current = Loc.tr("Localizable", "Current", fallback: "Current")
   public static let dates = Loc.tr("Localizable", "Dates", fallback: "Dates")
-  public static func daysToDeletionVault(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Days to deletion vault", String(describing: p1), fallback: "This vault will be deleted %#@days@")
+  public static func daysToDeletionVault(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Days to deletion vault", p1, fallback: "This vault will be deleted %#@days@")
   }
   public static let defaultBackground = Loc.tr("Localizable", "Default background", fallback: "Default background")
   public static let defaultObjectType = Loc.tr("Localizable", "Default object type", fallback: "Default object type")
@@ -124,8 +124,8 @@ public enum Loc {
   public static let deselect = Loc.tr("Localizable", "Deselect", fallback: "Deselect")
   public static let deselectAll = Loc.tr("Localizable", "Deselect all", fallback: "Deselect all")
   public static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly", fallback: "Designed to capture thoughts quickly")
-  public static func devicesConnected(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Devices connected", String(describing: p1), fallback: "%#@device@ connected")
+  public static func devicesConnected(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Devices connected", p1, fallback: "%#@device@ connected")
   }
   public static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   public static let download = Loc.tr("Localizable", "Download", fallback: "Download")
@@ -188,8 +188,8 @@ public enum Loc {
   public static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   public static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
   public static let invite = Loc.tr("Localizable", "Invite", fallback: "Invite")
-  public static func itemsSyncing(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Items syncing", String(describing: p1), fallback: "%#@item@ syncing...")
+  public static func itemsSyncing(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Items syncing", p1, fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
@@ -244,8 +244,8 @@ public enum Loc {
   public static let nothingFound = Loc.tr("Localizable", "Nothing found", fallback: "Nothing found")
   public static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo", fallback: "Nothing to redo")
   public static let nothingToUndo = Loc.tr("Localizable", "Nothing to undo", fallback: "Nothing to undo")
-  public static func objectSelected(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Object selected", String(describing: p1), fallback: "%#@object@ selected")
+  public static func objectSelected(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Object selected", p1, fallback: "%#@object@ selected")
   }
   public static let objectTypes = Loc.tr("Localizable", "Object Types", fallback: "Object Types")
   public static let objects = Loc.tr("Localizable", "Objects", fallback: "Objects")
@@ -275,17 +275,17 @@ public enum Loc {
   public static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
   public static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.")
   public static let per = Loc.tr("Localizable", "per", fallback: "per")
-  public static func perDay(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Per Day", String(describing: p1), fallback: "per %#@day@")
+  public static func perDay(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Per Day", p1, fallback: "per %#@day@")
   }
-  public static func perMonth(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Per Month", String(describing: p1), fallback: "per %#@month@")
+  public static func perMonth(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Per Month", p1, fallback: "per %#@month@")
   }
-  public static func perWeek(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Per Week", String(describing: p1), fallback: "per %#@week@")
+  public static func perWeek(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Per Week", p1, fallback: "per %#@week@")
   }
-  public static func perYear(_ p1: Any) -> String {
-    return Loc.tr("Localizable", "Per Year", String(describing: p1), fallback: "per %#@year@")
+  public static func perYear(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Per Year", p1, fallback: "per %#@year@")
   }
   public static let personalization = Loc.tr("Localizable", "Personalization", fallback: "Personalization")
   public static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")

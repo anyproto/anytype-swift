@@ -11,8 +11,8 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Object {
-    public struct ImportUseCase: Sendable {
+extension Anytype_Rpc.ObjectType {
+    public struct ResolveLayoutConflicts: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -24,55 +24,9 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var spaceID: String = String()
-
-        public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .none
+        public var typeObjectID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public enum UseCase: SwiftProtobuf.Enum, Swift.CaseIterable {
-          public typealias RawValue = Int
-          case none // = 0
-          case getStarted // = 1
-          case empty // = 2
-
-          /// only the guide without other tables
-          case guideOnly // = 3
-          case UNRECOGNIZED(Int)
-
-          public init() {
-            self = .none
-          }
-
-          public init?(rawValue: Int) {
-            switch rawValue {
-            case 0: self = .none
-            case 1: self = .getStarted
-            case 2: self = .empty
-            case 3: self = .guideOnly
-            default: self = .UNRECOGNIZED(rawValue)
-            }
-          }
-
-          public var rawValue: Int {
-            switch self {
-            case .none: return 0
-            case .getStarted: return 1
-            case .empty: return 2
-            case .guideOnly: return 3
-            case .UNRECOGNIZED(let i): return i
-            }
-          }
-
-          // The compiler won't synthesize support with the UNRECOGNIZED case.
-          public static let allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
-            .none,
-            .getStarted,
-            .empty,
-            .guideOnly,
-          ]
-
-        }
 
         public init() {}
       }
@@ -82,25 +36,14 @@ extension Anytype_Rpc.Object {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Object.ImportUseCase.Response.Error {
-          get {return _error ?? Anytype_Rpc.Object.ImportUseCase.Response.Error()}
+        public var error: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error {
+          get {return _error ?? Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var event: Anytype_ResponseEvent {
-          get {return _event ?? Anytype_ResponseEvent()}
-          set {_event = newValue}
-        }
-        /// Returns true if `event` has been explicitly set.
-        public var hasEvent: Bool {return self._event != nil}
-        /// Clears the value of `event`. Subsequent reads from it will return its default value.
-        public mutating func clearEvent() {self._event = nil}
-
-        public var startingObjectID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -109,7 +52,7 @@ extension Anytype_Rpc.Object {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Object.ImportUseCase.Response.Error.Code = .null
+          public var code: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -145,7 +88,7 @@ extension Anytype_Rpc.Object {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Object.ImportUseCase.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -158,16 +101,15 @@ extension Anytype_Rpc.Object {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Object.ImportUseCase.Response.Error? = nil
-        fileprivate var _event: Anytype_ResponseEvent? = nil
+        fileprivate var _error: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Object.ImportUseCase: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.protoMessageName + ".ImportUseCase"
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.protoMessageName + ".ResolveLayoutConflicts"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -179,17 +121,16 @@ extension Anytype_Rpc.Object.ImportUseCase: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ImportUseCase, rhs: Anytype_Rpc.Object.ImportUseCase) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts, rhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.ImportUseCase.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.ImportUseCase.protoMessageName + ".Request"
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.ResolveLayoutConflicts.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    2: .same(proto: "spaceId"),
-    1: .same(proto: "useCase"),
+    1: .same(proto: "typeObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -198,46 +139,30 @@ extension Anytype_Rpc.Object.ImportUseCase.Request: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.useCase) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.typeObjectID) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.useCase != .none {
-      try visitor.visitSingularEnumField(value: self.useCase, fieldNumber: 1)
-    }
-    if !self.spaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
+    if !self.typeObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.typeObjectID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ImportUseCase.Request, rhs: Anytype_Rpc.Object.ImportUseCase.Request) -> Bool {
-    if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.useCase != rhs.useCase {return false}
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Request, rhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Request) -> Bool {
+    if lhs.typeObjectID != rhs.typeObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NONE"),
-    1: .same(proto: "GET_STARTED"),
-    2: .same(proto: "EMPTY"),
-    3: .same(proto: "GUIDE_ONLY"),
-  ]
-}
-
-extension Anytype_Rpc.Object.ImportUseCase.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.ImportUseCase.protoMessageName + ".Response"
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.ResolveLayoutConflicts.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "event"),
-    3: .same(proto: "startingObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -247,8 +172,6 @@ extension Anytype_Rpc.Object.ImportUseCase.Response: SwiftProtobuf.Message, Swif
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.startingObjectID) }()
       default: break
       }
     }
@@ -262,26 +185,18 @@ extension Anytype_Rpc.Object.ImportUseCase.Response: SwiftProtobuf.Message, Swif
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    try { if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    if !self.startingObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.startingObjectID, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ImportUseCase.Response, rhs: Anytype_Rpc.Object.ImportUseCase.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response, rhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs._event != rhs._event {return false}
-    if lhs.startingObjectID != rhs.startingObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Object.ImportUseCase.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Object.ImportUseCase.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -310,7 +225,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response.Error: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Object.ImportUseCase.Response.Error, rhs: Anytype_Rpc.Object.ImportUseCase.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error, rhs: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -318,7 +233,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response.Error: SwiftProtobuf.Message
   }
 }
 
-extension Anytype_Rpc.Object.ImportUseCase.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
