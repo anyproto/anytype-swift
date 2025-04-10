@@ -20,6 +20,7 @@ final class ChatCollectionViewCoordinator<
     private var dataSourceApplyTransaction = false
     private var oldVisibleRange: [String] = []
     private var oldIsBigDistance = false
+    private var dismissWorkItems: [DispatchWorkItem] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     
     var scrollToTop: (() async -> Void)?
@@ -283,6 +284,9 @@ final class ChatCollectionViewCoordinator<
         let cells = collectionView.visibleCells
         let visibleBounds = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
         
+        dismissWorkItems.forEach { $0.cancel() }
+        dismissWorkItems.removeAll()
+        
         for header in headers {
             guard let header = header as? UICollectionViewCell else { continue }
             
@@ -295,25 +299,37 @@ final class ChatCollectionViewCoordinator<
             
             if !insideSafeArea {
                 // Outside visible area. Show
-                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+                updateContentAlpha(cell: header, show: true, animated: animated)
             } else if !overCell {
                 // Normal position in list. Show
-                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+                updateContentAlpha(cell: header, show: true, animated: animated)
             } else if interactive {
                 // Over cell and interactive. Show
-                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+                updateContentAlpha(cell: header, show: true, animated: animated)
             } else {
                 // Over cell and not interactive. Hidden
-                updateContentAlpha(cell: header, alpha: 0.0, animated: animated)
+                updateContentAlpha(cell: header, show: false, animated: animated)
             }
         }
     }
     
-    private func updateContentAlpha(cell: UICollectionViewCell, alpha: CGFloat, animated: Bool) {
+    private func updateContentAlpha(cell: UICollectionViewCell, show: Bool, animated: Bool) {
+        let alpha = show ? 1.0 : 0.0
         if cell.contentView.alpha != alpha {
             if animated {
-                UIView.animate(withDuration: 0.3) {
-                    cell.contentView.alpha = alpha
+                
+                if show {
+                    UIView.animate(withDuration: 0.3) {
+                        cell.contentView.alpha = alpha
+                    }
+                } else {
+                    let workItem = DispatchWorkItem {
+                        UIView.animate(withDuration: 0.3) {
+                            cell.contentView.alpha = alpha
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workItem)
+                    dismissWorkItems.append(workItem)
                 }
             } else {
                 cell.contentView.alpha = alpha
