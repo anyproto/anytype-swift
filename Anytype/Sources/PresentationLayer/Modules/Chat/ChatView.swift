@@ -192,6 +192,8 @@ struct ChatView: View {
             await model.scrollToBottom()
         } handleVisibleRange: { from, to in
             model.visibleRangeChanged(from: from, to: to)
+        } handleBigDistanceToTheBottom: {
+            model.bigDistanceToTheBottomChanged(isBig: $0)
         } onTapCollectionBackground: {
             model.onTapDismissKeyboard()
         }
