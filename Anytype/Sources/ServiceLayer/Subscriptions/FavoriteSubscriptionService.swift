@@ -57,7 +57,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
             }
             
             guard case .link(let link) = info.content else {
-                anytypeAssertionFailure("Not link type in home screen dashboard", info: ["id": info.id])
+                // Home object contains title block. Ignore It.
                 continue
             }
         
