@@ -198,6 +198,7 @@ public enum Loc {
   public static let leaveASpace = Loc.tr("Localizable", "Leave a space", fallback: "Leave a space")
   public static let letsGo = Loc.tr("Localizable", "Lets Go", fallback: "Let’s Go")
   public static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
+  public static let link = Loc.tr("Localizable", "Link", fallback: "Link")
   public static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
   public static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: Links count")
