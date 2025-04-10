@@ -51,5 +51,6 @@ struct ChatActionPanelView: View {
                     }
                 }
         }
+        .buttonStyle(.plain)
     }
 }
