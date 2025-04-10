@@ -97,6 +97,11 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                 try await interactor.addRelationToDataview(objectId: objectId, relation: relation, activeViewId: activeViewId, typeDetails: typeDetails)
                 onSelect(relation)
             }
+        case .object(let objectId):
+            Task {
+                try await interactor.addRelationToObject(objectId: objectId, relation: relation)
+                onSelect(relation)
+            }
         }
     }
     

@@ -5,9 +5,9 @@ import AnytypeCore
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 final class BlockBookmarkViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable { info.id }
     
-    var info: BlockInformation { infoProvider.info }
+    nonisolated var hashable: AnyHashable { info.id }
+    nonisolated var info: BlockInformation { infoProvider.info }
     
     var bookmarkData: BlockBookmark {
         guard case let .bookmark(data) = info.content else {

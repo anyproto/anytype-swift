@@ -16,8 +16,8 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     
     let data: SpaceCreateData
     
-    @Injected(\.spaceSetupManager)
-    private var spaceSetupManager: any SpaceSetupManagerProtocol
+    @Injected(\.activeSpaceManager)
+    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.fileActionsService)
@@ -64,7 +64,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
             }
             
-            try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: spaceId)
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
             dismissForLegacyOS()

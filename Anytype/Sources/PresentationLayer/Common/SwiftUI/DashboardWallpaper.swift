@@ -93,7 +93,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         colorScheme == .dark ? Color.white.opacity(0.02) : Color.black.opacity(0.02)
     }
     
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.mode == rhs.mode && lhs.spaceIcon == rhs.spaceIcon
     }
 }

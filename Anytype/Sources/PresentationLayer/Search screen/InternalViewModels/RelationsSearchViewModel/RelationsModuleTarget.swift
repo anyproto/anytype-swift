@@ -16,4 +16,5 @@ enum RelationsModuleTypeData {
 enum RelationsModuleTarget {
     case type(RelationsModuleTypeData)
     case dataview(activeViewId: String, typeDetails: ObjectDetails?)
+    case object(objectId: String)
 }

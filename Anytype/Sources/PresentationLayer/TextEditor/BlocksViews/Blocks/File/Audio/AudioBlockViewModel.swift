@@ -6,8 +6,8 @@ import AnytypeCore
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    var hashable: AnyHashable { info.id }
-    var info: BlockInformation { informantionProvider.info }
+    nonisolated var hashable: AnyHashable { info.id }
+    nonisolated var info: BlockInformation { informantionProvider.info }
     let informantionProvider: BlockModelInfomationProvider
     var fileData: BlockFile? {
         guard case let .file(fileData) = info.content else { return nil }

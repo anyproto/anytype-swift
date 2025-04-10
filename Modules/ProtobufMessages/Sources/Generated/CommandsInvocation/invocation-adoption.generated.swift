@@ -1265,6 +1265,11 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Process.Cancel.Response: ResultWithError {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

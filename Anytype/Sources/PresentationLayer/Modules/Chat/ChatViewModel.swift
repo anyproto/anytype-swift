@@ -93,6 +93,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var inviteLinkShown = false
     private var firstUnreadMessageOrderId: String?
     private var bottomVisibleOrderId: String?
+    private var bigDistanceToBottom: Bool = false
 
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
@@ -410,6 +411,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
+    func bigDistanceToTheBottomChanged(isBig: Bool) {
+        bigDistanceToBottom = isBig
+        updateActions()
+    }
+    
     func messageDidChanged() {
         textLimitReached = chatMessageLimits.textIsLimited(text: message)
         messageTextLimit = chatMessageLimits.textIsWarinig(text: message) ? "\(message.string.count) / \(chatMessageLimits.textLimit)" : nil
@@ -524,7 +530,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectUnread(message: MessageViewData) {
         Task {
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
         }
     }
 
@@ -710,15 +717,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func updateActions() {
         guard let chatState else { return }
         
-        let lastIsNotVisible: Bool
-        if let lastMessage = messages.last, let bottomVisibleOrderId {
-            lastIsNotVisible = lastMessage.message.orderID > bottomVisibleOrderId
-        } else {
-            lastIsNotVisible = false
-        }
-        
         actionModel = ChatActionPanelModel(
-            showScrollToBottom: chatState.messages.counter > 0 || lastIsNotVisible,
+            showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
             srollToBottomCounter: Int(chatState.messages.counter),
             showMentions: chatState.mentions.counter > 0,
             mentionsCounter: Int(chatState.mentions.counter)

@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, MenuContent: View {
     
@@ -14,6 +15,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     let content: Content
     let headerAction: (() -> Void)
     let removeAction: (() -> Void)?
+    let createObjectAction: (() -> Void)?
     
     @Environment(\.anytypeDragState) @Binding private var dragState
     
@@ -28,6 +30,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         allowContextMenuItems: Bool = true,
         headerAction: @escaping (() -> Void),
         removeAction: (() -> Void)? = nil,
+        createObjectAction: (() -> Void)? = nil,
         @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
         @ViewBuilder content: () -> Content
     ) {
@@ -41,6 +44,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         self.allowContextMenuItems = allowContextMenuItems
         self.headerAction = headerAction
         self.removeAction = removeAction
+        self.createObjectAction = createObjectAction
         self.menu = menu
         self.content = content()
     }
@@ -105,9 +109,16 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 headerAction()
             }
             .allowsHitTesting(!homeState.isEditWidgets)
-            menuButton
-            arrowButton
-            Spacer.fixedWidth(12)
+            HStack(spacing: 0) {
+                if FeatureFlags.plusButtonOnWidgets {
+                    createObjectButton
+                }
+                menuButton
+                arrowButton
+            }
+            // 12 - 8 = 4. (8 - increase button size for big tap area).
+            // We can't using increaseTapGesture, because Menu doesnt support it
+            Spacer.fixedWidth(4)
         }
         .frame(height: 40)
     }
@@ -115,14 +126,29 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     @ViewBuilder
     private var arrowButton: some View {
         if allowContent {
-            Image(asset: .X18.Disclosure.right)
-                .foregroundColor(.Text.primary)
-                .rotationEffect(.degrees(isExpanded ? 90 : 0))
-                .increaseTapGesture(EdgeInsets(side: 10)) {
-                    withAnimation {
-                        isExpanded = !isExpanded
-                    }
+            Button {
+                withAnimation {
+                    isExpanded = !isExpanded
                 }
+            } label: {
+                Image(asset: .X18.Disclosure.right)
+                    .foregroundColor(.Text.primary)
+                    .rotationEffect(.degrees(isExpanded ? 90 : 0))
+                    .frame(width: 34, height: 34)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var createObjectButton: some View {
+        if !homeState.isEditWidgets, let createObjectAction {
+            Button {
+                createObjectAction()
+            } label: {
+                Image(asset: .X18.plus)
+                    .foregroundColor(.Text.primary)
+                    .frame(width: 34, height: 34)
+            }
         }
     }
     
@@ -134,7 +160,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             } label: {
                 Image(asset: .Widget.settings)
                     .foregroundColor(.Text.primary)
-                    .padding(EdgeInsets(horizontal: 16, vertical: 10))
+                    .frame(width: 34, height: 34)
             }
         }
     }

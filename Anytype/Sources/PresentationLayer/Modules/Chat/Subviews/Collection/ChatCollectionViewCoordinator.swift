@@ -10,7 +10,8 @@ final class ChatCollectionViewCoordinator<
     HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
     
     private let distanceForLoadNextPage: CGFloat = 300
-    private let visibleDelta: CGFloat = 10
+    private let visibleRangeThreshold: CGFloat = 10
+    private let bigDistanceFromTheBottomThreshold: CGFloat = 10
     private var canCallScrollToTop = false
     private var canCallScrollToBottom = false
     private var scrollToTopUpdateTask: AnyCancellable?
@@ -18,6 +19,8 @@ final class ChatCollectionViewCoordinator<
     private var sections: [Section] = []
     private var dataSourceApplyTransaction = false
     private var oldVisibleRange: [String] = []
+    private var oldIsBigDistance = false
+    private var dismissWorkItems: [DispatchWorkItem] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
     
     var scrollToTop: (() async -> Void)?
@@ -27,6 +30,7 @@ final class ChatCollectionViewCoordinator<
     var itemBuilder: ((Item) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
+    var handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?
     var onTapCollectionBackground: (() -> Void)?
     
     func setupDataSource(collectionView: UICollectionView) {
@@ -133,6 +137,7 @@ final class ChatCollectionViewCoordinator<
             CATransaction.commit()
             
             updateVisibleRangeIfNeeded(collectionView: collectionView)
+            updateDistanceFromTheBottom(collectionView: collectionView)
             updateHeaders(collectionView: collectionView, animated: false)
         }
     }
@@ -165,6 +170,7 @@ final class ChatCollectionViewCoordinator<
         
         if let collectionView = scrollView as? UICollectionView {
             updateVisibleRangeIfNeeded(collectionView: collectionView)
+            updateDistanceFromTheBottom(collectionView: collectionView)
             updateHeaders(collectionView: collectionView, animated: false)
         }
     }
@@ -205,7 +211,7 @@ final class ChatCollectionViewCoordinator<
         
         for cell in cells {
             let intersection = cell.frame.intersection(boundsWithoutInsets)
-            if (cell.frame.height - intersection.height) < visibleDelta, let indexPath = collectionView.indexPath(for: cell) {
+            if intersection.height > visibleRangeThreshold, let indexPath = collectionView.indexPath(for: cell) {
                 visibleIndexes.append(indexPath)
             }
         }
@@ -223,7 +229,16 @@ final class ChatCollectionViewCoordinator<
                 handleVisibleRange(firstItem, lastItem)
             }
         }
-
+    }
+    
+    private func updateDistanceFromTheBottom(collectionView: UICollectionView) {
+        guard let handleBigDistanceToTheBottom else { return }
+        
+        let value = (collectionView.bottomOffset.y - collectionView.contentOffset.y) > bigDistanceFromTheBottomThreshold
+        guard oldIsBigDistance != value else { return }
+        
+        oldIsBigDistance = value
+        handleBigDistanceToTheBottom(value)
     }
     
     private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy, fallbackScrollToBottom: Bool) {
@@ -269,6 +284,9 @@ final class ChatCollectionViewCoordinator<
         let cells = collectionView.visibleCells
         let visibleBounds = collectionView.bounds.inset(by: collectionView.adjustedContentInset)
         
+        dismissWorkItems.forEach { $0.cancel() }
+        dismissWorkItems.removeAll()
+        
         for header in headers {
             guard let header = header as? UICollectionViewCell else { continue }
             
@@ -281,25 +299,37 @@ final class ChatCollectionViewCoordinator<
             
             if !insideSafeArea {
                 // Outside visible area. Show
-                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+                updateContentAlpha(cell: header, show: true, animated: animated)
             } else if !overCell {
                 // Normal position in list. Show
-                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+                updateContentAlpha(cell: header, show: true, animated: animated)
             } else if interactive {
                 // Over cell and interactive. Show
-                updateContentAlpha(cell: header, alpha: 1.0, animated: animated)
+                updateContentAlpha(cell: header, show: true, animated: animated)
             } else {
                 // Over cell and not interactive. Hidden
-                updateContentAlpha(cell: header, alpha: 0.0, animated: animated)
+                updateContentAlpha(cell: header, show: false, animated: animated)
             }
         }
     }
     
-    private func updateContentAlpha(cell: UICollectionViewCell, alpha: CGFloat, animated: Bool) {
+    private func updateContentAlpha(cell: UICollectionViewCell, show: Bool, animated: Bool) {
+        let alpha = show ? 1.0 : 0.0
         if cell.contentView.alpha != alpha {
             if animated {
-                UIView.animate(withDuration: 0.3) {
-                    cell.contentView.alpha = alpha
+                
+                if show {
+                    UIView.animate(withDuration: 0.3) {
+                        cell.contentView.alpha = alpha
+                    }
+                } else {
+                    let workItem = DispatchWorkItem {
+                        UIView.animate(withDuration: 0.3) {
+                            cell.contentView.alpha = alpha
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: workItem)
+                    dismissWorkItems.append(workItem)
                 }
             } else {
                 cell.contentView.alpha = alpha

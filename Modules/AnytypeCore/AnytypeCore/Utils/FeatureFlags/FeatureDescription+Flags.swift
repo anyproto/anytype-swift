@@ -250,6 +250,20 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let plusButtonOnWidgets = FeatureDescription(
+        title: "Wodgets - add plus button",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
+    static let spaceLoadingForScreen = FeatureDescription(
+        title: "Space Loading State Inside Screen",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

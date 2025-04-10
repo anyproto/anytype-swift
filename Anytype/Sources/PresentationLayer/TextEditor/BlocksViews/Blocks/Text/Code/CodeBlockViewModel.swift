@@ -3,8 +3,8 @@ import UIKit
 import Services
 
 struct CodeBlockViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { info.id }
-    var info: BlockInformation { infoProvider.info }
+    nonisolated var hashable: AnyHashable { info.id }
+    nonisolated var info: BlockInformation { infoProvider.info }
     
     let infoProvider: BlockModelInfomationProvider
     let document: any BaseDocumentProtocol
@@ -49,7 +49,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 // MARK: - Debug
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
-    var debugDescription: String {
+    nonisolated var debugDescription: String {
         return "id: \(blockId)"
     }
 }

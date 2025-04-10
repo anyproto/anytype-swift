@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Event.Chat {
-    public struct UpdateReadStatus: Sendable {
+    public struct UpdateMessageReadStatus: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -29,8 +29,8 @@ extension Anytype_Event.Chat {
     }    
 }
 
-extension Anytype_Event.Chat.UpdateReadStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateReadStatus"
+extension Anytype_Event.Chat.UpdateMessageReadStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateMessageReadStatus"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "ids"),
     2: .same(proto: "isRead"),
@@ -64,7 +64,7 @@ extension Anytype_Event.Chat.UpdateReadStatus: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Chat.UpdateReadStatus, rhs: Anytype_Event.Chat.UpdateReadStatus) -> Bool {
+  public static func ==(lhs: Anytype_Event.Chat.UpdateMessageReadStatus, rhs: Anytype_Event.Chat.UpdateMessageReadStatus) -> Bool {
     if lhs.ids != rhs.ids {return false}
     if lhs.isRead != rhs.isRead {return false}
     if lhs.subIds != rhs.subIds {return false}

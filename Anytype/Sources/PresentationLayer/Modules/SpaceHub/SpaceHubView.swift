@@ -7,8 +7,8 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId, output: output))
+    init(output: (any SpaceHubModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
     }
     
     var body: some View {
@@ -123,8 +123,12 @@ struct SpaceHubView: View {
         } label: {
             spaceCardLabel(space)
         }
-        .disabled(space.spaceView.isLoading)
-        .contextMenu { menuItems(space: space) }
+        .if(!FeatureFlags.spaceLoadingForScreen) {
+            $0.disabled(space.spaceView.isLoading)
+        }
+        .if(!space.spaceView.isLoading) {
+            $0.contextMenu { menuItems(space: space) }
+        }
         .padding(.horizontal, 8)
         .onDrop(
             of: [.text],
@@ -226,5 +230,5 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView(sceneId: "1337", output: nil)
+    SpaceHubView(output: nil)
 }

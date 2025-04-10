@@ -8,23 +8,12 @@ final class RelationsSectionBuilder {
     func buildObjectSections(parsedRelations: ParsedRelations) -> [RelationsSection] {
         var sections: [RelationsSection] = []
         
-        if parsedRelations.featuredRelations.isNotEmpty {
+        if parsedRelations.featuredRelations.isNotEmpty || parsedRelations.sidebarRelations.isNotEmpty {
             sections.append(
                 RelationsSection(
                     id: RelationsSection.Constants.featuredRelationsSectionId,
-                    title: Loc.header,
-                    relations: parsedRelations.featuredRelations,
-                    isMissingFields: false
-                )
-            )
-        }
-        
-        if parsedRelations.sidebarRelations.isNotEmpty {
-            sections.append(
-                RelationsSection(
-                    id: RelationsSection.Constants.sidebarRelationsSectionId,
-                    title: Loc.Fields.menu,
-                    relations: parsedRelations.sidebarRelations,
+                    title: "",
+                    relations: parsedRelations.featuredRelations + parsedRelations.sidebarRelations,
                     isMissingFields: false
                 )
             )

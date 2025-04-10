@@ -631,12 +631,21 @@ extension Anytype_Event {
     }
 
     /// received to update per-message read status (if needed to highlight the unread messages in the UI)
-    public var chatUpdateReadStatus: Anytype_Event.Chat.UpdateReadStatus {
+    public var chatUpdateMessageReadStatus: Anytype_Event.Chat.UpdateMessageReadStatus {
       get {
-        if case .chatUpdateReadStatus(let v)? = _storage._value {return v}
-        return Anytype_Event.Chat.UpdateReadStatus()
+        if case .chatUpdateMessageReadStatus(let v)? = _storage._value {return v}
+        return Anytype_Event.Chat.UpdateMessageReadStatus()
       }
-      set {_uniqueStorage()._value = .chatUpdateReadStatus(newValue)}
+      set {_uniqueStorage()._value = .chatUpdateMessageReadStatus(newValue)}
+    }
+
+    /// received to update per-message mention read status (if needed to highlight the unread mentions in the UI)
+    public var chatUpdateMentionReadStatus: Anytype_Event.Chat.UpdateMentionReadStatus {
+      get {
+        if case .chatUpdateMentionReadStatus(let v)? = _storage._value {return v}
+        return Anytype_Event.Chat.UpdateMentionReadStatus()
+      }
+      set {_uniqueStorage()._value = .chatUpdateMentionReadStatus(newValue)}
     }
 
     public var chatDelete: Anytype_Event.Chat.Delete {
@@ -751,10 +760,11 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     128: .same(proto: "chatAdd"),
     129: .same(proto: "chatUpdate"),
     130: .same(proto: "chatUpdateReactions"),
-    134: .same(proto: "chatUpdateReadStatus"),
+    134: .same(proto: "chatUpdateMessageReadStatus"),
+    135: .same(proto: "chatUpdateMentionReadStatus"),
     131: .same(proto: "chatDelete"),
     133: .same(proto: "chatStateUpdate"),
-    135: .same(proto: "keyUpdate"),
+    136: .same(proto: "keyUpdate"),
   ]
 
   fileprivate class _StorageClass {
@@ -1732,19 +1742,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
         }()
         case 134: try {
-          var v: Anytype_Event.Chat.UpdateReadStatus?
+          var v: Anytype_Event.Chat.UpdateMessageReadStatus?
           var hadOneofValue = false
           if let current = _storage._value {
             hadOneofValue = true
-            if case .chatUpdateReadStatus(let m) = current {v = m}
+            if case .chatUpdateMessageReadStatus(let m) = current {v = m}
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {
             if hadOneofValue {try decoder.handleConflictingOneOf()}
-            _storage._value = .chatUpdateReadStatus(v)
+            _storage._value = .chatUpdateMessageReadStatus(v)
           }
         }()
         case 135: try {
+          var v: Anytype_Event.Chat.UpdateMentionReadStatus?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .chatUpdateMentionReadStatus(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .chatUpdateMentionReadStatus(v)
+          }
+        }()
+        case 136: try {
           var v: Anytype_Event.Key.Update?
           var hadOneofValue = false
           if let current = _storage._value {
@@ -2129,13 +2152,17 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         guard case .chatStateUpdate(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 133)
       }()
-      case .chatUpdateReadStatus?: try {
-        guard case .chatUpdateReadStatus(let v)? = _storage._value else { preconditionFailure() }
+      case .chatUpdateMessageReadStatus?: try {
+        guard case .chatUpdateMessageReadStatus(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 134)
+      }()
+      case .chatUpdateMentionReadStatus?: try {
+        guard case .chatUpdateMentionReadStatus(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 135)
       }()
       case .keyUpdate?: try {
         guard case .keyUpdate(let v)? = _storage._value else { preconditionFailure() }
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 135)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 136)
       }()
       case .accountDetails?: try {
         guard case .accountDetails(let v)? = _storage._value else { preconditionFailure() }
