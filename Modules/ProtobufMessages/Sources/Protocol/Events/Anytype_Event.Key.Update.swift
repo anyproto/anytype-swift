@@ -8,11 +8,10 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
-import Foundation
 import SwiftProtobuf
 
 extension Anytype_Event.Key {
-    public struct Update: @unchecked Sendable {
+    public struct Update: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -21,7 +20,7 @@ extension Anytype_Event.Key {
 
       public var encryptionKeyID: String = String()
 
-      public var encryptionKey: Data = Data()
+      public var encryptionKey: String = String()
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -45,7 +44,7 @@ extension Anytype_Event.Key.Update: SwiftProtobuf.Message, SwiftProtobuf._Messag
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceKeyID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.encryptionKeyID) }()
-      case 3: try { try decoder.decodeSingularBytesField(value: &self.encryptionKey) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.encryptionKey) }()
       default: break
       }
     }
@@ -59,7 +58,7 @@ extension Anytype_Event.Key.Update: SwiftProtobuf.Message, SwiftProtobuf._Messag
       try visitor.visitSingularStringField(value: self.encryptionKeyID, fieldNumber: 2)
     }
     if !self.encryptionKey.isEmpty {
-      try visitor.visitSingularBytesField(value: self.encryptionKey, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.encryptionKey, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }

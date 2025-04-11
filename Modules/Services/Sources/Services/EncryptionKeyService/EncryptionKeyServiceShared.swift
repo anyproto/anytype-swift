@@ -1,8 +1,8 @@
 import Foundation
 
 public protocol EncryptionKeyServiceSharedProtocol {
-    func obtainKeyById(_ id: String) throws -> Data?
-    func saveKey(_ data: Data, id: String) throws
+    func obtainKeyById(_ id: String) throws -> String?
+    func saveKey(_ key: String, id: String) throws
 }
 
 
@@ -12,11 +12,11 @@ final class EncryptionKeyServiceShared: EncryptionKeyServiceSharedProtocol {
     
     var dict: [String: Data] = [:]
     
-    func obtainKeyById(_ id: String) throws -> Data? {
-        userDefaults?.data(forKey: id)
+    func obtainKeyById(_ id: String) throws -> String? {
+        userDefaults?.string(forKey: id)
     }
     
-    func saveKey(_ data: Data, id: String) throws {
-        userDefaults?.set(data, forKey: id)
+    func saveKey(_ key: String, id: String) throws {
+        userDefaults?.set(key, forKey: id)
     }
 }
