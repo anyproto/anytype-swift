@@ -11,7 +11,7 @@ struct ChatMessageHeaderView: View {
                 .foregroundColor(.Text.white)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 2)
-                .background(Color.Control.transparentActive)
+                .background(Color.Control.transparentInactive)
                 .background(.ultraThinMaterial)
                 .cornerRadius(16)
                 .frame(height: 50)
