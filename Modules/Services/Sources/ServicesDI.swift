@@ -155,4 +155,8 @@ public extension Container {
     var pushNotificationsService: Factory<PushNotificationsServiceProtocol> {
         self { PushNotificationsService() }.shared
     }
+    
+    var encryptionKeyServiceShared: Factory<EncryptionKeyServiceSharedProtocol> {
+        self { EncryptionKeyServiceShared() }.singleton
+    }
 }

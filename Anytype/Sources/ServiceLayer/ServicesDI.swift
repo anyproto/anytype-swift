@@ -382,6 +382,14 @@ extension Container {
         self { ApplePushNotificationService() }.singleton
     }
     
+    var encryptionKeyEventHandler: Factory<any EncryptionKeyEventHandlerProtocol> {
+        self { EncryptionKeyEventHandler() }.singleton
+    }
+    
+    var encryptionKeyService: Factory<any EncryptionKeyServiceProtocol> {
+        self { EncryptionKeyService() }.shared
+    }
+    
     var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
         self { ActiveSpaceManager() }.singleton
     }
