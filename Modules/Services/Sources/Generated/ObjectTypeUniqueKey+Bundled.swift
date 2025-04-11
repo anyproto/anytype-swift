@@ -17,8 +17,6 @@ public extension ObjectTypeUniqueKey {
     static let date = ObjectTypeUniqueKey(value: "ot-date")
     static let template = ObjectTypeUniqueKey(value: "ot-template")
     static let page = ObjectTypeUniqueKey(value: "ot-page")
-    static let note = ObjectTypeUniqueKey(value: "ot-note")
-    static let task = ObjectTypeUniqueKey(value: "ot-task")
     static let collection = ObjectTypeUniqueKey(value: "ot-collection")
     static let set = ObjectTypeUniqueKey(value: "ot-set")
     static let bookmark = ObjectTypeUniqueKey(value: "ot-bookmark")
