@@ -7,10 +7,10 @@ extension BaseDocumentProtocol {
     // without description, type and editable setOf if needed
     var featuredRelationsForEditorPublisher: AnyPublisher<[Relation], Never> {
         parsedRelationsPublisher
-            .map { [weak self] q -> [Relation] in
+            .map { [weak self] parsedRelations -> [Relation] in
                 guard let self else { return [] }
                 
-                var enhancedRelations = q.featuredRelations
+                var enhancedRelations = parsedRelations.legacyFeaturedRelations.isNotEmpty ? parsedRelations.legacyFeaturedRelations : parsedRelations.featuredRelations
                 
                 enhancedRelations.reorder(
                     by: [ BundledRelationKey.setOf.rawValue ]
@@ -34,7 +34,7 @@ extension BaseDocumentProtocol {
     }
     
     var featuredRelationsForEditor: [Relation] {
-        var enhancedRelations = parsedRelations.featuredRelations
+        var enhancedRelations = parsedRelations.legacyFeaturedRelations.isNotEmpty ? parsedRelations.legacyFeaturedRelations : parsedRelations.featuredRelations
         
         enhancedRelations.reorder(
             by: [ BundledRelationKey.setOf.rawValue ]
