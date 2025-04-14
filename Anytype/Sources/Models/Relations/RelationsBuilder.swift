@@ -70,7 +70,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
-        let hiddenRalations = buildRelations(
+        let hiddenRelations = buildRelations(
             relationDetails: recommendedHiddenRelations,
             objectDetails: objectDetails,
             isFeatured: false,
@@ -96,7 +96,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         return ParsedRelations(
             featuredRelations: featuredRelations,
             sidebarRelations: sidebarRelations,
-            hiddenRelations: hiddenRalations,
+            hiddenRelations: hiddenRelations,
             conflictedRelations: conflictedRelations,
             deletedRelations: deletedRelations,
             systemRelations: systemRelations,
