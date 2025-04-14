@@ -598,7 +598,6 @@ extension ImageAsset {
     public static let history = ImageAsset.bundle(name: "ObjectSettings/History")
     public static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     public static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
-    public static let relations = ImageAsset.bundle(name: "ObjectSettings/Relations")
   }
   public enum PageBlock {
     public enum Checkbox {
@@ -728,8 +727,8 @@ extension ImageAsset {
     public static let pin = ImageAsset.bundle(name: "x24/Pin")
     public static let plus = ImageAsset.bundle(name: "x24/Plus")
     public static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
+    public static let properties = ImageAsset.bundle(name: "x24/Properties")
     public static let reaction = ImageAsset.bundle(name: "x24/Reaction")
-    public static let relations = ImageAsset.bundle(name: "x24/Relations")
     public static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     public static let replace = ImageAsset.bundle(name: "x24/Replace")
     public static let search = ImageAsset.bundle(name: "x24/Search")
@@ -883,7 +882,7 @@ extension ImageAsset {
     public static let objects = ImageAsset.bundle(name: "x40/Objects")
     public static let other = ImageAsset.bundle(name: "x40/Other")
     public static let picture = ImageAsset.bundle(name: "x40/Picture")
-    public static let relations = ImageAsset.bundle(name: "x40/Relations")
+    public static let properties = ImageAsset.bundle(name: "x40/Properties")
     public static let simpleTables = ImageAsset.bundle(name: "x40/Simple Tables")
     public static let sorts = ImageAsset.bundle(name: "x40/Sorts")
     public static let strikethrough = ImageAsset.bundle(name: "x40/Strikethrough")
