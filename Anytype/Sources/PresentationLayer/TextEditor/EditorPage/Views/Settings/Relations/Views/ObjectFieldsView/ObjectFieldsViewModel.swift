@@ -65,7 +65,7 @@ final class ObjectFieldsViewModel: ObservableObject {
         
         Task {
             let relationsDetail = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: details.spaceId)
-            try await relationsService.addTypeRecommendedRelation(details: details, relation: relationsDetail)
+            try await relationsService.addTypeRecommendedRelation(type: details.objectType, relation: relationsDetail)
         }
     }
     
