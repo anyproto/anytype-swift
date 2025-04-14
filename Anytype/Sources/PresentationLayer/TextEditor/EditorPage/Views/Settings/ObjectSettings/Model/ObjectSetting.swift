@@ -39,7 +39,7 @@ extension ObjectSetting {
         case .description:
             .ObjectSettings.description
         case .relations:
-            .ObjectSettings.relations
+            .X24.properties
         case .history:
             .ObjectSettings.history
         case .resolveConflict:
