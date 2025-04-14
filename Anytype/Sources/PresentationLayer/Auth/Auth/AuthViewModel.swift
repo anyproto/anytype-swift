@@ -1,7 +1,6 @@
 import SwiftUI
 import Combine
 import Services
-import DeepLinks
 
 enum AuthViewModelError: Error {
     case unsupportedAppAction
