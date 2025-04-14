@@ -248,8 +248,8 @@ struct NewSpaceSettingsView: View {
     
     @ViewBuilder
     private var dataManagement: some View {
+        SectionHeaderView(title: Loc.Settings.dataManagement)
         if model.allowRemoteStorage {
-            SectionHeaderView(title: Loc.Settings.dataManagement)
             Button {
                 model.onStorageTap()
             } label: {
