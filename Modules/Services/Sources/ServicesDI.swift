@@ -159,4 +159,12 @@ public extension Container {
     var encryptionKeyServiceShared: Factory<EncryptionKeyServiceSharedProtocol> {
         self { EncryptionKeyServiceShared() }.singleton
     }
+    
+    var cryptoService: Factory<CryptoServiceProtocol> {
+        self { CryptoService() }.shared
+    }
+    
+    var decryptionPushMessageService: Factory<DecryptionPushMessageServiceProtocol> {
+        self { DecryptionPushMessageService() }.shared
+    }
 }

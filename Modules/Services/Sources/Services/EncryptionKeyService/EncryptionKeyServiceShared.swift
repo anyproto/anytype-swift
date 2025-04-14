@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol EncryptionKeyServiceSharedProtocol {
+public protocol EncryptionKeyServiceSharedProtocol: AnyObject {
     func obtainKeyById(_ id: String) throws -> String?
     func saveKey(_ key: String, id: String) throws
 }
