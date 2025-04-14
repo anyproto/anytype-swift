@@ -366,7 +366,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
         case .startObject(let objectId, let spaceId):
-            try await handleStartObject(objectId: objectId, spaceId: spaceId)
+            if FeatureFlags.openWelcomeObject {
+                try await handleStartObject(objectId: objectId, spaceId: spaceId)
+            }
         case .deepLink(let deepLink, let source):
             try await handleDeepLink(deepLink: deepLink, source: source)
         }
@@ -413,10 +415,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     private func handleStartObject(objectId: String, spaceId: String) async throws {
-        let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
-        try await document.open()
-//        guard let editorData = document.details?.screenData() else { return }
-//        try? await open(data: editorData)
+        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
+        if spaceView.chatId == objectId {
+            try await openSpace(spaceId: spaceId)
+        } else {
+            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+            try await document.open()
+            guard let editorData = document.details?.screenData() else { return }
+            try await open(data: editorData)
+        }
     }
     
     // MARK: - Object creation
