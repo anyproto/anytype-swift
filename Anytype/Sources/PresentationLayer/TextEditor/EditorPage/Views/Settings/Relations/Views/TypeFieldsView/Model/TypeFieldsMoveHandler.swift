@@ -280,9 +280,16 @@ final class TypeFieldsMoveHandler: Sendable {
             case .fieldsMenu:
                 throw TypeFieldsMoveError.movingSectionToItself
             case .hidden:
-                guard let toIndex = details.recommendedHiddenRelations.firstIndex(of: to.relation.id) else { return }
-                var newHiddenRelations = details.recommendedHiddenRelationsDetails
-                newHiddenRelations.insert(fromRelation, at: toIndex)
+                let newHiddenRelations: [RelationDetails]
+                    
+                if details.recommendedHiddenRelations.isEmpty {
+                    newHiddenRelations = [fromRelation]
+                } else {
+                    guard let toIndex = details.recommendedHiddenRelations.firstIndex(of: to.relation.id) else { return }
+                    var recommendedHiddenRelationsDetails = details.recommendedHiddenRelationsDetails
+                    recommendedHiddenRelationsDetails.insert(fromRelation, at: toIndex)
+                    newHiddenRelations = recommendedHiddenRelationsDetails
+                }
                 
                 try await move(
                     typeId: document.objectId,
