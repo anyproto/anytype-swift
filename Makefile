@@ -45,6 +45,7 @@ setup-env:
 	brew install sourcery
 	brew install ubi
 	ubi --project "mgolovko/SwiftGen" --tag "6.6.4-alpha.0" --matching "swiftgen-6.6.4-alpha.0-macos.zip" --exe swiftgen --in ./build
+	ubi --project "liamnichols/xcstrings-tool" --tag "1.1.0" --matching "xcstrings-tool.artifactbundle.zip" --exe xcstrings-tool --in ./build
 
 set-middle-version:
 	echo "MIDDLE_VERSION=$(v)" > Libraryfile
