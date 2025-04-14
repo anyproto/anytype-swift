@@ -42,6 +42,7 @@ struct BlockObjectSearchView: View {
                 itemCreationMode: .available { name in
                     Task {
                         let details = try await interactor.createObject(name: name)
+                        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .link)
                         onSelect(details: [details])
                     }
                 },

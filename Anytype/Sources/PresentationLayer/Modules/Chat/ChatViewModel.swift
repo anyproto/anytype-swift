@@ -283,6 +283,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             spaceId: spaceId,
             currentLinkUrl: currentLinkToURL,
             currentLinkString: currentLinkToObject,
+            route: .link,
             setLinkToObject: { [weak self] in
                 guard let self else { return }
                 let newMessage = NSMutableAttributedString(attributedString: message)
