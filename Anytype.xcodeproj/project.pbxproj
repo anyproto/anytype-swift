@@ -53,7 +53,6 @@
 		2E428A262DA836B900B849EF /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2E428A252DA836B900B849EF /* Factory */; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2EDD08442DA833720050397F /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDD08432DA833720050397F /* Services */; };
-		2EDD08462DA833720050397F /* Services in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2EDD08432DA833720050397F /* Services */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
@@ -171,7 +170,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2EDD08462DA833720050397F /* Services in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
