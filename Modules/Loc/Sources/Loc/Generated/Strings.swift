@@ -2240,7 +2240,7 @@ public enum Loc {
       }
     }
     public enum List {
-      public static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "There is no widgets yet")
+      public static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "No widgets yet")
     }
     public enum Source {
       public static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "System")
