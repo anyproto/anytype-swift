@@ -53,20 +53,14 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
-        
-        let featuredRelations: [Relation]
-        if legacyFeaturedRelations.isNotEmpty {
-            featuredRelations = legacyFeaturedRelations
-        } else {
-            featuredRelations = buildRelations(
-                relationDetails: recommendedFeaturedRelations,
-                objectDetails: objectDetails,
-                isFeatured: true,
-                relationValuesIsLocked: relationValuesIsLocked,
-                hackGlobalName: true,
-                storage: storage
-            ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
-        }
+        let featuredRelations = buildRelations(
+            relationDetails: recommendedFeaturedRelations,
+            objectDetails: objectDetails,
+            isFeatured: true,
+            relationValuesIsLocked: relationValuesIsLocked,
+            hackGlobalName: true,
+            storage: storage
+        ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
         let mainSidebarRelations = buildRelations(
             relationDetails: recommendedRelations,
@@ -105,7 +99,8 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             hiddenRelations: hiddenRalations,
             conflictedRelations: conflictedRelations,
             deletedRelations: deletedRelations,
-            systemRelations: systemRelations
+            systemRelations: systemRelations,
+            legacyFeaturedRelations: legacyFeaturedRelations
         )
     }
     

@@ -26,7 +26,7 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
             .map(\.key)
             .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
         let objectFeaturedRelationKeys = relationDetailsStorage
-            .relationsDetails(ids: details.featuredRelations, spaceId: details.spaceId)
+            .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
             .map(\.key)
             .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
             
@@ -45,7 +45,7 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         
         // Remove all legacy relations except for description if present (description uses legacy mechanism to preserve its visibility)
         let featuredRelationIds = relationDetailsStorage
-            .relationsDetails(ids: details.featuredRelations, spaceId: details.spaceId)
+            .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
                 .filter { $0.key == BundledRelationKey.description.rawValue }
                 .map(\.id)
         try await relationsService.setFeaturedRelation(objectId: details.id, featuredRelationIds: featuredRelationIds)
