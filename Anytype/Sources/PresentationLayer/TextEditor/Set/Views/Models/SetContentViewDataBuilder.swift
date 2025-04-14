@@ -155,6 +155,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     objectRelations: relationsDetails,
+                    objectFeaturedRelations: [],
                     recommendedRelations: [],
                     recommendedFeaturedRelations: [],
                     recommendedHiddenRelations: [],

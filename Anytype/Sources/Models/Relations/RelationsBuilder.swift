@@ -7,6 +7,7 @@ import AnytypeCore
 protocol RelationsBuilderProtocol: AnyObject {
     func parsedRelations(
         objectRelations: [RelationDetails],
+        objectFeaturedRelations: [RelationDetails],
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
         recommendedHiddenRelations: [RelationDetails],
@@ -23,6 +24,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     func parsedRelations(
         objectRelations: [RelationDetails],
+        objectFeaturedRelations: [RelationDetails],
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
         recommendedHiddenRelations: [RelationDetails],
@@ -42,14 +44,29 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
-        let featuredRelations = buildRelations(
-            relationDetails: recommendedFeaturedRelations,
+        let legacyFeaturedRelations = buildRelations(
+            relationDetails: objectFeaturedRelations,
             objectDetails: objectDetails,
             isFeatured: true,
             relationValuesIsLocked: relationValuesIsLocked,
             hackGlobalName: true,
             storage: storage
         ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
+        
+        
+        let featuredRelations: [Relation]
+        if legacyFeaturedRelations.isNotEmpty {
+            featuredRelations = legacyFeaturedRelations
+        } else {
+            featuredRelations = buildRelations(
+                relationDetails: recommendedFeaturedRelations,
+                objectDetails: objectDetails,
+                isFeatured: true,
+                relationValuesIsLocked: relationValuesIsLocked,
+                hackGlobalName: true,
+                storage: storage
+            ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
+        }
         
         let mainSidebarRelations = buildRelations(
             relationDetails: recommendedRelations,
