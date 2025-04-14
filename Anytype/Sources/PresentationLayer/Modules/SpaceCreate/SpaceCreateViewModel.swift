@@ -22,6 +22,8 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
+    @Injected(\.appActionStorage)
+    private var appActionStorage: AppActionStorage
     
     // MARK: - State
     
@@ -50,7 +52,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 createLoadingState = false
             }
             let uxType = data.spaceUxType
-            let spaceId = try await workspaceService.createSpace(
+            let createResponse = try await workspaceService.createSpace(
                 name: spaceName,
                 iconOption: spaceIconOption,
                 accessType: spaceAccessType,
@@ -59,14 +61,29 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 uxType: uxType
             )
             
+            let spaceId = createResponse.spaceID
+                        
             if let fileData {
                 let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: fileData, origin: .none)
                 try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
             }
             
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+            if FeatureFlags.openWelcomeObject {
+                if createResponse.startingObjectID.isNotEmpty {
+                    appActionStorage.action = .startObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
+                } else {
+                    try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+                }
+            } else {
+                try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+            }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
+            
+            if createResponse.startingObjectID.isNotEmpty {
+                appActionStorage.action = .startObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
+            }
+            
             dismissForLegacyOS()
         }
     }
