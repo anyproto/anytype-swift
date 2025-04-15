@@ -16,6 +16,7 @@ struct EditorCoordinatorView: View {
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
+            .attachSpaceLoadingContainer(spaceId: model.data.spaceId)
     }
     
     @ViewBuilder

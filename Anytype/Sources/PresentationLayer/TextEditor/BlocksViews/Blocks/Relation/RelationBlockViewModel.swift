@@ -22,7 +22,7 @@ final class RelationProvider {
 
 final class RelationBlockViewModel: BlockViewModelProtocol {
     let blockInformationProvider: BlockModelInfomationProvider
-    var info: BlockInformation { blockInformationProvider.info }
+    nonisolated var info: BlockInformation { blockInformationProvider.info }
     let relationProvider: RelationProvider
     let actionOnValue: (() -> Void)?
     
@@ -30,7 +30,7 @@ final class RelationBlockViewModel: BlockViewModelProtocol {
 
     // MARK: - BlockViewModelProtocol methods
 
-    var hashable: AnyHashable { info.id }
+    nonisolated var hashable: AnyHashable { info.id }
     
     init(
         blockInformationProvider: BlockModelInfomationProvider,

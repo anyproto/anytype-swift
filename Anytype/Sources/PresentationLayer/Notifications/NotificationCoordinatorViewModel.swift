@@ -8,8 +8,6 @@ import SwiftUI
 @MainActor
 final class NotificationCoordinatorViewModel: ObservableObject {
     
-    private let sceneId: String
-    
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
     @Injected(\.objectIconBuilder)
@@ -21,8 +19,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(sceneId: String) {
-        self.sceneId = sceneId
+    init() {
     }
     
     func onAppear() {
@@ -67,8 +64,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         switch notification.payload {
         case .galleryImport(let data):
             let view = GalleryNotificationView(
-                notification: NotificationGalleryImport(common: notification, galleryImport: data),
-                sceneId: sceneId
+                notification: NotificationGalleryImport(common: notification, galleryImport: data)
             )
             show(view: view)
         case .participantPermissionsChange(let data):
@@ -86,7 +82,6 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         case .requestToJoin(let data):
             let view = RequestToJoinNotificationView(
                 notification: NotificationRequestToJoin(common: notification, requestToJoin: data), 
-                sceneId: sceneId,
                 onViewRequest: { [weak self] notification in
                     guard let self else { return }
                     

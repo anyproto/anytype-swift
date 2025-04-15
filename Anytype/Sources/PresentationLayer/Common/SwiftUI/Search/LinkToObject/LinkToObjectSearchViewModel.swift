@@ -60,7 +60,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
         case let .createObject(name):
             Task { @MainActor [weak self, data] in
                 if let linkBlockDetails = try? await self?.defaultObjectService.createDefaultObject(name: name, shouldDeleteEmptyObject: false, spaceId: data.spaceId) {
-                    AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, spaceId: linkBlockDetails.spaceId, route: .mention)
+                    AnytypeAnalytics.instance().logCreateObject(objectType: linkBlockDetails.analyticsType, spaceId: linkBlockDetails.spaceId, route: data.route)
                     data.setLinkToObject(linkBlockDetails.id)
                 }
             }

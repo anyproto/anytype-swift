@@ -5,8 +5,8 @@ import SwiftUI
 
 final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let infoProvider: BlockModelInfomationProvider
-    var info: BlockInformation { infoProvider.info }
-    var hashable: AnyHashable { info.id }
+    nonisolated var info: BlockInformation { infoProvider.info }
+    nonisolated var hashable: AnyHashable { info.id }
 
     private let document: any BaseDocumentProtocol
     private var featuredRelations: [Relation]
