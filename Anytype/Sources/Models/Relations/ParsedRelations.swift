@@ -9,8 +9,9 @@ struct ParsedRelations: Equatable, Sendable {
     let conflictedRelations: [Relation]
     let deletedRelations: [Relation]
     let systemRelations: [Relation]
+    let legacyFeaturedRelations: [Relation]
     
-    var installed: [Relation] { featuredRelations + sidebarRelations + conflictedRelations + hiddenRelations }
+    var installed: [Relation] { featuredRelations + sidebarRelations + conflictedRelations + hiddenRelations + legacyFeaturedRelations }
     var all: [Relation] { installed + deletedRelations }
     
     init(
@@ -19,7 +20,8 @@ struct ParsedRelations: Equatable, Sendable {
         hiddenRelations: [Relation],
         conflictedRelations: [Relation],
         deletedRelations: [Relation],
-        systemRelations: [Relation]
+        systemRelations: [Relation],
+        legacyFeaturedRelations: [Relation]
     ){
         self.featuredRelations = featuredRelations
         self.sidebarRelations = sidebarRelations
@@ -27,6 +29,7 @@ struct ParsedRelations: Equatable, Sendable {
         self.conflictedRelations = conflictedRelations
         self.deletedRelations = deletedRelations
         self.systemRelations = systemRelations
+        self.legacyFeaturedRelations = legacyFeaturedRelations
     }
 }
 
@@ -38,7 +41,8 @@ extension ParsedRelations {
         hiddenRelations: [],
         conflictedRelations: [],
         deletedRelations: [],
-        systemRelations: []
+        systemRelations: [],
+        legacyFeaturedRelations: []
     )
     
 }

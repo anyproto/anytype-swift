@@ -44,7 +44,7 @@ enum SlashMenuItemType: Sendable {
         case .objects:
             return .asset(.X40.objects)
         case .relations:
-            return .asset(.X40.relations)
+            return .asset(.X40.properties)
         case .other:
             return .asset(.X40.other)
         case .actions:
