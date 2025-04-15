@@ -31,7 +31,7 @@ final class AnytypeSharedAudioplayer {
         anytypeAudioplayer.pause()
     }
 
-    func setTrackTime(audioId: String, value: Double, completion: @escaping @Sendable @MainActor () -> Void) {
+    func setTrackTime(audioId: String, value: Double, completion: @escaping @MainActor () -> Void) {
         guard currentAudioId == audioId else {
             completion()
             return
