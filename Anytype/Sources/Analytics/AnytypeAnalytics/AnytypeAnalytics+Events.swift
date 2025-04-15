@@ -324,9 +324,10 @@ extension AnytypeAnalytics {
     
     // MARK: - Type
     
-    func logScreenType(objectType: AnalyticsObjectType?) {
+    func logScreenType(objectType: AnalyticsObjectType?, spaceId: String) {
         logEvent(
             "ScreenType",
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsId ?? ""
             ]
