@@ -1,9 +1,12 @@
-public enum TargetsConstants {
-#if DEBUG || RELEASE_NIGHTLY
-    public static let appGroup = "group.io.anytype.app.dev"
-#elseif RELEASE_ANYTYPE
-    public static let appGroup = "group.io.anytype.app"
-#elseif RELEASE_ANYAPP
-    public static let appGroup = "group.org.any.app"
-#endif
+public struct TargetsConstants {    
+    public static var appGroup: String  {
+        switch CoreEnvironment.targetType {
+        case .debug:
+            return "group.io.anytype.app.dev"
+        case .releaseAnytype:
+            return "group.io.anytype.app"
+        case .releaseAnyApp:
+            return "group.org.any.app"
+        }
+    }
 }
