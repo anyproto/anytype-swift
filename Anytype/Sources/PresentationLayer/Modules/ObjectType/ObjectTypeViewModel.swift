@@ -116,7 +116,7 @@ final class ObjectTypeViewModel: ObservableObject {
         for await details in document.detailsPublisher.values {
             if !didInitialSetup {
                 typeName = FeatureFlags.pluralNames ? details.pluralTitle : details.title
-                AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType)
+                AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType, spaceId: document.spaceId)
                 didInitialSetup = true
             }
             
