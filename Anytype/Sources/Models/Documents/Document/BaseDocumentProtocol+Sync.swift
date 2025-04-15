@@ -93,6 +93,7 @@ extension BaseDocumentProtocol {
         
         return Container.shared.relationsBuilder().parsedRelations(
             objectRelations: [],
+            objectFeaturedRelations: [],
             recommendedRelations: recommendedRelations,
             recommendedFeaturedRelations: recommendedFeaturedRelations,
             recommendedHiddenRelations: recommendedHiddenRelations,
