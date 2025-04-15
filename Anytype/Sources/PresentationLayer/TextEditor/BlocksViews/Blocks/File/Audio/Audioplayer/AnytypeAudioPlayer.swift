@@ -135,7 +135,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
         updatePlayingInfo()
     }
 
-    func setTrackTime(value: Double, completion: @escaping @Sendable @MainActor () -> Void) {
+    func setTrackTime(value: Double, completion: @escaping @MainActor () -> Void) {
         let seekTime = CMTime(seconds: value, preferredTimescale: 10)
         audioPlayer.seek(to: seekTime, toleranceBefore: .zero, toleranceAfter: .zero) { [weak self] _ in
             Task { @MainActor in

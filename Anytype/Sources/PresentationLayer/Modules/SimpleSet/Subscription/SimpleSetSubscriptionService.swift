@@ -6,7 +6,7 @@ protocol SimpleSetSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
         setDocument: some SetDocumentProtocol,
         limit: Int,
-        update: @escaping @Sendable @MainActor ([ObjectDetails], Int) -> Void
+        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async
     func stopSubscription() async
 }
@@ -31,7 +31,7 @@ final class SimpleSetSubscriptionService: SimpleSetSubscriptionServiceProtocol {
     func startSubscription(
         setDocument: some SetDocumentProtocol,
         limit: Int,
-        update: @escaping @Sendable @MainActor ([ObjectDetails], Int) -> Void
+        update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
         let data = setSubscriptionDataBuilder.set(

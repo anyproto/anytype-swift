@@ -18,7 +18,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInsideBlock(
             objectId: objectId,
@@ -35,7 +35,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInSelectedBlocks(
             objectId: objectId,
