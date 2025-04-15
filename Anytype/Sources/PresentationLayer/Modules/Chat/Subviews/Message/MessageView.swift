@@ -108,7 +108,7 @@ struct MessageView: View {
                 }
                 .padding(Constants.attachmentsPadding)
             case .bookmark(let item):
-                MessageObjectBigBookmarkView(details: item) {
+                MessageObjectBigBookmarkView(details: item, position: data.position) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
                 .padding(Constants.attachmentsPadding)

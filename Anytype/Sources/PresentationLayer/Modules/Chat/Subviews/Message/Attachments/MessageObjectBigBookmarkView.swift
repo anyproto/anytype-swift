@@ -8,6 +8,7 @@ struct MessageObjectBigBookmarkView: View {
     let title: String
     let description: String
     let pictureId: String
+    let position: MessageHorizontalPosition
     let onTapObject: () -> Void
     
     var body: some View {
@@ -23,21 +24,21 @@ struct MessageObjectBigBookmarkView: View {
                         Text(host)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(1)
-                            .foregroundStyle(Color.Control.transparentActive)
+                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive)
                     }
                     
                     if title.isNotEmpty {
                         Text(title)
                             .anytypeStyle(.previewTitle2Medium)
                             .lineLimit(1)
-                            .foregroundStyle(Color.Text.primary)
+                            .foregroundStyle(position.isRight ? Color.Text.white : Color.Text.primary)
                     }
                     
                     if description.isNotEmpty {
                         Text(description)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(2)
-                            .foregroundStyle(Color.Control.transparentActive)
+                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive)
                     }
                 }
                 Spacer()
@@ -54,11 +55,12 @@ struct MessageObjectBigBookmarkView: View {
 }
 
 extension MessageObjectBigBookmarkView {
-    init(details: ObjectDetails, onTapObject: @escaping (_ details: ObjectDetails) -> Void) {
+    init(details: ObjectDetails, position: MessageHorizontalPosition, onTapObject: @escaping (_ details: ObjectDetails) -> Void) {
         self.source = details.source?.url
         self.title = details.name
         self.description = details.description
         self.pictureId = details.picture
+        self.position = position
         self.onTapObject = {
             onTapObject(details)
         }
