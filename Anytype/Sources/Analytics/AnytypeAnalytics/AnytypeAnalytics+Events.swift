@@ -1344,4 +1344,13 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logResetToTypeDefault() {
+        logEvent(
+            "ResetToTypeDefault",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: ResetToTypeDefaultRoute.object.rawValue
+            ]
+        )
+    }
 }
