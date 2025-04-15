@@ -374,3 +374,7 @@ enum WidgetCreateType: String {
     case manual = "Manual"
     case auto = "Auto"
 }
+
+enum ResetToTypeDefaultRoute: String {
+    case object = "Object"
+}
