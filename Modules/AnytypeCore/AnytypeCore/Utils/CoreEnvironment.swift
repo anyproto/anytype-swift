@@ -38,7 +38,6 @@ public enum CoreEnvironment {
         }
 
         let condition = Bundle.main.object(forInfoDictionaryKey: "CompilationCondition") as? String ?? ""
-        print("Compilation condition: \(condition)")
 
         let resolved: AppTargetType
         switch condition {
