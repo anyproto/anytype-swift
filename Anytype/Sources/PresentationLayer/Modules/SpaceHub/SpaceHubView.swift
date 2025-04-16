@@ -15,7 +15,6 @@ struct SpaceHubView: View {
         content
             .onAppear { model.onAppear() }
             .task { await model.startSubscriptions() }
-            .task { await model.registerForPushNotifications() }
             
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()

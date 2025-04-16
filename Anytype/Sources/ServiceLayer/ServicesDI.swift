@@ -384,4 +384,8 @@ extension Container {
     var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
         self { ActiveSpaceManager() }.singleton
     }
+    
+    var registrationPushNotificationsService: Factory<any RegistrationPushNotificationsServiceProtocol> {
+        self { RegistrationPushNotificationsService() }.shared
+    }
 }
