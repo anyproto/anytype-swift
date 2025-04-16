@@ -1,4 +1,5 @@
 import Foundation
+import AnytypeCore
 
 public protocol EncryptionKeyServiceSharedProtocol: AnyObject {
     func obtainKeyById(_ id: String) throws -> String?
@@ -8,7 +9,7 @@ public protocol EncryptionKeyServiceSharedProtocol: AnyObject {
 
 final class EncryptionKeyServiceShared: EncryptionKeyServiceSharedProtocol {
     
-    let userDefaults = UserDefaults(suiteName: "group.io.anytype.app")
+    let userDefaults = UserDefaults(suiteName: TargetsConstants.appGroup)
     
     var dict: [String: Data] = [:]
     

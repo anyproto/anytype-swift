@@ -52,6 +52,7 @@
 		2E3058142D81DF7F00BF4F25 /* AnytypeNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E30580D2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2E428A262DA836B900B849EF /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2E428A252DA836B900B849EF /* Factory */; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
+		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
 		2EDD08442DA833720050397F /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDD08432DA833720050397F /* Services */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
@@ -382,6 +383,7 @@
 			files = (
 				2EDD08442DA833720050397F /* Services in Frameworks */,
 				2E428A262DA836B900B849EF /* Factory in Frameworks */,
+				2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2598,6 +2600,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		2ED5E1532DAFE2A700B59485 /* AnytypeCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnytypeCore;
 		};
 		2EDD08432DA833720050397F /* Services */ = {
 			isa = XCSwiftPackageProductDependency;
