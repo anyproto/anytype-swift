@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 protocol EncryptionKeyEventHandlerProtocol {
     func startSubscription() async
@@ -8,9 +9,6 @@ final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
     
     @Injected(\.encryptionKeyService)
     private var encryptionKeyService: any EncryptionKeyServiceProtocol
-    
-    @Injected(\.encryptionKeyServiceShared)
-    private var encryptionKeyServiceShared: any EncryptionKeyServiceSharedProtocol
 
     
     func startSubscription() async {
@@ -18,8 +16,7 @@ final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
             for event in events.middlewareEvents {
                 switch event.value {
                 case let .keyUpdate(data):
-                    updateKey(data.encryptionKeyID, id: data.spaceKeyID)
-                    try? encryptionKeyServiceShared.saveKey(data.encryptionKey, id: data.spaceKeyID)
+                    updateKey(data.encryptionKey, spaceId: data.spaceKeyID)
                 default:
                     break
                 }
@@ -27,11 +24,11 @@ final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
         }
     }
     
-    private func updateKey(_ key: String, id: String) {
+    private func updateKey(_ key: String, spaceId: String) {
         do {
-            try encryptionKeyService.saveKey(key, id: id)
+            try encryptionKeyService.saveKey(key, spaceId: spaceId)
         } catch {
-            
+            anytypeAssertionFailure("Can't case encryption key", info: ["error": error.localizedDescription])
         }
     }
 }

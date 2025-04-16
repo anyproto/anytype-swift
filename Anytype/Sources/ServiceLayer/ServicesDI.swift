@@ -1,5 +1,4 @@
 import Foundation
-import SecureService
 import Services
 import SharedContentManager
 import DeepLinks
@@ -47,10 +46,6 @@ extension Container {
     
     var localRepoService: Factory<any LocalRepoServiceProtocol> {
         self { LocalRepoService() }.shared
-    }
-    
-    var keychainStore: Factory<any KeychainStoreProtocol> {
-        self { KeychainStore() }.shared
     }
     
     var seedService: Factory<any SeedServiceProtocol> {
@@ -384,10 +379,6 @@ extension Container {
     
     var encryptionKeyEventHandler: Factory<any EncryptionKeyEventHandlerProtocol> {
         self { EncryptionKeyEventHandler() }.singleton
-    }
-    
-    var encryptionKeyService: Factory<any EncryptionKeyServiceProtocol> {
-        self { EncryptionKeyService() }.shared
     }
     
     var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {

@@ -1,20 +1,18 @@
 import Foundation
 import AnytypeCore
 
-public protocol DecryptionPushMessageServiceProtocol: AnyObject { // Sendable shoould be
+public protocol DecryptionPushMessageServiceProtocol: AnyObject, Sendable {
     func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushMessage?
 }
 
 final class DecryptionPushMessageService: DecryptionPushMessageServiceProtocol {
     
     private let cryptoService: any CryptoServiceProtocol = Container.shared.cryptoService()
-    private let encryptionKeyServiceShared: any EncryptionKeyServiceSharedProtocol = Container.shared.encryptionKeyServiceShared()
+    private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
     
     func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushMessage? {
         do {
-            guard let keyString = try encryptionKeyServiceShared.obtainKeyById(spaceId) else {
-                throw DecryptionPushMessageError.keyUndefined
-            }
+            let keyString = try encryptionKeyService.obtainKeyById(spaceId)
             
             guard let keyData = Data(base64Encoded: keyString) else {
                 throw DecryptionPushMessageError.keyEncodeFailed

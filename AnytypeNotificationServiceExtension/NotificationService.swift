@@ -3,8 +3,7 @@ import Services
 
 class NotificationService: UNNotificationServiceExtension {
     
-    @Injected(\.decryptionPushMessageService)
-    private var decryptionPushMessageService: any DecryptionPushMessageServiceProtocol
+    private let decryptionPushMessageService: any DecryptionPushMessageServiceProtocol = Container.shared.decryptionPushMessageService()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
