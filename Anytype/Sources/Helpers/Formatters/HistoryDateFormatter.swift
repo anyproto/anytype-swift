@@ -1,6 +1,6 @@
 import Foundation
 
-final class VersionHistoryDateFormatter {
+final class HistoryDateFormatter: Sendable {
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()

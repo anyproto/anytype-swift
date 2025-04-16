@@ -23,7 +23,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     private let spaceId: String
     private let chatId: String
     
-    private let dateFormatter = VersionHistoryDateFormatter()
+    private let dateFormatter = HistoryDateFormatter()
     
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
