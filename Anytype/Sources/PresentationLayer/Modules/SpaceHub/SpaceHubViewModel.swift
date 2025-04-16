@@ -1,8 +1,8 @@
 import Services
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
-
+import AsyncAlgorithms
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
@@ -97,7 +97,7 @@ final class SpaceHubViewModel: ObservableObject {
     
     // MARK: - Private
     private func subscribeOnSpaces() async {
-        for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
+        for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values._throttle(for: .milliseconds(300)) {
             let previews = await chatMessagesPreviewsStorage.previews()
             await updateSpaces(spaces, previews: previews)
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
@@ -120,7 +120,7 @@ final class SpaceHubViewModel: ObservableObject {
         guard FeatureFlags.countersOnSpaceHub else { return }
         
         await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
-        for await preview in chatMessagesPreviewsStorage.previewStream {
+        for await preview in chatMessagesPreviewsStorage.previewStream._throttle(for: .milliseconds(300)) {
             await updateSpaces(spaces, previews: [preview])
         }
     }
