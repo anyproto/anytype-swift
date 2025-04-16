@@ -272,11 +272,14 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func logModuleScreen() {
-        let type = activeView.type.analyticStringValue
-        if self.setDocument.isCollection() {
-            AnytypeAnalytics.instance().logScreenCollection(with: type, spaceId: setDocument.spaceId)
+        if let details = setDocument.details, details.isObjectType {
+            AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType, spaceId: setDocument.spaceId)
+        } else if setDocument.isCollection() {
+            let viewType = activeView.type.analyticStringValue
+            AnytypeAnalytics.instance().logScreenCollection(with: viewType, spaceId: setDocument.spaceId)
         } else {
-            AnytypeAnalytics.instance().logScreenSet(with: type, spaceId: setDocument.spaceId)
+            let viewType = activeView.type.analyticStringValue
+            AnytypeAnalytics.instance().logScreenSet(with: viewType, spaceId: setDocument.spaceId)
         }
     }
     

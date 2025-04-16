@@ -324,9 +324,10 @@ extension AnytypeAnalytics {
     
     // MARK: - Type
     
-    func logScreenType(objectType: AnalyticsObjectType?) {
+    func logScreenType(objectType: AnalyticsObjectType?, spaceId: String) {
         logEvent(
             "ScreenType",
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsId ?? ""
             ]
@@ -1341,6 +1342,15 @@ extension AnytypeAnalytics {
             "AutoCreateTypeWidgetToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: value,
+            ]
+        )
+    }
+    
+    func logResetToTypeDefault() {
+        logEvent(
+            "ResetToTypeDefault",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: ResetToTypeDefaultRoute.object.rawValue
             ]
         )
     }
