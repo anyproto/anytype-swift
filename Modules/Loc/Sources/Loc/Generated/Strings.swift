@@ -580,7 +580,7 @@ public enum Loc {
       public enum Soul {
         public static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Done")
         public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of these names.")
-        public static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Name")
+        public static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Your Name")
         public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set your name")
       }
     }

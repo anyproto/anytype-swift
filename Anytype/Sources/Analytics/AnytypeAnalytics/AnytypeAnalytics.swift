@@ -10,7 +10,7 @@ final class AnytypeAnalytics: @unchecked Sendable {
     }
     
     private var isEnabled: Bool = true
-    private var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
+    private var eventHandler: (@Sendable (_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
     
     private static let anytypeAnalytics = AnytypeAnalytics()
 
@@ -38,7 +38,7 @@ final class AnytypeAnalytics: @unchecked Sendable {
         self.isEnabled = isEnabled
     }
     
-    func setEventHandler(_ eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?) {
+    func setEventHandler(_ eventHandler: (@Sendable (_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?) {
         self.eventHandler = eventHandler
     }
     
@@ -62,8 +62,8 @@ final class AnytypeAnalytics: @unchecked Sendable {
         userProperties[Keys.tier] = tier?.name
     }
     
-    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) {
-        var eventProperties = eventProperties() ?? [:]
+    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any] = [:]) {
+        var eventProperties = eventProperties
         let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
         
         if let permissions = participantSpaceView?.participant?.permission.analyticsType {
@@ -77,8 +77,7 @@ final class AnytypeAnalytics: @unchecked Sendable {
         logEvent(eventType, withEventProperties: eventProperties)
     }
     
-    func logEvent(_ eventType: String, withEventProperties eventProperties: @autoclosure () -> [AnyHashable : Any]?) {
-        let eventProperties = eventProperties()
+    func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any] = [:]) {
         let eventConfiguration = eventsConfiguration[eventType]
 
         if case .notInRow = eventConfiguration?.threshold, lastEvents == eventType {
@@ -91,13 +90,5 @@ final class AnytypeAnalytics: @unchecked Sendable {
         
         guard isEnabled else { return }
         Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties, withUserProperties: userProperties)
-    }
-
-    func logEvent(_ eventType: String) {
-        logEvent(eventType, withEventProperties: nil)
-    }
-    
-    func logEvent(_ eventType: String, spaceId: String) {
-        logEvent(eventType, spaceId: spaceId, withEventProperties: nil)
     }
 }

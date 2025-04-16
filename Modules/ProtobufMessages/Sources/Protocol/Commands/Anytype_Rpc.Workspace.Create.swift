@@ -63,6 +63,8 @@ extension Anytype_Rpc.Workspace {
 
         public var spaceID: String = String()
 
+        public var startingObjectID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -200,6 +202,7 @@ extension Anytype_Rpc.Workspace.Create.Response: SwiftProtobuf.Message, SwiftPro
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "spaceId"),
+    3: .same(proto: "startingObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -210,6 +213,7 @@ extension Anytype_Rpc.Workspace.Create.Response: SwiftProtobuf.Message, SwiftPro
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.startingObjectID) }()
       default: break
       }
     }
@@ -226,12 +230,16 @@ extension Anytype_Rpc.Workspace.Create.Response: SwiftProtobuf.Message, SwiftPro
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 2)
     }
+    if !self.startingObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.startingObjectID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Create.Response, rhs: Anytype_Rpc.Workspace.Create.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.startingObjectID != rhs.startingObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

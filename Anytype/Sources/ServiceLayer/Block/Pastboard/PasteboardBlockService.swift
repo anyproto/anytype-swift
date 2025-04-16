@@ -24,7 +24,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         let context = PasteboardActionContext.focused(blockId: focusedBlockId, range: range)
         paste(objectId: objectId, spaceId: spaceId, context: context, handleLongOperation: handleLongOperation, completion: completion)
@@ -35,7 +35,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
         spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         let context = PasteboardActionContext.selected(blockIds: selectedBlockIds)
         paste(objectId: objectId, spaceId: spaceId, context: context, handleLongOperation: handleLongOperation, completion: completion)
@@ -46,7 +46,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol, Sendable {
         spaceId: String,
         context: PasteboardActionContext,
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         
         let workItem = DispatchWorkItem {

@@ -110,7 +110,7 @@ final class AuthViewModel: ObservableObject {
                 state.mnemonic = try await authService.createWallet()
                 let iconOption = IconColorStorage.randomOption()
                 let account = try await authService.createAccount(
-                    name: state.soul,
+                    name: Loc.Auth.JoinFlow.Soul.placeholder,
                     iconOption: iconOption,
                     imagePath: ""
                 )

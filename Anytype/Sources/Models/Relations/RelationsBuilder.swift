@@ -7,6 +7,7 @@ import AnytypeCore
 protocol RelationsBuilderProtocol: AnyObject {
     func parsedRelations(
         objectRelations: [RelationDetails],
+        objectFeaturedRelations: [RelationDetails],
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
         recommendedHiddenRelations: [RelationDetails],
@@ -23,6 +24,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
     
     func parsedRelations(
         objectRelations: [RelationDetails],
+        objectFeaturedRelations: [RelationDetails],
         recommendedRelations: [RelationDetails],
         recommendedFeaturedRelations: [RelationDetails],
         recommendedHiddenRelations: [RelationDetails],
@@ -42,6 +44,15 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         )
         
+        let legacyFeaturedRelations = buildRelations(
+            relationDetails: objectFeaturedRelations,
+            objectDetails: objectDetails,
+            isFeatured: true,
+            relationValuesIsLocked: relationValuesIsLocked,
+            hackGlobalName: true,
+            storage: storage
+        ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
+        
         let featuredRelations = buildRelations(
             relationDetails: recommendedFeaturedRelations,
             objectDetails: objectDetails,
@@ -59,7 +70,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
-        let hiddenRalations = buildRelations(
+        let hiddenRelations = buildRelations(
             relationDetails: recommendedHiddenRelations,
             objectDetails: objectDetails,
             isFeatured: false,
@@ -85,10 +96,11 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         return ParsedRelations(
             featuredRelations: featuredRelations,
             sidebarRelations: sidebarRelations,
-            hiddenRelations: hiddenRalations,
+            hiddenRelations: hiddenRelations,
             conflictedRelations: conflictedRelations,
             deletedRelations: deletedRelations,
-            systemRelations: systemRelations
+            systemRelations: systemRelations,
+            legacyFeaturedRelations: legacyFeaturedRelations
         )
     }
     
