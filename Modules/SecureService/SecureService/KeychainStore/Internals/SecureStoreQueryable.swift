@@ -38,11 +38,11 @@ public struct GenericPasswordQueryable {
     let account: String
     let attrAccessible: AttrAccessible
     
-    public init(account: String, service: String, accessGroup: String? = nil, attrAccessible: AttrAccessible? = nil) {
+    public init(account: String, service: String, accessGroup: String? = nil, attrAccessible: AttrAccessible) {
         self.service = service
         self.accessGroup = accessGroup
         self.account = account
-        self.attrAccessible = attrAccessible ?? .whenUnlockedThisDeviceOnly
+        self.attrAccessible = attrAccessible
     }
     
 }
