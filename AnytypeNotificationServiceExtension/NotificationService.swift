@@ -3,7 +3,7 @@ import Services
 
 class NotificationService: UNNotificationServiceExtension {
     
-    private let decryptionPushMessageService: any DecryptionPushMessageServiceProtocol = Container.shared.decryptionPushMessageService()
+    private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = Container.shared.decryptionPushContentService()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -23,7 +23,7 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        if let decryptedMessage = decryptionPushMessageService.decrypt(encryptedData, spaceId: spaceId) {
+        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, spaceId: spaceId) {
             bestAttemptContent.title = decryptedMessage.newMessage.text
         }
         

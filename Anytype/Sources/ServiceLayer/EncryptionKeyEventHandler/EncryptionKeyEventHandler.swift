@@ -28,7 +28,10 @@ final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
         do {
             try encryptionKeyService.saveKey(key, spaceId: spaceId)
         } catch {
-            anytypeAssertionFailure("Can't case encryption key", info: ["error": error.localizedDescription])
+            anytypeAssertionFailure("Can't save encryption key", info: [
+                "error": error.localizedDescription,
+                "spaceId": spaceId
+            ])
         }
     }
 }

@@ -169,7 +169,7 @@ public extension Container {
         self { CryptoService() }.shared
     }
     
-    var decryptionPushMessageService: Factory<DecryptionPushMessageServiceProtocol> {
-        self { DecryptionPushMessageService() }.shared
+    var decryptionPushContentService: Factory<DecryptionPushContentServiceProtocol> {
+        self { DecryptionPushContentService() }.shared
     }
 }

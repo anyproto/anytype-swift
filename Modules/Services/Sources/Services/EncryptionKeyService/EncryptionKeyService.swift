@@ -7,7 +7,6 @@ public protocol EncryptionKeyServiceProtocol: AnyObject, Sendable {
     func saveKey(_ key: String, spaceId: String) throws
 }
 
-
 final class EncryptionKeyService: EncryptionKeyServiceProtocol {
     
     private let keychainStore: any KeychainStoreProtocol = Container.shared.keychainStore()

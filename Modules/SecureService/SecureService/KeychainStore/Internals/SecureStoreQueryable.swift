@@ -47,27 +47,13 @@ public struct GenericPasswordQueryable {
     
 }
 
-public enum AttrAccessible {
-    case whenUnlockedThisDeviceOnly
-    case afterFirstUnlockThisDeviceOnly
-    
-    var asSecAttrAccessible: CFString {
-        switch self {
-        case .whenUnlockedThisDeviceOnly:
-            return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-        case .afterFirstUnlockThisDeviceOnly:
-            return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-        }
-    }
-}
-
 extension GenericPasswordQueryable: SecureStoreQueryable {
     public var query: [String: Any] {
         var query: [String: Any] = [:]
         query[String(kSecClass)] = kSecClassGenericPassword
         query[String(kSecAttrService)] = service
         query[String(kSecAttrAccount)] = account
-        query[String(kSecAttrAccessible)] = attrAccessible.asSecAttrAccessible
+        query[String(kSecAttrAccessible)] = attrAccessible.askSecAttrAccessible
         
         // Access group if target environment is not simulator
         #if !targetEnvironment(simulator)
@@ -76,5 +62,19 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         }
         #endif
         return query
+    }
+}
+
+public enum AttrAccessible {
+    case whenUnlockedThisDeviceOnly
+    case afterFirstUnlockThisDeviceOnly
+    
+    var askSecAttrAccessible: CFString {
+        switch self {
+        case .whenUnlockedThisDeviceOnly:
+            return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        case .afterFirstUnlockThisDeviceOnly:
+            return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        }
     }
 }

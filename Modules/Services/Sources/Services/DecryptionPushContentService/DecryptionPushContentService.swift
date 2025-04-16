@@ -1,27 +1,27 @@
 import Foundation
 import AnytypeCore
 
-public protocol DecryptionPushMessageServiceProtocol: AnyObject, Sendable {
-    func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushMessage?
+public protocol DecryptionPushContentServiceProtocol: AnyObject, Sendable {
+    func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushContent?
 }
 
-final class DecryptionPushMessageService: DecryptionPushMessageServiceProtocol {
+final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
     
     private let cryptoService: any CryptoServiceProtocol = Container.shared.cryptoService()
     private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
+    private let decoder = JSONDecoder()
     
-    func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushMessage? {
+    func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushContent? {
         do {
             let keyString = try encryptionKeyService.obtainKeyById(spaceId)
             
             guard let keyData = Data(base64Encoded: keyString) else {
-                throw DecryptionPushMessageError.keyEncodeFailed
+                throw DecryptionPushContentError.keyEncodeFailed
             }
             
             let decryptedData = try cryptoService.decryptAESGCM(data: encryptedData, keyData: keyData)
-            let decoder = JSONDecoder()
             
-            return try decoder.decode(DecryptedPushMessage.self, from: decryptedData)
+            return try decoder.decode(DecryptedPushContent.self, from: decryptedData)
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             return nil
@@ -30,7 +30,6 @@ final class DecryptionPushMessageService: DecryptionPushMessageServiceProtocol {
 }
 
 
-public enum DecryptionPushMessageError: Error {
-    case keyUndefined
+public enum DecryptionPushContentError: Error {
     case keyEncodeFailed
 }

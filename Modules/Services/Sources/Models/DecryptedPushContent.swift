@@ -1,4 +1,4 @@
-public struct DecryptedPushMessage: Codable {
+public struct DecryptedPushContent: Codable {
     public let spaceId: String
     public let type: Int
     public let senderId: String
