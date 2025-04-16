@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AnytypeCore
 
 public protocol SharedFileStorageProtocol: AnyObject, Sendable {
     func clearStorage() throws
