@@ -15,7 +15,7 @@ struct GalleryInstallationPreviewManifestView: View {
                 Spacer.fixedHeight(24)
                 TabView {
                     ForEach(manifest.screenshots, id: \.self) { url in
-                        CachedAsyncImage(
+                        AsyncImage(
                             url: url,
                             content: { image in
                                 image.resizable()

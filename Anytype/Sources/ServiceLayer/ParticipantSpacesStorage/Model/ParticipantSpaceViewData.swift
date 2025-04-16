@@ -7,6 +7,29 @@ struct ParticipantSpaceViewData: Equatable, Identifiable {
     let permissions: SpacePermissions
     
     var id: String { spaceView.id }
+    
+    // Calculate cache for make fast equitable on main thread
+    private let storedHash: Int
+    
+    init(
+        spaceView: SpaceView,
+        participant: Participant?,
+        permissions: SpacePermissions
+    ) {
+        self.spaceView = spaceView
+        self.participant = participant
+        self.permissions = permissions
+        
+        var hasher = Hasher()
+        hasher.combine(spaceView)
+        hasher.combine(participant)
+        hasher.combine(permissions)
+        self.storedHash = hasher.finalize()
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.storedHash == rhs.storedHash
+    }
 }
 
 extension ParticipantSpaceViewData {

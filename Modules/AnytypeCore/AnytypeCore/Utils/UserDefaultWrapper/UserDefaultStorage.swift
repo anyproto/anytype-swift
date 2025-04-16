@@ -1,4 +1,5 @@
 import Foundation
+import os
 
 // Since our property wrapper's Value type isn't optional, but
 // can still contain nil values, we'll have to introduce this
@@ -10,29 +11,39 @@ private protocol AnyOptional {
 
 extension Optional: AnyOptional { }
 
-public final class UserDefaultStorage<T: Codable & Sendable>: Sendable {
+public final class UserDefaultStorage<T: Codable & Sendable>: @unchecked Sendable {
     
     private let key: String
     private let defaultValue: T
     
+    private var data: T
+    private let lock = OSAllocatedUnfairLock()
+    
     public init(key: String, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
+        
+        // Read value from UserDefaults
+        if let data = UserDefaults.standard.object(forKey: key) as? Data,
+           let value = try? JSONDecoder().decode(T.self, from: data) {
+            self.data = value
+        } else {
+            self.data = defaultValue
+        }
     }
     
     public var value: T {
         get {
-            // Read value from UserDefaults
-            guard let data = UserDefaults.standard.object(forKey: key) as? Data else {
-                // Return defaultValue when no data in UserDefaults
-                return defaultValue
-            }
-            
-            // Convert data to the desire data type
-            let value = try? JSONDecoder().decode(T.self, from: data)
-            return value ?? defaultValue
+            lock.lock()
+            defer { lock.unlock() }
+            return data
         }
         set {
+            lock.lock()
+            defer { lock.unlock() }
+            
+            data = newValue
+            
             if let optional = newValue as? AnyOptional, optional.isNil {
                 UserDefaults.standard.removeObject(forKey: key)
             } else {

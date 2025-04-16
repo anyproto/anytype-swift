@@ -22,7 +22,7 @@ struct ImageIdIconView: View {
     
     var body: some View {
         GeometryReader { reader in
-            CachedAsyncImage(
+            AsyncImage(
                 url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl
             ) { image in
                 image.resizable().scaledToFill()
