@@ -3,7 +3,7 @@ import UIKit
 import Services
 
 // TODO: Delete it. Use document subscription in blocks
-final class BlockModelInfomationProvider {
+final class BlockModelInfomationProvider: @unchecked Sendable {
     @Published private(set) var info: BlockInformation
     
     private let document: any BaseDocumentProtocol
@@ -31,7 +31,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         case todo
     }
     
-    var info: BlockInformation { blockInformationProvider.info }
+    nonisolated var info: BlockInformation { blockInformationProvider.info }
     private let blockInformationProvider: BlockModelInfomationProvider
     private var document: any BaseDocumentProtocol
     private var style: Style = .none
@@ -43,7 +43,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     private var customBackgroundColor: UIColor?
     private var cursorManager: EditorCursorManager
     
-    var hashable: AnyHashable { blockInformationProvider.info.id }
+    nonisolated var hashable: AnyHashable { blockInformationProvider.info.id }
     
     private var cancellables = [AnyCancellable]()
     

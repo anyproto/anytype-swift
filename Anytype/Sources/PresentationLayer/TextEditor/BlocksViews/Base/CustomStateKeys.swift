@@ -1,7 +1,9 @@
 import UIKit
 
 protocol CustomTypesAccessable: AnyObject {
+    @MainActor
     var isMoving: Bool { get set }
+    @MainActor
     var isLocked: Bool { get set }
 }
 

@@ -154,6 +154,14 @@ public extension FeatureFlags {
         value(for: .plusButtonOnWidgets)
     }
 
+    static var openWelcomeObject: Bool {
+        value(for: .openWelcomeObject)
+    }
+
+    static var spaceLoadingForScreen: Bool {
+        value(for: .spaceLoadingForScreen)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -249,6 +257,8 @@ public extension FeatureFlags {
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
         .plusButtonOnWidgets,
+        .openWelcomeObject,
+        .spaceLoadingForScreen,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

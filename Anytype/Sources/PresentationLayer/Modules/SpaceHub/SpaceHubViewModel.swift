@@ -16,7 +16,6 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var profileIcon: Icon?
     
-    let sceneId: String
     private weak var output: (any SpaceHubModuleOutput)?
     
     var showPlusInNavbar: Bool {
@@ -28,8 +27,8 @@ final class SpaceHubViewModel: ObservableObject {
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.spaceSetupManager)
-    private var spaceSetupManager: any SpaceSetupManagerProtocol
+    @Injected(\.activeSpaceManager)
+    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.spaceOrderService)
@@ -39,8 +38,7 @@ final class SpaceHubViewModel: ObservableObject {
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
-    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
-        self.sceneId = sceneId
+    init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
     }
     
@@ -53,9 +51,14 @@ final class SpaceHubViewModel: ObservableObject {
     }
     
     func onSpaceTap(spaceId: String) {
-        Task {
-            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+        if FeatureFlags.spaceLoadingForScreen {
+            output?.onSelectSpace(spaceId: spaceId)
             UISelectionFeedbackGenerator().selectionChanged()
+        } else {
+            Task {
+                try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+                UISelectionFeedbackGenerator().selectionChanged()
+            }
         }
     }
     

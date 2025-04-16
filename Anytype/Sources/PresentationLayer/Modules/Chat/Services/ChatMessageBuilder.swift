@@ -23,13 +23,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     private let spaceId: String
     private let chatId: String
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
-        return dateFormatter
-    }()
+    private let dateFormatter = HistoryDateFormatter()
     
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
@@ -119,7 +113,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     newMessageBlocks.append(currentSectionData)
                 }
                 currentSectionData = MessageSectionData(
-                    header: dateFormatter.string(from: createDateDay),
+                    header: dateFormatter.localizedDateString(for: createDateDay),
                     id: createDateDay.hashValue,
                     items: []
                 )
