@@ -1,9 +1,10 @@
 import Foundation
+import UniformTypeIdentifiers
 import UIKit
 import SwiftUI
 import Services
 
-final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContentStorageDelegate {
+final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContentStorageDelegate, AnytypeUITextViewDelegate {
     
     private enum Mode {
         case text
@@ -21,12 +22,18 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     private let anytypeCodeFont: AnytypeFont
     
     var linkTo: ((_ range: NSRange) -> Void)?
+    var linkParsed: ((_ url: URL) -> Void)?
+    var pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)?
     var defaultTypingAttributes: [NSAttributedString.Key : Any] = [:]
     
     // MARK: - State
     private var mode: Mode = .text
     private var triggerSymbolPosition: UITextPosition?
     private var lastApplyedEditingState: Bool?
+    @Injected(\.chatPasteboardHelper)
+    private var chatPasteboardHelper: any ChatPasteboardHelperProtocol
+    @Injected(\.chatInputLinkParser)
+    private var chatInputLinkParser: any ChatInputLinkParserProtocol
     
     init(
         text: Binding<NSAttributedString>,
@@ -161,7 +168,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         switch change {
         case .turnInto, .addBlock, nil:
             // Doesn't support
-            return true
+            break
         case .addStyle(let markupType, let text, let range, let focusRange):
             let result = addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange, removeAttribute: false)
             if !result {
@@ -169,6 +176,44 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             }
             return result
         }
+        
+        handleLinkInput(textView: textView, shouldChangeTextIn: range, replacementText: text)
+        
+        return true
+    }
+    
+    // MARK: - AnytypeUITextViewDelegate
+    
+    func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?) {
+        
+        if let pasteStr = chatPasteboardHelper.attributedString() {
+            let newStr = NSMutableAttributedString(attributedString: textView.attributedText)
+            let newSelectedRange = NSRange(location: textView.selectedRange.location + pasteStr.length, length: 0)
+            newStr.replaceCharacters(in: textView.selectedRange, with: pasteStr)
+            textView.attributedText = newStr
+            textView.selectedRange = newSelectedRange
+            textViewDidChange(textView)
+            
+            var links: [URL] = []
+            pasteStr.enumerateAttribute(.chatLinkToURL, in: pasteStr.wholeRange) { attr, _, _ in
+                if let link = attr as? URL {
+                    links.append(link)
+                }
+            }
+            
+            for link in links {
+                linkParsed?(link)
+            }
+        }
+        
+        let attachments = chatPasteboardHelper.attachments()
+        if attachments.isNotEmpty {
+            pasteAttachmentsFromBuffer?(attachments)
+        }
+    }
+    
+    func textViewHasPasteAction(_ textView: AnytypeUITextView) -> Bool {
+        return UIPasteboard.general.hasSlots
     }
     
     // MARK: - Private
@@ -327,6 +372,22 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         
         if newHeight != height {
             height = newHeight
+        }
+    }
+    
+    private func handleLinkInput(textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) {
+        let linkChange = chatInputLinkParser.handleInput(sourceText: textView.attributedText, range: range, replacementText: text)
+        
+        switch linkChange {
+        case .addLinkStyle(let range, let link):
+            let containsLink = textView.textStorage.containsNotNilAttribute(.chatLinkToURL, in: range)
+            if !containsLink {
+                textView.textStorage.addAttribute(.chatLinkToURL, value: link, range: range)
+                textViewDidChange(textView)
+                linkParsed?(link)
+            }
+        case nil:
+            break
         }
     }
 }

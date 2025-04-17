@@ -46,10 +46,11 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         var keys: [String] = Array<BundledRelationKey>.builder {
             BundledRelationKey.id
             BundledRelationKey.name
+            BundledRelationKey.pluralName
             BundledRelationKey.snippet
             BundledRelationKey.description
             BundledRelationKey.type
-            BundledRelationKey.layout
+            BundledRelationKey.resolvedLayout
             BundledRelationKey.isDeleted
             BundledRelationKey.done
             BundledRelationKey.coverId
@@ -60,6 +61,8 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
             BundledRelationKey.relationOptionColor
             BundledRelationKey.objectIconImageKeys
             BundledRelationKey.spaceId
+            BundledRelationKey.source
+            BundledRelationKey.chatId
         }.uniqued().map(\.rawValue)
         
         keys.append(contentsOf: data.options.map { $0.key })

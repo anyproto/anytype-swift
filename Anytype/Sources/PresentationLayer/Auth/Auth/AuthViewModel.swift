@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Services
 
 
 enum AuthViewModelError: Error {
@@ -13,7 +14,15 @@ final class AuthViewModel: ObservableObject {
     @Published var showLoginFlow: Bool = false
     @Published var showDebugMenu: Bool = false
     @Published var showSettings: Bool = false
+    @Published var inProgress = false
     @Published var opacity: Double = 1
+    @Published var errorText: String? {
+        didSet { showError = errorText.isNotNil }
+    }
+    @Published var showError: Bool = false
+    
+    // MARK: - State
+    private let state = JoinFlowState()
     
     // MARK: - Private
     private weak var output: (any AuthViewModelOutput)?
@@ -22,6 +31,14 @@ final class AuthViewModel: ObservableObject {
     private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     @Injected(\.appActionStorage)
     private var appActionsStorage: AppActionStorage
+    @Injected(\.authService)
+    private var authService: any AuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: any SeedServiceProtocol
+    @Injected(\.usecaseService)
+    private var usecaseService: any UsecaseServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     private var subscription: AnyCancellable?
     
@@ -55,12 +72,15 @@ final class AuthViewModel: ObservableObject {
     }
     
     func onJoinButtonTap() {
-        showJoinFlow.toggle()
-        changeContentOpacity(true)
+        if state.mnemonic.isEmpty {
+            createAccount()
+        } else {
+            onSuccess()
+        }
     }
     
     func onJoinAction() -> AnyView? {
-        output?.onJoinAction()
+        output?.onJoinAction(state: state)
     }
     
     func onLoginButtonTap() {
@@ -80,6 +100,51 @@ final class AuthViewModel: ObservableObject {
         return output?.onSettingsAction()
     }
     
+    // MARK: - Create account step
+    
+    private func createAccount() {
+        Task {
+            AnytypeAnalytics.instance().logStartCreateAccount()
+            inProgress = true
+            
+            do {
+                state.mnemonic = try await authService.createWallet()
+                let iconOption = IconColorStorage.randomOption()
+                let account = try await authService.createAccount(
+                    name: Loc.Auth.JoinFlow.Soul.placeholder,
+                    iconOption: iconOption,
+                    imagePath: ""
+                )
+                try await setDefaultSpaceInfo(account.info.accountSpaceId, iconOption: iconOption)
+                try? seedService.saveSeed(state.mnemonic)
+                
+                onSuccess()
+            } catch {
+                createAccountError(error)
+            }
+        }
+    }
+    
+    private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
+        guard spaceId.isNotEmpty else { return }
+        try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
+        try? await workspaceService.workspaceSetDetails(
+            spaceId: spaceId,
+            details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
+        )
+    }
+    
+    private func onSuccess() {
+        inProgress = false
+        showJoinFlow.toggle()
+        changeContentOpacity(true)
+    }
+    
+    private func createAccountError(_ error: some Error) {
+        inProgress = false
+        errorText = error.localizedDescription
+    }
+    
     private func changeContentOpacity(_ hide: Bool) {
         withAnimation(.fastSpring) {
             opacity = hide ? 0 : 1
@@ -90,7 +155,7 @@ final class AuthViewModel: ObservableObject {
         switch action {
         case .createObjectFromQuickAction:
             throw AuthViewModelError.unsupportedAppAction
-        case .deepLink(let deeplink):
+        case .deepLink(let deeplink, _):
             switch deeplink {
             case .networkConfig(let config):
                 try updateNetworkConfig(config)

@@ -17,7 +17,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var relationValueData: RelationValueData?
     @Published var toastBarData: ToastBarData = .empty
     @Published var codeLanguageData: CodeLanguageListData?
-    @Published var covertPickerData: ObjectCoverPickerData?
+    @Published var covertPickerData: BaseDocumentIdentifiable?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var textIconPickerData: TextIconPickerData?
@@ -65,7 +65,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {
-        covertPickerData = ObjectCoverPickerData(document: document)
+        covertPickerData = BaseDocumentIdentifiable(document: document)
     }
     
     func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String) {
@@ -97,11 +97,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        guard let details = document.details else { return }
         relationsSearchData = RelationsSearchData(
-            objectId: document.objectId,
+            objectId: details.type,
             spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            target: .object, 
+            target: .object(objectId: details.id),
             onRelationSelect: onSelect
         )
     }

@@ -1,0 +1,12 @@
+input_dir: ../../Sources/Loc
+output_dir: ../../Sources/Loc
+
+strings:
+  inputs: 
+    - Resources/Localizable.xcstrings
+  outputs:
+    - templatePath: Templates/structured-swift5.stencil
+      output: Generated/Strings.swift
+      params:
+        enumName: Loc
+        publicAccess: true

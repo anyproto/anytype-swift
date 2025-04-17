@@ -31,7 +31,7 @@ extension WidgetObjectListRowModel {
             icon: details.objectIconImage,
             title: details.title,
             description: details.subtitle,
-            subtitle: details.objectType.name,
+            subtitle: details.objectType.displayName,
             isChecked: isChecked,
             canArchive: canArchive,
             menu: menu,

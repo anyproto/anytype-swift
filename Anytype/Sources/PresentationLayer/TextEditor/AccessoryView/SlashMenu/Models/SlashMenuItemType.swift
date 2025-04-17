@@ -1,6 +1,6 @@
 import UIKit
 
-enum SlashMenuItemType {
+enum SlashMenuItemType: Sendable {
     case style
     case media
     case objects
@@ -20,7 +20,7 @@ enum SlashMenuItemType {
         case .objects:
             return Loc.objects
         case .relations:
-            return Loc.relations
+            return Loc.fields
         case .other:
             return Loc.other
         case .actions:
@@ -34,6 +34,7 @@ enum SlashMenuItemType {
         }
     }
     
+    @MainActor
     var iconName: Icon {
         switch self {
         case .style:
@@ -43,7 +44,7 @@ enum SlashMenuItemType {
         case .objects:
             return .asset(.X40.objects)
         case .relations:
-            return .asset(.X40.relations)
+            return .asset(.X40.properties)
         case .other:
             return .asset(.X40.other)
         case .actions:
@@ -69,6 +70,7 @@ enum SlashMenuItemType {
         }
     }
 
+    @MainActor
     var displayData: SlashMenuItemDisplayData {
         SlashMenuItemDisplayData(iconData: iconName, title: self.title)
     }

@@ -41,6 +41,7 @@ enum AnalyticsEventsPropertiesKey {
     static let color = "color"
     static let name = "name"
     static let sort = "sort"
+    static let widgetType = "widgetType"
     
     static let middleTime = "middleTime"
     static let permissions = "permissions"
@@ -65,12 +66,14 @@ enum AnalyticsEventsRouteKind: String {
     case homeScreen = "HomeScreen"
     case clipboard = "Clipboard"
     case search = "Search"
+    case type = "Type"
 }
 
 enum AnalyticsEventsRelationType: String {
     case menu = "menu"
     case dataview = "dataview"
     case block = "block"
+    case type = "type"
 }
 
 enum AnalyticsEventsSetQueryType {
@@ -94,6 +97,7 @@ enum AnalyticsEventsMigrationType: String {
 }
 
 enum AnalyticsWidgetSource {
+    case allObjects
     case favorites
     case recent
     case recentOpen
@@ -104,6 +108,8 @@ enum AnalyticsWidgetSource {
     
     var analyticsId: String {
         switch self {
+        case .allObjects:
+            return "AllObjects"
         case .favorites:
             return "Favorites"
         case .recent:
@@ -163,6 +169,7 @@ enum AnalyticsWidgetContext: String, Hashable {
     case editor = "Editor"
     case main = "Main"
     case object = "Object"
+    case auto = "Auto"
 }
 
 enum RemoveCompletelyRoute: String {
@@ -180,7 +187,6 @@ enum ShowDeletionWarningRoute: String {
 }
 
 enum ScreenOnboardingStep: String {
-    case vault = "Vault"
     case phrase = "Phrase"
     case soul = "Soul"
 }
@@ -220,7 +226,6 @@ enum OnboardingTooltip: String {
     case swipeInWidgets = "ObjectCreationWidget"
     case returnToWidgets = "ReturnToWidgets"
     case space = "Space"
-    case vault = "Vault"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -313,6 +318,7 @@ enum ClickUpgradePlanTooltipRoute: String {
 
 enum ChangeObjectTypeRoute: String {
     case featuredRelations = "FeaturedRelations"
+    case relationsList = "RelationsList"
 }
 
 enum ScreenSearchType: String {
@@ -341,4 +347,35 @@ enum SettingsSpaceMembersRoute: String {
 enum SettingsSpaceShareRoute: String {
     case settings = "Settings"
     case navigation = "Navigation"
+    case chat = "Chat"
+}
+
+enum DeleteRelationRoute: String {
+    case type = "Type"
+    case object = "Object"
+}
+
+enum EditTypeRoute: String {
+    case object = "Object"
+    case type = "Type"
+}
+
+enum OpenObjectByLinkType: String {
+    case object = "Object"
+    case invite = "Invite"
+    case notShared = "NotShared"
+}
+
+enum OpenObjectByLinkRoute: String {
+    case app = "App"
+    case web = "Web"
+}
+
+enum WidgetCreateType: String {
+    case manual = "Manual"
+    case auto = "Auto"
+}
+
+enum ResetToTypeDefaultRoute: String {
+    case object = "Object"
 }

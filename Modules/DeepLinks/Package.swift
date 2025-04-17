@@ -13,10 +13,13 @@ let package = Package(
             name: "DeepLinks",
             targets: ["DeepLinks"]),
     ],
+    dependencies: [
+        .package(path: "../AppTarget")
+    ],
     targets: [
         .target(
             name: "DeepLinks",
-            dependencies: [],
+            dependencies: ["AppTarget"],
             swiftSettings: [
                 .swiftLanguageMode(.v6)
             ]

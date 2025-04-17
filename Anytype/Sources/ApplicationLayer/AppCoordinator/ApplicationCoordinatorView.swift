@@ -23,10 +23,18 @@ struct ApplicationCoordinatorView: View {
         .task {
             await model.startFileHandler()
         }
+        .task(item: model.selectAccountTaskId) { accountId in
+            await model.selectAccount(id: accountId)
+        }
         .onChange(of: dismissAllPresented) {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }
         .snackbar(toastBarData: $model.toastBarData)
+        .handleAutoWidgetAdded()
+        // migration
+        .fullScreenCover(item: $model.migrationData) {
+            MigrationCoordinatorView(data: $0)
+        }
     }
     
     @ViewBuilder

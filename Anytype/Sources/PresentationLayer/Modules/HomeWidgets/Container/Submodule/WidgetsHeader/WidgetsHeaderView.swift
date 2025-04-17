@@ -22,28 +22,24 @@ struct WidgetsHeaderView: View {
                         AnytypeText(model.spaceMembers, style: .relation2Regular)
                             .foregroundColor(.Control.transparentActive)
                     } else {
-                        AnytypeText(model.spaceAccessType, style: .relation2Regular)
+                        AnytypeText(model.spaceUxType, style: .relation2Regular)
                             .foregroundColor(.Control.transparentActive)
                     }
                 }
                 Spacer()
             }
-            .fixTappableArea()
-            .onTapGesture {
-                model.onTapSpaceSettings()
-            }
         } rightView: {
-            Image(asset: .X24.spaceSettings)
-                .foregroundStyle(Color.Control.transparentActive)
-                .onTapGesture {
-                    model.onTapSpaceSettings()
-                }
+            if model.canEdit {
+                Image(asset: .X24.spaceSettings)
+                    .foregroundStyle(Color.Control.transparentActive)
+            }
+        }
+        .fixTappableArea()
+        .onTapGesture {
+            model.onTapSpaceSettings()
         }
         .task {
-            await model.startSpaceTask()
-        }
-        .task {
-            await model.startParticipantTask()
+            await model.startSubscriptions()
         }
     }
 }

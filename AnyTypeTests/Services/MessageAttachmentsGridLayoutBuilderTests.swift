@@ -3,8 +3,6 @@ import Testing
 
 struct MessageAttachmentsGridLayoutBuilderTests {
 
-    let builder = MessageAttachmentsGridLayoutBuilder()
-    
     @Test(arguments: [
         [], // 0
         [1], // 1
@@ -20,7 +18,7 @@ struct MessageAttachmentsGridLayoutBuilderTests {
     ])
     func testVariants(expectedResult: [Int]) async throws {
         let items = expectedResult.reduce(0, { $0 + $1})
-        let result = builder.makeGridRows(countItems: items)
+        let result = MessageAttachmentsGridLayoutBuilder.makeGridRows(countItems: items)
         #expect(result == expectedResult)
     }
 }

@@ -57,35 +57,53 @@ private struct HomeWidgetsInternalView: View {
     }
     
     private var content: some View {
+        ZStack {
+            if model.dataLoaded {
+                if model.widgetBlocks.isNotEmpty || !FeatureFlags.binWidgetFromLibrary {
+                    widgets
+                } else {
+                    emptyState
+                }
+            }
+        }
+    }
+    
+    private var widgets: some View {
         ScrollView {
             VStack(spacing: 12) {
-                if model.dataLoaded {
-                    if FeatureFlags.allContent {
-                        AllContentWidgetView(
-                            spaceId: model.spaceId,
-                            homeState: $model.homeState,
-                            output: model.output
-                        )
-                    }
-                    if #available(iOS 17.0, *) {
-                        WidgetSwipeTipView()
-                    }
-                    ForEach(model.widgetBlocks) { widgetInfo in
-                        HomeWidgetSubmoduleView(
-                            widgetInfo: widgetInfo,
-                            widgetObject: model.widgetObject,
-                            workspaceInfo: model.info,
-                            homeState: $model.homeState,
-                            output: model.output
-                        )
-                    }
-                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                    editButtons
+                if #available(iOS 17.0, *) {
+                    WidgetSwipeTipView()
                 }
+                ForEach(model.widgetBlocks) { widgetInfo in
+                    HomeWidgetSubmoduleView(
+                        widgetInfo: widgetInfo,
+                        widgetObject: model.widgetObject,
+                        workspaceInfo: model.info,
+                        homeState: $model.homeState,
+                        output: model.output
+                    )
+                }
+                if !FeatureFlags.binWidgetFromLibrary {
+                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
+                }
+                editButtons
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
+        }
+    }
+    
+    private var emptyState: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            Text(Loc.Widgets.List.empty)
+                .anytypeStyle(.bodyRegular)
+            StandardButton(Loc.Widgets.Actions.addWidget, style: .transparentXSmall) {
+                model.onCreateWidgetFromMainMode()
+            }
+            AnytypeNavigationSpacer()
+            Spacer()
         }
     }
     

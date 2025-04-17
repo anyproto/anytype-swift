@@ -20,9 +20,11 @@ struct ObjectSettingRow: View {
 
     private var settingButton: some View {
         HStack(spacing: 12) {
-            Image(asset: setting.imageAsset).frame(width: 24, height: 24)
+            Image(asset: setting.imageAsset)
+                .resizable().scaledToFit()
+                .frame(width: 24, height: 24)
 
-            AnytypeText(setting.title, style: .uxTitle2Medium)
+            AnytypeText(setting.title, style: .previewTitle1Regular)
                 .foregroundColor(.Text.primary)
 
             Spacer()
@@ -35,10 +37,12 @@ struct ObjectSettingRow: View {
     private var decoration: some View {
         Group {
             switch setting {
-            case .icon, .cover, .layout, .relations, .history:
-                Image(asset: .arrowForward)
+            case .icon, .cover, .relations, .history:
+                Image(asset: .RightAttribute.disclosure)
             case .description(let isVisible):
                 AnytypeText(isVisible ? Loc.hide : Loc.show, style: .previewTitle1Regular).foregroundColor(Color.Text.secondary)
+            case .resolveConflict:
+                EmptyView()
             }
         }
     }

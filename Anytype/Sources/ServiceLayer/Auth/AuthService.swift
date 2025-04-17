@@ -15,6 +15,8 @@ final class AuthService: AuthServiceProtocol, Sendable {
     private let authMiddleService: any AuthMiddleServiceProtocol = Container.shared.authMiddleService()
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
 
+    private let joinStreamUrl = FeatureFlags.joinStream ? Bundle.main.object(forInfoDictionaryKey: "JoinStreamURL") as? String ?? "" : ""
+    
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath
     }()
@@ -38,19 +40,21 @@ final class AuthService: AuthServiceProtocol, Sendable {
             imagePath: imagePath,
             iconOption: iconOption,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
+            joinStreamUrl: joinStreamUrl,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
 
         let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
         
         let analyticsId = account.info.analyticsId
-        await AnytypeAnalytics.instance().setUserId(analyticsId)
-        await AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
+        AnytypeAnalytics.instance().setUserId(analyticsId)
+        AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
         AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         userDefaults.usersId = account.id
+        userDefaults.analyticsId = account.info.analyticsId
         
         accountManager.account = account
         
@@ -64,7 +68,7 @@ final class AuthService: AuthServiceProtocol, Sendable {
 
     func accountRecover() async throws {
         try await authMiddleService.accountRecover()
-        loginStateService.setupStateAfterAuth()
+        await loginStateService.setupStateAfterAuth()
     }
     
     func selectAccount(id: String) async throws -> AccountData {
@@ -74,12 +78,13 @@ final class AuthService: AuthServiceProtocol, Sendable {
             id: id,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
+            joinStreamUrl: joinStreamUrl,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
         
         let analyticsId = account.info.analyticsId
-        await AnytypeAnalytics.instance().setUserId(analyticsId)
-        await AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
+        AnytypeAnalytics.instance().setUserId(analyticsId)
+        AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         
@@ -95,6 +100,8 @@ final class AuthService: AuthServiceProtocol, Sendable {
     
     private func setupAccountData(_ account: AccountData) async {
         userDefaults.usersId = account.id
+        userDefaults.analyticsId = account.info.analyticsId
+        
         accountManager.account = account
         await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)
     }

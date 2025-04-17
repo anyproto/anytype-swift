@@ -25,9 +25,10 @@ struct NewRelationSectionView<Content: View>: View {
                 contentViewBuilder()
             }
             
+            Spacer()
+            
             if isArrowVisible {
-                Spacer()
-                Image(asset: .arrowForward).frame(width: 10, height: 24)
+                Image(asset: .RightAttribute.disclosure)
             }
         }
         .frame(height: 68)

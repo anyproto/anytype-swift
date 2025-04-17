@@ -36,10 +36,18 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messageTextBuilder: any MessageTextBuilderProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.iconColorService)
+    private var iconColorService: any IconColorServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: any BookmarkServiceProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
     
     // MARK: - State
@@ -62,7 +70,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var sendMessageTaskInProgress: Bool = false
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
+    @Published var typesForCreateObject: [ObjectType] = []
+    @Published var participantSpaceView: ParticipantSpaceViewData?
     private var photosItems: [PhotosPickerItem] = []
+    private var linkPreviewTasks: [URL: AnyCancellable] = [:]
+    
+    // Actions
+    
+    @Published var actionModel: ChatActionPanelModel = .hidden
     
     // List
     
@@ -70,11 +85,20 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mesageBlocks: [MessageSectionData] = []
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
+    @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     
     private var messages: [FullChatMessage] = []
+    private var chatState: ChatState?
     private var participants: [Participant] = []
-    
+    private var inviteLinkShown = false
+    private var firstUnreadMessageOrderId: String?
+    private var bottomVisibleOrderId: String?
+
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    var conversationType: ConversationType {
+        participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
+    }
+    var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts
     
@@ -90,21 +114,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
     }
     
-    func onTapAddObjectToMessage() {
-        let data = BlockObjectSearchData(
-            title: Loc.linkTo,
-            spaceId: spaceId,
-            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
-            excludedLayouts: [],
-            onSelect: { [weak self] details in
-                guard let self else { return }
-                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
-                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
-                } else {
-                    showFileLimitAlert()
-                }
-            }
-        )
+    func onTapAddPageToMessage() {
+        let data = buildObjectSearcData(type: .pages)
+        output?.onLinkObjectSelected(data: data)
+    }
+    
+    func onTapAddListToMessage() {
+        let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
@@ -134,29 +150,46 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onWidgetsSelected()
     }
     
-    func subscribeOnParticipants() async {
-        for await participants in participantSubscription.participantsPublisher.values {
-            self.participants = participants
-            await updateMessages()
-        }
+    func onTapInviteLink() {
+        output?.onInviteLinkSelected()
     }
     
-    func subscribeOnPermissions() async {
-        for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
-            canEdit = canEditMessages
-        }
+    func startSubscriptions() async {
+        async let permissionsSub: () = subscribeOnPermissions()
+        async let participantsSub: () = subscribeOnParticipants()
+        async let typesSub: () = subscribeOnTypes()
+        async let messageBackgroundSub: () = subscribeOnMessageBackground()
+        async let spaceViewSub: () = subscribeOnSpaceView()
+        async let chatStateSub: () = subscribeOnChatState()
+        
+        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, chatStateSub)
     }
     
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in await chatStorage.messagesPublisher.values {
+        for await messages in chatStorage.messagesStream {
             let prevChatIsEmpty = self.messages.isEmpty
             self.messages = messages
             self.dataLoaded = true
-            await updateMessages()
-            if prevChatIsEmpty, let message = messages.last {
-                collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+            if prevChatIsEmpty {
+                firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
             }
+            await updateMessages()
+            if prevChatIsEmpty {
+                if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                } else if let message = messages.last {
+                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+                }
+            }
+        }
+    }
+
+    func subscribeOnChatState() async {
+        guard FeatureFlags.chatCounters else { return }
+        for await chatState in chatStorage.chatStateStream {
+            self.chatState = chatState
+            updateActions()
         }
     }
     
@@ -273,6 +306,38 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.didSelectLinkToObject(data: data)
     }
     
+    func onLinkAdded(link: URL) {
+        guard link.containsHttpProtocol else { return }
+        let contains = linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
+        guard !contains else { return }
+        linkedObjects.append(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
+        let task = Task { [bookmarkService, weak self] in
+            do {
+                let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
+                self?.updateLocalBookmark(linkPreview: linkPreview)
+            } catch {
+                self?.linkedObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
+            }
+            self?.linkPreviewTasks[link] = nil
+        }
+        linkPreviewTasks[link] = task.cancellable()
+    }
+    
+    func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
+        Task {
+            for item in items {
+                if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    showFileLimitAlert()
+                    return
+                }
+                
+                if let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) {
+                    linkedObjects.append(.localBinaryFile(fileData))
+                }
+            }
+        }
+    }
+    
     func onTapDeleteReply() {
         withAnimation {
             replyToMessage = nil
@@ -336,9 +401,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
     }
     
-    func visibleRangeChanged(fromId: String, toId: String) {
+    func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
+        guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
-            await chatStorage.updateVisibleRange(starMessageId: fromId, endMessageId: toId)
+            bottomVisibleOrderId = toMessage.message.orderID
+            await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
+            updateActions()
         }
     }
     
@@ -349,6 +417,41 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
         provider.wrappedValue.handler = self
+    }
+    
+    func onTapCreateObject(type: ObjectType) {
+        output?.didSelectCreateObject(type: type)
+    }
+    
+    func onTapScrollToBottom() {
+        if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
+            firstUnreadMessageOrderId > bottomVisibleOrderId,
+            bottomVisibleOrderId < chatState.messages.oldestOrderID {
+            // Scroll to unread messages if user above on it
+            Task {
+                let message = try await chatStorage.loadPagesTo(orderId: chatState.messages.oldestOrderID)
+                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            }
+        } else {
+            // Scroll to bottom if unser inside unread section
+            Task {
+                let lastMessage = try await chatStorage.markAsReadAll()
+                try await chatStorage.loadPagesTo(messageId: lastMessage.id)
+                collectionViewScrollProxy.scrollTo(itemId: lastMessage.id, position: .bottom, animated: true)
+            }
+        }
+    }
+    
+    func onTapMention() {
+        guard let chatState else { return }
+        Task {
+            let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
+            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+        }
+    }
+    
+    func onTapDismissKeyboard() {
+        inputFocused = false
     }
     
     // MARK: - MessageModuleOutput
@@ -375,6 +478,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails) {
         guard let details = data.attachmentsDetails.first(where: { $0.id == details.id }) else { return }
         didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
+    }
+    
+    func didSelectAttachment(data: MessageViewData, details: ObjectDetails) {
+        didSelectAttachment(attachment: details, attachments: [])
     }
     
     func didSelectReplyTo(message: MessageViewData) {
@@ -411,26 +518,80 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         linkedObjects = messageAttachments.map { .uploadedObject($0) }
     }
     
+    func didSelectAuthor(authorId: String) {
+        output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
+    }
+    
+    func didSelectUnread(message: MessageViewData) {
+        Task {
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
+        }
+    }
+
+    func didSelectCopyPlainText(message: MessageViewData) {
+        UIPasteboard.general.string = NSAttributedString(message.messageString).string
+    }
+    
     // MARK: - ChatActionProviderHandler
     
-    func createChatWithAttachment(_ attachment: ChatLinkObject) {
+    func addAttachment(_ attachment: ChatLinkObject, clearInput needsClearInput: Bool) {
         Task {
             let results = try await searchService.searchObjects(spaceId: attachment.spaceId, objectIds: [attachment.objectId])
             guard let first = results.first else { return }
-            clearInput()
-            linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
-            // Waiting pop transaction and open keyboard.
-            try await Task.sleep(seconds: 0.5)
-            inputFocused = true
+            if needsClearInput {
+                clearInput()
+            }
+            if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
+                linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+                // Waiting pop transaction and open keyboard.
+                try await Task.sleep(seconds: 1.0)
+                inputFocused = true
+            }
         }
     }
     
     // MARK: - Private
     
+    private func subscribeOnParticipants() async {
+        for await participants in participantSubscription.participantsPublisher.values {
+            self.participants = participants
+            await updateMessages()
+        }
+    }
+    
+    private func subscribeOnPermissions() async {
+        for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
+            canEdit = canEditMessages
+        }
+    }
+    
+    private func subscribeOnTypes() async {
+        for await _ in objectTypeProvider.syncPublisher.values {
+            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
+            let usedObjecTypesKeys = ObjectSearchWithMetaType.allCases.flatMap(\.objectTypesCreationKeys)
+            self.typesForCreateObject = objectTypesCreateInChat.filter { !usedObjecTypesKeys.contains($0.uniqueKey) }
+        }
+    }
+    
+    private func subscribeOnMessageBackground() async {
+        for await color in iconColorService.color(spaceId: spaceId) {
+            messageYourBackgroundColor = color
+        }
+    }
+    
+    private func subscribeOnSpaceView() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            self.participantSpaceView = participantSpaceView
+            handleInviteLinkShow()
+        }
+    }
+    
     private func updateMessages() async {
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
             messages: messages,
             participants: participants,
+            firstUnreadMessageOrderId: firstUnreadMessageOrderId,
             limits: chatMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }
@@ -494,32 +655,74 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
-        if FeatureFlags.fullScreenMediaFileByTap, attachment.layoutValue.isFileOrMedia {
+        if FeatureFlags.openMediaFileInPreview, attachment.resolvedLayoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = buildPreviewRemoteItemFromAttachments(reorderedAttachments)
+            let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
             let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
-            output?.onMediaFileSelected(startAtIndex: startAtIndex, items: items)
-        } else if attachment.layoutValue.isBookmark, let url = attachment.source?.url {
-            output?.onUrlSelected(url: url)
+            output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }
     }
     
-    private func buildPreviewRemoteItemFromAttachments(_ attachments: [ObjectDetails]) -> [any PreviewRemoteItem] {
-        attachments.compactMap { details in
-            guard details.layoutValue.isFileOrMedia else { return nil }
-            let fileDetails = FileDetails(objectDetails: details)
-            switch fileDetails.fileContentType {
-            case .image:
-                return ImagePreviewMedia(fileDetails: fileDetails)
-            case .file, .audio, .video, .none:
-                return FilePreviewMedia(fileDetails: fileDetails)
-            }
-        }
-    }
-    
     private func showFileLimitAlert() {
         toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
+    }
+    
+    private func buildObjectSearcData(type: ObjectSearchWithMetaType) -> ObjectSearchWithMetaModuleData {
+        ObjectSearchWithMetaModuleData(
+            spaceId: spaceId,
+            type: type,
+            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
+            onSelect: { [weak self] details in
+                guard let self else { return }
+                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                } else {
+                    showFileLimitAlert()
+                }
+            }
+        )
+    }
+    
+    private func updateLocalBookmark(linkPreview: LinkPreview) {
+        guard let index = linkedObjects.firstIndex(where: { $0.localBookmark?.url == linkPreview.url }) else { return }
+        let bookmark = ChatLocalBookmark(
+            url: linkPreview.url,
+            title: linkPreview.title,
+            description: linkPreview.description_p,
+            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .asset(.EmptyIcon.bookmark), 
+            loading: false
+        )
+        linkedObjects[index] = .localBookmark(bookmark)
+    }
+    
+    private func handleInviteLinkShow() {
+        guard !inviteLinkShown,
+              participantPermissions == .owner,
+              let createdDate = participantSpaceView?.spaceView.createdDate,
+              Date().timeIntervalSince(createdDate) < 5 else {
+            return
+        }
+        output?.onInviteLinkSelected()
+        inviteLinkShown = true
+    }
+    
+    private func updateActions() {
+        guard let chatState else { return }
+        
+        let lastIsNotVisible: Bool
+        if let lastMessage = messages.last, let bottomVisibleOrderId {
+            lastIsNotVisible = lastMessage.message.orderID > bottomVisibleOrderId
+        } else {
+            lastIsNotVisible = false
+        }
+        
+        actionModel = ChatActionPanelModel(
+            showScrollToBottom: chatState.messages.counter > 0 || lastIsNotVisible,
+            srollToBottomCounter: Int(chatState.messages.counter),
+            showMentions: chatState.mentions.counter > 0,
+            mentionsCounter: Int(chatState.mentions.counter)
+        )
     }
 }

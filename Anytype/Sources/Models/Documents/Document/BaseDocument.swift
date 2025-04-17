@@ -52,6 +52,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private var subscriptions = [AnyCancellable]()
     @Atomic
     private var parsedRelationDependedDetailsEvents = [DocumentUpdate]()
+    private var openTask: Task<Void, any Error>?
     
     // MARK: - Sync Handle
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
@@ -106,8 +107,13 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         switch mode {
         case .handling:
             guard !isOpened else { return }
-            let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
-            setupView(model)
+            if openTask.isNil {
+                openTask = Task { [weak self, objectId, spaceId, objectLifecycleService] in
+                    let model = try await objectLifecycleService.open(contextId: objectId, spaceId: spaceId)
+                    self?.setupView(model)
+                }
+            }
+            try await openTask?.value
         case .preview:
             try await updateDocumentPreview()
         case .version(let versionId):
@@ -274,22 +280,11 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         var updatesForRelations: [DocumentUpdate] = [.general, .details(id: objectId)]
         updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
+        updatesForRelations.append(.details(id: details.type))
         
         guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
-        
-        let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            keys:  details.values.map(\.key),
-            spaceId: spaceId
-        )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(ids: details.objectType.recommendedRelations, spaceId: spaceId)
-        let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
-        let newRelations = relationBuilder.parsedRelations(
-            objectRelations: objectRelationsDetails,
-            typeRelations: typeRelationsDetails,
-            objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
-            storage: detailsStorage
-        )
+
+        guard let newRelations = buildRelations(details: details) else { return [] }
         
         let dependedObjectIds = newRelations.all.flatMap(\.dependedObjects)
         parsedRelationDependedDetailsEvents = dependedObjectIds.map { .details(id: $0) }
@@ -299,6 +294,84 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         }
         
         return []
+    }
+    
+    private func buildRelations(details: ObjectDetails) -> ParsedRelations? {
+        if details.isTemplateType {
+            return buildRelationsForTemplate(details: details)
+        } else {
+            return buildRelationsForObject(details: details)
+        }
+    }
+    
+    private func buildRelationsForTemplate(details: ObjectDetails) -> ParsedRelations? {
+        guard let targetObjectType = try? objectTypeProvider.objectType(id: details.targetObjectType) else {
+            return nil
+        }
+        
+        let objectRelations = relationDetailsStorage.relationsDetails(
+            keys:  details.values.map(\.key), spaceId: spaceId
+        )
+        
+        let objectFeaturedRelations = relationDetailsStorage.relationsDetails(
+            ids:  details.featuredRelations, spaceId: spaceId
+        )
+
+        let recommendedRelations = relationDetailsStorage.relationsDetails(
+            ids: targetObjectType.recommendedRelations, spaceId: spaceId
+        )
+        
+        let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(
+            ids: targetObjectType.recommendedFeaturedRelations, spaceId: spaceId
+        )
+        
+        let recommendedHiddenRelations = relationDetailsStorage.relationsDetails(
+            ids: targetObjectType.recommendedHiddenRelations, spaceId: spaceId
+        )
+        
+        return relationBuilder.parsedRelations(
+            objectRelations: objectRelations,
+            objectFeaturedRelations: objectFeaturedRelations,
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
+            recommendedHiddenRelations: recommendedHiddenRelations,
+            objectId: objectId,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
+            storage: detailsStorage
+        )
+    }
+    
+    private func buildRelationsForObject(details: ObjectDetails) -> ParsedRelations {
+        let objectRelations = relationDetailsStorage.relationsDetails(
+            keys:  details.values.map(\.key), spaceId: spaceId
+        )
+        
+        let objectFeaturedRelations = relationDetailsStorage.relationsDetails(
+            keys: details.featuredRelations, spaceId: spaceId
+        )
+
+        let recommendedRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedRelations, spaceId: spaceId
+        )
+        
+        let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedFeaturedRelations, spaceId: spaceId
+        )
+        
+        let recommendedHiddenRelations = relationDetailsStorage.relationsDetails(
+            ids: details.objectType.recommendedHiddenRelations, spaceId: spaceId
+        )
+        
+        return relationBuilder.parsedRelations(
+            objectRelations: objectRelations,
+            objectFeaturedRelations: objectFeaturedRelations,
+            recommendedRelations: recommendedRelations,
+            recommendedFeaturedRelations: recommendedFeaturedRelations,
+            recommendedHiddenRelations: recommendedHiddenRelations,
+            objectId: objectId,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
+            storage: detailsStorage
+        )
     }
     
     private func triggerUpdatePermissions(updates: [DocumentUpdate]) -> [BaseDocumentUpdate] {

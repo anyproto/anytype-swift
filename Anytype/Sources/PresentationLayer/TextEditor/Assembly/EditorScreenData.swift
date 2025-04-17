@@ -2,18 +2,28 @@ import Services
 import Foundation
 import AnytypeCore
 
-enum EditorScreenData: Hashable, Codable {
+enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
+    // Anytype widget screens
     case favorites(homeObjectId: String, spaceId: String)
     case recentEdit(spaceId: String)
     case recentOpen(spaceId: String)
     case sets(spaceId: String)
     case collections(spaceId: String)
     case bin(spaceId: String)
+    
+    // Object
     case page(EditorPageObject)
     case list(EditorListObject)
+    case simpleSet(EditorSimpleSetObject)
+    
     case date(EditorDateObject)
-    case allContent(spaceId: String)
     case type(EditorTypeObject)
+    
+    case allObjects(spaceId: String)
+    
+    var id: Int {
+        hashValue
+    }
 }
 
 struct EditorPageObject: Hashable, Codable {
@@ -78,4 +88,20 @@ struct EditorTypeObject: Hashable, Codable, Identifiable {
     let spaceId: String
     
     var id: String { spaceId + objectId } 
+}
+
+struct EditorSimpleSetObject: Hashable, Codable {
+    let objectId: String
+    let spaceId: String
+}
+
+extension EditorScreenData {
+    var isSimpleSet: Bool {
+        switch self {
+        case .simpleSet:
+            return true
+        default:
+            return false
+        }
+    }
 }

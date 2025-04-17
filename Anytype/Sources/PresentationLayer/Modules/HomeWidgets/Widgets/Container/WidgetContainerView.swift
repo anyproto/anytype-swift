@@ -2,13 +2,6 @@ import Foundation
 import SwiftUI
 import AnytypeCore
 
-enum WidgetMenuItem: String {
-    case addBelow
-    case changeSource
-    case changeType
-    case remove
-}
-
 struct WidgetContainerView<Content: View>: View {
     
     @StateObject private var model: WidgetContainerViewModel
@@ -29,7 +22,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: ImageAsset? = nil,
         dragId: String?,
-        menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
@@ -76,6 +69,7 @@ struct WidgetContainerView<Content: View>: View {
                     onHeaderTap()
                 },
                 removeAction: removeAction(),
+                createObjectAction: onCreateObjectTap,
                 menu: {
                     menuItemsView
                 },
@@ -90,36 +84,13 @@ struct WidgetContainerView<Content: View>: View {
     
     @ViewBuilder
     private var menuItemsView: some View {
-        ForEach(menuItems, id: \.self) {
-            menuItemToView(item: $0)
-        }
-    }
-    
-    @ViewBuilder
-    private func menuItemToView(item: WidgetMenuItem) -> some View {
-        switch item {
-        case .addBelow:
-            Button(Loc.Widgets.Actions.addBelow) {
-                model.onAddBelowTap()
-            }
-        case .changeSource:
-            Button(Loc.Widgets.Actions.changeSource) {
-                model.onChangeSourceTap()
-            }
-        case .changeType:
-            Button(Loc.Widgets.Actions.changeWidgetType) {
-                model.onChangeTypeTap()
-            }
-        case .remove:
-            Button(Loc.Widgets.Actions.removeWidget, role: .destructive) {
-                // Fix animation glitch.
-                // We should to finalize context menu transition to list and then delete object
-                // If we find how customize context menu transition, this 🩼 can be deleted
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    model.onDeleteWidgetTap()
-                }
-            }
-        }
+        WidgetCommonActionsMenuView(
+            items: menuItems,
+            widgetBlockId: model.widgetBlockId,
+            widgetObject: model.widgetObject,
+            homeState: model.homeState,
+            output: model.output
+        )
     }
             
     private func removeAction() -> (() -> Void)? {

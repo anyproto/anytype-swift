@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
+
 
 @MainActor
 final class LinkWidgetViewModel: ObservableObject {
@@ -28,7 +30,11 @@ final class LinkWidgetViewModel: ObservableObject {
     
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: linkedObjectDetails.analyticsType))
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logClickWidgetTitle(
+            source: .object(type: linkedObjectDetails.analyticsType),
+            createType: info.widgetCreateType
+        )
         output?.onObjectSelected(screenData: linkedObjectDetails.screenData())
     }
     
@@ -40,7 +46,7 @@ final class LinkWidgetViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details
-                self?.name = details.title
+                self?.name = FeatureFlags.pluralNames ? details.pluralTitle : details.title
             }
             .store(in: &subscriptions)
     }

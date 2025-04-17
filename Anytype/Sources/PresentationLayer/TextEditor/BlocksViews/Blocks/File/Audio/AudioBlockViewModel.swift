@@ -31,7 +31,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     var currentTimeInSeconds: Double = 0.0
     weak var audioPlayerView: (any AudioPlayerViewInput)?
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     lazy var document: any BaseDocumentProtocol = {
@@ -93,6 +93,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
                 file: fileData,
                 trackId: info.id,
                 documentId: documentId,
+                spaceId: spaceId,
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),

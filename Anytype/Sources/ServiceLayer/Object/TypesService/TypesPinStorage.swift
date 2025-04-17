@@ -11,7 +11,7 @@ protocol TypesPinStorageProtocol: Sendable {
 final class TypesPinStorage: TypesPinStorageProtocol, Sendable {
     
     private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
-    private let storage = UserDefaultStorage<[String: [ObjectType]]>(key: "widgetCollapsedIds", defaultValue: [:])
+    private let storage = UserDefaultStorage<[String: [ObjectType]]>(key: "pinnedTypes", defaultValue: [:])
     
     func getPins(spaceId: String) throws -> [ObjectType] {
         if let pins = storage.value[spaceId] {
@@ -19,10 +19,9 @@ final class TypesPinStorage: TypesPinStorageProtocol, Sendable {
                 .filter { !$0.isArchived }
                 .filter { !$0.isDeleted }
                 .filter { $0.canCreateObjectOfThisType }
-                .map { $0.id }
             
-            return pins.filter {
-                objectTypeIds.contains($0.id)
+            return objectTypeIds.filter {
+                pins.map(\.id).contains($0.id)
             }
         }
         

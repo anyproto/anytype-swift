@@ -16,7 +16,7 @@ enum StoreKitServiceError: String, LocalizedError {
     }
 }
 
-public struct StoreKitPurchaseSuccess {
+public struct StoreKitPurchaseSuccess: Sendable {
     let middlewareValidationError: (any Error)?
     
     static let noError = StoreKitPurchaseSuccess(middlewareValidationError: nil)
@@ -35,6 +35,8 @@ public protocol StoreKitServiceProtocol: Sendable {
     
     func startListenForTransactions() async
     func stopListenForTransactions() async
+    
+    func activatePromoTier() async
 }
 
 actor StoreKitService: StoreKitServiceProtocol {
@@ -129,6 +131,21 @@ actor StoreKitService: StoreKitServiceProtocol {
             fatalError()
         }
     }
+    
+    // Temporary promo tiers for AnyApp
+    func activatePromoTier() async {
+        guard let promoReceipt = PromoTierJWTGenerator().promoTierReceiptString(account: accountManager.account) else {
+            return
+        }
+        
+        do {
+            try await membershipService.verifyReceipt(receipt: promoReceipt)
+        } catch let error {
+            anytypeAssertionFailure(error.localizedDescription)
+        }
+    }
+    
+    // MARK: - Private
     
     private func checkVerified<T>(_ verificationResult: VerificationResult<T>) throws -> T {
         switch verificationResult {

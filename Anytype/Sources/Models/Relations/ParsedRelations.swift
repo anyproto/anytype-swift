@@ -1,27 +1,35 @@
 import AnytypeCore
 import Services
 
-struct ParsedRelations: Equatable {
+struct ParsedRelations: Equatable, Sendable {
     
     let featuredRelations: [Relation]
+    let sidebarRelations: [Relation]
+    let hiddenRelations: [Relation]
+    let conflictedRelations: [Relation]
     let deletedRelations: [Relation]
-    let typeRelations: [Relation]
-    let otherRelations: [Relation]
+    let systemRelations: [Relation]
+    let legacyFeaturedRelations: [Relation]
     
-    var installed: [Relation] { featuredRelations + otherRelations + typeRelations }
-    var installedInObject: [Relation] { featuredRelations + otherRelations }
-    var all: [Relation] { featuredRelations + deletedRelations + otherRelations + typeRelations }
+    var installed: [Relation] { featuredRelations + sidebarRelations + conflictedRelations + hiddenRelations + legacyFeaturedRelations }
+    var all: [Relation] { installed + deletedRelations }
     
     init(
         featuredRelations: [Relation],
+        sidebarRelations: [Relation],
+        hiddenRelations: [Relation],
+        conflictedRelations: [Relation],
         deletedRelations: [Relation],
-        typeRelations: [Relation],
-        otherRelations: [Relation]
+        systemRelations: [Relation],
+        legacyFeaturedRelations: [Relation]
     ){
         self.featuredRelations = featuredRelations
+        self.sidebarRelations = sidebarRelations
+        self.hiddenRelations = hiddenRelations
+        self.conflictedRelations = conflictedRelations
         self.deletedRelations = deletedRelations
-        self.typeRelations = typeRelations
-        self.otherRelations = otherRelations
+        self.systemRelations = systemRelations
+        self.legacyFeaturedRelations = legacyFeaturedRelations
     }
 }
 
@@ -29,9 +37,12 @@ extension ParsedRelations {
     
     static let empty = ParsedRelations(
         featuredRelations: [],
+        sidebarRelations: [],
+        hiddenRelations: [],
+        conflictedRelations: [],
         deletedRelations: [],
-        typeRelations: [],
-        otherRelations: []
+        systemRelations: [],
+        legacyFeaturedRelations: []
     )
     
 }

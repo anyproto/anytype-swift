@@ -12,6 +12,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
     @Published var showPasteButton = false
+    @Published var newTypeInfo: ObjectTypeInfo?
     @Published var toastData: ToastBarData = .empty
     @Published var participantCanEdit = false
     
@@ -139,7 +140,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 let newTypeDetails = try await workspaceService.installObject(spaceId: spaceId, objectId: type.id)
                 let newType = ObjectType(details: newTypeDetails)
                 
-                toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.name), showSnackBar: true)
+                toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.displayName), showSnackBar: true)
                 
                 onSelect(.objectType(type: newType))
             } else {
@@ -163,8 +164,16 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func createType(name: String) {
+        if FeatureFlags.pluralNames {
+            newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil)
+        } else {
+            onCreateTypeSubmit(info: ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil))
+        }
+    }
+
+    func onCreateTypeSubmit(info: ObjectTypeInfo) {
         Task {
-            let type = try await typesService.createType(name: name, spaceId: spaceId)
+            let type = try await typesService.createType(name: info.singularName, pluralName: info.pluralName, icon: info.icon, color: info.color, spaceId: spaceId)
             onSelect(.objectType(type: type))
         }
     }

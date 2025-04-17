@@ -6,6 +6,7 @@ enum Icon: Hashable, Equatable {
     case object(ObjectIcon)
     case asset(ImageAsset)
     case image(UIImage)
+    case url(URL)
 }
 
 extension ObjectIcon {
@@ -19,7 +20,7 @@ extension Icon {
         switch self {
         case .object(let icon):
             return icon.imageId
-        case .asset(_), .image(_):
+        case .asset, .image, .url:
             return nil
         }
     }

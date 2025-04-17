@@ -5,7 +5,7 @@ import AnytypeCore
 extension UIFont {
 
     var bold: UIFont {
-        guard !fontDescriptor.symbolicTraits.contains(.traitBold) else { return self }
+        guard !isBold else { return self }
 
         switch self {
         case .bodyRegular, .bodyRegular.italic:
@@ -14,13 +14,17 @@ extension UIFont {
             return applyWeight(.bold)
         }
     }
+    
+    var isBold: Bool {
+        fontDescriptor.symbolicTraits.contains(.traitBold)
+    }
 
     var regular: UIFont {
         return applyWeight(.regular)
     }
 
     var italic: UIFont {
-        guard !fontDescriptor.symbolicTraits.contains(.traitItalic) else { return self }
+        guard !isItalic else { return self }
 
         switch self {
         case .bodyRegular.bold:
@@ -33,7 +37,7 @@ extension UIFont {
     }
 
     var nonItalic: UIFont {
-        guard fontDescriptor.symbolicTraits.contains(.traitItalic) else { return self }
+        guard isItalic else { return self }
 
         switch self {
         case .bodyRegular.bold.italic:
@@ -43,6 +47,10 @@ extension UIFont {
         default:
             return setItalic(enabled: false, .regular)
         }
+    }
+    
+    var isItalic: Bool {
+        fontDescriptor.symbolicTraits.contains(.traitItalic)
     }
 
     private func applyWeight(_ weight: UIFont.Weight) -> UIFont {

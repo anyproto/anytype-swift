@@ -15,9 +15,10 @@ public extension BundledRelationKey {
     
     static var iconKeys: [BundledRelationKey] {
         return .builder {
-            BundledRelationKey.layout
+            BundledRelationKey.resolvedLayout
             BundledRelationKey.iconImage
             BundledRelationKey.iconEmoji
+            BundledRelationKey.iconName
             BundledRelationKey.titleKeys
             BundledRelationKey.iconOption
         }.uniqued()
@@ -26,11 +27,12 @@ public extension BundledRelationKey {
     static var objectIconImageKeys: [BundledRelationKey] {
         return .builder {
             BundledRelationKey.isDeleted
-            BundledRelationKey.layout
+            BundledRelationKey.resolvedLayout
             BundledRelationKey.done
             BundledRelationKey.iconKeys
             BundledRelationKey.fileMimeType
             BundledRelationKey.name
+            BundledRelationKey.pluralName
         }.uniqued()
     }
     
@@ -40,6 +42,7 @@ public extension BundledRelationKey {
             BundledRelationKey.titleKeys
             BundledRelationKey.iconImage
             BundledRelationKey.iconEmoji
+            BundledRelationKey.iconName
             BundledRelationKey.iconOption
             BundledRelationKey.coverId
             BundledRelationKey.coverType
@@ -64,6 +67,10 @@ public extension BundledRelationKey {
             // Complex keys
             BundledRelationKey.objectIconImageKeys
             BundledRelationKey.titleKeys
+            // Open bookmark in whole app
+            BundledRelationKey.source
+            // Open Chat
+            BundledRelationKey.chatId
         }.uniqued()
     }
 }

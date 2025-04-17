@@ -4,52 +4,87 @@ storage_mode("git")
 
 username(ENV["APPLE_ID"]) # Your Apple Developer Portal username
 
-for_lane :dev do
+
+APP_ID_ALL_DEVELOP ||= [
+    ENV["APP_ID_DEVELOP"],
+    ENV["APP_SHARE_EXTENSION_ID_DEVELOP"],
+    ENV["APP_WIDGET_ID_DEVELOP"],
+    ENV["APP_NOTIFICATION_EXTENSION_ID_DEVELOP"]
+]
+APP_ID_ALL_RELEASE_ANYTYPE ||= [
+    ENV["APP_ID_RELEASE_ANYTYPE"],
+    ENV["APP_WIDGET_ID_RELEASE_ANYTYPE"],
+    ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYTYPE"],
+    ENV["APP_NOTIFICATION_EXTENSION_ID_RELEASE_ANYTYPE"]
+]
+APP_ID_ALL_RELEASE_ANYAPP ||= [
+    ENV["APP_ID_RELEASE_ANYAPP"],
+    ENV["APP_WIDGET_ID_RELEASE_ANYAPP"], 
+    ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYAPP"],
+    ENV["APP_NOTIFICATION_EXTENSION_ID_RELEASE_ANYAPP"]
+]
+
+for_lane :release_dev do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP) 
 end
 
-for_lane :release do
+for_lane :release_anytype do
 	type("appstore")
-	app_identifier([ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
+	app_identifier(APP_ID_ALL_RELEASE_ANYTYPE) 
+end
+
+for_lane :release_anyapp do
+	type("appstore")
+	app_identifier(APP_ID_ALL_RELEASE_ANYAPP) 
 end
 
 for_lane :test_build do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP) 
 end
 
 for_lane :branch_build do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP) 
 end
 
 for_lane :generate_dev_profiles do
 	type('development')
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]])
+	app_identifier(APP_ID_ALL_DEVELOP)
 end
 
 for_lane :install_dev_profiles do
 	type("development")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP) 
 end
 
-for_lane :generate_appstore_profiles do
+for_lane :generate_appstore_profiles_for_nightly do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP) 
+end
+
+for_lane :generate_appstore_profiles_for_anytype do
+	type("appstore")
+	app_identifier(APP_ID_ALL_RELEASE_ANYTYPE) 
+end
+
+for_lane :generate_appstore_profiles_for_anyapp do
+	type("appstore")
+	app_identifier(APP_ID_ALL_RELEASE_ANYAPP) 
 end
 
 for_lane :install_appstore_profiles do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE + APP_ID_ALL_RELEASE_ANYAPP) 
 end
 
 for_lane :delete_dev_certs do
 	type("development")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]])
+	app_identifier(APP_ID_ALL_DEVELOP)
 end
 
 for_lane :delete_appstore_certs do
 	type("appstore")
-	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
+	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE + APP_ID_ALL_RELEASE_ANYAPP) 
 end

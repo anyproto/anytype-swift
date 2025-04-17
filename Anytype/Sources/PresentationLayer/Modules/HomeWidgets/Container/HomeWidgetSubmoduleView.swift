@@ -23,6 +23,12 @@ struct HomeWidgetSubmoduleView: View {
     @ViewBuilder
     private func viewForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId) -> some View {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
+        case (.allObjects, _):
+            if FeatureFlags.allObjectsFromLibrary {
+                AllObjectsWidgetView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case (.favorite, .tree):
             FavoriteTreeWidgetsubmoduleView(data: widgetData)
         case (.favorite, .list):
@@ -42,17 +48,47 @@ struct HomeWidgetSubmoduleView: View {
         case (.recentOpen, .compactList):
             RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
         case (.sets, .tree):
-            SetsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                SetsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.sets, .list):
-            SetsListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                SetsListWidgetSubmoduleView(data: widgetData)
+            }
         case (.sets, .compactList):
-            SetsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                SetsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.collections, .tree):
-            CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            }
         case (.collections, .list):
-            CollectionsListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                CollectionsListWidgetSubmoduleView(data: widgetData)
+            }
         case (.collections, .compactList):
-            CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.objectTypeWidgets {
+                EmptyView()
+            } else {
+                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            }
+        case (.bin, _):
+            if FeatureFlags.binWidgetFromLibrary {
+                BinWidgetView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }
@@ -60,18 +96,17 @@ struct HomeWidgetSubmoduleView: View {
         
     @ViewBuilder
     private func viewForObject(_ objectDetails: ObjectDetails) -> some View {
-        if objectDetails.isNotDeletedAndVisibleForEdit {
+        if objectDetails.isNotDeletedAndArchived {
             switch (widgetInfo.fixedLayout, objectDetails.editorViewType) {
-            case (.link, .page),
-                (.link, .list):
+            case (.link, .page), (.link, .list), (.link, .type):
                 LinkWidgetView(data: widgetData)
             case (.tree, .page):
                 ObjectTreeWidgetSubmoduleView(data: widgetData)
-            case (.view, .list):
+            case (.view, .list), (.view, .type):
                 SetObjectViewWidgetSubmoduleView(data: widgetData)
-            case (.list, .list):
+            case (.list, .list), (.list, .type):
                 SetObjectListWidgetSubmoduleView(data: widgetData)
-            case (.compactList, .list):
+            case (.compactList, .list), (.compactList, .type):
                 SetObjectCompactListWidgetSubmoduleView(data: widgetData)
             default:
                 // Fallback

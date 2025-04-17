@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+
 
 @MainActor
 protocol SetRelationsCoordinatorOutput: AnyObject {
@@ -24,11 +26,18 @@ final class SetRelationsCoordinatorViewModel:
     // MARK: - EditorSetRelationsCoordinatorOutput
 
     func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        
+        // In case we are working with set in object type we have to update relations of this type as well
+        var typeDetails: ObjectDetails? = nil
+        if let details = setDocument.details, FeatureFlags.openTypeAsSet && details.isObjectType {
+            typeDetails = details
+        }
+        
         relationsSearchData = RelationsSearchData(
             objectId: setDocument.objectId,
             spaceId: setDocument.spaceId,
             excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),
-            target: .dataview(activeViewId: setDocument.activeView.id), 
+            target: .dataview(activeViewId: setDocument.activeView.id, typeDetails: typeDetails),
             onRelationSelect: { [weak self] relationDetails, isNew in
                 guard let self else { return }
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(

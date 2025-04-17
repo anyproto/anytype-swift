@@ -10,11 +10,15 @@ struct SetHeaderSettingsView: View {
             HStack(alignment: .center, spacing: 0) {
                 viewButton
                 Spacer()
+                if FeatureFlags.aiToolInSet {
+                    aiButton
+                    Spacer.fixedWidth(16)
+                }
                 settingButton
                 
                 if !model.isActiveHeader || model.isActiveCreateButton {
                     Spacer.fixedWidth(16)
-                    createView
+                    compositeCreateButtons
                 }
             }
             .padding(.horizontal, 20)
@@ -27,9 +31,15 @@ struct SetHeaderSettingsView: View {
         }
     }
     
-    @ViewBuilder
-    private var createView: some View {
-        compositeCreateButtons
+    private var aiButton: some View {
+        Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onAITap()
+        }) {
+            Image(asset: .X24.ai)
+                .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
+        }
+        .disabled(!model.isActiveHeader)
     }
     
     private var settingButton: some View {
@@ -75,7 +85,7 @@ struct SetHeaderSettingsView: View {
         }) {
             HStack(alignment: .center, spacing: 0) {
                 AnytypeText(
-                    model.viewName.isNotEmpty ? model.viewName : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled,
+                    model.viewName.isNotEmpty ? model.viewName : Loc.untitled,
                     style: .subheading
                 )
                 .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
@@ -94,6 +104,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
             model: SetHeaderSettingsViewModel(
                 setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
                 onViewTap: {},
+                onAITap: {},
                 onSettingsTap: {},
                 onCreateTap:{},
                 onSecondaryCreateTap: {}

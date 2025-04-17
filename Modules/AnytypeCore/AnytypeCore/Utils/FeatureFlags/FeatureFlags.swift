@@ -1,4 +1,5 @@
 import Foundation
+import AppTarget
 
 public final class FeatureFlags {
     
@@ -9,7 +10,18 @@ public final class FeatureFlags {
     }
     
     public static func value(for feature: FeatureDescription) -> Bool {
-        let defaultValue = CoreEnvironment.isDebug ? feature.debugValue : feature.defaultValue
+        
+        let defaultValue: Bool
+        
+        switch CoreEnvironment.targetType {
+        case .debug:
+            defaultValue = feature.debugValue
+        case .releaseAnyApp:
+            defaultValue = feature.releaseAnyAppValue
+        case .releaseAnytype:
+            defaultValue = feature.releaseAnytypeValue
+        }
+        
         return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }

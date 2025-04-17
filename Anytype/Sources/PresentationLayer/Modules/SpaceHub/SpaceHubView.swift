@@ -7,23 +7,23 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(sceneId: String) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId))
+    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId, output: output))
     }
     
     var body: some View {
         content
             .onAppear { model.onAppear() }
             .task { await model.startSubscriptions() }
-        
-            .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(sceneId: model.sceneId, output: model)
-            }
+            
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
             }
             .anytypeSheet(item: $model.spaceIdToLeave) {
                 SpaceLeaveAlert(spaceId: $0.value)
+            }
+            .anytypeSheet(item: $model.spaceIdToDelete) {
+                SpaceDeleteAlert(spaceId: $0.value)
             }
             .homeBottomPanelHidden(true)
     }
@@ -37,6 +37,12 @@ struct SpaceHubView: View {
                 VStack(spacing: 8) {
                     ScrollView {
                         Spacer.fixedHeight(4)
+                        if #available(iOS 17.0, *) {
+                            if FeatureFlags.anyAppBetaTip {
+                                HomeAnyAppWidgetTipView()
+                                    .padding(.horizontal, 8)
+                            }
+                        }
                         ForEach(spaces) {
                             spaceCard($0)
                         }
@@ -57,7 +63,7 @@ struct SpaceHubView: View {
     
     private var plusButton: some View {
         Button {
-            model.showSpaceCreate.toggle()
+            model.onTapCreateSpace()
         } label: {
             HStack(alignment: .center) {
                 Spacer()
@@ -74,7 +80,7 @@ struct SpaceHubView: View {
     private var navBar: some View {
         HStack(alignment: .center, spacing: 0) {
             Spacer()
-            AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
+            AnytypeText(FeatureFlags.spaceHubNewTitle ? Loc.myChannels : Loc.mySpaces, style: .uxTitle1Semibold)
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -97,7 +103,7 @@ struct SpaceHubView: View {
             $0.overlay(alignment: .trailing) {
                 Button(
                     action: {
-                        model.showSpaceCreate = true
+                        model.onTapCreateSpace()
                     },
                     label: {
                         Image(asset: .X32.plus)
@@ -136,14 +142,24 @@ struct SpaceHubView: View {
                 .frame(width: 64, height: 64)
             VStack(alignment: .leading, spacing: 6) {
                 AnytypeText(space.spaceView.name.withPlaceholder, style: .bodySemibold).lineLimit(1)
-                AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
-                    .lineLimit(1)
-                    .opacity(0.6)
+                if FeatureFlags.spaceUxTypes {
+                    AnytypeText(space.spaceView.uxType.name, style: .relation3Regular)
+                        .lineLimit(1)
+                        .opacity(0.6)
+                } else {
+                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
+                        .lineLimit(1)
+                        .opacity(0.6)
+                }
                 Spacer.fixedHeight(1)
             }
+            
             Spacer()
+            
             if space.spaceView.isLoading && FeatureFlags.newSpacesLoading {
                 DotsView().frame(width: 30, height: 6)
+            } else if space.spaceView.unreadMessagesCount > 0 {
+                CounterView(count: space.spaceView.unreadMessagesCount)
             } else if space.spaceView.isPinned {
                 Image(asset: .X24.pin).frame(width: 22, height: 22)
             }
@@ -209,5 +225,5 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView(sceneId: "1337")
+    SpaceHubView(sceneId: "1337", output: nil)
 }

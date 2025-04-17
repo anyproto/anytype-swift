@@ -14,7 +14,6 @@ enum ObjectSettingsAction {
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
     func undoRedoAction(objectId: String)
-    func layoutPickerAction(document: some BaseDocumentProtocol)
     func relationsAction(document: some BaseDocumentProtocol)
     func showVersionHistory(document: some BaseDocumentProtocol)
     func openPageAction(screenData: ScreenData)
@@ -28,13 +27,16 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 @MainActor
 final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
+    @Injected(\.objectSettingsBuilder)
+    private var settingsBuilder: any ObjectSettingsBuilderProtocol
+    @Injected(\.objectSettingsConflictManager)
+    private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
     
     private weak var output: (any ObjectSettingsModelOutput)?
-    private let settingsBuilder = ObjectSettingBuilder()
     
     private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
@@ -43,6 +45,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     let objectId: String
     let spaceId: String
     @Published var settings: [ObjectSetting] = []
+    @Published var showConflictAlert = false
     
     init(
         objectId: String,
@@ -65,10 +68,6 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         }
     }
     
-    func onTapLayoutPicker() {
-        output?.layoutPickerAction(document: document)
-    }
-    
     func onTapIconPicker() {
         output?.showIconPicker(document: document)
     }
@@ -88,11 +87,18 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     func onTapDescription() async throws {
         guard let details = document.details else { return }
         
-        if details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue }) {
-            try await relationsService.removeRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
-        } else {
-            try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: BundledRelationKey.description.rawValue)
-        }
+        let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue })
+        try await relationsService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
+    }
+    
+    func onTapResolveConflict() {
+        showConflictAlert.toggle()
+    }
+    
+    func onTapResolveConflictApprove() async throws {
+        guard let details = document.details else { return }
+        try await conflictManager.resolveConflicts(details: details)
+        AnytypeAnalytics.instance().logResetToTypeDefault()
     }
     
     // MARK: - ObjectActionsOutput

@@ -9,16 +9,18 @@ public class SearchHelper {
         relation: BundledRelationKey,
         type: DataviewSort.TypeEnum,
         noCollate: Bool = false,
+        includeTime: Bool = false,
         emptyPlacement: EmptyPlacement? = nil
     ) -> DataviewSort {
-        sort(relationKey: relation.rawValue, type: type, noCollate: noCollate, emptyPlacement: emptyPlacement)
+        sort(relationKey: relation.rawValue, type: type, noCollate: noCollate, includeTime: includeTime, emptyPlacement: emptyPlacement)
     }
     
-    public static func sort(relationKey: String, type: DataviewSort.TypeEnum, noCollate: Bool = false, emptyPlacement: EmptyPlacement? = nil) -> DataviewSort {
+    public static func sort(relationKey: String, type: DataviewSort.TypeEnum, noCollate: Bool = false, includeTime: Bool = false, emptyPlacement: EmptyPlacement? = nil) -> DataviewSort {
         var sort = DataviewSort()
         sort.relationKey = relationKey
         sort.type = type
         sort.noCollate = noCollate // https://linear.app/anytype/issue/IOS-3813/add-nocollate-parameter-to-sort-model-for-spaceorder
+        sort.includeTime = includeTime
         if let emptyPlacement { sort.emptyPlacement = emptyPlacement }
          
         return sort
@@ -99,7 +101,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.relationKey = BundledRelationKey.resolvedLayout.rawValue
         
         return filter
     }
@@ -126,7 +128,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.relationKey = BundledRelationKey.resolvedLayout.rawValue
         
         return filter
     }
@@ -262,6 +264,15 @@ public class SearchHelper {
         return filter
     }
     
+    public static func filterOutTypeType() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.relationKey = "\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.objectType.value.protobufValue
+
+        return filter
+    }
+    
     public static func isHiddenDiscovery(_ isHidden: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = isHidden ? .equal : .notEqual
@@ -278,6 +289,7 @@ public class SearchHelper {
             if hideHiddenDescoveryFiles { SearchHelper.isHiddenDiscovery(false) }
             SearchHelper.isDeletedFilter(isDeleted: false)
             SearchHelper.isArchivedFilter(isArchived: isArchive)
+            SearchHelper.filterOutTypeType()
         }
     }
     

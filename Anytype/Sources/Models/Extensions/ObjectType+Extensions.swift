@@ -3,10 +3,15 @@ import Services
 
 extension ObjectType {
     
+    var displayName: String {
+        name.isNotEmpty ? name : Loc.untitled
+    }
+    
     public static let emptyType: ObjectType = ObjectType(
         id: "",
         name: "",
-        iconEmoji: nil,
+        pluralName: "",
+        icon: .defaultObjectIcon,
         description: "",
         hidden: false,
         readonly: false,
@@ -17,8 +22,14 @@ extension ObjectType {
         uniqueKey: .empty,
         defaultTemplateId: "",
         canCreateObjectOfThisType: true,
+        isDeletable: false,
+        layoutAlign: .justify,
+        layoutWidth: nil,
         recommendedRelations: [],
-        recommendedLayout: nil
+        recommendedFeaturedRelations: [],
+        recommendedHiddenRelations: [],
+        recommendedLayout: nil,
+        lastUsedDate: .distantPast
     )
     
     var setIsTemplatesAvailable: Bool {
@@ -28,5 +39,29 @@ extension ObjectType {
         
         return recommendedLayout.isEditorLayout
     }
+    
+    var canCreateInChat: Bool {
+        // Template is basic layout
+        if isTemplateType {
+            return false
+        }
+        
+        guard let recommendedLayout else { return false }
+        
+        return recommendedLayout.isEditorLayout || recommendedLayout.isSet
+    }
+    
+    // Properties
+    var recommendedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+    }
+    var recommendedFeaturedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+    }
+
+    var recommendedHiddenRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
+    }
+    
 }
 

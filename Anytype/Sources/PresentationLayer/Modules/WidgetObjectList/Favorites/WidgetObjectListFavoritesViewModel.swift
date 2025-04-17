@@ -15,7 +15,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     
     // MARK: - State
     
@@ -72,6 +72,6 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
-        return details.objectType.name
+        return details.objectType.displayName
     }
 }

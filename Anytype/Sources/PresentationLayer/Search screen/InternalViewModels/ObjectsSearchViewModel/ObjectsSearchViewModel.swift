@@ -121,11 +121,11 @@ private extension LegacySearchViewModel.SelectionMode {
 private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
-        let title = details.title
+        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title
-        self.subtitle = details.objectType.name
+        self.subtitle = details.objectType.displayName
         self.style = .default
         self.isChecked = false
     }

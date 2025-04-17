@@ -6,9 +6,8 @@ import Services
 final class ObjectTypeObjectsListViewModel: ObservableObject {
     @Published var rows = [WidgetObjectListRowModel]()
     @Published var numberOfObjectsLeft = 0
-    @Published var sort = AllContentSort(relation: .dateUpdated)
-    
-    var isEditorLayout: Bool { document.details?.recommendedLayoutValue?.isEditorLayout ?? false }
+    @Published var sort = ObjectSort(relation: .dateUpdated)
+    @Published var canCreateOjbect = false
     
     @Published private var detailsOfSet: ObjectDetails?
     var setButtonText: String { detailsOfSet.isNotNil ? Loc.openSet : Loc.createSet }
@@ -34,10 +33,30 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
         for await state in publisher.values {
             rows = state.items.map { details in
                 WidgetObjectListRowModel(details: details, canArchive: false) { [weak self] in
-                    self?.output?.onOpenObjectTap(objectId: details.id)
+                    self?.output?.onOpenObjectTap(details: details)
                 }
             }
             numberOfObjectsLeft = state.nextCount
+        }
+    }
+    
+    func startSubscriptions() async {
+        async let setSub: () = startSetSubscription()
+        async let detailsSub: () = startDetailsSubscription()
+        
+        (_, _) = await (setSub, detailsSub)
+    }
+    
+    func startDetailsSubscription() async {
+        for await details in document.detailsPublisher.values {
+            guard let layout = details.recommendedLayoutValue else {
+                canCreateOjbect = false
+                return
+            }
+
+            let isSupportedLayout = layout.isEditorLayout || layout.isList
+            let isTemplate = details.isTemplateType
+            canCreateOjbect = isSupportedLayout && !isTemplate
         }
     }
     
@@ -81,6 +100,9 @@ final class ObjectTypeObjectsListViewModel: ObservableObject {
             setOfObjectType: document.objectId,
             spaceId: document.spaceId
         )
+        
+        AnytypeAnalytics.instance().logCreateObject(objectTypeId: "_otset", spaceId: document.spaceId, route: .type)
+        
         output?.onOpenSetTap(objectId: detailsOfSet.id)
     }
 }

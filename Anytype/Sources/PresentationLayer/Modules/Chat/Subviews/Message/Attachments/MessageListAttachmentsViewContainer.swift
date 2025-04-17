@@ -5,6 +5,7 @@ import Services
 struct MessageListAttachmentsViewContainer: View {
 
     let objects: [MessageAttachmentDetails]
+    let position: MessageHorizontalPosition
     let onTapObject: (MessageAttachmentDetails) -> Void
     
     var body: some View {
@@ -25,11 +26,11 @@ struct MessageListAttachmentsViewContainer: View {
     
     @ViewBuilder
     private func content(for details: MessageAttachmentDetails) -> some View {
-        switch details.layoutValue {
+        switch details.resolvedLayoutValue {
         case .bookmark:
-            MessageObjectBookmarkView(details: details)
+            MessageBookmarkView(details: details, position: position)
         default:
-            MessageObjectAttachmentView(details: details)
+            MessageAttachmentView(details: details, position: position)
         }
     }
 }

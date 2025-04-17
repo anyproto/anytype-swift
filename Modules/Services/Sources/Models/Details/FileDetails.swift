@@ -17,7 +17,7 @@ public struct FileDetails: Sendable {
         self.id = objectDetails.id
         self.sizeInBytes = objectDetails.sizeInBytes ?? 0
         self.fileMimeType = objectDetails.fileMimeType
-        self.fileContentType = objectDetails.layoutValue.fileContentType
+        self.fileContentType = objectDetails.resolvedLayoutValue.fileContentType
         self.type = objectDetails.type
         self.spaceId = objectDetails.spaceId
     }

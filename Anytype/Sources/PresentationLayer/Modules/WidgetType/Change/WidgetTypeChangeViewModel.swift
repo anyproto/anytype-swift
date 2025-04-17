@@ -7,7 +7,7 @@ final class WidgetTypeChangeViewModel: ObservableObject {
     
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     private let data: WidgetTypeChangeData

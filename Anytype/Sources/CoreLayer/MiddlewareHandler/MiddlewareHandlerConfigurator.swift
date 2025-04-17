@@ -10,7 +10,7 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     func configure() {
         InvocationSettings.handler = invocationHandler
         
-        #if DEBUG
+        #if DEBUG || RELEASE_NIGHTLY
             enableRemoteLogger()
         #else
             disableRemoteLogger()
@@ -19,7 +19,9 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     
     private func enableRemoteLogger() {
         invocationHandler.enableLogger = true
-        EventLogger.setupLgger()
+        if FeatureFlags.networkHTTPSRequestsLogger {
+            EventLogger.setupLgger()
+        }
     }
     
     private func disableRemoteLogger() {

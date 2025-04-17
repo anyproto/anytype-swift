@@ -1,4 +1,6 @@
 import Services
+import AnytypeCore
+
 
 struct BlockLinkState: Hashable, Equatable {
     let title: String
@@ -29,16 +31,18 @@ struct BlockLinkState: Hashable, Equatable {
             description = ""
         }
 
-        let documentCover = (details.layoutValue != .note && blockLink.appearance.relations.contains(.cover)) ?
+        let documentCover = (details.resolvedLayoutValue != .note && blockLink.appearance.relations.contains(.cover)) ?
         details.documentCover : nil
 
         var iconSize = blockLink.appearance.iconSize
-        if details.layoutValue == .todo {
+        if details.resolvedLayoutValue == .todo {
             iconSize = .small
         }
 
+        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        
         self.init(
-            title: details.title.trimmed(numberOfCharacters: Constants.maxTitleLength),
+            title: title.trimmed(numberOfCharacters: Constants.maxTitleLength),
             cardStyle: blockLink.appearance.cardStyle,
             description: description,
             icon: details.objectIconImage,
@@ -49,7 +53,7 @@ struct BlockLinkState: Hashable, Equatable {
             iconSize: iconSize,
             descriptionState: blockLink.appearance.description,
             documentCover: documentCover,
-            objectLayout: details.layoutValue,
+            objectLayout: details.resolvedLayoutValue,
             screenData: details.screenData()
         )
     }

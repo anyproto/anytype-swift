@@ -1,0 +1,75 @@
+import UIKit
+{% set accessModifier %}{% if param.publicAccess %}public{% else %}internal{% endif %}{% endset %}
+
+{{accessModifier}} struct ColorInfo: Hashable, Sendable {
+    {{accessModifier}} let name: String
+    {{accessModifier}} let color: UIColor
+}
+
+{{accessModifier}} struct ColorCollectionInfo: Hashable, Sendable {
+    {{accessModifier}} let name: String
+    {{accessModifier}} let colors: [ColorInfo]
+}
+
+{{accessModifier}} struct ColorAssetInfo: Hashable, Sendable {
+    {{accessModifier}} let name: String
+    {{accessModifier}} let collections: [ColorCollectionInfo]
+}
+
+{% macro colorsBlock assets prefix %}
+    {% for asset in assets %}
+    {% if asset.type == "color" %}
+        ColorInfo(name: "{{asset.name}}", color: {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}){{ "," if not forloop.last }}
+    {% elif asset.items %}
+        {% set assetName %}{{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}{% endset %}
+        {% call colorsBlock asset.items assetName %}{{ "," if not forloop.last }}
+    {% endif %}
+    {% endfor %}
+{% endmacro %}
+{% macro catalogsBlock assets prefix %}
+    {% for asset in assets %}
+    {% if asset.isNamespaced == "true" %}
+        {{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.collectionInfo{{ "," if not forloop.last }}
+    {% elif asset.items %}
+        {%- call catalogsBlock asset.items prefix -%}{{ "," if not forloop.last }}
+    {% endif %}
+    {% endfor %}
+{% endmacro %}
+{% macro colorExtensionBlock assets prefix %}
+    {% for asset in assets %}
+    {% set assetName %}{{prefix}}.{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}{% endset %}
+    {% if asset.isNamespaced == "true" %}
+{{accessModifier}} extension {{assetName}} {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "{{asset.name}}",
+        colors: [
+            {% filter indent:4," ",true %}
+            {% call colorsBlock asset.items assetName %}
+            {% endfilter %}
+        ]
+    )
+}
+    {% elif asset.items %}
+        {% call colorExtensionBlock asset.items prefix %}
+    {% endif %}
+    {% endfor %}
+{% endmacro %}
+{{accessModifier}} extension UIColor {
+    static let anytypeAssetsInfo: [ColorAssetInfo] = [
+        {% for catalog in catalogs %}
+        ColorAssetInfo(
+            name: "{{catalog.name}}",
+            collections: [
+            {% filter indent:8," ",true %}
+            {% call catalogsBlock catalog.assets "UIColor" %}
+            {% endfilter %}
+            ]
+        ){{ ", " if not forloop.last }}
+        {% endfor %}
+    ]
+}
+
+{% for catalog in catalogs %}
+    {% call colorExtensionBlock catalog.assets "UIColor" %}
+
+{% endfor %}

@@ -34,19 +34,13 @@ struct MockTemplatePreviewModel: Identifiable {
     let model: TemplatePreviewModel
 }
 
-extension MockTemplatePreviewModel {
+extension MockTemplatePreviewModel: @unchecked Sendable {
     static let allPreviews = [
-        blankPreview,
         templateWithTitle,
         onlyIcon,
         iconCoverTitle,
         coverTitle
     ]
-    
-    static let blankPreview = MockTemplatePreviewModel(
-        title: "Blank preview",
-        model: .init(mode: .blank, alignment: .left)
-    )
     
     static let templateWithTitle = MockTemplatePreviewModel(
         title: "Template with title",

@@ -1,5 +1,7 @@
 import SwiftUI
+import Services
 import AnytypeCore
+
 
 struct NewRelationRestrictionsSectionView: View {
     
@@ -34,14 +36,7 @@ struct NewRelationRestrictionsSectionView: View {
     
     private func objectTypeView(model: ObjectTypeModel) -> some View {
         HStack(spacing: 5) {
-            Group {
-                if let emoji = model.emoji {
-                    IconView(icon: .object(.emoji(emoji)))
-                } else {
-                    IconView(icon: .object(.empty(.objectType)))
-                }
-            }
-            .frame(width: 20, height: 20)
+            IconView(object: model.icon).frame(width: 20, height: 20)
             
             AnytypeText(model.title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
@@ -50,11 +45,10 @@ struct NewRelationRestrictionsSectionView: View {
     }
 }
 
-extension NewRelationRestrictionsSectionView {
-    
+extension NewRelationRestrictionsSectionView {    
     struct ObjectTypeModel: Identifiable, Hashable {
         let id: String
-        let emoji: Emoji?
+        let icon: ObjectIcon
         let title: String
     }
     
@@ -66,32 +60,52 @@ struct NewRelationRestrictionsSectionView_Previews: PreviewProvider {
             model: [
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji("🐭")!,
+                    icon: .customIcon(CustomIconData(icon: .man, customColor: .gray)),
+                    title: "custom icon title 1"
+                ),
+                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                    id: UUID().uuidString,
+                    icon: .customIcon(CustomIconData(icon: .transgender, customColor: .pink)),
+                    title: "custom icon title 2"
+                ),
+                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                    id: UUID().uuidString,
+                    icon: .customIcon(CustomIconData(icon: .telescope, customColor: .amber)),
+                    title: "custom icon title 3"
+                ),
+                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                    id: UUID().uuidString,
+                    icon: .emoji(Emoji("📘")!),
+                    title: "title 2"
+                ),
+                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                    id: UUID().uuidString,
+                    icon: .emoji(Emoji("🐭")!),
                     title: "title 1"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji("📘")!,
+                    icon: .emoji(Emoji("📘")!),
                     title: "title 2"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji("🤡")!,
+                    icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji("🤡")!,
+                    icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji("🤡")!,
+                    icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 ),
                 NewRelationRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    emoji: Emoji("🤡")!,
+                    icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 )
             ]

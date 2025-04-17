@@ -72,15 +72,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 objectType: templateModel.isBundled ? .object(typeId: templateModel.id) : .custom,
                 route: data.setDocument.isCollection() ? .collection : .set
             )
-        case .blank:
-            onTemplateSelect(
-                objectTypeId: interactor.objectTypeId,
-                templateId: TemplateType.blank.id
-            )
-            AnytypeAnalytics.instance().logChangeDefaultTemplate(
-                objectType: nil,
-                route: data.setDocument.isCollection() ? .collection : .set
-            )
         case .addTemplate:
             onAddTemplateTap()
         }
@@ -185,13 +176,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateObjectTypes(_ objectTypesConfig: ObjectTypesConfiguration) {
         var convertedObjectTypes = objectTypesConfig.objectTypes.map {  type in
             let isSelected = type.id == objectTypesConfig.objectTypeId
-            let icon = type.iconEmoji.flatMap { 
-                Icon.object(.emoji($0))
-            }
+            
             return InstalledObjectTypeViewModel(
                 id: type.id,
-                icon: icon,
-                title: type.name,
+                icon: .object(type.icon),
+                title: type.displayName,
                 isSelected: isSelected,
                 onTap: { [weak self] in
                     self?.setObjectType(type)
@@ -267,12 +256,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateTemplatesList() {
         var templates = [TemplatePreviewModel]()
 
-        if !userTemplates.contains(where: { $0.decoration.isNotNil }) {
-            templates.append(.init(mode: .blank, alignment: .left, decoration: .border))
-        } else {
-            templates.append(.init(mode: .blank, alignment: .left, decoration: nil))
-        }
-        
         templates.append(contentsOf: userTemplates)
         if isTemplatesEditable {
             templates.append(.init(mode: .addTemplate, alignment: .center))
@@ -312,7 +295,7 @@ extension TemplatePreviewModel {
                     onCoverTap: {}
                 ),
                 isBundled: objectDetails.templateIsBundled,
-                style: objectDetails.layoutValue == .todo ? .todo(objectDetails.isDone) : .none
+                style: objectDetails.resolvedLayoutValue == .todo ? .todo(objectDetails.isDone) : .none
             )
             ),
             alignment: objectDetails.layoutAlignValue,

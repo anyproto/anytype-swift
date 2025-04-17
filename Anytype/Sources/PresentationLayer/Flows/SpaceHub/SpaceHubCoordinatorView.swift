@@ -20,7 +20,6 @@ struct SpaceHubCoordinatorView: View {
             .task { await model.setup() }
             
             .handleSharingTip()
-            .handleSpaceHubTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             
@@ -65,6 +64,20 @@ struct SpaceHubCoordinatorView: View {
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
             }
+            .anytypeSheet(item: $model.spaceProfileData) {
+                SpaceProfileView(info: $0)
+            }
+            .safariBookmarkObject($model.bookmarkScreenData) {
+                model.onOpenBookmarkAsObject($0)
+            }
+            .sheet(item: $model.spaceCreateData) {
+                SpaceCreateCoordinatorView(data: $0)
+            }
+            .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
+                SpaceCreateTypePickerView { type in
+                    model.onSpaceTypeSelected(type)
+                }
+            }
     }
     
     private var content: some View {  
@@ -82,12 +95,20 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(sceneId: model.sceneId)
+                            SpaceHubView(sceneId: model.sceneId, output: model)
                         }
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
                         }
-                    }
+                        builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
+                            switch data {
+                            case .mainScreen(let info):
+                                NewSpaceSettingsCoordinatorView(workspaceInfo: info)
+                            case .typeLibrary(let spaceId):
+                                ObjectTypesLibraryView(spaceId: spaceId)
+                            }
+                        }
+                     }
                 },
                 bottomPanel: {
                     if let spaceInfo = model.spaceInfo {
@@ -97,8 +118,8 @@ struct SpaceHubCoordinatorView: View {
             )
         }
         .animation(.easeInOut, value: model.spaceInfo)
-        .environment(\.pageNavigation, model.pageNavigation)
-        .environment(\.chatActionProvider, $model.chatProvider)
+        .pageNavigation(model.pageNavigation)
+        .chatActionProvider($model.chatProvider)
     }
 }
 

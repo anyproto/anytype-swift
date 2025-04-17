@@ -2,6 +2,11 @@ import Foundation
 import SwiftUI
 import UIKit
 
+protocol AnytypeUITextViewDelegate: AnyObject {
+    func textViewPasteAction(_ textView: AnytypeUITextView, sender: Any?)
+    func textViewHasPasteAction(_ textView: AnytypeUITextView) -> Bool
+}
+
 // Text view providing common additional logic:
 // - Some of the text may not be editable
 final class AnytypeUITextView: UITextView {
@@ -13,6 +18,8 @@ final class AnytypeUITextView: UITextView {
     }
     
     var notEditableAttributes = [NSAttributedString.Key]()
+    
+    weak var anytypeDelegate: (any AnytypeUITextViewDelegate)?
     
     override func closestPosition(to point: CGPoint) -> UITextPosition? {
         let newPosition = super.closestPosition(to: point)
@@ -44,6 +51,7 @@ final class AnytypeUITextView: UITextView {
         let lenght = self.offset(from: fixedStart, to: fixedEnd)
         self.textStorage.replaceCharacters(in: NSRange(location: location, length: lenght), with: "")
         self.selectedRange = NSRange(location: location, length: 0)
+        delegate?.textViewDidChange?(self)
     }
     
     override func position(from position: UITextPosition, offset: Int) -> UITextPosition? {
@@ -78,7 +86,7 @@ final class AnytypeUITextView: UITextView {
             
             let value = self.textStorage.attribute(attribute, at: newOffset, longestEffectiveRange: &effectiveRange, in: textRange)
             
-            if value != nil, effectiveRange != textRange {
+            if value != nil {
                 let isUpper: Bool
                 
                 switch direction {
@@ -94,5 +102,22 @@ final class AnytypeUITextView: UITextView {
         }
         
         return newPosition
+    }
+    
+    override func paste(_ sender: Any?) {
+        if let anytypeDelegate {
+            anytypeDelegate.textViewPasteAction(self, sender: sender)
+        } else {
+            super.paste(sender)
+        }
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(paste(_:)) {
+            if let anytypeDelegate {
+                return anytypeDelegate.textViewHasPasteAction(self)
+            }
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 }

@@ -8,10 +8,11 @@ import AnytypeCore
 struct SpaceHubNavigationItem: Hashable { }
 
 @MainActor
-final class SpaceHubCoordinatorViewModel: ObservableObject {
+final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput {
     @Published var showSpaceManager = false
     @Published var showObjectIsNotAvailableAlert = false
     @Published var profileData: ObjectInfo?
+    @Published var spaceProfileData: AccountInfo?
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
@@ -24,6 +25,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
+    @Published var bookmarkScreenData: BookmarkScreenData?
+    @Published var spaceCreateData: SpaceCreateData?
+    @Published var showSpaceTypeForCreate = false
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -38,27 +42,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     @Published var pathChanging: Bool = false
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
-    var pageNavigation: PageNavigation {
-        PageNavigation(
-            open: { [weak self] data in
-                self?.openSync(data: data)
-            }, pushHome: { [weak self] in
-                guard let self, let spaceInfo else { return }
-                navigationPath.push(HomeWidgetData(info: spaceInfo))
-            }, pop: { [weak self] in
-                self?.navigationPath.pop()
-            }, popToFirstInSpace: { [weak self] in
-                self?.popToFirstInSpace()
-            }, replace: { [weak self] data in
-                guard let self else { return }
-                if navigationPath.count > 1 {
-                    navigationPath.replaceLast(data)
-                } else {
-                    navigationPath.push(data)
-                }
+    lazy var pageNavigation = PageNavigation(
+        open: { [weak self] data in
+            self?.openSync(data: data)
+        }, pushHome: { [weak self] in
+            guard let self, let spaceInfo else { return }
+            navigationPath.push(HomeWidgetData(info: spaceInfo))
+        }, pop: { [weak self] in
+            self?.navigationPath.pop()
+        }, popToFirstInSpace: { [weak self] in
+            self?.popToFirstInSpace()
+        }, replace: { [weak self] data in
+            guard let self else { return }
+            if navigationPath.count > 1 {
+                navigationPath.replaceLast(data)
+            } else {
+                navigationPath.push(data)
             }
-        )
-    }
+        }
+    )
 
     var keyboardDismiss: KeyboardDismiss?
     var dismissAllPresented: DismissAllPresented?
@@ -91,6 +93,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.userWarningAlertsHandler)
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: any NavigationContextProtocol
     
     private var needSetup = true
     
@@ -106,7 +110,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
             userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.info.accountSpaceId)
         } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .chat(spaceId: chatData.spaceInfo.accountSpaceId)
+            userDefaults.lastOpenedScreen = .chat(chatData)
         } else {
             userDefaults.lastOpenedScreen = nil
         }
@@ -137,15 +141,20 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func setupInitialScreen() async {
-        guard !loginStateService.isFirstLaunchAfterRegistration else { return }
+        guard !loginStateService.isFirstLaunchAfterRegistration, !FeatureFlags.disableRestoreLastScreen else { return }
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
             try? await open(data: .editor(editorData))
         case .widgets(let spaceId):
             try? await openSpace(spaceId: spaceId, addWidgets: true)
-        case .chat(let spaceId):
-            try? await openSpace(spaceId: spaceId)
+        case .chat(let data):
+            if FeatureFlags.chatLayoutInsideSpace {
+                // TODO: Implenet
+                break
+            } else {
+                try? await openSpace(spaceId: data.spaceId)
+            }
         case .none:
             return
         }
@@ -176,15 +185,35 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     func startHandleMembershipStatus() async {
         for await membership in Container.shared.membershipStatusStorage.resolve()
             .statusPublisher.values {
-                guard membership.status == .pendingRequiresFinalization else { return }
+                guard membership.status == .pendingRequiresFinalization else { continue }
                 
                 membershipNameFinalizationData = membership.tier
             }
     }
     
     func handleVersionAlerts() async {
-        if FeatureFlags.userWarningAlerts {
-            userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
+        userWarningAlert = userWarningAlertsHandler.getNextUserWarningAlertAndStore()
+    }
+    
+    func onOpenBookmarkAsObject(_ data: BookmarkScreenData) {
+        openObject(screenData: .editor(data.editorScreenData))
+    }
+    
+    func onSpaceTypeSelected(_ type: SpaceUxType) {
+        Task {
+            // After dismiss spaceCreateData, alert will appear again. Fix it.
+            await dismissAllPresented?()
+            spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: type)
+        }
+    }
+    
+    // MARK: - SpaceHubModuleOutput
+    
+    func onSelectCreateObject() {
+        if FeatureFlags.spaceUxTypes {
+            showSpaceTypeForCreate = true
+        } else {
+            spaceCreateData = SpaceCreateData(sceneId: sceneId, spaceUxType: .data)
         }
     }
     
@@ -211,9 +240,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
             guard let details = document.details else { return }
-            guard details.isSupportedForOpening else {
+            guard details.isSupportedForOpening || data.isSimpleSet else {
                 toastBarData = ToastBarData(
-                    text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none
+                    text: Loc.openTypeError(details.objectType.displayName), showSnackBar: true, messageType: .none
                 )
                 return
             }
@@ -245,14 +274,27 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func showScreen(spaceId: String, data: ScreenData?) async throws {
         switch data {
         case .alert(let alertScreenData):
-            if FeatureFlags.memberProfile {
-                await showAlert(alertScreenData)
-            } else { // fallback to page screen
-                let pageObject = EditorPageObject(objectId: alertScreenData.objectId, spaceId: alertScreenData.spaceId)
-                navigationPath.push(EditorScreenData.page(pageObject))
-            }
+            await showAlert(alertScreenData)
+        case .preview(let mediaFileScreenData):
+            await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
             navigationPath.push(editorScreenData)
+        case .bookmark(let data):
+            await dismissAllPresented?()
+            bookmarkScreenData = data
+        case .spaceInfo(let data):
+            guard let spaceView = participantSpacesStorage.participantSpaceView(spaceId: data.spaceId) else {
+                return
+            }
+            
+            if spaceView.canEdit {
+                navigationPath.push(data)
+            } else {
+                await dismissAllPresented?()
+                spaceProfileData = spaceInfo
+            }
+        case .chat(let data):
+            navigationPath.push(data)
         case nil:
             return
         }
@@ -264,6 +306,18 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
+        }
+    }
+    
+    private func showMediaFile(_ data: MediaFileScreenData) async {
+        await dismissAllPresented?()
+        let previewController = AnytypePreviewController(
+            with: data.items,
+            initialPreviewItemIndex: data.startAtIndex,
+            sourceView: data.sourceView
+        )
+        navigationContext.present(previewController) { [weak previewController] in
+            previewController?.didFinishTransition = true
         }
     }
     
@@ -290,7 +344,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         .builder {
             SpaceHubNavigationItem()
             if spaceView.showChat {
-                ChatCoordinatorData(chatId: spaceView.chatId, spaceInfo: spaceInfo)
+                ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceInfo.accountSpaceId)
                 if addWidgets {
                     HomeWidgetData(info: spaceInfo)
                 }
@@ -307,12 +361,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .deepLink(let deepLink):
-            try await handleDeepLink(deepLink: deepLink)
+        case .deepLink(let deepLink, let source):
+            try await handleDeepLink(deepLink: deepLink, source: source)
         }
     }
         
-    private func handleDeepLink(deepLink: DeepLink) async throws {
+    private func handleDeepLink(deepLink: DeepLink, source: DeepLinkSource) async throws {
         switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
@@ -323,28 +377,32 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .invite(let cid, let key):
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         case let .object(objectId, spaceId, cid, key):
-            await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
+            await handleObjectDeelpink(objectId: objectId, spaceId: spaceId, cid: cid, key: key, source: source)
         case .membership(let tierId):
-            guard accountManager.account.isInProdOrStagingNetwork else { return }
+            guard accountManager.account.allowMembership else { return }
             membershipTierId = tierId.identifiable
         case .networkConfig:
             toastBarData = ToastBarData(text: Loc.unsupportedDeeplink, showSnackBar: true)
         }
     }
     
-    private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?) async {
+    private func handleObjectDeelpink(objectId: String, spaceId: String, cid: String?, key: String?, source: DeepLinkSource) async {
         let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
+        let route = source.isExternal ? OpenObjectByLinkRoute.web : OpenObjectByLinkRoute.app
         do {
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
             try? await open(data: editorData)
+            AnytypeAnalytics.instance().logOpenObjectByLink(type: .object, route: route)
         } catch {
             guard let cid, let key else {
                 showObjectIsNotAvailableAlert = true
+                AnytypeAnalytics.instance().logOpenObjectByLink(type: .notShared, route: route)
                 return
             }
             
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
+            AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: route)
         }
     }
 
@@ -443,12 +501,12 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     
     func onShareSelected() {
         guard let spaceInfo else { return }
-        showSpaceShareData = SpaceShareData(workspaceInfo: spaceInfo, route: .navigation)
+        showSpaceShareData = SpaceShareData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
         AnytypeAnalytics.instance().logClickQuote()
-        chatProvider.createChatWithAttachment(attachment)
+        chatProvider.addAttachment(attachment, clearInput: true)
         popToFirstInSpace()
     }
 }

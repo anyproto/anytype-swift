@@ -3,6 +3,7 @@ import UIKit
 import AnytypeCore
 import Services
 import ZIPFoundation
+import FirebaseMessaging
 
 
 @MainActor
@@ -12,7 +13,7 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var shareUrlFile: URL?
     @Published var showZipPicker = false
     @Published private(set) var flags = [FeatureFlagSection]()
-    
+    @Published var pushToken: StringIdentifiable?
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
     
     @Injected(\.userDefaultsStorage)
@@ -30,6 +31,8 @@ final class DebugMenuViewModel: ObservableObject {
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
+    @Injected(\.applePushNotificationService)
+    private var applePushNotificationService: any ApplePushNotificationServiceProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -57,27 +60,23 @@ final class DebugMenuViewModel: ObservableObject {
         }
     }
     
-    func getLocalStoreData() {
-        Task {
-            try await localAuthService.auth(reason: "Share local store")
-            let path = try await debugService.exportLocalStore()
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
-            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            shareUrlFile = zipFile
-        }
+    func getLocalStoreData() async throws {
+        try await localAuthService.auth(reason: "Share local store")
+        let path = try await debugService.exportLocalStore()
+        let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
+        try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
+        shareUrlFile = zipFile
     }
     
-    func getGoroutinesData() {
-        Task { shareUrlFile = try await debugService.exportStackGoroutinesZip() }
+    func getGoroutinesData() async throws {
+        shareUrlFile = try await debugService.exportStackGoroutinesZip()
     }
     
-    func zipWorkingDirectory() {
-        Task {
-            try await localAuthService.auth(reason: "Share working directory")
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
-            try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
-            shareUrlFile = zipFile
-        }
+    func zipWorkingDirectory() async throws {
+        try await localAuthService.auth(reason: "Share working directory")
+        let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
+        try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
+        shareUrlFile = zipFile
     }
     
     func unzipWorkingDirectory() {
@@ -109,6 +108,17 @@ final class DebugMenuViewModel: ObservableObject {
     
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
+    }
+    
+    func getFirebaseNotificationToken() {
+        Messaging.messaging().token { [weak self] token, error in
+            guard let self, let token else { return }
+            pushToken = token.identifiable
+        }
+    }
+    
+    func getAppleNotificationToken() {
+        pushToken = applePushNotificationService.token()?.identifiable
     }
     
     // MARK: - Private

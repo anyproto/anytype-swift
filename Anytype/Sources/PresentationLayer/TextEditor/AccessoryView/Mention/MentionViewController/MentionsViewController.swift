@@ -81,7 +81,7 @@ final class MentionsViewController: UITableViewController {
             case .selectDate:
                 cell = tableView.dequeueReusableCell(withIdentifier: Constants.selectDateCellReuseId, for: indexPath)
                 cell?.separatorInset = Constants.separatorInsets
-                cell?.contentConfiguration = self?.confguration(title: Loc.selectDate, icon: .object(.empty(.date)))
+                cell?.contentConfiguration = self?.confguration(title: Loc.selectDate, icon: Icon.asset(.EmptyIcon.date))
             }
             return cell
         }

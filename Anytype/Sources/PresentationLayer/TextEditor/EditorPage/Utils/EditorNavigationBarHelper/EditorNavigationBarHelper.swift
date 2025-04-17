@@ -99,6 +99,9 @@ final class EditorNavigationBarHelper {
         }
     }
     
+    func setPageNavigationHiddenBackButton(_ hidden: Bool) {
+        backButton.isHidden = hidden
+    }
 }
 
 // MARK: - EditorNavigationBarHelperProtocol
@@ -142,7 +145,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         let mode: EditorNavigationBarTitleView.Mode
         if templatesCount >= Constants.minimumTemplatesAvailableToPick {
             let model = EditorNavigationBarTitleView.Mode.TemplatesModel(
-                count: templatesCount + 1,
+                count: templatesCount,
                 onTap: onTemplatesButtonTap
             )
             mode = .templates(model)
@@ -276,7 +279,7 @@ private extension EditorNavigationBarHelper {
 
 private extension EditorNavigationBarHelper {
     private enum Constants {
-        static let minimumTemplatesAvailableToPick = 1
+        static let minimumTemplatesAvailableToPick = 2
     }
 }
 

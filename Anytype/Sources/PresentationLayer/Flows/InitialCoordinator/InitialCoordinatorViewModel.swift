@@ -81,7 +81,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     }
     
     private func checkTestVersion() {
-        #if DEBUG
+        #if DEBUG || RELEASE_NIGHTLY
         Task { @MainActor in
             do {
                 let version = try await middlewareConfigurationProvider.libraryVersion()
@@ -106,7 +106,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     }
     
     private func checkCrash() {
-        #if DEBUG
+        #if DEBUG || RELEASE_NIGHTLY
         if SentrySDK.crashedLastRun {
             showSaveBackupAlert = true
         } else{

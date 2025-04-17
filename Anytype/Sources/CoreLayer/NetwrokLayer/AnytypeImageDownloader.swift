@@ -9,7 +9,7 @@ final class AnytypeImageDownloader {
     static func retrieveImage(
         with url: URL,
         options: KingfisherOptionsInfo? = nil,
-        completionHandler: @escaping (UIImage?, Data?) -> Void)
+        completionHandler: @escaping @Sendable (UIImage?, Data?) -> Void)
     {
         KingfisherManager.shared.retrieveImage(with: url, options: options) { result in
             switch result {
@@ -26,7 +26,7 @@ final class AnytypeImageDownloader {
     
     static func retrieveImage(with url: URL) async -> UIImage? {
         do {
-            return try await KingfisherManager.shared.retrieveImageAsync(with: url).image
+            return try await KingfisherManager.shared.retrieveImage(with: .network(url)).image
         } catch is CancellationError {
             return nil
         } catch let error as KingfisherError where error.isInvalidResponseStatusCode(404) {
@@ -43,9 +43,9 @@ extension AnytypeImageDownloader {
         imageId: String,
         width: CGFloat,
         options: KingfisherOptionsInfo? = nil,
-        completionHandler: @escaping (UIImage?, Data?) -> Void)
+        completionHandler: @escaping @Sendable (UIImage?, Data?) -> Void)
     {
-        let imageMetadata = ImageMetadata(id: imageId, width: .width(width))
+        let imageMetadata = ImageMetadata(id: imageId, side: .width(width))
         guard let url = imageMetadata.contentUrl else {
             anytypeAssertionFailure("Url is nil")
             completionHandler(nil, nil)
@@ -55,7 +55,7 @@ extension AnytypeImageDownloader {
     }
     
     static func retrieveImage(imageId: String, width: CGFloat) async -> UIImage? {
-        let imageMetadata = ImageMetadata(id: imageId, width: .width(width))
+        let imageMetadata = ImageMetadata(id: imageId, side: .width(width))
         guard let url = imageMetadata.contentUrl else {
             anytypeAssertionFailure("Url is nil")
             return nil

@@ -5,31 +5,41 @@ import UIKit
 import AnytypeCore
 
 @MainActor
-final class SpaceCreateViewModel: ObservableObject {
+protocol SpaceCreateModuleOutput: AnyObject {
+    func onIconPickerSelected(fileData: FileData?, output: any LocalObjectIconPickerOutput)
+}
+
+@MainActor
+final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput {
     
     // MARK: - DI
     
-    private let sceneId: String
+    let data: SpaceCreateData
     
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    private weak var output: (any SpaceCreateModuleOutput)?
+    @Injected(\.fileActionsService)
+    private var fileActionsService: any FileActionsServiceProtocol
     
     // MARK: - State
     
-    @Published var spaceName: String = ""
-    let spaceIconOption = IconColorStorage.randomOption()
-    var spaceIcon: Icon { .object(.space(.name(name: spaceName, iconOption: spaceIconOption))) }
+    @Published var spaceName = ""
+    @Published var spaceIcon: Icon
     @Published var spaceAccessType: SpaceAccessType = .private
-    @Published var createLoadingState: Bool = false
+    @Published var createLoadingState = false
     @Published var dismiss: Bool = false
     
-    init(sceneId: String, output: (any SpaceCreateModuleOutput)?) {
-        self.sceneId = sceneId
-        
+    var fileData: FileData?
+    private let spaceIconOption: Int
+    private weak var output: (any SpaceCreateModuleOutput)?
+    
+    init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
+        self.data = data
         self.output = output
+        self.spaceIconOption = IconColorStorage.randomOption()
+        self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption)))
     }
     
     func onTapCreate() {
@@ -39,25 +49,50 @@ final class SpaceCreateViewModel: ObservableObject {
             defer {
                 createLoadingState = false
             }
-            let spaceId = try await workspaceService.createSpace(name: spaceName, iconOption: spaceIconOption, accessType: spaceAccessType, useCase: .empty, withChat: FeatureFlags.homeSpaceLevelChat)
+            let uxType = data.spaceUxType
+            let spaceId = try await workspaceService.createSpace(
+                name: spaceName,
+                iconOption: spaceIconOption,
+                accessType: spaceAccessType,
+                useCase: uxType.useCase,
+                withChat: FeatureFlags.homeSpaceLevelChat,
+                uxType: uxType
+            )
             
-            // Hack: remove after middleware fix
-            // https://linear.app/anytype/issue/IOS-3588/new-space-auto-renames-to-onboarding-22-without-name
-            try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [
-                .name(spaceName),
-                .iconOption(spaceIconOption)
-            ])
+            if let fileData {
+                let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: fileData, origin: .none)
+                try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
+            }
             
-            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
-            output?.spaceCreateWillDismiss()
             dismissForLegacyOS()
         }
     }
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceCreate()
+    }
+    
+    func updateNameIconIfNeeded(_ name: String) {
+        guard fileData.isNil else { return }
+        spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption)))
+    }
+    
+    func onIconTapped() {
+        output?.onIconPickerSelected(fileData: fileData, output: self)
+    }
+    
+    // MARK: - LocalObjectIconPickerOutput
+    
+    func localFileDataDidChanged(_ data: FileData?) {
+        fileData = data
+        if let path = fileData?.path {
+            spaceIcon = .object(.space(.localPath(path)))
+        } else {
+            spaceIcon = .object(.space(.name(name: spaceName, iconOption: spaceIconOption)))
+        }
     }
     
     // MARK: - Private

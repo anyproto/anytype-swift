@@ -16,6 +16,8 @@ struct IconView: View {
         case .image(let uIImage):
             Image(uiImage: uIImage)
                 .buttonDynamicForegroundStyle()
+        case .url(let url):
+            ImageUrlIconView(url: url)
         case nil:
             EmptyView()
         }

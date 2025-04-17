@@ -3,6 +3,7 @@ import Services
 import Combine
 import UIKit
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class SetObjectWidgetInternalViewModel: ObservableObject {
@@ -26,6 +27,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.setContentViewDataBuilder)
     private var setContentViewDataBuilder: any SetContentViewDataBuilderProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
@@ -103,8 +106,17 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
-        let screenData = ScreenData(details: details, activeViewId: activeViewId)
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        let screenData: ScreenData
+        if details.editorViewType == .type && FeatureFlags.simpleSetForTypes {
+            screenData = .editor(.simpleSet(EditorSimpleSetObject(objectId: details.id, spaceId: details.spaceId)))
+        } else {
+            screenData = ScreenData(details: details, activeViewId: activeViewId)
+        }
+        AnytypeAnalytics.instance().logClickWidgetTitle(
+            source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")),
+            createType: info.widgetCreateType
+        )
         output?.onObjectSelected(screenData: screenData)
     }
     
@@ -122,16 +134,38 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                 let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
                 rows = .compactList(rows: listRows, id: activeViewId ?? "")
             case .view:
-                switch setDocument?.activeView.type {
-                case .table, .list, .kanban, .calendar, .graph, nil:
-                    let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
-                    rows = .compactList(rows: listRows, id: activeViewId ?? "")
-                case .gallery:
-                    let galleryRows = rowDetails?.map { GalleryWidgetRowModel(details: $0) }
+                if isSetByImageType() {
+                    let galleryRows = rowDetails?.map { details in
+                        GalleryWidgetRowModel(
+                            objectId: details.id,
+                            title: nil,
+                            icon: nil,
+                            cover: .cover(.imageId(details.id)),
+                            onTap: details.onItemTap
+                        )
+                    }
                     rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+                } else {
+                    switch setDocument?.activeView.type {
+                    case .table, .list, .kanban, .calendar, .graph, nil:
+                        let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                        rows = .compactList(rows: listRows, id: activeViewId ?? "")
+                    case .gallery:
+                        let galleryRows = rowDetails?.map { GalleryWidgetRowModel(details: $0) }
+                        rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+                    }
                 }
             }
         }
+    }
+    
+    private func isSetByImageType() -> Bool {
+        guard let details = setDocument?.details,
+              let setOf = details.setOf.first,
+              let objectType = try? objectTypeProvider.objectType(id: setOf) else {
+            return false
+        }
+        return details.editorViewType == .type && objectType.isImageLayout
     }
     
     private func updateHeader(dataviewState: WidgetDataviewState?) {
@@ -150,7 +184,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     }
     
     private func updateDone(details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
+        guard details.resolvedLayoutValue == .todo else { return }
         
         Task {
             try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
@@ -228,7 +262,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         allowCreateObject = setDocument.setPermissions.canCreateObject
         
         guard let details = setDocument.details else { return }
-        name = details.title
+        name = FeatureFlags.pluralNames ? details.pluralTitle : details.title
     }
     
     
@@ -253,9 +287,15 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in
-                self?.output?.onObjectSelected(screenData: $0.screenData())
+                self?.handleTapOnObject(details: $0)
             }
         )
         updateRows(rowDetails: rowDetails)
+    }
+    
+    private func handleTapOnObject(details: ObjectDetails) {
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
+        output?.onObjectSelected(screenData: details.screenData())
     }
 }

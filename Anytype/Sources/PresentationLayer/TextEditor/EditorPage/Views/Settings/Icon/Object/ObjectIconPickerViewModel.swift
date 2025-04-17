@@ -12,6 +12,7 @@ enum ObjectIconPickerAction {
     enum IconSource {
         case emoji(emojiUnicode: String)
         case upload(itemProvider: NSItemProvider)
+        case customIcon(data: CustomIconData)
     }
     
     case setIcon(IconSource)
@@ -55,6 +56,10 @@ final class ObjectIconPickerViewModel: ObservableObject {
         handleIconAction(document: document, action: .setIcon(.upload(itemProvider: itemProvider)))
     }
     
+    func setIcon(_ icon: CustomIcon, color: CustomIconColor) {
+        handleIconAction(document: document, action: .setIcon(.customIcon(data: CustomIconData(icon: icon, customColor: color))))
+    }
+    
     func removeIcon() {
         handleIconAction(document: document, action: .removeIcon)
     }
@@ -63,7 +68,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     private func updateState(details: ObjectDetails) {
         isRemoveButtonAvailable = details.objectIcon != nil
-        detailsLayout = details.layoutValue
+        detailsLayout = details.resolvedLayoutValue
         isRemoveEnabled = makeIsRemoveEnabled(details: details)
     }
     

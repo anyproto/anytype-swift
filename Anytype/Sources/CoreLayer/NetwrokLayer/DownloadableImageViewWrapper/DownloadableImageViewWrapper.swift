@@ -3,7 +3,8 @@ import UIKit
 import Kingfisher
 import AnytypeCore
 
-final class DownloadableImageViewWrapper {
+@MainActor
+final class DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
     
     private var imageGuideline: ImageGuideline?
     private var scalingType: KFScalingType? = .resizing(.aspectFill)
@@ -18,11 +19,7 @@ final class DownloadableImageViewWrapper {
         self.imageView = imageView
     }
     
-}
-
-// MARK: - Public functions
-
-extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
+    // MARK: - DownloadableImageViewWrapperProtocol
     
     @discardableResult
     func imageGuideline(_ imageGuideline: ImageGuideline) -> any DownloadableImageViewWrapperProtocol {

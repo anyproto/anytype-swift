@@ -43,7 +43,7 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         
         let rootDetails = parsedDetails.first { $0.id == data.rootID }
         
-        buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer, layout: rootDetails?.layoutValue)
+        buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer, layout: rootDetails?.resolvedLayoutValue)
         
         parsedDetails.forEach { detailsStorage.add(details: $0) }
         
@@ -52,13 +52,11 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
         
         restrictionsContainer.restrictions = restrinctions
         
-        if FeatureFlags.relativeDates {
-            mentionTextUpdateHandler.updateMentionsTextsIfNeeded(
-                objectId: data.rootID,
-                infoContainer: infoContainer,
-                detailsStorage: detailsStorage
-            )
-        }
+        mentionTextUpdateHandler.updateMentionsTextsIfNeeded(
+            objectId: data.rootID,
+            infoContainer: infoContainer,
+            detailsStorage: detailsStorage
+        )
     }
     
     // MARK: - Private

@@ -5,7 +5,7 @@ import Services
 @MainActor
 final class SetViewSettingsListModel: ObservableObject {
     @Published var name = ""
-    @Published var layoutValue = SetViewSettings.layout.placeholder
+    @Published var resolvedLayoutValue = SetViewSettings.layout.placeholder
     @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
     @Published var sortsValue = SetViewSettings.sorts.placeholder
@@ -74,7 +74,7 @@ final class SetViewSettingsListModel: ObservableObject {
     func valueForSetting(_ setting: SetViewSettings) -> String {
         switch setting {
         case .layout:
-            return layoutValue
+            return resolvedLayoutValue
         case .relations:
             return relationsValue
         case .filters:
@@ -113,7 +113,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private func updateState() {
         view = setDocument.view(by: viewId)
         
-        layoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
+        resolvedLayoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
         canEditSetView = setDocument.setPermissions.canEditView
         updateRelationsValue()
         

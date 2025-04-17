@@ -21,6 +21,6 @@ protocol SearchServiceProtocol: AnyObject, Sendable {
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails]
     func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
     func searchArchiveObjectIds(spaceId: String) async throws -> [String]
-    func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [ObjectDetails]
+    func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], excludedIds: [String], spaceId: String) async throws -> [ObjectDetails]
     func searchAll(text: String, spaceId: String) async throws -> [ObjectDetails]
 }

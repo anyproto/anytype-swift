@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 public extension ViewAnimator {
     
     static func scale(

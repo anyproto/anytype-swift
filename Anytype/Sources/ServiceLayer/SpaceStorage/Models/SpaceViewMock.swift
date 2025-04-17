@@ -9,6 +9,7 @@ extension SpaceView {
         SpaceView(
             id: id,
             name: "Name \(id)",
+            description: "Desciption \(id)",
             objectIconImage: .object(.space(.mock)),
             targetSpaceId: "Target\(id)",
             createdDate: .yesterday,
@@ -18,13 +19,15 @@ extension SpaceView {
             readersLimit: nil,
             writersLimit: nil,
             chatId: "",
-            isPinned: false
+            isPinned: false,
+            uxType: .data,
+            unreadMessagesCount: 0
         )
     }
 }
 
 public extension ObjectIcon.Space {
     static var mock: ObjectIcon.Space {
-        .name(name: Loc.Object.Title.placeholder, iconOption: 1)
+        .name(name: Loc.untitled, iconOption: 1)
     }
 }

@@ -6,7 +6,7 @@ import Combine
 import AnytypeCore
 
 struct SpaceShareData: Identifiable, Hashable {
-    let workspaceInfo: AccountInfo
+    let spaceId: String
     let route: SettingsSpaceShareRoute
     var id: Int { hashValue }
 }
@@ -24,33 +24,31 @@ final class SpaceShareViewModel: ObservableObject {
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: any WorkspacesStorageProtocol
     
-    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
-    private var workspaceInfo: AccountInfo { data.workspaceInfo }
-    private let data: SpaceShareData
     
-    var accountSpaceId: String { workspaceInfo.accountSpaceId }
+    let data: SpaceShareData
+    var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
-    @Published var inviteLink: URL?
-    @Published var shareInviteLink: URL?
-    @Published var qrCodeInviteLink: URL?
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestAlertData?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
-    @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     @Published var showUpgradeBadge = false
     @Published var canStopShare = false
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
+    @Published var canApproveRequests = false
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
@@ -68,64 +66,14 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startSpaceViewTask() async {
-        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: accountSpaceId).values {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             updateView()
         }
     }
     
-    func onAppear() async {
-        AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
-        do {
-            let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } catch {}
-    }
-    
-    func onShareInvite() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .shareLink)
-        shareInviteLink = inviteLink
-    }
-    
-    func onCopyLink() {
-        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
-        UIPasteboard.general.string = inviteLink?.absoluteString
-        toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
-    }
-    
-    func onDeleteSharingLink() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .revoke)
-        showDeleteLinkAlert = true
-    }
-    
-    func onGenerateInvite() async throws {
-        guard let spaceView = participantSpaceView?.spaceView else { return }
-        
-        AnytypeAnalytics.instance().logShareSpace()
-        
-        if !spaceView.isShared {
-            try await workspaceService.makeSharable(spaceId: accountSpaceId)
-        }
-        
-        let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
-        inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-    }
-    
-    func onDeleteLinkCompleted() {
-        inviteLink = nil
-    }
-    
     func onStopSharing() {
         showStopSharingAlert = true
-    }
-    
-    func onStopSharingCompleted() {
-        inviteLink = nil
-    }
-    
-    func onShowQrCode() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .qr)
-        qrCodeInviteLink = inviteLink
     }
     
     func onMoreInfoTap() {
@@ -145,7 +93,8 @@ final class SpaceShareViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateView() {
-        guard let participantSpaceView else { return }
+        let workspaceInfo = workspacesStorage.workspaceInfo(spaceId: spaceId)
+        guard let participantSpaceView, let workspaceInfo else { return }
         
         canStopShare = participantSpaceView.canStopSharing
         canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
@@ -154,6 +103,7 @@ final class SpaceShareViewModel: ObservableObject {
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
         canDeleteLink = participantSpaceView.permissions.canDeleteLink
+        canApproveRequests = participantSpaceView.permissions.canApproveRequests
         
         updateUpgradeViewState()
         
@@ -203,10 +153,12 @@ final class SpaceShareViewModel: ObservableObject {
     private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
         switch participant.status {
         case .joining:
+            guard canApproveRequests else { return nil }
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
                 self?.showRequestAlert(participant: participant)
             })
         case .removing:
+            guard canApproveRequests else { return nil }
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 AnytypeAnalytics.instance().logApproveLeaveRequest()
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)

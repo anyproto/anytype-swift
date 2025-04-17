@@ -22,6 +22,21 @@ actor EventBunchSubscribtion {
         return AnyCancellable(subscriber)
     }
     
+    func stream() -> AsyncStream<EventsBunch> {
+        AsyncStream { continuation in
+            
+            let subscriber = EventBunchSubscriber { bunch in
+                continuation.yield(bunch)
+            }
+            
+            addSubscriber(subscriber)
+            
+            continuation.onTermination = { _ in
+                subscriber.cancel()
+            }
+        }
+    }
+    
     private func addSubscriber(_ subscriber: EventBunchSubscriber) {
         subscribers.removeAll(where: \.handler.isNil)
         subscribers.append(subscriber)

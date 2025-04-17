@@ -50,7 +50,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         descriptionLabel.setText(configuration.state.description)
 
         objectTypeLabel.isHidden = !configuration.state.relations.contains(.type)
-        configuration.state.type.map { objectTypeLabel.setText($0.name) }
+        configuration.state.type.map { objectTypeLabel.setText($0.displayName) }
 
         largeLeadingIconImageView.icon = configuration.state.icon
         onTaskActionTap = configuration.todoToggleAction

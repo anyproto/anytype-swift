@@ -5,6 +5,7 @@ public enum SelectAccountError: Error {
     case accountIsDeleted
     case failedToFetchRemoteNodeHasIncompatibleProtoVersion
     case accountLoadIsCanceled
+    case accountStoreNotMigrated
 }
 
 extension Anytype_Rpc.Account.Select.Response.Error {
@@ -16,6 +17,8 @@ extension Anytype_Rpc.Account.Select.Response.Error {
             return .failedToFetchRemoteNodeHasIncompatibleProtoVersion
         case .accountLoadIsCanceled:
             return .accountLoadIsCanceled
+        case .accountStoreNotMigrated:
+            return .accountStoreNotMigrated
         default:
             return nil
         }

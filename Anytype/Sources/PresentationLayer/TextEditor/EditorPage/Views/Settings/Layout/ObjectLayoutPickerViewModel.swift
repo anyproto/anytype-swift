@@ -15,12 +15,13 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     @Injected(\.detailsService)
     private var detailsService: any DetailsServiceProtocol
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     private let mode: ObjectLayoutPickerMode
     private let objectId: String
     private let spaceId: String
+    private let analyticsType: AnalyticsObjectType
     
     private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
@@ -30,22 +31,24 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     // MARK: - Initializer
     
-    init(mode: ObjectLayoutPickerMode, objectId: String, spaceId: String) {
+    init(mode: ObjectLayoutPickerMode, objectId: String, spaceId: String, analyticsType: AnalyticsObjectType) {
         self.mode = mode
         self.objectId = objectId
         self.spaceId = spaceId
+        self.analyticsType = analyticsType
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        AnytypeAnalytics.instance().logLayoutChange(layout)
         Task { @MainActor in
             switch mode {
             case .type:
                 try await detailsService.updateBundledDetails(objectId: objectId, bundledDetails: [
                     .recommendedLayout(layout.rawValue)
                 ])
+                AnytypeAnalytics.instance().logChangeRecommendedLayout(objectType: analyticsType, layout: layout)
             case .object:
                 try await detailsService.setLayout(objectId: objectId, detailsLayout: layout)
+                AnytypeAnalytics.instance().logLayoutChange(layout)
             }
             UISelectionFeedbackGenerator().selectionChanged()
         }
@@ -57,7 +60,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
             case .type:
                 selectedLayout = details.recommendedLayoutValue ?? .basic
             case .object:
-                selectedLayout = details.layoutValue
+                selectedLayout = details.resolvedLayoutValue
             }
         }
     }

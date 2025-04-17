@@ -26,6 +26,9 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     private let chatInputConverter: any ChatInputConverterProtocol = Container.shared.chatInputConverter()
     private let fileActionsService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
+    private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
+    private let aiService: any AIServiceProtocol = Container.shared.aiService()
+    private let aiConfigBuilder: any AIConfigBuilderProtocol = AIConfigBuilder()
     
     func createMessage(
         chatId: String,
@@ -79,6 +82,23 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
                     chatMessage.attachments.append(attachment)
                 }
+            case .localBookmark(let data):
+                guard let url = AnytypeURL(string: data.url) else { continue }
+                if FeatureFlags.aiToolInSet {
+                    if let config = aiConfigBuilder.makeOpenAIConfig(),
+                        let bookmark = try? await aiService.aiObjectCreateFromUrl(spaceId: spaceId, url: url, config: config) {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = bookmark.id
+                        chatMessage.attachments.append(attachment)
+                    }
+                } else {
+                    if let bookmark = try? await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none) {
+                        var attachment = ChatMessageAttachment()
+                        attachment.target = bookmark.id
+                        chatMessage.attachments.append(attachment)
+                    }
+                }
+                break
             }
         }
         
@@ -86,7 +106,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     }
     
     private func uploadFile(spaceId: String, data: FileData) async throws -> ChatMessageAttachment {
-        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createTypeWidgetIfMissing: FeatureFlags.objectTypeWidgets)
         var attachment = ChatMessageAttachment()
         attachment.target = fileDetails.id
         return attachment

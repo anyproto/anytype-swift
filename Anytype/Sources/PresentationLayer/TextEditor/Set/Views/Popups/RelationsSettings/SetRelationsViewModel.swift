@@ -8,31 +8,19 @@ import Combine
 @MainActor
 final class SetRelationsViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
+    @Published var relations = [SetViewSettingsRelation]()
     
     private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: any RelationsServiceProtocol
     
     private weak var output: (any SetRelationsCoordinatorOutput)?
     
     private var cancellable: (any Cancellable)?
-    
-    var relations: [SetViewSettingsRelation] {
-        setDocument.sortedRelations(for: viewId).map { relation in
-            SetViewSettingsRelation(
-                id: relation.id,
-                image: relation.relationDetails.format.iconAsset,
-                title: relation.relationDetails.name,
-                isOn: relation.option.isVisible,
-                canBeRemovedFromObject: relation.relationDetails.canBeRemovedFromObject,
-                onChange: { [weak self] isVisible in
-                    self?.onRelationVisibleChange(relation, isVisible: isVisible)
-                }
-            )
-        }
-    }
     
     init(
         setDocument: some SetDocumentProtocol,
@@ -53,17 +41,31 @@ final class SetRelationsViewModel: ObservableObject {
             }
             Task {
                 let key = relation.relationDetails.key
-                try await dataviewService.deleteRelation(
-                    objectId: setDocument.objectId,
-                    blockId: setDocument.blockId,
-                    relationKey: key
-                )
-                try await dataviewService.removeViewRelations(
-                    objectId: setDocument.objectId,
-                    blockId: setDocument.blockId,
-                    keys: [key],
-                    viewId: viewId
-                )
+                guard let details = setDocument.details else { return }
+                
+                if FeatureFlags.openTypeAsSet, details.isObjectType {
+                    try await relationsService.deleteTypeRelation(
+                        details: details,
+                        relationId: relation.relationDetails.id
+                    )
+                } else {
+                    try await dataviewService.deleteRelation(
+                        objectId: setDocument.objectId,
+                        blockId: setDocument.blockId,
+                        relationKey: key
+                    )
+                }
+                
+                if let details = setDocument.details, FeatureFlags.openTypeAsSet && details.isObjectType {
+                    try await relationsService.deleteTypeRelation(details: details, relationId: relation.relationDetails.id)
+                } else {
+                    try await dataviewService.removeViewRelations(
+                        objectId: setDocument.objectId,
+                        blockId: setDocument.blockId,
+                        keys: [key],
+                        viewId: viewId
+                    )
+                }
             }
         }
     }
@@ -119,6 +121,19 @@ final class SetRelationsViewModel: ObservableObject {
         cancellable = setDocument.syncPublisher.receiveOnMain().sink {  [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
+            
+            relations = setDocument.sortedRelations(for: viewId).map { relation in
+                SetViewSettingsRelation(
+                    id: relation.id,
+                    image: relation.relationDetails.format.iconAsset,
+                    title: relation.relationDetails.name,
+                    isOn: relation.option.isVisible,
+                    canBeRemovedFromObject: relation.relationDetails.canBeRemovedFromObject,
+                    onChange: { [weak self] isVisible in
+                        self?.onRelationVisibleChange(relation, isVisible: isVisible)
+                    }
+                )
+            }
         }
     }
     

@@ -27,4 +27,8 @@ extension BlockWidgetInfo {
         
         return block.layout.limits.first ?? 0
     }
+    
+    var widgetCreateType: WidgetCreateType {
+        block.autoAdded ? .auto: .manual
+    }
 }

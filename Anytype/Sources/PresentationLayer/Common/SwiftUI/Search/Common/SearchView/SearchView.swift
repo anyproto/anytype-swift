@@ -1,6 +1,20 @@
 import SwiftUI
 import Services
 
+enum SearchViewEmptyViewMode {
+    case object
+    case property
+    
+    func title(_ searchText: String) -> String {
+        switch self {
+        case .object:
+            Loc.thereIsNoObjectNamed(searchText)
+        case .property:
+            Loc.thereIsNoPropertyNamed(searchText)
+        }
+    }
+}
+
 struct SearchView<SearchData: SearchDataProtocol>: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -9,6 +23,9 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
     let title: String?
     let placeholder: String
     let searchData: [SearchDataSection<SearchData>]
+    let emptyViewMode: SearchViewEmptyViewMode
+    
+    var dismissOnSelect = true
     
     var search: (_ text: String) async -> Void
     var onSelect: (_ searchData: SearchData) -> Void
@@ -44,7 +61,7 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
                         ForEach(section.searchData) { searchData in
                             Button(
                                 action: {
-                                    dismiss()
+                                    if dismissOnSelect { dismiss() }
                                     onSelect(searchData)
                                 }
                             ) {
@@ -72,7 +89,7 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
     
     private var emptyState: some View {
         EmptyStateView(
-            title: Loc.thereIsNoObjectNamed(searchText),
+            title: emptyViewMode.title(searchText),
             subtitle: Loc.createANewOneOrSearchForSomethingElse,
             style: .plain
         )

@@ -23,7 +23,7 @@ protocol EditorPageModuleAssemblyProtocol: AnyObject {
 @MainActor
 final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
-    @Injected(\.documentService)
+    @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     nonisolated init() {}
@@ -163,11 +163,17 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             moduleOutput: output
         )
         
+        let mediaBlockActionsProvider = MediaBlockActionsProvider(
+            handler: actionHandler,
+            router: router
+        )
+        
         let slashMenuActionHandler = SlashMenuActionHandler(
             document: document,
             actionHandler: actionHandler,
             router: router,
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            mediaBlockActionsProvider: mediaBlockActionsProvider
         )
         
         let blocksConverter = BlockViewModelBuilder(
@@ -185,6 +191,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             keyboardActionHandler: keyboardHandler,
             markupChanger: BlockMarkupChanger(),
             slashMenuActionHandler: slashMenuActionHandler,
+            mediaBlockActionsProvider: mediaBlockActionsProvider,
             editorPageBlocksStateManager: blocksStateManager,
             output: output
         )

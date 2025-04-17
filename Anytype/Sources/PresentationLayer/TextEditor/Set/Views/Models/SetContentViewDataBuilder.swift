@@ -32,8 +32,12 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
         let storageRelationsDetails = relationDetailsStorage.relationsDetails(keys: dataview.relationLinks.map(\.key), spaceId: spaceId)
-            .filter { !$0.isHidden && !$0.isDeleted }
-        let relations: [SetRelation] = view.options
+            .filter {
+                (!$0.isHidden && !$0.isDeleted) ||
+                (view.canSwitchItemName && $0.key == BundledRelationKey.name.rawValue)
+            }
+        
+        let relationsPresentInView: [SetRelation] = view.options
             .compactMap { option in
                 let relationsDetails = storageRelationsDetails
                     .first { $0.key == option.key }
@@ -41,8 +45,13 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 
                 return SetRelation(relationDetails: relationsDetails, option: option)
             }
+        
+        let relationsNotPresentInView: [SetRelation] = storageRelationsDetails
+            .filter { !view.options.map(\.key).contains($0.key) }
+            .map { SetRelation(relationDetails: $0, option: DataviewRelationOption(key: $0.key, isVisible: false)) }
 
-        return NSOrderedSet(array: relations).array as! [SetRelation]
+        
+        return NSOrderedSet(array: relationsPresentInView + relationsNotPresentInView).array as! [SetRelation]
     }
     
     func activeViewRelations(
@@ -87,7 +96,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         onItemTap: @escaping @Sendable @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
-        let relationsDetails = sortedRelations(
+        let visibleRelationsDetails = sortedRelations(
             dataview: dataView,
             view: activeView,
             spaceId: spaceId
@@ -95,32 +104,39 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
 
         let items = items(
             details: details,
-            relationsDetails: relationsDetails,
+            relationsDetails: visibleRelationsDetails,
             dataView: dataView,
             activeView: activeView,
             viewRelationValueIsLocked: viewRelationValueIsLocked,
             spaceId: spaceId,
             storage: storage
         )
-        let minHeight = calculateMinHeight(activeView: activeView, items: items)
+        var showTitle = true
+        if activeView.canSwitchItemName {
+            showTitle = visibleRelationsDetails.contains { $0.key == BundledRelationKey.name.rawValue }
+        }
+        let showIcon = !activeView.hideIcon
+        
+        let minHeight = calculateMinHeight(activeView: activeView, items: items, showTitle: showTitle, showIcon: showIcon)
         let hasCover = activeView.coverRelationKey.isNotEmpty && activeView.type != .kanban
         
         return items.map { item in
             return SetContentViewItemConfiguration(
                 id: item.details.id,
                 title: item.details.title,
+                showTitle: showTitle,
                 description: item.details.description,
                 icon: item.details.objectIconImage, 
                 canEditIcon: canEditIcon,
                 relations: item.relations,
-                showIcon: !activeView.hideIcon,
+                showIcon: showIcon,
                 isSmallCardSize: activeView.isSmallCardSize,
                 hasCover: hasCover,
                 coverFit: activeView.coverFit,
                 coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: storage),
                 minHeight: minHeight,
-                onItemTap: {
-                    onItemTap(item.details)
+                onItemTap: { [details = item.details] in
+                    onItemTap(details)
                 }
             )
         }
@@ -139,7 +155,10 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     objectRelations: relationsDetails,
-                    typeRelations: [],
+                    objectFeaturedRelations: [],
+                    recommendedRelations: [],
+                    recommendedFeaturedRelations: [],
+                    recommendedHiddenRelations: [],
                     objectId: details.id,
                     relationValuesIsLocked: viewRelationValueIsLocked,
                     storage: storage
@@ -208,7 +227,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     private func findCover(at values: [String], _ details: ObjectDetails, detailsStorage: ObjectDetailsStorage) -> ObjectHeaderCoverType? {
         for value in values {
             let details = detailsStorage.get(id: value)
-            if let details = details, details.layoutValue.isImage {
+            if let details = details, details.resolvedLayoutValue.isImage {
                 return .cover(.imageId(details.id))
             }
         }
@@ -226,7 +245,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         relationDetails.format != .unrecognized
     }
     
-    private func calculateMinHeight(activeView: DataviewView, items: [SetContentViewItem]) -> CGFloat? {
+    private func calculateMinHeight(activeView: DataviewView, items: [SetContentViewItem], showTitle: Bool, showIcon: Bool) -> CGFloat? {
         guard activeView.type == .gallery, activeView.cardSize == .small else {
             return nil
         }
@@ -234,16 +253,18 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         var maxHeight: CGFloat = .zero
         items.forEach { item in
             let relationsWithValueCount = CGFloat(item.relations.filter { $0.hasValue }.count)
-            let hasCoverOnce = activeView.coverRelationKey.isNotEmpty && item.coverType.isNotNil
+            let hasCover = activeView.coverRelationKey.isNotEmpty && item.coverType.isNotNil
             
-            let titleHeight = SetGalleryViewCell.Constants.maxTitleHeight
-            let verticalPaddings = SetGalleryViewCell.Constants.contentPadding * (hasCoverOnce ? 1 : 2)
+            let titleHeight = showTitle || showIcon ? SetGalleryViewCell.Constants.maxTitleHeight : 0
+            let titleSpacerCount: CGFloat = hasCover && titleHeight == 0 ? 0 : (hasCover ? 1 : 2)
+            let verticalPaddings = SetGalleryViewCell.Constants.contentPadding * titleSpacerCount
             
-            let totalCoverHeight = hasCoverOnce ? SetGalleryViewCell.Constants.smallItemHeight + SetGalleryViewCell.Constants.bottomCoverSpacing : 0
+            let totalCoverHeight = hasCover ? SetGalleryViewCell.Constants.smallItemHeight : 0
+            let bottomCoverSpace = relationsWithValueCount > 0 ? SetGalleryViewCell.Constants.bottomCoverSpacing : 0
             
             let relationsHeight = (SetGalleryViewCell.Constants.relationHeight + SetGalleryViewCell.Constants.relationSpacing) * relationsWithValueCount
             
-            let total = titleHeight + verticalPaddings + totalCoverHeight + relationsHeight
+            let total = titleHeight + verticalPaddings + totalCoverHeight + bottomCoverSpace + relationsHeight
             maxHeight = max(maxHeight, total)
         }
         

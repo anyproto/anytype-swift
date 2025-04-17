@@ -101,7 +101,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
         return ObjectType(
             id: id,
             name: Loc.ObjectType.deletedName,
-            iconEmoji: nil,
+            pluralName: Loc.ObjectType.deletedName,
+            icon: .deleted,
             description: "",
             hidden: false,
             readonly: true,
@@ -112,8 +113,14 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
             uniqueKey: .empty,
             defaultTemplateId: "",
             canCreateObjectOfThisType: false,
+            isDeletable: false,
+            layoutAlign: .justify,
+            layoutWidth: nil,
             recommendedRelations: [],
-            recommendedLayout: nil
+            recommendedFeaturedRelations: [],
+            recommendedHiddenRelations: [],
+            recommendedLayout: nil,
+            lastUsedDate: .distantPast
         )
     }
     

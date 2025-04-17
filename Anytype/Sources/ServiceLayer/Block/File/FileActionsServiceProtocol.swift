@@ -25,10 +25,10 @@ protocol FileActionsServiceProtocol: Sendable {
     func createFileData(fileUrl: URL) throws -> FileData
     
     func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws
-    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails
+    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin, createTypeWidgetIfMissing: Bool) async throws -> FileDetails
     
     func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws
-    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails
+    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin, createTypeWidgetIfMissing: Bool) async throws -> FileDetails
     
     func nodeUsage() async throws -> NodeUsageInfo
     

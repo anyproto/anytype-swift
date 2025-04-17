@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct EditorCoordinatorView: View {
     
@@ -36,12 +37,19 @@ struct EditorCoordinatorView: View {
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case let .list(data):
             EditorSetCoordinatorView(data: data, showHeader: true)
-        case let .allContent(spaceId):
-            AllContentCoordinatorView(spaceId: spaceId, output: model)
+        case let .allObjects(spaceId):
+            AllObjectsCoordinatorView(spaceId: spaceId, output: model)
         case let .date(data):
             DateCoordinatorView(data: data)
+        case let .simpleSet(data):
+            SimpleSetCoordinatorView(data: data)
         case let .type(data):
-            ObjectTypeCoordinator(data: data)
+            if FeatureFlags.openTypeAsSet {
+                let list = EditorListObject(objectId: data.objectId, spaceId: data.spaceId)
+                EditorSetCoordinatorView(data: list, showHeader: true)
+            } else {
+                ObjectTypeCoordinator(data: data)
+            }
         }
     }
 }

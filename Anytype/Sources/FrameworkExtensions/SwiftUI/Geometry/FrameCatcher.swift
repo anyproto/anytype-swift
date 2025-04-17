@@ -19,8 +19,10 @@ struct FrameCatcher: View {
                 value: geometry.frame(in: space)
             )
         }
-        .onPreferenceChange(FrameCatcherKey.self) {
-            onChange($0)
+        .onPreferenceChange(FrameCatcherKey.self) { data in
+            MainActor.assumeIsolated {
+                onChange(data)
+            }
         }
     }
 }

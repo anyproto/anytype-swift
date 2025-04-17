@@ -1,10 +1,10 @@
 import UIKit
 
 struct AlertModel {
-    struct ButtonModel {
+    struct ButtonModel: Sendable {
         let title: String
         let style: UIAlertAction.Style
-        let action: () -> Void
+        let action: @Sendable () -> Void
     }
 
     let title: String?
@@ -18,7 +18,7 @@ extension AlertModel.ButtonModel {
 }
 
 extension AlertModel {
-    static func undoAlertModel(undoAction: @escaping () -> Void) -> AlertModel {
+    static func undoAlertModel(undoAction: @escaping @Sendable () -> Void) -> AlertModel {
         AlertModel(
             title: Loc.undoTyping,
             message: nil,

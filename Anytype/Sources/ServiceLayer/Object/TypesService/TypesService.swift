@@ -11,12 +11,21 @@ final class TypesService: TypesServiceProtocol, Sendable {
     private let pinsStorage: any TypesPinStorageProtocol = Container.shared.typesPinsStorage()
     private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     
-    func createType(name: String, spaceId: String) async throws -> ObjectType {
-        let details = Google_Protobuf_Struct(
-            fields: [
-                BundledRelationKey.name.rawValue: name.protobufValue,
-            ]
-        )
+    func createType(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?, spaceId: String) async throws -> ObjectType {
+        var fields: [String: Google_Protobuf_Value] = [
+            BundledRelationKey.name.rawValue: name.protobufValue,
+            BundledRelationKey.pluralName.rawValue: pluralName.protobufValue
+        ]
+        
+        if let icon = icon {
+            fields[BundledRelationKey.iconName.rawValue] = icon.stringRepresentation.protobufValue
+        }
+        
+        if let color = color {
+            fields[BundledRelationKey.iconOption.rawValue] = color.iconOption.protobufValue
+        }
+        
+        let details = Google_Protobuf_Struct(fields: fields)
         
         let result = try await ClientCommands.objectCreateObjectType(.with {
             $0.details = details
@@ -48,7 +57,8 @@ final class TypesService: TypesServiceProtocol, Sendable {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
-            type: .desc
+            type: .desc,
+            includeTime: true
         )
                 
         var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
@@ -92,7 +102,8 @@ final class TypesService: TypesServiceProtocol, Sendable {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastUsedDate,
-            type: .desc
+            type: .desc,
+            includeTime: true
         )
         
         let filters: [DataviewFilter] = .builder {

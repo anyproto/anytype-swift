@@ -1,11 +1,14 @@
 import ProtobufMessages
 import AnytypeCore
+import Foundation
+
 
 public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     
     public let id: String
     public let name: String
-    public let iconEmoji: Emoji?
+    public let pluralName: String
+    public let icon: ObjectIcon
     public let description: String
     public let hidden: Bool
     public let readonly: Bool
@@ -16,14 +19,22 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     public let uniqueKey: ObjectTypeUniqueKey
     public let defaultTemplateId: String
     public let canCreateObjectOfThisType: Bool
+    public let isDeletable: Bool
+    public let layoutAlign: LayoutAlignment
+    public let layoutWidth: Int?
     
     public let recommendedRelations: [ObjectId]
+    public let recommendedFeaturedRelations: [ObjectId]
+    public let recommendedHiddenRelations: [ObjectId]
     public let recommendedLayout: DetailsLayout?
+    
+    public let lastUsedDate: Date?
     
     public init(
         id: String,
         name: String,
-        iconEmoji: Emoji?,
+        pluralName: String,
+        icon: ObjectIcon,
         description: String,
         hidden: Bool,
         readonly: Bool,
@@ -34,12 +45,19 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         uniqueKey: ObjectTypeUniqueKey,
         defaultTemplateId: String,
         canCreateObjectOfThisType: Bool,
+        isDeletable: Bool,
+        layoutAlign: LayoutAlignment,
+        layoutWidth: Int?,
         recommendedRelations: [ObjectId],
-        recommendedLayout: DetailsLayout?
+        recommendedFeaturedRelations: [ObjectId],
+        recommendedHiddenRelations: [ObjectId],
+        recommendedLayout: DetailsLayout?,
+        lastUsedDate: Date?
     ) {
         self.id = id
         self.name = name
-        self.iconEmoji = iconEmoji
+        self.pluralName = pluralName
+        self.icon = icon
         self.description = description
         self.hidden = hidden
         self.readonly = readonly
@@ -50,8 +68,14 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         self.uniqueKey = uniqueKey
         self.defaultTemplateId = defaultTemplateId
         self.canCreateObjectOfThisType = canCreateObjectOfThisType
+        self.isDeletable = isDeletable
+        self.layoutAlign = layoutAlign
+        self.layoutWidth = layoutWidth
         self.recommendedRelations = recommendedRelations
+        self.recommendedFeaturedRelations = recommendedFeaturedRelations
+        self.recommendedHiddenRelations = recommendedHiddenRelations
         self.recommendedLayout = recommendedLayout
+        self.lastUsedDate = lastUsedDate
     }
 }
 
@@ -61,7 +85,8 @@ extension ObjectType: DetailsModel {
         self.init(
             id: details.id,
             name: details.name,
-            iconEmoji: details.iconEmoji,
+            pluralName: details.pluralName,
+            icon: details.objectIcon ?? .emptyTypeIcon,
             description: details.description,
             hidden: details.isHidden,
             readonly: details.isReadonly,
@@ -72,8 +97,14 @@ extension ObjectType: DetailsModel {
             uniqueKey: details.uniqueKeyValue,
             defaultTemplateId: details.defaultTemplateId,
             canCreateObjectOfThisType: !details.restrictionsValue.contains(.createObjectOfThisType),
+            isDeletable: !details.restrictionsValue.contains(.delete),
+            layoutAlign: details.layoutAlignValue,
+            layoutWidth: details.layoutWidth,
             recommendedRelations: details.recommendedRelations,
-            recommendedLayout: details.recommendedLayoutValue
+            recommendedFeaturedRelations: details.recommendedFeaturedRelations,
+            recommendedHiddenRelations: details.recommendedHiddenRelations,
+            recommendedLayout: details.recommendedLayoutValue,
+            lastUsedDate: details.lastUsedDate
         )
     }
     
@@ -81,7 +112,11 @@ extension ObjectType: DetailsModel {
         return [
             BundledRelationKey.id,
             BundledRelationKey.name,
+            BundledRelationKey.pluralName,
             BundledRelationKey.iconEmoji,
+            BundledRelationKey.iconName,
+            BundledRelationKey.iconImage,
+            BundledRelationKey.iconOption,
             BundledRelationKey.description,
             BundledRelationKey.isHidden,
             BundledRelationKey.isReadonly,
@@ -89,11 +124,18 @@ extension ObjectType: DetailsModel {
             BundledRelationKey.smartblockTypes,
             BundledRelationKey.sourceObject,
             BundledRelationKey.recommendedRelations,
+            BundledRelationKey.recommendedFeaturedRelations,
+            BundledRelationKey.recommendedHiddenRelations,
             BundledRelationKey.recommendedLayout,
             BundledRelationKey.uniqueKey,
             BundledRelationKey.spaceId,
             BundledRelationKey.defaultTemplateId,
-            BundledRelationKey.restrictions
+            BundledRelationKey.restrictions,
+            BundledRelationKey.resolvedLayout,
+            BundledRelationKey.layoutAlign,
+            BundledRelationKey.layoutWidth,
+            BundledRelationKey.type,
+            BundledRelationKey.lastUsedDate
         ]
     }
     

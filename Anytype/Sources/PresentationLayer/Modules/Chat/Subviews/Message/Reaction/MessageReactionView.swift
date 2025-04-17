@@ -15,12 +15,12 @@ struct MessageReactionView: View {
             HStack(spacing: 4) {
                 Text(model.emoji)
                 // Don't needed anytype style because emojy font will be replace to system
-                    .font(.system(size: 18))
+                    .font(.system(size: 14))
                 switch model.content {
                 case .count(let count):
                     Text("\(count)")
                         .anytypeFontStyle(.caption1Regular)
-                        .foregroundColor(model.isYourMessage && !model.selected ? .Text.white : .Text.primary)
+                        .foregroundColor(.Text.primary)
                 case .icon(let icon):
                     IconView(icon: icon)
                         .frame(width: 20, height: 20)
@@ -28,11 +28,10 @@ struct MessageReactionView: View {
                 
             }
             .dynamicTypeSize(.large)
-            .frame(height: 32)
+            .frame(height: 28)
             .padding(.horizontal, 8)
-            .background(model.selected ? Color.VeryLight.orange : Color.Shape.transperentPrimary)
-            .cornerRadius(20, style: .continuous)
-            .border(20, color: model.selected ? Color.System.amber125 : Color.clear, lineWidth: 1)
+            .background(model.selected ? Color.Background.primary : Color.Shape.transperentSecondary)
+            .cornerRadius(20)
         }
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.25)
@@ -46,12 +45,12 @@ struct MessageReactionView: View {
 #Preview {
     VStack {
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, isYourMessage: false),
+            model: MessageReactionModel(emoji: "😘", content: .count(4), selected: false, position: .left),
             onTap: {},
             onLongTap: {}
         )
         MessageReactionView(
-            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, isYourMessage: true),
+            model: MessageReactionModel(emoji: "😁", content: .icon(.asset(.X18.delete)), selected: true, position: .right),
             onTap: {},
             onLongTap: {}
         )

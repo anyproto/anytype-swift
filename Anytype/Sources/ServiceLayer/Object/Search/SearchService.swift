@@ -14,7 +14,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
     // MARK: - SearchServiceProtocol
     
     func search(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, spaceId: spaceId)
+        try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, excludedIds: [], spaceId: spaceId)
     }
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -139,8 +139,9 @@ final class SearchService: SearchServiceProtocol, Sendable {
     
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
-            type: .asc
+            relation: BundledRelationKey.lastUsedDate,
+            type: .desc,
+            includeTime: true
         )
         
         let filters: [DataviewFilter] = .builder {
@@ -178,13 +179,16 @@ final class SearchService: SearchServiceProtocol, Sendable {
         return result.map { $0.id }
     }
     
-    func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], spaceId: String) async throws -> [ObjectDetails] {
+    func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], excludedIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
         )
         
-        let filters = SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
+        let filters: [DataviewFilter] = .builder {
+            SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
+            SearchHelper.excludedIdsFilter(excludedIds)
+        }
         
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }

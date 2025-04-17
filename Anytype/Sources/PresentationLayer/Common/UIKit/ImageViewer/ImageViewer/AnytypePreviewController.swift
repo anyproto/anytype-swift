@@ -15,14 +15,14 @@ final class AnytypePreviewController: QLPreviewController {
 
     var hasUpdates = false
 
-    private let items: [any PreviewRemoteItem]
+    private let items: [PreviewRemoteItem]
     private let onContentChanged: (URL) -> Void
     private var itemsSubscriptions = [AnyCancellable]()
     private weak var sourceView: UIView?
     private let initialPreviewItemIndex: Int
 
     init(
-        with items: [any PreviewRemoteItem],
+        with items: [PreviewRemoteItem],
         initialPreviewItemIndex: Int = 0,
         sourceView: UIView? = nil,
         onContentChanged: @escaping (URL) -> Void = { _ in }
@@ -52,13 +52,21 @@ final class AnytypePreviewController: QLPreviewController {
 
         items.forEach { item in
             item.didUpdateContentSubject.receiveOnMain().sinkWithResult { [weak self] _ in
-                guard let self else { return }
-                if didFinishTransition {
-                    refreshCurrentPreviewItem()
-                } else {
-                    hasUpdates = true
-                }
+                self?.handleItemUpdate()
             }.store(in: &itemsSubscriptions)
+        }
+    }
+    
+    private func handleItemUpdate() {
+        if FeatureFlags.doNotWaitCompletionInAnytypePreview {
+            refreshCurrentPreviewItem()
+            return
+        }
+        
+        if didFinishTransition {
+            refreshCurrentPreviewItem()
+        } else {
+            hasUpdates = true
         }
     }
 }

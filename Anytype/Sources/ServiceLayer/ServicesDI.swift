@@ -5,6 +5,7 @@ import SharedContentManager
 import DeepLinks
 import AnytypeCore
 @_exported import Factory
+import AppTarget
 
 extension Container {
         
@@ -184,7 +185,7 @@ extension Container {
         self { ApplicationStateService() }.singleton
     }
     
-    var documentService: Factory<any OpenedDocumentsProviderProtocol> {
+    var openedDocumentProvider: Factory<any OpenedDocumentsProviderProtocol> {
         self { OpenedDocumentsProvider() }.singleton
     }
     
@@ -229,7 +230,7 @@ extension Container {
     }
     
     var deepLinkParser: Factory<any DeepLinkParserProtocol> {
-        self { DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug) }
+        self { DeepLinkDI.shared.parser(targetType: CoreEnvironment.targetType) }
     }
     
     var universalLinkParser: Factory<any UniversalLinkParserProtocol> {
@@ -317,12 +318,12 @@ extension Container {
         self { SpaceSetupManager() }.singleton
     }
     
-    var allContentSubscriptionService: Factory<any AllContentSubscriptionServiceProtocol> {
-        self { AllContentSubscriptionService() }
+    var allObjectsSubscriptionService: Factory<any AllObjectsSubscriptionServiceProtocol> {
+        self { AllObjectsSubscriptionService() }
     }
     
-    var allContentStateStorageService: Factory<any AllContentStateStorageServiceProtocol> {
-        self { AllContentStateStorageService() }.shared
+    var allObjectsStateStorageService: Factory<any AllObjectsStateStorageServiceProtocol> {
+        self { AllObjectsStateStorageService() }.shared
     }
     
     var chatActionService: Factory<any ChatActionServiceProtocol> {
@@ -359,5 +360,29 @@ extension Container {
     
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
+    }
+    
+    var simpleSetSubscriptionService: Factory<any SimpleSetSubscriptionServiceProtocol> {
+        self { SimpleSetSubscriptionService() }
+    }
+    
+    var iconColorService: Factory<any IconColorServiceProtocol> {
+        self { IconColorService() }.shared
+    }
+    
+    var stdOutFileStream: Factory<any StdOutFileStreamProtocol> {
+        self { StdOutFileStream() }.singleton
+    }
+    
+    var appSessionTracker: Factory<any AppSessionTrackerProtocol> {
+        self { AppSessionTracker() }.singleton
+    }
+    
+    var spaceSettingsInfoBuilder: Factory<any SpaceSettingsInfoBuilderProtocol> {
+        self { SpaceSettingsInfoBuilder() }
+    }
+    
+    var applePushNotificationService: Factory<any ApplePushNotificationServiceProtocol> {
+        self { ApplePushNotificationService() }.singleton
     }
 }

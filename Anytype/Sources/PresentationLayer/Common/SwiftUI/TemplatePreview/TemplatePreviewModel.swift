@@ -40,14 +40,11 @@ struct TemplateModel: Equatable {
 }
 
 enum TemplateType: Equatable {
-    case blank
     case addTemplate
     case installed(TemplateModel)
     
     var id: String {
         switch self {
-        case .blank:
-            return "blank"
         case .addTemplate:
             return "Add template"
         case let .installed(model):
@@ -80,7 +77,7 @@ extension TemplatePreviewModel {
 extension TemplatePreviewModel {
     var contextualMenuOptions: [TemplateOptionAction] {
         switch mode {
-        case .addTemplate, .blank:
+        case .addTemplate:
             return []
         case .installed:
             return TemplateOptionAction.allCases

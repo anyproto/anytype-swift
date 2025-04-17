@@ -17,7 +17,7 @@ final class MembershipUpgradeViewModifierModel: ObservableObject {
         guard let reason else { return }
         guard let currentTier = statusStorage.currentStatus.tier else { return }
         
-        if accountManager.account.isInProdOrStagingNetwork && currentTier.isPossibleToUpgrade(reason: reason) {
+        if accountManager.account.allowMembership && currentTier.isPossibleToUpgrade(reason: reason) {
             showMembershipScreen = true
         } else {
             showMembershipEmailAlert = true

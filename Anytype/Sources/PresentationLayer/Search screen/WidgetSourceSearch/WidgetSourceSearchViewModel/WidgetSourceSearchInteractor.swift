@@ -11,9 +11,9 @@ struct WidgetAnytypeLibrarySource: Hashable {
 
 @MainActor
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
-    func objectSearch(text: String) async throws -> [ObjectDetails]
+    func objectsTypesSearch(text: String) async throws -> [ObjectDetails]
+    func objectsSearch(text: String) async throws -> [ObjectDetails]
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource]
-    func createNewObject(name: String) async throws -> ObjectDetails
 }
 
 @MainActor
@@ -21,57 +21,82 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    private let spaceId: String
-    private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
+    @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
-    init(spaceId: String) {
+    private let spaceId: String
+    private let widgetObjectId: String
+    private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
+    
+    private var widgetTypeIds: [String]?
+    
+    init(spaceId: String, widgetObjectId: String) {
         self.spaceId = spaceId
+        self.widgetObjectId = widgetObjectId
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
     
-    func objectSearch(text: String) async throws -> [ObjectDetails] {
+    func objectsSearch(text: String) async throws -> [ObjectDetails] {
         try await searchService.search(text: text, spaceId: spaceId)
+    }
+    
+    func objectsTypesSearch(text: String) async throws -> [ObjectDetails] {
+        if widgetTypeIds.isNil {
+            let widgetObject = documentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
+            try await widgetObject.open()
+            let sourceIds = widgetObject.children
+                .filter(\.isWidget)
+                .compactMap { widgetObject.targetObjectIdByLinkFor(widgetBlockId: $0.id) }
+            let objectTypes = objectTypeProvider.objectTypes(spaceId: spaceId)
+            let excludedExistedIds = objectTypes
+                .filter { sourceIds.contains($0.id) }
+                .map { $0.id }
+            let excludedTypeIds = objectTypes
+                .filter { $0.uniqueKey == ObjectTypeUniqueKey.template || $0.uniqueKey == ObjectTypeUniqueKey.objectType }
+                .map { $0.id }
+            widgetTypeIds = excludedExistedIds + excludedTypeIds
+        }
+        
+        return try await searchService.searchObjectsWithLayouts(
+            text: text,
+            layouts: [.objectType],
+            excludedIds: widgetTypeIds ?? [],
+            spaceId: spaceId
+        )
     }
     
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {
         guard text.isNotEmpty else { return anytypeLibrary }
         return anytypeLibrary.filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
     }
-    
-    func createNewObject(name: String) async throws -> ObjectDetails {
-        let details = try await defaultObjectService.createDefaultObject(
-            name: name,
-            shouldDeleteEmptyObject: false,
-            spaceId: spaceId
-        )
-        AnytypeAnalytics.instance().logCreateObject(
-            objectType: details.analyticsType,
-            spaceId: details.spaceId,
-            route: .search
-        )
-        return details
-    }
 }
 
 private extension AnytypeWidgetId {
     var librarySource: WidgetAnytypeLibrarySource {
         switch self {
+        case .allObjects:
+            return WidgetAnytypeLibrarySource(
+                type: .allObjects,
+                name: Loc.allObjects,
+                description: nil,
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.allObjects) : .object(.emoji(Emoji("🗄")!))
+            )
         case .favorite:
             return WidgetAnytypeLibrarySource(
                 type: .favorite,
                 name: Loc.favorite,
                 description: nil,
-                icon: .object(.emoji(Emoji("⭐️")!))
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.favorites) : .object(.emoji(Emoji("⭐️")!))
             )
         case .sets:
             return WidgetAnytypeLibrarySource(
                 type: .sets,
                 name: Loc.sets,
                 description: nil,
-                icon: .object(.emoji(Emoji("📚")!))
+                icon: .object(.emoji(Emoji("🔎")!))
             )
         case .collections:
             return WidgetAnytypeLibrarySource(
@@ -85,14 +110,21 @@ private extension AnytypeWidgetId {
                 type: .recent,
                 name: Loc.Widgets.Library.RecentlyEdited.name,
                 description: nil,
-                icon: .object(.emoji(Emoji("📝")!))
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyEdited) : .object(.emoji(Emoji("📝")!))
             )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
-                icon: .object(.emoji(Emoji("📅")!))
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyOpened) : .object(.emoji(Emoji("📅")!))
+            )
+        case .bin:
+            return WidgetAnytypeLibrarySource(
+                type: .bin,
+                name: Loc.bin,
+                description: nil,
+                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.bin) : .object(.emoji(Emoji("🗑️")!))
             )
         }
     }

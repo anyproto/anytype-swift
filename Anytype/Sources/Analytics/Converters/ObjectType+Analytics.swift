@@ -15,6 +15,8 @@ extension WidgetSource {
 extension AnytypeWidgetId {
     var analyticsSource: AnalyticsWidgetSource {
         switch self {
+        case .allObjects:
+            return .allObjects
         case .favorite:
             return .favorites
         case .recent:
@@ -25,6 +27,8 @@ extension AnytypeWidgetId {
             return .sets
         case .collections:
             return .collections
+        case .bin:
+            return .bin
         }
     }
 }

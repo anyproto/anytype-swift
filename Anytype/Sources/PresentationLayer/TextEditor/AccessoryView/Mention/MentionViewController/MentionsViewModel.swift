@@ -39,12 +39,12 @@ final class MentionsViewModel {
             
             var updatedMentions: [MentionDisplayData] = []
 
-            let dateMentions = FeatureFlags.dateAsAnObject ? try await mentionService.searchMentions(
+            let dateMentions = try await mentionService.searchMentions(
                 spaceId: document.spaceId,
                 text: filterString,
                 excludedObjectIds: [document.objectId],
                 limitLayout: [.date]
-            ) : []
+            )
             
             if dateMentions.isNotEmpty {
                 updatedMentions.append(.header(title: Loc.dates))
@@ -70,7 +70,7 @@ final class MentionsViewModel {
     
     func subtitle(for mention: MentionObject) -> String {
         return if let type = mention.type {
-            !type.isDateType ? type.name : ""
+            !type.isDateType ? type.displayName : ""
         } else {
             Loc.Mention.Subtitle.placeholder
         }

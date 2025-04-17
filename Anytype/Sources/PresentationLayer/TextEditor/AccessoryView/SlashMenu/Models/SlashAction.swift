@@ -11,6 +11,7 @@ enum SlashAction {
     case background(BlockBackgroundColor)
     case alignment(SlashActionAlignment)
 
+    @MainActor
     var displayData: NewSlashMenuItemDisplayData {
         switch self {
         case let .actions(action):
@@ -54,7 +55,7 @@ enum SlashAction {
             case .date:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .object(.empty(.date)),
+                        iconData: .asset(.EmptyIcon.date),
                         title: Loc.selectDate
                     )
                 )
@@ -62,7 +63,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: objectType.objectIconImage,
-                        title: objectType.name,
+                        title: objectType.objectName.isEmpty ? Loc.untitled : objectType.objectName,
                         subtitle: objectType.description
                     )
                 )
@@ -73,7 +74,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .asset(.X24.plus),
-                        title: Loc.newRelation
+                        title: Loc.newField
                     )
                 )
             case .relation(let relation):

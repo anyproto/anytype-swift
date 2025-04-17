@@ -5,6 +5,7 @@ import AnytypeCore
 struct SpaceView: Identifiable, Equatable {
     let id: String
     let name: String
+    let description: String
     let objectIconImage: Icon
     let targetSpaceId: String
     let createdDate: Date?
@@ -15,12 +16,15 @@ struct SpaceView: Identifiable, Equatable {
     let writersLimit: Int?
     let chatId: String
     let isPinned: Bool
+    let uxType: SpaceUxType
+    let unreadMessagesCount: Int
 }
 
 extension SpaceView: DetailsModel {
     init(details: ObjectDetails) {
         self.id = details.id
         self.name = details.name
+        self.description = details.description
         self.objectIconImage = details.objectIconImage
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
@@ -31,11 +35,14 @@ extension SpaceView: DetailsModel {
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
         self.isPinned = details.spaceOrder.isNotEmpty
+        self.uxType = details.spaceUxTypeValue ?? .data
+        self.unreadMessagesCount = 0
     }
     
     static let subscriptionKeys: [BundledRelationKey] = .builder {
         BundledRelationKey.id
         BundledRelationKey.name
+        BundledRelationKey.description
         BundledRelationKey.objectIconImageKeys
         BundledRelationKey.targetSpaceId
         BundledRelationKey.createdDate
@@ -47,6 +54,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.sharedSpacesLimit
         BundledRelationKey.chatId
         BundledRelationKey.spaceOrder
+        BundledRelationKey.spaceUxType
     }
 }
 
@@ -77,12 +85,8 @@ extension SpaceView {
         return spaceIsLoading && spaceIsNotDeleted && spaceIsNotJoining
     }
     
-    var hasChat: Bool {
-        chatId.isNotEmpty
-    }
-    
     var showChat: Bool {
-        hasChat && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
+        (uxType == .chat || uxType == .stream) && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {
@@ -104,6 +108,26 @@ extension SpaceView {
     func canChangeReaderToWriter(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
+    }
+    
+    func updateUnreadMessagesCount(_ count: Int) -> SpaceView {
+        SpaceView(
+            id: id,
+            name: name,
+            description: description,
+            objectIconImage: objectIconImage,
+            targetSpaceId: targetSpaceId,
+            createdDate: createdDate,
+            accountStatus: accountStatus,
+            localStatus: localStatus,
+            spaceAccessType: spaceAccessType,
+            readersLimit: readersLimit,
+            writersLimit: writersLimit,
+            chatId: chatId,
+            isPinned: isPinned,
+            uxType: uxType,
+            unreadMessagesCount: count
+        )
     }
     
     private func activeReaders(participants: [Participant]) -> Int {

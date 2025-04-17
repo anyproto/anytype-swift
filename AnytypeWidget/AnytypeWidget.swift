@@ -2,6 +2,8 @@ import WidgetKit
 import SwiftUI
 import Intents
 import DeepLinks
+import AppTarget
+import Loc
 
 struct StaticProvider: TimelineProvider {
     typealias Entry = SimpleEntry
@@ -38,10 +40,12 @@ struct SimpleEntry: TimelineEntry {
 struct AnytypeWidgetEntryView : View {
     var entry: StaticProvider.Entry
 
-    #if DEBUG
-    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: true)
-    #else
-    private let deepLinkParser = DeepLinkDI.shared.parser(isDebug: false)
+    #if DEBUG || RELEASE_NIGHTLY
+        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .debug)
+    #elseif RELEASE_ANYTYPE
+        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnytype)
+    #elseif RELEASE_ANYAPP
+        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnyApp)
     #endif
     
     var body: some View {

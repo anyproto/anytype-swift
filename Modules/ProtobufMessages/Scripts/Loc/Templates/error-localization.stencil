@@ -1,0 +1,57 @@
+import Foundation
+
+{% for type in types.types %}
+{% if type.localName == "Error" %}
+extension {{ type.name }}: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+        {% for variable in type.allVariables %}
+        {% if variable.name == "code" %}
+            {% for case in variable.type.cases %}
+            case .{{ case.name }}:
+                {% if case.name == "null" or case.name == "unknownError" or case.name == "UNRECOGNIZED" %}
+                return ""
+                {% else %}
+                {% set locKey %}{{ type.name | replace:"Anytype_Rpc.","" | replace:".Response.Error","" }}.{{ case.name }}{% endset %}
+                return LocHelper.tr(table: "LocalizableError", key: "{{ locKey }}")
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endfor %}        
+        }
+    }
+}
+
+{% endif %}
+{% endfor %}
+
+private struct LocHelper {
+    static func tr(table: String, key: String) -> String {
+        let format = BundleToken.bundle.localizedString(forKey: key, value: "", table: table)
+        let locValue = String(format: format, locale: Locale.current, arguments: [])
+        if key == locValue {
+            return ""
+        } else {
+            return locValue
+        }
+    }
+}
+
+// swiftlint:disable convenience_type
+private final class BundleToken {
+    static let bundle: Bundle = {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
+        return Bundle(for: BundleToken.self)
+        #endif
+    }()
+}

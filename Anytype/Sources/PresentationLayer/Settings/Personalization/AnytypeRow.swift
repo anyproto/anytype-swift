@@ -19,7 +19,7 @@ struct AnytypeRow: View {
                         .lineLimit(1)
                     Spacer.fixedWidth(10)
                 }
-                Image(asset: .arrowForward).foregroundColor(.Text.tertiary)
+                Image(asset: .RightAttribute.disclosure)
             }
             .padding(.vertical, 14)
             .divider()

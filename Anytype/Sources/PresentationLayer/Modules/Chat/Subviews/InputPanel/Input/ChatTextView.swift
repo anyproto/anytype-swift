@@ -4,7 +4,7 @@ import SwiftUI
 struct ChatTextView: UIViewRepresentable {
     
     private enum Constants {
-        static let anytypeFont = AnytypeFont.bodyRegular
+        static let anytypeFont = AnytypeFont.chatText
         static let font = UIKitFontBuilder.uiKitFont(font: Constants.anytypeFont)
         static let anytypeCodeFont = AnytypeFont.codeBlock
         static let codeFont = UIKitFontBuilder.uiKitFont(font: anytypeCodeFont)
@@ -16,6 +16,8 @@ struct ChatTextView: UIViewRepresentable {
     let minHeight: CGFloat
     let maxHeight: CGFloat
     let linkTo: (_ range: NSRange) -> Void
+    let linkParsed: (_ url: URL) -> Void
+    let pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
     
     @State private var height: CGFloat = 0
     
@@ -34,7 +36,8 @@ struct ChatTextView: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView {
         let textView = AnytypeUITextView(usingTextLayoutManager: true)
         textView.delegate = context.coordinator
-        textView.textContainerInset = UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 10)
+        textView.anytypeDelegate = context.coordinator
+        textView.textContainerInset = UIEdgeInsets(top: 18, left: 0, bottom: 10, right: 10)
         textView.textContainer.lineFragmentPadding = 0
         textView.notEditableAttributes = [.chatMention]
         textView.backgroundColor = .clear
@@ -59,6 +62,8 @@ struct ChatTextView: UIViewRepresentable {
     
     func updateUIView(_ textView: UITextView, context: Context) {
         context.coordinator.linkTo = linkTo
+        context.coordinator.linkParsed = linkParsed
+        context.coordinator.pasteAttachmentsFromBuffer = pasteAttachmentsFromBuffer
         
         Task { @MainActor in
             // Async for fix "AttributeGraph: cycle detected through attribute"
@@ -79,6 +84,8 @@ struct ChatTextView: UIViewRepresentable {
         mention: .constant(.finish),
         minHeight: 54,
         maxHeight: 212,
-        linkTo: { _ in }
+        linkTo: { _ in },
+        linkParsed: { _ in },
+        pasteAttachmentsFromBuffer: { _ in }
     )
 }

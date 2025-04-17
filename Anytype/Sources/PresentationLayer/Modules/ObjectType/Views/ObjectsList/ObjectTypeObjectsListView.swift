@@ -12,19 +12,25 @@ struct ObjectTypeObjectsListView: View {
     var body: some View {
         content
             .task(id: model.sort) { await model.startListSubscription() }
-            .task { await model.startSetSubscription() }
+            .task { await model.startSubscriptions() }
             .onDisappear { model.stopSubscriptions() }
+            .onChange(of: model.sort) {
+                AnytypeAnalytics.instance().logChangeTypeSort(
+                    type: $0.relation.analyticsValue,
+                    sort: $0.type.analyticValue
+                )
+            }
     }
     
     private var content: some View {
         VStack {
-            header
+            header.padding(.horizontal, 20)
             if model.rows.count > 0 {
                 objectList
             } else {
-                noObjects
+                noObjects.padding(.horizontal, 20)
             }
-        }.padding(10).padding(.horizontal, 10)
+        }.padding(.vertical, 10)
     }
     
     private var header: some View {
@@ -37,14 +43,14 @@ struct ObjectTypeObjectsListView: View {
             
             Menu {
                 AsyncButton(model.setButtonText) { try await model.onSetButtonTap() }
-                AllContentSortMenu(sort: $model.sort)
+                AllObjectsSortMenu(sort: $model.sort)
             } label: {
                 IconView(asset: .X24.more).frame(width: 24, height: 24)
             }
             .menuOrder(.fixed)
             
             Spacer.fixedWidth(16)
-            if model.isEditorLayout {
+            if model.canCreateOjbect {
                 Button(action: {
                     model.onCreateNewObjectTap()
                 }, label: {
@@ -66,10 +72,10 @@ struct ObjectTypeObjectsListView: View {
     private var objectList: some View {
         VStack(spacing: 0) {
             ForEach(model.rows) { row in
-                WidgetObjectListRowView(model: row)
+                WidgetObjectListRowView(model: row).padding(.horizontal, 4)
             }
             Spacer.fixedHeight(12)
-            setButton
+            setButton.padding(.horizontal, 20)
             AnytypeNavigationSpacer(minHeight: 130)
         }
     }

@@ -2,7 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AIModel</key>
+	<string></string>
+	<key>AnyAppMembershipTierSecret</key>
+	<string></string>
+	<key>AIEndpoint</key>
+	<string></string>
+	<key>OpenAIToken</key>
+	<string></string>
 	<key>AmplitudeApiKey</key>
+	<string></string>
+	<key>JoinStreamURL</key>
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -41,6 +51,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -62,10 +74,10 @@
 	<string>Face ID access. Non-localized value</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Network access. Non-localized value</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Photo Library access. Non-localized value</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone access. Non-localized value</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo Library access. Non-localized value</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>ConfigurationIntent</string>
@@ -91,6 +103,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

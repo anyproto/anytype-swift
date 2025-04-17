@@ -1,7 +1,7 @@
 import Services
 import SwiftUI
 
-struct SetRelation: Identifiable, Equatable, Hashable {
+struct SetRelation: Identifiable, Hashable {
     let relationDetails: RelationDetails
     let option: DataviewRelationOption
     

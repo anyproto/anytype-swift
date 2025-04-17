@@ -10,6 +10,7 @@ public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
         imagePath: String,
         iconOption: Int,
         networkMode: Anytype_Rpc.Account.NetworkMode,
+        joinStreamUrl: String,
         configPath: String?
     ) async throws -> AccountData
     func walletRecovery(rootPath: String, mnemonic: String) async throws
@@ -18,6 +19,7 @@ public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
         id: String,
         rootPath: String,
         networkMode: Anytype_Rpc.Account.NetworkMode,
+        joinStreamUrl: String,
         configPath: String?
     ) async throws -> AccountData
     func deleteAccount() async throws -> AccountStatus
@@ -45,6 +47,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
         imagePath: String,
         iconOption: Int,
         networkMode: Anytype_Rpc.Account.NetworkMode,
+        joinStreamUrl: String,
         configPath: String?
     ) async throws -> AccountData {
         do {
@@ -54,6 +57,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.icon = Int64(iconOption)
                 $0.disableLocalNetworkSync = true
                 $0.networkMode = networkMode
+                $0.joinStreamURL = joinStreamUrl
                 $0.networkCustomConfigFilePath = configPath ?? ""
             }).invoke()
     
@@ -87,6 +91,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
         id: String,
         rootPath: String,
         networkMode: Anytype_Rpc.Account.NetworkMode,
+        joinStreamUrl: String,
         configPath: String?
     ) async throws -> AccountData {
         do {
@@ -96,6 +101,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.disableLocalNetworkSync = false
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""
+                $0.joinStreamURL = joinStreamUrl
             }).invoke(ignoreLogErrors: .accountLoadIsCanceled)
             
             return try response.account.asModel()

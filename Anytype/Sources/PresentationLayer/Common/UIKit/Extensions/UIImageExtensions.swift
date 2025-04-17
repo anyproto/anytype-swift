@@ -28,6 +28,7 @@ extension UIImage {
         return UIImage.dynamicImage(light: lightImage, dark: darkImage)
     }
     
+    @MainActor
     func circleImage(width: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         cropToSquare()
         .scaled(to: CGSize(width: width, height: width))
@@ -44,6 +45,7 @@ extension UIImage {
     /// Specifying NO means that the bitmap must include an alpha channel to handle any partially
     /// transparent pixels
     /// - Returns: Rounded image.
+    @MainActor
     func rounded(radius: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         guard radius > 0 else { return self }
         
@@ -90,6 +92,7 @@ extension UIImage {
         return roundedImage ?? self
     }
     
+    @MainActor
     static func linearGradient(size: CGSize,
                          startColor: UIColor,
                          endColor: UIColor,
@@ -261,6 +264,7 @@ extension UIImage {
         return backgroundView.drawToImage()
     }
 
+    @MainActor
     static func circleImage(
         size: CGSize,
         fillColor: UIColor,
@@ -310,6 +314,29 @@ extension UIImage {
         }
     }
 
+    func averageColor() throws -> UIColor {
+        guard let inputImage = CIImage(image: self) else { throw CommonError.undefined }
+        let extentVector = CIVector(
+            x: inputImage.extent.origin.x,
+            y: inputImage.extent.origin.y,
+            z: inputImage.extent.size.width,
+            w: inputImage.extent.size.height
+        )
+
+        guard let filter = CIFilter(
+            name: "CIAreaAverage",
+            parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]
+        ) else { throw CommonError.undefined }
+        
+        guard let outputImage = filter.outputImage else { throw CommonError.undefined }
+
+        var bitmap = [UInt8](repeating: 0, count: 4)
+        let context = CIContext(options: [.workingColorSpace: NSNull()])
+        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
+
+        return UIColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
+    }
+    
     func centeredSquareImage() -> UIImage? {
         guard let cgImage = cgImage else { return nil }
         let width = CGFloat(cgImage.width)

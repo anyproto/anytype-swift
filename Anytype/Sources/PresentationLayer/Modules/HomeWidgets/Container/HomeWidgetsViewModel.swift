@@ -16,7 +16,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.accountParticipantsStorage)
@@ -56,6 +56,11 @@ final class HomeWidgetsViewModel: ObservableObject {
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
+            
+            // Reset panel for empty state
+            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
+                homeState = .readwrite
+            }
         }
     }
     

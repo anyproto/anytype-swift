@@ -30,6 +30,8 @@ extension WidgetSource {
                 return [.compactList, .list, .tree]
             case .sets, .collections:
                 return [.compactList, .list]
+            case .allObjects, .bin:
+                return [.link]
             }
         }
     }
@@ -38,13 +40,13 @@ extension WidgetSource {
 extension ObjectDetails {
     var availableWidgetLayout: [BlockWidget.Layout] {
         switch editorViewType {
-        case .page:
+        case .page, .bookmark:
            return [.tree, .link]
-        case .list:
+        case .list, .type:
             return [.view, .compactList, .list, .link]
         case .date:
             return [.link]
-        case .type, .participant:
+        case .participant, .mediaFile,. chat:
             return []
         }
     }

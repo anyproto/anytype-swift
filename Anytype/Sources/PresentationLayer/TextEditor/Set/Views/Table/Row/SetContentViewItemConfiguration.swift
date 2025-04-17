@@ -5,6 +5,7 @@ import AnytypeCore
 struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let id: String
     let title: String
+    let showTitle: Bool
     let description: String?
     let icon: Icon
     let canEditIcon: Bool
@@ -20,6 +21,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     init(
         id: String,
         title: String,
+        showTitle: Bool,
         description: String?,
         icon: Icon,
         canEditIcon: Bool,
@@ -34,6 +36,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     ) {
         self.id = id
         self.title = title
+        self.showTitle = showTitle
         self.description = description
         self.icon = icon
         self.canEditIcon = canEditIcon
@@ -45,5 +48,23 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.coverType = coverType
         self.minHeight = minHeight
         self.onItemTap = onItemTap
+    }
+}
+
+extension SetContentViewItemConfiguration {
+    var shouldIncreaseCoverHeight: Bool {
+        hasCover && coverType.isNotNil && hasNoInfo
+    }
+    
+    var hasInfo: Bool {
+        !hasNoInfo
+    }
+    
+    private var hasNoInfo: Bool {
+        !showTitle && !showIcon && !hasOneRelationWithValueAtLeast
+    }
+    
+    private var hasOneRelationWithValueAtLeast: Bool {
+        relations.first { $0.hasValue } != nil
     }
 }

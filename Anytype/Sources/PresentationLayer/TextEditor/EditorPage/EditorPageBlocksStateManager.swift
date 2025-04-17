@@ -429,7 +429,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .delete:
             actionHandler.delete(blockIds: elements.map { $0.blockId } )
         case .addBlockBelow:
-            elements.forEach { actionHandler.addBlock(.text(.text), blockId: $0.blockId, spaceId: document.spaceId) }
+            elements.forEach { element in
+                Task {
+                    try await actionHandler.addBlock(.text(.text), blockId: element.blockId, spaceId: document.spaceId)
+                }
+            }
         case .duplicate:
             elements.forEach { actionHandler.duplicate(blockId: $0.blockId, spaceId: document.spaceId) }
         case .turnInto:
@@ -497,7 +501,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
             AnytypeAnalytics.instance().logOpenAsObject()
-            router.showObject(objectId: bookmark.targetObjectID)
+            router.showObject(objectId: bookmark.targetObjectID, forceOpenObject: true)
         case .openSource:
             anytypeAssert(
                 elements.count == 1,

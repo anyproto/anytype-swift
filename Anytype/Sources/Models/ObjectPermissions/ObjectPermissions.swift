@@ -24,6 +24,8 @@ struct ObjectPermissions: Equatable {
     var canEditMessages: Bool = false
     var canShowVersionHistory: Bool = false
     var canRestoreVersionHistory: Bool = false
+    var canEditDetails: Bool = false
+    var canShowRelations: Bool = false
     var editBlocks: EditBlocksPermission = .readonly(.restrictions)
 }
 
@@ -37,18 +39,19 @@ extension ObjectPermissions {
     ) {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
+        let isObjectType = details.isObjectType
         
         let caEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
-        let canEdit = caEditRelations && !details.layoutValue.isFileOrMedia
+        let canEdit = caEditRelations && !details.resolvedLayoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
-        let specificTypes = !details.layoutValue.isList && !details.layoutValue.isParticipant
+        let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant && !isObjectType
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplateType
         self.canDelete = isArchive && participantCanEdit
         self.canTemplateSetAsDefault = isTemplateType && canEdit
         self.canArchive = !objectRestrictions.contains(.delete) && participantCanEdit
-        self.canDuplicate = !objectRestrictions.contains(.duplicate) && canApplyUneditableActions
+        self.canDuplicate = !objectRestrictions.contains(.duplicate) && canApplyUneditableActions && !isObjectType
         
         self.canUndoRedo = specificTypes && canEdit
         
@@ -58,20 +61,23 @@ extension ObjectPermissions {
         
         self.canCreateWidget = details.isVisibleLayout
                                 && !isTemplateType
-                                && details.layoutValue != .participant
+                                && details.resolvedLayoutValue != .participant
                                 && canApplyUneditableActions
+                                && !isObjectType
         
-        self.canFavorite = canApplyUneditableActions && !isTemplateType
-        self.canLinkItself = canApplyUneditableActions && !isTemplateType
+        self.canFavorite = canApplyUneditableActions && !isTemplateType && !isObjectType
+        self.canLinkItself = canApplyUneditableActions && !isTemplateType && !isObjectType
         self.canLock = specificTypes && canApplyUneditableActions && !isTemplateType
-        self.canChangeIcon = details.layoutValue.haveIcon && canEdit
-        self.canChangeCover = details.layoutValue.haveCover && canEdit
-        self.canChangeLayout = details.layoutValue.isEditorLayout && canEdit
-        self.canEditRelationValues = caEditRelations && !objectRestrictions.contains(.details)
-        self.canEditRelationsList = caEditRelations && !objectRestrictions.contains(.relations)
-        self.canShare = !isTemplateType
+        self.canChangeIcon = details.resolvedLayoutValue.haveIcon && canEdit
+        self.canChangeCover = details.resolvedLayoutValue.haveCover && canEdit && !isObjectType
+        self.canChangeLayout = details.resolvedLayoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
+        self.canEditDetails = !objectRestrictions.contains(.details)
+        self.canEditRelationValues = caEditRelations && canEditDetails
+        self.canEditRelationsList = canEditRelationValues && !objectRestrictions.contains(.relations)
+        self.canShare = !isTemplateType && !isObjectType
         self.canApplyTemplates = canEdit && !isTemplateType
         self.canEditMessages = canEdit
+        self.canShowRelations = !isObjectType
         
         if isLocked || isVersionMode {
             self.editBlocks = .readonly(.locked)
@@ -87,8 +93,9 @@ extension ObjectPermissions {
         
         self.canEditBlocks = editBlocks.canEdit
         self.canShowVersionHistory = details.isVisibleLayout
-                                    && details.layoutValue != .participant
+                                    && details.resolvedLayoutValue != .participant
                                     && !details.templateIsBundled
+                                    && !isObjectType
         self.canRestoreVersionHistory = !isLocked && !isArchive && participantCanEdit
     }
 }

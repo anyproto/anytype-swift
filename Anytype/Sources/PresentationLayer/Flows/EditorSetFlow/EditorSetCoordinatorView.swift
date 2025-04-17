@@ -52,6 +52,24 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(item: $model.setObjectCreationData) {
                 SetObjectCreationSettingsView(data: $0, output: model)
             }
+            .sheet(item: $model.aiToolData) {
+                AIToolView(data: $0)
+            }
+            .sheet(item: $model.layoutPickerData) {
+                ObjectLayoutPicker(mode: .type, objectId: $0.objectId, spaceId: $0.spaceId, analyticsType: $0.analyticsType)
+            }
+            .sheet(item: $model.showTypeFieldsDocument) {
+                TypeFieldsView(document: $0.document)
+            }
+            .anytypeSheet(item: $model.templatesPickerDocument) {
+                ObjectTypeTemplatePickerView(document: $0.document, output: model)
+            }
+            .anytypeSheet(item: $model.objectTypeInfo) {
+                ObjectTypeInfoView(info: $0, mode: .edit) { info in
+                    model.onObjectTypeNameUpdate(info: info)
+                }
+            }
+
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

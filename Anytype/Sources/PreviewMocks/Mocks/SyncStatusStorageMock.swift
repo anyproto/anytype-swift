@@ -2,9 +2,7 @@ import Services
 import Combine
 import ProtobufMessages
 
-
-@MainActor
-final class SyncStatusStorageMock: SyncStatusStorageProtocol {
+final class SyncStatusStorageMock: SyncStatusStorageProtocol, @unchecked Sendable {
     
     static let shared = SyncStatusStorageMock()
     

@@ -74,11 +74,16 @@ extension RelationDetails: DetailsModel {
             BundledRelationKey.isReadonly,
             BundledRelationKey.relationMaxCount,
             BundledRelationKey.sourceObject,
-            BundledRelationKey.spaceId
+            BundledRelationKey.spaceId,
+            BundledRelationKey.lastUsedDate
         ]
     }
     
-    var asCreateMiddleware: Google_Protobuf_Struct {
+    public var asMiddleware: Google_Protobuf_Struct {
+        return Google_Protobuf_Struct(fields: fields)
+    }
+    
+    public var fields: [String: Google_Protobuf_Value] {
         var fields = [String: Google_Protobuf_Value]()
         if name.isNotEmpty {
             fields[BundledRelationKey.name.rawValue] = name.protobufValue
@@ -89,8 +94,7 @@ extension RelationDetails: DetailsModel {
         if objectTypes.isNotEmpty {
             fields[BundledRelationKey.relationFormatObjectTypes.rawValue] = objectTypes.protobufValue
         }
-        
-        return Google_Protobuf_Struct(fields: fields)
+        return fields
     }
 }
 

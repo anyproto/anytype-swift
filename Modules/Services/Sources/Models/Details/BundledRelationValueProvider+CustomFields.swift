@@ -1,14 +1,15 @@
 import Foundation
-import AnytypeCore
 import ProtobufMessages
+import AnytypeCore
 
 extension BundledRelationsValueProvider {
     
     public var isDone: Bool { done }
     
-    public var layoutValue: DetailsLayout {
-        guard let number = layout, let layout = DetailsLayout(rawValue: number) else {
-            return .basic
+    public var resolvedLayoutValue: DetailsLayout {
+        // use "resolvedLayout"; "layout" is deprecated
+        guard let number = resolvedLayout, let layout = DetailsLayout(rawValue: number) else {
+            return .UNRECOGNIZED(resolvedLayout ?? -1)
         }
         
         return layout
@@ -37,11 +38,11 @@ extension BundledRelationsValueProvider {
     public var objectName: String {
         let title: String
 
-        if layoutValue.isNote {
+        if resolvedLayoutValue.isNote {
             title = snippet
-        } else if layoutValue.isFileOrMedia {
+        } else if resolvedLayoutValue.isFileOrMedia {
             title = FileDetails.formattedFileName(name, fileExt: fileExt)
-        } else if FeatureFlags.relativeDates, layoutValue.isDate, let timestamp {
+        } else if resolvedLayoutValue.isDate, let timestamp {
             title = DateFormatter.relativeDateFormatter.string(from: timestamp)
         } else {
             title = name
@@ -94,5 +95,22 @@ extension BundledRelationsValueProvider {
     
     public var restrictionsValue: [ObjectRestriction] {
         restrictions.compactMap { ObjectRestriction(rawValue: $0) }
+    }
+    
+    public var internalFlagsValue: [InternalFlag] {
+        internalFlags.compactMap { InternalFlag(rawValue: $0) }
+    }
+    
+    public var spaceUxTypeValue: SpaceUxType? {
+        guard let spaceUxType else { return nil }
+        return SpaceUxType(rawValue: spaceUxType)
+    }
+    
+    public var customIcon: CustomIcon? {
+        CustomIcon(fromString: iconName)
+    }
+    
+    public var customIconColor: CustomIconColor? {
+        CustomIconColor(iconOption: iconOption)
     }
 }

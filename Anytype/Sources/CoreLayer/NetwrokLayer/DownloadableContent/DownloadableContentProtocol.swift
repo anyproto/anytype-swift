@@ -15,7 +15,7 @@ extension BlockFile: DownloadableContentProtocol {
         guard metadata.targetObjectId.isNotEmpty else { return nil }
         switch contentType {
         case .image:
-            return ImageMetadata(id: metadata.targetObjectId, width: .original).contentUrl
+            return ImageMetadata(id: metadata.targetObjectId, side: .original).contentUrl
         default:
             return ContentUrlBuilder.fileUrl(fileId: metadata.targetObjectId)
         }

@@ -27,6 +27,9 @@ struct AnytypeToggle: View {
             AnytypeText(title, style: font)
                 .foregroundColor(.Text.primary)
         }
+        .if(title.isEmpty) {
+            $0.labelsHidden()
+        }
         .toggleStyle(SwitchToggleStyle(tint: .System.amber50))
         
         .onChange(of: model.isOn) { onChange($0) }

@@ -15,7 +15,7 @@ private struct AppSceneUrlHandlerModifier: ViewModifier {
             })
             // Universal links on web site and external deep links
             .onOpenURL { url in
-                _ = model.onOpenURL(url)
+                _ = model.onOpenURL(url, source: .external)
             }
             // When user scan qr code
             .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in

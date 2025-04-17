@@ -82,6 +82,9 @@ struct DebugMenuView: View {
                 model.onSelectUnzipFile(url: url)
             }
         }
+        .anytypeSheet(item: $model.pushToken) {
+            DebugMenuPushTokenAlert(token: $0.value)
+        }
     }
     
     private var mainActions: some View {
@@ -90,9 +93,9 @@ struct DebugMenuView: View {
                 showLogs.toggle()
             }
             
-            StandardButton("Export localstore 📁", style: .secondaryLarge) {
+            AsyncStandardButton("Export localstore 📁", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.getLocalStoreData()
+                try await model.getLocalStoreData()
             }
             
             if case .done(url: let url) = model.debugRunProfilerData {
@@ -119,6 +122,11 @@ struct DebugMenuView: View {
                 let crash: [Int] = []
                 _ = crash[1]
             }
+            
+            StandardButton("Unhandled exit 🚪", style: .primaryLarge) {
+                exit(1)
+            }
+            
             StandardButton("Assert 🥲", style: .secondaryLarge) {
                 anytypeAssertionFailure("Test assert")
             }
@@ -128,9 +136,9 @@ struct DebugMenuView: View {
                 showMembershipDebug.toggle()
             }
             
-            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
+            AsyncStandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.getGoroutinesData()
+                try await model.getGoroutinesData()
             }
             StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
@@ -142,13 +150,24 @@ struct DebugMenuView: View {
                 try await model.debugStat()
             }
             
-            StandardButton("Export full directory 🤐", style: .secondaryLarge) {
+            AsyncStandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.zipWorkingDirectory()
+                try await model.zipWorkingDirectory()
             }
             StandardButton("Import full directory 📲", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.unzipWorkingDirectory()
+            }
+            Button {
+                model.getFirebaseNotificationToken()
+            } label: {
+                Text("Firebase notification Token 🔔")
+            }
+            
+            Button {
+                model.getAppleNotificationToken()
+            } label: {
+                Text("Apple notification Token 🔔")
             }
         }
     }

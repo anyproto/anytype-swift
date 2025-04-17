@@ -75,7 +75,7 @@ final class PasteboardTask: Sendable {
             files.forEach { try? FileManager.default.removeItem(atPath: $0.path) }
         }
         
-        let fileSlots = pasteboardHelper.obtainAsFiles()
+        let fileSlots = pasteboardHelper.obtainFileSlots()
         AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: fileSlots.count)
         
         for itemProvider in fileSlots {

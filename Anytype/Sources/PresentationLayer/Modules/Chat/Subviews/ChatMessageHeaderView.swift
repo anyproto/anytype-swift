@@ -4,9 +4,19 @@ struct ChatMessageHeaderView: View {
     let text: String
     
     var body: some View {
-        Text(text)
-            .anytypeStyle(.caption1Medium)
-            .foregroundColor(.Control.transparentActive)
-            .frame(height: 50)
+        HStack {
+            Spacer()
+            Text(text)
+                .anytypeFontStyle(.caption1Medium)
+                .foregroundColor(.Text.primary)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 5)
+                .background(Color.Background.navigationPanel)
+                .background(.ultraThinMaterial)
+                .cornerRadius(16)
+                .frame(height: 50)
+                .lineLimit(1)
+            Spacer()
+        }
     }
 }

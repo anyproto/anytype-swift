@@ -6,16 +6,18 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let chatId: String
     let authorName: String
     let authorIcon: Icon
+    let authorId: String?
     let createDate: String
     let messageString: AttributedString
     let replyModel: MessageReplyModel?
-    let isYourMessage: Bool
+    let position: MessageHorizontalPosition
     let linkedObjects: MessageLinkedObjectsLayout?
     let reactions: [MessageReactionModel]
     let canAddReaction: Bool
+    let canReply: Bool
     let nextSpacing: MessageViewSpacing
-    let authorMode: MessageAuthorMode
-    let showHeader: Bool
+    let authorIconMode: MessageAuthorIconMode
+    let showAuthorName: Bool
     let canDelete: Bool
     let canEdit: Bool
     

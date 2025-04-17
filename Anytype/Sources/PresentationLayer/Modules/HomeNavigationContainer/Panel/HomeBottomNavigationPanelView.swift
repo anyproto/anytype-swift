@@ -41,13 +41,10 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
-            if #available(iOS 17.0, *) {
-                HomeTipView()
-            }
-        }
-        .overlay {
-            if #available(iOS 17.0, *) {
-                ReturnToWidgetsTipView()
+            if !FeatureFlags.newPlusMenu {
+                if #available(iOS 17.0, *) {
+                    HomeTipView()
+                }
             }
         }
         .padding(.vertical, 10)
@@ -64,7 +61,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             )
         }
         .task {
-            await model.onAppear()
+            await model.startSubscriptions()
         }
         .onAppear {
             if let last = homePath.lastPathElement {
@@ -83,18 +80,45 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         
         leftButton
         
-        Image(asset: .X32.Island.addObject)
-            .onTapGesture {
-                model.onTapNewObject()
-            }
-            .navPanelDynamicForegroundStyle()
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 0.3)
-                    .onEnded { _ in
-                        model.onPlusButtonLongtap()
+        if FeatureFlags.newPlusMenu {
+            Menu {
+                ForEach(model.favoritesObjectTypes) { type in
+                    Button {
+                        model.onTapCreateObject(type: type)
+                    } label: {
+                        Text(type.displayName)
                     }
-            )
+                }
+                Divider()
+                Menu("More") {
+                    ForEach(model.otherObjectTypes) { type in
+                        Button {
+                            model.onTapCreateObject(type: type)
+                        } label: {
+                            Text(type.displayName)
+                        }
+                    }
+                }
+            } label: {
+                Image(asset: .X32.Island.addObject)
+                    .navPanelDynamicForegroundStyle()
+            }
+            .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
+        } else {
+            Image(asset: .X32.Island.addObject)
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .navPanelDynamicForegroundStyle()
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            model.onPlusButtonLongtap()
+                        }
+                )
+                .disabled(!model.canCreateObject)
+        }
         
         Button {
             model.onTapSearch()

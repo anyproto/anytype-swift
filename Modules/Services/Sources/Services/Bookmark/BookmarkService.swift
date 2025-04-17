@@ -50,4 +50,11 @@ final class BookmarkService: BookmarkServiceProtocol {
             $0.url = url.absoluteString
         }).invoke()
     }
+    
+    func fetchLinkPreview(url: AnytypeURL) async throws -> LinkPreview {
+        let result = try await ClientCommands.linkPreview(.with {
+            $0.url = url.absoluteString
+        }).invoke()
+        return result.linkPreview
+    }
 }

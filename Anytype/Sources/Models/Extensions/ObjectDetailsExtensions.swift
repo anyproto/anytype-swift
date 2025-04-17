@@ -28,7 +28,15 @@ extension BundledRelationsValueProvider {
     }
     
     var objectIconImage: Icon {
-        return objectIcon.map { .object($0) } ?? .object(.empty(emptyIconType))
+        if let objectIcon = objectIcon.map({ Icon.object($0) }) {
+            return objectIcon
+        }
+        
+        if let typeIcon = objectType.icon.customIcon {
+            return .object(.customIcon(CustomIconData(placeholderIcon: typeIcon)))
+        }
+        
+        return .object(.defaultObjectIcon)
     }
     
     var objectType: ObjectType {
@@ -37,18 +45,24 @@ extension BundledRelationsValueProvider {
     }
     
     var editorViewType: ScreenType {
-        switch layoutValue {
-        case .basic, .profile, .todo, .note, .bookmark, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView, .tag, .chat, .chatDerived:
+        switch resolvedLayoutValue {
+        case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag:
             return .page
         case .set, .collection:
             return .list
         case .date:
-            return FeatureFlags.dateAsAnObject ? .date : .page
+            return .date
         case .objectType:
             return .type
         case .participant:
-            return FeatureFlags.memberProfile ? .participant : .page
+            return .participant
+        case .image, .video, .audio, .file, .pdf:
+            return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
+        case .bookmark:
+            return FeatureFlags.openBookmarkAsLink ? .bookmark : .page
+        case .chat, .chatDerived:
+            return FeatureFlags.chatLayoutInsideSpace ? .chat : .page
         }
     }
     
@@ -64,41 +78,61 @@ extension BundledRelationsValueProvider {
         return !isDeleted && !isArchived && isSupportedForOpening && !isHiddenDiscovery
     }
     
+    var isNotDeletedAndArchived: Bool {
+        return !isDeleted && !isArchived
+    }
+    
     var isTemplateType: Bool { objectType.isTemplateType }
     
     var canMakeTemplate: Bool {
-        layoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty
+        resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty && !isObjectType
+    }
+    
+    // Properties
+    var recommendedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+    }
+    var recommendedFeaturedRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+    }
+
+    var recommendedHiddenRelationsDetails: [RelationDetails] {
+        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
     }
     
     // MARK: - DetailsLayout proxy
     
-    var isList: Bool { layoutValue.isList }
+    var isList: Bool { resolvedLayoutValue.isList }
     
-    var isCollection: Bool { layoutValue.isCollection }
+    var isCollection: Bool { resolvedLayoutValue.isCollection }
     
-    var isSet: Bool { layoutValue.isSet }
+    var isSet: Bool { resolvedLayoutValue.isSet }
     
-    var isSupportedForOpening: Bool { layoutValue.isSupportedForOpening }
+    var isObjectType: Bool { resolvedLayoutValue.isObjectType }
     
-    var isVisibleLayout: Bool { layoutValue.isVisible }
+    var isSupportedForOpening: Bool { resolvedLayoutValue.isSupportedForOpening }
     
-    private var emptyIconType: ObjectIcon.EmptyType {
-        switch layoutValue {
-        case .basic, .profile, .participant, .todo, .note, .space, .file, .image, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .spaceView:
-            return .page
-        case .set, .collection:
-            return .list
-        case .bookmark:
-            return .bookmark
-        case .chat, .chatDerived:
-            return .chat
-        case .objectType:
-            return .objectType
-        case .tag:
-            return .tag
-        case .date:
-            return .date
+    var isVisibleLayout: Bool { resolvedLayoutValue.isVisible }
+    
+    var displayName: String {
+         return globalName.isNotEmpty ? globalName : identity
+     }
+}
+
+extension ObjectDetails {
+    var previewRemoteItem: PreviewRemoteItem {        
+        let fileDetails = FileDetails(objectDetails: self)
+        return fileDetails.previewRemoteItem
+    }
+}
+
+extension FileDetails {
+    var previewRemoteItem: PreviewRemoteItem  {
+        switch fileContentType {
+        case .image:
+            return PreviewRemoteItem(fileDetails: self, type: .image())
+        case .file, .audio, .video, .none:
+            return PreviewRemoteItem(fileDetails: self, type: .file)
         }
     }
 }

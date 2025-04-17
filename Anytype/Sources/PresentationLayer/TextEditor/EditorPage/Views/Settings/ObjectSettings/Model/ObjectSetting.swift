@@ -6,9 +6,9 @@ enum ObjectSetting {
     case icon
     case cover
     case description(isVisible: Bool)
-    case layout
     case relations
     case history
+    case resolveConflict
 }
 
 extension ObjectSetting {
@@ -21,29 +21,29 @@ extension ObjectSetting {
             Loc.cover
         case .description:
             Loc.description
-        case .layout:
-            Loc.layout
         case .relations:
-            Loc.relations
+            Loc.fields
         case .history:
             Loc.history
+        case .resolveConflict:
+            Loc.resolveLayoutConflict
         }
     }
     
     var imageAsset: ImageAsset {
         switch self {
         case .icon:
-            return .ObjectSettings.icon
+            .ObjectSettings.icon
         case .cover:
-            return .ObjectSettings.cover
+            .ObjectSettings.cover
         case .description:
-            return .ObjectSettings.description
-        case .layout:
-            return .ObjectSettings.layout
+            .ObjectSettings.description
         case .relations:
-            return .ObjectSettings.relations
+            .X24.properties
         case .history:
-            return .ObjectSettings.history
+            .ObjectSettings.history
+        case .resolveConflict:
+            .X18.attention
         }
     }
 }

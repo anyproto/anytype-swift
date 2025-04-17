@@ -1,21 +1,23 @@
 import Services
 import SwiftUI
 import Combine
+import AnytypeCore
 
 
 @MainActor
-final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
+final class SpaceHubViewModel: ObservableObject {
     @Published var spaces: [ParticipantSpaceViewData]?
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var showSpaceCreate = false
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
     @Published var spaceIdToLeave: StringIdentifiable?
+    @Published var spaceIdToDelete: StringIdentifiable?
     
     @Published var profileIcon: Icon?
     
     let sceneId: String
+    private weak var output: (any SpaceHubModuleOutput)?
     
     var showPlusInNavbar: Bool {
         guard let spaces else { return false }
@@ -28,24 +30,26 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
-    @Injected(\.workspaceService)
-    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.spaceOrderService)
     private var spaceOrderService: any SpaceOrderServiceProtocol
     @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
-    init(sceneId: String) {
+    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
         self.sceneId = sceneId
+        self.output = output
+    }
+    
+    func onTapCreateSpace() {
+        output?.onSelectCreateObject()
     }
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenVault(type: "General")
-        if #available(iOS 17.0, *) {
-            SpaceHubTip.didShowSpaceHub = true
-        }
     }
     
     func onSpaceTap(spaceId: String) {
@@ -55,13 +59,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         }
     }
     
-    func spaceCreateWillDismiss() {
-        showSpaceCreate = false
-
-    }
-    
     func deleteSpace(spaceId: String) async throws {
-        try await workspaceService.deleteSpace(spaceId: spaceId)
+        spaceIdToDelete = spaceId.identifiable
     }
     
     func leaveSpace(spaceId: String) {
@@ -88,14 +87,16 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
+        async let messagesPreviewsSub: () = subscribeOnMessagesPreviews()
         
-        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
+        (_, _, _, _) = await (spacesSub, wallpapersSub, profileSub, messagesPreviewsSub)
     }
     
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
-            self.spaces = spaces
+            let previews = await chatMessagesPreviewsStorage.previews()
+            updateSpaces(spaces, previews: previews)
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }
@@ -110,5 +111,31 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         for await profile in profileStorage.profilePublisher.values {
             profileIcon = profile.icon
         }
+    }
+    
+    private func subscribeOnMessagesPreviews() async {
+        guard FeatureFlags.countersOnSpaceHub else { return }
+        
+        await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
+        for await preview in chatMessagesPreviewsStorage.previewStream {
+            updateSpaces(spaces, previews: [preview])
+        }
+    }
+    
+    private func updateSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) {
+        let enrichedSpaces = enrichSpaces(spaces, previews: previews)
+        self.spaces = enrichedSpaces
+    }
+    
+    private func enrichSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) -> [ParticipantSpaceViewData]? {
+        guard var spaces else { return nil }
+        
+        for preview in previews {
+            if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
+                spaces[spaceIndex] = spaces[spaceIndex].updateUnreadMessagesCount(preview.counter)
+            }
+        }
+        
+        return spaces
     }
 }

@@ -214,6 +214,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountMigrate(
+        _ request: Anytype_Rpc.Account.Migrate.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.Migrate.Request, Anytype_Rpc.Account.Migrate.Response> {
+        return Invocation(messageName: "AccountMigrate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountMigrate(requestData) ?? Data()
+            return try Anytype_Rpc.Account.Migrate.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountMigrateCancel(
+        _ request: Anytype_Rpc.Account.MigrateCancel.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.MigrateCancel.Request, Anytype_Rpc.Account.MigrateCancel.Response> {
+        return Invocation(messageName: "AccountMigrateCancel", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountMigrateCancel(requestData) ?? Data()
+            return try Anytype_Rpc.Account.MigrateCancel.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func accountCreate(
         _ request: Anytype_Rpc.Account.Create.Request = .init()
     ) -> Invocation<Anytype_Rpc.Account.Create.Request, Anytype_Rpc.Account.Create.Response> {
@@ -351,6 +371,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceInviteGetCurrent(requestData) ?? Data()
             return try Anytype_Rpc.Space.InviteGetCurrent.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func spaceInviteGetGuest(
+        _ request: Anytype_Rpc.Space.InviteGetGuest.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.InviteGetGuest.Request, Anytype_Rpc.Space.InviteGetGuest.Response> {
+        return Invocation(messageName: "SpaceInviteGetGuest", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceInviteGetGuest(requestData) ?? Data()
+            return try Anytype_Rpc.Space.InviteGetGuest.Response(serializedBytes: responseData)
         }
     }
 
@@ -924,6 +954,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectExport(
+        _ request: Anytype_Rpc.Object.Export.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.Export.Request, Anytype_Rpc.Object.Export.Response> {
+        return Invocation(messageName: "ObjectExport", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectExport(requestData) ?? Data()
+            return try Anytype_Rpc.Object.Export.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectBookmarkFetch(
         _ request: Anytype_Rpc.Object.BookmarkFetch.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.BookmarkFetch.Request, Anytype_Rpc.Object.BookmarkFetch.Response> {
@@ -1161,6 +1201,46 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectTypeRelationRemove(requestData) ?? Data()
             return try Anytype_Rpc.ObjectType.Relation.Remove.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectTypeRecommendedRelationsSet(
+        _ request: Anytype_Rpc.ObjectType.Recommended.RelationsSet.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Recommended.RelationsSet.Request, Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response> {
+        return Invocation(messageName: "ObjectTypeRecommendedRelationsSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeRecommendedRelationsSet(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Recommended.RelationsSet.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectTypeRecommendedFeaturedRelationsSet(
+        _ request: Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Request, Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response> {
+        return Invocation(messageName: "ObjectTypeRecommendedFeaturedRelationsSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeRecommendedFeaturedRelationsSet(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.Recommended.FeaturedRelationsSet.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectTypeListConflictingRelations(
+        _ request: Anytype_Rpc.ObjectType.ListConflictingRelations.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.ListConflictingRelations.Request, Anytype_Rpc.ObjectType.ListConflictingRelations.Response> {
+        return Invocation(messageName: "ObjectTypeListConflictingRelations", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeListConflictingRelations(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.ListConflictingRelations.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func objectTypeResolveLayoutConflicts(
+        _ request: Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Request, Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response> {
+        return Invocation(messageName: "ObjectTypeResolveLayoutConflicts", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeResolveLayoutConflicts(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response(serializedBytes: responseData)
         }
     }
 
@@ -1821,6 +1901,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockDataviewSetSource(requestData) ?? Data()
             return try Anytype_Rpc.BlockDataview.SetSource.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func blockDataviewRelationSet(
+        _ request: Anytype_Rpc.BlockDataview.Relation.Set.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockDataview.Relation.Set.Request, Anytype_Rpc.BlockDataview.Relation.Set.Response> {
+        return Invocation(messageName: "BlockDataviewRelationSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockDataviewRelationSet(requestData) ?? Data()
+            return try Anytype_Rpc.BlockDataview.Relation.Set.Response(serializedBytes: responseData)
         }
     }
 
@@ -2744,6 +2834,46 @@ public struct ClientCommands {
         }
     }
 
+    public static func chatReadMessages(
+        _ request: Anytype_Rpc.Chat.ReadMessages.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.ReadMessages.Request, Anytype_Rpc.Chat.ReadMessages.Response> {
+        return Invocation(messageName: "ChatReadMessages", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatReadMessages(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.ReadMessages.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatUnreadMessages(
+        _ request: Anytype_Rpc.Chat.Unread.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.Unread.Request, Anytype_Rpc.Chat.Unread.Response> {
+        return Invocation(messageName: "ChatUnreadMessages", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatUnreadMessages(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.Unread.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatSubscribeToMessagePreviews(
+        _ request: Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.SubscribeToMessagePreviews.Request, Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response> {
+        return Invocation(messageName: "ChatSubscribeToMessagePreviews", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatSubscribeToMessagePreviews(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func chatUnsubscribeFromMessagePreviews(
+        _ request: Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Request, Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response> {
+        return Invocation(messageName: "ChatUnsubscribeFromMessagePreviews", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatUnsubscribeFromMessagePreviews(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.UnsubscribeFromMessagePreviews.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectChatAdd(
         _ request: Anytype_Rpc.Object.ChatAdd.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ChatAdd.Request, Anytype_Rpc.Object.ChatAdd.Response> {
@@ -2751,6 +2881,46 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectChatAdd(requestData) ?? Data()
             return try Anytype_Rpc.Object.ChatAdd.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIWritingTools(
+        _ request: Anytype_Rpc.AI.WritingTools.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.WritingTools.Request, Anytype_Rpc.AI.WritingTools.Response> {
+        return Invocation(messageName: "AIWritingTools", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIWritingTools(requestData) ?? Data()
+            return try Anytype_Rpc.AI.WritingTools.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIAutofill(
+        _ request: Anytype_Rpc.AI.Autofill.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.Autofill.Request, Anytype_Rpc.AI.Autofill.Response> {
+        return Invocation(messageName: "AIAutofill", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIAutofill(requestData) ?? Data()
+            return try Anytype_Rpc.AI.Autofill.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIListSummary(
+        _ request: Anytype_Rpc.AI.ListSummary.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.ListSummary.Request, Anytype_Rpc.AI.ListSummary.Response> {
+        return Invocation(messageName: "AIListSummary", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIListSummary(requestData) ?? Data()
+            return try Anytype_Rpc.AI.ListSummary.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func aIObjectCreateFromUrl(
+        _ request: Anytype_Rpc.AI.ObjectCreateFromUrl.Request = .init()
+    ) -> Invocation<Anytype_Rpc.AI.ObjectCreateFromUrl.Request, Anytype_Rpc.AI.ObjectCreateFromUrl.Response> {
+        return Invocation(messageName: "AIObjectCreateFromUrl", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAIObjectCreateFromUrl(requestData) ?? Data()
+            return try Anytype_Rpc.AI.ObjectCreateFromUrl.Response(serializedBytes: responseData)
         }
     }
 

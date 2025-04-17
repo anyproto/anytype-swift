@@ -70,7 +70,7 @@ struct ProfileView: View {
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.identity, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.description, style: .previewTitle2Regular)
             Spacer.fixedHeight(78)
@@ -84,7 +84,7 @@ struct ProfileView: View {
             Spacer.fixedHeight(12)
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
-            AnytypeText(details.identity, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
+            AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(84)
         }
     }

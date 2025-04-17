@@ -30,7 +30,9 @@ final class ObjectActionsViewModel: ObservableObject {
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
-    @Injected(\.documentService)
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
@@ -157,7 +159,7 @@ final class ObjectActionsViewModel: ObservableObject {
             limit: layout.limits.first ?? 0,
             position: .above(widgetId: first.id)
         )
-        AnytypeAnalytics.instance().logAddWidget(context: .object)
+        AnytypeAnalytics.instance().logAddWidget(context: .object, createType: .manual)
         toastData = ToastBarData(text: Loc.Actions.CreateWidget.success, showSnackBar: true, messageType: .success)
         dismiss.toggle()
     }
@@ -165,7 +167,13 @@ final class ObjectActionsViewModel: ObservableObject {
     func copyLinkAction() async throws {
         guard let details = document.details else { return }
         let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
-        let link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey), scheme: .main)
+        
+        let link: URL?
+        if FeatureFlags.httpsLinkForObjectCopy {
+            link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey))
+        } else {
+            link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey), scheme: .main)
+        }
         
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(text: Loc.copied, showSnackBar: true)

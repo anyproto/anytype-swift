@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero
@@ -21,12 +22,23 @@ struct SetFullHeader: View {
             cover
             VStack(alignment: .leading, spacing: 8) {
                 titleView
-                description
-                featuredRelationsView
+                headerBlocks
             }
             .padding([.leading], 20)
         }
         .readSize { width = $0.width }
+    }
+    
+    @ViewBuilder
+    private var headerBlocks: some View {
+        description
+        
+        if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+            Spacer.fixedHeight(10)
+            typeButtons
+        } else {
+            featuredRelationsView
+        }
     }
     
     private var inlineHeader: some View {
@@ -65,6 +77,39 @@ struct SetFullHeader: View {
     private func emptyCover(presentationStyle: ObjectHeaderEmptyUsecase) -> some View {
         Color.Background.primary
             .frame(height: presentationStyle == .full ? ObjectHeaderConstants.emptyViewHeight : ObjectHeaderConstants.emptyViewHeightCompact)
+    }
+    
+    private var typeButtons: some View {
+        HStack(spacing: 8) {
+            
+            if (model.details?.recommendedLayoutValue.isEditorLayout ?? false) && model.setDocument.document.permissions.canEditDetails {
+                StandardButton(
+                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                    style: .secondarySmall
+                ) {
+                    model.onObjectTypeLayoutTap()
+                }.minimumScaleFactor(0.5)
+            }
+
+            StandardButton(
+                .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
+                style: .secondarySmall
+            ) {
+                model.onObjectTypeFieldsTap()
+            }.minimumScaleFactor(0.5)
+            
+            if model.showObjectTypeTemplates {
+                StandardButton(
+                    .textWithBadge(text: Loc.templates, badge: "\(model.templatesCount)"),
+                    style: .secondarySmall
+                ) {
+                    model.onObjectTypeTemplatesTap()
+                }.minimumScaleFactor(0.5)
+            }
+
+            
+            Spacer()
+        }
     }
 }
 
@@ -109,17 +154,27 @@ extension SetFullHeader {
         }
     }
 
+    @ViewBuilder
     private var titleView: some View {
-        AutofocusedTextField(
-            placeholder: Loc.Object.Title.placeholder,
-            font: .title,
-            shouldSkipFocusOnFilled: true,
-            text: $model.titleString
-        )
-        .padding([.trailing], 20)
-        .foregroundStyle(Color.Text.primary)
-        .disableAutocorrection(true)
-        .disabled(!model.setDocument.setPermissions.canEditTitle)
+        if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+            Button {
+                model.onTypeTitleTap()
+            } label: {
+                AnytypeText(model.titleString.isNotEmpty ? model.titleString : Loc.untitled, style: .title)
+                    .padding([.trailing], 20)
+            }.disabled(!model.setDocument.setPermissions.canEditTitle)
+        } else {
+            AutofocusedTextField(
+                placeholder: Loc.untitled,
+                font: .title,
+                shouldSkipFocusOnFilled: true,
+                text: $model.titleString
+            )
+            .padding([.trailing], 20)
+            .foregroundStyle(Color.Text.primary)
+            .disableAutocorrection(true)
+            .disabled(!model.setDocument.setPermissions.canEditTitle)
+        }
     }
 
     private var featuredRelationsView: some View {

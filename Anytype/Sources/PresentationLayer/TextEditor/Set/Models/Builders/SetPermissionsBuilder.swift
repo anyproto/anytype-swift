@@ -16,7 +16,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode
         
         return SetPermissions(
-            canCreateObject: canEdit && canCreateObject(setDocument: setDocument, participantCanEdit: participantCanEdit),
+            canCreateObject: canEdit && canCreateObject(setDocument: setDocument),
             canEditView: canEdit,
             canTurnSetIntoCollection: canEdit && !setDocument.isCollection(),
             canChangeQuery: canEdit && !setDocument.isCollection(),
@@ -27,14 +27,23 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         )
     }
     
-    private func canCreateObject(setDocument: SetDocument, participantCanEdit: Bool) -> Bool {
-        
+    private func canCreateObject(setDocument: SetDocument) -> Bool {
         guard let details = setDocument.details else {
             anytypeAssertionFailure("SetDocument: No details in canCreateObject")
             return false
         }
-        guard details.isList else { return false }
         
+        if details.isList {
+            return canCreateObjectOfList(setDocument: setDocument, details: details)
+        } else if FeatureFlags.openTypeAsSet && details.isObjectType {
+            return canCreateObjectOfType(details: details)
+        } else {
+            return false
+        }
+        
+    }
+    
+    private func canCreateObjectOfList(setDocument: SetDocument, details: ObjectDetails) -> Bool {
         if details.isCollection { return true }
         if setDocument.isSetByRelation() { return true }
         
@@ -48,7 +57,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
         
-        if queryObject.uniqueKey == ObjectTypeUniqueKey.template {
+        if queryObject.isTemplateType {
             return false
         }
         
@@ -57,6 +66,17 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         }
         
         return layout.isSupportedForCreationInSets
+    }
+    
+    private func canCreateObjectOfType(details: ObjectDetails) -> Bool {
+        guard let layout = details.recommendedLayoutValue else {
+            return false
+        }
+
+        let isSupportedLayout = layout.isEditorLayout || layout.isList
+        let isTemplate = details.isTemplateType
+        return isSupportedLayout && !isTemplate
+
     }
     
     private func canEditRelationValuesInView(setDocument: some SetDocumentProtocol) -> Bool {

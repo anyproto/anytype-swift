@@ -14,6 +14,8 @@ struct ObjectIconView: View {
             ProfileIconView(icon: profile)
         case .emoji(let emoji):
             EmojiIconView(emoji: emoji)
+        case let .customIcon(data):
+            CustomIconView(icon: data.icon, iconColor: data.color)
         case .bookmark(let imageId):
             BookmarkIconView(imageId: imageId)
         case .space(let space):
@@ -26,8 +28,6 @@ struct ObjectIconView: View {
             FileIconView(mimeType: mimeType, name: name)
         case .deleted:
             Image(asset: .ghost)
-        case .empty(let emptyType):
-            EmptyObjectIconView(emptyType: emptyType)
         case .none:
             EmptyView()
         }
