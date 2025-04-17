@@ -1,6 +1,7 @@
 import UIKit
 import FloatingPanel
 import Services
+import AnytypeCore
 
 
 // MARK: - Cell model
@@ -34,13 +35,16 @@ private extension StyleView {
         let icon: UIImage
 
         static let all: [ListItem] = [
-            (BlockText.Style.checkbox, "StyleBottomSheet/checkbox"),
-            (BlockText.Style.bulleted, "StyleBottomSheet/bullet"),
-            (BlockText.Style.numbered, "StyleBottomSheet/numbered"),
-            (BlockText.Style.toggle, "StyleBottomSheet/toggle")
+            (BlockText.Style.checkbox, ImageAsset.StyleBottomSheet.checkbox),
+            (BlockText.Style.bulleted, ImageAsset.StyleBottomSheet.bullet),
+            (BlockText.Style.numbered, ImageAsset.StyleBottomSheet.numbered),
+            (BlockText.Style.toggle, ImageAsset.StyleBottomSheet.toggle)
         ]
-        .compactMap { (kind, imageName) -> ListItem? in
-            guard let image = UIImage(named: imageName) else { return nil }
+        .compactMap { (kind, asset) -> ListItem? in
+            guard let image = UIImage(asset: asset) else {
+                anytypeAssertionFailure("Not found asset \(asset)")
+                return nil
+            }
             return ListItem(kind: kind, icon: image)
         }
     }
