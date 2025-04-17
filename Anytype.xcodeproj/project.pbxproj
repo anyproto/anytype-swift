@@ -269,7 +269,7 @@
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
-		3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/MainInterface.storyboard,
@@ -702,6 +702,8 @@
 			dependencies = (
 				03C5C54622DFD90C00DD91DE /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+			);
 			name = AnytypeTests;
 			packageProductDependencies = (
 				2A90C465285B5A9100B6B44E /* AnytypeCore */,
@@ -748,6 +750,8 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
 			);
 			name = AnytypeShareExtension;
 			packageProductDependencies = (
