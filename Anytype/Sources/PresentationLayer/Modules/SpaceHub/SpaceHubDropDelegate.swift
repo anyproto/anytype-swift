@@ -47,8 +47,8 @@ struct SpaceHubDropDelegate: DropDelegate {
         
         // Doesn't use @Injected(\.spaceOrderService)
         // Delegate is created for each update. Resolving DI takes time on the main thread.
-        var spaceOrderService = Container.shared.spaceOrderService()
-        var workspaceStorage = Container.shared.workspaceStorage()
+        let spaceOrderService = Container.shared.spaceOrderService()
+        let workspaceStorage = Container.shared.workspaceStorage()
         
         if FeatureFlags.pinnedSpaces {
             Task {
