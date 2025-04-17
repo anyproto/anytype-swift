@@ -56,7 +56,10 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private let allWorkspacesStorage = AtomicPublishedStorage<[SpaceView]>([])
     var allWorkspaces: [SpaceView] { allWorkspacesStorage.value }
     var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> {
-        allWorkspacesStorage.publisher.removeDuplicates().eraseToAnyPublisher()
+        allWorkspacesStorage.publisher
+            .throttle(for: .milliseconds(50), scheduler: DispatchQueue.global(), latest: true)
+            .removeDuplicates()
+            .eraseToAnyPublisher()
     }
     
     init() {
