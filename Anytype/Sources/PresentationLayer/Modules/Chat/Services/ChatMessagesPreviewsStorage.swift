@@ -24,7 +24,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private let previewsStream = AsyncToManyStream<[ChatMessagePreview]>()
     
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> {
-        previewsStream.eraseToAnyAsyncSequence()
+        previewsStream._throttle(for: .microseconds(50)).eraseToAnyAsyncSequence()
     }
     
     func startSubscriptionIfNeeded() async {

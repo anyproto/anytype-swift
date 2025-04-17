@@ -28,7 +28,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                 let combineStream = combineLatest(
                     participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values,
                     chain([[ChatMessagePreview]()].async, await chatMessagesPreviewsStorage.previewsSequence)
-                )._throttle(for: .milliseconds(500))
+                )._throttle(for: .milliseconds(300))
                 
                 return combineStream.map { (spaces, previews) in
                     var spaces = spaces
@@ -43,7 +43,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                 }.eraseToAnyAsyncSequence()
             } else {
                 return participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values
-                    ._throttle(for: .milliseconds(500))
+                    ._throttle(for: .milliseconds(300))
                     .eraseToAnyAsyncSequence()
             }
         }
