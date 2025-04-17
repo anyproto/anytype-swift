@@ -98,6 +98,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     func onTapResolveConflictApprove() async throws {
         guard let details = document.details else { return }
         try await conflictManager.resolveConflicts(details: details)
+        AnytypeAnalytics.instance().logResetToTypeDefault()
     }
     
     // MARK: - ObjectActionsOutput

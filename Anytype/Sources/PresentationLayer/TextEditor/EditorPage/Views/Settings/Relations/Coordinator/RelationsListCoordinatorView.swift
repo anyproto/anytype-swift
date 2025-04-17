@@ -1,4 +1,5 @@
 import Foundation
+import Services
 import SwiftUI
 import AnytypeCore
 
@@ -28,6 +29,15 @@ struct RelationsListCoordinatorView: View {
         }
         .sheet(item: $model.objectTypeData) {
             TypeFieldsView(data: $0)
+        }
+        .sheet(isPresented: $model.showTypePicker) {
+            ObjectTypeSearchView(
+                title: Loc.changeType,
+                spaceId: model.document.spaceId,
+                settings: .editorChangeType
+            ) { type in
+                model.onTypeSelected(type)
+            }
         }
     }
 }

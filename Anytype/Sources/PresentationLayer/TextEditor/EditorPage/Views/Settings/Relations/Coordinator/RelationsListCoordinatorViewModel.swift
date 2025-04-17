@@ -16,11 +16,14 @@ final class RelationsListCoordinatorViewModel:
     @Published var relationValueData: RelationValueData?
     @Published var relationsSearchData: RelationsSearchData?
     @Published var objectTypeData: EditorTypeObject?
+    @Published var showTypePicker = false
     
     let document: any BaseDocumentProtocol
     
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private weak var output: (any RelationValueCoordinatorOutput)?
 
@@ -47,16 +50,28 @@ final class RelationsListCoordinatorViewModel:
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        relationValueData = relationValueProcessingService.handleRelationValue(
-            relation: relation,
-            objectDetails: objectDetails,
-            analyticsType: .menu
-        )
+        if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
+            showTypePicker = true
+        } else {
+            relationValueData = relationValueProcessingService.handleRelationValue(
+                relation: relation,
+                objectDetails: objectDetails,
+                analyticsType: .menu
+            )
+        }
     }
     
     func showTypeRelationsView(typeId: String) {
         AnytypeAnalytics.instance().logScreenEditType(route: .object)
         objectTypeData = EditorTypeObject(objectId: typeId, spaceId: document.spaceId)
+    }
+    
+    func onTypeSelected(_ type: ObjectType) {
+        showTypePicker = false
+        Task {
+            try await objectActionsService.setObjectType(objectId: document.objectId, typeUniqueKey: type.uniqueKey)
+            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, spaceId: document.spaceId, route: .relationsList)
+        }
     }
     
     // MARK: - RelationValueCoordinatorOutput
