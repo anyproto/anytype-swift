@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.6 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 // swiftlint:disable file_length
@@ -142,6 +142,10 @@ public extension FeatureFlags {
         value(for: .countersOnSpaceHub)
     }
 
+    static var download1920ImageForFullscreen: Bool {
+        value(for: .download1920ImageForFullscreen)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -234,6 +238,7 @@ public extension FeatureFlags {
         .newPropertiesCreation,
         .pluralNames,
         .countersOnSpaceHub,
+        .download1920ImageForFullscreen,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
