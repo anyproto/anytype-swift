@@ -6,7 +6,7 @@ struct ImageUrlIconView: View {
     let url: URL
     
     var body: some View {
-        AsyncImage(
+        CachedAsyncImage(
             url: url
         ) { image in
             image.resizable().scaledToFill()

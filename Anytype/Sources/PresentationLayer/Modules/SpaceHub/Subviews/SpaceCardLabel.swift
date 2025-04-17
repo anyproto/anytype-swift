@@ -44,6 +44,8 @@ struct SpaceCardLabel: View {
             }
         }
         .padding(16)
+        // Optimization for fast sizeThatFits
+        .frame(height: 96)
         .background(
             DashboardWallpaper(
                 mode: .spaceHub,

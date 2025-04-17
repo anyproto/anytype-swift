@@ -64,7 +64,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         case let .name(_, iconOption):
             IconColorStorage.iconColor(iconOption: iconOption)
         case .imageId(let imageId):
-            AsyncImage(
+            CachedAsyncImage(
                 url: ImageMetadata(id: imageId, side: .width(50)).contentUrl
             ) { image in
                 image
