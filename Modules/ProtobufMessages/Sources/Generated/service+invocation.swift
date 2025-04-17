@@ -2924,4 +2924,14 @@ public struct ClientCommands {
         }
     }
 
+    public static func pushNotificationRegisterToken(
+        _ request: Anytype_Rpc.PushNotification.RegisterToken.Request = .init()
+    ) -> Invocation<Anytype_Rpc.PushNotification.RegisterToken.Request, Anytype_Rpc.PushNotification.RegisterToken.Response> {
+        return Invocation(messageName: "PushNotificationRegisterToken", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePushNotificationRegisterToken(requestData) ?? Data()
+            return try Anytype_Rpc.PushNotification.RegisterToken.Response(serializedBytes: responseData)
+        }
+    }
+
 }

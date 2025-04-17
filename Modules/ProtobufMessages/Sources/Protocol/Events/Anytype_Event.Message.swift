@@ -664,6 +664,14 @@ extension Anytype_Event {
       set {_uniqueStorage()._value = .chatStateUpdate(newValue)}
     }
 
+    public var keyUpdate: Anytype_Event.Key.Update {
+      get {
+        if case .keyUpdate(let v)? = _storage._value {return v}
+        return Anytype_Event.Key.Update()
+      }
+      set {_uniqueStorage()._value = .keyUpdate(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -755,6 +763,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     135: .same(proto: "chatUpdateMentionReadStatus"),
     131: .same(proto: "chatDelete"),
     133: .same(proto: "chatStateUpdate"),
+    136: .same(proto: "keyUpdate"),
   ]
 
   fileprivate class _StorageClass {
@@ -1757,6 +1766,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
             _storage._value = .chatUpdateMentionReadStatus(v)
           }
         }()
+        case 136: try {
+          var v: Anytype_Event.Key.Update?
+          var hadOneofValue = false
+          if let current = _storage._value {
+            hadOneofValue = true
+            if case .keyUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._value = .keyUpdate(v)
+          }
+        }()
         case 201: try {
           var v: Anytype_Event.Account.Details?
           var hadOneofValue = false
@@ -2136,6 +2158,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       case .chatUpdateMentionReadStatus?: try {
         guard case .chatUpdateMentionReadStatus(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 135)
+      }()
+      case .keyUpdate?: try {
+        guard case .keyUpdate(let v)? = _storage._value else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 136)
       }()
       case .accountDetails?: try {
         guard case .accountDetails(let v)? = _storage._value else { preconditionFailure() }

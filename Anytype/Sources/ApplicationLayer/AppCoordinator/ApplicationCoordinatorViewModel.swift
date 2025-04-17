@@ -10,6 +10,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var authService: any AuthServiceProtocol
     @Injected(\.accountEventHandler)
     private var accountEventHandler: any AccountEventHandlerProtocol
+    @Injected(\.encryptionKeyEventHandler)
+    private var encryptionKeyEventHandler: any EncryptionKeyEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
@@ -70,6 +72,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         for await status in accountEventHandler.accountStatusPublisher.values {
             await handleAccountStatus(status)
         }
+    }
+    
+    func startEncryptionKeyEventHandler() async  {
+        await encryptionKeyEventHandler.startSubscription()
     }
 
     func startFileHandler() async {

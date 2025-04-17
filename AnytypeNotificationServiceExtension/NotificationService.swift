@@ -1,6 +1,9 @@
 import UserNotifications
+import Services
 
 class NotificationService: UNNotificationServiceExtension {
+    
+    private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = Container.shared.decryptionPushContentService()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -9,12 +12,23 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
-        if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title) [changed by NSE]"
-            
-            contentHandler(bestAttemptContent)
+        guard let bestAttemptContent else {
+            return
         }
+        
+        guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
+              let encryptedData = Data(base64Encoded: encryptedBase64),
+              let spaceId = request.content.userInfo[Constants.spaceId] as? String else {
+            contentHandler(bestAttemptContent)
+            return
+        }
+        
+        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, spaceId: spaceId) {
+            bestAttemptContent.title = decryptedMessage.newMessage.text
+        }
+        
+        // Deliver the notification
+        contentHandler(bestAttemptContent)
     }
     
     override func serviceExtensionTimeWillExpire() {
@@ -24,5 +38,11 @@ class NotificationService: UNNotificationServiceExtension {
             contentHandler(bestAttemptContent)
         }
     }
+}
 
+extension NotificationService {
+    enum Constants {
+        static let payload = "x-any-payload"
+        static let spaceId = "x-any-key-id"
+    }
 }

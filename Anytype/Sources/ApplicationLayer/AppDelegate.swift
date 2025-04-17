@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private var appSessionTracker: any AppSessionTrackerProtocol
     @Injected(\.applePushNotificationService)
     private var applePushNotificationService: any ApplePushNotificationServiceProtocol
+    @Injected(\.registrationPushNotificationsService)
+    private var registrationPushNotificationsService: any RegistrationPushNotificationsServiceProtocol
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -63,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
         applePushNotificationService.setToken(data: deviceToken)
+        registrationPushNotificationsService.registerForPushNotifications()
     }
     
     // MARK: - UNUserNotificationCenterDelegate
