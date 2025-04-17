@@ -24,7 +24,7 @@ struct SpaceCardLabel: View {
                         .opacity(0.6)
                         .foregroundStyle(Color.Text.primary)
                 } else {
-                    Text(space.spaceView.spaceAccessType?.name ?? "",)
+                    Text(space.spaceView.spaceAccessType?.name ?? "")
                         .anytypeStyle(.relation3Regular)
                         .lineLimit(1)
                         .opacity(0.6)
