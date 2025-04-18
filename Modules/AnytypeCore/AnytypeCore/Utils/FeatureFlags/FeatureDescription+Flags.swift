@@ -244,6 +244,14 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let download1920ImageForFullscreen = FeatureDescription(
+        title: "Download 1920 image for fullscreen",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

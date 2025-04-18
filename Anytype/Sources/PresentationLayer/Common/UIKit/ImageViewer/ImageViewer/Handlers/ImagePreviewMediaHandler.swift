@@ -15,7 +15,9 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
     
     init(fileDetails: FileDetails, previewImage: UIImage?) {
         self.fileDetails = fileDetails
-        let imageId = ImageMetadata(id: fileDetails.id, side: .original)
+        // Download 1920 image for fullscreen for demo (640 * 3 (screen scale))
+        let side = FeatureFlags.download1920ImageForFullscreen ? ImageSide.width(640) : ImageSide.original
+        let imageId = ImageMetadata(id: fileDetails.id, side: side)
         self.imageSource = .middleware(imageId)
         self.previewImage = previewImage
     }
