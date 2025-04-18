@@ -377,4 +377,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let logMiddlewareRequests = FeatureDescription(
+        title: "Log middleware requests",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
+    )
 }

@@ -222,6 +222,10 @@ public extension FeatureFlags {
         value(for: .networkHTTPSRequestsLogger)
     }
 
+    static var logMiddlewareRequests: Bool {
+        value(for: .logMiddlewareRequests)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -277,6 +281,7 @@ public extension FeatureFlags {
         .failReceiptValidation,
         .showGlobalSearchScore,
         .versionHistoryPaginationTest,
-        .networkHTTPSRequestsLogger
+        .networkHTTPSRequestsLogger,
+        .logMiddlewareRequests
     ]
 }
