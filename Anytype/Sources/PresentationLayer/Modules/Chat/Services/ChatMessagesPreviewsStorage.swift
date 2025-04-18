@@ -6,6 +6,7 @@ protocol ChatMessagesPreviewsStorageProtocol: AnyObject, Sendable {
     func startSubscriptionIfNeeded() async
     func previews() async -> [ChatMessagePreview]
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> { get async }
+    var previewsSequenceWithEmpty: AnyAsyncSequence<[ChatMessagePreview]> { get async }
 }
 
 actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
@@ -24,7 +25,11 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private let previewsStream = AsyncToManyStream<[ChatMessagePreview]>()
     
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> {
-        previewsStream._throttle(for: .microseconds(50)).eraseToAnyAsyncSequence()
+        previewsStream.throttle(milliseconds: 300).eraseToAnyAsyncSequence()
+    }
+    
+    var previewsSequenceWithEmpty: AnyAsyncSequence<[ChatMessagePreview]> {
+        previewsStream.subscribe([]).throttle(milliseconds: 300).eraseToAnyAsyncSequence()
     }
     
     func startSubscriptionIfNeeded() async {
