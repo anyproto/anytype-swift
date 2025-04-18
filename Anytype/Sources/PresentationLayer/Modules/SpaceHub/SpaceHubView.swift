@@ -7,8 +7,8 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(sceneId: String, output: (any SpaceHubModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId, output: output))
+    init(output: (any SpaceHubModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
     }
     
     var body: some View {
@@ -117,14 +117,30 @@ struct SpaceHubView: View {
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewData) -> some View {
-        Button {
-            model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
-        } label: {
-            spaceCardLabel(space)
-        }
-        .disabled(space.spaceView.isLoading)
-        .contextMenu { menuItems(space: space) }
-        .padding(.horizontal, 8)
+        SpaceCard(
+            space: space,
+            wallpeper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
+            draggedSpace: $draggedSpace,
+            onTap: {
+                model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
+            },
+            onTapCopy: {
+                model.copySpaceInfo(spaceView: space.spaceView)
+            },
+            onTapPin: {
+                try await model.pin(spaceView: space.spaceView)
+            },
+            onTapUnpin: {
+                try await model.unpin(spaceView: space.spaceView)
+            },
+            onTapLeave: {
+                model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
+            },
+            onTapDelete: {
+                try await model.deleteSpace(spaceId: space.spaceView.targetSpaceId)
+            }
+        )
+        .equatable()
         .onDrop(
             of: [.text],
             delegate:  SpaceHubDropDelegate(
@@ -135,95 +151,8 @@ struct SpaceHubView: View {
             )
         )
     }
-    
-    private func spaceCardLabel(_ space: ParticipantSpaceViewData) -> some View {
-        HStack(spacing: 16) {
-            IconView(icon: space.spaceView.objectIconImage)
-                .frame(width: 64, height: 64)
-            VStack(alignment: .leading, spacing: 6) {
-                AnytypeText(space.spaceView.name.withPlaceholder, style: .bodySemibold).lineLimit(1)
-                if FeatureFlags.spaceUxTypes {
-                    AnytypeText(space.spaceView.uxType.name, style: .relation3Regular)
-                        .lineLimit(1)
-                        .opacity(0.6)
-                } else {
-                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
-                        .lineLimit(1)
-                        .opacity(0.6)
-                }
-                Spacer.fixedHeight(1)
-            }
-            
-            Spacer()
-            
-            if space.spaceView.isLoading && FeatureFlags.newSpacesLoading {
-                DotsView().frame(width: 30, height: 6)
-            } else if space.spaceView.unreadMessagesCount > 0 {
-                CounterView(count: space.spaceView.unreadMessagesCount)
-            } else if space.spaceView.isPinned {
-                Image(asset: .X24.pin).frame(width: 22, height: 22)
-            }
-        }
-        .padding(16)
-        .background(
-            DashboardWallpaper(
-                mode: .spaceHub,
-                wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
-                spaceIcon: space.spaceView.iconImage
-            )
-        )
-        .cornerRadius(20, style: .continuous)
-        
-        .if(space.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
-        .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
-        
-        .if(!FeatureFlags.pinnedSpaces || space.spaceView.isPinned) {
-            $0.onDrag {
-                draggedSpace = space
-                return NSItemProvider()
-            } preview: {
-                EmptyView()
-            }
-        }
-    }
-    
-    private func menuItems(space: ParticipantSpaceViewData) -> some View {
-        Group {
-            if space.spaceView.isLoading {
-                Button { model.copySpaceInfo(spaceView: space.spaceView) } label: {
-                    Text(Loc.copySpaceInfo)
-                }
-            } else if FeatureFlags.pinnedSpaces {
-                if space.spaceView.isPinned {
-                    AsyncButton { try await model.unpin(spaceView: space.spaceView) } label: {
-                        Text(Loc.unpin)
-                    }
-                } else {
-                    AsyncButton { try await model.pin(spaceView: space.spaceView) } label: {
-                        Text(Loc.pin)
-                    }
-                }
-            }
-            
-            Divider()
-            if space.canLeave {
-                Button(role: .destructive) {
-                    model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
-                } label: {
-                    Text(Loc.leaveASpace)
-                }
-            }
-            if space.canBeDeleted {
-                AsyncButton(role: .destructive) {
-                    try await model.deleteSpace(spaceId: space.spaceView.targetSpaceId)
-                } label: {
-                    Text(Loc.delete)
-                }
-            }
-        }
-    }
 }
 
 #Preview {
-    SpaceHubView(sceneId: "1337", output: nil)
+    SpaceHubView(output: nil)
 }

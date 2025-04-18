@@ -1,6 +1,6 @@
 typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
 
-enum EditorItem: Hashable {
+enum EditorItem: Hashable, @unchecked Sendable {
     case header(ObjectHeader)
     case block(any BlockViewModelProtocol)
     case system(any SystemContentConfiguationProvider)
@@ -60,6 +60,7 @@ extension CollectionDifference where ChangeElement == EditorItem {
 }
 
 extension EditorItem {
+    @MainActor
     func didSelect(in state: EditorEditingState) {
         switch self {
         case .header(let objectHeader):

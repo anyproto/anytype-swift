@@ -53,6 +53,7 @@ extension BlockConfiguration {
 }
 
 protocol Dequebale {
+    @MainActor
     func dequeueReusableCell(
         collectionView: UICollectionView,
         for indexPath: IndexPath
@@ -60,6 +61,7 @@ protocol Dequebale {
 }
 
 extension Dequebale where Self: BlockConfiguration {
+    @MainActor
     func dequeueReusableCell(
         collectionView: UICollectionView,
         for indexPath: IndexPath

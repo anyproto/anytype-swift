@@ -10,11 +10,6 @@ struct SpaceHubDropDelegate: DropDelegate {
     @Binding var draggedItem: ParticipantSpaceViewData?
     @Binding var initialIndex: Int?
     
-    @Injected(\.spaceOrderService)
-    private var spaceOrderService: any SpaceOrderServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
-    
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)
     }
@@ -49,6 +44,11 @@ struct SpaceHubDropDelegate: DropDelegate {
         let newOrder = allSpaces
             .filter({ $0.spaceView.isPinned })
             .map(\.spaceView.id)
+        
+        // Doesn't use @Injected(\.spaceOrderService)
+        // Delegate is created for each update. Resolving DI takes time on the main thread.
+        let spaceOrderService = Container.shared.spaceOrderService()
+        let workspaceStorage = Container.shared.workspaceStorage()
         
         if FeatureFlags.pinnedSpaces {
             Task {

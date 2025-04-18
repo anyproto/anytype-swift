@@ -1,6 +1,6 @@
 import Combine
 import UIKit
-import Highlightr
+@preconcurrency import Highlightr
 import Services
 
 final class CodeBlockView: UIView, BlockContentView {

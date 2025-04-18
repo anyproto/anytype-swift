@@ -1,8 +1,8 @@
 import Services
 
-struct SlashMenuItemsBuilder {
-    @Injected(\.typesService)
-    private var typesService: any TypesServiceProtocol
+struct SlashMenuItemsBuilder: Sendable {
+    
+    private let typesService: any TypesServiceProtocol = Container.shared.typesService()
     
     func slashMenuItems(spaceId: String, resrictions: some BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
         let searchObjectsMenuItem = try? await searchObjectsMenuItem(spaceId: spaceId)

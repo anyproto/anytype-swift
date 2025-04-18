@@ -7,6 +7,7 @@ public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable wher
     public typealias AsyncIterator = AsyncStream<T>.AsyncIterator
 
     private var continuations: [UUID: AsyncStream<T>.Continuation] = [:]
+    private var lastValue: T?
     private let lock = OSAllocatedUnfairLock()
     
     public init() {}
@@ -23,6 +24,10 @@ public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable wher
             let id = UUID()
             self.continuations[id] = continuation
 
+            if let lastValue {
+                continuation.yield(lastValue)
+            }
+            
             continuation.onTermination = { _ in
                 self.removeContinuation(id)
             }
@@ -32,6 +37,7 @@ public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable wher
     public func send(_ value: T) {
         lock.lock()
         defer { lock.unlock() }
+        lastValue = value
         for continuation in continuations.values {
             continuation.yield(value)
         }

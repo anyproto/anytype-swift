@@ -11,7 +11,7 @@ protocol VersionHistoryDataBuilderProtocol {
 
 final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
-    private let versionDateFormatter = VersionHistoryDateFormatter()
+    private let versionDateFormatter = HistoryDateFormatter()
     private let timeFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none

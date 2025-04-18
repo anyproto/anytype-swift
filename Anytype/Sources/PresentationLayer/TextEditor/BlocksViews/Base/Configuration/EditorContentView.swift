@@ -4,7 +4,7 @@ import Services
 final class EditorContentView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate, ReusableContent {
     typealias Configuration = CellBlockConfiguration<View.Configuration>
     
-    static var reusableIdentifier: String { View.reusableIdentifier }
+    nonisolated static var reusableIdentifier: String { View.reusableIdentifier }
 
     var configuration: any UIContentConfiguration {
         get {
