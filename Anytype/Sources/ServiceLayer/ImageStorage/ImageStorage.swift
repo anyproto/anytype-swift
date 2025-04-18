@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-final class ImageStorage: ImageStorageProtocol {
+final class ImageStorage: ImageStorageProtocol, @unchecked Sendable {
     
     static let shared = ImageStorage()
     

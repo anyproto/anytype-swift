@@ -6,7 +6,7 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     
     private let contentProviderBuilder: () -> TableOfContentsContentProvider
     
-    var hashable: AnyHashable { info.id }
+    nonisolated var hashable: AnyHashable { info.id }
     
     let info: BlockInformation
     let document: any BaseDocumentProtocol

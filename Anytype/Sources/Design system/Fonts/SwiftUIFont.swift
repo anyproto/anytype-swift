@@ -1,9 +1,28 @@
 import SwiftUI
-
+import AnytypeCore
 
 struct AnytypeFontBuilder {
+    
+    private static let fontCache = SynchronizedDictionary<FontCacheKey, Font>()
+    
+    private struct FontCacheKey: Equatable, Hashable {
+        let name: AnytypeFontConfig.Name
+        let size: CGFloat
+        let weight: Font.Weight
+    }
+    
     static func font(name: AnytypeFontConfig.Name, size: CGFloat, weight: Font.Weight) -> Font {
-        return Font.custom(name.rawValue, size: size).weight(weight)
+        let fontCacheKey = FontCacheKey(name: name, size: size, weight: weight)
+        
+        if let cacheFont = fontCache[fontCacheKey] {
+            return cacheFont
+        }
+        
+        let font = Font.custom(name.rawValue, size: size).weight(weight)
+        
+        fontCache[fontCacheKey] = font
+        
+        return font
     }
 
     static func font(anytypeFont: AnytypeFont) -> Font {

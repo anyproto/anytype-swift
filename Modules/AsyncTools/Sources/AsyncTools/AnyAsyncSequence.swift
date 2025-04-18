@@ -21,14 +21,17 @@ public struct AnyAsyncSequence<Element>: AsyncSequence {
     }
 
     public struct AsyncIterator: AsyncIteratorProtocol {
-        private var iterator: any AsyncIteratorProtocol
-
+        private let _next: () async -> Element?
+        
         init<I: AsyncIteratorProtocol>(wrapping iterator: I) where I.Element == Element {
-            self.iterator = iterator
+            var iterator = iterator
+            self._next = {
+                try? await iterator.next()
+            }
         }
 
         mutating public func next() async -> Element? {
-            try? await self.iterator.next() as? Element
+            await _next()
         }
     }
 }

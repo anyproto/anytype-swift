@@ -83,6 +83,9 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
+      - name: Summary Anytype
+        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+
       - name: Build and upload Any App to Testflight
         if: ${{ inputs.build_any_app == true }}
         run: |
@@ -106,3 +109,6 @@ jobs:
           JOIN_STREAM_URL: ${{ secrets.JOIN_STREAM_URL }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
+
+      - name: Summary Any App
+        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY

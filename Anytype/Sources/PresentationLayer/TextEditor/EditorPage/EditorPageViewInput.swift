@@ -1,6 +1,7 @@
 import Services
 import UIKit
 
+@MainActor
 protocol EditorCollectionReloadable: AnyObject {
     func reconfigure(items: [EditorItem])
     func itemDidChangeFrame(item: EditorItem)
@@ -16,6 +17,7 @@ protocol EditorCollectionReloadable: AnyObject {
 }
 
 /// Input data for document view
+@MainActor
 protocol EditorPageViewInput: EditorCollectionReloadable {
     func update(header: ObjectHeader)
     func update(details: ObjectDetails?, templatesCount: Int)

@@ -4,6 +4,7 @@ struct LinkToObjectSearchModuleData: Identifiable, Hashable, Equatable {
     let spaceId: String
     let currentLinkUrl: URL?
     let currentLinkString: String?
+    let route: AnalyticsEventsRouteKind
     
     @EquatableNoop
     var setLinkToObject: (_ blockId: String) -> Void

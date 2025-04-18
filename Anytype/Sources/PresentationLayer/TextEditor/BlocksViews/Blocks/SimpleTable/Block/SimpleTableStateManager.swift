@@ -15,10 +15,12 @@ protocol SimpleTableSelectionHandler: AnyObject {
     func didStopSimpleTableSelectionMode()
 }
 
+@MainActor
 protocol SimpleTableMenuDelegate: AnyObject {
     func didSelectTab(tab: SimpleTableMenuView.Tab)
 }
 
+@MainActor
 protocol SimpleTableStateManagerProtocol: EditorPageBlocksStateManagerProtocol {
     var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { get }
     var selectedMenuTab: SimpleTableMenuView.Tab { get }

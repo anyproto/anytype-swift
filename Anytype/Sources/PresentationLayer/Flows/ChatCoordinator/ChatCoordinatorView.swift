@@ -12,6 +12,7 @@ struct ChatCoordinatorView: View {
     
     var body: some View {
         ChatView(spaceId: model.spaceId, chatId: model.chatId, output: model)
+            .attachSpaceLoadingContainer(spaceId: model.spaceId)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
