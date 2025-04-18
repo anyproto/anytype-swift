@@ -44,6 +44,9 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         }
         
         do {
+            // TODO: Temporary fix for handle events, that middleware sends before the response
+            // Waiting change middleware API
+            subscriptionId = "lastMessage"
             subscriptionId = try await chatService.subscribeToMessagePreviews()
         } catch {
             anytypeAssertionFailure("Subscribe to messages previews error", info: ["previewsError": error.localizedDescription])
