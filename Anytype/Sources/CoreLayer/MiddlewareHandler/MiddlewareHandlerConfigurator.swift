@@ -10,11 +10,11 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
     func configure() {
         InvocationSettings.handler = invocationHandler
         
-        #if DEBUG || RELEASE_NIGHTLY
+        if FeatureFlags.logMiddlewareRequests {
             enableRemoteLogger()
-        #else
+        } else {
             disableRemoteLogger()
-        #endif
+        }
     }
     
     private func enableRemoteLogger() {
