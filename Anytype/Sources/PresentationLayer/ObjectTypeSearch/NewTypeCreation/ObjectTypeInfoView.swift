@@ -68,7 +68,7 @@ struct ObjectTypeInfoView: View {
                     .frame(width: 32, height: 32)
             }
             Spacer.fixedWidth(10)
-            AutofocusedTextField(placeholder: Loc.puzzle, font: .heading, text: $model.name)
+            AutofocusedTextField(placeholder: Loc.egProject, font: .heading, text: $model.name)
                 .autocorrectionDisabled()
             Spacer()
             Spacer.fixedWidth(8)
@@ -81,8 +81,8 @@ struct ObjectTypeInfoView: View {
     private var pluralNameInput: some View {
         HStack(alignment: .center, spacing: 0) {
             VStack(alignment: .leading, spacing: 4) {
-                AnytypeText(Loc.pluralName, style: .caption1Regular).foregroundColor(.Text.secondary)
-                AnytypeTextField(placeholder: Loc.puzzles, font: .previewTitle1Regular, text: $model.pluralName)
+                AnytypeText(Loc.typePluralName, style: .caption1Regular).foregroundColor(.Text.secondary)
+                AnytypeTextField(placeholder: Loc.egProjects, font: .previewTitle1Regular, text: $model.pluralName)
                     .autocorrectionDisabled()
             }
             Spacer()

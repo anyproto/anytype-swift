@@ -100,12 +100,11 @@ final class TypeFieldsMoveHandler: Sendable {
         case .header:
             guard let fromIndex = details.recommendedFeaturedRelations.firstIndex(of: from.relation.id) else { return }
             
-            let fromRelation = details.recommendedFeaturedRelations[fromIndex]
-            
-            var newFeaturedRelations = details.recommendedFeaturedRelations
-            newFeaturedRelations.remove(at: fromIndex)
-            
+            let fromRelation = details.recommendedFeaturedRelationsDetails[fromIndex]
             let newRecommendedRelations = [fromRelation]
+            
+            var newFeaturedRelations = details.recommendedFeaturedRelationsDetails
+            newFeaturedRelations.remove(at: fromIndex)
             
             try await move(
                 typeId: document.objectId,
@@ -113,14 +112,14 @@ final class TypeFieldsMoveHandler: Sendable {
                 to: to,
                 recommendedRelationIds: newRecommendedRelations,
                 recommendedFeaturedRelationsIds: newFeaturedRelations,
-                recommendedHiddenRelationsIds: details.recommendedHiddenRelations
+                recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
             )
         case .fieldsMenu:
             guard let fromIndex = details.recommendedRelations.firstIndex(of: from.relation.id) else { return }
             
-            let fromRelation = details.recommendedRelations[fromIndex]
+            let fromRelation = details.recommendedRelationsDetails[fromIndex]
             
-            var newRecommendedRelations = details.recommendedRelations
+            var newRecommendedRelations = details.recommendedRelationsDetails
             newRecommendedRelations.remove(at: fromIndex)
             
             switch to {
@@ -133,7 +132,7 @@ final class TypeFieldsMoveHandler: Sendable {
                     to: to,
                     recommendedRelationIds: newRecommendedRelations,
                     recommendedFeaturedRelationsIds: newFeaturedRelations,
-                    recommendedHiddenRelationsIds: details.recommendedHiddenRelations
+                    recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
                 )
             case .fieldsMenu:
                 throw TypeFieldsMoveError.movingSectionToItself
@@ -145,16 +144,16 @@ final class TypeFieldsMoveHandler: Sendable {
                     from: from.section,
                     to: to,
                     recommendedRelationIds: newRecommendedRelations,
-                    recommendedFeaturedRelationsIds: details.recommendedFeaturedRelations,
+                    recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
                     recommendedHiddenRelationsIds: newHiddenRelations
                 )
             }
         case .hidden:
             guard let fromIndex = details.recommendedHiddenRelations.firstIndex(of: from.relation.id) else { return }
             
-            let fromRelation = details.recommendedHiddenRelations[fromIndex]
+            let fromRelation = details.recommendedHiddenRelationsDetails[fromIndex]
             
-            var newHiddenRelations = details.recommendedHiddenRelations
+            var newHiddenRelations = details.recommendedHiddenRelationsDetails
             newHiddenRelations.remove(at: fromIndex)
             
             let newRecommendedRelations = [fromRelation]
@@ -164,7 +163,7 @@ final class TypeFieldsMoveHandler: Sendable {
                 from: from.section,
                 to: to,
                 recommendedRelationIds: newRecommendedRelations,
-                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelations,
+                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
                 recommendedHiddenRelationsIds: newHiddenRelations
             )
         }
@@ -187,24 +186,48 @@ final class TypeFieldsMoveHandler: Sendable {
         case .header:
             guard let fromIndex = details.recommendedFeaturedRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedFeaturedRelations.firstIndex(of: to.relation.id) else { return }
-            var newRelations = details.recommendedFeaturedRelations
-            newRelations.moveElement(from: fromIndex, to: toIndex)
+            var recommendedFeaturedRelationsDetails = details.recommendedFeaturedRelationsDetails
+            recommendedFeaturedRelationsDetails.moveElement(from: fromIndex, to: toIndex)
             AnytypeAnalytics.instance().logReorderRelation(group: nil)
-            try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: newRelations)
+            
+            try await move(
+                typeId: document.objectId,
+                from: from.section,
+                to: to.section,
+                recommendedRelationIds: details.recommendedRelationsDetails,
+                recommendedFeaturedRelationsIds: recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
+            )
         case .fieldsMenu:
             guard let fromIndex = details.recommendedRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedRelations.firstIndex(of: to.relation.id) else { return }
-            var newRelations = details.recommendedRelations
-            newRelations.moveElement(from: fromIndex, to: toIndex)
+            var recommendedRelationsDetails = details.recommendedRelationsDetails
+            recommendedRelationsDetails.moveElement(from: fromIndex, to: toIndex)
             AnytypeAnalytics.instance().logReorderRelation(group: nil)
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRelations)
+            
+            try await move(
+                typeId: document.objectId,
+                from: from.section,
+                to: to.section,
+                recommendedRelationIds: recommendedRelationsDetails,
+                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
+            )
         case .hidden:
             guard let fromIndex = details.recommendedHiddenRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedHiddenRelations.firstIndex(of: to.relation.id) else { return }
-            var newRelations = details.recommendedHiddenRelations
-            newRelations.moveElement(from: fromIndex, to: toIndex)
+            var recommendedHiddenRelationsDetails = details.recommendedHiddenRelationsDetails
+            recommendedHiddenRelationsDetails.moveElement(from: fromIndex, to: toIndex)
             AnytypeAnalytics.instance().logReorderRelation(group: nil)
-            try await relationsService.updateRecommendedHiddenRelations(typeId: document.objectId, relationIds: newRelations)
+            
+            try await move(
+                typeId: document.objectId,
+                from: from.section,
+                to: to.section,
+                recommendedRelationIds: details.recommendedRelationsDetails,
+                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
+                recommendedHiddenRelationsIds: recommendedHiddenRelationsDetails
+            )
         }
     }
     
@@ -216,12 +239,12 @@ final class TypeFieldsMoveHandler: Sendable {
             guard let fromIndex = details.recommendedFeaturedRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedRelations.firstIndex(of: to.relation.id) else { return }
             
-            let fromRelation = details.recommendedFeaturedRelations[fromIndex]
+            let fromRelation = details.recommendedFeaturedRelationsDetails[fromIndex]
             
-            var newFeaturedRelations = details.recommendedFeaturedRelations
+            var newFeaturedRelations = details.recommendedFeaturedRelationsDetails
             newFeaturedRelations.remove(at: fromIndex)
             
-            var newRecommendedRelations = details.recommendedRelations
+            var newRecommendedRelations = details.recommendedRelationsDetails
             newRecommendedRelations.insert(fromRelation, at: toIndex)
             
             try await move(
@@ -230,20 +253,20 @@ final class TypeFieldsMoveHandler: Sendable {
                 to: to.section,
                 recommendedRelationIds: newRecommendedRelations,
                 recommendedFeaturedRelationsIds: newFeaturedRelations,
-                recommendedHiddenRelationsIds: details.recommendedHiddenRelations
+                recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
             )
         case .fieldsMenu:
             guard let fromIndex = details.recommendedRelations.firstIndex(of: from.relation.id) else { return }
             
-            let fromRelation = details.recommendedRelations[fromIndex]
+            let fromRelation = details.recommendedRelationsDetails[fromIndex]
             
-            var newRecommendedRelations = details.recommendedRelations
+            var newRecommendedRelations = details.recommendedRelationsDetails
             newRecommendedRelations.remove(at: fromIndex)
             
             switch to.section {
             case .header:
                 guard let toIndex = details.recommendedFeaturedRelations.firstIndex(of: to.relation.id) else { return }
-                var newFeaturedRelations = details.recommendedFeaturedRelations
+                var newFeaturedRelations = details.recommendedFeaturedRelationsDetails
                 newFeaturedRelations.insert(fromRelation, at: toIndex + 1) // Insert below target
                 
                 try await move(
@@ -252,21 +275,28 @@ final class TypeFieldsMoveHandler: Sendable {
                     to: to.section,
                     recommendedRelationIds: newRecommendedRelations,
                     recommendedFeaturedRelationsIds: newFeaturedRelations,
-                    recommendedHiddenRelationsIds: details.recommendedHiddenRelations
+                    recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
                 )
             case .fieldsMenu:
                 throw TypeFieldsMoveError.movingSectionToItself
             case .hidden:
-                guard let toIndex = details.recommendedHiddenRelations.firstIndex(of: to.relation.id) else { return }
-                var newHiddenRelations = details.recommendedHiddenRelations
-                newHiddenRelations.insert(fromRelation, at: toIndex)
+                let newHiddenRelations: [RelationDetails]
+                    
+                if details.recommendedHiddenRelations.isEmpty {
+                    newHiddenRelations = [fromRelation]
+                } else {
+                    guard let toIndex = details.recommendedHiddenRelations.firstIndex(of: to.relation.id) else { return }
+                    var recommendedHiddenRelationsDetails = details.recommendedHiddenRelationsDetails
+                    recommendedHiddenRelationsDetails.insert(fromRelation, at: toIndex)
+                    newHiddenRelations = recommendedHiddenRelationsDetails
+                }
                 
                 try await move(
                     typeId: document.objectId,
                     from: from.section,
                     to: to.section,
                     recommendedRelationIds: newRecommendedRelations,
-                    recommendedFeaturedRelationsIds: details.recommendedFeaturedRelations,
+                    recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
                     recommendedHiddenRelationsIds: newHiddenRelations
                 )
             }
@@ -274,12 +304,12 @@ final class TypeFieldsMoveHandler: Sendable {
             guard let fromIndex = details.recommendedHiddenRelations.firstIndex(of: from.relation.id) else { return }
             guard let toIndex = details.recommendedRelations.firstIndex(of: to.relation.id) else { return }
             
-            let fromRelation = details.recommendedHiddenRelations[fromIndex]
+            let fromRelation = details.recommendedHiddenRelationsDetails[fromIndex]
             
-            var newHiddenRelations = details.recommendedHiddenRelations
+            var newHiddenRelations = details.recommendedHiddenRelationsDetails
             newHiddenRelations.remove(at: fromIndex)
             
-            var newRecommendedRelations = details.recommendedRelations
+            var newRecommendedRelations = details.recommendedRelationsDetails
             newRecommendedRelations.insert(fromRelation, at: toIndex + 1) // Insert below target
             
             try await move(
@@ -287,7 +317,7 @@ final class TypeFieldsMoveHandler: Sendable {
                 from: from.section,
                 to: to.section,
                 recommendedRelationIds: newRecommendedRelations,
-                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelations,
+                recommendedFeaturedRelationsIds: details.recommendedFeaturedRelationsDetails,
                 recommendedHiddenRelationsIds: newHiddenRelations
             )
         }
@@ -297,17 +327,17 @@ final class TypeFieldsMoveHandler: Sendable {
         typeId: String,
         from: TypeFieldsSectionRow,
         to: TypeFieldsSectionRow,
-        recommendedRelationIds: [ObjectId],
-        recommendedFeaturedRelationsIds: [ObjectId],
-        recommendedHiddenRelationsIds: [ObjectId]
+        recommendedRelationIds: [RelationDetails],
+        recommendedFeaturedRelationsIds: [RelationDetails],
+        recommendedHiddenRelationsIds: [RelationDetails]
     ) async throws {
         AnytypeAnalytics.instance().logReorderRelation(group: from != to ? to.analyticsValue : nil)
         
         try await relationsService.updateTypeRelations(
             typeId: typeId,
-            recommendedRelationIds: recommendedRelationIds,
-            recommendedFeaturedRelationsIds: recommendedFeaturedRelationsIds,
-            recommendedHiddenRelationsIds: recommendedHiddenRelationsIds
+            recommendedRelations: recommendedRelationIds,
+            recommendedFeaturedRelations: recommendedFeaturedRelationsIds,
+            recommendedHiddenRelations: recommendedHiddenRelationsIds
         )
     }
 }

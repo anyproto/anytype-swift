@@ -22,8 +22,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var allContent: Bool {
-        value(for: .allContent)
+    static var allObjectsFromLibrary: Bool {
+        value(for: .allObjectsFromLibrary)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -146,6 +146,18 @@ public extension FeatureFlags {
         value(for: .download1920ImageForFullscreen)
     }
 
+    static var simpleSetForTypes: Bool {
+        value(for: .simpleSetForTypes)
+    }
+
+    static var doNotWaitCompletionInAnytypePreview: Bool {
+        value(for: .doNotWaitCompletionInAnytypePreview)
+    }
+
+    static var plusButtonOnWidgets: Bool {
+        value(for: .plusButtonOnWidgets)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -208,7 +220,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .allContent,
+        .allObjectsFromLibrary,
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .newSpacesLoading,
@@ -239,6 +251,9 @@ public extension FeatureFlags {
         .pluralNames,
         .countersOnSpaceHub,
         .download1920ImageForFullscreen,
+        .simpleSetForTypes,
+        .doNotWaitCompletionInAnytypePreview,
+        .plusButtonOnWidgets,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -79,18 +79,18 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         viewStateSubject.send(
             .resultsList(
                 .sectioned(sectinos: .builder {
-                    if objectTypes.isNotEmpty {
-                        ListSectionConfiguration.smallHeader(
-                            id: Constants.objectTypesId,
-                            title: Loc.Widgets.Source.suggested,
-                            rows:  objectTypes.asRowConfigurations()
-                        )
-                    }
                     if libraryObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.anytypeId,
                             title: Loc.Widgets.Source.library,
                             rows:  libraryObjects.asRowConfigurations()
+                        )
+                    }
+                    if objectTypes.isNotEmpty {
+                        ListSectionConfiguration.smallHeader(
+                            id: Constants.objectTypesId,
+                            title: Loc.Widgets.Source.suggested,
+                            rows:  objectTypes.asRowConfigurations()
                         )
                     }
                     if objects.isNotEmpty {
@@ -155,7 +155,7 @@ private extension SearchObjectRowView.Model {
 private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
-        let title = FeatureFlags.pluralNames ? details.pluralName : details.title
+        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title

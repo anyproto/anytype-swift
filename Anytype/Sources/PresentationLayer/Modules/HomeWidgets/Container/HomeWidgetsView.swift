@@ -71,13 +71,6 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 12) {
-                if FeatureFlags.allContent {
-                    AllContentWidgetView(
-                        spaceId: model.spaceId,
-                        homeState: $model.homeState,
-                        output: model.output
-                    )
-                }
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTipView()
                 }

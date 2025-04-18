@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.2.6 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 extension Anytype_Rpc.AI.Autofill.Response: ResultWithError {}
@@ -1005,6 +1005,11 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.Export.Response: ResultWithError {}
+extension Anytype_Rpc.Object.Export.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Graph.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Graph.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1257,6 +1262,11 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: ResponseError {
 
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

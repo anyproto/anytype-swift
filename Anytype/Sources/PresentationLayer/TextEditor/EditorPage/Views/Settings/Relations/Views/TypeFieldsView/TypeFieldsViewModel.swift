@@ -86,7 +86,9 @@ final class TypeFieldsViewModel: ObservableObject {
         guard let details = document.details else { return }
         guard let format = data.relation.format else { return }
         
-        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(details.recommendedFeaturedRelations) : .recommendedRelations(details.recommendedRelations)
+        let type = ObjectType(details: details)
+        
+        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
         relationData = RelationInfoData(
             name: data.relation.name,
@@ -99,7 +101,8 @@ final class TypeFieldsViewModel: ObservableObject {
     
     func onAddRelationTap(section: TypeFieldsSectionRow) {
         guard let details = document.details else { return }
-        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(details.recommendedFeaturedRelations) : .recommendedRelations(details.recommendedRelations)
+        let type = ObjectType(details: details)
+        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,
@@ -120,16 +123,10 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onDeleteRelation(_ row: TypeFieldsRelationRow) {
+        guard let details = document.details else { return }
+        
         Task {
-            let relationsId = row.relation.id
-            
-            if let recommendedFeaturedRelations = document.details?.recommendedFeaturedRelations.filter({ relationsId != $0 }) {
-                try await relationsService.updateRecommendedFeaturedRelations(typeId: document.objectId, relationIds: recommendedFeaturedRelations)
-            }
-            if let recommendedRelations = document.details?.recommendedRelations.filter({ relationsId != $0 }) {
-                try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: recommendedRelations)
-            }
-            
+            try await relationsService.deleteTypeRelation(details: details, relationId: row.relation.id)
             
             guard let format = row.relation.format?.format else {
                 anytypeAssertionFailure("Empty relation format for onDeleteRelation")
@@ -140,12 +137,11 @@ final class TypeFieldsViewModel: ObservableObject {
     }
     
     func onAddConflictRelation(_ relation: RelationDetails) {
+        guard let details = document.details else { return }
         AnytypeAnalytics.instance().logAddConflictRelation()
-        var newRecommendedRelations = parsedRelations.sidebarRelations.map(\.id)
-        newRecommendedRelations.append(relation.id)
         
         Task {
-            try await relationsService.updateRecommendedRelations(typeId: document.objectId, relationIds: newRecommendedRelations)
+            try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)    
             if let details = document.details { try await updateConflictRelations(details: details) }
         }
     }

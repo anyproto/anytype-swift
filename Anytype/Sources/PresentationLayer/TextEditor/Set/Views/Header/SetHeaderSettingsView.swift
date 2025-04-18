@@ -18,7 +18,7 @@ struct SetHeaderSettingsView: View {
                 
                 if !model.isActiveHeader || model.isActiveCreateButton {
                     Spacer.fixedWidth(16)
-                    createView
+                    compositeCreateButtons
                 }
             }
             .padding(.horizontal, 20)
@@ -28,15 +28,6 @@ struct SetHeaderSettingsView: View {
                     .padding(.bottom, 12)
                     .padding(.horizontal, 20)
             }
-        }
-    }
-    
-    @ViewBuilder
-    private var createView: some View {
-        if FeatureFlags.openTypeAsSet && model.isObjectType {
-            simpleCreateButton
-        } else {
-            compositeCreateButtons
         }
     }
     
@@ -83,14 +74,6 @@ struct SetHeaderSettingsView: View {
             }
             .disabled(!model.isActiveCreateButton)
         }
-    }
-    
-    private var simpleCreateButton: some View {
-        StandardButton(Loc.new, style: .primaryXSmall) {
-            UISelectionFeedbackGenerator().selectionChanged()
-            model.onCreateTap()
-        }
-        .disabled(!model.isActiveCreateButton)
     }
     
     private var viewButton: some View {

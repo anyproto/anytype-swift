@@ -20,6 +20,7 @@ struct ChatInput: View {
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     let onLinkAdded: (_ url: URL) -> Void
+    let onPasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
@@ -91,21 +92,22 @@ struct ChatInput: View {
                 minHeight: 56,
                 maxHeight: 156,
                 linkTo: onTapLinkTo,
-                linkParsed: onLinkAdded
+                linkParsed: onLinkAdded,
+                pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
             )
         }
     }
     
     @ViewBuilder
     private var sendButton: some View {
-        if hasAdditionalData || !text.string.isEmpty {
-            Button {
-                onTapSend()
-            } label: {
-                EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
-            }
-            .disabled(disableSendButton)
-            .frame(width: 32, height: 56)
+        Button {
+            onTapSend()
+        } label: {
+            EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
         }
+        .disabled(disableSendButton)
+        .frame(width: 32, height: 56)
+        // Store in layout for calculate correct textview height when user paste in empty textview
+        .opacity(hasAdditionalData || !text.string.isEmpty ? 1 : 0)
     }
 }

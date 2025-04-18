@@ -154,55 +154,7 @@ final class MiddlewareEventConverter {
             return .block(blockId: data.id)
         case .objectClose:
             return .close
-        case .accountShow,
-                .threadStatus, // Legacy. See SyncStatusStorage
-                .accountUpdate, // Event not working on middleware. See AccountManager.
-                .accountDetails, // Skipped
-                .accountConfigUpdate, // Remote config updates
-                .accountLinkChallenge,
-                .objectRemove, // Remove from History Object wich was deleted. For Desktop purposes
-                .subscriptionAdd, // Implemented in `SubscriptionsService`
-                .subscriptionRemove, // Implemented in `SubscriptionsService`
-                .subscriptionPosition, // Implemented in `SubscriptionsService`
-                .subscriptionCounters, // Implemented in `SubscriptionsService`
-                .subscriptionGroups, // Implemented in `GroupsSubscriptionsHandler`
-                .blockDataviewSourceSet, // will be deleted on middle soon
-                .filesUpload,
-                .marksInfo,
-                .blockSetRestrictions,
-                .blockSetLatex,
-                .blockSetVerticalAlign,
-                .blockSetTableRow,
-                .blockDataviewOldRelationSet,
-                .blockDataviewOldRelationDelete,
-                .userBlockJoin,
-                .userBlockLeft,
-                .userBlockSelectRange,
-                .userBlockTextRange,
-                .ping,
-                .processNew,
-                .processUpdate,
-                .processDone,
-                .fileLimitReached,
-                .fileSpaceUsage,
-                .fileLocalUsage,
-                .fileLimitUpdated,
-                .notificationSend,
-                .notificationUpdate,
-                .payloadBroadcast,
-                .importFinish,
-                .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
-                .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
-                .membershipUpdate, // Implemented in `MembershipStatusStorage`
-                .chatAdd,
-                .chatDelete,
-                .chatUpdate,
-                .chatUpdateReactions,
-                .chatUpdateReadStatus,
-                .chatStateUpdate,
-                .objectRelationsAmend, // deprecated: will be removed in next release
-                .objectRelationsRemove, // deprecated: will be removed in next release
-                .accountLinkChallengeHide:
+        default:
             return nil
         }
     }

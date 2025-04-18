@@ -17,6 +17,7 @@ struct ChatTextView: UIViewRepresentable {
     let maxHeight: CGFloat
     let linkTo: (_ range: NSRange) -> Void
     let linkParsed: (_ url: URL) -> Void
+    let pasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
     
     @State private var height: CGFloat = 0
     
@@ -62,6 +63,7 @@ struct ChatTextView: UIViewRepresentable {
     func updateUIView(_ textView: UITextView, context: Context) {
         context.coordinator.linkTo = linkTo
         context.coordinator.linkParsed = linkParsed
+        context.coordinator.pasteAttachmentsFromBuffer = pasteAttachmentsFromBuffer
         
         Task { @MainActor in
             // Async for fix "AttributeGraph: cycle detected through attribute"
@@ -83,6 +85,7 @@ struct ChatTextView: UIViewRepresentable {
         minHeight: 54,
         maxHeight: 212,
         linkTo: { _ in },
-        linkParsed: { _ in }
+        linkParsed: { _ in },
+        pasteAttachmentsFromBuffer: { _ in }
     )
 }

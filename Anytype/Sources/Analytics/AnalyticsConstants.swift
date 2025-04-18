@@ -41,6 +41,7 @@ enum AnalyticsEventsPropertiesKey {
     static let color = "color"
     static let name = "name"
     static let sort = "sort"
+    static let widgetType = "widgetType"
     
     static let middleTime = "middleTime"
     static let permissions = "permissions"
@@ -96,6 +97,7 @@ enum AnalyticsEventsMigrationType: String {
 }
 
 enum AnalyticsWidgetSource {
+    case allObjects
     case favorites
     case recent
     case recentOpen
@@ -106,6 +108,8 @@ enum AnalyticsWidgetSource {
     
     var analyticsId: String {
         switch self {
+        case .allObjects:
+            return "AllObjects"
         case .favorites:
             return "Favorites"
         case .recent:
@@ -165,6 +169,7 @@ enum AnalyticsWidgetContext: String, Hashable {
     case editor = "Editor"
     case main = "Main"
     case object = "Object"
+    case auto = "Auto"
 }
 
 enum RemoveCompletelyRoute: String {
@@ -313,6 +318,7 @@ enum ClickUpgradePlanTooltipRoute: String {
 
 enum ChangeObjectTypeRoute: String {
     case featuredRelations = "FeaturedRelations"
+    case relationsList = "RelationsList"
 }
 
 enum ScreenSearchType: String {
@@ -363,4 +369,13 @@ enum OpenObjectByLinkType: String {
 enum OpenObjectByLinkRoute: String {
     case app = "App"
     case web = "Web"
+}
+
+enum WidgetCreateType: String {
+    case manual = "Manual"
+    case auto = "Auto"
+}
+
+enum ResetToTypeDefaultRoute: String {
+    case object = "Object"
 }

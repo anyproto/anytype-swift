@@ -161,6 +161,7 @@ public protocol BundledRelationsValueProvider {
     var courseType: String { get }
     var difficulty: String { get }
     var autoWidgetTargets: [ObjectId] { get }
+    var autoWidgetDisabled: Bool { get }
     var pluralName: String { get }
 } 
 
@@ -751,6 +752,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Automatically generated widget targets. Used to avoid creating widget if was removed by user
     var autoWidgetTargets: [ObjectId] {
         return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
+    }
+    var autoWidgetDisabled: Bool {
+        return value(for: BundledRelationKey.autoWidgetDisabled.rawValue)
     }
     /// Name of Object type in plural form
     var pluralName: String {

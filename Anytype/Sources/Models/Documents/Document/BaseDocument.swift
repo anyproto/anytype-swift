@@ -312,6 +312,10 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         let objectRelations = relationDetailsStorage.relationsDetails(
             keys:  details.values.map(\.key), spaceId: spaceId
         )
+        
+        let objectFeaturedRelations = relationDetailsStorage.relationsDetails(
+            ids:  details.featuredRelations, spaceId: spaceId
+        )
 
         let recommendedRelations = relationDetailsStorage.relationsDetails(
             ids: targetObjectType.recommendedRelations, spaceId: spaceId
@@ -327,6 +331,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         return relationBuilder.parsedRelations(
             objectRelations: objectRelations,
+            objectFeaturedRelations: objectFeaturedRelations,
             recommendedRelations: recommendedRelations,
             recommendedFeaturedRelations: recommendedFeaturedRelations,
             recommendedHiddenRelations: recommendedHiddenRelations,
@@ -339,6 +344,10 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private func buildRelationsForObject(details: ObjectDetails) -> ParsedRelations {
         let objectRelations = relationDetailsStorage.relationsDetails(
             keys:  details.values.map(\.key), spaceId: spaceId
+        )
+        
+        let objectFeaturedRelations = relationDetailsStorage.relationsDetails(
+            keys: details.featuredRelations, spaceId: spaceId
         )
 
         let recommendedRelations = relationDetailsStorage.relationsDetails(
@@ -355,6 +364,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         return relationBuilder.parsedRelations(
             objectRelations: objectRelations,
+            objectFeaturedRelations: objectFeaturedRelations,
             recommendedRelations: recommendedRelations,
             recommendedFeaturedRelations: recommendedFeaturedRelations,
             recommendedHiddenRelations: recommendedHiddenRelations,

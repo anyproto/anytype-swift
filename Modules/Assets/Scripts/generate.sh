@@ -6,11 +6,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd $SCRIPT_DIR
 
 cd ../Templates/
-ls -a
 
 TEMPLATE_DIR=$(pwd)
 
 # Project Root
 cd ../../../
 
-./Tools/SwiftGen/swiftgen config run --config ${TEMPLATE_DIR}/swiftgen.yml
+./build/swiftgen config run --config ${TEMPLATE_DIR}/swiftgen.yml

@@ -1,6 +1,9 @@
+import Services
+
+
 enum RelationsModuleTypeData {
-    case recommendedFeaturedRelations([String])
-    case recommendedRelations([String])
+    case recommendedFeaturedRelations(ObjectType)
+    case recommendedRelations(ObjectType)
     
     var isFeatured: Bool {
         if case .recommendedFeaturedRelations = self {
@@ -12,5 +15,6 @@ enum RelationsModuleTypeData {
 
 enum RelationsModuleTarget {
     case type(RelationsModuleTypeData)
-    case dataview(activeViewId: String)
+    case dataview(activeViewId: String, typeDetails: ObjectDetails?)
+    case object(objectId: String)
 }

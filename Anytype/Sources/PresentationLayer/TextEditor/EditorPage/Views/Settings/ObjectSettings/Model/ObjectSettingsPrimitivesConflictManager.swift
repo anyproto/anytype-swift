@@ -18,24 +18,34 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         let typeId = details.isTemplateType ? details.targetObjectType : details.type
         guard let type = try? objectTypeProvider.objectType(id: typeId) else { return false }
         let layoutsInObjectAndTypeAreDifferent = details.resolvedLayoutValue != type.recommendedLayout
-        if layoutsInObjectAndTypeAreDifferent { return true }
+        let layoutAlignInObjectAndTypeAreDifferent = details.layoutAlignValue != type.layoutAlign
+        let layoutWidthInObjectAndTypeAreDifferent = details.layoutWidth != type.layoutWidth
+        if layoutsInObjectAndTypeAreDifferent || layoutAlignInObjectAndTypeAreDifferent || layoutWidthInObjectAndTypeAreDifferent { return true }
         
-        let haveAnyLegacyFeaturedRelations = relationDetailsStorage
-            .relationsDetails(ids: details.featuredRelations, spaceId: details.spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
-            .isNotEmpty
-        if haveAnyLegacyFeaturedRelations { return true }
+        let typeFeaturedRelationKeys = details.objectType.recommendedFeaturedRelationsDetails
+            .map(\.key)
+            .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+        let objectFeaturedRelationKeys = relationDetailsStorage
+            .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
+            .map(\.key)
+            .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+            
+        let featuredRelationsInObjectAndTypeAreDifferent = typeFeaturedRelationKeys != objectFeaturedRelationKeys
+        
+        if objectFeaturedRelationKeys.isNotEmpty && featuredRelationsInObjectAndTypeAreDifferent { return true }
         
         return false
     }
     
     func resolveConflicts(details: ObjectDetails) async throws {
-        // Remove legacy layout relation
+        // Remove legacy relations
         try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layout.rawValue)
+        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutAlign.rawValue)
+        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutWidth.rawValue)
         
         // Remove all legacy relations except for description if present (description uses legacy mechanism to preserve its visibility)
         let featuredRelationIds = relationDetailsStorage
-            .relationsDetails(ids: details.featuredRelations, spaceId: details.spaceId)
+            .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
                 .filter { $0.key == BundledRelationKey.description.rawValue }
                 .map(\.id)
         try await relationsService.setFeaturedRelation(objectId: details.id, featuredRelationIds: featuredRelationIds)

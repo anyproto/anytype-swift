@@ -28,18 +28,15 @@ struct WidgetsHeaderView: View {
                 }
                 Spacer()
             }
-            .fixTappableArea()
-            .onTapGesture {
-                model.onTapSpaceSettings()
-            }
         } rightView: {
             if model.canEdit {
                 Image(asset: .X24.spaceSettings)
                     .foregroundStyle(Color.Control.transparentActive)
-                    .onTapGesture {
-                        model.onTapSpaceSettings()
-                    }
             }
+        }
+        .fixTappableArea()
+        .onTapGesture {
+            model.onTapSpaceSettings()
         }
         .task {
             await model.startSubscriptions()

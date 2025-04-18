@@ -18,7 +18,7 @@ public struct Anytype_Model_ChatMessage: Sendable {
   /// Unique message identifier
   public var id: String = String()
 
-  /// Used for subscriptions
+  /// Lexicographical id for message in order of tree traversal
   public var orderID: String = String()
 
   /// Identifier for the message creator
@@ -28,8 +28,8 @@ public struct Anytype_Model_ChatMessage: Sendable {
 
   public var modifiedAt: Int64 = 0
 
-  /// Message received and added to db at
-  public var addedAt: Int64 = 0
+  /// stateId is ever-increasing id (BSON ObjectId) for this message. Unlike orderId, this ID is ordered by the time messages are added. For example, it's useful to prevent accidental reading of messages from the past when a ChatReadMessages request is sent: a message from the past may appear, but the client is still unaware of it
+  public var stateID: String = String()
 
   /// Identifier for the message being replied to
   public var replyToMessageID: String = String()
@@ -60,6 +60,8 @@ public struct Anytype_Model_ChatMessage: Sendable {
   /// Message read status
   public var read: Bool = false
 
+  public var mentionRead: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -76,12 +78,13 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     3: .same(proto: "creator"),
     4: .same(proto: "createdAt"),
     9: .same(proto: "modifiedAt"),
-    11: .same(proto: "addedAt"),
+    11: .same(proto: "stateId"),
     5: .same(proto: "replyToMessageId"),
     6: .same(proto: "message"),
     7: .same(proto: "attachments"),
     8: .same(proto: "reactions"),
     10: .same(proto: "read"),
+    12: .same(proto: "mentionRead"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -100,7 +103,8 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
       case 9: try { try decoder.decodeSingularInt64Field(value: &self.modifiedAt) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.read) }()
-      case 11: try { try decoder.decodeSingularInt64Field(value: &self.addedAt) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.stateID) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.mentionRead) }()
       default: break
       }
     }
@@ -141,8 +145,11 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.read != false {
       try visitor.visitSingularBoolField(value: self.read, fieldNumber: 10)
     }
-    if self.addedAt != 0 {
-      try visitor.visitSingularInt64Field(value: self.addedAt, fieldNumber: 11)
+    if !self.stateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.stateID, fieldNumber: 11)
+    }
+    if self.mentionRead != false {
+      try visitor.visitSingularBoolField(value: self.mentionRead, fieldNumber: 12)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -153,12 +160,13 @@ extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.creator != rhs.creator {return false}
     if lhs.createdAt != rhs.createdAt {return false}
     if lhs.modifiedAt != rhs.modifiedAt {return false}
-    if lhs.addedAt != rhs.addedAt {return false}
+    if lhs.stateID != rhs.stateID {return false}
     if lhs.replyToMessageID != rhs.replyToMessageID {return false}
     if lhs._message != rhs._message {return false}
     if lhs.attachments != rhs.attachments {return false}
     if lhs._reactions != rhs._reactions {return false}
     if lhs.read != rhs.read {return false}
+    if lhs.mentionRead != rhs.mentionRead {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

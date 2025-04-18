@@ -3,6 +3,7 @@ import Services
 import Combine
 import UIKit
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class SetObjectWidgetInternalViewModel: ObservableObject {
@@ -105,13 +106,17 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         let screenData: ScreenData
-        if details.editorViewType == .type {
+        if details.editorViewType == .type && FeatureFlags.simpleSetForTypes {
             screenData = .editor(.simpleSet(EditorSimpleSetObject(objectId: details.id, spaceId: details.spaceId)))
         } else {
             screenData = ScreenData(details: details, activeViewId: activeViewId)
         }
-        AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
+        AnytypeAnalytics.instance().logClickWidgetTitle(
+            source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")),
+            createType: info.widgetCreateType
+        )
         output?.onObjectSelected(screenData: screenData)
     }
     
@@ -257,7 +262,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         allowCreateObject = setDocument.setPermissions.canCreateObject
         
         guard let details = setDocument.details else { return }
-        name = details.title
+        name = FeatureFlags.pluralNames ? details.pluralTitle : details.title
     }
     
     
@@ -282,9 +287,15 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in
-                self?.output?.onObjectSelected(screenData: $0.screenData())
+                self?.handleTapOnObject(details: $0)
             }
         )
         updateRows(rowDetails: rowDetails)
+    }
+    
+    private func handleTapOnObject(details: ObjectDetails) {
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
+        AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
+        output?.onObjectSelected(screenData: details.screenData())
     }
 }

@@ -82,7 +82,7 @@ struct ObjectFieldsView: View {
                     }
                 }
             } else {
-                ListSectionHeaderView(title: section.title)
+                EmptyView()
             }
         }
     }

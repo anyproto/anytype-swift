@@ -1,0 +1,7 @@
+configurations:
+  - sources:
+      - ../../Sources/Protocol/Commands
+    templates:
+      - Templates/error-localization.stencil
+    output:
+      ../../Sources/Loc/Generated/Error+Localization.swift

@@ -31,11 +31,12 @@ struct SetFullHeader: View {
     
     @ViewBuilder
     private var headerBlocks: some View {
+        description
+        
         if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
             Spacer.fixedHeight(10)
             typeButtons
         } else {
-            description
             featuredRelationsView
         }
     }
@@ -79,7 +80,7 @@ struct SetFullHeader: View {
     }
     
     private var typeButtons: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             
             if (model.details?.recommendedLayoutValue.isEditorLayout ?? false) && model.setDocument.document.permissions.canEditDetails {
                 StandardButton(

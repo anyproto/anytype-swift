@@ -15,9 +15,12 @@ class MockRelationsService: RelationsServiceProtocol {
     var lastRemoveRelationOptions: [String]?
     
     // Type relations last call data
-    var lastUpdateTypeRelations: (typeId: String, recommendedRelationIds: [ObjectId], recommendedFeaturedRelationsIds: [ObjectId])?
-    var lastUpdateRecommendedRelations: (typeId: String, relationIds: [ObjectId])?
-    var lastUpdateFeaturedRelations: [ObjectId]?
+    var lastUpdateTypeRelations: (typeId: String, recommendedRelations: [RelationDetails], recommendedFeaturedRelations: [RelationDetails], recommendedHiddenRelations: [RelationDetails])?
+    var lastUpdateRecommendedRelations: (typeId: String, relations: [RelationDetails])?
+    var lastUpdateRecommendedFeaturedRelations: (typeId: String, relations: [RelationDetails])?
+    var lastUpdateRecommendedHiddenRelations: (typeId: String, relations: [RelationDetails])?
+    var lastSetFeaturedRelation: (objectId: String, featuredRelationIds: [String])?
+    var lastToggleDescription: (objectId: String, isOn: Bool)?
 
     // Configurable async result handlers (optional error throwing)
     var updateRelationError: (any Error)?
@@ -30,7 +33,10 @@ class MockRelationsService: RelationsServiceProtocol {
     var removeRelationOptionsError: (any Error)?
     var updateTypeRelationsError: (any Error)?
     var updateRecommendedRelationsError: (any Error)?
-    var updateFeaturedRelationsError: (any Error)?
+    var updateRecommendedFeaturedRelationsError: (any Error)?
+    var updateRecommendedHiddenRelationsError: (any Error)?
+    var setFeaturedRelationError: (any Error)?
+    var toggleDescriptionError: (any Error)?
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws {
         lastUpdateRelation = (objectId, relationKey, value)
@@ -47,7 +53,7 @@ class MockRelationsService: RelationsServiceProtocol {
     }
     
     func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
-        assertionFailure()
+        // Implementation needed
     }
     
     func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
@@ -101,42 +107,59 @@ class MockRelationsService: RelationsServiceProtocol {
         }
     }
     
-    func updateRecommendedHiddenRelations(typeId: String, relationIds: [Services.ObjectId]) async throws {
-        
-    }
-    
-    func updateTypeRelations(typeId: String, recommendedRelationIds: [Services.ObjectId], recommendedFeaturedRelationsIds: [Services.ObjectId], recommendedHiddenRelationsIds: [Services.ObjectId]) async throws {
-        lastUpdateTypeRelations = (typeId, recommendedRelationIds, recommendedFeaturedRelationsIds)
+    func updateTypeRelations(
+        typeId: String,
+        recommendedRelations: [RelationDetails],
+        recommendedFeaturedRelations: [RelationDetails],
+        recommendedHiddenRelations: [RelationDetails]
+    ) async throws {
+        lastUpdateTypeRelations = (typeId, recommendedRelations, recommendedFeaturedRelations, recommendedHiddenRelations)
         if let error = updateTypeRelationsError {
             throw error
         }
     }
     
-    func updateRecommendedRelations(typeId: String, relationIds: [ObjectId]) async throws {
-        lastUpdateRecommendedRelations = (typeId, relationIds)
+    func updateRecommendedRelations(typeId: String, relations: [RelationDetails]) async throws {
+        lastUpdateRecommendedRelations = (typeId, relations)
         if let error = updateRecommendedRelationsError {
             throw error
         }
     }
     
-    func updateRecommendedFeaturedRelations(typeId: String, relationIds: [ObjectId]) async throws {
-        lastUpdateFeaturedRelations = relationIds
-        if let error = updateFeaturedRelationsError {
+    func updateRecommendedFeaturedRelations(typeId: String, relations: [RelationDetails]) async throws {
+        lastUpdateRecommendedFeaturedRelations = (typeId, relations)
+        if let error = updateRecommendedFeaturedRelationsError {
+            throw error
+        }
+    }
+    
+    func updateRecommendedHiddenRelations(typeId: String, relations: [RelationDetails]) async throws {
+        lastUpdateRecommendedHiddenRelations = (typeId, relations)
+        if let error = updateRecommendedHiddenRelationsError {
             throw error
         }
     }
     
     func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
-        assertionFailure()
         return []
     }
     
     func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
-        assertionFailure()
+        lastSetFeaturedRelation = (objectId, featuredRelationIds)
+        if let error = setFeaturedRelationError {
+            throw error
+        }
     }
     
     func toggleDescription(objectId: String, isOn: Bool) async throws {
-        assertionFailure()
+        lastToggleDescription = (objectId, isOn)
+        if let error = toggleDescriptionError {
+            throw error
+        }
+    }
+    
+    func updateTypeRelations(typeId: String, dataviewId: String, recommendedRelations: [Services.RelationDetails], recommendedFeaturedRelations: [Services.RelationDetails], recommendedHiddenRelations: [Services.RelationDetails]) async throws {
+        fatalError()
     }
 
     // Convenience method to reset all last call data
@@ -151,6 +174,9 @@ class MockRelationsService: RelationsServiceProtocol {
         lastRemoveRelationOptions = nil
         lastUpdateTypeRelations = nil
         lastUpdateRecommendedRelations = nil
-        lastUpdateFeaturedRelations = nil
+        lastUpdateRecommendedFeaturedRelations = nil
+        lastUpdateRecommendedHiddenRelations = nil
+        lastSetFeaturedRelation = nil
+        lastToggleDescription = nil
     }
 }

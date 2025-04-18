@@ -3,6 +3,7 @@ import SwiftUI
 import Intents
 import DeepLinks
 import AppTarget
+import Loc
 
 struct StaticProvider: TimelineProvider {
     typealias Entry = SimpleEntry

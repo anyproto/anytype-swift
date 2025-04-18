@@ -100,6 +100,8 @@ extension Anytype_Rpc.Object {
         /// Clears the value of `event`. Subsequent reads from it will return its default value.
         public mutating func clearEvent() {self._event = nil}
 
+        public var startingObjectID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -235,6 +237,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response: SwiftProtobuf.Message, Swif
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "event"),
+    3: .same(proto: "startingObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -245,6 +248,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response: SwiftProtobuf.Message, Swif
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._event) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.startingObjectID) }()
       default: break
       }
     }
@@ -261,12 +265,16 @@ extension Anytype_Rpc.Object.ImportUseCase.Response: SwiftProtobuf.Message, Swif
     try { if let v = self._event {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    if !self.startingObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.startingObjectID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.ImportUseCase.Response, rhs: Anytype_Rpc.Object.ImportUseCase.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
+    if lhs.startingObjectID != rhs.startingObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

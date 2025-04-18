@@ -237,12 +237,19 @@ struct NewSpaceSettingsView: View {
         ) { model.onDefaultObjectTypeTap() }
         Spacer.fixedHeight(8)
         RoundedButton(Loc.wallpaper, decoration: .chervon) { model.onWallpaperTap() }
+        if let isCreateTypeWidget = model.isCreateTypeWidget {
+            Spacer.fixedHeight(8)
+            RoundedButtonView(Loc.Settings.autoCreateTypeWidgets, decoration: .toggle(isOn: isCreateTypeWidget, onToggle: { isOn in
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.toggleCreateTypeWidgetState(isOn: isOn)
+            }))
+        }
     }
     
     @ViewBuilder
     private var dataManagement: some View {
+        SectionHeaderView(title: Loc.Settings.dataManagement)
         if model.allowRemoteStorage {
-            SectionHeaderView(title: Loc.Settings.dataManagement)
             Button {
                 model.onStorageTap()
             } label: {

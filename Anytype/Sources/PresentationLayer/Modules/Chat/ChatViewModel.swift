@@ -307,15 +307,35 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onLinkAdded(link: URL) {
+        guard link.containsHttpProtocol else { return }
         let contains = linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
         linkedObjects.append(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
         let task = Task { [bookmarkService, weak self] in
-            let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
-            self?.updateLocalBookmark(linkPreview: linkPreview)
+            do {
+                let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
+                self?.updateLocalBookmark(linkPreview: linkPreview)
+            } catch {
+                self?.linkedObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
+            }
             self?.linkPreviewTasks[link] = nil
         }
         linkPreviewTasks[link] = task.cancellable()
+    }
+    
+    func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
+        Task {
+            for item in items {
+                if !chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    showFileLimitAlert()
+                    return
+                }
+                
+                if let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) {
+                    linkedObjects.append(.localBinaryFile(fileData))
+                }
+            }
+        }
     }
     
     func onTapDeleteReply() {
@@ -504,7 +524,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectUnread(message: MessageViewData) {
         Task {
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
         }
     }
 

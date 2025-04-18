@@ -31,11 +31,11 @@ class TypeFieldsMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h1", "f1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h2", "h3"]
         )
     }
@@ -55,11 +55,11 @@ class TypeFieldsMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["f1", "h1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h2", "h3"]
         )
     }
@@ -79,11 +79,11 @@ class TypeFieldsMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h2", "f1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h1", "h3"]
         )
     }
@@ -103,11 +103,11 @@ class TypeFieldsMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h3", "f1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h1", "h2"]
         )
     }
@@ -127,11 +127,11 @@ class TypeFieldsMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelationIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["f1", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelationsIds,
+            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h1", "h2", "h3", "f2"]
         )
     }

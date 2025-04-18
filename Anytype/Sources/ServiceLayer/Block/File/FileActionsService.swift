@@ -66,12 +66,13 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
             let typeIdentifier = itemProvider.registeredTypeIdentifiers.compactMap { typeId in
                 Constants.supportedUploadedTypes.first { $0.identifier == typeId }
             }.first
-            guard let typeIdentifier else {
-                throw FileServiceError.undefiled
+            
+            if let typeIdentifier {
+                return try await loadData(itemProvider: itemProvider, type: typeIdentifier)
+            } else {
+                // Try to represent in data format
+                return try await loadData(itemProvider: itemProvider, type: UTType.data)
             }
-            let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier.identifier, directory: tempDirectoryPath())
-            let resources = try url.resourceValues(forKeys: [.fileSizeKey])
-            return FileData(path: url.relativePath, type: typeIdentifier, sizeInBytes: resources.fileSize, isTemporary: true)
         }
     }
  
@@ -207,6 +208,12 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         } catch {}
         
         return nil
+    }
+    
+    private func loadData(itemProvider: NSItemProvider, type: UTType) async throws -> FileData {
+        let url = try await itemProvider.loadFileRepresentation(forTypeIdentifier: type.identifier, directory: tempDirectoryPath())
+        let resources = try url.resourceValues(forKeys: [.fileSizeKey])
+        return FileData(path: url.relativePath, type: type, sizeInBytes: resources.fileSize, isTemporary: true)
     }
 
 }

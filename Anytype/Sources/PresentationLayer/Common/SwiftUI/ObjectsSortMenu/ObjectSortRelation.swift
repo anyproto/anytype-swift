@@ -8,9 +8,9 @@ enum ObjectSortRelation: String, CaseIterable, Codable {
     var title: String {
         switch self {
         case .dateUpdated:
-            Loc.AllContent.Sort.dateUpdated
+            Loc.AllObjects.Sort.dateUpdated
         case .dateCreated:
-            Loc.AllContent.Sort.dateCreated
+            Loc.AllObjects.Sort.dateCreated
         case .name:
             Loc.name
         }
@@ -70,9 +70,9 @@ enum ObjectSortRelation: String, CaseIterable, Codable {
     func titleFor(sortType: DataviewSort.TypeEnum) -> String {
         switch self {
         case .dateUpdated, .dateCreated:
-            return sortType == .asc ? Loc.AllContent.Sort.Date.asc : Loc.AllContent.Sort.Date.desc
+            return sortType == .asc ? Loc.AllObjects.Sort.Date.asc : Loc.AllObjects.Sort.Date.desc
         case .name:
-            return sortType == .asc ? Loc.AllContent.Sort.Name.asc : Loc.AllContent.Sort.Name.desc
+            return sortType == .asc ? Loc.AllObjects.Sort.Name.asc : Loc.AllObjects.Sort.Name.desc
         }
     }
 }

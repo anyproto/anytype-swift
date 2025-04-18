@@ -529,6 +529,7 @@ extension ImageAsset {
     public static let triangle = ImageAsset.bundle(name: "CustomIcons/triangle")
     public static let trophy = ImageAsset.bundle(name: "CustomIcons/trophy")
     public static let tv = ImageAsset.bundle(name: "CustomIcons/tv")
+    public static let type = ImageAsset.bundle(name: "CustomIcons/type")
     public static let umbrella = ImageAsset.bundle(name: "CustomIcons/umbrella")
     public static let unlink = ImageAsset.bundle(name: "CustomIcons/unlink")
     public static let videocamOff = ImageAsset.bundle(name: "CustomIcons/videocam-off")
@@ -597,7 +598,6 @@ extension ImageAsset {
     public static let history = ImageAsset.bundle(name: "ObjectSettings/History")
     public static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     public static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
-    public static let relations = ImageAsset.bundle(name: "ObjectSettings/Relations")
   }
   public enum PageBlock {
     public enum Checkbox {
@@ -630,6 +630,7 @@ extension ImageAsset {
     public static let textCheckMark = ImageAsset.bundle(name: "System/Text check mark")
   }
   public enum SystemWidgets {
+    public static let allObjects = ImageAsset.bundle(name: "SystemWidgets/AllObjects")
     public static let bin = ImageAsset.bundle(name: "SystemWidgets/Bin")
     public static let favorites = ImageAsset.bundle(name: "SystemWidgets/Favorites")
     public static let members = ImageAsset.bundle(name: "SystemWidgets/Members")
@@ -669,6 +670,7 @@ extension ImageAsset {
     public static let list = ImageAsset.bundle(name: "x18/List")
     public static let lock = ImageAsset.bundle(name: "x18/Lock")
     public static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
+    public static let plus = ImageAsset.bundle(name: "x18/Plus")
     public static let search = ImageAsset.bundle(name: "x18/Search")
     public static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
     public static let updateApp = ImageAsset.bundle(name: "x18/Update App")
@@ -725,8 +727,8 @@ extension ImageAsset {
     public static let pin = ImageAsset.bundle(name: "x24/Pin")
     public static let plus = ImageAsset.bundle(name: "x24/Plus")
     public static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
+    public static let properties = ImageAsset.bundle(name: "x24/Properties")
     public static let reaction = ImageAsset.bundle(name: "x24/Reaction")
-    public static let relations = ImageAsset.bundle(name: "x24/Relations")
     public static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     public static let replace = ImageAsset.bundle(name: "x24/Replace")
     public static let search = ImageAsset.bundle(name: "x24/Search")
@@ -880,7 +882,7 @@ extension ImageAsset {
     public static let objects = ImageAsset.bundle(name: "x40/Objects")
     public static let other = ImageAsset.bundle(name: "x40/Other")
     public static let picture = ImageAsset.bundle(name: "x40/Picture")
-    public static let relations = ImageAsset.bundle(name: "x40/Relations")
+    public static let properties = ImageAsset.bundle(name: "x40/Properties")
     public static let simpleTables = ImageAsset.bundle(name: "x40/Simple Tables")
     public static let sorts = ImageAsset.bundle(name: "x40/Sorts")
     public static let strikethrough = ImageAsset.bundle(name: "x40/Strikethrough")
@@ -1014,7 +1016,7 @@ extension ImageAsset {
       public static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
     public static let addTop = ImageAsset.bundle(name: "Widget/add_top")
-    public static let allContent = ImageAsset.bundle(name: "Widget/allContent")
+    public static let allObjects = ImageAsset.bundle(name: "Widget/allObjects")
     public static let bin = ImageAsset.bundle(name: "Widget/bin")
     public static let settings = ImageAsset.bundle(name: "Widget/settings")
     public static let tick = ImageAsset.bundle(name: "Widget/tick")

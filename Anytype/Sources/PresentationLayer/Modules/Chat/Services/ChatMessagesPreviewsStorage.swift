@@ -12,6 +12,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaultsStorage: any UserDefaultsStorageProtocol
     
     // MARK: - Subscriptions State
     
@@ -30,7 +32,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     }
     
     func startSubscriptionIfNeeded() async {
-        guard subscriptionId == nil else {
+        guard subscriptionId == nil, userDefaultsStorage.usersId.isNotEmpty else {
             return
         }
         
@@ -55,7 +57,11 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     deinit {
         subscription?.cancel()
         subscription = nil
-        // TODO: unsubscribe, waiting for middle
+        // Implemented in swift 6.1 https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
+        Task { [chatService, userDefaultsStorage] in
+            guard userDefaultsStorage.usersId.isNotEmpty else { return }
+            try await chatService.unsubscribeFromMessagePreviews()
+        }
     }
     
     // MARK: - Private

@@ -1,7 +1,0 @@
-configurations:
-  - sources:
-      - ../../Modules/ProtobufMessages/Sources/Protocol/Commands
-    templates:
-      - Templates/error-localization.stencil
-    output:
-      ../Generated/Error+Localization.swift

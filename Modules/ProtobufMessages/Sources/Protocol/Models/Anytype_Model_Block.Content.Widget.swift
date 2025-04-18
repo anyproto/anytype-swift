@@ -23,6 +23,8 @@ extension Anytype_Model_Block.Content {
 
       public var viewID: String = String()
 
+      public var autoAdded: Bool = false
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -35,6 +37,7 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
     1: .same(proto: "layout"),
     2: .same(proto: "limit"),
     3: .same(proto: "viewId"),
+    4: .same(proto: "autoAdded"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -46,6 +49,7 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
       case 1: try { try decoder.decodeSingularEnumField(value: &self.layout) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.autoAdded) }()
       default: break
       }
     }
@@ -61,6 +65,9 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
+    if self.autoAdded != false {
+      try visitor.visitSingularBoolField(value: self.autoAdded, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -68,6 +75,7 @@ extension Anytype_Model_Block.Content.Widget: SwiftProtobuf.Message, SwiftProtob
     if lhs.layout != rhs.layout {return false}
     if lhs.limit != rhs.limit {return false}
     if lhs.viewID != rhs.viewID {return false}
+    if lhs.autoAdded != rhs.autoAdded {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

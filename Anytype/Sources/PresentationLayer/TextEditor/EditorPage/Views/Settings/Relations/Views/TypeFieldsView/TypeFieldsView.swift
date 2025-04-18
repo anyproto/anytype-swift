@@ -96,7 +96,7 @@ struct TypeFieldsView: View {
                     relationRow(relation)
                         .divider()
                 case .emptyRow:
-                    Rectangle().foregroundStyle(Color.clear).frame(height: 52)
+                    Rectangle().foregroundStyle(Color.clear).fixTappableArea().frame(height: 52)
                 }
             }
             .onDrop(of: [.text], delegate: TypeFieldsDropDelegate(
@@ -165,7 +165,7 @@ struct TypeFieldsView: View {
             Button(action: {
                 model.onConflictingInfoTap()
             }, label: {
-                ListSectionHeaderView(title: Loc.Fields.local, increasedTopPadding: true) {
+                ListSectionHeaderView(title: Loc.Fields.foundInObjects, increasedTopPadding: true) {
                     Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.Control.active)
                         .frame(width: 18, height: 18)
                 }

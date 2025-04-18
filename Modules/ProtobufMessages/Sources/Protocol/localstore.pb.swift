@@ -283,6 +283,11 @@ public struct Anytype_Model_ObjectStoreChecksums: @unchecked Sendable {
     set {_uniqueStorage()._reindexParticipants = newValue}
   }
 
+  public var reindexChats: Int32 {
+    get {return _storage._reindexChats}
+    set {_uniqueStorage()._reindexChats = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -636,6 +641,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     15: .same(proto: "marketplaceForceReindexCounter"),
     16: .same(proto: "reindexDeletedObjects"),
     17: .same(proto: "reindexParticipants"),
+    18: .same(proto: "reindexChats"),
   ]
 
   fileprivate class _StorageClass {
@@ -656,6 +662,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     var _marketplaceForceReindexCounter: Int32 = 0
     var _reindexDeletedObjects: Int32 = 0
     var _reindexParticipants: Int32 = 0
+    var _reindexChats: Int32 = 0
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -687,6 +694,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       _marketplaceForceReindexCounter = source._marketplaceForceReindexCounter
       _reindexDeletedObjects = source._reindexDeletedObjects
       _reindexParticipants = source._reindexParticipants
+      _reindexChats = source._reindexChats
     }
   }
 
@@ -722,6 +730,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
         case 15: try { try decoder.decodeSingularInt32Field(value: &_storage._marketplaceForceReindexCounter) }()
         case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexDeletedObjects) }()
         case 17: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexParticipants) }()
+        case 18: try { try decoder.decodeSingularInt32Field(value: &_storage._reindexChats) }()
         default: break
         }
       }
@@ -781,6 +790,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       if _storage._reindexParticipants != 0 {
         try visitor.visitSingularInt32Field(value: _storage._reindexParticipants, fieldNumber: 17)
       }
+      if _storage._reindexChats != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._reindexChats, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -807,6 +819,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
         if _storage._marketplaceForceReindexCounter != rhs_storage._marketplaceForceReindexCounter {return false}
         if _storage._reindexDeletedObjects != rhs_storage._reindexDeletedObjects {return false}
         if _storage._reindexParticipants != rhs_storage._reindexParticipants {return false}
+        if _storage._reindexChats != rhs_storage._reindexChats {return false}
         return true
       }
       if !storagesAreEqual {return false}

@@ -30,11 +30,10 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let allContent = FeatureDescription(
-        title: "All content",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
-        defaultValue: false, // improve Global search instead of it
-        debugValue: false
+    static let allObjectsFromLibrary = FeatureDescription(
+        title: "All objects from library",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let homeSpaceLevelChat = FeatureDescription(
@@ -60,9 +59,8 @@ public extension FeatureDescription {
     
     static let objectTypeWidgets = FeatureDescription(
         title: "Object Type widgets",
-        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
 
     static let newTypeIcons = FeatureDescription(
@@ -73,16 +71,14 @@ public extension FeatureDescription {
     
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let openBookmarkAsLink = FeatureDescription(
         title: "Open bookmark as link",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let newSettings = FeatureDescription(
@@ -149,16 +145,13 @@ public extension FeatureDescription {
     static let openTypeAsSet = FeatureDescription(
         title: "Open type in Set View",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
-        debugValue: false
+        defaultValue: true
     )
     
     static let binWidgetFromLibrary = FeatureDescription(
         title: "Bin widget from library",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     static let anyAppBetaTip = FeatureDescription(
@@ -226,8 +219,7 @@ public extension FeatureDescription {
     static let newPropertiesCreation = FeatureDescription(
         title: "New properties creation flow",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let pluralNames = FeatureDescription(
@@ -244,12 +236,32 @@ public extension FeatureDescription {
         debugValue: true
     )
     
-    static let download1920ImageForFullscreen = FeatureDescription(
+   static let download1920ImageForFullscreen = FeatureDescription(
         title: "Download 1920 image for fullscreen",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
+    )
+    
+    static let simpleSetForTypes = FeatureDescription(
+        title: "Simple set for types",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: true,
+        debugValue: false
+    )
+    
+    static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
+        title: "Do not wait completion in Anytype Preview",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
+        defaultValue: true
+    )
+    
+    static let plusButtonOnWidgets = FeatureDescription(
+        title: "Wodgets - add plus button",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
+        defaultValue: true
     )
     
     // MARK: - Debug
