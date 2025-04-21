@@ -387,6 +387,7 @@ public enum Loc {
   public static let tryToFindANewOne = Loc.tr("Localizable", "Try to find a new one", fallback: "Try to find a new one")
   public static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
   public static let type = Loc.tr("Localizable", "Type", fallback: "Type")
+  public static let typeName = Loc.tr("Localizable", "Type Name", fallback: "Type Name")
   public static let typePluralName = Loc.tr("Localizable", "Type Plural name", fallback: "Type Plural name")
   public static let types = Loc.tr("Localizable", "Types", fallback: "Types")
   public static let undo = Loc.tr("Localizable", "Undo", fallback: "Undo")

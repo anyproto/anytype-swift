@@ -5,6 +5,16 @@ import Services
 enum ObjectTypeInfoViewMode {
     case create
     case edit
+    case preview
+    
+    var isPreview: Bool {
+        switch self {
+        case .preview:
+            return true
+        case .edit, .create:
+            return false
+        }
+    }
 }
 
 struct ObjectTypeInfo: Identifiable {
@@ -12,18 +22,17 @@ struct ObjectTypeInfo: Identifiable {
     let pluralName: String
     let icon: CustomIcon?
     let color: CustomIconColor?
+    let mode: ObjectTypeInfoViewMode
     
-    var id: String { singularName + pluralName + String(describing: icon?.id) + String(describing: color?.id) }
+    var id: String { singularName + pluralName + String(describing: icon?.id) + String(describing: color?.id) + String(describing: mode) }
 }
 
 struct ObjectTypeInfoView: View {
     @StateObject private var model: ObjectTypeInfoViewModel
     @Environment(\.dismiss) private var dismiss
-    private let mode: ObjectTypeInfoViewMode
     
-    init(info: ObjectTypeInfo, mode: ObjectTypeInfoViewMode, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
+    init(info: ObjectTypeInfo, completion: @escaping (_ info: ObjectTypeInfo) -> ()) {
         _model = StateObject(wrappedValue: ObjectTypeInfoViewModel(info: info, completion: completion))
-        self.mode = mode
     }
     
     var body: some View {
@@ -55,6 +64,7 @@ struct ObjectTypeInfoView: View {
             button
             Spacer.fixedHeight(15)
         }
+        .disabled(model.mode.isPreview)
         .padding(.horizontal, 16)
         .background(Color.Background.secondary)
     }
@@ -93,20 +103,25 @@ struct ObjectTypeInfoView: View {
     }
     
     private var title: some View {
-        switch mode {
+        switch model.mode {
         case .create:
             AnytypeText(Loc.createNewType, style: .uxTitle1Semibold)
         case .edit:
             AnytypeText(Loc.editType, style: .uxTitle1Semibold)
+        case .preview:
+            AnytypeText(Loc.typeName, style: .uxTitle1Semibold)
         }
     }
     
+    @ViewBuilder
     private var button: some View {
-        switch mode {
+        switch model.mode {
         case .create:
             StandardButton(Loc.create, style: .primaryLarge) { model.onSaveTap() }
         case .edit:
             StandardButton(Loc.save, style: .primaryLarge) { model.onSaveTap() }
+        case .preview:
+            EmptyView()
         }
     }
 }
