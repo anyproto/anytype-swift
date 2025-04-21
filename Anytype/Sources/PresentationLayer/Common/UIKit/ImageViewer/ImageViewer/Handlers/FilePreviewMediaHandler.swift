@@ -30,7 +30,7 @@ final class FilePreviewMediaHandler: PreviewMediaHandlingProtocol, @unchecked Se
                 try data.write(to: path, options: [.atomic])
                 output?.onUpdate(path: path)
             } catch {
-                anytypeAssertionFailure("Failed to write file into temporary directory")
+                anytypeAssertionFailure("Failed to write file into temporary directory", info: ["error": error.localizedDescription])
             }
         }
     }
