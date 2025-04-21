@@ -24,7 +24,9 @@ actor GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     
     deinit {
         let keys = subscribers.keys
-        Task { [keys, groupsSubscribeService] in
+        // Waiting https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
+        Task { [keys] in
+            let groupsSubscribeService = Container.shared.groupsSubscribeService()
             await keys.asyncForEach { try? await groupsSubscribeService.stopSubscription(id: $0) }
         }
     }

@@ -5,7 +5,7 @@ import ProtobufMessages
 import Services
 import AnytypeCore
 
-final class AuthService: AuthServiceProtocol, Sendable {
+actor AuthService: AuthServiceProtocol, Sendable {
     
     private let localRepoService: any LocalRepoServiceProtocol = Container.shared.localRepoService()
     private let loginStateService: any LoginStateServiceProtocol = Container.shared.loginStateService()

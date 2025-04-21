@@ -3,7 +3,7 @@ import UIKit
 import Combine
 import AnytypeCore
 
-final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
+final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol, @unchecked Sendable {
     
     private let fileDetails: FileDetails
     private let imageSource: ImageSource

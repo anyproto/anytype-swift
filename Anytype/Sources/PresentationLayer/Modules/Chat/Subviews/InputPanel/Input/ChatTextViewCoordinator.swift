@@ -264,7 +264,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     
     // MARK: -
     
-    func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
+    nonisolated func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
         let originalText = textContentStorage.textStorage!.attributedSubstring(from: range)
         
         let newText = originalText.mutable
