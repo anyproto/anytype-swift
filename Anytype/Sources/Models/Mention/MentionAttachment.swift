@@ -80,31 +80,32 @@ extension IconTextAttachment {
     }
 }
 
-final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
+final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider, @unchecked Sendable {
     override init(textAttachment: NSTextAttachment, parentView: UIView?, textLayoutManager: NSTextLayoutManager?, location: any NSTextLocation) {
         super.init(textAttachment: textAttachment, parentView: parentView, textLayoutManager: textLayoutManager, location: location)
         
         tracksTextAttachmentViewBounds = true
     }
     
-    @MainActor
     override func loadView() {
-        guard let mentionAttachment = textAttachment as? IconTextAttachment else {
-            anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])
-            return
+        MainActor.assumeIsolated {
+            guard let mentionAttachment = textAttachment as? IconTextAttachment else {
+                anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])
+                return
+            }
+            guard let icon = mentionAttachment.icon else {
+                view = UIView()
+                return
+            }
+            let container = UIView()
+            let iconView = IconViewUIKit()
+            iconView.isUserInteractionEnabled = false
+            container.addSubview(iconView) {
+                $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: mentionAttachment.rightPadding))
+            }
+            iconView.icon = icon
+            view = container
         }
-        guard let icon = mentionAttachment.icon else {
-            view = UIView()
-            return
-        }
-        let container = UIView()
-        let iconView = IconViewUIKit()
-        iconView.isUserInteractionEnabled = false
-        container.addSubview(iconView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: mentionAttachment.rightPadding))
-        }
-        iconView.icon = icon
-        view = container
     }
 }
 
