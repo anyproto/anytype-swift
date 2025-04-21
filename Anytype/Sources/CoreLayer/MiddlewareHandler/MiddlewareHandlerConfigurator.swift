@@ -11,20 +11,12 @@ final class MiddlewareHandlerConfigurator: AppConfiguratorProtocol {
         InvocationSettings.handler = invocationHandler
         
         if FeatureFlags.logMiddlewareRequests {
-            enableRemoteLogger()
+            invocationHandler.enableLogger = true
+            if FeatureFlags.networkHTTPSRequestsLogger {
+                EventLogger.setupLgger()
+            }
         } else {
-            disableRemoteLogger()
+            EventLogger.disableRemoteLogger()
         }
-    }
-    
-    private func enableRemoteLogger() {
-        invocationHandler.enableLogger = true
-        if FeatureFlags.networkHTTPSRequestsLogger {
-            EventLogger.setupLgger()
-        }
-    }
-    
-    private func disableRemoteLogger() {
-        EventLogger.disableRemoteLogger()
     }
 }

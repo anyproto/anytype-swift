@@ -1,8 +1,8 @@
 import UIKit
 
-@MainActor
 public protocol AppConfiguratorProtocol {
     
+    @MainActor
     func configure()
     
 }
