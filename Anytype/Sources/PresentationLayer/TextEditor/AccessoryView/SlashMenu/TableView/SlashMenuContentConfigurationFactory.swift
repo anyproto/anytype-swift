@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 
 final class SlashMenuContentConfigurationFactory {
+    @MainActor
     func dividerConfiguration(title: String) -> any UIContentConfiguration {
         UIHostingConfiguration {
             SectionHeaderView(title: title)

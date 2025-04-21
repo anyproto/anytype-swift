@@ -6,16 +6,10 @@ extension Notification: @unchecked @retroactive Sendable {}
 @MainActor
 class KeyboardEventsListnerHelper {
     
-    typealias Action = (KeyboardEvent) -> Void
-    private var observerTokens: [any NSObjectProtocol]?
+    typealias Action = @Sendable @MainActor (KeyboardEvent) -> Void
+    private var observerTokens: [NotificationCancellable]?
     private var keyboardState = KeyboardState.hidden
-    
-    deinit {
-        Task { @MainActor [observerTokens] in
-            observerTokens?.forEach { NotificationCenter.default.removeObserver($0) }
-        }
-    }
-    
+        
     init?(
         willShowAction: Action? = nil,
         didShowAction: Action? = nil,
@@ -68,7 +62,7 @@ class KeyboardEventsListnerHelper {
                 object: nil,
                 queue: .main,
                 using: action
-            )
+            ).notificationCancellable()
         }
     }
     

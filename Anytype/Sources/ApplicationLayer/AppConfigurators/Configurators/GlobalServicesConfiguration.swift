@@ -21,7 +21,9 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
         // Global listeners
         eventListener.startListening()
         accountEventHandler.startSubscription()
-        fileErrorEventHandler.startSubscription()
+        Task {
+            await fileErrorEventHandler.startSubscription()
+        }
         deviceSceneStateListener.start()
         appVersionUpdateService.prepareData()
         debugService.startDebugRunProfilerOnStartupIfNeeded()

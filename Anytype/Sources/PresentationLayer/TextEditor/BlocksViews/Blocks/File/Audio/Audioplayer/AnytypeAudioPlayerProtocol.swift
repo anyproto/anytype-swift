@@ -2,6 +2,7 @@ import Foundation
 import AVFoundation
 
 
+@MainActor
 protocol AnytypeAudioPlayerDelegate: AnyObject {
     func playerReadyToPlay(duration: Double)
     func playerReadyToResumeAfterInterruption()

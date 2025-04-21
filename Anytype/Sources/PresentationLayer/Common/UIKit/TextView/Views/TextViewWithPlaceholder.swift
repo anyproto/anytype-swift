@@ -186,8 +186,10 @@ private extension TextViewWithPlaceholder {
 extension TextViewWithPlaceholder: NSTextStorageDelegate {
     // We can't use this delegate func to update our block model as we don't know source of changes (middleware or user).
     // If in future we want here change attributes then we should send command to middleware.
-    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
-        self.syncPlaceholder()
+    nonisolated func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
+        Task { @MainActor in
+            syncPlaceholder()
+        }
     }
 }
 

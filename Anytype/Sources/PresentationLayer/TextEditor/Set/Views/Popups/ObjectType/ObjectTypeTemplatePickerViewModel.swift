@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 import AnytypeCore
-
+@preconcurrency import Combine
 
 @MainActor
 final class ObjectTypeTemplatePickerViewModel: ObservableObject {
