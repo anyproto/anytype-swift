@@ -1,5 +1,5 @@
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 import Services
 
@@ -73,7 +73,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
 
     func startFileHandler() async {
-        for await _ in fileErrorEventHandler.fileLimitReachedPublisher.values {
+        for await _ in await fileErrorEventHandler.fileLimitReachedPublisher.values {
             handleFileLimitReachedError()
         }
     }

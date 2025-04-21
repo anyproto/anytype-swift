@@ -2,7 +2,6 @@ import AVKit
 import MediaPlayer
 import AnytypeCore
 
-@MainActor
 final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     @objc let audioPlayer: AVPlayer
     weak var delegate: (any AnytypeAudioPlayerDelegate)?
