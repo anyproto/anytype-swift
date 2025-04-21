@@ -7,6 +7,7 @@ final class AppConfigurator {
     private let configurators: [any AppConfiguratorProtocol] = [
         AppVersionTrackerConfigurator(),
         NonFatalAlertConfigurator(),
+        GlobalScaleConfiguration(),
         MiddlewareMerticsConfigurator(),
         MiddlewareHandlerConfigurator(),
         SentryConfigurator(),
