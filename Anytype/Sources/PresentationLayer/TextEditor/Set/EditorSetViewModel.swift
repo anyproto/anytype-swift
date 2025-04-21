@@ -368,13 +368,15 @@ final class EditorSetViewModel: ObservableObject {
     
     func onTypeTitleTap() {
         guard let details else { return }
+        let mode: ObjectTypeInfoViewMode = details.restrictionsValue.contains(.details) ? .preview : .edit
         
         output?.showTypeInfoEditor(
             info: ObjectTypeInfo(
                 singularName: details.name,
                 pluralName: details.pluralName,
                 icon: details.customIcon,
-                color: details.customIconColor
+                color: details.customIconColor,
+                mode: mode
             )
         )
     }

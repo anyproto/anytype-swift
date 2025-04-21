@@ -18,6 +18,8 @@ final class ObjectTypeInfoViewModel: ObservableObject {
     
     var dismiss: DismissAction?
     
+    let mode: ObjectTypeInfoViewMode
+    
     @Published private var icon: CustomIcon?
     @Published private var color: CustomIconColor?
     
@@ -31,6 +33,7 @@ final class ObjectTypeInfoViewModel: ObservableObject {
         self.pluralName = info.pluralName
         self.icon = info.icon
         self.color = info.color
+        self.mode = info.mode
     
         self.completion = completion
     }
@@ -43,7 +46,7 @@ final class ObjectTypeInfoViewModel: ObservableObject {
     
     func onSaveTap() {
         dismiss?()
-        completion(ObjectTypeInfo(singularName: name, pluralName: pluralName, icon: icon, color: color))
+        completion(ObjectTypeInfo(singularName: name, pluralName: pluralName, icon: icon, color: color, mode: mode))
     }
     
     func onIconTap() {
