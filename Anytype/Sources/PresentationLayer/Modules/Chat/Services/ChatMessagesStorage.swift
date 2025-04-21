@@ -33,8 +33,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         static let subsctiptionMessageOverLimitForAttachments = 30
     }
     
-    @Injected(\.chatService)
-    private var chatService: any ChatServiceProtocol
+    private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     @Injected(\.searchService)
     private var seachService: any SearchServiceProtocol
     @Injected(\.objectIdsSubscriptionService)

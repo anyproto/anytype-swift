@@ -11,10 +11,8 @@ protocol ChatMessagesPreviewsStorageProtocol: AnyObject, Sendable {
 
 actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
-    @Injected(\.chatService)
-    private var chatService: any ChatServiceProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaultsStorage: any UserDefaultsStorageProtocol
+    private let chatService: any ChatServiceProtocol = Container.shared.chatService()
+    private let userDefaultsStorage: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
     
     // MARK: - Subscriptions State
     

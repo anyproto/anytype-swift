@@ -67,7 +67,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     func startAccountStateHandler() async {
-        for await status in accountEventHandler.accountStatusPublisher.values {
+        for await status in await accountEventHandler.accountStatusPublisher.values {
             await handleAccountStatus(status)
         }
     }
