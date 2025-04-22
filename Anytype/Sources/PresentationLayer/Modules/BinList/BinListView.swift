@@ -35,6 +35,7 @@ struct BinListView: View {
 
     @ViewBuilder
     private var editButton: some View {
+        EmptyView()
         // TODO: implement
     }
     
@@ -46,6 +47,7 @@ struct BinListView: View {
     
     @ViewBuilder
     private var optionsView: some View {
+        EmptyView()
         // TODO: implement
     }
 }
