@@ -17,14 +17,14 @@ enum ObjectTypeInfoViewMode {
     }
 }
 
-struct ObjectTypeInfo: Identifiable {
+struct ObjectTypeInfo: Identifiable, Hashable {
     let singularName: String
     let pluralName: String
     let icon: CustomIcon?
     let color: CustomIconColor?
     let mode: ObjectTypeInfoViewMode
     
-    var id: String { singularName + pluralName + String(describing: icon?.id) + String(describing: color?.id) + String(describing: mode) }
+    var id: Int { hashValue }
 }
 
 struct ObjectTypeInfoView: View {
