@@ -35,36 +35,13 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
         
         keyboardListener = KeyboardEventsListnerHelper(
             willShowAction: { [weak self] event in
-                guard self?.canHandleKeyboard() ?? false else { return }
-                event.animate { [weak self] in
-                    guard let self, let endFrame = event.endFrame else { return }
-                    
-                    let nearBottom = contentOffsetIsNearBottom()
-                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
-                    keyboardHeight = keyboardFrameInView.height
-                    updateInsets()
-                    if nearBottom {
-                        setBottomContentOffset()
-                    }
-                }
+                self?.updateKeyboardHeight(event: event)
             },
-            didChangeFrame: { [weak self] event in
-                guard self?.canHandleKeyboard() ?? false else { return }
-                event.animate { [weak self] in
-                    guard let self, let endFrame = event.endFrame else { return }
-                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
-                    keyboardHeight = keyboardFrameInView.height
-                    updateInsets()
-                }
+            willChangeFrame: { [weak self] event in
+                self?.updateKeyboardHeight(event: event)
             },
             willHideAction: { [weak self] event in
-                guard self?.canHandleKeyboard() ?? false else { return }
-                event.animate { [weak self] in
-                    guard let self, let endFrame = event.endFrame else { return }
-                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
-                    keyboardHeight = keyboardFrameInView.height
-                    updateInsets()
-                }
+                self?.updateKeyboardHeight(event: event)
             }
         )
     }
@@ -178,7 +155,19 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
         collectionView.contentOffset = collectionView.bottomOffset
     }
     
-    private func canHandleKeyboard() -> Bool {
-        presentedViewController?.isBeingDismissed ?? true
+    private func updateKeyboardHeight(event: KeyboardEvent) {
+        let canHandleKeyboard = presentedViewController.map { $0.isBeingDismissed } ?? true
+        guard canHandleKeyboard else { return }
+        event.animate { [weak self] in
+            guard let self, let endFrame = event.endFrame else { return }
+            
+            let nearBottom = contentOffsetIsNearBottom()
+            let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
+            keyboardHeight = keyboardFrameInView.height
+            updateInsets()
+            if nearBottom {
+                setBottomContentOffset()
+            }
+        }
     }
 }
