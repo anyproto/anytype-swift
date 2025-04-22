@@ -114,6 +114,10 @@ public extension FeatureFlags {
         value(for: .spaceHubNewTitle)
     }
 
+    static var spaceHubRedesign: Bool {
+        value(for: .spaceHubRedesign)
+    }
+
     static var chatLayoutInsideSpace: Bool {
         value(for: .chatLayoutInsideSpace)
     }
@@ -251,6 +255,7 @@ public extension FeatureFlags {
         .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
+        .spaceHubRedesign,
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
