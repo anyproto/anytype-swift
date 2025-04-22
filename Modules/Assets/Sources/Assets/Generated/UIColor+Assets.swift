@@ -117,6 +117,11 @@ extension UIColor {
     }
     // MARK: - Gradients
     public enum Gradients {
+      // MARK: - Push
+      public enum Push {
+        public static let violetEnd = UIColor(asset: Asset.Gradients.Push.violetEnd)
+        public static let violetStart = UIColor(asset: Asset.Gradients.Push.violetStart)
+      }
       // MARK: - UpdateAlert
       public enum UpdateAlert {
         public static let darkBlue = UIColor(asset: Asset.Gradients.UpdateAlert.darkBlue)
@@ -143,6 +148,12 @@ extension UIColor {
     public enum ModalScreen {
       public static let background = UIColor(asset: Asset.ModalScreen.background)
       public static let backgroundWithBlur = UIColor(asset: Asset.ModalScreen.backgroundWithBlur)
+    }
+    // MARK: - PushNotifications
+    public enum PushNotifications {
+      public static let background = UIColor(asset: Asset.PushNotifications.background)
+      public static let hiddenText = UIColor(asset: Asset.PushNotifications.hiddenText)
+      public static let text = UIColor(asset: Asset.PushNotifications.text)
     }
     // MARK: - Shadow
     public enum Shadow {
