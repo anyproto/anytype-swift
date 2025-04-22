@@ -16,7 +16,6 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
     private var keyboardHeight: CGFloat = 0
     private var bottomPanelHeight: CGFloat = 0
     
-    private var keyboardListener: KeyboardEventsListnerHelper?
     private var restoreZeroScrollViewOffset = false
     
     init(
@@ -32,41 +31,6 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
         super.init(nibName: nil, bundle: nil)
         
         bottomBlurEffectView.direction = .bottomToTop
-        
-        keyboardListener = KeyboardEventsListnerHelper(
-            willShowAction: { [weak self] event in
-                guard self?.presentedViewController == nil else { return }
-                event.animate { [weak self] in
-                    guard let self, let endFrame = event.endFrame else { return }
-                    
-                    let nearBottom = contentOffsetIsNearBottom()
-                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
-                    keyboardHeight = keyboardFrameInView.height
-                    updateInsets()
-                    if nearBottom {
-                        setBottomContentOffset()
-                    }
-                }
-            },
-            didChangeFrame: { [weak self] event in
-                guard self?.presentedViewController == nil else { return }
-                event.animate { [weak self] in
-                    guard let self, let endFrame = event.endFrame else { return }
-                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
-                    keyboardHeight = keyboardFrameInView.height
-                    updateInsets()
-                }
-            },
-            willHideAction: { [weak self] event in
-                guard self?.presentedViewController == nil else { return }
-                event.animate { [weak self] in
-                    guard let self, let endFrame = event.endFrame else { return }
-                    let keyboardFrameInView = view.convert(endFrame, from: nil).intersection(view.bounds)
-                    keyboardHeight = keyboardFrameInView.height
-                    updateInsets()
-                }
-            }
-        )
     }
     
     required init?(coder: NSCoder) {
@@ -131,6 +95,17 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
             bottomPanelHeight = bottomPanel.view.frame.height
             updateInsets(animatedIfNear: oldBottomPanelHeight != 0)
             updateKeyboardOffset()
+        }
+        
+        let canHandleKeyboard = presentedViewController?.isBeingDismissed ?? true
+        
+        if canHandleKeyboard, keyboardHeight != view.keyboardLayoutGuide.layoutFrame.height {
+            let nearBottom = contentOffsetIsNearBottom()
+            keyboardHeight = view.keyboardLayoutGuide.layoutFrame.height
+            updateInsets()
+            if nearBottom {
+                setBottomContentOffset()
+            }
         }
     }
     
