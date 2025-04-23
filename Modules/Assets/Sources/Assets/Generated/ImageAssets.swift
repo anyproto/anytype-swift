@@ -944,6 +944,9 @@ extension ImageAsset {
   public static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   public static let relationNew = ImageAsset.bundle(name: "relation_new")
   public static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
+  public enum PushNotifications {
+    public static let screenTop = ImageAsset.bundle(name: "PushNotifications/ScreenTop")
+  }
   public enum RightAttribute {
     public static let disclosure = ImageAsset.bundle(name: "Right Attribute/Disclosure")
   }

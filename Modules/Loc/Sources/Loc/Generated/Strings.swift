@@ -1354,6 +1354,15 @@ public enum Loc {
       public static let description = Loc.tr("Localizable", "Primitives.LayoutConflict.Description", fallback: "This layout differs from the type's default. Reset to match?")
     }
   }
+  public enum PushNotifications {
+    public enum RequestAlert {
+      public static let description = Loc.tr("Localizable", "PushNotifications.RequestAlert.Description", fallback: "Get notified instantly when someone messages or mentions you in your spaces.")
+      public static let notificationTitle = Loc.tr("Localizable", "PushNotifications.RequestAlert.NotificationTitle", fallback: "New Message")
+      public static let primaryButton = Loc.tr("Localizable", "PushNotifications.RequestAlert.PrimaryButton", fallback: "Enable notifications")
+      public static let secondaryButton = Loc.tr("Localizable", "PushNotifications.RequestAlert.SecondaryButton", fallback: "Not now")
+      public static let title = Loc.tr("Localizable", "PushNotifications.RequestAlert.Title", fallback: "Turn on push notifications")
+    }
+  }
   public enum QuickAction {
     public static func create(_ p1: Any) -> String {
       return Loc.tr("Localizable", "QuickAction.create", String(describing: p1), fallback: "Create %@")
