@@ -9,13 +9,5 @@ final class FirebaseConfigurator: AppConfiguratorProtocol {
         guard FeatureFlags.enablePushMessages else { return }
         
         FirebaseApp.configure()
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            }
-        }
     }
 }

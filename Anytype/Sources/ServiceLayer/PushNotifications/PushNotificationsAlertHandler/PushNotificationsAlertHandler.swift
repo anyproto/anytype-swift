@@ -25,6 +25,10 @@ final class PushNotificationsAlertHandler: PushNotificationsAlertHandlerProtocol
     // MARK: - PushNotificationsAlertHandlerProtocol
     
     func shouldShowAlert() async -> Bool {
+        guard FeatureFlags.enablePushMessages else {
+            return false
+        }
+        
         let status = await pushNotificationsPermissionService.authorizationStatus()
         
         switch status {
