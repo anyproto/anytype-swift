@@ -124,7 +124,26 @@ final class DebugMenuViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateFlags() {
-       let allFlags = FeatureFlags.features.sorted { $0.title < $1.title }
+        let allFlags = FeatureFlags.features.sorted { first, second in
+            switch (first.type, second.type) {
+            case (.feature, .debug):
+                // Features come before debug
+                return true
+            case (.debug, .feature):
+                // Debug comes after features
+                return false
+            case (.debug, .debug):
+                // Both are debug, sort by title
+                return first.title < second.title
+            case (.feature(let author1, let version1), .feature(let author2, let version2)):
+                // Both are features, sort by version first
+                if version1 != version2 {
+                    return version1 < version2
+                }
+                // If versions are the same, sort by author
+                return author1 < author2
+            }
+        }
             .map { flag in
                 FeatureFlagViewModel(
                     description: flag,
