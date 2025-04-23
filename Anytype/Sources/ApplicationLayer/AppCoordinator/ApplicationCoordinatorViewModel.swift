@@ -159,6 +159,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
 
     private func handleFileLimitReachedError() {
-        toastBarData = ToastBarData(Loc.FileStorage.limitError, type: .none)
+        toastBarData = ToastBarData(Loc.FileStorage.limitError, type: .neutral)
     }
 }

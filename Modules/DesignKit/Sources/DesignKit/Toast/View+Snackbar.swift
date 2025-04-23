@@ -7,7 +7,7 @@ public extension View {
 }
 
 public enum ToastMessageType {
-    case none
+    case neutral
     case success
     case failure
 }
@@ -25,7 +25,7 @@ private struct ToastModififer: ViewModifier {
                     ToastManager.showSuccessAlert(message: newValue.text)
                 case .failure:
                     ToastManager.showFailureAlert(message: newValue.text)
-                case .none:
+                case .neutral:
                     ToastManager.show(message: newValue.text)
                 }
                 toastBarData = nil

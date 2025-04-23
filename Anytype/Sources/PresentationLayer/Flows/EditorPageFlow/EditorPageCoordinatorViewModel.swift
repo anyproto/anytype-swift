@@ -93,7 +93,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func versionRestored(_ text: String) {
-        toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .none)
+        toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .neutral)
     }
     
     func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {

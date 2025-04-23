@@ -23,7 +23,7 @@ final class UndoRedoViewModel: ObservableObject {
         do {
             try await objectActionsService.undo(objectId: objectId)
         } catch let error as ObjectActionsServiceError {
-            toastData = ToastBarData(error.localizedDescription, type: .none)
+            toastData = ToastBarData(error.localizedDescription, type: .neutral)
         }
     }
 
@@ -32,7 +32,7 @@ final class UndoRedoViewModel: ObservableObject {
             AnytypeAnalytics.instance().logRedo()
             try await objectActionsService.redo(objectId: objectId)
         } catch let error as ObjectActionsServiceError {
-            toastData = ToastBarData(error.localizedDescription, type: .none)
+            toastData = ToastBarData(error.localizedDescription, type: .neutral)
         }
     }
 }

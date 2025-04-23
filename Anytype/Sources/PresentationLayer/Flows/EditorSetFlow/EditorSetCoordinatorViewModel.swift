@@ -256,7 +256,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func versionRestored(_ text: String) {
-        toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .none)
+        toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .neutral)
     }
     
     // MARK: - SetObjectCreationSettingsOutput

@@ -242,7 +242,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             try await document.open()
             guard let details = document.details else { return }
             guard details.isSupportedForOpening || data.isSimpleSet else {
-                toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .none)
+                toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .neutral)
                 return
             }
         }
