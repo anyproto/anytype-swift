@@ -2,7 +2,7 @@ import SwiftUI
 
 
 @MainActor
-extension Text {
+public extension Text {
     func anytypeStyle(_ style: AnytypeFont) -> some View {
         self
             .anytypeFontStyle(style)
@@ -17,7 +17,7 @@ extension Text {
 }
 
 @MainActor
-extension TextField {
+public extension TextField {
     func anytypeFontStyle(_ style: AnytypeFont) -> some View {
         self
             .font(AnytypeFontBuilder.font(anytypeFont: style))
@@ -26,7 +26,7 @@ extension TextField {
     }
 }
 
-extension View {
+public extension View {
     func anytypeLineHeightStyle(_ style: AnytypeFont) -> some View {
         self.environment(\._lineHeightMultiple, style.lineHeightMultiple)
     }

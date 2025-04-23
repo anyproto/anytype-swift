@@ -14,13 +14,15 @@ let package = Package(
             targets: ["DesignKit"]),
     ],
     dependencies: [
-        .package(path: "../AnytypeCore")
+        .package(path: "../AnytypeCore"),
+        .package(path: "../Assets")
     ],
     targets: [
         .target(
             name: "DesignKit",
             dependencies: [
-                "AnytypeCore"
+                "AnytypeCore",
+                "Assets"
             ],
             resources: [
                 .process("Resources")
