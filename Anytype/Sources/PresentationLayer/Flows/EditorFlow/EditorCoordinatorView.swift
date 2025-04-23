@@ -33,7 +33,11 @@ struct EditorCoordinatorView: View {
         case let .collections(spaceId):
             WidgetObjectListCollectionsView(spaceId: spaceId, output: model)
         case let .bin(spaceId):
-            WidgetObjectListBinView(spaceId: spaceId, output: model)
+            if FeatureFlags.binScreenEmptyAction {
+                BinListView(spaceId: spaceId)
+            } else {
+                WidgetObjectListBinView(spaceId: spaceId, output: model)
+            }
         case let .page(data):
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case let .list(data):

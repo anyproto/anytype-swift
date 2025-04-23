@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct SpacePermissions: Equatable {
+struct SpacePermissions: Equatable, Hashable {
     let canBeShared: Bool
     let canStopSharing: Bool
     let canEdit: Bool

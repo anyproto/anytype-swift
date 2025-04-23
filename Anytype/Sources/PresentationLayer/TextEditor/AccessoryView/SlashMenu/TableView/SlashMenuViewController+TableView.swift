@@ -5,6 +5,7 @@ private enum SlashMenuConstants {
     static let dividerCellhHeight: CGFloat = 35
     static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 16)
     static let relationSeparatorInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    @MainActor
     static let dividerSeparatorInsets = UIEdgeInsets(
         top: 0,
         left: UIScreen.main.bounds.width,

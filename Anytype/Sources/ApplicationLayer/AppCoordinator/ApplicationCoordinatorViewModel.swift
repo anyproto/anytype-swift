@@ -1,5 +1,5 @@
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 import Services
 
@@ -69,7 +69,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     func startAccountStateHandler() async {
-        for await status in accountEventHandler.accountStatusPublisher.values {
+        for await status in await accountEventHandler.accountStatusPublisher.values {
             await handleAccountStatus(status)
         }
     }
@@ -79,7 +79,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
 
     func startFileHandler() async {
-        for await _ in fileErrorEventHandler.fileLimitReachedPublisher.values {
+        for await _ in await fileErrorEventHandler.fileLimitReachedPublisher.values {
             handleFileLimitReachedError()
         }
     }

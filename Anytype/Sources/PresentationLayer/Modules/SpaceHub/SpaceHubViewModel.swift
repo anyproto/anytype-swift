@@ -1,8 +1,8 @@
 import Services
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
-
+import AsyncAlgorithms
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
@@ -25,8 +25,6 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.workspaceStorage)
@@ -35,8 +33,8 @@ final class SpaceHubViewModel: ObservableObject {
     private var spaceOrderService: any SpaceOrderServiceProtocol
     @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
-    @Injected(\.chatMessagesPreviewsStorage)
-    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.spaceHubSpacesStorage)
+    private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
@@ -90,16 +88,14 @@ final class SpaceHubViewModel: ObservableObject {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
-        async let messagesPreviewsSub: () = subscribeOnMessagesPreviews()
-        
-        (_, _, _, _) = await (spacesSub, wallpapersSub, profileSub, messagesPreviewsSub)
+    
+        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
     }
     
     // MARK: - Private
     private func subscribeOnSpaces() async {
-        for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
-            let previews = await chatMessagesPreviewsStorage.previews()
-            updateSpaces(spaces, previews: previews)
+        for await spaces in await spaceHubSpacesStorage.spacesStream {
+            self.spaces = spaces
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }
@@ -114,31 +110,5 @@ final class SpaceHubViewModel: ObservableObject {
         for await profile in profileStorage.profilePublisher.values {
             profileIcon = profile.icon
         }
-    }
-    
-    private func subscribeOnMessagesPreviews() async {
-        guard FeatureFlags.countersOnSpaceHub else { return }
-        
-        await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
-        for await preview in chatMessagesPreviewsStorage.previewStream {
-            updateSpaces(spaces, previews: [preview])
-        }
-    }
-    
-    private func updateSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) {
-        let enrichedSpaces = enrichSpaces(spaces, previews: previews)
-        self.spaces = enrichedSpaces
-    }
-    
-    private func enrichSpaces(_ spaces: [ParticipantSpaceViewData]?, previews: [ChatMessagePreview]) -> [ParticipantSpaceViewData]? {
-        guard var spaces else { return nil }
-        
-        for preview in previews {
-            if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
-                spaces[spaceIndex] = spaces[spaceIndex].updateUnreadMessagesCount(preview.counter)
-            }
-        }
-        
-        return spaces
     }
 }

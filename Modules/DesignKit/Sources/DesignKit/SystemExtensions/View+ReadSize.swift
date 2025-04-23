@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension View {
+public extension View {
     func readSize(_ onChange: @escaping (CGSize) -> Void) -> some View {
         background(
             SizeCatcher(onChange: onChange)

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-extension AttributedString {
+public extension AttributedString {
     
     mutating func anytypeStyle(_ style: AnytypeFont) {
         let anytypeFont = AnytypeFontBuilder.font(anytypeFont: style)

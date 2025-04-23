@@ -20,8 +20,10 @@ final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     func configure() {
         // Global listeners
         eventListener.startListening()
-        accountEventHandler.startSubscription()
-        fileErrorEventHandler.startSubscription()
+        Task {
+            await accountEventHandler.startSubscription()
+            await fileErrorEventHandler.startSubscription()
+        }
         deviceSceneStateListener.start()
         appVersionUpdateService.prepareData()
         debugService.startDebugRunProfilerOnStartupIfNeeded()

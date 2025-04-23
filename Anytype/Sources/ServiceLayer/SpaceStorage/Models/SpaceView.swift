@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-struct SpaceView: Identifiable, Equatable {
+struct SpaceView: Identifiable, Equatable, Hashable {
     let id: String
     let name: String
     let description: String

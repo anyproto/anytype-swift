@@ -11,8 +11,7 @@ actor GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     }
     
     private var subscription: AnyCancellable?
-    @Injected(\.groupsSubscribeService)
-    private var groupsSubscribeService: any GroupsSubscribeServiceProtocol
+    private let groupsSubscribeService: any GroupsSubscribeServiceProtocol = Container.shared.groupsSubscribeService()
     
     private var subscribers = SynchronizedDictionary<String, Subscriber>()
     
@@ -24,6 +23,7 @@ actor GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     
     deinit {
         let keys = subscribers.keys
+        // Waiting https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
         Task { [keys, groupsSubscribeService] in
             await keys.asyncForEach { try? await groupsSubscribeService.stopSubscription(id: $0) }
         }

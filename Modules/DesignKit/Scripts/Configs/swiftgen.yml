@@ -1,0 +1,10 @@
+input_dir: ../../Sources/DesignKit
+output_dir: ../../Sources/DesignKit
+
+fonts:
+  inputs: Resources/Fonts
+  outputs:
+    templatePath: Templates/fonts-swift5.stencil
+    output: Fonts/Generated/Fonts.swift
+    params:
+      publicAccess: true

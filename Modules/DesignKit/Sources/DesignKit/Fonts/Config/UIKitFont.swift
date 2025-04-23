@@ -1,8 +1,7 @@
 import UIKit
-import Services
 import AnytypeCore
 
-extension UIFont {
+public extension UIFont {
 
     var bold: UIFont {
         guard !isBold else { return self }
@@ -91,7 +90,7 @@ extension UIFont {
 }
 
 
-extension UIFont {
+public extension UIFont {
     static let title = UIKitFontBuilder.uiKitFont(font: .title)
     static let heading = UIKitFontBuilder.uiKitFont(font: .heading)
     static let subheading = UIKitFontBuilder.uiKitFont(font: .subheading)
@@ -116,83 +115,48 @@ extension UIFont {
     static let code = UIKitFontBuilder.uiKitFont(font: .codeBlock)
 
     var isCode: Bool {
-        return fontName.hasPrefix(AnytypeFontConfig.Name.plex.rawValue)
+        return fontName.hasPrefix(FontFamily.IBMPlexMono.regular.name)
     }
 
     static func code(of size: CGFloat) -> UIFont {
-        UIKitFontBuilder.uiKitFont(name: .plex, size: size, weight: .regular)
+        UIKitFontBuilder.uiKitFont(font: FontFamily.IBMPlexMono.regular, size: size)
     }
 }
 
-extension AnytypeFont {
+public extension AnytypeFont {
     var uiKitFont: UIFont {
         UIKitFontBuilder.uiKitFont(font: self)
     }
 }
 
 
-struct UIKitFontBuilder {
+public struct UIKitFontBuilder {
     
     private struct FontCacheKey: Equatable, Hashable {
-        let name: AnytypeFontConfig.Name
+        let font: FontConvertible
         let size: CGFloat
-        let weight: AnytypeFontConfig.Weight
     }
 
     private static let fontCache = SynchronizedDictionary<FontCacheKey, UIFont>()
     
-    static func uiKitFont(font: AnytypeFont) -> UIFont {
-        return uiKitFont(name: font.config.fontName, size: font.config.size, weight: font.config.weight)
+    public static func uiKitFont(font: AnytypeFont) -> UIFont {
+        return uiKitFont(font: font.config.font, size: font.config.size)
     }
 
-    static func uiKitFont(name: AnytypeFontConfig.Name, size: CGFloat, weight: AnytypeFontConfig.Weight) -> UIFont {
+    public static func uiKitFont(font: FontConvertible, size: CGFloat) -> UIFont {
         
-        let fontCacheKey = FontCacheKey(name: name, size: size, weight: weight)
+        let fontCacheKey = FontCacheKey(font: font, size: size)
         
         if let cacheFont = fontCache[fontCacheKey] {
             return cacheFont
         }
         
-        var descriptor = UIFontDescriptor(fontAttributes: [
-            attributeKey(name: name): name.rawValue,
-            UIFontDescriptor.AttributeName.size: size,
-        ])
-
-        descriptor = descriptor.addingAttributes(
-            [
-                .traits: [UIFontDescriptor.TraitKey.weight: uiKitWeight(weight)]
-            ]
-        )
-
-        let font = UIFont(descriptor: descriptor, size: size)
+        guard let font = UIFont(font: font, size: size) else {
+            fatalError("Unable to initialize font '\(font.name)' (\(font.family))")
+        }
+        
         fontCache[fontCacheKey] = font
         
         return font
-    }
-
-    private static func attributeKey(name: AnytypeFontConfig.Name) -> UIFontDescriptor.AttributeName {
-        switch name {
-        case .plex:
-            return UIFontDescriptor.AttributeName.name
-        case .inter:
-            return UIFontDescriptor.AttributeName.family
-        case .riccione:
-            return UIFontDescriptor.AttributeName.family
-        }
-    }
-
-    static func uiKitWeight(_ weight: AnytypeFontConfig.Weight) -> UIFont.Weight {
-        switch weight {
-        case .regular:
-            return .regular
-        case .medium:
-            return .medium
-        case .semibold:
-            return .semibold
-        case .bold:
-            return .bold
-        case .light:
-            return .light
-        }
     }
 }

@@ -1,17 +1,17 @@
 import Foundation
 import ProtobufMessages
-import Combine
+@preconcurrency import Combine
 import Services
 
-protocol AccountEventHandlerProtocol {
-    func startSubscription()
-    func stopSubscription()
+protocol AccountEventHandlerProtocol: Sendable {
+    func startSubscription() async
+    func stopSubscription() async
     
-    var accountShowPublisher: AnyPublisher<String, Never> { get }
-    var accountStatusPublisher: AnyPublisher<AccountStatus, Never> { get }
+    var accountShowPublisher: AnyPublisher<String, Never> { get async }
+    var accountStatusPublisher: AnyPublisher<AccountStatus, Never> { get async }
 }
 
-final class AccountEventHandler: AccountEventHandlerProtocol {
+actor AccountEventHandler: AccountEventHandlerProtocol {
     
     private var cancellable: AnyCancellable?
     @Injected(\.accountManager)
@@ -44,7 +44,6 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
     
     // MARK: - Private
     
-    @MainActor
     private func handle(events: EventsBunch) {
         for event in events.middlewareEvents {
             switch event.value {

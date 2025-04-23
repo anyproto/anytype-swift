@@ -114,6 +114,10 @@ public extension FeatureFlags {
         value(for: .spaceHubNewTitle)
     }
 
+    static var spaceHubRedesign: Bool {
+        value(for: .spaceHubRedesign)
+    }
+
     static var chatLayoutInsideSpace: Bool {
         value(for: .chatLayoutInsideSpace)
     }
@@ -160,6 +164,10 @@ public extension FeatureFlags {
 
     static var spaceLoadingForScreen: Bool {
         value(for: .spaceLoadingForScreen)
+    }
+
+    static var binScreenEmptyAction: Bool {
+        value(for: .binScreenEmptyAction)
     }
 
     static var rainbowViews: Bool {
@@ -218,6 +226,10 @@ public extension FeatureFlags {
         value(for: .networkHTTPSRequestsLogger)
     }
 
+    static var logMiddlewareRequests: Bool {
+        value(for: .logMiddlewareRequests)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -247,6 +259,7 @@ public extension FeatureFlags {
         .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
+        .spaceHubRedesign,
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
@@ -259,6 +272,7 @@ public extension FeatureFlags {
         .plusButtonOnWidgets,
         .openWelcomeObject,
         .spaceLoadingForScreen,
+        .binScreenEmptyAction,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -272,6 +286,7 @@ public extension FeatureFlags {
         .failReceiptValidation,
         .showGlobalSearchScore,
         .versionHistoryPaginationTest,
-        .networkHTTPSRequestsLogger
+        .networkHTTPSRequestsLogger,
+        .logMiddlewareRequests
     ]
 }

@@ -3,15 +3,14 @@ import MediaPlayer
 import AnytypeCore
 
 @MainActor
-final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
+final class AnytypeAudioPlayer: AnytypeAudioPlayerProtocol {
     @objc let audioPlayer: AVPlayer
     weak var delegate: (any AnytypeAudioPlayerDelegate)?
-    // Key-value observing context
-    var playerItemContext = 0
-    private var timeObserverToken: Any? = nil
+    private let timeObserverToken = AtomicStorage<Any?>(nil)
     private var isInterrupted: Bool = false
     private var currentTrackName: String = ""
-
+    private let stateObservation = PlayerItemStateObservation()
+    
     var isPlaying: Bool {
         return audioPlayer.rate != 0 && audioPlayer.error == nil
     }
@@ -26,52 +25,18 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
 
     // MARK: - Lifecycle
 
-    override init() {
+    init() {
         self.audioPlayer = AVPlayer()
-
-        super.init()
 
         self.setupObservers()
         self.setupMPCommandCenter()
     }
 
     deinit {
-        self.audioPlayer.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
-
         // If a time observer exists, remove it
-        if let token = timeObserverToken {
+        if let token = timeObserverToken.value {
             self.audioPlayer.removeTimeObserver(token)
-            timeObserverToken = nil
-        }
-    }
-
-    override func observeValue(forKeyPath keyPath: String?,
-                               of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
-                               context: UnsafeMutableRawPointer?) {
-
-        // Only handle observations for the playerItemContext
-        guard context == &playerItemContext else {
-            super.observeValue(forKeyPath: keyPath,
-                               of: object,
-                               change: change,
-                               context: context)
-            return
-        }
-
-        if keyPath == #keyPath(AVPlayerItem.status) {
-            let status: AVPlayerItem.Status
-            if let statusNumber = change?[.newKey] as? NSNumber {
-                status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
-            } else {
-                status = .unknown
-            }
-
-            if status == .readyToPlay {
-                if let duration = audioPlayer.currentItem?.duration.seconds {
-                    delegate?.playerReadyToPlay(duration: duration)
-                }
-            }
+            timeObserverToken.value = nil
         }
     }
 
@@ -114,14 +79,9 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
         self.delegate?.stopPlaying()
         // assing new delegate
         self.delegate = delegate
-        audioPlayer.currentItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
+        stateObservation.observe(item: playerItem)
         audioPlayer.replaceCurrentItem(with: nil)
         audioPlayer.replaceCurrentItem(with: playerItem)
-        // Item status observer
-        audioPlayer.currentItem?.addObserver(self,
-                                             forKeyPath: #keyPath(AVPlayerItem.status),
-                                             options: .new,
-                                             context: &playerItemContext)
         currentTrackName = name
     }
 
@@ -165,13 +125,21 @@ private extension AnytypeAudioPlayer {
 
         // Periodic time observer
         let interval = CMTimeMake(value: 1, timescale: 10)
-        timeObserverToken = audioPlayer.addPeriodicTimeObserver(
+        timeObserverToken.value = audioPlayer.addPeriodicTimeObserver(
             forInterval: interval,
             queue: .main
         ) { [weak self] time in
             MainActor.assumeIsolated {
                 guard let self = self else { return }
                 self.delegate?.trackTimeDidChange(timeInSeconds: time.seconds)
+            }
+        }
+        
+        stateObservation.onReadyToPlay = { [weak self] in
+            Task { @MainActor in
+                if let duration = self?.audioPlayer.currentItem?.duration.seconds {
+                    self?.delegate?.playerReadyToPlay(duration: duration)
+                }
             }
         }
     }

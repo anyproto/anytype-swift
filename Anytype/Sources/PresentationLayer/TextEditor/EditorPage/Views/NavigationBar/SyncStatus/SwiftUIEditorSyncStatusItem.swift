@@ -16,21 +16,28 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
     }
 }
 
-#Preview {
-    return VStack {
-        ForEach(SyncStatus.allCases, id:\.self) {
-            mock(status: $0).padding()
-            Divider()
-        }
-        
-        mock(status: .offline, networkId: "")
-    }
+private struct SwiftUIEditorSyncStatusItemPreviewView: View {
+    let status: SyncStatus
+    let networkId: String
     
-    func mock(status: SyncStatus, networkId: String = "1337") -> SwiftUIEditorSyncStatusItem {
+    var body: some View {
         SwiftUIEditorSyncStatusItem(
             statusData: SyncStatusData(status: status, networkId: networkId, isHidden: false),
             itemState: .initial,
             onTap: {}
         )
+    }
+}
+
+#Preview {
+    
+    return VStack {
+        ForEach(SyncStatus.allCases, id:\.self) {
+            SwiftUIEditorSyncStatusItemPreviewView(status: $0, networkId: "1337")
+                .padding()
+            Divider()
+        }
+        
+        SwiftUIEditorSyncStatusItemPreviewView(status: .offline, networkId: "")
     }
 }
