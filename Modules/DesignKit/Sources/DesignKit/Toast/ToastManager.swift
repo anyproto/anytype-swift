@@ -2,7 +2,7 @@ import UIKit
 import SwiftEntryKit
 
 @MainActor
-public struct ToastPresenter {
+public struct ToastManager {
     
     public static func show(message: String) {
         let attributedString = NSAttributedString(

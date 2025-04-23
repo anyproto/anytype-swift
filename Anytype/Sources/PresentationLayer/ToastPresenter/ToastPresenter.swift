@@ -29,8 +29,7 @@ protocol ToastPresenterProtocol: AnyObject {
 }
 
 final class ToastPresenter: ToastPresenterProtocol {
-    static var shared: ToastPresenter? // Used only for SwiftUI
-
+    
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     
@@ -39,23 +38,23 @@ final class ToastPresenter: ToastPresenterProtocol {
     // MARK: - ToastPresenterProtocol
     
     func showSuccessAlert(message: String) {
-        DesignKit.ToastPresenter.showSuccessAlert(message: message)
+        ToastManager.showSuccessAlert(message: message)
     }
     
     func showFailureAlert(message: String) {
-        DesignKit.ToastPresenter.showFailureAlert(message: message)
+        ToastManager.showFailureAlert(message: message)
     }
     
     func show(message: String) {
-        DesignKit.ToastPresenter.show(message: message)
+        ToastManager.show(message: message)
     }
     
     func show(message: NSAttributedString) {
-        DesignKit.ToastPresenter.show(message: message)
+        ToastManager.show(message: message)
     }
     
     func dismiss(completion: @escaping () -> Void) {
-        DesignKit.ToastPresenter.dismiss(completion: completion)
+        ToastManager.dismiss(completion: completion)
     }
     
     func showObjectName(

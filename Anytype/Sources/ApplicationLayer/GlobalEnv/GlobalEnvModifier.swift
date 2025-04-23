@@ -20,9 +20,6 @@ private struct GlobalEnvModifier: ViewModifier {
                 viewControllerProvider.setSceneWindow(newValue.window)
                 newValue.window?.overrideUserInterfaceStyle = userDefaults.userInterfaceStyle
             }
-            .onAppear {
-                ToastPresenter.shared = ToastPresenter()
-            }
             
     }
 }

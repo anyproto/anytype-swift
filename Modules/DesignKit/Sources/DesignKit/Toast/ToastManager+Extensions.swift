@@ -2,7 +2,7 @@ import UIKit
 import AnytypeCore
 import Assets
 
-public extension ToastPresenter {
+public extension ToastManager {
     /// Alert with a tick image at the first place
     static func showSuccessAlert(message: String) {
         showMessage(message, assetIcon: .toastTick)
@@ -24,4 +24,3 @@ public extension ToastPresenter {
         show(message: attributedString)
     }
 }
-

@@ -22,11 +22,11 @@ private struct ToastModififer: ViewModifier {
                 if newValue.showSnackBar {
                     switch newValue.messageType {
                         case .success:
-                            ToastPresenter.showSuccessAlert(message: newValue.text)
+                            ToastManager.showSuccessAlert(message: newValue.text)
                         case .failure:
-                            ToastPresenter.showFailureAlert(message: newValue.text)
+                            ToastManager.showFailureAlert(message: newValue.text)
                         case .none:
-                            ToastPresenter.show(message: newValue.text)
+                            ToastManager.show(message: newValue.text)
                     }
                 }
                 toastBarData = .empty
