@@ -20,16 +20,15 @@ struct AnytypeText: View {
     
     init(
         _ text: String?,
-        name: AnytypeFontConfig.Name,
+        font: FontConvertible,
         size: CGFloat,
-        weight: Font.Weight,
         enableMarkdown: Bool = false
     ) {
         anytypeAssert(
-            name != .plex,
+            FontFamily.IBMPlexMono.all.contains(font),
             "Custom plex font requires custom line spacing implementation"
         )
-        let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
+        let font = AnytypeFontBuilder.font(font: font, size: size)
         let text = text ?? ""
         textView = (enableMarkdown ? Text(markdown: text) : Text(verbatim: text)).font(font)
         self.spacing = 0

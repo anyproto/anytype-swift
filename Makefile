@@ -28,6 +28,7 @@ generate:
 	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	./Modules/Assets/Scripts/generate.sh
 	./Modules/Loc/Scripts/generate.sh
+	./Modules/DesignKit/Scripts/generate.sh
 
 install-middle-local:
 	rm -fr Dependencies/Middleware/*
