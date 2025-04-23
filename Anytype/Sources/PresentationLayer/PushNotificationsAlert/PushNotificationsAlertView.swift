@@ -11,6 +11,9 @@ struct PushNotificationsAlertView: View {
     
     var body: some View {
         content
+            .onAppear {
+                model.onAppear()
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }

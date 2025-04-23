@@ -52,6 +52,9 @@ struct ChatCoordinatorView: View {
             .anytypeSheet(item: $model.inviteLinkData) {
                 InviteLinkCoordinatorView(data: $0)
             }
+            .anytypeSheet(isPresented: $model.showPushNotificationsAlert) {
+                PushNotificationsAlertView()
+            }
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
             }

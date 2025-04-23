@@ -7,6 +7,13 @@ final class PushNotificationsAlertViewModel: ObservableObject {
     
     @Published var dismiss = false
     
+    @Injected(\.pushNotificationsAlertHandler)
+    private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
+    
+    func onAppear() {
+        pushNotificationsAlertHandler.storeAlertShowDate()
+    }
+    
     func enablePushesTap() {
         dismiss.toggle()
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in

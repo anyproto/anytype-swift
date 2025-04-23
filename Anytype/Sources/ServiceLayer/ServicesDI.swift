@@ -385,7 +385,15 @@ extension Container {
         self { ActiveSpaceManager() }.singleton
     }
     
-    var registrationPushNotificationsService: Factory<any RegistrationPushNotificationsServiceProtocol> {
-        self { RegistrationPushNotificationsService() }.shared
+    var pushNotificationsRegistrationService: Factory<any PushNotificationsRegistrationServiceProtocol> {
+        self { PushNotificationsRegistrationService() }.shared
+    }
+    
+    var pushNotificationsPermissionService: Factory<any PushNotificationsPermissionServiceProtocol> {
+        self { PushNotificationsPermissionService() }.shared
+    }
+    
+    var pushNotificationsAlertHandler: Factory<any PushNotificationsAlertHandlerProtocol> {
+        self { PushNotificationsAlertHandler() }.shared
     }
 }
