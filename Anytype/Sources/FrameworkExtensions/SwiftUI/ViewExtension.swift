@@ -6,10 +6,6 @@ extension View {
     func alertView(isShowing: Binding<Bool>, errorText: String, onButtonTap: @escaping () -> () = {}) -> some View {
         AlertView(isShowing: isShowing, errorText: errorText, presenting: self, onButtonTap: onButtonTap)
     }
-
-    func eraseToAnyView() -> AnyView {
-        .init(self)
-    }
     
     func embedInNavigation() -> some View {
         NavigationView { self }

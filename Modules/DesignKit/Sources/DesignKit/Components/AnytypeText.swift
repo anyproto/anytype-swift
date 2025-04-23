@@ -1,7 +1,8 @@
 import SwiftUI
 import AnytypeCore
+import Assets
 
-struct AnytypeText: View {
+public struct AnytypeText: View {
     
     private let textView: Text
     private let spacing: CGFloat
@@ -11,14 +12,14 @@ struct AnytypeText: View {
         self.spacing = spacing
     }
 
-    init(_ text: String?, style: AnytypeFont, enableMarkdown: Bool = false) {
+    public init(_ text: String?, style: AnytypeFont, enableMarkdown: Bool = false) {
         let spacing = style.lineSpacing
         
         self.textView = Self.buildText(text ?? "", style: style, enableMarkdown: enableMarkdown)
         self.spacing = spacing
     }
     
-    init(
+    public init(
         _ text: String?,
         font: FontConvertible,
         size: CGFloat,
@@ -34,7 +35,7 @@ struct AnytypeText: View {
         self.spacing = 0
     }
     
-    var body: some View {
+    public var body: some View {
         textView
             .foregroundStyle(Color.Text.primary)
             .modifier(OptionalLineSpacingModifier(spacing: spacing))
@@ -46,13 +47,13 @@ struct AnytypeText: View {
     
     // MARK: - SwiftUI Text mimic methods
     
-    func underline(_ isActive: Bool = true, color: Color? = nil) -> AnytypeText {
+    public func underline(_ isActive: Bool = true, color: Color? = nil) -> AnytypeText {
         let textView = textView.underline(isActive, color: color)
         return AnytypeText(textView: textView, spacing: spacing)
     }
     
     
-    func foregroundColor(_ color: Color) -> AnytypeText {
+    public func foregroundColor(_ color: Color) -> AnytypeText {
         let textView = textView.foregroundColor(color)
         return AnytypeText(textView: textView, spacing: spacing)
     }
