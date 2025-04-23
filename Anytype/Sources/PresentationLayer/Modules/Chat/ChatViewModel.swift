@@ -592,8 +592,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
-            await handleInviteLinkShow()
             await handlePushNotificationsAlert()
+            await handleInviteLinkShow()
         }
     }
     

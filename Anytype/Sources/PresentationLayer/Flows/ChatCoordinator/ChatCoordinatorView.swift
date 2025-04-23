@@ -49,11 +49,11 @@ struct ChatCoordinatorView: View {
             .sheet(item: $model.newLinkedObject) {
                 ChatCreateObjectCoordinatorView(data: $0)
             }
-            .anytypeSheet(item: $model.inviteLinkData) {
-                InviteLinkCoordinatorView(data: $0)
-            }
             .anytypeSheet(isPresented: $model.showPushNotificationsAlert) {
                 PushNotificationsAlertView()
+            }
+            .anytypeSheet(item: $model.inviteLinkData) {
+                InviteLinkCoordinatorView(data: $0)
             }
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
