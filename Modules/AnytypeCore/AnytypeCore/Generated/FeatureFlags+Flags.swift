@@ -166,6 +166,10 @@ public extension FeatureFlags {
         value(for: .spaceLoadingForScreen)
     }
 
+    static var binScreenEmptyAction: Bool {
+        value(for: .binScreenEmptyAction)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -268,6 +272,7 @@ public extension FeatureFlags {
         .plusButtonOnWidgets,
         .openWelcomeObject,
         .spaceLoadingForScreen,
+        .binScreenEmptyAction,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
