@@ -10,7 +10,7 @@ final class KeyPhraseViewModel: ObservableObject {
         }
     }
     @Published var showMoreInfo = false
-    @Published var snackBar = ToastBarData.empty
+    @Published var snackBar: ToastBarData?
     
     let state: JoinFlowState
     
@@ -61,6 +61,6 @@ final class KeyPhraseViewModel: ObservableObject {
         AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = state.mnemonic
-        snackBar = .init(text: Loc.copied, showSnackBar: true)
+        snackBar = ToastBarData(Loc.copied)
     }
 }

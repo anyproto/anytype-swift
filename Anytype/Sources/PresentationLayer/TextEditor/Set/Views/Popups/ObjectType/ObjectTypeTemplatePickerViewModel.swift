@@ -7,7 +7,7 @@ import AnytypeCore
 final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var templatesCount = 0
-    @Published var toastBarData = ToastBarData.empty
+    @Published var toastBarData: ToastBarData?
     
     private var output: (any EditorSetModuleOutput)?
     private let document: any BaseDocumentProtocol
@@ -43,7 +43,7 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
             do {
                 let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: document.objectId, spaceId: document.spaceId)
                 output?.onObjectTypeSingleTemplateTap(objectId: document.objectId, spaceId: document.spaceId, defaultTemplateId: templateId)
-                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(document.details?.title ?? ""), showSnackBar: true)
+                toastBarData = ToastBarData(Loc.Templates.Popup.WasAddedTo.title(document.details?.title ?? ""))
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }

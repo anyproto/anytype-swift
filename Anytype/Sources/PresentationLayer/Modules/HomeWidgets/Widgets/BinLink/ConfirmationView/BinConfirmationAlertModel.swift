@@ -17,7 +17,7 @@ final class BinConfirmationAlertModel: ObservableObject {
     private let ids: [String]
     
     var count: Int { ids.count }
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     
     init(data: BinConfirmationAlertData) {
         self.ids = data.ids
@@ -30,6 +30,6 @@ final class BinConfirmationAlertModel: ObservableObject {
     func onConfirm() async throws {
         AnytypeAnalytics.instance().logDeletion(count: ids.count, route: .bin)
         try await objectActionsService.delete(objectIds: ids)
-        toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(ids.count), showSnackBar: true)
+        toastData = ToastBarData(Loc.Widgets.Actions.binConfirm(ids.count))
     }
 }

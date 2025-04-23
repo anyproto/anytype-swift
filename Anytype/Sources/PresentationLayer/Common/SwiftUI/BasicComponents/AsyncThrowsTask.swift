@@ -4,7 +4,7 @@ import SwiftUI
 fileprivate struct AsyncThrowsTaskModifier: ViewModifier {
     
     let action: @Sendable () async throws -> Void
-    @State private var toast: ToastBarData = .empty
+    @State private var toast: ToastBarData?
     
     func body(content: Content) -> some View {
         content
@@ -12,7 +12,7 @@ fileprivate struct AsyncThrowsTaskModifier: ViewModifier {
                 do {
                     try await action()
                 } catch {
-                    toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+                    toast = ToastBarData(error.localizedDescription, type: .failure)
                 }
             }
     }
@@ -22,7 +22,7 @@ fileprivate struct AsyncThrowsIdTaskModifier<T: Equatable>: ViewModifier {
     
     let id: T
     let action: @Sendable () async throws -> Void
-    @State private var toast: ToastBarData = .empty
+    @State private var toast: ToastBarData?
     
     func body(content: Content) -> some View {
         content
@@ -30,7 +30,7 @@ fileprivate struct AsyncThrowsIdTaskModifier<T: Equatable>: ViewModifier {
                 do {
                     try await action()
                 } catch {
-                    toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+                    toast = ToastBarData(error.localizedDescription, type: .failure)
                 }
             }
     }

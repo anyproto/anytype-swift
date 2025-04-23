@@ -30,7 +30,7 @@ final class WidgetContainerViewModel: ObservableObject {
         didSet { expandedDidChange() }
     }
     @Published var homeState: HomeWidgetsState = .readonly
-    @Published var toastData = ToastBarData.empty
+    @Published var toastData: ToastBarData?
     
     init(
         widgetBlockId: String,

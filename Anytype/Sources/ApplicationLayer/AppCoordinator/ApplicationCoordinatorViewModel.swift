@@ -27,7 +27,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - State
     
     @Published var applicationState: ApplicationState = .initial
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var migrationData: MigrationModuleData?
     @Published var selectAccountTaskId: String?
     
@@ -159,6 +159,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
 
     private func handleFileLimitReachedError() {
-        toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
+        toastBarData = ToastBarData(Loc.FileStorage.limitError, type: .neutral)
     }
 }

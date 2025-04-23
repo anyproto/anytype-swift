@@ -1,19 +1,12 @@
 public struct ToastBarData: Equatable {
     public let text: String
-    public let showSnackBar: Bool
-    public let messageType: ToastMessageType
+    public let type: ToastMessageType
     
     public init(
-        text: String,
-        showSnackBar: Bool,
-        messageType: ToastMessageType = .success
+        _ text: String,
+        type: ToastMessageType = .success
     ) {
         self.text = text
-        self.showSnackBar = showSnackBar
-        self.messageType = messageType
-    }
-    
-    public static var empty: ToastBarData {
-        ToastBarData(text: "", showSnackBar: false)
+        self.type = type
     }
 }

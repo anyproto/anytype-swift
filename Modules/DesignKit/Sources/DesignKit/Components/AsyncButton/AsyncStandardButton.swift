@@ -8,7 +8,7 @@ public struct AsyncStandardButton: View {
     let action: () async throws -> Void
     
     @State private var inProgress: Bool = false
-    @State private var toast = ToastBarData.empty
+    @State private var toast: ToastBarData?
     @Environment(\.standardButtonGroupDisable) @Binding private var groupDisable
     
     public init(
@@ -32,7 +32,7 @@ public struct AsyncStandardButton: View {
                     try await action()
                 } catch {
                     UINotificationFeedbackGenerator().notificationOccurred(.error)
-                    toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+                    toast = ToastBarData(error.localizedDescription, type: .failure)
                 }
                 inProgress = false
                 groupDisable = false

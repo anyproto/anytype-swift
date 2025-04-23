@@ -11,7 +11,7 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     
     func accountDeletionConfirm() async {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -30,7 +30,7 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
                 try await logout()
             }
         } catch {
-            toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+            toastBarData = ToastBarData(error.localizedDescription, type: .failure)
             UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }

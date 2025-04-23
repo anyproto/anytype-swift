@@ -25,7 +25,7 @@ final class RelationValueCoordinatorViewModel:
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: (any RelationValueCoordinatorOutput)?
 
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var safariUrl: URL?
     
     init(data: RelationValueData, output: (any RelationValueCoordinatorOutput)?) {
@@ -247,6 +247,6 @@ final class RelationValueCoordinatorViewModel:
     }
     
     func showActionSuccessMessage(_ text: String) {
-        toastBarData = ToastBarData(text: text, showSnackBar: true, messageType: .success)
+        toastBarData = ToastBarData(text, type: .success)
     }
 }

@@ -105,7 +105,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     @Published var deleteMessageConfirmation: MessageViewData?
     @Published var showSendLimitAlert = false
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
@@ -673,7 +673,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func showFileLimitAlert() {
-        toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
+        toastBarData = ToastBarData(Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), type: .failure)
     }
     
     private func buildObjectSearcData(type: ObjectSearchWithMetaType) -> ObjectSearchWithMetaModuleData {

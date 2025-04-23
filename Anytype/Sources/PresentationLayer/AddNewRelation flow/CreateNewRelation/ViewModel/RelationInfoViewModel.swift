@@ -41,7 +41,7 @@ final class RelationInfoViewModel: ObservableObject {
     @Published var name: String
     @Published private var format: SupportedRelationFormat
     @Published private var objectTypes: [ObjectType]?
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     
     private let target: RelationsModuleTarget
     private let objectId: String
@@ -148,7 +148,7 @@ extension RelationInfoViewModel {
             Loc.Fields.updated(relationDetails.name)
         }
         
-        toastData = ToastBarData(text: text, showSnackBar: true)
+        toastData = ToastBarData(text)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         output?.didPressConfirm(relationDetails)
     }

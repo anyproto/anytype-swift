@@ -7,7 +7,7 @@ public struct AsyncButton<Label> : View where Label : View {
     let label: Label
     let role: ButtonRole?
     
-    @State private var toast: ToastBarData = .empty
+    @State private var toast: ToastBarData?
     
     public init(role: ButtonRole? = nil, action: @escaping () async throws -> Void, @ViewBuilder label: () -> Label) {
         self.action = action
@@ -21,7 +21,7 @@ public struct AsyncButton<Label> : View where Label : View {
                 do {
                     try await action()
                 } catch {
-                    toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+                    toast = ToastBarData(error.localizedDescription, type: .failure)
                 }
             }
         } label: {
