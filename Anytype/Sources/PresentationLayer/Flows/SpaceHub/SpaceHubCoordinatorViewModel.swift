@@ -21,7 +21,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var spaceJoinData: SpaceJoinModuleData?
     @Published var membershipNameFinalizationData: MembershipTier?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
-    @Published var toastBarData = ToastBarData.empty
+    @Published var toastBarData: ToastBarData?
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var chatProvider = ChatActionProvider()
@@ -242,9 +242,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             try await document.open()
             guard let details = document.details else { return }
             guard details.isSupportedForOpening || data.isSimpleSet else {
-                toastBarData = ToastBarData(
-                    text: Loc.openTypeError(details.objectType.displayName), showSnackBar: true, messageType: .none
-                )
+                toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .none)
                 return
             }
         }
@@ -390,7 +388,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             guard accountManager.account.allowMembership else { return }
             membershipTierId = tierId.identifiable
         case .networkConfig:
-            toastBarData = ToastBarData(text: Loc.unsupportedDeeplink, showSnackBar: true)
+            toastBarData = ToastBarData(Loc.unsupportedDeeplink)
         }
     }
     

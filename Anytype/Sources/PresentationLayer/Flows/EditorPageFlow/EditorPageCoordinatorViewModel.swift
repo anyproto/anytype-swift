@@ -15,7 +15,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
     @Published var relationValueData: RelationValueData?
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: BaseDocumentIdentifiable?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
@@ -93,7 +93,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func versionRestored(_ text: String) {
-        toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
+        toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .none)
     }
     
     func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
@@ -112,7 +112,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func showFailureToast(message: String) {
-        toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+        toastBarData = ToastBarData(message, type: .failure)
     }
     
     func showSyncStatusInfo(spaceId: String) {

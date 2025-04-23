@@ -11,7 +11,7 @@ final class RequestToLeaveNotificationViewModel: ObservableObject {
     private var notificationsService: any NotificationsServiceProtocol
     
     @Published var message: String = ""
-    @Published var toast: ToastBarData = .empty
+    @Published var toast: ToastBarData?
     @Published var dismiss = false
     
     init(notification: NotificationRequestToLeave) {
@@ -25,7 +25,7 @@ final class RequestToLeaveNotificationViewModel: ObservableObject {
     func onTapApprove() async throws {
         AnytypeAnalytics.instance().logApproveLeaveRequest()
         try await workspaceService.leaveApprove(spaceId: notification.requestToLeave.spaceID, identity: notification.requestToLeave.identity)
-        toast = ToastBarData(text: Loc.SpaceShare.Approve.toast(notification.requestToLeave.identityName), showSnackBar: true)
+        toast = ToastBarData(Loc.SpaceShare.Approve.toast(notification.requestToLeave.identityName))
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()
     }

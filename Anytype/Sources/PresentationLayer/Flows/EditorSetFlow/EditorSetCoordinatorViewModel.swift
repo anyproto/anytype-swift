@@ -57,7 +57,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setQueryData: SetQueryData?
     @Published var relationValueData: RelationValueData?
     @Published var covertPickerData: BaseDocumentIdentifiable?
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var setObjectCreationData: SetObjectCreationData?
@@ -224,7 +224,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showFailureToast(message: String) {
-        toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+        toastBarData = ToastBarData(message, type: .failure)
     }
     
     func showSyncStatusInfo(spaceId: String) {
@@ -256,7 +256,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func versionRestored(_ text: String) {
-        toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
+        toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .none)
     }
     
     // MARK: - SetObjectCreationSettingsOutput

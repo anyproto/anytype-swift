@@ -7,7 +7,7 @@ struct TopNotificationView: View {
     var icon: Icon? = nil
     var buttons: [TopNotificationButton]
     
-    @State private var toast: ToastBarData = .empty
+    @State private var toast: ToastBarData?
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {

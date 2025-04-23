@@ -16,7 +16,7 @@ final class BinLinkWidgetViewModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     @Published var binAlertData: BinConfirmationAlertData? = nil
     
     init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
@@ -32,7 +32,7 @@ final class BinLinkWidgetViewModel: ObservableObject {
     func onEmptyBinTap() async throws {
         let binIds = try await searchService.searchArchiveObjectIds(spaceId: spaceId)
         guard binIds.isNotEmpty else {
-            toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+            toastData = ToastBarData(Loc.Widgets.Actions.binConfirm(binIds.count))
             return
         }
         binAlertData = BinConfirmationAlertData(ids: binIds)
