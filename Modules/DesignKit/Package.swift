@@ -27,7 +27,8 @@ let package = Package(
                 "AnytypeCore",
                 "Assets",
                 "AsyncTools",
-                "LayoutKit"
+                "LayoutKit",
+                "SwiftEntryKit"
             ],
             resources: [
                 .process("Resources")
