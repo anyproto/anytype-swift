@@ -15,14 +15,20 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../AnytypeCore"),
-        .package(path: "../Assets")
+        .package(path: "../Assets"),
+        .package(path: "../AsyncTools"),
+        .package(path: "../LayoutKit"),
+        .package(url: "https://github.com/bududomasidet/SwiftEntryKit", exact: "1.0.0")
     ],
     targets: [
         .target(
             name: "DesignKit",
             dependencies: [
                 "AnytypeCore",
-                "Assets"
+                "Assets",
+                "AsyncTools",
+                "LayoutKit",
+                "SwiftEntryKit"
             ],
             resources: [
                 .process("Resources")
