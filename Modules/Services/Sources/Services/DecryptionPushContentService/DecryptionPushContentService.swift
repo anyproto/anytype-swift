@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 
 public protocol DecryptionPushContentServiceProtocol: AnyObject, Sendable {
-    func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushContent?
+    func decrypt(_ encryptedData: Data, signatureData: Data, spaceId: String) -> DecryptedPushContent?
 }
 
 final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
@@ -11,7 +11,7 @@ final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
     private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
     private let decoder = JSONDecoder()
     
-    func decrypt(_ encryptedData: Data, spaceId: String) -> DecryptedPushContent? {
+    func decrypt(_ encryptedData: Data, signatureData: Data, spaceId: String) -> DecryptedPushContent? {
         do {
             let keyString = try encryptionKeyService.obtainKeyById(spaceId)
             
@@ -19,7 +19,7 @@ final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
                 throw DecryptionPushContentError.keyEncodeFailed
             }
             
-            let decryptedData = try cryptoService.decryptAESGCM(data: encryptedData, keyData: keyData)
+            let decryptedData = try cryptoService.decryptAESGCM(data: encryptedData, signatureData: signatureData, keyData: keyData)
             
             return try decoder.decode(DecryptedPushContent.self, from: decryptedData)
         } catch {
