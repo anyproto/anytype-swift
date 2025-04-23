@@ -80,6 +80,7 @@
 		7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC22D3916FF00E18A0C /* AppTarget */; };
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
+		746F06012DB8E712005795F7 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = 746F06002DB8E712005795F7 /* DesignKit */; };
 		74AD8EC52D12F2FD000EDFBE /* ChatMessageLimitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD8EC42D12F2FD000EDFBE /* ChatMessageLimitsTests.swift */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
 		74D79ED52D784FBF00658D0A /* AsyncTools in Frameworks */ = {isa = PBXBuildFile; productRef = 74D79ED42D784FBF00658D0A /* AsyncTools */; };
@@ -299,7 +300,6 @@
 		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeNotificationServiceExtension; sourceTree = "<group>"; };
 		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting files"; sourceTree = "<group>"; };
 		3D6977812CAE9ED0003F5A91 /* Video */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Video; sourceTree = "<group>"; };
-		3D6977892CAE9EE9003F5A91 /* Fonts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Fonts; sourceTree = "<group>"; };
 		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
 		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeShareExtension; sourceTree = "<group>"; };
 		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
@@ -319,6 +319,7 @@
 				3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */,
 				2A30B2082BB44A0C00206806 /* QRCode in Frameworks */,
 				2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */,
+				746F06012DB8E712005795F7 /* DesignKit in Frameworks */,
 				C99A53AC28A1380300B3E5F4 /* ShimmerSwift in Frameworks */,
 				74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */,
 				538ABD4E284F9F88000D3CCC /* Collections in Frameworks */,
@@ -452,7 +453,6 @@
 				3D6977812CAE9ED0003F5A91 /* Video */,
 				0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */,
 				0339382422EF571600589108 /* Strings */,
-				3D6977892CAE9EE9003F5A91 /* Fonts */,
 				3D6977912CAE9EEC003F5A91 /* Preview Content */,
 			);
 			path = Resources;
@@ -648,7 +648,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3D6977812CAE9ED0003F5A91 /* Video */,
-				3D6977892CAE9EE9003F5A91 /* Fonts */,
 				3D6977912CAE9EEC003F5A91 /* Preview Content */,
 				3D69B4E82CAEA9CB003F5A91 /* Sources */,
 			);
@@ -687,6 +686,7 @@
 				74D79ED42D784FBF00658D0A /* AsyncTools */,
 				74EB806B2D79D3EA003F8D84 /* Assets */,
 				7411879A2D9ADD200006EA41 /* Loc */,
+				746F06002DB8E712005795F7 /* DesignKit */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -2628,6 +2628,10 @@
 		7434DAC62D39212E00E18A0C /* AppTarget */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppTarget;
+		};
+		746F06002DB8E712005795F7 /* DesignKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignKit;
 		};
 		74B35D252D5B39C500AC9879 /* AsyncAlgorithms */ = {
 			isa = XCSwiftPackageProductDependency;

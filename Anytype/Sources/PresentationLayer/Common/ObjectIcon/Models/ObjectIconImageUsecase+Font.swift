@@ -4,14 +4,12 @@ extension ObjectIconImageUsecase {
         case .openedObject:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 72,
-                    weight: .semibold
+                    font: FontFamily.Inter.semiBold,
+                    size: 72
                 ),
                 emojiImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 48,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 48
                 ),
                 placeholderImageFont: nil,
                 spaceImageFont: nil
@@ -19,42 +17,35 @@ extension ObjectIconImageUsecase {
         case .linkToObject:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 28,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 28
                 ),
                 emojiImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 28,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 28
                 ),
                 placeholderImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 28,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 28
                 ),
                 spaceImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 28,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 28
                 )
             )
         case .templatePreview:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 20,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 20
                 ),
                 emojiImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 20,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 20
                 ),
                 placeholderImageFont: UIKitFontBuilder.uiKitFont(
-                    name: .inter,
-                    size: 20,
-                    weight: .regular
+                    font: FontFamily.Inter.regular,
+                    size: 20
                 ),
                 spaceImageFont: nil
             )

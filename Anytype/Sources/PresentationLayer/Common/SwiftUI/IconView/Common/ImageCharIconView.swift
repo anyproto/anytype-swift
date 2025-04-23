@@ -38,6 +38,6 @@ struct ImageCharIconView: View {
     private func font(size: CGSize) -> Font {
         let side = min(size.width, size.height)
         let config = Self.configs.first(where: { $0.side <= side }) ?? Self.configs.last ?? .zero
-        return AnytypeFontBuilder.font(name: .inter, size: config.fontSize, weight: .semibold)
+        return AnytypeFontBuilder.font(font: FontFamily.Inter.semiBold, size: config.fontSize)
     }
 }

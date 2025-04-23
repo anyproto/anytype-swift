@@ -62,9 +62,8 @@ struct UserIconView: View {
     private func placeholderIcon(_ character: Character?) -> some View {
         AnytypeText(
             character.flatMap { String($0) } ?? "",
-            name: .inter,
-            size: 45,
-            weight: .regular
+            font: FontFamily.Inter.regular,
+            size: 45
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .foregroundColor(.Text.primary)

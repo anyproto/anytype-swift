@@ -1,6 +1,6 @@
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
 
-enum AnytypeFont: CaseIterable {
+public enum AnytypeFont: CaseIterable, Sendable {
     // Content fonts
     case title
     case heading
