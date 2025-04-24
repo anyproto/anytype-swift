@@ -118,7 +118,7 @@ public extension BottomAlertView where Header == Image, Body == EmptyView {
     BottomAlertView(
         title: "Title",
         message: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog",
-        icon: .BottomAlert.update) {
+        icon: .Dialog.update) {
             BottomAlertButton(text: "Button", style: .secondary, action: {})
             BottomAlertButton(text: "Button", style: .primary, action: {})
         }
@@ -129,7 +129,7 @@ public extension BottomAlertView where Header == Image, Body == EmptyView {
     BottomAlertView(
         title: "Title",
         message: "Mes",
-        icon: .BottomAlert.update) {
+        icon: .Dialog.update) {
             BottomAlertButton(text: "Button 1111111111 11111", style: .secondary, action: {})
             BottomAlertButton(text: "Button", style: .primary, action: {})
         }

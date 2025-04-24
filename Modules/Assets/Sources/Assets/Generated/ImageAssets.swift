@@ -17,13 +17,6 @@ extension ImageAsset {
   public static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   public static let communication = ImageAsset.bundle(name: "communication")
   public static let localInternet = ImageAsset.bundle(name: "local-internet")
-  public enum BottomAlert {
-    public static let error = ImageAsset.bundle(name: "BottomAlert/error")
-    public static let exclamation = ImageAsset.bundle(name: "BottomAlert/exclamation")
-    public static let mail = ImageAsset.bundle(name: "BottomAlert/mail")
-    public static let question = ImageAsset.bundle(name: "BottomAlert/question")
-    public static let update = ImageAsset.bundle(name: "BottomAlert/update")
-  }
   public static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   public static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   public static let backArrow = ImageAsset.bundle(name: "backArrow")
@@ -557,6 +550,15 @@ extension ImageAsset {
       public static let active = ImageAsset.bundle(name: "Chat/SendMessage/active")
       public static let inactive = ImageAsset.bundle(name: "Chat/SendMessage/inactive")
     }
+  }
+  public enum Dialog {
+    public static let duck = ImageAsset.bundle(name: "Dialog/duck")
+    public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
+    public static let invite = ImageAsset.bundle(name: "Dialog/invite")
+    public static let question = ImageAsset.bundle(name: "Dialog/question")
+    public static let send = ImageAsset.bundle(name: "Dialog/send")
+    public static let update = ImageAsset.bundle(name: "Dialog/update")
+    public static let updated = ImageAsset.bundle(name: "Dialog/updated")
   }
   public enum EmptyIcon {
     public static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")

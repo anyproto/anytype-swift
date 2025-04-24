@@ -5,7 +5,7 @@ struct ErrorStateView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Image(asset: .BottomAlert.error)
+            Image(asset: .Dialog.duck)
             Spacer.fixedHeight(12)
             AnytypeText(Loc.error, style: .uxCalloutMedium)
                 .foregroundColor(.Text.primary)
