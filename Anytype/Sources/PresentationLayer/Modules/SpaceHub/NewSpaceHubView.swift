@@ -97,7 +97,7 @@ struct NewSpaceHubView: View {
             )
         }
         .overlay(alignment: .trailing) {
-            Button { model.onTapCreateSpace() },
+            Button { model.onTapCreateSpace() }
             label: {
                 Image(asset: .X32.addFilled)
                     .padding(.vertical, 6)
