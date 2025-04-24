@@ -108,6 +108,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Create relation", String(describing: p1), fallback: "Create property ‘%@’")
   }
   public static let createSet = Loc.tr("Localizable", "Create Set", fallback: "Create Query")
+  public static let createSpace = Loc.tr("Localizable", "Create Space", fallback: "Create Space")
   public static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   public static let current = Loc.tr("Localizable", "Current", fallback: "Current")
   public static let dates = Loc.tr("Localizable", "Dates", fallback: "Dates")
@@ -368,6 +369,7 @@ public enum Loc {
   public static let teal = Loc.tr("Localizable", "Teal", fallback: "Teal")
   public static let tealBackground = Loc.tr("Localizable", "Teal background", fallback: "Teal background")
   public static let templates = Loc.tr("Localizable", "Templates", fallback: "Templates")
+  public static let thereAreNoSpacesYet = Loc.tr("Localizable", "There are no spaces yet", fallback: "There are no spaces yet")
   public static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
   public static let thereIsNoIconNamed = Loc.tr("Localizable", "There is no icon named", fallback: "There is no icon named")
   public static func thereIsNoObjectNamed(_ p1: Any) -> String {

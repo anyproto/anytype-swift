@@ -33,7 +33,7 @@ struct NewSpaceHubView: View {
             navBar
             HomeUpdateSubmoduleView().padding(8)
             
-            if let spaces = model.spaces {
+            if let spaces = model.spaces, spaces.isNotEmpty {
                 VStack(spacing: 8) {
                     ScrollView {
                         Spacer.fixedHeight(4)
@@ -50,6 +50,15 @@ struct NewSpaceHubView: View {
                     }
                     .scrollIndicators(.never)
                 }
+            } else {
+                EmptyStateView(
+                    title: Loc.thereAreNoSpacesYet,
+                    subtitle: "",
+                    style: .withImage,
+                    buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
+                        model.onTapCreateSpace()
+                    }
+                )
             }
             
             Spacer()
