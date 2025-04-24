@@ -38,6 +38,8 @@ extension Anytype_Rpc.Object {
 
           /// only the guide without other tables
           case guideOnly // = 3
+          case getStartedMobile // = 4
+          case emptyMobile // = 5
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -50,6 +52,8 @@ extension Anytype_Rpc.Object {
             case 1: self = .getStarted
             case 2: self = .empty
             case 3: self = .guideOnly
+            case 4: self = .getStartedMobile
+            case 5: self = .emptyMobile
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -60,6 +64,8 @@ extension Anytype_Rpc.Object {
             case .getStarted: return 1
             case .empty: return 2
             case .guideOnly: return 3
+            case .getStartedMobile: return 4
+            case .emptyMobile: return 5
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -70,6 +76,8 @@ extension Anytype_Rpc.Object {
             .getStarted,
             .empty,
             .guideOnly,
+            .getStartedMobile,
+            .emptyMobile,
           ]
 
         }
@@ -229,6 +237,8 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._Proto
     1: .same(proto: "GET_STARTED"),
     2: .same(proto: "EMPTY"),
     3: .same(proto: "GUIDE_ONLY"),
+    4: .same(proto: "GET_STARTED_MOBILE"),
+    5: .same(proto: "EMPTY_MOBILE"),
   ]
 }
 
