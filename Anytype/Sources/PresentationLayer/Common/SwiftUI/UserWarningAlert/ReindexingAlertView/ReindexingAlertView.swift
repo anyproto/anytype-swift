@@ -7,8 +7,7 @@ struct ReindexingAlertView: View {
         BottomAlertView(
             title: Loc.ReindexingWarningAlert.title,
             message: Loc.ReindexingWarningAlert.description,
-            icon: .BottomAlert.update,
-            style: .color(.green)
+            icon: .Dialog.update
         ) {
             BottomAlertButton(text: Loc.gotIt, style: .primary) {
                 dismiss()
