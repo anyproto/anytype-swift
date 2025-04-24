@@ -22,7 +22,6 @@ extension ImageAsset {
     public static let exclamation = ImageAsset.bundle(name: "BottomAlert/exclamation")
     public static let mail = ImageAsset.bundle(name: "BottomAlert/mail")
     public static let question = ImageAsset.bundle(name: "BottomAlert/question")
-    public static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
     public static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
   public static let arrowDown = ImageAsset.bundle(name: "arrowDown")

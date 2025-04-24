@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "question.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "question-dark.pdf",
+      "filename" : "_.pdf",
       "idiom" : "universal"
     }
   ],

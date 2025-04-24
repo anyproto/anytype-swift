@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "exclamation.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "exclamation-dark.pdf",
+      "filename" : "!.pdf",
       "idiom" : "universal"
     }
   ],

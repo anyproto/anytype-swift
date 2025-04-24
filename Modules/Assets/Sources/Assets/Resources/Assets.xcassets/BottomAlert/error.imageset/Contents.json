@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Illustration-3.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Illustration-4.pdf",
+      "filename" : "duck.pdf",
       "idiom" : "universal"
     }
   ],
