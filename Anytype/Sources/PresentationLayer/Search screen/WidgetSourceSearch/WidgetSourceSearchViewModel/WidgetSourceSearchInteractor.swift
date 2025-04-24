@@ -13,7 +13,7 @@ struct WidgetAnytypeLibrarySource: Hashable {
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
     func objectsTypesSearch(text: String) async throws -> [ObjectDetails]
     func objectsSearch(text: String) async throws -> [ObjectDetails]
-    func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource]
+    func anytypeLibrarySearch(text: String) async throws -> [WidgetAnytypeLibrarySource]
 }
 
 @MainActor
@@ -21,20 +21,21 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @Injected(\.documentsProvider)
-    private var documentsProvider: any DocumentsProviderProtocol
+    private let openedDocumentsProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let spaceId: String
     private let widgetObjectId: String
     private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
+    private let widgetObject: any BaseDocumentProtocol
     
     private var widgetTypeIds: [String]?
     
     init(spaceId: String, widgetObjectId: String) {
         self.spaceId = spaceId
         self.widgetObjectId = widgetObjectId
+        self.widgetObject = openedDocumentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
@@ -45,11 +46,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     func objectsTypesSearch(text: String) async throws -> [ObjectDetails] {
         if widgetTypeIds.isNil {
-            let widgetObject = documentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
-            try await widgetObject.open()
-            let sourceIds = widgetObject.children
-                .filter(\.isWidget)
-                .compactMap { widgetObject.targetObjectIdByLinkFor(widgetBlockId: $0.id) }
+            let sourceIds = try await sourceIds()
             let objectTypes = objectTypeProvider.objectTypes(spaceId: spaceId)
             let excludedExistedIds = objectTypes
                 .filter { sourceIds.contains($0.id) }
@@ -68,9 +65,19 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
         )
     }
     
-    func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {
+    func anytypeLibrarySearch(text: String) async throws -> [WidgetAnytypeLibrarySource] {
+        let sourceIds = try await sourceIds()
+        let anytypeLibrary = anytypeLibrary.filter { !sourceIds.contains($0.type.rawValue) }
+        
         guard text.isNotEmpty else { return anytypeLibrary }
         return anytypeLibrary.filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
+    }
+    
+    private func sourceIds() async throws -> [String] {
+        try await widgetObject.open()
+        return widgetObject.children
+            .filter(\.isWidget)
+            .compactMap { widgetObject.targetObjectIdByLinkFor(widgetBlockId: $0.id) }
     }
 }
 
