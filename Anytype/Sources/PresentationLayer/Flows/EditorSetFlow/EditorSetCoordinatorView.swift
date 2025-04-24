@@ -65,7 +65,7 @@ struct EditorSetCoordinatorView: View {
                 ObjectTypeTemplatePickerView(document: $0.document, output: model)
             }
             .anytypeSheet(item: $model.objectTypeInfo) {
-                ObjectTypeInfoView(info: $0, mode: .edit) { info in
+                ObjectTypeInfoView(info: $0) { info in
                     model.onObjectTypeNameUpdate(info: info)
                 }
             }

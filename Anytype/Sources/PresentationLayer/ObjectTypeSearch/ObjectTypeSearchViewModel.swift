@@ -165,9 +165,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func createType(name: String) {
         if FeatureFlags.pluralNames {
-            newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil)
+            newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil, mode: .create)
         } else {
-            onCreateTypeSubmit(info: ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil))
+            onCreateTypeSubmit(info: ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil, mode: .create))
         }
     }
 
