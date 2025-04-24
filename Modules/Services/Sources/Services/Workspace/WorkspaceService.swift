@@ -54,7 +54,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
             $0.details.fields[BundledRelationKey.iconOption.rawValue] = iconOption.protobufValue
             $0.details.fields[BundledRelationKey.spaceAccessType.rawValue] = accessType.rawValue.protobufValue
             $0.details.fields[BundledRelationKey.spaceUxType.rawValue] = uxType.rawValue.protobufValue
-            $0.useCase = useCase.toMiddleware()
+            $0.useCase = useCase
             $0.withChat = withChat
         }).invoke()
         return result

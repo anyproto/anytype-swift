@@ -25,7 +25,7 @@ extension SpaceUxType {
     var useCase: UseCase {
         switch self {
         case .chat: return .none
-        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .empty
+        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .emptyMobile
         default: return .empty
         }
     }
