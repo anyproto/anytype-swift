@@ -103,6 +103,7 @@ extension TextBlockContentConfiguration {
 }
 
 extension TextBlockContentConfiguration {
+    @MainActor
     static let empty = TextBlockContentConfiguration(
         blockId: UUID().uuidString,
         content: .empty(contentType: .text),

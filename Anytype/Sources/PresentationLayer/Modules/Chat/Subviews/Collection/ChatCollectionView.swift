@@ -24,6 +24,7 @@ struct ChatCollectionView<
     let scrollToTop: () async -> Void
     let scrollToBottom: () async -> Void
     let handleVisibleRange: (_ from: Item, _ to: Item) -> Void
+    let handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?
     let onTapCollectionBackground: () -> Void
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
@@ -96,6 +97,7 @@ struct ChatCollectionView<
         context.coordinator.scrollToTop = scrollToTop
         context.coordinator.scrollToBottom = scrollToBottom
         context.coordinator.handleVisibleRange = handleVisibleRange
+        context.coordinator.handleBigDistanceToTheBottom = handleBigDistanceToTheBottom
         context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
         context.coordinator.onTapCollectionBackground = onTapCollectionBackground
     }

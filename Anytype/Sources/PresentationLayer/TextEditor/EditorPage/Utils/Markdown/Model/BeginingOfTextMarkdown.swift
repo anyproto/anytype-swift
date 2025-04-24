@@ -12,6 +12,7 @@ extension BeginingOfTextMarkdown {
 }
 
 extension BeginingOfTextMarkdown {
+    @MainActor
     static let all: [BeginingOfTextMarkdown] = [
         BeginingOfTextMarkdown(text: "# ", type: .text(.header)),
         BeginingOfTextMarkdown(text: "## ", type: .text(.header2)),

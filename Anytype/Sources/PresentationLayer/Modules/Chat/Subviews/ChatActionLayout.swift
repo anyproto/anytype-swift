@@ -31,10 +31,20 @@ private struct ChatActionViewModifier<OverlayContent: View>: ViewModifier {
             .readFrame {
                 currentOffset = $0.minY
             }
-            .alignmentGuide(.chatAction) { $0[.top] + (state.offset - currentOffset) }
+            .alignmentGuide(.chatAction) { guide in
+                // Fix concurrency error
+                let top = guide[.top]
+                return MainActor.assumeIsolated {
+                    return top + offset
+                }
+            }
             .overlay(alignment: .chatAction) {
                 overlayView
             }
+    }
+    
+    private var offset: CGFloat {
+        state.offset - currentOffset
     }
 }
 

@@ -1,5 +1,6 @@
 import Foundation
 import AppTarget
+import os.lock
 
 // Configurations problem.
 // SPM allow only two configurations: debug and release.
@@ -22,12 +23,36 @@ import AppTarget
 
 // Temporary solution - setup environment from main target.
 // In the main target, always use #if. This way, the compiler will cut out unused code.
+
 public enum CoreEnvironment {
     
-    private static let targetTypeStorage = AtomicStorage(AppTargetType.debug)
-    public static var targetType: AppTargetType  {
-        get { targetTypeStorage.value }
-        set { targetTypeStorage.value = newValue }
+    nonisolated(unsafe) private static var _cachedTargetType: AppTargetType?
+    private static let lock = OSAllocatedUnfairLock()
+
+    public static var targetType: AppTargetType {
+        lock.lock()
+        defer { lock.unlock() }
+
+        if let cached = _cachedTargetType {
+            return cached
+        }
+
+        let condition = Bundle.main.object(forInfoDictionaryKey: "CompilationCondition") as? String ?? ""
+
+        let resolved: AppTargetType
+        switch condition {
+        case "DEBUG", "RELEASE_NIGHTLY":
+            resolved = .debug
+        case "RELEASE_ANYAPP":
+            resolved = .releaseAnyApp
+        case "RELEASE_ANYTYPE":
+            resolved = .releaseAnytype
+        default:
+            resolved = .debug
+        }
+
+        _cachedTargetType = resolved
+        return resolved
     }
     
     public static var isSimulator: Bool {

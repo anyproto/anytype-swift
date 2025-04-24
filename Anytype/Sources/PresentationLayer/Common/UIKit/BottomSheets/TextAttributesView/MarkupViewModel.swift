@@ -68,6 +68,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
                 spaceId: document.spaceId,
                 currentLinkUrl: selectedMarkups.keys.compactMap { $0.urlLink }.first,
                 currentLinkString: selectedMarkups.keys.compactMap { $0.blokcLink }.first,
+                route: .mention,
                 setLinkToObject: { [weak self, blockIds] blockId in
                     self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(blockId))
                 },

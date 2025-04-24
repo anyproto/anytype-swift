@@ -102,7 +102,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""
                 $0.joinStreamURL = joinStreamUrl
-            }).invoke(ignoreLogErrors: .accountLoadIsCanceled)
+            }).invoke(ignoreLogErrors: .accountLoadIsCanceled, .accountStoreNotMigrated)
             
             return try response.account.asModel()
         } catch let responseError as Anytype_Rpc.Account.Select.Response.Error {

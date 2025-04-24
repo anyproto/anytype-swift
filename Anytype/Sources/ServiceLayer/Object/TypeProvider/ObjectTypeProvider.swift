@@ -7,7 +7,7 @@ enum ObjectTypeError: Error {
     case objectTypeNotFound
 }
 
-final class ObjectTypeProvider: ObjectTypeProviderProtocol, Sendable {
+final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable {
     
     private enum Constants {
         static let subscriptionIdPrefix = "SubscriptionId.ObjectType-"

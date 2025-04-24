@@ -2,6 +2,7 @@ import Foundation
 import AVFoundation
 
 
+@MainActor
 protocol AnytypeAudioPlayerDelegate: AnyObject {
     func playerReadyToPlay(duration: Double)
     func playerReadyToResumeAfterInterruption()
@@ -17,5 +18,5 @@ protocol AnytypeAudioPlayerProtocol {
     func setAudio(playerItem: AVPlayerItem?, name: String, delegate: some AnytypeAudioPlayerDelegate)
     func play()
     func pause()
-    func setTrackTime(value: Double, completion: @escaping @Sendable @MainActor () -> Void)
+    func setTrackTime(value: Double, completion: @escaping @MainActor () -> Void)
 }

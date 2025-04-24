@@ -3,7 +3,7 @@ import UIKit
 import Combine
 import AnytypeCore
 
-final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
+final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol, @unchecked Sendable {
     
     private let fileDetails: FileDetails
     private let imageSource: ImageSource
@@ -25,15 +25,17 @@ final class ImagePreviewMediaHandler: PreviewMediaHandlingProtocol {
             updatePreviewItemURL(with: previewImage, data: nil, isPreview: true)
         }
 
-        imageSource.image.sinkWithResult { [weak self] result in
-            let _ = result.map { result in
-                guard let image = result.0 else {
-                    return
-                }
-
-                self?.updatePreviewItemURL(with: image, data: result.1, isPreview: false)
+        Task { @MainActor [weak self] in
+            
+            guard let result = await self?.imageSource.downloadImage(),
+                let image = result.image else {
+                return
             }
-        }.store(in: &cancellables)
+
+            self?.updatePreviewItemURL(with: image, data: result.data, isPreview: false)
+        }
+        .cancellable()
+        .store(in: &cancellables)
     }
 
 

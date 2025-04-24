@@ -1,4 +1,4 @@
-import AVFoundation
+@preconcurrency import AVFoundation
 import UIKit
 import SwiftUI
 
@@ -26,7 +26,7 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
     
     // MARK: - Coordinator
     
-    class Coordinator: NSObject, UINavigationControllerDelegate, ScannerViewControllerDeleage {
+    class Coordinator: NSObject, ScannerViewControllerDeleage {
         @Binding var qrCode: String
         @Binding var error: String?
 
@@ -70,7 +70,7 @@ protocol ScannerViewControllerDeleage {
 
 // MARK: - QR code view controller
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ScannerViewController: UIViewController, @preconcurrency AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var delegate: (any ScannerViewControllerDeleage)?
@@ -141,16 +141,18 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     // MARK: AVCaptureMetadataOutputObjectsDelegate
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        stopRunningCaptureSession()
-
-        if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            found(code: stringValue)
+        MainActor.assumeIsolated {
+            stopRunningCaptureSession()
+            
+            if let metadataObject = metadataObjects.first {
+                guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+                guard let stringValue = readableObject.stringValue else { return }
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                found(code: stringValue)
+            }
+            
+            dismiss(animated: true)
         }
-
-        dismiss(animated: true)
     }
 
     func found(code: String) {
@@ -158,9 +160,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     private func startRunningCaptureSession() {
-        serialQueue.async { [weak self] in
-            guard let self else { return }
-            self.startRunningCaptureSessionIfNeeded()
+        serialQueue.async { [captureSession] in
+            guard let captureSession else { return }
+            if !captureSession.isRunning {
+                captureSession.startRunning()
+            }
         }
     }
     
@@ -171,15 +175,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     private func stopRunningCaptureSession() {
-        serialQueue.async { [weak self] in
-            guard let self else { return }
-            self.stopRunningCaptureSessionIfNeeded()
-        }
-    }
-    
-    private func stopRunningCaptureSessionIfNeeded() {
-        if captureSession.isRunning {
-            captureSession.stopRunning()
+        serialQueue.async { [captureSession] in
+            guard let captureSession else { return }
+            if captureSession.isRunning {
+                captureSession.stopRunning()
+            }
         }
     }
 

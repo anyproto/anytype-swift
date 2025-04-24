@@ -200,6 +200,7 @@ public enum Loc {
   public static let leaveASpace = Loc.tr("Localizable", "Leave a space", fallback: "Leave a space")
   public static let letsGo = Loc.tr("Localizable", "Lets Go", fallback: "Let’s Go")
   public static let limitObjectTypes = Loc.tr("Localizable", "Limit object types", fallback: "Limit object types")
+  public static let link = Loc.tr("Localizable", "Link", fallback: "Link")
   public static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
   public static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: Links count")
@@ -304,6 +305,8 @@ public enum Loc {
   public static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
   public static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   public static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
+  public static let puzzle = Loc.tr("Localizable", "Puzzle", fallback: "Puzzle")
+  public static let puzzles = Loc.tr("Localizable", "Puzzles", fallback: "Puzzles")
   public static let qrCode = Loc.tr("Localizable", "QR Code", fallback: "QR Code")
   public static let random = Loc.tr("Localizable", "Random", fallback: "Random")
   public static let recent = Loc.tr("Localizable", "Recent", fallback: "Recent")
@@ -2240,7 +2243,7 @@ public enum Loc {
       }
     }
     public enum List {
-      public static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "There is no widgets yet")
+      public static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "No widgets yet")
     }
     public enum Source {
       public static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "System")

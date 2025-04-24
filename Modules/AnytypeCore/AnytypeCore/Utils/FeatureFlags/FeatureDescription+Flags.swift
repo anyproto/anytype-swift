@@ -186,6 +186,14 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let spaceHubRedesign = FeatureDescription(
+        title: "Space Hub redesign",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
+    )
+    
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
@@ -254,6 +262,27 @@ public extension FeatureDescription {
         title: "Wodgets - add plus button",
         type: .feature(author: "m@anytype.io", releaseVersion: "10"),
         defaultValue: true
+    )
+    
+    static let openWelcomeObject = FeatureDescription(
+        title: "Open welcome object",
+        type: .feature(author: "m@anytype.io", releaseVersion: "10.5"),
+        defaultValue: true
+    )
+    
+    static let spaceLoadingForScreen = FeatureDescription(
+        title: "Space Loading State Inside Screen",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: false
+    )
+    
+    static let binScreenEmptyAction = FeatureDescription(
+        title: "Bin screen - empty action",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug
@@ -354,5 +383,12 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let logMiddlewareRequests = FeatureDescription(
+        title: "Log middleware requests",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
     )
 }

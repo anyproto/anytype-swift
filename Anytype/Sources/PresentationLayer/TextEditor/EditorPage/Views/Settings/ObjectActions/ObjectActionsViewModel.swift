@@ -38,7 +38,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private var workspaceService: any WorkspaceServiceProtocol
     
     @Published var objectActions: [ObjectAction] = []
-    @Published var toastData = ToastBarData.empty
+    @Published var toastData: ToastBarData?
     @Published var dismiss = false
     
     init(objectId: String, spaceId: String, output: (any ObjectActionsOutput)?) {
@@ -160,7 +160,7 @@ final class ObjectActionsViewModel: ObservableObject {
             position: .above(widgetId: first.id)
         )
         AnytypeAnalytics.instance().logAddWidget(context: .object, createType: .manual)
-        toastData = ToastBarData(text: Loc.Actions.CreateWidget.success, showSnackBar: true, messageType: .success)
+        toastData = ToastBarData(Loc.Actions.CreateWidget.success, type: .success)
         dismiss.toggle()
     }
     
@@ -176,7 +176,7 @@ final class ObjectActionsViewModel: ObservableObject {
         }
         
         UIPasteboard.general.string = link?.absoluteString
-        toastData = ToastBarData(text: Loc.copied, showSnackBar: true)
+        toastData = ToastBarData(Loc.copied)
         dismiss.toggle()
     }
     

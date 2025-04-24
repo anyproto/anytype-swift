@@ -45,7 +45,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var spaceIcon: Icon?
     
     @Published var info = [SettingsInfoModel]()
-    @Published var snackBarData = ToastBarData.empty
+    @Published var snackBarData: ToastBarData?
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
     @Published var showInfoView = false
@@ -160,7 +160,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
                 .spaceUxType(isOn ? .chat : .data)
             ])
             
-            snackBarData = ToastBarData(text: isOn ? Loc.Settings.chatEnabled : Loc.Settings.chatDisabled, showSnackBar: true)
+            snackBarData = ToastBarData(isOn ? Loc.Settings.chatEnabled : Loc.Settings.chatDisabled)
         }
     }
     
@@ -259,7 +259,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
                 ]
             )
             
-            snackBarData = ToastBarData(text: Loc.Settings.updated, showSnackBar: true)
+            snackBarData = ToastBarData(Loc.Settings.updated)
         }
     }
     
@@ -280,7 +280,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         }
         
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
-            self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
+            self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
         }
         
         spaceName = spaceView.name

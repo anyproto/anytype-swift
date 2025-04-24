@@ -67,6 +67,7 @@ enum AnalyticsEventsRouteKind: String {
     case clipboard = "Clipboard"
     case search = "Search"
     case type = "Type"
+    case link = "Link"
 }
 
 enum AnalyticsEventsRelationType: String {

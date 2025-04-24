@@ -1,14 +1,14 @@
 import Foundation
 import ProtobufMessages
-import Combine
+@preconcurrency import Combine
 
-protocol FileErrorEventHandlerProtocol: AnyObject {
-    var fileLimitReachedPublisher: AnyPublisher<Void, Never> { get }
+protocol FileErrorEventHandlerProtocol: AnyObject, Sendable {
+    var fileLimitReachedPublisher: AnyPublisher<Void, Never> { get async }
     
-    func startSubscription()
+    func startSubscription() async
 }
 
-final class FileErrorEventHandler: FileErrorEventHandlerProtocol {
+actor FileErrorEventHandler: FileErrorEventHandlerProtocol {
     
     // MARK: - Private properties
     
@@ -25,7 +25,7 @@ final class FileErrorEventHandler: FileErrorEventHandlerProtocol {
         guard cancellable == nil else { return }
         
         cancellable = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            self?.handle(events: events)
+            await self?.handle(events: events)
         }
     }
     

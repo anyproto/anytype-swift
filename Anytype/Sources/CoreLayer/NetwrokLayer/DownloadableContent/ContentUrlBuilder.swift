@@ -68,7 +68,7 @@ private extension ContentUrlBuilder {
     }
     
     static func makeCustomSideQueryItem(size: CGFloat, name: String) -> URLQueryItem {
-        let adjustedSize = Int(size * UIScreen.main.scale)
+        let adjustedSize = Int(size * ScaleProvider.shared.scale)
         
         let queryItemValue: String = {
             guard adjustedSize > 0 else {

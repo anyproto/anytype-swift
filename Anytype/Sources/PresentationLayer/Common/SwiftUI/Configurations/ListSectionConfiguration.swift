@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct ListSectionConfiguration: Hashable, Identifiable {
+struct ListSectionConfiguration: Hashable, Identifiable, @unchecked Sendable {
     
     let id: String
     let rows: [ListRowConfiguration]

@@ -13,7 +13,7 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     
     @Published var email: String = ""
     @Published var changeEmail = false
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     
     // remove after middleware start to send update membership event
     @Published private var justUpdatedEmail = false
@@ -46,6 +46,6 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
         showEmailVerification = false
         changeEmail = false
         justUpdatedEmail = true
-        toastData = ToastBarData(text: Loc.emailSuccessfullyValidated, showSnackBar: true)
+        toastData = ToastBarData(Loc.emailSuccessfullyValidated)
     }
 }

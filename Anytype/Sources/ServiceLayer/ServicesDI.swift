@@ -314,10 +314,6 @@ extension Container {
         self { UserDefaultsStorage() }.singleton
     }
     
-    var spaceSetupManager: Factory<any SpaceSetupManagerProtocol> {
-        self { SpaceSetupManager() }.singleton
-    }
-    
     var allObjectsSubscriptionService: Factory<any AllObjectsSubscriptionServiceProtocol> {
         self { AllObjectsSubscriptionService() }
     }
@@ -384,5 +380,9 @@ extension Container {
     
     var applePushNotificationService: Factory<any ApplePushNotificationServiceProtocol> {
         self { ApplePushNotificationService() }.singleton
+    }
+    
+    var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
+        self { ActiveSpaceManager() }.singleton
     }
 }

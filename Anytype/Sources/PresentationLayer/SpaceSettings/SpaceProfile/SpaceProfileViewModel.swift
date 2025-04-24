@@ -17,7 +17,7 @@ final class SpaceProfileViewModel: ObservableObject {
     @Published var showSpaceLeaveAlert = false
     
     @Published var settingsInfo = [SettingsInfoModel]()
-    @Published var snackBarData = ToastBarData.empty
+    @Published var snackBarData: ToastBarData?
     
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
@@ -115,7 +115,7 @@ final class SpaceProfileViewModel: ObservableObject {
     private func updateSettingsInfo() {
         guard let participantSpaceView else { return }
         settingsInfo = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: participantSpaceView.spaceView, owner: owner) { [weak self] in
-            self?.snackBarData = .init(text: Loc.copiedToClipboard($0), showSnackBar: true)
+            self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
         }
     }
 }

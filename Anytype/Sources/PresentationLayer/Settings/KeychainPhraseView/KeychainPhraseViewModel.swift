@@ -15,7 +15,7 @@ class KeychainPhraseViewModel: ObservableObject {
     // MARK: - State
     
     @Published private(set) var recoveryPhrase: String? = nil
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     
     init(shownInContext: AnalyticsEventsKeychainContext) {
         self.shownInContext = shownInContext
@@ -49,7 +49,7 @@ class KeychainPhraseViewModel: ObservableObject {
     }
     
     private func showToast() {
-        toastBarData = ToastBarData(text: Loc.Keychain.Key.Copy.Toast.title, showSnackBar: true)
+        toastBarData = ToastBarData(Loc.Keychain.Key.Copy.Toast.title)
         AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
     }
 }

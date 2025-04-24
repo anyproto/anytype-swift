@@ -19,7 +19,7 @@ struct MembershipDebugView: View {
     
     @State private var tiers: [DebugTierData] = []
     @State private var transactions: [StoreKit.Transaction] = []
-    @State private var toastBarData = ToastBarData.empty
+    @State private var toastBarData: ToastBarData?
     
     @State private var refundId: StoreKit.Transaction.ID?
     @State private var showRefund = false
@@ -142,7 +142,7 @@ struct MembershipDebugView: View {
             }
             StandardButton("Copy to clipboard", style: .secondaryLarge) {
                 UIPasteboard.general.string = transaction.debugDescription
-                toastBarData = ToastBarData(text: "Copied debug info to clipboard", showSnackBar: true)
+                toastBarData = ToastBarData("Copied debug info to clipboard")
             }
             StandardButton("Refund", style: .warningLarge) {
                 refundId = transaction.id

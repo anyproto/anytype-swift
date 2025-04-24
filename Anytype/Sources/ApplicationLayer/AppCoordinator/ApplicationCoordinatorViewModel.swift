@@ -1,5 +1,5 @@
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 import Services
 
@@ -27,7 +27,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - State
     
     @Published var applicationState: ApplicationState = .initial
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var migrationData: MigrationModuleData?
     @Published var selectAccountTaskId: String?
     
@@ -67,13 +67,13 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
     
     func startAccountStateHandler() async {
-        for await status in accountEventHandler.accountStatusPublisher.values {
+        for await status in await accountEventHandler.accountStatusPublisher.values {
             await handleAccountStatus(status)
         }
     }
 
     func startFileHandler() async {
-        for await _ in fileErrorEventHandler.fileLimitReachedPublisher.values {
+        for await _ in await fileErrorEventHandler.fileLimitReachedPublisher.values {
             handleFileLimitReachedError()
         }
     }
@@ -159,6 +159,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     }
 
     private func handleFileLimitReachedError() {
-        toastBarData = ToastBarData(text: Loc.FileStorage.limitError, showSnackBar: true, messageType: .none)
+        toastBarData = ToastBarData(Loc.FileStorage.limitError, type: .neutral)
     }
 }

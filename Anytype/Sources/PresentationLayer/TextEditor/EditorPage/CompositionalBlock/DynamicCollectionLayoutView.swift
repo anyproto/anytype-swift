@@ -2,6 +2,7 @@ import UIKit
 import Services
 
 // Used only for iOS14.
+@MainActor
 private final class iOS14CompositionalContentHeightStorage {
     static let shared = iOS14CompositionalContentHeightStorage()
 

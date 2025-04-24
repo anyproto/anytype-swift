@@ -247,18 +247,24 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         guard range.length > 0 else { return nil }
     
         let chatMenuKeys = NSAttributedString.Key.chatToggleMenuKeys
-        let menuItems = chatMenuKeys.compactMap { makeMenuAction(textView, editMenuForTextIn: range, attributed: $0) }
+        let toggleMenuItems = chatMenuKeys.compactMap { makeToggleMenuAction(textView, editMenuForTextIn: range, attributed: $0) }
+        let format = UIMenu(title: Loc.format, children: toggleMenuItems)
         
-        let linkToAction = UIAction(image: UIImage(asset: .TextStyles.embed)) { [linkTo] _ in
+        let linkToAction = UIAction(title: Loc.link) { [linkTo] _ in
             linkTo?(range)
         }
         
-        return UIMenu(children: menuItems + [linkToAction] + suggestedActions)
+        let standardEdit = suggestedActions.first { ($0 as? UIMenu)?.identifier == .standardEdit }
+        let otherActions = suggestedActions.filter { ($0 as? UIMenu)?.identifier != .standardEdit }
+        
+        let actions = [standardEdit, format, linkToAction].compactMap { $0 } + otherActions
+        
+        return UIMenu(children: actions)
     }
     
     // MARK: -
     
-    func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
+    nonisolated func textContentStorage(_ textContentStorage: NSTextContentStorage, textParagraphWith range: NSRange) -> NSTextParagraph? {
         let originalText = textContentStorage.textStorage!.attributedSubstring(from: range)
         
         let newText = originalText.mutable
@@ -322,7 +328,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         return NSTextParagraph(attributedString: newText)
     }
     
-    private func makeMenuAction(_ textView: UITextView, editMenuForTextIn range: NSRange, attributed: NSAttributedString.Key) -> UIMenuElement? {
+    private func makeToggleMenuAction(_ textView: UITextView, editMenuForTextIn range: NSRange, attributed: NSAttributedString.Key) -> UIMenuElement? {
         guard let info = attributed.chatToggleMenuItemInfo() else { return nil }
         
         let containsNoStyle = textView.attributedText.containsNilAttribute(attributed, in: range)

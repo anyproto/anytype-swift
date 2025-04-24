@@ -10,7 +10,7 @@ final class ServerDocumentPickerViewModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var toast = ToastBarData.empty
+    @Published var toast: ToastBarData?
     
     func onSelectFile(url: URL) {
         do {
@@ -18,7 +18,7 @@ final class ServerDocumentPickerViewModel: ObservableObject {
             AnytypeAnalytics.instance().logUploadNetworkConfiguration()
             AnytypeAnalytics.instance().logSelectNetwork(type: .selfHost, route: .onboarding)
         } catch {
-            toast = ToastBarData(text: Loc.error, showSnackBar: true, messageType: .failure)
+            toast = ToastBarData(Loc.error, type: .failure)
         }
     }
 }

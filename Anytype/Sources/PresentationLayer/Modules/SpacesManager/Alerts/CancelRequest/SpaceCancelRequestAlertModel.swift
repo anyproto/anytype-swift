@@ -9,7 +9,7 @@ final class SpaceCancelRequestAlertModel: ObservableObject {
     
     private let spaceId: String
     
-    @Published var toast: ToastBarData = .empty
+    @Published var toast: ToastBarData?
     
     init(spaceId: String) {
         self.spaceId = spaceId
@@ -17,6 +17,6 @@ final class SpaceCancelRequestAlertModel: ObservableObject {
     
     func onTapCancelEquest() async throws {
         try await workspaceService.joinCancel(spaceId: spaceId)
-        toast = ToastBarData(text: Loc.SpaceManager.CancelRequestAlert.toast, showSnackBar: true, messageType: .success)
+        toast = ToastBarData(Loc.SpaceManager.CancelRequestAlert.toast, type: .success)
     }
 }

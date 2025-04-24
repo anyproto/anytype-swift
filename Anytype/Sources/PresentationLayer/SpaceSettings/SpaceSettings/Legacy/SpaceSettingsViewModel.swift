@@ -41,7 +41,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var spaceAccessType = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
-    @Published var snackBarData = ToastBarData.empty
+    @Published var snackBarData: ToastBarData?
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
     @Published var dismiss = false
@@ -167,7 +167,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             info.append(
                 SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: { [weak self] in
                     UIPasteboard.general.string = details.targetSpaceId
-                    self?.snackBarData = .init(text: Loc.copiedToClipboard(spaceRelationDetails.name), showSnackBar: true)
+                    self?.snackBarData = ToastBarData(Loc.copiedToClipboard(spaceRelationDetails.name))
                 })
             )
         }
@@ -181,7 +181,7 @@ final class SpaceSettingsViewModel: ObservableObject {
                     SettingsInfoModel(title: creatorDetails.name, subtitle: displayName, onTap: { [weak self] in
                         guard let self else { return }
                         UIPasteboard.general.string = displayName
-                        snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
+                        snackBarData = ToastBarData(Loc.copiedToClipboard(creatorDetails.name))
                     })
                 )
             }
@@ -191,7 +191,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             SettingsInfoModel(title: Loc.SpaceSettings.networkId, subtitle: workspaceInfo.networkId, onTap: { [weak self] in
                 guard let self else { return }
                 UIPasteboard.general.string = workspaceInfo.networkId
-                snackBarData = .init(text: Loc.copiedToClipboard(Loc.SpaceSettings.networkId), showSnackBar: true)
+                snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.SpaceSettings.networkId))
             })
         )
         
