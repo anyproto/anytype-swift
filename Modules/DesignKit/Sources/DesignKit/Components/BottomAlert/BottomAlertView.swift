@@ -38,7 +38,8 @@ public struct BottomAlertView<Header: View, Body: View>: View {
             buttonsView
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 24)
+        .padding(.top, 24)
+        .padding(.bottom, 16)
         .background(Color.Background.secondary)
     }
     

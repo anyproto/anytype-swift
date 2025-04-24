@@ -64,30 +64,30 @@ struct SpaceJoinView: View {
     
     private func invite(placeholder: Bool) -> some View {
         VStack(spacing: 0) {
-            DragIndicator()
             Image(asset: .BottomAlert.mail)
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
                 .foregroundColor(.Text.primary)
-            Spacer.fixedHeight(16)
+            Spacer.fixedHeight(8)
             AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
                 .foregroundColor(.Text.primary)
                 .if(placeholder) {
                     $0.redacted(reason: .placeholder)
                 }
-            Spacer.fixedHeight(16)
+            Spacer.fixedHeight(19)
             AsyncStandardButton(Loc.SpaceShare.Join.button, style: .primaryLarge) {
                 try await model.onJoin()
             }
             .if(placeholder) {
                 $0.redacted(reason: .placeholder)
             }
-            Spacer.fixedHeight(20)
+            Spacer.fixedHeight(17)
             AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
-            Spacer.fixedHeight(16)
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 16)
+        .padding(.top, 24)
+        .padding(.bottom, 16)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear {
             model.onInviewViewAppear()
