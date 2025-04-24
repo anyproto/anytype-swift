@@ -1,6 +1,7 @@
 import UIKit
 import AnytypeCore
 import FirebaseMessaging
+import Services
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
@@ -78,6 +79,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Handle foreground notifications
         completionHandler([.banner, .list, .sound, .badge])
     }
+    
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void)
+    {
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let decryptedMessage = userInfo[DecryptedPushKeys.decryptedMessage] as? [String : Any],
+           let spaceId = decryptedMessage[DecryptedPushKeys.spaceId] as? String,
+           let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String {
+            Task { @MainActor in
+                appActionStorage.action = .openObject(objectId: chatId, spaceId: spaceId)
+            }
+        }
+        
+        completionHandler()
+      }
     
     // MARK: - Termination
     
