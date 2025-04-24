@@ -8,8 +8,7 @@ struct ServerLocalConfigurationAlert: View {
         BottomAlertView(
             title: Loc.Server.LocalOnly.Alert.title,
             message: Loc.Server.LocalOnly.Alert.message,
-            icon: .BottomAlert.exclamation,
-            style: .color(.red)
+            icon: .BottomAlert.exclamation
         ) {
             BottomAlertButton(text: Loc.Server.LocalOnly.Alert.Action.disagree, style: .secondary) {
                 dismiss()

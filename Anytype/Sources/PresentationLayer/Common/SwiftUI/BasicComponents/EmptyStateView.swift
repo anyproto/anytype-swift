@@ -17,7 +17,7 @@ struct EmptyStateView: View {
         VStack(spacing: 0) {
             Spacer()
             if style == .withImage {
-                ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
+                Image(asset: .BottomAlert.error)
                 Spacer.fixedHeight(12)
             }
             AnytypeText(title, style: .uxBodyRegular)

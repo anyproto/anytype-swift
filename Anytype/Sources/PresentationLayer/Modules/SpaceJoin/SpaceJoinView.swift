@@ -65,7 +65,7 @@ struct SpaceJoinView: View {
     private func invite(placeholder: Bool) -> some View {
         VStack(spacing: 0) {
             DragIndicator()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.mail, style: .color(.blue))
+            Image(asset: .BottomAlert.mail)
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
                 .foregroundColor(.Text.primary)
@@ -117,8 +117,7 @@ struct SpaceJoinView: View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.NoAccess.title,
             message: Loc.SpaceShare.Join.InviteNotFound.message,
-            icon: .BottomAlert.error,
-            color: .red
+            icon: .BottomAlert.error
         ) {
             BottomAlertButton(
                 text: Loc.okay,
@@ -133,8 +132,7 @@ struct SpaceJoinView: View {
     private var spaceDeleted: some View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.spaceDeleted,
-            icon: .BottomAlert.error,
-            color: .red
+            icon: .BottomAlert.error
         ) {
             BottomAlertButton(
                 text: Loc.okay,

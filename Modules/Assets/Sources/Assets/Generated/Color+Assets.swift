@@ -87,15 +87,6 @@ extension Color {
       public static let black = Color(asset: Asset.BackgroundCustom.black)
       public static let material = Color(asset: Asset.BackgroundCustom.material)
     }
-    // MARK: - BottomAlert
-    public enum BottomAlert {
-      public static let blueEnd = Color(asset: Asset.BottomAlert.blueEnd)
-      public static let blueStart = Color(asset: Asset.BottomAlert.blueStart)
-      public static let greenEnd = Color(asset: Asset.BottomAlert.greenEnd)
-      public static let greenStart = Color(asset: Asset.BottomAlert.greenStart)
-      public static let redEnd = Color(asset: Asset.BottomAlert.redEnd)
-      public static let redStart = Color(asset: Asset.BottomAlert.redStart)
-    }
     // MARK: - CoverGradients
     public enum CoverGradients {
       public static let blueEnd = Color(asset: Asset.CoverGradients.blueEnd)

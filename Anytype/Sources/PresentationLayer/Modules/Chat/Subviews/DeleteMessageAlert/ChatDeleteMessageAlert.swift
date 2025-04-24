@@ -15,8 +15,7 @@ struct ChatDeleteMessageAlert: View {
         BottomAlertView(
             title: Loc.Chat.DeleteMessage.title,
             message: Loc.Chat.DeleteMessage.description,
-            icon: .BottomAlert.question,
-            color: .red
+            icon: .BottomAlert.question
         ) {
             BottomAlertButton(text: Loc.cancel, style: .secondary) {
                 dismiss()

@@ -26,15 +26,19 @@ public struct BottomAlertView<Header: View, Body: View>: View {
     }
     
     public var body: some View {
-        VStack(spacing: 0) {
-            DragIndicator()
-            headerView
-            titleView
-            messageView
-            bodyView
+        VStack(spacing: 19) {
+            VStack(spacing: 15) {
+                headerView
+                VStack(spacing: 8) {
+                    titleView
+                    messageView
+                    bodyView
+                }
+            }
             buttonsView
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 24)
         .background(Color.Background.secondary)
     }
     
@@ -43,8 +47,6 @@ public struct BottomAlertView<Header: View, Body: View>: View {
         AnytypeText(title, style: .heading)
             .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
-            .padding(.top, 15)
-            .padding(.bottom, 4)
     }
     
     @ViewBuilder
@@ -53,14 +55,11 @@ public struct BottomAlertView<Header: View, Body: View>: View {
             AnytypeText(message, style: .bodyRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-                .padding(.vertical, 10)
         }
     }
     
     private var buttonsView: some View {
         BottomAlertButtonView(buttons: buttons)
-            .padding(.top, 10)
-            .padding(.bottom, 16)
     }
 }
 
@@ -80,30 +79,19 @@ public extension BottomAlertView where Header == EmptyView, Body == EmptyView {
     }
 }
 
-public extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == EmptyView {
-    init(
-        title: String,
-        message: String? = nil,
-        icon: ImageAsset,
-        color: BottomAlertHeaderBackgroundColor,
-        @ArrayBuilder<BottomAlertButton> buttons: () -> [BottomAlertButton]
-    ) {
-        self.init(title: title, message: message, icon: icon, style: .color(color), buttons: buttons)
-    }
-    
+public extension BottomAlertView where Header == Image, Body == EmptyView {
     
     init(
         title: String,
         message: String? = nil,
         icon: ImageAsset,
-        style: BottomAlertHeaderBackgroundStyle,
         @ArrayBuilder<BottomAlertButton> buttons: () -> [BottomAlertButton]
     ) {
         self = BottomAlertView(
             title: title,
             message: message,
             headerView: {
-                ButtomAlertHeaderImageView(icon: icon, style: style)
+                Image(asset: icon)
             },
             bodyView: { EmptyView() },
             buttons: buttons
@@ -122,26 +110,27 @@ public extension BottomAlertView where Header == ButtomAlertHeaderImageView, Bod
                 try await Task.sleep(seconds: 10)
             })
         }
+        .border(Color.gray)
 }
 
 #Preview("With header") {
     BottomAlertView(
         title: "Title",
         message: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog",
-        icon: .BottomAlert.update,
-        color: .green) {
+        icon: .BottomAlert.update) {
             BottomAlertButton(text: "Button", style: .secondary, action: {})
             BottomAlertButton(text: "Button", style: .primary, action: {})
         }
+        .border(Color.gray)
 }
 
 #Preview("Long button text") {
     BottomAlertView(
         title: "Title",
         message: "Mes",
-        icon: .BottomAlert.update,
-        color: .green) {
+        icon: .BottomAlert.update) {
             BottomAlertButton(text: "Button 1111111111 11111", style: .secondary, action: {})
             BottomAlertButton(text: "Button", style: .primary, action: {})
         }
+        .border(Color.gray)
 }
