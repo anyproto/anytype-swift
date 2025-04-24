@@ -90,6 +90,7 @@ struct PushNotificationsAlertView: View {
                 Spacer.fixedHeight(10)
                 
                 hiddenLine
+                    .padding(.trailing, 32)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
