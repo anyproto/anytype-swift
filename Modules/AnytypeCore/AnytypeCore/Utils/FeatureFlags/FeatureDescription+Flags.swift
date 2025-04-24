@@ -191,7 +191,7 @@ public extension FeatureDescription {
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let chatLayoutInsideSpace = FeatureDescription(
