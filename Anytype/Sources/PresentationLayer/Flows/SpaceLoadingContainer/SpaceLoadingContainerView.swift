@@ -43,7 +43,6 @@ struct SpaceLoadingContainerView<Content: View>: View {
             }
             Spacer()
         }
-        .homeBottomPanelHidden(true)
     }
 }
 
