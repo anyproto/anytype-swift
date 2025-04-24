@@ -2,11 +2,11 @@ import Foundation
 import Services
 import FirebaseMessaging
 
-protocol RegistrationPushNotificationsServiceProtocol: AnyObject, Sendable {
+protocol PushNotificationsRegistrationServiceProtocol: AnyObject, Sendable {
     func registerForPushNotifications()
 }
 
-final class RegistrationPushNotificationsService: RegistrationPushNotificationsServiceProtocol {
+final class PushNotificationsRegistrationService: PushNotificationsRegistrationServiceProtocol {
     
     private let pushNotificationsService: any PushNotificationsServiceProtocol = Container.shared.pushNotificationsService()
     

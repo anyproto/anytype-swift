@@ -11,6 +11,9 @@ struct PushNotificationsAlertView: View {
     
     var body: some View {
         content
+            .onAppear {
+                model.onAppear()
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
@@ -87,6 +90,7 @@ struct PushNotificationsAlertView: View {
                 Spacer.fixedHeight(10)
                 
                 hiddenLine
+                    .padding(.trailing, 32)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
