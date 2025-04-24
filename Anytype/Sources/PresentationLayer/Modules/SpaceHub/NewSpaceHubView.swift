@@ -100,6 +100,7 @@ struct NewSpaceHubView: View {
             Button { model.onTapCreateSpace() }
             label: {
                 Image(asset: .X32.addFilled)
+                    .foregroundStyle(Color.Control.active)
                     .padding(.vertical, 6)
                     .padding(.horizontal, 16)
             }
