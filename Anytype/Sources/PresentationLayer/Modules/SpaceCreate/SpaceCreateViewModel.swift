@@ -70,7 +70,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             
             if FeatureFlags.openWelcomeObject {
                 if createResponse.startingObjectID.isNotEmpty {
-                    appActionStorage.action = .startObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
+                    appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
                 } else {
                     try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
                 }
@@ -81,7 +81,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
             
             if createResponse.startingObjectID.isNotEmpty {
-                appActionStorage.action = .startObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
+                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             }
             
             dismissForLegacyOS()
