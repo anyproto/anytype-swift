@@ -32,6 +32,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
+    @Published var showSpaceChat: Bool = false
     
     var spaceId: String { info.accountSpaceId }
     
@@ -67,6 +68,12 @@ final class HomeWidgetsViewModel: ObservableObject {
     func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             homeState = canEdit ? .readwrite : .readonly
+        }
+    }
+    
+    func startSpaceTask() async {
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: info.accountSpaceId).values {
+            showSpaceChat = spaceView.uxType.isData
         }
     }
     

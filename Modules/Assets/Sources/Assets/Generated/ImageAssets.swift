@@ -699,6 +699,7 @@ extension ImageAsset {
     public static let blur = ImageAsset.bundle(name: "x24/Blur")
     public static let burger = ImageAsset.bundle(name: "x24/Burger")
     public static let calendar = ImageAsset.bundle(name: "x24/Calendar")
+    public static let chat = ImageAsset.bundle(name: "x24/Chat")
     public static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
     public static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     public static let close = ImageAsset.bundle(name: "x24/Close")
@@ -749,6 +750,8 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x24/View/List")
       public static let table = ImageAsset.bundle(name: "x24/View/Table")
     }
+    public static let allObjects = ImageAsset.bundle(name: "x24/allObjects")
+    public static let bin = ImageAsset.bundle(name: "x24/bin")
   }
   public enum X28 {
     public static let sort = ImageAsset.bundle(name: "x28/Sort")
@@ -1018,8 +1021,6 @@ extension ImageAsset {
       public static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
     public static let addTop = ImageAsset.bundle(name: "Widget/add_top")
-    public static let allObjects = ImageAsset.bundle(name: "Widget/allObjects")
-    public static let bin = ImageAsset.bundle(name: "Widget/bin")
     public static let settings = ImageAsset.bundle(name: "Widget/settings")
     public static let tick = ImageAsset.bundle(name: "Widget/tick")
   }
