@@ -73,7 +73,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func startSpaceTask() async {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: info.accountSpaceId).values {
-            showSpaceChat = spaceView.uxType.isData
+            showSpaceChat = !spaceView.initialScreenIsChat
         }
     }
     
