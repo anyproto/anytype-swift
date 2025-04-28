@@ -5,8 +5,9 @@ import AsyncAlgorithms
 @preconcurrency import Combine
 import AnytypeCore
 
+
 protocol SpaceHubSpacesStorageProtocol: Sendable {
-    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewData]> { get async }
+    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewDataWithPreview]> { get async }
 }
 
 actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
@@ -17,7 +18,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
-    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewData]> {
+    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewDataWithPreview]> {
         get async {
             if FeatureFlags.countersOnSpaceHub {
                 
@@ -31,11 +32,11 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                 ).throttle(milliseconds: 300)
                 
                 return combineStream.map { (spaces, previews) in
-                    var spaces = spaces
+                    var spaces = spaces.map { ParticipantSpaceViewDataWithPreview(space: $0, unreadCount: 0) }
                     
                     for preview in previews {
                         if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
-                            spaces[spaceIndex] = spaces[spaceIndex].updateUnreadMessagesCount(preview.counter)
+                            spaces[spaceIndex] = spaces[spaceIndex].updated(unreadCount: preview.counter)
                         }
                     }
                     
@@ -44,6 +45,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
             } else {
                 return participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values
                     .throttle(milliseconds: 300)
+                    .map { $0.map { ParticipantSpaceViewDataWithPreview(space: $0, unreadCount: 0) } }
                     .eraseToAnyAsyncSequence()
             }
         }

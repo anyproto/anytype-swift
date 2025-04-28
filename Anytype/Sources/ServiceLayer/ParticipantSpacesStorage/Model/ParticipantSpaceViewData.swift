@@ -64,12 +64,4 @@ extension ParticipantSpaceViewData {
     var isOwner: Bool {
         participant?.isOwner ?? false
     }
-    
-    func updateUnreadMessagesCount(_ count: Int) -> ParticipantSpaceViewData {
-        ParticipantSpaceViewData(
-            spaceView: spaceView.updateUnreadMessagesCount(count),
-            participant: participant,
-            permissions: permissions
-        )
-    }
 }

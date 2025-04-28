@@ -4,27 +4,27 @@ import AnytypeCore
 // SpaceCardLabel and SpaceCard are splitted for better SwiftUI diff.
 struct SpaceCardLabel: View {
     
-    let space: ParticipantSpaceViewData
+    let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpeper: SpaceWallpaperType
-    @Binding var draggedSpace: ParticipantSpaceViewData?
+    @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
     var body: some View {
         HStack(spacing: 16) {
-            IconView(icon: space.spaceView.objectIconImage)
+            IconView(icon: spaceData.spaceView.objectIconImage)
                 .frame(width: 64, height: 64)
             VStack(alignment: .leading, spacing: 6) {
-                Text(space.spaceView.name.withPlaceholder)
+                Text(spaceData.spaceView.name.withPlaceholder)
                     .anytypeFontStyle(.bodySemibold)
                     .lineLimit(1)
                     .foregroundStyle(Color.Text.primary)
                 if FeatureFlags.spaceUxTypes {
-                    Text(space.spaceView.uxType.name)
+                    Text(spaceData.spaceView.uxType.name)
                         .anytypeStyle(.relation3Regular)
                         .lineLimit(1)
                         .opacity(0.6)
                         .foregroundStyle(Color.Text.primary)
                 } else {
-                    Text(space.spaceView.spaceAccessType?.name ?? "")
+                    Text(spaceData.spaceView.spaceAccessType?.name ?? "")
                         .anytypeStyle(.relation3Regular)
                         .lineLimit(1)
                         .opacity(0.6)
@@ -35,11 +35,11 @@ struct SpaceCardLabel: View {
             
             Spacer()
             
-            if space.spaceView.isLoading && FeatureFlags.newSpacesLoading {
+            if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
                 DotsView().frame(width: 30, height: 6)
-            } else if space.spaceView.unreadMessagesCount > 0 {
-                CounterView(count: space.spaceView.unreadMessagesCount)
-            } else if space.spaceView.isPinned {
+            } else if spaceData.unreadCount > 0 {
+                CounterView(count: spaceData.unreadCount)
+            } else if spaceData.spaceView.isPinned {
                 Image(asset: .X24.pin).frame(width: 22, height: 22)
             }
         }
@@ -50,17 +50,17 @@ struct SpaceCardLabel: View {
             DashboardWallpaper(
                 mode: .spaceHub,
                 wallpaper: wallpeper,
-                spaceIcon: space.spaceView.iconImage
+                spaceIcon: spaceData.spaceView.iconImage
             )
         )
         .cornerRadius(20, style: .continuous)
         
-        .if(space.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
+        .if(spaceData.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
-        .if(!FeatureFlags.pinnedSpaces || space.spaceView.isPinned) {
+        .if(!FeatureFlags.pinnedSpaces || spaceData.spaceView.isPinned) {
             $0.onDrag {
-                draggedSpace = space
+                draggedSpace = spaceData
                 return NSItemProvider()
             } preview: {
                 EmptyView()

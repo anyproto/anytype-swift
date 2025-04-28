@@ -6,7 +6,7 @@ import AsyncAlgorithms
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
-    @Published var spaces: [ParticipantSpaceViewData]?
+    @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
     @Published var showSettings = false

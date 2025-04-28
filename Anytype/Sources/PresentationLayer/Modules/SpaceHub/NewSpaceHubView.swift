@@ -4,7 +4,7 @@ import AnytypeCore
 struct NewSpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
-    @State private var draggedSpace: ParticipantSpaceViewData?
+    @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
     init(output: (any SpaceHubModuleOutput)?) {
@@ -116,9 +116,9 @@ struct NewSpaceHubView: View {
         }
     }
     
-    private func spaceCard(_ space: ParticipantSpaceViewData) -> some View {
+    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
         NewSpaceCard(
-            space: space,
+            spaceData: space,
             wallpeper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggedSpace: $draggedSpace,
             onTap: {
