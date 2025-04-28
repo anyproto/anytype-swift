@@ -8,6 +8,8 @@ struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable {
     
     var spaceView: SpaceView { space.spaceView }
     
+    var haveCounters: Bool { unreadCount > 0 || mentionsCount > 0 }
+    
     func updated(unreadCount: Int, mentionsCount: Int) -> Self {
         ParticipantSpaceViewDataWithPreview(space: space, unreadCount: unreadCount, mentionsCount: mentionsCount)
     }
