@@ -89,7 +89,7 @@ extension SpaceView {
         uxType == .chat || uxType == .stream
     }
     
-    var chaToggleEnable: Bool {
+    var chatToggleEnable: Bool {
         FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     

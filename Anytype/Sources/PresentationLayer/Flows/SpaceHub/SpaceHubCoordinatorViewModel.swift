@@ -345,7 +345,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func initialHomePath(spaceView: SpaceView, addWidgets: Bool) -> [AnyHashable] {
         .builder {
             SpaceHubNavigationItem()
-            if spaceView.initialScreenIsChat, spaceView.chaToggleEnable {
+            if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
                 ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
                 if addWidgets {
                     HomeWidgetData(spaceId: spaceView.targetSpaceId)
@@ -414,7 +414,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     private func handleStartObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
-        if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chaToggleEnable {
+        if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
             try await openSpace(spaceId: spaceId)
         } else {
             let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
