@@ -86,7 +86,11 @@ extension SpaceView {
     }
     
     var initialScreenIsChat: Bool {
-        (uxType == .chat || uxType == .stream) && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
+        uxType == .chat || uxType == .stream
+    }
+    
+    var chaToggleEnable: Bool {
+        FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

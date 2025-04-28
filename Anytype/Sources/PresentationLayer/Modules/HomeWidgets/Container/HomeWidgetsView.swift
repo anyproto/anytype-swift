@@ -77,7 +77,7 @@ private struct HomeWidgetsInternalView: View {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTipView()
                 }
-                if FeatureFlags.chatWidget, model.showSpaceChat {
+                if model.showSpaceChat {
                     SpaceChatWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
                 }
                 ForEach(model.widgetBlocks) { widgetInfo in
