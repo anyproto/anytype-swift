@@ -20,7 +20,7 @@ final class AboutViewModel: ObservableObject {
     // MARK: - State
     
     @Published var info: String = ""
-    @Published var snackBarData = ToastBarData.empty
+    @Published var snackBarData: ToastBarData?
     @Published var safariUrl: URL?
     @Published var openUrl: URL?
     
@@ -71,7 +71,7 @@ final class AboutViewModel: ObservableObject {
     func onInfoTap() {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = fullInfo()
-        snackBarData = .init(text: Loc.copiedToClipboard(Loc.About.techInfo), showSnackBar: true)
+        snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.About.techInfo))
     }
     
     func onDebugMenuTap() {

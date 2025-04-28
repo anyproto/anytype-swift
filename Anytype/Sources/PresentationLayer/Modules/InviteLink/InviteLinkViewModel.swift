@@ -15,7 +15,7 @@ final class InviteLinkViewModel: ObservableObject {
     @Published var canDeleteLink = false
     @Published var canCopyInviteLink = false
     @Published var deleteLinkSpaceId: StringIdentifiable? = nil
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
@@ -94,14 +94,14 @@ final class InviteLinkViewModel: ObservableObject {
             }
             AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
             UIPasteboard.general.string = inviteLink?.absoluteString
-            toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
+            toastBarData = ToastBarData(Loc.copied)
         }
     }
     
     func onCopyLink() {
         AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
         UIPasteboard.general.string = shareLink?.absoluteString
-        toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
+        toastBarData = ToastBarData(Loc.copied)
     }
     
     func onShareInvite() {

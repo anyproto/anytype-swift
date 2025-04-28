@@ -17,14 +17,6 @@ extension ImageAsset {
   public static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
   public static let communication = ImageAsset.bundle(name: "communication")
   public static let localInternet = ImageAsset.bundle(name: "local-internet")
-  public enum BottomAlert {
-    public static let error = ImageAsset.bundle(name: "BottomAlert/error")
-    public static let exclamation = ImageAsset.bundle(name: "BottomAlert/exclamation")
-    public static let mail = ImageAsset.bundle(name: "BottomAlert/mail")
-    public static let question = ImageAsset.bundle(name: "BottomAlert/question")
-    public static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
-    public static let update = ImageAsset.bundle(name: "BottomAlert/update")
-  }
   public static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   public static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   public static let backArrow = ImageAsset.bundle(name: "backArrow")
@@ -559,6 +551,15 @@ extension ImageAsset {
       public static let inactive = ImageAsset.bundle(name: "Chat/SendMessage/inactive")
     }
   }
+  public enum Dialog {
+    public static let duck = ImageAsset.bundle(name: "Dialog/duck")
+    public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
+    public static let invite = ImageAsset.bundle(name: "Dialog/invite")
+    public static let question = ImageAsset.bundle(name: "Dialog/question")
+    public static let send = ImageAsset.bundle(name: "Dialog/send")
+    public static let update = ImageAsset.bundle(name: "Dialog/update")
+    public static let updated = ImageAsset.bundle(name: "Dialog/updated")
+  }
   public enum EmptyIcon {
     public static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
     public static let chat = ImageAsset.bundle(name: "EmptyIcon/chat")
@@ -698,6 +699,7 @@ extension ImageAsset {
     public static let blur = ImageAsset.bundle(name: "x24/Blur")
     public static let burger = ImageAsset.bundle(name: "x24/Burger")
     public static let calendar = ImageAsset.bundle(name: "x24/Calendar")
+    public static let chat = ImageAsset.bundle(name: "x24/Chat")
     public static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
     public static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     public static let close = ImageAsset.bundle(name: "x24/Close")
@@ -748,6 +750,8 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x24/View/List")
       public static let table = ImageAsset.bundle(name: "x24/View/Table")
     }
+    public static let allObjects = ImageAsset.bundle(name: "x24/allObjects")
+    public static let bin = ImageAsset.bundle(name: "x24/bin")
   }
   public enum X28 {
     public static let sort = ImageAsset.bundle(name: "x28/Sort")
@@ -856,6 +860,7 @@ extension ImageAsset {
     }
     public static let view = ImageAsset.bundle(name: "x32/View")
     public static let widgets = ImageAsset.bundle(name: "x32/Widgets")
+    public static let addFilled = ImageAsset.bundle(name: "x32/add_filled")
   }
   public enum X40 {
     public static let actions = ImageAsset.bundle(name: "x40/Actions")
@@ -1019,8 +1024,6 @@ extension ImageAsset {
       public static let tree = ImageAsset.bundle(name: "Widget/Preview/tree")
     }
     public static let addTop = ImageAsset.bundle(name: "Widget/add_top")
-    public static let allObjects = ImageAsset.bundle(name: "Widget/allObjects")
-    public static let bin = ImageAsset.bundle(name: "Widget/bin")
     public static let settings = ImageAsset.bundle(name: "Widget/settings")
     public static let tick = ImageAsset.bundle(name: "Widget/tick")
   }

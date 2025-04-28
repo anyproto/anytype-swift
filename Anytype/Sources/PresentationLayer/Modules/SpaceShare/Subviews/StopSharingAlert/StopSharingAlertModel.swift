@@ -10,7 +10,7 @@ final class StopSharingAlertModel: ObservableObject {
     private let spaceId: String
     private let onStopShare: (() -> Void)?
     
-    @Published var toast: ToastBarData = .empty
+    @Published var toast: ToastBarData?
     
     init(spaceId: String, onStopShare: (() -> Void)?) {
         self.spaceId = spaceId
@@ -19,7 +19,7 @@ final class StopSharingAlertModel: ObservableObject {
     
     func onTapStopShare() async throws {
         try await workspaceService.stopSharing(spaceId: spaceId)
-        toast = ToastBarData(text: Loc.SpaceShare.StopSharing.toast, showSnackBar: true, messageType: .success)
+        toast = ToastBarData(Loc.SpaceShare.StopSharing.toast, type: .success)
         AnytypeAnalytics.instance().logStopSpaceShare()
         onStopShare?()
     }

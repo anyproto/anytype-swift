@@ -14,7 +14,7 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     private let onViewRequest: (_ notification: NotificationRequestToJoin) async -> Void
     
     @Published var message: String = ""
-    @Published var toast: ToastBarData = .empty
+    @Published var toast: ToastBarData?
     @Published var dismiss = false
     
     init(

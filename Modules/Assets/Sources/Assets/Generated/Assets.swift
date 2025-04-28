@@ -98,14 +98,6 @@ public enum Asset {
     static let black = ColorAsset(name: "BackgroundCustom/black")
     static let material = ColorAsset(name: "BackgroundCustom/material")
   }
-  public enum BottomAlert {
-    static let blueEnd = ColorAsset(name: "BottomAlert/blueEnd")
-    static let blueStart = ColorAsset(name: "BottomAlert/blueStart")
-    static let greenEnd = ColorAsset(name: "BottomAlert/greenEnd")
-    static let greenStart = ColorAsset(name: "BottomAlert/greenStart")
-    static let redEnd = ColorAsset(name: "BottomAlert/redEnd")
-    static let redStart = ColorAsset(name: "BottomAlert/redStart")
-  }
   public enum CoverGradients {
     static let blueEnd = ColorAsset(name: "CoverGradients/blueEnd")
     static let bluePinkEnd = ColorAsset(name: "CoverGradients/bluePinkEnd")

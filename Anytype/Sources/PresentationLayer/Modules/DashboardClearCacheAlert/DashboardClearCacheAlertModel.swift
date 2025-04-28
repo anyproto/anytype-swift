@@ -14,7 +14,7 @@ final class DashboardClearCacheAlertModel: ObservableObject {
     
     // MARK: - State
     
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenFileOffloadWarning()
@@ -26,7 +26,7 @@ final class DashboardClearCacheAlertModel: ObservableObject {
             try await fileActionService.clearCache()
             AnytypeAnalytics.instance().logFileOffload()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self.toastBarData = ToastBarData(text: Loc.ClearCache.success, showSnackBar: true)
+            self.toastBarData = ToastBarData(Loc.ClearCache.success)
         } catch {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             throw error

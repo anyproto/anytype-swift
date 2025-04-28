@@ -14,7 +14,7 @@ final class ObjectTypeViewModel: ObservableObject {
     @Published var typeName = ""
     @Published var relationsCount: Int = 0
     
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var showDeleteConfirmation = false
     @Published var showTemplates = false
     
@@ -195,7 +195,7 @@ final class ObjectTypeViewModel: ObservableObject {
             do {
                 let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: document.objectId, spaceId: document.spaceId)
                 output?.showTemplatesPicker(defaultTemplateId: templateId)
-                toastBarData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(details?.title ?? ""), showSnackBar: true)
+                toastBarData = ToastBarData(Loc.Templates.Popup.WasAddedTo.title(details?.title ?? ""))
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }

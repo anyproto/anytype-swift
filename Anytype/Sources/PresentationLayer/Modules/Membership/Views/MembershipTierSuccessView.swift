@@ -11,8 +11,7 @@ struct MembershipTierSuccessView: View {
         BottomAlertView(
             title: Loc.Membership.Success.title(tier.name),
             message: tier.successMessage,
-            icon: tier.mediumIcon,
-            style: .plain
+            icon: tier.mediumIcon
         ) {
             BottomAlertButton(text: Loc.done, style: .secondary) {
                 dismiss()

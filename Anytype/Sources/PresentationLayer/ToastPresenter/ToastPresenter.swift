@@ -7,6 +7,10 @@ import Services
 protocol ToastPresenterProtocol: AnyObject {
     func show(message: String)
     func show(message: NSAttributedString)
+    
+    func showSuccessAlert(message: String)
+    func showFailureAlert(message: String)
+    
     func dismiss(completion: @escaping () -> Void)
     
     func showObjectName(
@@ -25,8 +29,7 @@ protocol ToastPresenterProtocol: AnyObject {
 }
 
 final class ToastPresenter: ToastPresenterProtocol {
-    static var shared: ToastPresenter? // Used only for SwiftUI
-
+    
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     
@@ -34,35 +37,24 @@ final class ToastPresenter: ToastPresenterProtocol {
     
     // MARK: - ToastPresenterProtocol
     
+    func showSuccessAlert(message: String) {
+        ToastManager.showSuccessAlert(message: message)
+    }
+    
+    func showFailureAlert(message: String) {
+        ToastManager.showFailureAlert(message: message)
+    }
+    
     func show(message: String) {
-        let attributedString = NSAttributedString(
-            string: message,
-            attributes: ToastView.defaultAttributes
-        )
-        show(message: attributedString)
+        ToastManager.show(message: message)
     }
     
     func show(message: NSAttributedString) {
-        let attributedMessage = NSMutableAttributedString(attributedString: message)
-        
-        let toastView = ToastView(frame: .zero)
-        toastView.setMessage(attributedMessage)
-        
-        var attributes = EKAttributes()
-        attributes.windowLevel = .alerts
-        attributes.entranceAnimation = .init(fade: EKAttributes.Animation.RangeAnimation(from: 0, to: 1, duration: 0.4))
-        attributes.exitAnimation = .init(fade: EKAttributes.Animation.RangeAnimation(from: 0, to: 1, duration: 0.4))
-        attributes.positionConstraints.size = .init(width: .offset(value: 16), height: .intrinsic)
-        attributes.position = .top
-        attributes.roundCorners = .all(radius: 8)
-        attributes.shadow = .active(with: .init(color: .black, opacity: 0.2, radius: 5, offset: .zero))
-        attributes.precedence = .enqueue(priority: .normal)
-        
-        SwiftEntryKit.display(entry: toastView, using: attributes)
+        ToastManager.show(message: message)
     }
     
     func dismiss(completion: @escaping () -> Void) {
-        SwiftEntryKit.dismiss(.all, with: completion)
+        ToastManager.dismiss(completion: completion)
     }
     
     func showObjectName(
@@ -74,10 +66,10 @@ final class ToastPresenter: ToastPresenterProtocol {
     ) {
         let objectAttributedString = NSMutableAttributedString(
             string: firstObjectName.trimmed(numberOfCharacters: Constants.numberOfTitleCharacters),
-            attributes: ToastView.objectAttributes
+            attributes: ToastAttributes.objectAttributes
         )
         objectAttributedString.append(.init(string: " "))
-        objectAttributedString.append(.init(string: middleAction, attributes: ToastView.defaultAttributes))
+        objectAttributedString.append(.init(string: middleAction, attributes: ToastAttributes.defaultAttributes))
         
         showObjectCompositeAlert(
             p1: objectAttributedString,
@@ -94,7 +86,7 @@ final class ToastPresenter: ToastPresenterProtocol {
         tapHandler: @escaping () -> Void
     ) {
         showObjectCompositeAlert(
-            p1: .init(string: prefixText, attributes: ToastView.defaultAttributes),
+            p1: .init(string: prefixText, attributes: ToastAttributes.defaultAttributes),
             objectId: objectId,
             spaceId: spaceId,
             tapHandler: tapHandler
@@ -137,7 +129,7 @@ final class ToastPresenter: ToastPresenterProtocol {
     private func createAttributedString(from objectDetails: ObjectDetails) -> NSAttributedString {
         return NSAttributedString(
             string: objectDetails.title.trimmed(numberOfCharacters: Constants.numberOfTitleCharacters),
-            attributes: ToastView.objectAttributes
+            attributes: ToastAttributes.objectAttributes
         )
     }
     
@@ -152,5 +144,11 @@ final class ToastPresenter: ToastPresenterProtocol {
 extension ToastPresenter {
     enum Constants {
         static let numberOfTitleCharacters: Int = 10
+    }
+}
+
+extension ToastAttributes {
+    static var objectAttributes: [NSAttributedString.Key : Any] {
+        [.foregroundColor: UIColor.Text.white, .font: AnytypeFont.caption1Medium.uiKitFont]
     }
 }

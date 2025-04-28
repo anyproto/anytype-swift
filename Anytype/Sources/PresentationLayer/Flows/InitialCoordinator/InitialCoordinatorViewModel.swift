@@ -22,7 +22,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     @Published var showWarningAlert: Bool = false
     @Published var showSaveBackupAlert: Bool = false
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var middlewareShareFile: URL? = nil
     @Published var localStoreURL: URL? = nil
     
@@ -52,7 +52,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
             try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
             let phrase = try seedService.obtainSeed()
             UIPasteboard.general.string = phrase
-            toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
+            toastBarData = ToastBarData(Loc.copied)
         }
     }
     

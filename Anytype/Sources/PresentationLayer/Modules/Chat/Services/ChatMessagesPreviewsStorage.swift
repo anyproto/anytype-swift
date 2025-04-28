@@ -75,7 +75,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatStateUpdate(state):
-                if handleChatStateUpdateEvent(event, state: state) {
+                if handleChatStateUpdateEvent(event, contextId: events.contextId, state: state) {
                     hasChanges = true
                 }
             default:
@@ -88,10 +88,11 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         }
     }
     
-    private func handleChatStateUpdateEvent(_ event: MiddlewareEventMessage, state: ChatUpdateState) -> Bool {
+    private func handleChatStateUpdateEvent(_ event: MiddlewareEventMessage, contextId: String, state: ChatUpdateState) -> Bool {
         guard let subscriptionId, state.subIds.contains(subscriptionId) else { return false }
         let preview = ChatMessagePreview(
             spaceId: event.spaceID,
+            chatId: contextId,
             counter: Int(state.state.messages.counter)
         )
         self.previewsBySpace[event.spaceID] = preview

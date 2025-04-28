@@ -184,7 +184,7 @@ public extension FeatureDescription {
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let chatLayoutInsideSpace = FeatureDescription(
@@ -273,6 +273,13 @@ public extension FeatureDescription {
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let chatWidget = FeatureDescription(
+        title: "Chat widget",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false

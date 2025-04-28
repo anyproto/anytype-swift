@@ -39,7 +39,7 @@ final class SpaceShareViewModel: ObservableObject {
     var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     @Published var requestAlertModel: SpaceRequestAlertData?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
@@ -162,7 +162,7 @@ final class SpaceShareViewModel: ObservableObject {
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 AnytypeAnalytics.instance().logApproveLeaveRequest()
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
-                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
+                self?.toastBarData = ToastBarData(Loc.SpaceShare.Approve.toast(participant.title))
             })
         case .active:
             return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
@@ -231,7 +231,7 @@ final class SpaceShareViewModel: ObservableObject {
                     identity: participant.identity,
                     permissions: newPermission
                 )
-                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.accessChanged, showSnackBar: true, messageType: .success)
+                self?.toastBarData = ToastBarData(Loc.SpaceShare.accessChanged, type: .success)
             }
         )
     }

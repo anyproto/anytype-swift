@@ -33,7 +33,7 @@ struct NewSpaceHubView: View {
             navBar
             HomeUpdateSubmoduleView().padding(8)
             
-            if let spaces = model.spaces {
+            if let spaces = model.spaces, spaces.isNotEmpty {
                 VStack(spacing: 8) {
                     ScrollView {
                         Spacer.fixedHeight(4)
@@ -46,13 +46,19 @@ struct NewSpaceHubView: View {
                         ForEach(spaces) {
                             spaceCard($0)
                         }
-                        if  model.createSpaceAvailable {
-                            plusButton
-                        }
                         Spacer.fixedHeight(40)
                     }
                     .scrollIndicators(.never)
                 }
+            } else {
+                EmptyStateView(
+                    title: Loc.thereAreNoSpacesYet,
+                    subtitle: "",
+                    style: .withImage,
+                    buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
+                        model.onTapCreateSpace()
+                    }
+                )
             }
             
             Spacer()
@@ -99,19 +105,13 @@ struct NewSpaceHubView: View {
                 }
             )
         }
-        .if(model.showPlusInNavbar) {
-            $0.overlay(alignment: .trailing) {
-                Button(
-                    action: {
-                        model.onTapCreateSpace()
-                    },
-                    label: {
-                        Image(asset: .X32.plus)
-                            .foregroundStyle(Color.Control.active)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 14)
-                    }
-                )
+        .overlay(alignment: .trailing) {
+            Button { model.onTapCreateSpace() }
+            label: {
+                Image(asset: .X32.addFilled)
+                    .foregroundStyle(Color.Control.active)
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 16)
             }
         }
     }

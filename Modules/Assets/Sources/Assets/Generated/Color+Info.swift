@@ -32,7 +32,6 @@ public extension UIColor {
                 UIColor.Additional.collectionInfo,
                 UIColor.Auth.collectionInfo,
                 UIColor.BackgroundCustom.collectionInfo,
-                UIColor.BottomAlert.collectionInfo,
                 UIColor.CoverGradients.collectionInfo,
                 UIColor.Gradients.collectionInfo,
                 UIColor.Launch.collectionInfo,
@@ -158,19 +157,6 @@ public extension UIColor.BackgroundCustom {
         colors: [
             ColorInfo(name: "black", color: UIColor.BackgroundCustom.black),
             ColorInfo(name: "material", color: UIColor.BackgroundCustom.material)
-        ]
-    )
-}
-public extension UIColor.BottomAlert {
-    static let collectionInfo = ColorCollectionInfo(
-        name: "BottomAlert",
-        colors: [
-            ColorInfo(name: "blueEnd", color: UIColor.BottomAlert.blueEnd),
-            ColorInfo(name: "blueStart", color: UIColor.BottomAlert.blueStart),
-            ColorInfo(name: "greenEnd", color: UIColor.BottomAlert.greenEnd),
-            ColorInfo(name: "greenStart", color: UIColor.BottomAlert.greenStart),
-            ColorInfo(name: "redEnd", color: UIColor.BottomAlert.redEnd),
-            ColorInfo(name: "redStart", color: UIColor.BottomAlert.redStart)
         ]
     )
 }

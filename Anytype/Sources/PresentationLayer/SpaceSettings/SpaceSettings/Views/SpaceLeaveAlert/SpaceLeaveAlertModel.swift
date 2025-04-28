@@ -12,7 +12,7 @@ final class SpaceLeaveAlertModel: ObservableObject {
     private let spaceId: String
     
     @Published var spaceName: String = ""
-    @Published var toast: ToastBarData = .empty
+    @Published var toast: ToastBarData?
     
     init(spaceId: String) {
         self.spaceId = spaceId
@@ -26,6 +26,6 @@ final class SpaceLeaveAlertModel: ObservableObject {
     func onTapLeave() async throws {
         AnytypeAnalytics.instance().logLeaveSpace()
         try await workspaceService.deleteSpace(spaceId: spaceId)
-        toast = ToastBarData(text: Loc.SpaceSettings.LeaveAlert.toast(spaceName), showSnackBar: true, messageType: .success)
+        toast = ToastBarData(Loc.SpaceSettings.LeaveAlert.toast(spaceName), type: .success)
     }
 }

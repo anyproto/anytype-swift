@@ -10,8 +10,6 @@ struct SpacesManagerRowView: View {
     let onCancelRequest: () async throws -> Void
     let onArchive: () async throws -> Void
     let onStopSharing: () async throws -> Void
-
-    @State private var toast = ToastBarData.empty
     
     var body: some View {
         VStack(spacing: 0) {

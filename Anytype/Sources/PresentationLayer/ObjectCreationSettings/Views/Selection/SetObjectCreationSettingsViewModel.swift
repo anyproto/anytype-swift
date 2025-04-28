@@ -26,7 +26,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var objectTypes = [InstalledObjectTypeViewModel]()
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var canChangeObjectType = false
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     
     var isTemplatesEditable = false
     
@@ -105,7 +105,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 )
                 let objectDetails = await retrieveObjectDetails(objectId: objectTypeId, spaceId: spaceId)
                 let title = objectDetails?.title.trimmed(numberOfCharacters: 16) ?? ""
-                toastData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(title), showSnackBar: true)
+                toastData = ToastBarData(Loc.Templates.Popup.WasAddedTo.title(title))
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
@@ -128,7 +128,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         Task {
             do {
                 try await templatesService.setTemplateAsDefaultForType(objectTypeId: interactor.objectTypeId, templateId: templateId)
-                toastData = ToastBarData(text: Loc.Templates.Popup.default, showSnackBar: true)
+                toastData = ToastBarData(Loc.Templates.Popup.default)
             }
         }
     }
@@ -214,10 +214,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 switch option {
                 case .delete:
                     try await templatesService.deleteTemplate(templateId: templateViewModel.id)
-                    toastData = ToastBarData(text: Loc.Templates.Popup.removed, showSnackBar: true)
+                    toastData = ToastBarData(Loc.Templates.Popup.removed)
                 case .duplicate:
                     try await templatesService.cloneTemplate(blockId: templateViewModel.id)
-                    toastData = ToastBarData(text: Loc.Templates.Popup.duplicated, showSnackBar: true)
+                    toastData = ToastBarData(Loc.Templates.Popup.duplicated)
                 case .editTemplate:
                     output?.templateEditingHandler(
                         setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id),

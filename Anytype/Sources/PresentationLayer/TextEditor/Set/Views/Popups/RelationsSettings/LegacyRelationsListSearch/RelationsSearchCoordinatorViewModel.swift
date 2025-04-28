@@ -5,7 +5,7 @@ import Services
 final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoCoordinatorViewOutput {
     
     @Published var newRelationData: RelationInfoData?
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     @Published var dismiss = false
     
     let data: RelationsSearchData
@@ -26,7 +26,7 @@ final class RelationsSearchCoordinatorViewModel: ObservableObject, RelationInfoC
     
     func onSelectRelation(_ relation: RelationDetails) {
         data.onRelationSelect(relation, false)
-        toastData = ToastBarData(text: Loc.Fields.created(relation.name), showSnackBar: true)
+        toastData = ToastBarData(Loc.Fields.created(relation.name))
         dismiss.toggle()
     }
     
