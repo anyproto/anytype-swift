@@ -345,7 +345,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func initialHomePath(spaceView: SpaceView, addWidgets: Bool) -> [AnyHashable] {
         .builder {
             SpaceHubNavigationItem()
-            if spaceView.showChat {
+            if spaceView.initialScreenIsChat {
                 ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
                 if addWidgets {
                     HomeWidgetData(spaceId: spaceView.targetSpaceId)
