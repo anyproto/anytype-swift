@@ -32,11 +32,12 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                 ).throttle(milliseconds: 300)
                 
                 return combineStream.map { (spaces, previews) in
-                    var spaces = spaces.map { ParticipantSpaceViewDataWithPreview(space: $0, unreadCount: 0) }
+                    var spaces = spaces.map { ParticipantSpaceViewDataWithPreview(space: $0) }
                     
                     for preview in previews {
                         if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
-                            spaces[spaceIndex] = spaces[spaceIndex].updated(unreadCount: preview.counter)
+                            spaces[spaceIndex] = spaces[spaceIndex]
+                                .updated(unreadCount: preview.unreadCounter, mentionsCount: preview.mentionCounter)
                         }
                     }
                     
@@ -45,7 +46,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
             } else {
                 return participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values
                     .throttle(milliseconds: 300)
-                    .map { $0.map { ParticipantSpaceViewDataWithPreview(space: $0, unreadCount: 0) } }
+                    .map { $0.map { ParticipantSpaceViewDataWithPreview(space: $0) } }
                     .eraseToAnyAsyncSequence()
             }
         }
