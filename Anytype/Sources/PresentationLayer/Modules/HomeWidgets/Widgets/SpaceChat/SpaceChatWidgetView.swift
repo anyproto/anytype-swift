@@ -13,19 +13,29 @@ struct SpaceChatWidgetView: View {
     
     var body: some View {
         LinkWidgetViewContainer(
-            title: Loc.chat,
-            icon: .X24.chat,
             isExpanded: .constant(false),
             dragId: nil,
             homeState: $homeState,
             allowMenuContent: false,
             allowContent: false,
-            headerAction: {
-                model.onHeaderTap()
-            },
             removeAction: nil,
+            header: {
+                LinkWidgetDefaultHeader(
+                    title: Loc.chat,
+                    icon: .X24.chat,
+                    rightAccessory: {
+                        Color.red.frame(width: 30, height: 30)
+                    },
+                    onTap: {
+                        model.onHeaderTap()
+                    }
+                )
+            },
             menu: { },
             content: { EmptyView() }
         )
+        .task {
+            await model.startSubscriptions()
+        }
     }
 }

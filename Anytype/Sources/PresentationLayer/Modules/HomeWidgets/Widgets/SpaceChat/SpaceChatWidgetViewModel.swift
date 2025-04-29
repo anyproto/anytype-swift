@@ -7,6 +7,8 @@ final class SpaceChatWidgetViewModel: ObservableObject {
     
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
     private let spaceId: String
     private weak var output: (any CommonWidgetModuleOutput)?
@@ -20,5 +22,9 @@ final class SpaceChatWidgetViewModel: ObservableObject {
         guard let chatId = workspaceStorage.spaceView(spaceId: spaceId)?.chatId, chatId.isNotEmpty else { return }
         AnytypeAnalytics.instance().logClickWidgetTitle(source: .chat, createType: .manual)
         output?.onObjectSelected(screenData: .chat(ChatCoordinatorData(chatId: chatId, spaceId: spaceId)))
+    }
+    
+    func startSubscriptions() async {
+        
     }
 }

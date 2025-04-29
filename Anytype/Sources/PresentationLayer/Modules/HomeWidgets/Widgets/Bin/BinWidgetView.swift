@@ -23,18 +23,18 @@ private struct BinWidgetSubmoduleInternalView: View {
     
     var body: some View {
         LinkWidgetViewContainer(
-            title: Loc.bin,
-            icon: .X24.bin,
             isExpanded: .constant(false),
             dragId: model.dragId,
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            headerAction: {
-                model.onHeaderTap()
-            },
             removeAction: {
                 model.onDeleteWidgetTap()
+            },
+            header: {
+                LinkWidgetDefaultHeader(title: Loc.bin, icon: .X24.bin, onTap: {
+                    model.onHeaderTap()
+                })
             },
             menu: {
                 menu
