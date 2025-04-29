@@ -3,8 +3,6 @@ import AnytypeCore
 
 struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header: View, Content: View, MenuContent: View {
     
-//    let title: String
-//    let icon: ImageAsset?
     @Binding var isExpanded: Bool
     let dragId: String?
     @Binding var homeState: HomeWidgetsState
@@ -14,37 +12,30 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     let header: Header
     let menu: () -> MenuContent
     let content: Content
-//    let headerAction: (() -> Void)
     let removeAction: (() -> Void)?
     let createObjectAction: (() -> Void)?
     
     @Environment(\.anytypeDragState) @Binding private var dragState
     
     init(
-//        title: String,
-//        icon: ImageAsset?,
         isExpanded: Binding<Bool>,
         dragId: String? = nil,
         homeState: Binding<HomeWidgetsState>,
         allowMenuContent: Bool = false,
         allowContent: Bool = true,
         allowContextMenuItems: Bool = true,
-//        headerAction: @escaping (() -> Void),
         removeAction: (() -> Void)? = nil,
         createObjectAction: (() -> Void)? = nil,
         @ViewBuilder header: () -> Header,
         @ViewBuilder menu: @escaping () -> MenuContent = { EmptyView() },
         @ViewBuilder content: () -> Content
     ) {
-//        self.title = title
-//        self.icon = icon
         self._isExpanded = isExpanded
         self.dragId = dragId
         self._homeState = homeState
         self.allowMenuContent = allowMenuContent
         self.allowContent = allowContent
         self.allowContextMenuItems = allowContextMenuItems
-//        self.headerAction = headerAction
         self.removeAction = removeAction
         self.header = header()
         self.createObjectAction = createObjectAction
