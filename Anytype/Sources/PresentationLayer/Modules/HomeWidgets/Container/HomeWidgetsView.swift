@@ -38,6 +38,9 @@ private struct HomeWidgetsInternalView: View {
         .task {
             await model.startParticipantTask()
         }
+        .task {
+            await model.startSpaceTask()
+        }
         .onAppear {
             model.onAppear()
         }
@@ -73,6 +76,9 @@ private struct HomeWidgetsInternalView: View {
             VStack(spacing: 12) {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTipView()
+                }
+                if model.showSpaceChat {
+                    SpaceChatWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
                 }
                 ForEach(model.widgetBlocks) { widgetInfo in
                     HomeWidgetSubmoduleView(
