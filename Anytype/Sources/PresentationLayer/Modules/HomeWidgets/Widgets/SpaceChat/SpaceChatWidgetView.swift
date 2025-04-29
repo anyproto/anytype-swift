@@ -24,7 +24,14 @@ struct SpaceChatWidgetView: View {
                     title: Loc.chat,
                     icon: .X24.chat,
                     rightAccessory: {
-                        Color.red.frame(width: 30, height: 30)
+                        HStack(spacing: 4) {
+                            if model.hasMentions {
+                                CounterMentionsView()
+                            }
+                            if model.messageCount > 0 {
+                                CounterMessagesView(count: model.messageCount)
+                            }
+                        }
                     },
                     onTap: {
                         model.onHeaderTap()
