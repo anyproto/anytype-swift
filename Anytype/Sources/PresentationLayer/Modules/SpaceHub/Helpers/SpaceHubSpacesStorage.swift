@@ -22,10 +22,6 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
         get async {
             if FeatureFlags.countersOnSpaceHub {
                 
-                Task {
-                    await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
-                }
-                
                 let combineStream = combineLatest(
                     participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values,
                      await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
