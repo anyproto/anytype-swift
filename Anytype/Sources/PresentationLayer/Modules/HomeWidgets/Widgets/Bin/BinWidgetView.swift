@@ -24,7 +24,7 @@ private struct BinWidgetSubmoduleInternalView: View {
     var body: some View {
         LinkWidgetViewContainer(
             title: Loc.bin,
-            icon: .Widget.bin,
+            icon: .X24.bin,
             isExpanded: .constant(false),
             dragId: model.dragId,
             homeState: $homeState,

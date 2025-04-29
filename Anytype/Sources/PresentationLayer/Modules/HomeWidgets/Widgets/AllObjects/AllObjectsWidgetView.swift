@@ -14,7 +14,7 @@ struct AllObjectsWidgetView: View {
     var body: some View {
         LinkWidgetViewContainer(
             title: Loc.allObjects,
-            icon: .Widget.allObjects,
+            icon: .X24.allObjects,
             isExpanded: .constant(false),
             dragId: model.dragId,
             homeState: $homeState,

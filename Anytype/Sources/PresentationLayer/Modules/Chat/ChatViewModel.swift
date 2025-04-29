@@ -13,7 +13,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     // MARK: - DI
     
     let spaceId: String
-    private let chatId: String
+    let chatId: String
     private weak var output: (any ChatModuleOutput)?
     
     @Injected(\.blockService)
