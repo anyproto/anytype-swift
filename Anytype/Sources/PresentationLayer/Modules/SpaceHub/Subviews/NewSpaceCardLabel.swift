@@ -58,10 +58,21 @@ struct NewSpaceCardLabel: View {
     private var counters: some View {
         if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
             DotsView().frame(width: 30, height: 6)
-        } else if spaceData.unreadCount > 0 {
-            CounterView(count: spaceData.unreadCount)
+        } else if spaceData.haveCounters {
+            unreadCounters
         } else if spaceData.spaceView.isPinned {
             Image(asset: .X24.pin).frame(width: 22, height: 22)
+        }
+    }
+    
+    private var unreadCounters: some View {
+        HStack(spacing: 4) {
+            if spaceData.mentionsCount > 0 {
+                MentionBadge()
+            }
+            if spaceData.unreadCount > 0 {
+                CounterView(count: spaceData.unreadCount)
+            }
         }
     }
 }

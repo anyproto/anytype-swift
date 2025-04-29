@@ -93,7 +93,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         let preview = ChatMessagePreview(
             spaceId: event.spaceID,
             chatId: contextId,
-            counter: Int(state.state.messages.counter)
+            unreadCounter: Int(state.state.messages.counter),
+            mentionCounter: Int(state.state.mentions.counter)
         )
         self.previewsBySpace[event.spaceID] = preview
         return true
