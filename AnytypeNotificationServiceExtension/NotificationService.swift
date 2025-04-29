@@ -18,12 +18,12 @@ class NotificationService: UNNotificationServiceExtension {
         
         guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
               let encryptedData = Data(base64Encoded: encryptedBase64),
-              let spaceId = request.content.userInfo[Constants.spaceKeyId] as? String else {
+              let keyId = request.content.userInfo[Constants.keyId] as? String else {
             contentHandler(bestAttemptContent)
             return
         }
         
-        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, spaceId: spaceId) {
+        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
             bestAttemptContent.title = decryptedMessage.newMessage.text
             bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
                 DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
@@ -47,6 +47,6 @@ class NotificationService: UNNotificationServiceExtension {
 extension NotificationService {
     enum Constants {
         static let payload = "x-any-payload"
-        static let spaceKeyId = "x-any-key-id"
+        static let keyId = "x-any-key-id"
     }
 }

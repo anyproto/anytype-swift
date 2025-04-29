@@ -7472,6 +7472,8 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Workspace.Open.badInput")
+            case .failedToLoad:
+                return LocHelper.tr(table: "LocalizableError", key: "Workspace.Open.failedToLoad")
             case .UNRECOGNIZED:
                 return ""
         }

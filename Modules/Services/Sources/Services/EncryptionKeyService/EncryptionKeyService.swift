@@ -3,25 +3,25 @@ import AnytypeCore
 import SecureService
 
 public protocol EncryptionKeyServiceProtocol: AnyObject, Sendable {
-    func obtainKeyById(_ spaceId: String) throws -> String
-    func saveKey(_ key: String, spaceId: String) throws
+    func obtainKeyById(_ keyId: String) throws -> String
+    func saveKey(_ key: String, keyId: String) throws
 }
 
 final class EncryptionKeyService: EncryptionKeyServiceProtocol {
     
     private let keychainStore: any KeychainStoreProtocol = Container.shared.keychainStore()
     
-    func obtainKeyById(_ spaceId: String) throws -> String {
-        try keychainStore.retreiveItem(queryable: query(with: spaceId))
+    func obtainKeyById(_ keyId: String) throws -> String {
+        try keychainStore.retreiveItem(queryable: query(with: keyId))
     }
     
-    func saveKey(_ key: String, spaceId: String) throws {
-        try keychainStore.storeItem(item: key, queryable: query(with: spaceId))
+    func saveKey(_ key: String, keyId: String) throws {
+        try keychainStore.storeItem(item: key, queryable: query(with: keyId))
     }
     
-    private func query(with spaceId: String) -> GenericPasswordQueryable {
+    private func query(with keyId: String) -> GenericPasswordQueryable {
         GenericPasswordQueryable(
-            account: spaceId,
+            account: keyId,
             service: Constants.secAttrService,
             accessGroup: TargetsConstants.appGroup,
             attrAccessible: .afterFirstUnlockThisDeviceOnly
