@@ -26,10 +26,10 @@ struct SpaceChatWidgetView: View {
                     rightAccessory: {
                         HStack(spacing: 4) {
                             if model.hasMentions {
-                                CounterMentionsView()
+                                MentionBadge()
                             }
                             if model.messageCount > 0 {
-                                CounterMessagesView(count: model.messageCount)
+                                CounterView(count: model.messageCount)
                             }
                         }
                     },

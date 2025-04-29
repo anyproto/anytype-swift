@@ -7,8 +7,8 @@ struct MentionBadge: View {
         Text("@")
             .anytypeFontStyle(.caption1Medium) // Without line height multiple
             .foregroundStyle(Color.Control.white)
-            .frame(height: 20)
-            .frame(minWidth: 20)
+            .baselineOffset(3)
+            .frame(width: 20, height: 20)
             .background(
                 Capsule()
                     .fill(Color.Control.transparentActive)
