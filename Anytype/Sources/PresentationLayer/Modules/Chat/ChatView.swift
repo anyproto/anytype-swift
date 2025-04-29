@@ -20,7 +20,7 @@ struct ChatView: View {
                 .ignoresSafeArea()
         }
         .overlay(alignment: .top) {
-            ChatHeaderView(spaceId: model.spaceId) {
+            ChatHeaderView(spaceId: model.spaceId, chatId: model.chatId) {
                 model.onTapWidgets()
             }
         }

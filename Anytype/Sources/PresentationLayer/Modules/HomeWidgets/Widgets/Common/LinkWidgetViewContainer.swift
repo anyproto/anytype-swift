@@ -221,7 +221,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                 Spacer.fixedHeight(10)
                 LinkWidgetViewContainer(
                     title: "Name",
-                    icon: ImageAsset.Widget.bin,
+                    icon: ImageAsset.X24.bin,
                     isExpanded: .constant(false),
                     homeState: .constant(.readonly),
                     headerAction: {}

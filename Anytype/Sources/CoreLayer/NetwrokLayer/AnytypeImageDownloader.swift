@@ -48,6 +48,8 @@ final class AnytypeImageDownloader {
             return nil
         } catch let error as KingfisherError where error.isInvalidResponseStatusCode(404) {
             return nil
+        } catch let error as KingfisherError where error.isTaskCancelled {
+            return nil
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             return nil

@@ -71,19 +71,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var owner: Participant?
     private let widgetsObject: any BaseDocumentProtocol
     
-    var isChatOn: Bool? {
-        guard FeatureFlags.showHomeSpaceLevelChat(spaceId: workspaceInfo.accountSpaceId) else { return nil }
-        
-        return switch participantSpaceView?.spaceView.uxType {
-        case .chat:
-            true
-        case .data:
-            false
-        case .stream, .none, .UNRECOGNIZED:
-            nil
-        }
-    }
-    
     init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
@@ -152,16 +139,6 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     func onObjectTypesTap() {
         output?.onObjectTypesSelected()
-    }
-    
-    func toggleChatState(isOn: Bool) {
-        Task {
-            try await workspaceService.workspaceSetDetails(spaceId: workspaceInfo.accountSpaceId, details: [
-                .spaceUxType(isOn ? .chat : .data)
-            ])
-            
-            snackBarData = ToastBarData(isOn ? Loc.Settings.chatEnabled : Loc.Settings.chatDisabled)
-        }
     }
     
     func toggleCreateTypeWidgetState(isOn: Bool) {

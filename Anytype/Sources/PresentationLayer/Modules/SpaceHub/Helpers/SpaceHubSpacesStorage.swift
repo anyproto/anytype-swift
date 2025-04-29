@@ -36,12 +36,17 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                     
                     for preview in previews {
                         if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
-                            spaces[spaceIndex] = spaces[spaceIndex].updated(unreadCount: preview.counter)
+                            let participantSpace = spaces[spaceIndex]
+                            if participantSpace.spaceView.chatId == preview.chatId {
+                                paces[spaceIndex] = spaces[spaceIndex].updated(unreadCount: preview.counter)
+                            }
                         }
                     }
                     
                     return spaces
-                }.eraseToAnyAsyncSequence()
+                }
+                .removeDuplicates()
+                .eraseToAnyAsyncSequence()
             } else {
                 return participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values
                     .throttle(milliseconds: 300)

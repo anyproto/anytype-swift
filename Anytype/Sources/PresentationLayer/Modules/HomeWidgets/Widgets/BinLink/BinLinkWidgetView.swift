@@ -36,7 +36,7 @@ private struct BinLinkWidgetViewInternal: View {
     var content: some View {
         LinkWidgetViewContainer(
             title: Loc.bin,
-            icon: .Widget.bin,
+            icon: .X24.bin,
             isExpanded: .constant(false),
             dragId: nil,
             homeState: $homeState,

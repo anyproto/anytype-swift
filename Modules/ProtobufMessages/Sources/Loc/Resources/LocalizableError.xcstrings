@@ -210,7 +210,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Gangguan dari pihak kami, coba lagi nanti"
           }
         },
         "it" : {
@@ -359,7 +359,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Tidak dapat terhubung, cek koneksi internet Anda"
           }
         },
         "it" : {
@@ -508,7 +508,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name cannot be reserved"
+            "value" : "Nama ini tidak dapat dipesan"
           }
         },
         "it" : {
@@ -806,7 +806,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is already reserved"
+            "value" : "Nama ini telah dipesan"
           }
         },
         "it" : {
@@ -955,7 +955,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "value" : "Anda belum masuk! 😵‍💫"
           }
         },
         "it" : {
@@ -1104,7 +1104,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Gangguan dari pihak kami, coba lagi nanti"
           }
         },
         "it" : {
@@ -1253,7 +1253,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Name is not available for this tier"
+            "value" : "Nama tidak tersedia untuk jenjang ini"
           }
         },
         "it" : {
@@ -1402,7 +1402,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tier not found, try again later"
+            "value" : "Jenjang tidak ditemukan, coba lagi nanti"
           }
         },
         "it" : {
@@ -1998,7 +1998,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Gangguan dari pihak kami, coba lagi nanti"
           }
         },
         "it" : {
@@ -2147,7 +2147,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "value" : "Anda belum masuk! 😵‍💫"
           }
         },
         "it" : {
@@ -2296,7 +2296,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Error on our side, try again later"
+            "value" : "Gangguan dari pihak kami, coba lagi nanti"
           }
         },
         "it" : {
@@ -2594,7 +2594,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Tidak dapat terhubung, cek koneksi internet Anda"
           }
         },
         "it" : {
@@ -2892,7 +2892,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Tidak dapat terhubung, cek koneksi internet Anda"
           }
         },
         "it" : {
@@ -3190,7 +3190,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "value" : "Tidak dapat terhubung, cek koneksi internet Anda"
           }
         },
         "it" : {
@@ -3488,7 +3488,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "value" : "Anda belum masuk! 😵‍💫"
           }
         },
         "it" : {
@@ -3637,7 +3637,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -4382,7 +4382,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -5276,7 +5276,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -6617,7 +6617,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -7362,7 +7362,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -8256,7 +8256,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -9150,7 +9150,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -9895,7 +9895,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -10789,7 +10789,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -11832,7 +11832,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -12726,7 +12726,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
@@ -13620,7 +13620,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "value" : "Batas sudah tercapai untuk ruang ini. Harap tingkatkan keanggotaan Anda atau hubungi dukungan untuk mendapatkan bantuan."
           }
         },
         "it" : {
