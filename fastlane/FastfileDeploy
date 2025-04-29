@@ -73,8 +73,7 @@ platform :ios do
       use_system_scm: true,
       archive_path: "./build/archive",
       output_directory: "./build/result",
-      xcargs: ENV['BUILD_OPTIONS'],
-      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+      xcargs: ENV['BUILD_OPTIONS']
     )
 
     # Reset icon/info.plist changes
