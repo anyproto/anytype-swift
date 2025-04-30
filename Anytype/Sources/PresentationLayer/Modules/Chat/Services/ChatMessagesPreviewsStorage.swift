@@ -111,6 +111,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         
         var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
         preview.lastMessage = data.message.message.text
+        preview.attachments = data.message.attachments
         
         self.previewsBySpace[spaceId] = preview
         return true
