@@ -36,4 +36,4 @@ jobs:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
       - name: License Checks
-        uses: ./.github/actions/license-checks 
+        uses: ./.github/actions/license-checks
