@@ -1,30 +1,10 @@
 struct ChatMessagePreview: Hashable {
     let spaceId: String
     let chatId: String
-    let unreadCounter: Int
-    let mentionCounter: Int
+    var unreadCounter: Int
+    var mentionCounter: Int
     
-    let lastMessage: String
-    
-    func updated(unreadCounter: Int, mentionCounter: Int) -> ChatMessagePreview {
-        ChatMessagePreview(
-            spaceId: spaceId,
-            chatId: chatId,
-            unreadCounter: unreadCounter,
-            mentionCounter: mentionCounter,
-            lastMessage: lastMessage
-        )
-    }
-    
-    func updated(lastMessage: String) -> ChatMessagePreview {
-        ChatMessagePreview(
-            spaceId: spaceId,
-            chatId: chatId,
-            unreadCounter: unreadCounter,
-            mentionCounter: mentionCounter,
-            lastMessage: lastMessage
-        )
-    }
+    var lastMessage: String
 }
 
 extension ChatMessagePreview {
