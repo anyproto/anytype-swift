@@ -78,7 +78,11 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatStateUpdate(state):
-                if handleChatStateUpdateEvent(event, contextId: events.contextId, state: state) {
+                if handleChatStateUpdateEvent(spaceId: event.spaceID, contextId: events.contextId, state: state) {
+                    hasChanges = true
+                }
+            case let .chatAdd(data):
+                if handleChatAddEvent(spaceId: event.spaceID, contextId: events.contextId, data: data) {
                     hasChanges = true
                 }
             default:
@@ -91,15 +95,26 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         }
     }
     
-    private func handleChatStateUpdateEvent(_ event: MiddlewareEventMessage, contextId: String, state: ChatUpdateState) -> Bool {
+    private func handleChatStateUpdateEvent(spaceId: String, contextId: String, state: ChatUpdateState) -> Bool {
         guard let subscriptionId, state.subIds.contains(subscriptionId) else { return false }
-        let preview = ChatMessagePreview(
-            spaceId: event.spaceID,
-            chatId: contextId,
+        
+        let oldPreview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        
+        let preview = oldPreview.updated(
             unreadCounter: Int(state.state.messages.counter),
             mentionCounter: Int(state.state.mentions.counter)
         )
-        self.previewsBySpace[event.spaceID] = preview
+        self.previewsBySpace[spaceId] = preview
+        return true
+    }
+    
+    private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) -> Bool {
+        guard let subscriptionId, data.subIds.contains(subscriptionId) else { return false }
+        
+        let oldPreview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        
+        let preview = oldPreview.updated(lastMessage: data.message.message.text)
+        self.previewsBySpace[spaceId] = preview
         return true
     }
 }

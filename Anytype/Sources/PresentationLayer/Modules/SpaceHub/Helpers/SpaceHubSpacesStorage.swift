@@ -35,7 +35,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                             let participantSpace = spaces[spaceIndex]
                             if participantSpace.spaceView.chatId == preview.chatId {
                                 spaces[spaceIndex] = spaces[spaceIndex]
-                                    .updated(unreadCount: preview.unreadCounter, mentionsCount: preview.mentionCounter)
+                                    .updated(unreadCount: preview.unreadCounter, mentionsCount: preview.mentionCounter, lastMessage: preview.lastMessage)
                             }
                         }
                     }
