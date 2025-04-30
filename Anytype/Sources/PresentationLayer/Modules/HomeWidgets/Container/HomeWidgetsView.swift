@@ -62,7 +62,7 @@ private struct HomeWidgetsInternalView: View {
     private var content: some View {
         ZStack {
             if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty || !FeatureFlags.binWidgetFromLibrary {
+                if model.widgetBlocks.isNotEmpty || model.showSpaceChat || !FeatureFlags.binWidgetFromLibrary {
                     widgets
                 } else {
                     emptyState

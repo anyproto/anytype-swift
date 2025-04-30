@@ -13,18 +13,18 @@ struct AllObjectsWidgetView: View {
     
     var body: some View {
         LinkWidgetViewContainer(
-            title: Loc.allObjects,
-            icon: .X24.allObjects,
             isExpanded: .constant(false),
             dragId: model.dragId,
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            headerAction: {
-                model.onHeaderTap()
-            },
             removeAction: {
                 model.onDeleteWidgetTap()
+            },
+            header: {
+                LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .X24.allObjects, onTap: {
+                    model.onHeaderTap()
+                })
             },
             menu: {
                 menu
