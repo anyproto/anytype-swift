@@ -17,18 +17,8 @@ struct NewSpaceCardLabel: View {
                     .anytypeFontStyle(.bodySemibold)
                     .lineLimit(1)
                     .foregroundStyle(Color.Text.primary)
-                if FeatureFlags.spaceUxTypes {
-                    Text(spaceData.spaceView.uxType.name)
-                        .anytypeStyle(.uxTitle2Regular)
-                        .lineLimit(2)
-                        .foregroundStyle(Color.Text.secondary)
-                } else {
-                    Text(spaceData.spaceView.spaceAccessType?.name ?? "")
-                        .anytypeStyle(.uxTitle2Regular)
-                        .lineLimit(2)
-                        .foregroundStyle(Color.Text.secondary)
-                }
-                Spacer()
+                info
+                Spacer(minLength: 1)
             }
             
             Spacer()
@@ -52,6 +42,24 @@ struct NewSpaceCardLabel: View {
                 EmptyView()
             }
         }
+    }
+    
+    private var info: some View {
+        Group {
+            if spaceData.lastMessage.isNotEmpty {
+                Text(spaceData.lastMessage)
+                    .anytypeStyle(.uxTitle2Medium)
+            } else if FeatureFlags.spaceUxTypes {
+                Text(spaceData.spaceView.uxType.name)
+                    .anytypeStyle(.uxTitle2Regular)
+            } else {
+                Text(spaceData.spaceView.spaceAccessType?.name ?? "")
+                    .anytypeStyle(.uxTitle2Regular)
+            }
+        }
+        .lineLimit(2)
+        .foregroundStyle(Color.Text.secondary)
+        .multilineTextAlignment(.leading)
     }
     
     @ViewBuilder
