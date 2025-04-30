@@ -15,8 +15,8 @@ final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
         for await events in await EventBunchSubscribtion.default.stream() {
             for event in events.middlewareEvents {
                 switch event.value {
-                case let .keyUpdate(data):
-                    updateKey(data.encryptionKey, spaceId: data.spaceKeyID)
+                case let .pushEncryptionKeyUpdate(data):
+                    updateKey(data.encryptionKey, keyId: data.encryptionKeyID)
                 default:
                     break
                 }
@@ -24,13 +24,13 @@ final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
         }
     }
     
-    private func updateKey(_ key: String, spaceId: String) {
+    private func updateKey(_ key: String, keyId: String) {
         do {
-            try encryptionKeyService.saveKey(key, spaceId: spaceId)
+            try encryptionKeyService.saveKey(key, keyId: keyId)
         } catch {
             anytypeAssertionFailure("Can't save encryption key", info: [
                 "error": error.localizedDescription,
-                "spaceId": spaceId
+                "keyId": keyId
             ])
         }
     }

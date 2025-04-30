@@ -75,6 +75,7 @@ extension Anytype_Rpc.Workspace {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case failedToLoad // = 100
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -86,6 +87,7 @@ extension Anytype_Rpc.Workspace {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 100: self = .failedToLoad
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -95,6 +97,7 @@ extension Anytype_Rpc.Workspace {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .failedToLoad: return 100
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -104,6 +107,7 @@ extension Anytype_Rpc.Workspace {
               .null,
               .unknownError,
               .badInput,
+              .failedToLoad,
             ]
 
           }
@@ -304,6 +308,7 @@ extension Anytype_Rpc.Workspace.Open.Response.Error.Code: SwiftProtobuf._ProtoNa
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    100: .same(proto: "FAILED_TO_LOAD"),
   ]
 }
 

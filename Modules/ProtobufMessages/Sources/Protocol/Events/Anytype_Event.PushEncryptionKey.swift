@@ -11,7 +11,7 @@
 import SwiftProtobuf
 
 extension Anytype_Event {
-    public struct Key: Sendable {
+    public struct PushEncryptionKey: Sendable {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -22,8 +22,8 @@ extension Anytype_Event {
   }    
 }
 
-extension Anytype_Event.Key: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Key"
+extension Anytype_Event.PushEncryptionKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".PushEncryptionKey"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -35,7 +35,7 @@ extension Anytype_Event.Key: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Key, rhs: Anytype_Event.Key) -> Bool {
+  public static func ==(lhs: Anytype_Event.PushEncryptionKey, rhs: Anytype_Event.PushEncryptionKey) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

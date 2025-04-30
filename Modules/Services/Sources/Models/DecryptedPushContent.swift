@@ -8,5 +8,7 @@ public struct DecryptedPushContent: Codable {
         public let chatId: String
         public let msgId: String
         public let text: String
+        public let spaceName: String
+        public let senderName: String
     }
 }

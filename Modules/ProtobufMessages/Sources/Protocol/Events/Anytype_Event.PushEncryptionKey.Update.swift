@@ -10,13 +10,11 @@
 
 import SwiftProtobuf
 
-extension Anytype_Event.Key {
+extension Anytype_Event.PushEncryptionKey {
     public struct Update: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
-
-      public var spaceKeyID: String = String()
 
       public var encryptionKeyID: String = String()
 
@@ -28,12 +26,11 @@ extension Anytype_Event.Key {
     }    
 }
 
-extension Anytype_Event.Key.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Key.protoMessageName + ".Update"
+extension Anytype_Event.PushEncryptionKey.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.PushEncryptionKey.protoMessageName + ".Update"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceKeyId"),
-    2: .same(proto: "encryptionKeyId"),
-    3: .same(proto: "encryptionKey"),
+    1: .same(proto: "encryptionKeyId"),
+    2: .same(proto: "encryptionKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -42,29 +39,24 @@ extension Anytype_Event.Key.Update: SwiftProtobuf.Message, SwiftProtobuf._Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceKeyID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.encryptionKeyID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.encryptionKey) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.encryptionKeyID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.encryptionKey) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.spaceKeyID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceKeyID, fieldNumber: 1)
-    }
     if !self.encryptionKeyID.isEmpty {
-      try visitor.visitSingularStringField(value: self.encryptionKeyID, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.encryptionKeyID, fieldNumber: 1)
     }
     if !self.encryptionKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.encryptionKey, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.encryptionKey, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Event.Key.Update, rhs: Anytype_Event.Key.Update) -> Bool {
-    if lhs.spaceKeyID != rhs.spaceKeyID {return false}
+  public static func ==(lhs: Anytype_Event.PushEncryptionKey.Update, rhs: Anytype_Event.PushEncryptionKey.Update) -> Bool {
     if lhs.encryptionKeyID != rhs.encryptionKeyID {return false}
     if lhs.encryptionKey != rhs.encryptionKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
