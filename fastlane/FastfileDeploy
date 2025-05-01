@@ -115,7 +115,7 @@ platform :ios do
     )
   end
 
-  lane :all_testflight_build_number do
+  lane :all_testflight_build_number do |options|
     version = options[:version] || "0.38.0"
     api_key = app_store_connect_api_key(
       key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
@@ -136,7 +136,7 @@ platform :ios do
     latest = filtered.max_by { |b| b.attributes.buildNumber.to_i }
     UI.success "Latest build for v#{version}: #{latest.attributes.buildNumber}"
   end
-  
+
 end
 
 
