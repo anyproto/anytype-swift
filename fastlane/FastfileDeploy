@@ -2,16 +2,16 @@ default_platform(:ios)
 
 platform :ios do
 
-  lane :release_dev do
-    deploy(config: ENV["APP_CONF_DEVELOP"])
+  lane :release_dev do |options|
+    deploy(config: ENV["APP_CONF_DEVELOP"], manual_build_number: options[:manual_build_number])
   end
 
-  lane :release_anytype do
-    deploy(config: ENV["APP_CONF_RELEASE_ANYTYPE"])
+  lane :release_anytype do |options|
+    deploy(config: ENV["APP_CONF_RELEASE_ANYTYPE"], manual_build_number: options[:manual_build_number])
   end
 
-  lane :release_anyapp do
-    deploy(config: ENV["APP_CONF_RELEASE_ANYAPP"])
+  lane :release_anyapp do |options|
+    deploy(config: ENV["APP_CONF_RELEASE_ANYAPP"], manual_build_number: options[:manual_build_number])
   end
 
   # Private lanes
@@ -54,6 +54,11 @@ platform :ios do
     # Release build should be started from last dev build
     build_number_dev = latest_testflight_build_number(app_identifier: ENV["APP_ID_DEVELOP"], version: version, initial_build_number: 0)
     build_number = latest_testflight_build_number(version: version, initial_build_number: build_number_dev) + 1
+    
+    if options[:manual_build_number]
+      build_number = options[:manual_build_number].to_i
+      puts "Using manual build number: #{build_number}"
+    end
     
     if settings[:add_badge]
       add_badge(
