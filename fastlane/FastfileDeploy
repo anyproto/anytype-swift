@@ -117,24 +117,24 @@ platform :ios do
 
   lane :all_testflight_build_number do |options|
     version = options[:version] || "0.38.0"
-    api_key = app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
+
+    Spaceship::ConnectAPI::Client.auth(
+      key_id:    ENV["APP_STORE_CONNECT_KEY_ID"],
       issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_content: ENV["APP_STORE_CONNECT_KEY_CONTENT"],
-      duration:    1200
+      key:       ENV["APP_STORE_CONNECT_KEY_CONTENT"],
+      duration:  1200
     )
-    Spaceship::ConnectAPI.token = api_key
-  
-    app = Spaceship::ConnectAPI::App.find(app_identifier: ENV["APP_ID_DEVELOP"])
+
+    app = Spaceship::ConnectAPI::App.find(bundle_id: ENV["APP_ID_DEVELOP"])
+
     builds = Spaceship::ConnectAPI::Build.list(
-      filter: { app: app.id },
+      filter: { app: app.id, version: version },
       limit: 200
     )
-  
-    filtered = builds.select { |b| b.attributes.version == version }
-    UI.user_error!("Сборок для версии #{version} не найдено") if filtered.empty?
-  
-    latest = filtered.max_by { |b| b.attributes.buildNumber.to_i }
+
+    UI.user_error!("Сборок для версии #{version} не найдено") if builds.empty?
+
+    latest = builds.max_by { |b| b.attributes.buildNumber.to_i }
     UI.success "Latest build for v#{version}: #{latest.attributes.buildNumber}"
   end
 
