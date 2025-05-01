@@ -24,7 +24,7 @@ jobs:
         uses: ./.github/actions/prepare-deps
 
       - name: Test
-        run: binle exec fastlane all_testflight_build_number
+        run: bundle exec fastlane all_testflight_build_number
 
       # - name: Update git config
       #   run: |
