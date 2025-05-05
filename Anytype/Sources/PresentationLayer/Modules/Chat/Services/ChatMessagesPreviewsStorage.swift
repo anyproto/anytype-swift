@@ -98,12 +98,10 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private func handleChatStateUpdateEvent(spaceId: String, contextId: String, state: ChatUpdateState) -> Bool {
         guard let subscriptionId, state.subIds.contains(subscriptionId) else { return false }
         
-        let oldPreview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
-        
-        let preview = oldPreview.updated(
-            unreadCounter: Int(state.state.messages.counter),
-            mentionCounter: Int(state.state.mentions.counter)
-        )
+        var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        preview.unreadCounter = Int(state.state.messages.counter)
+        preview.mentionCounter = Int(state.state.mentions.counter)
+            
         self.previewsBySpace[spaceId] = preview
         return true
     }
@@ -111,9 +109,10 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) -> Bool {
         guard let subscriptionId, data.subIds.contains(subscriptionId) else { return false }
         
-        let oldPreview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        preview.lastMessage = data.message.message.text
+        preview.attachments = data.message.attachments
         
-        let preview = oldPreview.updated(lastMessage: data.message.message.text)
         self.previewsBySpace[spaceId] = preview
         return true
     }

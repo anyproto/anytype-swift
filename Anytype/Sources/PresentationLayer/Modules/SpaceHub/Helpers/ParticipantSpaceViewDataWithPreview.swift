@@ -1,31 +1,24 @@
+import Services
+
+
 struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable {
     let space: ParticipantSpaceViewData
-    let unreadCount: Int
-    let mentionsCount: Int
-    // TBD: More preview data here
-    let lastMessage: String
+    let preview: ChatMessagePreview
     
-    var id: String { "\(space.id)_\(unreadCount)_\(mentionsCount)_\(lastMessage)"  }
+    var id: String { space.id }
     
     var spaceView: SpaceView { space.spaceView }
     
-    var haveCounters: Bool { unreadCount > 0 || mentionsCount > 0 }
+    var hasCounters: Bool { preview.unreadCounter > 0 || preview.mentionCounter > 0 }
     
-    func updated(unreadCount: Int, mentionsCount: Int, lastMessage: String) -> Self {
-        ParticipantSpaceViewDataWithPreview(
-            space: space,
-            unreadCount: unreadCount,
-            mentionsCount: mentionsCount,
-            lastMessage: lastMessage
-        )
+    func updated(preview: ChatMessagePreview) -> Self {
+        ParticipantSpaceViewDataWithPreview(space: space, preview: preview)
     }
 }
 
 extension ParticipantSpaceViewDataWithPreview {
     init(space: ParticipantSpaceViewData) {
         self.space = space
-        self.unreadCount = 0
-        self.mentionsCount = 0
-        self.lastMessage = ""
+        self.preview = ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId)
     }
 }

@@ -1,30 +1,15 @@
+import Services
+
+
 struct ChatMessagePreview: Hashable {
     let spaceId: String
     let chatId: String
-    let unreadCounter: Int
-    let mentionCounter: Int
     
-    let lastMessage: String
+    var unreadCounter: Int
+    var mentionCounter: Int
     
-    func updated(unreadCounter: Int, mentionCounter: Int) -> ChatMessagePreview {
-        ChatMessagePreview(
-            spaceId: spaceId,
-            chatId: chatId,
-            unreadCounter: unreadCounter,
-            mentionCounter: mentionCounter,
-            lastMessage: lastMessage
-        )
-    }
-    
-    func updated(lastMessage: String) -> ChatMessagePreview {
-        ChatMessagePreview(
-            spaceId: spaceId,
-            chatId: chatId,
-            unreadCounter: unreadCounter,
-            mentionCounter: mentionCounter,
-            lastMessage: lastMessage
-        )
-    }
+    var lastMessage: String
+    var attachments: [ChatMessageAttachment]
 }
 
 extension ChatMessagePreview {
@@ -35,5 +20,20 @@ extension ChatMessagePreview {
         self.mentionCounter = 0
         
         self.lastMessage = ""
+        self.attachments = []
+    }
+}
+
+extension Array where Element == ChatMessageAttachment {
+    var localizedCount: String {
+        // TBD: real implementation
+        switch count {
+        case 0:
+            ""
+        case 1:
+            "Attachement"
+        default:
+            "\(count) Attachements"
+        }
     }
 }

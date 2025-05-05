@@ -46,8 +46,12 @@ struct NewSpaceCardLabel: View {
     
     private var info: some View {
         Group {
-            if spaceData.lastMessage.isNotEmpty {
-                Text(spaceData.lastMessage)
+            if spaceData.preview.attachments.isNotEmpty {
+                // TBD: Preview
+                Text(spaceData.preview.attachments.localizedCount)
+                    .anytypeStyle(.uxTitle2Medium)
+            } else if spaceData.preview.lastMessage.isNotEmpty {
+                Text(spaceData.preview.lastMessage)
                     .anytypeStyle(.uxTitle2Medium)
             } else if FeatureFlags.spaceUxTypes {
                 Text(spaceData.spaceView.uxType.name)
@@ -66,7 +70,7 @@ struct NewSpaceCardLabel: View {
     private var counters: some View {
         if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
             DotsView().frame(width: 30, height: 6)
-        } else if spaceData.haveCounters {
+        } else if spaceData.hasCounters {
             unreadCounters
         } else if spaceData.spaceView.isPinned {
             Image(asset: .X24.pin).frame(width: 22, height: 22)
@@ -75,11 +79,11 @@ struct NewSpaceCardLabel: View {
     
     private var unreadCounters: some View {
         HStack(spacing: 4) {
-            if spaceData.mentionsCount > 0 {
+            if spaceData.preview.mentionCounter > 0 {
                 MentionBadge()
             }
-            if spaceData.unreadCount > 0 {
-                CounterView(count: spaceData.unreadCount)
+            if spaceData.preview.unreadCounter > 0 {
+                CounterView(count: spaceData.preview.unreadCounter)
             }
         }
     }

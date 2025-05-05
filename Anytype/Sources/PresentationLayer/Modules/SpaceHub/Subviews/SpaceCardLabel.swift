@@ -37,8 +37,8 @@ struct SpaceCardLabel: View {
             
             if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
                 DotsView().frame(width: 30, height: 6)
-            } else if spaceData.unreadCount > 0 {
-                CounterView(count: spaceData.unreadCount)
+            } else if spaceData.preview.unreadCounter > 0 {
+                CounterView(count: spaceData.preview.unreadCounter)
             } else if spaceData.spaceView.isPinned {
                 Image(asset: .X24.pin).frame(width: 22, height: 22)
             }
