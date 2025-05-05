@@ -5,9 +5,9 @@ import AnytypeCore
 
 struct SpaceHubDropDelegate: DropDelegate {
     
-    let destinationItem: ParticipantSpaceViewData
-    @Binding var allSpaces: [ParticipantSpaceViewData]?
-    @Binding var draggedItem: ParticipantSpaceViewData?
+    let destinationItem: ParticipantSpaceViewDataWithPreview
+    @Binding var allSpaces: [ParticipantSpaceViewDataWithPreview]?
+    @Binding var draggedItem: ParticipantSpaceViewDataWithPreview?
     @Binding var initialIndex: Int?
     
     func dropUpdated(info: DropInfo) -> DropProposal? {

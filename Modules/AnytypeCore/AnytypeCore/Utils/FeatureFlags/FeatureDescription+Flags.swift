@@ -103,9 +103,9 @@ public extension FeatureDescription {
     
     static let enableStreamSpaceType = FeatureDescription(
         title: "Enable stream space type",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
     )
 
     static let enablePushMessages = FeatureDescription(
@@ -273,13 +273,6 @@ public extension FeatureDescription {
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let chatWidget = FeatureDescription(
-        title: "Chat widget",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false

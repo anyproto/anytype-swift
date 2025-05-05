@@ -3,9 +3,9 @@ import AnytypeCore
 
 struct SpaceCard: View, @preconcurrency Equatable {
     
-    let space: ParticipantSpaceViewData
+    let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpeper: SpaceWallpaperType
-    @Binding var draggedSpace: ParticipantSpaceViewData?
+    @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
     let onTapPin: () async throws -> Void
@@ -18,14 +18,14 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTap()
         } label: {
             SpaceCardLabel(
-                space: space,
+                spaceData: spaceData,
                 wallpeper: wallpeper,
                 draggedSpace: $draggedSpace
             )
         }
-        .disabled(FeatureFlags.spaceLoadingForScreen ? false : space.spaceView.isLoading)
+        .disabled(FeatureFlags.spaceLoadingForScreen ? false : spaceData.spaceView.isLoading)
         .contextMenu {
-            if !space.spaceView.isLoading {
+            if !spaceData.spaceView.isLoading {
                 menuItems
             }
         }
@@ -34,10 +34,10 @@ struct SpaceCard: View, @preconcurrency Equatable {
     
     @ViewBuilder
     private var menuItems: some View {
-        if space.spaceView.isLoading {
+        if spaceData.spaceView.isLoading {
             copyButton
         } else if FeatureFlags.pinnedSpaces {
-            if space.spaceView.isPinned {
+            if spaceData.spaceView.isPinned {
                 unpinButton
             } else {
                 pinButton
@@ -45,10 +45,10 @@ struct SpaceCard: View, @preconcurrency Equatable {
         }
         
         Divider()
-        if space.canLeave {
+        if spaceData.space.canLeave {
             leaveButton
         }
-        if space.canBeDeleted {
+        if spaceData.space.canBeDeleted {
             deleteButton
         }
     }
@@ -94,7 +94,7 @@ struct SpaceCard: View, @preconcurrency Equatable {
     }
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.space == rhs.space
+        lhs.spaceData == rhs.spaceData
         && lhs.wallpeper == rhs.wallpeper
         && lhs.draggedSpace == rhs.draggedSpace
     }

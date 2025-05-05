@@ -153,7 +153,8 @@ final class RelationsService: RelationsServiceProtocol {
         
         let compoundRelationsKeys = (recommendedFeaturedRelations + recommendedRelations + recommendedHiddenRelations).map(\.key)
         let descriptionKey = BundledRelationKey.description.rawValue // Show description in dataview relations list
-        let dataviewKeys = compoundRelationsKeys + [descriptionKey]
+        let nameKey = BundledRelationKey.name.rawValue // Show name in dataview relations list
+        let dataviewKeys = compoundRelationsKeys + [nameKey, descriptionKey]
         
         let uniqueDataviewKeys = NSOrderedSet(array: dataviewKeys).array as! [String]
         try await ClientCommands.blockDataviewRelationSet(.with {

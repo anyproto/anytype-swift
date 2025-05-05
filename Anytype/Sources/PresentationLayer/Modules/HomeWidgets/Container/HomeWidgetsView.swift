@@ -62,7 +62,7 @@ private struct HomeWidgetsInternalView: View {
     private var content: some View {
         ZStack {
             if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty || !FeatureFlags.binWidgetFromLibrary {
+                if model.widgetBlocks.isNotEmpty || model.showSpaceChat || !FeatureFlags.binWidgetFromLibrary {
                     widgets
                 } else {
                     emptyState
@@ -77,7 +77,7 @@ private struct HomeWidgetsInternalView: View {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTipView()
                 }
-                if FeatureFlags.chatWidget, model.showSpaceChat {
+                if model.showSpaceChat {
                     SpaceChatWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
                 }
                 ForEach(model.widgetBlocks) { widgetInfo in

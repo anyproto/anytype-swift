@@ -166,7 +166,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private func updateState() {
         guard let participantSpaceView else { return }
         
-        let canLinkToChat = chatLinkData.isNotNil && participantSpaceView.spaceView.initialScreenIsChat
+        let canLinkToChat = chatLinkData.isNotNil && participantSpaceView.spaceView.initialScreenIsChat && participantSpaceView.spaceView.chatToggleEnable
         
         if canLinkToChat {
             leftButtonMode = .chat(participantSpaceView.permissions.canEdit)

@@ -166,10 +166,6 @@ public extension FeatureFlags {
         value(for: .binScreenEmptyAction)
     }
 
-    static var chatWidget: Bool {
-        value(for: .chatWidget)
-    }
-
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -272,7 +268,6 @@ public extension FeatureFlags {
         .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .chatWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

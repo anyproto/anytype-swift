@@ -25,7 +25,7 @@ final class ChatHeaderViewModel: ObservableObject {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
             title = spaceView.title
             icon = spaceView.objectIconImage
-            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
+            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat && spaceView.chatToggleEnable
         }
     }
     
