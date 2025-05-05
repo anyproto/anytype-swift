@@ -21,7 +21,8 @@ final class SeedService: SeedServiceProtocol {
     private func query() -> GenericPasswordQueryable {
         GenericPasswordQueryable(
             account: Constants.secAttrAccount,
-            service: Constants.secAttrService
+            service: Constants.secAttrService,
+            attrAccessible: .whenUnlockedThisDeviceOnly
         )
     }
 }

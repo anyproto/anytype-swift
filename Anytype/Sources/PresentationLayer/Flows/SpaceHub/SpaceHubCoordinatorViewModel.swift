@@ -363,9 +363,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .startObject(let objectId, let spaceId):
+        case .openObject(let objectId, let spaceId):
             if FeatureFlags.openWelcomeObject {
-                try await handleStartObject(objectId: objectId, spaceId: spaceId)
+                try await handleOpenObject(objectId: objectId, spaceId: spaceId)
             }
         case .deepLink(let deepLink, let source):
             try await handleDeepLink(deepLink: deepLink, source: source)
@@ -412,7 +412,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         }
     }
     
-    private func handleStartObject(objectId: String, spaceId: String) async throws {
+    private func handleOpenObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
             try await openSpace(spaceId: spaceId)

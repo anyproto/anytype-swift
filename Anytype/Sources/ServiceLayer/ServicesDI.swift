@@ -1,5 +1,4 @@
 import Foundation
-import SecureService
 import Services
 import SharedContentManager
 import DeepLinks
@@ -47,10 +46,6 @@ extension Container {
     
     var localRepoService: Factory<any LocalRepoServiceProtocol> {
         self { LocalRepoService() }.shared
-    }
-    
-    var keychainStore: Factory<any KeychainStoreProtocol> {
-        self { KeychainStore() }.shared
     }
     
     var seedService: Factory<any SeedServiceProtocol> {
@@ -382,7 +377,23 @@ extension Container {
         self { ApplePushNotificationService() }.singleton
     }
     
+    var encryptionKeyEventHandler: Factory<any EncryptionKeyEventHandlerProtocol> {
+        self { EncryptionKeyEventHandler() }.singleton
+    }
+    
     var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
         self { ActiveSpaceManager() }.singleton
+    }
+    
+    var pushNotificationsRegistrationService: Factory<any PushNotificationsRegistrationServiceProtocol> {
+        self { PushNotificationsRegistrationService() }.shared
+    }
+    
+    var pushNotificationsPermissionService: Factory<any PushNotificationsPermissionServiceProtocol> {
+        self { PushNotificationsPermissionService() }.shared
+    }
+    
+    var pushNotificationsAlertHandler: Factory<any PushNotificationsAlertHandlerProtocol> {
+        self { PushNotificationsAlertHandler() }.shared
     }
 }
