@@ -15,7 +15,7 @@ struct SoulView: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.JoinFlow.Soul.button,
+                Loc.continue,
                 inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
@@ -45,7 +45,7 @@ struct SoulView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
             
-            Spacer.fixedHeight(18)
+            Spacer.fixedHeight(32)
             
             input
         }
@@ -59,7 +59,6 @@ struct SoulView: View {
             text: $model.inputText
         )
         .disableAutocorrection(true)
-        .textContentType(.password)
         .autocapitalization(.sentences)
         .foregroundColor(.Auth.inputText)
         .padding(EdgeInsets(horizontal: 20, vertical: 20))
