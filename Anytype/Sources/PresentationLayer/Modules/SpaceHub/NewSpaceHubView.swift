@@ -7,6 +7,8 @@ struct NewSpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
+    @State private var offset: CGPoint?
+    
     init(output: (any SpaceHubModuleOutput)?) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
     }
@@ -29,14 +31,24 @@ struct NewSpaceHubView: View {
     }
     
     var content: some View {
-        VStack(spacing: 0) {
-            navBar
-            HomeUpdateSubmoduleView().padding(8)
+        ZStack {
+            mainContent
             
+            VStack(spacing: 0) {
+                navBar
+                Spacer()
+            }
+        }
+    }
+    
+    private var mainContent: some View {
+        VStack(spacing: 0) {
             if let spaces = model.spaces, spaces.isNotEmpty {
-                VStack(spacing: 8) {
-                    ScrollView {
-                        Spacer.fixedHeight(4)
+                OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
+                    VStack(spacing: 0) {
+                        Spacer.fixedHeight(44) // navbar
+                        HomeUpdateSubmoduleView().padding(8)
+                        
                         if #available(iOS 17.0, *) {
                             if FeatureFlags.anyAppBetaTip {
                                 HomeAnyAppWidgetTipView()
@@ -48,9 +60,10 @@ struct NewSpaceHubView: View {
                         }
                         Spacer.fixedHeight(40)
                     }
-                    .scrollIndicators(.never)
                 }
             } else {
+                Spacer.fixedHeight(44) // navbar
+                HomeUpdateSubmoduleView().padding(8)
                 EmptyStateView(
                     title: Loc.thereAreNoSpacesYet,
                     subtitle: "",
@@ -85,35 +98,34 @@ struct NewSpaceHubView: View {
     
     private var navBar: some View {
         HStack(alignment: .center, spacing: 0) {
+            Button { model.showSettings = true }
+            label: {
+                IconView(icon: model.profileIcon)
+                    .foregroundStyle(Color.Control.active)
+                    .frame(width: 28, height: 28)
+                    .padding(.vertical, 8)
+            }
+            
             Spacer()
             AnytypeText(FeatureFlags.spaceHubNewTitle ? Loc.myChannels : Loc.mySpaces, style: .uxTitle1Semibold)
             Spacer()
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .overlay(alignment: .leading) {
-            Button(
-                action: {
-                    model.showSettings = true
-                },
-                label: {
-                    IconView(icon: model.profileIcon)
-                        .foregroundStyle(Color.Control.active)
-                        .frame(width: 28, height: 28)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 16)
-                }
-            )
-        }
-        .overlay(alignment: .trailing) {
+            
             Button { model.onTapCreateSpace() }
             label: {
                 Image(asset: .X32.addFilled)
                     .foregroundStyle(Color.Control.active)
+                    .frame(width: 32, height: 32)
                     .padding(.vertical, 6)
-                    .padding(.horizontal, 16)
             }
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .if(offset.isNotNil && offset!.y < 0, if: {
+            $0.background(Material.ultraThinMaterial)
+        }, else: {
+            $0.background(Color.Background.primary)
+        })
+        .frame(height: 44)
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
