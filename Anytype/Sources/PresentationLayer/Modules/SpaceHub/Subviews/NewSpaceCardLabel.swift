@@ -9,7 +9,7 @@ struct NewSpaceCardLabel: View {
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .center, spacing: 12) {
             IconView(icon: spaceData.spaceView.objectIconImage)
                 .frame(width: 56, height: 56)
             VStack(alignment: .leading, spacing: 0) {

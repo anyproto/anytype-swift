@@ -34,9 +34,8 @@ struct NewSpaceHubView: View {
             HomeUpdateSubmoduleView().padding(8)
             
             if let spaces = model.spaces, spaces.isNotEmpty {
-                VStack(spacing: 8) {
-                    ScrollView {
-                        Spacer.fixedHeight(4)
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
                         if #available(iOS 17.0, *) {
                             if FeatureFlags.anyAppBetaTip {
                                 HomeAnyAppWidgetTipView()
@@ -48,7 +47,6 @@ struct NewSpaceHubView: View {
                         }
                         Spacer.fixedHeight(40)
                     }
-                    .scrollIndicators(.never)
                 }
             } else {
                 EmptyStateView(
