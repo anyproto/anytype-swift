@@ -21,7 +21,7 @@ struct NewSpaceCardLabel: View {
                 Spacer(minLength: 1)
             }
             
-            Spacer()
+            Spacer(minLength: 8)
             
             counters
         }
