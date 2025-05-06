@@ -44,40 +44,51 @@ struct NewSpaceHubView: View {
     private var mainContent: some View {
         VStack(spacing: 0) {
             if let spaces = model.spaces, spaces.isNotEmpty {
-                OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
-                    VStack(spacing: 0) {
-                        Spacer.fixedHeight(44) // navbar
-                        HomeUpdateSubmoduleView().padding(8)
-                        
-                        if #available(iOS 17.0, *) {
-                            if FeatureFlags.anyAppBetaTip {
-                                HomeAnyAppWidgetTipView()
-                                    .padding(.horizontal, 8)
-                            }
-                        }
-                        ForEach(spaces) {
-                            spaceCard($0)
-                        }
-                        Spacer.fixedHeight(40)
-                    }
-                }
+                scrollView(spaces)
+            } else if model.spaces.isNotNil {
+                emptyStateView
             } else {
-                Spacer.fixedHeight(44) // navbar
-                HomeUpdateSubmoduleView().padding(8)
-                EmptyStateView(
-                    title: Loc.thereAreNoSpacesYet,
-                    subtitle: "",
-                    style: .withImage,
-                    buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
-                        model.onTapCreateSpace()
-                    }
-                )
+                EmptyView() // Do not show empty state view if we do not receive data yet
             }
             
             Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
         .animation(.default, value: model.spaces)
+    }
+    
+    private func scrollView(_ spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+        OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(44) // navbar
+                HomeUpdateSubmoduleView().padding(8)
+                
+                if #available(iOS 17.0, *) {
+                    if FeatureFlags.anyAppBetaTip {
+                        HomeAnyAppWidgetTipView()
+                            .padding(.horizontal, 8)
+                    }
+                }
+                ForEach(spaces) {
+                    spaceCard($0)
+                }
+                Spacer.fixedHeight(40)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var emptyStateView: some View {
+        Spacer.fixedHeight(44) // navbar
+        HomeUpdateSubmoduleView().padding(8)
+        EmptyStateView(
+            title: Loc.thereAreNoSpacesYet,
+            subtitle: "",
+            style: .withImage,
+            buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
+                model.onTapCreateSpace()
+            }
+        )
     }
     
     private var plusButton: some View {
