@@ -8,8 +8,6 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
-    let onTapPin: () async throws -> Void
-    let onTapUnpin: () async throws -> Void
     let onTapLeave: () -> Void
     let onTapDelete: () async throws -> Void
     
@@ -36,12 +34,6 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
     private var menuItems: some View {
         if spaceData.spaceView.isLoading {
             copyButton
-        } else if FeatureFlags.pinnedSpaces {
-            if spaceData.spaceView.isPinned {
-                unpinButton
-            } else {
-                pinButton
-            }
         }
         
         Divider()
@@ -58,22 +50,6 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
             onTapCopy()
         } label: {
             Text(Loc.copySpaceInfo)
-        }
-    }
-    
-    private var unpinButton: some View {
-        AsyncButton {
-            try await onTapUnpin()
-        } label: {
-            Text(Loc.unpin)
-        }
-    }
-    
-    private var pinButton: some View {
-        AsyncButton {
-            try await onTapPin()
-        } label: {
-            Text(Loc.pin)
         }
     }
     

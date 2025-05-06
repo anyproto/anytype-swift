@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var pinnedSpaces: Bool {
-        value(for: .pinnedSpaces)
-    }
-
     static var newSpacesLoading: Bool {
         value(for: .newSpacesLoading)
     }
@@ -234,7 +230,6 @@ public extension FeatureFlags {
         .hideCoCreator,
         .allObjectsFromLibrary,
         .homeSpaceLevelChat,
-        .pinnedSpaces,
         .newSpacesLoading,
         .objectTypeWidgets,
         .newTypeIcons,
