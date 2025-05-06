@@ -85,35 +85,28 @@ struct NewSpaceHubView: View {
     
     private var navBar: some View {
         HStack(alignment: .center, spacing: 0) {
+            Button { model.showSettings = true }
+            label: {
+                IconView(icon: model.profileIcon)
+                    .foregroundStyle(Color.Control.active)
+                    .frame(width: 28, height: 28)
+                    .padding(.vertical, 8)
+            }
+            
             Spacer()
             AnytypeText(FeatureFlags.spaceHubNewTitle ? Loc.myChannels : Loc.mySpaces, style: .uxTitle1Semibold)
             Spacer()
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .overlay(alignment: .leading) {
-            Button(
-                action: {
-                    model.showSettings = true
-                },
-                label: {
-                    IconView(icon: model.profileIcon)
-                        .foregroundStyle(Color.Control.active)
-                        .frame(width: 28, height: 28)
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 16)
-                }
-            )
-        }
-        .overlay(alignment: .trailing) {
+            
             Button { model.onTapCreateSpace() }
             label: {
                 Image(asset: .X32.addFilled)
                     .foregroundStyle(Color.Control.active)
+                    .frame(width: 32, height: 32)
                     .padding(.vertical, 6)
-                    .padding(.horizontal, 16)
             }
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
