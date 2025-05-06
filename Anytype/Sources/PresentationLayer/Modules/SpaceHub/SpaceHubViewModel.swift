@@ -72,18 +72,6 @@ final class SpaceHubViewModel: ObservableObject {
         UIPasteboard.general.string = String(describing: spaceView)
     }
     
-    func pin(spaceView: SpaceView) async throws {
-        guard let spaces else { return }
-        var newOrder = spaces.filter { $0.spaceView.id != spaceView.id && $0.spaceView.isPinned }.map(\.spaceView.id)
-        newOrder.insert(spaceView.id, at: 0)
-        
-        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
-    }
-    
-    func unpin(spaceView: SpaceView) async throws {
-        try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
-    }
-    
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()

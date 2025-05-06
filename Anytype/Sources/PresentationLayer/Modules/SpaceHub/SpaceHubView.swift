@@ -127,12 +127,6 @@ struct SpaceHubView: View {
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)
             },
-            onTapPin: {
-                try await model.pin(spaceView: space.spaceView)
-            },
-            onTapUnpin: {
-                try await model.unpin(spaceView: space.spaceView)
-            },
             onTapLeave: {
                 model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
             },

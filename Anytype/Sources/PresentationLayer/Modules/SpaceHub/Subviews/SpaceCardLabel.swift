@@ -39,8 +39,6 @@ struct SpaceCardLabel: View {
                 DotsView().frame(width: 30, height: 6)
             } else if spaceData.preview.unreadCounter > 0 {
                 CounterView(count: spaceData.preview.unreadCounter)
-            } else if spaceData.spaceView.isPinned {
-                Image(asset: .X24.pin).frame(width: 22, height: 22)
             }
         }
         .padding(16)
@@ -58,13 +56,11 @@ struct SpaceCardLabel: View {
         .if(spaceData.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
-        .if(!FeatureFlags.pinnedSpaces || spaceData.spaceView.isPinned) {
-            $0.onDrag {
-                draggedSpace = spaceData
-                return NSItemProvider()
-            } preview: {
-                EmptyView()
-            }
+        .onDrag {
+            draggedSpace = spaceData
+            return NSItemProvider()
+        } preview: {
+            EmptyView()
         }
     }
 }
