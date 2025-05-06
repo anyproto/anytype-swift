@@ -7,6 +7,8 @@ struct NewSpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
+    @State private var offset: CGPoint?
+    
     init(output: (any SpaceHubModuleOutput)?) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
     }
@@ -29,13 +31,24 @@ struct NewSpaceHubView: View {
     }
     
     var content: some View {
-        VStack(spacing: 0) {
-            navBar
-            HomeUpdateSubmoduleView().padding(8)
+        ZStack {
+            mainContent
             
+            VStack(spacing: 0) {
+                navBar
+                Spacer()
+            }
+        }
+    }
+    
+    private var mainContent: some View {
+        VStack(spacing: 0) {
             if let spaces = model.spaces, spaces.isNotEmpty {
-                ScrollView(showsIndicators: false) {
+                OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
                     VStack(spacing: 0) {
+                        Spacer.fixedHeight(44) // navbar
+                        HomeUpdateSubmoduleView().padding(8)
+                        
                         if #available(iOS 17.0, *) {
                             if FeatureFlags.anyAppBetaTip {
                                 HomeAnyAppWidgetTipView()
@@ -49,6 +62,8 @@ struct NewSpaceHubView: View {
                     }
                 }
             } else {
+                Spacer.fixedHeight(44) // navbar
+                HomeUpdateSubmoduleView().padding(8)
                 EmptyStateView(
                     title: Loc.thereAreNoSpacesYet,
                     subtitle: "",
@@ -105,6 +120,12 @@ struct NewSpaceHubView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .if(offset.isNotNil && offset!.y < 0, if: {
+            $0.background(Material.ultraThinMaterial)
+        }, else: {
+            $0.background(Color.Background.primary)
+        })
+        .frame(height: 44)
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
