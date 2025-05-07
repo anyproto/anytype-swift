@@ -59,7 +59,7 @@ struct EmailCollectionView: View {
             .textContentType(.emailAddress)
             .foregroundColor(.Auth.inputText)
             .padding(EdgeInsets(horizontal: 20, vertical: 20))
-            .background(Color.Auth.input)
+            .background(Color.Shape.transperentSecondary)
             .accentColor(.Text.tertiary)
             .cornerRadius(16)
             .frame(height: 64)
