@@ -618,9 +618,8 @@ public enum Loc {
       }
     }
     public enum Welcome {
-      public static func subtitle(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Auth.Welcome.Subtitle", String(describing: p1), fallback: "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).")
-      }
+      public static let subtitle = Loc.tr("Localizable", "Auth.Welcome.subtitle", fallback: "Encrypted, offline \n& open")
+      public static let title = Loc.tr("Localizable", "Auth.Welcome.title", fallback: "Create & collaborate\n in spaces you own.")
     }
   }
   public enum BlockLink {

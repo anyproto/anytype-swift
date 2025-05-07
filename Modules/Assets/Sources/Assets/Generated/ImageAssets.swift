@@ -15,8 +15,7 @@ extension ImageAsset {
     public static let appIconSmile = ImageAsset.bundle(name: "AppIconsPreview/AppIconSmile")
   }
   public static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
-  public static let communication = ImageAsset.bundle(name: "communication")
-  public static let localInternet = ImageAsset.bundle(name: "local-internet")
+  public static let greetings = ImageAsset.bundle(name: "greetings")
   public static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   public static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   public static let backArrow = ImageAsset.bundle(name: "backArrow")
