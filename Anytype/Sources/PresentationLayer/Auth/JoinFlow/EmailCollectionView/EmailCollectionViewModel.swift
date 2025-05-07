@@ -11,6 +11,7 @@ final class EmailCollectionViewModel: ObservableObject {
     }
     @Published var inProgress = false
     @Published var saveEmailTaskId: String? = nil
+    @Published var showIncorrectEmailError = false
     
     // MARK: - DI
     
@@ -31,12 +32,12 @@ final class EmailCollectionViewModel: ObservableObject {
     }
     
     func onNextAction() {
-        guard state.email.isNotEmpty else {
-            onSuccess()
-            return
+        if state.email.isValidEmail() {
+            showIncorrectEmailError = false
+            saveEmailTaskId = UUID().uuidString
+        } else {
+            showIncorrectEmailError = true
         }
-        
-        saveEmailTaskId = UUID().uuidString
     }
     
     func onSkipAction() {

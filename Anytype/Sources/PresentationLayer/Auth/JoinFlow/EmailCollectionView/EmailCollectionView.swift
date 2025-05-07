@@ -50,7 +50,7 @@ struct EmailCollectionView: View {
     private var input: some View {
         ZStack {
             VStack(spacing: 4) {
-                if model.inputText.isNotEmpty && !model.inputText.isValidEmail() {
+                if model.showIncorrectEmailError {
                     AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
                         .foregroundColor(.System.red)
                         .lineLimit(1)
@@ -85,8 +85,7 @@ struct EmailCollectionView: View {
                     model.onNextAction()
                 }
             )
-            .colorScheme(model.inputText.isValidEmail() ? .light : .dark)
-            .disabled(!model.inputText.isValidEmail())
+            .colorScheme(.light)
             
             StandardButton(
                 Loc.skip,
