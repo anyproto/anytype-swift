@@ -46,7 +46,7 @@ struct NewSpaceCardLabel: View {
         Group {
             if spaceData.preview.attachments.isNotEmpty {
                 // TBD: Preview
-                Text(spaceData.preview.attachments.localizedCount)
+                Text(spaceData.preview.localizedAttachmentsText)
                     .anytypeStyle(.uxTitle2Medium)
             } else if spaceData.preview.lastMessage.isNotEmpty {
                 Text(spaceData.preview.lastMessage)

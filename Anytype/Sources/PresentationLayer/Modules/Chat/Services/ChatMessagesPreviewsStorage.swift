@@ -12,6 +12,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let userDefaultsStorage: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let searchService: any SearchServiceProtocol = Container.shared.searchService()
     
     // MARK: - Subscriptions State
     
@@ -82,7 +83,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
                     hasChanges = true
                 }
             case let .chatAdd(data):
-                if handleChatAddEvent(spaceId: event.spaceID, contextId: events.contextId, data: data) {
+                if await handleChatAddEvent(spaceId: event.spaceID, contextId: events.contextId, data: data) {
                     hasChanges = true
                 }
             default:
@@ -106,12 +107,19 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         return true
     }
     
-    private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) -> Bool {
+    private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) async -> Bool {
         guard let subscriptionId, data.subIds.contains(subscriptionId) else { return false }
         
         var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
         preview.lastMessage = data.message.message.text
-        preview.attachments = data.message.attachments
+
+        let attachmentsIds = data.message.attachments.map(\.target)
+        
+        do {
+            preview.attachments = try await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)
+        } catch {
+            return false
+        }
         
         self.previewsBySpace[spaceId] = preview
         return true

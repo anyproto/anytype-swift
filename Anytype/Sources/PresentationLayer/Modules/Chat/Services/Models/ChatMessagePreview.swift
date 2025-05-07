@@ -9,7 +9,7 @@ struct ChatMessagePreview: Hashable {
     var mentionCounter: Int
     
     var lastMessage: String
-    var attachments: [ChatMessageAttachment]
+    var attachments: [ObjectDetails]
 }
 
 extension ChatMessagePreview {
@@ -24,16 +24,16 @@ extension ChatMessagePreview {
     }
 }
 
-extension Array where Element == ChatMessageAttachment {
-    var localizedCount: String {
+extension ChatMessagePreview {
+    var localizedAttachmentsText: String {
         // TBD: real implementation
-        switch count {
+        switch attachments.count {
         case 0:
             ""
         case 1:
             "Attachement"
         default:
-            "\(count) Attachements"
+            "\(attachments.count) Attachements"
         }
     }
 }
