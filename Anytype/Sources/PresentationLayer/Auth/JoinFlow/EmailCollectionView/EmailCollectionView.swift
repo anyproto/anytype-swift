@@ -36,7 +36,7 @@ struct EmailCollectionView: View {
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundColor(.Auth.inputText)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             

@@ -41,7 +41,7 @@ struct SoulView: View {
                 Loc.Auth.JoinFlow.Soul.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundColor(.Auth.inputText)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             

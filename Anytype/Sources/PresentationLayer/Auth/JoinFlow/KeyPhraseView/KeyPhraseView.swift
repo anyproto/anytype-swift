@@ -37,7 +37,7 @@ struct KeyPhraseView: View {
                 Loc.Auth.JoinFlow.Key.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundColor(.Auth.inputText)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
