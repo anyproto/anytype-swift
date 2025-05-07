@@ -31,8 +31,8 @@ struct SoulView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .heading)
-                .foregroundColor(.Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .contentTitleSemibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
@@ -41,7 +41,7 @@ struct SoulView: View {
                 Loc.Auth.JoinFlow.Soul.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Auth.inputText)
+            .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             

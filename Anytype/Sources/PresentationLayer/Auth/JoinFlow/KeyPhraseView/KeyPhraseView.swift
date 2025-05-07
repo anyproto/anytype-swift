@@ -27,8 +27,8 @@ struct KeyPhraseView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading)
-                .foregroundColor(.Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .contentTitleSemibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
@@ -37,7 +37,7 @@ struct KeyPhraseView: View {
                 Loc.Auth.JoinFlow.Key.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Auth.inputText)
+            .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             

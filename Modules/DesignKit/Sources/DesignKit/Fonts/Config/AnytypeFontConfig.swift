@@ -115,6 +115,13 @@ public extension AnytypeFont {
                 lineHeight: 20,
                 kern: -0.41
             )
+        case .contentTitleSemibold:
+            return AnytypeFontConfig(
+                font: FontFamily.Inter.semiBold,
+                size: 28,
+                lineHeight: 32,
+                kern: -0.48
+            )
         case .uxTitle1Semibold:
             return AnytypeFontConfig(
                 font: FontFamily.Inter.semiBold,

@@ -26,8 +26,8 @@ struct EmailCollectionView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Email.title, style: .heading)
-                .foregroundColor(.Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Email.title, style: .contentTitleSemibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
@@ -36,7 +36,7 @@ struct EmailCollectionView: View {
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Auth.inputText)
+            .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
