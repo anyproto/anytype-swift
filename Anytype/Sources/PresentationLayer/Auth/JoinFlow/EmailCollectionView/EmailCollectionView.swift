@@ -19,6 +19,9 @@ struct EmailCollectionView: View {
         .onAppear {
             model.onAppear()
         }
+        .task(item: model.saveEmailTaskId) { _ in
+            await model.saveEmail()
+        }
     }
     
     private var content: some View {

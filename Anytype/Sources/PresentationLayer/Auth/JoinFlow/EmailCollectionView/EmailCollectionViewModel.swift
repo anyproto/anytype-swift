@@ -10,6 +10,7 @@ final class EmailCollectionViewModel: ObservableObject {
         }
     }
     @Published var inProgress = false
+    @Published var saveEmailTaskId: String? = nil
     
     // MARK: - DI
     
@@ -30,30 +31,22 @@ final class EmailCollectionViewModel: ObservableObject {
     }
     
     func onNextAction() {
-        saveEmail()
+        guard state.email.isNotEmpty else {
+            onSuccess()
+            return
+        }
+        
+        saveEmailTaskId = UUID().uuidString
     }
     
     func onSkipAction() {
         onSuccess()
     }
     
-    // MARK: - Save email step
-    
-    private func saveEmail() {
-        guard state.email.isNotEmpty else {
-            onSuccess()
-            return
-        }
-        
-        Task {
-            startLoading()
-            do {
-                try await membershipService.getVerificationEmail(email: state.email)
-                onSuccess()
-            } catch {
-                saveEmailError(error)
-            }
-        }
+    func saveEmail() async {
+        startLoading()
+        try? await membershipService.getVerificationEmail(email: state.email)
+        onSuccess()
     }
     
     private func onSuccess() {
