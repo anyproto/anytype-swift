@@ -5,8 +5,9 @@ import AsyncAlgorithms
 @preconcurrency import Combine
 import AnytypeCore
 
+
 protocol SpaceHubSpacesStorageProtocol: Sendable {
-    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewData]> { get async }
+    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewDataWithPreview]> { get async }
 }
 
 actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
@@ -17,13 +18,9 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     
-    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewData]> {
+    var spacesStream: AnyAsyncSequence<[ParticipantSpaceViewDataWithPreview]> {
         get async {
             if FeatureFlags.countersOnSpaceHub {
-                
-                Task {
-                    await chatMessagesPreviewsStorage.startSubscriptionIfNeeded()
-                }
                 
                 let combineStream = combineLatest(
                     participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values,
@@ -31,19 +28,25 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                 ).throttle(milliseconds: 300)
                 
                 return combineStream.map { (spaces, previews) in
-                    var spaces = spaces
+                    var spaces = spaces.map { ParticipantSpaceViewDataWithPreview(space: $0) }
                     
                     for preview in previews {
                         if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
-                            spaces[spaceIndex] = spaces[spaceIndex].updateUnreadMessagesCount(preview.counter)
+                            let participantSpace = spaces[spaceIndex]
+                            if participantSpace.spaceView.chatId == preview.chatId {
+                                spaces[spaceIndex] = spaces[spaceIndex].updated(preview: preview)
+                            }
                         }
                     }
                     
                     return spaces
-                }.eraseToAnyAsyncSequence()
+                }
+                .removeDuplicates()
+                .eraseToAnyAsyncSequence()
             } else {
                 return participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values
                     .throttle(milliseconds: 300)
+                    .map { $0.map { ParticipantSpaceViewDataWithPreview(space: $0) } }
                     .eraseToAnyAsyncSequence()
             }
         }

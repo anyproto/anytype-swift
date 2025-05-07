@@ -43,13 +43,6 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
-    static let pinnedSpaces = FeatureDescription(
-        title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
     static let newSpacesLoading = FeatureDescription(
         title: "Spaces loading indicator",
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
@@ -103,20 +96,13 @@ public extension FeatureDescription {
     
     static let enableStreamSpaceType = FeatureDescription(
         title: "Enable stream space type",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false
-    )
-    
-    static let firebasePushMessages = FeatureDescription(
-        title: "Firebase push messages",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
     )
 
     static let enablePushMessages = FeatureDescription(
-        title: "Firebase config and enable push messages",
+        title: "Enable push messages (⚠️ please restart the app after enabling)",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false

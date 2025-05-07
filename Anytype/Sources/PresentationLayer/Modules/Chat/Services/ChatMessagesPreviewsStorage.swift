@@ -3,7 +3,6 @@ import AnytypeCore
 import AsyncTools
 
 protocol ChatMessagesPreviewsStorageProtocol: AnyObject, Sendable {
-    func startSubscriptionIfNeeded() async
     func previews() async -> [ChatMessagePreview]
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> { get async }
     var previewsSequenceWithEmpty: AnyAsyncSequence<[ChatMessagePreview]> { get async }
@@ -13,6 +12,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let userDefaultsStorage: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let searchService: any SearchServiceProtocol = Container.shared.searchService()
     
     // MARK: - Subscriptions State
     
@@ -22,33 +22,16 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private var previewsBySpace = [String: ChatMessagePreview]()
     private let previewsStream = AsyncToManyStream<[ChatMessagePreview]>()
     
+    init() {
+        Task { await startSubscription() }
+    }
+    
     var previewsSequence: AnyAsyncSequence<[ChatMessagePreview]> {
         previewsStream.throttle(milliseconds: 300).eraseToAnyAsyncSequence()
     }
     
     var previewsSequenceWithEmpty: AnyAsyncSequence<[ChatMessagePreview]> {
         previewsStream.subscribe([]).throttle(milliseconds: 300).eraseToAnyAsyncSequence()
-    }
-    
-    func startSubscriptionIfNeeded() async {
-        guard subscriptionId == nil, userDefaultsStorage.usersId.isNotEmpty else {
-            return
-        }
-        
-        subscription = Task { [weak self] in
-            for await events in await EventBunchSubscribtion.default.stream() {
-                await self?.handle(events: events)
-            }
-        }
-        
-        do {
-            // TODO: Temporary fix for handle events, that middleware sends before the response
-            // Waiting change middleware API
-            subscriptionId = "lastMessage"
-            subscriptionId = try await chatService.subscribeToMessagePreviews()
-        } catch {
-            anytypeAssertionFailure("Subscribe to messages previews error", info: ["previewsError": error.localizedDescription])
-        }
     }
     
     func previews() -> [ChatMessagePreview] {
@@ -69,13 +52,38 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     
     // MARK: - Private
     
+    private func startSubscription() async {
+        guard subscriptionId == nil, userDefaultsStorage.usersId.isNotEmpty else {
+            return
+        }
+        
+        subscription = Task { [weak self] in
+            for await events in await EventBunchSubscribtion.default.stream() {
+                await self?.handle(events: events)
+            }
+        }
+        
+        do {
+            // TODO: Temporary fix for handle events, that middleware sends before the response
+            // Waiting change middleware API
+            subscriptionId = "lastMessage"
+            subscriptionId = try await chatService.subscribeToMessagePreviews()
+        } catch {
+            anytypeAssertionFailure("Subscribe to messages previews error", info: ["previewsError": error.localizedDescription])
+        }
+    }
+    
     private func handle(events: EventsBunch) async {
         var hasChanges = false
         
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatStateUpdate(state):
-                if handleChatStateUpdateEvent(event, state: state) {
+                if handleChatStateUpdateEvent(spaceId: event.spaceID, contextId: events.contextId, state: state) {
+                    hasChanges = true
+                }
+            case let .chatAdd(data):
+                if await handleChatAddEvent(spaceId: event.spaceID, contextId: events.contextId, data: data) {
                     hasChanges = true
                 }
             default:
@@ -88,19 +96,38 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         }
     }
     
-    private func handleChatStateUpdateEvent(_ event: MiddlewareEventMessage, state: ChatUpdateState) -> Bool {
+    private func handleChatStateUpdateEvent(spaceId: String, contextId: String, state: ChatUpdateState) -> Bool {
         guard let subscriptionId, state.subIds.contains(subscriptionId) else { return false }
-        let preview = ChatMessagePreview(
-            spaceId: event.spaceID,
-            counter: Int(state.state.messages.counter)
-        )
-        self.previewsBySpace[event.spaceID] = preview
+        
+        var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        preview.unreadCounter = Int(state.state.messages.counter)
+        preview.mentionCounter = Int(state.state.mentions.counter)
+            
+        self.previewsBySpace[spaceId] = preview
+        return true
+    }
+    
+    private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) async -> Bool {
+        guard let subscriptionId, data.subIds.contains(subscriptionId) else { return false }
+        
+        var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+        preview.lastMessage = data.message.message.text
+
+        let attachmentsIds = data.message.attachments.map(\.target)
+        
+        do {
+            preview.attachments = try await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)
+        } catch {
+            return false
+        }
+        
+        self.previewsBySpace[spaceId] = preview
         return true
     }
 }
 
 extension Container {
     var chatMessagesPreviewsStorage: Factory<any ChatMessagesPreviewsStorageProtocol> {
-        self { ChatMessagesPreviewsStorage() }
+        self { ChatMessagesPreviewsStorage() }.shared
     }
 }

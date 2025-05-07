@@ -188,14 +188,6 @@ struct NewSpaceSettingsView: View {
             SectionHeaderView(title: Loc.collaboration)
             RoundedButton(Loc.members, icon: .X24.member) { model.onShareTap() }
         }
-        
-        if let isChatOn = model.isChatOn {
-            Spacer.fixedHeight(8)
-            RoundedButtonView(Loc.chat, decoration: .toggle(isOn: isChatOn, onToggle: { isOn in
-                UISelectionFeedbackGenerator().selectionChanged()
-                model.toggleChatState(isOn: isOn)
-            }))
-        }
     }
     
     func privateSpaceSetting(state: PrivateSpaceSettingsShareSection) -> some View {
@@ -275,7 +267,7 @@ struct NewSpaceSettingsView: View {
             Spacer.fixedHeight(6)
         }
         
-        RoundedButton(Loc.bin, icon: .Widget.bin, decoration: .chervon) {
+        RoundedButton(Loc.bin, icon: .X24.bin, decoration: .chervon) {
             model.onBinTap()
         }
     }

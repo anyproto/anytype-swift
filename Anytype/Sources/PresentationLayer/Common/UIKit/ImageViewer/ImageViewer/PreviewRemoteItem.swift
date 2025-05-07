@@ -33,7 +33,7 @@ final class PreviewRemoteItem: NSObject, QLPreviewItem, Identifiable, PreviewMed
         super.init()
         handler.output = self
         
-        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
+        let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileDirectoryName)
         if FileManager.default.fileExists(atPath: path.relativePath) {
             self.previewItemURL = path
         } else {

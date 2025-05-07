@@ -72,9 +72,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
             guard let self else { return }
             
             var spaces = data.items.map { SpaceView(details: $0) }
-            if !FeatureFlags.pinnedSpaces {
-                spaces = customOrderBuilder.updateSpacesList(spaces: spaces)
-            }
+            spaces = customOrderBuilder.updateSpacesList(spaces: spaces)
             
             allWorkspacesStorage.value = spaces
         }

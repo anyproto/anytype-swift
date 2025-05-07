@@ -55,6 +55,29 @@ platform :ios do
     build_number_dev = latest_testflight_build_number(app_identifier: ENV["APP_ID_DEVELOP"], version: version, initial_build_number: 0)
     build_number = latest_testflight_build_number(version: version, initial_build_number: build_number_dev) + 1
     
+    # Find available build number by checking git tags
+    prefix = settings[:tag_prefix]
+    max_attempts = 100
+    current_attempt = 0
+    
+    while current_attempt < max_attempts do
+      tag_name = "#{prefix}/#{version}/#{build_number}"
+      tag_exists = sh("git tag -l #{tag_name}").strip != ""
+      
+      if tag_exists
+        puts "Tag #{tag_name} already exists, trying next build number"
+        build_number += 1
+        current_attempt += 1
+      else
+        puts "Found available build number: #{build_number}"
+        break
+      end
+    end
+    
+    if current_attempt >= max_attempts
+      UI.user_error!("Could not find available build number after #{max_attempts} attempts")
+    end
+    
     if settings[:add_badge]
       add_badge(
         shield: "#{version}-#{build_number}-blue",
@@ -80,7 +103,6 @@ platform :ios do
     # Reset icon/info.plist changes
     reset_git_repo(skip_clean: true)
   
-    prefix = settings[:tag_prefix]
     tag_name = "#{prefix}/#{version}/#{build_number}"
 
     add_git_tag(tag: tag_name, force: true)

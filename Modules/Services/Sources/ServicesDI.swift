@@ -1,4 +1,5 @@
 import Foundation
+import SecureService
 // Automatically export Factory when import Servies
 @_exported import Factory
 
@@ -6,6 +7,10 @@ public extension Container {
     
     var authMiddleService: Factory<AuthMiddleServiceProtocol> {
         self { AuthMiddleService() }.shared
+    }
+    
+    var keychainStore: Factory<any KeychainStoreProtocol> {
+        self { KeychainStore() }.shared
     }
     
     var blockService: Factory<BlockServiceProtocol> {
@@ -150,5 +155,21 @@ public extension Container {
     
     var aiService: Factory<AIServiceProtocol> {
         self { AIService() }.shared
+    }
+    
+    var pushNotificationsService: Factory<PushNotificationsServiceProtocol> {
+        self { PushNotificationsService() }.shared
+    }
+    
+    var encryptionKeyService: Factory<EncryptionKeyServiceProtocol> {
+        self { EncryptionKeyService() }.shared
+    }
+    
+    var cryptoService: Factory<CryptoServiceProtocol> {
+        self { CryptoService() }.shared
+    }
+    
+    var decryptionPushContentService: Factory<DecryptionPushContentServiceProtocol> {
+        self { DecryptionPushContentService() }.shared
     }
 }

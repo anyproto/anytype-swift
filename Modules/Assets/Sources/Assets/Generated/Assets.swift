@@ -117,6 +117,10 @@ public enum Asset {
     static let yellowStart = ColorAsset(name: "CoverGradients/yellowStart")
   }
   public enum Gradients {
+    public enum Push {
+      static let violetEnd = ColorAsset(name: "Gradients/Push/violetEnd")
+      static let violetStart = ColorAsset(name: "Gradients/Push/violetStart")
+    }
     public enum UpdateAlert {
       static let darkBlue = ColorAsset(name: "Gradients/UpdateAlert/darkBlue")
       static let green = ColorAsset(name: "Gradients/UpdateAlert/green")
@@ -140,6 +144,11 @@ public enum Asset {
   public enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")
+  }
+  public enum PushNotifications {
+    static let background = ColorAsset(name: "PushNotifications/background")
+    static let hiddenText = ColorAsset(name: "PushNotifications/hiddenText")
+    static let text = ColorAsset(name: "PushNotifications/text")
   }
   public enum Shadow {
     static let primary = ColorAsset(name: "Shadow/primary")

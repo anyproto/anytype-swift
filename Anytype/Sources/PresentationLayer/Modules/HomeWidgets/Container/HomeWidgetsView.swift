@@ -38,6 +38,9 @@ private struct HomeWidgetsInternalView: View {
         .task {
             await model.startParticipantTask()
         }
+        .task {
+            await model.startSpaceTask()
+        }
         .onAppear {
             model.onAppear()
         }
@@ -59,7 +62,7 @@ private struct HomeWidgetsInternalView: View {
     private var content: some View {
         ZStack {
             if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty || !FeatureFlags.binWidgetFromLibrary {
+                if model.widgetBlocks.isNotEmpty || model.showSpaceChat || !FeatureFlags.binWidgetFromLibrary {
                     widgets
                 } else {
                     emptyState
@@ -73,6 +76,9 @@ private struct HomeWidgetsInternalView: View {
             VStack(spacing: 12) {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTipView()
+                }
+                if model.showSpaceChat {
+                    SpaceChatWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
                 }
                 ForEach(model.widgetBlocks) { widgetInfo in
                     HomeWidgetSubmoduleView(

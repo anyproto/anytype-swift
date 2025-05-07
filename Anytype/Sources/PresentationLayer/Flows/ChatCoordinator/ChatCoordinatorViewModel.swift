@@ -21,6 +21,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     @Published var showFilesPicker = false
     @Published var showPhotosPicker = false
+    @Published var showPushNotificationsAlert = false
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
     @Published var safariUrl: URL?
@@ -96,6 +97,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     
     func onInviteLinkSelected() {
         inviteLinkData = SpaceShareData(spaceId: spaceId, route: .chat)
+    }
+    
+    func onPushNotificationsAlertSelected() {
+        showPushNotificationsAlert.toggle()
     }
     
     func didSelectCreateObject(type: ObjectType) {

@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var pinnedSpaces: Bool {
-        value(for: .pinnedSpaces)
-    }
-
     static var newSpacesLoading: Bool {
         value(for: .newSpacesLoading)
     }
@@ -68,10 +64,6 @@ public extension FeatureFlags {
 
     static var enableStreamSpaceType: Bool {
         value(for: .enableStreamSpaceType)
-    }
-
-    static var firebasePushMessages: Bool {
-        value(for: .firebasePushMessages)
     }
 
     static var enablePushMessages: Bool {
@@ -238,7 +230,6 @@ public extension FeatureFlags {
         .hideCoCreator,
         .allObjectsFromLibrary,
         .homeSpaceLevelChat,
-        .pinnedSpaces,
         .newSpacesLoading,
         .objectTypeWidgets,
         .newTypeIcons,
@@ -248,7 +239,6 @@ public extension FeatureFlags {
         .newPlusMenu,
         .spaceUxTypes,
         .enableStreamSpaceType,
-        .firebasePushMessages,
         .enablePushMessages,
         .aiToolInSet,
         .newOnboarding,

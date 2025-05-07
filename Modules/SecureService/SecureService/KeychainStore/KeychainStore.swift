@@ -2,7 +2,7 @@ import Security
 import LocalAuthentication
 import Foundation
 
-public protocol KeychainStoreProtocol {
+public protocol KeychainStoreProtocol: AnyObject, Sendable {
     func storeItem(item: String, queryable: SecureStoreQueryable) throws
     func retreiveItem(queryable: SecureStoreQueryable) throws -> String
     func contains(queryable: SecureStoreQueryable) -> Bool
@@ -30,7 +30,6 @@ public final class KeychainStore: KeychainStoreProtocol {
         ]
         
         var query = queryable.query
-        query[String(kSecAttrAccessible)] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
 
         var status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         

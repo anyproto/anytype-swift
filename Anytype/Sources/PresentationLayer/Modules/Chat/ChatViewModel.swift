@@ -13,7 +13,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     // MARK: - DI
     
     let spaceId: String
-    private let chatId: String
+    let chatId: String
     private weak var output: (any ChatModuleOutput)?
     
     @Injected(\.blockService)
@@ -44,6 +44,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.pushNotificationsAlertHandler)
+    private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -590,7 +592,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
-            handleInviteLinkShow()
+            await handlePushNotificationsAlert()
+            await handleInviteLinkShow()
         }
     }
     
@@ -704,7 +707,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         linkedObjects[index] = .localBookmark(bookmark)
     }
     
-    private func handleInviteLinkShow() {
+    private func handleInviteLinkShow() async {
         guard !inviteLinkShown,
               participantPermissions == .owner,
               let createdDate = participantSpaceView?.spaceView.createdDate,
@@ -713,6 +716,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
         output?.onInviteLinkSelected()
         inviteLinkShown = true
+    }
+    
+    private func handlePushNotificationsAlert() async {
+        guard await pushNotificationsAlertHandler.shouldShowAlert() else { return }
+        output?.onPushNotificationsAlertSelected()
     }
     
     private func updateActions() {

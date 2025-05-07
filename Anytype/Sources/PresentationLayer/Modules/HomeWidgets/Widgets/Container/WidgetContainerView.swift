@@ -58,18 +58,18 @@ struct WidgetContainerView<Content: View>: View {
             }
         ) {
             LinkWidgetViewContainer(
-                title: name,
-                icon: icon,
                 isExpanded: $model.isExpanded,
                 dragId: dragId,
                 homeState: $model.homeState,
                 allowMenuContent: menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
-                headerAction: {
-                    onHeaderTap()
-                },
                 removeAction: removeAction(),
                 createObjectAction: onCreateObjectTap,
+                header: {
+                    LinkWidgetDefaultHeader(title: name, icon: icon, onTap: {
+                        onHeaderTap()
+                    })
+                },
                 menu: {
                     menuItemsView
                 },

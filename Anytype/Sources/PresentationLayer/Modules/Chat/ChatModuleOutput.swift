@@ -14,5 +14,6 @@ protocol ChatModuleOutput: AnyObject {
     func onUrlSelected(url: URL)
     func onWidgetsSelected()
     func onInviteLinkSelected()
+    func onPushNotificationsAlertSelected()
     func didSelectCreateObject(type: ObjectType)
 }
