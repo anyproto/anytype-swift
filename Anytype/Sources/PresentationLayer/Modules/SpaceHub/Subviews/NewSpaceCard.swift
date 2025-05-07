@@ -4,7 +4,7 @@ import AnytypeCore
 struct NewSpaceCard: View, @preconcurrency Equatable {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
-    let wallpeper: SpaceWallpaperType
+    let wallpaper: SpaceWallpaperType
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
@@ -17,7 +17,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
         } label: {
             NewSpaceCardLabel(
                 spaceData: spaceData,
-                wallpeper: wallpeper,
+                wallpaper: wallpaper,
                 draggedSpace: $draggedSpace
             )
         }
@@ -71,7 +71,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.spaceData == rhs.spaceData
-        && lhs.wallpeper == rhs.wallpeper
+        && lhs.wallpaper == rhs.wallpaper
         && lhs.draggedSpace == rhs.draggedSpace
     }
 }
