@@ -222,6 +222,10 @@ public extension FeatureFlags {
         value(for: .logMiddlewareRequests)
     }
 
+    static var showPushMessagesInForeground: Bool {
+        value(for: .showPushMessagesInForeground)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -277,6 +281,7 @@ public extension FeatureFlags {
         .showGlobalSearchScore,
         .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
-        .logMiddlewareRequests
+        .logMiddlewareRequests,
+        .showPushMessagesInForeground
     ]
 }

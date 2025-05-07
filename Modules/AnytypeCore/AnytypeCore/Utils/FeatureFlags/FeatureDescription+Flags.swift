@@ -377,4 +377,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let showPushMessagesInForeground = FeatureDescription(
+        title: "Show push messages in foreground",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
 }
