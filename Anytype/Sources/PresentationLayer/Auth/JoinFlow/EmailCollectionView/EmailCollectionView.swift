@@ -89,7 +89,6 @@ struct EmailCollectionView: View {
                     model.onSkipAction()
                 }
             )
-            .disabled(model.inProgress)
         }
     }
 }
