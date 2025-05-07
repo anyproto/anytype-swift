@@ -41,7 +41,7 @@ struct KeyPhraseView: View {
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
-            Spacer.fixedHeight(30)
+            Spacer.fixedHeight(24)
             
             phraseTextView
             
