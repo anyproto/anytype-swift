@@ -1,15 +1,13 @@
 import Services
 import AnytypeCore
 
-protocol EncryptionKeyEventHandlerProtocol {
+protocol EncryptionKeyEventHandlerProtocol: AnyObject, Sendable {
     func startSubscription() async
 }
 
 final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
     
-    @Injected(\.encryptionKeyService)
-    private var encryptionKeyService: any EncryptionKeyServiceProtocol
-
+    private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
     
     func startSubscription() async {
         for await events in await EventBunchSubscribtion.default.stream() {
