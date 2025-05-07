@@ -432,6 +432,7 @@ public enum Loc {
   public static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   public static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
   public static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
+  public static let yourName = Loc.tr("Localizable", "YourName", fallback: "Your Name")
   public enum AITool {
     public static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
     public static let placeholder = Loc.tr("Localizable", "AITool.placeholder", fallback: "For example, Summarise")
@@ -549,14 +550,14 @@ public enum Loc {
         public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Email.title", fallback: "Stay in the loop")
       }
       public enum Key {
-        public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "Your key replaces login and password. Keep it safe — you control your data. Find it later in app settings.")
+        public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings.")
         public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "This is your Key")
         public enum Button {
           public enum Copy {
             public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Copy.Title", fallback: "Copy to clipboard")
           }
           public enum Info {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Info.Title", fallback: "Read more about Key")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Info.Title", fallback: "Read more")
           }
           public enum Later {
             public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Later.Title", fallback: "Not now")
@@ -565,7 +566,7 @@ public enum Loc {
             public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Next")
           }
           public enum Show {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Tap to Reveal")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Reveal my Key")
           }
         }
         public enum ReadMore {
@@ -593,8 +594,8 @@ public enum Loc {
       public enum Soul {
         public static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Done")
         public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of these names.")
-        public static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Your Name")
-        public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set your name")
+        public static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Type your name")
+        public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Add Your Name")
       }
     }
     public enum LoginFlow {

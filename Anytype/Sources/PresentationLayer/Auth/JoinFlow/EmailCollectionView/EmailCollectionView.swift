@@ -27,15 +27,15 @@ struct EmailCollectionView: View {
                 .foregroundColor(.Auth.inputText)
                 .multilineTextAlignment(.center)
             
-            Spacer.fixedHeight(12)
+            Spacer.fixedHeight(8)
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-                .foregroundColor(.Auth.body)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
+            .foregroundColor(.Text.primary)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 20)
             
             Spacer.fixedHeight(32)
             
