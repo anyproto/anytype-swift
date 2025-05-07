@@ -48,28 +48,31 @@ struct EmailCollectionView: View {
     }
     
     private var input: some View {
-        VStack(spacing: 8) {
-            AutofocusedTextField(
-                placeholder: Loc.Auth.JoinFlow.Email.placeholder,
-                font: .authInput,
-                text: $model.inputText
-            )
-            .disableAutocorrection(true)
-            .autocapitalization(.none)
-            .textContentType(.emailAddress)
-            .foregroundColor(.Auth.inputText)
-            .padding(EdgeInsets(horizontal: 20, vertical: 20))
-            .background(Color.Shape.transperentSecondary)
-            .accentColor(.Text.tertiary)
-            .cornerRadius(16)
-            .frame(height: 64)
-            
-            if model.inputText.isNotEmpty && !model.inputText.isValidEmail() {
-                AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
-                    .foregroundColor(.System.red)
-                    .multilineTextAlignment(.center)
+        ZStack {
+            VStack(spacing: 4) {
+                if model.inputText.isNotEmpty && !model.inputText.isValidEmail() {
+                    AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
+                        .foregroundColor(.System.red)
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                AutofocusedTextField(
+                    placeholder: Loc.Auth.JoinFlow.Email.placeholder,
+                    font: .authInput,
+                    text: $model.inputText
+                )
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
+                .textContentType(.emailAddress)
+                .foregroundColor(.Auth.inputText)
+                .accentColor(.Text.tertiary)
             }
+            .padding(.horizontal, 20)            
         }
+        .frame(height: 64)
+        .background(Color.Shape.transperentSecondary)
+        .cornerRadius(16)
     }
     
     private var buttons: some View {
