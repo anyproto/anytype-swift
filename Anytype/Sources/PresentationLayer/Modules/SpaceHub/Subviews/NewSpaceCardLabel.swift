@@ -6,6 +6,7 @@ struct NewSpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpeper: SpaceWallpaperType
+    private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
     var body: some View {
@@ -76,8 +77,21 @@ struct NewSpaceCardLabel: View {
     private var counters: some View {
         if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
             DotsView().frame(width: 30, height: 6)
-        } else if spaceData.hasCounters {
-            unreadCounters
+        } else {
+            VStack(spacing: 2) {
+                createdDate
+                unreadCounters
+                Spacer()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var createdDate: some View {
+        if let lastMessage = spaceData.preview.lastMessage {
+            Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
+                .anytypeStyle(.relation2Regular)
+                .foregroundStyle(Color.Control.transparentActive)
         }
     }
     

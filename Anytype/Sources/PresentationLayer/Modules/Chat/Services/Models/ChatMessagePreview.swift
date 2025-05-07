@@ -5,7 +5,7 @@ struct LastMessagePreview: Hashable {
     var creator: Participant?
     var text: String
     
-    var createdAt: Date?
+    var createdAt: Date
     var modifiedAt: Date?
     
     var attachments: [ObjectDetails]
