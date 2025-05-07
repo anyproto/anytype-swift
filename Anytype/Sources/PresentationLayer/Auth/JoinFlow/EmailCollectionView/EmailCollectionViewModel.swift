@@ -40,12 +40,14 @@ final class EmailCollectionViewModel: ObservableObject {
     }
     
     func onSkipAction() {
+        AnytypeAnalytics.instance().logScreenOnboardingSkipEmail()
         onSuccess()
     }
     
     func saveEmail() async {
         startLoading()
         try? await membershipService.getVerificationEmail(email: state.email)
+        AnytypeAnalytics.instance().logScreenOnboardingEnterEmail()
         onSuccess()
     }
     
