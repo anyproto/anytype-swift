@@ -4,6 +4,22 @@ import UIKit
 import AnytypeCore
 import Combine
 
+struct AnytypeImageDownloaderResult {
+    private let result: RetrieveImageResult
+    
+    init(result: RetrieveImageResult) {
+        self.result = result
+    }
+    
+    var image: UIImage {
+        result.image
+    }
+    
+    func data() -> Data? {
+        result.data()
+    }
+}
+
 final class AnytypeImageDownloader {
     
     static func retrieveImage(
@@ -24,12 +40,15 @@ final class AnytypeImageDownloader {
         }
     }
     
-    static func retrieveImage(with url: URL) async -> UIImage? {
+    static func retrieveImage(with url: URL, options: KingfisherOptionsInfo? = nil) async -> AnytypeImageDownloaderResult? {
         do {
-            return try await KingfisherManager.shared.retrieveImage(with: .network(url)).image
+            let result = try await KingfisherManager.shared.retrieveImage(with: .network(url), options: options)
+            return AnytypeImageDownloaderResult(result: result)
         } catch is CancellationError {
             return nil
         } catch let error as KingfisherError where error.isInvalidResponseStatusCode(404) {
+            return nil
+        } catch let error as KingfisherError where error.isTaskCancelled {
             return nil
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
@@ -60,6 +79,6 @@ extension AnytypeImageDownloader {
             anytypeAssertionFailure("Url is nil")
             return nil
         }
-        return await AnytypeImageDownloader.retrieveImage(with: url)
+        return await AnytypeImageDownloader.retrieveImage(with: url)?.image
     }
 }

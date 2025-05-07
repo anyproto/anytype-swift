@@ -23,6 +23,7 @@ struct RelationCalendarView: View {
             calendarView
             openCurrentDateView
         }
+        .background(Color.Background.secondary)
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
         }

@@ -18,7 +18,8 @@ final class FilePreviewMediaHandler: PreviewMediaHandlingProtocol, @unchecked Se
         Task {
             do {
                 guard let url = ContentUrlBuilder.fileUrl(fileId: fileDetails.id) else { return }
-                let data = try await fileDownloader.downloadData(url: url)
+                // Ignore network error
+                guard let data = try? await fileDownloader.downloadData(url: url) else { return }
                 let path = FileManager.originalPath(objectId: fileDetails.id, fileName: fileDetails.fileName)
 
                 try FileManager.default.createDirectory(
@@ -29,7 +30,7 @@ final class FilePreviewMediaHandler: PreviewMediaHandlingProtocol, @unchecked Se
                 try data.write(to: path, options: [.atomic])
                 output?.onUpdate(path: path)
             } catch {
-                anytypeAssertionFailure("Failed to write file into temporary directory")
+                anytypeAssertionFailure("Failed to write file into temporary directory", info: ["error": error.localizedDescription])
             }
         }
     }

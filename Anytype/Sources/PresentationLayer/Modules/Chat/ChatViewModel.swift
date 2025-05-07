@@ -93,6 +93,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var inviteLinkShown = false
     private var firstUnreadMessageOrderId: String?
     private var bottomVisibleOrderId: String?
+    private var bigDistanceToBottom: Bool = false
 
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
@@ -104,7 +105,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     @Published var deleteMessageConfirmation: MessageViewData?
     @Published var showSendLimitAlert = false
-    @Published var toastBarData: ToastBarData = .empty
+    @Published var toastBarData: ToastBarData?
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
@@ -282,6 +283,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             spaceId: spaceId,
             currentLinkUrl: currentLinkToURL,
             currentLinkString: currentLinkToObject,
+            route: .link,
             setLinkToObject: { [weak self] in
                 guard let self else { return }
                 let newMessage = NSMutableAttributedString(attributedString: message)
@@ -408,6 +410,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
             updateActions()
         }
+    }
+    
+    func bigDistanceToTheBottomChanged(isBig: Bool) {
+        bigDistanceToBottom = isBig
+        updateActions()
     }
     
     func messageDidChanged() {
@@ -666,7 +673,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func showFileLimitAlert() {
-        toastBarData = ToastBarData(text: Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), showSnackBar: true, messageType: .failure)
+        toastBarData = ToastBarData(Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), type: .failure)
     }
     
     private func buildObjectSearcData(type: ObjectSearchWithMetaType) -> ObjectSearchWithMetaModuleData {
@@ -711,15 +718,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func updateActions() {
         guard let chatState else { return }
         
-        let lastIsNotVisible: Bool
-        if let lastMessage = messages.last, let bottomVisibleOrderId {
-            lastIsNotVisible = lastMessage.message.orderID > bottomVisibleOrderId
-        } else {
-            lastIsNotVisible = false
-        }
-        
         actionModel = ChatActionPanelModel(
-            showScrollToBottom: chatState.messages.counter > 0 || lastIsNotVisible,
+            showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
             srollToBottomCounter: Int(chatState.messages.counter),
             showMentions: chatState.mentions.counter > 0,
             mentionsCounter: Int(chatState.mentions.counter)

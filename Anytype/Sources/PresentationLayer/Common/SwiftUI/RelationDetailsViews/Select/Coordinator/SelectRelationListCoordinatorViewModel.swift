@@ -70,8 +70,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         BottomAlertView(
             title: data.title,
             message: data.description,
-            icon: .BottomAlert.question,
-            color: .red
+            icon: .Dialog.question
         ) {
             BottomAlertButton(text: Loc.cancel, style: .secondary) { [weak self] in
                 data.completion(false)

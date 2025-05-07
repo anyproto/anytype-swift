@@ -3,18 +3,18 @@ import Testing
 
 struct ChatMessageLimitsTests {
     
-    let limits = ChatMessageLimits()
-    
     @Test func checkLimit() async throws {
+        let limits = ChatMessageLimits()
         
-        sentMessages()
+        sentMessages(limits)
         
         #expect(limits.canSendMessage() == false)
     }
     
     @Test func checkLimitWithLessCornerDelay() async throws {
-    
-        sentMessages()
+        let limits = ChatMessageLimits()
+        
+        sentMessages(limits)
         
         try await Task.sleep(seconds: 4)
         
@@ -22,8 +22,9 @@ struct ChatMessageLimitsTests {
     }
     
     @Test func checkLimitWithDelay() async throws {
-    
-        sentMessages()
+        let limits = ChatMessageLimits()
+        
+        sentMessages(limits)
         
         try await Task.sleep(seconds: 5)
         
@@ -31,20 +32,21 @@ struct ChatMessageLimitsTests {
     }
     
     @Test func checkLimitWithTwoTimes() async throws {
-    
-        sentMessages()
+        let limits = ChatMessageLimits()
+        
+        sentMessages(limits)
         try await Task.sleep(seconds: 5)
         
         limits.markSentMessage()
         
         #expect(limits.canSendMessage() == true)
         
-        sentMessages()
+        sentMessages(limits)
         
         #expect(limits.canSendMessage() == false)
     }
 
-    private func sentMessages() {
+    private func sentMessages(_ limits: ChatMessageLimits) {
         for _ in 0..<5 {
             limits.markSentMessage()
         }

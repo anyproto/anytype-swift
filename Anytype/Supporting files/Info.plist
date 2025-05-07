@@ -2,17 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AIModel</key>
-	<string></string>
-	<key>AnyAppMembershipTierSecret</key>
-	<string></string>
 	<key>AIEndpoint</key>
 	<string></string>
-	<key>OpenAIToken</key>
+	<key>AIModel</key>
 	<string></string>
 	<key>AmplitudeApiKey</key>
 	<string></string>
-	<key>JoinStreamURL</key>
+	<key>AnyAppMembershipTierSecret</key>
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -51,10 +47,14 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CompilationCondition</key>
+	<string>$(COMPILATION_CONDITION)</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>JoinStreamURL</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -82,19 +82,12 @@
 	<array>
 		<string>ConfigurationIntent</string>
 	</array>
+	<key>OpenAIToken</key>
+	<string></string>
 	<key>SentryDSN</key>
 	<string></string>
 	<key>SentryEnv</key>
 	<string>$(SENTRY_ENV)</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>IBMPlexMono-Italic.ttf</string>
-		<string>IBMPlexMono-BoldItalic.ttf</string>
-		<string>IBMPlexMono-Bold.ttf</string>
-		<string>IBMPlexMono-Regular.ttf</string>
-		<string>Inter.ttf</string>
-		<string>Riccione-Xlight.ttf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

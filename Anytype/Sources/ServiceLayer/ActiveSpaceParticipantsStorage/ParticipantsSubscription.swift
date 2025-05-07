@@ -28,6 +28,7 @@ final class ParticipantsSubscription: ParticipantsSubscriptionProtocol {
         self.subId = subId
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
         self.participantsPublisher = subscriptionStorage.statePublisher
+            .receiveOnMain()
             .map { $0.items.compactMap { try? Participant(details: $0) } }
             .eraseToAnyPublisher()
         Task {

@@ -10,14 +10,14 @@ protocol PasteboardBlockDocumentServiceProtocol: AnyObject, Sendable {
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation: @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     )
     func pasteInSelectedBlocks(
         objectId: String,
         spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
-        completion: @escaping @Sendable @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
+        completion: @escaping @MainActor (_ pasteResult: PasteboardPasteResult?) -> Void
     )
     
     func copy(document: some BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws

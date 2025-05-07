@@ -3,7 +3,7 @@ import AnytypeCore
 import SwiftEntryKit
 import Logger
 
-final class AnalyticsConfigurator: AppConfiguratorProtocol {
+final class AnalyticsConfigurator: AppConfiguratorProtocol, Sendable {
 
     func configure() {
         // Check analytics feature flag
@@ -14,9 +14,7 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
         #endif
         
         AnytypeAnalytics.instance().setEventHandler({ [weak self] eventType, eventProperties in
-            DispatchQueue.main.async {
-                self?.log(eventType: eventType, eventProperties: eventProperties)
-            }
+            self?.log(eventType: eventType, eventProperties: eventProperties)
         })
         
         AnytypeAnalytics.instance().setEventConfiguartion(event: AnalyticsConfiguration.blockEvent,

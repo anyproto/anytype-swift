@@ -12,8 +12,7 @@ struct DocumentUpdateAlertView: View {
         BottomAlertView(
             title: Loc.Error.AnytypeNeedsUpgrate.title,
             message: Loc.Error.AnytypeNeedsUpgrate.message,
-            icon: .BottomAlert.update,
-            color: .green
+            icon: .Dialog.update
         ) {
             BottomAlertButton(text: Loc.close, style: .secondary) {
                 dismiss()

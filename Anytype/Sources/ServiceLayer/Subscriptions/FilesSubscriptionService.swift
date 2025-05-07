@@ -9,7 +9,7 @@ protocol FilesSubscriptionServiceProtocol: AnyObject {
         syncStatus: FileSyncStatus,
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
+        update: @escaping @MainActor ([ObjectDetails]) -> Void
     ) async
     func stopSubscription() async
 }
@@ -36,7 +36,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         syncStatus: FileSyncStatus,
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
+        update: @escaping @MainActor ([ObjectDetails]) -> Void
     ) async {
         
         let sort = SearchHelper.sort(

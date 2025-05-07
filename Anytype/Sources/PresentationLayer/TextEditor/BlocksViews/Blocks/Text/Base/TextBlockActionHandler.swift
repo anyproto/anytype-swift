@@ -443,6 +443,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
             spaceId: document.spaceId,
             currentLinkUrl: text.linkState(range: range),
             currentLinkString: text.linkToObjectState(range: range),
+            route: .link,
             setLinkToObject: { [weak self] linkBlockId in
                 guard let self = self else { return }
                 AnytypeAnalytics.instance().logChangeTextStyle(markupType: MarkupType.linkToObject(linkBlockId), objectType: .custom)

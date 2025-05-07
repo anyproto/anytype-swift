@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LegacySearchViewState {
+enum LegacySearchViewState: Sendable {
     case resultsList(LegacySearchView.ListModel)
     case error(LegacySearchError)
 }

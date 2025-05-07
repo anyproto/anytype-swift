@@ -82,7 +82,7 @@ struct SpaceHubCoordinatorView: View {
     
     private var content: some View {  
         ZStack {
-            NotificationCoordinatorView(sceneId: model.sceneId)
+            NotificationCoordinatorView()
             
             HomeBottomPanelContainer(
                 path: $model.navigationPath,
@@ -95,7 +95,11 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(sceneId: model.sceneId, output: model)
+                            if FeatureFlags.spaceHubRedesign {
+                                NewSpaceHubView(output: model)
+                            } else {
+                                SpaceHubView(output: model)
+                            }
                         }
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)

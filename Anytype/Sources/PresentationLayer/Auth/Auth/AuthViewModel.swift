@@ -2,7 +2,6 @@ import SwiftUI
 import Combine
 import Services
 
-
 enum AuthViewModelError: Error {
     case unsupportedAppAction
 }
@@ -127,7 +126,10 @@ final class AuthViewModel: ObservableObject {
     
     private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
         guard spaceId.isNotEmpty else { return }
-        try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
+        let startingObjectId = try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
+        if let startingObjectId, startingObjectId.isNotEmpty, appActionsStorage.action.isNil {
+            appActionsStorage.action = .startObject(objectId: startingObjectId, spaceId: spaceId)
+        }
         try? await workspaceService.workspaceSetDetails(
             spaceId: spaceId,
             details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
@@ -153,7 +155,7 @@ final class AuthViewModel: ObservableObject {
     
     private func handleAppAction(action: AppAction) throws {
         switch action {
-        case .createObjectFromQuickAction:
+        case .createObjectFromQuickAction, .startObject:
             throw AuthViewModelError.unsupportedAppAction
         case .deepLink(let deeplink, _):
             switch deeplink {

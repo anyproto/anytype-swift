@@ -169,6 +169,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         }
         
         titleContaner.spacing = 4
+        titleContaner.alignment = .center
         titleContaner.addArrangedSubview(smallIconView)
         titleContaner.addArrangedSubview(titleLabel)
         

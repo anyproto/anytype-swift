@@ -2,19 +2,21 @@ import Foundation
 import Services
 import Combine
 import AnytypeCore
+import AsyncTools
 
-@MainActor
-protocol BinSubscriptionServiceProtocol: AnyObject {
-    func startSubscription(
+protocol BinSubscriptionServiceProtocol: AnyObject, Sendable {
+    func legacyStartSubscription(
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
-    ) async
+        update: @escaping @MainActor ([ObjectDetails]) -> Void
+    )  async
+    
+    func startSubscription(spaceId: String, objectLimit: Int?) async -> AnyAsyncSequence<[ObjectDetails]>
+    
     func stopSubscription() async
 }
 
-@MainActor
-final class BinSubscriptionService: BinSubscriptionServiceProtocol {
+actor BinSubscriptionService: BinSubscriptionServiceProtocol {
     
     private enum Constants {
         static let limit = 100
@@ -27,12 +29,10 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     }()
     private let subscriptionId = "Bin-\(UUID().uuidString)"
     
-    nonisolated init() {}
-    
-    func startSubscription(
+    func legacyStartSubscription(
         spaceId: String,
         objectLimit: Int?,
-        update: @escaping @Sendable @MainActor ([ObjectDetails]) -> Void
+        update: @escaping @MainActor ([ObjectDetails]) -> Void
     ) async {
         
         let sort = SearchHelper.sort(
@@ -59,6 +59,33 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
             await update(data.items)
         }
+    }
+    
+    func startSubscription(spaceId: String, objectLimit: Int?) async -> AnyAsyncSequence<[ObjectDetails]> {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastModifiedDate,
+            type: .desc
+        )
+        
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilters(isArchive: true)
+        }
+        
+        let searchData: SubscriptionData = .search(
+            SubscriptionData.Search(
+                identifier: subscriptionId,
+                spaceId: spaceId,
+                sorts: [sort],
+                filters: filters,
+                limit: objectLimit ?? Constants.limit,
+                offset: 0,
+                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
+            )
+        )
+        
+        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData)
+        
+        return subscriptionStorage.statePublisher.map { $0.items }.values.eraseToAnyAsyncSequence()
     }
     
     func stopSubscription() async {

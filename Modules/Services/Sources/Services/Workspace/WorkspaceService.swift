@@ -6,7 +6,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
     
-    func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> String
+    func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> WorkspaceCreateResponse
     func workspaceOpen(spaceId: String, withChat: Bool) async throws -> AccountInfo
     func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws
     func workspaceExport(spaceId: String, path: String) async throws -> String
@@ -48,16 +48,16 @@ final class WorkspaceService: WorkspaceServiceProtocol {
 		return try ObjectDetails(protobufStruct: result.details)
     }
     
-    public func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> String {
+    public func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> WorkspaceCreateResponse {
         let result = try await ClientCommands.workspaceCreate(.with {
             $0.details.fields[BundledRelationKey.name.rawValue] = name.protobufValue
             $0.details.fields[BundledRelationKey.iconOption.rawValue] = iconOption.protobufValue
             $0.details.fields[BundledRelationKey.spaceAccessType.rawValue] = accessType.rawValue.protobufValue
             $0.details.fields[BundledRelationKey.spaceUxType.rawValue] = uxType.rawValue.protobufValue
-            $0.useCase = useCase.toMiddleware()
+            $0.useCase = useCase
             $0.withChat = withChat
         }).invoke()
-        return result.spaceID
+        return result
     }
     
     public func workspaceOpen(spaceId: String, withChat: Bool) async throws -> AccountInfo {

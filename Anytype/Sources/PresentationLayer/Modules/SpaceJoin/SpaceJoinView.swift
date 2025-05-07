@@ -64,30 +64,30 @@ struct SpaceJoinView: View {
     
     private func invite(placeholder: Bool) -> some View {
         VStack(spacing: 0) {
-            DragIndicator()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.mail, style: .color(.blue))
+            Image(asset: .Dialog.invite)
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
                 .foregroundColor(.Text.primary)
-            Spacer.fixedHeight(16)
+            Spacer.fixedHeight(8)
             AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
                 .foregroundColor(.Text.primary)
                 .if(placeholder) {
                     $0.redacted(reason: .placeholder)
                 }
-            Spacer.fixedHeight(16)
+            Spacer.fixedHeight(19)
             AsyncStandardButton(Loc.SpaceShare.Join.button, style: .primaryLarge) {
                 try await model.onJoin()
             }
             .if(placeholder) {
                 $0.redacted(reason: .placeholder)
             }
-            Spacer.fixedHeight(20)
+            Spacer.fixedHeight(17)
             AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
-            Spacer.fixedHeight(16)
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 16)
+        .padding(.top, 24)
+        .padding(.bottom, 16)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear {
             model.onInviewViewAppear()
@@ -117,8 +117,7 @@ struct SpaceJoinView: View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.NoAccess.title,
             message: Loc.SpaceShare.Join.InviteNotFound.message,
-            icon: .BottomAlert.error,
-            color: .red
+            icon: .Dialog.duck
         ) {
             BottomAlertButton(
                 text: Loc.okay,
@@ -133,8 +132,7 @@ struct SpaceJoinView: View {
     private var spaceDeleted: some View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.spaceDeleted,
-            icon: .BottomAlert.error,
-            color: .red
+            icon: .Dialog.duck
         ) {
             BottomAlertButton(
                 text: Loc.okay,
@@ -148,11 +146,11 @@ struct SpaceJoinView: View {
 }
 
 #Preview("Default") {
-    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: "", sceneId: ""), onManageSpaces: {})
+    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
 }
 
 #Preview("Sheet") {
     Color.black.anytypeSheet(isPresented: .constant(true)) {
-        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: "", sceneId: ""), onManageSpaces: {})
+        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
     }
 }

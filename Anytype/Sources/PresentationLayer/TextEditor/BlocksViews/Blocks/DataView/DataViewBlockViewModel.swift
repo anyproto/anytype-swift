@@ -13,9 +13,9 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
     private weak var reloadable: (any EditorCollectionReloadable)?
     private var targetDetails: ObjectDetails?
     
-    var info: BlockInformation { blockInformationProvider.info }
+    nonisolated var info: BlockInformation { blockInformationProvider.info }
 
-    var hashable: AnyHashable { info.id }
+    nonisolated var hashable: AnyHashable { info.id }
     var detailsSubscription: AnyCancellable?
 
     private var blockData: BlockDataview {

@@ -1,5 +1,5 @@
 import SwiftUI
-import Combine
+@preconcurrency import Combine
 import AnytypeCore
 import Services
 
@@ -62,8 +62,6 @@ final class LoginViewModel: ObservableObject {
     
     init(output: (any LoginFlowOutput)?) {
         self.output = output
-        
-        self.handleAccountShowEvent()
     }
     
     func onAppear() {
@@ -158,12 +156,10 @@ final class LoginViewModel: ObservableObject {
         errorText = error.localizedDescription
     }
     
-    private func handleAccountShowEvent() {
-        accountEventHandler.accountShowPublisher
-            .sink { [weak self] accountId in
-                self?.accountId = accountId
-            }
-            .store(in: &subscriptions)
+    func handleAccountShowEvent() async {
+        for await accountId in await accountEventHandler.accountShowPublisher.values {
+            self.accountId = accountId
+        }
     }
     
     private func accountRecover() async {

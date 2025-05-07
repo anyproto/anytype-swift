@@ -13,7 +13,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var showPasteButton = false
     @Published var newTypeInfo: ObjectTypeInfo?
-    @Published var toastData: ToastBarData = .empty
+    @Published var toastData: ToastBarData?
     @Published var participantCanEdit = false
     
     let settings: ObjectTypeSearchViewSettings
@@ -140,7 +140,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 let newTypeDetails = try await workspaceService.installObject(spaceId: spaceId, objectId: type.id)
                 let newType = ObjectType(details: newTypeDetails)
                 
-                toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.displayName), showSnackBar: true)
+                toastData = ToastBarData(Loc.ObjectType.addedToLibrary(type.displayName))
                 
                 onSelect(.objectType(type: newType))
             } else {

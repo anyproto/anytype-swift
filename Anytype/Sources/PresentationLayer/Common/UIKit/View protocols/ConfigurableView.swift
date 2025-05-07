@@ -14,12 +14,14 @@ protocol ConfigurableView: AnyObject {
     /// Configures the view with specified model.
     ///
     /// - Parameter model: The model object.
+    @MainActor
     func configure(model: Model)
     
 }
 
 extension ConfigurableView {
     
+    @MainActor
     func configured(with model: Model) -> Self {
         configure(model: model)
         return self

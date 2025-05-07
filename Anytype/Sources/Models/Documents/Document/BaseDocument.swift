@@ -115,9 +115,19 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
             }
             try await openTask?.value
         case .preview:
-            try await updateDocumentPreview()
+            if openTask.isNil {
+                openTask = Task { [weak self] in
+                    try await self?.updateDocumentPreview()
+                }
+            }
+            try await openTask?.value
         case .version(let versionId):
-            try await updateDocumentVersion(versionId)
+            if openTask.isNil {
+                openTask = Task { [weak self] in
+                    try await self?.updateDocumentVersion(versionId)
+                }
+            }
+            try await openTask?.value
         }
     }
     

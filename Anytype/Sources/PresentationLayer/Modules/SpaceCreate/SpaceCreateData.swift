@@ -3,7 +3,6 @@ import Services
 import AnytypeCore
 
 struct SpaceCreateData: Equatable, Identifiable, Hashable {
-    let sceneId: String
     let spaceUxType: SpaceUxType
     
     var id: Int { hashValue }
@@ -26,7 +25,7 @@ extension SpaceUxType {
     var useCase: UseCase {
         switch self {
         case .chat: return .none
-        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .empty
+        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .emptyMobile
         default: return .empty
         }
     }
