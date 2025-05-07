@@ -15,4 +15,9 @@ public extension ChatMessage {
     var createdAtDate: Date {
         Date(timeIntervalSince1970: TimeInterval(createdAt))
     }
+    
+    var modifiedAtDate: Date? {
+        guard modifiedAt != 0 else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(modifiedAt))
+    }
 }
