@@ -9,6 +9,7 @@ protocol PushNotificationsAlertHandlerProtocol: AnyObject, Sendable {
 final class PushNotificationsAlertHandler: PushNotificationsAlertHandlerProtocol, @unchecked Sendable {
     
     private let pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol = Container.shared.pushNotificationsPermissionService()
+    private let serverConfigurationStorage: any ServerConfigurationStorageProtocol = Container.shared.serverConfigurationStorage()
     
     // [Date]
     @UserDefault("UserData.PushNotificationsAlertDates", defaultValue: [])
@@ -26,6 +27,10 @@ final class PushNotificationsAlertHandler: PushNotificationsAlertHandlerProtocol
     
     func shouldShowAlert() async -> Bool {
         guard FeatureFlags.enablePushMessages else {
+            return false
+        }
+        
+        guard serverConfigurationStorage.currentConfiguration() != .localOnly else {
             return false
         }
         
