@@ -142,7 +142,7 @@ struct NewSpaceHubView: View {
     private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
         NewSpaceCard(
             spaceData: space,
-            wallpeper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
+            wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)

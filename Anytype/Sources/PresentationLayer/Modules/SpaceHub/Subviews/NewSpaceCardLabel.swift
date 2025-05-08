@@ -5,7 +5,7 @@ import AnytypeCore
 struct NewSpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
-    let wallpeper: SpaceWallpaperType
+    let wallpaper: SpaceWallpaperType
     private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     

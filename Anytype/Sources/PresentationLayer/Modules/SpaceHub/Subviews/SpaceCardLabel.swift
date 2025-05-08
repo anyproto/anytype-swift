@@ -5,7 +5,7 @@ import AnytypeCore
 struct SpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
-    let wallpeper: SpaceWallpaperType
+    let wallpaper: SpaceWallpaperType
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
     var body: some View {
@@ -47,7 +47,7 @@ struct SpaceCardLabel: View {
         .background(
             DashboardWallpaper(
                 mode: .spaceHub,
-                wallpaper: wallpeper,
+                wallpaper: wallpaper,
                 spaceIcon: spaceData.spaceView.iconImage
             )
         )
