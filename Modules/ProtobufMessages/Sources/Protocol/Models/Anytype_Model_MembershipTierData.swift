@@ -116,6 +116,12 @@ public struct Anytype_Model_MembershipTierData: @unchecked Sendable {
     set {_uniqueStorage()._androidManageURL = newValue}
   }
 
+  /// "limited offer" or somehing like that
+  public var offer: String {
+    get {return _storage._offer}
+    set {_uniqueStorage()._offer = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -143,6 +149,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     16: .same(proto: "iosManageUrl"),
     17: .same(proto: "androidProductId"),
     18: .same(proto: "androidManageUrl"),
+    19: .same(proto: "offer"),
   ]
 
   fileprivate class _StorageClass {
@@ -163,6 +170,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     var _iosManageURL: String = String()
     var _androidProductID: String = String()
     var _androidManageURL: String = String()
+    var _offer: String = String()
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -194,6 +202,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
       _iosManageURL = source._iosManageURL
       _androidProductID = source._androidProductID
       _androidManageURL = source._androidManageURL
+      _offer = source._offer
     }
   }
 
@@ -229,6 +238,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._iosManageURL) }()
         case 17: try { try decoder.decodeSingularStringField(value: &_storage._androidProductID) }()
         case 18: try { try decoder.decodeSingularStringField(value: &_storage._androidManageURL) }()
+        case 19: try { try decoder.decodeSingularStringField(value: &_storage._offer) }()
         default: break
         }
       }
@@ -288,6 +298,9 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
       if !_storage._androidManageURL.isEmpty {
         try visitor.visitSingularStringField(value: _storage._androidManageURL, fieldNumber: 18)
       }
+      if !_storage._offer.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._offer, fieldNumber: 19)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -314,6 +327,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
         if _storage._iosManageURL != rhs_storage._iosManageURL {return false}
         if _storage._androidProductID != rhs_storage._androidProductID {return false}
         if _storage._androidManageURL != rhs_storage._androidManageURL {return false}
+        if _storage._offer != rhs_storage._offer {return false}
         return true
       }
       if !storagesAreEqual {return false}
