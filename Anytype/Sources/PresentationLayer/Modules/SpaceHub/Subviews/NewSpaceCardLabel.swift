@@ -32,7 +32,7 @@ struct NewSpaceCardLabel: View {
         .frame(height: 80)
         .background(Color.Background.primary)
         
-        .if(spaceData.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
+        .if(spaceData.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
         .onDrag {
@@ -107,15 +107,11 @@ struct NewSpaceCardLabel: View {
     
     @ViewBuilder
     private var counters: some View {
-        if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
-            DotsView().frame(width: 30, height: 6)
-        } else {
             VStack(spacing: 2) {
                 createdDate
                 unreadCounters
                 Spacer()
             }
-        }
     }
     
     @ViewBuilder

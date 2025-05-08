@@ -43,13 +43,6 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
-    static let newSpacesLoading = FeatureDescription(
-        title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
     static let objectTypeWidgets = FeatureDescription(
         title: "Object Type widgets",
         type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "10"),

@@ -35,9 +35,8 @@ struct SpaceCardLabel: View {
             
             Spacer()
             
-            if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
-                DotsView().frame(width: 30, height: 6)
-            } else if spaceData.preview.unreadCounter > 0 {
+            
+            if spaceData.preview.unreadCounter > 0 {
                 CounterView(count: spaceData.preview.unreadCounter)
             }
         }
@@ -53,7 +52,7 @@ struct SpaceCardLabel: View {
         )
         .cornerRadius(20, style: .continuous)
         
-        .if(spaceData.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
+        .if(spaceData.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
         .onDrag {
