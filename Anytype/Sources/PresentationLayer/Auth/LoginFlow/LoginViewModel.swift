@@ -55,6 +55,8 @@ final class LoginViewModel: ObservableObject {
     private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
+    @Injected(\.pushNotificationsPermissionService)
+    private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
     private weak var output: (any LoginFlowOutput)?
     
@@ -189,6 +191,8 @@ final class LoginViewModel: ObservableObject {
             case .deleted:
                 errorText = Loc.vaultDeleted
             }
+            
+            await pushNotificationsPermissionService.registerForRemoteNotificationsIfNeeded()
         } catch is CancellationError {
             // Ignore cancellations
         } catch SelectAccountError.accountLoadIsCanceled {
