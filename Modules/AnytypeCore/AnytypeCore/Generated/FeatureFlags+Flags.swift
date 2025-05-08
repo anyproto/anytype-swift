@@ -58,6 +58,10 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
+    static var unreadOnHome: Bool {
+        value(for: .unreadOnHome)
+    }
+
     static var enableStreamSpaceType: Bool {
         value(for: .enableStreamSpaceType)
     }
@@ -237,6 +241,7 @@ public extension FeatureFlags {
         .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
+        .unreadOnHome,
         .enableStreamSpaceType,
         .enablePushMessages,
         .aiToolInSet,
