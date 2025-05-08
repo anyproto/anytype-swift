@@ -44,7 +44,12 @@ public enum Loc {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Are you sure you want to delete %#@object@?")
   }
   public static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
-  public static let audio = Loc.tr("Localizable", "Audio", fallback: "Audio")
+  public static func attachment(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Attachment", p1, fallback: "Plural format key: Attachment")
+  }
+  public static func audio(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Audio", p1, fallback: "Plural format key: Audio")
+  }
   public static let back = Loc.tr("Localizable", "Back", fallback: "Back")
   public static let backUpKey = Loc.tr("Localizable", "Back up key", fallback: "Back up key")
   public static let backUpYourKey = Loc.tr("Localizable", "Back up your key", fallback: "Back up your key")
@@ -58,7 +63,9 @@ public enum Loc {
   public static let blue = Loc.tr("Localizable", "Blue", fallback: "Blue")
   public static let blueBackground = Loc.tr("Localizable", "Blue background", fallback: "Blue background")
   public static let blurredIcon = Loc.tr("Localizable", "Blurred icon", fallback: "Blurred\n icon")
-  public static let bookmark = Loc.tr("Localizable", "Bookmark", fallback: "Bookmark")
+  public static func bookmark(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Bookmark", p1, fallback: "Plural format key: Bookmark")
+  }
   public static let bookmarkBlockSubtitle = Loc.tr("Localizable", "Bookmark block subtitle", fallback: "Save your favorite link with summary")
   public static let bookmarks = Loc.tr("Localizable", "Bookmarks", fallback: "Bookmarks")
   public static let callout = Loc.tr("Localizable", "Callout", fallback: "Callout")
@@ -111,6 +118,9 @@ public enum Loc {
   public static let createSpace = Loc.tr("Localizable", "Create Space", fallback: "Create Space")
   public static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   public static let current = Loc.tr("Localizable", "Current", fallback: "Current")
+  public static func date(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Date", p1, fallback: "Plural format key: Date")
+  }
   public static let dates = Loc.tr("Localizable", "Dates", fallback: "Dates")
   public static func daysToDeletionVault(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Days to deletion vault", p1, fallback: "This vault will be deleted %#@days@")
@@ -161,7 +171,9 @@ public enum Loc {
   public static let favorites = Loc.tr("Localizable", "Favorites", fallback: "Favorites")
   public static let featuredRelations = Loc.tr("Localizable", "Featured relations", fallback: "Featured properties")
   public static let fields = Loc.tr("Localizable", "Fields", fallback: "Properties")
-  public static let file = Loc.tr("Localizable", "File", fallback: "File")
+  public static func file(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "File", p1, fallback: "Plural format key: File")
+  }
   public static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
   public static let files = Loc.tr("Localizable", "Files", fallback: "Files")
   public static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
@@ -184,7 +196,9 @@ public enum Loc {
   public static let history = Loc.tr("Localizable", "History", fallback: "History")
   public static let home = Loc.tr("Localizable", "Home", fallback: "Home")
   public static let icon = Loc.tr("Localizable", "Icon", fallback: "Icon")
-  public static let image = Loc.tr("Localizable", "Image", fallback: "Image")
+  public static func image(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Image", p1, fallback: "Plural format key: Image")
+  }
   public static let imageBlockSubtitle = Loc.tr("Localizable", "Image block subtitle", fallback: "Upload and enrich the page with image")
   public static let inThisObject = Loc.tr("Localizable", "In this object", fallback: "In this object")
   public static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version", fallback: "Incompatible version")
@@ -205,6 +219,9 @@ public enum Loc {
   public static let linkTo = Loc.tr("Localizable", "Link to", fallback: "Link to")
   public static func linksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Links count", p1, fallback: "Plural format key: Links count")
+  }
+  public static func list(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "List", p1, fallback: "Plural format key: List")
   }
   public static let lists = Loc.tr("Localizable", "Lists", fallback: "Lists")
   public static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
@@ -248,8 +265,14 @@ public enum Loc {
   public static let nothingFound = Loc.tr("Localizable", "Nothing found", fallback: "Nothing found")
   public static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo", fallback: "Nothing to redo")
   public static let nothingToUndo = Loc.tr("Localizable", "Nothing to undo", fallback: "Nothing to undo")
+  public static func object(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Object", p1, fallback: "Plural format key: Object")
+  }
   public static func objectSelected(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Object selected", p1, fallback: "%#@object@ selected")
+  }
+  public static func objectType(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Object type", p1, fallback: "Plural format key: Object type")
   }
   public static let objectTypes = Loc.tr("Localizable", "Object Types", fallback: "Object Types")
   public static let objects = Loc.tr("Localizable", "Objects", fallback: "Objects")
@@ -276,6 +299,9 @@ public enum Loc {
   public static let pasteOrTypeURL = Loc.tr("Localizable", "Paste or type URL", fallback: "Paste or type URL")
   public static let pasteProcessing = Loc.tr("Localizable", "Paste processing...", fallback: "Paste processing...")
   public static let payByCard = Loc.tr("Localizable", "Pay by Card", fallback: "Pay by Card")
+  public static func pdf(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "PDF", p1, fallback: "Plural format key: PDF")
+  }
   public static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
   public static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.")
   public static let per = Loc.tr("Localizable", "per", fallback: "per")
@@ -314,6 +340,9 @@ public enum Loc {
   public static let red = Loc.tr("Localizable", "Red", fallback: "Red")
   public static let redBackground = Loc.tr("Localizable", "Red background", fallback: "Red background")
   public static let redo = Loc.tr("Localizable", "Redo", fallback: "Redo")
+  public static func relation(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Relation", p1, fallback: "Plural format key: Relation")
+  }
   public static let remove = Loc.tr("Localizable", "Remove", fallback: "Remove")
   public static let removeFromFavorite = Loc.tr("Localizable", "Remove From Favorite", fallback: "Remove From Favorite")
   public static let removePhoto = Loc.tr("Localizable", "Remove photo", fallback: "Remove photo")
@@ -365,6 +394,9 @@ public enum Loc {
   public static let style = Loc.tr("Localizable", "Style", fallback: "Style")
   public static let submit = Loc.tr("Localizable", "Submit", fallback: "Submit")
   public static let synced = Loc.tr("Localizable", "Synced", fallback: "Synced")
+  public static func tag(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Tag", p1, fallback: "Plural format key: Tag")
+  }
   public static let task = Loc.tr("Localizable", "Task", fallback: "Task")
   public static let teal = Loc.tr("Localizable", "Teal", fallback: "Teal")
   public static let tealBackground = Loc.tr("Localizable", "Teal background", fallback: "Teal background")
@@ -419,7 +451,9 @@ public enum Loc {
   public static let vaultDeleted = Loc.tr("Localizable", "Vault deleted", fallback: "Vault deleted")
   public static let vaultRecoverError = Loc.tr("Localizable", "Vault recover error", fallback: "Vault recover error, try again")
   public static let vaultRecoverErrorNoInternet = Loc.tr("Localizable", "Vault recover error no internet", fallback: "Vault recover error, probably no internet connection")
-  public static let video = Loc.tr("Localizable", "Video", fallback: "Video")
+  public static func video(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Video", p1, fallback: "Plural format key: Video")
+  }
   public static let videoBlockSubtitle = Loc.tr("Localizable", "Video block subtitle", fallback: "Upload playable video")
   public static let view = Loc.tr("Localizable", "View", fallback: "View")
   public static let views = Loc.tr("Localizable", "Views", fallback: "Views")

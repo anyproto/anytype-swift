@@ -1,5 +1,7 @@
 import Foundation
 import UserNotifications
+import UIKit
+import AnytypeCore
 
 enum PushNotificationsPermissionStatus {
     case notDetermined
@@ -10,6 +12,8 @@ enum PushNotificationsPermissionStatus {
 
 protocol PushNotificationsPermissionServiceProtocol: AnyObject, Sendable {
     func authorizationStatus() async -> PushNotificationsPermissionStatus
+    func requestAuthorization()
+    func registerForRemoteNotificationsIfNeeded() async
 }
 
 final class PushNotificationsPermissionService: PushNotificationsPermissionServiceProtocol {
@@ -27,6 +31,29 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
             return .authorized
         @unknown default:
             return .unknown
+        }
+    }
+    
+    func requestAuthorization() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+            if granted {
+                self?.registerForRemoteNotifications()
+            }
+        }
+    }
+    
+    func registerForRemoteNotificationsIfNeeded() async {
+        guard FeatureFlags.enablePushMessages else { return }
+        
+        let status = await authorizationStatus()
+        if status == .authorized {
+            registerForRemoteNotifications()
+        }
+    }
+    
+    private func registerForRemoteNotifications() {
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
         }
     }
 }
