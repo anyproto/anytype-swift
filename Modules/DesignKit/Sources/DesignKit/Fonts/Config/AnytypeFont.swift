@@ -23,6 +23,8 @@ public enum AnytypeFont: CaseIterable, Sendable {
 
     case codeBlock
     case chatText
+    
+    case contentTitleSemibold
 
     // UX fonts
     case uxTitle1Semibold

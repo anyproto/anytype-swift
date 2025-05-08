@@ -7,5 +7,6 @@ final class JoinFlowState {
             keyShown = false
         }
     }
+    var email = ""
     var keyShown = false
 }

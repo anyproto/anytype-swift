@@ -190,6 +190,7 @@ enum ShowDeletionWarningRoute: String {
 enum ScreenOnboardingStep: String {
     case phrase = "Phrase"
     case soul = "Soul"
+    case email = "Email"
 }
 
 enum ClickOnboardingButton: String {

@@ -123,7 +123,7 @@ extension UIPhraseTextView {
         
         let attributedWords: [NSAttributedString]
         if FeatureFlags.disableColorfulSeedPhrase {
-            let color = UIColor.System.purple
+            let color = UIColor.Control.white
             attributedWords = words.map { word in
                 attributes[NSAttributedString.Key.foregroundColor] = color
                 attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil

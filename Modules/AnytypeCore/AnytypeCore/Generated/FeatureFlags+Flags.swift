@@ -82,10 +82,6 @@ public extension FeatureFlags {
         value(for: .aiToolInSet)
     }
 
-    static var newOnboarding: Bool {
-        value(for: .newOnboarding)
-    }
-
     static var disableColorfulSeedPhrase: Bool {
         value(for: .disableColorfulSeedPhrase)
     }
@@ -251,7 +247,6 @@ public extension FeatureFlags {
         .firebasePushMessages,
         .enablePushMessages,
         .aiToolInSet,
-        .newOnboarding,
         .disableColorfulSeedPhrase,
         .openTypeAsSet,
         .binWidgetFromLibrary,
