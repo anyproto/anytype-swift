@@ -13,6 +13,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let userDefaultsStorage: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
     private let searchService: any SearchServiceProtocol = Container.shared.searchService()
+    private let participantService: any ParticipantServiceProtocol = Container.shared.participantService()
     
     // MARK: - Subscriptions State
     
@@ -111,15 +112,20 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         guard let subscriptionId, data.subIds.contains(subscriptionId) else { return false }
         
         var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
-        preview.lastMessage = data.message.message.text
-
-        let attachmentsIds = data.message.attachments.map(\.target)
         
-        do {
-            preview.attachments = try await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)
-        } catch {
-            return false
-        }
+        let attachmentsIds = data.message.attachments.map(\.target)
+        let attachments = (try? await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)) ?? [ObjectDetails]()
+        let creator = try? await participantService.searchParticipant(spaceId: spaceId, identity: data.message.creator)
+        
+        let message = LastMessagePreview(
+            creator: creator,
+            text: data.message.message.text,
+            createdAt: data.message.createdAtDate,
+            modifiedAt: data.message.modifiedAtDate,
+            attachments: attachments
+        )
+        
+        preview.lastMessage = message
         
         self.previewsBySpace[spaceId] = preview
         return true

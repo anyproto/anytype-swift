@@ -6,6 +6,7 @@ struct NewSpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpeper: SpaceWallpaperType
+    private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
     var body: some View {
@@ -44,13 +45,8 @@ struct NewSpaceCardLabel: View {
     
     private var info: some View {
         Group {
-            if spaceData.preview.attachments.isNotEmpty {
-                // TBD: Preview
-                Text(spaceData.preview.localizedAttachmentsText)
-                    .anytypeStyle(.uxTitle2Medium)
-            } else if spaceData.preview.lastMessage.isNotEmpty {
-                Text(spaceData.preview.lastMessage)
-                    .anytypeStyle(.uxTitle2Medium)
+            if let lastMessage = spaceData.preview.lastMessage {
+                lastMessagePreview(lastMessage)
             } else if FeatureFlags.spaceUxTypes {
                 Text(spaceData.spaceView.uxType.name)
                     .anytypeStyle(.uxTitle2Regular)
@@ -64,12 +60,38 @@ struct NewSpaceCardLabel: View {
         .multilineTextAlignment(.leading)
     }
     
+    // TBD: Image preview
+    @ViewBuilder
+    func lastMessagePreview(_ message: LastMessagePreview) -> some View {
+        Group {
+            if let creator = message.creator {
+                Text(creator.localName + ": ").anytypeFontStyle(.uxTitle2Medium) +
+                Text(message.messagePreviewText).anytypeFontStyle(.uxTitle2Regular)
+            } else {
+                Text(message.messagePreviewText).anytypeFontStyle(.uxTitle2Regular)
+            }
+        }.anytypeLineHeightStyle(.uxTitle2Regular)
+    }
+    
     @ViewBuilder
     private var counters: some View {
         if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
             DotsView().frame(width: 30, height: 6)
-        } else if spaceData.hasCounters {
-            unreadCounters
+        } else {
+            VStack(spacing: 2) {
+                createdDate
+                unreadCounters
+                Spacer()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private var createdDate: some View {
+        if let lastMessage = spaceData.preview.lastMessage {
+            Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
+                .anytypeStyle(.relation2Regular)
+                .foregroundStyle(Color.Control.transparentActive)
         }
     }
     
