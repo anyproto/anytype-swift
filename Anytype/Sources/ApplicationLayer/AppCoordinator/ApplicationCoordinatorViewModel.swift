@@ -22,6 +22,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.pushNotificationsPermissionService)
+    private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
@@ -150,6 +152,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             case .deleted:
                 applicationStateService.state = .auth
             }
+            
+            await pushNotificationsPermissionService.registerForRemoteNotificationsIfNeeded()
         } catch is CancellationError {
             // Ignore cancellations
         } catch SelectAccountError.accountStoreNotMigrated {
