@@ -77,7 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
     {
         // Handle foreground notifications
-        completionHandler([.banner, .list, .sound, .badge])
+        if FeatureFlags.showPushMessagesInForeground {
+            completionHandler([.banner, .list, .sound, .badge])
+        } else {
+            completionHandler([])
+        }
     }
     
     nonisolated func userNotificationCenter(
