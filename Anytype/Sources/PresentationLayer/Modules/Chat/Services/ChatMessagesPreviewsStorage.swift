@@ -67,8 +67,9 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
             let response = try await chatService.subscribeToMessagePreviews(subId: subscriptionId)
             
-            response.previews.forEach { preview in
+            for preview in response.previews {
                 handleChatState(spaceId: preview.spaceID, contextId: preview.chatObjectID, state: preview.state)
+                await handleChatLastMessage(spaceId: preview.spaceID, contextId: preview.chatObjectID, message: preview.message)
             }
 
             previewsStream.send(Array(previewsBySpace.values))
@@ -118,24 +119,28 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) async -> Bool {
         guard data.subIds.contains(subscriptionId) else { return false }
         
+        await handleChatLastMessage(spaceId: spaceId, contextId: contextId, message: data.message)
+        return true
+    }
+    
+    private func handleChatLastMessage(spaceId: String, contextId: String, message: ChatMessage) async {
         var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
         
-        let attachmentsIds = data.message.attachments.map(\.target)
+        let attachmentsIds = message.attachments.map(\.target)
         let attachments = (try? await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)) ?? [ObjectDetails]()
-        let creator = try? await participantService.searchParticipant(spaceId: spaceId, identity: data.message.creator)
+        let creator = try? await participantService.searchParticipant(spaceId: spaceId, identity: message.creator)
         
         let message = LastMessagePreview(
             creator: creator,
-            text: data.message.message.text,
-            createdAt: data.message.createdAtDate,
-            modifiedAt: data.message.modifiedAtDate,
+            text: message.message.text,
+            createdAt: message.createdAtDate,
+            modifiedAt: message.modifiedAtDate,
             attachments: attachments
         )
         
         preview.lastMessage = message
         
         self.previewsBySpace[spaceId] = preview
-        return true
     }
 }
 
