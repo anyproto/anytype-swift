@@ -14,17 +14,22 @@ struct NewSpaceCardLabel: View {
             IconView(icon: spaceData.spaceView.objectIconImage)
                 .frame(width: 56, height: 56)
             VStack(alignment: .leading, spacing: 0) {
-                Text(spaceData.spaceView.name.withPlaceholder)
-                    .anytypeFontStyle(.bodySemibold)
-                    .lineLimit(1)
-                    .foregroundStyle(Color.Text.primary)
-                info
+                HStack {
+                    Text(spaceData.spaceView.name.withPlaceholder)
+                        .anytypeFontStyle(.bodySemibold)
+                        .lineLimit(1)
+                        .foregroundStyle(Color.Text.primary)
+                    Spacer(minLength: 8)
+                    createdDate
+                }
+                HStack {
+                    info
+                    Spacer()
+                    unreadCounters
+                }
                 Spacer(minLength: 1)
             }
             
-            Spacer(minLength: 8)
-            
-            counters
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
@@ -103,15 +108,6 @@ struct NewSpaceCardLabel: View {
             Spacer.fixedWidth(4)
             Text(message.localizedAttachmentsText).anytypeStyle(.uxTitle2Regular).lineLimit(1)
         }
-    }
-    
-    @ViewBuilder
-    private var counters: some View {
-            VStack(spacing: 2) {
-                createdDate
-                unreadCounters
-                Spacer()
-            }
     }
     
     @ViewBuilder
