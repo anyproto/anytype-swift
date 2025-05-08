@@ -10,8 +10,6 @@ struct LastMessagePreview: Hashable {
     
     var attachments: [ObjectDetails]
     
-    var messagePreviewText: String { text.isNotEmpty ? text : localizedAttachmentsText }
-    
     var localizedAttachmentsText: String {
         // TBD: real implementation
         switch attachments.count {

@@ -50,27 +50,59 @@ struct NewSpaceCardLabel: View {
             } else if FeatureFlags.spaceUxTypes {
                 Text(spaceData.spaceView.uxType.name)
                     .anytypeStyle(.uxTitle2Regular)
+                    .lineLimit(1)
             } else {
                 Text(spaceData.spaceView.spaceAccessType?.name ?? "")
                     .anytypeStyle(.uxTitle2Regular)
+                    .lineLimit(1)
             }
         }
-        .lineLimit(2)
         .foregroundStyle(Color.Text.secondary)
         .multilineTextAlignment(.leading)
     }
     
-    // TBD: Image preview
     @ViewBuilder
     func lastMessagePreview(_ message: LastMessagePreview) -> some View {
         Group {
+            if message.text.isNotEmpty {
+                // Do not show attachements due to SwiftUI limitations:
+                // Can not fit attachements in between two lines of text with proper multiline behaviour
+                messageWithoutAttachements(message)
+            } else if message.attachments.isNotEmpty {
+                // Show attachements and 1 line of text
+                messageWithAttachements(message)
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
+        Group {
             if let creator = message.creator {
                 Text(creator.localName + ": ").anytypeFontStyle(.uxTitle2Medium) +
-                Text(message.messagePreviewText).anytypeFontStyle(.uxTitle2Regular)
+                Text(message.text).anytypeFontStyle(.uxTitle2Regular)
             } else {
-                Text(message.messagePreviewText).anytypeFontStyle(.uxTitle2Regular)
+                Text(message.text).anytypeFontStyle(.uxTitle2Regular)
             }
-        }.anytypeLineHeightStyle(.uxTitle2Regular)
+        }.lineLimit(2).anytypeLineHeightStyle(.uxTitle2Regular)
+    }
+    
+    @ViewBuilder
+    func messageWithAttachements(_ message: LastMessagePreview) -> some View {
+        HStack(spacing: 2) {
+            if let creator = message.creator {
+                Text(creator.localName + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                Spacer.fixedWidth(4)
+            }
+            
+            ForEach(message.attachments.prefix(3)) {
+                IconView(icon: $0.objectIconImage).frame(width: 18, height: 18)
+            }
+            
+            Spacer.fixedWidth(4)
+            Text(message.localizedAttachmentsText).anytypeStyle(.uxTitle2Regular).lineLimit(1)
+        }
     }
     
     @ViewBuilder
