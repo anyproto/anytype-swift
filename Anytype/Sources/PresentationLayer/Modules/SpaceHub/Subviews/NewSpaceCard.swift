@@ -27,7 +27,6 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
                 menuItems
             }
         }
-        .padding(.horizontal, 8)
     }
     
     @ViewBuilder
