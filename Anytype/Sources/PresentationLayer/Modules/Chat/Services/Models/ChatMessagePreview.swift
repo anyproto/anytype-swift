@@ -2,24 +2,23 @@ import Services
 import Foundation
 
 struct LastMessagePreview: Hashable {
-    var creator: Participant?
-    var text: String
+    let creator: Participant?
+    let text: String
     
-    var createdAt: Date
-    var modifiedAt: Date?
+    let createdAt: Date
+    let modifiedAt: Date?
     
-    var attachments: [ObjectDetails]
+    let attachments: [ObjectDetails]
+    let localizedAttachmentsText: String
     
-    var localizedAttachmentsText: String {
-        // TBD: real implementation
-        switch attachments.count {
-        case 0:
-            ""
-        case 1:
-            "Attachement"
-        default:
-            "\(attachments.count) Attachements"
-        }
+    init(creator: Participant?, text: String, createdAt: Date, modifiedAt: Date?, attachments: [ObjectDetails]) {
+        self.creator = creator
+        self.text = text
+        self.createdAt = createdAt
+        self.modifiedAt = modifiedAt
+        self.attachments = attachments
+        self.localizedAttachmentsText = AttachmentsTextInfoBuilder
+            .localizedAttachmentsText(attachments: attachments)
     }
 }
 
