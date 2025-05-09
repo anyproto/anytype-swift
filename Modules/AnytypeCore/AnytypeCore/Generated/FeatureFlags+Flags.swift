@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var allObjectsFromLibrary: Bool {
-        value(for: .allObjectsFromLibrary)
-    }
-
     static var homeSpaceLevelChat: Bool {
         value(for: .homeSpaceLevelChat)
     }
@@ -120,10 +116,6 @@ public extension FeatureFlags {
 
     static var joinStream: Bool {
         value(for: .joinStream)
-    }
-
-    static var httpsLinkForObjectCopy: Bool {
-        value(for: .httpsLinkForObjectCopy)
     }
 
     static var newPropertiesCreation: Bool {
@@ -232,7 +224,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .allObjectsFromLibrary,
         .homeSpaceLevelChat,
         .objectTypeWidgets,
         .newTypeIcons,
@@ -257,7 +248,6 @@ public extension FeatureFlags {
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
-        .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .pluralNames,
         .countersOnSpaceHub,
