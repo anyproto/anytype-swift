@@ -5,6 +5,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
+    let draggable: Bool
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
@@ -18,6 +19,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
             NewSpaceCardLabel(
                 spaceData: spaceData,
                 wallpaper: wallpaper,
+                draggable: draggable,
                 draggedSpace: $draggedSpace
             )
         }
@@ -27,7 +29,6 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
                 menuItems
             }
         }
-        .padding(.horizontal, 8)
     }
     
     @ViewBuilder

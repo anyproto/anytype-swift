@@ -6,6 +6,7 @@ struct NewSpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
+    let draggable: Bool
     private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
@@ -14,17 +15,22 @@ struct NewSpaceCardLabel: View {
             IconView(icon: spaceData.spaceView.objectIconImage)
                 .frame(width: 56, height: 56)
             VStack(alignment: .leading, spacing: 0) {
-                Text(spaceData.spaceView.name.withPlaceholder)
-                    .anytypeFontStyle(.bodySemibold)
-                    .lineLimit(1)
-                    .foregroundStyle(Color.Text.primary)
-                info
+                HStack {
+                    Text(spaceData.spaceView.name.withPlaceholder)
+                        .anytypeFontStyle(.bodySemibold)
+                        .lineLimit(1)
+                        .foregroundStyle(Color.Text.primary)
+                    Spacer(minLength: 8)
+                    createdDate
+                }
+                HStack {
+                    info
+                    Spacer()
+                    unreadCounters
+                }
                 Spacer(minLength: 1)
             }
             
-            Spacer(minLength: 8)
-            
-            counters
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
@@ -32,14 +38,15 @@ struct NewSpaceCardLabel: View {
         .frame(height: 80)
         .background(Color.Background.primary)
         
-        .if(spaceData.spaceView.isLoading && !FeatureFlags.newSpacesLoading) { $0.redacted(reason: .placeholder) }
+        .if(spaceData.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
-        
-        .onDrag {
-            draggedSpace = spaceData
-            return NSItemProvider()
-        } preview: {
-            EmptyView()
+        .if(draggable) {
+            $0.onDrag {
+                draggedSpace = spaceData
+                return NSItemProvider()
+            } preview: {
+                EmptyView()
+            }
         }
     }
     
@@ -50,39 +57,58 @@ struct NewSpaceCardLabel: View {
             } else if FeatureFlags.spaceUxTypes {
                 Text(spaceData.spaceView.uxType.name)
                     .anytypeStyle(.uxTitle2Regular)
+                    .lineLimit(1)
             } else {
                 Text(spaceData.spaceView.spaceAccessType?.name ?? "")
                     .anytypeStyle(.uxTitle2Regular)
+                    .lineLimit(1)
             }
         }
-        .lineLimit(2)
         .foregroundStyle(Color.Text.secondary)
         .multilineTextAlignment(.leading)
     }
     
-    // TBD: Image preview
     @ViewBuilder
     func lastMessagePreview(_ message: LastMessagePreview) -> some View {
         Group {
+            if message.text.isNotEmpty {
+                // Do not show attachements due to SwiftUI limitations:
+                // Can not fit attachements in between two lines of text with proper multiline behaviour
+                messageWithoutAttachements(message)
+            } else if message.attachments.isNotEmpty {
+                // Show attachements and 1 line of text
+                messageWithAttachements(message)
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
+        Group {
             if let creator = message.creator {
                 Text(creator.localName + ": ").anytypeFontStyle(.uxTitle2Medium) +
-                Text(message.messagePreviewText).anytypeFontStyle(.uxTitle2Regular)
+                Text(message.text).anytypeFontStyle(.uxTitle2Regular)
             } else {
-                Text(message.messagePreviewText).anytypeFontStyle(.uxTitle2Regular)
+                Text(message.text).anytypeFontStyle(.uxTitle2Regular)
             }
-        }.anytypeLineHeightStyle(.uxTitle2Regular)
+        }.lineLimit(2).anytypeLineHeightStyle(.uxTitle2Regular)
     }
     
     @ViewBuilder
-    private var counters: some View {
-        if spaceData.spaceView.isLoading && FeatureFlags.newSpacesLoading {
-            DotsView().frame(width: 30, height: 6)
-        } else {
-            VStack(spacing: 2) {
-                createdDate
-                unreadCounters
-                Spacer()
+    func messageWithAttachements(_ message: LastMessagePreview) -> some View {
+        HStack(spacing: 2) {
+            if let creator = message.creator {
+                Text(creator.localName + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                Spacer.fixedWidth(4)
             }
+            
+            ForEach(message.attachments.prefix(3)) {
+                IconView(icon: $0.objectIconImage).frame(width: 18, height: 18)
+            }
+            
+            Spacer.fixedWidth(4)
+            Text(message.localizedAttachmentsText).anytypeStyle(.uxTitle2Regular).lineLimit(1)
         }
     }
     

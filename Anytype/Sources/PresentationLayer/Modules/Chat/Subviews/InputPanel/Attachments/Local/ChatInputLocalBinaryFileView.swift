@@ -14,7 +14,7 @@ struct ChatInputLocalBinaryFileView: View {
         ChatInputObjectView(
             icon: .object(.file(mimeType: type.identifier, name: fileName)),
             title: fileName,
-            description: Loc.file,
+            description: Loc.file(1),
             size: size(),
             onTapRemove: onTapRemove
         )

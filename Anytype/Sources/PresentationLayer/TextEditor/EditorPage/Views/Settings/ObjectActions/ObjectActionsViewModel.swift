@@ -166,14 +166,9 @@ final class ObjectActionsViewModel: ObservableObject {
     
     func copyLinkAction() async throws {
         guard let details = document.details else { return }
-        let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
         
-        let link: URL?
-        if FeatureFlags.httpsLinkForObjectCopy {
-            link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey))
-        } else {
-            link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey), scheme: .main)
-        }
+        let invite = try? await workspaceService.getCurrentInvite(spaceId: details.spaceId)
+        let link = universalLinkParser.createUrl(link: .object(objectId: details.id, spaceId: details.spaceId, cid: invite?.cid, key: invite?.fileKey))
         
         UIPasteboard.general.string = link?.absoluteString
         toastData = ToastBarData(Loc.copied)

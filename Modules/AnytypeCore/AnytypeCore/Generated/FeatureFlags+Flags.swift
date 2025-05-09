@@ -22,16 +22,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var allObjectsFromLibrary: Bool {
-        value(for: .allObjectsFromLibrary)
-    }
-
     static var homeSpaceLevelChat: Bool {
         value(for: .homeSpaceLevelChat)
-    }
-
-    static var newSpacesLoading: Bool {
-        value(for: .newSpacesLoading)
     }
 
     static var objectTypeWidgets: Bool {
@@ -60,6 +52,10 @@ public extension FeatureFlags {
 
     static var spaceUxTypes: Bool {
         value(for: .spaceUxTypes)
+    }
+
+    static var unreadOnHome: Bool {
+        value(for: .unreadOnHome)
     }
 
     static var enableStreamSpaceType: Bool {
@@ -120,10 +116,6 @@ public extension FeatureFlags {
 
     static var joinStream: Bool {
         value(for: .joinStream)
-    }
-
-    static var httpsLinkForObjectCopy: Bool {
-        value(for: .httpsLinkForObjectCopy)
     }
 
     static var newPropertiesCreation: Bool {
@@ -232,9 +224,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .allObjectsFromLibrary,
         .homeSpaceLevelChat,
-        .newSpacesLoading,
         .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
@@ -242,6 +232,7 @@ public extension FeatureFlags {
         .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
+        .unreadOnHome,
         .enableStreamSpaceType,
         .enablePushMessages,
         .aiToolInSet,
@@ -257,7 +248,6 @@ public extension FeatureFlags {
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
-        .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .pluralNames,
         .countersOnSpaceHub,

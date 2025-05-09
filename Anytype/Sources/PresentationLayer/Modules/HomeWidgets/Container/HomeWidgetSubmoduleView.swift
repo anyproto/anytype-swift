@@ -24,11 +24,7 @@ struct HomeWidgetSubmoduleView: View {
     private func viewForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId) -> some View {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.allObjects, _):
-            if FeatureFlags.allObjectsFromLibrary {
-                AllObjectsWidgetView(data: widgetData)
-            } else {
-                EmptyView()
-            }
+            AllObjectsWidgetView(data: widgetData)
         case (.favorite, .tree):
             FavoriteTreeWidgetsubmoduleView(data: widgetData)
         case (.favorite, .list):

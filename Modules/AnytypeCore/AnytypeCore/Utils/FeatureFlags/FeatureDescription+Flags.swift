@@ -30,24 +30,11 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let allObjectsFromLibrary = FeatureDescription(
-        title: "All objects from library",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
-    )
-    
-    static let newSpacesLoading = FeatureDescription(
-        title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
     )
     
     static let objectTypeWidgets = FeatureDescription(
@@ -92,6 +79,14 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
+    )
+    
+    static let unreadOnHome = FeatureDescription(
+        title: "Unread section on home",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
     )
     
     static let enableStreamSpaceType = FeatureDescription(
@@ -202,12 +197,6 @@ public extension FeatureDescription {
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
-    )
-
-    static let httpsLinkForObjectCopy = FeatureDescription(
-        title: "https link for objects copy action",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
     )
     
     static let newPropertiesCreation = FeatureDescription(

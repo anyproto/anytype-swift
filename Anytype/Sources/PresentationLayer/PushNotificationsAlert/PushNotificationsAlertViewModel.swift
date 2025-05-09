@@ -9,6 +9,8 @@ final class PushNotificationsAlertViewModel: ObservableObject {
     
     @Injected(\.pushNotificationsAlertHandler)
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
+    @Injected(\.pushNotificationsPermissionService)
+    private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
     func onAppear() {
         pushNotificationsAlertHandler.storeAlertShowDate()
@@ -16,13 +18,7 @@ final class PushNotificationsAlertViewModel: ObservableObject {
     
     func enablePushesTap() {
         dismiss.toggle()
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            }
-        }
+        pushNotificationsPermissionService.requestAuthorization()
     }
     
     func laterTap() {
