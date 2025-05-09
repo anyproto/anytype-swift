@@ -6,6 +6,7 @@ struct NewSpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
+    let draggable: Bool
     private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
@@ -39,12 +40,13 @@ struct NewSpaceCardLabel: View {
         
         .if(spaceData.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
-        
-        .onDrag {
-            draggedSpace = spaceData
-            return NSItemProvider()
-        } preview: {
-            EmptyView()
+        .if(draggable) {
+            $0.onDrag {
+                draggedSpace = spaceData
+                return NSItemProvider()
+            } preview: {
+                EmptyView()
+            }
         }
     }
     

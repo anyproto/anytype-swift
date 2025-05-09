@@ -43,8 +43,8 @@ struct NewSpaceHubView: View {
     
     private var mainContent: some View {
         VStack(spacing: 0) {
-            if let spaces = model.spaces, spaces.isNotEmpty {
-                scrollView(spaces)
+            if let spaces = model.spaces, let unreadSpaces = model.unreadSpaces, spaces.isNotEmpty || unreadSpaces.isNotEmpty {
+                scrollView(unread: unreadSpaces, spaces: spaces)
             } else if model.spaces.isNotNil {
                 emptyStateView
             } else {
@@ -57,7 +57,7 @@ struct NewSpaceHubView: View {
         .animation(.default, value: model.spaces)
     }
     
-    private func scrollView(_ spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+    private func scrollView(unread: [ParticipantSpaceViewDataWithPreview], spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(44) // navbar
@@ -69,9 +69,23 @@ struct NewSpaceHubView: View {
                             .padding(.horizontal, 8)
                     }
                 }
-                ForEach(spaces) {
-                    spaceCard($0)
+                
+                if unread.isNotEmpty {
+                    SectionHeaderView(title: "Unread").padding(.horizontal, 20)
+                    ForEach(unread) {
+                        spaceCard($0, draggable: false)
+                    }
                 }
+                
+                if spaces.isNotEmpty {
+                    if FeatureFlags.unreadOnHome {
+                        SectionHeaderView(title: "All").padding(.horizontal, 20)
+                    }
+                    ForEach(spaces) {
+                        spaceCard($0, draggable: true)
+                    }
+                }
+                
                 Spacer.fixedHeight(40)
             }
         }
@@ -139,10 +153,11 @@ struct NewSpaceHubView: View {
         .frame(height: 44)
     }
     
-    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
+    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview, draggable: Bool) -> some View {
         NewSpaceCard(
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
+            draggable: draggable,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
@@ -158,15 +173,17 @@ struct NewSpaceHubView: View {
             }
         )
         .equatable()
-        .onDrop(
-            of: [.text],
-            delegate:  SpaceHubDropDelegate(
-                destinationItem: space,
-                allSpaces: $model.spaces,
-                draggedItem: $draggedSpace,
-                initialIndex: $draggedInitialIndex
+        .if(draggable) {
+            $0.onDrop(
+                of: [.text],
+                delegate:  SpaceHubDropDelegate(
+                    destinationItem: space,
+                    allSpaces: $model.spaces,
+                    draggedItem: $draggedSpace,
+                    initialIndex: $draggedInitialIndex
+                )
             )
-        )
+        }
     }
 }
 
