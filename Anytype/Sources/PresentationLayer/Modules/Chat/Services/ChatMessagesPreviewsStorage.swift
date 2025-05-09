@@ -9,6 +9,11 @@ protocol ChatMessagesPreviewsStorageProtocol: AnyObject, Sendable {
     var previewsSequenceWithEmpty: AnyAsyncSequence<[ChatMessagePreview]> { get async }
 }
 
+fileprivate struct ChatMessagePreviewKey: Hashable {
+    let spaceId: String
+    let chatId: String
+}
+
 actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
@@ -21,7 +26,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private let subscriptionId = "ChatMessagesPreviewsStorage-\(UUID().uuidString)"
     private var subscription: Task<Void, Never>?
     
-    private var previewsBySpace = [String: ChatMessagePreview]()
+    private var previewsBySpace = [ChatMessagePreviewKey: ChatMessagePreview]()
     private let previewsStream = AsyncToManyStream<[ChatMessagePreview]>()
     
     init() {
@@ -68,8 +73,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
             let response = try await chatService.subscribeToMessagePreviews(subId: subscriptionId)
             
             for preview in response.previews {
-                handleChatState(spaceId: preview.spaceID, contextId: preview.chatObjectID, state: preview.state)
-                await handleChatLastMessage(spaceId: preview.spaceID, contextId: preview.chatObjectID, message: preview.message)
+                handleChatState(spaceId: preview.spaceID, chatId: preview.chatObjectID, state: preview.state)
+                await handleChatLastMessage(spaceId: preview.spaceID, chatId: preview.chatObjectID, message: preview.message)
             }
 
             previewsStream.send(Array(previewsBySpace.values))
@@ -104,27 +109,29 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private func handleChatStateUpdateEvent(spaceId: String, contextId: String, state: ChatUpdateState) -> Bool {
         guard state.subIds.contains(subscriptionId) else { return false }
         
-        handleChatState(spaceId: spaceId, contextId: contextId, state: state.state)
+        handleChatState(spaceId: spaceId, chatId: contextId, state: state.state)
         return true
     }
     
-    private func handleChatState(spaceId: String, contextId: String, state: ChatState) {
-        var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+    private func handleChatState(spaceId: String, chatId: String, state: ChatState) {
+        let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: chatId)
+        var preview = previewsBySpace[key] ?? ChatMessagePreview(spaceId: spaceId, chatId: chatId)
         preview.unreadCounter = Int(state.messages.counter)
         preview.mentionCounter = Int(state.mentions.counter)
             
-        self.previewsBySpace[spaceId] = preview
+        self.previewsBySpace[key] = preview
     }
     
     private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) async -> Bool {
         guard data.subIds.contains(subscriptionId) else { return false }
         
-        await handleChatLastMessage(spaceId: spaceId, contextId: contextId, message: data.message)
+        await handleChatLastMessage(spaceId: spaceId, chatId: contextId, message: data.message)
         return true
     }
     
-    private func handleChatLastMessage(spaceId: String, contextId: String, message: ChatMessage) async {
-        var preview = previewsBySpace[spaceId] ?? ChatMessagePreview(spaceId: spaceId, chatId: contextId)
+    private func handleChatLastMessage(spaceId: String, chatId: String, message: ChatMessage) async {
+        let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: chatId)
+        var preview = previewsBySpace[key] ?? ChatMessagePreview(spaceId: spaceId, chatId: chatId)
         
         let attachmentsIds = message.attachments.map(\.target)
         let attachments = (try? await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)) ?? [ObjectDetails]()
@@ -140,7 +147,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         
         preview.lastMessage = message
         
-        self.previewsBySpace[spaceId] = preview
+        self.previewsBySpace[key] = preview
     }
 }
 
