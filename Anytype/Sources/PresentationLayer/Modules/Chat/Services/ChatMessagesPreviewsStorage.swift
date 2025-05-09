@@ -130,6 +130,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     }
     
     private func handleChatLastMessage(spaceId: String, chatId: String, message: ChatMessage) async {
+        guard message.hasMessage else { return }
+      
         let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: chatId)
         var preview = previewsBySpace[key] ?? ChatMessagePreview(spaceId: spaceId, chatId: chatId)
         

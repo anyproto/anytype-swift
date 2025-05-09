@@ -87,6 +87,14 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let unreadOnHome = FeatureDescription(
+        title: "Unread section on home",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
+    )
+    
     static let enableStreamSpaceType = FeatureDescription(
         title: "Enable stream space type",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),

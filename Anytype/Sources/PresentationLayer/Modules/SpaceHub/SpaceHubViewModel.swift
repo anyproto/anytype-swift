@@ -6,7 +6,14 @@ import AsyncAlgorithms
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
+    @Published var unreadSpaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
+    
+    var allSpaces: [ParticipantSpaceViewDataWithPreview]? {
+        guard let unreadSpaces, let spaces else { return nil }
+        return unreadSpaces + spaces
+    }
+    
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
     @Published var showSettings = false
@@ -19,8 +26,8 @@ final class SpaceHubViewModel: ObservableObject {
     private weak var output: (any SpaceHubModuleOutput)?
     
     var showPlusInNavbar: Bool {
-        guard let spaces else { return false }
-        return spaces.count > 6 && createSpaceAvailable
+        guard let allSpaces else { return false }
+        return allSpaces.count > 6 && createSpaceAvailable
     }
     
     @Injected(\.userDefaultsStorage)
@@ -83,7 +90,13 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            self.spaces = spaces
+            if FeatureFlags.unreadOnHome {
+                self.unreadSpaces = spaces.filter { $0.preview.unreadCounter > 0 }
+                self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
+            } else {
+                self.unreadSpaces = []
+                self.spaces = spaces
+            }
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }
