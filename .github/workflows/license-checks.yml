@@ -1,16 +1,12 @@
-name: Unit Tests
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+name: License Checks
 
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  unit-tests:
-    name: Run Unit Tests
+  license-checks:
+    name: License Checks
     runs-on: macos-15
 
     steps:
@@ -24,6 +20,7 @@ jobs:
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
           swiftpm-cache-key: spm-soucepackages-${{ github.workflow }}-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
           swiftpm-cache-restore-keys: spm-soucepackages-${{ github.workflow }}-
+          sourcepackages-directory: ./build/SourcePackages
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
@@ -38,8 +35,5 @@ jobs:
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
-      - name: Run unit tests
-        run: bundle exec fastlane tests skip_notify:true
-        env:
-          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
-          FASTLANE_XCODE_LIST_TIMEOUT: 900
+      - name: License Checks
+        uses: ./.github/actions/license-checks
