@@ -8,6 +8,9 @@ struct MessageReactionView: View {
     let onTap: () async throws -> Void
     let onLongTap: () -> Void
     
+    @Environment(\.messageYourBackgroundColor)
+    private var messageYourBackgroundColor
+    
     var body: some View {
         AsyncButton {
             try await onTap()
@@ -30,7 +33,7 @@ struct MessageReactionView: View {
             .dynamicTypeSize(.large)
             .frame(height: 28)
             .padding(.horizontal, 8)
-            .background(model.selected ? Color.Background.primary : Color.Shape.transperentSecondary)
+            .background(model.selected ? messageYourBackgroundColor : Color.Background.Chat.bubbleSomeones)
             .cornerRadius(20)
         }
         .simultaneousGesture(
