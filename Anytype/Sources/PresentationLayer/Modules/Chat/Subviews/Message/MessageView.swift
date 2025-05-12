@@ -6,6 +6,7 @@ struct MessageView: View {
     
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
+        static let emoji = ["👍🏻", "️️❤️", "😂"]
     }
     
     private let data: MessageViewData
@@ -165,7 +166,7 @@ struct MessageView: View {
                 canAddReaction: data.canAddReaction,
                 position: data.position,
                 onTapRow: { reaction in
-                    try await output?.didTapOnReaction(data: data, reaction: reaction)
+                    try await output?.didTapOnReaction(data: data, emoji: reaction.emoji)
                 },
                 onLongTapRow: { reaction in
                     output?.didLongTapOnReaction(data: data, reaction: reaction)
@@ -222,10 +223,29 @@ struct MessageView: View {
     @ViewBuilder
     private var contextMenu: some View {
         if data.canAddReaction {
-            Button {
-                output?.didSelectAddReaction(messageId: data.message.id)
-            } label: {
-                Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+            if #available(iOS 16.4, *) {
+                ControlGroup {
+                    ForEach(Constants.emoji, id:\.self) { emoji in
+                        AsyncButton {
+                            try await output?.didTapOnReaction(data: data, emoji: emoji)
+                        } label: {
+                            Text(emoji)
+                        }
+                    }
+                    Button {
+                        output?.didSelectAddReaction(messageId: data.message.id)
+                    } label: {
+                        Image(systemName: "plus.circle")
+                    }
+                }
+                .controlGroupStyle(.compactMenu)
+            } else {
+                
+                Button {
+                    output?.didSelectAddReaction(messageId: data.message.id)
+                } label: {
+                    Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+                }
             }
         }
         
