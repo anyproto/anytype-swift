@@ -87,7 +87,7 @@ struct NewSpaceCardLabel: View {
     func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
         Group {
             if let creator = message.creator {
-                Text(creator.localName + ": ").anytypeFontStyle(.uxTitle2Medium) +
+                Text(creator.name + ": ").anytypeFontStyle(.uxTitle2Medium) +
                 Text(message.text).anytypeFontStyle(.uxTitle2Regular)
             } else {
                 Text(message.text).anytypeFontStyle(.uxTitle2Regular)
@@ -99,7 +99,7 @@ struct NewSpaceCardLabel: View {
     func messageWithAttachements(_ message: LastMessagePreview) -> some View {
         HStack(spacing: 2) {
             if let creator = message.creator {
-                Text(creator.localName + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                Text(creator.name + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
                 Spacer.fixedWidth(4)
             }
             

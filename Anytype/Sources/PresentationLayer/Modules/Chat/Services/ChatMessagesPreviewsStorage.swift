@@ -18,8 +18,6 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let userDefaultsStorage: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
-    private let searchService: any SearchServiceProtocol = Container.shared.searchService()
-    private let participantService: any ParticipantServiceProtocol = Container.shared.participantService()
     
     // MARK: - Subscriptions State
     
@@ -74,7 +72,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
             
             for preview in response.previews {
                 handleChatState(spaceId: preview.spaceID, chatId: preview.chatObjectID, state: preview.state)
-                await handleChatLastMessage(spaceId: preview.spaceID, chatId: preview.chatObjectID, message: preview.message)
+                await handleChatLastMessage(spaceId: preview.spaceID, chatId: preview.chatObjectID, message: preview.message, dependencies: preview.dependencies.compactMap(\.asDetails))
             }
 
             previewsStream.send(Array(previewsBySpace.values))
@@ -125,19 +123,20 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) async -> Bool {
         guard data.subIds.contains(subscriptionId) else { return false }
         
-        await handleChatLastMessage(spaceId: spaceId, chatId: contextId, message: data.message)
+        await handleChatLastMessage(spaceId: spaceId, chatId: contextId, message: data.message, dependencies: data.dependencies.compactMap(\.asDetails))
         return true
     }
     
-    private func handleChatLastMessage(spaceId: String, chatId: String, message: ChatMessage) async {
+    private func handleChatLastMessage(spaceId: String, chatId: String, message: ChatMessage, dependencies: [ObjectDetails]) async {
         guard message.hasMessage else { return }
       
         let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: chatId)
         var preview = previewsBySpace[key] ?? ChatMessagePreview(spaceId: spaceId, chatId: chatId)
         
         let attachmentsIds = message.attachments.map(\.target)
-        let attachments = (try? await searchService.searchObjects(spaceId: spaceId, objectIds: attachmentsIds)) ?? [ObjectDetails]()
-        let creator = try? await participantService.searchParticipant(spaceId: spaceId, identity: message.creator)
+        let attachments = attachmentsIds.compactMap { id in dependencies.first { $0.id == id } }
+        
+        let creator = dependencies.first { $0.id == message.creator }
         
         let message = LastMessagePreview(
             creator: creator,
