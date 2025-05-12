@@ -154,6 +154,10 @@ public extension FeatureFlags {
         value(for: .binScreenEmptyAction)
     }
 
+    static var openFullscreenObjectsFromSetWidget: Bool {
+        value(for: .openFullscreenObjectsFromSetWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -257,6 +261,7 @@ public extension FeatureFlags {
         .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
+        .openFullscreenObjectsFromSetWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

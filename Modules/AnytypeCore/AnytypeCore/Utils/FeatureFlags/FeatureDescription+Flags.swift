@@ -260,6 +260,12 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let openFullscreenObjectsFromSetWidget = FeatureDescription(
+        title: "Open fullscreen object from set widget",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
