@@ -23,7 +23,7 @@ struct MessageReactionView: View {
                 case .count(let count):
                     Text("\(count)")
                         .anytypeFontStyle(.caption1Regular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundColor(model.selected ? .Text.white : .Text.primary)
                 case .icon(let icon):
                     IconView(icon: icon)
                         .frame(width: 20, height: 20)
