@@ -12,7 +12,8 @@ platform :ios do
       slack_only_on_failure: true,
       fail_build: true,
       xcargs: ENV['BUILD_OPTIONS'],
-      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+      result_bundle: true,
+      clean: false
     )
 
     ensure_git_status_clean(
