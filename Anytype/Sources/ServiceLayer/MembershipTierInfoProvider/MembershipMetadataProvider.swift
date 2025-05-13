@@ -33,12 +33,14 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol, Send
                 
     func purchaseType(status: MembershipStatus) async -> MembershipPurchaseType {
         return switch status.paymentMethod {
-        case .methodStripe, .methodCrypto, .UNRECOGNIZED, .methodNone:
+        case .methodStripe, .methodCrypto, .UNRECOGNIZED:
                 .purchasedElsewhere(.desktop)
         case .methodInappGoogle:
                 .purchasedElsewhere(.googlePlay)
         case .methodInappApple:
             await applePurchaseType(status: status)
+        case .methodNone:
+                .freeTier
         }
     }
         
