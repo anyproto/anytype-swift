@@ -17,7 +17,7 @@ public extension MembershipStatus {
         MembershipStatus(
             tier: nil,
             status: .unknown,
-            dateEnds: .distantFuture,
+            dateEnds: .never,
             paymentMethod: .methodStripe,
             anyName: .mockEmpty,
             email: ""
@@ -25,8 +25,13 @@ public extension MembershipStatus {
     }
     
     var formattedDateEnds: String {
-        let dateFormatter = DateFormatter.defaultDateFormatter
-        return dateFormatter.string(from: dateEnds)
+        switch dateEnds {
+        case .never:
+            return Loc.forever
+        case .date(let date):
+            let dateFormatter = DateFormatter.defaultDateFormatter
+            return dateFormatter.string(from: date)
+        }
     }
     
     var localizablePaymentMethod: String? {
