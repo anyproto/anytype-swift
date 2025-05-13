@@ -17,9 +17,7 @@ jobs:
         uses: irgaly/xcode-cache@v1
         with:
           key: xcode-cache-deriveddata
-          restore-keys: xcode-cache-deriveddata
           swiftpm-cache-key: spm-soucepackages
-          swiftpm-cache-restore-keys: spm-soucepackages
           sourcepackages-directory: ./build/SourcePackages
       
       - name: Prepare deps
