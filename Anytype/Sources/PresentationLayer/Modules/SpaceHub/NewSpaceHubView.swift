@@ -70,15 +70,17 @@ struct NewSpaceHubView: View {
                     }
                 }
                 
-                if unread.isNotEmpty {
-                    SectionHeaderView(title: "Unread").padding(.horizontal, 20)
+                if unread.isNotEmpty && FeatureFlags.unreadOnHome {
+                    if spaces.isNotEmpty {
+                        SectionHeaderView(title: "Unread").padding(.horizontal, 20)
+                    }
                     ForEach(unread) {
                         spaceCard($0, draggable: false)
                     }
                 }
                 
                 if spaces.isNotEmpty {
-                    if FeatureFlags.unreadOnHome {
+                    if FeatureFlags.unreadOnHome && unread.isNotEmpty {
                         SectionHeaderView(title: "All").padding(.horizontal, 20)
                     }
                     ForEach(spaces) {

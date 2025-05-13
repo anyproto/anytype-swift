@@ -3,7 +3,7 @@ import Services
 final class AttachmentsTextInfoBuilder {
     static func localizedAttachmentsText(attachments: [ObjectDetails]) -> String {
         guard attachments.allHaveSameValue(\.resolvedLayoutValue) else {
-            return Loc.attachment(attachments.count)
+            return localizedAttachmentsTextForMixedLayouts(attachments: attachments)
         }
         
         guard let firstAttachment = attachments.first else { return "" }
@@ -45,6 +45,18 @@ final class AttachmentsTextInfoBuilder {
         case .UNRECOGNIZED, .dashboard, .space, .relationOptionsList, .relationOption, .spaceView, .participant, .chat, .chatDerived:
             return Loc.attachment(count)
         }
+    }
+    
+    private static func localizedAttachmentsTextForMixedLayouts(attachments: [ObjectDetails]) -> String {
+        if attachments.allSatisfy({ DetailsLayout.editorLayouts.contains($0.resolvedLayoutValue) }) {
+            return Loc.object(attachments.count)
+        } else if attachments.allSatisfy({ DetailsLayout.listLayouts.contains($0.resolvedLayoutValue) }) {
+            return Loc.list(attachments.count)
+        } else if attachments.allSatisfy({ (DetailsLayout.editorLayouts + DetailsLayout.listLayouts).contains($0.resolvedLayoutValue) }) {
+            return Loc.object(attachments.count)
+        }
+        
+        return Loc.attachment(attachments.count)
     }
 }
 
