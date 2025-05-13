@@ -17,10 +17,15 @@ public struct AnyName: Equatable, Sendable {
     }
 }
 
+public enum MembershipDateEnds: Equatable, Sendable {
+    case never
+    case date(Date)
+}
+
 public struct MembershipStatus: Equatable, Sendable {
     public let tier: MembershipTier?
     public let status: MembershipSubscriptionStatus
-    public let dateEnds: Date
+    public let dateEnds: MembershipDateEnds
     public let paymentMethod: MembershipPaymentMethod
     public let anyName: AnyName
     public let email: String
@@ -28,7 +33,7 @@ public struct MembershipStatus: Equatable, Sendable {
     public init(
         tier: MembershipTier?,
         status: MembershipSubscriptionStatus,
-        dateEnds: Date,
+        dateEnds: MembershipDateEnds,
         paymentMethod: MembershipPaymentMethod,
         anyName: AnyName,
         email: String

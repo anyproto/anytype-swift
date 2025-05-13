@@ -43,11 +43,7 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(4)
             switch model.membership.tier?.type {
-            case .explorer:
-                AnytypeText(Loc.forever, style: .title)
-                    .foregroundColor(.Text.primary)
-                Spacer.fixedHeight(55)
-            case .builder, .coCreator, .custom:
+            case .explorer, .builder, .coCreator, .custom:
                 AnytypeText(model.membership.formattedDateEnds, style: .title)
                     .foregroundColor(.Text.primary)
                 paymentText
@@ -146,6 +142,8 @@ struct MembershipOwnerInfoSheetView: View {
             AnytypeText(paymentMethod.noticeText, style: .relation2Regular)
                 .foregroundColor(.Text.secondary)
                 .lineLimit(2)
+                .multilineTextAlignment(.center) 
+                .padding(.vertical)
         }
     }
 }
