@@ -18,7 +18,7 @@ jobs:
         with:
           key: xcode-cache-deriveddata-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-
-          swiftpm-cache-key: spm-soucepackages-${{ github.sha }}
+          swiftpm-cache-key: spm-soucepackages-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
           swiftpm-cache-restore-keys: spm-soucepackages-
           sourcepackages-directory: ./build/SourcePackages
           cache-read-only: true
