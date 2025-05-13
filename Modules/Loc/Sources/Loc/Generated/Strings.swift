@@ -600,7 +600,7 @@ public enum Loc {
             public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Next")
           }
           public enum Show {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Reveal my Key")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Reveal and copy")
           }
         }
         public enum ReadMore {
@@ -650,10 +650,6 @@ public enum Loc {
           public static let title = Loc.tr("Localizable", "Auth.LoginFlow.Use.Keychain.Title", fallback: "Use keychain")
         }
       }
-    }
-    public enum Welcome {
-      public static let subtitle = Loc.tr("Localizable", "Auth.Welcome.subtitle", fallback: "Encrypted, offline \n& open")
-      public static let title = Loc.tr("Localizable", "Auth.Welcome.title", fallback: "Create & collaborate\n in spaces you own.")
     }
   }
   public enum BlockLink {
