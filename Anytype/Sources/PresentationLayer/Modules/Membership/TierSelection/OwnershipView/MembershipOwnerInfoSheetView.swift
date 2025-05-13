@@ -43,7 +43,7 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(4)
             switch model.membership.tier?.type {
-            case .explorer, .builder, .coCreator, .custom:
+            case .starter, .builder, .coCreator, .custom:
                 AnytypeText(model.membership.formattedDateEnds, style: .title)
                     .foregroundColor(.Text.primary)
                 paymentText
@@ -138,20 +138,20 @@ struct MembershipOwnerInfoSheetView: View {
 }
 
 
-#Preview("Explorer without email") {
+#Preview("Starter without email") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer, email: "")
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, email: "")
         } content: {
             MembershipOwnerInfoSheetView()
         }
     }
 }
 
-#Preview("Explorer with email") {
+#Preview("Starter with email") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer, email: "vo@va.com")
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, email: "vo@va.com")
         } content: {
             MembershipOwnerInfoSheetView()
         }

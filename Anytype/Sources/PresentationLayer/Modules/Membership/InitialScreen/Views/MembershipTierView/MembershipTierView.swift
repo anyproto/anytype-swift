@@ -82,7 +82,7 @@ struct MembershipTierView: View {
     private var expirationText: some View {
         Group {
             switch model.tierToDisplay.type {
-            case .explorer:
+            case .starter:
                 return AnytypeText(Loc.foreverFree, style: .caption1Regular)
                     .foregroundColor(.Text.primary)
             case .builder, .coCreator, .custom, .anyTeam:
@@ -117,7 +117,7 @@ struct MembershipTierView: View {
             MembershipStatusStorageMock.shared._status = .mock(tier: nil, status: .pending)
         } content: {
             HStack {
-                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
                 MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
@@ -126,13 +126,13 @@ struct MembershipTierView: View {
     }
 }
 
-#Preview("Pending explorer") {
+#Preview("Pending starter") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer, status: .pending)
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, status: .pending)
         } content: {
             HStack {
-                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
                 MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
@@ -141,13 +141,13 @@ struct MembershipTierView: View {
     }
 }
 
-#Preview("Active explorer") {
+#Preview("Active starter") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer)
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter)
         } content: {
             HStack {
-                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
                 MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
@@ -162,7 +162,7 @@ struct MembershipTierView: View {
             MembershipStatusStorageMock.shared._status = .mock(tier: .mockBuilder)
         } content: {
             HStack {
-                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
                 MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
@@ -177,7 +177,7 @@ struct MembershipTierView: View {
             MembershipStatusStorageMock.shared._status = .mock(tier: .mockCustom, paymentMethod: .methodCrypto)
         } content: {
             HStack {
-                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
                 MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
                 MembershipTierView(tierToDisplay: .mockCustom, onTap: { })

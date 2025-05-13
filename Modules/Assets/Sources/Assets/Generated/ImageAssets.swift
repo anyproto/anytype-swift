@@ -931,8 +931,8 @@ extension ImageAsset {
     public static let tierCocreatorSmall = ImageAsset.bundle(name: "Membership/tier_cocreator_small")
     public static let tierCustomMedium = ImageAsset.bundle(name: "Membership/tier_custom_medium")
     public static let tierCustomSmall = ImageAsset.bundle(name: "Membership/tier_custom_small")
-    public static let tierExplorerMedium = ImageAsset.bundle(name: "Membership/tier_explorer_medium")
-    public static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
+    public static let tierStarterMedium = ImageAsset.bundle(name: "Membership/tier_starter_medium")
+    public static let tierStarterSmall = ImageAsset.bundle(name: "Membership/tier_starter_small")
   }
   public static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   public enum Migration {
