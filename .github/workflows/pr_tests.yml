@@ -22,6 +22,8 @@ jobs:
         with:
           key: xcode-cache-deriveddata
           swiftpm-cache-key: spm-soucepackages
+          # Delete old cache and override from this PR
+          # If will works fine, add new workflow for update cache after merge in develop and use this workflow in read-only mode
           delete-used-deriveddata-cache: true
       
       - name: Prepare deps
