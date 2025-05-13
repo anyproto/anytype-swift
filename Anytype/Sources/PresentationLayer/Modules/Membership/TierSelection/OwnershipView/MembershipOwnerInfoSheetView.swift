@@ -77,20 +77,7 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var actions: some View {
-        Group {
-            switch model.membership.tier?.type {
-            case .explorer:
-                explorerActions
-            case .builder, .coCreator, .custom, .anyTeam:
-                managePayment
-            case nil:
-                EmptyView()
-            }
-        }
-    }
-    
-    private var explorerActions: some View {
+    private var mailActions: some View {
         Group {
             if model.alreadyHaveEmail && !model.changeEmail {
                 VStack(spacing: 0) {
@@ -113,13 +100,15 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var managePayment: some View {
+    private var actions: some View {
         Group {
             switch model.purchaseType {
             case .purchasedInAppStoreWithCurrentAccount:
                 managePaymentButton
             case .purchasedElsewhere(let externalPaymentMethod):
                 managePaymentNotice(paymentMethod: externalPaymentMethod)
+            case .freeTier:
+                mailActions
             case .none:
                 EmptyView()
             }

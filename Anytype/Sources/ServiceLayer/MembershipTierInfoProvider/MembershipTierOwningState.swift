@@ -9,6 +9,7 @@ enum MembershipExternalPaymentMethod {
 enum MembershipPurchaseType {
     case purchasedInAppStoreWithCurrentAccount
     case purchasedElsewhere(MembershipExternalPaymentMethod)
+    case freeTier
 }
 
 enum MembershipPurchaseAvailablitiy {
