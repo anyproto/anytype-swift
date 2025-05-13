@@ -19,9 +19,11 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     func onStepChanged(_ step: JoinFlowStep, state: JoinFlowState, output: some JoinFlowStepOutput) -> AnyView {
         switch step {
         case .key:
-            return KeyPhraseView(state: state, output: output).eraseToAnyView()
+            KeyPhraseView(state: state, output: output).eraseToAnyView()
         case .soul:
-            return SoulView(state: state, output: output).eraseToAnyView()
+            SoulView(state: state, output: output).eraseToAnyView()
+        case .email:
+            EmailCollectionView(state: state, output: output).eraseToAnyView()
         }
     }
     

@@ -21,6 +21,8 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.serverConfigurationStorage)
+    private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     
     init(state: JoinFlowState, output: (any JoinFlowOutput)?) {
         self.state = state
@@ -38,6 +40,12 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
             finishFlow()
             return
         }
+        
+        if nextStep == .email && shouldSkipEmailStep() {
+            finishFlow()
+            return
+        }
+        
         forward = true
         
         withAnimation {
@@ -77,5 +85,9 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         if state.soul.isEmpty {
             AnytypeAnalytics.instance().logOnboardingSkipName()
         }
+    }
+    
+    private func shouldSkipEmailStep() -> Bool {
+        serverConfigurationStorage.currentConfiguration() == .localOnly
     }
 }

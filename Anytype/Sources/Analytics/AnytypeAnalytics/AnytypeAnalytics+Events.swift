@@ -805,6 +805,14 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logScreenOnboardingEnterEmail() {
+        logEvent("ScreenOnboardingEnterEmail")
+    }
+    
+    func logScreenOnboardingSkipEmail() {
+        logEvent("ScreenOnboardingSkipEmail")
+    }
+    
     func logClickOnboarding(step: ScreenOnboardingStep, button: ClickOnboardingButton) {
         logEvent(
             "ClickOnboarding",

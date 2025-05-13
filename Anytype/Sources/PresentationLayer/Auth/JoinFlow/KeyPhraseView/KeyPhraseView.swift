@@ -27,21 +27,21 @@ struct KeyPhraseView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading)
-                .foregroundColor(.Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .contentTitleSemibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             
-            Spacer.fixedHeight(12)
+            Spacer.fixedHeight(8)
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Key.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Auth.body)
+            .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
-            Spacer.fixedHeight(18)
+            Spacer.fixedHeight(24)
             
             phraseTextView
             
