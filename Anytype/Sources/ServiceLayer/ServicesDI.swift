@@ -92,14 +92,6 @@ extension Container {
         self { RecentSubscriptionService() }
     }
     
-    var setsSubscriptionService: Factory<any SetsSubscriptionServiceProtocol> {
-        self { SetsSubscriptionService() }
-    }
-    
-    var collectionsSubscriptionService: Factory<any CollectionsSubscriptionServiceProtocol> {
-        self { CollectionsSubscriptionService() }
-    }
-    
     var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
         self { BinSubscriptionService() }
     }

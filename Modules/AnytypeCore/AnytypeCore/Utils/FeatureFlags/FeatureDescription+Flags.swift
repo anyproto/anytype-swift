@@ -36,12 +36,6 @@ public extension FeatureDescription {
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
-    
-    static let objectTypeWidgets = FeatureDescription(
-        title: "Object Type widgets",
-        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
 
     static let newTypeIcons = FeatureDescription(
         title: "New type Icons",
@@ -52,12 +46,6 @@ public extension FeatureDescription {
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let openBookmarkAsLink = FeatureDescription(
-        title: "Open bookmark as link",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
         defaultValue: true
     )
     

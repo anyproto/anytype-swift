@@ -43,42 +43,6 @@ struct HomeWidgetSubmoduleView: View {
             RecentOpenListWidgetSubmoduleView(data: widgetData)
         case (.recentOpen, .compactList):
             RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
-        case (.sets, .tree):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                SetsCompactListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.sets, .list):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                SetsListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.sets, .compactList):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                SetsCompactListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.collections, .tree):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.collections, .list):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                CollectionsListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.collections, .compactList):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-            }
         case (.bin, _):
             if FeatureFlags.binWidgetFromLibrary {
                 BinWidgetView(data: widgetData)

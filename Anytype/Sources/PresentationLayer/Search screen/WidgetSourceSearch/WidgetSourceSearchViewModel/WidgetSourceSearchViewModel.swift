@@ -38,7 +38,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     func search(text: String) async throws {
         self.searchText = text
         
-        let objectTypes = FeatureFlags.objectTypeWidgets ? try await interactor.objectsTypesSearch(text: text) : []
+        let objectTypes = try await interactor.objectsTypesSearch(text: text)
         let objects = try await interactor.objectsSearch(text: text)
         let libraryObjects = try await interactor.anytypeLibrarySearch(text: text)
         
