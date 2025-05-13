@@ -49,12 +49,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let openBookmarkAsLink = FeatureDescription(
-        title: "Open bookmark as link",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let newSettings = FeatureDescription(
         title: "New settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),

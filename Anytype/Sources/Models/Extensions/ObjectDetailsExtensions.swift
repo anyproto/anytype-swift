@@ -60,7 +60,7 @@ extension BundledRelationsValueProvider {
         case .image, .video, .audio, .file, .pdf:
             return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
         case .bookmark:
-            return FeatureFlags.openBookmarkAsLink ? .bookmark : .page
+            return .bookmark
         case .chat, .chatDerived:
             return FeatureFlags.chatLayoutInsideSpace ? .chat : .page
         }

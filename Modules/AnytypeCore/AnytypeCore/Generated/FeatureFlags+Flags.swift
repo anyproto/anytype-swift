@@ -34,10 +34,6 @@ public extension FeatureFlags {
         value(for: .openMediaFileInPreview)
     }
 
-    static var openBookmarkAsLink: Bool {
-        value(for: .openBookmarkAsLink)
-    }
-
     static var newSettings: Bool {
         value(for: .newSettings)
     }
@@ -223,7 +219,6 @@ public extension FeatureFlags {
         .homeSpaceLevelChat,
         .newTypeIcons,
         .openMediaFileInPreview,
-        .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
