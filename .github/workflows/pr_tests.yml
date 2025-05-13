@@ -24,8 +24,10 @@ jobs:
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
         with:
-          key: xcode-cache-deriveddata
-          swiftpm-cache-key: spm-soucepackages
+          key: xcode-cache-deriveddata-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-
+          swiftpm-cache-key: spm-soucepackages-${{ github.sha }}
+          swiftpm-cache-restore-keys: spm-soucepackages-
           # Delete old cache and override from this build
           # If will works fine, add new workflow for update cache after merge in develop and use this workflow in read-only mode
           delete-used-deriveddata-cache: true

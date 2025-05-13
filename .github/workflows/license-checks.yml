@@ -16,8 +16,10 @@ jobs:
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
         with:
-          key: xcode-cache-deriveddata
-          swiftpm-cache-key: spm-soucepackages
+          key: xcode-cache-deriveddata-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-
+          swiftpm-cache-key: spm-soucepackages-${{ github.sha }}
+          swiftpm-cache-restore-keys: spm-soucepackages-
           sourcepackages-directory: ./build/SourcePackages
           cache-read-only: true
       
