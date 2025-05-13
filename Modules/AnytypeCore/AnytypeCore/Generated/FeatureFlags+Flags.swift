@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var objectTypeWidgets: Bool {
-        value(for: .objectTypeWidgets)
-    }
-
     static var newTypeIcons: Bool {
         value(for: .newTypeIcons)
     }
@@ -225,7 +221,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .hideCoCreator,
         .homeSpaceLevelChat,
-        .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
         .openBookmarkAsLink,
