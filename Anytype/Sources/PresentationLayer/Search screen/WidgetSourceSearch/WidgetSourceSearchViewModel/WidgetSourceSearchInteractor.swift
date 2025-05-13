@@ -89,49 +89,35 @@ private extension AnytypeWidgetId {
                 type: .allObjects,
                 name: Loc.allObjects,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.allObjects) : .object(.emoji(Emoji("🗄")!))
+                icon: .asset(.SystemWidgets.allObjects)
             )
         case .favorite:
             return WidgetAnytypeLibrarySource(
                 type: .favorite,
                 name: Loc.favorite,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.favorites) : .object(.emoji(Emoji("⭐️")!))
-            )
-        case .sets:
-            return WidgetAnytypeLibrarySource(
-                type: .sets,
-                name: Loc.sets,
-                description: nil,
-                icon: .object(.emoji(Emoji("🔎")!))
-            )
-        case .collections:
-            return WidgetAnytypeLibrarySource(
-                type: .collections,
-                name: Loc.collections,
-                description: nil,
-                icon: .object(.emoji(Emoji("📂")!))
+                icon: .asset(.SystemWidgets.favorites)
             )
         case .recent:
             return WidgetAnytypeLibrarySource(
                 type: .recent,
                 name: Loc.Widgets.Library.RecentlyEdited.name,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyEdited) : .object(.emoji(Emoji("📝")!))
+                icon: .asset(.SystemWidgets.recentlyEdited)
             )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyOpened) : .object(.emoji(Emoji("📅")!))
+                icon: .asset(.SystemWidgets.recentlyOpened)
             )
         case .bin:
             return WidgetAnytypeLibrarySource(
                 type: .bin,
                 name: Loc.bin,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.bin) : .object(.emoji(Emoji("🗑️")!))
+                icon: .asset(.SystemWidgets.bin)
             )
         }
     }

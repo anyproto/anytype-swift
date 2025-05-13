@@ -28,10 +28,6 @@ struct EditorCoordinatorView: View {
             WidgetObjectListRecentEditView(spaceId: spaceId, output: model)
         case let .recentOpen(spaceId):
             WidgetObjectListRecentOpenView(spaceId: spaceId, output: model)
-        case let .sets(spaceId):
-            WidgetObjectListSetsView(spaceId: spaceId, output: model)
-        case let .collections(spaceId):
-            WidgetObjectListCollectionsView(spaceId: spaceId, output: model)
         case let .bin(spaceId):
             if FeatureFlags.binScreenEmptyAction {
                 BinListView(spaceId: spaceId)
