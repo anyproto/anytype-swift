@@ -20,10 +20,10 @@ jobs:
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
         with:
-          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
-          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
-          swiftpm-cache-key: spm-soucepackages-${{ github.workflow }}-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
-          swiftpm-cache-restore-keys: spm-soucepackages-${{ github.workflow }}-
+          key: xcode-cache-deriveddata-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-
+          swiftpm-cache-key: spm-soucepackages-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          swiftpm-cache-restore-keys: spm-soucepackages-
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
