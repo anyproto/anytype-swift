@@ -158,7 +158,7 @@ final class EditorSetCoordinatorViewModel:
     // MARK: - NavigationContext
     
     func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: document, setting: setting, output: self, customAnalyticsRoute: nil)
+        setObjectCreationCoordinator.startCreateObject(setDocument: document, mode: .internal, setting: setting, output: self, customAnalyticsRoute: nil)
     }
     
     func showKanbanColumnSettings(

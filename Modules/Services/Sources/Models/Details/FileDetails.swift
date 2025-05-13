@@ -23,13 +23,19 @@ public struct FileDetails: Sendable {
     }
     
     public var fileName: String {
-        return FileDetails.formattedFileName(name, fileExt: fileExt)
+        FileDetails.formattedFileName(name, fileExt: fileExt)
+    }
+    
+    public var fileDirectoryName: String {
+        let fileName = name.isEmpty ? id : name
+        return FileDetails.formattedFileName(fileName, fileExt: fileExt)
     }
     
     static func formattedFileName(_ name: String, fileExt: String) -> String {
         let formattedFileExt = ".\(fileExt)"
         let fileSuffix = fileExt.isNotEmpty && !name.hasSuffix(formattedFileExt) ? formattedFileExt : ""
-        return name + fileSuffix
+        let fileName = name + fileSuffix
+        return fileName
     }
 }
 

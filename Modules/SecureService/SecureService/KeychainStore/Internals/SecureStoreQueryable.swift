@@ -36,11 +36,13 @@ public struct GenericPasswordQueryable {
     let service: String
     let accessGroup: String?
     let account: String
+    let attrAccessible: AttrAccessible
     
-    public init(account: String, service: String, accessGroup: String? = nil) {
+    public init(account: String, service: String, accessGroup: String? = nil, attrAccessible: AttrAccessible) {
         self.service = service
         self.accessGroup = accessGroup
         self.account = account
+        self.attrAccessible = attrAccessible
     }
     
 }
@@ -51,6 +53,7 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         query[String(kSecClass)] = kSecClassGenericPassword
         query[String(kSecAttrService)] = service
         query[String(kSecAttrAccount)] = account
+        query[String(kSecAttrAccessible)] = attrAccessible.askSecAttrAccessible
         
         // Access group if target environment is not simulator
         #if !targetEnvironment(simulator)
@@ -59,5 +62,19 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         }
         #endif
         return query
+    }
+}
+
+public enum AttrAccessible {
+    case whenUnlockedThisDeviceOnly
+    case afterFirstUnlockThisDeviceOnly
+    
+    var askSecAttrAccessible: CFString {
+        switch self {
+        case .whenUnlockedThisDeviceOnly:
+            return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        case .afterFirstUnlockThisDeviceOnly:
+            return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        }
     }
 }

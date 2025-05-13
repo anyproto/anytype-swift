@@ -24,11 +24,7 @@ struct HomeWidgetSubmoduleView: View {
     private func viewForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId) -> some View {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.allObjects, _):
-            if FeatureFlags.allObjectsFromLibrary {
-                AllObjectsWidgetView(data: widgetData)
-            } else {
-                EmptyView()
-            }
+            AllObjectsWidgetView(data: widgetData)
         case (.favorite, .tree):
             FavoriteTreeWidgetsubmoduleView(data: widgetData)
         case (.favorite, .list):
@@ -47,42 +43,6 @@ struct HomeWidgetSubmoduleView: View {
             RecentOpenListWidgetSubmoduleView(data: widgetData)
         case (.recentOpen, .compactList):
             RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
-        case (.sets, .tree):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                SetsCompactListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.sets, .list):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                SetsListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.sets, .compactList):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                SetsCompactListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.collections, .tree):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.collections, .list):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                CollectionsListWidgetSubmoduleView(data: widgetData)
-            }
-        case (.collections, .compactList):
-            if FeatureFlags.objectTypeWidgets {
-                EmptyView()
-            } else {
-                CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-            }
         case (.bin, _):
             if FeatureFlags.binWidgetFromLibrary {
                 BinWidgetView(data: widgetData)

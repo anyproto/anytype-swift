@@ -5,8 +5,8 @@ struct ChatHeaderView: View {
     
     @StateObject private var model: ChatHeaderViewModel
     
-    init(spaceId: String, onTapOpenWidgets: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: ChatHeaderViewModel(spaceId: spaceId, onTapOpenWidgets: onTapOpenWidgets))
+    init(spaceId: String, chatId: String, onTapOpenWidgets: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: ChatHeaderViewModel(spaceId: spaceId, chatId: chatId, onTapOpenWidgets: onTapOpenWidgets))
     }
     
     var body: some View {
@@ -18,11 +18,13 @@ struct ChatHeaderView: View {
                     .lineLimit(1)
             }
         } rightView: {
-            IncreaseTapButton {
-                model.tapOpenWidgets()
-            } label: {
-                IconView(icon: model.icon)
-                    .frame(width: 28, height: 28)
+            if model.showWidgetsButton {
+                IncreaseTapButton {
+                    model.tapOpenWidgets()
+                } label: {
+                    IconView(icon: model.icon)
+                        .frame(width: 28, height: 28)
+                }
             }
         }
         .task {

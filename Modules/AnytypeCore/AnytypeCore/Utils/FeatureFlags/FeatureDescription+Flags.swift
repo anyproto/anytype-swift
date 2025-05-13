@@ -30,37 +30,11 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let allObjectsFromLibrary = FeatureDescription(
-        title: "All objects from library",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let homeSpaceLevelChat = FeatureDescription(
         title: "Space-Level Chat",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
-    )
-    
-    static let pinnedSpaces = FeatureDescription(
-        title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let newSpacesLoading = FeatureDescription(
-        title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let objectTypeWidgets = FeatureDescription(
-        title: "Object Type widgets",
-        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
     )
 
     static let newTypeIcons = FeatureDescription(
@@ -72,12 +46,6 @@ public extension FeatureDescription {
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let openBookmarkAsLink = FeatureDescription(
-        title: "Open bookmark as link",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
         defaultValue: true
     )
     
@@ -101,22 +69,23 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
-    static let enableStreamSpaceType = FeatureDescription(
-        title: "Enable stream space type",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+    static let unreadOnHome = FeatureDescription(
+        title: "Unread section on home",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: false
+        releaseAnyAppValue: false,
+        debugValue: true
     )
     
-    static let firebasePushMessages = FeatureDescription(
-        title: "Firebase push messages",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+    static let enableStreamSpaceType = FeatureDescription(
+        title: "Enable stream space type",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
     )
 
     static let enablePushMessages = FeatureDescription(
-        title: "Firebase config and enable push messages",
+        title: "Enable push messages (⚠️ please restart the app after enabling)",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
@@ -210,12 +179,6 @@ public extension FeatureDescription {
         releaseAnyAppValue: true,
         debugValue: false
     )
-
-    static let httpsLinkForObjectCopy = FeatureDescription(
-        title: "https link for objects copy action",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
     
     static let newPropertiesCreation = FeatureDescription(
         title: "New properties creation flow",
@@ -276,6 +239,12 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let openFullscreenObjectsFromSetWidget = FeatureDescription(
+        title: "Open fullscreen object from set widget",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: true
     )
     
     // MARK: - Debug
@@ -383,5 +352,12 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: true
+    )
+    
+    static let showPushMessagesInForeground = FeatureDescription(
+        title: "Show push messages in foreground",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
     )
 }

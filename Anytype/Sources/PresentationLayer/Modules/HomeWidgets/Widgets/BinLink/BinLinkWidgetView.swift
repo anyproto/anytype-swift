@@ -35,17 +35,17 @@ private struct BinLinkWidgetViewInternal: View {
     
     var content: some View {
         LinkWidgetViewContainer(
-            title: Loc.bin,
-            icon: .Widget.bin,
             isExpanded: .constant(false),
             dragId: nil,
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            headerAction: {
-                model.onHeaderTap()
-            },
             removeAction: nil,
+            header: {
+                LinkWidgetDefaultHeader(title: Loc.bin, icon: .X24.bin, onTap: {
+                    model.onHeaderTap()
+                })
+            },
             menu: {
                 menuItems
             },

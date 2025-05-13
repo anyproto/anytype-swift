@@ -7,8 +7,6 @@ enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     case favorites(homeObjectId: String, spaceId: String)
     case recentEdit(spaceId: String)
     case recentOpen(spaceId: String)
-    case sets(spaceId: String)
-    case collections(spaceId: String)
     case bin(spaceId: String)
     
     // Object

@@ -22,24 +22,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var allObjectsFromLibrary: Bool {
-        value(for: .allObjectsFromLibrary)
-    }
-
     static var homeSpaceLevelChat: Bool {
         value(for: .homeSpaceLevelChat)
-    }
-
-    static var pinnedSpaces: Bool {
-        value(for: .pinnedSpaces)
-    }
-
-    static var newSpacesLoading: Bool {
-        value(for: .newSpacesLoading)
-    }
-
-    static var objectTypeWidgets: Bool {
-        value(for: .objectTypeWidgets)
     }
 
     static var newTypeIcons: Bool {
@@ -48,10 +32,6 @@ public extension FeatureFlags {
 
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
-    }
-
-    static var openBookmarkAsLink: Bool {
-        value(for: .openBookmarkAsLink)
     }
 
     static var newSettings: Bool {
@@ -66,12 +46,12 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
+    static var unreadOnHome: Bool {
+        value(for: .unreadOnHome)
     }
 
-    static var firebasePushMessages: Bool {
-        value(for: .firebasePushMessages)
+    static var enableStreamSpaceType: Bool {
+        value(for: .enableStreamSpaceType)
     }
 
     static var enablePushMessages: Bool {
@@ -126,10 +106,6 @@ public extension FeatureFlags {
         value(for: .joinStream)
     }
 
-    static var httpsLinkForObjectCopy: Bool {
-        value(for: .httpsLinkForObjectCopy)
-    }
-
     static var newPropertiesCreation: Bool {
         value(for: .newPropertiesCreation)
     }
@@ -164,6 +140,10 @@ public extension FeatureFlags {
 
     static var binScreenEmptyAction: Bool {
         value(for: .binScreenEmptyAction)
+    }
+
+    static var openFullscreenObjectsFromSetWidget: Bool {
+        value(for: .openFullscreenObjectsFromSetWidget)
     }
 
     static var rainbowViews: Bool {
@@ -226,25 +206,24 @@ public extension FeatureFlags {
         value(for: .logMiddlewareRequests)
     }
 
+    static var showPushMessagesInForeground: Bool {
+        value(for: .showPushMessagesInForeground)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .allObjectsFromLibrary,
         .homeSpaceLevelChat,
-        .pinnedSpaces,
-        .newSpacesLoading,
-        .objectTypeWidgets,
         .newTypeIcons,
         .openMediaFileInPreview,
-        .openBookmarkAsLink,
         .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
+        .unreadOnHome,
         .enableStreamSpaceType,
-        .firebasePushMessages,
         .enablePushMessages,
         .aiToolInSet,
         .disableColorfulSeedPhrase,
@@ -258,7 +237,6 @@ public extension FeatureFlags {
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
-        .httpsLinkForObjectCopy,
         .newPropertiesCreation,
         .pluralNames,
         .countersOnSpaceHub,
@@ -268,6 +246,7 @@ public extension FeatureFlags {
         .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
+        .openFullscreenObjectsFromSetWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -282,6 +261,7 @@ public extension FeatureFlags {
         .showGlobalSearchScore,
         .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
-        .logMiddlewareRequests
+        .logMiddlewareRequests,
+        .showPushMessagesInForeground
     ]
 }

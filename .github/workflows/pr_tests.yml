@@ -1,17 +1,29 @@
-name: Run tests on PR
+name: Unit Tests
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  main:
-    name: Test Checks
-    runs-on: ${{ vars.RUNNER_PR }}
+  unit-tests:
+    name: Run Unit Tests
+    runs-on: macos-15
 
-    steps:      
+    steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Xcode Cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
+          swiftpm-cache-key: spm-soucepackages-${{ github.workflow }}-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          swiftpm-cache-restore-keys: spm-soucepackages-${{ github.workflow }}-
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
@@ -26,12 +38,8 @@ jobs:
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
-      - name: License Checks
-        uses: ./.github/actions/license-checks
-
       - name: Run unit tests
         run: bundle exec fastlane tests skip_notify:true
         env:
-          SLACK_URL_BUILD_TESTS: ${{ secrets.SLACK_URL_BUILD_TESTS }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900

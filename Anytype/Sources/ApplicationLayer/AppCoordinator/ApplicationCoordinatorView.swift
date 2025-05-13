@@ -21,6 +21,9 @@ struct ApplicationCoordinatorView: View {
             await model.startAccountStateHandler()
         }
         .task {
+            await model.startEncryptionKeyEventHandler()
+        }
+        .task {
             await model.startFileHandler()
         }
         .task(item: model.selectAccountTaskId) { accountId in

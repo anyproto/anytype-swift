@@ -72,7 +72,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+        setObjectCreationCoordinator.startCreateObject(
+            setDocument: setDocument,
+            mode: FeatureFlags.openFullscreenObjectsFromSetWidget ? .fullscreen : .internal,
+            output: self,
+            customAnalyticsRoute: .widget
+        )
     }
     
     // MARK: - SetObjectCreationCoordinatorOutput
