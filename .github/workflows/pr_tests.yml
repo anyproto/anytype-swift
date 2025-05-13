@@ -22,6 +22,7 @@ jobs:
         with:
           key: xcode-cache-deriveddata
           swiftpm-cache-key: spm-soucepackages
+          delete-used-deriveddata-cache: true
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps

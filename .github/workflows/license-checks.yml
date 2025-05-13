@@ -19,6 +19,7 @@ jobs:
           key: xcode-cache-deriveddata
           swiftpm-cache-key: spm-soucepackages
           sourcepackages-directory: ./build/SourcePackages
+          cache-read-only: true
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
