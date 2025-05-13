@@ -24,7 +24,7 @@ public extension MembershipStatus {
         MembershipStatus(
             tier: tier,
             status: status,
-            dateEnds: .tomorrow,
+            dateEnds: .date(.tomorrow),
             paymentMethod: paymentMethod,
             anyName: anyName,
             email: email

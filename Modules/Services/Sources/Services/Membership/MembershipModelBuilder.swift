@@ -37,10 +37,12 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
             anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
         }
         
+        let dateEnds: MembershipDateEnds = membership.dateEnds == 0 ? .never : .date(Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)))
+        
         return MembershipStatus(
             tier: tier,
             status: membership.status,
-            dateEnds: Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)),
+            dateEnds: dateEnds,
             paymentMethod: membership.paymentMethod,
             anyName: AnyName(handle: membership.nsName, extension: membership.nsNameType),
             email: membership.userEmail
