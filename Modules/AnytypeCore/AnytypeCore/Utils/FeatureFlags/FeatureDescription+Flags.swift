@@ -31,9 +31,9 @@ public extension FeatureDescription {
     )
     
     static let homeSpaceLevelChat = FeatureDescription(
-        title: "Space-Level Chat",
+        title: "Show Space-Level Chat",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
+        releaseAnytypeValue: true,
         releaseAnyAppValue: true
     )
 
@@ -63,7 +63,7 @@ public extension FeatureDescription {
     )
     
     static let spaceUxTypes = FeatureDescription(
-        title: "Space UX Types",
+        title: "Create chat space",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
@@ -72,13 +72,13 @@ public extension FeatureDescription {
     static let unreadOnHome = FeatureDescription(
         title: "Unread section on home",
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        releaseAnytypeValue: true,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
     static let enableStreamSpaceType = FeatureDescription(
-        title: "Enable stream space type",
+        title: "Create stream space",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
@@ -151,8 +151,8 @@ public extension FeatureDescription {
     static let spaceHubRedesign = FeatureDescription(
         title: "Space Hub redesign",
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        releaseAnytypeValue: true,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
@@ -167,7 +167,7 @@ public extension FeatureDescription {
     static let chatCounters = FeatureDescription(
         title: "Counters",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
+        releaseAnytypeValue: true,
         releaseAnyAppValue: true,
         debugValue: true
     )
@@ -195,7 +195,7 @@ public extension FeatureDescription {
     static let countersOnSpaceHub = FeatureDescription(
         title: "Counters on Space Hub",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
+        releaseAnytypeValue: true,
         releaseAnyAppValue: true,
         debugValue: true
     )
