@@ -6,7 +6,7 @@ import Services
 
 
 @MainActor
-final class NewSpaceSettingsCoordinatorViewModel: ObservableObject, NewSpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
+final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol

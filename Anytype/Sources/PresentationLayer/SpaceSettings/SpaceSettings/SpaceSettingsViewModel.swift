@@ -6,7 +6,7 @@ import AnytypeCore
 
 
 @MainActor
-final class NewSpaceSettingsViewModel: ObservableObject {
+final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
@@ -36,7 +36,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     
     private let dateFormatter = DateFormatter.relativeDateFormatter
     private let storageInfoBuilder = SegmentInfoBuilder()
-    private weak var output: (any NewSpaceSettingsModuleOutput)?
+    private weak var output: (any SpaceSettingsModuleOutput)?
     
     // MARK: - State
     
@@ -55,7 +55,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
     @Published var isCreateTypeWidget: Bool? = nil
-    @Published var shareSection: NewSpaceSettingsShareSection = .personal
+    @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
@@ -71,7 +71,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
     private var owner: Participant?
     private let widgetsObject: any BaseDocumentProtocol
     
-    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
         self.widgetsObject = openedDocumentProvider.document(objectId: workspaceInfo.widgetsId, spaceId: workspaceInfo.accountSpaceId)
@@ -268,7 +268,7 @@ final class NewSpaceSettingsViewModel: ObservableObject {
         Task { try await generateInviteIfNeeded() }
     }
     
-    private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> NewSpaceSettingsShareSection {
+    private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> SpaceSettingsShareSection {
         if participantSpaceView.canEdit {
             switch participantSpaceView.spaceView.spaceAccessType {
             case .personal, .UNRECOGNIZED, .none:

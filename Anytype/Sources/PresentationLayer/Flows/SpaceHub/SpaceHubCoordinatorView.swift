@@ -107,7 +107,7 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {
                             case .mainScreen(let info):
-                                NewSpaceSettingsCoordinatorView(workspaceInfo: info)
+                                SpaceSettingsCoordinatorView(workspaceInfo: info)
                             case .typeLibrary(let spaceId):
                                 ObjectTypesLibraryView(spaceId: spaceId)
                             }
