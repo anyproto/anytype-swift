@@ -43,12 +43,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let newSettings = FeatureDescription(
-        title: "New settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let newPlusMenu = FeatureDescription(
         title: "New plus menu",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
