@@ -1,4 +1,14 @@
 {
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
   "identifier" : "37A1325F",
   "nonRenewingSubscriptions" : [
 
@@ -10,7 +20,7 @@
     "_applicationInternalID" : "6449487029",
     "_developerTeamID" : "J3NXTX3T5S",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 738682265.50798702,
+    "_lastSynchronizedDate" : 768939340.57778502,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -76,12 +86,17 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "134.99",
+          "displayPrice" : "119.0",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "6503295022",
           "introductoryOffer" : null,
           "localizations" : [
+            {
+              "description" : "Shorter name, more storage and more editors",
+              "displayName" : "Builder",
+              "locale" : "en_US"
+            },
             {
               "description" : "Multiparty collaboration and extended storage",
               "displayName" : "Builder",
@@ -92,13 +107,44 @@
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Builder",
           "subscriptionGroupID" : "21478052",
-          "type" : "RecurringSubscription"
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "57.9",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6745894830",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Own your network name, expand network storage",
+              "displayName" : "Explorer",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "io.anytype.membership.tier.explorer",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Explorer",
+          "subscriptionGroupID" : "21478052",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
         }
       ]
     }
   ],
   "version" : {
-    "major" : 3,
+    "major" : 4,
     "minor" : 0
   }
 }
