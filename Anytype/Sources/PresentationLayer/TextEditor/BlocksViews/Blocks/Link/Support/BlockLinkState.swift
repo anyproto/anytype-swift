@@ -39,7 +39,7 @@ struct BlockLinkState: Hashable, Equatable {
             iconSize = .small
         }
 
-        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        let title = details.pluralTitle
         
         self.init(
             title: title.trimmed(numberOfCharacters: Constants.maxTitleLength),

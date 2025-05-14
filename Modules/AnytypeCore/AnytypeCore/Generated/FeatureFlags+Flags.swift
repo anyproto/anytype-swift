@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var newTypeIcons: Bool {
-        value(for: .newTypeIcons)
-    }
-
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -108,10 +104,6 @@ public extension FeatureFlags {
 
     static var newPropertiesCreation: Bool {
         value(for: .newPropertiesCreation)
-    }
-
-    static var pluralNames: Bool {
-        value(for: .pluralNames)
     }
 
     static var countersOnSpaceHub: Bool {
@@ -217,7 +209,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .hideCoCreator,
         .homeSpaceLevelChat,
-        .newTypeIcons,
         .openMediaFileInPreview,
         .newSettings,
         .newPlusMenu,
@@ -238,7 +229,6 @@ public extension FeatureFlags {
         .chatCounters,
         .joinStream,
         .newPropertiesCreation,
-        .pluralNames,
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,

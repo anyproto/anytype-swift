@@ -121,7 +121,7 @@ private extension LegacySearchViewModel.SelectionMode {
 private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
-        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        let title = details.pluralTitle
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title

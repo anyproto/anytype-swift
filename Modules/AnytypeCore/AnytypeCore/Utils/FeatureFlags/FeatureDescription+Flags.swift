@@ -36,12 +36,6 @@ public extension FeatureDescription {
         releaseAnytypeValue: true,
         releaseAnyAppValue: true
     )
-
-    static let newTypeIcons = FeatureDescription(
-        title: "New type Icons",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
     
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
@@ -182,12 +176,6 @@ public extension FeatureDescription {
     
     static let newPropertiesCreation = FeatureDescription(
         title: "New properties creation flow",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let pluralNames = FeatureDescription(
-        title: "Plura type names",
         type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: true
     )
