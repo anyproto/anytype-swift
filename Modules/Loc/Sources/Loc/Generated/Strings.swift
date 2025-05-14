@@ -600,7 +600,7 @@ public enum Loc {
             public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Next")
           }
           public enum Show {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Reveal my Key")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Reveal and copy")
           }
         }
         public enum ReadMore {
