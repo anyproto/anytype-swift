@@ -21,11 +21,7 @@ struct TypeFieldsView: View {
         content
             .task { await model.setupSubscriptions() }
             .sheet(item: $model.relationsSearchData) { data in
-                if FeatureFlags.newPropertiesCreation {
-                    RelationCreationView(data: data)
-                } else {
-                    RelationsSearchCoordinatorView(data: data)
-                }
+                RelationCreationView(data: data)
             }
             .sheet(item: $model.relationData) {
                 RelationInfoCoordinatorView(data: $0, output: nil)

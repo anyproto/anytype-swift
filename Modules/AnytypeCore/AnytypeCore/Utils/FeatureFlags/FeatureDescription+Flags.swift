@@ -168,12 +168,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let newPropertiesCreation = FeatureDescription(
-        title: "New properties creation flow",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let countersOnSpaceHub = FeatureDescription(
         title: "Counters on Space Hub",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),

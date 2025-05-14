@@ -49,11 +49,7 @@ struct EditorPageCoordinatorView: View {
                 BlockObjectSearchView(data: $0)
             }
             .sheet(item: $model.relationsSearchData) {
-                if FeatureFlags.newPropertiesCreation {
-                    RelationCreationView(data: $0)
-                } else {
-                    RelationsSearchCoordinatorView(data: $0)
-                }
+                RelationCreationView(data: $0)
             }
             .anytypeSheet(item: $model.undoRedoObjectId) {
                 UndoRedoView(objectId: $0.value)

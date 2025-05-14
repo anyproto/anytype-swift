@@ -98,10 +98,6 @@ public extension FeatureFlags {
         value(for: .joinStream)
     }
 
-    static var newPropertiesCreation: Bool {
-        value(for: .newPropertiesCreation)
-    }
-
     static var countersOnSpaceHub: Bool {
         value(for: .countersOnSpaceHub)
     }
@@ -223,7 +219,6 @@ public extension FeatureFlags {
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
-        .newPropertiesCreation,
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,

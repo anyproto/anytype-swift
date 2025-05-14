@@ -16,11 +16,7 @@ struct SetRelationsCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.relationsSearchData) { data in
-            if FeatureFlags.newPropertiesCreation {
-                RelationCreationView(data: data)
-            } else {
-                RelationsSearchCoordinatorView(data: data)
-            }
+            RelationCreationView(data: data)
         }
     }
 }
