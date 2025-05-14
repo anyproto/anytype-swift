@@ -5,6 +5,7 @@ struct FeatureFlagView: View {
     
     let model: FeatureFlagViewModel
     @State private var isOn: Bool
+    @State private var showDefaultValues: Bool = false
     
     init(model: FeatureFlagViewModel) {
         self.model = model
@@ -26,12 +27,26 @@ struct FeatureFlagView: View {
                     case .debug:
                         EmptyView()
                     }
-
-                        // See AnytypeText padding comment
-//                        AnytypeText(flag.description.title, style: .body, color: .Text.primary)
-//                        AnytypeText("Release: \(flag.description.releaseVersion), \(flag.description.author)", style: .callout, color: .Text.secondary)
-//                        }
                 }
+            }
+            
+            Button {
+                showDefaultValues.toggle()
+            } label: {
+                Text("Default values")
+                    .font(AnytypeFontBuilder.font(anytypeFont: .previewTitle2Medium))
+                    .foregroundColor(.Text.secondary)
+            }
+            
+            if showDefaultValues {
+                Group {
+                    Text("Nightly - \(model.description.debugValue ? "on" : "off")")
+                    Text("Release Anytype - \(model.description.releaseAnytypeValue ? "on" : "off")")
+                    Text("Release AnyApp - \(model.description.releaseAnyAppValue ? "on" : "off")")
+                }
+                .font(AnytypeFontBuilder.font(anytypeFont: .calloutRegular))
+                .foregroundColor(.Text.secondary)
+                .transition(.opacity)
             }
         }
         .onChange(of: isOn) {
