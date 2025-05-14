@@ -6,8 +6,8 @@ import AnytypeCore
 extension MembershipTier {
     var subtitle: String {
         switch self.type {
-        case .explorer:
-            return Loc.Membership.Explorer.subtitle
+        case .starter:
+            return Loc.Membership.Starter.subtitle
         case .builder:
             return Loc.Membership.Builder.subtitle
         case .coCreator:
@@ -22,7 +22,7 @@ extension MembershipTier {
     var mediumIcon: ImageAsset {
         switch color {
         case .green:
-            return .Membership.tierExplorerMedium
+            return .Membership.tierStarterMedium
         case .blue:
             return .Membership.tierBuilderMedium
         case .red:
@@ -35,7 +35,7 @@ extension MembershipTier {
     var smallIcon: ImageAsset {
         switch color {
         case .green:
-            .Membership.tierExplorerSmall
+            .Membership.tierStarterSmall
         case .blue:
             .Membership.tierBuilderSmall
         case .red:
@@ -60,7 +60,7 @@ extension MembershipTier {
     
     var successMessage: String {
         switch self.type {
-        case .explorer:
+        case .starter:
             Loc.Membership.Success.curiosity
         case .builder, .coCreator, .custom, .anyTeam:
             Loc.Membership.Success.support

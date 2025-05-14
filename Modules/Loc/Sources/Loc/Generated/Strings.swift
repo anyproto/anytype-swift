@@ -1219,9 +1219,6 @@ public enum Loc {
       public static let subtitle = Loc.tr("Localizable", "Membership.EmailForm.Subtitle", fallback: "It is not linked to your account in any way.")
       public static let title = Loc.tr("Localizable", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
     }
-    public enum Explorer {
-      public static let subtitle = Loc.tr("Localizable", "Membership.Explorer.Subtitle", fallback: "Sync your devices, get backup storage, and engage in collaboration.")
-    }
     public enum Feature {
       public static func invites(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Membership.Feature.Invites", String(describing: p1), fallback: "%@ Invitations")
@@ -1269,6 +1266,9 @@ public enum Loc {
       public static let card = Loc.tr("Localizable", "Membership.Payment.Card", fallback: "Card")
       public static let crypto = Loc.tr("Localizable", "Membership.Payment.Crypto", fallback: "Crypto")
       public static let googleSubscription = Loc.tr("Localizable", "Membership.Payment.Google subscription", fallback: "Google subscription")
+    }
+    public enum Starter {
+      public static let subtitle = Loc.tr("Localizable", "Membership.Starter.Subtitle", fallback: "Sync your devices, get backup storage, and engage in one-on-one collaboration.")
     }
     public enum Success {
       public static let curiosity = Loc.tr("Localizable", "Membership.Success.Curiosity", fallback: "Big cheers for your curiosity!")

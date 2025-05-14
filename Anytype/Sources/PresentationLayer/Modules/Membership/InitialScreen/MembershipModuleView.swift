@@ -71,7 +71,7 @@ struct MembershipModuleView: View {
     private var baners: some View {
         Group {
             switch membership.tier?.type {
-            case .explorer, nil:
+            case .starter, nil:
                 MembershipBannersView()
             case .builder, .coCreator, .custom, .anyTeam:
                 EmptyView()

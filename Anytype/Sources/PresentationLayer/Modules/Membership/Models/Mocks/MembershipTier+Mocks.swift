@@ -2,10 +2,10 @@ import Services
 
 
 extension MembershipTier {
-    static var mockExplorer: MembershipTier {
+    static var mockStarter: MembershipTier {
         MembershipTier(
-            type: .explorer,
-            name: "Explorer",
+            type: .starter,
+            name: "Starter",
             anyName: .none,
             features: [
                 Loc.Membership.Feature.storageGB(1),

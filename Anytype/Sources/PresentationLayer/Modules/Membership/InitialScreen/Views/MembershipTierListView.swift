@@ -36,25 +36,25 @@ struct MembershipTierListView: View {
             MembershipTierListView(
                 userMembership: .mock(tier: nil, status: .unknown),
                 tiers: [
-                    MembershipTier.mockExplorer,
+                    MembershipTier.mockStarter,
                     MembershipTier.mockBuilder,
                     MembershipTier.mockCoCreator
                 ]
             ) { _ in }
             
             MembershipTierListView(
-                userMembership: .mock(tier: .mockExplorer, status: .pending),
+                userMembership: .mock(tier: .mockStarter, status: .pending),
                 tiers: [
-                    MembershipTier.mockExplorer,
+                    MembershipTier.mockStarter,
                     MembershipTier.mockBuilder,
                     MembershipTier.mockCoCreator
                 ]
             ) { _ in }
             
             MembershipTierListView(
-                userMembership: .mock(tier: .mockExplorer),
+                userMembership: .mock(tier: .mockStarter),
                 tiers: [
-                    MembershipTier.mockExplorer,
+                    MembershipTier.mockStarter,
                     MembershipTier.mockBuilder,
                     MembershipTier.mockCoCreator
                 ]

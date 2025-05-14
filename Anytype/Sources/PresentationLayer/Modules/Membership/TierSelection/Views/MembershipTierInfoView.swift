@@ -56,5 +56,5 @@ struct MembershipTierInfoView: View {
 }
 
 #Preview {
-    MembershipTierInfoView(tier: .mockExplorer)
+    MembershipTierInfoView(tier: .mockStarter)
 }
