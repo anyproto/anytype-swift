@@ -35,8 +35,12 @@ struct InitialCoordinatorView: View {
             Text(verbatim: Loc.Initial.UnstableMiddle.message)
         }
         .snackbar(toastBarData: $model.toastBarData)
-        .anytypeShareView(item: $model.middlewareShareFile)
-        .anytypeShareView(item: $model.localStoreURL)
+        .sheet(item: $model.middlewareShareFile) { link in
+            ActivityView(activityItems: [link])
+        }
+        .sheet(item: $model.localStoreURL) { link in
+            ActivityView(activityItems: [link])
+        }
     }
     
     private var crashView: some View {

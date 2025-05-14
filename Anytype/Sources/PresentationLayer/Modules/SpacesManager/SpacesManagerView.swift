@@ -48,6 +48,8 @@ struct SpacesManagerView: View {
         .anytypeSheet(item: $model.spaceViewForDelete) { space in
             SpaceDeleteAlert(spaceId: space.targetSpaceId)
         }
-        .anytypeShareView(item: $model.exportSpaceUrl)
+        .sheet(item: $model.exportSpaceUrl) { link in
+            ActivityView(activityItems: [link])
+        }
     }
 }

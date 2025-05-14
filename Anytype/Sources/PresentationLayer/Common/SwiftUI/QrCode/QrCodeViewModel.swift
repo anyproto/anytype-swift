@@ -8,7 +8,7 @@ final class QrCodeViewModel: ObservableObject {
     
     let document: QRCode.Document
     let title: String
-    @Published var sharedData: Data?
+    @Published var sharedData: DataIdentifiable?
     
     init(title: String, data: String, analyticsType: ScreenQrAnalyticsType) {
         self.title = title
@@ -35,6 +35,6 @@ final class QrCodeViewModel: ObservableObject {
     
     func onShare() {
         AnytypeAnalytics.instance().logClickQr()
-        sharedData = document.jpegData(dimension: 600)
+        sharedData = document.jpegData(dimension: 600)?.identifiable
     }
 }

@@ -35,3 +35,21 @@ extension Int {
         IntIdentifiable(value: self)
     }
 }
+
+// For show modules with one Data arg
+struct DataIdentifiable: Identifiable {
+    
+    let value: Data
+    
+    init(value: Data) {
+        self.value = value
+    }
+    
+    var id: Int { value.hashValue }
+}
+
+extension Data {
+    var identifiable: DataIdentifiable {
+        DataIdentifiable(value: self)
+    }
+}
