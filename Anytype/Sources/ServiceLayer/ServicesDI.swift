@@ -329,14 +329,6 @@ extension Container {
         self { DateRelatedObjectsSubscriptionService() }.shared
     }
     
-    var objectsListSubscriptionService: Factory<any ObjectsListSubscriptionServiceProtocol> {
-        self { ObjectsListSubscriptionService() }
-    }
-    
-    var setByTypeSubscriptionService: Factory<any SetByTypeSubscriptionServiceProtocol> {
-        self { SetByTypeSubscriptionService() }
-    }
-    
     var mentionTextUpdateHandler: Factory<any MentionTextUpdateHandlerProtocol> {
         self { MentionTextUpdateHandler() }
     }
