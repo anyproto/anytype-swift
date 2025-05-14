@@ -17,8 +17,9 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func message(id: String) async -> ChatMessage?
     func updateVisibleRange(startMessageId: String, endMessageId: String) async
     func markAsReadAll() async throws -> ChatMessage
-    var messagesStream: AnyAsyncSequence<[FullChatMessage]> { get }
-    var chatStateStream: AnyAsyncSequence<ChatState> { get }
+    var updateStream: AnyAsyncSequence<[ChatUpdate]> { get }
+    var fullMessages: [FullChatMessage]? { get async }
+    var chatState: ChatState? { get async }
 }
 
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
@@ -57,8 +58,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     // Need the last message to scroll down. Messages may not store the last message.
     private var lastMessages = ChatInternalMessageStorage()
     private var replies = [String: ChatMessage]()
-    private var fullMessages: [FullChatMessage]?
-    private var chatState: ChatState?
+    private(set) var fullMessages: [FullChatMessage]?
+    private(set) var chatState: ChatState?
     
     private let syncStream = AsyncToManyStream<[ChatUpdate]>()
     
@@ -67,16 +68,8 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         self.chatObjectId = chatObjectId
     }
     
-    nonisolated var messagesStream: AnyAsyncSequence<[FullChatMessage]> {
-        AsyncStream.convertData(mergeFirstValue(syncStream, [.messages])) {
-            await fullMessages
-        }.eraseToAnyAsyncSequence()
-    }
-    
-    nonisolated var chatStateStream: AnyAsyncSequence<ChatState> {
-        AsyncStream.convertData(mergeFirstValue(syncStream, [.state])) {
-            await chatState
-        }.eraseToAnyAsyncSequence()
+    nonisolated var updateStream: AnyAsyncSequence<[ChatUpdate]> {
+        mergeFirstValue(syncStream, ChatUpdate.allCases)
     }
     
     func updateVisibleRange(startMessageId: String, endMessageId: String) async {

@@ -96,7 +96,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var firstUnreadMessageOrderId: String?
     private var bottomVisibleOrderId: String?
     private var bigDistanceToBottom: Bool = false
-
+    private var forceHiddenActionPanel: Bool = true
+    
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
         participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
@@ -163,36 +164,53 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
         async let spaceViewSub: () = subscribeOnSpaceView()
-        async let chatStateSub: () = subscribeOnChatState()
         
-        (_, _, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, chatStateSub)
+        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub)
     }
     
     func subscribeOnMessages() async throws {
         try await chatStorage.startSubscriptionIfNeeded()
-        for await messages in chatStorage.messagesStream {
-            let prevChatIsEmpty = self.messages.isEmpty
-            self.messages = messages
-            self.dataLoaded = true
-            if prevChatIsEmpty {
-                firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
-            }
-            await updateMessages()
-            if prevChatIsEmpty {
-                if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
-                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
-                } else if let message = messages.last {
-                    collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+        for await updates in chatStorage.updateStream {
+            
+            let chatState = await chatStorage.chatState
+            let messages = await chatStorage.fullMessages
+            
+            if updates.contains(.messages), let messages {
+                
+                let prevChatIsEmpty = self.messages.isEmpty
+                // After displaying a new message, we scroll to bottom and mark the messages as read.
+                // Without this logic, the button will appear for half a second while scrolling is in progress — which doesn’t look good.
+                if !bigDistanceToBottom {
+                    // Don't hide buttons if unread message or mention from past
+                    if let bottomVisibleOrderId, let chatState {
+                        let hideForMessage = chatState.messages.oldestOrderID.isNotEmpty ? bottomVisibleOrderId < chatState.messages.oldestOrderID : false
+                        let hideForMention = chatState.mentions.oldestOrderID.isNotEmpty ? bottomVisibleOrderId < chatState.mentions.oldestOrderID : false
+                        forceHiddenActionPanel = hideForMessage || hideForMention
+                    } else {
+                        forceHiddenActionPanel = true
+                    }
+                    updateActions()
+                }
+                
+                self.messages = messages
+                self.dataLoaded = true
+                if prevChatIsEmpty {
+                    firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
+                }
+                await updateMessages()
+                if prevChatIsEmpty {
+                    if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
+                        collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                    } else if let message = messages.last {
+                        collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+                    }
                 }
             }
-        }
-    }
-
-    func subscribeOnChatState() async {
-        guard FeatureFlags.chatCounters else { return }
-        for await chatState in chatStorage.chatStateStream {
-            self.chatState = chatState
-            updateActions()
+            
+            if updates.contains(.state), let chatState {
+                self.chatState = chatState
+                updateActions()
+            }
         }
     }
     
@@ -410,6 +428,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         Task {
             bottomVisibleOrderId = toMessage.message.orderID
             await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
+            forceHiddenActionPanel = false
             updateActions()
         }
     }
@@ -724,13 +743,15 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func updateActions() {
-        guard let chatState else { return }
-        
-        actionModel = ChatActionPanelModel(
-            showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
-            srollToBottomCounter: Int(chatState.messages.counter),
-            showMentions: chatState.mentions.counter > 0,
-            mentionsCounter: Int(chatState.mentions.counter)
-        )
+        if let chatState, !forceHiddenActionPanel {
+            actionModel = ChatActionPanelModel(
+                showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
+                srollToBottomCounter: Int(chatState.messages.counter),
+                showMentions: chatState.mentions.counter > 0,
+                mentionsCounter: Int(chatState.mentions.counter)
+            )
+        } else {
+            actionModel = .hidden
+        }
     }
 }
