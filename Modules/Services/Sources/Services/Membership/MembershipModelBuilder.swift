@@ -71,7 +71,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         type: MembershipTierType,
         tier: Anytype_Model_MembershipTierData
     ) async -> MembershipTierPaymentType? {
-        guard type != .explorer else { return nil }
+        guard type != .starter else { return nil }
         
         if tier.iosProductID.isNotEmpty {
             return await buildAppStorePayment(tier: tier)

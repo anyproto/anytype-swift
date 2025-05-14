@@ -2,22 +2,22 @@ import ProtobufMessages
 
 
 public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
-    case explorer
+    case starter
     case builder
     case coCreator
     case anyTeam
     
     case custom(id: UInt32)
     
-    static let explorerId: UInt32 = 1
+    static let starterId: UInt32 = 21
     static let builderId: UInt32 = 4
     static let coCreatorId: UInt32 = 5
     static let anyTeamId: UInt32 = 7
     
     public var id: UInt32 {
         switch self {
-        case .explorer:
-            Self.explorerId
+        case .starter:
+            Self.starterId
         case .builder:
             Self.builderId
         case .coCreator:
@@ -33,8 +33,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
         switch intId {
         case 0:
             return nil
-        case Self.explorerId:
-            self = .explorer
+        case Self.starterId:
+            self = .starter
         case Self.builderId:
             self = .builder
         case Self.coCreatorId:

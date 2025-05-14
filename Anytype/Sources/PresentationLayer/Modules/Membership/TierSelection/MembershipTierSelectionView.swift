@@ -112,17 +112,17 @@ struct MembershipTierSelectionView: View {
 #Preview {
     TabView {
         MembershipTierSelectionView(
-            userMembership: .mock(tier: .mockExplorer),
-            tierToDisplay: .mockExplorer,
+            userMembership: .mock(tier: .mockStarter),
+            tierToDisplay: .mockStarter,
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: nil),
-            tierToDisplay: .mockExplorer,
+            tierToDisplay: .mockStarter,
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
-            userMembership: .mock(tier: .mockExplorer),
+            userMembership: .mock(tier: .mockStarter),
             tierToDisplay: .mockBuilder,
             onSuccessfulPurchase: { _ in }
         )
