@@ -58,6 +58,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         return MembershipTier(
             type: type,
             name: tier.name,
+            description: tier.description_p,
             anyName: anyName,
             features: tier.features,
             paymentType: paymentType,

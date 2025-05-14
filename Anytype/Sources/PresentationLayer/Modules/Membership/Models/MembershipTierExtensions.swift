@@ -3,24 +3,7 @@ import Services
 import AnytypeCore
 
 
-extension MembershipTier {
-    var subtitle: String {
-        switch self.type {
-        case .starter:
-            Loc.Membership.Starter.subtitle
-        case .explorer:
-            Loc.Membership.Explorer.subtitle
-        case .builder:
-            Loc.Membership.Builder.subtitle
-        case .coCreator:
-            Loc.Membership.CoCreator.subtitle
-        case .custom:
-            Loc.Membership.Custom.subtitle
-        case .anyTeam:
-            "This special tier with extended limits and more. Thank you for being an integral part of Team Any."
-        }
-    }
-    
+extension MembershipTier {    
     var mediumIcon: ImageAsset {
         switch color {
         case .green:

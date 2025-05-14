@@ -42,7 +42,7 @@ struct MembershipTierView: View {
             AnytypeText(model.tierToDisplay.name, style: .bodySemibold)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(5)
-            AnytypeText(model.tierToDisplay.subtitle, style: .caption1Regular)
+            AnytypeText(model.tierToDisplay.description, style: .caption1Regular)
                 .foregroundColor(.Text.primary)
                 .minimumScaleFactor(0.8)
             Spacer()
