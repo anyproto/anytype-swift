@@ -7,28 +7,32 @@ extension MembershipTier {
     var subtitle: String {
         switch self.type {
         case .starter:
-            return Loc.Membership.Starter.subtitle
+            Loc.Membership.Starter.subtitle
+        case .explorer:
+            Loc.Membership.Explorer.subtitle
         case .builder:
-            return Loc.Membership.Builder.subtitle
+            Loc.Membership.Builder.subtitle
         case .coCreator:
-            return Loc.Membership.CoCreator.subtitle
+            Loc.Membership.CoCreator.subtitle
         case .custom:
-            return Loc.Membership.Custom.subtitle
+            Loc.Membership.Custom.subtitle
         case .anyTeam:
-            return "This special tier with extended limits and more. Thank you for being an integral part of Team Any."
+            "This special tier with extended limits and more. Thank you for being an integral part of Team Any."
         }
     }
     
     var mediumIcon: ImageAsset {
         switch color {
         case .green:
-            return .Membership.tierStarterMedium
+            .Membership.tierStarterMedium
         case .blue:
-            return .Membership.tierBuilderMedium
+            .Membership.tierBuilderMedium
         case .red:
-            return .Membership.tierCocreatorMedium
+            .Membership.tierCocreatorMedium
         case .purple:
-            return .Membership.tierCustomMedium
+            .Membership.tierCustomMedium
+        case .ice:
+            .Membership.tierExplorerMedium
         }
     }
     
@@ -42,6 +46,8 @@ extension MembershipTier {
             .Membership.tierCocreatorSmall
         case .purple:
             .Membership.tierCustomSmall
+        case .ice:
+            .Membership.tierExplorerSmall
         }
     }
     
@@ -55,6 +61,8 @@ extension MembershipTier {
             .red
         case .purple:
             .purple
+        case .ice:
+            .ice
         }
     }
     
@@ -62,7 +70,7 @@ extension MembershipTier {
         switch self.type {
         case .starter:
             Loc.Membership.Success.curiosity
-        case .builder, .coCreator, .custom, .anyTeam:
+        case .builder, .coCreator, .custom, .anyTeam, .explorer:
             Loc.Membership.Success.support
         }
     }

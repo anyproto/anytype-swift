@@ -196,6 +196,7 @@ public extension UIColor.Gradients {
     ,
             ColorInfo(name: "fadingBlue", color: UIColor.Gradients.fadingBlue),
             ColorInfo(name: "fadingGreen", color: UIColor.Gradients.fadingGreen),
+            ColorInfo(name: "fadingIce", color: UIColor.Gradients.fadingIce),
             ColorInfo(name: "fadingPink", color: UIColor.Gradients.fadingPink),
             ColorInfo(name: "fadingPurple", color: UIColor.Gradients.fadingPurple),
             ColorInfo(name: "fadingRed", color: UIColor.Gradients.fadingRed),
