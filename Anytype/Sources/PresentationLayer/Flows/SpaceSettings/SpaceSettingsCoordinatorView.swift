@@ -2,17 +2,17 @@ import Foundation
 import SwiftUI
 import Services
 
-struct NewSpaceSettingsCoordinatorView: View {
+struct SpaceSettingsCoordinatorView: View {
     
-    @StateObject private var model: NewSpaceSettingsCoordinatorViewModel
+    @StateObject private var model: SpaceSettingsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     
     init(workspaceInfo: AccountInfo) {
-        self._model = StateObject(wrappedValue: NewSpaceSettingsCoordinatorViewModel(workspaceInfo: workspaceInfo))
+        self._model = StateObject(wrappedValue: SpaceSettingsCoordinatorViewModel(workspaceInfo: workspaceInfo))
     }
     
     var body: some View {
-        NewSpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
+        SpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

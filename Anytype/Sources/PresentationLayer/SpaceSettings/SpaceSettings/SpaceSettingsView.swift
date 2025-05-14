@@ -3,13 +3,13 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-struct NewSpaceSettingsView: View {
+struct SpaceSettingsView: View {
     
-    @StateObject private var model: NewSpaceSettingsViewModel
+    @StateObject private var model: SpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(workspaceInfo: AccountInfo, output: (any NewSpaceSettingsModuleOutput)?) {
-        _model = StateObject(wrappedValue: NewSpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
+    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
     var body: some View {

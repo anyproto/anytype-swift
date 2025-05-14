@@ -8,19 +8,13 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
     case media
     case bookmarks
     case files
-    case types
     
     static var searchSupportedSection: [ObjectTypeSection] {
-        if !FeatureFlags.newSettings {
-            return allCases
-        } else {
-            return allCases.filter { $0 != .types }
-        }
+        allCases
     }
     
     static var allObjectsSupportedSections: [ObjectTypeSection] {
-        let sections = allCases.filter { $0 != .all }
-        return FeatureFlags.newSettings ? sections.filter { $0 != .types } : sections
+        allCases.filter { $0 != .all }
     }
     
     var title: String {
@@ -37,8 +31,6 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
             Loc.media
         case .bookmarks:
             Loc.bookmarks
-        case .types:
-            Loc.types
         }
     }
     
@@ -56,8 +48,6 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
             DetailsLayout.mediaLayouts
         case .bookmarks:
             [.bookmark]
-        case .types:
-            [.objectType]
         }
     }
     
@@ -75,8 +65,6 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
             "Media"
         case .bookmarks:
             "Bookmark"
-        case .types:
-            "Type"
         }
     }
 }

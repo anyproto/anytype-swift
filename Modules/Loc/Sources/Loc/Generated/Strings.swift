@@ -1507,11 +1507,6 @@ public enum Loc {
       public static let useCase = Loc.tr("Localizable", "Relation.Origin.UseCase", fallback: "Use case")
       public static let webClipper = Loc.tr("Localizable", "Relation.Origin.WebClipper", fallback: "Web clipper")
     }
-    public enum Search {
-      public enum View {
-        public static let placeholder = Loc.tr("Localizable", "Relation.Search.View.Placeholder", fallback: "Search or create a new property")
-      }
-    }
     public enum View {
       public enum Create {
         public static let title = Loc.tr("Localizable", "Relation.View.Create.title", fallback: "Create option")

@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-protocol NewSpaceSettingsModuleOutput: AnyObject {
+protocol SpaceSettingsModuleOutput: AnyObject {
     func onWallpaperSelected()
     func onDefaultObjectTypeSelected()
     func onObjectTypesSelected()

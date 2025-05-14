@@ -4,26 +4,26 @@ import Combine
 import AnytypeCore
 import Services
 
+
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
-
+    
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
     
     @Published var showRemoteStorage = false
-    @Published var showPersonalization = false
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
     @Published var showFiles = false
-    @Published var showObjectTypeSearch = false
-    @Published var dismiss = false
-    @Published var showIconPickerSpaceId: StringIdentifiable?
+    
+    var pageNavigation: PageNavigation?
+    @Published var showDefaultObjectTypeSearch = false
     
     let workspaceInfo: AccountInfo
-    var accountSpaceId: String { workspaceInfo.accountSpaceId }
+    var spaceId: String { workspaceInfo.accountSpaceId }
     
     init(workspaceInfo: AccountInfo) {
         self.workspaceInfo = workspaceInfo
@@ -31,29 +31,37 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     // MARK: - SpaceSettingsModuleOutput
     
-    func onChangeIconSelected() {
-        showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
+    func onWallpaperSelected() {
+        showWallpaperPicker.toggle()
+    }
+    
+    func onDefaultObjectTypeSelected() {
+        showDefaultObjectTypeSearch.toggle()
     }
     
     func onRemoteStorageSelected() {
         showRemoteStorage.toggle()
     }
     
-    func onPersonalizationSelected() {
-        showPersonalization.toggle()
-    }
-    
     func onSpaceShareSelected() {
-        showSpaceShareData = SpaceShareData(spaceId: workspaceInfo.accountSpaceId, route: .settings)
+        showSpaceShareData = SpaceShareData(spaceId: spaceId, route: .settings)
     }
     
     func onSpaceMembersSelected() {
-        showSpaceMembersData = SpaceMembersData(spaceId: workspaceInfo.accountSpaceId, route: .settings)
+        showSpaceMembersData = SpaceMembersData(spaceId: spaceId, route: .settings)
     }
     
     func onSelectDefaultObjectType(type: ObjectType) {
         objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
-        showObjectTypeSearch = false
+        showDefaultObjectTypeSearch = false
+    }
+    
+    func onObjectTypesSelected() {
+        pageNavigation?.open(.spaceInfo(.typeLibrary(spaceId: spaceId)))
+    }
+    
+    func onBinSelected() {
+        pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
     }
     
     // MARK: - RemoteStorageModuleOutput
@@ -65,7 +73,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        showObjectTypeSearch = true
+        showDefaultObjectTypeSearch = true
     }
     
     func onWallpaperChangeSelected() {

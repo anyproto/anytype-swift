@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .openMediaFileInPreview)
     }
 
-    static var newSettings: Bool {
-        value(for: .newSettings)
-    }
-
     static var newPlusMenu: Bool {
         value(for: .newPlusMenu)
     }
@@ -202,7 +198,6 @@ public extension FeatureFlags {
         .hideCoCreator,
         .homeSpaceLevelChat,
         .openMediaFileInPreview,
-        .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
         .unreadOnHome,
