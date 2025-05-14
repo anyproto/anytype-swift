@@ -128,6 +128,7 @@ public enum Asset {
     }
     static let fadingBlue = ColorAsset(name: "Gradients/fadingBlue")
     static let fadingGreen = ColorAsset(name: "Gradients/fadingGreen")
+    static let fadingIce = ColorAsset(name: "Gradients/fadingIce")
     static let fadingPink = ColorAsset(name: "Gradients/fadingPink")
     static let fadingPurple = ColorAsset(name: "Gradients/fadingPurple")
     static let fadingRed = ColorAsset(name: "Gradients/fadingRed")

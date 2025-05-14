@@ -42,7 +42,7 @@ struct MembershipTierView: View {
             AnytypeText(model.tierToDisplay.name, style: .bodySemibold)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(5)
-            AnytypeText(model.tierToDisplay.subtitle, style: .caption1Regular)
+            AnytypeText(model.tierToDisplay.description, style: .caption1Regular)
                 .foregroundColor(.Text.primary)
                 .minimumScaleFactor(0.8)
             Spacer()
@@ -81,12 +81,12 @@ struct MembershipTierView: View {
     
     private var expirationText: some View {
         Group {
-            switch model.tierToDisplay.type {
-            case .starter:
-                return AnytypeText(Loc.foreverFree, style: .caption1Regular)
+            switch model.userMembership.dateEnds {
+            case .never:
+                AnytypeText(Loc.foreverFree, style: .caption1Regular)
                     .foregroundColor(.Text.primary)
-            case .builder, .coCreator, .custom, .anyTeam:
-                return AnytypeText(Loc.validUntilDate(model.userMembership.formattedDateEnds), style: .caption1Regular)
+            case .date:
+                AnytypeText(Loc.validUntilDate(model.userMembership.formattedDateEnds), style: .caption1Regular)
                     .foregroundColor(.Text.primary)
             }
         }

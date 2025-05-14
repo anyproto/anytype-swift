@@ -121,6 +121,7 @@ extension Color {
       }
       public static let fadingBlue = Color(asset: Asset.Gradients.fadingBlue)
       public static let fadingGreen = Color(asset: Asset.Gradients.fadingGreen)
+      public static let fadingIce = Color(asset: Asset.Gradients.fadingIce)
       public static let fadingPink = Color(asset: Asset.Gradients.fadingPink)
       public static let fadingPurple = Color(asset: Asset.Gradients.fadingPurple)
       public static let fadingRed = Color(asset: Asset.Gradients.fadingRed)

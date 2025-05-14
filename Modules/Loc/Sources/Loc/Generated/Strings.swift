@@ -1203,15 +1203,6 @@ public enum Loc {
       public static let title3 = Loc.tr("Localizable", "Membership.Banner.Title3", fallback: "Support Digital Independence")
       public static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
-    public enum Builder {
-      public static let subtitle = Loc.tr("Localizable", "Membership.Builder.Subtitle", fallback: "Unlock multiparty collaboration and extend your network storage.")
-    }
-    public enum CoCreator {
-      public static let subtitle = Loc.tr("Localizable", "Membership.CoCreator.Subtitle", fallback: "Support our adventure and unlock exclusive access and perks.")
-    }
-    public enum Custom {
-      public static let subtitle = Loc.tr("Localizable", "Membership.Custom.Subtitle", fallback: "Custom conditions of Membership. If you have any questions, please contact support.")
-    }
     public enum Email {
       public static let body = Loc.tr("Localizable", "Membership.Email.Body", fallback: "Hello Anytype team! I would like to extend my current membership for more (please choose an option):\n- Extra remote storage\n- More space editors\n- Additional shared spaces\nSpecifically,\nPlease provide specific details of your needs here.")
     }
@@ -1266,9 +1257,6 @@ public enum Loc {
       public static let card = Loc.tr("Localizable", "Membership.Payment.Card", fallback: "Card")
       public static let crypto = Loc.tr("Localizable", "Membership.Payment.Crypto", fallback: "Crypto")
       public static let googleSubscription = Loc.tr("Localizable", "Membership.Payment.Google subscription", fallback: "Google subscription")
-    }
-    public enum Starter {
-      public static let subtitle = Loc.tr("Localizable", "Membership.Starter.Subtitle", fallback: "Sync your devices, get backup storage, and engage in one-on-one collaboration.")
     }
     public enum Success {
       public static let curiosity = Loc.tr("Localizable", "Membership.Success.Curiosity", fallback: "Big cheers for your curiosity!")

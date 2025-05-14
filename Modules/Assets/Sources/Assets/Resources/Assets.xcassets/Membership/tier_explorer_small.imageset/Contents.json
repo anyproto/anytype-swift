@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "tier_explorer_small.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
