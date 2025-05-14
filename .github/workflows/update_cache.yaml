@@ -1,16 +1,13 @@
-name: Unit Tests
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+name: Update build cache
 
 on:
-  pull_request:
+  schedule:
+    - cron:  '0 0 * * 6'
   workflow_dispatch:
 
 jobs:
-  unit-tests:
-    name: Run Unit Tests
+  main:
+    name: Update build cache
     runs-on: macos-15
 
     steps:
@@ -24,8 +21,7 @@ jobs:
           restore-keys: xcode-cache-deriveddata-
           swiftpm-cache-key: spm-soucepackages-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
           swiftpm-cache-restore-keys: spm-soucepackages-
-          cache-read-only: true
-          
+      
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
@@ -39,8 +35,8 @@ jobs:
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
-      - name: Run unit tests
-        run: bundle exec fastlane tests skip_notify:true
+      - name: Update build cache
+        run: bundle exec fastlane build_for_tests
         env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
