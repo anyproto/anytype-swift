@@ -62,10 +62,6 @@ public extension FeatureFlags {
         value(for: .disableColorfulSeedPhrase)
     }
 
-    static var openTypeAsSet: Bool {
-        value(for: .openTypeAsSet)
-    }
-
     static var binWidgetFromLibrary: Bool {
         value(for: .binWidgetFromLibrary)
     }
@@ -218,7 +214,6 @@ public extension FeatureFlags {
         .enablePushMessages,
         .aiToolInSet,
         .disableColorfulSeedPhrase,
-        .openTypeAsSet,
         .binWidgetFromLibrary,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,

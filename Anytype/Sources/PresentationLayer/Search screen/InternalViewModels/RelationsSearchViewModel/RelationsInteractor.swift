@@ -43,7 +43,7 @@ final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
     }
     
     func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
-        if FeatureFlags.openTypeAsSet, let typeDetails {
+        if let typeDetails {
             try await addRelationToType(relation: relation, details: typeDetails)
         } else {
             try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)

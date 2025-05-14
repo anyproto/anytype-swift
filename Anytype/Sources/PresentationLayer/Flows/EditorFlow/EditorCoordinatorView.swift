@@ -45,12 +45,8 @@ struct EditorCoordinatorView: View {
         case let .simpleSet(data):
             SimpleSetCoordinatorView(data: data)
         case let .type(data):
-            if FeatureFlags.openTypeAsSet {
-                let list = EditorListObject(objectId: data.objectId, spaceId: data.spaceId)
-                EditorSetCoordinatorView(data: list, showHeader: true)
-            } else {
-                ObjectTypeCoordinator(data: data)
-            }
+            let list = EditorListObject(objectId: data.objectId, spaceId: data.spaceId)
+            EditorSetCoordinatorView(data: list, showHeader: true)
         }
     }
 }

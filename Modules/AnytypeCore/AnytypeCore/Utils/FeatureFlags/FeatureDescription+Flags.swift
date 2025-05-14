@@ -98,12 +98,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let openTypeAsSet = FeatureDescription(
-        title: "Open type in Set View",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let binWidgetFromLibrary = FeatureDescription(
         title: "Bin widget from library",
         type: .feature(author: "m@anytype.io", releaseVersion: "10"),
