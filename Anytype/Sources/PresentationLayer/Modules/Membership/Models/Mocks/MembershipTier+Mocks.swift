@@ -6,6 +6,7 @@ extension MembershipTier {
         MembershipTier(
             type: .starter,
             name: "Starter",
+            description: "Starter description",
             anyName: .none,
             features: [
                 Loc.Membership.Feature.storageGB(1),
@@ -22,6 +23,7 @@ extension MembershipTier {
         MembershipTier(
             type: .builder,
             name: "Builder",
+            description: "Builder description",
             anyName: .some(minLenght: 7),
             features: [
                 Loc.Membership.Feature.storageGB(128),
@@ -38,6 +40,7 @@ extension MembershipTier {
         MembershipTier(
             type: .coCreator,
             name: "CockCreator",
+            description: "CockCreator description",
             anyName: .some(minLenght: 5),
             features: [
                 Loc.Membership.Feature.storageGB(256),
@@ -54,6 +57,7 @@ extension MembershipTier {
         MembershipTier(
             type: .custom(id: 228),
             name: "Na-Baron",
+            description: "Noble title given to a Baron's heir-apparent",
             anyName: .some(minLenght: 3),
             features: [
                 Loc.Membership.Feature.storageGB(2560),
@@ -70,6 +74,7 @@ extension MembershipTier {
         MembershipTier(
             type: .custom(id: 1337),
             name: "Builder TEST",
+            description: "Builder TEST description",
             anyName: .none,
             features: [
                 Loc.Membership.Feature.storageGB(128),
