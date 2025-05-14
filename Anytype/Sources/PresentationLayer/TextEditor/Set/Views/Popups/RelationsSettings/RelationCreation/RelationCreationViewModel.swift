@@ -105,7 +105,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     }
     
     private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
-        if FeatureFlags.openTypeAsSet, let typeDetails {
+        if let typeDetails {
             let type = ObjectType(details: typeDetails)
             try await addRelationToType(relation: relation, typeData: .recommendedRelations(type))
         } else {

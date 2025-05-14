@@ -29,7 +29,7 @@ final class SetRelationsCoordinatorViewModel:
         
         // In case we are working with set in object type we have to update relations of this type as well
         var typeDetails: ObjectDetails? = nil
-        if let details = setDocument.details, FeatureFlags.openTypeAsSet && details.isObjectType {
+        if let details = setDocument.details, details.isObjectType {
             typeDetails = details
         }
         

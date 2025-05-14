@@ -43,7 +43,7 @@ final class SetRelationsViewModel: ObservableObject {
                 let key = relation.relationDetails.key
                 guard let details = setDocument.details else { return }
                 
-                if FeatureFlags.openTypeAsSet, details.isObjectType {
+                if details.isObjectType {
                     try await relationsService.deleteTypeRelation(
                         details: details,
                         relationId: relation.relationDetails.id
@@ -56,7 +56,7 @@ final class SetRelationsViewModel: ObservableObject {
                     )
                 }
                 
-                if let details = setDocument.details, FeatureFlags.openTypeAsSet && details.isObjectType {
+                if let details = setDocument.details, details.isObjectType {
                     try await relationsService.deleteTypeRelation(details: details, relationId: relation.relationDetails.id)
                 } else {
                     try await dataviewService.removeViewRelations(

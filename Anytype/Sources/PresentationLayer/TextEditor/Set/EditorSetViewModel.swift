@@ -306,7 +306,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func startSubscriptions() async {
-        guard FeatureFlags.openTypeAsSet else { return }
+        guard details?.isObjectType ?? false else { return }
         
         async let templatesSub: () = subscribeOnTemplates()
         async let relationsSub: () = subscribeOnRelations()

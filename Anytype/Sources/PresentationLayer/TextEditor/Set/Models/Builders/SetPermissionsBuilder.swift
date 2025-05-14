@@ -35,7 +35,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         
         if details.isList {
             return canCreateObjectOfList(setDocument: setDocument, details: details)
-        } else if FeatureFlags.openTypeAsSet && details.isObjectType {
+        } else if details.isObjectType {
             return canCreateObjectOfType(details: details)
         } else {
             return false
