@@ -106,10 +106,6 @@ public extension FeatureFlags {
         value(for: .newPropertiesCreation)
     }
 
-    static var pluralNames: Bool {
-        value(for: .pluralNames)
-    }
-
     static var countersOnSpaceHub: Bool {
         value(for: .countersOnSpaceHub)
     }
@@ -233,7 +229,6 @@ public extension FeatureFlags {
         .chatCounters,
         .joinStream,
         .newPropertiesCreation,
-        .pluralNames,
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,

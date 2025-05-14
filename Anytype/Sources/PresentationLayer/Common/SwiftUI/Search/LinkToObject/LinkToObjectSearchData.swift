@@ -12,7 +12,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let mode: SerchDataPresentationMode
 
     init(details: ObjectDetails, searchKind: LinkToObjectSearchViewModel.SearchKind? = nil) {
-        self.title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        self.title = details.pluralTitle
         self.iconImage = details.objectIconImage
         
         
