@@ -107,7 +107,6 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
 
         // Setup chat state as first
         chatState = response.chatState
-        syncStream.send([.state])
         
         lastMessages.add(response.messages)
         
@@ -121,6 +120,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             updateFullMessages()
         }
         
+        syncStream.send(ChatUpdate.allCases)
         subscriptionStarted = true
     }
     
@@ -288,7 +288,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         if updates.contains(.messages) {
             updateFullMessages(notify: false)
         }
-        syncStream.send(Array(updates))
+        if subscriptionStarted {
+            syncStream.send(Array(updates))
+        }
     }
     
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
@@ -357,7 +359,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
         if fullMessages != newFullAllMessages {
             fullMessages = newFullAllMessages
-            if notify {
+            if notify, subscriptionStarted {
                 syncStream.send([.messages])
             }
         }
