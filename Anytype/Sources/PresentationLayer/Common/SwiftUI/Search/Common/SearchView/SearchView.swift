@@ -13,6 +13,15 @@ enum SearchViewEmptyViewMode {
             Loc.thereIsNoPropertyNamed(searchText)
         }
     }
+    
+    var buttonTitle: String {
+        switch self {
+        case .object:
+            Loc.newObject
+        case .property:
+            Loc.newProperty
+        }
+    }
 }
 
 struct SearchView<SearchData: SearchDataProtocol>: View {
@@ -29,6 +38,7 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
     
     var search: (_ text: String) async -> Void
     var onSelect: (_ searchData: SearchData) -> Void
+    var onCreateNew: ((_ name: String) -> Void)?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -88,10 +98,22 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
     }
     
     private var emptyState: some View {
-        EmptyStateView(
-            title: emptyViewMode.title(searchText),
-            subtitle: Loc.createANewOneOrSearchForSomethingElse,
-            style: .plain
-        )
+        if let onCreateNew {
+            EmptyStateView(
+                title: emptyViewMode.title(searchText),
+                subtitle: "",
+                style: .plain,
+                buttonData: EmptyStateView.ButtonData(
+                    title: emptyViewMode.buttonTitle,
+                    action: { onCreateNew(searchText) }
+                )
+            )
+        } else {
+            EmptyStateView(
+                title: emptyViewMode.title(searchText),
+                subtitle: Loc.createANewOneOrSearchForSomethingElse,
+                style: .plain
+            )
+        }
     }
 }

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+@available(*, deprecated, message: "Use SearchView directly")
 struct ObjectSearchView: View {
     
     @StateObject private var model: ObjectSearchViewModel
