@@ -25,7 +25,9 @@ struct SpaceSettingsView: View {
                 dismiss()
             }
         
-            .anytypeShareView(item: $model.shareInviteLink)
+            .sheet(item: $model.shareInviteLink) { link in
+                ActivityView(activityItems: [link])
+            }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
         
             .sheet(item: $model.showIconPickerSpaceId) {
