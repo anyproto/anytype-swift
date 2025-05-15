@@ -2,16 +2,12 @@ name: Prepare deps
 runs:
   using: "composite"
   steps:
-    - if: runner.environment != 'self-hosted'
-      uses: ruby/setup-ruby@v1
+    - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.2
         bundler-cache: true
-    - if: runner.environment != 'self-hosted'
-      shell: bash
-      run: |
-        bundle install
-        brew install imagemagick
-    - if: runner.environment == 'self-hosted'
-      shell: bash
-      run: rbenv global 2.7.2 && bundle install
+    - shell: bash
+      run: bundle install
+    - uses: tecolicom/actions-use-homebrew-tools@v1
+      with:
+        tools: imagemagick
