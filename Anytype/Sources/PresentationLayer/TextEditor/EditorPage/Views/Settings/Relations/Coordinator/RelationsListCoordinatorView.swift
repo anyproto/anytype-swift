@@ -13,7 +13,7 @@ struct RelationsListCoordinatorView: View {
     }
     
     var body: some View {
-        ObjectFieldsView(
+        ObjectPropertiesView(
             document: model.document,
             output: model
         )

@@ -27,7 +27,7 @@ struct TypeFieldsView: View {
                 RelationInfoCoordinatorView(data: $0, output: nil)
             }
             .anytypeSheet(isPresented: $model.showConflictingInfo) {
-                ObjectFieldsBottomAlert()
+                ObjectPropertiesBottomAlert()
             }
     }
     
