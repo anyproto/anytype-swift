@@ -1,8 +1,7 @@
 import Foundation
 import Services
-import Combine
+@preconcurrency import Combine
 
-@MainActor
 protocol ParticipantsSubscriptionProtocol: AnyObject {
     var participantsPublisher: AnyPublisher<[Participant], Never> { get }
 }
@@ -13,22 +12,21 @@ extension ParticipantsSubscriptionProtocol {
     }
 }
 
-@MainActor
-final class ParticipantsSubscription: ParticipantsSubscriptionProtocol {
+actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
     
     // MARK: - DI
     
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
     private let subscriptionStorage: any SubscriptionStorageProtocol
     private let subId: String
-    let participantsPublisher: AnyPublisher<[Participant], Never>
+    
+    nonisolated let participantsPublisher: AnyPublisher<[Participant], Never>
     
     init(spaceId: String) {
         let subId = "ParticipantsSubscription-\(UUID())-\(spaceId)"
         self.subId = subId
         self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
         self.participantsPublisher = subscriptionStorage.statePublisher
-            .receiveOnMain()
             .map { $0.items.compactMap { try? Participant(details: $0) } }
             .eraseToAnyPublisher()
         Task {

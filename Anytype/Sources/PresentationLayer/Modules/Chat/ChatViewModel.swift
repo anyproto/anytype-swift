@@ -47,7 +47,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Injected(\.pushNotificationsAlertHandler)
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     
-    private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
+    private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
@@ -116,6 +116,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.output = output
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
+        self.participantSubscription = Container.shared.participantSubscription(spaceId)
     }
     
     func onTapAddPageToMessage() {
