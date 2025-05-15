@@ -55,7 +55,7 @@ final class InviteLinkViewModel: ObservableObject {
             } else {
                 description = Loc.SpaceShare.Invite.Description.part1
                 if let withoutApprove = invite.inviteType?.withoutApprove, !withoutApprove {
-                    description += " " + Loc.SpaceShare.Invite.Description.part2
+                    description += ". " + Loc.SpaceShare.Invite.Description.part2
                 }
             }
             shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))

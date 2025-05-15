@@ -1923,7 +1923,7 @@ public enum Loc {
       public static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       public static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
       public enum Description {
-        public static let part1 = Loc.tr("Localizable", "SpaceShare.Invite.Description.part1", fallback: "Share this invite link so that others can join your Space. ")
+        public static let part1 = Loc.tr("Localizable", "SpaceShare.Invite.Description.part1", fallback: "Share this invite link so that others can join your space")
         public static let part2 = Loc.tr("Localizable", "SpaceShare.Invite.Description.part2", fallback: "Once they click your link and request access, you can set their access rights.")
       }
       public enum Stream {
