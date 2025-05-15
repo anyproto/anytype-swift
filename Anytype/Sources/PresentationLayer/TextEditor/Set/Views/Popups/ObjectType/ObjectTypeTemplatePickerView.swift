@@ -12,6 +12,7 @@ struct ObjectTypeTemplatePickerView: View {
     var body: some View {
         content
             .task { await model.setupSubscriptions() }
+            .onAppear { model.onAppear() }
     }
     
     private var content: some View {

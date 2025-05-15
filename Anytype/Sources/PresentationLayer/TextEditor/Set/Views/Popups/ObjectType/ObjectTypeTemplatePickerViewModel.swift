@@ -11,6 +11,7 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     
     private var output: (any EditorSetModuleOutput)?
     private let document: any BaseDocumentProtocol
+    private var loggedOnAppear = false
     
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
@@ -20,6 +21,13 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     init(document: any BaseDocumentProtocol, output: any EditorSetModuleOutput) {
         self.document = document
         self.output = output
+    }
+    
+    func onAppear() {
+        if !loggedOnAppear {
+            AnytypeAnalytics.instance().logScreenTypeTemplateSelector()
+            loggedOnAppear = true
+        }
     }
     
     func setupSubscriptions() async {
