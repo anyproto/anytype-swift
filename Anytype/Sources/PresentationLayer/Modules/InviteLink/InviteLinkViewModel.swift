@@ -54,7 +54,7 @@ final class InviteLinkViewModel: ObservableObject {
                 description = Loc.SpaceShare.Invite.Stream.description
             } else {
                 description = Loc.SpaceShare.Invite.Description.part1
-                if invite.inviteType != .withoutApprove {
+                if let withoutApprove = invite.inviteType?.withoutApprove, !withoutApprove {
                     description += " " + Loc.SpaceShare.Invite.Description.part2
                 }
             }

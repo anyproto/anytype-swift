@@ -20,3 +20,9 @@ extension Anytype_Rpc.Space.InviteView.Response {
         )
     }
 }
+
+public extension InviteType {
+    var withoutApprove: Bool {
+        self == .withoutApprove
+    }
+}

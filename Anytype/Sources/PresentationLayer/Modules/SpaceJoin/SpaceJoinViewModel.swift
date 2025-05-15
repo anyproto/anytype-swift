@@ -68,7 +68,7 @@ final class SpaceJoinViewModel: ObservableObject {
             key: data.key,
             networkId: accountManager.account.info.networkId
         )
-        if inviteView.inviteType == .withoutApprove {
+        if inviteView.inviteType.withoutApprove {
             dismiss.toggle()
         } else {
             showSuccessAlert.toggle()
@@ -129,7 +129,7 @@ final class SpaceJoinViewModel: ObservableObject {
             self.inviteView = inviteView
             state = .data
             
-            let inviteWithoutApprove = inviteView.inviteType == .withoutApprove
+            let inviteWithoutApprove = inviteView.inviteType.withoutApprove
             if let spaceView = workspaceStorage.allWorkspaces.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
                 switch spaceView.accountStatus {
                 case .spaceJoining:
@@ -155,8 +155,7 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     private func handleInviteType(inviteView: SpaceInviteView) {
-        switch inviteView.inviteType {
-        case .withoutApprove:
+        if inviteView.inviteType.withoutApprove {
             let spaceName = inviteView.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces)
             title = Loc.SpaceShare.Join.NoApprove.title(spaceName)
             message = Loc.SpaceShare.Join.NoApprove.message(
@@ -164,7 +163,7 @@ final class SpaceJoinViewModel: ObservableObject {
                 inviteView.creatorName.withPlaceholder.trimmingCharacters(in: .whitespaces)
             )
             button = Loc.SpaceShare.Join.NoApprove.button
-        case .guest, .member, .UNRECOGNIZED(_):
+        } else {
             title = Loc.SpaceShare.Join.title
             message = Loc.SpaceShare.Join.message(
                 inviteView.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces),
