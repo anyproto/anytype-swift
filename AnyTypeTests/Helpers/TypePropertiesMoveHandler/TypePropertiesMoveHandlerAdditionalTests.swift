@@ -2,8 +2,8 @@ import XCTest
 import Services
 @testable import Anytype
 
-class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
-    var moveHandler: TypeFieldsMoveHandler!
+class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
+    var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
     var mockRelationsService: MockRelationsService!
     
@@ -15,17 +15,17 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
         Container.shared.relationDetailsStorage.register { mockRelationDetailsStorage }
         self.mockRelationsService = mockRelationsService
         mockDocument = MockBaseDocument()
-        moveHandler = TypeFieldsMoveHandler()
+        moveHandler = TypePropertiesMoveHandler()
     }
     
     // MARK: - Empty Section Tests
     
     func testMoveToEmptyHeaderSection() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.header),
             .emptyRow(.header),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
+            .relation(TypePropertiesRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
         ]
         
         mockDocument.mockDetails = ObjectDetails.mock(
@@ -51,9 +51,9 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     }
     
     func testMoveToEmptyFieldsSection() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
             .header(.fieldsMenu),
             .emptyRow(.fieldsMenu)
         ]
@@ -83,10 +83,10 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     // MARK: - Edge Cases with Document Details
     
     func testMoveWithMissingRecommendedRelations() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f2"), canDrag: true))
+            .relation(TypePropertiesRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: .fieldsMenu, relation: .mock(id: "f2"), canDrag: true))
         ]
         
         let details = ObjectDetails.mock(recommendedRelations: [])
@@ -103,10 +103,10 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     }
     
     func testMoveWithInvalidRelationId() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "invalid_id"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true))
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "invalid_id"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true))
         ]
         
         mockDocument.mockDetails = ObjectDetails.mock(
@@ -126,11 +126,11 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     // MARK: - Concurrent Updates Tests
     
     func testConcurrentMoves() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h3"), canDrag: true))
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h2"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h3"), canDrag: true))
         ]
         
         mockDocument.mockDetails = ObjectDetails.mock(
@@ -150,9 +150,9 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
     // MARK: - Header Navigation Tests
     
     func testMoveToHeaderWithNoNextItem() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: .header, relation: .mock(id: "h1"), canDrag: true)),
             .header(.fieldsMenu)
         ]
         
@@ -164,16 +164,16 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
                 document: mockDocument
             )
             XCTFail("Expected emptySection error")
-        } catch let error as TypeFieldsMoveError {
+        } catch let error as TypePropertiesMoveError {
             XCTAssertEqual(error, .emptySection)
         }
     }
     
     func testMoveToHeaderWithNoPreviousItem() async throws {
-        let relationRows: [TypeFieldsRow] = [
+        let relationRows: [TypePropertiesRow] = [
             .header(.header),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
+            .relation(TypePropertiesRelationRow(section: .fieldsMenu, relation: .mock(id: "f1"), canDrag: true))
         ]
         
         do {
@@ -184,7 +184,7 @@ class TypeFieldsMoveHandlerAdditionalTests: XCTestCase {
                 document: mockDocument
             )
             XCTFail("Expected emptySection error")
-        } catch let error as TypeFieldsMoveError {
+        } catch let error as TypePropertiesMoveError {
             XCTAssertEqual(error, .emptySection)
         }
     }

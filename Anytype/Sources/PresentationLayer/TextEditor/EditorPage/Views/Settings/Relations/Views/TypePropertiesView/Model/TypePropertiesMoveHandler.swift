@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import Services
 
-enum TypeFieldsMoveError: Error {
+enum TypePropertiesMoveError: Error {
     case wrongDataForFromRow
     case wrongDataForToRow
     case noHeaderFound
@@ -10,22 +10,22 @@ enum TypeFieldsMoveError: Error {
     case movingSectionToItself
 }
 
-protocol TypeFieldsMoveHandlerProtocol: Sendable {
-    func onMove(from: IndexSet, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws
+protocol TypePropertiesMoveHandlerProtocol: Sendable {
+    func onMove(from: IndexSet, to: Int, relationRows: [TypePropertiesRow], document: any BaseDocumentProtocol) async throws
 }
 
-final class TypeFieldsMoveHandler: Sendable {
+final class TypePropertiesMoveHandler: Sendable {
     private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
     
-    func onMove(from: Int, to: Int, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
+    func onMove(from: Int, to: Int, relationRows: [TypePropertiesRow], document: any BaseDocumentProtocol) async throws {
         guard let fromRow = relationRows[safe: from], case let .relation(fromRelation) = fromRow else {
             anytypeAssertionFailure("Wrong data for fromRow", info: ["fromIndex": from.description, "rows": relationRows.description])
-            throw TypeFieldsMoveError.wrongDataForFromRow
+            throw TypePropertiesMoveError.wrongDataForFromRow
         }
         
         guard let toRow = relationRows[safe: to] else {
             anytypeAssertionFailure("Wrong data for toRow", info: ["toIndex": to.description, "rows": relationRows.description])
-            throw TypeFieldsMoveError.wrongDataForToRow
+            throw TypePropertiesMoveError.wrongDataForToRow
         }
         
         switch toRow {
@@ -38,30 +38,30 @@ final class TypeFieldsMoveHandler: Sendable {
         }
     }
     
-    private func handleMoveToSection(_ section: TypeFieldsSectionRow, fromRelation: TypeFieldsRelationRow, relationRows: [TypeFieldsRow], document: any BaseDocumentProtocol) async throws {
+    private func handleMoveToSection(_ section: TypePropertiesSectionRow, fromRelation: TypePropertiesRelationRow, relationRows: [TypePropertiesRow], document: any BaseDocumentProtocol) async throws {
         let toRow = try findToRowForHeader(section, fromRelation: fromRelation, relationRows: relationRows)
         switch toRow {
         case .relation(let toRelation):
             try await move(from: fromRelation, to: toRelation, document: document)
         case .header:
-            throw TypeFieldsMoveError.emptySection
+            throw TypePropertiesMoveError.emptySection
         case .emptyRow(let section):
             try await move(from: fromRelation, to: section, document: document)
         }
     }
     
-    private func findToRowForHeader(_ header: TypeFieldsSectionRow, fromRelation: TypeFieldsRelationRow, relationRows: [TypeFieldsRow]) throws -> TypeFieldsRow {
+    private func findToRowForHeader(_ header: TypePropertiesSectionRow, fromRelation: TypePropertiesRelationRow, relationRows: [TypePropertiesRow]) throws -> TypePropertiesRow {
         switch header {
         case .header:
             return try findRowClosestToSection(header, above: false, relationRows: relationRows)
         case .fieldsMenu:
             guard let headerIndex = relationRows.firstIndex(of: .header(header)) else {
                 anytypeAssertionFailure("No header found", info: ["rows": relationRows.description])
-                throw TypeFieldsMoveError.noHeaderFound
+                throw TypePropertiesMoveError.noHeaderFound
             }
             guard let fromIndex = relationRows.firstIndex(of: .relation(fromRelation)) else {
                 anytypeAssertionFailure("Wrong data for fromRow", info: ["rows": relationRows.description])
-                throw TypeFieldsMoveError.wrongDataForFromRow
+                throw TypePropertiesMoveError.wrongDataForFromRow
             }
             
             let isMovingDownwards = fromIndex < headerIndex
@@ -75,16 +75,16 @@ final class TypeFieldsMoveHandler: Sendable {
         }
     }
     
-    private func findRowClosestToSection(_ section: TypeFieldsSectionRow, above: Bool, relationRows: [TypeFieldsRow]) throws -> TypeFieldsRow {
+    private func findRowClosestToSection(_ section: TypePropertiesSectionRow, above: Bool, relationRows: [TypePropertiesRow]) throws -> TypePropertiesRow {
         guard let headerIndex = relationRows.firstIndex(of: .header(section)) else {
             anytypeAssertionFailure("No section found", info: ["rows": relationRows.description])
-            throw TypeFieldsMoveError.noHeaderFound
+            throw TypePropertiesMoveError.noHeaderFound
         }
         
         let closestRowIndex = above ? relationRows.index(before: headerIndex) : relationRows.index(after: headerIndex)
         guard let row = relationRows[safe: closestRowIndex] else {
             anytypeAssertionFailure("Empty section", info: ["rows": relationRows.description])
-            throw TypeFieldsMoveError.emptySection
+            throw TypePropertiesMoveError.emptySection
         }
         
         return row
@@ -92,7 +92,7 @@ final class TypeFieldsMoveHandler: Sendable {
     
     
     // Move to empty section
-    private func move(from: TypeFieldsRelationRow, to: TypeFieldsSectionRow, document: any BaseDocumentProtocol) async throws {
+    private func move(from: TypePropertiesRelationRow, to: TypePropertiesSectionRow, document: any BaseDocumentProtocol) async throws {
         guard let details = document.details else { return }
         
         
@@ -135,7 +135,7 @@ final class TypeFieldsMoveHandler: Sendable {
                     recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
                 )
             case .fieldsMenu:
-                throw TypeFieldsMoveError.movingSectionToItself
+                throw TypePropertiesMoveError.movingSectionToItself
             case .hidden:
                 let newHiddenRelations = [fromRelation]
                 
@@ -169,7 +169,7 @@ final class TypeFieldsMoveHandler: Sendable {
         }
     }
     
-    private func move(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) async throws {
+    private func move(from: TypePropertiesRelationRow, to: TypePropertiesRelationRow, document: any BaseDocumentProtocol) async throws {
         guard from != to else { return }
         
         if from.section == to.section {
@@ -179,7 +179,7 @@ final class TypeFieldsMoveHandler: Sendable {
         }
     }
     
-    private func moveWithinSection(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) async throws {
+    private func moveWithinSection(from: TypePropertiesRelationRow, to: TypePropertiesRelationRow, document: any BaseDocumentProtocol) async throws {
         guard let details = document.details else { return }
         
         switch from.section {
@@ -231,7 +231,7 @@ final class TypeFieldsMoveHandler: Sendable {
         }
     }
     
-    private func moveBetweenSections(from: TypeFieldsRelationRow, to: TypeFieldsRelationRow, document: any BaseDocumentProtocol) async throws {
+    private func moveBetweenSections(from: TypePropertiesRelationRow, to: TypePropertiesRelationRow, document: any BaseDocumentProtocol) async throws {
         guard let details = document.details else { return }
         
         switch from.section {
@@ -278,7 +278,7 @@ final class TypeFieldsMoveHandler: Sendable {
                     recommendedHiddenRelationsIds: details.recommendedHiddenRelationsDetails
                 )
             case .fieldsMenu:
-                throw TypeFieldsMoveError.movingSectionToItself
+                throw TypePropertiesMoveError.movingSectionToItself
             case .hidden:
                 let newHiddenRelations: [RelationDetails]
                     
@@ -325,8 +325,8 @@ final class TypeFieldsMoveHandler: Sendable {
     
     private func move(
         typeId: String,
-        from: TypeFieldsSectionRow,
-        to: TypeFieldsSectionRow,
+        from: TypePropertiesSectionRow,
+        to: TypePropertiesSectionRow,
         recommendedRelationIds: [RelationDetails],
         recommendedFeaturedRelationsIds: [RelationDetails],
         recommendedHiddenRelationsIds: [RelationDetails]

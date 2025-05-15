@@ -2,8 +2,8 @@ import XCTest
 import Services
 @testable import Anytype
 
-class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
-    var moveHandler: TypeFieldsMoveHandler!
+class TypePropertiesMoveHandlerMoveWithinSectionTests: XCTestCase {
+    var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
     var mockRelationsService: MockRelationsService!
 
@@ -13,7 +13,7 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
         Container.shared.relationsService.register { mockRelationsService }
         self.mockRelationsService = mockRelationsService
         mockDocument = MockBaseDocument()
-        moveHandler = TypeFieldsMoveHandler()
+        moveHandler = TypePropertiesMoveHandler()
     }
 
     // Header Section Movement Tests
@@ -248,27 +248,27 @@ class TypeFieldsMoveHandlerMoveWithinSectionTests: XCTestCase {
     }
 
     // Helper methods
-    private func createHeaderSectionRows() -> [TypeFieldsRow] {
-        let headerSection = TypeFieldsSectionRow.header
+    private func createHeaderSectionRows() -> [TypePropertiesRow] {
+        let headerSection = TypePropertiesSectionRow.header
         return [
             .header(.header),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h1"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h2"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h3"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: headerSection, relation: .mock(id: "h4"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: headerSection, relation: .mock(id: "h1"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: headerSection, relation: .mock(id: "h2"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: headerSection, relation: .mock(id: "h3"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: headerSection, relation: .mock(id: "h4"), canDrag: true)),
             .header(.fieldsMenu)
         ]
     }
 
-    private func createFieldsSectionRows() -> [TypeFieldsRow] {
-        let fieldsSection = TypeFieldsSectionRow.fieldsMenu
+    private func createFieldsSectionRows() -> [TypePropertiesRow] {
+        let fieldsSection = TypePropertiesSectionRow.fieldsMenu
         return [
             .header(.header),
             .header(.fieldsMenu),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f1"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f2"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f3"), canDrag: true)),
-            .relation(TypeFieldsRelationRow(section: fieldsSection, relation: .mock(id: "f4"), canDrag: true))
+            .relation(TypePropertiesRelationRow(section: fieldsSection, relation: .mock(id: "f1"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: fieldsSection, relation: .mock(id: "f2"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: fieldsSection, relation: .mock(id: "f3"), canDrag: true)),
+            .relation(TypePropertiesRelationRow(section: fieldsSection, relation: .mock(id: "f4"), canDrag: true))
         ]
     }
 }

@@ -7,11 +7,11 @@ import SwiftUI
 
 
 @MainActor
-final class TypeFieldsViewModel: ObservableObject {
+final class TypePropertiesViewModel: ObservableObject {
         
     @Published var canEditRelationsList = false
     @Published var showConflictingInfo = false
-    @Published var relationRows = [TypeFieldsRow]()
+    @Published var relationRows = [TypePropertiesRow]()
     @Published var relationsSearchData: RelationsSearchData?
     @Published var relationData: RelationInfoData?
     @Published var conflictRelations = [RelationDetails]()
@@ -20,8 +20,8 @@ final class TypeFieldsViewModel: ObservableObject {
     // MARK: - Private variables
     
     let document: any BaseDocumentProtocol
-    private let fieldsDataBuilder = TypeFieldsRowBuilder()
-    private let moveHandler = TypeFieldsMoveHandler()
+    private let fieldsDataBuilder = TypePropertiesRowBuilder()
+    private let moveHandler = TypePropertiesMoveHandler()
     
     private var parsedRelations = ParsedRelations.empty
     
@@ -82,7 +82,7 @@ final class TypeFieldsViewModel: ObservableObject {
         }
     }
     
-    func onRelationTap(_ data: TypeFieldsRelationRow) {
+    func onRelationTap(_ data: TypePropertiesRelationRow) {
         guard let details = document.details else { return }
         guard let format = data.relation.format else { return }
         
@@ -99,7 +99,7 @@ final class TypeFieldsViewModel: ObservableObject {
         )
     }
     
-    func onAddRelationTap(section: TypeFieldsSectionRow) {
+    func onAddRelationTap(section: TypePropertiesSectionRow) {
         guard let details = document.details else { return }
         let type = ObjectType(details: details)
         let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
@@ -122,7 +122,7 @@ final class TypeFieldsViewModel: ObservableObject {
         showConflictingInfo.toggle()
     }
     
-    func onDeleteRelation(_ row: TypeFieldsRelationRow) {
+    func onDeleteRelation(_ row: TypePropertiesRelationRow) {
         guard let details = document.details else { return }
         
         Task {

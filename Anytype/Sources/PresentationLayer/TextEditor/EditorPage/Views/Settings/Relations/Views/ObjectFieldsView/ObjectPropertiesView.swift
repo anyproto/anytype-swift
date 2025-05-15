@@ -3,19 +3,19 @@ import Services
 import AnytypeCore
 
 
-struct ObjectFieldsView: View {
+struct ObjectPropertiesView: View {
     
-    @StateObject private var model: ObjectFieldsViewModel
+    @StateObject private var model: ObjectPropertiesViewModel
     
     init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
-        _model = StateObject(wrappedValue: ObjectFieldsViewModel(document: document, output: output))
+        _model = StateObject(wrappedValue: ObjectPropertiesViewModel(document: document, output: output))
     }
     
     var body: some View {
         content
             .task { await model.setupSubscriptions() }
             .anytypeSheet(isPresented: $model.showConflictingInfo) {
-                ObjectFieldsBottomAlert()
+                ObjectPropertiesBottomAlert()
             }
     }
     

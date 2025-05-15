@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ObjectFieldsBottomAlert: View {
+struct ObjectPropertiesBottomAlert: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -13,5 +13,5 @@ struct ObjectFieldsBottomAlert: View {
 }
 
 #Preview {
-    ObjectFieldsBottomAlert()
+    ObjectPropertiesBottomAlert()
 }

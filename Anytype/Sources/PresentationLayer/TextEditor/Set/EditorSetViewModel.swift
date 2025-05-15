@@ -159,8 +159,8 @@ final class EditorSetViewModel: ObservableObject {
         ))
     }
     
-    func onObjectTypeFieldsTap() {
-        output?.onObjectTypeFieldsTap(document: setDocument)
+    func onObjectTypePropertiesTap() {
+        output?.onObjectTypePropertiesTap(document: setDocument)
     }
     
     func onObjectTypeTemplatesTap() {

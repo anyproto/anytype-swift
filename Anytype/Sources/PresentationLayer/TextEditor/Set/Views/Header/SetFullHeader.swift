@@ -95,7 +95,7 @@ struct SetFullHeader: View {
                 .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
                 style: .secondarySmall
             ) {
-                model.onObjectTypeFieldsTap()
+                model.onObjectTypePropertiesTap()
             }.minimumScaleFactor(0.5)
             
             if model.showObjectTypeTemplates {

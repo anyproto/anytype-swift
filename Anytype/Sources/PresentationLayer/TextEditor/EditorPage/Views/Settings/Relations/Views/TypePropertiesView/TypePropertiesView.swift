@@ -3,18 +3,18 @@ import Services
 import AnytypeCore
 
 
-struct TypeFieldsView: View {
+struct TypePropertiesView: View {
     
-    @StateObject private var model: TypeFieldsViewModel
+    @StateObject private var model: TypePropertiesViewModel
     
-    @State private var draggedRow: TypeFieldsRow?
+    @State private var draggedRow: TypePropertiesRow?
     
     init(data: EditorTypeObject) {
-        _model = StateObject(wrappedValue: TypeFieldsViewModel(data: data))
+        _model = StateObject(wrappedValue: TypePropertiesViewModel(data: data))
     }
     
     init(document: some BaseDocumentProtocol) {
-        _model = StateObject(wrappedValue: TypeFieldsViewModel(document: document))
+        _model = StateObject(wrappedValue: TypePropertiesViewModel(document: document))
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ struct TypeFieldsView: View {
                 RelationInfoCoordinatorView(data: $0, output: nil)
             }
             .anytypeSheet(isPresented: $model.showConflictingInfo) {
-                ObjectFieldsBottomAlert()
+                ObjectPropertiesBottomAlert()
             }
     }
     
@@ -95,7 +95,7 @@ struct TypeFieldsView: View {
                     Rectangle().foregroundStyle(Color.clear).fixTappableArea().frame(height: 52)
                 }
             }
-            .onDrop(of: [.text], delegate: TypeFieldsDropDelegate(
+            .onDrop(of: [.text], delegate: TypePropertiesDropDelegate(
                 destinationRow: row,
                 document: model.document,
                 draggedRow: $draggedRow,
@@ -104,7 +104,7 @@ struct TypeFieldsView: View {
         }
     }
     
-    private func headerRow(_ data: TypeFieldsSectionRow) -> some View {
+    private func headerRow(_ data: TypePropertiesSectionRow) -> some View {
         ListSectionHeaderView(title: data.title, increasedTopPadding: true) {
             if model.canEditRelationsList && data.canCreateRelations {
                 Button(action: {
@@ -116,7 +116,7 @@ struct TypeFieldsView: View {
         }
     }
     
-    private func relationRow(_ data: TypeFieldsRelationRow) -> some View {
+    private func relationRow(_ data: TypePropertiesRelationRow) -> some View {
         HStack(spacing: 0) {
             Button {
                 model.onRelationTap(data)

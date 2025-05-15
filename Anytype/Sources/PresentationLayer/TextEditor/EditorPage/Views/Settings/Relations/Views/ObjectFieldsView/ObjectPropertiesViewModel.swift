@@ -6,7 +6,7 @@ import AnytypeCore
 import Combine
 
 @MainActor
-final class ObjectFieldsViewModel: ObservableObject {
+final class ObjectPropertiesViewModel: ObservableObject {
     @Published var sections = [RelationsSection]()
     @Published var showConflictingInfo = false
     
