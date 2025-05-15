@@ -1942,6 +1942,15 @@ public enum Loc {
       public enum NoAccess {
         public static let title = Loc.tr("Localizable", "SpaceShare.Join.NoAccess.Title", fallback: "No access to this space")
       }
+      public enum NoApprove {
+        public static let button = Loc.tr("Localizable", "SpaceShare.Join.NoApprove.button", fallback: "Join Space")
+        public static func message(_ p1: Any, _ p2: Any) -> String {
+          return Loc.tr("Localizable", "SpaceShare.Join.NoApprove.Message", String(describing: p1), String(describing: p2), fallback: "You've been invited to join %@, created by %@")
+        }
+        public static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "SpaceShare.Join.NoApprove.Title", String(describing: p1), fallback: "Join %@")
+        }
+      }
       public enum ObjectIsNotAvailable {
         public static let message = Loc.tr("Localizable", "SpaceShare.Join.ObjectIsNotAvailable.Message", fallback: "Ask the owner to share it with you.")
       }

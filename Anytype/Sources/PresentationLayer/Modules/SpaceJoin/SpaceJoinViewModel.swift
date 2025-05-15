@@ -10,10 +10,19 @@ struct SpaceJoinModuleData: Identifiable {
 
 enum SpaceJoinDataState {
     case requestSent
-    case invite
+    case invite(withoutApprove: Bool)
     case alreadyJoined
     case inviteNotFound
     case spaceDeleted
+    
+    var inviteWithoutApprove: Bool {
+        switch self {
+        case let .invite(withoutApprove):
+            return withoutApprove
+        default:
+            return false
+        }
+    }
 }
 
 @MainActor
@@ -34,9 +43,11 @@ final class SpaceJoinViewModel: ObservableObject {
     private var callManageSpaces = false
     
     @Published var errorMessage: String = ""
+    @Published var title: String = Loc.SpaceShare.Join.title
     @Published var message: String = Loc.SpaceShare.Join.message("", "") // For Placeholder
+    @Published var button: String = Loc.SpaceShare.Join.button
     @Published var state: ScreenState = .loading
-    @Published var dataState: SpaceJoinDataState = .invite
+    @Published var dataState: SpaceJoinDataState = .invite(withoutApprove: false)
     @Published var toast: ToastBarData?
     @Published var showSuccessAlert = false
     @Published var dismiss = false
@@ -57,7 +68,15 @@ final class SpaceJoinViewModel: ObservableObject {
             key: data.key,
             networkId: accountManager.account.info.networkId
         )
-        showSuccessAlert.toggle()
+        if inviteView.inviteType == .withoutApprove {
+            dismiss.toggle()
+        } else {
+            showSuccessAlert.toggle()
+        }
+    }
+    
+    func onCancel() {
+        dismiss.toggle()
     }
     
     func onDismissSuccessAlert() {
@@ -104,13 +123,13 @@ final class SpaceJoinViewModel: ObservableObject {
     private func updateView() async {
         do {
             let inviteView = try await workspaceService.inviteView(cid: data.cid, key: data.key)
-            message = Loc.SpaceShare.Join.message(
-                inviteView.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces),
-                inviteView.creatorName.withPlaceholder.trimmingCharacters(in: .whitespaces)
-            )
+            
+            handleInviteType(inviteView: inviteView)
+            
             self.inviteView = inviteView
             state = .data
             
+            let inviteWithoutApprove = inviteView.inviteType == .withoutApprove
             if let spaceView = workspaceStorage.allWorkspaces.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
                 switch spaceView.accountStatus {
                 case .spaceJoining:
@@ -118,10 +137,10 @@ final class SpaceJoinViewModel: ObservableObject {
                 case .spaceActive, .unknown:
                     dataState = .alreadyJoined
                 default:
-                    dataState = .invite
+                    dataState = .invite(withoutApprove: inviteWithoutApprove)
                 }
             } else {
-                dataState = .invite
+                dataState = .invite(withoutApprove: inviteWithoutApprove)
             }
         } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
             dataState = .inviteNotFound
@@ -132,6 +151,26 @@ final class SpaceJoinViewModel: ObservableObject {
         } catch {
             errorMessage = error.localizedDescription
             state = .error
+        }
+    }
+    
+    private func handleInviteType(inviteView: SpaceInviteView) {
+        switch inviteView.inviteType {
+        case .withoutApprove:
+            let spaceName = inviteView.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces)
+            title = Loc.SpaceShare.Join.NoApprove.title(spaceName)
+            message = Loc.SpaceShare.Join.NoApprove.message(
+                spaceName,
+                inviteView.creatorName.withPlaceholder.trimmingCharacters(in: .whitespaces)
+            )
+            button = Loc.SpaceShare.Join.NoApprove.button
+        case .guest, .member, .UNRECOGNIZED(_):
+            title = Loc.SpaceShare.Join.title
+            message = Loc.SpaceShare.Join.message(
+                inviteView.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces),
+                inviteView.creatorName.withPlaceholder.trimmingCharacters(in: .whitespaces)
+            )
+            button = Loc.SpaceShare.Join.button
         }
     }
 }

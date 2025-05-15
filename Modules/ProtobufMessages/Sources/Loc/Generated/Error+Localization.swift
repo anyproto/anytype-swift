@@ -6548,6 +6548,37 @@ extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Space.InviteChange.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.badInput")
+            case .noSuchSpace:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.noSuchSpace")
+            case .spaceIsDeleted:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.spaceIsDeleted")
+            case .requestFailed:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.requestFailed")
+            case .incorrectPermissions:
+                return LocHelper.tr(table: "LocalizableError", key: "Space.InviteChange.incorrectPermissions")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Space.InviteGenerate.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
