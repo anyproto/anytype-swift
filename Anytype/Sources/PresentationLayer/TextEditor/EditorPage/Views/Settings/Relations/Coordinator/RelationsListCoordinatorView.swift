@@ -24,7 +24,7 @@ struct RelationsListCoordinatorView: View {
             RelationCreationView(data: $0)
         }
         .sheet(item: $model.objectTypeData) {
-            TypeFieldsView(data: $0)
+            TypePropertiesView(data: $0)
         }
         .sheet(isPresented: $model.showTypePicker) {
             ObjectTypeSearchView(

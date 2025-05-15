@@ -35,7 +35,7 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
 
     // Object type methods
     func onObjectTypeLayoutTap(_ data: LayoutPickerData)
-    func onObjectTypeFieldsTap(document: some SetDocumentProtocol)
+    func onObjectTypePropertiesTap(document: some SetDocumentProtocol)
     func onObjectTypeTemplatesTap(document: some SetDocumentProtocol)
     func onObjectTypeSingleTemplateTap(objectId: String, spaceId: String, defaultTemplateId: String?)
     

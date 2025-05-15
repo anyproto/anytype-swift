@@ -1,14 +1,14 @@
 import SwiftUI
 
 
-struct TypeFieldsDropDelegate: DropDelegate {
-    let destinationRow: TypeFieldsRow
+struct TypePropertiesDropDelegate: DropDelegate {
+    let destinationRow: TypePropertiesRow
     let document: any BaseDocumentProtocol
     
-    @Binding var draggedRow: TypeFieldsRow?
-    @Binding var allRows: [TypeFieldsRow]
+    @Binding var draggedRow: TypePropertiesRow?
+    @Binding var allRows: [TypePropertiesRow]
     
-    private let moveHandler = TypeFieldsMoveHandler()
+    private let moveHandler = TypePropertiesMoveHandler()
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)

@@ -2,8 +2,8 @@ import XCTest
 import Services
 @testable import Anytype
 
-class TypeFieldsMoveHandlerTests: XCTestCase {
-    var moveHandler: TypeFieldsMoveHandler!
+class TypePropertiesMoveHandlerTests: XCTestCase {
+    var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
     var mockRelationsService: MockRelationsService!
 
@@ -13,7 +13,7 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
         Container.shared.relationsService.register { mockRelationsService }
         self.mockRelationsService = mockRelationsService
         mockDocument = MockBaseDocument()
-        moveHandler = TypeFieldsMoveHandler()
+        moveHandler = TypePropertiesMoveHandler()
     }
 
     func testErrorHandling() async {
@@ -26,14 +26,14 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
                 document: mockDocument
             )
             XCTFail("Expected wrongDataForFromRow error")
-        } catch let error as TypeFieldsMoveError {
+        } catch let error as TypePropertiesMoveError {
             XCTAssertEqual(error, .wrongDataForFromRow)
         } catch {
             XCTFail("Unexpected error type: \(error)")
         }
         
         // Test wrong data for fromRow
-        let invalidRows = [TypeFieldsRow.header(.header)]
+        let invalidRows = [TypePropertiesRow.header(.header)]
         do {
             try await moveHandler.onMove(
                 from: 0,
@@ -42,7 +42,7 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
                 document: mockDocument
             )
             XCTFail("Expected wrongDataForFromRow error")
-        } catch let error as TypeFieldsMoveError {
+        } catch let error as TypePropertiesMoveError {
             XCTAssertEqual(error, .wrongDataForFromRow)
         } catch {
             XCTFail("Unexpected error type: \(error)")
@@ -51,11 +51,11 @@ class TypeFieldsMoveHandlerTests: XCTestCase {
 
     func testEdgeCaseWithEmptyDetails() async throws {
         // Arrange
-        let headerSection = TypeFieldsSectionRow.header
+        let headerSection = TypePropertiesSectionRow.header
         let relation1 = Relation.mock(id: "relation1")
         
         let relationRows = [
-            TypeFieldsRow.relation(TypeFieldsRelationRow(section: headerSection, relation: relation1, canDrag: true))
+            TypePropertiesRow.relation(TypePropertiesRelationRow(section: headerSection, relation: relation1, canDrag: true))
         ]
         
         mockDocument.mockDetails = nil
