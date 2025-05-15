@@ -1370,4 +1370,8 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logScreenTypeTemplateSelector() {
+        logEvent("ScreenTypeTemplateSelector")
+    }
 }
