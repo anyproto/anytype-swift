@@ -251,6 +251,8 @@ public enum Loc {
   public static let new = Loc.tr("Localizable", "New", fallback: "New")
   public static let newField = Loc.tr("Localizable", "New field", fallback: "New property")
   public static let newSet = Loc.tr("Localizable", "New set", fallback: "New query")
+  public static let newObject = Loc.tr("Localizable", "NewObject", fallback: "New Object")
+  public static let newProperty = Loc.tr("Localizable", "NewProperty", fallback: "New Property")
   public static let next = Loc.tr("Localizable", "Next", fallback: "Next")
   public static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
   public static let noDate = Loc.tr("Localizable", "No date", fallback: "No date")

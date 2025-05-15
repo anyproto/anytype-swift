@@ -76,6 +76,16 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         }
     }
     
+    func onNewPropertyTap(name: String) {
+        newRelationData = RelationInfoData(
+            name: name,
+            objectId: data.objectId,
+            spaceId: data.spaceId,
+            target: data.target,
+            mode: .create(format: .text)
+        )
+    }
+    
     // MARK: - RelationInfoCoordinatorViewOutput
     func didPressConfirm(_ relation: RelationDetails) {
         data.onRelationSelect(relation, true) // isNew = true
