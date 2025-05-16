@@ -170,6 +170,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func onCreateTypeSubmit(info: ObjectTypeInfo) {
         Task {
             let type = try await typesService.createType(name: info.singularName, pluralName: info.pluralName, icon: info.icon, color: info.color, spaceId: spaceId)
+            
+            AnytypeAnalytics.instance().logCreateObjectType(spaceId: spaceId)
+            
             onSelect(.objectType(type: type))
         }
     }

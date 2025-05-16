@@ -33,7 +33,7 @@ final class PublicDebugMenuViewModel: ObservableObject {
     }
     
     init() {
-        debugService.debugRunProfilerData.assign(to: &$debugRunProfilerData)
+        debugService.debugRunProfilerData.receiveOnMain().assign(to: &$debugRunProfilerData)
     }
     
     func getLocalStoreData() async throws {
