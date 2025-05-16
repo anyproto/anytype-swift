@@ -34,7 +34,7 @@ struct MessageView: View {
     }
     
     private var content: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: data.position.isRight ? .trailing : .leading, spacing: 4) {
             reply
             author
             bubble
