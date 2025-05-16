@@ -16,8 +16,8 @@ final class SyncStatusInfoViewModel: ObservableObject {
         syncStatusInfo = .default(spaceId: spaceId)
         p2pStatusInfo = .default(spaceId: spaceId)
         
-        syncStatusStorage.statusPublisher(spaceId: spaceId).assign(to: &$syncStatusInfo)
-        p2pStatusStorage.statusPublisher(spaceId: spaceId).assign(to: &$p2pStatusInfo)
+        syncStatusStorage.statusPublisher(spaceId: spaceId).receiveOnMain().assign(to: &$syncStatusInfo)
+        p2pStatusStorage.statusPublisher(spaceId: spaceId).receiveOnMain().assign(to: &$p2pStatusInfo)
     }
     
     func onNetworkInfoTap() {
