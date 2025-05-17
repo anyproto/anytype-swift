@@ -1915,7 +1915,6 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "SpaceShare.HowToShare.Title", fallback: "How to share a space?")
     }
     public enum Invite {
-      public static let description = Loc.tr("Localizable", "SpaceShare.Invite.Description", fallback: "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.")
       public static let empty = Loc.tr("Localizable", "SpaceShare.Invite.Empty", fallback: "Create invite link to share space and add new members")
       public static let generate = Loc.tr("Localizable", "SpaceShare.Invite.Generate", fallback: "Generate invite link")
       public static func maxLimit(_ p1: Int) -> String {
@@ -1923,6 +1922,10 @@ public enum Loc {
       }
       public static let share = Loc.tr("Localizable", "SpaceShare.Invite.Share", fallback: "Share invite link")
       public static let title = Loc.tr("Localizable", "SpaceShare.Invite.Title", fallback: "Invite link")
+      public enum Description {
+        public static let part1 = Loc.tr("Localizable", "SpaceShare.Invite.Description.part1", fallback: "Share this invite link so that others can join your space")
+        public static let part2 = Loc.tr("Localizable", "SpaceShare.Invite.Description.part2", fallback: "Once they click your link and request access, you can set their access rights.")
+      }
       public enum Stream {
         public static let description = Loc.tr("Localizable", "SpaceShare.Invite.Stream.Description", fallback: "Share this link so that others can join your Stream.")
       }
@@ -1941,6 +1944,15 @@ public enum Loc {
       }
       public enum NoAccess {
         public static let title = Loc.tr("Localizable", "SpaceShare.Join.NoAccess.Title", fallback: "No access to this space")
+      }
+      public enum NoApprove {
+        public static let button = Loc.tr("Localizable", "SpaceShare.Join.NoApprove.button", fallback: "Join Space")
+        public static func message(_ p1: Any, _ p2: Any) -> String {
+          return Loc.tr("Localizable", "SpaceShare.Join.NoApprove.Message", String(describing: p1), String(describing: p2), fallback: "You've been invited to join %@, created by %@")
+        }
+        public static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "SpaceShare.Join.NoApprove.Title", String(describing: p1), fallback: "Join %@")
+        }
       }
       public enum ObjectIsNotAvailable {
         public static let message = Loc.tr("Localizable", "SpaceShare.Join.ObjectIsNotAvailable.Message", fallback: "Ask the owner to share it with you.")
