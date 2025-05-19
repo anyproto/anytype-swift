@@ -2,7 +2,7 @@ import Services
 
 
 final class TypePropertiesRowBuilder {
-    func build(relations: [Relation], featured: [Relation], hidden: [Relation], systemConflictedRelations: [Relation]) -> [TypePropertiesRow] {
+    func build(relations: [Relation], featured: [Relation], hidden: [Relation]) -> [TypePropertiesRow] {
         var data = [TypePropertiesRow]()
 
         
@@ -29,16 +29,10 @@ final class TypePropertiesRowBuilder {
         }
         
         data.append(.header(.hidden))
-        if hidden.isNotEmpty || systemConflictedRelations.isNotEmpty {
+        if hidden.isNotEmpty {
             data.append(
                 contentsOf: hidden.map { relation in
                         .relation(TypePropertiesRelationRow(section: .hidden, relation: relation, canDrag: true))
-                }
-            )
-            
-            data.append(
-                contentsOf: systemConflictedRelations.map { relation in
-                        .relation(TypePropertiesRelationRow(section: .hidden, relation: relation, canDrag: false))
                 }
             )
         } else {
