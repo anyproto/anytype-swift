@@ -46,7 +46,7 @@ extension RelationsServiceProtocol {
         )
     }
         
-    func deleteTypeRelation(details: ObjectDetails, relationId: String) async throws {
+    func removeTypeRelation(details: ObjectDetails, relationId: String) async throws {
         let recommendedRelations = details.recommendedRelationsDetails.filter({ relationId != $0.id })
         let recommendedFeaturedRelations = details.recommendedFeaturedRelationsDetails.filter({ relationId != $0.id })
         let recommendedHiddenRelations = details.recommendedHiddenRelationsDetails.filter({ relationId != $0.id })

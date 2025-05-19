@@ -16,6 +16,7 @@ final class InviteLinkViewModel: ObservableObject {
     @Published var canCopyInviteLink = false
     @Published var deleteLinkSpaceId: StringIdentifiable? = nil
     @Published var toastBarData: ToastBarData?
+    @Published var description = ""
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
@@ -49,7 +50,14 @@ final class InviteLinkViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
         do {
             let invite = isStream ? try await workspaceService.getGuestInvite(spaceId: spaceId) : try await workspaceService.getCurrentInvite(spaceId: spaceId)
-            
+            if isStream {
+                description = Loc.SpaceShare.Invite.Stream.description
+            } else {
+                description = Loc.SpaceShare.Invite.Description.part1
+                if let withoutApprove = invite.inviteType?.withoutApprove, !withoutApprove {
+                    description += ". " + Loc.SpaceShare.Invite.Description.part2
+                }
+            }
             shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } catch {}
     }

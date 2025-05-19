@@ -364,6 +364,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceInviteChange(
+        _ request: Anytype_Rpc.Space.InviteChange.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.InviteChange.Request, Anytype_Rpc.Space.InviteChange.Response> {
+        return Invocation(messageName: "SpaceInviteChange", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceInviteChange(requestData) ?? Data()
+            return try Anytype_Rpc.Space.InviteChange.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func spaceInviteGetCurrent(
         _ request: Anytype_Rpc.Space.InviteGetCurrent.Request = .init()
     ) -> Invocation<Anytype_Rpc.Space.InviteGetCurrent.Request, Anytype_Rpc.Space.InviteGetCurrent.Response> {

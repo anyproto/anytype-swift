@@ -37,7 +37,7 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     }
     
     func getVerificationEmail(email: String) async throws {
-        try await membershipService.getVerificationEmail(email: email)
+        try await membershipService.getVerificationEmailSubscribeToNewsletter(email: email)
         self.email = email
         showEmailVerification = true
     }
