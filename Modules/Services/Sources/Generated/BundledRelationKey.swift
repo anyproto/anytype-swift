@@ -433,4 +433,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Name of Object type in plural form
     case pluralName = "pluralName"
+
+    /// Layout of header relations. Line or column
+    case headerRelationsLayout = "headerRelationsLayout"
 }

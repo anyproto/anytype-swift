@@ -159,6 +159,7 @@ public protocol BundledRelationsValueProvider {
     var autoWidgetTargets: [ObjectId] { get }
     var autoWidgetDisabled: Bool { get }
     var pluralName: String { get }
+    var headerRelationsLayout: Int? { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -740,5 +741,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Name of Object type in plural form
     var pluralName: String {
         return value(for: BundledRelationKey.pluralName.rawValue)
+    }
+    /// Layout of header relations. Line or column
+    var headerRelationsLayout: Int? {
+        return value(for: BundledRelationKey.headerRelationsLayout.rawValue)
     }
 }
