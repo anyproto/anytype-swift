@@ -15,7 +15,6 @@ final class TypePropertiesViewModel: ObservableObject {
     @Published var relationsSearchData: RelationsSearchData?
     @Published var relationData: RelationInfoData?
     @Published var conflictRelations = [RelationDetails]()
-    @Published var systemConflictRelations = [Relation]()
     
     // MARK: - Private variables
     
@@ -58,8 +57,7 @@ final class TypePropertiesViewModel: ObservableObject {
             let newRows = fieldsDataBuilder.build(
                 relations: relations.sidebarRelations,
                 featured: relations.featuredRelations,
-                hidden: relations.hiddenRelations,
-                systemConflictedRelations: systemConflictRelations
+                hidden: relations.hiddenRelations
             )
             
             // do not animate on 1st appearance
@@ -148,32 +146,14 @@ final class TypePropertiesViewModel: ObservableObject {
     
     private func updateConflictRelations(details: ObjectDetails) async throws {
         let releationKeys = try await relationsService.getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)
-        let allConflictRelations = relationDetailsStorage
+        conflictRelations = relationDetailsStorage
             .relationsDetails(ids: releationKeys, spaceId: document.spaceId)
             .filter { !$0.isHidden && !$0.isDeleted }
-        
-        conflictRelations = allConflictRelations
-            .filter { !BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
-        
-        systemConflictRelations = allConflictRelations
-            .filter { BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
-            .filter { !parsedRelations.hiddenRelations.map(\.key).contains($0.key) }
-            .filter { $0.key != BundledRelationKey.description.rawValue }
-            .compactMap {
-                relationsBuilder.relation(
-                    relationDetails: $0,
-                    details: details,
-                    isFeatured: false,
-                    relationValuesIsLocked: true,
-                    storage: document.detailsStorage
-                )
-            }
         
         let newRows = fieldsDataBuilder.build(
             relations: parsedRelations.sidebarRelations,
             featured: parsedRelations.featuredRelations,
-            hidden: parsedRelations.hiddenRelations,
-            systemConflictedRelations: systemConflictRelations
+            hidden: parsedRelations.hiddenRelations
         )
         
         // do not animate on 1st appearance
