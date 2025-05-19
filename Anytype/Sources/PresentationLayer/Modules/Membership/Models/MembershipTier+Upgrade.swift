@@ -60,7 +60,7 @@ extension MembershipTier {
     
     private var isPossibleToUpgradeStorageSpace: Bool {
         switch self.type {
-        case .builder, .explorer, .custom:
+        case .builder, .starter, .explorer, .custom:
             true
         case .anyTeam, .coCreator:
             false
@@ -69,7 +69,7 @@ extension MembershipTier {
     
     private var isPossibleToUpgradeNumberOfSpaceMembers: Bool {
         switch self.type {
-        case .explorer,  .custom:
+        case .starter, .explorer, .custom:
             true
         case .anyTeam, .builder, .coCreator:
             false

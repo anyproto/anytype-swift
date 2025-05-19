@@ -33,7 +33,7 @@ struct SetFullHeader: View {
     private var headerBlocks: some View {
         description
         
-        if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+        if model.details?.isObjectType ?? false {
             Spacer.fixedHeight(10)
             typeButtons
         } else {
@@ -95,7 +95,7 @@ struct SetFullHeader: View {
                 .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
                 style: .secondarySmall
             ) {
-                model.onObjectTypeFieldsTap()
+                model.onObjectTypePropertiesTap()
             }.minimumScaleFactor(0.5)
             
             if model.showObjectTypeTemplates {
@@ -156,7 +156,7 @@ extension SetFullHeader {
 
     @ViewBuilder
     private var titleView: some View {
-        if FeatureFlags.openTypeAsSet && (model.details?.isObjectType ?? false) {
+        if model.details?.isObjectType ?? false {
             Button {
                 model.onTypeTitleTap()
             } label: {

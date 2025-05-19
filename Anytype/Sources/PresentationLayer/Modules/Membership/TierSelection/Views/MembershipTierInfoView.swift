@@ -15,7 +15,7 @@ struct MembershipTierInfoView: View {
             AnytypeText(tier.name, style: .title)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(4)
-            AnytypeText(tier.subtitle, style: .calloutRegular)
+            AnytypeText(tier.description, style: .calloutRegular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(22)
             whatsIncluded
@@ -56,5 +56,5 @@ struct MembershipTierInfoView: View {
 }
 
 #Preview {
-    MembershipTierInfoView(tier: .mockExplorer)
+    MembershipTierInfoView(tier: .mockStarter)
 }

@@ -4,7 +4,7 @@ import AnytypeCore
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
-    @State private var draggedSpace: ParticipantSpaceViewData?
+    @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
     init(output: (any SpaceHubModuleOutput)?) {
@@ -116,22 +116,16 @@ struct SpaceHubView: View {
         }
     }
     
-    private func spaceCard(_ space: ParticipantSpaceViewData) -> some View {
+    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
         SpaceCard(
-            space: space,
-            wallpeper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
+            spaceData: space,
+            wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
             },
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)
-            },
-            onTapPin: {
-                try await model.pin(spaceView: space.spaceView)
-            },
-            onTapUnpin: {
-                try await model.unpin(spaceView: space.spaceView)
             },
             onTapLeave: {
                 model.leaveSpace(spaceId: space.spaceView.targetSpaceId)

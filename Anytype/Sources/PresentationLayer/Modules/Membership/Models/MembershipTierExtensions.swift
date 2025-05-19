@@ -3,45 +3,34 @@ import Services
 import AnytypeCore
 
 
-extension MembershipTier {
-    var subtitle: String {
-        switch self.type {
-        case .explorer:
-            return Loc.Membership.Explorer.subtitle
-        case .builder:
-            return Loc.Membership.Builder.subtitle
-        case .coCreator:
-            return Loc.Membership.CoCreator.subtitle
-        case .custom:
-            return Loc.Membership.Custom.subtitle
-        case .anyTeam:
-            return "This special tier with extended limits and more. Thank you for being an integral part of Team Any."
-        }
-    }
-    
+extension MembershipTier {    
     var mediumIcon: ImageAsset {
         switch color {
         case .green:
-            return .Membership.tierExplorerMedium
+            .Membership.tierStarterMedium
         case .blue:
-            return .Membership.tierBuilderMedium
+            .Membership.tierBuilderMedium
         case .red:
-            return .Membership.tierCocreatorMedium
+            .Membership.tierCocreatorMedium
         case .purple:
-            return .Membership.tierCustomMedium
+            .Membership.tierCustomMedium
+        case .ice:
+            .Membership.tierExplorerMedium
         }
     }
     
     var smallIcon: ImageAsset {
         switch color {
         case .green:
-            .Membership.tierExplorerSmall
+            .Membership.tierStarterSmall
         case .blue:
             .Membership.tierBuilderSmall
         case .red:
             .Membership.tierCocreatorSmall
         case .purple:
             .Membership.tierCustomSmall
+        case .ice:
+            .Membership.tierExplorerSmall
         }
     }
     
@@ -55,14 +44,16 @@ extension MembershipTier {
             .red
         case .purple:
             .purple
+        case .ice:
+            .ice
         }
     }
     
     var successMessage: String {
         switch self.type {
-        case .explorer:
+        case .starter:
             Loc.Membership.Success.curiosity
-        case .builder, .coCreator, .custom, .anyTeam:
+        case .builder, .coCreator, .custom, .anyTeam, .explorer:
             Loc.Membership.Success.support
         }
     }

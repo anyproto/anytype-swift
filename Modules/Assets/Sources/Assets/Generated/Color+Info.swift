@@ -36,6 +36,7 @@ public extension UIColor {
                 UIColor.Gradients.collectionInfo,
                 UIColor.Launch.collectionInfo,
                 UIColor.ModalScreen.collectionInfo,
+                UIColor.PushNotifications.collectionInfo,
                 UIColor.Shadow.collectionInfo,
                 UIColor.Widget.collectionInfo
         ,
@@ -186,12 +187,16 @@ public extension UIColor.Gradients {
     static let collectionInfo = ColorCollectionInfo(
         name: "Gradients",
         colors: [
+            ColorInfo(name: "violetEnd", color: UIColor.Gradients.Push.violetEnd),
+            ColorInfo(name: "violetStart", color: UIColor.Gradients.Push.violetStart)
+    ,
             ColorInfo(name: "darkBlue", color: UIColor.Gradients.UpdateAlert.darkBlue),
             ColorInfo(name: "green", color: UIColor.Gradients.UpdateAlert.green),
             ColorInfo(name: "lightBlue", color: UIColor.Gradients.UpdateAlert.lightBlue)
     ,
             ColorInfo(name: "fadingBlue", color: UIColor.Gradients.fadingBlue),
             ColorInfo(name: "fadingGreen", color: UIColor.Gradients.fadingGreen),
+            ColorInfo(name: "fadingIce", color: UIColor.Gradients.fadingIce),
             ColorInfo(name: "fadingPink", color: UIColor.Gradients.fadingPink),
             ColorInfo(name: "fadingPurple", color: UIColor.Gradients.fadingPurple),
             ColorInfo(name: "fadingRed", color: UIColor.Gradients.fadingRed),
@@ -218,6 +223,16 @@ public extension UIColor.ModalScreen {
         colors: [
             ColorInfo(name: "background", color: UIColor.ModalScreen.background),
             ColorInfo(name: "backgroundWithBlur", color: UIColor.ModalScreen.backgroundWithBlur)
+        ]
+    )
+}
+public extension UIColor.PushNotifications {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "PushNotifications",
+        colors: [
+            ColorInfo(name: "background", color: UIColor.PushNotifications.background),
+            ColorInfo(name: "hiddenText", color: UIColor.PushNotifications.hiddenText),
+            ColorInfo(name: "text", color: UIColor.PushNotifications.text)
         ]
     )
 }

@@ -1,6 +1,9 @@
 import UserNotifications
+import Services
 
 class NotificationService: UNNotificationServiceExtension {
+    
+    private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = Container.shared.decryptionPushContentService()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
@@ -9,12 +12,28 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
-        if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title) [changed by NSE]"
-            
-            contentHandler(bestAttemptContent)
+        guard let bestAttemptContent else {
+            return
         }
+        
+        guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
+              let encryptedData = Data(base64Encoded: encryptedBase64),
+              let keyId = request.content.userInfo[Constants.keyId] as? String else {
+            contentHandler(bestAttemptContent)
+            return
+        }
+        
+        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
+            bestAttemptContent.title = decryptedMessage.newMessage.spaceName
+            bestAttemptContent.body = "\(decryptedMessage.newMessage.senderName): \(decryptedMessage.newMessage.text)"
+            bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
+                DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
+                DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
+            ]
+        }
+        
+        // Deliver the notification
+        contentHandler(bestAttemptContent)
     }
     
     override func serviceExtensionTimeWillExpire() {
@@ -24,5 +43,11 @@ class NotificationService: UNNotificationServiceExtension {
             contentHandler(bestAttemptContent)
         }
     }
+}
 
+extension NotificationService {
+    enum Constants {
+        static let payload = "x-any-payload"
+        static let keyId = "x-any-key-id"
+    }
 }

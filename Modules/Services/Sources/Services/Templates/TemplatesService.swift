@@ -30,7 +30,7 @@ final class TemplatesService: TemplatesServiceProtocol {
             }
             $0.spaceID = objectDetails.spaceId
             $0.objectTypeUniqueKey = ObjectTypeUniqueKey.template.value
-            $0.createTypeWidgetIfMissing = FeatureFlags.objectTypeWidgets
+            $0.createTypeWidgetIfMissing = true
         }).invoke()
         
         return response.objectID

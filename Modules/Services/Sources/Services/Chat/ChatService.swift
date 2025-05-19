@@ -8,7 +8,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func updateMessage(chatObjectId: String, message: ChatMessage) async throws
     func subscribeLastMessages(chatObjectId: String, subId: String, limit: Int?) async throws -> ChatSubscribeLastMessagesResponse
     func unsubscribeLastMessages(chatObjectId: String, subId: String) async throws
-    func subscribeToMessagePreviews() async throws -> String
+    func subscribeToMessagePreviews(subId: String) async throws -> ChatSubscribeToMessagePreviewsResponse
     func unsubscribeFromMessagePreviews() async throws
     func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws
     func deleteMessage(chatObjectId: String, messageId: String) async throws
@@ -83,9 +83,11 @@ final class ChatService: ChatServiceProtocol {
         }).invoke()
     }
     
-    func subscribeToMessagePreviews() async throws -> String {
-        let result = try await ClientCommands.chatSubscribeToMessagePreviews().invoke()
-        return result.subID
+    func subscribeToMessagePreviews(subId: String) async throws -> ChatSubscribeToMessagePreviewsResponse {
+        let result = try await ClientCommands.chatSubscribeToMessagePreviews(.with {
+            $0.subID = subId
+        }).invoke()
+        return result
     }
     
     func unsubscribeFromMessagePreviews() async throws {

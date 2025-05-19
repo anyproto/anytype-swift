@@ -262,7 +262,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         allowCreateObject = setDocument.setPermissions.canCreateObject
         
         guard let details = setDocument.details else { return }
-        name = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        name = details.pluralTitle
     }
     
     

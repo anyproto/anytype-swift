@@ -7,13 +7,9 @@ extension BundledRelationsValueProvider {
     var setTitle: String {
         switch resolvedLayoutValue {
         case .note:
-            return snippet
+            snippet
         default:
-            if FeatureFlags.pluralNames {
-                return pluralName.isNotEmpty ? pluralName : name
-            } else {
-                return name
-            }
+            pluralName.isNotEmpty ? pluralName : name
         }
     }
 
@@ -45,10 +41,6 @@ extension BundledRelationsValueProvider {
     }
 
     var mentionTitle: String {
-        if FeatureFlags.pluralNames {
-            String(pluralTitle.prefix(30)).replacingOccurrences(of: "\n", with: " ")
-        } else {
-            String(title.prefix(30)).replacingOccurrences(of: "\n", with: " ")
-        }
+        String(pluralTitle.prefix(30)).replacingOccurrences(of: "\n", with: " ")
     }
 }

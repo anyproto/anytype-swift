@@ -15,9 +15,7 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let readersLimit: Int?
     let writersLimit: Int?
     let chatId: String
-    let isPinned: Bool
     let uxType: SpaceUxType
-    let unreadMessagesCount: Int
 }
 
 extension SpaceView: DetailsModel {
@@ -34,9 +32,7 @@ extension SpaceView: DetailsModel {
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
-        self.isPinned = details.spaceOrder.isNotEmpty
         self.uxType = details.spaceUxTypeValue ?? .data
-        self.unreadMessagesCount = 0
     }
     
     static let subscriptionKeys: [BundledRelationKey] = .builder {
@@ -85,8 +81,12 @@ extension SpaceView {
         return spaceIsLoading && spaceIsNotDeleted && spaceIsNotJoining
     }
     
-    var showChat: Bool {
-        (uxType == .chat || uxType == .stream) && FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
+    var initialScreenIsChat: Bool {
+        uxType == .chat || uxType == .stream
+    }
+    
+    var chatToggleEnable: Bool {
+        FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {
@@ -108,26 +108,6 @@ extension SpaceView {
     func canChangeReaderToWriter(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
-    }
-    
-    func updateUnreadMessagesCount(_ count: Int) -> SpaceView {
-        SpaceView(
-            id: id,
-            name: name,
-            description: description,
-            objectIconImage: objectIconImage,
-            targetSpaceId: targetSpaceId,
-            createdDate: createdDate,
-            accountStatus: accountStatus,
-            localStatus: localStatus,
-            spaceAccessType: spaceAccessType,
-            readersLimit: readersLimit,
-            writersLimit: writersLimit,
-            chatId: chatId,
-            isPinned: isPinned,
-            uxType: uxType,
-            unreadMessagesCount: count
-        )
     }
     
     private func activeReaders(participants: [Participant]) -> Int {

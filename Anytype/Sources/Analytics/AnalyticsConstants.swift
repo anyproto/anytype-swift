@@ -102,9 +102,8 @@ enum AnalyticsWidgetSource {
     case favorites
     case recent
     case recentOpen
-    case sets
-    case collections
     case bin
+    case chat
     case object(type: AnalyticsObjectType)
     
     var analyticsId: String {
@@ -117,12 +116,10 @@ enum AnalyticsWidgetSource {
             return "Recent"
         case .recentOpen:
             return "RecentOpen"
-        case .sets:
-            return "Sets"
-        case .collections:
-            return "Collections"
         case .bin:
             return "Bin"
+        case .chat:
+            return "Chat"
         case .object(let type):
             return type.analyticsId
         }

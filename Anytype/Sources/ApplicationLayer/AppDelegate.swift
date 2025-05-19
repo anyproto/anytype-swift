@@ -1,6 +1,7 @@
 import UIKit
 import AnytypeCore
 import FirebaseMessaging
+import Services
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
@@ -15,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private var appSessionTracker: any AppSessionTrackerProtocol
     @Injected(\.applePushNotificationService)
     private var applePushNotificationService: any ApplePushNotificationServiceProtocol
+    @Injected(\.pushNotificationsRegistrationService)
+    private var pushNotificationsRegistrationService: any PushNotificationsRegistrationServiceProtocol
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -63,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
         applePushNotificationService.setToken(data: deviceToken)
+        pushNotificationsRegistrationService.registerForPushNotifications()
     }
     
     // MARK: - UNUserNotificationCenterDelegate
@@ -73,8 +77,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
     {
         // Handle foreground notifications
-        completionHandler([.banner, .list, .sound, .badge])
+        if FeatureFlags.showPushMessagesInForeground {
+            completionHandler([.banner, .list, .sound, .badge])
+        } else {
+            completionHandler([])
+        }
     }
+    
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void)
+    {
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let decryptedMessage = userInfo[DecryptedPushKeys.decryptedMessage] as? [String : Any],
+           let spaceId = decryptedMessage[DecryptedPushKeys.spaceId] as? String,
+           let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String {
+            Task { @MainActor in
+                appActionStorage.action = .openObject(objectId: chatId, spaceId: spaceId)
+            }
+        }
+        
+        completionHandler()
+      }
     
     // MARK: - Termination
     

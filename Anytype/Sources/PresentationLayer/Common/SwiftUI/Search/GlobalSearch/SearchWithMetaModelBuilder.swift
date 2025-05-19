@@ -21,8 +21,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
         let details = searchResult.objectDetails
         let meta = searchResult.meta
         
-        let fallbackTitle = FeatureFlags.pluralNames ? details.pluralTitle : details.title
-        let title = buildHighlightedTitle(from: meta) ?? AttributedString(fallbackTitle)
+        let title = buildHighlightedTitle(from: meta) ?? AttributedString(details.pluralTitle)
         
         let highlights = buildHighlightsData(with: meta, spaceId: spaceId)
         
@@ -46,11 +45,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     
     private func buildHighlightedTitle(from meta: [SearchMeta]) -> AttributedString? {
         let nameMeta = meta.first { item in
-            if FeatureFlags.pluralNames {
-                item.relationKey == BundledRelationKey.pluralName.rawValue
-            } else {
-                item.relationKey == BundledRelationKey.name.rawValue
-            }
+            item.relationKey == BundledRelationKey.pluralName.rawValue
         }
         
         guard let nameMeta else { return nil }

@@ -65,7 +65,7 @@ struct MembershipTierSelectionCarousel: View {
     NavigationView {
         MembershipTierSelectionCarousel(
             userMembership: .empty,
-            allTiers: [ .mockExplorer, .mockBuilder, .mockCoCreator ],
+            allTiers: [ .mockStarter, .mockBuilder, .mockCoCreator ],
             tierToDisplay: .mockBuilder,
             onSuccessfulPurchase: { _ in }
         )

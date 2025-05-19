@@ -1,5 +1,4 @@
 import Foundation
-import SecureService
 import Services
 import SharedContentManager
 import DeepLinks
@@ -49,10 +48,6 @@ extension Container {
         self { LocalRepoService() }.shared
     }
     
-    var keychainStore: Factory<any KeychainStoreProtocol> {
-        self { KeychainStore() }.shared
-    }
-    
     var seedService: Factory<any SeedServiceProtocol> {
         self { SeedService() }.shared
     }
@@ -95,14 +90,6 @@ extension Container {
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
         self { RecentSubscriptionService() }
-    }
-    
-    var setsSubscriptionService: Factory<any SetsSubscriptionServiceProtocol> {
-        self { SetsSubscriptionService() }
-    }
-    
-    var collectionsSubscriptionService: Factory<any CollectionsSubscriptionServiceProtocol> {
-        self { CollectionsSubscriptionService() }
     }
     
     var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
@@ -301,7 +288,6 @@ extension Container {
         self { ParticipantsSubscriptionProvider() }.singleton
     }
     
-    @MainActor
     var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
         self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
     }
@@ -342,14 +328,6 @@ extension Container {
         self { DateRelatedObjectsSubscriptionService() }.shared
     }
     
-    var objectsListSubscriptionService: Factory<any ObjectsListSubscriptionServiceProtocol> {
-        self { ObjectsListSubscriptionService() }
-    }
-    
-    var setByTypeSubscriptionService: Factory<any SetByTypeSubscriptionServiceProtocol> {
-        self { SetByTypeSubscriptionService() }
-    }
-    
     var mentionTextUpdateHandler: Factory<any MentionTextUpdateHandlerProtocol> {
         self { MentionTextUpdateHandler() }
     }
@@ -382,7 +360,23 @@ extension Container {
         self { ApplePushNotificationService() }.singleton
     }
     
+    var encryptionKeyEventHandler: Factory<any EncryptionKeyEventHandlerProtocol> {
+        self { EncryptionKeyEventHandler() }.singleton
+    }
+    
     var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
         self { ActiveSpaceManager() }.singleton
+    }
+    
+    var pushNotificationsRegistrationService: Factory<any PushNotificationsRegistrationServiceProtocol> {
+        self { PushNotificationsRegistrationService() }.shared
+    }
+    
+    var pushNotificationsPermissionService: Factory<any PushNotificationsPermissionServiceProtocol> {
+        self { PushNotificationsPermissionService() }.shared
+    }
+    
+    var pushNotificationsAlertHandler: Factory<any PushNotificationsAlertHandlerProtocol> {
+        self { PushNotificationsAlertHandler() }.shared
     }
 }

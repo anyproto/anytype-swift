@@ -3,13 +3,11 @@ import AnytypeCore
 
 struct SpaceCard: View, @preconcurrency Equatable {
     
-    let space: ParticipantSpaceViewData
-    let wallpeper: SpaceWallpaperType
-    @Binding var draggedSpace: ParticipantSpaceViewData?
+    let spaceData: ParticipantSpaceViewDataWithPreview
+    let wallpaper: SpaceWallpaperType
+    @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
-    let onTapPin: () async throws -> Void
-    let onTapUnpin: () async throws -> Void
     let onTapLeave: () -> Void
     let onTapDelete: () async throws -> Void
     
@@ -18,14 +16,14 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTap()
         } label: {
             SpaceCardLabel(
-                space: space,
-                wallpeper: wallpeper,
+                spaceData: spaceData,
+                wallpaper: wallpaper,
                 draggedSpace: $draggedSpace
             )
         }
-        .disabled(FeatureFlags.spaceLoadingForScreen ? false : space.spaceView.isLoading)
+        .disabled(FeatureFlags.spaceLoadingForScreen ? false : spaceData.spaceView.isLoading)
         .contextMenu {
-            if !space.spaceView.isLoading {
+            if !spaceData.spaceView.isLoading {
                 menuItems
             }
         }
@@ -34,21 +32,15 @@ struct SpaceCard: View, @preconcurrency Equatable {
     
     @ViewBuilder
     private var menuItems: some View {
-        if space.spaceView.isLoading {
+        if spaceData.spaceView.isLoading {
             copyButton
-        } else if FeatureFlags.pinnedSpaces {
-            if space.spaceView.isPinned {
-                unpinButton
-            } else {
-                pinButton
-            }
         }
         
         Divider()
-        if space.canLeave {
+        if spaceData.space.canLeave {
             leaveButton
         }
-        if space.canBeDeleted {
+        if spaceData.space.canBeDeleted {
             deleteButton
         }
     }
@@ -58,22 +50,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTapCopy()
         } label: {
             Text(Loc.copySpaceInfo)
-        }
-    }
-    
-    private var unpinButton: some View {
-        AsyncButton {
-            try await onTapUnpin()
-        } label: {
-            Text(Loc.unpin)
-        }
-    }
-    
-    private var pinButton: some View {
-        AsyncButton {
-            try await onTapPin()
-        } label: {
-            Text(Loc.pin)
         }
     }
     
@@ -94,8 +70,8 @@ struct SpaceCard: View, @preconcurrency Equatable {
     }
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.space == rhs.space
-        && lhs.wallpeper == rhs.wallpeper
+        lhs.spaceData == rhs.spaceData
+        && lhs.wallpaper == rhs.wallpaper
         && lhs.draggedSpace == rhs.draggedSpace
     }
 }

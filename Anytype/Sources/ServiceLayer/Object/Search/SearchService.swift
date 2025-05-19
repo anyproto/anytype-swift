@@ -59,6 +59,8 @@ final class SearchService: SearchServiceProtocol, Sendable {
     }
     
     func searchObjects(spaceId: String, objectIds: [String]) async throws -> [ObjectDetails] {
+        guard objectIds.isNotEmpty else { return [] }
+        
         let filters: [DataviewFilter] = .builder {
             SearchHelper.includeIdsFilter(objectIds)
         }
