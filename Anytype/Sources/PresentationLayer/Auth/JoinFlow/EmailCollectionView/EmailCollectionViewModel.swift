@@ -47,7 +47,7 @@ final class EmailCollectionViewModel: ObservableObject {
     
     func saveEmail() async {
         startLoading()
-        try? await membershipService.getVerificationEmail(email: state.email)
+        try? await membershipService.getVerificationEmailOnOnboarding(email: state.email)
         AnytypeAnalytics.instance().logScreenOnboardingEnterEmail()
         onSuccess()
     }
