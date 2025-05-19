@@ -120,14 +120,14 @@ final class TypePropertiesViewModel: ObservableObject {
         showConflictingInfo.toggle()
     }
     
-    func onDeleteRelation(_ row: TypePropertiesRelationRow) {
+    func onRelationRemove(_ row: TypePropertiesRelationRow) {
         guard let details = document.details else { return }
         
         Task {
-            try await relationsService.deleteTypeRelation(details: details, relationId: row.relation.id)
+            try await relationsService.removeTypeRelation(details: details, relationId: row.relation.id)
             
             guard let format = row.relation.format?.format else {
-                anytypeAssertionFailure("Empty relation format for onDeleteRelation")
+                anytypeAssertionFailure("Empty relation format for onRelationRemove")
                 return
             }
             AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format, route: .type)

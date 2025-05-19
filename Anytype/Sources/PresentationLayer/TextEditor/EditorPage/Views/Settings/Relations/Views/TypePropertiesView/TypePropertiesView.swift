@@ -138,9 +138,9 @@ struct TypePropertiesView: View {
         
         .padding(.horizontal, 20)
         .contextMenu {
-            if model.canEditRelationsList && data.relation.isEditable {
-                Button(Loc.delete, role: .destructive) {
-                    model.onDeleteRelation(data)
+            if model.canEditRelationsList {
+                Button(Loc.remove, role: .destructive) {
+                    model.onRelationRemove(data)
                 }
             }
         }
