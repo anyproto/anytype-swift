@@ -54,6 +54,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                     style: .todo(false)
                 )
             ),
+            context: .list,
             alignment: .left
         )
     )
@@ -84,6 +85,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                     style: .todo(false)
                 )
             ),
+            context: .list,
             alignment: .left
         )
     )
@@ -113,6 +115,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                     style: .todo(false)
                 )
             ),
+            context: .list,
             alignment: .left
         )
     )
@@ -136,6 +139,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                     style: .todo(false)
                 )
             ),
+            context: .list,
             alignment: .left
         )
     )
