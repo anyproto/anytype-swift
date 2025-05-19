@@ -842,8 +842,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenOnboardingSkipName")
     }
     
-    func logScreenTemplate() {
-        logEvent("ScreenTemplate")
+    func logScreenTemplateSelector() {
+        logEvent("ScreenTemplateSelector")
     }
     
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
