@@ -81,7 +81,7 @@ struct InviteLinkView: View {
                     .newDivider()
             }
             Spacer.fixedHeight(10)
-            AnytypeText(model.isStream ? Loc.SpaceShare.Invite.Stream.description : Loc.SpaceShare.Invite.description, style: .relation3Regular)
+            AnytypeText(model.description, style: .relation3Regular)
                 .foregroundColor(.Text.secondary)
             Spacer.fixedHeight(20)
             StandardButton(model.isStream ? Loc.SpaceShare.Share.link : Loc.SpaceShare.Invite.share, style: .primaryLarge) {

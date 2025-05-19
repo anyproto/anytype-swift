@@ -49,6 +49,10 @@ extension Anytype_Rpc.Space {
 
         public var inviteFileKey: String = String()
 
+        public var inviteType: Anytype_Model_InviteType = .member
+
+        public var permissions: Anytype_Model_ParticipantPermissions = .reader
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -173,6 +177,8 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
     1: .same(proto: "error"),
     2: .same(proto: "inviteCid"),
     3: .same(proto: "inviteFileKey"),
+    4: .same(proto: "inviteType"),
+    5: .same(proto: "permissions"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -184,6 +190,8 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.inviteCid) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.inviteFileKey) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
       default: break
       }
     }
@@ -203,6 +211,12 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
     if !self.inviteFileKey.isEmpty {
       try visitor.visitSingularStringField(value: self.inviteFileKey, fieldNumber: 3)
     }
+    if self.inviteType != .member {
+      try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 4)
+    }
+    if self.permissions != .reader {
+      try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -210,6 +224,8 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response: SwiftProtobuf.Message, Sw
     if lhs._error != rhs._error {return false}
     if lhs.inviteCid != rhs.inviteCid {return false}
     if lhs.inviteFileKey != rhs.inviteFileKey {return false}
+    if lhs.inviteType != rhs.inviteType {return false}
+    if lhs.permissions != rhs.permissions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
