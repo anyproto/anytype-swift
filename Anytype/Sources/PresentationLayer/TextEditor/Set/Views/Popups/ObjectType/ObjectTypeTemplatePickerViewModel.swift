@@ -8,6 +8,7 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var templatesCount = 0
     @Published var toastBarData: ToastBarData?
+    @Published var isEditing = false
     
     private var output: (any EditorSetModuleOutput)?
     private let document: any BaseDocumentProtocol
@@ -58,9 +59,12 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
         }
     }
     
+    func onEditTap() {
+        withAnimation(.snappy) { isEditing.toggle() }
+    }
+    
     // MARK: - Private
     private func subscribe() async {
-        buildTemplates([])
         let publisher = await templatesSubscription.startSubscription(objectType: document.objectId, spaceId: document.spaceId, update: nil)
         for await rawTemplates in publisher.values {
             buildTemplates(rawTemplates)
@@ -74,23 +78,66 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
         let middlewareTemplates = rawTemplates.map { details in
             let isDefault = details.id == document.details?.defaultTemplateId
             let decoration: TemplateDecoration? = isDefault ? .defaultBadge : nil
-            return TemplatePreviewModel(objectDetails: details, decoration: decoration)
+            return TemplatePreviewModel(objectDetails: details, context: .type, decoration: decoration)
         }
         
         templates += middlewareTemplates
         templatesCount = middlewareTemplates.count
 
         if document.permissions.canEditDetails {
-            templates.append(.init(mode: .addTemplate, alignment: .center))
+            templates.append(TemplatePreviewModel(mode: .addTemplate, context: .type, alignment: .center))
         }
         
-        self.templates = templates.map { model in
-            TemplatePreviewViewModel(
-                model: model,
-                onOptionSelection: { _ in
-                    anytypeAssertionFailure("Unsupported call: onOptionSelection")
+        withAnimation(self.templates.isNotEmpty ? .snappy : nil) {
+            self.templates = templates.map { model in
+                TemplatePreviewViewModel(
+                    model: model,
+                    onOptionSelection: { [weak self] in
+                        self?.handleTemplateOption(option: $0, templateViewModel: model)
+                    }
+                )
+            }
+        }
+    }
+    
+    private func handleTemplateOption(
+        option: TemplateOptionAction,
+        templateViewModel: TemplatePreviewModel
+    ) {
+        Task {
+            do {
+                switch option {
+                case .delete:
+                    try await templatesService.deleteTemplate(templateId: templateViewModel.id)
+                    toastBarData = ToastBarData(Loc.Templates.Popup.removed)
+                case .duplicate:
+                    try await templatesService.cloneTemplate(blockId: templateViewModel.id)
+                    toastBarData = ToastBarData(Loc.Templates.Popup.duplicated)
+                case .editTemplate:
+                    anytypeAssertionFailure("Unsupported action .editTemplate")
                 }
-            )
+                
+                handleAnalytics(option: option, templateViewModel: templateViewModel)
+            } catch {
+                anytypeAssertionFailure(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func handleAnalytics(option: TemplateOptionAction, templateViewModel: TemplatePreviewModel) {
+        guard case let .installed(templateModel) = templateViewModel.mode else {
+            return
+        }
+        
+        let objectType: AnalyticsObjectType = templateModel.isBundled ? .object(typeId: templateModel.id) : .custom
+        
+        switch option {
+        case .editTemplate:
+            AnytypeAnalytics.instance().logTemplateEditing(objectType: objectType, route: .type)
+        case .delete:
+            AnytypeAnalytics.instance().logMoveToBin(true)
+        case .duplicate:
+            AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: .type)
         }
     }
 }

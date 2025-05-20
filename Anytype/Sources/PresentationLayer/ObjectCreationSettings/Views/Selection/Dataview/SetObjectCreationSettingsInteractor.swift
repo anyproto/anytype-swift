@@ -37,6 +37,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
                 return details.map {
                     TemplatePreviewModel(
                         objectDetails: $0,
+                        context: .list,
                         decoration: $0.id == templateId ? .border : nil
                     )
                 }
