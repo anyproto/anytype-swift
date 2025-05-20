@@ -19,7 +19,7 @@ struct SetViewSettingsImagePreviewView: View {
             DragIndicator()
             TitleView(title: viewModel.title)
             coverSection
-            relationsSection
+            propertiesSection
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -39,7 +39,7 @@ struct SetViewSettingsImagePreviewView: View {
         }
     }
     
-    private var relationsSection: some View {
+    private var propertiesSection: some View {
         Group {
             if viewModel.relationsRows.isNotEmpty {
                 VStack(spacing: 0) {
