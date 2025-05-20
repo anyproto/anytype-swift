@@ -6,7 +6,7 @@ import AnytypeCore
 import Combine
 
 @MainActor
-final class SetRelationsViewModel: ObservableObject {
+final class SetPropertiesViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
     @Published var relations = [SetViewSettingsRelation]()
     
@@ -18,14 +18,14 @@ final class SetRelationsViewModel: ObservableObject {
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
     
-    private weak var output: (any SetRelationsCoordinatorOutput)?
+    private weak var output: (any SetPropertiesCoordinatorOutput)?
     
     private var cancellable: (any Cancellable)?
     
     init(
         setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: (any SetRelationsCoordinatorOutput)?
+        output: (any SetPropertiesCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId

@@ -2,15 +2,15 @@ import SwiftUI
 import AnytypeCore
 
 
-struct SetRelationsCoordinatorView: View {
-    @StateObject private var model: SetRelationsCoordinatorViewModel
+struct SetPropertiesCoordinatorView: View {
+    @StateObject private var model: SetPropertiesCoordinatorViewModel
     
     init(setDocument: some SetDocumentProtocol, viewId: String) {
-        _model = StateObject(wrappedValue: SetRelationsCoordinatorViewModel(setDocument: setDocument, viewId: viewId))
+        _model = StateObject(wrappedValue: SetPropertiesCoordinatorViewModel(setDocument: setDocument, viewId: viewId))
     }
     
     var body: some View {
-        SetRelationsView(
+        SetPropertiesView(
             setDocument: model.setDocument,
             viewId: model.viewId,
             output: model

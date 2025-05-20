@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 
-struct SetRelationsDetailsLocalSearchData: Identifiable, Equatable, Hashable {
+struct SetPropertiesDetailsLocalSearchData: Identifiable, Equatable, Hashable {
     let relationsDetails: [RelationDetails]
     @EquatableNoop
     var onSelect: (RelationDetails) -> Void
@@ -11,9 +11,9 @@ struct SetRelationsDetailsLocalSearchData: Identifiable, Equatable, Hashable {
 }
 
 // TODO: Migrate from LegacySearchView
-struct SetRelationsDetailsLocalSearchView: View { //
+struct SetPropertiesDetailsLocalSearchView: View { //
     
-    let data: SetRelationsDetailsLocalSearchData
+    let data: SetPropertiesDetailsLocalSearchData
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -23,7 +23,7 @@ struct SetRelationsDetailsLocalSearchView: View { //
                 style: .default,
                 itemCreationMode: .unavailable,
                 internalViewModel: SetSortsSearchViewModel(
-                    interactor: SetRelationsDetailsLocalSearchInteractor(relationsDetails: data.relationsDetails),
+                    interactor: SetPropertiesDetailsLocalSearchInteractor(relationsDetails: data.relationsDetails),
                     onSelect: { details in
                         guard let result = details.first else { return }
                         data.onSelect(result)

@@ -9,7 +9,7 @@ protocol SetSortsListCoordinatorOutput: AnyObject {
 
 @MainActor
 final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoordinatorOutput {
-    @Published var sortsSearchData: SetRelationsDetailsLocalSearchData?
+    @Published var sortsSearchData: SetPropertiesDetailsLocalSearchData?
     @Published var sortTypesData: SetSortTypesData?
     
     let setDocument: any SetDocumentProtocol
@@ -28,7 +28,7 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     // MARK: - Sorts search
     
     func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void) {
-        sortsSearchData = SetRelationsDetailsLocalSearchData(
+        sortsSearchData = SetPropertiesDetailsLocalSearchData(
             relationsDetails: relationDetails,
             onSelect: completion
         )

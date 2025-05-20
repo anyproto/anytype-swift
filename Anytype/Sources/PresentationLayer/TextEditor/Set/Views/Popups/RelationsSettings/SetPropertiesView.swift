@@ -1,12 +1,12 @@
 import SwiftUI
 import AnytypeCore
 
-struct SetRelationsView: View {
-    @StateObject private var model: SetRelationsViewModel
+struct SetPropertiesView: View {
+    @StateObject private var model: SetPropertiesViewModel
     @State private var editMode = EditMode.inactive
     
-    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetRelationsCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetRelationsViewModel(setDocument: setDocument, viewId: viewId, output: output))
+    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetPropertiesCoordinatorOutput)?) {
+        _model = StateObject(wrappedValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {

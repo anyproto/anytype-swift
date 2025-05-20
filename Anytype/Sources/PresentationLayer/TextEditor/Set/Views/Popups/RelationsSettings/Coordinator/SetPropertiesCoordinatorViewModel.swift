@@ -4,14 +4,14 @@ import AnytypeCore
 
 
 @MainActor
-protocol SetRelationsCoordinatorOutput: AnyObject {
+protocol SetPropertiesCoordinatorOutput: AnyObject {
     func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void)
 }
 
 @MainActor
-final class SetRelationsCoordinatorViewModel:
+final class SetPropertiesCoordinatorViewModel:
     ObservableObject,
-    SetRelationsCoordinatorOutput
+    SetPropertiesCoordinatorOutput
 {
     @Published var relationsSearchData: RelationsSearchData?
     
@@ -23,7 +23,7 @@ final class SetRelationsCoordinatorViewModel:
         self.viewId = viewId
     }
     
-    // MARK: - EditorSetRelationsCoordinatorOutput
+    // MARK: - EditorSetPropertiesCoordinatorOutput
 
     func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         
