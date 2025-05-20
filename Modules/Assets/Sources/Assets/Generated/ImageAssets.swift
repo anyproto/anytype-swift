@@ -551,6 +551,7 @@ extension ImageAsset {
     }
   }
   public enum Dialog {
+    public static let coffee = ImageAsset.bundle(name: "Dialog/coffee")
     public static let duck = ImageAsset.bundle(name: "Dialog/duck")
     public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
     public static let invite = ImageAsset.bundle(name: "Dialog/invite")

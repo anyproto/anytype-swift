@@ -8,7 +8,7 @@ on:
 
 jobs:
   main:
-    runs-on: ${{ vars.RUNNER }}
+    runs-on: macos-15
 
     steps:
       - uses: actions/checkout@v4

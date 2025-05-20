@@ -14,7 +14,8 @@ public protocol MembershipServiceProtocol: Sendable {
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier]    
     
-    func getVerificationEmail(email: String) async throws
+    func getVerificationEmailSubscribeToNewsletter(email: String) async throws
+    func getVerificationEmailOnOnboarding(email: String) async throws
     func verifyEmailCode(code: String) async throws
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
@@ -72,10 +73,17 @@ final class MembershipService: MembershipServiceProtocol {
         .asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
     }
     
-    public func getVerificationEmail(email: String) async throws {
+    public func getVerificationEmailSubscribeToNewsletter(email: String) async throws {
         try await ClientCommands.membershipGetVerificationEmail(.with {
             $0.email = email
             $0.subscribeToNewsletter = true
+        }).invoke(ignoreLogErrors: .canNotConnect)
+    }
+    
+    public func getVerificationEmailOnOnboarding(email: String) async throws {
+        try await ClientCommands.membershipGetVerificationEmail(.with {
+            $0.email = email
+            $0.isOnboardingList = true
         }).invoke(ignoreLogErrors: .canNotConnect)
     }
     

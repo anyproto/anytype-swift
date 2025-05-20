@@ -26,7 +26,7 @@ struct ChatMessageLimitsTests {
         
         sentMessages(limits)
         
-        try await Task.sleep(seconds: 5)
+        try await Task.sleep(seconds: 6)
         
         #expect(limits.canSendMessage() == true)
     }
@@ -35,7 +35,7 @@ struct ChatMessageLimitsTests {
         let limits = ChatMessageLimits()
         
         sentMessages(limits)
-        try await Task.sleep(seconds: 5)
+        try await Task.sleep(seconds: 6)
         
         limits.markSentMessage()
         

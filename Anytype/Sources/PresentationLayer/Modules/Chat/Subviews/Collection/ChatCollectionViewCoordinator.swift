@@ -11,7 +11,7 @@ final class ChatCollectionViewCoordinator<
     
     private let distanceForLoadNextPage: CGFloat = 300
     private let visibleRangeThreshold: CGFloat = 10
-    private let bigDistanceFromTheBottomThreshold: CGFloat = 10
+    private let bigDistanceFromTheBottomThreshold: CGFloat = 30
     private var canCallScrollToTop = false
     private var canCallScrollToBottom = false
     private var scrollToTopUpdateTask: AnyCancellable?
@@ -22,6 +22,8 @@ final class ChatCollectionViewCoordinator<
     private var oldIsBigDistance = false
     private var dismissWorkItems: [DispatchWorkItem] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
+    // From iOS 17.4 replace to collectionView.isScrollAnimating
+    private var isProgrammaticAnimatedScroll = false
     
     var scrollToTop: (() async -> Void)?
     var scrollToBottom: (() async -> Void)?
@@ -103,7 +105,7 @@ final class ChatCollectionViewCoordinator<
         
         let oldContentSize = collectionView.contentSize
         let oldContentOffset = collectionView.contentOffset
-        let oldIsNearBottom = (collectionView.bottomOffset.y - collectionView.contentOffset.y) < 30
+        let oldIsNearBottom = (collectionView.bottomOffset.y - collectionView.contentOffset.y) < bigDistanceFromTheBottomThreshold
         
         self.sections = sections
         
@@ -136,9 +138,9 @@ final class ChatCollectionViewCoordinator<
             dataSourceApplyTransaction = false
             CATransaction.commit()
             
-            updateVisibleRangeIfNeeded(collectionView: collectionView)
-            updateDistanceFromTheBottom(collectionView: collectionView)
-            updateHeaders(collectionView: collectionView, animated: false)
+            if !isProgrammaticAnimatedScroll {
+                updateStateAfterTransaction(collectionView: collectionView)
+            }
         }
     }
     
@@ -168,10 +170,8 @@ final class ChatCollectionViewCoordinator<
             }
         }
         
-        if let collectionView = scrollView as? UICollectionView {
-            updateVisibleRangeIfNeeded(collectionView: collectionView)
-            updateDistanceFromTheBottom(collectionView: collectionView)
-            updateHeaders(collectionView: collectionView, animated: false)
+        if let collectionView = scrollView as? UICollectionView, !isProgrammaticAnimatedScroll {
+            updateStateAfterTransaction(collectionView: collectionView)
         }
     }
     
@@ -195,6 +195,13 @@ final class ChatCollectionViewCoordinator<
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate, let collectionView = scrollView as? UICollectionView {
             updateHeaders(collectionView: collectionView)
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        isProgrammaticAnimatedScroll = false
+        if let collectionView = scrollView as? UICollectionView {
+            updateStateAfterTransaction(collectionView: collectionView)
         }
     }
     
@@ -269,6 +276,7 @@ final class ChatCollectionViewCoordinator<
         
         if let item = currentSnapshot.itemIdentifiers.first(where: { $0.id == itemId }),
            let indexPath = dataSource.indexPath(for: item) {
+            isProgrammaticAnimatedScroll = animated
             collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
             return true
         }
@@ -276,7 +284,10 @@ final class ChatCollectionViewCoordinator<
     }
     
     private func scrollToBottom(collectionView: UICollectionView) {
-        collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
+        if collectionView.bottomOffset != collectionView.contentOffset {
+            isProgrammaticAnimatedScroll = true
+            collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
+        }
     }
     
     private func updateHeaders(collectionView: UICollectionView, animated: Bool = true) {
@@ -335,5 +346,11 @@ final class ChatCollectionViewCoordinator<
                 cell.contentView.alpha = alpha
             }
         }
+    }
+    
+    private func updateStateAfterTransaction(collectionView: UICollectionView) {
+        updateVisibleRangeIfNeeded(collectionView: collectionView)
+        updateDistanceFromTheBottom(collectionView: collectionView)
+        updateHeaders(collectionView: collectionView, animated: false)
     }
 }

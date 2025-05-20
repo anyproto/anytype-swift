@@ -16,10 +16,18 @@ struct EmptyStateView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            if style == .withImage {
+            
+            switch style {
+            case .withImage:
+                Image(asset: .Dialog.coffee)
+                Spacer.fixedHeight(12)
+            case .error:
                 Image(asset: .Dialog.duck)
                 Spacer.fixedHeight(12)
+            case .plain:
+                EmptyView()
             }
+            
             AnytypeText(title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
@@ -47,6 +55,7 @@ extension EmptyStateView {
     
     enum Style {
         case withImage
+        case error
         case plain
     }
 }

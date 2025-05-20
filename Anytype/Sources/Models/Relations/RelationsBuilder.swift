@@ -62,7 +62,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
             storage: storage
         ).filter { !recommendedHiddenRelations.map(\.id).contains($0.id) }
         
-        let mainSidebarRelations = buildRelations(
+        let sidebarRelations = buildRelations(
             relationDetails: recommendedRelations,
             objectDetails: objectDetails,
             isFeatured: false,
@@ -80,18 +80,13 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         
         let allConflictedRelations = objectRelations
             .filter {
-                !mainSidebarRelations.map(\.id).contains($0.id) &&
+                !sidebarRelations.map(\.id).contains($0.id) &&
                 !featuredRelations.map(\.id).contains($0.id) &&
-                !recommendedHiddenRelations.map(\.id).contains($0.id)
+                !hiddenRelations.map(\.id).contains($0.id)
             }
         
         let deletedRelations = allConflictedRelations.filter { $0.isDeleted }
-        
-        let conflictedRelationsWithoutDeleted = allConflictedRelations.filter { !$0.isDeleted }
-        let systemConflictedRelations = conflictedRelationsWithoutDeleted.filter { BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
-        let conflictedRelations = conflictedRelationsWithoutDeleted.filter { !BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key) }
-        
-        let sidebarRelations = mainSidebarRelations + systemConflictedRelations
+        let conflictedRelations = allConflictedRelations.filter { !$0.isDeleted }
         
         return ParsedRelations(
             featuredRelations: featuredRelations,

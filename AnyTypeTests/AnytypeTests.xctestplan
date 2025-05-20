@@ -35,7 +35,7 @@
     },
     {
       "target" : {
-        "containerPath" : "container:",
+        "containerPath" : "container:Modules\/AnytypeCore",
         "identifier" : "AnytypeCoreTests",
         "name" : "AnytypeCoreTests"
       }

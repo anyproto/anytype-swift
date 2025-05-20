@@ -288,7 +288,6 @@ extension Container {
         self { ParticipantsSubscriptionProvider() }.singleton
     }
     
-    @MainActor
     var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
         self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
     }

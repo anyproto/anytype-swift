@@ -13,7 +13,7 @@ struct RelationsListCoordinatorView: View {
     }
     
     var body: some View {
-        ObjectFieldsView(
+        ObjectPropertiesView(
             document: model.document,
             output: model
         )
@@ -24,7 +24,7 @@ struct RelationsListCoordinatorView: View {
             RelationCreationView(data: $0)
         }
         .sheet(item: $model.objectTypeData) {
-            TypeFieldsView(data: $0)
+            TypePropertiesView(data: $0)
         }
         .sheet(isPresented: $model.showTypePicker) {
             ObjectTypeSearchView(

@@ -29,7 +29,7 @@ public struct Anytype_Model_InvitePayload: @unchecked Sendable {
 
   public var spaceIconEncryptionKeys: [Anytype_Model_FileEncryptionKey] = []
 
-  public var inviteType: Anytype_Model_InvitePayload.InviteType = .joinAsMember
+  public var inviteType: Anytype_Model_InviteType = .member
 
   public var guestKey: Data = Data()
 
@@ -94,7 +94,7 @@ extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.spaceIconEncryptionKeys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.spaceIconEncryptionKeys, fieldNumber: 7)
     }
-    if self.inviteType != .joinAsMember {
+    if self.inviteType != .member {
       try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 8)
     }
     if !self.guestKey.isEmpty {

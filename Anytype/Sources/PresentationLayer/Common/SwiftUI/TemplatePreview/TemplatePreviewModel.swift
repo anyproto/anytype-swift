@@ -58,8 +58,14 @@ enum TemplateDecoration {
     case defaultBadge
 }
 
+enum TemplatePreviewContext {
+    case list
+    case type
+}
+
 struct TemplatePreviewModel: Identifiable, Equatable {
     let mode: TemplateType
+    let context: TemplatePreviewContext
     let alignment: LayoutAlignment
     let decoration: TemplateDecoration?
     
@@ -69,8 +75,8 @@ struct TemplatePreviewModel: Identifiable, Equatable {
 }
 
 extension TemplatePreviewModel {
-    init(mode: TemplateType, alignment: LayoutAlignment) {
-        self.init(mode: mode, alignment: alignment, decoration: nil)
+    init(mode: TemplateType, context: TemplatePreviewContext, alignment: LayoutAlignment) {
+        self.init(mode: mode, context: context, alignment: alignment, decoration: nil)
     }
 }
 
@@ -78,9 +84,14 @@ extension TemplatePreviewModel {
     var contextualMenuOptions: [TemplateOptionAction] {
         switch mode {
         case .addTemplate:
-            return []
+            []
         case .installed:
-            return TemplateOptionAction.allCases
+            switch context {
+            case .list:
+                TemplateOptionAction.allCases
+            case .type:
+                [.duplicate, .delete]
+            }
         }
     }
 }

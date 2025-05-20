@@ -55,7 +55,10 @@ extension Anytype_Rpc.Space {
 
         public var creatorName: String = String()
 
+        /// deprecated, use inviteType
         public var isGuestUserInvite: Bool = false
+
+        public var inviteType: Anytype_Model_InviteType = .member
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -198,6 +201,7 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
     4: .same(proto: "spaceIconCid"),
     5: .same(proto: "creatorName"),
     6: .same(proto: "isGuestUserInvite"),
+    7: .same(proto: "inviteType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -212,6 +216,7 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
       case 4: try { try decoder.decodeSingularStringField(value: &self.spaceIconCid) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.creatorName) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.isGuestUserInvite) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
       default: break
       }
     }
@@ -240,6 +245,9 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
     if self.isGuestUserInvite != false {
       try visitor.visitSingularBoolField(value: self.isGuestUserInvite, fieldNumber: 6)
     }
+    if self.inviteType != .member {
+      try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -250,6 +258,7 @@ extension Anytype_Rpc.Space.InviteView.Response: SwiftProtobuf.Message, SwiftPro
     if lhs.spaceIconCid != rhs.spaceIconCid {return false}
     if lhs.creatorName != rhs.creatorName {return false}
     if lhs.isGuestUserInvite != rhs.isGuestUserInvite {return false}
+    if lhs.inviteType != rhs.inviteType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

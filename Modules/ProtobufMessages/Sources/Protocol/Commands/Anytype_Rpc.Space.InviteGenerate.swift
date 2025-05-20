@@ -26,43 +26,11 @@ extension Anytype_Rpc.Space {
 
         public var spaceID: String = String()
 
-        public var inviteType: Anytype_Rpc.Space.InviteGenerate.Request.InviteType = .member
+        public var inviteType: Anytype_Model_InviteType = .member
+
+        public var permissions: Anytype_Model_ParticipantPermissions = .reader
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public enum InviteType: SwiftProtobuf.Enum, Swift.CaseIterable {
-          public typealias RawValue = Int
-          case member // = 0
-          case guest // = 1
-          case UNRECOGNIZED(Int)
-
-          public init() {
-            self = .member
-          }
-
-          public init?(rawValue: Int) {
-            switch rawValue {
-            case 0: self = .member
-            case 1: self = .guest
-            default: self = .UNRECOGNIZED(rawValue)
-            }
-          }
-
-          public var rawValue: Int {
-            switch self {
-            case .member: return 0
-            case .guest: return 1
-            case .UNRECOGNIZED(let i): return i
-            }
-          }
-
-          // The compiler won't synthesize support with the UNRECOGNIZED case.
-          public static let allCases: [Anytype_Rpc.Space.InviteGenerate.Request.InviteType] = [
-            .member,
-            .guest,
-          ]
-
-        }
 
         public init() {}
       }
@@ -84,6 +52,10 @@ extension Anytype_Rpc.Space {
         public var inviteCid: String = String()
 
         public var inviteFileKey: String = String()
+
+        public var inviteType: Anytype_Model_InviteType = .member
+
+        public var permissions: Anytype_Model_ParticipantPermissions = .reader
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -192,6 +164,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
     2: .same(proto: "inviteType"),
+    3: .same(proto: "permissions"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -202,6 +175,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
       default: break
       }
     }
@@ -214,22 +188,19 @@ extension Anytype_Rpc.Space.InviteGenerate.Request: SwiftProtobuf.Message, Swift
     if self.inviteType != .member {
       try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 2)
     }
+    if self.permissions != .reader {
+      try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.InviteGenerate.Request, rhs: Anytype_Rpc.Space.InviteGenerate.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.inviteType != rhs.inviteType {return false}
+    if lhs.permissions != rhs.permissions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Rpc.Space.InviteGenerate.Request.InviteType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Member"),
-    1: .same(proto: "Guest"),
-  ]
 }
 
 extension Anytype_Rpc.Space.InviteGenerate.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -238,6 +209,8 @@ extension Anytype_Rpc.Space.InviteGenerate.Response: SwiftProtobuf.Message, Swif
     1: .same(proto: "error"),
     2: .same(proto: "inviteCid"),
     3: .same(proto: "inviteFileKey"),
+    4: .same(proto: "inviteType"),
+    5: .same(proto: "permissions"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -249,6 +222,8 @@ extension Anytype_Rpc.Space.InviteGenerate.Response: SwiftProtobuf.Message, Swif
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.inviteCid) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.inviteFileKey) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.inviteType) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.permissions) }()
       default: break
       }
     }
@@ -268,6 +243,12 @@ extension Anytype_Rpc.Space.InviteGenerate.Response: SwiftProtobuf.Message, Swif
     if !self.inviteFileKey.isEmpty {
       try visitor.visitSingularStringField(value: self.inviteFileKey, fieldNumber: 3)
     }
+    if self.inviteType != .member {
+      try visitor.visitSingularEnumField(value: self.inviteType, fieldNumber: 4)
+    }
+    if self.permissions != .reader {
+      try visitor.visitSingularEnumField(value: self.permissions, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -275,6 +256,8 @@ extension Anytype_Rpc.Space.InviteGenerate.Response: SwiftProtobuf.Message, Swif
     if lhs._error != rhs._error {return false}
     if lhs.inviteCid != rhs.inviteCid {return false}
     if lhs.inviteFileKey != rhs.inviteFileKey {return false}
+    if lhs.inviteType != rhs.inviteType {return false}
+    if lhs.permissions != rhs.permissions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

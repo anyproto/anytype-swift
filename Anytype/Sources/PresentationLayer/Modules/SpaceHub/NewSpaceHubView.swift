@@ -16,7 +16,7 @@ struct NewSpaceHubView: View {
     var body: some View {
         content
             .onAppear { model.onAppear() }
-            .task { await model.startSubscriptions() }
+            .taskWithMemoryScope { await model.startSubscriptions() }
             
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()

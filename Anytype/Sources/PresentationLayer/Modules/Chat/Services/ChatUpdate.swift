@@ -1,6 +1,6 @@
 import Foundation
 
-enum ChatUpdate {
+enum ChatUpdate: CaseIterable {
     case messages
     case state
 }

@@ -258,7 +258,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 
         templates.append(contentsOf: userTemplates)
         if isTemplatesEditable {
-            templates.append(.init(mode: .addTemplate, alignment: .center))
+            templates.append(TemplatePreviewModel(mode: .addTemplate, context: .list, alignment: .center))
         }
         
         withAnimation {
@@ -282,7 +282,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 }
 
 extension TemplatePreviewModel {
-    init(objectDetails: ObjectDetails, decoration: TemplateDecoration?) {
+    init(objectDetails: ObjectDetails, context: TemplatePreviewContext, decoration: TemplateDecoration?) {
         self = .init(
             mode: .installed(.init(
                 id: objectDetails.id,
@@ -298,6 +298,7 @@ extension TemplatePreviewModel {
                 style: objectDetails.resolvedLayoutValue == .todo ? .todo(objectDetails.isDone) : .none
             )
             ),
+            context: context,
             alignment: objectDetails.layoutAlignValue,
             decoration: decoration
         )

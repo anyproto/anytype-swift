@@ -49,7 +49,7 @@ final class EmailVerificationViewModel: ObservableObject {
     func resendEmail() {
         asyncAction {
             UISelectionFeedbackGenerator().selectionChanged()
-            try await self.membershipService.getVerificationEmail(email: self.email)
+            try await self.membershipService.getVerificationEmailSubscribeToNewsletter(email: self.email)
             self.timeRemaining = 60
         }
     }

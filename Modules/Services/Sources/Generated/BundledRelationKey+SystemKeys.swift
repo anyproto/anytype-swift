@@ -78,6 +78,8 @@ public extension BundledRelationKey {
         .spaceAccessType,
         .spaceInviteFileCid,
         .spaceInviteFileKey,
+        .spaceInviteType,
+        .spaceInvitePermissions,
         .readersLimit,
         .writersLimit,
         .sharedSpacesLimit,

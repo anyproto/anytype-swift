@@ -29,7 +29,7 @@ final class SelectRelationListViewModel: ObservableObject {
         self.configuration = data.configuration
         self.output = output
         self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
-        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
+        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.receiveOnMain().assign(to: &$selectedOptionsIds)
     }
 
     func onClear() {

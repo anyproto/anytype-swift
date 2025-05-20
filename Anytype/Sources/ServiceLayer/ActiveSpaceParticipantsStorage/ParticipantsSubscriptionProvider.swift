@@ -1,18 +1,17 @@
 import Foundation
 import AnytypeCore
 
-protocol ParticipantsSubscriptionProviderProtocol: AnyObject {
-    @MainActor
+protocol ParticipantsSubscriptionProviderProtocol: AnyObject, Sendable {
     func subscription(spaceId: String) -> any ParticipantsSubscriptionProtocol
 }
 
-final class ParticipantsSubscriptionProvider: ParticipantsSubscriptionProviderProtocol {
+final class ParticipantsSubscriptionProvider: ParticipantsSubscriptionProviderProtocol, @unchecked Sendable {
     
     private let lock = NSLock()
     private var cache = [String: Weak<ParticipantsSubscription>]()
     
     // MARK: - ParticipantsSubscriptionProviderProtocol
-    @MainActor
+    
     func subscription(spaceId: String) -> any ParticipantsSubscriptionProtocol {
         
         lock.lock()
