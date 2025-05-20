@@ -3,6 +3,6 @@ struct SetViewSettingsProperty: Identifiable, Equatable {
     let image: ImageAsset
     let title: String
     let isOn: Bool
-    let canBeRemovedFromObject: Bool
+    let canBeRemoved: Bool
     @EquatableNoop var onChange: (Bool) -> Void
 }

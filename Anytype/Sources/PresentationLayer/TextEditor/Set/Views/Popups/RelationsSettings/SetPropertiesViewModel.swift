@@ -122,13 +122,17 @@ final class SetPropertiesViewModel: ObservableObject {
             guard let self else { return }
             view = setDocument.view(by: viewId)
             
+            let isObjectType = setDocument.details?.isObjectType ?? false
+            
             relations = setDocument.sortedRelations(for: viewId).map { relation in
-                SetViewSettingsProperty(
+                let canBeRemoved = isObjectType ? relation.relationDetails.canBeRemovedFromType : relation.relationDetails.canBeRemovedFromObject
+                
+                return SetViewSettingsProperty(
                     id: relation.id,
                     image: relation.relationDetails.format.iconAsset,
                     title: relation.relationDetails.name,
                     isOn: relation.option.isVisible,
-                    canBeRemovedFromObject: relation.relationDetails.canBeRemovedFromObject,
+                    canBeRemoved: canBeRemoved,
                     onChange: { [weak self] isVisible in
                         self?.onRelationVisibleChange(relation, isVisible: isVisible)
                     }
