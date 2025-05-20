@@ -42,28 +42,12 @@ final class MembershipService: MembershipServiceProtocol {
             $0.noCache = noCache
         }).invoke(ignoreLogErrors: .canNotConnect).data
         
-        let tiers = try await getAllTiers(noCache: noCache)
+        let tiers = try await getTiers(noCache: noCache)
         
         return try builder.buildMembershipStatus(membership: status, allTiers: tiers)
     }
     
-    public func getTiers(noCache: Bool) async throws -> [MembershipTier] {
-        guard FeatureFlags.hideCoCreator else {
-            return try await getAllTiers(noCache: noCache)
-        }
-        
-        let allTiers = try await getAllTiers(noCache: noCache)
-        let membership = try await getMembership(noCache: noCache)
-        
-        if membership.tier?.id == .coCreator {
-            return allTiers
-        } else {
-            return allTiers.filter { $0.type != .coCreator }
-        }
-    }
-    
-    // tiers without filtered CoCreator
-    private func getAllTiers(noCache: Bool) async throws -> [MembershipTier] {
+    func getTiers(noCache: Bool) async throws -> [MembershipTier] {
         return try await ClientCommands.membershipGetTiers(.with {
             $0.locale = Locale.current.languageCode ?? "en"
             $0.noCache = noCache
