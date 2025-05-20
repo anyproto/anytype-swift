@@ -54,19 +54,19 @@ struct SetPropertiesView: View {
     
     private var propertiesSection: some View {
         ForEach(model.relations) { relation in
-            relationRow(relation)
+            propertyRow(relation)
                 .divider()
                 .deleteDisabled(!relation.canBeRemovedFromObject)
         }
         .onDelete { indexes in
-            model.deleteRelations(indexes: indexes)
+            model.deleteProperties(indexes: indexes)
         }
         .onMove { from, to in
-            model.moveRelation(from: from, to: to)
+            model.moveProperty(from: from, to: to)
         }
     }
     
-    private func relationRow(_ relation: SetViewSettingsRelation) -> some View {
+    private func propertyRow(_ relation: SetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
             Image(asset: relation.image)
                 .foregroundColor(.Control.active)

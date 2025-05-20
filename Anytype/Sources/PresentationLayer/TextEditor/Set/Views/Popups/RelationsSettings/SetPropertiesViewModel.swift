@@ -33,7 +33,7 @@ final class SetPropertiesViewModel: ObservableObject {
         self.setup()
     }
     
-    func deleteRelations(indexes: IndexSet) {
+    func deleteProperties(indexes: IndexSet) {
         indexes.forEach { index in
             guard let relation = setDocument.sortedRelations(for: viewId)[safe: index] else {
                 anytypeAssertionFailure("No relation to delete", info: ["index": "\(index)"])
@@ -70,7 +70,7 @@ final class SetPropertiesViewModel: ObservableObject {
         }
     }
     
-    func moveRelation(from: IndexSet, to: Int) {
+    func moveProperty(from: IndexSet, to: Int) {
         from.forEach { [weak self] sortedRelationsFromIndex in
             guard let self, sortedRelationsFromIndex != to else { return }
             
