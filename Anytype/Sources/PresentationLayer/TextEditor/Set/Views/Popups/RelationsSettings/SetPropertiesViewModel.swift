@@ -6,9 +6,9 @@ import AnytypeCore
 import Combine
 
 @MainActor
-final class SetRelationsViewModel: ObservableObject {
+final class SetPropertiesViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
-    @Published var relations = [SetViewSettingsRelation]()
+    @Published var relations = [SetViewSettingsProperty]()
     
     private let setDocument: any SetDocumentProtocol
     private let viewId: String
@@ -18,14 +18,14 @@ final class SetRelationsViewModel: ObservableObject {
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
     
-    private weak var output: (any SetRelationsCoordinatorOutput)?
+    private weak var output: (any SetPropertiesCoordinatorOutput)?
     
     private var cancellable: (any Cancellable)?
     
     init(
         setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: (any SetRelationsCoordinatorOutput)?
+        output: (any SetPropertiesCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
@@ -33,7 +33,7 @@ final class SetRelationsViewModel: ObservableObject {
         self.setup()
     }
     
-    func deleteRelations(indexes: IndexSet) {
+    func deleteProperties(indexes: IndexSet) {
         indexes.forEach { index in
             guard let relation = setDocument.sortedRelations(for: viewId)[safe: index] else {
                 anytypeAssertionFailure("No relation to delete", info: ["index": "\(index)"])
@@ -70,7 +70,7 @@ final class SetRelationsViewModel: ObservableObject {
         }
     }
     
-    func moveRelation(from: IndexSet, to: Int) {
+    func moveProperty(from: IndexSet, to: Int) {
         from.forEach { [weak self] sortedRelationsFromIndex in
             guard let self, sortedRelationsFromIndex != to else { return }
             
@@ -123,7 +123,7 @@ final class SetRelationsViewModel: ObservableObject {
             view = setDocument.view(by: viewId)
             
             relations = setDocument.sortedRelations(for: viewId).map { relation in
-                SetViewSettingsRelation(
+                SetViewSettingsProperty(
                     id: relation.id,
                     image: relation.relationDetails.format.iconAsset,
                     title: relation.relationDetails.name,

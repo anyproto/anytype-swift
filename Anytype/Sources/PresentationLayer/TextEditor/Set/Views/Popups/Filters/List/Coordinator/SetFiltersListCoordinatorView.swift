@@ -22,7 +22,7 @@ struct SetFiltersListCoordinatorView: View {
             )
         }
         .sheet(item: $model.filtersSearchData) { data in
-            SetRelationsDetailsLocalSearchView(data: data)
+            SetPropertiesDetailsLocalSearchView(data: data)
         }
     }
 }

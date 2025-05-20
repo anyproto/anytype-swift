@@ -10,7 +10,7 @@ protocol SetFiltersListCoordinatorOutput: AnyObject {
 @MainActor
 final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersListCoordinatorOutput {
     @Published var filtersSelectionData: FiltersSelectionData?
-    @Published var filtersSearchData: SetRelationsDetailsLocalSearchData?
+    @Published var filtersSearchData: SetPropertiesDetailsLocalSearchData?
     
     let data: SetFiltersListModuleData
     let subscriptionDetailsStorage: ObjectDetailsStorage
@@ -28,7 +28,7 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     
     // MARK: - Filters search
     func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void) {
-        filtersSearchData = SetRelationsDetailsLocalSearchData(
+        filtersSearchData = SetPropertiesDetailsLocalSearchData(
             relationsDetails: relationDetails,
             onSelect: completion
         )

@@ -1,12 +1,12 @@
 import SwiftUI
 import AnytypeCore
 
-struct SetRelationsView: View {
-    @StateObject private var model: SetRelationsViewModel
+struct SetPropertiesView: View {
+    @StateObject private var model: SetPropertiesViewModel
     @State private var editMode = EditMode.inactive
     
-    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetRelationsCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetRelationsViewModel(setDocument: setDocument, viewId: viewId, output: output))
+    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetPropertiesCoordinatorOutput)?) {
+        _model = StateObject(wrappedValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {
@@ -20,7 +20,7 @@ struct SetRelationsView: View {
     
     private var content: some View {
         PlainList {
-            relationsSection
+            propertiesSection
                 .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
         .environment(\.editMode, $editMode)
@@ -52,30 +52,30 @@ struct SetRelationsView: View {
         }
     }
     
-    private var relationsSection: some View {
-        ForEach(model.relations) { relation in
-            relationRow(relation)
+    private var propertiesSection: some View {
+        ForEach(model.relations) { property in
+            propertyRow(property)
                 .divider()
-                .deleteDisabled(!relation.canBeRemovedFromObject)
+                .deleteDisabled(!property.canBeRemovedFromObject)
         }
         .onDelete { indexes in
-            model.deleteRelations(indexes: indexes)
+            model.deleteProperties(indexes: indexes)
         }
         .onMove { from, to in
-            model.moveRelation(from: from, to: to)
+            model.moveProperty(from: from, to: to)
         }
     }
     
-    private func relationRow(_ relation: SetViewSettingsRelation) -> some View {
+    private func propertyRow(_ property: SetViewSettingsProperty) -> some View {
         HStack(spacing: 0) {
-            Image(asset: relation.image)
+            Image(asset: property.image)
                 .foregroundColor(.Control.active)
             Spacer.fixedWidth(10)
             AnytypeToggle(
-                title: relation.title,
-                isOn: relation.isOn
+                title: property.title,
+                isOn: property.isOn
             ) {
-                relation.onChange($0)
+                property.onChange($0)
             }
         }
         .frame(height: 52)

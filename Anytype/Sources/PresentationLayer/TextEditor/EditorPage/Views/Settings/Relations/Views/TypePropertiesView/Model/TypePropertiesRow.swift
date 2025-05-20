@@ -20,8 +20,8 @@ enum TypePropertiesRow: Identifiable, Equatable {
     
     var relationId: String? {
         switch self {
-        case .relation(let relationRow):
-            relationRow.relation.id
+        case .relation(let propertyRow):
+            propertyRow.relation.id
         case .header, .emptyRow:
             nil
         }
