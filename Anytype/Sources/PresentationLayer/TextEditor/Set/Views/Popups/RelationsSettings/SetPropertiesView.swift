@@ -56,7 +56,7 @@ struct SetPropertiesView: View {
         ForEach(model.relations) { property in
             propertyRow(property)
                 .divider()
-                .deleteDisabled(!property.canBeRemovedFromObject)
+                .deleteDisabled(!property.canBeRemoved)
         }
         .onDelete { indexes in
             model.deleteProperties(indexes: indexes)
