@@ -18,8 +18,8 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var hideCoCreator: Bool {
-        value(for: .hideCoCreator)
+    static var hideWebPayments: Bool {
+        value(for: .hideWebPayments)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -195,7 +195,7 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .hideCoCreator,
+        .hideWebPayments,
         .homeSpaceLevelChat,
         .openMediaFileInPreview,
         .newPlusMenu,

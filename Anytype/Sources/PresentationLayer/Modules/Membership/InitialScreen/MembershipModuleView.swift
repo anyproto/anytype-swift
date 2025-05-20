@@ -93,7 +93,7 @@ struct MembershipModuleView: View {
             }
             
             Spacer.fixedHeight(32)
-            if !FeatureFlags.hideCoCreator {
+            if !FeatureFlags.hideWebPayments {
                 contactUs
                 Spacer.fixedHeight(24)
             }

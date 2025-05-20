@@ -73,8 +73,8 @@ struct MembershipTierSelectionView: View {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let url):
-                    if FeatureFlags.hideCoCreator {
-                        EmptyView()
+                    if FeatureFlags.hideWebPayments {
+                        notAvaliableOnAppStore
                     } else {
                         moreInfoButton(url: url)
                     }
@@ -91,6 +91,18 @@ struct MembershipTierSelectionView: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 34)
+        }
+        .background(Color.Background.primary)
+        .cornerRadius(16, corners: .top)
+    }
+    
+    var notAvaliableOnAppStore: some View {
+        VStack {
+            AnytypeText(Loc.Membership.unavailable, style: .calloutRegular)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.Text.primary)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 34)
         }
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
