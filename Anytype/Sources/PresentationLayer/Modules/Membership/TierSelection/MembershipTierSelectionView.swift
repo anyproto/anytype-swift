@@ -98,7 +98,7 @@ struct MembershipTierSelectionView: View {
     
     var notAvaliableOnAppStore: some View {
         VStack {
-            AnytypeText(Loc.Membership.unavailable, style: .calloutRegular)
+            AnytypeText(Loc.Membership.unavailable, style: .uxTitle2Regular)
                 .frame(maxWidth: .infinity)
                 .foregroundColor(.Text.primary)
                 .padding(.horizontal, 20)
