@@ -8,7 +8,7 @@ import Combine
 @MainActor
 final class SetPropertiesViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
-    @Published var relations = [SetViewSettingsRelation]()
+    @Published var relations = [SetViewSettingsProperty]()
     
     private let setDocument: any SetDocumentProtocol
     private let viewId: String
@@ -123,7 +123,7 @@ final class SetPropertiesViewModel: ObservableObject {
             view = setDocument.view(by: viewId)
             
             relations = setDocument.sortedRelations(for: viewId).map { relation in
-                SetViewSettingsRelation(
+                SetViewSettingsProperty(
                     id: relation.id,
                     image: relation.relationDetails.format.iconAsset,
                     title: relation.relationDetails.name,

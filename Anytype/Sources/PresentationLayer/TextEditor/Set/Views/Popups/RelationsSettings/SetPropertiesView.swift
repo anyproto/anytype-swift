@@ -53,10 +53,10 @@ struct SetPropertiesView: View {
     }
     
     private var propertiesSection: some View {
-        ForEach(model.relations) { relation in
-            propertyRow(relation)
+        ForEach(model.relations) { property in
+            propertyRow(property)
                 .divider()
-                .deleteDisabled(!relation.canBeRemovedFromObject)
+                .deleteDisabled(!property.canBeRemovedFromObject)
         }
         .onDelete { indexes in
             model.deleteProperties(indexes: indexes)
@@ -66,16 +66,16 @@ struct SetPropertiesView: View {
         }
     }
     
-    private func propertyRow(_ relation: SetViewSettingsRelation) -> some View {
+    private func propertyRow(_ property: SetViewSettingsProperty) -> some View {
         HStack(spacing: 0) {
-            Image(asset: relation.image)
+            Image(asset: property.image)
                 .foregroundColor(.Control.active)
             Spacer.fixedWidth(10)
             AnytypeToggle(
-                title: relation.title,
-                isOn: relation.isOn
+                title: property.title,
+                isOn: property.isOn
             ) {
-                relation.onChange($0)
+                property.onChange($0)
             }
         }
         .frame(height: 52)

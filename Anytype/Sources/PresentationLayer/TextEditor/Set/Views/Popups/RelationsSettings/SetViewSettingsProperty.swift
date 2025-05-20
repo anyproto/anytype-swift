@@ -1,4 +1,4 @@
-struct SetViewSettingsRelation: Identifiable, Equatable {
+struct SetViewSettingsProperty: Identifiable, Equatable {
     let id: String
     let image: ImageAsset
     let title: String
