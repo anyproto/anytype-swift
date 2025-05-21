@@ -20,7 +20,7 @@ struct SetViewSettingsCoordinatorView: View {
             .mediumPresentationDetents()
         }
         .sheet(isPresented: $model.showRelations) {
-            SetRelationsCoordinatorView(
+            SetPropertiesCoordinatorView(
                 setDocument: model.data.setDocument,
                 viewId: model.data.viewId
             )

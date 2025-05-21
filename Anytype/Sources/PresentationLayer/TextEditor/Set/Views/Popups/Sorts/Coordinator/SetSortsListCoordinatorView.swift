@@ -14,7 +14,7 @@ struct SetSortsListCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.sortsSearchData) { data in
-            SetRelationsDetailsLocalSearchView(data: data)
+            SetPropertiesDetailsLocalSearchView(data: data)
         }
         .sheet(item: $model.sortTypesData) { data in
             SetSortTypesListView(data: data)

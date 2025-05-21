@@ -119,6 +119,13 @@ private extension AnytypeWidgetId {
                 description: nil,
                 icon: .asset(.SystemWidgets.bin)
             )
+        case .chat:
+            return WidgetAnytypeLibrarySource(
+                type: .chat,
+                name: Loc.chat,
+                description: nil,
+                icon: .asset(.SystemWidgets.chat)
+            )
         }
     }
 }

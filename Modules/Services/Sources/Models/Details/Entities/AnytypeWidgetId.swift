@@ -6,4 +6,5 @@ public enum AnytypeWidgetId: String, CaseIterable, Sendable {
     case recent = "recent"
     case recentOpen = "recentOpen"
     case bin = "bin"
+    case chat = "chat"
 }

@@ -81,17 +81,19 @@ struct SpaceJoinView: View {
             .if(placeholder) {
                 $0.redacted(reason: .placeholder)
             }
-            if withoutApprove {
-                Spacer.fixedHeight(8)
-                StandardButton(Loc.cancel, style: .secondaryLarge, action: {
-                    model.onCancel()
-                })
-            } else {
-                Spacer.fixedHeight(17)
-                AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
-                    .foregroundColor(.Text.secondary)
-            }
             
+            if !placeholder {
+                if withoutApprove {
+                    Spacer.fixedHeight(8)
+                    StandardButton(Loc.cancel, style: .secondaryLarge, action: {
+                        model.onCancel()
+                    })
+                } else {
+                    Spacer.fixedHeight(17)
+                    AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
+                        .foregroundColor(.Text.secondary)
+                }
+            }
         }
         .padding(.horizontal, 16)
         .padding(.top, 24)

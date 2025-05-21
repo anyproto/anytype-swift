@@ -69,7 +69,7 @@ struct TypePropertiesView: View {
     private var fieldsList: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                relationsSection
+                propertiesSection
                 
                 if model.conflictRelations.isNotEmpty {
                     localFieldsSection
@@ -82,14 +82,14 @@ struct TypePropertiesView: View {
         .buttonStyle(BorderlessButtonStyle())
     }
     
-    private var relationsSection: some View {
+    private var propertiesSection: some View {
         ForEach(model.relationRows) { row in
             Group {
                 switch row {
                 case .header(let header):
                     headerRow(header).padding(.horizontal, 20)
                 case .relation(let relation):
-                    relationRow(relation)
+                    propertyRow(relation)
                         .divider()
                 case .emptyRow:
                     Rectangle().foregroundStyle(Color.clear).fixTappableArea().frame(height: 52)
@@ -116,7 +116,7 @@ struct TypePropertiesView: View {
         }
     }
     
-    private func relationRow(_ data: TypePropertiesRelationRow) -> some View {
+    private func propertyRow(_ data: TypePropertiesRelationRow) -> some View {
         HStack(spacing: 0) {
             Button {
                 model.onRelationTap(data)

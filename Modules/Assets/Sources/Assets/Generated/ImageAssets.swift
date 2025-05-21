@@ -633,6 +633,7 @@ extension ImageAsset {
   public enum SystemWidgets {
     public static let allObjects = ImageAsset.bundle(name: "SystemWidgets/AllObjects")
     public static let bin = ImageAsset.bundle(name: "SystemWidgets/Bin")
+    public static let chat = ImageAsset.bundle(name: "SystemWidgets/Chat")
     public static let favorites = ImageAsset.bundle(name: "SystemWidgets/Favorites")
     public static let members = ImageAsset.bundle(name: "SystemWidgets/Members")
     public static let recentlyEdited = ImageAsset.bundle(name: "SystemWidgets/RecentlyEdited")

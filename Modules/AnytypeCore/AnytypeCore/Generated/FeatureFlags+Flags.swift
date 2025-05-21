@@ -18,8 +18,8 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var hideCoCreator: Bool {
-        value(for: .hideCoCreator)
+    static var hideWebPayments: Bool {
+        value(for: .hideWebPayments)
     }
 
     static var homeSpaceLevelChat: Bool {
@@ -126,6 +126,10 @@ public extension FeatureFlags {
         value(for: .openFullscreenObjectsFromSetWidget)
     }
 
+    static var chatWidget: Bool {
+        value(for: .chatWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -195,7 +199,7 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .hideCoCreator,
+        .hideWebPayments,
         .homeSpaceLevelChat,
         .openMediaFileInPreview,
         .newPlusMenu,
@@ -222,6 +226,7 @@ public extension FeatureFlags {
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
         .openFullscreenObjectsFromSetWidget,
+        .chatWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

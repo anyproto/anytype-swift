@@ -25,6 +25,8 @@ extension AnytypeWidgetId {
             return .recentOpen
         case .bin:
             return .bin
+        case .chat:
+            return .chat
         }
     }
 }

@@ -24,8 +24,8 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let hideCoCreator = FeatureDescription(
-        title: "Hide CoCreator tier",
+    static let hideWebPayments = FeatureDescription(
+        title: "Hide web based payments for memebership tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
         defaultValue: true
     )
@@ -216,6 +216,12 @@ public extension FeatureDescription {
         title: "Open fullscreen object from set widget",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
         defaultValue: true
+    )
+    
+    static let chatWidget = FeatureDescription(
+        title: "Chat Widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
+        defaultValue: false
     )
     
     // MARK: - Debug

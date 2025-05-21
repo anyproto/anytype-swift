@@ -17,8 +17,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
@@ -28,11 +27,12 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     // MARK: - State
     
+    private let showSpaceChat: Bool
+    
     @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
-    @Published var showSpaceChat: Bool = false
     
     var spaceId: String { info.accountSpaceId }
     
@@ -43,6 +43,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.info = info
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
+        self.showSpaceChat = workspaceStorage.spaceView(spaceId: info.accountSpaceId).map { !$0.initialScreenIsChat } ?? false
     }
     
     func startWidgetObjectTask() async {
@@ -52,7 +53,16 @@ final class HomeWidgetsViewModel: ObservableObject {
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
-            let newWidgetBlocks = blocks.compactMap { widgetObject.widgetInfo(block: $0) }
+            var newWidgetBlocks = blocks
+                .compactMap { widgetObject.widgetInfo(block: $0) }
+            
+            let chatWidgets = newWidgetBlocks.filter { $0.source == .library(.chat) }
+            
+            newWidgetBlocks.removeAll { $0.source == .library(.chat) }
+            
+            if FeatureFlags.chatWidget, showSpaceChat {
+                newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
+            }
             
             guard widgetBlocks != newWidgetBlocks else { continue }
             
@@ -68,16 +78,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             homeState = canEdit ? .readwrite : .readonly
-        }
-    }
-    
-    func startSpaceTask() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: info.accountSpaceId).values {
-            if spaceView.chatToggleEnable {
-                showSpaceChat = !spaceView.initialScreenIsChat
-            } else {
-                showSpaceChat = false
-            }
         }
     }
     

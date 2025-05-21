@@ -226,6 +226,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                         },
                         onTemplateSelection: data.onTemplateSelection
                     )
+                case .toggleIsDefault:
+                    anytypeAssertionFailure("Unsupported action for lists: toggleIsDefault")
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
@@ -250,6 +252,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
             AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: data.setDocument.isCollection() ? .collection : .set)
+        case .toggleIsDefault:
+            anytypeAssertionFailure("Unsupported action for lists: toggleIsDefault")
         }
     }
     
@@ -282,8 +286,13 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 }
 
 extension TemplatePreviewModel {
-    init(objectDetails: ObjectDetails, context: TemplatePreviewContext, decoration: TemplateDecoration?) {
-        self = .init(
+    init(
+        objectDetails: ObjectDetails,
+        context: TemplatePreviewContext,
+        isDefault: Bool,
+        decoration: TemplateDecoration?
+    ) {
+        self = TemplatePreviewModel(
             mode: .installed(.init(
                 id: objectDetails.id,
                 title: objectDetails.title,
@@ -295,6 +304,7 @@ extension TemplatePreviewModel {
                     onCoverTap: {}
                 ),
                 isBundled: objectDetails.templateIsBundled,
+                isDefault: isDefault,
                 style: objectDetails.resolvedLayoutValue == .todo ? .todo(objectDetails.isDone) : .none
             )
             ),

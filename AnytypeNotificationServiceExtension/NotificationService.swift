@@ -26,6 +26,7 @@ class NotificationService: UNNotificationServiceExtension {
         if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
             bestAttemptContent.title = decryptedMessage.newMessage.spaceName
             bestAttemptContent.body = "\(decryptedMessage.newMessage.senderName): \(decryptedMessage.newMessage.text)"
+            bestAttemptContent.threadIdentifier = decryptedMessage.newMessage.chatId
             bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
                 DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
                 DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId

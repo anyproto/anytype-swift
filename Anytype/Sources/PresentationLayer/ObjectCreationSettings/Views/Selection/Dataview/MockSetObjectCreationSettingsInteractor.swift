@@ -51,6 +51,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                     title: "Awesome template",
                     header: .none,
                     isBundled: false,
+                    isDefault: true,
                     style: .todo(false)
                 )
             ),
@@ -82,6 +83,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                         )
                     ),
                     isBundled: false,
+                    isDefault: false,
                     style: .todo(false)
                 )
             ),
@@ -112,6 +114,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                                 onTap: {}))
                     ),
                     isBundled: false,
+                    isDefault: false,
                     style: .todo(false)
                 )
             ),
@@ -136,6 +139,7 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                         )
                     ),
                     isBundled: false,
+                    isDefault: false,
                     style: .todo(false)
                 )
             ),

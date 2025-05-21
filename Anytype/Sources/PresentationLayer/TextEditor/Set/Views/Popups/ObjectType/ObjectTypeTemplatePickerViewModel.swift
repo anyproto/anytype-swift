@@ -1,6 +1,7 @@
 import SwiftUI
 import Services
 import AnytypeCore
+import AsyncAlgorithms
 @preconcurrency import Combine
 
 @MainActor
@@ -65,20 +66,24 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     
     // MARK: - Private
     private func subscribe() async {
-        let publisher = await templatesSubscription.startSubscription(objectType: document.objectId, spaceId: document.spaceId, update: nil)
-        for await rawTemplates in publisher.values {
-            buildTemplates(rawTemplates)
+        let detailsPublisher = document.detailsPublisher
+        let templatesPublisher = await templatesSubscription.startSubscription(objectType: document.objectId, spaceId: document.spaceId, update: nil)
+        
+        let combinedStream = combineLatest(detailsPublisher.values, templatesPublisher.values).throttle(milliseconds: 300)
+        
+        for await (details, rawTemplates) in combinedStream {
+            buildTemplates(documentDetails: details, rawTemplates: rawTemplates)
         }
     }
     
     // Adding ephemeral Blank template and create new template button
-    private func buildTemplates(_ rawTemplates: [ObjectDetails]) {
+    private func buildTemplates(documentDetails: ObjectDetails, rawTemplates: [ObjectDetails]) {
         var templates = [TemplatePreviewModel]()
         
         let middlewareTemplates = rawTemplates.map { details in
-            let isDefault = details.id == document.details?.defaultTemplateId
+            let isDefault = details.id == documentDetails.defaultTemplateId
             let decoration: TemplateDecoration? = isDefault ? .defaultBadge : nil
-            return TemplatePreviewModel(objectDetails: details, context: .type, decoration: decoration)
+            return TemplatePreviewModel(objectDetails: details, context: .type, isDefault: isDefault, decoration: decoration)
         }
         
         templates += middlewareTemplates
@@ -115,6 +120,12 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
                     toastBarData = ToastBarData(Loc.Templates.Popup.duplicated)
                 case .editTemplate:
                     anytypeAssertionFailure("Unsupported action .editTemplate")
+                case .toggleIsDefault(let isDefault):
+                    if isDefault {
+                        try await templatesService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: "")
+                    } else {
+                        try await templatesService.setTemplateAsDefaultForType(objectTypeId: document.objectId, templateId: templateViewModel.id)
+                    }
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
@@ -138,6 +149,8 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
             AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: .type)
+        case .toggleIsDefault(let isDefault):
+            AnytypeAnalytics.instance().logChangeDefaultTemplate(objectType: objectType, route: .type)
         }
     }
 }

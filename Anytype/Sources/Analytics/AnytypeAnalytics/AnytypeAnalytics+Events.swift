@@ -1374,4 +1374,8 @@ extension AnytypeAnalytics {
     func logScreenTypeTemplateSelector() {
         logEvent("ScreenTypeTemplateSelector")
     }
+    
+    func logReorderSpace() {
+        logEvent("ReorderSpace")
+    }
 }

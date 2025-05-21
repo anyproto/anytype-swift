@@ -6,10 +6,10 @@ final class SetSortsSearchViewModel {
     let selectionMode: LegacySearchViewModel.SelectionMode = .singleItem
     
     private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never> ()
-    private let interactor: SetRelationsDetailsLocalSearchInteractor
+    private let interactor: SetPropertiesDetailsLocalSearchInteractor
     private let onSelect: (_ details: [RelationDetails]) -> Void
     
-    init(interactor: SetRelationsDetailsLocalSearchInteractor, onSelect: @escaping (_ details: [RelationDetails]) -> Void) {
+    init(interactor: SetPropertiesDetailsLocalSearchInteractor, onSelect: @escaping (_ details: [RelationDetails]) -> Void) {
         self.interactor = interactor
         self.onSelect = onSelect
     }

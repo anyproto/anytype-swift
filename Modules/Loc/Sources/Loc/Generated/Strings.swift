@@ -437,7 +437,9 @@ public enum Loc {
   public static let unlimited = Loc.tr("Localizable", "unlimited", fallback: "Unlimited")
   public static let unlock = Loc.tr("Localizable", "Unlock", fallback: "Unlock")
   public static let unpin = Loc.tr("Localizable", "Unpin", fallback: "Unpin")
+  public static let unread = Loc.tr("Localizable", "Unread", fallback: "Unread")
   public static let unselectAll = Loc.tr("Localizable", "Unselect all", fallback: "Unselect all")
+  public static let unsetAsDefault = Loc.tr("Localizable", "Unset as default", fallback: "Unset as default")
   public static let unsplash = Loc.tr("Localizable", "Unsplash", fallback: "Unsplash")
   public static let unsupported = Loc.tr("Localizable", "Unsupported", fallback: "Unsupported")
   public static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
@@ -1191,6 +1193,7 @@ public enum Loc {
   }
   public enum Membership {
     public static let emailValidation = Loc.tr("Localizable", "Membership.EmailValidation", fallback: "Enter the code sent to your email")
+    public static let unavailable = Loc.tr("Localizable", "Membership.unavailable", fallback: "This tier is not available in the app. We know it's not ideal.")
     public enum Ad {
       public static let subtitle = Loc.tr("Localizable", "Membership.Ad.Subtitle", fallback: "Joining Anytype network means contributing to its story")
       public static let title = Loc.tr("Localizable", "Membership.Ad.Title", fallback: "Membership")

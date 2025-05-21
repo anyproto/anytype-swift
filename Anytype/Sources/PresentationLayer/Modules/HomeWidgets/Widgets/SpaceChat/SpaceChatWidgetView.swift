@@ -6,9 +6,9 @@ struct SpaceChatWidgetView: View {
     @StateObject private var model: SpaceChatWidgetViewModel
     @Binding var homeState: HomeWidgetsState
     
-    init(spaceId: String, homeState: Binding<HomeWidgetsState>, output: (any CommonWidgetModuleOutput)?) {
-        self._homeState = homeState
-        self._model = StateObject(wrappedValue: SpaceChatWidgetViewModel(spaceId: spaceId, output: output))
+    init(data: WidgetSubmoduleData) {
+        self._homeState = data.homeState
+        self._model = StateObject(wrappedValue: SpaceChatWidgetViewModel(spaceId: data.workspaceInfo.accountSpaceId, output: data.output))
     }
     
     var body: some View {
