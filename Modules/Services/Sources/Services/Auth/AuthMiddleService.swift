@@ -38,7 +38,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
     public func createWallet(rootPath: String) async throws -> String {
         let result = try await ClientCommands.walletCreate(.with {
             $0.rootPath = rootPath
-        }).invoke()
+        }).invoke(responseMask: { $0.mnemonic = "***" })
         return result.mnemonic
     }
     
@@ -72,7 +72,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
             try await ClientCommands.walletRecover(.with {
                 $0.rootPath = rootPath
                 $0.mnemonic = mnemonic
-            }).invoke(ignoreLogErrors: .badInput)
+            }).invoke(requestMask: { $0.mnemonic = "***" }, ignoreLogErrors: .badInput)
         } catch let responseError as Anytype_Rpc.Wallet.Recover.Response.Error {
             throw responseError.asError
         }
@@ -128,7 +128,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
         do {
             let result = try await ClientCommands.walletConvert(.with {
                 $0.entropy = entropy
-            }).invoke()
+            }).invoke(responseMask: { $0.mnemonic = "***" })
             return result.mnemonic
         } catch {
             throw AuthServiceError.selectAccountError
