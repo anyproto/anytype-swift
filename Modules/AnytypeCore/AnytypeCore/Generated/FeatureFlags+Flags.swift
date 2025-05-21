@@ -126,6 +126,10 @@ public extension FeatureFlags {
         value(for: .openFullscreenObjectsFromSetWidget)
     }
 
+    static var chatWidget: Bool {
+        value(for: .chatWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -222,6 +226,7 @@ public extension FeatureFlags {
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
         .openFullscreenObjectsFromSetWidget,
+        .chatWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
