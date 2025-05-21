@@ -136,7 +136,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         let attachmentsIds = message.attachments.map(\.target)
         let attachments = attachmentsIds.compactMap { id in dependencies.first { $0.id == id } }
         
-        let creator = dependencies.first { $0.id == message.creator }
+        // TODO: change to full equality after MW fix
+        let creator = dependencies.first { $0.id.hasSuffix(message.creator) }
         
         let message = LastMessagePreview(
             creator: creator,
