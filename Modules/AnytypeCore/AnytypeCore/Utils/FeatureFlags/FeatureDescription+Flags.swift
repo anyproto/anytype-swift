@@ -75,8 +75,7 @@ public extension FeatureDescription {
     static let enablePushMessages = FeatureDescription(
         title: "Enable push messages (⚠️ please restart the app after enabling)",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: true
     )
     
     static let aiToolInSet = FeatureDescription(
