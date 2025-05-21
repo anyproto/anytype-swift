@@ -199,7 +199,7 @@ public extension FeatureDescription {
     
     static let spaceLoadingForScreen = FeatureDescription(
         title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
         debugValue: false
@@ -207,7 +207,7 @@ public extension FeatureDescription {
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
     )
