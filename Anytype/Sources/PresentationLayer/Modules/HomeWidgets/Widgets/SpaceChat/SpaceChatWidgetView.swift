@@ -40,7 +40,15 @@ struct SpaceChatWidgetView: View {
                     }
                 )
             },
-            menu: { },
+            menu: {
+                WidgetCommonActionsMenuView(
+                    items: [.remove],
+                    widgetBlockId: model.widgetBlockId,
+                    widgetObject: model.widgetObject,
+                    homeState: homeState,
+                    output: model.output
+                )
+            },
             content: { EmptyView() }
         )
         .task {

@@ -89,6 +89,10 @@ extension SpaceView {
         FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
     }
     
+    var canAddChatWidget: Bool {
+        !initialScreenIsChat && isShared
+    }
+    
     func canAddWriters(participants: [Participant]) -> Bool {
         guard canAddReaders(participants: participants) else { return false }
         guard let writersLimit else { return true }
