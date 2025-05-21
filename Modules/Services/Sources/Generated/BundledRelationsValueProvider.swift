@@ -160,6 +160,7 @@ public protocol BundledRelationsValueProvider {
     var autoWidgetDisabled: Bool { get }
     var pluralName: String { get }
     var headerRelationsLayout: Int? { get }
+    var apiObjectKey: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -745,5 +746,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Layout of header relations. Line or column
     var headerRelationsLayout: Int? {
         return value(for: BundledRelationKey.headerRelationsLayout.rawValue)
+    }
+    /// Identifier to use in intergrations with Anytype API
+    var apiObjectKey: String {
+        return value(for: BundledRelationKey.apiObjectKey.rawValue)
     }
 }

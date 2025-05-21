@@ -40,6 +40,8 @@ extension Anytype_Event.Account {
 
         public var processPath: String = String()
 
+        public var name: String = String()
+
         public var signatureVerified: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -106,6 +108,7 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "processName"),
     2: .same(proto: "processPath"),
+    4: .same(proto: "name"),
     3: .same(proto: "signatureVerified"),
   ]
 
@@ -118,6 +121,7 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
       case 1: try { try decoder.decodeSingularStringField(value: &self.processName) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.processPath) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.signatureVerified) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.name) }()
       default: break
       }
     }
@@ -133,12 +137,16 @@ extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message,
     if self.signatureVerified != false {
       try visitor.visitSingularBoolField(value: self.signatureVerified, fieldNumber: 3)
     }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Account.LinkChallenge.ClientInfo, rhs: Anytype_Event.Account.LinkChallenge.ClientInfo) -> Bool {
     if lhs.processName != rhs.processName {return false}
     if lhs.processPath != rhs.processPath {return false}
+    if lhs.name != rhs.name {return false}
     if lhs.signatureVerified != rhs.signatureVerified {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

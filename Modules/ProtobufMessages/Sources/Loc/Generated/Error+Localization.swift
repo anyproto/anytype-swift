@@ -307,6 +307,56 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: LocalizedEr
     }
 }
 
+extension Anytype_Rpc.Account.LocalLink.CreateApp.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.CreateApp.badInput")
+            case .accountIsNotRunning:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.CreateApp.accountIsNotRunning")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Account.LocalLink.ListApps.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.ListApps.badInput")
+            case .accountIsNotRunning:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.ListApps.accountIsNotRunning")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -328,6 +378,33 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: LocalizedEr
                 return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.NewChallenge.accountIsNotRunning")
             case .tooManyRequests:
                 return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.NewChallenge.tooManyRequests")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.RevokeApp.badInput")
+            case .notFound:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.RevokeApp.notFound")
+            case .accountIsNotRunning:
+                return LocHelper.tr(table: "LocalizableError", key: "Account.LocalLink.RevokeApp.accountIsNotRunning")
             case .UNRECOGNIZED:
                 return ""
         }
