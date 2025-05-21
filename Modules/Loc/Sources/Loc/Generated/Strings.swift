@@ -437,6 +437,7 @@ public enum Loc {
   public static let unlimited = Loc.tr("Localizable", "unlimited", fallback: "Unlimited")
   public static let unlock = Loc.tr("Localizable", "Unlock", fallback: "Unlock")
   public static let unpin = Loc.tr("Localizable", "Unpin", fallback: "Unpin")
+  public static let unread = Loc.tr("Localizable", "Unread", fallback: "Unread")
   public static let unselectAll = Loc.tr("Localizable", "Unselect all", fallback: "Unselect all")
   public static let unsetAsDefault = Loc.tr("Localizable", "Unset as default", fallback: "Unset as default")
   public static let unsplash = Loc.tr("Localizable", "Unsplash", fallback: "Unsplash")
