@@ -43,7 +43,6 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
 }
 
 final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendable {
-    
     @UserDefault("showUnstableMiddlewareError", defaultValue: true)
     var showUnstableMiddlewareError: Bool
     
