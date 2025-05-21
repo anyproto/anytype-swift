@@ -436,4 +436,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Layout of header relations. Line or column
     case headerRelationsLayout = "headerRelationsLayout"
+
+    /// Identifier to use in intergrations with Anytype API
+    case apiObjectKey = "apiObjectKey"
 }

@@ -84,6 +84,36 @@ public struct ClientCommands {
         }
     }
 
+    public static func accountLocalLinkCreateApp(
+        _ request: Anytype_Rpc.Account.LocalLink.CreateApp.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.LocalLink.CreateApp.Request, Anytype_Rpc.Account.LocalLink.CreateApp.Response> {
+        return Invocation(messageName: "AccountLocalLinkCreateApp", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountLocalLinkCreateApp(requestData) ?? Data()
+            return try Anytype_Rpc.Account.LocalLink.CreateApp.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountLocalLinkListApps(
+        _ request: Anytype_Rpc.Account.LocalLink.ListApps.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.LocalLink.ListApps.Request, Anytype_Rpc.Account.LocalLink.ListApps.Response> {
+        return Invocation(messageName: "AccountLocalLinkListApps", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountLocalLinkListApps(requestData) ?? Data()
+            return try Anytype_Rpc.Account.LocalLink.ListApps.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func accountLocalLinkRevokeApp(
+        _ request: Anytype_Rpc.Account.LocalLink.RevokeApp.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Account.LocalLink.RevokeApp.Request, Anytype_Rpc.Account.LocalLink.RevokeApp.Response> {
+        return Invocation(messageName: "AccountLocalLinkRevokeApp", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceAccountLocalLinkRevokeApp(requestData) ?? Data()
+            return try Anytype_Rpc.Account.LocalLink.RevokeApp.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func walletCreateSession(
         _ request: Anytype_Rpc.Wallet.CreateSession.Request = .init()
     ) -> Invocation<Anytype_Rpc.Wallet.CreateSession.Request, Anytype_Rpc.Wallet.CreateSession.Response> {
