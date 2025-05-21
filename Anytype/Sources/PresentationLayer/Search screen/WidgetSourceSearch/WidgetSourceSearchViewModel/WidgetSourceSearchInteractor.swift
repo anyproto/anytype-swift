@@ -24,11 +24,13 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     private let openedDocumentsProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
     private let spaceId: String
     private let widgetObjectId: String
     private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
     private let widgetObject: any BaseDocumentProtocol
+    private let spaceView: SpaceView?
     
     private var widgetTypeIds: [String]?
     
@@ -36,6 +38,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
         self.spaceId = spaceId
         self.widgetObjectId = widgetObjectId
         self.widgetObject = openedDocumentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
+        self.spaceView = workspaceStorage.spaceView(spaceId: spaceId)
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
@@ -67,7 +70,11 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     func anytypeLibrarySearch(text: String) async throws -> [WidgetAnytypeLibrarySource] {
         let sourceIds = try await sourceIds()
-        let anytypeLibrary = anytypeLibrary.filter { !sourceIds.contains($0.type.rawValue) }
+        var anytypeLibrary = anytypeLibrary.filter { !sourceIds.contains($0.type.rawValue) }
+        
+        if spaceView?.canAddChatWidget == false {
+            anytypeLibrary.removeAll { $0.type == .chat }
+        }
         
         guard text.isNotEmpty else { return anytypeLibrary }
         return anytypeLibrary.filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
