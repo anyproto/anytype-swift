@@ -13,6 +13,7 @@ public protocol BookmarkServiceProtocol: Sendable {
     func createBookmarkObject(
         spaceId: String,
         url: AnytypeURL,
+        templateId: String?,
         origin: ObjectOrigin
     ) async throws -> ObjectDetails
     func fetchBookmarkContent(bookmarkId: String, url: AnytypeURL) async throws
