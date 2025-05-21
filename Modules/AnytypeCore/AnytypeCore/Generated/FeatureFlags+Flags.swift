@@ -130,6 +130,10 @@ public extension FeatureFlags {
         value(for: .chatWidget)
     }
 
+    static var checkLoginInNotificationService: Bool {
+        value(for: .checkLoginInNotificationService)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -227,6 +231,7 @@ public extension FeatureFlags {
         .binScreenEmptyAction,
         .openFullscreenObjectsFromSetWidget,
         .chatWidget,
+        .checkLoginInNotificationService,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

@@ -20,8 +20,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var seedService: any SeedServiceProtocol
     @Injected(\.fileErrorEventHandler)
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.basicUserInfoStorage)
+    private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
     @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
@@ -95,7 +95,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         case .pendingDeletion:
             applicationStateService.state = .delete
         case .deleted:
-            if userDefaults.usersId.isNotEmpty {
+            if basicUserInfoStorage.usersId.isNotEmpty {
                 try? await authService.logout(removeData: true)
                 applicationStateService.state = .auth
             }
@@ -125,7 +125,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Process
 
     private func loginProcess() async {
-        let userId = userDefaults.usersId
+        let userId = basicUserInfoStorage.usersId
         guard userId.isNotEmpty else {
             applicationStateService.state = .auth
             return

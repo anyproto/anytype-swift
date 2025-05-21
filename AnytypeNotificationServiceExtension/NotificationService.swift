@@ -1,14 +1,21 @@
 import UserNotifications
 import Services
+import AnytypeCore
 
 class NotificationService: UNNotificationServiceExtension {
     
     private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = Container.shared.decryptionPushContentService()
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+        
+        if FeatureFlags.checkLoginInNotificationService, basicUserInfoStorage.usersId.isEmpty {
+            return
+        }
+        
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         

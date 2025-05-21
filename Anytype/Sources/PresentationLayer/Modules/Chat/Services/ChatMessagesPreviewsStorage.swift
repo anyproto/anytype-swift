@@ -17,7 +17,7 @@ fileprivate struct ChatMessagePreviewKey: Hashable {
 actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
-    private let userDefaultsStorage: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
     
     // MARK: - Subscriptions State
     
@@ -47,8 +47,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         subscription?.cancel()
         subscription = nil
         // Implemented in swift 6.1 https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md
-        Task { [chatService, userDefaultsStorage] in
-            guard userDefaultsStorage.usersId.isNotEmpty else { return }
+        Task { [chatService, basicUserInfoStorage] in
+            guard basicUserInfoStorage.usersId.isNotEmpty else { return }
             try await chatService.unsubscribeFromMessagePreviews()
         }
     }
@@ -56,7 +56,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     // MARK: - Private
     
     private func startSubscription() async {
-        guard userDefaultsStorage.usersId.isNotEmpty else {
+        guard basicUserInfoStorage.usersId.isNotEmpty else {
             return
         }
         

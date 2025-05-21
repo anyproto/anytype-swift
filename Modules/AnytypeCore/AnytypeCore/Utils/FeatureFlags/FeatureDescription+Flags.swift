@@ -224,6 +224,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let checkLoginInNotificationService = FeatureDescription(
+        title: "Check login in NotificationService",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

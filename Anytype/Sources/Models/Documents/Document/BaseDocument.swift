@@ -43,8 +43,9 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
+    
     
     // MARK: - Local private state
     @Atomic
@@ -94,7 +95,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     }
     
     deinit {
-        guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, basicUserInfoStorage.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId, spaceId] in
             try await objectLifecycleService.close(contextId: objectId, spaceId: spaceId)
         }
@@ -145,7 +146,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     
     @MainActor
     func close() async throws {
-        guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, basicUserInfoStorage.usersId.isNotEmpty else { return }
         try await objectLifecycleService.close(contextId: objectId, spaceId: spaceId)
         isOpened = false
     }
