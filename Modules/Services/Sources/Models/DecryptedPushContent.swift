@@ -10,5 +10,10 @@ public struct DecryptedPushContent: Codable {
         public let text: String
         public let spaceName: String
         public let senderName: String
+        public let hasAttachments: Bool
+        
+        public var hasText: Bool {
+            text.isNotEmpty
+        }
     }
 }

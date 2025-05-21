@@ -1,6 +1,7 @@
 import UserNotifications
 import Services
 import AnytypeCore
+import Loc
 
 class NotificationService: UNNotificationServiceExtension {
     
@@ -32,7 +33,15 @@ class NotificationService: UNNotificationServiceExtension {
         
         if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
             bestAttemptContent.title = decryptedMessage.newMessage.spaceName
-            bestAttemptContent.body = "\(decryptedMessage.newMessage.senderName): \(decryptedMessage.newMessage.text)"
+            bestAttemptContent.subtitle = "\(decryptedMessage.newMessage.senderName): \(decryptedMessage.newMessage.text)"
+            
+            let attachmetString = "📎" + Loc.PushNotifications.Message.Attachment.title
+            if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
+                bestAttemptContent.body = attachmetString
+            } else if decryptedMessage.newMessage.hasAttachments, !decryptedMessage.newMessage.hasText {
+                bestAttemptContent.subtitle = "\(decryptedMessage.newMessage.senderName): \(attachmetString)"
+            }
+            
             bestAttemptContent.threadIdentifier = decryptedMessage.newMessage.chatId
             bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
                 DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
