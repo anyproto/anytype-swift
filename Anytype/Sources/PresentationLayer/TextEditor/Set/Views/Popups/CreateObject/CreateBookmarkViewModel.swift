@@ -8,6 +8,8 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var typeProvider: any ObjectTypeProviderProtocol
     
     private let spaceId: String
     private let collectionId: String?
@@ -43,7 +45,15 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     private func createBookmarkObject(with url: AnytypeURL) {
         Task { @MainActor in
             do {
-                let details = try await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none)
+                
+                let type = try? typeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
+                
+                let details = try await bookmarkService.createBookmarkObject(
+                    spaceId: spaceId,
+                    url: url,
+                    templateId: type?.defaultTemplateId,
+                    origin: .none
+                )
                 addObjectToCollectionIfNeeded(details)
                 closeAction(details)
                 
