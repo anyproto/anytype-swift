@@ -23,12 +23,14 @@ struct TemplateModel: Equatable {
         title: String,
         header: ObjectHeader?,
         isBundled: Bool,
+        isDefault: Bool,
         style: Style
     ) {
         self.id = id
         self.title = title
         self.header = header
         self.isBundled = isBundled
+        self.isDefault = isDefault
         self.style = style
     }
     
@@ -36,6 +38,7 @@ struct TemplateModel: Equatable {
     let title: String
     let header: ObjectHeader?
     let isBundled: Bool
+    let isDefault: Bool
     let style: Style
 }
 
@@ -85,12 +88,12 @@ extension TemplatePreviewModel {
         switch mode {
         case .addTemplate:
             []
-        case .installed:
+        case .installed(let data):
             switch context {
             case .list:
-                TemplateOptionAction.allCases
+                TemplateOptionAction.listActions(isDefault: data.isDefault)
             case .type:
-                [.duplicate, .delete]
+                TemplateOptionAction.typeActions(isDefault: data.isDefault)
             }
         }
     }
