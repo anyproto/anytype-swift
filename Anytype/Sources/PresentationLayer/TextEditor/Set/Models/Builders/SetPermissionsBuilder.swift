@@ -72,10 +72,12 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         guard let layout = details.recommendedLayoutValue else {
             return false
         }
+        
+        if details.isTemplateType {
+            return false
+        }
 
-        let isSupportedLayout = layout.isEditorLayout || layout.isList
-        let isTemplate = details.isTemplateType
-        return isSupportedLayout && !isTemplate
+        return layout.isSupportedForCreationInSets
 
     }
     
