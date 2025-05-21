@@ -16,9 +16,16 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     }
     
     @discardableResult
-    public func invoke(file: StaticString = #file, function: String = #function, line: UInt = #line, ignoreLogErrors: Response.Error.ErrorCode...) async throws -> Response {
+    public func invoke(
+        requestMask: ((inout Request) -> Void)? = nil,
+        responseMask: ((inout Response) -> Void)? = nil,
+        file: StaticString = #file,
+        function: String = #function,
+        line: UInt = #line,
+        ignoreLogErrors: Response.Error.ErrorCode...
+    ) async throws -> Response {
         do {
-            return try await internalInvoke()
+            return try await internalInvoke(requestMask: requestMask, responseMask: responseMask)
         } catch let error as CancellationError {
             // Ignore try Task.checkCancellation()
             throw error
@@ -33,13 +40,18 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     
     // MARK: - Private
     
-    private func internalInvoke() async throws -> Response {
+    private func internalInvoke(
+        requestMask: ((inout Request) -> Void)?,
+        responseMask: ((inout Response) -> Void)?,
+    ) async throws -> Response {
         
         let result: Response
         
         let requestId = await RequestIdStorage.shared.createId()
-        
-        log(message: messageName, requestId: requestId, data: request)
+    
+        var requestForLog = request
+        requestMask?(&requestForLog)
+        log(message: messageName, requestId: requestId, data: requestForLog)
         
         try Task.checkCancellation()
         
@@ -52,7 +64,10 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
             throw error
         }
         
-        log(message: messageName, requestId: requestId, data: result, error: result.error.isNull ? nil : result.error)
+        var resultForLog = result
+        responseMask?(&resultForLog)
+        let errorForLog = result.error.isNull ? nil : result.error
+        log(message: messageName, requestId: requestId, data: resultForLog, error: errorForLog)
         
         if !result.error.isNull {
             throw result.error
