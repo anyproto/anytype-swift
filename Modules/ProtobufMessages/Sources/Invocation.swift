@@ -42,7 +42,7 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     
     private func internalInvoke(
         requestMask: ((inout Request) -> Void)?,
-        responseMask: ((inout Response) -> Void)?,
+        responseMask: ((inout Response) -> Void)?
     ) async throws -> Response {
         
         let result: Response
