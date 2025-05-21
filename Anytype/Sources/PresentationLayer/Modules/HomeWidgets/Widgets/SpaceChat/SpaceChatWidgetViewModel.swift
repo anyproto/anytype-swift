@@ -17,6 +17,10 @@ final class SpaceChatWidgetViewModel: ObservableObject {
     @Published var hasMentions: Bool = false
     @Published var messageCount: Int = 0
     
+    var widgetBlockId: String { data.widgetBlockId }
+    var widgetObject: any BaseDocumentProtocol { data.widgetObject }
+    weak var output: (any CommonWidgetModuleOutput)? { data.output }
+    
     init(data: WidgetSubmoduleData) {
         self.data = data
     }
