@@ -9,26 +9,27 @@ final class SpaceChatWidgetViewModel: ObservableObject {
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.widgetActionsViewCommonMenuProvider)
+    private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
     
-    private let spaceId: String
-    private weak var output: (any CommonWidgetModuleOutput)?
+    private let data: WidgetSubmoduleData
     
     @Published var hasMentions: Bool = false
     @Published var messageCount: Int = 0
     
-    init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
-        self.spaceId = spaceId
-        self.output = output
+    init(data: WidgetSubmoduleData) {
+        self.data = data
     }
     
     func onHeaderTap() {
+        let spaceId = data.workspaceInfo.accountSpaceId
         guard let chatId = workspaceStorage.spaceView(spaceId: spaceId)?.chatId, chatId.isNotEmpty else { return }
         AnytypeAnalytics.instance().logClickWidgetTitle(source: .chat, createType: .manual)
-        output?.onObjectSelected(screenData: .chat(ChatCoordinatorData(chatId: chatId, spaceId: spaceId)))
+        data.output?.onObjectSelected(screenData: .chat(ChatCoordinatorData(chatId: chatId, spaceId: spaceId)))
     }
     
     func startSubscriptions() async {
-        let spaceId = spaceId
+        let spaceId = data.workspaceInfo.accountSpaceId
         let chatId = workspaceStorage.spaceView(spaceId: spaceId)?.chatId
         let sequence = (await chatMessagesPreviewsStorage.previewsSequence)
             .compactMap { $0.first { $0.spaceId == spaceId && $0.chatId ==  chatId }}
@@ -39,5 +40,13 @@ final class SpaceChatWidgetViewModel: ObservableObject {
             messageCount = counters.unreadCounter
             hasMentions = counters.mentionCounter > 0
         }
+    }
+    
+    func onDeleteWidgetTap() {
+        widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
+            widgetObject: data.widgetObject,
+            widgetBlockId: data.widgetBlockId,
+            homeState: data.homeState.wrappedValue
+        )
     }
 }

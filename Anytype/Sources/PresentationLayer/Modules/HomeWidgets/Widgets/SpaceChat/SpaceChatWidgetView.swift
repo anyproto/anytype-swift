@@ -8,7 +8,7 @@ struct SpaceChatWidgetView: View {
     
     init(data: WidgetSubmoduleData) {
         self._homeState = data.homeState
-        self._model = StateObject(wrappedValue: SpaceChatWidgetViewModel(spaceId: data.workspaceInfo.accountSpaceId, output: data.output))
+        self._model = StateObject(wrappedValue: SpaceChatWidgetViewModel(data: data))
     }
     
     var body: some View {
@@ -16,9 +16,11 @@ struct SpaceChatWidgetView: View {
             isExpanded: .constant(false),
             dragId: nil,
             homeState: $homeState,
-            allowMenuContent: false,
+            allowMenuContent: true,
             allowContent: false,
-            removeAction: nil,
+            removeAction: {
+                model.onDeleteWidgetTap()
+            },
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,
