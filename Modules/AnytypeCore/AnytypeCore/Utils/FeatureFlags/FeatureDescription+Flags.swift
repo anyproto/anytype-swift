@@ -218,6 +218,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let chatWidget = FeatureDescription(
+        title: "Chat Widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
