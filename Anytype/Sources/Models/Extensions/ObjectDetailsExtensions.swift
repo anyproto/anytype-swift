@@ -82,10 +82,10 @@ extension BundledRelationsValueProvider {
         return !isDeleted && !isArchived
     }
     
-    var isTemplateType: Bool { objectType.isTemplateType }
+    var isTemplate: Bool { objectType.isTemplateType }
     
     var canMakeTemplate: Bool {
-        resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty && !isObjectType
+        resolvedLayoutValue.isEditorLayout && !isTemplate && profileOwnerIdentity.isEmpty && !isObjectType
     }
     
     // Properties
