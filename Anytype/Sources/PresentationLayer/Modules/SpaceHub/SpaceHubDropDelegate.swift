@@ -50,7 +50,10 @@ struct SpaceHubDropDelegate: DropDelegate {
         
         let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
         if let destinationItem = allSpaces[safe: destinationIndex] {
-            Task { await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView) }
+            Task {
+                await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
+                AnytypeAnalytics.instance().logReorderSpace()
+            }
         }
     }
 }
