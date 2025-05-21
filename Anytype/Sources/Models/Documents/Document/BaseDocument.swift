@@ -307,7 +307,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     }
     
     private func buildRelations(details: ObjectDetails) -> ParsedRelations? {
-        if details.isTemplateType {
+        if details.isTemplate {
             return buildRelationsForTemplate(details: details)
         } else {
             return buildRelationsForObject(details: details)

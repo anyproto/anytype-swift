@@ -38,7 +38,7 @@ extension ObjectPermissions {
         objectRestrictions: [ObjectRestriction]
     ) {
         let isArchive = details.isArchived
-        let isTemplateType = details.isTemplateType
+        let isTemplate = details.isTemplate
         let isObjectType = details.isObjectType
         
         let caEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
@@ -47,9 +47,9 @@ extension ObjectPermissions {
         
         let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant && !isObjectType
         
-        self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplateType
+        self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplate
         self.canDelete = isArchive && participantCanEdit
-        self.canTemplateSetAsDefault = isTemplateType && canEdit
+        self.canTemplateSetAsDefault = isTemplate && canEdit
         self.canArchive = !objectRestrictions.contains(.delete) && participantCanEdit
         self.canDuplicate = !objectRestrictions.contains(.duplicate) && canApplyUneditableActions && !isObjectType
         
@@ -60,22 +60,22 @@ extension ObjectPermissions {
                                 && canApplyUneditableActions
         
         self.canCreateWidget = details.isVisibleLayout
-                                && !isTemplateType
+                                && !isTemplate
                                 && details.resolvedLayoutValue != .participant
                                 && canApplyUneditableActions
                                 && !isObjectType
         
-        self.canFavorite = canApplyUneditableActions && !isTemplateType && !isObjectType
-        self.canLinkItself = canApplyUneditableActions && !isTemplateType && !isObjectType
-        self.canLock = specificTypes && canApplyUneditableActions && !isTemplateType
+        self.canFavorite = canApplyUneditableActions && !isTemplate && !isObjectType
+        self.canLinkItself = canApplyUneditableActions && !isTemplate && !isObjectType
+        self.canLock = specificTypes && canApplyUneditableActions && !isTemplate
         self.canChangeIcon = details.resolvedLayoutValue.haveIcon && canEdit
         self.canChangeCover = details.resolvedLayoutValue.haveCover && canEdit && !isObjectType
         self.canChangeLayout = details.resolvedLayoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
         self.canEditDetails = !objectRestrictions.contains(.details)
         self.canEditRelationValues = caEditRelations && canEditDetails
         self.canEditRelationsList = canEditRelationValues && !objectRestrictions.contains(.relations)
-        self.canShare = !isTemplateType && !isObjectType
-        self.canApplyTemplates = canEdit && !isTemplateType
+        self.canShare = !isTemplate && !isObjectType
+        self.canApplyTemplates = canEdit && !isTemplate
         self.canEditMessages = canEdit
         self.canShowRelations = !isObjectType
         
