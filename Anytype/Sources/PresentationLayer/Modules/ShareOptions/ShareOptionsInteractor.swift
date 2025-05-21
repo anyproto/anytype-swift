@@ -90,9 +90,12 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createBookmarkObject(url: AnytypeURL, spaceId: String) async throws -> ObjectDetails {
+        let type = try? objectTypeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
+        
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
             url: url,
+            templateId: type?.defaultTemplateId,
             origin: .sharingExtension
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)

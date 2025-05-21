@@ -29,6 +29,7 @@ final class BookmarkService: BookmarkServiceProtocol {
     public func createBookmarkObject(
         spaceId: String,
         url: AnytypeURL,
+        templateId: String?,
         origin: ObjectOrigin
     ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
@@ -40,6 +41,7 @@ final class BookmarkService: BookmarkServiceProtocol {
         let result = try await ClientCommands.objectCreateBookmark(.with {
             $0.details = details
             $0.spaceID = spaceId
+            $0.templateID = templateId ?? ""
         }).invoke()
         return try result.details.toDetails()
     }
