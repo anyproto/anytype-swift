@@ -38,6 +38,8 @@ final class AuthViewModel: ObservableObject {
     private var usecaseService: any UsecaseServiceProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.pushNotificationsPermissionService)
+    private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
     private var subscription: AnyCancellable?
     
@@ -114,6 +116,7 @@ final class AuthViewModel: ObservableObject {
                     iconOption: iconOption,
                     imagePath: ""
                 )
+                await pushNotificationsPermissionService.registerForRemoteNotificationsIfNeeded()
                 try await setDefaultSpaceInfo(account.info.accountSpaceId, iconOption: iconOption)
                 try? seedService.saveSeed(state.mnemonic)
                 
