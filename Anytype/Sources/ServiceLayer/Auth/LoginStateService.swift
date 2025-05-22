@@ -39,6 +39,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
     private let activeSpaceManager: any ActiveSpaceManagerProtocol = Container.shared.activeSpaceManager()
     private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
     
     // MARK: - LoginStateServiceProtocol
     
@@ -64,6 +65,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     func cleanStateAfterLogout() async {
         userDefaults.cleanStateAfterLogout()
+        basicUserInfoStorage.cleanUserIdAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         await stopSubscriptions()

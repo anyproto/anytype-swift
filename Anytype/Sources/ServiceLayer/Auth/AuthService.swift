@@ -13,7 +13,7 @@ actor AuthService: AuthServiceProtocol, Sendable {
     private let appErrorLoggerConfiguration: any AppErrorLoggerConfigurationProtocol = Container.shared.appErrorLoggerConfiguration()
     private let serverConfigurationStorage: any ServerConfigurationStorageProtocol = Container.shared.serverConfigurationStorage()
     private let authMiddleService: any AuthMiddleServiceProtocol = Container.shared.authMiddleService()
-    private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
 
     private let joinStreamUrl = FeatureFlags.joinStream ? Bundle.main.object(forInfoDictionaryKey: "JoinStreamURL") as? String ?? "" : ""
     
@@ -53,8 +53,8 @@ actor AuthService: AuthServiceProtocol, Sendable {
         AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         
-        userDefaults.usersId = account.id
-        userDefaults.analyticsId = account.info.analyticsId
+        basicUserInfoStorage.usersId = account.id
+        basicUserInfoStorage.analyticsId = account.info.analyticsId
         
         accountManager.account = account
         
@@ -99,8 +99,8 @@ actor AuthService: AuthServiceProtocol, Sendable {
     }
     
     private func setupAccountData(_ account: AccountData) async {
-        userDefaults.usersId = account.id
-        userDefaults.analyticsId = account.info.analyticsId
+        basicUserInfoStorage.usersId = account.id
+        basicUserInfoStorage.analyticsId = account.info.analyticsId
         
         accountManager.account = account
         await loginStateService.setupStateAfterLoginOrAuth(account: accountManager.account)

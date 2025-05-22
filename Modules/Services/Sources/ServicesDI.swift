@@ -172,4 +172,8 @@ public extension Container {
     var decryptionPushContentService: Factory<DecryptionPushContentServiceProtocol> {
         self { DecryptionPushContentService() }.shared
     }
+    
+    var basicUserInfoStorage: Factory<BasicUserInfoStorageProtocol> {
+        self { BasicUserInfoStorage() }.singleton
+    }
 }

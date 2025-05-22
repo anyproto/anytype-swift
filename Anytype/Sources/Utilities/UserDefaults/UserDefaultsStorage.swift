@@ -22,8 +22,6 @@ enum LastOpenedScreen: Codable {
 
 protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var showUnstableMiddlewareError: Bool { get set }
-    var usersId: String { get set }
-    var analyticsId: String? { get set }
     var currentVersionOverride: String { get set }
     var installedAtDate: Date? { get set }
     var analyticsUserConsent: Bool { get set }
@@ -47,12 +45,6 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
 final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendable {
     @UserDefault("showUnstableMiddlewareError", defaultValue: true)
     var showUnstableMiddlewareError: Bool
-    
-    @UserDefault("userId", defaultValue: "")
-    var usersId: String
-    
-    @UserDefault("analyticsId", defaultValue: nil)
-    var analyticsId: String?
     
     @UserDefault("UserData.CurrentVersionOverride", defaultValue: "")
     var currentVersionOverride: String
@@ -133,7 +125,6 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     
     // MARK: - Cleanup
     func cleanStateAfterLogout() {
-        usersId = ""
         showUnstableMiddlewareError = true
         lastOpenedScreen = nil
     }
