@@ -43,7 +43,7 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(4)
             switch model.membership.tier?.type {
-            case .starter, .builder, .coCreator, .custom, .explorer:
+            case .starter, .builder, .coCreator, .custom, .explorer, .legacyExplorer:
                 switch model.membership.dateEnds {
                 case .never:
                     AnytypeText(Loc.forever, style: .title)
