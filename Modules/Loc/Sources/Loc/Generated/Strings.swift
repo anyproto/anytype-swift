@@ -1389,6 +1389,11 @@ public enum Loc {
     }
   }
   public enum PushNotifications {
+    public enum Message {
+      public enum Attachment {
+        public static let title = Loc.tr("Localizable", "PushNotifications.Message.Attachment.title", fallback: "Attachment")
+      }
+    }
     public enum RequestAlert {
       public static let description = Loc.tr("Localizable", "PushNotifications.RequestAlert.Description", fallback: "Get notified instantly when someone messages or mentions you in your spaces.")
       public static let notificationTitle = Loc.tr("Localizable", "PushNotifications.RequestAlert.NotificationTitle", fallback: "New Message")
