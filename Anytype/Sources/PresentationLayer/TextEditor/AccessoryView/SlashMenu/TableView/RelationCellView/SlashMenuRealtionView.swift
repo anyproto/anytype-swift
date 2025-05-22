@@ -2,7 +2,7 @@ import UIKit
 import SwiftUI
 
 final class SlashMenuRealtionView: UIView, UIContentView {
-    private var realtionViewModel: RelationNameValueViewModel
+    private var realtionViewModel: PropertyNameValueViewModel
     private let container = UIView()
 
     private var currentConfiguration: SlashMenuRealtionContentConfiguration
@@ -23,8 +23,8 @@ final class SlashMenuRealtionView: UIView, UIContentView {
 
     init(configuration: SlashMenuRealtionContentConfiguration) {
         self.currentConfiguration = configuration
-        self.realtionViewModel = RelationNameValueViewModel(
-            relation: configuration.relation,
+        self.realtionViewModel = PropertyNameValueViewModel(
+            property: configuration.property,
             action: { }
         )
 
@@ -61,7 +61,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
     // MARK: - Apply configuration
 
     func apply(with configuration: SlashMenuRealtionContentConfiguration) {
-        realtionViewModel.relation = configuration.relation
+        realtionViewModel.property = configuration.property
         realtionViewModel.isHighlighted = false
 
         if configuration.currentConfigurationState?.isHighlighted ?? false {
@@ -71,11 +71,11 @@ final class SlashMenuRealtionView: UIView, UIContentView {
 }
 
 struct EnhancedRelationView: View {
-    @ObservedObject var viewModel: RelationNameValueViewModel
+    @ObservedObject var viewModel: PropertyNameValueViewModel
 
     var body: some View {
         GeometryReader { _ in
-            RelationNameValueView(viewModel: viewModel)
+            PropertyNameValueView(viewModel: viewModel)
                 .background(viewModel.isHighlighted ? Color.Background.highlightedMedium : Color.Background.primary)
         }
     }

@@ -59,14 +59,14 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             if item.blockID.isNotEmpty {
                 return buildTextBlockHighlights(with: item)
             } else if item.relationKey.isNotEmpty {
-                return buildRelationData(with: item, spaceId: spaceId)
+                return buildPropertyData(with: item, spaceId: spaceId)
             } else {
                 return nil
             }
         }
     }
     
-    private func buildRelationData(with meta: SearchMeta, spaceId: String) -> HighlightsData? {
+    private func buildPropertyData(with meta: SearchMeta, spaceId: String) -> HighlightsData? {
         guard meta.relationKey != BundledRelationKey.name.rawValue && meta.relationKey != BundledRelationKey.pluralName.rawValue else {
             return nil
         }

@@ -81,9 +81,9 @@ struct SetKanbanColumn: View {
                 )
                 .foregroundColor(.Text.secondary)
             case let .status(options):
-                StatusRelationView(options: options, hint: "", style: .kanbanHeader)
+                StatusPropertyView(options: options, hint: "", style: .kanbanHeader)
             case let .tag(options):
-                TagRelationView(tags: options, hint: "", style: .kanbanHeader)
+                TagPropertyView(tags: options, hint: "", style: .kanbanHeader)
             case let .checkbox(title, isChecked):
                 HStack(spacing: 6) {
                     if isChecked {

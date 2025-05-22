@@ -48,7 +48,7 @@ struct CalendarView: View {
     }
     
     private var quickOptions: some View {
-        ForEach(RelationCalendarQuickOption.allCases) { option in
+        ForEach(PropertyCalendarQuickOption.allCases) { option in
             quickOptionRow(option)
                 .padding(.horizontal, 16)
                 .if(!option.isLast, transform: {
@@ -57,7 +57,7 @@ struct CalendarView: View {
         }
     }
     
-    private func quickOptionRow(_ option: RelationCalendarQuickOption) -> some View {
+    private func quickOptionRow(_ option: PropertyCalendarQuickOption) -> some View {
         Button {
             date = option.date
         } label: {
