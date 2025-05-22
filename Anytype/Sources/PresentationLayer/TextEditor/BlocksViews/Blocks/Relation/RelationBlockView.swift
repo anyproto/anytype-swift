@@ -3,7 +3,7 @@ import SwiftUI
 
 final class RelationBlockView: UIView, BlockContentView {
     // MARK: - Views
-    private let relationValueView = RelationValueViewUIKit()
+    private let relationValueView = PropertyValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
     private let relationIcon = UIImageView()
@@ -22,8 +22,8 @@ final class RelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
-        if !configuration.relation.isDeleted {
-            setupRelationState(relation: configuration.relation, action: configuration.actionOnValue)
+        if !configuration.property.isDeleted {
+            setupRelationState(property: configuration.property, action: configuration.actionOnValue)
         } else {
             setupDeletedState()
         }
@@ -35,24 +35,24 @@ final class RelationBlockView: UIView, BlockContentView {
         relationNameView.setText(Loc.Relation.deleted)
         relationIcon.image = UIImage(asset: .ghost)
         relationIcon.isHidden = false
-        relationValueView.update(with: RelationValueViewConfiguration(
-            relation: nil,
+        relationValueView.update(with: PropertyValueViewConfiguration(
+            property: nil,
             style: .regular(allowMultiLine: false),
             action: nil
         ))
     }
     
     private func setupRelationState(
-        relation: RelationItemModel,
+        property: PropertyItemModel,
         action: (() -> Void)?
     ) {
-        relationNameView.setText(relation.name)
+        relationNameView.setText(property.name)
         relationIcon.image = UIImage(asset: .relationLocked)
         relationIcon.tintColor = .Control.active
-        relationIcon.isHidden = relation.isEditable
+        relationIcon.isHidden = property.isEditable
         relationValueView.update(
             with: .init(
-                relation: relation,
+                property: property,
                 style: .regular(allowMultiLine: true),
                 action: action
             )

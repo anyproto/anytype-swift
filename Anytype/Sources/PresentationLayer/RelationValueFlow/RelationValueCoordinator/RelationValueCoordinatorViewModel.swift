@@ -10,8 +10,8 @@ protocol RelationValueCoordinatorOutput: AnyObject {
 @MainActor
 final class RelationValueCoordinatorViewModel: 
     ObservableObject,
-    ObjectRelationListCoordinatorModuleOutput,
-    TextRelationActionButtonViewModelDelegate
+    ObjectPropertyListCoordinatorModuleOutput,
+    TextPropertyActionButtonViewModelDelegate
 {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
@@ -40,7 +40,7 @@ final class RelationValueCoordinatorViewModel:
         case .date(let date):
             return dateModule(date: date)
         case .status(let status):
-            let configuration = RelationModuleConfiguration(
+            let configuration = PropertyModuleConfiguration(
                 title: status.name,
                 isEditable: relation.isEditable,
                 relationKey: status.key,
@@ -51,18 +51,18 @@ final class RelationValueCoordinatorViewModel:
             )
             mediumDetent = status.values.isNotEmpty || !relation.isEditable
             let selectedOptionsIds = status.values.compactMap { $0.id }
-            return SelectRelationListCoordinatorView(
-                data: SelectRelationListData(
+            return SelectPropertyListCoordinatorView(
+                data: SelectPropertyListData(
                     style: .status,
                     configuration: configuration,
-                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    relationSelectedOptionsModel: PropertySelectedOptionsModel(
                         config: configuration,
                         selectedOptionsIds: selectedOptionsIds
                     )
                 )
             ).eraseToAnyView()
         case .tag(let tag):
-            let configuration = RelationModuleConfiguration(
+            let configuration = PropertyModuleConfiguration(
                 title: tag.name,
                 isEditable: relation.isEditable,
                 relationKey: tag.key,
@@ -73,18 +73,18 @@ final class RelationValueCoordinatorViewModel:
             )
             mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable
             let selectedOptionsIds = tag.selectedTags.compactMap { $0.id }
-            return SelectRelationListCoordinatorView(
-                data: SelectRelationListData(
+            return SelectPropertyListCoordinatorView(
+                data: SelectPropertyListData(
                     style: .tag,
                     configuration: configuration,
-                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    relationSelectedOptionsModel: PropertySelectedOptionsModel(
                         config: configuration,
                         selectedOptionsIds: selectedOptionsIds
                     )
                 )
             ).eraseToAnyView()
         case .object(let object):
-            let configuration = RelationModuleConfiguration(
+            let configuration = PropertyModuleConfiguration(
                 title: object.name,
                 isEditable: relation.isEditable,
                 relationKey: object.key,
@@ -94,14 +94,14 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = object.selectedObjects.isNotEmpty || !relation.isEditable
-            return ObjectRelationListCoordinatorView(
-                data: ObjectRelationListData(
+            return ObjectPropertyListCoordinatorView(
+                data: ObjectPropertyListData(
                     configuration: configuration,
-                    interactor: ObjectRelationListInteractor(
+                    interactor: ObjectPropertyListInteractor(
                         spaceId: configuration.spaceId,
                         limitedObjectTypes: obtainLimitedObjectTypes(with: object.limitedObjectTypes)
                     ),
-                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    relationSelectedOptionsModel: PropertySelectedOptionsModel(
                         config: configuration,
                         selectedOptionsIds: object.selectedObjects.compactMap { $0.id }
                     )
@@ -109,7 +109,7 @@ final class RelationValueCoordinatorViewModel:
                 output: self
             ).eraseToAnyView()
         case .file(let file):
-            let configuration = RelationModuleConfiguration(
+            let configuration = PropertyModuleConfiguration(
                 title: file.name,
                 isEditable: relation.isEditable,
                 relationKey: file.key,
@@ -119,13 +119,13 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = file.files.isNotEmpty || !relation.isEditable
-            return ObjectRelationListCoordinatorView(
-                data: ObjectRelationListData(
+            return ObjectPropertyListCoordinatorView(
+                data: ObjectPropertyListData(
                     configuration: configuration,
-                    interactor: FileRelationListInteractor(
+                    interactor: FilePropertyListInteractor(
                         spaceId: configuration.spaceId
                     ),
-                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                    relationSelectedOptionsModel: PropertySelectedOptionsModel(
                         config: configuration,
                         selectedOptionsIds: file.files.compactMap { $0.id }
                     )
@@ -176,7 +176,7 @@ final class RelationValueCoordinatorViewModel:
     private func dateModule(date: Relation.Date) -> AnyView {
         if date.isEditable {
             let dateValue = date.value?.date
-            let configuration = RelationModuleConfiguration(
+            let configuration = PropertyModuleConfiguration(
                 title: date.name,
                 isEditable: relation.isEditable,
                 relationKey: date.key,
@@ -184,7 +184,7 @@ final class RelationValueCoordinatorViewModel:
                 spaceId: objectDetails.spaceId,
                 analyticsType: analyticsType
             )
-            return RelationCalendarCoordinatorView(
+            return PropertyCalendarCoordinatorView(
                 date: dateValue,
                 configuration: configuration
             ).eraseToAnyView()
@@ -203,9 +203,9 @@ final class RelationValueCoordinatorViewModel:
         value: String?,
         name: String,
         relationKey: String,
-        type: TextRelationViewType
+        type: TextPropertyViewType
     ) -> AnyView {
-        let configuration = RelationModuleConfiguration(
+        let configuration = PropertyModuleConfiguration(
             title: name,
             isEditable: relation.isEditable,
             relationKey: relationKey,
@@ -214,8 +214,8 @@ final class RelationValueCoordinatorViewModel:
             analyticsType: analyticsType
         )
         
-        return TextRelationEditingView(
-            data: TextRelationEditingViewData(
+        return TextPropertyEditingView(
+            data: TextPropertyEditingViewData(
                 text: value,
                 type: type,
                 config: configuration,
@@ -230,13 +230,13 @@ final class RelationValueCoordinatorViewModel:
     }
 
     
-    // MARK: - ObjectRelationListCoordinatorModuleOutput
+    // MARK: - ObjectPropertyListCoordinatorModuleOutput
     
     func onObjectOpen(screenData: ScreenData) {
         output?.showEditorScreen(data: screenData)
     }
     
-    // MARK: - TextRelationActionButtonViewModelDelegate
+    // MARK: - TextPropertyActionButtonViewModelDelegate
     
     func canOpenUrl(_ url: URL) -> Bool {
         UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
