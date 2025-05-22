@@ -1,16 +1,16 @@
 import SwiftUI
 
 
-struct RelationInfoCoordinatorView: View {
+struct PropertyInfoCoordinatorView: View {
     
-    @StateObject private var model: RelationInfoCoordinatorViewModel
+    @StateObject private var model: PropertyInfoCoordinatorViewModel
     
-    init(data: RelationInfoData, output: (any RelationInfoCoordinatorViewOutput)?) {
-        _model = StateObject(wrappedValue: RelationInfoCoordinatorViewModel(data: data, output: output))
+    init(data: PropertyInfoData, output: (any PropertyInfoCoordinatorViewOutput)?) {
+        _model = StateObject(wrappedValue: PropertyInfoCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {
-        RelationInfoView(
+        PropertyInfoView(
             data: model.data,
             output: model
         )

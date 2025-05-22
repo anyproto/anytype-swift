@@ -1,7 +1,7 @@
 import Foundation
 
 
-enum RelationInfoViewMode {
+enum PropertyInfoViewMode {
     case create(format: SupportedRelationFormat?)
     case edit(relationId: String, format: SupportedRelationFormat, limitedObjectTypes: [String]?)
     
@@ -42,11 +42,11 @@ enum RelationInfoViewMode {
     }
 }
 
-struct RelationInfoData: Identifiable {
+struct PropertyInfoData: Identifiable {
     let id = UUID()
     let name: String
     let objectId: String
     let spaceId: String
     let target: RelationsModuleTarget
-    let mode: RelationInfoViewMode
+    let mode: PropertyInfoViewMode
 }

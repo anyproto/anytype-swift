@@ -76,7 +76,7 @@ final class SlashMenuActionHandler {
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAddRelationInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
+                router.showAddPropertyInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
                     Task {
                         try await self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
                     }

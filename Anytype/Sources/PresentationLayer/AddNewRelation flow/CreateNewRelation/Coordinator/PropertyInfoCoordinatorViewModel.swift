@@ -4,26 +4,26 @@ import Services
 import Combine
 
 @MainActor
-protocol RelationInfoCoordinatorViewOutput: AnyObject {
+protocol PropertyInfoCoordinatorViewOutput: AnyObject {
     func didPressConfirm(_ relation: RelationDetails)
 }
 
 @MainActor
-final class RelationInfoCoordinatorViewModel: ObservableObject, RelationInfoModuleOutput {
+final class PropertyInfoCoordinatorViewModel: ObservableObject, PropertyInfoModuleOutput {
     
     @Published var relationFormatsData: RelationFormatsData?
     @Published var searchData: ObjectTypesLimitedSearchData?
     
-    let data: RelationInfoData
+    let data: PropertyInfoData
     
-    private weak var output: (any RelationInfoCoordinatorViewOutput)?
+    private weak var output: (any PropertyInfoCoordinatorViewOutput)?
     
-    init(data: RelationInfoData, output: (any RelationInfoCoordinatorViewOutput)?) {
+    init(data: PropertyInfoData, output: (any PropertyInfoCoordinatorViewOutput)?) {
         self.data = data
         self.output = output
     }
     
-    // MARK: - RelationInfoModuleOutput
+    // MARK: - PropertyInfoModuleOutput
     
     func didAskToShowRelationFormats(selectedFormat: SupportedRelationFormat, onSelect: @escaping (SupportedRelationFormat) -> Void) {
         relationFormatsData = RelationFormatsData(

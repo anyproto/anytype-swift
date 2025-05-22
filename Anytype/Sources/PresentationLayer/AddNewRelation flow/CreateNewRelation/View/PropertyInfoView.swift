@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct RelationInfoView: View {
+struct PropertyInfoView: View {
     
-    @StateObject private var viewModel: RelationInfoViewModel
+    @StateObject private var viewModel: PropertyInfoViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: RelationInfoData, output: (any RelationInfoModuleOutput)?) {
+    init(data: PropertyInfoData, output: (any PropertyInfoModuleOutput)?) {
         let relationsInteractor = RelationsInteractor(objectId: data.objectId, spaceId: data.spaceId)
-        _viewModel = StateObject(wrappedValue: RelationInfoViewModel(
+        _viewModel = StateObject(wrappedValue: PropertyInfoViewModel(
             data: data,
             relationsInteractor: relationsInteractor,
             output: output

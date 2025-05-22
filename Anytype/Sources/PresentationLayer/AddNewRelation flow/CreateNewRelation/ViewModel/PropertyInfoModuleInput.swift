@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-protocol RelationInfoModuleInput: AnyObject {
+protocol PropertyInfoModuleInput: AnyObject {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat)
     func updateTypesRestriction(objectTypeIds: [String])
