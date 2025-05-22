@@ -1,4 +1,5 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "Camera is used to scan QR codes for a secure and convenient login experience";
-"NSLocalNetworkUsageDescription" = "Local network access is used to synchronize data directly between your nearby devices";
-"NSPhotoLibraryAddUsageDescription" = "Access is needed to save selected images to your library";
+"NSFaceIDUsageDescription" = "Face IDは、キーチェーンに安全に保存された鍵を取得するために使用されます";
+"NSCameraUsageDescription" = "カメラへのアクセス許可は、QRコードの読み取り、写真撮影、メッセージへの添付に使用されます";
+"NSLocalNetworkUsageDescription" = "ローカルネットワークへのアクセス許可は、近くのデバイスと直接同期するために使用されます";
+"NSPhotoLibraryAddUsageDescription" = "選択した画像を保存するために使用されます";
+"NSMicrophoneUsageDescription" = "マイクへのアクセス許可は、動画の撮影やメッセージへの添付に使用されます";
