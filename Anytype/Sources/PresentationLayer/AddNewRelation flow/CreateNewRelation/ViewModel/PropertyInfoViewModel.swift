@@ -4,7 +4,7 @@ import Services
 import Combine
 
 @MainActor
-final class RelationInfoViewModel: ObservableObject {
+final class PropertyInfoViewModel: ObservableObject {
     
     var formatModel: NewRelationFormatSectionView.Model {
         format.asViewModel
@@ -36,7 +36,7 @@ final class RelationInfoViewModel: ObservableObject {
         }
     }
     
-    let mode: RelationInfoViewMode
+    let mode: PropertyInfoViewMode
     
     @Published var name: String
     @Published private var format: SupportedRelationFormat
@@ -52,12 +52,12 @@ final class RelationInfoViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let relationsInteractor: any RelationsInteractorProtocol
-    private weak var output: (any RelationInfoModuleOutput)?
+    private weak var output: (any PropertyInfoModuleOutput)?
     
     init(
-        data: RelationInfoData,
+        data: PropertyInfoData,
         relationsInteractor: some RelationsInteractorProtocol,
-        output: (any RelationInfoModuleOutput)?
+        output: (any PropertyInfoModuleOutput)?
     ) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
@@ -77,7 +77,7 @@ final class RelationInfoViewModel: ObservableObject {
 
 // MARK: - Internal functions
 
-extension RelationInfoViewModel {
+extension PropertyInfoViewModel {
     
     func didTapFormatSection() {
         output?.didAskToShowRelationFormats(selectedFormat: format, onSelect: { [weak self] format in
@@ -154,9 +154,9 @@ extension RelationInfoViewModel {
     }
 }
 
-// MARK: - RelationInfoModuleInput
+// MARK: - PropertyInfoModuleInput
 
-extension RelationInfoViewModel: RelationInfoModuleInput {
+extension PropertyInfoViewModel: PropertyInfoModuleInput {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
         format = newFormat
@@ -173,7 +173,7 @@ extension RelationInfoViewModel: RelationInfoModuleInput {
 
 // MARK: - Private extension
 
-private extension RelationInfoViewModel {
+private extension PropertyInfoViewModel {
     
     func handleFormatUpdate() {
         objectTypes = format == .object ? [] : nil

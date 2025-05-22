@@ -4,10 +4,10 @@ import AnytypeCore
 
 
 @MainActor
-final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinatorViewOutput {
+final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
     
     @Published var rows: [SearchDataSection<RelationSearchData>] = []
-    @Published var newRelationData: RelationInfoData?
+    @Published var newRelationData: PropertyInfoData?
     
     var dismiss: DismissAction?
     
@@ -65,7 +65,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
                 data.onRelationSelect(details, false) // isNew = false
                 dismiss?()
             case .new(let format):
-                newRelationData = RelationInfoData(
+                newRelationData = PropertyInfoData(
                     name: "",
                     objectId: data.objectId,
                     spaceId: data.spaceId,
@@ -77,7 +77,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     }
     
     func onNewPropertyTap(name: String) {
-        newRelationData = RelationInfoData(
+        newRelationData = PropertyInfoData(
             name: name,
             objectId: data.objectId,
             spaceId: data.spaceId,
@@ -86,7 +86,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         )
     }
     
-    // MARK: - RelationInfoCoordinatorViewOutput
+    // MARK: - PropertyInfoCoordinatorViewOutput
     func didPressConfirm(_ relation: RelationDetails) {
         data.onRelationSelect(relation, true) // isNew = true
         dismiss?()

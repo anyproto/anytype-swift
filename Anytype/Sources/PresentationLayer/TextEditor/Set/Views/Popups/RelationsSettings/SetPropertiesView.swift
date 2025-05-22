@@ -44,7 +44,7 @@ struct SetPropertiesView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     withAnimation { editMode = .inactive }
-                    model.showAddRelationInfoView()
+                    model.showAddPropertyInfoView()
                 }) {
                     Image(asset: .X32.plus).foregroundColor(.Control.active)
                 }
