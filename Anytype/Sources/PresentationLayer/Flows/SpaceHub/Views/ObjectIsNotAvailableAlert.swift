@@ -7,7 +7,7 @@ struct ObjectIsNotAvailableAlert: View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.NoAccess.title,
             message:  Loc.SpaceShare.Join.ObjectIsNotAvailable.message,
-            icon: .Dialog.duck
+            icon: .Dialog.lock
         ) {
             BottomAlertButton(
                 text: Loc.okay,

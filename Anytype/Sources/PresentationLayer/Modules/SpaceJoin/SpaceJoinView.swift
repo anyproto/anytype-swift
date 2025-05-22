@@ -127,7 +127,7 @@ struct SpaceJoinView: View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.NoAccess.title,
             message: Loc.SpaceShare.Join.InviteNotFound.message,
-            icon: .Dialog.duck
+            icon: .Dialog.lock
         ) {
             BottomAlertButton(
                 text: Loc.okay,
