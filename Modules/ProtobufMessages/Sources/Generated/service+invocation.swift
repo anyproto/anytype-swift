@@ -1207,7 +1207,7 @@ public struct ClientCommands {
     public static func objectRelationListAvailable(
         _ request: Anytype_Rpc.ObjectRelation.ListAvailable.Request = .init()
     ) -> Invocation<Anytype_Rpc.ObjectRelation.ListAvailable.Request, Anytype_Rpc.ObjectRelation.ListAvailable.Response> {
-        return Invocation(messageName: "ObjectPropertyListAvailable", request: request) { request in
+        return Invocation(messageName: "ObjectRelationListAvailable", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectRelationListAvailable(requestData) ?? Data()
             return try Anytype_Rpc.ObjectRelation.ListAvailable.Response(serializedBytes: responseData)

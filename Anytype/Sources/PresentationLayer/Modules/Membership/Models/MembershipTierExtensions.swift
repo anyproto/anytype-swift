@@ -51,7 +51,7 @@ extension MembershipTier {
     
     var successMessage: String {
         switch self.type {
-        case .starter:
+        case .starter, .legacyExplorer:
             Loc.Membership.Success.curiosity
         case .builder, .coCreator, .custom, .anyTeam, .explorer:
             Loc.Membership.Success.support

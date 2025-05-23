@@ -91,7 +91,11 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             if FeatureFlags.unreadOnHome {
-                self.unreadSpaces = spaces.filter { $0.preview.unreadCounter > 0 }
+                self.unreadSpaces = spaces
+                    .filter { $0.preview.unreadCounter > 0 }
+                    .sorted {
+                        ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
+                    }
                 self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
             } else {
                 self.unreadSpaces = []
