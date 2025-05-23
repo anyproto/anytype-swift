@@ -105,7 +105,7 @@ final class SetPropertiesViewModel: ObservableObject {
         }
     }
     
-    func showAddRelationInfoView() {
+    func showAddPropertyInfoView() {
         output?.onAddButtonTap { [spaceId = setDocument.spaceId] relation, isNew in
             AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                 format: relation.format,

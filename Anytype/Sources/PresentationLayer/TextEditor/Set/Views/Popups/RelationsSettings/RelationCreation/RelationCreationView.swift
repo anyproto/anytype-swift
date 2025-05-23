@@ -11,8 +11,8 @@ struct RelationCreationView: View {
     var body: some View {
         content
             .onAppear { model.dismiss = dismiss }
-            .sheet(item: $model.newRelationData) {
-                RelationInfoCoordinatorView(data: $0, output: model)
+            .sheet(item: $model.newPropertyData) {
+                PropertyInfoCoordinatorView(data: $0, output: model)
                     .mediumPresentationDetents()
             }
     }

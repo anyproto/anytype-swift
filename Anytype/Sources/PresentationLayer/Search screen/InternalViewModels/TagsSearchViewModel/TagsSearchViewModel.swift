@@ -78,7 +78,7 @@ private extension TagsSearchViewModel {
 private extension Array where Element == Relation.Tag.Option {
     
     func asRowConfigurations(with selectedTagIds: [String]) -> [ListRowConfiguration] {
-        let style = RelationStyle.regular(allowMultiLine: false)
+        let style = PropertyStyle.regular(allowMultiLine: false)
         return map { tag in
             ListRowConfiguration(
                 id: tag.id,

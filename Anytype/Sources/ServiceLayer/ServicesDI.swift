@@ -236,8 +236,8 @@ extension Container {
         self { AudioSessionService() }.singleton
     }
     
-    var textRelationEditingService: Factory<any TextRelationEditingServiceProtocol> {
-        self { TextRelationEditingService() }.shared
+    var textRelationEditingService: Factory<any TextPropertyEditingServiceProtocol> {
+        self { TextPropertyEditingService() }.shared
     }
     
     var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
