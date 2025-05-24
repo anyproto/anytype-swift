@@ -50,17 +50,13 @@ public struct GenericPasswordQueryable {
 extension GenericPasswordQueryable: SecureStoreQueryable {
     public var query: [String: Any] {
         var query: [String: Any] = [:]
+        
         query[String(kSecClass)] = kSecClassGenericPassword
         query[String(kSecAttrService)] = service
         query[String(kSecAttrAccount)] = account
         query[String(kSecAttrAccessible)] = attrAccessible.askSecAttrAccessible
+        query[String(kSecAttrAccessGroup)] = accessGroup
         
-        // Access group if target environment is not simulator
-        #if !targetEnvironment(simulator)
-        if let accessGroup = accessGroup {
-            query[String(kSecAttrAccessGroup)] = accessGroup
-        }
-        #endif
         return query
     }
 }
