@@ -38,7 +38,7 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
         
         propertyInfo = PropertyInfoData(
             name: row.name,
-            objectId: "",
+            objectId: nil,
             spaceId: row.spaceId,
             target: .library,
             mode: .edit(relationId: row.id, format: supportedFormat, limitedObjectTypes: row.objectTypes.isEmpty ? nil : row.objectTypes)
@@ -48,7 +48,7 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     func onNewPropertyTap() {
         propertyInfo = PropertyInfoData(
             name: "",
-            objectId: "",
+            objectId: nil,
             spaceId: spaceId,
             target: .library,
             mode: .create(format: .text)

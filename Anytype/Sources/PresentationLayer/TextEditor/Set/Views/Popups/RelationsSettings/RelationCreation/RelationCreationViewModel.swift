@@ -98,8 +98,8 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
         switch data.target {
         case let .type(data):
             try await addRelationToType(relation: details, typeData: data)
-        case let .dataview(activeViewId, typeDetails):
-            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
+        case let .dataview(objectId, activeViewId, typeDetails):
+            try await addRelationToDataview(objectId: objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
         case .object(let objectId):
             try await addRelationToObject(objectId: objectId, relation: details)
         case .library:
