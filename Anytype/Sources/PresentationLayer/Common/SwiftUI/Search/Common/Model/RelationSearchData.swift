@@ -4,7 +4,7 @@ import AnytypeCore
 
 enum RelationSearchData: SearchDataProtocol {
     case existing(RelationDetails)
-    case new(SupportedRelationFormat)
+    case new(SupportedPropertyFormat)
     
     var id: String {
         switch self {
