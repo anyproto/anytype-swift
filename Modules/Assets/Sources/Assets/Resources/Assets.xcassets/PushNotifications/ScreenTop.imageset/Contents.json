@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ScreenTop.pdf",
+      "filename" : "ScreenTop.svg",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ScreenTopDark.pdf",
+      "filename" : "ScreenTopDark.svg",
       "idiom" : "universal"
     }
   ],
