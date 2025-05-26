@@ -8,7 +8,7 @@ struct RelationsListCoordinatorView: View {
     
     @StateObject private var model: RelationsListCoordinatorViewModel
     
-    init(document: some BaseDocumentProtocol, output: (any RelationValueCoordinatorOutput)?) {
+    init(document: some BaseDocumentProtocol, output: (any PropertyValueCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: RelationsListCoordinatorViewModel(document: document, output: output))
     }
     
@@ -18,7 +18,7 @@ struct RelationsListCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.relationValueData) { data in
-            RelationValueCoordinatorView(data: data, output: model)
+            PropertyValueCoordinatorView(data: data, output: model)
         }
         .sheet(item: $model.relationsSearchData) {
             RelationCreationView(data: $0)

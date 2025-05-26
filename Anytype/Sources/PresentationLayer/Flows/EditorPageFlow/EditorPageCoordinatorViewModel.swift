@@ -4,17 +4,17 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, RelationValueCoordinatorOutput {
+final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, PropertyValueCoordinatorOutput {
     
     let data: EditorPageObject
     let showHeader: Bool
     private let setupEditorInput: (any EditorPageModuleInput, String) -> Void
-    @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.propertyValueProcessingService)
+    private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
-    @Published var relationValueData: RelationValueData?
+    @Published var relationValueData: PropertyValueData?
     @Published var toastBarData: ToastBarData?
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: BaseDocumentIdentifiable?
@@ -61,7 +61,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
             anytypeAssertionFailure("Details not found")
             return
         }
-        handleRelationValue(relation: relation, objectDetails: objectDetails)
+        handlePropertyValue(relation: relation, objectDetails: objectDetails)
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {
@@ -125,8 +125,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     // MARK: - Private
     
-    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        relationValueData = relationValueProcessingService.handleRelationValue(
+    private func handlePropertyValue(relation: Relation, objectDetails: ObjectDetails) {
+        relationValueData = propertyValueProcessingService.handlePropertyValue(
             relation: relation,
             objectDetails: objectDetails,
             analyticsType: .block

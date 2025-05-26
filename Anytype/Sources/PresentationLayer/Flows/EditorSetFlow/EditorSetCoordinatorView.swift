@@ -25,7 +25,7 @@ struct EditorSetCoordinatorView: View {
                 model.setQuery(data)
             }
             .sheet(item: $model.relationValueData) { data in
-                RelationValueCoordinatorView(data: data, output: model)
+                PropertyValueCoordinatorView(data: data, output: model)
             }
             .anytypeSheet(item: $model.setViewPickerData) { data in
                 SetViewPickerCoordinatorView(data: data)

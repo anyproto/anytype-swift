@@ -3,12 +3,12 @@ import Services
 import AnytypeCore
 
 @MainActor
-protocol RelationValueCoordinatorOutput: AnyObject {
+protocol PropertyValueCoordinatorOutput: AnyObject {
     func showEditorScreen(data: ScreenData)
 }
 
 @MainActor
-final class RelationValueCoordinatorViewModel: 
+final class PropertyValueCoordinatorViewModel: 
     ObservableObject,
     ObjectPropertyListCoordinatorModuleOutput,
     TextPropertyActionButtonViewModelDelegate
@@ -23,19 +23,19 @@ final class RelationValueCoordinatorViewModel:
     private let relation: Relation
     private let objectDetails: ObjectDetails
     private let analyticsType: AnalyticsEventsRelationType
-    private weak var output: (any RelationValueCoordinatorOutput)?
+    private weak var output: (any PropertyValueCoordinatorOutput)?
 
     @Published var toastBarData: ToastBarData?
     @Published var safariUrl: URL?
     
-    init(data: RelationValueData, output: (any RelationValueCoordinatorOutput)?) {
+    init(data: PropertyValueData, output: (any PropertyValueCoordinatorOutput)?) {
         self.relation = data.relation
         self.objectDetails = data.objectDetails
         self.analyticsType = data.analyticsType
         self.output = output
     }
     
-    func relationModule() -> AnyView {
+    func propertyModule() -> AnyView {
         switch relation {
         case .date(let date):
             return dateModule(date: date)
@@ -133,35 +133,35 @@ final class RelationValueCoordinatorViewModel:
                 output: self
             ).eraseToAnyView()
         case .text(let text):
-            return textRelationEditingModule(
+            return textPropertyEditingModule(
                 value: text.value,
                 name: text.name,
                 relationKey: text.key,
                 type: .text
             )
         case .number(let number):
-            return textRelationEditingModule(
+            return textPropertyEditingModule(
                 value: number.value,
                 name: number.name,
                 relationKey: number.key,
                 type: .number
             )
         case .url(let url):
-            return textRelationEditingModule(
+            return textPropertyEditingModule(
                 value: url.value,
                 name: url.name,
                 relationKey: url.key,
                 type: .url
             )
         case .email(let email):
-            return textRelationEditingModule(
+            return textPropertyEditingModule(
                 value: email.value,
                 name: email.name,
                 relationKey: email.key,
                 type: .email
             )
         case .phone(let phone):
-            return textRelationEditingModule(
+            return textPropertyEditingModule(
                 value: phone.value,
                 name: phone.name,
                 relationKey: phone.key,
@@ -199,7 +199,7 @@ final class RelationValueCoordinatorViewModel:
         }
     }
     
-    private func textRelationEditingModule(
+    private func textPropertyEditingModule(
         value: String?,
         name: String,
         relationKey: String,

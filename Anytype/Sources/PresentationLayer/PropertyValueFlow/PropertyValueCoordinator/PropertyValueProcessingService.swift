@@ -3,16 +3,16 @@ import AnytypeCore
 import Services
 
 @MainActor
-protocol RelationValueProcessingServiceProtocol {
-    func handleRelationValue(
+protocol PropertyValueProcessingServiceProtocol {
+    func handlePropertyValue(
         relation: Relation,
         objectDetails: ObjectDetails,
         analyticsType: AnalyticsEventsRelationType
-    ) -> RelationValueData?
+    ) -> PropertyValueData?
 }
 
 @MainActor
-fileprivate final class RelationValueProcessingService: RelationValueProcessingServiceProtocol {
+fileprivate final class PropertyValueProcessingService: PropertyValueProcessingServiceProtocol {
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -21,14 +21,14 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     
     nonisolated init() {}
     
-    func handleRelationValue(
+    func handlePropertyValue(
         relation: Relation,
         objectDetails: ObjectDetails,
         analyticsType: AnalyticsEventsRelationType
-    ) -> RelationValueData? {
+    ) -> PropertyValueData? {
         switch relation {
         case .status, .tag, .object, .date, .file, .text, .number, .url, .email, .phone:
-            return RelationValueData(
+            return PropertyValueData(
                 relation: relation,
                 objectDetails: objectDetails, 
                 analyticsType: analyticsType
@@ -55,7 +55,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     }
 }
 
-struct RelationValueData: Identifiable {
+struct PropertyValueData: Identifiable {
     let id = UUID()
     let relation: Relation
     let objectDetails: ObjectDetails
@@ -63,7 +63,7 @@ struct RelationValueData: Identifiable {
 }
 
 extension Container {
-    var relationValueProcessingService: Factory<any RelationValueProcessingServiceProtocol> {
-        self { RelationValueProcessingService() }.shared
+    var propertyValueProcessingService: Factory<any PropertyValueProcessingServiceProtocol> {
+        self { PropertyValueProcessingService() }.shared
     }
 }
