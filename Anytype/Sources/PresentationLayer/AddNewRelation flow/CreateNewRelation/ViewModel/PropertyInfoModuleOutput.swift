@@ -5,8 +5,8 @@ import Services
 protocol PropertyInfoModuleOutput: AnyObject {
     
     func didAskToShowRelationFormats(
-        selectedFormat: SupportedRelationFormat,
-        onSelect: @escaping (SupportedRelationFormat) -> Void
+        selectedFormat: SupportedPropertyFormat,
+        onSelect: @escaping (SupportedPropertyFormat) -> Void
     )
     func didAskToShowObjectTypesSearch(
         selectedObjectTypesIds: [String],

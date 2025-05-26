@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 import Combine
 
-final class RelationProvider {
+final class PropertyProvider {
     @Published var relation: Relation
     private var subscription: AnyCancellable?
     
@@ -20,10 +20,10 @@ final class RelationProvider {
     }
 }
 
-final class RelationBlockViewModel: BlockViewModelProtocol {
+final class PropertyBlockViewModel: BlockViewModelProtocol {
     let blockInformationProvider: BlockModelInfomationProvider
     nonisolated var info: BlockInformation { blockInformationProvider.info }
-    let relationProvider: RelationProvider
+    let relationProvider: PropertyProvider
     let actionOnValue: (() -> Void)?
     
     var relationSubscription: AnyCancellable?
@@ -34,7 +34,7 @@ final class RelationBlockViewModel: BlockViewModelProtocol {
     
     init(
         blockInformationProvider: BlockModelInfomationProvider,
-        relationProvider: RelationProvider,
+        relationProvider: PropertyProvider,
         collectionController: EditorBlockCollectionController,
         actionOnValue: (() -> Void)? = nil
     ) {
@@ -51,7 +51,7 @@ final class RelationBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
-        return RelationBlockContentConfiguration(
+        return PropertyBlockContentConfiguration(
             actionOnValue: { [weak self] in self?.actionOnValue?() },
             property: PropertyItemModel(property: relationProvider.relation)
         ).cellBlockConfiguration(

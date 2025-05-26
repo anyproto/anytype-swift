@@ -188,7 +188,7 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var format: SupportedRelationFormat? {
+    var format: SupportedPropertyFormat? {
         switch self {
         case .text:
             .text

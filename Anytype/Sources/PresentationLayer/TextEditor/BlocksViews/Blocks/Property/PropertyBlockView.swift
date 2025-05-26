@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-final class RelationBlockView: UIView, BlockContentView {
+final class PropertyBlockView: UIView, BlockContentView {
     // MARK: - Views
     private let relationValueView = PropertyValueViewUIKit()
 
@@ -21,7 +21,7 @@ final class RelationBlockView: UIView, BlockContentView {
         setupLayout()
     }
 
-    func update(with configuration: RelationBlockContentConfiguration) {
+    func update(with configuration: PropertyBlockContentConfiguration) {
         if !configuration.property.isDeleted {
             setupRelationState(property: configuration.property, action: configuration.actionOnValue)
         } else {

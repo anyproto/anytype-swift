@@ -31,7 +31,7 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
     }
     
     func search(text: String) async {
-        let propertyFormats = SupportedRelationFormat.allCases.filter {
+        let propertyFormats = SupportedPropertyFormat.allCases.filter {
             if text.isEmpty { return true }
             return $0.title.lowercased().contains(text.lowercased())
         }

@@ -39,7 +39,7 @@ final class PropertyInfoViewModel: ObservableObject {
     let mode: PropertyInfoViewMode
     
     @Published var name: String
-    @Published private var format: SupportedRelationFormat
+    @Published private var format: SupportedPropertyFormat
     @Published private var objectTypes: [ObjectType]?
     @Published var toastData: ToastBarData?
     
@@ -67,7 +67,7 @@ final class PropertyInfoViewModel: ObservableObject {
         self.mode = data.mode
         
         self.name = data.name
-        self.format = data.mode.format ?? SupportedRelationFormat.object
+        self.format = data.mode.format ?? SupportedPropertyFormat.object
         self.relationId = data.mode.relationId ?? ""
         handleFormatUpdate()
         data.mode.limitedObjectTypes.flatMap { updateTypesRestriction(objectTypeIds: $0) }
@@ -160,7 +160,7 @@ extension PropertyInfoViewModel {
 
 extension PropertyInfoViewModel: PropertyInfoModuleInput {
     
-    func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
+    func updateRelationFormat(_ newFormat: SupportedPropertyFormat) {
         format = newFormat
         handleFormatUpdate()
     }
@@ -187,9 +187,9 @@ private extension PropertyInfoViewModel {
     
 }
 
-// MARK: - SupportedRelationFormat private extension
+// MARK: - SupportedPropertyFormat private extension
 
-private extension SupportedRelationFormat {
+private extension SupportedPropertyFormat {
     
     var asViewModel: NewRelationFormatSectionView.Model {
         NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)

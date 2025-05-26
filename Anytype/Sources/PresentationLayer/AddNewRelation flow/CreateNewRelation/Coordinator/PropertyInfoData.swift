@@ -2,10 +2,10 @@ import Foundation
 
 
 enum PropertyInfoViewMode {
-    case create(format: SupportedRelationFormat?)
-    case edit(relationId: String, format: SupportedRelationFormat, limitedObjectTypes: [String]?)
+    case create(format: SupportedPropertyFormat?)
+    case edit(relationId: String, format: SupportedPropertyFormat, limitedObjectTypes: [String]?)
     
-    var format: SupportedRelationFormat? {
+    var format: SupportedPropertyFormat? {
         switch self {
         case .create(let format):
             format
