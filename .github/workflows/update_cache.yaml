@@ -35,8 +35,17 @@ jobs:
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
+      - name: Build tools
+        run: make setup-tools
+
       - name: Update build cache
         run: bundle exec fastlane build_for_tests
         env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
+
+      - name: Cache local build folder
+        uses: actions/cache/save@v4
+        with:
+          path: build
+          key: build-local-tools
