@@ -43,7 +43,7 @@ final class PropertyInfoViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     @Published var toastData: ToastBarData?
     
-    private let target: RelationsModuleTarget
+    private let target: PropertiesModuleTarget
     private let objectId: String
     private let spaceId: String
     private let relationId: String

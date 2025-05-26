@@ -47,6 +47,6 @@ struct PropertyInfoData: Identifiable {
     let name: String
     let objectId: String
     let spaceId: String
-    let target: RelationsModuleTarget
+    let target: PropertiesModuleTarget
     let mode: PropertyInfoViewMode
 }

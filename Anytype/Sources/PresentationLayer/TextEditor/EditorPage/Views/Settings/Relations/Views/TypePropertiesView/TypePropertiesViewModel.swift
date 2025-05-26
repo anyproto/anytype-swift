@@ -86,7 +86,7 @@ final class TypePropertiesViewModel: ObservableObject {
         
         let type = ObjectType(details: details)
         
-        let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
+        let typeData: PropertiesModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
         propertyData = PropertyInfoData(
             name: data.relation.name,
@@ -100,7 +100,7 @@ final class TypePropertiesViewModel: ObservableObject {
     func onAddRelationTap(section: TypePropertiesSectionRow) {
         guard let details = document.details else { return }
         let type = ObjectType(details: details)
-        let typeData: RelationsModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
+        let typeData: PropertiesModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
         relationsSearchData = RelationsSearchData(
             objectId: document.objectId,

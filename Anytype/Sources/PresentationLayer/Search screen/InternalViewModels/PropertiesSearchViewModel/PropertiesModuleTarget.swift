@@ -1,7 +1,7 @@
 import Services
 
 
-enum RelationsModuleTypeData {
+enum PropertiesModuleTypeData {
     case recommendedFeaturedRelations(ObjectType)
     case recommendedRelations(ObjectType)
     
@@ -13,8 +13,8 @@ enum RelationsModuleTypeData {
     }
 }
 
-enum RelationsModuleTarget {
-    case type(RelationsModuleTypeData)
+enum PropertiesModuleTarget {
+    case type(PropertiesModuleTypeData)
     case dataview(activeViewId: String, typeDetails: ObjectDetails?)
     case object(objectId: String)
 }
