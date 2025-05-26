@@ -17,7 +17,7 @@ struct ObjectPermissions: Equatable {
     var canChangeCover: Bool = false
     var canChangeLayout: Bool = false
     var canEditRelationValues: Bool = false
-    var canEditRelationsList: Bool = false
+    var canEditPropertiesList: Bool = false
     var canApplyTemplates: Bool = false
     var canShare: Bool = false
     var canEditBlocks: Bool = false
@@ -73,7 +73,7 @@ extension ObjectPermissions {
         self.canChangeLayout = details.resolvedLayoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
         self.canEditDetails = !objectRestrictions.contains(.details)
         self.canEditRelationValues = caEditRelations && canEditDetails
-        self.canEditRelationsList = canEditRelationValues && !objectRestrictions.contains(.relations)
+        self.canEditPropertiesList = canEditRelationValues && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplate && !isObjectType
         self.canApplyTemplates = canEdit && !isTemplate
         self.canEditMessages = canEdit

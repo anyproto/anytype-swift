@@ -6,7 +6,7 @@ import AnytypeCore
 @MainActor
 final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
     
-    @Published var rows: [SearchDataSection<RelationSearchData>] = []
+    @Published var rows: [SearchDataSection<PropertySearchData>] = []
     @Published var newPropertyData: PropertyInfoData?
     
     var dismiss: DismissAction?
@@ -22,11 +22,11 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
-    private let data: RelationsSearchData
+    private let data: PropertiesSearchData
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
-    init(data: RelationsSearchData) {
+    init(data: PropertiesSearchData) {
         self.data = data
     }
     
@@ -41,21 +41,21 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
         rows = .builder {
             if propertyFormats.isNotEmpty {
                 SearchDataSection(
-                    searchData: propertyFormats.map{ RelationSearchData.new($0) },
+                    searchData: propertyFormats.map{ PropertySearchData.new($0) },
                     sectionName: Loc.propertiesFormats
                 )
             }
             
             if existingProperties.isNotEmpty {
                 SearchDataSection(
-                    searchData: existingProperties.map{ RelationSearchData.existing($0) },
+                    searchData: existingProperties.map{ PropertySearchData.existing($0) },
                     sectionName: Loc.existingProperties
                 )
             }
         }
     }
     
-    func onRowTap(_ row: RelationSearchData) {
+    func onRowTap(_ row: PropertySearchData) {
         Task {
             switch row {
             case .existing(let details):

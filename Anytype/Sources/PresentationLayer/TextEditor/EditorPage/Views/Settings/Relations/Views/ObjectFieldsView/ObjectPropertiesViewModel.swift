@@ -24,13 +24,13 @@ final class ObjectPropertiesViewModel: ObservableObject {
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     
-    private weak var output: (any RelationsListModuleOutput)?
+    private weak var output: (any PropertiesListModuleOutput)?
     
     // MARK: - Initializers
     
     init(
         document: some BaseDocumentProtocol,
-        output: (any RelationsListModuleOutput)?
+        output: (any PropertiesListModuleOutput)?
     ) {
         self.document = document
         self.output = output

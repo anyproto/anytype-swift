@@ -2,7 +2,7 @@ import Services
 import SwiftUI
 import AnytypeCore
 
-enum RelationSearchData: SearchDataProtocol {
+enum PropertySearchData: SearchDataProtocol {
     case existing(RelationDetails)
     case new(SupportedPropertyFormat)
     
