@@ -4,6 +4,7 @@ enum SpaceInfoScreenData: Hashable, Codable, Equatable, Identifiable {
     // Anytype widget screens
     case mainScreen(info: AccountInfo)
     case typeLibrary(spaceId: String)
+    case propertiesLibrary(spaceId: String)
     
     var id: Int {
         hashValue
@@ -14,6 +15,8 @@ enum SpaceInfoScreenData: Hashable, Codable, Equatable, Identifiable {
         case .mainScreen(let info):
             info.accountSpaceId
         case .typeLibrary(let spaceId):
+            spaceId
+        case .propertiesLibrary(let spaceId):
             spaceId
         }
     }

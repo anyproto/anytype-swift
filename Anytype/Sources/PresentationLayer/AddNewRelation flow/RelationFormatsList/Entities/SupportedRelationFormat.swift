@@ -83,3 +83,34 @@ extension SupportedRelationFormat {
         }
     }
 }
+
+extension RelationFormat {
+    var supportedFormat: SupportedRelationFormat? {
+        switch self {
+        case .object:
+            return .object
+        case .longText, .shortText:
+            return .text
+        case .number:
+            return .number
+        case .status:
+            return .status
+        case .tag:
+            return .tag
+        case .date:
+            return .date
+        case .file:
+            return .file
+        case .checkbox:
+            return .checkbox
+        case .url:
+            return .url
+        case .email:
+            return .email
+        case .phone:
+            return .phone
+        case .unrecognized:
+            return nil
+        }
+    }
+}

@@ -15,6 +15,7 @@ enum PropertiesModuleTypeData {
 
 enum PropertiesModuleTarget {
     case type(PropertiesModuleTypeData)
-    case dataview(activeViewId: String, typeDetails: ObjectDetails?)
+    case dataview(objectId: String, activeViewId: String, typeDetails: ObjectDetails?)
     case object(objectId: String)
+    case library
 }

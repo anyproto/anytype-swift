@@ -2,6 +2,9 @@ import Foundation
 import Services
 import AnytypeCore
 
+enum RelationsInteractorError: Error {
+    case documentRequired
+}
 
 protocol PropertiesInteractorProtocol: Sendable {
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
@@ -17,11 +20,15 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
     private let dataviewService: any DataviewServiceProtocol = Container.shared.dataviewService()
     private let relationDetailsStorage: any RelationDetailsStorageProtocol = Container.shared.relationDetailsStorage()
     
-    private let document: any BaseDocumentProtocol
+    private let document: (any BaseDocumentProtocol)?
     
-    init(objectId: String, spaceId: String) {
-        let documentsProvider = Container.shared.openedDocumentProvider()
-        document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
+    init(objectId: String?, spaceId: String) {
+        if let objectId = objectId, objectId.isNotEmpty {
+            let documentsProvider = Container.shared.openedDocumentProvider()
+            document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
+        } else {
+            document = nil
+        }
     }
     
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
@@ -33,6 +40,9 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
     }
     
     func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws {
+        guard let document = document else { 
+            throw RelationsInteractorError.documentRequired 
+        }
         guard let details = document.details else { return }
         
         if isFeatured {
