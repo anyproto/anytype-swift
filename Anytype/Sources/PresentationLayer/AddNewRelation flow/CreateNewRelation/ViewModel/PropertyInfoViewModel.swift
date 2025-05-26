@@ -127,6 +127,8 @@ extension PropertyInfoViewModel {
                 try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId, typeDetails: typeDetails)
             case .object(let objectId):
                 try await relationsInteractor.addRelationToObject(objectId: objectId, relation: createdRelation)
+            case .library:
+                break
             }
             
             onSuccessfullAction(relationDetails: createdRelation)

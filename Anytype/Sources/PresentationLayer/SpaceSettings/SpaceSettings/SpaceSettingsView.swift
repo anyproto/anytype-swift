@@ -220,6 +220,8 @@ struct SpaceSettingsView: View {
     private var contentModel: some View {
         SectionHeaderView(title: Loc.contentModel)
         RoundedButton(Loc.objectTypes, icon: .X24.objectType, decoration: .chervon) { model.onObjectTypesTap() }
+        Spacer.fixedHeight(8)
+        RoundedButton(Loc.properties, icon: .X24.properties, decoration: .chervon) { model.onPropertiesTap() }
     }
     
     @ViewBuilder

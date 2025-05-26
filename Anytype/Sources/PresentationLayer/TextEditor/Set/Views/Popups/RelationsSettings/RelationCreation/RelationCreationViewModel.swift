@@ -102,6 +102,8 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
             try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
         case .object(let objectId):
             try await addRelationToObject(objectId: objectId, relation: details)
+        case .library:
+            anytypeAssertionFailure("Unsupported call of \(#function) for target .library")
         }
     }
     

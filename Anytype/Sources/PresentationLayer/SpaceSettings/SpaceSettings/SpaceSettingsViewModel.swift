@@ -141,6 +141,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onObjectTypesSelected()
     }
     
+    func onPropertiesTap() {
+        output?.onPropertiesSelected()
+    }
+    
     func toggleCreateTypeWidgetState(isOn: Bool) {
         Task {
             AnytypeAnalytics.instance().logAutoCreateTypeWidgetToggle(value: isOn)
