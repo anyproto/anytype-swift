@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-struct RelationFormatListCell: View {
+struct PropertyFormatListCell: View {
     
     let model: Model
 
@@ -26,7 +26,7 @@ struct RelationFormatListCell: View {
     }
 }
 
-extension RelationFormatListCell {
+extension PropertyFormatListCell {
     
     struct Model: Identifiable, Hashable {
         let id: String

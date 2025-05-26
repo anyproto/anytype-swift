@@ -4,7 +4,7 @@ import AnytypeCore
 
 enum RelationSearchData: SearchDataProtocol {
     case existing(RelationDetails)
-    case new(SupportedRelationFormat)
+    case new(SupportedPropertyFormat)
     
     var id: String {
         switch self {
@@ -18,7 +18,7 @@ enum RelationSearchData: SearchDataProtocol {
     var iconImage: Icon? {
         switch self {
         case .existing(let details):
-            details.iconImage
+            details.iconImage ?? nil
         case .new(let format):
             Icon.asset(format.iconAsset)
         }

@@ -1,18 +1,18 @@
 import SwiftUI
 
-struct RelationFormatsListView: View {
+struct PropertyFormatsListView: View {
     
-    @StateObject private var viewModel: RelationFormatsListViewModel
+    @StateObject private var viewModel: PropertyFormatsListViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(selectedFormat: SupportedRelationFormat, onFormatSelect: @escaping (SupportedRelationFormat) -> Void) {
-        _viewModel = StateObject(wrappedValue: RelationFormatsListViewModel(selectedFormat: selectedFormat, onFormatSelect: onFormatSelect))
+    init(selectedFormat: SupportedPropertyFormat, onFormatSelect: @escaping (SupportedPropertyFormat) -> Void) {
+        _viewModel = StateObject(wrappedValue: PropertyFormatsListViewModel(selectedFormat: selectedFormat, onFormatSelect: onFormatSelect))
     }
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.selectRelationType)
+            TitleView(title: Loc.selectPropertyType)
             list
         }
     }
@@ -25,7 +25,7 @@ struct RelationFormatsListView: View {
                         viewModel.didSelectFormat(id: model.id)
                         dismiss()
                     } label: {
-                        RelationFormatListCell(model: model)
+                        PropertyFormatListCell(model: model)
                     }
                 }
             }
