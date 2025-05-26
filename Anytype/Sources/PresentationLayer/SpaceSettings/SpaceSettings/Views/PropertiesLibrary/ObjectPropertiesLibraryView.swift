@@ -12,7 +12,7 @@ struct ObjectPropertiesLibraryView: View {
     var body: some View {
         content
             .homeBottomPanelHidden(true)
-            .task { await model.onAppear() }
+            .task { await model.startSubscriptions() }
         
             .sheet(item: $model.propertyInfo) {
                 PropertyInfoCoordinatorView(data: $0, output: model)

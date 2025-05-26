@@ -9,8 +9,9 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     @Published var rows: [RelationDetails] = []
     @Published var propertyInfo: PropertyInfoData?
     
-    @Injected(\.searchService)
-    private var searchService: any SearchServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
     
@@ -23,9 +24,10 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
         self.spaceId = spaceId
     }
     
-    func onAppear() async {
-        // TBD: Subscription
-        rows = (try? await searchService.searchRelations(text: "", excludedIds: [], spaceId: spaceId)) ?? []
+    func startSubscriptions() async {
+        for await rows in relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId).values {
+            self.rows = rows
+        }
     }
     
     func onRowTap(_ row: RelationDetails) {
