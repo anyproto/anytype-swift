@@ -45,7 +45,7 @@ enum PropertyInfoViewMode {
 struct PropertyInfoData: Identifiable {
     let id = UUID()
     let name: String
-    let objectId: String
+    let objectId: String?
     let spaceId: String
     let target: RelationsModuleTarget
     let mode: PropertyInfoViewMode

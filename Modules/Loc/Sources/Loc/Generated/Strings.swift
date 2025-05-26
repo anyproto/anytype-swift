@@ -332,6 +332,7 @@ public enum Loc {
   public static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")
   public static let profile = Loc.tr("Localizable", "Profile", fallback: "Profile")
   public static let progress = Loc.tr("Localizable", "Progress...", fallback: "Progress...")
+  public static let properties = Loc.tr("Localizable", "Properties", fallback: "Properties")
   public static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
   public static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   public static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")

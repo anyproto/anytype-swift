@@ -44,7 +44,7 @@ final class PropertyInfoViewModel: ObservableObject {
     @Published var toastData: ToastBarData?
     
     private let target: RelationsModuleTarget
-    private let objectId: String
+    private let objectId: String?
     private let spaceId: String
     private let relationId: String
     
@@ -123,10 +123,12 @@ extension PropertyInfoViewModel {
             switch target {
             case .type(let data):
                 try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: data.isFeatured)
-            case let .dataview(activeViewId, typeDetails):
+            case let .dataview(objectId, activeViewId, typeDetails):
                 try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId, typeDetails: typeDetails)
-            case .object(let objectId):
-                try await relationsInteractor.addRelationToObject(objectId: objectId, relation: createdRelation)
+            case .object(let targetObjectId):
+                try await relationsInteractor.addRelationToObject(objectId: targetObjectId, relation: createdRelation)
+            case .library:
+                break
             }
             
             onSuccessfullAction(relationDetails: createdRelation)
