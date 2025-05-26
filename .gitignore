@@ -84,3 +84,6 @@ vendor/
 
 # Cache
 .libcache/
+
+# Local settings
+*.local.json
