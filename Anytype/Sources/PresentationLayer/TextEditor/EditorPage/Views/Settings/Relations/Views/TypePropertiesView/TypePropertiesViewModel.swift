@@ -13,7 +13,7 @@ final class TypePropertiesViewModel: ObservableObject {
     @Published var showConflictingInfo = false
     @Published var relationRows = [TypePropertiesRow]()
     @Published var relationsSearchData: RelationsSearchData?
-    @Published var relationData: RelationInfoData?
+    @Published var propertyData: PropertyInfoData?
     @Published var conflictRelations = [RelationDetails]()
     
     // MARK: - Private variables
@@ -88,7 +88,7 @@ final class TypePropertiesViewModel: ObservableObject {
         
         let typeData: RelationsModuleTypeData = data.relation.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
-        relationData = RelationInfoData(
+        propertyData = PropertyInfoData(
             name: data.relation.name,
             objectId: document.objectId,
             spaceId: document.spaceId,

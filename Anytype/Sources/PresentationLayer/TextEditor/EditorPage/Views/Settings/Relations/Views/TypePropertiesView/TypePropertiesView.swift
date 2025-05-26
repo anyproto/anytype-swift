@@ -23,8 +23,8 @@ struct TypePropertiesView: View {
             .sheet(item: $model.relationsSearchData) { data in
                 RelationCreationView(data: data)
             }
-            .sheet(item: $model.relationData) {
-                RelationInfoCoordinatorView(data: $0, output: nil)
+            .sheet(item: $model.propertyData) {
+                PropertyInfoCoordinatorView(data: $0, output: nil)
             }
             .anytypeSheet(isPresented: $model.showConflictingInfo) {
                 ObjectPropertiesBottomAlert()
