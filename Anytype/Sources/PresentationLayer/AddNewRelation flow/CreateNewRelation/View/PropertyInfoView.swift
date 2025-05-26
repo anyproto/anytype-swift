@@ -6,7 +6,7 @@ struct PropertyInfoView: View {
     @Environment(\.dismiss) private var dismiss
     
     init(data: PropertyInfoData, output: (any PropertyInfoModuleOutput)?) {
-        let relationsInteractor = RelationsInteractor(objectId: data.objectId, spaceId: data.spaceId)
+        let relationsInteractor = PropertiesInteractor(objectId: data.objectId, spaceId: data.spaceId)
         _viewModel = StateObject(wrappedValue: PropertyInfoViewModel(
             data: data,
             relationsInteractor: relationsInteractor,
