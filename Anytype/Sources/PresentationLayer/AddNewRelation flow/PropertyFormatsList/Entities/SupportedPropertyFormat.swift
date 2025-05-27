@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-enum SupportedRelationFormat: String, Hashable, CaseIterable {
+enum SupportedPropertyFormat: String, Hashable, CaseIterable {
     case object
     case text
     case number
@@ -15,13 +15,13 @@ enum SupportedRelationFormat: String, Hashable, CaseIterable {
     case phone
 }
 
-extension SupportedRelationFormat: Identifiable {
+extension SupportedPropertyFormat: Identifiable {
     
     var id: String { self.rawValue }
     
 }
 
-extension SupportedRelationFormat {
+extension SupportedPropertyFormat {
     
     var iconAsset: ImageAsset {
         switch self {
@@ -85,7 +85,7 @@ extension SupportedRelationFormat {
 }
 
 extension RelationFormat {
-    var supportedFormat: SupportedRelationFormat? {
+    var supportedFormat: SupportedPropertyFormat? {
         switch self {
         case .object:
             return .object
