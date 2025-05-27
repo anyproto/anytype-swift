@@ -6,7 +6,7 @@ enum RelationsInteractorError: Error {
     case documentRequired
 }
 
-protocol RelationsInteractorProtocol: Sendable {
+protocol PropertiesInteractorProtocol: Sendable {
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
     func updateRelation(spaceId: String, relation: RelationDetails) async throws
     func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws
@@ -14,7 +14,7 @@ protocol RelationsInteractorProtocol: Sendable {
     func addRelationToObject(objectId: String, relation: RelationDetails) async throws
 }
 
-final class RelationsInteractor: RelationsInteractorProtocol, Sendable {
+final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
     
     private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
     private let dataviewService: any DataviewServiceProtocol = Container.shared.dataviewService()

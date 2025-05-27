@@ -107,7 +107,7 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
         }
     }
     
-    private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
+    private func addRelationToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let type):
             try await relationsService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)

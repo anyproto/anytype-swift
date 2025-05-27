@@ -43,7 +43,7 @@ final class PropertyInfoViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     @Published var toastData: ToastBarData?
     
-    private let target: RelationsModuleTarget
+    private let target: PropertiesModuleTarget
     private let objectId: String?
     private let spaceId: String
     private let relationId: String
@@ -51,12 +51,12 @@ final class PropertyInfoViewModel: ObservableObject {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
-    private let relationsInteractor: any RelationsInteractorProtocol
+    private let relationsInteractor: any PropertiesInteractorProtocol
     private weak var output: (any PropertyInfoModuleOutput)?
     
     init(
         data: PropertyInfoData,
-        relationsInteractor: some RelationsInteractorProtocol,
+        relationsInteractor: some PropertiesInteractorProtocol,
         output: (any PropertyInfoModuleOutput)?
     ) {
         self.objectId = data.objectId
