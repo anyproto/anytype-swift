@@ -1,12 +1,12 @@
 import Foundation
 import SwiftUI
 
-struct RelationValueCoordinatorView: View {
+struct PropertyValueCoordinatorView: View {
     
-    @StateObject private var model: RelationValueCoordinatorViewModel
+    @StateObject private var model: PropertyValueCoordinatorViewModel
     
-    init(data: RelationValueData, output: (any RelationValueCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: RelationValueCoordinatorViewModel(data: data, output: output))
+    init(data: PropertyValueData, output: (any PropertyValueCoordinatorOutput)?) {
+        _model = StateObject(wrappedValue: PropertyValueCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -19,6 +19,6 @@ struct RelationValueCoordinatorView: View {
     }
     
     private var content: some View {
-        model.relationModule()
+        model.propertyModule()
     }
 }

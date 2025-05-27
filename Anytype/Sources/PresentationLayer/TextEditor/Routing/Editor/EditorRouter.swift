@@ -405,7 +405,7 @@ extension EditorRouter {
     }
 }
 
-extension EditorRouter: RelationValueCoordinatorOutput {
+extension EditorRouter: PropertyValueCoordinatorOutput {
     func openObject(screenData: ScreenData) {
         navigationContext.dismissAllPresented()
         showEditorScreen(data: screenData)

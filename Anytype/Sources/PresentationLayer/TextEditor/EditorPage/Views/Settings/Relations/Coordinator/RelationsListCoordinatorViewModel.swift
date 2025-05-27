@@ -11,23 +11,23 @@ struct RelationsListData: Identifiable {
 final class RelationsListCoordinatorViewModel:
     ObservableObject,
     RelationsListModuleOutput,
-    RelationValueCoordinatorOutput
+    PropertyValueCoordinatorOutput
 {
-    @Published var relationValueData: RelationValueData?
+    @Published var relationValueData: PropertyValueData?
     @Published var relationsSearchData: RelationsSearchData?
     @Published var objectTypeData: EditorTypeObject?
     @Published var showTypePicker = false
     
     let document: any BaseDocumentProtocol
     
-    @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.propertyValueProcessingService)
+    private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
-    private weak var output: (any RelationValueCoordinatorOutput)?
+    private weak var output: (any PropertyValueCoordinatorOutput)?
 
-    init(document: some BaseDocumentProtocol, output: (any RelationValueCoordinatorOutput)?) {
+    init(document: some BaseDocumentProtocol, output: (any PropertyValueCoordinatorOutput)?) {
         self.document = document
         self.output = output
     }
@@ -46,14 +46,14 @@ final class RelationsListCoordinatorViewModel:
             return
         }
         
-        handleRelationValue(relation: relation, objectDetails: objectDetails)
+        handlePropertyValue(relation: relation, objectDetails: objectDetails)
     }
     
-    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
+    private func handlePropertyValue(relation: Relation, objectDetails: ObjectDetails) {
         if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
             showTypePicker = true
         } else {
-            relationValueData = relationValueProcessingService.handleRelationValue(
+            relationValueData = propertyValueProcessingService.handlePropertyValue(
                 relation: relation,
                 objectDetails: objectDetails,
                 analyticsType: .menu
@@ -74,7 +74,7 @@ final class RelationsListCoordinatorViewModel:
         }
     }
     
-    // MARK: - RelationValueCoordinatorOutput
+    // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {
         output?.showEditorScreen(data: data)
