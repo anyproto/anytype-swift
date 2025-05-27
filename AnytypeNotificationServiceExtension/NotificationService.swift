@@ -33,13 +33,14 @@ class NotificationService: UNNotificationServiceExtension {
         
         if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
             bestAttemptContent.title = decryptedMessage.newMessage.spaceName
-            bestAttemptContent.subtitle = "\(decryptedMessage.newMessage.senderName): \(decryptedMessage.newMessage.text)"
+            bestAttemptContent.subtitle = decryptedMessage.newMessage.senderName
             
-            let attachmetString = "📎" + Loc.PushNotifications.Message.Attachment.title
             if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
-                bestAttemptContent.body = attachmetString
+                bestAttemptContent.body = "📎 " + decryptedMessage.newMessage.text
             } else if decryptedMessage.newMessage.hasAttachments, !decryptedMessage.newMessage.hasText {
-                bestAttemptContent.subtitle = "\(decryptedMessage.newMessage.senderName): \(attachmetString)"
+                bestAttemptContent.body = "📎 " + Loc.PushNotifications.Message.Attachment.title
+            } else {
+                bestAttemptContent.body = decryptedMessage.newMessage.text
             }
             
             bestAttemptContent.threadIdentifier = decryptedMessage.newMessage.chatId
