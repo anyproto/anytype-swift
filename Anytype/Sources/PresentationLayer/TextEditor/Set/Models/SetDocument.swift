@@ -74,7 +74,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     private var participantIsEditor = false
     private var subscriptions = [AnyCancellable]()
-    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let permissionsBuilder: any SetPermissionsBuilderProtocol
@@ -84,14 +84,14 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     init(
         document: some BaseDocumentProtocol,
         inlineParameters: EditorInlineSetObject?,
-        relationDetailsStorage: some RelationDetailsStorageProtocol,
+        propertyDetailsStorage: some PropertyDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
         accountParticipantsStorage: some AccountParticipantsStorageProtocol,
         permissionsBuilder: some SetPermissionsBuilderProtocol
     ) {
         self.document = document
         self.inlineParameters = inlineParameters
-        self.relationDetailsStorage = relationDetailsStorage
+        self.propertyDetailsStorage = propertyDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.permissionsBuilder = permissionsBuilder
@@ -233,7 +233,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         }
         .store(in: &subscriptions)
         
-        relationDetailsStorage.relationsDetailsPublisher(spaceId: document.spaceId).sink { [weak self] _ in
+        propertyDetailsStorage.relationsDetailsPublisher(spaceId: document.spaceId).sink { [weak self] _ in
             self?.updateDataViewRelations()
             self?.triggerSync()
         }
@@ -265,14 +265,14 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     }
     
     private func updateDataViewRelations() {
-        let relationsDetails = relationDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId, includeDeleted: false)
+        let relationsDetails = propertyDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId, includeDeleted: false)
         dataViewRelationsDetails = enrichedByDoneRelationIfNeeded(relationsDetails: relationsDetails)
     }
     
     private func enrichedByDoneRelationIfNeeded(relationsDetails: [RelationDetails]) -> [RelationDetails] {
         // force insert Done relation for dataView if needed
         let containsDoneRelation = relationsDetails.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
+        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
         if !containsDoneRelation, let doneRelationDetails {
             var relationsDetails = relationsDetails
             relationsDetails.append(doneRelationDetails)

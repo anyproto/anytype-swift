@@ -28,8 +28,8 @@ final class TextPropertyEditingViewModel: ObservableObject {
     private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.textRelationActionViewModelBuilder)
     private var builder: TextPropertyActionViewModelBuilder
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     private let initialText: String
     
@@ -115,7 +115,7 @@ final class TextPropertyEditingViewModel: ObservableObject {
     private func logChangeOrDeleteRelationValue() {
         guard initialText != text else { return }
         Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
+            let relationDetails = try propertyDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: text.isEmpty,
                 format: relationDetails.format,

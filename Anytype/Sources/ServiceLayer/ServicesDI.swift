@@ -148,12 +148,12 @@ extension Container {
         self { TextServiceHandler() }.shared
     }
     
-    var relationDetailsStorage: Factory<any RelationDetailsStorageProtocol> {
-        self { RelationDetailsStorage() }.singleton
+    var propertyDetailsStorage: Factory<any PropertyDetailsStorageProtocol> {
+        self { PropertyDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
-        self { RelationSubscriptionDataBuilder() }
+    var propertySubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+        self { PropertySubscriptionDataBuilder() }
     }
     
     var middlewareConfigurationProvider: Factory<any MiddlewareConfigurationProviderProtocol> {

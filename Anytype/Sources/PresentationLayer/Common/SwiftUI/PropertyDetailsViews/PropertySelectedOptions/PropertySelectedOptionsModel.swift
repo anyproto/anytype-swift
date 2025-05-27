@@ -22,8 +22,8 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     init(config: PropertyModuleConfiguration, selectedOptionsIds: [String]) {
         self.config = config
@@ -78,7 +78,7 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
     
     private func logChanges() {
         Task {
-            let relationDetails = try relationDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
+            let relationDetails = try propertyDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: selectedOptionsIds.isEmpty,
                 format: relationDetails.format,

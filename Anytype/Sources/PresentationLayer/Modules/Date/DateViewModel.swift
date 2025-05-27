@@ -15,8 +15,8 @@ final class DateViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.relationListWithValueService)
     private var relationListWithValueService: any RelationListWithValueServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.dateRelatedObjectsSubscriptionService)
     private var dateRelatedObjectsSubscriptionService: any DateRelatedObjectsSubscriptionServiceProtocol
     @Injected(\.objectDateByTimestampService)
@@ -222,7 +222,7 @@ final class DateViewModel: ObservableObject {
         guard let relationsKeys else { return [] }
         let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
             guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
+            return try? propertyDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
         }
         return relationDetails.filter { details in
             if details.key == BundledRelationKey.mentions.rawValue {

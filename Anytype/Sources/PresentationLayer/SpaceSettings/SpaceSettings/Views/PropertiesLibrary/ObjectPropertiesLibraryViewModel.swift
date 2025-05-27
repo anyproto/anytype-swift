@@ -9,8 +9,8 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     @Published var rows: [RelationDetails] = []
     @Published var propertyInfo: PropertyInfoData?
     
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
@@ -25,7 +25,7 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     }
     
     func startSubscriptions() async {
-        for await rows in relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId).values {
+        for await rows in propertyDetailsStorage.relationsDetailsPublisher(spaceId: spaceId).values {
             self.rows = rows
         }
     }

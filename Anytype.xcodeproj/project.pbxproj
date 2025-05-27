@@ -69,7 +69,7 @@
 		3DB7063F2D11B0C5000C2F84 /* Models+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */; };
 		3DB7D3472D119285000C2F84 /* MockRelationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7D3462D119284000C2F84 /* MockRelationsService.swift */; };
 		3DB7D3492D11929E000C2F84 /* MockBaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */; };
-		3DC0E59A2D957F7600975ACF /* MockRelationDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0E5992D957F7500975ACF /* MockRelationDetailsStorage.swift */; };
+		3DC0E59A2D957F7600975ACF /* MockPropertyDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */; };
 		3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
 		3DC133F22CAFE5DD000FF065 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2AC1262C2B90F65F003A4A8D /* Factory */; };
 		3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
@@ -239,7 +239,7 @@
 		3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Mocks.swift"; sourceTree = "<group>"; };
 		3DB7D3462D119284000C2F84 /* MockRelationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRelationsService.swift; sourceTree = "<group>"; };
 		3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseDocument.swift; sourceTree = "<group>"; };
-		3DC0E5992D957F7500975ACF /* MockRelationDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRelationDetailsStorage.swift; sourceTree = "<group>"; };
+		3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPropertyDetailsStorage.swift; sourceTree = "<group>"; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DE5975E2C78BDE800883AF8 /* UserDefaultsStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsStorageMock.swift; path = AnyTypeTests/Markdown/Mocks/UserDefaultsStorageMock.swift; sourceTree = SOURCE_ROOT; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
@@ -561,7 +561,7 @@
 		3DA46B65273BEB52007B7464 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				3DC0E5992D957F7500975ACF /* MockRelationDetailsStorage.swift */,
+				3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */,
 				3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */,
 				3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */,
 				3DB7D3462D119284000C2F84 /* MockRelationsService.swift */,
@@ -995,7 +995,7 @@
 				86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */,
 				3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */,
 				2A4C7FFF2A823E2300201946 /* RelativeDateFormatterTests.swift in Sources */,
-				3DC0E59A2D957F7600975ACF /* MockRelationDetailsStorage.swift in Sources */,
+				3DC0E59A2D957F7600975ACF /* MockPropertyDetailsStorage.swift in Sources */,
 				3DA46B64273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift in Sources */,
 				3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */,
 				3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */,

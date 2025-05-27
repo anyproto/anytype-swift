@@ -90,14 +90,14 @@ extension BundledRelationsValueProvider {
     
     // Properties
     var recommendedRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
     }
     var recommendedFeaturedRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
     }
 
     var recommendedHiddenRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
     }
     
     // MARK: - DetailsLayout proxy
