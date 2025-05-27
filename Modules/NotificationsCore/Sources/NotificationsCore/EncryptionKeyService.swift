@@ -7,15 +7,17 @@ public protocol EncryptionKeyServiceProtocol: AnyObject, Sendable {
     func saveKey(_ key: String, keyId: String) throws
 }
 
-final class EncryptionKeyService: EncryptionKeyServiceProtocol {
+public final class EncryptionKeyService: EncryptionKeyServiceProtocol {
     
-    private let keychainStore: any KeychainStoreProtocol = Container.shared.keychainStore()
+    private let keychainStore: any KeychainStoreProtocol = KeychainStore()
     
-    func obtainKeyById(_ keyId: String) throws -> String {
+    public init() {}
+    
+    public func obtainKeyById(_ keyId: String) throws -> String {
         try keychainStore.retreiveItem(queryable: query(with: keyId))
     }
     
-    func saveKey(_ key: String, keyId: String) throws {
+    public func saveKey(_ key: String, keyId: String) throws {
         try keychainStore.storeItem(item: key, queryable: query(with: keyId))
     }
     

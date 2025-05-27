@@ -2,6 +2,7 @@ import UIKit
 import AnytypeCore
 import FirebaseMessaging
 import Services
+import NotificationsCore
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     

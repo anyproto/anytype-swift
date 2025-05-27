@@ -5,13 +5,15 @@ public protocol DecryptionPushContentServiceProtocol: AnyObject, Sendable {
     func decrypt(_ encryptedData: Data, keyId: String) -> DecryptedPushContent?
 }
 
-final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
+public final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
     
-    private let cryptoService: any CryptoServiceProtocol = Container.shared.cryptoService()
-    private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
+    private let cryptoService: any CryptoServiceProtocol = CryptoService()
+    private let encryptionKeyService: any EncryptionKeyServiceProtocol = EncryptionKeyService()
     private let decoder = JSONDecoder()
     
-    func decrypt(_ encryptedData: Data, keyId: String) -> DecryptedPushContent? {
+    public init() {}
+    
+    public func decrypt(_ encryptedData: Data, keyId: String) -> DecryptedPushContent? {
         do {
             let keyString = try encryptionKeyService.obtainKeyById(keyId)
             
@@ -30,6 +32,6 @@ final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
 }
 
 
-public enum DecryptionPushContentError: Error {
+enum DecryptionPushContentError: Error {
     case keyEncodeFailed
 }
