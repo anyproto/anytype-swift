@@ -866,7 +866,6 @@
 				2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */,
 				2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				74B35D242D5B39C500AC9879 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
-				2E074C4A2DE620E800260ABD /* XCLocalSwiftPackageReference "Modules/NotificationsCore" */,
 			);
 			preferredProjectObjectVersion = 52;
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
@@ -2845,13 +2844,6 @@
 			defaultConfigurationName = "Release-Anytype";
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		2E074C4A2DE620E800260ABD /* XCLocalSwiftPackageReference "Modules/NotificationsCore" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Modules/NotificationsCore;
-		};
-/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */ = {
