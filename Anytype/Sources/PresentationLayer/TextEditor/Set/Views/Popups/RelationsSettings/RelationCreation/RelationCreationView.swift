@@ -4,7 +4,7 @@ struct RelationCreationView: View {
     @StateObject private var model: RelationCreationViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: RelationsSearchData) {
+    init(data: PropertiesSearchData) {
         _model = StateObject(wrappedValue: RelationCreationViewModel(data: data))
     }
     

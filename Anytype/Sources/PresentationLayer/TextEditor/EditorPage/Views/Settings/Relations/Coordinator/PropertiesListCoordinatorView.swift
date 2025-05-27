@@ -4,12 +4,12 @@ import SwiftUI
 import AnytypeCore
 
 
-struct RelationsListCoordinatorView: View {
+struct PropertiesListCoordinatorView: View {
     
-    @StateObject private var model: RelationsListCoordinatorViewModel
+    @StateObject private var model: PropertiesListCoordinatorViewModel
     
     init(document: some BaseDocumentProtocol, output: (any PropertyValueCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: RelationsListCoordinatorViewModel(document: document, output: output))
+        _model = StateObject(wrappedValue: PropertiesListCoordinatorViewModel(document: document, output: output))
     }
     
     var body: some View {

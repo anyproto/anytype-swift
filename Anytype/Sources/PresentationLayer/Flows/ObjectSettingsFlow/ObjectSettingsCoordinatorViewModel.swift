@@ -18,7 +18,7 @@ final class ObjectSettingsCoordinatorViewModel:
     @Published var coverPickerData: BaseDocumentIdentifiable?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
-    @Published var relationsListData: RelationsListData?
+    @Published var relationsListData: PropertiesListData?
     @Published var versionHistoryData: VersionHistoryData?
     @Published var dismiss = false
     
@@ -47,7 +47,7 @@ final class ObjectSettingsCoordinatorViewModel:
     
     func relationsAction(document: some BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logScreenObjectRelation()
-        relationsListData = RelationsListData(document: document)
+        relationsListData = PropertiesListData(document: document)
     }
     
     func showVersionHistory(document: some BaseDocumentProtocol) {

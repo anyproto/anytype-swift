@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationsListRowView: View {
+struct PropertiesListRowView: View {
     
     @Binding var editingMode: Bool
     let starButtonAvailable: Bool
@@ -109,7 +109,7 @@ struct RelationsListRowView: View {
     }
 }
 
-private extension RelationsListRowView {
+private extension PropertiesListRowView {
     
     enum Constants {
         static let buttonWidth: CGFloat = 24
@@ -120,7 +120,7 @@ private extension RelationsListRowView {
 struct ObjectRelationRow_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {
-            RelationsListRowView(
+            PropertiesListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
                 showLocks: true,
@@ -166,7 +166,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 onStarTap: { _ in },
                 onEditTap: { _ in }
             )
-            RelationsListRowView(
+            PropertiesListRowView(
                 editingMode: .constant(false),
                 starButtonAvailable: true,
                 showLocks: true,

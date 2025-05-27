@@ -13,7 +13,7 @@ final class SetPropertiesCoordinatorViewModel:
     ObservableObject,
     SetPropertiesCoordinatorOutput
 {
-    @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationsSearchData: PropertiesSearchData?
     
     let setDocument: any SetDocumentProtocol
     let viewId: String
@@ -33,7 +33,7 @@ final class SetPropertiesCoordinatorViewModel:
             typeDetails = details
         }
         
-        relationsSearchData = RelationsSearchData(
+        relationsSearchData = PropertiesSearchData(
             objectId: setDocument.objectId,
             spaceId: setDocument.spaceId,
             excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),

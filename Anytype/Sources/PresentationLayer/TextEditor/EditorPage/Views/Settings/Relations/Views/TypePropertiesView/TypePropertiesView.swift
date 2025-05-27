@@ -106,7 +106,7 @@ struct TypePropertiesView: View {
     
     private func headerRow(_ data: TypePropertiesSectionRow) -> some View {
         ListSectionHeaderView(title: data.title, increasedTopPadding: true) {
-            if model.canEditRelationsList && data.canCreateRelations {
+            if model.canEditPropertiesList && data.canCreateRelations {
                 Button(action: {
                     model.onAddRelationTap(section: data)
                 }, label: {
@@ -127,9 +127,9 @@ struct TypePropertiesView: View {
                 AnytypeText(data.relation.name, style: .uxBodyRegular)
                 
                 Spacer()
-            }.disabled(!model.canEditRelationsList || !data.relation.isEditable)
+            }.disabled(!model.canEditPropertiesList || !data.relation.isEditable)
             
-            if model.canEditRelationsList && data.canDrag {
+            if model.canEditPropertiesList && data.canDrag {
                 MoveIndicator()
             }
         }
@@ -138,14 +138,14 @@ struct TypePropertiesView: View {
         
         .padding(.horizontal, 20)
         .contextMenu {
-            if model.canEditRelationsList {
+            if model.canEditPropertiesList {
                 Button(Loc.remove, role: .destructive) {
                     model.onRelationRemove(data)
                 }
             }
         }
         
-        .if(model.canEditRelationsList && data.canDrag) {
+        .if(model.canEditPropertiesList && data.canDrag) {
             $0.onDrag {
                 draggedRow = .relation(data)
                 return NSItemProvider()

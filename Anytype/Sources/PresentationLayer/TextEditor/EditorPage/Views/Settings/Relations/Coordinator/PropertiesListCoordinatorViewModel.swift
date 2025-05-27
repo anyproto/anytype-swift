@@ -2,19 +2,19 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-struct RelationsListData: Identifiable {
+struct PropertiesListData: Identifiable {
     let document: any BaseDocumentProtocol
     var id: String { document.objectId }
 }
 
 @MainActor
-final class RelationsListCoordinatorViewModel:
+final class PropertiesListCoordinatorViewModel:
     ObservableObject,
-    RelationsListModuleOutput,
+    PropertiesListModuleOutput,
     PropertyValueCoordinatorOutput
 {
     @Published var relationValueData: PropertyValueData?
-    @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationsSearchData: PropertiesSearchData?
     @Published var objectTypeData: EditorTypeObject?
     @Published var showTypePicker = false
     
@@ -32,7 +32,7 @@ final class RelationsListCoordinatorViewModel:
         self.output = output
     }
     
-    // MARK: - RelationsListModuleOutput
+    // MARK: - PropertiesListModuleOutput
     
     func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
