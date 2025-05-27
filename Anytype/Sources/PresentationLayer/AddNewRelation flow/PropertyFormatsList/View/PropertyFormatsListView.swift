@@ -12,7 +12,7 @@ struct PropertyFormatsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.selectPropertyType)
+            TitleView(title: Loc.selectRelationType)
             list
         }
     }
