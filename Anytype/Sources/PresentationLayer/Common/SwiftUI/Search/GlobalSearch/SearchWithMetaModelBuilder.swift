@@ -11,8 +11,8 @@ protocol SearchWithMetaModelBuilderProtocol {
 @MainActor
 final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     nonisolated init() { }
     
@@ -71,7 +71,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             return nil
         }
         
-        guard let relationDetails = try? relationDetailsStorage.relationsDetails(key: meta.relationKey, spaceId: spaceId) else {
+        guard let relationDetails = try? propertyDetailsStorage.relationsDetails(key: meta.relationKey, spaceId: spaceId) else {
             return nil
         }
         

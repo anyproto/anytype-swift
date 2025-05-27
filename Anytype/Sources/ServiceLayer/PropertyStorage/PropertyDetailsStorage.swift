@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 import Combine
 
-enum RelationDetailsStorageError: Error {
+enum PropertyDetailsStorageError: Error {
     case relationNotFound
 }
 
@@ -12,7 +12,7 @@ private struct RelationDetailsKey: Hashable {
     let spaceId: String
 }
 
-final class RelationDetailsStorage: RelationDetailsStorageProtocol, Sendable {
+final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
     
     private enum Constants {
         static let subscriptionIdPrefix = "SubscriptionId.Relation-"
@@ -20,7 +20,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol, Sendable {
     
     // MARK: - DI
     
-    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.relationSubscriptionDataBuilder()
+    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.propertySubscriptionDataBuilder()
     
     private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<RelationDetails>
     
@@ -38,7 +38,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol, Sendable {
         )
     }
     
-    // MARK: - RelationDetailsStorageProtocol
+    // MARK: - PropertyDetailsStorageProtocol
     
     func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails] {
         return keys.map { searchDetailsByKey[RelationDetailsKey(key: $0, spaceId: spaceId)] ?? createDeletedRelation(key: $0) }
@@ -56,14 +56,14 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol, Sendable {
     
     func relationsDetails(bundledKey: BundledRelationKey, spaceId: String) throws -> RelationDetails {
         guard let details = searchDetailsByKey[RelationDetailsKey(key: bundledKey.rawValue, spaceId: spaceId)] else {
-            throw RelationDetailsStorageError.relationNotFound
+            throw PropertyDetailsStorageError.relationNotFound
         }
         return details
     }
     
     func relationsDetails(key: String, spaceId: String) throws -> RelationDetails {
         guard let details = searchDetailsByKey[RelationDetailsKey(key: key, spaceId: spaceId)] else {
-            throw RelationDetailsStorageError.relationNotFound
+            throw PropertyDetailsStorageError.relationNotFound
         }
         return details
     }

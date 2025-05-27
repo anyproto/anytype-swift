@@ -23,8 +23,8 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
     private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let data: PropertiesSearchData
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     init(data: PropertiesSearchData) {
         self.data = data

@@ -18,7 +18,7 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
     
     private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
     private let dataviewService: any DataviewServiceProtocol = Container.shared.dataviewService()
-    private let relationDetailsStorage: any RelationDetailsStorageProtocol = Container.shared.relationDetailsStorage()
+    private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
     
     private let document: (any BaseDocumentProtocol)?
     

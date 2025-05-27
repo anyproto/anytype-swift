@@ -26,8 +26,8 @@ final class TypePropertiesViewModel: ObservableObject {
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.singleRelationBuilder)
     private var relationsBuilder: any SingleRelationBuilderProtocol
     
@@ -146,7 +146,7 @@ final class TypePropertiesViewModel: ObservableObject {
     
     private func updateConflictRelations(details: ObjectDetails) async throws {
         let releationKeys = try await relationsService.getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)
-        conflictRelations = relationDetailsStorage
+        conflictRelations = propertyDetailsStorage
             .relationsDetails(ids: releationKeys, spaceId: document.spaceId)
             .filter { !$0.isHidden && !$0.isDeleted }
         

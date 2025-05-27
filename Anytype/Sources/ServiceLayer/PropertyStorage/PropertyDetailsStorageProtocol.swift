@@ -3,7 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
-protocol RelationDetailsStorageProtocol: AnyObject, Sendable {
+protocol PropertyDetailsStorageProtocol: AnyObject, Sendable {
     
     func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails]
     func relationsDetails(key: String, spaceId: String) throws -> RelationDetails
@@ -18,7 +18,7 @@ protocol RelationDetailsStorageProtocol: AnyObject, Sendable {
     func stopSubscription(cleanCache: Bool) async
 }
 
-extension RelationDetailsStorageProtocol {
+extension PropertyDetailsStorageProtocol {
     func relationsDetails(keys: [String], spaceId: String, includeDeleted: Bool = false) -> [RelationDetails] {
         return relationsDetails(keys: keys, spaceId: spaceId).filter { !$0.isDeleted }
     }

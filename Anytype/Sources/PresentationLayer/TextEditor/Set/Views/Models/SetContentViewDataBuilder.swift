@@ -27,11 +27,11 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
     @Injected(\.relationsBuilder)
     private var relationsBuilder: any RelationsBuilderProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
-        let storageRelationsDetails = relationDetailsStorage.relationsDetails(keys: dataview.relationLinks.map(\.key), spaceId: spaceId)
+        let storageRelationsDetails = propertyDetailsStorage.relationsDetails(keys: dataview.relationLinks.map(\.key), spaceId: spaceId)
             .filter {
                 (!$0.isHidden && !$0.isDeleted) ||
                 (view.canSwitchItemName && $0.key == BundledRelationKey.name.rawValue)
@@ -72,7 +72,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         }
         // force insert Done relation after the Name for all Sets/Collections if needed
         let doneRelationIsExcluded = excludeRelations.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
+        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
         if !doneRelationIsExcluded, let doneRelationDetails {
             if let index = relationDetails.firstIndex(where: { $0.key == BundledRelationKey.name.rawValue }),
                 index < relationDetails.count
@@ -213,7 +213,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         detailsStorage: ObjectDetailsStorage
     ) -> ObjectHeaderCoverType?
     {
-        let relationDetails = relationDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId)
+        let relationDetails = propertyDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId)
             .first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
         guard let relationDetails = relationDetails else {

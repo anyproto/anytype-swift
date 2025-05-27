@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-final class RelationSubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol {
+final class PropertySubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol {
     // MARK: - MultispaceSubscriptionDataBuilderProtocol
     
     func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData {

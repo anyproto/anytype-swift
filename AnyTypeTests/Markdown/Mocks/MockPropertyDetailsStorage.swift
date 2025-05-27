@@ -4,7 +4,7 @@ import Combine
 import Services
 
 
-final class MockRelationDetailsStorage: RelationDetailsStorageProtocol {
+final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol {
     // Publisher for sync events
     private let syncSubject = PassthroughSubject<Void, Never>()
     var syncPublisher: AnyPublisher<Void, Never> {
