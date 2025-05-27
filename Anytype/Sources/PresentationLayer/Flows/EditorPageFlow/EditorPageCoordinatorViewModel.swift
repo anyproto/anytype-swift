@@ -23,7 +23,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var textIconPickerData: TextIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var undoRedoObjectId: StringIdentifiable?
-    @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationsSearchData: PropertiesSearchData?
     @Published var openUrlData: URL?
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
@@ -98,7 +98,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         guard let details = document.details else { return }
-        relationsSearchData = RelationsSearchData(
+        relationsSearchData = PropertiesSearchData(
             objectId: details.type,
             spaceId: document.spaceId,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationsListRowView: View {
+struct PropertiesListRowView: View {
     
     @Binding var editingMode: Bool
     let starButtonAvailable: Bool

@@ -9,10 +9,10 @@ import SwiftUI
 @MainActor
 final class TypePropertiesViewModel: ObservableObject {
         
-    @Published var canEditRelationsList = false
+    @Published var canEditPropertiesList = false
     @Published var showConflictingInfo = false
     @Published var relationRows = [TypePropertiesRow]()
-    @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationsSearchData: PropertiesSearchData?
     @Published var propertyData: PropertyInfoData?
     @Published var conflictRelations = [RelationDetails]()
     
@@ -70,7 +70,7 @@ final class TypePropertiesViewModel: ObservableObject {
     
     private func setupPermissionSubscription() async {
         for await permissions in document.permissionsPublisher.values {
-            canEditRelationsList = permissions.canEditRelationsList
+            canEditPropertiesList = permissions.canEditPropertiesList
         }
     }
     
@@ -102,7 +102,7 @@ final class TypePropertiesViewModel: ObservableObject {
         let type = ObjectType(details: details)
         let typeData: PropertiesModuleTypeData = section.isFeatured ? .recommendedFeaturedRelations(type) : .recommendedRelations(type)
         
-        relationsSearchData = RelationsSearchData(
+        relationsSearchData = PropertiesSearchData(
             objectId: document.objectId,
             spaceId: document.spaceId,
             excludedRelationsIds: relationRows.compactMap(\.relationId),

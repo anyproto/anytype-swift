@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 
-struct RelationsSearchData: Identifiable {
+struct PropertiesSearchData: Identifiable {
     let id = UUID()
     let objectId: String
     let spaceId: String

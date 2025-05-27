@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-protocol RelationsListModuleOutput: AnyObject {
+protocol PropertiesListModuleOutput: AnyObject {
     func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String)
     func showTypeRelationsView(typeId: String)
 }
