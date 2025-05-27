@@ -2,16 +2,16 @@ import Foundation
 import Services
 import AnytypeCore
 
-enum RelationsInteractorError: Error {
+enum PropertiesInteractorError: Error {
     case documentRequired
 }
 
 protocol PropertiesInteractorProtocol: Sendable {
-    func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
-    func updateRelation(spaceId: String, relation: RelationDetails) async throws
-    func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws
-    func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws
-    func addRelationToObject(objectId: String, relation: RelationDetails) async throws
+    func createProperty(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
+    func updateProperty(spaceId: String, relation: RelationDetails) async throws
+    func addPropertyToType(relation: RelationDetails, isFeatured: Bool) async throws
+    func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws
+    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws
 }
 
 final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
@@ -31,17 +31,17 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         }
     }
     
-    func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
+    func createProperty(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
         try await relationsService.createRelation(spaceId: spaceId, relationDetails: relation)
     }
     
-    func updateRelation(spaceId: String, relation: RelationDetails) async throws {
+    func updateProperty(spaceId: String, relation: RelationDetails) async throws {
         try await relationsService.updateRelation(objectId: relation.id, fields: relation.fields)
     }
     
-    func addRelationToType(relation: RelationDetails, isFeatured: Bool) async throws {
+    func addPropertyToType(relation: RelationDetails, isFeatured: Bool) async throws {
         guard let document = document else { 
-            throw RelationsInteractorError.documentRequired 
+            throw PropertiesInteractorError.documentRequired 
         }
         guard let details = document.details else { return }
         
@@ -52,9 +52,9 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         }
     }
     
-    func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+    func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         if let typeDetails {
-            try await addRelationToType(relation: relation, details: typeDetails)
+            try await addPropertyToType(relation: relation, details: typeDetails)
         } else {
             try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
         }
@@ -63,11 +63,11 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         try await dataviewService.addViewRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)
     }
     
-    private func addRelationToType(relation: RelationDetails, details: ObjectDetails) async throws {
+    private func addPropertyToType(relation: RelationDetails, details: ObjectDetails) async throws {
         try await relationsService.addTypeRecommendedRelation(details: details, relation: relation)
     }
     
-    func addRelationToObject(objectId: String, relation: RelationDetails) async throws {
+    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
         try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
 }

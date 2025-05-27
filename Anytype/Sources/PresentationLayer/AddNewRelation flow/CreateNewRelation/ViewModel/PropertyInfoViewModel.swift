@@ -118,15 +118,15 @@ extension PropertyInfoViewModel {
     
     private func createRelation(_ relationDetails: RelationDetails) {
         Task {
-            let createdRelation = try await relationsInteractor.createRelation(spaceId: spaceId, relation: relationDetails)
+            let createdRelation = try await relationsInteractor.createProperty(spaceId: spaceId, relation: relationDetails)
             
             switch target {
             case .type(let data):
-                try await relationsInteractor.addRelationToType(relation: createdRelation, isFeatured: data.isFeatured)
+                try await relationsInteractor.addPropertyToType(relation: createdRelation, isFeatured: data.isFeatured)
             case let .dataview(objectId, activeViewId, typeDetails):
-                try await relationsInteractor.addRelationToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId, typeDetails: typeDetails)
+                try await relationsInteractor.addPropertyToDataview(objectId: objectId, relation: createdRelation, activeViewId: activeViewId, typeDetails: typeDetails)
             case .object(let targetObjectId):
-                try await relationsInteractor.addRelationToObject(objectId: targetObjectId, relation: createdRelation)
+                try await relationsInteractor.addPropertyToObject(objectId: targetObjectId, relation: createdRelation)
             case .library:
                 break
             }
@@ -137,7 +137,7 @@ extension PropertyInfoViewModel {
     
     private func updateRelation(_ details: RelationDetails) {
         Task {
-            try await relationsInteractor.updateRelation(spaceId: spaceId, relation: details)
+            try await relationsInteractor.updateProperty(spaceId: spaceId, relation: details)
             onSuccessfullAction(relationDetails: details)
         }
     }

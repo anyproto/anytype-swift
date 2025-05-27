@@ -97,17 +97,17 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
     private func onExistingPropertyTap(_ details: RelationDetails) async throws {
         switch data.target {
         case let .type(data):
-            try await addRelationToType(relation: details, typeData: data)
+            try await addPropertyToType(relation: details, typeData: data)
         case let .dataview(objectId, activeViewId, typeDetails):
-            try await addRelationToDataview(objectId: objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
+            try await addPropertyToDataview(objectId: objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
         case .object(let objectId):
-            try await addRelationToObject(objectId: objectId, relation: details)
+            try await addPropertyToObject(objectId: objectId, relation: details)
         case .library:
             anytypeAssertionFailure("Unsupported call of \(#function) for target .library")
         }
     }
     
-    private func addRelationToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
+    private func addPropertyToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let type):
             try await relationsService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)
@@ -116,10 +116,10 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
         }
     }
     
-    private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+    private func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         if let typeDetails {
             let type = ObjectType(details: typeDetails)
-            try await addRelationToType(relation: relation, typeData: .recommendedRelations(type))
+            try await addPropertyToType(relation: relation, typeData: .recommendedRelations(type))
         } else {
             try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
         }
@@ -129,7 +129,7 @@ final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinator
     }
     
     
-    func addRelationToObject(objectId: String, relation: RelationDetails) async throws {
+    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
         try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
 }
