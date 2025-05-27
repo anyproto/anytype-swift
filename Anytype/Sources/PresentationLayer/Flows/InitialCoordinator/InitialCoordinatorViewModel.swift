@@ -8,7 +8,9 @@ import Services
 final class InitialCoordinatorViewModel: ObservableObject {
     
     @Injected(\.userDefaultsStorage)
-    var userDefaults: any UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.basicUserInfoStorage)
+    private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
     @Injected(\.middlewareConfigurationProvider)
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.applicationStateService)
@@ -26,6 +28,10 @@ final class InitialCoordinatorViewModel: ObservableObject {
     @Published var middlewareShareFile: URL? = nil
     @Published var localStoreURL: URL? = nil
     
+    var userId: String {
+        basicUserInfoStorage.usersId
+    }
+    
     func onAppear() {
         checkCrash()
         AppIconManager.shared.migrateIcons()
@@ -37,7 +43,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     }
     
     func contunueWithLogout() {
-        userDefaults.usersId = ""
+        basicUserInfoStorage.usersId = ""
         showLoginOrAuth()
         userDefaults.showUnstableMiddlewareError = false
     }
@@ -73,7 +79,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     // MARK: - Private
     
     private func showLoginOrAuth() {
-        if userDefaults.usersId.isNotEmpty {
+        if basicUserInfoStorage.usersId.isNotEmpty {
             applicationStateService.state = .login
         } else {
             applicationStateService.state = .auth
@@ -87,7 +93,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
                 let version = try await middlewareConfigurationProvider.libraryVersion()
                 let isUnstableVersion = !version.hasPrefix("v")
                 if isUnstableVersion {
-                    if (userDefaults.usersId.isEmpty || userDefaults.showUnstableMiddlewareError) {
+                    if (basicUserInfoStorage.usersId.isEmpty || userDefaults.showUnstableMiddlewareError) {
                         showWarningAlert.toggle()
                     } else {
                         showLoginOrAuth()

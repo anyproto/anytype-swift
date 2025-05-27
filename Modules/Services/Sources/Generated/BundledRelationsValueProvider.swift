@@ -123,10 +123,12 @@ public protocol BundledRelationsValueProvider {
     var spaceAccountStatus: Int? { get }
     var spaceInviteFileCid: String { get }
     var spaceInviteFileKey: String { get }
+    var spaceInviteType: Int? { get }
     var spaceInviteGuestFileCid: String { get }
     var spaceInviteGuestFileKey: String { get }
     var guestKey: String { get }
     var participantPermissions: Int? { get }
+    var spaceInvitePermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
     var identityProfileLink: ObjectId { get }
@@ -157,6 +159,8 @@ public protocol BundledRelationsValueProvider {
     var autoWidgetTargets: [ObjectId] { get }
     var autoWidgetDisabled: Bool { get }
     var pluralName: String { get }
+    var headerRelationsLayout: Int? { get }
+    var apiObjectKey: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -597,6 +601,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var spaceInviteFileKey: String {
         return value(for: BundledRelationKey.spaceInviteFileKey.rawValue)
     }
+    /// Encoded encryption key of invite file for current space. It stored in SpaceView
+    var spaceInviteType: Int? {
+        return value(for: BundledRelationKey.spaceInviteType.rawValue)
+    }
     /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
     var spaceInviteGuestFileCid: String {
         return value(for: BundledRelationKey.spaceInviteGuestFileCid.rawValue)
@@ -612,6 +620,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Participant permissions. Possible values: models.ParticipantPermissions
     var participantPermissions: Int? {
         return value(for: BundledRelationKey.participantPermissions.rawValue)
+    }
+    /// Invite permissions. Possible values: models.ParticipantPermissions
+    var spaceInvitePermissions: Int? {
+        return value(for: BundledRelationKey.spaceInvitePermissions.rawValue)
     }
     /// Identity
     var identity: String {
@@ -730,5 +742,13 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Name of Object type in plural form
     var pluralName: String {
         return value(for: BundledRelationKey.pluralName.rawValue)
+    }
+    /// Layout of header relations. Line or column
+    var headerRelationsLayout: Int? {
+        return value(for: BundledRelationKey.headerRelationsLayout.rawValue)
+    }
+    /// Identifier to use in intergrations with Anytype API
+    var apiObjectKey: String {
+        return value(for: BundledRelationKey.apiObjectKey.rawValue)
     }
 }

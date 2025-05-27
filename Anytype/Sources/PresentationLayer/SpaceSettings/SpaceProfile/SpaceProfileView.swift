@@ -13,7 +13,9 @@ struct SpaceProfileView: View {
         content
             .task { await model.setupSubscriptions() }
 
-            .anytypeShareView(item: $model.shareInviteLink)
+            .sheet(item: $model.shareInviteLink) { link in
+                ActivityView(activityItems: [link])
+            }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }

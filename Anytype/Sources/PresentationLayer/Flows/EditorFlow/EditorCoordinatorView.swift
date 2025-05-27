@@ -28,10 +28,6 @@ struct EditorCoordinatorView: View {
             WidgetObjectListRecentEditView(spaceId: spaceId, output: model)
         case let .recentOpen(spaceId):
             WidgetObjectListRecentOpenView(spaceId: spaceId, output: model)
-        case let .sets(spaceId):
-            WidgetObjectListSetsView(spaceId: spaceId, output: model)
-        case let .collections(spaceId):
-            WidgetObjectListCollectionsView(spaceId: spaceId, output: model)
         case let .bin(spaceId):
             if FeatureFlags.binScreenEmptyAction {
                 BinListView(spaceId: spaceId)
@@ -49,12 +45,8 @@ struct EditorCoordinatorView: View {
         case let .simpleSet(data):
             SimpleSetCoordinatorView(data: data)
         case let .type(data):
-            if FeatureFlags.openTypeAsSet {
-                let list = EditorListObject(objectId: data.objectId, spaceId: data.spaceId)
-                EditorSetCoordinatorView(data: list, showHeader: true)
-            } else {
-                ObjectTypeCoordinator(data: data)
-            }
+            let list = EditorListObject(objectId: data.objectId, spaceId: data.spaceId)
+            EditorSetCoordinatorView(data: list, showHeader: true)
         }
     }
 }

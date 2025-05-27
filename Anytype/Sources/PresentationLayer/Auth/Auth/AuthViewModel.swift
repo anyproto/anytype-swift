@@ -38,6 +38,8 @@ final class AuthViewModel: ObservableObject {
     private var usecaseService: any UsecaseServiceProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.pushNotificationsPermissionService)
+    private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
     private var subscription: AnyCancellable?
     
@@ -114,6 +116,7 @@ final class AuthViewModel: ObservableObject {
                     iconOption: iconOption,
                     imagePath: ""
                 )
+                await pushNotificationsPermissionService.registerForRemoteNotificationsIfNeeded()
                 try await setDefaultSpaceInfo(account.info.accountSpaceId, iconOption: iconOption)
                 try? seedService.saveSeed(state.mnemonic)
                 
@@ -128,7 +131,7 @@ final class AuthViewModel: ObservableObject {
         guard spaceId.isNotEmpty else { return }
         let startingObjectId = try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
         if let startingObjectId, startingObjectId.isNotEmpty, appActionsStorage.action.isNil {
-            appActionsStorage.action = .startObject(objectId: startingObjectId, spaceId: spaceId)
+            appActionsStorage.action = .openObject(objectId: startingObjectId, spaceId: spaceId)
         }
         try? await workspaceService.workspaceSetDetails(
             spaceId: spaceId,
@@ -155,7 +158,7 @@ final class AuthViewModel: ObservableObject {
     
     private func handleAppAction(action: AppAction) throws {
         switch action {
-        case .createObjectFromQuickAction, .startObject:
+        case .createObjectFromQuickAction, .openObject:
             throw AuthViewModelError.unsupportedAppAction
         case .deepLink(let deeplink, _):
             switch deeplink {

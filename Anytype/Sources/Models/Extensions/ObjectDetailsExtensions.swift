@@ -60,7 +60,7 @@ extension BundledRelationsValueProvider {
         case .image, .video, .audio, .file, .pdf:
             return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
         case .bookmark:
-            return FeatureFlags.openBookmarkAsLink ? .bookmark : .page
+            return .bookmark
         case .chat, .chatDerived:
             return FeatureFlags.chatLayoutInsideSpace ? .chat : .page
         }
@@ -82,10 +82,10 @@ extension BundledRelationsValueProvider {
         return !isDeleted && !isArchived
     }
     
-    var isTemplateType: Bool { objectType.isTemplateType }
+    var isTemplate: Bool { objectType.isTemplateType }
     
     var canMakeTemplate: Bool {
-        resolvedLayoutValue.isEditorLayout && !isTemplateType && profileOwnerIdentity.isEmpty && !isObjectType
+        resolvedLayoutValue.isEditorLayout && !isTemplate && profileOwnerIdentity.isEmpty && !isObjectType
     }
     
     // Properties

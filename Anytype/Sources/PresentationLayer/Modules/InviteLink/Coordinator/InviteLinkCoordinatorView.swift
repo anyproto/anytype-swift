@@ -13,7 +13,9 @@ struct InviteLinkCoordinatorView: View {
             data: model.data,
             output: model
         )
-        .anytypeShareView(item: $model.shareInviteLink)
+        .sheet(item: $model.shareInviteLink) { link in
+            ActivityView(activityItems: [link])
+        }
         .anytypeSheet(item: $model.qrCodeInviteLink) {
             QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
         }

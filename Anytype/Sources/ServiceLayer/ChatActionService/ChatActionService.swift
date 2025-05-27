@@ -27,6 +27,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     private let fileActionsService: any FileActionsServiceProtocol = Container.shared.fileActionsService()
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
+    private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     private let aiService: any AIServiceProtocol = Container.shared.aiService()
     private let aiConfigBuilder: any AIConfigBuilderProtocol = AIConfigBuilder()
     
@@ -92,7 +93,14 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                         chatMessage.attachments.append(attachment)
                     }
                 } else {
-                    if let bookmark = try? await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none) {
+                    let type = try? typeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
+                    
+                    if let bookmark = try? await bookmarkService.createBookmarkObject(
+                        spaceId: spaceId,
+                        url: url,
+                        templateId: type?.defaultTemplateId,
+                        origin: .none
+                    ) {
                         var attachment = ChatMessageAttachment()
                         attachment.target = bookmark.id
                         chatMessage.attachments.append(attachment)
@@ -106,7 +114,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
     }
     
     private func uploadFile(spaceId: String, data: FileData) async throws -> ChatMessageAttachment {
-        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createTypeWidgetIfMissing: FeatureFlags.objectTypeWidgets)
+        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none, createTypeWidgetIfMissing: true)
         var attachment = ChatMessageAttachment()
         attachment.target = fileDetails.id
         return attachment

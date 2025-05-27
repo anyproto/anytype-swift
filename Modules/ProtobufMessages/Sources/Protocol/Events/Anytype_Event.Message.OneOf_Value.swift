@@ -98,6 +98,7 @@ extension Anytype_Event.Message {
       case chatDelete(Anytype_Event.Chat.Delete)
       /// in case new unread messages received or chat state changed (e.g. message read on another device)
       case chatStateUpdate(Anytype_Event.Chat.UpdateState)
+      case pushEncryptionKeyUpdate(Anytype_Event.PushEncryptionKey.Update)
 
     }}
 

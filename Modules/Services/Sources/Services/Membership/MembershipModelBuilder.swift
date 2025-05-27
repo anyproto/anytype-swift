@@ -37,10 +37,12 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
             anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
         }
         
+        let dateEnds: MembershipDateEnds = membership.dateEnds == 0 ? .never : .date(Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)))
+        
         return MembershipStatus(
             tier: tier,
             status: membership.status,
-            dateEnds: Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)),
+            dateEnds: dateEnds,
             paymentMethod: membership.paymentMethod,
             anyName: AnyName(handle: membership.nsName, extension: membership.nsNameType),
             email: membership.userEmail
@@ -56,6 +58,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         return MembershipTier(
             type: type,
             name: tier.name,
+            description: tier.description_p,
             anyName: anyName,
             features: tier.features,
             paymentType: paymentType,
@@ -69,7 +72,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         type: MembershipTierType,
         tier: Anytype_Model_MembershipTierData
     ) async -> MembershipTierPaymentType? {
-        guard type != .explorer else { return nil }
+        guard type != .starter else { return nil }
         
         if tier.iosProductID.isNotEmpty {
             return await buildAppStorePayment(tier: tier)

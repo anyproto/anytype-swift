@@ -46,7 +46,7 @@ final class LinkWidgetViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details
-                self?.name = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+                self?.name = details.pluralTitle
             }
             .store(in: &subscriptions)
     }

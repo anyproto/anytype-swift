@@ -328,6 +328,9 @@ public enum BundledRelationKey: String, Sendable {
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     case spaceInviteFileKey = "spaceInviteFileKey"
 
+    /// Encoded encryption key of invite file for current space. It stored in SpaceView
+    case spaceInviteType = "spaceInviteType"
+
     /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
     case spaceInviteGuestFileCid = "spaceInviteGuestFileCid"
 
@@ -339,6 +342,9 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Participant permissions. Possible values: models.ParticipantPermissions
     case participantPermissions = "participantPermissions"
+
+    /// Invite permissions. Possible values: models.ParticipantPermissions
+    case spaceInvitePermissions = "spaceInvitePermissions"
 
     /// Identity
     case identity = "identity"
@@ -427,4 +433,10 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Name of Object type in plural form
     case pluralName = "pluralName"
+
+    /// Layout of header relations. Line or column
+    case headerRelationsLayout = "headerRelationsLayout"
+
+    /// Identifier to use in intergrations with Anytype API
+    case apiObjectKey = "apiObjectKey"
 }

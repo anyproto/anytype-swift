@@ -12,6 +12,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     private let objectSubscriptionService: any ObjectSubscriptionServiceProtocol = Container.shared.objectSubscriptionService()
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
     
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {
@@ -27,7 +28,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     func stopSubscriptions(ids: [String]) async throws {
-        guard userDefaults.usersId.isNotEmpty else { return }
+        guard basicUserInfoStorage.usersId.isNotEmpty else { return }
         try await objectSubscriptionService.stopSubscriptions(ids: ids)
     }
     

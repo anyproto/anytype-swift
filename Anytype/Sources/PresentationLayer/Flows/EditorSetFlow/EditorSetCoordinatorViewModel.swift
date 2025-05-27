@@ -64,7 +64,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var presentSettings = false
     @Published var aiToolData: AIToolData?
     @Published var layoutPickerData: LayoutPickerData?
-    @Published var showTypeFieldsDocument: BaseDocumentIdentifiable?
+    @Published var showTypePropertiesDocument: BaseDocumentIdentifiable?
     @Published var templatesPickerDocument: BaseDocumentIdentifiable?
     @Published var objectTypeInfo: ObjectTypeInfo?
     
@@ -158,7 +158,7 @@ final class EditorSetCoordinatorViewModel:
     // MARK: - NavigationContext
     
     func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: document, setting: setting, output: self, customAnalyticsRoute: nil)
+        setObjectCreationCoordinator.startCreateObject(setDocument: document, mode: .internal, setting: setting, output: self, customAnalyticsRoute: nil)
     }
     
     func showKanbanColumnSettings(
@@ -277,9 +277,9 @@ final class EditorSetCoordinatorViewModel:
         layoutPickerData = data
     }
     
-    func onObjectTypeFieldsTap(document: some SetDocumentProtocol) {
+    func onObjectTypePropertiesTap(document: some SetDocumentProtocol) {
         AnytypeAnalytics.instance().logScreenEditType(route: .type)
-        showTypeFieldsDocument = document.document.identifiable
+        showTypePropertiesDocument = document.document.identifiable
     }
     
     func onObjectTypeTemplatesTap(document: some SetDocumentProtocol) {

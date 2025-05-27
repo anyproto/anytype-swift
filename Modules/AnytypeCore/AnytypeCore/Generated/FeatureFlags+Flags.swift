@@ -18,44 +18,16 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var hideCoCreator: Bool {
-        value(for: .hideCoCreator)
-    }
-
-    static var allObjectsFromLibrary: Bool {
-        value(for: .allObjectsFromLibrary)
+    static var hideWebPayments: Bool {
+        value(for: .hideWebPayments)
     }
 
     static var homeSpaceLevelChat: Bool {
         value(for: .homeSpaceLevelChat)
     }
 
-    static var pinnedSpaces: Bool {
-        value(for: .pinnedSpaces)
-    }
-
-    static var newSpacesLoading: Bool {
-        value(for: .newSpacesLoading)
-    }
-
-    static var objectTypeWidgets: Bool {
-        value(for: .objectTypeWidgets)
-    }
-
-    static var newTypeIcons: Bool {
-        value(for: .newTypeIcons)
-    }
-
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
-    }
-
-    static var openBookmarkAsLink: Bool {
-        value(for: .openBookmarkAsLink)
-    }
-
-    static var newSettings: Bool {
-        value(for: .newSettings)
     }
 
     static var newPlusMenu: Bool {
@@ -66,12 +38,12 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
+    static var unreadOnHome: Bool {
+        value(for: .unreadOnHome)
     }
 
-    static var firebasePushMessages: Bool {
-        value(for: .firebasePushMessages)
+    static var enableStreamSpaceType: Bool {
+        value(for: .enableStreamSpaceType)
     }
 
     static var enablePushMessages: Bool {
@@ -84,10 +56,6 @@ public extension FeatureFlags {
 
     static var disableColorfulSeedPhrase: Bool {
         value(for: .disableColorfulSeedPhrase)
-    }
-
-    static var openTypeAsSet: Bool {
-        value(for: .openTypeAsSet)
     }
 
     static var binWidgetFromLibrary: Bool {
@@ -126,18 +94,6 @@ public extension FeatureFlags {
         value(for: .joinStream)
     }
 
-    static var httpsLinkForObjectCopy: Bool {
-        value(for: .httpsLinkForObjectCopy)
-    }
-
-    static var newPropertiesCreation: Bool {
-        value(for: .newPropertiesCreation)
-    }
-
-    static var pluralNames: Bool {
-        value(for: .pluralNames)
-    }
-
     static var countersOnSpaceHub: Bool {
         value(for: .countersOnSpaceHub)
     }
@@ -164,6 +120,18 @@ public extension FeatureFlags {
 
     static var binScreenEmptyAction: Bool {
         value(for: .binScreenEmptyAction)
+    }
+
+    static var openFullscreenObjectsFromSetWidget: Bool {
+        value(for: .openFullscreenObjectsFromSetWidget)
+    }
+
+    static var chatWidget: Bool {
+        value(for: .chatWidget)
+    }
+
+    static var checkLoginInNotificationService: Bool {
+        value(for: .checkLoginInNotificationService)
     }
 
     static var rainbowViews: Bool {
@@ -226,29 +194,25 @@ public extension FeatureFlags {
         value(for: .logMiddlewareRequests)
     }
 
+    static var showPushMessagesInForeground: Bool {
+        value(for: .showPushMessagesInForeground)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .hideCoCreator,
-        .allObjectsFromLibrary,
+        .hideWebPayments,
         .homeSpaceLevelChat,
-        .pinnedSpaces,
-        .newSpacesLoading,
-        .objectTypeWidgets,
-        .newTypeIcons,
         .openMediaFileInPreview,
-        .openBookmarkAsLink,
-        .newSettings,
         .newPlusMenu,
         .spaceUxTypes,
+        .unreadOnHome,
         .enableStreamSpaceType,
-        .firebasePushMessages,
         .enablePushMessages,
         .aiToolInSet,
         .disableColorfulSeedPhrase,
-        .openTypeAsSet,
         .binWidgetFromLibrary,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
@@ -258,9 +222,6 @@ public extension FeatureFlags {
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
-        .httpsLinkForObjectCopy,
-        .newPropertiesCreation,
-        .pluralNames,
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
@@ -268,6 +229,9 @@ public extension FeatureFlags {
         .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
+        .openFullscreenObjectsFromSetWidget,
+        .chatWidget,
+        .checkLoginInNotificationService,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -282,6 +246,7 @@ public extension FeatureFlags {
         .showGlobalSearchScore,
         .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
-        .logMiddlewareRequests
+        .logMiddlewareRequests,
+        .showPushMessagesInForeground
     ]
 }

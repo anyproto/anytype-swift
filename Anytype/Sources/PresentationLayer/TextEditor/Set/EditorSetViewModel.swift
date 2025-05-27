@@ -84,7 +84,7 @@ final class EditorSetViewModel: ObservableObject {
         guard let details = setDocument.details else { return false }
         
         let isSupportedLayout = details.recommendedLayoutValue.isEditorLayout
-        let isTemplate = details.isTemplateType
+        let isTemplate = details.isTemplate
         return isSupportedLayout && !isTemplate
     }
     
@@ -159,8 +159,8 @@ final class EditorSetViewModel: ObservableObject {
         ))
     }
     
-    func onObjectTypeFieldsTap() {
-        output?.onObjectTypeFieldsTap(document: setDocument)
+    func onObjectTypePropertiesTap() {
+        output?.onObjectTypePropertiesTap(document: setDocument)
     }
     
     func onObjectTypeTemplatesTap() {
@@ -306,8 +306,6 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func startSubscriptions() async {
-        guard FeatureFlags.openTypeAsSet else { return }
-        
         async let templatesSub: () = subscribeOnTemplates()
         async let relationsSub: () = subscribeOnRelations()
     

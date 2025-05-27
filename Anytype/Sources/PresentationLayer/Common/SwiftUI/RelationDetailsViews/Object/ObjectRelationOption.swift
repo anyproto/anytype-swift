@@ -25,7 +25,7 @@ extension ObjectRelationOption {
     init(objectDetails: ObjectDetails) {
         id = objectDetails.id
         icon = objectDetails.objectIconImage
-        title = FeatureFlags.pluralNames ? objectDetails.pluralTitle : objectDetails.title
+        title = objectDetails.pluralTitle
         type = objectDetails.objectType.displayName
         isArchived = objectDetails.isArchived
         isDeleted = objectDetails.isDeleted

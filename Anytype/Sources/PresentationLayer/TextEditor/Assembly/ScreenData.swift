@@ -66,7 +66,7 @@ extension ScreenData {
     var isSimpleSet: Bool {
         switch self {
         case .editor(let editorScreenData):
-            return FeatureFlags.objectTypeWidgets ? editorScreenData.isSimpleSet : false
+            return editorScreenData.isSimpleSet
         case .alert, .preview, .bookmark, .spaceInfo, .chat:
             return false
         }

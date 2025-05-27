@@ -300,6 +300,14 @@ extension AnytypeAnalytics {
         logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)
     }
     
+    func logCreateObjectType(spaceId: String) {
+        let properties = [
+            AnalyticsEventsPropertiesKey.objectType: "_otobjectType",
+            AnalyticsEventsPropertiesKey.format: "Page"
+        ]
+        logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)
+    }
+    
     func logLinkToObject(type: AnalyticsEventsLinkToObjectType, spaceId: String) {
         logEvent(
             "LinkToObject",
@@ -834,8 +842,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenOnboardingSkipName")
     }
     
-    func logScreenTemplate() {
-        logEvent("ScreenTemplate")
+    func logScreenTemplateSelector() {
+        logEvent("ScreenTemplateSelector")
     }
     
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
@@ -1361,5 +1369,13 @@ extension AnytypeAnalytics {
                 AnalyticsEventsPropertiesKey.route: ResetToTypeDefaultRoute.object.rawValue
             ]
         )
+    }
+    
+    func logScreenTypeTemplateSelector() {
+        logEvent("ScreenTypeTemplateSelector")
+    }
+    
+    func logReorderSpace() {
+        logEvent("ReorderSpace")
     }
 }

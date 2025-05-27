@@ -1,3 +1,5 @@
 import ProtobufMessages
 
 public typealias ChatSubscribeLastMessagesResponse = Anytype_Rpc.Chat.SubscribeLastMessages.Response
+
+public typealias ChatSubscribeToMessagePreviewsResponse = Anytype_Rpc.Chat.SubscribeToMessagePreviews.Response

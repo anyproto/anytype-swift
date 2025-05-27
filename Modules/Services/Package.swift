@@ -16,7 +16,8 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.28.2"),
         .package(url: "https://github.com/hmlongco/Factory", revision: "2.3.1"),
         .package(path: "../ProtobufMessages"),
-        .package(path: "../AnytypeCore")
+        .package(path: "../AnytypeCore"),
+        .package(path: "../SecureService")
     ],
     targets: [
         .target(
@@ -25,7 +26,8 @@ let package = Package(
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
                 "Factory",
                 "ProtobufMessages",
-                "AnytypeCore"
+                "AnytypeCore",
+                "SecureService"
             ],
             path: "Sources",
             swiftSettings: [

@@ -1,20 +1,57 @@
 import UserNotifications
+import Services
+import AnytypeCore
+import Loc
 
 class NotificationService: UNNotificationServiceExtension {
+    
+    private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = Container.shared.decryptionPushContentService()
+    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+        
+        if FeatureFlags.checkLoginInNotificationService, basicUserInfoStorage.usersId.isEmpty {
+            return
+        }
+        
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
-        if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title) [changed by NSE]"
-            
-            contentHandler(bestAttemptContent)
+        guard let bestAttemptContent else {
+            return
         }
+        
+        guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
+              let encryptedData = Data(base64Encoded: encryptedBase64),
+              let keyId = request.content.userInfo[Constants.keyId] as? String else {
+            contentHandler(bestAttemptContent)
+            return
+        }
+        
+        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
+            bestAttemptContent.title = decryptedMessage.newMessage.spaceName
+            bestAttemptContent.subtitle = decryptedMessage.newMessage.senderName
+            
+            if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
+                bestAttemptContent.body = "📎 " + decryptedMessage.newMessage.text
+            } else if decryptedMessage.newMessage.hasAttachments, !decryptedMessage.newMessage.hasText {
+                bestAttemptContent.body = "📎 " + Loc.PushNotifications.Message.Attachment.title
+            } else {
+                bestAttemptContent.body = decryptedMessage.newMessage.text
+            }
+            
+            bestAttemptContent.threadIdentifier = decryptedMessage.newMessage.chatId
+            bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
+                DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
+                DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
+            ]
+        }
+        
+        // Deliver the notification
+        contentHandler(bestAttemptContent)
     }
     
     override func serviceExtensionTimeWillExpire() {
@@ -24,5 +61,11 @@ class NotificationService: UNNotificationServiceExtension {
             contentHandler(bestAttemptContent)
         }
     }
+}
 
+extension NotificationService {
+    enum Constants {
+        static let payload = "x-any-payload"
+        static let keyId = "x-any-key-id"
+    }
 }

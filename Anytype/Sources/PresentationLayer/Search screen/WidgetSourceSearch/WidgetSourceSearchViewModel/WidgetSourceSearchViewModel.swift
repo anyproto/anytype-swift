@@ -38,7 +38,7 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     func search(text: String) async throws {
         self.searchText = text
         
-        let objectTypes = FeatureFlags.objectTypeWidgets ? try await interactor.objectsTypesSearch(text: text) : []
+        let objectTypes = try await interactor.objectsTypesSearch(text: text)
         let objects = try await interactor.objectsSearch(text: text)
         let libraryObjects = try await interactor.anytypeLibrarySearch(text: text)
         
@@ -155,7 +155,7 @@ private extension SearchObjectRowView.Model {
 private extension SearchObjectRowView.Model {
     
     init(details: ObjectDetails) {
-        let title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        let title = details.pluralTitle
         self.id = details.id
         self.icon = details.objectIconImage
         self.title = title

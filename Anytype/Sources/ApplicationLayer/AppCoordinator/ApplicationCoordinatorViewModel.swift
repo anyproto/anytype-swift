@@ -10,6 +10,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var authService: any AuthServiceProtocol
     @Injected(\.accountEventHandler)
     private var accountEventHandler: any AccountEventHandlerProtocol
+    @Injected(\.encryptionKeyEventHandler)
+    private var encryptionKeyEventHandler: any EncryptionKeyEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
@@ -18,8 +20,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var seedService: any SeedServiceProtocol
     @Injected(\.fileErrorEventHandler)
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
-    @Injected(\.userDefaultsStorage)
-    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.basicUserInfoStorage)
+    private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
+    @Injected(\.pushNotificationsPermissionService)
+    private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
@@ -71,6 +75,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             await handleAccountStatus(status)
         }
     }
+    
+    func startEncryptionKeyEventHandler() async  {
+        await encryptionKeyEventHandler.startSubscription()
+    }
 
     func startFileHandler() async {
         for await _ in await fileErrorEventHandler.fileLimitReachedPublisher.values {
@@ -87,7 +95,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         case .pendingDeletion:
             applicationStateService.state = .delete
         case .deleted:
-            if userDefaults.usersId.isNotEmpty {
+            if basicUserInfoStorage.usersId.isNotEmpty {
                 try? await authService.logout(removeData: true)
                 applicationStateService.state = .auth
             }
@@ -117,7 +125,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Process
 
     private func loginProcess() async {
-        let userId = userDefaults.usersId
+        let userId = basicUserInfoStorage.usersId
         guard userId.isNotEmpty else {
             applicationStateService.state = .auth
             return
@@ -144,6 +152,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             case .deleted:
                 applicationStateService.state = .auth
             }
+            
+            await pushNotificationsPermissionService.registerForRemoteNotificationsIfNeeded()
         } catch is CancellationError {
             // Ignore cancellations
         } catch SelectAccountError.accountStoreNotMigrated {

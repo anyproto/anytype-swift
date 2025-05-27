@@ -11,15 +11,15 @@ enum SlashActionMedia: CaseIterable {
     var title: String {
         switch self {
         case .file:
-            return Loc.file
+            return Loc.file(1)
         case .image:
-            return Loc.image
+            return Loc.image(1)
         case .video:
-            return Loc.video
+            return Loc.video(1)
         case .audio:
-            return Loc.audio
+            return Loc.audio(1)
         case .bookmark:
-            return Loc.bookmark
+            return Loc.bookmark(1)
         case .codeSnippet:
             return Loc.codeSnippet
         }

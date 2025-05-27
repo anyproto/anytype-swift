@@ -24,66 +24,22 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let hideCoCreator = FeatureDescription(
-        title: "Hide CoCreator tier",
+    static let hideWebPayments = FeatureDescription(
+        title: "Hide web based payments for memebership tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
         defaultValue: true
     )
     
-    static let allObjectsFromLibrary = FeatureDescription(
-        title: "All objects from library",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let homeSpaceLevelChat = FeatureDescription(
-        title: "Space-Level Chat",
+        title: "Show Space-Level Chat",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
+        releaseAnytypeValue: true,
         releaseAnyAppValue: true
-    )
-    
-    static let pinnedSpaces = FeatureDescription(
-        title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let newSpacesLoading = FeatureDescription(
-        title: "Spaces loading indicator",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let objectTypeWidgets = FeatureDescription(
-        title: "Object Type widgets",
-        type: .feature(author: "m@anytype.io,joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-
-    static let newTypeIcons = FeatureDescription(
-        title: "New type Icons",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
     )
     
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let openBookmarkAsLink = FeatureDescription(
-        title: "Open bookmark as link",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let newSettings = FeatureDescription(
-        title: "New settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: true
     )
     
@@ -95,31 +51,31 @@ public extension FeatureDescription {
     )
     
     static let spaceUxTypes = FeatureDescription(
-        title: "Space UX Types",
+        title: "Create chat space",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
     
-    static let enableStreamSpaceType = FeatureDescription(
-        title: "Enable stream space type",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false
+    static let unreadOnHome = FeatureDescription(
+        title: "Unread section on home",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        releaseAnytypeValue: true,
+        releaseAnyAppValue: true,
+        debugValue: true
     )
     
-    static let firebasePushMessages = FeatureDescription(
-        title: "Firebase push messages",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+    static let enableStreamSpaceType = FeatureDescription(
+        title: "Create stream space",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
     )
 
     static let enablePushMessages = FeatureDescription(
-        title: "Firebase config and enable push messages",
+        title: "Enable push messages (⚠️ please restart the app after enabling)",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: true
     )
     
     static let aiToolInSet = FeatureDescription(
@@ -132,12 +88,6 @@ public extension FeatureDescription {
     static let disableColorfulSeedPhrase = FeatureDescription(
         title: "Disable colorful seed phrase",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let openTypeAsSet = FeatureDescription(
-        title: "Open type in Set View",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
         defaultValue: true
     )
     
@@ -182,8 +132,8 @@ public extension FeatureDescription {
     static let spaceHubRedesign = FeatureDescription(
         title: "Space Hub redesign",
         type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        releaseAnytypeValue: true,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
@@ -198,7 +148,7 @@ public extension FeatureDescription {
     static let chatCounters = FeatureDescription(
         title: "Counters",
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
+        releaseAnytypeValue: true,
         releaseAnyAppValue: true,
         debugValue: true
     )
@@ -210,29 +160,11 @@ public extension FeatureDescription {
         releaseAnyAppValue: true,
         debugValue: false
     )
-
-    static let httpsLinkForObjectCopy = FeatureDescription(
-        title: "https link for objects copy action",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let newPropertiesCreation = FeatureDescription(
-        title: "New properties creation flow",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let pluralNames = FeatureDescription(
-        title: "Plura type names",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
     
     static let countersOnSpaceHub = FeatureDescription(
         title: "Counters on Space Hub",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: false,
+        releaseAnytypeValue: true,
         releaseAnyAppValue: true,
         debugValue: true
     )
@@ -247,8 +179,9 @@ public extension FeatureDescription {
     
     static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
         title: "Do not wait completion in Anytype Preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
     )
     
     static let plusButtonOnWidgets = FeatureDescription(
@@ -265,7 +198,7 @@ public extension FeatureDescription {
     
     static let spaceLoadingForScreen = FeatureDescription(
         title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
         debugValue: false
@@ -273,9 +206,27 @@ public extension FeatureDescription {
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
+    )
+    
+    static let openFullscreenObjectsFromSetWidget = FeatureDescription(
+        title: "Open fullscreen object from set widget",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: true
+    )
+    
+    static let chatWidget = FeatureDescription(
+        title: "Chat Widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
+        defaultValue: false
+    )
+    
+    static let checkLoginInNotificationService = FeatureDescription(
+        title: "Check login in NotificationService",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
+        defaultValue: true
     )
     
     // MARK: - Debug
@@ -383,5 +334,12 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false,
         debugValue: true
+    )
+    
+    static let showPushMessagesInForeground = FeatureDescription(
+        title: "Show push messages in foreground",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
     )
 }

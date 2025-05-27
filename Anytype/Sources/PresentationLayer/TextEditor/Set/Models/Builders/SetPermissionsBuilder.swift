@@ -35,8 +35,8 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         
         if details.isList {
             return canCreateObjectOfList(setDocument: setDocument, details: details)
-        } else if FeatureFlags.openTypeAsSet && details.isObjectType {
-            return canCreateObjectOfType(details: details)
+        } else if details.isObjectType {
+            return canCreateObjectOfType(ObjectType(details: details))
         } else {
             return false
         }
@@ -53,29 +53,23 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
             return false
         }
         
-        guard let queryObject = try? ObjectTypeProvider.shared.objectType(id: setOfId) else {
+        guard let queryType = try? ObjectTypeProvider.shared.objectType(id: setOfId) else {
             return false
         }
         
-        if queryObject.isTemplateType {
-            return false
-        }
-        
-        guard let layout = queryObject.recommendedLayout else {
-            return false
-        }
-        
-        return layout.isSupportedForCreationInSets
+        return canCreateObjectOfType(queryType)
     }
     
-    private func canCreateObjectOfType(details: ObjectDetails) -> Bool {
-        guard let layout = details.recommendedLayoutValue else {
+    private func canCreateObjectOfType(_ type: ObjectType) -> Bool {
+        guard let layout = type.recommendedLayout else {
+            return false
+        }
+        
+        if type.isTemplateType {
             return false
         }
 
-        let isSupportedLayout = layout.isEditorLayout || layout.isList
-        let isTemplate = details.isTemplateType
-        return isSupportedLayout && !isTemplate
+        return layout.isSupportedForCreationInSets
 
     }
     

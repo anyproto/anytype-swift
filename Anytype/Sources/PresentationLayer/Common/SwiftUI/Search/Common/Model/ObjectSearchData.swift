@@ -13,7 +13,7 @@ struct ObjectSearchData: SearchDataProtocol {
     let details: ObjectDetails
     
     init(details: ObjectDetails) {
-        self.title = FeatureFlags.pluralNames ? details.pluralTitle : details.title
+        self.title = details.pluralTitle
         self.iconImage =  details.objectIconImage
         self.details = details
         

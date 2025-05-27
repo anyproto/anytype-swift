@@ -44,7 +44,7 @@ final class DebugMenuViewModel: ObservableObject {
     
     init() {
         updateFlags()
-        debugService.debugRunProfilerData.assign(to: &$debugRunProfilerData)
+        debugService.debugRunProfilerData.receiveOnMain().assign(to: &$debugRunProfilerData)
     }
     
     func removeRecoveryPhraseFromDevice() {

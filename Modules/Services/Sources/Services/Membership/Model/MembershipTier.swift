@@ -2,6 +2,8 @@ import ProtobufMessages
 
 
 public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
+    case legacyExplorer
+    case starter
     case explorer
     case builder
     case coCreator
@@ -9,13 +11,17 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
     
     case custom(id: UInt32)
     
-    static let explorerId: UInt32 = 1
+    static let starterId: UInt32 = 21
+    static let explorerId: UInt32 = 20
     static let builderId: UInt32 = 4
     static let coCreatorId: UInt32 = 5
     static let anyTeamId: UInt32 = 7
+    static let legacyExplorerId: UInt32 = 1
     
     public var id: UInt32 {
         switch self {
+        case .starter:
+            Self.starterId
         case .explorer:
             Self.explorerId
         case .builder:
@@ -26,6 +32,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
             Self.anyTeamId
         case .custom(let id):
             id
+        case .legacyExplorer:
+            Self.legacyExplorerId
         }
     }
     
@@ -33,6 +41,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
         switch intId {
         case 0:
             return nil
+        case Self.starterId:
+            self = .starter
         case Self.explorerId:
             self = .explorer
         case Self.builderId:
@@ -41,6 +51,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
             self = .coCreator
         case Self.anyTeamId:
             self = .anyTeam
+        case Self.legacyExplorerId:
+            self = .legacyExplorer
         default:
             self = .custom(id: intId)
         }
@@ -57,6 +69,7 @@ public enum MembershipColor: Equatable, Sendable {
     case blue
     case red
     case purple
+    case ice
     
     init(string: String) {
         switch string {
@@ -66,6 +79,8 @@ public enum MembershipColor: Equatable, Sendable {
             self = .red
         case "blue":
             self = .blue
+        case "ice":
+            self = .ice
         default:
             self = .purple
         }
@@ -75,6 +90,7 @@ public enum MembershipColor: Equatable, Sendable {
 public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
     public let type: MembershipTierType
     public let name: String
+    public let description: String
     public let anyName: MembershipAnyName
     public let features: [String]
     public let paymentType: MembershipTierPaymentType?
@@ -85,6 +101,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
     public init(
         type: MembershipTierType,
         name: String,
+        description: String,
         anyName: MembershipAnyName,
         features: [String],
         paymentType: MembershipTierPaymentType?,
@@ -92,6 +109,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
     ) {
         self.type = type
         self.name = name
+        self.description = description
         self.anyName = anyName
         self.features = features
         self.paymentType = paymentType

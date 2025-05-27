@@ -1,9 +1,15 @@
 import Services
 
+enum SetObjectCreationMode {
+    case `internal`
+    case fullscreen
+}
+
 @MainActor
 protocol SetObjectCreationCoordinatorProtocol {
     func startCreateObject(
         setDocument: some SetDocumentProtocol,
+        mode: SetObjectCreationMode,
         setting: ObjectCreationSetting?,
         output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
@@ -29,6 +35,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     func startCreateObject(
         setDocument: some SetDocumentProtocol,
+        mode: SetObjectCreationMode,
         setting: ObjectCreationSetting?,
         output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
@@ -39,13 +46,18 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             self.output = output
             self.customAnalyticsRoute = customAnalyticsRoute
             let result = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
-            self.handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument)
+            handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument, mode: mode)
         }
     }
     
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: some SetDocumentProtocol) {
+    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: some SetDocumentProtocol, mode: SetObjectCreationMode) {
         if let details {
-            showCreateObject(details: details, titleInputType: titleInputType)
+            switch mode {
+            case .internal:
+                showCreateObject(details: details, titleInputType: titleInputType)
+            case .fullscreen:
+                showObject(data: details.screenData())
+            }
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
                 spaceId: details.spaceId,
@@ -94,10 +106,11 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
 
 extension SetObjectCreationCoordinatorProtocol {
     func startCreateObject(
-        setDocument: some SetDocumentProtocol, 
+        setDocument: some SetDocumentProtocol,
+        mode: SetObjectCreationMode,
         output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
-        startCreateObject(setDocument: setDocument, setting: nil, output: output, customAnalyticsRoute: customAnalyticsRoute)
+        startCreateObject(setDocument: setDocument, mode: mode, setting: nil, output: output, customAnalyticsRoute: customAnalyticsRoute)
     }
 }

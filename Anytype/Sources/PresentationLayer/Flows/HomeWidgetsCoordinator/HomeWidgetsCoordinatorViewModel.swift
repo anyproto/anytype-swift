@@ -12,7 +12,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
-    @Published var showSpaceSettingsData: AccountInfo?
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -30,11 +29,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
-        if FeatureFlags.newSettings {
-            pageNavigation?.open(.spaceInfo(.mainScreen(info: spaceInfo)))
-        } else {
-            showSpaceSettingsData = spaceInfo
-        }
+        pageNavigation?.open(.spaceInfo(.mainScreen(info: spaceInfo)))
     }
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
@@ -72,7 +67,12 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     }
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
-        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+        setObjectCreationCoordinator.startCreateObject(
+            setDocument: setDocument,
+            mode: FeatureFlags.openFullscreenObjectsFromSetWidget ? .fullscreen : .internal,
+            output: self,
+            customAnalyticsRoute: .widget
+        )
     }
     
     // MARK: - SetObjectCreationCoordinatorOutput

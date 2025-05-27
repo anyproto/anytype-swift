@@ -71,9 +71,9 @@ struct MembershipModuleView: View {
     private var baners: some View {
         Group {
             switch membership.tier?.type {
-            case .explorer, nil:
+            case .starter, .legacyExplorer, nil:
                 MembershipBannersView()
-            case .builder, .coCreator, .custom, .anyTeam:
+            case .builder, .coCreator, .custom, .anyTeam, .explorer:
                 EmptyView()
             }
         }
@@ -93,7 +93,7 @@ struct MembershipModuleView: View {
             }
             
             Spacer.fixedHeight(32)
-            if !FeatureFlags.hideCoCreator {
+            if !FeatureFlags.hideWebPayments {
                 contactUs
                 Spacer.fixedHeight(24)
             }

@@ -23,12 +23,14 @@ struct TemplateModel: Equatable {
         title: String,
         header: ObjectHeader?,
         isBundled: Bool,
+        isDefault: Bool,
         style: Style
     ) {
         self.id = id
         self.title = title
         self.header = header
         self.isBundled = isBundled
+        self.isDefault = isDefault
         self.style = style
     }
     
@@ -36,6 +38,7 @@ struct TemplateModel: Equatable {
     let title: String
     let header: ObjectHeader?
     let isBundled: Bool
+    let isDefault: Bool
     let style: Style
 }
 
@@ -58,8 +61,14 @@ enum TemplateDecoration {
     case defaultBadge
 }
 
+enum TemplatePreviewContext {
+    case list
+    case type
+}
+
 struct TemplatePreviewModel: Identifiable, Equatable {
     let mode: TemplateType
+    let context: TemplatePreviewContext
     let alignment: LayoutAlignment
     let decoration: TemplateDecoration?
     
@@ -69,8 +78,8 @@ struct TemplatePreviewModel: Identifiable, Equatable {
 }
 
 extension TemplatePreviewModel {
-    init(mode: TemplateType, alignment: LayoutAlignment) {
-        self.init(mode: mode, alignment: alignment, decoration: nil)
+    init(mode: TemplateType, context: TemplatePreviewContext, alignment: LayoutAlignment) {
+        self.init(mode: mode, context: context, alignment: alignment, decoration: nil)
     }
 }
 
@@ -78,9 +87,14 @@ extension TemplatePreviewModel {
     var contextualMenuOptions: [TemplateOptionAction] {
         switch mode {
         case .addTemplate:
-            return []
-        case .installed:
-            return TemplateOptionAction.allCases
+            []
+        case .installed(let data):
+            switch context {
+            case .list:
+                TemplateOptionAction.listActions(isDefault: data.isDefault)
+            case .type:
+                TemplateOptionAction.typeActions(isDefault: data.isDefault)
+            }
         }
     }
 }

@@ -226,6 +226,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                         },
                         onTemplateSelection: data.onTemplateSelection
                     )
+                case .toggleIsDefault:
+                    anytypeAssertionFailure("Unsupported action for lists: toggleIsDefault")
                 }
                 
                 handleAnalytics(option: option, templateViewModel: templateViewModel)
@@ -250,6 +252,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
             AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: data.setDocument.isCollection() ? .collection : .set)
+        case .toggleIsDefault:
+            anytypeAssertionFailure("Unsupported action for lists: toggleIsDefault")
         }
     }
     
@@ -258,7 +262,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 
         templates.append(contentsOf: userTemplates)
         if isTemplatesEditable {
-            templates.append(.init(mode: .addTemplate, alignment: .center))
+            templates.append(TemplatePreviewModel(mode: .addTemplate, context: .list, alignment: .center))
         }
         
         withAnimation {
@@ -282,8 +286,13 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
 }
 
 extension TemplatePreviewModel {
-    init(objectDetails: ObjectDetails, decoration: TemplateDecoration?) {
-        self = .init(
+    init(
+        objectDetails: ObjectDetails,
+        context: TemplatePreviewContext,
+        isDefault: Bool,
+        decoration: TemplateDecoration?
+    ) {
+        self = TemplatePreviewModel(
             mode: .installed(.init(
                 id: objectDetails.id,
                 title: objectDetails.title,
@@ -295,9 +304,11 @@ extension TemplatePreviewModel {
                     onCoverTap: {}
                 ),
                 isBundled: objectDetails.templateIsBundled,
+                isDefault: isDefault,
                 style: objectDetails.resolvedLayoutValue == .todo ? .todo(objectDetails.isDone) : .none
             )
             ),
+            context: context,
             alignment: objectDetails.layoutAlignValue,
             decoration: decoration
         )

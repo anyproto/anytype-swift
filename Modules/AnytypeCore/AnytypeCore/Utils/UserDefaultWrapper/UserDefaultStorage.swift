@@ -5,12 +5,13 @@ import os
 // can still contain nil values, we'll have to introduce this
 // protocol to enable us to cast any assigned value into a type
 // that we can compare against nil:
-private protocol AnyOptional {
+public protocol AnyOptional {
     var isNil: Bool { get }
 }
 
 extension Optional: AnyOptional { }
 
+// WARNING: - This storage is not synchronized between processes (because of cache), not suitable for use in extensions
 public final class UserDefaultStorage<T: Codable & Sendable>: @unchecked Sendable {
     
     private let key: String

@@ -15,7 +15,7 @@ struct SpaceJoinView: View {
             ScreenStateView(state: model.state, error: model.errorMessage) {
                 content
             } loading: {
-                invite(placeholder: true)
+                invite(placeholder: true, withoutApprove: model.dataState.inviteWithoutApprove)
             }
         }
         .multilineTextAlignment(.center)
@@ -40,8 +40,8 @@ struct SpaceJoinView: View {
         switch model.dataState {
         case .requestSent:
             requestSent
-        case .invite:
-            invite(placeholder: false)
+        case let .invite(withoutApprove):
+            invite(placeholder: false, withoutApprove: withoutApprove)
         case .alreadyJoined:
             alreadyJoined
         case .inviteNotFound:
@@ -62,11 +62,11 @@ struct SpaceJoinView: View {
         }
     }
     
-    private func invite(placeholder: Bool) -> some View {
+    private func invite(placeholder: Bool, withoutApprove: Bool) -> some View {
         VStack(spacing: 0) {
             Image(asset: .Dialog.invite)
             Spacer.fixedHeight(15)
-            AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
+            AnytypeText(model.title, style: .heading)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(8)
             AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
@@ -75,15 +75,25 @@ struct SpaceJoinView: View {
                     $0.redacted(reason: .placeholder)
                 }
             Spacer.fixedHeight(19)
-            AsyncStandardButton(Loc.SpaceShare.Join.button, style: .primaryLarge) {
+            AsyncStandardButton(model.button, style: .primaryLarge) {
                 try await model.onJoin()
             }
             .if(placeholder) {
                 $0.redacted(reason: .placeholder)
             }
-            Spacer.fixedHeight(17)
-            AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+            
+            if !placeholder {
+                if withoutApprove {
+                    Spacer.fixedHeight(8)
+                    StandardButton(Loc.cancel, style: .secondaryLarge, action: {
+                        model.onCancel()
+                    })
+                } else {
+                    Spacer.fixedHeight(17)
+                    AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
+                        .foregroundColor(.Text.secondary)
+                }
+            }
         }
         .padding(.horizontal, 16)
         .padding(.top, 24)

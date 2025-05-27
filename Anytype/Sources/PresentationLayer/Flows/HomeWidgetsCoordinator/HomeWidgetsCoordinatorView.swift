@@ -38,8 +38,5 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                     model.onFinishCreateSource(screenData: $0)
                 }
             }
-            .sheet(item: $model.showSpaceSettingsData) {
-                SpaceSettingsCoordinatorView(workspaceInfo: $0)
-            }
     }
 }

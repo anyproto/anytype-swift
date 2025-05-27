@@ -1,8 +1,6 @@
 name: Branch build
 
 on:
-  pull_request_target:
-    types: [opened,closed,synchronize]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
@@ -16,8 +14,7 @@ concurrency:
 
 jobs:
   main:
-    runs-on: ${{ vars.RUNNER }}
-    if: github.event.pull_request.head.repo.fork || github.event_name == 'workflow_dispatch'
+    runs-on: macos-15
 
     steps:
       - name: Checkout

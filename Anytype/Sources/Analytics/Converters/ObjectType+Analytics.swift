@@ -23,12 +23,10 @@ extension AnytypeWidgetId {
             return .recent
         case .recentOpen:
             return .recentOpen
-        case .sets:
-            return .sets
-        case .collections:
-            return .collections
         case .bin:
             return .bin
+        case .chat:
+            return .chat
         }
     }
 }

@@ -24,11 +24,13 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     private let openedDocumentsProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
     private let spaceId: String
     private let widgetObjectId: String
     private let anytypeLibrary = AnytypeWidgetId.availableWidgets.map { $0.librarySource }
     private let widgetObject: any BaseDocumentProtocol
+    private let spaceView: SpaceView?
     
     private var widgetTypeIds: [String]?
     
@@ -36,6 +38,7 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
         self.spaceId = spaceId
         self.widgetObjectId = widgetObjectId
         self.widgetObject = openedDocumentsProvider.document(objectId: widgetObjectId, spaceId: spaceId, mode: .preview)
+        self.spaceView = workspaceStorage.spaceView(spaceId: spaceId)
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol
@@ -67,7 +70,11 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     func anytypeLibrarySearch(text: String) async throws -> [WidgetAnytypeLibrarySource] {
         let sourceIds = try await sourceIds()
-        let anytypeLibrary = anytypeLibrary.filter { !sourceIds.contains($0.type.rawValue) }
+        var anytypeLibrary = anytypeLibrary.filter { !sourceIds.contains($0.type.rawValue) }
+        
+        if spaceView?.canAddChatWidget == false {
+            anytypeLibrary.removeAll { $0.type == .chat }
+        }
         
         guard text.isNotEmpty else { return anytypeLibrary }
         return anytypeLibrary.filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
@@ -89,49 +96,42 @@ private extension AnytypeWidgetId {
                 type: .allObjects,
                 name: Loc.allObjects,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.allObjects) : .object(.emoji(Emoji("🗄")!))
+                icon: .asset(.SystemWidgets.allObjects)
             )
         case .favorite:
             return WidgetAnytypeLibrarySource(
                 type: .favorite,
                 name: Loc.favorite,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.favorites) : .object(.emoji(Emoji("⭐️")!))
-            )
-        case .sets:
-            return WidgetAnytypeLibrarySource(
-                type: .sets,
-                name: Loc.sets,
-                description: nil,
-                icon: .object(.emoji(Emoji("🔎")!))
-            )
-        case .collections:
-            return WidgetAnytypeLibrarySource(
-                type: .collections,
-                name: Loc.collections,
-                description: nil,
-                icon: .object(.emoji(Emoji("📂")!))
+                icon: .asset(.SystemWidgets.favorites)
             )
         case .recent:
             return WidgetAnytypeLibrarySource(
                 type: .recent,
                 name: Loc.Widgets.Library.RecentlyEdited.name,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyEdited) : .object(.emoji(Emoji("📝")!))
+                icon: .asset(.SystemWidgets.recentlyEdited)
             )
         case .recentOpen:
             return WidgetAnytypeLibrarySource(
                 type: .recentOpen,
                 name: Loc.Widgets.Library.RecentlyOpened.name,
                 description: Loc.Widgets.Library.RecentlyOpened.description,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.recentlyOpened) : .object(.emoji(Emoji("📅")!))
+                icon: .asset(.SystemWidgets.recentlyOpened)
             )
         case .bin:
             return WidgetAnytypeLibrarySource(
                 type: .bin,
                 name: Loc.bin,
                 description: nil,
-                icon: FeatureFlags.objectTypeWidgets ? .asset(.SystemWidgets.bin) : .object(.emoji(Emoji("🗑️")!))
+                icon: .asset(.SystemWidgets.bin)
+            )
+        case .chat:
+            return WidgetAnytypeLibrarySource(
+                type: .chat,
+                name: Loc.chat,
+                description: nil,
+                icon: .asset(.SystemWidgets.chat)
             )
         }
     }

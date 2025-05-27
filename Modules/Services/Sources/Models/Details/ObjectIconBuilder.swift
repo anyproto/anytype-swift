@@ -49,13 +49,13 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
             return profileIcon(iconImage: relations.iconImage, objectName: relations.objectName)
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
-        case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .tag, .chatDerived:
-            return nil
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
         case .objectType:
             return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
+        case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
+                .audio, .video, .pdf, .date, .tag, .chatDerived:
+            return nil
         }
     }
     
@@ -75,7 +75,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         return iconImage.isNotEmpty ? .bookmark(iconImage) : nil
     }
     
-    private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon? {
+    private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon {
         if iconImage.isNotEmpty {
             return .space(.imageId(iconImage))
         }
@@ -88,7 +88,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     }
     
     private func objectTypeIcon(customIcon: CustomIcon?, customIconColor: CustomIconColor?, iconImage: String, iconEmoji: Emoji?) -> ObjectIcon? {
-        if FeatureFlags.newTypeIcons, let customIcon {
+        if let customIcon {
             let data = CustomIconData(icon: customIcon, customColor: customIconColor ?? CustomIconColor.default)
             return .customIcon(data)
         }

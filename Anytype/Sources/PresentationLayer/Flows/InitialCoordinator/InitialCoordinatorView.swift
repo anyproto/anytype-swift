@@ -18,7 +18,7 @@ struct InitialCoordinatorView: View {
             model.onAppear()
         }
         .alert(Loc.Initial.UnstableMiddle.title, isPresented: $model.showWarningAlert) {
-            if model.userDefaults.usersId.isNotEmpty {
+            if model.userId.isNotEmpty {
                 Button(Loc.Initial.UnstableMiddle.logout) {
                     model.contunueWithLogout()
                 }
@@ -35,8 +35,12 @@ struct InitialCoordinatorView: View {
             Text(verbatim: Loc.Initial.UnstableMiddle.message)
         }
         .snackbar(toastBarData: $model.toastBarData)
-        .anytypeShareView(item: $model.middlewareShareFile)
-        .anytypeShareView(item: $model.localStoreURL)
+        .sheet(item: $model.middlewareShareFile) { link in
+            ActivityView(activityItems: [link])
+        }
+        .sheet(item: $model.localStoreURL) { link in
+            ActivityView(activityItems: [link])
+        }
     }
     
     private var crashView: some View {

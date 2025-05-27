@@ -13,7 +13,7 @@ struct RelationsListCoordinatorView: View {
     }
     
     var body: some View {
-        ObjectFieldsView(
+        ObjectPropertiesView(
             document: model.document,
             output: model
         )
@@ -21,14 +21,10 @@ struct RelationsListCoordinatorView: View {
             RelationValueCoordinatorView(data: data, output: model)
         }
         .sheet(item: $model.relationsSearchData) {
-            if FeatureFlags.newPropertiesCreation {
-                RelationCreationView(data: $0)
-            } else {
-                RelationsSearchCoordinatorView(data: $0)
-            }
+            RelationCreationView(data: $0)
         }
         .sheet(item: $model.objectTypeData) {
-            TypeFieldsView(data: $0)
+            TypePropertiesView(data: $0)
         }
         .sheet(isPresented: $model.showTypePicker) {
             ObjectTypeSearchView(

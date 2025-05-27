@@ -26,7 +26,6 @@ struct MembershipCoordinator: View {
                 }
             }
         }
-        .animation(.default, value: model.userMembership)
         .background(Color.Background.primary)
         
         .sheet(item: $model.showTier) { tier in
@@ -47,7 +46,7 @@ struct MembershipCoordinator: View {
         EmptyStateView(
             title: Loc.Error.Common.title,
             subtitle: Loc.Error.Common.message,
-            style: .withImage,
+            style: .error,
             buttonData: EmptyStateView.ButtonData(
                 title: Loc.Error.Common.tryAgain,
                 action: { model.loadTiers() }

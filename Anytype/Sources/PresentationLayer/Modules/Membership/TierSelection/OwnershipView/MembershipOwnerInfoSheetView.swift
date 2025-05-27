@@ -43,13 +43,15 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(4)
             switch model.membership.tier?.type {
-            case .explorer:
-                AnytypeText(Loc.forever, style: .title)
-                    .foregroundColor(.Text.primary)
-                Spacer.fixedHeight(55)
-            case .builder, .coCreator, .custom:
-                AnytypeText(model.membership.formattedDateEnds, style: .title)
-                    .foregroundColor(.Text.primary)
+            case .starter, .builder, .coCreator, .custom, .explorer, .legacyExplorer:
+                switch model.membership.dateEnds {
+                case .never:
+                    AnytypeText(Loc.forever, style: .title)
+                        .foregroundColor(.Text.primary)
+                case .date:
+                    AnytypeText(model.membership.formattedDateEnds, style: .title)
+                        .foregroundColor(.Text.primary)
+                }
                 paymentText
             case .anyTeam:
                 AnytypeText(model.membership.formattedDateEnds, style: .title)
@@ -81,20 +83,7 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var actions: some View {
-        Group {
-            switch model.membership.tier?.type {
-            case .explorer:
-                explorerActions
-            case .builder, .coCreator, .custom, .anyTeam:
-                managePayment
-            case nil:
-                EmptyView()
-            }
-        }
-    }
-    
-    private var explorerActions: some View {
+    private var mailActions: some View {
         Group {
             if model.alreadyHaveEmail && !model.changeEmail {
                 VStack(spacing: 0) {
@@ -117,13 +106,15 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var managePayment: some View {
+    private var actions: some View {
         Group {
             switch model.purchaseType {
             case .purchasedInAppStoreWithCurrentAccount:
                 managePaymentButton
             case .purchasedElsewhere(let externalPaymentMethod):
                 managePaymentNotice(paymentMethod: externalPaymentMethod)
+            case .freeTier:
+                mailActions
             case .none:
                 EmptyView()
             }
@@ -146,25 +137,27 @@ struct MembershipOwnerInfoSheetView: View {
             AnytypeText(paymentMethod.noticeText, style: .relation2Regular)
                 .foregroundColor(.Text.secondary)
                 .lineLimit(2)
+                .multilineTextAlignment(.center) 
+                .padding(.vertical)
         }
     }
 }
 
 
-#Preview("Explorer without email") {
+#Preview("Starter without email") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer, email: "")
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, email: "")
         } content: {
             MembershipOwnerInfoSheetView()
         }
     }
 }
 
-#Preview("Explorer with email") {
+#Preview("Starter with email") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer, email: "vo@va.com")
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, email: "vo@va.com")
         } content: {
             MembershipOwnerInfoSheetView()
         }

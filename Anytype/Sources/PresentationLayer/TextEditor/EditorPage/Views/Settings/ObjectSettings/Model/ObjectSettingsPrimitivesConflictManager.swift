@@ -15,7 +15,7 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
     func haveLayoutConflicts(details: ObjectDetails) -> Bool {
         guard !details.isObjectType else { return false }
         
-        let typeId = details.isTemplateType ? details.targetObjectType : details.type
+        let typeId = details.isTemplate ? details.targetObjectType : details.type
         guard let type = try? objectTypeProvider.objectType(id: typeId) else { return false }
         let layoutsInObjectAndTypeAreDifferent = details.resolvedLayoutValue != type.recommendedLayout
         let layoutAlignInObjectAndTypeAreDifferent = details.layoutAlignValue != type.layoutAlign

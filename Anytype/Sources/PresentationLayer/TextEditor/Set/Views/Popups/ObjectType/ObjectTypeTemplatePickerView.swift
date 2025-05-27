@@ -12,6 +12,7 @@ struct ObjectTypeTemplatePickerView: View {
     var body: some View {
         content
             .task { await model.setupSubscriptions() }
+            .onAppear { model.onAppear() }
     }
     
     private var content: some View {
@@ -25,17 +26,33 @@ struct ObjectTypeTemplatePickerView: View {
 
     private var templates: some View {
         VStack {
-            HStack(spacing: 8) {
-                AnytypeText(Loc.templates, style: .subheading)
-                AnytypeText("\(model.templatesCount)", style: .previewTitle1Regular)
-                    .foregroundColor(Color.Text.secondary)
-                Spacer()
+            ZStack {
+                HStack(spacing: 8) {
+                    
+                    Spacer()
+                    
+                    AnytypeText(Loc.templates, style: .subheading)
+                    AnytypeText("\(model.templatesCount)", style: .previewTitle1Regular)
+                        .foregroundColor(Color.Text.secondary)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        model.onAddTemplateTap()
+                    }, label: {
+                        IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                    })
+                }
                 
-                Button(action: {
-                    model.onAddTemplateTap()
-                }, label: {
-                    IconView(asset: .X24.plus).frame(width: 24, height: 24)
-                })
+                HStack {
+                    Button {
+                        model.onEditTap()
+                    } label: {
+                        AnytypeText(model.isEditing ? Loc.done : Loc.edit, style: .previewTitle1Regular)
+                            .foregroundColor(Color.Text.secondary)
+                    }
+                    Spacer()
+                }
             }.padding(10).padding(.horizontal, 10)
             
             templatesList
@@ -49,8 +66,8 @@ struct ObjectTypeTemplatePickerView: View {
                     EditableView<TemplatePreview>(
                         content: TemplatePreview(viewModel: template),
                         onTap: { model.onTemplateTap(model: template.model) },
-                        canBeEdited: false,
-                        isEditing: .constant(false)
+                        canBeEdited: template.model.isEditable,
+                        isEditing: $model.isEditing
                     )
                 }
             }

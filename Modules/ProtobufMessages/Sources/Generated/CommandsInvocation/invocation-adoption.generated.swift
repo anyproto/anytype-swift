@@ -51,8 +51,23 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: ResponseErr
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Account.LocalLink.CreateApp.Response: ResultWithError {}
+extension Anytype_Rpc.Account.LocalLink.CreateApp.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Account.LocalLink.ListApps.Response: ResultWithError {}
+extension Anytype_Rpc.Account.LocalLink.ListApps.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: ResultWithError {}
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response: ResultWithError {}
+extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -1310,6 +1325,11 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.PushNotification.RegisterToken.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Relation.ListRemoveOption.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1327,6 +1347,11 @@ extension Anytype_Rpc.Relation.Options.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Space.Delete.Response: ResultWithError {}
 extension Anytype_Rpc.Space.Delete.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Space.InviteChange.Response: ResultWithError {}
+extension Anytype_Rpc.Space.InviteChange.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

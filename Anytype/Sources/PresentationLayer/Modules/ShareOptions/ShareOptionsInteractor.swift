@@ -90,9 +90,12 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     }
     
     private func createBookmarkObject(url: AnytypeURL, spaceId: String) async throws -> ObjectDetails {
+        let type = try? objectTypeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
+        
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
             url: url,
+            templateId: type?.defaultTemplateId,
             origin: .sharingExtension
         )
         try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)
@@ -130,7 +133,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
         let resources = try url.resourceValues(forKeys: [.fileSizeKey])
         let data = FileData(path: url.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false)
-        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension, createTypeWidgetIfMissing: FeatureFlags.objectTypeWidgets)
+        let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension, createTypeWidgetIfMissing: true)
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: details.analyticsType,
@@ -175,7 +178,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             spaceId: addToObject.spaceId,
             data: FileData(path: fileURL.relativePath, type: .data, sizeInBytes: resources.fileSize, isTemporary: false),
             origin: .sharingExtension,
-            createTypeWidgetIfMissing: FeatureFlags.objectTypeWidgets
+            createTypeWidgetIfMissing: true
         )
         let blockInformation = BlockInformation.file(fileDetails: fileDetails)
         _ = try await blockService.add(

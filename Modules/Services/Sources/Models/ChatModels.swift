@@ -9,9 +9,15 @@ public typealias ChatState = Anytype_Model_ChatState
 public typealias ChatMessagesReadType = Anytype_Rpc.Chat.ReadMessages.ReadType
 public typealias ChatUnreadReadType = Anytype_Rpc.Chat.Unread.ReadType
 public typealias ChatUpdateState = Anytype_Event.Chat.UpdateState
+public typealias ChatAddData = Anytype_Event.Chat.Add
 
 public extension ChatMessage {
     var createdAtDate: Date {
         Date(timeIntervalSince1970: TimeInterval(createdAt))
+    }
+    
+    var modifiedAtDate: Date? {
+        guard modifiedAt != 0 else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(modifiedAt))
     }
 }

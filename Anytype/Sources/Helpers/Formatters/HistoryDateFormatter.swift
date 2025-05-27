@@ -7,8 +7,8 @@ final class HistoryDateFormatter: Sendable {
         return dateFormatter
     }()
     
-    func localizedDateString(for date: Date) -> String {
-        let date = dateFormatter.calendar.startOfDay(for: date)
+    func localizedDateString(for initialDate: Date, showTodayTime: Bool = false) -> String {
+        let date = dateFormatter.calendar.startOfDay(for: initialDate)
         let todayDate = dateFormatter.calendar.startOfDay(for: Date())
         
         let interval = dateFormatter.calendar.dateComponents([.day], from: date, to: todayDate)
@@ -19,7 +19,12 @@ final class HistoryDateFormatter: Sendable {
         
         switch days {
         case 0:
-            return Loc.today
+            if showTodayTime {
+                dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+                return dateFormatter.string(from: initialDate)
+            } else {
+                return Loc.today
+            }
         case 1:
             return Loc.yesterday
         default:

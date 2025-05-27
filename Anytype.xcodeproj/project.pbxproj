@@ -50,7 +50,11 @@
 		2ADB57862CB6B6FE00BFC386 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = 2ADB57852CB6B6FE00BFC386 /* Cache */; };
 		2ADD66782CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD66772CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift */; };
 		2E3058142D81DF7F00BF4F25 /* AnytypeNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E30580D2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2E428A262DA836B900B849EF /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2E428A252DA836B900B849EF /* Factory */; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
+		2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED425D12DDE3CF5008C7AD3 /* Loc */; };
+		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
+		2EDD08442DA833720050397F /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDD08432DA833720050397F /* Services */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
@@ -163,7 +167,7 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		862D55A32A8F9A1A0018103F /* Embed Frameworks */ = {
+		2EDD08452DA833720050397F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -255,14 +259,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2E30581A2D81DF7F00BF4F25 /* Exceptions for "AnytypeNotificationServiceExtension" folder in "AnytypeNotificationServiceExtension" target */ = {
+		2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 2E30580C2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */;
 		};
-		3D69777F2CAE9EC5003F5A91 /* Exceptions for "Supporting files" folder in "Anytype" target */ = {
+		3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/LaunchScreen.storyboard,
@@ -272,7 +276,7 @@
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
-		3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */ = {
+		3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/MainInterface.storyboard,
@@ -280,14 +284,14 @@
 			);
 			target = 862D558F2A8F78330018103F /* AnytypeShareExtension */;
 		};
-		742023292D633BD5004655B5 /* Exceptions for "Chat" folder in "AnytypeTests" target */ = {
+		742023292D633BD5004655B5 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ChatInputLinkParserTests.swift,
 			);
 			target = 03C5C53F22DFD90C00DD91DE /* AnytypeTests */;
 		};
-		7450C2992D95743A00926A3D /* Exceptions for "Helpers" folder in "AnytypeTests" target */ = {
+		7450C2992D95743A00926A3D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				URLHttpTests.swift,
@@ -297,74 +301,15 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				2E30581A2D81DF7F00BF4F25 /* Exceptions for "AnytypeNotificationServiceExtension" folder in "AnytypeNotificationServiceExtension" target */,
-			);
-			path = AnytypeNotificationServiceExtension;
-			sourceTree = "<group>";
-		};
-		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				3D69777F2CAE9EC5003F5A91 /* Exceptions for "Supporting files" folder in "Anytype" target */,
-			);
-			path = "Supporting files";
-			sourceTree = "<group>";
-		};
-		3D6977812CAE9ED0003F5A91 /* Video */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Video;
-			sourceTree = "<group>";
-		};
-		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */,
-			);
-			path = AnytypeShareExtension;
-			sourceTree = "<group>";
-		};
-		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		742023262D633BC1004655B5 /* Chat */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				742023292D633BD5004655B5 /* Exceptions for "Chat" folder in "AnytypeTests" target */,
-			);
-			path = Chat;
-			sourceTree = "<group>";
-		};
-		7424EFB92D79C71B00E51377 /* Modules */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		7450C28F2D9573F500926A3D /* Helpers */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				7450C2992D95743A00926A3D /* Exceptions for "Helpers" folder in "AnytypeTests" target */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
+		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeNotificationServiceExtension; sourceTree = "<group>"; };
+		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting files"; sourceTree = "<group>"; };
+		3D6977812CAE9ED0003F5A91 /* Video */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Video; sourceTree = "<group>"; };
+		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
+		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeShareExtension; sourceTree = "<group>"; };
+		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
+		742023262D633BC1004655B5 /* Chat */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (742023292D633BD5004655B5 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Chat; sourceTree = "<group>"; };
+		7424EFB92D79C71B00E51377 /* Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Modules; sourceTree = "<group>"; };
+		7450C28F2D9573F500926A3D /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7450C2992D95743A00926A3D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +373,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EDD08442DA833720050397F /* Services in Frameworks */,
+				2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */,
+				2E428A262DA836B900B849EF /* Factory in Frameworks */,
+				2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,8 +714,6 @@
 			dependencies = (
 				03C5C54622DFD90C00DD91DE /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-			);
 			name = AnytypeTests;
 			packageProductDependencies = (
 				2A90C465285B5A9100B6B44E /* AnytypeCore */,
@@ -786,6 +733,7 @@
 				2E3058092D81DF7E00BF4F25 /* Sources */,
 				2E30580A2D81DF7E00BF4F25 /* Frameworks */,
 				2E30580B2D81DF7E00BF4F25 /* Resources */,
+				2EDD08452DA833720050397F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -806,13 +754,10 @@
 				862D558C2A8F78330018103F /* Sources */,
 				862D558D2A8F78330018103F /* Frameworks */,
 				862D558E2A8F78330018103F /* Resources */,
-				862D55A32A8F9A1A0018103F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
 			);
 			name = AnytypeShareExtension;
 			packageProductDependencies = (
@@ -836,8 +781,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
 			);
 			name = AnytypeWidgetExtension;
 			packageProductDependencies = (
@@ -1166,6 +1109,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILATION_CONDITION = DEBUG;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -1241,6 +1185,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILATION_CONDITION = RELEASE_ANYTYPE;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -1292,7 +1237,6 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/AnytypeDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = DEBUG;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
@@ -1312,17 +1256,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev";
 				SENTRY_ENV = "";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(COMPILATION_CONDITION)";
 				SWIFT_USE_INTEGRATED_DRIVER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1340,7 +1282,6 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYTYPE;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
@@ -1360,17 +1301,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app";
 				SENTRY_ENV = production;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(COMPILATION_CONDITION)";
 				SWIFT_USE_INTEGRATED_DRIVER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1391,7 +1330,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1417,7 +1356,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1463,6 +1402,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILATION_CONDITION = RELEASE_NIGHTLY;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -1514,7 +1454,6 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/AnytypeDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_NIGHTLY;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
@@ -1534,17 +1473,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev";
 				SENTRY_ENV = development;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(COMPILATION_CONDITION)";
 				SWIFT_USE_INTEGRATED_DRIVER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1565,7 +1502,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1585,12 +1522,9 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = AnytypeNotificationServiceExtension/AnytypeNotificationServiceExtensionDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = DEBUG;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1601,14 +1535,14 @@
 				INFOPLIST_FILE = AnytypeNotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeNotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1657,12 +1591,10 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeNotificationServiceExtension/AnytypeNotificationServiceExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYTYPE;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1678,16 +1610,14 @@
 				INFOPLIST_FILE = AnytypeNotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeNotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.37.8;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1738,12 +1668,10 @@
 				CODE_SIGN_ENTITLEMENTS = "AnytypeNotificationServiceExtension/AnytypeNotificationServiceExtensionRelease-AnyApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYAPP;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1759,16 +1687,14 @@
 				INFOPLIST_FILE = AnytypeNotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeNotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.37.8;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1818,13 +1744,299 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = AnytypeNotificationServiceExtension/AnytypeNotificationServiceExtensionDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_NIGHTLY;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnytypeNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnytypeNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Anytype. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.anytype.app.dev.AnytypeNotificationExtension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release-Nightly";
+		};
+		7458588B2DD73A4F00895687 /* Debug-Anytype */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILATION_CONDITION = DEBUG;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_DYNAMIC_ACTOR_ISOLATION = NO;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPES_USABILITY = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_NONFROZEN_ENUM_EXHAUSTIVITY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = NO;
+			};
+			name = "Debug-Anytype";
+		};
+		7458588C2DD73A4F00895687 /* Debug-Anytype */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BUILD_APP_URL_SCHEME = "prod-anytype";
+				BUNDLE_NAME = "$(TARGET_NAME)";
+				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				ENABLE_BITCODE = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Dependencies/Middleware",
+				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-Anytype-Release.plist";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				OTHER_LDFLAGS = "-ObjC";
+				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
+				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_USE_INTEGRATED_DRIVER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Debug-Anytype";
+		};
+		7458588D2DD73A4F00895687 /* Debug-Anytype */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = AnytypeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anytype.app/Anytype";
+			};
+			name = "Debug-Anytype";
+		};
+		7458588E2DD73A4F00895687 /* Debug-Anytype */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnytypeWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnytypeWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Anytype. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.homewidget";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-Anytype";
+		};
+		7458588F2DD73A4F00895687 /* Debug-Anytype */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Anytype. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.anytype.app.AnytypeShareExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-Anytype";
+		};
+		745858902DD73A4F00895687 /* Debug-Anytype */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = AnytypeNotificationServiceExtension/AnytypeNotificationServiceExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1841,20 +2053,18 @@
 				INFOPLIST_FILE = AnytypeNotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeNotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.37.8;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.anytype.app.dev.AnytypeNotificationExtension";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.anytype.app.AnytypeNotificationExtension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1863,7 +2073,296 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = "Release-Nightly";
+			name = "Debug-Anytype";
+		};
+		745858912DD73A5C00895687 /* Debug-AnyApp */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILATION_CONDITION = DEBUG;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_DYNAMIC_ACTOR_ISOLATION = NO;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPES_USABILITY = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
+				SWIFT_UPCOMING_FEATURE_NONFROZEN_ENUM_EXHAUSTIVITY = YES;
+				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = NO;
+			};
+			name = "Debug-AnyApp";
+		};
+		745858922DD73A5C00895687 /* Debug-AnyApp */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AnyAppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				BUILD_APP_URL_SCHEME = "prod-anyapp";
+				BUNDLE_NAME = Any;
+				CODE_SIGN_ENTITLEMENTS = "Anytype/AnytypeRelease-AnyApp.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				ENABLE_BITCODE = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Dependencies/Middleware",
+				);
+				GOOGLE_SERVICE_INFO_PLIST = "$(SRCROOT)/$(PROJECT_NAME)/Supporting files/GoogleServices/GoogleService-Info-AnyApp-Release.plist";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				OTHER_LDFLAGS = "-ObjC";
+				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
+				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
+				PRODUCT_NAME = Any;
+				PROVISIONING_PROFILE_SPECIFIER = "match Development org.any.app";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_USE_INTEGRATED_DRIVER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Debug-AnyApp";
+		};
+		745858932DD73A5C00895687 /* Debug-AnyApp */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = AnytypeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anytype.app/Anytype";
+			};
+			name = "Debug-AnyApp";
+		};
+		745858942DD73A5C00895687 /* Debug-AnyApp */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnytypeWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnytypeWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Anytype. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development org.any.app.homewidget";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-AnyApp";
+		};
+		745858952DD73A5C00895687 /* Debug-AnyApp */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "AnytypeShareExtension/AnytypeShareExtensionRelease-AnyApp.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 0;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Anytype. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development org.any.app.AnytypeShareExtension";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-AnyApp";
+		};
+		745858962DD73A5C00895687 /* Debug-AnyApp */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "AnytypeNotificationServiceExtension/AnytypeNotificationServiceExtensionRelease-AnyApp.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AnytypeNotificationServiceExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AnytypeNotificationServiceExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Anytype. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 0.38.1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development org.any.app.AnytypeNotificationExtension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Debug-AnyApp";
 		};
 		74F7F7E72D37BC1400F6C566 /* Release-AnyApp */ = {
 			isa = XCBuildConfiguration;
@@ -1898,6 +2397,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILATION_CONDITION = RELEASE_ANYAPP;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -1949,7 +2449,6 @@
 				CODE_SIGN_ENTITLEMENTS = "Anytype/AnytypeRelease-AnyApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYAPP;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
@@ -1969,17 +2468,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
 				PRODUCT_NAME = Any;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.any.app";
 				SENTRY_ENV = production;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(COMPILATION_CONDITION)";
 				SWIFT_USE_INTEGRATED_DRIVER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2000,7 +2497,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2021,10 +2518,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYAPP;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeWidget;
@@ -2035,11 +2530,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore org.any.app.homewidget";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.any.app.homewidget";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2055,10 +2549,8 @@
 				CODE_SIGN_ENTITLEMENTS = "AnytypeShareExtension/AnytypeShareExtensionRelease-AnyApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYAPP;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
@@ -2069,7 +2561,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2088,10 +2580,8 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtensionDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = DEBUG;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
@@ -2102,11 +2592,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.anytype.app.dev.AnytypeShareExtension";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.AnytypeShareExtension";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2121,10 +2610,8 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYTYPE;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
@@ -2135,7 +2622,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2153,12 +2640,9 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtensionDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_NIGHTLY;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
@@ -2169,7 +2653,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2187,13 +2671,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = DEBUG;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeWidget;
@@ -2204,11 +2685,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development io.anytype.app.dev.homewidget";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.homewidget";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2225,10 +2705,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_ANYTYPE;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeWidget;
@@ -2239,11 +2717,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.anytype.app.homewidget";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.homewidget";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2260,10 +2737,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				COMPILATION_CONDITION = RELEASE_NIGHTLY;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
+				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnytypeWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeWidget;
@@ -2274,11 +2749,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.37.8;
+				MARKETING_VERSION = 0.38.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore io.anytype.app.dev.homewidget";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev.homewidget";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -2295,7 +2769,9 @@
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,
 				0303ED0E22D8EDAD005C552B /* Release-Anytype */,
+				7458588B2DD73A4F00895687 /* Debug-Anytype */,
 				74F7F7E72D37BC1400F6C566 /* Release-AnyApp */,
+				745858912DD73A5C00895687 /* Debug-AnyApp */,
 				1267458B2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2306,7 +2782,9 @@
 			buildConfigurations = (
 				0303ED1022D8EDAD005C552B /* Debug */,
 				0303ED1122D8EDAD005C552B /* Release-Anytype */,
+				7458588C2DD73A4F00895687 /* Debug-Anytype */,
 				74F7F7E82D37BC1400F6C566 /* Release-AnyApp */,
+				745858922DD73A5C00895687 /* Debug-AnyApp */,
 				1267458C2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2317,7 +2795,9 @@
 			buildConfigurations = (
 				03C5C54822DFD90C00DD91DE /* Debug */,
 				03C5C54922DFD90C00DD91DE /* Release-Anytype */,
+				7458588D2DD73A4F00895687 /* Debug-Anytype */,
 				74F7F7E92D37BC1400F6C566 /* Release-AnyApp */,
+				745858932DD73A5C00895687 /* Debug-AnyApp */,
 				1267458D2696FEC1002132F3 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2328,7 +2808,9 @@
 			buildConfigurations = (
 				2E3058152D81DF7F00BF4F25 /* Debug */,
 				2E3058162D81DF7F00BF4F25 /* Release-Anytype */,
+				745858902DD73A4F00895687 /* Debug-Anytype */,
 				2E3058172D81DF7F00BF4F25 /* Release-AnyApp */,
+				745858962DD73A5C00895687 /* Debug-AnyApp */,
 				2E3058182D81DF7F00BF4F25 /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2339,7 +2821,9 @@
 			buildConfigurations = (
 				862D559B2A8F78340018103F /* Debug */,
 				862D559C2A8F78340018103F /* Release-Anytype */,
+				7458588F2DD73A4F00895687 /* Debug-Anytype */,
 				74F7F7EB2D37BC1400F6C566 /* Release-AnyApp */,
+				745858952DD73A5C00895687 /* Debug-AnyApp */,
 				862D559D2A8F78340018103F /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2350,7 +2834,9 @@
 			buildConfigurations = (
 				C960DFBB28D88618002898AE /* Debug */,
 				C960DFBC28D88618002898AE /* Release-Anytype */,
+				7458588E2DD73A4F00895687 /* Debug-Anytype */,
 				74F7F7EA2D37BC1400F6C566 /* Release-AnyApp */,
+				745858942DD73A5C00895687 /* Debug-AnyApp */,
 				C960DFBD28D88618002898AE /* Release-Nightly */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2639,10 +3125,27 @@
 			package = 2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */;
 			productName = Cache;
 		};
+		2E428A252DA836B900B849EF /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
 		2E63D9B62D56520C008A733A /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		2ED425D12DDE3CF5008C7AD3 /* Loc */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Loc;
+		};
+		2ED5E1532DAFE2A700B59485 /* AnytypeCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnytypeCore;
+		};
+		2EDD08432DA833720050397F /* Services */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Services;
 		};
 		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -108,6 +108,11 @@ extension Color {
     }
     // MARK: - Gradients
     public enum Gradients {
+      // MARK: - Push
+      public enum Push {
+        public static let violetEnd = Color(asset: Asset.Gradients.Push.violetEnd)
+        public static let violetStart = Color(asset: Asset.Gradients.Push.violetStart)
+      }
       // MARK: - UpdateAlert
       public enum UpdateAlert {
         public static let darkBlue = Color(asset: Asset.Gradients.UpdateAlert.darkBlue)
@@ -116,6 +121,7 @@ extension Color {
       }
       public static let fadingBlue = Color(asset: Asset.Gradients.fadingBlue)
       public static let fadingGreen = Color(asset: Asset.Gradients.fadingGreen)
+      public static let fadingIce = Color(asset: Asset.Gradients.fadingIce)
       public static let fadingPink = Color(asset: Asset.Gradients.fadingPink)
       public static let fadingPurple = Color(asset: Asset.Gradients.fadingPurple)
       public static let fadingRed = Color(asset: Asset.Gradients.fadingRed)
@@ -134,6 +140,12 @@ extension Color {
     public enum ModalScreen {
       public static let background = Color(asset: Asset.ModalScreen.background)
       public static let backgroundWithBlur = Color(asset: Asset.ModalScreen.backgroundWithBlur)
+    }
+    // MARK: - PushNotifications
+    public enum PushNotifications {
+      public static let background = Color(asset: Asset.PushNotifications.background)
+      public static let hiddenText = Color(asset: Asset.PushNotifications.hiddenText)
+      public static let text = Color(asset: Asset.PushNotifications.text)
     }
     // MARK: - Shadow
     public enum Shadow {

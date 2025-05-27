@@ -164,16 +164,15 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func createType(name: String) {
-        if FeatureFlags.pluralNames {
-            newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil, mode: .create)
-        } else {
-            onCreateTypeSubmit(info: ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil, mode: .create))
-        }
+        newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil, mode: .create)
     }
 
     func onCreateTypeSubmit(info: ObjectTypeInfo) {
         Task {
             let type = try await typesService.createType(name: info.singularName, pluralName: info.pluralName, icon: info.icon, color: info.color, spaceId: spaceId)
+            
+            AnytypeAnalytics.instance().logCreateObjectType(spaceId: spaceId)
+            
             onSelect(.objectType(type: type))
         }
     }

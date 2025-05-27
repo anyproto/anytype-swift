@@ -61,9 +61,12 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     
     private func createAndShowNewBookmark(url: AnytypeURL) {
         Task {
+            let type = try? typeProvider.objectType(uniqueKey: ObjectTypeUniqueKey.bookmark, spaceId: spaceId)
+            
             let details = try await bookmarkService.createBookmarkObject(
                 spaceId: spaceId,
                 url: url,
+                templateId: type?.defaultTemplateId,
                 origin: .clipboard
             )
             

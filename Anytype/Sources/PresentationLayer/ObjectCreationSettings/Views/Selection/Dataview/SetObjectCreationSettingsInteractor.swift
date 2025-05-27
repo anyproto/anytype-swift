@@ -32,12 +32,15 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     var userTemplates: AnyPublisher<[TemplatePreviewModel], Never> {
         Publishers.CombineLatest3($templatesDetails, $defaultTemplateId, $typeDefaultTemplateId)
-            .map { details, defaultTemplateId, typeDefaultTemplateId in
-                let templateId = defaultTemplateId.isNotEmpty ? defaultTemplateId : typeDefaultTemplateId
+            .map { details, viewTemplateId, typeDefaultTemplateId in
+                let defaultTemplateId = viewTemplateId.isNotEmpty ? viewTemplateId : typeDefaultTemplateId
+                
                 return details.map {
                     TemplatePreviewModel(
                         objectDetails: $0,
-                        decoration: $0.id == templateId ? .border : nil
+                        context: .list,
+                        isDefault: $0.id == defaultTemplateId,
+                        decoration: $0.id == defaultTemplateId ? .border : nil
                     )
                 }
             }

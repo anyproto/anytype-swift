@@ -27,7 +27,9 @@ struct QrCodeView: View {
         }
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
-        .anytypeShareView(item: $model.sharedData)
+        .sheet(item: $model.sharedData) { data in
+            ActivityView(activityItems: [data.value])
+        }
         .onAppear {
             model.onAppear()
         }
