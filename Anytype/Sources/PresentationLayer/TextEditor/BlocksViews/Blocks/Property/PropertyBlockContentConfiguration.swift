@@ -1,7 +1,7 @@
 import UIKit
 
-struct RelationBlockContentConfiguration: BlockConfiguration {
-    typealias View = RelationBlockView
+struct PropertyBlockContentConfiguration: BlockConfiguration {
+    typealias View = PropertyBlockView
     
     @EquatableNoop private(set) var actionOnValue: (() -> Void)?
     let property: PropertyItemModel

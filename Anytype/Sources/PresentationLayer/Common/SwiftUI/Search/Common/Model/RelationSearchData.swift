@@ -18,7 +18,7 @@ enum RelationSearchData: SearchDataProtocol {
     var iconImage: Icon? {
         switch self {
         case .existing(let details):
-            details.iconImage
+            details.iconImage ?? nil
         case .new(let format):
             Icon.asset(format.iconAsset)
         }
