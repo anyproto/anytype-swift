@@ -51,8 +51,26 @@ struct HomePath: Equatable {
         path.append(item)
     }
     
+    mutating func popTo(_ item: AnyHashable) {
+        if let index = path.firstIndex(where: { $0 == item }) {
+            path = Array(path[...index])
+        }
+    }
+    
+    func contains(_ item: AnyHashable) -> Bool {
+        path.contains(where: { $0 == item })
+    }
+    
     func hasForwardPath() -> Bool {
         return forwardPath.isNotEmpty
+    }
+    
+    mutating func openOnce(_ item: AnyHashable) {
+        if contains(item) {
+            popTo(item)
+        } else {
+            push(item)
+        }
     }
     
     var lastPathElement: AnyHashable? {

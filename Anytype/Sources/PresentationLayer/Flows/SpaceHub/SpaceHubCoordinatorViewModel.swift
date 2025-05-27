@@ -143,15 +143,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
-            try? await open(data: .editor(editorData))
+            try? await showScreen(data: .editor(editorData))
         case .widgets(let spaceId):
-            try? await openSpace(spaceId: spaceId, addWidgets: true)
+            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
         case .chat(let data):
             if FeatureFlags.chatLayoutInsideSpace {
                 // TODO: Implenet
                 break
             } else {
-                try? await openSpace(spaceId: data.spaceId)
+                try? await showScreen(data: .chat(ChatCoordinatorData(chatId: data.chatId, spaceId: data.spaceId)))
             }
         case .none:
             return
@@ -169,7 +169,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     private func startHandleWorkspaceInfo() async {
         for await info in activeSpaceManager.workspaceInfoStream {
-            switchSpace(info: info)
+            await handleActiveSpace(info: info)
         }
     }
     
@@ -215,7 +215,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func onSelectSpace(spaceId: String) {
-        Task { try await openSpace(spaceId: spaceId) }
+        Task { try await openSpaceWithIntialScreen(spaceId: spaceId) }
     }
     
     // MARK: - Private
@@ -233,10 +233,22 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     private func openSync(data: ScreenData) {
-        Task { try await open(data: data) }
+        Task { try await showScreen(data: data) }
     }
     
-    private func open(data: ScreenData) async throws {
+    private func openSpaceWithIntialScreen(spaceId: String) async throws {
+        let spaceView = try await setActiveSpace(spaceId: spaceId)
+        if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
+            let chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
+            try await showScreen(data: .chat(chatData))
+        } else {
+            let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
+            try await showScreen(data: .widget(widgetData))
+        }
+    }
+    
+    private func showScreen(data: ScreenData) async throws {
+        
         if let objectId = data.objectId { // validate in case of object
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
@@ -247,40 +259,19 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             }
         }
         
-        let spaceId = data.spaceId
-        try await openSpace(spaceId: spaceId, data: data)
-    }
-    
-    private func openSpace(spaceId: String, data: ScreenData? = nil, addWidgets: Bool = false) async throws {
-        guard currentSpaceId != spaceId else {
-            try await showScreen(spaceId: spaceId, data: data)
-            return
-        }
+        let setupNewPath = currentSpaceId != data.spaceId
+        let spaceView = try await setActiveSpace(spaceId: data.spaceId)
+        var currentPath = setupNewPath ? HomePath(initialPath: initialHomePath(spaceView: spaceView)) : navigationPath
         
-        // Check if space is deleted
-        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
+        await dismissAllPresented?()
         
-        currentSpaceId = spaceId
-        if FeatureFlags.spaceLoadingForScreen {
-            // This is not required. But it help to load space as fast as possible
-            Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
-        } else {
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-        }
-        currentSpaceId = spaceId
-        
-        navigationPath = HomePath(initialPath: initialHomePath(spaceView: spaceView, addWidgets: addWidgets))
-        try await showScreen(spaceId: spaceId, data: data)
-    }
-    
-    private func showScreen(spaceId: String, data: ScreenData?) async throws {
         switch data {
         case .alert(let alertScreenData):
             await showAlert(alertScreenData)
         case .preview(let mediaFileScreenData):
             await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
-            navigationPath.push(editorScreenData)
+            currentPath.push(editorScreenData)
         case .bookmark(let data):
             await dismissAllPresented?()
             bookmarkScreenData = data
@@ -290,15 +281,20 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             }
             
             if spaceView.canEdit {
-                navigationPath.push(data)
+                currentPath.push(data)
             } else {
                 await dismissAllPresented?()
                 spaceProfileData = spaceInfo
             }
         case .chat(let data):
-            navigationPath.push(data)
-        case nil:
-            return
+            currentPath.openOnce(data)
+        case .widget(let data):
+            let data = HomeWidgetData(spaceId: data.spaceId)
+            currentPath.openOnce(data)
+        }
+        
+        if navigationPath != currentPath {
+            navigationPath = currentPath
         }
     }
     
@@ -323,33 +319,47 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         }
     }
     
-    private func switchSpace(info: AccountInfo?) {
-        Task {
-            guard currentSpaceId != info?.accountSpaceId else { return }
-            
-            currentSpaceId = info?.accountSpaceId
-            
-            if userWarningAlert.isNil {
+    private func setActiveSpace(spaceId: String) async throws -> SpaceView {
+        // Check if space is deleted
+        guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else {
+            currentSpaceId = nil
+            try await activeSpaceManager.setActiveSpace(spaceId: nil)
+            throw CommonError.undefined
+        }
+        
+        guard currentSpaceId != spaceId else { return spaceView }
+        
+        currentSpaceId = spaceId
+        
+        if FeatureFlags.spaceLoadingForScreen {
+            // This is not required. But it help to load space as fast as possible
+            Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
+        } else {
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+        }
+        
+        return spaceView
+    }
+    
+    private func handleActiveSpace(info: AccountInfo?) async {
+        if let info {
+            do {
+                try await openSpaceWithIntialScreen(spaceId: info.accountSpaceId)
+            } catch {
                 await dismissAllPresented?()
-            }
-            
-            if let currentSpaceId, let spaceView = workspaceStorage.spaceView(spaceId: currentSpaceId) {
-                let newPath = initialHomePath(spaceView: spaceView, addWidgets: false)
-                navigationPath = HomePath(initialPath: newPath)
-            } else {
                 navigationPath.popToRoot()
             }
+        } else {
+            await dismissAllPresented?()
+            navigationPath.popToRoot()
         }
     }
     
-    private func initialHomePath(spaceView: SpaceView, addWidgets: Bool) -> [AnyHashable] {
+    private func initialHomePath(spaceView: SpaceView) -> [AnyHashable] {
         .builder {
             SpaceHubNavigationItem()
             if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
                 ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
-                if addWidgets {
-                    HomeWidgetData(spaceId: spaceView.targetSpaceId)
-                }
             } else {
                 HomeWidgetData(spaceId: spaceView.targetSpaceId)
             }
@@ -398,7 +408,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         do {
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
-            try? await open(data: editorData)
+            try? await showScreen(data: editorData)
             AnytypeAnalytics.instance().logOpenObjectByLink(type: .object, route: route)
         } catch {
             guard let cid, let key else {
@@ -415,12 +425,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func handleOpenObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
-            try await openSpace(spaceId: spaceId)
+            try await showScreen(data: .chat(ChatCoordinatorData(chatId: objectId, spaceId: spaceId)))
         } else {
             let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
             try await document.open()
             guard let editorData = document.details?.screenData() else { return }
-            try await open(data: editorData)
+            try await showScreen(data: editorData)
         }
     }
     
