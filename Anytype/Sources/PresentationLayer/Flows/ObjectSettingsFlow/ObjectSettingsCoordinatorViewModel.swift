@@ -7,7 +7,7 @@ import SwiftUI
 final class ObjectSettingsCoordinatorViewModel: 
     ObservableObject,
     ObjectSettingsModelOutput,
-    RelationValueCoordinatorOutput,
+    PropertyValueCoordinatorOutput,
     ObjectVersionModuleOutput
 {
     
@@ -93,7 +93,7 @@ final class ObjectSettingsCoordinatorViewModel:
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
     
-    // MARK: - RelationValueCoordinatorOutput
+    // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {
         Task { @MainActor in
