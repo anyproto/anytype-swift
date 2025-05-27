@@ -74,7 +74,7 @@ final class RelationsListCoordinatorViewModel:
         }
     }
     
-    // MARK: - RelationValueCoordinatorOutput
+    // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {
         output?.showEditorScreen(data: data)
