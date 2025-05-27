@@ -14,6 +14,7 @@ protocol PushNotificationsPermissionServiceProtocol: AnyObject, Sendable {
     func authorizationStatus() async -> PushNotificationsPermissionStatus
     func requestAuthorization()
     func registerForRemoteNotificationsIfNeeded() async
+    func unregisterForRemoteNotifications()
 }
 
 final class PushNotificationsPermissionService: PushNotificationsPermissionServiceProtocol {
@@ -48,6 +49,12 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
         let status = await authorizationStatus()
         if status == .authorized {
             registerForRemoteNotifications()
+        }
+    }
+    
+    func unregisterForRemoteNotifications() {
+        DispatchQueue.main.async {
+            UIApplication.shared.unregisterForRemoteNotifications()
         }
     }
     
