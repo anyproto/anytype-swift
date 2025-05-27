@@ -342,6 +342,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     private func handleActiveSpace(info: AccountInfo?) async {
+        guard info?.accountSpaceId != currentSpaceId else { return }
+        
         if let info {
             do {
                 try await openSpaceWithIntialScreen(spaceId: info.accountSpaceId)
