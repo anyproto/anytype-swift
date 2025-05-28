@@ -1,0 +1,60 @@
+name: Update middleware version (create PR)
+
+on:
+  workflow_dispatch:
+    inputs:
+      task_name:
+        description: "Task name (e.g. ANY-123)"
+        required: true
+        type: string
+      middle_version:
+        description: "Middleware version"
+        required: true
+        type: string
+
+jobs:
+  main:
+    name: Update build cache
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Xcode Cache
+        uses: irgaly/xcode-cache@v1
+        with:
+          key: xcode-cache-deriveddata-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-
+          swiftpm-cache-key: spm-soucepackages-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          swiftpm-cache-restore-keys: spm-soucepackages-
+      
+      - name: Prepare deps
+        uses: ./.github/actions/prepare-deps
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1.6.0
+        with:
+          xcode-version: '16.1'
+
+      - name: Update Middleware Version
+        run: make set-middle-version ${{ inputs.middle_version }}
+
+      - name: Download Middleware and Generate Files
+        run: make setup-middle
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
+
+      - name: Update git config
+        uses: ./.github/actions/update-git-config
+      
+      - name: Push Changes
+        run: |
+          git checkout -b ${{ inputs.task_name }}-update-middleware-${{ inputs.middle_version }}
+          git add .
+          git commit -m "Automation: Update middleware to ${{ inputs.middle_version }}" --no-verify
+          git push origin ${{ inputs.task_name }}-update-middleware-${{ inputs.middle_version }}
+          gh pr create --title "${{ inputs.task_name }} Automation: Update middleware to ${{ inputs.middle_version }}" --body "This PR updates middleware to version ${{ inputs.middle_version }}" --base ${{ github.ref_name }} --merge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
