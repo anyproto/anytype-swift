@@ -5,7 +5,7 @@ on:
     inputs:
       task_name:
         description: "Task name (e.g. ANY-123)"
-        required: true
+        required: false
         type: string
       middle_version:
         description: "Middleware version"
@@ -48,11 +48,12 @@ jobs:
       
       - name: Push Changes
         run: |
-          git checkout -b ${{ inputs.task_name }}-update-middleware-${{ inputs.middle_version }}
+          BRANCH_NAME="${{ inputs.task_name != '' && format('{0}-update-middleware-{1}', inputs.task_name, inputs.middle_version) || format('update-middleware-{0}', inputs.middle_version) }}"
+          git checkout -b $BRANCH_NAME
           git add .
           git commit -m "Automation: Update middleware to ${{ inputs.middle_version }}" --no-verify
-          git push origin ${{ inputs.task_name }}-update-middleware-${{ inputs.middle_version }}
-          gh pr create --title "${{ inputs.task_name }} Automation: Update middleware to ${{ inputs.middle_version }}" --body "This PR updates middleware to version ${{ inputs.middle_version }}" --base ${{ github.ref_name }} --merge
+          git push origin $BRANCH_NAME
+          gh pr create --title "${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}" --body "This PR updates middleware to version ${{ inputs.middle_version }}" --base ${{ github.ref_name }} --merge
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
