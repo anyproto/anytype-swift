@@ -55,6 +55,9 @@ jobs:
       - name: Push Changes
         run: |
           BRANCH_NAME="${{ inputs.task_name != '' && format('{0}-update-middleware-{1}', inputs.task_name, inputs.middle_version) || format('update-middleware-{0}', inputs.middle_version) }}"
+          PR_TITLE="${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}"
+          PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
+          
           # Delete local branch if exists
           git branch -D $BRANCH_NAME || true
           # Delete remote branch if exists
@@ -64,7 +67,7 @@ jobs:
           git add .
           git commit -m "Automation: Update middleware to ${{ inputs.middle_version }}" --no-verify
           git push origin $BRANCH_NAME
-          gh pr create --title "${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}" --body "This PR updates middleware to version ${{ inputs.middle_version }}" --base ${{ github.ref_name }} --merge-method squash
+          gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base ${{ github.ref_name }} --merge-method squash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
