@@ -1,4 +1,4 @@
-name: Update middleware version (create PR)
+name: Fastlane test build
 
 on:
   workflow_dispatch:

@@ -35,6 +35,11 @@ jobs:
         with:
           xcode-version: '16.1'
 
+      - name: Setup tools
+        run: make setup-env
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Update Middleware Version
         run: make set-middle-version v=${{ inputs.middle_version }}
 
