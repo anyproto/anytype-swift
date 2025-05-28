@@ -63,32 +63,42 @@ jobs:
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
+      - name: Update git config
+        uses: ./.github/actions/update-git-config
+      
+      - name: Create Commit
+        id: commit
+        run: |
+          BRANCH_NAME="${{ inputs.task_name != '' && format('{0}-update-middleware-{1}', inputs.task_name, inputs.middle_version) || format('update-middleware-{0}', inputs.middle_version) }}"
+          COMMIT_MESSAGE="${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}"
+          
+          # Delete local branch if exists
+          git branch -D $BRANCH_NAME || true
+          # Delete remote branch if exists
+          git push origin --delete $BRANCH_NAME || true
+          # Create new branch
+          git checkout -b $BRANCH_NAME
+          git add .
+          git commit -m "$COMMIT_MESSAGE" --no-verify
+          
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Run unit tests
         run: bundle exec fastlane tests skip_notify:true
         env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
       
-      - name: Update git config
-        uses: ./.github/actions/update-git-config
-      
-      - name: Push Changes
+      - name: Create and Merge PR
         run: |
-          BRANCH_NAME="${{ inputs.task_name != '' && format('{0}-update-middleware-{1}', inputs.task_name, inputs.middle_version) || format('update-middleware-{0}', inputs.middle_version) }}"
-          PR_TITLE="${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}"
-          PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
+          git push origin ${{ steps.commit.outputs.branch_name }}
           
-          # Delete local branch if exists
-          git branch -D $BRANCH_NAME || true
-          # Delete remote branch if exists
-          git push origin --delete $BRANCH_NAME || true
-          # Create and push new branch
-          git checkout -b $BRANCH_NAME
-          git add .
-          git commit -m "$PR_TITLE" --no-verify
-          git push origin $BRANCH_NAME
-          gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base ${{ github.ref_name }}
-          gh pr merge $BRANCH_NAME --squash --delete-branch
+          PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
+          gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
+          gh pr merge ${{ steps.commit.outputs.branch_name }} --squash --delete-branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
