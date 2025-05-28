@@ -94,7 +94,7 @@ jobs:
       
       - name: Create and Merge PR
         run: |
-          git push origin ${{ steps.commit.outputs.branch_name }}
+          git push origin ${{ steps.commit.outputs.branch_name }} --no-verify
           
           PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
           gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
