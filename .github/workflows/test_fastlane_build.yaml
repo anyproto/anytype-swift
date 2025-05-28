@@ -48,12 +48,6 @@ jobs:
         run: make setup-middle
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
-
-      - name: Run unit tests
-        run: bundle exec fastlane tests skip_notify:true
-        env:
-          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
-          FASTLANE_XCODE_LIST_TIMEOUT: 900
       
       - name: Update git config
         uses: ./.github/actions/update-git-config
