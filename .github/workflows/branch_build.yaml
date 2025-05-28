@@ -67,4 +67,15 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
 
       - name: Summary
-        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Send Slack Notification
+        if: always()
+        uses: ./.github/actions/send-slack-message
+        with:
+          success_message: "Branch build success\\n${{ env.FASTLANE_SLACK_SUMMARY }}"
+          error_message: "Branch build finished with error"
+          status: ${{ job.status }}
+          slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
+          slack_map: ${{ vars.SLACK_MAP }}
+
