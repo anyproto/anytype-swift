@@ -32,11 +32,6 @@ jobs:
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
-      - name: Setup Xcode
-        uses: maxim-lobanov/setup-xcode@v1.6.0
-        with:
-          xcode-version: '16.1'
-
       - name: Setup tools
         run: make setup-env
         env:
