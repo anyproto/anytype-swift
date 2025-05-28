@@ -1,5 +1,6 @@
 import Foundation
 import SecureService
+import NotificationsCore
 // Automatically export Factory when import Servies
 @_exported import Factory
 
@@ -163,14 +164,6 @@ public extension Container {
     
     var encryptionKeyService: Factory<EncryptionKeyServiceProtocol> {
         self { EncryptionKeyService() }.shared
-    }
-    
-    var cryptoService: Factory<CryptoServiceProtocol> {
-        self { CryptoService() }.shared
-    }
-    
-    var decryptionPushContentService: Factory<DecryptionPushContentServiceProtocol> {
-        self { DecryptionPushContentService() }.shared
     }
     
     var basicUserInfoStorage: Factory<BasicUserInfoStorageProtocol> {

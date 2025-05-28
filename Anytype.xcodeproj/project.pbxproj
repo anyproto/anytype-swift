@@ -49,12 +49,12 @@
 		2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */; };
 		2ADB57862CB6B6FE00BFC386 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = 2ADB57852CB6B6FE00BFC386 /* Cache */; };
 		2ADD66782CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD66772CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift */; };
+		2E074C4C2DE620E800260ABD /* NotificationsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2E074C4B2DE620E800260ABD /* NotificationsCore */; };
+		2E074C4E2DE623DB00260ABD /* NotificationsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2E074C4D2DE623DB00260ABD /* NotificationsCore */; };
 		2E3058142D81DF7F00BF4F25 /* AnytypeNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E30580D2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2E428A262DA836B900B849EF /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2E428A252DA836B900B849EF /* Factory */; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED425D12DDE3CF5008C7AD3 /* Loc */; };
 		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
-		2EDD08442DA833720050397F /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDD08432DA833720050397F /* Services */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
@@ -329,6 +329,7 @@
 				538ABD4E284F9F88000D3CCC /* Collections in Frameworks */,
 				7411879B2D9ADD200006EA41 /* Loc in Frameworks */,
 				2A94B5D329B88E95009AE2A7 /* Sentry in Frameworks */,
+				2E074C4C2DE620E800260ABD /* NotificationsCore in Frameworks */,
 				1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */,
 				2ADB57862CB6B6FE00BFC386 /* Cache in Frameworks */,
 				538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */,
@@ -373,9 +374,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EDD08442DA833720050397F /* Services in Frameworks */,
+				2E074C4E2DE623DB00260ABD /* NotificationsCore in Frameworks */,
 				2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */,
-				2E428A262DA836B900B849EF /* Factory in Frameworks */,
 				2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -695,6 +695,7 @@
 				74EB806B2D79D3EA003F8D84 /* Assets */,
 				7411879A2D9ADD200006EA41 /* Loc */,
 				746F06002DB8E712005795F7 /* DesignKit */,
+				2E074C4B2DE620E800260ABD /* NotificationsCore */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -3125,10 +3126,13 @@
 			package = 2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */;
 			productName = Cache;
 		};
-		2E428A252DA836B900B849EF /* Factory */ = {
+		2E074C4B2DE620E800260ABD /* NotificationsCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = Factory;
+			productName = NotificationsCore;
+		};
+		2E074C4D2DE623DB00260ABD /* NotificationsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NotificationsCore;
 		};
 		2E63D9B62D56520C008A733A /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -3142,10 +3146,6 @@
 		2ED5E1532DAFE2A700B59485 /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnytypeCore;
-		};
-		2EDD08432DA833720050397F /* Services */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Services;
 		};
 		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

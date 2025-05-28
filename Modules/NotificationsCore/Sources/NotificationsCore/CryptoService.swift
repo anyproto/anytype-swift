@@ -1,7 +1,7 @@
 import Foundation
 import CryptoKit
 
-public protocol CryptoServiceProtocol: AnyObject, Sendable {
+protocol CryptoServiceProtocol: AnyObject, Sendable {
     func decryptAESGCM(data: Data, keyData: Data) throws -> Data
 }
 
@@ -22,6 +22,6 @@ final class CryptoService: CryptoServiceProtocol {
     }
 }
 
-public enum CryptoError: Error {
+enum CryptoError: Error {
     case decryptionFailed
 }
