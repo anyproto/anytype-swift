@@ -25,7 +25,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: build
-          key: build-local-tools
+          key: build-local-tools-${{ github.sha }}
+          restore-keys: |
+            build-local-tools-
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps

@@ -48,4 +48,6 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: build
-          key: build-local-tools
+          key: build-local-tools-${{ github.sha }}
+          restore-keys: |
+            build-local-tools-
