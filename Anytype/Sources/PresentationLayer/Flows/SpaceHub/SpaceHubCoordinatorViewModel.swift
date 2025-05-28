@@ -139,7 +139,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func setupInitialScreen() async {
-        guard !loginStateService.isFirstLaunchAfterRegistration, !FeatureFlags.disableRestoreLastScreen else { return }
+        guard !loginStateService.isFirstLaunchAfterRegistration, !FeatureFlags.disableRestoreLastScreen, appActionsStorage.action.isNil else { return }
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
@@ -147,12 +147,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .widgets(let spaceId):
             try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
         case .chat(let data):
-            if FeatureFlags.chatLayoutInsideSpace {
-                // TODO: Implenet
-                break
-            } else {
-                try? await showScreen(data: .chat(ChatCoordinatorData(chatId: data.chatId, spaceId: data.spaceId)))
-            }
+            try? await showScreen(data: .chat(ChatCoordinatorData(chatId: data.chatId, spaceId: data.spaceId)))
         case .none:
             return
         }
