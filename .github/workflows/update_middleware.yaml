@@ -67,7 +67,8 @@ jobs:
           git add .
           git commit -m "Automation: Update middleware to ${{ inputs.middle_version }}" --no-verify
           git push origin $BRANCH_NAME
-          gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base ${{ github.ref_name }} --merge-method squash
+          gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base ${{ github.ref_name }}
+          gh pr merge $BRANCH_NAME --merge --delete-branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
