@@ -1,4 +1,4 @@
-name: Fastlane test build
+name: Update middleware version (create PR)
 
 on:
   workflow_dispatch:
@@ -21,13 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Xcode Cache
-        uses: irgaly/xcode-cache@v1
+      - name: Restore cache for local build folder
+        uses: actions/cache/restore@v4
         with:
-          key: xcode-cache-deriveddata-${{ github.sha }}
-          restore-keys: xcode-cache-deriveddata-
-          swiftpm-cache-key: spm-soucepackages-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
-          swiftpm-cache-restore-keys: spm-soucepackages-
+          path: build
+          key: build-local-tools
       
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
@@ -38,7 +36,7 @@ jobs:
           xcode-version: '16.1'
 
       - name: Update Middleware Version
-        run: make set-middle-version ${{ inputs.middle_version }}
+        run: make set-middle-version v=${{ inputs.middle_version }}
 
       - name: Download Middleware and Generate Files
         run: make setup-middle
