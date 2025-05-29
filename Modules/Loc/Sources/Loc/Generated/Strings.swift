@@ -1390,6 +1390,16 @@ public enum Loc {
     }
   }
   public enum PushNotifications {
+    public enum DisabledAlert {
+      public static let description = Loc.tr("Localizable", "PushNotifications.DisabledAlert.description", fallback: "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on.")
+      public static let title = Loc.tr("Localizable", "PushNotifications.DisabledAlert.title", fallback: "Notifications are still turned off")
+      public enum OpenSettings {
+        public static let button = Loc.tr("Localizable", "PushNotifications.DisabledAlert.OpenSettings.button", fallback: "Open Settings")
+      }
+      public enum Skip {
+        public static let button = Loc.tr("Localizable", "PushNotifications.DisabledAlert.Skip.button", fallback: "Skip for now")
+      }
+    }
     public enum Message {
       public enum Attachment {
         public static let title = Loc.tr("Localizable", "PushNotifications.Message.Attachment.title", fallback: "Attachment")
