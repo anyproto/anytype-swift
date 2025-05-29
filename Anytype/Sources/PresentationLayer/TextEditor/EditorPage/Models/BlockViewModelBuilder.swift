@@ -344,9 +344,9 @@ final class BlockViewModelBuilder {
                 return nil
             }
             
-            return RelationBlockViewModel(
+            return PropertyBlockViewModel(
                 blockInformationProvider: blockInformationProvider,
-                relationProvider: RelationProvider(
+                relationProvider: PropertyProvider(
                     relation: relation,
                     relationPublisher: document.parsedRelationsPublisher
                 ),

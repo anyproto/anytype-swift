@@ -17,7 +17,8 @@ let package = Package(
         .package(url: "https://github.com/hmlongco/Factory", revision: "2.3.1"),
         .package(path: "../ProtobufMessages"),
         .package(path: "../AnytypeCore"),
-        .package(path: "../SecureService")
+        .package(path: "../SecureService"),
+        .package(path: "../NotificationsCore")
     ],
     targets: [
         .target(
@@ -27,7 +28,8 @@ let package = Package(
                 "Factory",
                 "ProtobufMessages",
                 "AnytypeCore",
-                "SecureService"
+                "SecureService",
+                "NotificationsCore"
             ],
             path: "Sources",
             swiftSettings: [

@@ -62,9 +62,9 @@ struct SetTableViewRow: View {
     }
     
     private func cell(_ relation: Relation) -> some View {
-        RelationValueView(
-            model: RelationValueViewModel(
-                relation: RelationItemModel(relation: relation),
+        PropertyValueView(
+            model: PropertyValueViewModel(
+                property: PropertyItemModel(property: relation),
                 style: .set,
                 mode: .button(action: {
                     model.showRelationValueEditingView(

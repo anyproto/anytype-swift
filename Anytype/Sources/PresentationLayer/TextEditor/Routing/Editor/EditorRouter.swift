@@ -400,12 +400,12 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
-        output?.showAddRelationInfoView(document: document, onSelect: onSelect)
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        output?.showAddPropertyInfoView(document: document, onSelect: onSelect)
     }
 }
 
-extension EditorRouter: RelationValueCoordinatorOutput {
+extension EditorRouter: PropertyValueCoordinatorOutput {
     func openObject(screenData: ScreenData) {
         navigationContext.dismissAllPresented()
         showEditorScreen(data: screenData)

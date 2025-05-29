@@ -29,8 +29,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     init() {}
     
@@ -55,7 +55,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                     let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: FeatureFlags.homeSpaceLevelChat)
                     workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
                     await objectTypeProvider.startSubscription(spaceId: spaceId)
-                    await relationDetailsStorage.startSubscription(spaceId: spaceId)
+                    await propertyDetailsStorage.startSubscription(spaceId: spaceId)
                     
                     logSwitchSpace(spaceId: spaceId)
                     
@@ -127,6 +127,6 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceInfoStreamInternal.send(nil)
         activeSpaceId = nil
         await objectTypeProvider.stopSubscription(cleanCache: false)
-        await relationDetailsStorage.stopSubscription(cleanCache: false)
+        await propertyDetailsStorage.stopSubscription(cleanCache: false)
     }
 }

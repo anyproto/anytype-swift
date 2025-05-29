@@ -1,5 +1,6 @@
 import Services
 import AnytypeCore
+import NotificationsCore
 
 protocol EncryptionKeyEventHandlerProtocol: AnyObject, Sendable {
     func startSubscription() async

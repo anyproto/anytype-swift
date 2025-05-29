@@ -19,13 +19,13 @@ struct EditorFeaturedRelationsView: View {
         FeaturedRelationsView(
             relations: relations,
             view: { relation in
-                RelationValueView(
-                    model: RelationValueViewModel(
-                        relation:  RelationItemModel(relation: relation),
-                        style: .featuredRelationBlock(
-                            FeaturedRelationSettings(
+                PropertyValueView(
+                    model: PropertyValueViewModel(
+                        property:  PropertyItemModel(property: relation),
+                        style: .featuredBlock(
+                            FeaturedPropertySettings(
                                 allowMultiLine: false,
-                                error: RelationItemModel(relation: relation).isErrorState,
+                                error: PropertyItemModel(property: relation).isErrorState,
                                 links: relation.links
                             )
                         ),

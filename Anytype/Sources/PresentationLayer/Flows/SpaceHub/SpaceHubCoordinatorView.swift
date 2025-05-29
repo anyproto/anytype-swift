@@ -110,6 +110,8 @@ struct SpaceHubCoordinatorView: View {
                                 SpaceSettingsCoordinatorView(workspaceInfo: info)
                             case .typeLibrary(let spaceId):
                                 ObjectTypesLibraryView(spaceId: spaceId)
+                            case .propertiesLibrary(let spaceId):
+                                ObjectPropertiesLibraryView(spaceId: spaceId)
                             }
                         }
                      }

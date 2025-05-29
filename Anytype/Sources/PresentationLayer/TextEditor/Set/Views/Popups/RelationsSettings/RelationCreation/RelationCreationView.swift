@@ -4,15 +4,15 @@ struct RelationCreationView: View {
     @StateObject private var model: RelationCreationViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: RelationsSearchData) {
+    init(data: PropertiesSearchData) {
         _model = StateObject(wrappedValue: RelationCreationViewModel(data: data))
     }
     
     var body: some View {
         content
             .onAppear { model.dismiss = dismiss }
-            .sheet(item: $model.newRelationData) {
-                RelationInfoCoordinatorView(data: $0, output: model)
+            .sheet(item: $model.newPropertyData) {
+                PropertyInfoCoordinatorView(data: $0, output: model)
                     .mediumPresentationDetents()
             }
     }

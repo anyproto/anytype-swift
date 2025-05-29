@@ -555,6 +555,7 @@ extension ImageAsset {
     public static let duck = ImageAsset.bundle(name: "Dialog/duck")
     public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
     public static let invite = ImageAsset.bundle(name: "Dialog/invite")
+    public static let lock = ImageAsset.bundle(name: "Dialog/lock")
     public static let question = ImageAsset.bundle(name: "Dialog/question")
     public static let send = ImageAsset.bundle(name: "Dialog/send")
     public static let update = ImageAsset.bundle(name: "Dialog/update")

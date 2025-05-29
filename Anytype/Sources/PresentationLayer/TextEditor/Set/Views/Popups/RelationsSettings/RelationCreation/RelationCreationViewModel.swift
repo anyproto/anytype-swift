@@ -4,10 +4,10 @@ import AnytypeCore
 
 
 @MainActor
-final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinatorViewOutput {
+final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
     
-    @Published var rows: [SearchDataSection<RelationSearchData>] = []
-    @Published var newRelationData: RelationInfoData?
+    @Published var rows: [SearchDataSection<PropertySearchData>] = []
+    @Published var newPropertyData: PropertyInfoData?
     
     var dismiss: DismissAction?
     
@@ -22,16 +22,16 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
-    private let data: RelationsSearchData
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let data: PropertiesSearchData
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
-    init(data: RelationsSearchData) {
+    init(data: PropertiesSearchData) {
         self.data = data
     }
     
     func search(text: String) async {
-        let propertyFormats = SupportedRelationFormat.allCases.filter {
+        let propertyFormats = SupportedPropertyFormat.allCases.filter {
             if text.isEmpty { return true }
             return $0.title.lowercased().contains(text.lowercased())
         }
@@ -41,21 +41,21 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         rows = .builder {
             if propertyFormats.isNotEmpty {
                 SearchDataSection(
-                    searchData: propertyFormats.map{ RelationSearchData.new($0) },
+                    searchData: propertyFormats.map{ PropertySearchData.new($0) },
                     sectionName: Loc.propertiesFormats
                 )
             }
             
             if existingProperties.isNotEmpty {
                 SearchDataSection(
-                    searchData: existingProperties.map{ RelationSearchData.existing($0) },
+                    searchData: existingProperties.map{ PropertySearchData.existing($0) },
                     sectionName: Loc.existingProperties
                 )
             }
         }
     }
     
-    func onRowTap(_ row: RelationSearchData) {
+    func onRowTap(_ row: PropertySearchData) {
         Task {
             switch row {
             case .existing(let details):
@@ -65,7 +65,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
                 data.onRelationSelect(details, false) // isNew = false
                 dismiss?()
             case .new(let format):
-                newRelationData = RelationInfoData(
+                newPropertyData = PropertyInfoData(
                     name: "",
                     objectId: data.objectId,
                     spaceId: data.spaceId,
@@ -77,7 +77,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     }
     
     func onNewPropertyTap(name: String) {
-        newRelationData = RelationInfoData(
+        newPropertyData = PropertyInfoData(
             name: name,
             objectId: data.objectId,
             spaceId: data.spaceId,
@@ -86,7 +86,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         )
     }
     
-    // MARK: - RelationInfoCoordinatorViewOutput
+    // MARK: - PropertyInfoCoordinatorViewOutput
     func didPressConfirm(_ relation: RelationDetails) {
         data.onRelationSelect(relation, true) // isNew = true
         dismiss?()
@@ -97,15 +97,17 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     private func onExistingPropertyTap(_ details: RelationDetails) async throws {
         switch data.target {
         case let .type(data):
-            try await addRelationToType(relation: details, typeData: data)
-        case let .dataview(activeViewId, typeDetails):
-            try await addRelationToDataview(objectId: data.objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
+            try await addPropertyToType(relation: details, typeData: data)
+        case let .dataview(objectId, activeViewId, typeDetails):
+            try await addPropertyToDataview(objectId: objectId, relation: details, activeViewId: activeViewId, typeDetails: typeDetails)
         case .object(let objectId):
-            try await addRelationToObject(objectId: objectId, relation: details)
+            try await addPropertyToObject(objectId: objectId, relation: details)
+        case .library:
+            anytypeAssertionFailure("Unsupported call of \(#function) for target .library")
         }
     }
     
-    private func addRelationToType(relation: RelationDetails, typeData: RelationsModuleTypeData) async throws {
+    private func addPropertyToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let type):
             try await relationsService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)
@@ -114,10 +116,10 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
         }
     }
     
-    private func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+    private func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         if let typeDetails {
             let type = ObjectType(details: typeDetails)
-            try await addRelationToType(relation: relation, typeData: .recommendedRelations(type))
+            try await addPropertyToType(relation: relation, typeData: .recommendedRelations(type))
         } else {
             try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
         }
@@ -127,7 +129,7 @@ final class RelationCreationViewModel: ObservableObject, RelationInfoCoordinator
     }
     
     
-    func addRelationToObject(objectId: String, relation: RelationDetails) async throws {
+    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
         try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
 }

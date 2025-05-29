@@ -25,7 +25,7 @@ final class EditorSetCoordinatorViewModel:
     EditorSetModuleOutput,
     SetObjectCreationCoordinatorOutput,
     ObjectSettingsCoordinatorOutput,
-    RelationValueCoordinatorOutput,
+    PropertyValueCoordinatorOutput,
     SetObjectCreationSettingsOutput
 {
     let data: EditorListObject
@@ -34,8 +34,8 @@ final class EditorSetCoordinatorViewModel:
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
     private var legacySetObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
-    @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.propertyValueProcessingService)
+    private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
     @Injected(\.detailsService)
@@ -55,7 +55,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setViewPickerData: SetViewData?
     @Published var setViewSettingsData: SetSettingsData?
     @Published var setQueryData: SetQueryData?
-    @Published var relationValueData: RelationValueData?
+    @Published var relationValueData: PropertyValueData?
     @Published var covertPickerData: BaseDocumentIdentifiable?
     @Published var toastBarData: ToastBarData?
     @Published var objectIconPickerData: ObjectIconPickerData?
@@ -196,11 +196,11 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
-        handleRelationValue(relation: relation, objectDetails: objectDetails)
+        handlePropertyValue(relation: relation, objectDetails: objectDetails)
     }
     
-    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        relationValueData = relationValueProcessingService.handleRelationValue(
+    private func handlePropertyValue(relation: Relation, objectDetails: ObjectDetails) {
+        relationValueData = propertyValueProcessingService.handlePropertyValue(
             relation: relation,
             objectDetails: objectDetails,
             analyticsType: .dataview

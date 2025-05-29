@@ -7,7 +7,7 @@ import SwiftUI
 final class ObjectSettingsCoordinatorViewModel: 
     ObservableObject,
     ObjectSettingsModelOutput,
-    RelationValueCoordinatorOutput,
+    PropertyValueCoordinatorOutput,
     ObjectVersionModuleOutput
 {
     
@@ -18,7 +18,7 @@ final class ObjectSettingsCoordinatorViewModel:
     @Published var coverPickerData: BaseDocumentIdentifiable?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
-    @Published var relationsListData: RelationsListData?
+    @Published var relationsListData: PropertiesListData?
     @Published var versionHistoryData: VersionHistoryData?
     @Published var dismiss = false
     
@@ -47,7 +47,7 @@ final class ObjectSettingsCoordinatorViewModel:
     
     func relationsAction(document: some BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logScreenObjectRelation()
-        relationsListData = RelationsListData(document: document)
+        relationsListData = PropertiesListData(document: document)
     }
     
     func showVersionHistory(document: some BaseDocumentProtocol) {
@@ -93,7 +93,7 @@ final class ObjectSettingsCoordinatorViewModel:
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
     
-    // MARK: - RelationValueCoordinatorOutput
+    // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {
         Task { @MainActor in
