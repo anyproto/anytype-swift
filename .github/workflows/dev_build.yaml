@@ -77,4 +77,4 @@ jobs:
           FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
       
       - name: Summary
-        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
