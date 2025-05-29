@@ -268,6 +268,7 @@ public enum Loc {
   public static let nothingFound = Loc.tr("Localizable", "Nothing found", fallback: "Nothing found")
   public static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo", fallback: "Nothing to redo")
   public static let nothingToUndo = Loc.tr("Localizable", "Nothing to undo", fallback: "Nothing to undo")
+  public static let notifications = Loc.tr("Localizable", "Notifications", fallback: "Notifications")
   public static func object(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Object", p1, fallback: "Plural format key: Object")
   }

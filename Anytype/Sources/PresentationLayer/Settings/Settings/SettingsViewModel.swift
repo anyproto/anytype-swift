@@ -58,6 +58,9 @@ final class SettingsViewModel: ObservableObject {
         output?.onAppearanceSelected()
     }
     
+    func onNotificationsTap() {
+    }
+    
     func onFileStorageTap() {
         output?.onFileStorageSelected()
     }
