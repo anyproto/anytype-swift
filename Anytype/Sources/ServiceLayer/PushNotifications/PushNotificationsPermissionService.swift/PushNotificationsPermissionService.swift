@@ -40,7 +40,7 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
             let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
             return granted
         } catch {
-            anytypeAssertionFailure("Notification authorization error", info: ["error": error.localizedDescription])
+            anytypeAssertionFailure("Notifications authorization request error", info: ["error": error.localizedDescription])
             return false
         }
     }
