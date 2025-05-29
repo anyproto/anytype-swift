@@ -15,11 +15,6 @@ final class PushNotificationsAlertHandler: PushNotificationsAlertHandlerProtocol
     @UserDefault("UserData.PushNotificationsAlertDates", defaultValue: [])
     private var pushNotificationsAlertDates: [Date]
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        return dateFormatter
-    }()
-    
     // MARK: - PushNotificationsAlertHandlerProtocol
     
     func shouldShowAlert() async -> Bool {
