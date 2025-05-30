@@ -36,7 +36,7 @@ struct DisabledPushNotificationsAlertView: View {
             Spacer.fixedHeight(20)
 
             StandardButton(
-                Loc.PushNotifications.DisabledAlert.OpenSettings.button,
+                Loc.openSettings,
                 style: .primaryLarge,
                 action: {
                     model.openSettings()

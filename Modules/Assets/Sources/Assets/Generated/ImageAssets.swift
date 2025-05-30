@@ -622,6 +622,7 @@ extension ImageAsset {
     public static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
     public static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
     public static let membership = ImageAsset.bundle(name: "Settings/Membership")
+    public static let notifications = ImageAsset.bundle(name: "Settings/Notifications")
     public static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     public static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
     public static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
@@ -955,6 +956,7 @@ extension ImageAsset {
   public static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
   public enum PushNotifications {
     public static let screenTop = ImageAsset.bundle(name: "PushNotifications/ScreenTop")
+    public static let bell = ImageAsset.bundle(name: "PushNotifications/bell")
   }
   public enum RightAttribute {
     public static let disclosure = ImageAsset.bundle(name: "Right Attribute/Disclosure")
