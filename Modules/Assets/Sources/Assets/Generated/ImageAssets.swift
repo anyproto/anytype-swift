@@ -956,6 +956,7 @@ extension ImageAsset {
   public static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
   public enum PushNotifications {
     public static let screenTop = ImageAsset.bundle(name: "PushNotifications/ScreenTop")
+    public static let bell = ImageAsset.bundle(name: "PushNotifications/bell")
   }
   public enum RightAttribute {
     public static let disclosure = ImageAsset.bundle(name: "Right Attribute/Disclosure")
