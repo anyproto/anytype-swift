@@ -12,7 +12,7 @@ enum PushNotificationsPermissionStatus {
 
 protocol PushNotificationsPermissionServiceProtocol: AnyObject, Sendable {
     func authorizationStatus() async -> PushNotificationsPermissionStatus
-    func requestAuthorization()
+    func requestAuthorization() async -> Bool
     func registerForRemoteNotificationsIfNeeded() async
     func unregisterForRemoteNotifications()
 }
@@ -35,11 +35,13 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
         }
     }
     
-    func requestAuthorization() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
-            if granted {
-                self?.registerForRemoteNotifications()
-            }
+    func requestAuthorization() async -> Bool {
+        do {
+            let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
+            return granted
+        } catch {
+            anytypeAssertionFailure("Notifications authorization request error", info: ["error": error.localizedDescription])
+            return false
         }
     }
     
