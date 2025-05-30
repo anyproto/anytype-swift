@@ -29,7 +29,7 @@ fi
 curl -L "${BLOB_URL}" -o "${TARBALL}"
 
 # extract archive
-unzip "${TARBALL}" -d "${EXTRACT_DIR}"
+unzip -q "${TARBALL}" -d "${EXTRACT_DIR}"
 
 # copy binary to build directory
 cp "${EXTRACT_DIR}/bin/sourcery" "${SOURCERY_BIN}"
