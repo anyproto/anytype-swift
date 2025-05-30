@@ -119,7 +119,7 @@ platform :ios do
     upload_to_testflight(skip_waiting_for_build_processing: true)
 
     github_message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
-    sh("echo FASTLANE_GITHUB_SUMMARY='#{message}' >> $GITHUB_ENV")
+    sh("echo FASTLANE_GITHUB_SUMMARY='#{github_message}' >> $GITHUB_ENV")
     
     slack_message = "Anytype #{appInfo} Version: *#{version}(#{build_number})*"
     sh("echo FASTLANE_SLACK_SUMMARY='#{slack_message}' >> $GITHUB_ENV")
