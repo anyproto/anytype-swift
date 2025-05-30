@@ -23,7 +23,6 @@ struct NotificationsSettingsView: View {
         .task(item: model.requestAuthorizationId) { _ in
             await model.requestAuthorization()
         }
-        .background(Color.Background.secondary)
     }
     
     private func content(with mode: NotificationsSettingsMode) -> some View {
@@ -96,7 +95,7 @@ struct NotificationsSettingsView: View {
                 Image(asset: .X18.webLink)
             }
         }
-        .padding(.vertical, 14)
+        .frame(height: 52)
         .padding(.horizontal, 4)
         .newDivider()
         .fixTappableArea()
