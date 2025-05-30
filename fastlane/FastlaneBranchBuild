@@ -68,8 +68,8 @@ platform :ios do
     end
 
     if is_ci
-      message = "Anytype Dev Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}** :gem::gem::gem:"
-      sh("echo FASTLANE_GITHUB_SUMMARY='#{message}' >> $GITHUB_ENV")
+      github_message = "Anytype Dev Version: **#{version}(#{build_number})**. Comment: **#{tf_comment}** :gem::gem::gem:"
+      sh("echo FASTLANE_GITHUB_SUMMARY='#{github_message}' >> $GITHUB_ENV")
       
       slack_message = "Anytype Dev Version: *#{version}(#{build_number})*"
       sh("echo FASTLANE_SLACK_SUMMARY='#{slack_message}' >> $GITHUB_ENV")
