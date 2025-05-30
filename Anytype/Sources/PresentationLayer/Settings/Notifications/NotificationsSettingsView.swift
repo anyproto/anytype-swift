@@ -3,7 +3,6 @@ import SwiftUI
 struct NotificationsSettingsView: View {
     
     @StateObject private var model: NotificationsSettingsViewModel
-    @Environment(\.dismiss) var dismiss
     
     init() {
         _model = StateObject(wrappedValue: NotificationsSettingsViewModel())
@@ -23,9 +22,6 @@ struct NotificationsSettingsView: View {
         }
         .task(item: model.requestAuthorizationId) { _ in
             await model.requestAuthorization()
-        }
-        .onChange(of: model.dismiss) { _ in
-            dismiss()
         }
         .background(Color.Background.secondary)
     }

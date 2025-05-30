@@ -5,7 +5,6 @@ import UIKit
 final class NotificationsSettingsViewModel: ObservableObject {
     
     @Published var requestAuthorizationId: String?
-    @Published var dismiss = false
     @Published var mode: NotificationsSettingsMode?
     
     @Injected(\.pushNotificationsPermissionService)
