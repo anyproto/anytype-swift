@@ -561,15 +561,6 @@ extension ImageAsset {
     public static let update = ImageAsset.bundle(name: "Dialog/update")
     public static let updated = ImageAsset.bundle(name: "Dialog/updated")
   }
-  public enum EmptyIcon {
-    public static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
-    public static let chat = ImageAsset.bundle(name: "EmptyIcon/chat")
-    public static let date = ImageAsset.bundle(name: "EmptyIcon/date")
-    public static let list = ImageAsset.bundle(name: "EmptyIcon/list")
-    public static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")
-    public static let page = ImageAsset.bundle(name: "EmptyIcon/page")
-    public static let tag = ImageAsset.bundle(name: "EmptyIcon/tag")
-  }
   public enum FileTypes {
     public static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     public static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
