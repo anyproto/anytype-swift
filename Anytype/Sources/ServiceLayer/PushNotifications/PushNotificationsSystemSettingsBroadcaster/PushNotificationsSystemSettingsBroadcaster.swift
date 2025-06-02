@@ -36,10 +36,6 @@ final class PushNotificationsSystemSettingsBroadcaster: PushNotificationsSystemS
         .notificationCancellable()
     }
     
-    private func initStatusStream() {
-        
-    }
-    
     private func setInitialStatus() async {
         let currentStatus = await pushNotificationsPermissionService.authorizationStatus()
         lastStatus = currentStatus
