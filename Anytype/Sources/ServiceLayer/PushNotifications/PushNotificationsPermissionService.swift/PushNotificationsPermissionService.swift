@@ -3,11 +3,15 @@ import UserNotifications
 import UIKit
 import AnytypeCore
 
-enum PushNotificationsPermissionStatus {
+enum PushNotificationsPermissionStatus: Codable {
     case notDetermined
     case denied
     case authorized
     case unknown
+    
+    var isDenied: Bool {
+        self == .denied
+    }
 }
 
 protocol PushNotificationsPermissionServiceProtocol: AnyObject, Sendable {

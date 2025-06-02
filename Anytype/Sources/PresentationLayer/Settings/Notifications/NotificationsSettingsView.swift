@@ -18,7 +18,7 @@ struct NotificationsSettingsView: View {
             Spacer()
         }
         .task {
-            await model.checkStatus()
+            await model.subscribeToSystemSettingsChanges()
         }
         .task(item: model.requestAuthorizationId) { _ in
             await model.requestAuthorization()

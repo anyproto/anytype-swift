@@ -35,6 +35,7 @@ struct SettingsView: View {
                     SettingsSectionItemView(
                         name: Loc.notifications,
                         imageAsset: .Settings.notifications,
+                        decoration: .arrow(needAttention: model.notificationsDenied),
                         onTap: { model.onNotificationsTap() }
                     )
                     

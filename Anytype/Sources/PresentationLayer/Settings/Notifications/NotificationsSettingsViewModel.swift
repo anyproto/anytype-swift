@@ -9,10 +9,13 @@ final class NotificationsSettingsViewModel: ObservableObject {
     
     @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
-    func checkStatus() async {
-        let status = await pushNotificationsPermissionService.authorizationStatus()
-        mode = status.asNotificationsSettingsMode
+    func subscribeToSystemSettingsChanges() async {
+        for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
+            mode = status.asNotificationsSettingsMode
+        }
     }
     
     func enableNotificationsTap() {
