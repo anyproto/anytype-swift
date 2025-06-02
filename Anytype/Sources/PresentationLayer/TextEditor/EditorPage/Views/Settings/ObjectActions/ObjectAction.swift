@@ -2,7 +2,6 @@ import Services
 import AnytypeCore
 
 enum ObjectAction: Hashable, Identifiable {
-    // NOTE: When adding new case here, it case MUST be added in allCasesWith method
     case undoRedo
     case archive(isArchived: Bool)
     case favorite(isFavorite: Bool)
@@ -10,7 +9,7 @@ enum ObjectAction: Hashable, Identifiable {
     case duplicate
     case linkItself
     case makeAsTemplate
-    case templateSetAsDefault
+    case templateToggleDefaultState(isDefault: Bool)
     case delete
     case createWidget
     case copyLink
@@ -42,8 +41,9 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.makeAsTemplate
             }
             
-            if permissions.canTemplateSetAsDefault {
-                ObjectAction.templateSetAsDefault
+            if permissions.canTemplateSetAsDefault, let targetObjectType = details.targetObjectTypeValue {
+                let isDefault = targetObjectType.defaultTemplateId == details.id
+                ObjectAction.templateToggleDefaultState(isDefault: isDefault)
             }
             
             if permissions.canLinkItself {
@@ -80,8 +80,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "linkItself"
         case .makeAsTemplate:
             return "makeAsTemplate"
-        case .templateSetAsDefault:
-            return "templateSetAsDefault"
+        case .templateToggleDefaultState:
+            return "templateToggleDefaultState"
         case .delete:
             return "delete"
         case .createWidget:

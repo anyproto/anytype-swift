@@ -306,7 +306,7 @@ final class EditorSetCoordinatorViewModel:
         Task { @MainActor in
             try? await templatesService.setTemplateAsDefaultForType(objectTypeId: objectId, templateId: templateId)
             navigationContext.dismissTopPresented(animated: true, completion: nil)
-            toastPresenter.show(message: Loc.Templates.Popup.default)
+            toastPresenter.show(message: templateId.isEmpty ? Loc.unsetAsDefault : Loc.Templates.Popup.default)
         }
     }
     
