@@ -3,7 +3,7 @@ import Services
 import SwiftProtobuf
 import AnytypeCore
 
-final class RelationFilterBuilder {
+final class PropertyFilterBuilder {
         
     // MARK: - Private variables
     
@@ -100,7 +100,7 @@ final class RelationFilterBuilder {
     }
 }
 
-private extension RelationFilterBuilder {
+private extension PropertyFilterBuilder {
     func objectRelation(
         detailsStorage: ObjectDetailsStorage,
         relationDetails: RelationDetails,
