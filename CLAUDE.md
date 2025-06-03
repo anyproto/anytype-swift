@@ -121,6 +121,7 @@ The project uses Factory for dependency injection. Services are registered in:
 - Feature branches: `ios-XXXX-description`
 - Always create pull requests for code review
 - Run tests before pushing changes
+- **Git commit messages must be a single line** (no multi-line descriptions)
 
 ## Useful Commands
 - `make setup-middle` - Initial setup
