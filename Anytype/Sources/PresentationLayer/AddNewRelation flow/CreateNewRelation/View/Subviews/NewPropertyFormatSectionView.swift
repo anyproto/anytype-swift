@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NewRelationFormatSectionView: View {
+struct NewPropertyFormatSectionView: View {
     
     let model: Model
     
@@ -16,7 +16,7 @@ struct NewRelationFormatSectionView: View {
     
 }
 
-extension NewRelationFormatSectionView {
+extension NewPropertyFormatSectionView {
     
     struct Model: Hashable {
         let icon: ImageAsset
@@ -25,10 +25,10 @@ extension NewRelationFormatSectionView {
     
 }
 
-struct NewRelationFormatSectionView_Previews: PreviewProvider {
+struct NewPropertyFormatSectionView_Previews: PreviewProvider {
     static var previews: some View {
-        NewRelationFormatSectionView(
-            model: NewRelationFormatSectionView.Model(icon: .X24.text, title: "Text")
+        NewPropertyFormatSectionView(
+            model: NewPropertyFormatSectionView.Model(icon: .X24.text, title: "Text")
         )
     }
 }

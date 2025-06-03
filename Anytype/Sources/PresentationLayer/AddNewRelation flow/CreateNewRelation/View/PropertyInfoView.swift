@@ -55,7 +55,7 @@ struct PropertyInfoView: View {
             NewPropertySectionView(
                 title: Loc.format,
                 contentViewBuilder: {
-                    NewRelationFormatSectionView(model: viewModel.formatModel)
+                    NewPropertyFormatSectionView(model: viewModel.formatModel)
                 },
                 onTap: {
                     UIApplication.shared.hideKeyboard()
@@ -67,7 +67,7 @@ struct PropertyInfoView: View {
             NewPropertySectionView(
                 title: Loc.type,
                 contentViewBuilder: {
-                    NewRelationFormatSectionView(model: viewModel.formatModel)
+                    NewPropertyFormatSectionView(model: viewModel.formatModel)
                 },
                 onTap: nil,
                 isArrowVisible: false
