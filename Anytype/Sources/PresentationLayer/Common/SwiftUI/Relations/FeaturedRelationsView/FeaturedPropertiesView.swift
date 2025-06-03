@@ -1,23 +1,23 @@
 import SwiftUI
 import WrappingHStack
 
-enum FeaturedRelationsConstants {
+enum FeaturedPropertiesConstants {
     static let itemSpacing: CGFloat = 6
     static let lineSpacing: CGFloat = 4
 }
 
-struct FeaturedRelationsView<Content>: View where Content: View {
+struct FeaturedPropertiesView<Content>: View where Content: View {
     let relations: [Relation]
     let view: (Relation) -> Content
     
     var body: some View {
         WrappingHStack(
             alignment: .leading,
-            horizontalSpacing: FeaturedRelationsConstants.itemSpacing,
-            verticalSpacing: FeaturedRelationsConstants.lineSpacing
+            horizontalSpacing: FeaturedPropertiesConstants.itemSpacing,
+            verticalSpacing: FeaturedPropertiesConstants.lineSpacing
         ) {
             ForEach(relations) { relation in
-                HStack(spacing: FeaturedRelationsConstants.itemSpacing) {
+                HStack(spacing: FeaturedPropertiesConstants.itemSpacing) {
                     view(relation)
                     
                     if !isLastRelation(relation) {
