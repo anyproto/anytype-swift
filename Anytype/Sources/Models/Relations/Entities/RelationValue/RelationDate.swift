@@ -11,7 +11,7 @@ extension Relation {
         let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
-        let value: DateRelationValue?
+        let value: DatePropertyValue?
         
         var hasValue: Bool {
             value != nil
