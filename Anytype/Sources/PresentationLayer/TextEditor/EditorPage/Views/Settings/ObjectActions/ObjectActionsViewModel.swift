@@ -114,10 +114,14 @@ final class ObjectActionsViewModel: ObservableObject {
         output?.onNewTemplateCreation(templateId: templateId)
     }
     
-    func makeTemplateAsDefault() {
-        guard let details = document.details else { return }
+    func templateToggleDefaultState() async throws {
+        guard let details = document.details,
+        let targetObjectType = details.targetObjectTypeValue else { return }
+
+        let isCurrentlyDefault = targetObjectType.defaultTemplateId == details.id
+        let newTemplateId = isCurrentlyDefault ? "" : details.id
         
-        output?.onTemplateMakeDefault(templateId: details.id)
+        output?.onTemplateMakeDefault(templateId: newTemplateId)
     }
     
     func deleteAction() async throws {

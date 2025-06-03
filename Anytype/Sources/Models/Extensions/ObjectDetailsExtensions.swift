@@ -44,6 +44,10 @@ extension BundledRelationsValueProvider {
         return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)
     }
     
+    var targetObjectTypeValue: ObjectType? {
+        return try? ObjectTypeProvider.shared.objectType(id: targetObjectType)
+    }
+    
     var editorViewType: ScreenType {
         switch resolvedLayoutValue {
         case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,

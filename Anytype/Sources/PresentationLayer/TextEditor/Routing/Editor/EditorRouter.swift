@@ -443,11 +443,15 @@ extension EditorRouter {
     }
     
     func didTapUseTemplateAsDefault(templateId: String) {
-        guard let objectTypeId = document.details?.objectType.id else { return }
+        guard let details = document.details else { return }
+       
         Task { @MainActor in
-            try? await templateService.setTemplateAsDefaultForType(objectTypeId: objectTypeId, templateId: templateId)
+            try await templateService.setTemplateAsDefaultForType(
+                objectTypeId: details.type,
+                templateId: templateId
+            )
             navigationContext.dismissTopPresented(animated: true, completion: nil)
-            toastPresenter.show(message: Loc.Templates.Popup.default)
+            toastPresenter.show(message: templateId.isEmpty ? Loc.unsetAsDefault : Loc.Templates.Popup.default)
         }
     }
 }
