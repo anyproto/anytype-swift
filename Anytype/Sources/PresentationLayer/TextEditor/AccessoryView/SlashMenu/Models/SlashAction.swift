@@ -4,7 +4,7 @@ enum SlashAction {
     case style(SlashActionStyle)
     case media(SlashActionMedia)
     case objects(SlashActionObject)
-    case relations(SlashActionRelations)
+    case relations(SlashActionProperties)
     case other(SlashActionOther)
     case actions(BlockAction)
     case color(BlockColor)

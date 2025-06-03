@@ -1,6 +1,6 @@
 
 
-enum SlashActionRelations {
+enum SlashActionProperties {
     case newRealtion
     case relation(Relation)
 }
