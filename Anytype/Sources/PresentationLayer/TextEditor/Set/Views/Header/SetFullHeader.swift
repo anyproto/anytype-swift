@@ -178,7 +178,7 @@ extension SetFullHeader {
     }
 
     private var featuredRelationsView: some View {
-        FeaturedRelationsView(
+        FeaturedPropertiesView(
             relations: model.featuredRelations,
             view: { relation in
                 relationContent(for: relation)

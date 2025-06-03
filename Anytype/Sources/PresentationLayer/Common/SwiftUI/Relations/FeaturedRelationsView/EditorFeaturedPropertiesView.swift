@@ -16,7 +16,7 @@ struct EditorFeaturedPropertiesView: View {
     }
     
     private var content: some View {
-        FeaturedRelationsView(
+        FeaturedPropertiesView(
             relations: relations,
             view: { relation in
                 PropertyValueView(

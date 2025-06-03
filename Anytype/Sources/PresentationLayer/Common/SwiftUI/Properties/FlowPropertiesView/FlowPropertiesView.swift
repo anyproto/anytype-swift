@@ -40,7 +40,7 @@ struct FlowPropertiesView: View {
     }
 
     private var featuredPropertiesView: some View {
-        FeaturedRelationsView(
+        FeaturedPropertiesView(
             relations: viewModel.properties,
             view: { property in
                 PropertyValueView(
