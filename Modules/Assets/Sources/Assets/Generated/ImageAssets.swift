@@ -606,6 +606,9 @@ extension ImageAsset {
   public enum QrCode {
     public static let smile = ImageAsset.bundle(name: "QrCode/Smile")
   }
+  public enum Reactions {
+    public static let selectEmoji = ImageAsset.bundle(name: "Reactions/SelectEmoji")
+  }
   public enum Settings {
     public static let about = ImageAsset.bundle(name: "Settings/About")
     public static let appearance = ImageAsset.bundle(name: "Settings/Appearance")

@@ -235,7 +235,7 @@ struct MessageView: View {
                     Button {
                         output?.didSelectAddReaction(messageId: data.message.id)
                     } label: {
-                        Image(systemName: "plus.circle")
+                        Image(asset: .Reactions.selectEmoji)
                     }
                 }
                 .controlGroupStyle(.compactMenu)
