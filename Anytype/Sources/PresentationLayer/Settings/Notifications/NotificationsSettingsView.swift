@@ -70,7 +70,7 @@ struct NotificationsSettingsView: View {
         .padding(.top, 20)
         .padding(.bottom, 24)
         .padding(.horizontal, 20)
-        .background(Color.Shape.tertiary)
+        .background(Color.Shape.transperentTertiary)
         .cornerRadius(12, style: .continuous)
     }
     
