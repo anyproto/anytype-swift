@@ -30,7 +30,7 @@ public struct BlockRestrictionsBuilder: Sendable {
         case .smartblock, .layout, .featuredRelations, .dataView, .table, .tableRow, .tableColumn, .widget, .chat:
             return DummyRestrictions()
         case .relation:
-            return RelationBlockRestrictions()
+            return PropertyBlockRestrictions()
         case .tableOfContents:
             return TableOfContentsRestrictions()
         }
