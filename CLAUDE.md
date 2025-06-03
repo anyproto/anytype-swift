@@ -126,6 +126,18 @@ The project uses Factory for dependency injection. Services are registered in:
 - Run tests before pushing changes
 - **Git commit messages must be a single line** (no multi-line descriptions)
 
+### Incremental Branch Strategy
+When making multiple related changes:
+- Create sequential branches: `ios-XXXX-description-1`, `ios-XXXX-description-2`, etc.
+- Each branch should contain one small, atomic change
+- Create pull requests in a chain:
+  - `ios-XXXX-description-1` → `develop`
+  - `ios-XXXX-description-2` → `ios-XXXX-description-1` 
+  - `ios-XXXX-description-3` → `ios-XXXX-description-2`
+  - And so on...
+- This allows reviewers to review changes incrementally and maintains a clear dependency chain
+
 ## Useful Commands
 - `make setup-middle` - Initial setup
 - `make generate-middle` - Regenerate middleware and generated files
+- `cpp` - Shorthand for "commit, push, pull request" workflow
