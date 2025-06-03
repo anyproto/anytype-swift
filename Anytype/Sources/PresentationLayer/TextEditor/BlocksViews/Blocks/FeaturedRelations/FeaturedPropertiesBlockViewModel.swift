@@ -41,7 +41,7 @@ final class FeaturedPropertiesBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> any UIContentConfiguration {
         return UIHostingConfiguration {
-            EditorFeaturedRelationsView(
+            EditorFeaturedPropertiesView(
                 relations: featuredRelations,
                 onRelationTap: onRelationTap
             )
