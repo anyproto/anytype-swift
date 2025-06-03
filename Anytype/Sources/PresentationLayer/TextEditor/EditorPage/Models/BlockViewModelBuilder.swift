@@ -317,7 +317,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case .featuredRelations:
-            return FeaturedRelationsBlockViewModel(
+            return FeaturedPropertiesBlockViewModel(
                 infoProvider: blockInformationProvider,
                 document: document,
                 collectionController: blockCollectionController
