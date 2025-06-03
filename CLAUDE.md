@@ -15,6 +15,9 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 
 ## Important Guidelines
 
+### AI Assistance Guidelines
+- **Always present a detailed action plan before implementing multi-step changes and await approval before proceeding**
+
 ### Generated Files
 - **Never edit files marked with `// Generated using Sourcery/SwiftGen`**
 - These files are automatically generated and will be overwritten
