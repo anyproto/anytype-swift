@@ -9,14 +9,14 @@ struct PropertiesSection: Identifiable {
     let isMissingFields: Bool
     
     var addedToObject: Bool {
-        id != Constants.conflictingRelationsSectionId
+        id != Constants.conflictingPropertiesSectionId 
     }
 }
 
 extension PropertiesSection {
     enum Constants {
-        static let featuredRelationsSectionId = "featuredRelationsSectionId"
-        static let sidebarRelationsSectionId = "sidebarRelationsSectionId"
-        static let conflictingRelationsSectionId = "conflictingRelationsSectionId"
+        static let featuredPropertiesSectionId = "featuredPropertiesSectionId "
+        static let sidebarPropertiesSectionId = "sidebarPropertiesSectionId"
+        static let conflictingPropertiesSectionId = "conflictingPropertiesSectionId"
     }
 }
