@@ -80,7 +80,7 @@ struct PropertyInfoView: View {
             NewPropertySectionView(
                 title: Loc.limitObjectTypes,
                 contentViewBuilder: {
-                    NewRelationRestrictionsSectionView(model: model)
+                    NewPropertyRestrictionsSectionView(model: model)
                 },
                 onTap: {
                     UIApplication.shared.hideKeyboard()
