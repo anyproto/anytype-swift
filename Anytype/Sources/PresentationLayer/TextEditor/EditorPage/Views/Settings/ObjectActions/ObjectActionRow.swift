@@ -90,8 +90,8 @@ private extension ObjectAction {
             return .X32.linkTo
         case .makeAsTemplate:
             return .makeAsTemplate
-        case .templateToggleDefaultState:
-            return .templateMakeDefault
+        case .templateToggleDefaultState(let isDefault):
+            return isDefault ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case .delete:
             return .X32.delete
         case .createWidget:
