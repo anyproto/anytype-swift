@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 
-struct NewRelationRestrictionsSectionView: View {
+struct NewPropertyRestrictionsSectionView: View {
     
     let model: [ObjectTypeModel]
     
@@ -45,7 +45,7 @@ struct NewRelationRestrictionsSectionView: View {
     }
 }
 
-extension NewRelationRestrictionsSectionView {    
+extension NewPropertyRestrictionsSectionView {    
     struct ObjectTypeModel: Identifiable, Hashable {
         let id: String
         let icon: ObjectIcon
@@ -54,56 +54,56 @@ extension NewRelationRestrictionsSectionView {
     
 }
 
-struct NewRelationRestrictionsSectionView_Previews: PreviewProvider {
+struct NewPropertyRestrictionsSectionView_Previews: PreviewProvider {
     static var previews: some View {
-        NewRelationRestrictionsSectionView(
+        NewPropertyRestrictionsSectionView(
             model: [
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .customIcon(CustomIconData(icon: .man, customColor: .gray)),
                     title: "custom icon title 1"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .customIcon(CustomIconData(icon: .transgender, customColor: .pink)),
                     title: "custom icon title 2"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .customIcon(CustomIconData(icon: .telescope, customColor: .amber)),
                     title: "custom icon title 3"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("📘")!),
                     title: "title 2"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("🐭")!),
                     title: "title 1"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("📘")!),
                     title: "title 2"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("🤡")!),
                     title: "title 2"
                 ),
-                NewRelationRestrictionsSectionView.ObjectTypeModel(
+                NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
                     icon: .emoji(Emoji("🤡")!),
                     title: "title 2"

@@ -10,7 +10,7 @@ final class PropertyInfoViewModel: ObservableObject {
         format.asViewModel
     }
     
-    var objectTypesRestrictionModel: [NewRelationRestrictionsSectionView.ObjectTypeModel]? {
+    var objectTypesRestrictionModel: [NewPropertyRestrictionsSectionView.ObjectTypeModel]? {
         objectTypes.flatMap { $0.asViewModel }
     }
     
@@ -216,9 +216,9 @@ private extension SupportedPropertyFormat {
 
 private extension Array where Element == ObjectType {
     
-    var asViewModel: [NewRelationRestrictionsSectionView.ObjectTypeModel] {
+    var asViewModel: [NewPropertyRestrictionsSectionView.ObjectTypeModel] {
         map {
-            NewRelationRestrictionsSectionView.ObjectTypeModel(
+            NewPropertyRestrictionsSectionView.ObjectTypeModel(
                 id: $0.id,
                 icon: $0.icon,
                 title: $0.displayName
