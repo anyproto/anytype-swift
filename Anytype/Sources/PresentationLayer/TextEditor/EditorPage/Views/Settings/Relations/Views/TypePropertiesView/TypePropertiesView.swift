@@ -21,7 +21,7 @@ struct TypePropertiesView: View {
         content
             .task { await model.setupSubscriptions() }
             .sheet(item: $model.relationsSearchData) { data in
-                RelationCreationView(data: data)
+                PropertyCreationView(data: data)
             }
             .sheet(item: $model.propertyData) {
                 PropertyInfoCoordinatorView(data: $0, output: nil)
