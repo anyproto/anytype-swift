@@ -3,7 +3,7 @@ import Services
 import Combine
 import SwiftUI
 
-final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
+final class FeaturedPropertiesBlockViewModel: BlockViewModelProtocol {
     let infoProvider: BlockModelInfomationProvider
     nonisolated var info: BlockInformation { infoProvider.info }
     nonisolated var hashable: AnyHashable { info.id }
