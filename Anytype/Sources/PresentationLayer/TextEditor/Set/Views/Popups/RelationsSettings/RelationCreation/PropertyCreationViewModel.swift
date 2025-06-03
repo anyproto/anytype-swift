@@ -4,7 +4,7 @@ import AnytypeCore
 
 
 @MainActor
-final class RelationCreationViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
+final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
     
     @Published var rows: [SearchDataSection<PropertySearchData>] = []
     @Published var newPropertyData: PropertyInfoData?
