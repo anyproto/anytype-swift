@@ -100,29 +100,44 @@ extension Anytype_Event.Block {
         fileprivate var _storage = _StorageClass.defaultInstance
       }
 
-      public struct ViewUpdate: Sendable {
+      public struct ViewUpdate: @unchecked Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var id: String = String()
+        public var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
 
-        public var viewID: String = String()
+        public var viewID: String {
+          get {return _storage._viewID}
+          set {_uniqueStorage()._viewID = newValue}
+        }
 
-        public var filter: [Anytype_Event.Block.Dataview.ViewUpdate.Filter] = []
+        public var filter: [Anytype_Event.Block.Dataview.ViewUpdate.Filter] {
+          get {return _storage._filter}
+          set {_uniqueStorage()._filter = newValue}
+        }
 
-        public var relation: [Anytype_Event.Block.Dataview.ViewUpdate.Relation] = []
+        public var relation: [Anytype_Event.Block.Dataview.ViewUpdate.Relation] {
+          get {return _storage._relation}
+          set {_uniqueStorage()._relation = newValue}
+        }
 
-        public var sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] = []
+        public var sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] {
+          get {return _storage._sort}
+          set {_uniqueStorage()._sort = newValue}
+        }
 
         public var fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields {
-          get {return _fields ?? Anytype_Event.Block.Dataview.ViewUpdate.Fields()}
-          set {_fields = newValue}
+          get {return _storage._fields ?? Anytype_Event.Block.Dataview.ViewUpdate.Fields()}
+          set {_uniqueStorage()._fields = newValue}
         }
         /// Returns true if `fields` has been explicitly set.
-        public var hasFields: Bool {return self._fields != nil}
+        public var hasFields: Bool {return _storage._fields != nil}
         /// Clears the value of `fields`. Subsequent reads from it will return its default value.
-        public mutating func clearFields() {self._fields = nil}
+        public mutating func clearFields() {_uniqueStorage()._fields = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -149,6 +164,8 @@ extension Anytype_Event.Block {
 
           /// Group view by this relationKey
           public var groupRelationKey: String = String()
+
+          public var endRelationKey: String = String()
 
           /// Enable backgrounds in groups
           public var groupBackgroundColors: Bool = false
@@ -514,7 +531,7 @@ extension Anytype_Event.Block {
 
         public init() {}
 
-        fileprivate var _fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields? = nil
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       public struct ViewDelete: Sendable {
@@ -866,56 +883,106 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
     6: .same(proto: "fields"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _viewID: String = String()
+    var _filter: [Anytype_Event.Block.Dataview.ViewUpdate.Filter] = []
+    var _relation: [Anytype_Event.Block.Dataview.ViewUpdate.Relation] = []
+    var _sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] = []
+    var _fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields? = nil
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _viewID = source._viewID
+      _filter = source._filter
+      _relation = source._relation
+      _sort = source._sort
+      _fields = source._fields
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.filter) }()
-      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relation) }()
-      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.sort) }()
-      case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._viewID) }()
+        case 3: try { try decoder.decodeRepeatedMessageField(value: &_storage._filter) }()
+        case 4: try { try decoder.decodeRepeatedMessageField(value: &_storage._relation) }()
+        case 5: try { try decoder.decodeRepeatedMessageField(value: &_storage._sort) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._fields) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._viewID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._viewID, fieldNumber: 2)
+      }
+      if !_storage._filter.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._filter, fieldNumber: 3)
+      }
+      if !_storage._relation.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._relation, fieldNumber: 4)
+      }
+      if !_storage._sort.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._sort, fieldNumber: 5)
+      }
+      try { if let v = _storage._fields {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      } }()
     }
-    if !self.viewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 2)
-    }
-    if !self.filter.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.filter, fieldNumber: 3)
-    }
-    if !self.relation.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.relation, fieldNumber: 4)
-    }
-    if !self.sort.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.sort, fieldNumber: 5)
-    }
-    try { if let v = self._fields {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Block.Dataview.ViewUpdate, rhs: Anytype_Event.Block.Dataview.ViewUpdate) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.viewID != rhs.viewID {return false}
-    if lhs.filter != rhs.filter {return false}
-    if lhs.relation != rhs.relation {return false}
-    if lhs.sort != rhs.sort {return false}
-    if lhs._fields != rhs._fields {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._viewID != rhs_storage._viewID {return false}
+        if _storage._filter != rhs_storage._filter {return false}
+        if _storage._relation != rhs_storage._relation {return false}
+        if _storage._sort != rhs_storage._sort {return false}
+        if _storage._fields != rhs_storage._fields {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -931,6 +998,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     5: .same(proto: "cardSize"),
     6: .same(proto: "coverFit"),
     7: .same(proto: "groupRelationKey"),
+    16: .same(proto: "endRelationKey"),
     8: .same(proto: "groupBackgroundColors"),
     9: .same(proto: "pageLimit"),
     10: .same(proto: "defaultTemplateId"),
@@ -954,6 +1022,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
       case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
+      case 16: try { try decoder.decodeSingularStringField(value: &self.endRelationKey) }()
       default: break
       }
     }
@@ -993,6 +1062,9 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if !self.defaultObjectTypeID.isEmpty {
       try visitor.visitSingularStringField(value: self.defaultObjectTypeID, fieldNumber: 15)
     }
+    if !self.endRelationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.endRelationKey, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1004,6 +1076,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
     if lhs.cardSize != rhs.cardSize {return false}
     if lhs.coverFit != rhs.coverFit {return false}
     if lhs.groupRelationKey != rhs.groupRelationKey {return false}
+    if lhs.endRelationKey != rhs.endRelationKey {return false}
     if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
     if lhs.pageLimit != rhs.pageLimit {return false}
     if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}

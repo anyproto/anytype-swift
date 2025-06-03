@@ -3080,6 +3080,29 @@ extension Anytype_Rpc.Chat.GetMessagesByIds.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.ReadAll.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Chat.ReadAll.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Chat.ReadMessages.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
