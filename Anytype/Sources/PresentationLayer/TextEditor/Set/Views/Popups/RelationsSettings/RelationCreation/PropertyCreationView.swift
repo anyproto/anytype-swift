@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationCreationView: View {
+struct PropertyCreationView: View {
     @StateObject private var model: RelationCreationViewModel
     @Environment(\.dismiss) private var dismiss
     

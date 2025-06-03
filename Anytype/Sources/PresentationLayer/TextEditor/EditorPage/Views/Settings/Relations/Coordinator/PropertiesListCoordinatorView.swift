@@ -21,7 +21,7 @@ struct PropertiesListCoordinatorView: View {
             PropertyValueCoordinatorView(data: data, output: model)
         }
         .sheet(item: $model.relationsSearchData) {
-            RelationCreationView(data: $0)
+            PropertyCreationView(data: $0)
         }
         .sheet(item: $model.objectTypeData) {
             TypePropertiesView(data: $0)

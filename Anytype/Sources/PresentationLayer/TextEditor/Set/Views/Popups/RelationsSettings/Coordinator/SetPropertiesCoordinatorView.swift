@@ -16,7 +16,7 @@ struct SetPropertiesCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.relationsSearchData) { data in
-            RelationCreationView(data: data)
+            PropertyCreationView(data: data)
         }
     }
 }
