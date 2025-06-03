@@ -38,7 +38,7 @@ struct PropertyInfoView: View {
     }
     
     private var nameSection: some View {
-        NewRelationSectionView(
+        NewPropertySectionView(
             title: Loc.name,
             contentViewBuilder: {
                 TextField(Loc.untitled, text: $viewModel.name)
@@ -52,7 +52,7 @@ struct PropertyInfoView: View {
     
     private var formatSection: some View {
         if viewModel.mode.canEditRelationType {
-            NewRelationSectionView(
+            NewPropertySectionView(
                 title: Loc.format,
                 contentViewBuilder: {
                     NewRelationFormatSectionView(model: viewModel.formatModel)
@@ -64,7 +64,7 @@ struct PropertyInfoView: View {
                 isArrowVisible: true
             )
         } else {
-            NewRelationSectionView(
+            NewPropertySectionView(
                 title: Loc.type,
                 contentViewBuilder: {
                     NewRelationFormatSectionView(model: viewModel.formatModel)
@@ -77,7 +77,7 @@ struct PropertyInfoView: View {
     
     private var restrictionsSection: some View {
         viewModel.objectTypesRestrictionModel.flatMap { model in
-            NewRelationSectionView(
+            NewPropertySectionView(
                 title: Loc.limitObjectTypes,
                 contentViewBuilder: {
                     NewRelationRestrictionsSectionView(model: model)

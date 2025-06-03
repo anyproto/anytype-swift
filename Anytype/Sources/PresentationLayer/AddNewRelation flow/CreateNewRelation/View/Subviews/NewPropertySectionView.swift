@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NewRelationSectionView<Content: View>: View {
+struct NewPropertySectionView<Content: View>: View {
     
     let title: String
     @ViewBuilder
