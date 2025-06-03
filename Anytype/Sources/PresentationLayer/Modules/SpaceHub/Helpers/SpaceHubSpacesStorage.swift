@@ -35,7 +35,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                             let participantSpace = spaces[spaceIndex]
                             
                             // Needs to understand how this logic should be work if user delete chat widget. For feature release
-                            let showUnread = FeatureFlags.chatWidget == true ? true : participantSpace.spaceView.initialScreenIsChat
+                            let showUnread = FeatureFlags.chatWidget || participantSpace.spaceView.initialScreenIsChat
                             
                             if showUnread, participantSpace.spaceView.chatId == preview.chatId {
                                 spaces[spaceIndex] = spaces[spaceIndex].updated(preview: preview)
