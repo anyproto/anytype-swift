@@ -18,6 +18,7 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
+    @Published var notificationsDenied = false
     @Published var spaceIdToLeave: StringIdentifiable?
     @Published var spaceIdToDelete: StringIdentifiable?
     
@@ -42,6 +43,8 @@ final class SpaceHubViewModel: ObservableObject {
     private var profileStorage: any ProfileStorageProtocol
     @Injected(\.spaceHubSpacesStorage)
     private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
@@ -83,8 +86,9 @@ final class SpaceHubViewModel: ObservableObject {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
+        async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
     
-        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
+        _ = await (spacesSub, wallpapersSub, profileSub, pushNotificationsSystemSettingsSub)
     }
     
     // MARK: - Private
@@ -114,6 +118,12 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnProfile() async {
         for await profile in profileStorage.profilePublisher.values {
             profileIcon = profile.icon
+        }
+    }
+    
+    private func pushNotificationsSystemSettingsSubscription() async {
+        for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
+            notificationsDenied = status.isDenied
         }
     }
 }
