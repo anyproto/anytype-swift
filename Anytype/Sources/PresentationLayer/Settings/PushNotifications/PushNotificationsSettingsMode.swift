@@ -1,11 +1,11 @@
-enum NotificationsSettingsMode {
+enum PushNotificationsSettingsMode {
     case authorized
     case denied
     case notDetermined
 }
 
 extension PushNotificationsPermissionStatus {
-    var asNotificationsSettingsMode: NotificationsSettingsMode {
+    var asPushNotificationsSettingsMode: PushNotificationsSettingsMode {
         switch self {
         case .notDetermined, .unknown: return .notDetermined
         case .denied: return .denied

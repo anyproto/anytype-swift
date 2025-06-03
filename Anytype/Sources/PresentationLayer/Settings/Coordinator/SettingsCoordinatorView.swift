@@ -13,8 +13,8 @@ struct SettingsCoordinatorView: View {
             .anytypeSheet(isPresented: $model.showAppearance) {
                 SettingsAppearanceView()
             }
-            .sheet(isPresented: $model.showNotificationsSettings) {
-                NotificationsSettingsView()
+            .sheet(isPresented: $model.showPushNotificationsSettings) {
+                PushNotificationsSettingsView()
             }
             .sheet(isPresented: $model.showSettingsAccount) {
                 SettingsAccountView(output: model)

@@ -2,10 +2,10 @@ import Foundation
 import UIKit
 
 @MainActor
-final class NotificationsSettingsViewModel: ObservableObject {
+final class PushNotificationsSettingsViewModel: ObservableObject {
     
     @Published var requestAuthorizationId: String?
-    @Published var mode: NotificationsSettingsMode?
+    @Published var mode: PushNotificationsSettingsMode?
     
     @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
@@ -14,7 +14,7 @@ final class NotificationsSettingsViewModel: ObservableObject {
     
     func subscribeToSystemSettingsChanges() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
-            mode = status.asNotificationsSettingsMode
+            mode = status.asPushNotificationsSettingsMode
         }
     }
     

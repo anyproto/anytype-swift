@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct NotificationsSettingsView: View {
+struct PushNotificationsSettingsView: View {
     
-    @StateObject private var model: NotificationsSettingsViewModel
+    @StateObject private var model: PushNotificationsSettingsViewModel
     
     init() {
-        _model = StateObject(wrappedValue: NotificationsSettingsViewModel())
+        _model = StateObject(wrappedValue: PushNotificationsSettingsViewModel())
     }
     
     var body: some View {
@@ -25,7 +25,7 @@ struct NotificationsSettingsView: View {
         }
     }
     
-    private func content(with mode: NotificationsSettingsMode) -> some View {
+    private func content(with mode: PushNotificationsSettingsMode) -> some View {
         VStack(spacing: 0) {
             switch mode {
             case .authorized:
@@ -70,7 +70,7 @@ struct NotificationsSettingsView: View {
         .padding(.top, 20)
         .padding(.bottom, 24)
         .padding(.horizontal, 20)
-        .background(Color.Shape.tertiary)
+        .background(Color.Shape.transperentTertiary)
         .cornerRadius(12, style: .continuous)
     }
     
