@@ -18,7 +18,7 @@ enum Relation: Hashable, Identifiable, Sendable {
 
 // MARK: - RelationValueProtocol
 
-extension Relation: RelationProtocol {
+extension Relation: PropertyProtocol {
     
     var id: String {
         switch self {

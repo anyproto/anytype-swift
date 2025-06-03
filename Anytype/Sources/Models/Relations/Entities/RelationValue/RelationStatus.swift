@@ -4,7 +4,7 @@ import SwiftUI
 
 extension Relation {
     
-    struct Status: RelationProtocol, Hashable, Identifiable {
+    struct Status: PropertyProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String

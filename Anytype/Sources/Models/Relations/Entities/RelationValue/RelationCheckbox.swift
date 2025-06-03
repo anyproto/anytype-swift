@@ -2,7 +2,7 @@ import Services
 
 extension Relation {
     
-    struct Checkbox: RelationProtocol, Hashable, Identifiable {
+    struct Checkbox: PropertyProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String

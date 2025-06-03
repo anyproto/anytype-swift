@@ -4,7 +4,7 @@ import CoreImage
 
 extension Relation {
     
-    struct Unknown: RelationProtocol, Hashable, Identifiable {
+    struct Unknown: PropertyProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
