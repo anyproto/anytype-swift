@@ -6,7 +6,7 @@ import Combine
 @MainActor
 final class PropertyInfoViewModel: ObservableObject {
     
-    var formatModel: NewRelationFormatSectionView.Model {
+    var formatModel: NewPropertyFormatSectionView.Model {
         format.asViewModel
     }
     
@@ -191,8 +191,8 @@ private extension PropertyInfoViewModel {
 
 private extension SupportedPropertyFormat {
     
-    var asViewModel: NewRelationFormatSectionView.Model {
-        NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)
+    var asViewModel: NewPropertyFormatSectionView.Model {
+        NewPropertyFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
     var asRelationFormat: RelationFormat {
