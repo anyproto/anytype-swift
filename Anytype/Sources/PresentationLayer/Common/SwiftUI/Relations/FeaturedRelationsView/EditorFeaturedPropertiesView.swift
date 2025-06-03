@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct EditorFeaturedRelationsView: View {
+struct EditorFeaturedPropertiesView: View {
     let relations: [Relation]
     let onRelationTap: ((Relation) -> Void)
     
