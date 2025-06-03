@@ -4,7 +4,7 @@ import AnytypeCore
 import SwiftProtobuf
 
 protocol SetContentViewDataBuilderProtocol: AnyObject {
-    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation]
+    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetProperty]
     func activeViewRelations(
         dataViewRelationsDetails: [RelationDetails],
         view: DataviewView,
@@ -30,28 +30,28 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
-    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
+    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetProperty] {
         let storageRelationsDetails = propertyDetailsStorage.relationsDetails(keys: dataview.relationLinks.map(\.key), spaceId: spaceId)
             .filter {
                 (!$0.isHidden && !$0.isDeleted) ||
                 (view.canSwitchItemName && $0.key == BundledRelationKey.name.rawValue)
             }
         
-        let relationsPresentInView: [SetRelation] = view.options
+        let relationsPresentInView: [SetProperty] = view.options
             .compactMap { option in
                 let relationsDetails = storageRelationsDetails
                     .first { $0.key == option.key }
                 guard let relationsDetails = relationsDetails else { return nil }
                 
-                return SetRelation(relationDetails: relationsDetails, option: option)
+                return SetProperty(relationDetails: relationsDetails, option: option)
             }
         
-        let relationsNotPresentInView: [SetRelation] = storageRelationsDetails
+        let relationsNotPresentInView: [SetProperty] = storageRelationsDetails
             .filter { !view.options.map(\.key).contains($0.key) }
-            .map { SetRelation(relationDetails: $0, option: DataviewRelationOption(key: $0.key, isVisible: false)) }
+            .map { SetProperty(relationDetails: $0, option: DataviewRelationOption(key: $0.key, isVisible: false)) }
 
         
-        return NSOrderedSet(array: relationsPresentInView + relationsNotPresentInView).array as! [SetRelation]
+        return NSOrderedSet(array: relationsPresentInView + relationsNotPresentInView).array as! [SetProperty]
     }
     
     func activeViewRelations(

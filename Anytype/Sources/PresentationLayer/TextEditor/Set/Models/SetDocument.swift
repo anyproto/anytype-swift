@@ -101,7 +101,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         dataView.views.first { $0.id == id } ?? .empty
     }
     
-    func sortedRelations(for viewId: String) -> [SetRelation] {
+    func sortedRelations(for viewId: String) -> [SetProperty] {
         let view = view(by: viewId)
         return dataBuilder.sortedRelations(dataview: dataView, view: view, spaceId: spaceId)
     }

@@ -141,7 +141,7 @@ final class SetPropertiesViewModel: ObservableObject {
         }
     }
     
-    private func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
+    private func onRelationVisibleChange(_ relation: SetProperty, isVisible: Bool) {
         Task {
             let newOption = relation.option.updated(isVisible: isVisible).asMiddleware
             try await dataviewService.replaceViewRelation(
