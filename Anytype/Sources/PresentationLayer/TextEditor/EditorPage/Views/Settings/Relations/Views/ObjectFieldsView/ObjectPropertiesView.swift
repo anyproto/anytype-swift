@@ -70,7 +70,7 @@ struct ObjectPropertiesView: View {
         }
     }
     
-    private func sectionHeader(section: RelationsSection) -> some View {
+    private func sectionHeader(section: PropertiesSection) -> some View {
         Group {
             if section.isMissingFields {
                 Button {
@@ -87,7 +87,7 @@ struct ObjectPropertiesView: View {
         }
     }
     
-    private func row(with relation: Relation, section: RelationsSection) -> some View {
+    private func row(with relation: Relation, section: PropertiesSection) -> some View {
         HStack {
             rowWithoutActions(with: relation, addedToObject: section.addedToObject)
             if section.isMissingFields {

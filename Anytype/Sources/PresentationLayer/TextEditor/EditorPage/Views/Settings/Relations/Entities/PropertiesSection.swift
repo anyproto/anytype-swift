@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct RelationsSection: Identifiable {
+struct PropertiesSection: Identifiable {
     let id: String
     let title: String
     let relations: [Relation]
@@ -13,7 +13,7 @@ struct RelationsSection: Identifiable {
     }
 }
 
-extension RelationsSection {
+extension PropertiesSection {
     enum Constants {
         static let featuredRelationsSectionId = "featuredRelationsSectionId"
         static let sidebarRelationsSectionId = "sidebarRelationsSectionId"

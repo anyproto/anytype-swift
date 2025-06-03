@@ -3,15 +3,15 @@ import SwiftProtobuf
 import UIKit
 import AnytypeCore
 
-final class RelationsSectionBuilder {
+final class PropertiesSectionBuilder {
     
-    func buildObjectSections(parsedRelations: ParsedRelations) -> [RelationsSection] {
-        var sections: [RelationsSection] = []
+    func buildObjectSections(parsedRelations: ParsedRelations) -> [PropertiesSection] {
+        var sections: [PropertiesSection] = []
         
         if parsedRelations.featuredRelations.isNotEmpty || parsedRelations.sidebarRelations.isNotEmpty {
             sections.append(
-                RelationsSection(
-                    id: RelationsSection.Constants.featuredRelationsSectionId,
+                PropertiesSection(
+                    id: PropertiesSection.Constants.featuredPropertiesSectionId,
                     title: "",
                     relations: parsedRelations.featuredRelations + parsedRelations.sidebarRelations,
                     isMissingFields: false
@@ -21,8 +21,8 @@ final class RelationsSectionBuilder {
         
         if parsedRelations.conflictedRelations.isNotEmpty {
             sections.append(
-                RelationsSection(
-                    id: RelationsSection.Constants.conflictingRelationsSectionId,
+                PropertiesSection(
+                    id: PropertiesSection.Constants.conflictingPropertiesSectionId,
                     title: Loc.Fields.local,
                     relations: parsedRelations.conflictedRelations,
                     isMissingFields: true
@@ -33,7 +33,7 @@ final class RelationsSectionBuilder {
         return sections
     }
 
-    func buildSectionsLegacy(from parsedRelations: ParsedRelations, objectTypeName: String) -> [RelationsSection] {
+    func buildSectionsLegacy(from parsedRelations: ParsedRelations, objectTypeName: String) -> [PropertiesSection] {
         anytypeAssertionFailure("Not supported in a new API")
         return []
     }
