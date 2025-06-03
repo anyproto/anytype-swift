@@ -2924,6 +2924,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func chatReadAll(
+        _ request: Anytype_Rpc.Chat.ReadAll.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.ReadAll.Request, Anytype_Rpc.Chat.ReadAll.Response> {
+        return Invocation(messageName: "ChatReadAll", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatReadAll(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.ReadAll.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func aIWritingTools(
         _ request: Anytype_Rpc.AI.WritingTools.Request = .init()
     ) -> Invocation<Anytype_Rpc.AI.WritingTools.Request, Anytype_Rpc.AI.WritingTools.Response> {
