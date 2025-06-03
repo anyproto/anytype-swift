@@ -119,8 +119,6 @@ struct PushNotificationsAlertView: View {
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             
-            Spacer.fixedHeight(8)
-            
             AnytypeText(Loc.PushNotifications.RequestAlert.description, style: .bodyRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
