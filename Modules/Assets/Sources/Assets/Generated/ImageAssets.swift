@@ -679,6 +679,7 @@ extension ImageAsset {
     public static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
     public static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     public static let webLink = ImageAsset.bundle(name: "x18/Web link")
+    public static let redAttention = ImageAsset.bundle(name: "x18/redAttention")
   }
   public enum X19 {
     public static let more = ImageAsset.bundle(name: "x19/more")

@@ -379,4 +379,8 @@ extension Container {
     var pushNotificationsAlertHandler: Factory<any PushNotificationsAlertHandlerProtocol> {
         self { PushNotificationsAlertHandler() }.shared
     }
+    
+    var pushNotificationsSystemSettingsBroadcaster: Factory<any PushNotificationsSystemSettingsBroadcasterProtocol> {
+        self { PushNotificationsSystemSettingsBroadcaster() }.singleton
+    }
 }
