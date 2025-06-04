@@ -3,7 +3,7 @@ import SwiftUI
 
 fileprivate struct AsyncThrowsTaskModifier: ViewModifier {
     
-    let action: @Sendable () async throws -> Void
+    let action: @Sendable @MainActor () async throws -> Void
     @State private var toast: ToastBarData?
     
     func body(content: Content) -> some View {
@@ -36,12 +36,12 @@ fileprivate struct AsyncThrowsIdTaskModifier<T: Equatable>: ViewModifier {
     }
 }
 
-extension View {
-    func throwingTask(_ action: @escaping @Sendable () async throws -> Void) -> some View {
+public extension View {
+    func throwingTask(_ action: @escaping @Sendable @MainActor () async throws -> Void) -> some View {
         modifier(AsyncThrowsTaskModifier(action: action))
     }
     
-    func throwingTask<T: Equatable>(id: T, _ action: @escaping @Sendable () async throws -> Void) -> some View {
+    func throwingTask<T: Equatable>(id: T, _ action: @escaping @Sendable @MainActor () async throws -> Void) -> some View {
         modifier(AsyncThrowsIdTaskModifier(id: id, action: action))
     }
     

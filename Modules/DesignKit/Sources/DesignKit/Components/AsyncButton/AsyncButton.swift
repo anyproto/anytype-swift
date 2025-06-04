@@ -3,13 +3,14 @@ import SwiftUI
 
 public struct AsyncButton<Label> : View where Label : View {
     
-    let action: () async throws -> Void
+    let action: @Sendable () async throws -> Void
     let label: Label
     let role: ButtonRole?
     
-    @State private var toast: ToastBarData?
+    @State private var taskId: UUID?
+    @State private var disable = false
     
-    public init(role: ButtonRole? = nil, action: @escaping () async throws -> Void, @ViewBuilder label: () -> Label) {
+    public init(role: ButtonRole? = nil, action: @Sendable @escaping @MainActor () async throws -> Void, @ViewBuilder label: () -> Label) {
         self.action = action
         self.role = role
         self.label = label()
@@ -17,22 +18,26 @@ public struct AsyncButton<Label> : View where Label : View {
     
     public var body: some View {
         Button(role: role) {
-            Task {
-                do {
-                    try await action()
-                } catch {
-                    toast = ToastBarData(error.localizedDescription, type: .failure)
-                }
-            }
+            taskId = UUID()
         } label: {
             label
         }
-        .snackbar(toastBarData: $toast)
+        .throwingTask(id: taskId) {
+            guard taskId.isNotNil else { return }
+            do {
+                disable = true
+                defer { disable = false }
+                try await action()
+            } catch {
+                throw error
+            }
+        }
+        .disabled(disable)
     }
 }
 
 public extension AsyncButton where Label == Text {
-    init(_ titleKey: String, role: ButtonRole? = nil, action: @escaping () async throws -> Void) {
+    init(_ titleKey: String, role: ButtonRole? = nil, action: @Sendable @escaping @MainActor () async throws -> Void) {
         self = AsyncButton(role: role, action: action, label: {
             Text(titleKey)
         })

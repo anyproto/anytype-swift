@@ -21,6 +21,13 @@
   "testTargets" : [
     {
       "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ProtobufMessagesTests",
+        "name" : "ProtobufMessagesTests"
+      }
+    },
+    {
+      "target" : {
         "containerPath" : "container:Modules\/DeepLinks",
         "identifier" : "DeepLinksTests",
         "name" : "DeepLinksTests"
@@ -28,16 +35,16 @@
     },
     {
       "target" : {
-        "containerPath" : "container:Anytype.xcodeproj",
-        "identifier" : "03C5C53F22DFD90C00DD91DE",
-        "name" : "AnytypeTests"
+        "containerPath" : "container:Modules\/AnytypeCore",
+        "identifier" : "AnytypeCoreTests",
+        "name" : "AnytypeCoreTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Modules\/AnytypeCore",
-        "identifier" : "AnytypeCoreTests",
-        "name" : "AnytypeCoreTests"
+        "containerPath" : "container:Anytype.xcodeproj",
+        "identifier" : "03C5C53F22DFD90C00DD91DE",
+        "name" : "AnytypeTests"
       }
     }
   ],
