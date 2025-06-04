@@ -1,6 +1,6 @@
 import Foundation
 
-struct DateRelationValue: Hashable {
+struct DatePropertyValue: Hashable {
     
     let date: Date
     let text: String

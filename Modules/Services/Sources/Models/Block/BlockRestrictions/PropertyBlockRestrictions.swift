@@ -1,4 +1,4 @@
-struct RelationBlockRestrictions: BlockRestrictions {
+struct PropertyBlockRestrictions: BlockRestrictions {
     let canApplyBold = false
     let canApplyItalic = false
     let canApplyOtherMarkup = false

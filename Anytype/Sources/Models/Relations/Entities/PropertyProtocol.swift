@@ -1,6 +1,6 @@
 import Services
 
-protocol RelationProtocol {
+protocol PropertyProtocol {
     var id: String { get }
     var key: String { get }
     var name: String { get }
