@@ -7,7 +7,7 @@ import Combine
 
 @MainActor
 final class ObjectPropertiesViewModel: ObservableObject {
-    @Published var sections = [RelationsSection]()
+    @Published var sections = [PropertiesSection]()
     @Published var showConflictingInfo = false
     
     var typeId: String? { document.details?.objectType.id }
@@ -15,7 +15,7 @@ final class ObjectPropertiesViewModel: ObservableObject {
     // MARK: - Private variables
     
     private let document: any BaseDocumentProtocol
-    private let sectionsBuilder = RelationsSectionBuilder()
+    private let sectionsBuilder = PropertiesSectionBuilder()
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol

@@ -1,7 +1,7 @@
 import Services
 import SwiftUI
 
-struct SetRelation: Identifiable, Hashable {
+struct SetProperty: Identifiable, Hashable {
     let relationDetails: RelationDetails
     let option: DataviewRelationOption
     
@@ -9,7 +9,7 @@ struct SetRelation: Identifiable, Hashable {
 }
 
 extension Array where Element == DataviewRelationOption {
-    func index(of relation: SetRelation) -> Index? {
+    func index(of relation: SetProperty) -> Index? {
         firstIndex(where: { $0.key == relation.relationDetails.key })
     }
     

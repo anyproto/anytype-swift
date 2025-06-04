@@ -1,15 +1,15 @@
 import UIKit
 import SwiftUI
 
-final class SlashMenuRealtionView: UIView, UIContentView {
+final class SlashMenuPropertyView: UIView, UIContentView {
     private var realtionViewModel: PropertyNameValueViewModel
     private let container = UIView()
 
-    private var currentConfiguration: SlashMenuRealtionContentConfiguration
+    private var currentConfiguration: SlashMenuPropertyContentConfiguration
     var configuration: any UIContentConfiguration {
         get { currentConfiguration }
         set {
-            guard let configuration = newValue as? SlashMenuRealtionContentConfiguration else {
+            guard let configuration = newValue as? SlashMenuPropertyContentConfiguration else {
                 return
             }
             guard configuration != currentConfiguration else {
@@ -21,7 +21,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
         }
     }
 
-    init(configuration: SlashMenuRealtionContentConfiguration) {
+    init(configuration: SlashMenuPropertyContentConfiguration) {
         self.currentConfiguration = configuration
         self.realtionViewModel = PropertyNameValueViewModel(
             property: configuration.property,
@@ -43,7 +43,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
     // MARK: - Setup view
 
     func setupSubviews() {
-        let relationsView = EnhancedRelationView(viewModel: realtionViewModel).asUIView()
+        let relationsView = EnhancedPropertyView(viewModel: realtionViewModel).asUIView()
 
         addSubview(container) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
@@ -60,7 +60,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
 
     // MARK: - Apply configuration
 
-    func apply(with configuration: SlashMenuRealtionContentConfiguration) {
+    func apply(with configuration: SlashMenuPropertyContentConfiguration) {
         realtionViewModel.property = configuration.property
         realtionViewModel.isHighlighted = false
 
@@ -70,7 +70,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
     }
 }
 
-struct EnhancedRelationView: View {
+struct EnhancedPropertyView: View {
     @ObservedObject var viewModel: PropertyNameValueViewModel
 
     var body: some View {

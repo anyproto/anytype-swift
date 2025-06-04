@@ -20,7 +20,7 @@ final class SetFiltersListViewModel: ObservableObject {
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     
-    private let relationFilterBuilder = RelationFilterBuilder()
+    private let relationFilterBuilder = PropertyFilterBuilder()
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
     private weak var output: (any SetFiltersListCoordinatorOutput)?
