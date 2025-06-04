@@ -139,41 +139,45 @@ struct SpaceSettingsView: View {
             Spacer.fixedHeight(8)
             
             HStack(spacing: 8) {
+                if FeatureFlags.muteSpacePossibility {
+                    Button {
+                        model.onMuteTap()
+                    } label: {
+                        borderedView(
+                            asset: model.muted ? .X32.unmute : .X32.mute,
+                            title: model.muted ? Loc.unmute : Loc.mute
+                        )
+                    }
+                }
+                
                 Button {
                     model.onInviteTap()
                 } label: {
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.Island.addMember)
-                                .foregroundStyle(Color.Text.primary)
-                                .frame(width: 32, height: 32)
-                            AnytypeText(Loc.invite, style: .caption1Regular)
-                        }
-                        .padding(.vertical, 14)
-                        Spacer()
-                    }
-                    .border(16, color: .Shape.primary, lineWidth: 0.5)
+                    borderedView(asset: .X32.Island.addMember, title: Loc.invite)
                 }
                 
                 Button {
                     model.onQRCodeTap()
                 } label: {
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.qrCode)
-                                .foregroundStyle(Color.Text.primary)
-                                .frame(width: 32, height: 32)
-                            AnytypeText(Loc.qrCode, style: .caption1Regular)
-                        }
-                        .padding(.vertical, 14)
-                        Spacer()
-                    }
-                    .border(16, color: .Shape.primary, lineWidth: 0.5)
+                    borderedView(asset: .X32.qrCode, title: Loc.qrCode)
                 }
             }
         }
+    }
+    
+    private func borderedView(asset: ImageAsset, title: String) -> some View {
+        HStack {
+            Spacer()
+            VStack(spacing: 0) {
+                Image(asset: asset)
+                    .foregroundStyle(Color.Text.primary)
+                    .frame(width: 32, height: 32)
+                AnytypeText(title, style: .caption1Regular)
+            }
+            .padding(.vertical, 14)
+            Spacer()
+        }
+        .border(16, color: .Shape.primary, lineWidth: 0.5)
     }
     
     @ViewBuilder

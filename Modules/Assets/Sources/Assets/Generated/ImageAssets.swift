@@ -830,6 +830,7 @@ extension ImageAsset {
     }
     public static let moveTo = ImageAsset.bundle(name: "x32/Move To")
     public static let move = ImageAsset.bundle(name: "x32/Move")
+    public static let mute = ImageAsset.bundle(name: "x32/Mute")
     public static let navigation = ImageAsset.bundle(name: "x32/Navigation")
     public static let openAsObject = ImageAsset.bundle(name: "x32/Open as Object")
     public static let paste = ImageAsset.bundle(name: "x32/Paste")
@@ -851,6 +852,7 @@ extension ImageAsset {
       public static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
     }
     public static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
+    public static let unmute = ImageAsset.bundle(name: "x32/Unmute")
     public static let video = ImageAsset.bundle(name: "x32/Video")
     public enum View {
       public static let hide = ImageAsset.bundle(name: "x32/View/Hide")

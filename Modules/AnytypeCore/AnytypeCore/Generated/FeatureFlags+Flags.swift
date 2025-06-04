@@ -130,6 +130,10 @@ public extension FeatureFlags {
         value(for: .chatWidget)
     }
 
+    static var muteSpacePossibility: Bool {
+        value(for: .muteSpacePossibility)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -227,6 +231,7 @@ public extension FeatureFlags {
         .binScreenEmptyAction,
         .openFullscreenObjectsFromSetWidget,
         .chatWidget,
+        .muteSpacePossibility,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

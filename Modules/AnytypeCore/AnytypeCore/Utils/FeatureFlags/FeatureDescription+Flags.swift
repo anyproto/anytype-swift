@@ -223,6 +223,13 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let muteSpacePossibility = FeatureDescription(
+        title: "Mute space possibility",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11.1"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
