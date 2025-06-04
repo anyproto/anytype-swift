@@ -1,5 +1,5 @@
 {
-  "originHash" : "86f491a0f5af5b159704e3aee0cd179d7e08ca4a267d416f39c834af88362989",
+  "originHash" : "b0ae4b9d190304855593b007418f60be453375c9a40b1ca61ae406602ff1a10c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/anyproto/any-crypto-swift",
       "state" : {
-        "revision" : "315865d346f0ef7f029468789c80177fb26351d3",
-        "version" : "1.0.0"
+        "revision" : "0d7429888f8ec60d1730341ff1122d5ddf0ff1ab",
+        "version" : "1.0.1"
       }
     },
     {
