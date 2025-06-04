@@ -537,11 +537,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
-    func didSelectUnread(message: MessageViewData) {
-        Task {
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
-        }
+    func didSelectUnread(message: MessageViewData) async throws {
+        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
     }
 
     func didSelectCopyPlainText(message: MessageViewData) {

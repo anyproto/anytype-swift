@@ -252,8 +252,8 @@ struct MessageView: View {
         Divider()
         
         #if DEBUG || RELEASE_NIGHTLY
-        Button {
-            output?.didSelectUnread(message: data)
+        AsyncButton {
+            try await output?.didSelectUnread(message: data)
         } label: {
             Text(Loc.Message.Action.unread)
         }
