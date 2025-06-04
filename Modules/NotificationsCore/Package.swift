@@ -14,6 +14,7 @@ let package = Package(
             targets: ["NotificationsCore"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/anyproto/any-crypto-swift", from: "1.0.1"),
         .package(path: "../AnytypeCore"),
         .package(path: "../SecureService"),
     ],
@@ -21,6 +22,7 @@ let package = Package(
         .target(
             name: "NotificationsCore",
             dependencies: [
+                .product(name: "AnyCryptoSwift", package: "any-crypto-swift"),
                 "AnytypeCore",
                 "SecureService"
             ],

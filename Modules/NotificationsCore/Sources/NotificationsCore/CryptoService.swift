@@ -1,8 +1,10 @@
 import Foundation
 import CryptoKit
+import AnyCryptoSwift
 
 protocol CryptoServiceProtocol: AnyObject, Sendable {
     func decryptAESGCM(data: Data, keyData: Data) throws -> Data
+    func isValidSignature(senderId: String, signatureData: Data, encryptedData: Data) throws -> Bool
 }
 
 final class CryptoService: CryptoServiceProtocol {
@@ -20,8 +22,18 @@ final class CryptoService: CryptoServiceProtocol {
         
         return decryptedData
     }
+    
+    func isValidSignature(senderId: String, signatureData: Data, encryptedData: Data) throws -> Bool {
+        do {
+            let pubKey = try AnyCryptoSwift.decodeAccountAddress(senderId)
+            return try pubKey.verify(data: encryptedData, signature: signatureData)
+        } catch {
+            throw CryptoError.signatureFailed
+        }
+    }
 }
 
 enum CryptoError: Error {
     case decryptionFailed
+    case signatureFailed
 }

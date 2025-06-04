@@ -3,6 +3,7 @@ import AnytypeCore
 
 public protocol DecryptionPushContentServiceProtocol: AnyObject, Sendable {
     func decrypt(_ encryptedData: Data, keyId: String) -> DecryptedPushContent?
+    func isValidSignature(senderId: String, signatureData: Data, encryptedData: Data) -> Bool
 }
 
 public final class DecryptionPushContentService: DecryptionPushContentServiceProtocol {
@@ -27,6 +28,19 @@ public final class DecryptionPushContentService: DecryptionPushContentServicePro
         } catch {
             anytypeAssertionFailure(error.localizedDescription)
             return nil
+        }
+    }
+    
+    public func isValidSignature(senderId: String, signatureData: Data, encryptedData: Data) -> Bool {
+        do {
+            return try cryptoService.isValidSignature(
+                senderId: senderId,
+                signatureData: signatureData,
+                encryptedData: encryptedData
+            )
+        } catch {
+            anytypeAssertionFailure(error.localizedDescription)
+            return false
         }
     }
 }
