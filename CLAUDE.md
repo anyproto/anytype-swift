@@ -140,4 +140,3 @@ When making multiple related changes:
 ## Useful Commands
 - `make setup-middle` - Initial setup
 - `make generate-middle` - Regenerate middleware and generated files
-- `cpp` - Shorthand for "commit, push, pull request" workflow
