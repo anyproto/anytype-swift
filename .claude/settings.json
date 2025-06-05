@@ -1,9 +1,18 @@
 {
   "permissions": {
     "allow": [
+      "Read(*)",
+
       "Bash(git checkout:*)",
       "Bash(git worktree:*)",
-      "Bash(find:*)"
+
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(sed:*)",
+      "Bash(cat:*)",
+
+      "Bash(make setup-middle:*)"
     ],
     "deny": []
   }
