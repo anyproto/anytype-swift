@@ -74,7 +74,7 @@ struct MessageView: View {
             
             if !data.messageString.isEmpty {
                 // Add spacing for date
-                (Text(data.messageString) + createDateTextForSpacing)
+                (Text(data.messageString) + infoForSpacing)
                     .anytypeStyle(.chatText)
                     .padding(.horizontal, 12)
                     .alignmentGuide(.timeVerticalAlignment) { $0[.bottom] }
@@ -85,7 +85,7 @@ struct MessageView: View {
         }
         .overlay(alignment: Alignment(horizontal: .trailing, vertical: .timeVerticalAlignment)) {
             if !data.messageString.isEmpty {
-                createDate
+                infoView
                     .padding(.horizontal, 12)
             }
         }
@@ -145,17 +145,22 @@ struct MessageView: View {
         }
     }
     
-    private var createDate: some View {
-        Text(data.createDate)
+    private var infoView: some View {
+        Text(infoText)
             .anytypeFontStyle(.caption2Regular)
             .lineLimit(1)
             .foregroundColor(messageTimeColor)
     }
     
-    private var createDateTextForSpacing: Text {
-        (Text("  ") + Text(data.createDate))
+    private var infoForSpacing: Text {
+        Text(infoText)
             .anytypeFontStyle(.caption2Regular)
             .foregroundColor(.clear)
+    }
+    
+    private var infoText: String {
+        let editText = data.message.modifiedAtDate != nil ? Loc.Message.edited + " " : ""
+        return "  " + editText + data.createDate
     }
     
     @ViewBuilder
