@@ -58,8 +58,10 @@ struct ObjectPropertiesView: View {
             LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(model.sections) { section in
                     Section {
-                        ForEach(section.relations) {
-                            row(with: $0, section: section)
+                        if !section.isExpandable || model.isSectionExpanded(section.id) {
+                            ForEach(section.relations) {
+                                row(with: $0, section: section)
+                            }
                         }
                     } header: {
                         sectionHeader(section: section)
@@ -72,15 +74,35 @@ struct ObjectPropertiesView: View {
     
     private func sectionHeader(section: PropertiesSection) -> some View {
         Group {
-            if section.isMissingFields {
+            if section.isExpandable {
                 Button {
-                    model.onConflictingInfoTap()
+                    model.toggleSectionExpansion(section.id)
                 } label: {
-                    ListSectionHeaderView(title: section.title) {
-                        Image(systemName: "questionmark.circle.fill").foregroundStyle(Color.Control.active)
-                            .frame(width: 18, height: 18)
+                    HStack(spacing: 0) {
+                        Image(asset: .X18.Disclosure.right)
+                            .foregroundColor(.Control.active)
+                            .rotationEffect(.degrees(model.isSectionExpanded(section.id) ? 90 : 0))
+                        
+                        AnytypeText(section.title, style: .uxCalloutMedium)
+                            .foregroundColor(.Text.secondary)
+                            .padding(.leading, 10)
+                        
+                        if section.isMissingFields {
+                            Spacer()
+                            Button {
+                                model.onConflictingInfoTap()
+                            } label: {
+                                Image(systemName: "questionmark.circle.fill")
+                                    .foregroundStyle(Color.Control.active)
+                                    .frame(width: 18, height: 18)
+                            }
+                        } else {
+                            Spacer()
+                        }
                     }
+                    .padding(.vertical, 12)
                 }
+                .padding(.top, 16)
             } else {
                 EmptyView()
             }

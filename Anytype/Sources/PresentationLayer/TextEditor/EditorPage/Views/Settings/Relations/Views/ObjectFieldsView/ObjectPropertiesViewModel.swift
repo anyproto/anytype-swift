@@ -4,11 +4,13 @@ import SwiftProtobuf
 import UIKit
 import AnytypeCore
 import Combine
+import SwiftUI
 
 @MainActor
 final class ObjectPropertiesViewModel: ObservableObject {
     @Published var sections = [PropertiesSection]()
     @Published var showConflictingInfo = false
+    @Published var expandedSections = Set<String>()
     
     var typeId: String? { document.details?.objectType.id }
     
@@ -72,5 +74,19 @@ final class ObjectPropertiesViewModel: ObservableObject {
     func onConflictingInfoTap() {
         AnytypeAnalytics.instance().logConflictFieldHelp()
         showConflictingInfo.toggle()
+    }
+    
+    func toggleSectionExpansion(_ sectionId: String) {
+        withAnimation(.fastSpring) {
+            if expandedSections.contains(sectionId) {
+                expandedSections.remove(sectionId)
+            } else {
+                expandedSections.insert(sectionId)
+            }
+        }
+    }
+    
+    func isSectionExpanded(_ sectionId: String) -> Bool {
+        expandedSections.contains(sectionId)
     }
 }
