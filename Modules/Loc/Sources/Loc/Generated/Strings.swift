@@ -1299,6 +1299,7 @@ public enum Loc {
     }
   }
   public enum Message {
+    public static let edited = Loc.tr("Localizable", "Message.edited", fallback: "edited")
     public enum Action {
       public static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction", fallback: "Add Reaction")
       public static let copyPlainText = Loc.tr("Localizable", "Message.Action.CopyPlainText", fallback: "Copy Plain Text")
