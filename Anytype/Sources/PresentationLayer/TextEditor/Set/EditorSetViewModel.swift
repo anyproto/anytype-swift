@@ -125,13 +125,13 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
-    func contextMenuItems(for relation: Relation) -> [RelationValueViewModel.MenuItem] {
+    func contextMenuItems(for relation: Relation) -> [PropertyValueViewModel.MenuItem] {
         guard relation.key == BundledRelationKey.type.rawValue else {
             return []
         }
         return .builder {
             if setDocument.setPermissions.canTurnSetIntoCollection {
-                RelationValueViewModel.MenuItem(
+                PropertyValueViewModel.MenuItem(
                     title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
                     action: { [weak self] in
                         self?.turnSetIntoCollection()
@@ -139,7 +139,7 @@ final class EditorSetViewModel: ObservableObject {
                 )
             }
             if setDocument.setPermissions.canChangeQuery {
-                RelationValueViewModel.MenuItem(
+                PropertyValueViewModel.MenuItem(
                     title: isEmptyQuery ? Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
                     action: { [weak self] in
                         self?.showSetOfTypeSelection()
@@ -201,8 +201,8 @@ final class EditorSetViewModel: ObservableObject {
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
     private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
@@ -323,7 +323,7 @@ final class EditorSetViewModel: ObservableObject {
         for await relations in setDocument.document.parsedRelationsPublisherForType.values {
             let conflictingKeys = (try? await relationsService
                 .getConflictRelationsForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
-            let conflictingRelations = relationDetailsStorage
+            let conflictingRelations = propertyDetailsStorage
                 .relationsDetails(ids: conflictingKeys, spaceId: setDocument.spaceId)
                 .filter { !$0.isHidden && !$0.isDeleted }
 

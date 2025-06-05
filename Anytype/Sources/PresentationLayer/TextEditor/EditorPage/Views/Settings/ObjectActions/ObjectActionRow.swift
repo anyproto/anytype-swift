@@ -63,8 +63,8 @@ private extension ObjectAction {
             return Loc.Actions.linkItself
         case .makeAsTemplate:
             return Loc.Actions.makeAsTemplate
-        case .templateSetAsDefault:
-            return Loc.Actions.templateMakeDefault
+        case .templateToggleDefaultState(let isDefault):
+            return isDefault ? Loc.unsetDefault : Loc.Actions.templateMakeDefault
         case .delete:
             return Loc.delete
         case .createWidget:
@@ -90,8 +90,8 @@ private extension ObjectAction {
             return .X32.linkTo
         case .makeAsTemplate:
             return .makeAsTemplate
-        case .templateSetAsDefault:
-            return .templateMakeDefault
+        case .templateToggleDefaultState(let isDefault):
+            return isDefault ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case .delete:
             return .X32.delete
         case .createWidget:

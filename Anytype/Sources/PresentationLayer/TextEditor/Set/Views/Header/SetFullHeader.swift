@@ -178,7 +178,7 @@ extension SetFullHeader {
     }
 
     private var featuredRelationsView: some View {
-        FeaturedRelationsView(
+        FeaturedPropertiesView(
             relations: model.featuredRelations,
             view: { relation in
                 relationContent(for: relation)
@@ -188,9 +188,9 @@ extension SetFullHeader {
     
     @ViewBuilder
     private func relationContent(for relation: Relation) -> some View {
-        let item = RelationItemModel(relation: relation)
-        let style = RelationStyle.featuredRelationBlock(
-            FeaturedRelationSettings(
+        let item = PropertyItemModel(property: relation)
+        let style = PropertyStyle.featuredBlock(
+            FeaturedPropertySettings(
                 allowMultiLine: false,
                 prefix: relation.setOfPrefix,
                 showIcon: relation.showIcon,
@@ -199,13 +199,13 @@ extension SetFullHeader {
             )
         )
         let contextMenuItems = model.contextMenuItems(for: relation)
-        let mode: RelationValueViewModel.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
+        let mode: PropertyValueViewModel.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
             UIApplication.shared.hideKeyboard()
             model?.onRelationTap(relation: relation)
         })
-        RelationValueView(
-            model: RelationValueViewModel(
-                relation: item,
+        PropertyValueView(
+            model: PropertyValueViewModel(
+                property: item,
                 style: style,
                 mode: mode
             )

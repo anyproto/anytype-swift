@@ -78,15 +78,15 @@ extension BaseDocumentProtocol {
     private func buildParsedRelationsForType() -> ParsedRelations {
         guard let details else { return .empty }
         
-        let relationDetailsStorage = Container.shared.relationDetailsStorage()
+        let propertyDetailsStorage = Container.shared.propertyDetailsStorage()
         
-        let recommendedRelations = relationDetailsStorage
+        let recommendedRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedRelations, spaceId: spaceId)
             .filter { $0.key != BundledRelationKey.description.rawValue }
-        let recommendedFeaturedRelations = relationDetailsStorage
+        let recommendedFeaturedRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
             .filter { $0.key != BundledRelationKey.description.rawValue }
-        let recommendedHiddenRelations = relationDetailsStorage
+        let recommendedHiddenRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedHiddenRelations, spaceId: spaceId)
             .filter { $0.key != BundledRelationKey.description.rawValue }
         

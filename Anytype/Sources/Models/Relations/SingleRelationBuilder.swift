@@ -292,9 +292,9 @@ private extension SingleRelationBuilder {
         isFeatured: Bool,
         relationValuesIsLocked: Bool
     ) -> Relation {
-        let value: DateRelationValue? = {
+        let value: DatePropertyValue? = {
             guard let date = details.dateValue(for: relationDetails.key) else { return nil }
-            return DateRelationValue(date: date, text: dateFormatter.string(from: date))
+            return DatePropertyValue(date: date, text: dateFormatter.string(from: date))
         }()
         
         return .date(

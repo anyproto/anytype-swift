@@ -4,7 +4,7 @@ enum SlashAction {
     case style(SlashActionStyle)
     case media(SlashActionMedia)
     case objects(SlashActionObject)
-    case relations(SlashActionRelations)
+    case relations(SlashActionProperties)
     case other(SlashActionOther)
     case actions(BlockAction)
     case color(BlockColor)
@@ -55,7 +55,7 @@ enum SlashAction {
             case .date:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
-                        iconData: .asset(.EmptyIcon.date),
+                        iconData: .object(.emptyDateIcon),
                         title: Loc.selectDate
                     )
                 )

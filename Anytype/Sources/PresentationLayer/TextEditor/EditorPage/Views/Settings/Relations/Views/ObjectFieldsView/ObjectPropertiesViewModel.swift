@@ -7,7 +7,7 @@ import Combine
 
 @MainActor
 final class ObjectPropertiesViewModel: ObservableObject {
-    @Published var sections = [RelationsSection]()
+    @Published var sections = [PropertiesSection]()
     @Published var showConflictingInfo = false
     
     var typeId: String? { document.details?.objectType.id }
@@ -15,22 +15,22 @@ final class ObjectPropertiesViewModel: ObservableObject {
     // MARK: - Private variables
     
     private let document: any BaseDocumentProtocol
-    private let sectionsBuilder = RelationsSectionBuilder()
+    private let sectionsBuilder = PropertiesSectionBuilder()
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     
-    private weak var output: (any RelationsListModuleOutput)?
+    private weak var output: (any PropertiesListModuleOutput)?
     
     // MARK: - Initializers
     
     init(
         document: some BaseDocumentProtocol,
-        output: (any RelationsListModuleOutput)?
+        output: (any PropertiesListModuleOutput)?
     ) {
         self.document = document
         self.output = output
@@ -49,7 +49,7 @@ final class ObjectPropertiesViewModel: ObservableObject {
     func removeRelation(_ relation: Relation) {
         Task {
             try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
-            let relationDetails = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
+            let relationDetails = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
             AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey, route: .object)
         }
     }
@@ -64,7 +64,7 @@ final class ObjectPropertiesViewModel: ObservableObject {
         guard let details = document.details else { return }
         
         Task {
-            let relationsDetail = try relationDetailsStorage.relationsDetails(key: relation.key, spaceId: details.spaceId)
+            let relationsDetail = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: details.spaceId)
             try await relationsService.addTypeRecommendedRelation(type: details.objectType, relation: relationsDetail)
         }
     }

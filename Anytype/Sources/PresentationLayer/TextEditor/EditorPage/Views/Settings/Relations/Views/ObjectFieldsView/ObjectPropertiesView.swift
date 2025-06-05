@@ -7,7 +7,7 @@ struct ObjectPropertiesView: View {
     
     @StateObject private var model: ObjectPropertiesViewModel
     
-    init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
+    init(document: some BaseDocumentProtocol, output: (any PropertiesListModuleOutput)?) {
         _model = StateObject(wrappedValue: ObjectPropertiesViewModel(document: document, output: output))
     }
     
@@ -70,7 +70,7 @@ struct ObjectPropertiesView: View {
         }
     }
     
-    private func sectionHeader(section: RelationsSection) -> some View {
+    private func sectionHeader(section: PropertiesSection) -> some View {
         Group {
             if section.isMissingFields {
                 Button {
@@ -87,7 +87,7 @@ struct ObjectPropertiesView: View {
         }
     }
     
-    private func row(with relation: Relation, section: RelationsSection) -> some View {
+    private func row(with relation: Relation, section: PropertiesSection) -> some View {
         HStack {
             rowWithoutActions(with: relation, addedToObject: section.addedToObject)
             if section.isMissingFields {
@@ -106,7 +106,7 @@ struct ObjectPropertiesView: View {
         // Deprecated design
         // TODO: Support new rows without stars and deletion
         // https://www.figma.com/design/16UsBI2PLwydmAC4wJfyu8/%5BM%5D-All-content-%26-Type?node-id=19264-38639&t=fgXeqZbpBgUNrB2C-4
-        RelationsListRowView(
+        PropertiesListRowView(
             editingMode: .constant(false),
             starButtonAvailable: false,
             showLocks: false,

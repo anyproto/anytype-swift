@@ -13,7 +13,7 @@ final class SetPropertiesCoordinatorViewModel:
     ObservableObject,
     SetPropertiesCoordinatorOutput
 {
-    @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationsSearchData: PropertiesSearchData?
     
     let setDocument: any SetDocumentProtocol
     let viewId: String
@@ -33,11 +33,11 @@ final class SetPropertiesCoordinatorViewModel:
             typeDetails = details
         }
         
-        relationsSearchData = RelationsSearchData(
+        relationsSearchData = PropertiesSearchData(
             objectId: setDocument.objectId,
             spaceId: setDocument.spaceId,
             excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),
-            target: .dataview(activeViewId: setDocument.activeView.id, typeDetails: typeDetails),
+            target: .dataview(objectId: setDocument.objectId, activeViewId: setDocument.activeView.id, typeDetails: typeDetails),
             onRelationSelect: { [weak self] relationDetails, isNew in
                 guard let self else { return }
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(

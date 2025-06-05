@@ -69,7 +69,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     nonisolated var updateStream: AnyAsyncSequence<[ChatUpdate]> {
-        mergeFirstValue(syncStream, ChatUpdate.allCases)
+        syncStream.eraseToAnyAsyncSequence()
     }
     
     func updateVisibleRange(startMessageId: String, endMessageId: String) async {
@@ -296,6 +296,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
         
+        await loadReplies()
         await loadAttachments()
         await updateAttachmentSubscription()
     }

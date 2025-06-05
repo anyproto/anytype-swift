@@ -79,7 +79,8 @@ struct NewSpaceCardLabel: View {
                 // Show attachements and 1 line of text
                 messageWithAttachements(message)
             } else {
-                EmptyView()
+                Text(message.creator?.name ?? Loc.Chat.newMessages)
+                    .anytypeStyle(.uxTitle2Medium).lineLimit(1)
             }
         }
     }

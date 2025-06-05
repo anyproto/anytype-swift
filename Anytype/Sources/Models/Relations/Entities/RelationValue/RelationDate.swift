@@ -2,7 +2,7 @@ import Services
 
 extension Relation {
     
-    struct Date: RelationProtocol, Hashable, Identifiable {
+    struct Date: PropertyProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -11,7 +11,7 @@ extension Relation {
         let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
-        let value: DateRelationValue?
+        let value: DatePropertyValue?
         
         var hasValue: Bool {
             value != nil

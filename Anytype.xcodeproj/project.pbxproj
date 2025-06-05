@@ -49,12 +49,12 @@
 		2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB511AD29093CB4005D0A91 /* InlineMarkdownListenerTests.swift */; };
 		2ADB57862CB6B6FE00BFC386 /* Cache in Frameworks */ = {isa = PBXBuildFile; productRef = 2ADB57852CB6B6FE00BFC386 /* Cache */; };
 		2ADD66782CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD66772CB57036009ED95E /* MessageAttachmentsGridLayoutBuilderTests.swift */; };
+		2E074C4C2DE620E800260ABD /* NotificationsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2E074C4B2DE620E800260ABD /* NotificationsCore */; };
+		2E074C4E2DE623DB00260ABD /* NotificationsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2E074C4D2DE623DB00260ABD /* NotificationsCore */; };
 		2E3058142D81DF7F00BF4F25 /* AnytypeNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E30580D2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2E428A262DA836B900B849EF /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2E428A252DA836B900B849EF /* Factory */; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED425D12DDE3CF5008C7AD3 /* Loc */; };
 		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
-		2EDD08442DA833720050397F /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDD08432DA833720050397F /* Services */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
@@ -69,7 +69,7 @@
 		3DB7063F2D11B0C5000C2F84 /* Models+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */; };
 		3DB7D3472D119285000C2F84 /* MockRelationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7D3462D119284000C2F84 /* MockRelationsService.swift */; };
 		3DB7D3492D11929E000C2F84 /* MockBaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */; };
-		3DC0E59A2D957F7600975ACF /* MockRelationDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0E5992D957F7500975ACF /* MockRelationDetailsStorage.swift */; };
+		3DC0E59A2D957F7600975ACF /* MockPropertyDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */; };
 		3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
 		3DC133F22CAFE5DD000FF065 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2AC1262C2B90F65F003A4A8D /* Factory */; };
 		3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
@@ -239,7 +239,7 @@
 		3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Mocks.swift"; sourceTree = "<group>"; };
 		3DB7D3462D119284000C2F84 /* MockRelationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRelationsService.swift; sourceTree = "<group>"; };
 		3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseDocument.swift; sourceTree = "<group>"; };
-		3DC0E5992D957F7500975ACF /* MockRelationDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRelationDetailsStorage.swift; sourceTree = "<group>"; };
+		3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPropertyDetailsStorage.swift; sourceTree = "<group>"; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DE5975E2C78BDE800883AF8 /* UserDefaultsStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsStorageMock.swift; path = AnyTypeTests/Markdown/Mocks/UserDefaultsStorageMock.swift; sourceTree = SOURCE_ROOT; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
@@ -329,6 +329,7 @@
 				538ABD4E284F9F88000D3CCC /* Collections in Frameworks */,
 				7411879B2D9ADD200006EA41 /* Loc in Frameworks */,
 				2A94B5D329B88E95009AE2A7 /* Sentry in Frameworks */,
+				2E074C4C2DE620E800260ABD /* NotificationsCore in Frameworks */,
 				1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */,
 				2ADB57862CB6B6FE00BFC386 /* Cache in Frameworks */,
 				538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */,
@@ -373,9 +374,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EDD08442DA833720050397F /* Services in Frameworks */,
+				2E074C4E2DE623DB00260ABD /* NotificationsCore in Frameworks */,
 				2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */,
-				2E428A262DA836B900B849EF /* Factory in Frameworks */,
 				2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,7 +561,7 @@
 		3DA46B65273BEB52007B7464 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				3DC0E5992D957F7500975ACF /* MockRelationDetailsStorage.swift */,
+				3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */,
 				3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */,
 				3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */,
 				3DB7D3462D119284000C2F84 /* MockRelationsService.swift */,
@@ -695,6 +695,7 @@
 				74EB806B2D79D3EA003F8D84 /* Assets */,
 				7411879A2D9ADD200006EA41 /* Loc */,
 				746F06002DB8E712005795F7 /* DesignKit */,
+				2E074C4B2DE620E800260ABD /* NotificationsCore */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -995,7 +996,7 @@
 				86947EFF2A56B91D00CD7335 /* XCTests+Eventually.swift in Sources */,
 				3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */,
 				2A4C7FFF2A823E2300201946 /* RelativeDateFormatterTests.swift in Sources */,
-				3DC0E59A2D957F7600975ACF /* MockRelationDetailsStorage.swift in Sources */,
+				3DC0E59A2D957F7600975ACF /* MockPropertyDetailsStorage.swift in Sources */,
 				3DA46B64273BEB1E007B7464 /* BeginingOfTextMarkdownListenerTests.swift in Sources */,
 				3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */,
 				3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */,
@@ -1256,7 +1257,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1301,7 +1302,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1330,7 +1331,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1356,7 +1357,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1473,7 +1474,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1502,7 +1503,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1542,7 +1543,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1617,7 +1618,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1694,7 +1695,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1771,7 +1772,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1819,7 +1820,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COMPILATION_CONDITION = RELEASE_ANYTYPE;
+				COMPILATION_CONDITION = DEBUG;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -1840,7 +1841,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE_ANYTYPE;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -1892,7 +1893,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1920,7 +1921,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1953,7 +1954,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.homewidget";
@@ -1985,7 +1986,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2060,7 +2061,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2108,7 +2109,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COMPILATION_CONDITION = RELEASE_ANYAPP;
+				COMPILATION_CONDITION = DEBUG;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -2129,7 +2130,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE_ANYAPP;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -2181,7 +2182,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -2209,7 +2210,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2242,7 +2243,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.any.app.homewidget";
@@ -2274,7 +2275,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2349,7 +2350,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2468,7 +2469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -2497,7 +2498,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2530,7 +2531,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.any.app.homewidget";
@@ -2561,7 +2562,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2592,7 +2593,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.AnytypeShareExtension";
@@ -2622,7 +2623,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2653,7 +2654,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2685,7 +2686,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.homewidget";
@@ -2717,7 +2718,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.homewidget";
@@ -2749,7 +2750,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.38.3;
+				MARKETING_VERSION = 0.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev.homewidget";
@@ -3125,10 +3126,13 @@
 			package = 2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */;
 			productName = Cache;
 		};
-		2E428A252DA836B900B849EF /* Factory */ = {
+		2E074C4B2DE620E800260ABD /* NotificationsCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = Factory;
+			productName = NotificationsCore;
+		};
+		2E074C4D2DE623DB00260ABD /* NotificationsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NotificationsCore;
 		};
 		2E63D9B62D56520C008A733A /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -3142,10 +3146,6 @@
 		2ED5E1532DAFE2A700B59485 /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnytypeCore;
-		};
-		2EDD08432DA833720050397F /* Services */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Services;
 		};
 		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

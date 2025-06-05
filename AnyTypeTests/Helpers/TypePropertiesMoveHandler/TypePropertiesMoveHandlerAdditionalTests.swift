@@ -11,8 +11,8 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
         super.setUp()
         let mockRelationsService = MockRelationsService()
         Container.shared.relationsService.register { mockRelationsService }
-        let mockRelationDetailsStorage = MockRelationDetailsStorage()
-        Container.shared.relationDetailsStorage.register { mockRelationDetailsStorage }
+        let mockPropertyDetailsStorage = MockPropertyDetailsStorage()
+        Container.shared.propertyDetailsStorage.register { mockPropertyDetailsStorage }
         self.mockRelationsService = mockRelationsService
         mockDocument = MockBaseDocument()
         moveHandler = TypePropertiesMoveHandler()

@@ -1,21 +1,16 @@
 import UserNotifications
-import Services
 import AnytypeCore
 import Loc
+import NotificationsCore
 
 class NotificationService: UNNotificationServiceExtension {
     
-    private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = Container.shared.decryptionPushContentService()
-    private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
+    private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = DecryptionPushContentService()
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
-        
-        if FeatureFlags.checkLoginInNotificationService, basicUserInfoStorage.usersId.isEmpty {
-            return
-        }
         
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
@@ -26,12 +21,16 @@ class NotificationService: UNNotificationServiceExtension {
         
         guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
               let encryptedData = Data(base64Encoded: encryptedBase64),
+              let signature = request.content.userInfo[Constants.signature] as? String,
+              let signatureData = Data(base64Encoded: signature),
               let keyId = request.content.userInfo[Constants.keyId] as? String else {
             contentHandler(bestAttemptContent)
             return
         }
         
-        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId) {
+        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId),
+           decryptionPushContentService.isValidSignature(senderId: decryptedMessage.senderId, signatureData: signatureData, encryptedData: encryptedData)
+        {
             bestAttemptContent.title = decryptedMessage.newMessage.spaceName
             bestAttemptContent.subtitle = decryptedMessage.newMessage.senderName
             
@@ -67,5 +66,6 @@ extension NotificationService {
     enum Constants {
         static let payload = "x-any-payload"
         static let keyId = "x-any-key-id"
+        static let signature = "x-any-signature"
     }
 }

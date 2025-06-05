@@ -60,6 +60,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         pageNavigation?.open(.spaceInfo(.typeLibrary(spaceId: spaceId)))
     }
     
+    func onPropertiesSelected() {
+        pageNavigation?.open(.spaceInfo(.propertiesLibrary(spaceId: spaceId)))
+    }
+    
     func onBinSelected() {
         pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
     }

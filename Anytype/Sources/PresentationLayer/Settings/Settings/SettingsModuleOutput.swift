@@ -4,6 +4,7 @@ import Foundation
 protocol SettingsModuleOutput: AnyObject {
     func onDebugMenuSelected()
     func onAppearanceSelected()
+    func onNotificationsSelected()
     func onFileStorageSelected()
     func onAboutSelected()
     func onAccountDataSelected()

@@ -12,8 +12,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.accountManager)
@@ -139,6 +139,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onObjectTypesTap() {
         output?.onObjectTypesSelected()
+    }
+    
+    func onPropertiesTap() {
+        output?.onPropertiesSelected()
     }
     
     func toggleCreateTypeWidgetState(isOn: Bool) {

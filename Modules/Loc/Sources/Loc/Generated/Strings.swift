@@ -139,6 +139,7 @@ public enum Loc {
   public static func devicesConnected(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Devices connected", p1, fallback: "%#@device@ connected")
   }
+  public static let disabled = Loc.tr("Localizable", "Disabled", fallback: "Disabled")
   public static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   public static let download = Loc.tr("Localizable", "Download", fallback: "Download")
   public static let downloadingOrUploadingDataToSomeNode = Loc.tr("Localizable", "Downloading or uploading data to some node", fallback: "Downloading or uploading data to some node")
@@ -153,6 +154,7 @@ public enum Loc {
   public static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated", fallback: "Email successfully validated")
   public static let emoji = Loc.tr("Localizable", "Emoji", fallback: "Emoji")
   public static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
+  public static let enabled = Loc.tr("Localizable", "Enabled", fallback: "Enabled")
   public static let enterEmail = Loc.tr("Localizable", "Enter email", fallback: "Enter email")
   public static let enterNumber = Loc.tr("Localizable", "Enter number", fallback: "Enter number")
   public static let enterPhoneNumber = Loc.tr("Localizable", "Enter phone number", fallback: "Enter phone number")
@@ -268,6 +270,7 @@ public enum Loc {
   public static let nothingFound = Loc.tr("Localizable", "Nothing found", fallback: "Nothing found")
   public static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo", fallback: "Nothing to redo")
   public static let nothingToUndo = Loc.tr("Localizable", "Nothing to undo", fallback: "Nothing to undo")
+  public static let notifications = Loc.tr("Localizable", "Notifications", fallback: "Notifications")
   public static func object(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Object", p1, fallback: "Plural format key: Object")
   }
@@ -290,6 +293,7 @@ public enum Loc {
   public static func openTypeError(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Open Type Error", String(describing: p1), fallback: "Not supported type \"%@\". You can open it via desktop.")
   }
+  public static let openSettings = Loc.tr("Localizable", "OpenSettings", fallback: "Open Settings")
   public static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   public static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other properties")
   public static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting", fallback: "P2P Connecting...")
@@ -332,6 +336,7 @@ public enum Loc {
   public static let previewLayout = Loc.tr("Localizable", "Preview layout", fallback: "Preview layout")
   public static let profile = Loc.tr("Localizable", "Profile", fallback: "Profile")
   public static let progress = Loc.tr("Localizable", "Progress...", fallback: "Progress...")
+  public static let properties = Loc.tr("Localizable", "Properties", fallback: "Properties")
   public static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
   public static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   public static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
@@ -440,6 +445,7 @@ public enum Loc {
   public static let unread = Loc.tr("Localizable", "Unread", fallback: "Unread")
   public static let unselectAll = Loc.tr("Localizable", "Unselect all", fallback: "Unselect all")
   public static let unsetAsDefault = Loc.tr("Localizable", "Unset as default", fallback: "Unset as default")
+  public static let unsetDefault = Loc.tr("Localizable", "Unset default", fallback: "Unset default")
   public static let unsplash = Loc.tr("Localizable", "Unsplash", fallback: "Unsplash")
   public static let unsupported = Loc.tr("Localizable", "Unsupported", fallback: "Unsupported")
   public static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block", fallback: "Unsupported block")
@@ -1389,6 +1395,13 @@ public enum Loc {
     }
   }
   public enum PushNotifications {
+    public enum DisabledAlert {
+      public static let description = Loc.tr("Localizable", "PushNotifications.DisabledAlert.description", fallback: "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on.")
+      public static let title = Loc.tr("Localizable", "PushNotifications.DisabledAlert.title", fallback: "Notifications are still turned off")
+      public enum Skip {
+        public static let button = Loc.tr("Localizable", "PushNotifications.DisabledAlert.Skip.button", fallback: "Skip for now")
+      }
+    }
     public enum Message {
       public enum Attachment {
         public static let title = Loc.tr("Localizable", "PushNotifications.Message.Attachment.title", fallback: "Attachment")
@@ -1400,6 +1413,15 @@ public enum Loc {
       public static let primaryButton = Loc.tr("Localizable", "PushNotifications.RequestAlert.PrimaryButton", fallback: "Enable notifications")
       public static let secondaryButton = Loc.tr("Localizable", "PushNotifications.RequestAlert.SecondaryButton", fallback: "Not now")
       public static let title = Loc.tr("Localizable", "PushNotifications.RequestAlert.Title", fallback: "Turn on push notifications")
+    }
+    public enum Settings {
+      public enum DisabledAlert {
+        public static let description = Loc.tr("Localizable", "PushNotifications.Settings.DisabledAlert.description", fallback: "Receive notifications about new messages by enabling them in your device settings.")
+        public static let title = Loc.tr("Localizable", "PushNotifications.Settings.DisabledAlert.title", fallback: "Notifications are disabled")
+      }
+      public enum Status {
+        public static let title = Loc.tr("Localizable", "PushNotifications.Settings.Status.title", fallback: "Message Notifications")
+      }
     }
   }
   public enum QuickAction {

@@ -40,7 +40,7 @@ protocol SetDocumentProtocol: AnyObject, Sendable {
     func filters(for viewId: String) -> [SetFilter]
     
     func view(by id: String) -> DataviewView
-    func sortedRelations(for viewId: String) -> [SetRelation]
+    func sortedRelations(for viewId: String) -> [SetProperty]
     func canStartSubscription() -> Bool
     func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]

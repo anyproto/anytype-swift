@@ -33,6 +33,10 @@ let package = Package(
                 .linkedLibrary("resolv")
             ]
         ),
+        .testTarget(
+            name: "ProtobufMessagesTests",
+            dependencies: ["ProtobufMessages"]
+        ),
         .binaryTarget(name: "Lib", path: "../../Dependencies/Middleware/Lib.xcframework")
     ]
 )

@@ -78,10 +78,10 @@ struct SearchWithMetaCell: View {
     private func statusHighlight(name : String, option: Relation.Status.Option) -> some View {
         HStack(spacing: 4) {
             relationName(name)
-            StatusRelationView(
+            StatusPropertyView(
                 options: [option],
                 hint: "",
-                style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
+                style: .featuredBlock(FeaturedPropertySettings(allowMultiLine: false))
             )
         }
     }
@@ -89,10 +89,10 @@ struct SearchWithMetaCell: View {
     private func tagHighlight(name : String, option: Relation.Tag.Option) -> some View {
         HStack(spacing: 4) {
             relationName(name)
-            TagRelationView(
+            TagPropertyView(
                 tags: [option],
                 hint: "",
-                style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
+                style: .featuredBlock(FeaturedPropertySettings(allowMultiLine: false))
             )
         }
     }
