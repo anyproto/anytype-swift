@@ -19,6 +19,7 @@ enum ScreenData: Hashable, Identifiable, Sendable {
     case bookmark(BookmarkScreenData)
     case spaceInfo(SpaceInfoScreenData)
     case chat(ChatCoordinatorData)
+    case widget(HomeWidgetData)
     
     var id: Int { hashValue }
 }
@@ -32,7 +33,7 @@ extension ScreenData {
             return alertScreenData.objectId
         case .bookmark(let data):
             return data.editorScreenData.objectId
-        case .preview, .spaceInfo, .chat:
+        case .preview, .spaceInfo, .chat, .widget:
             return nil
         }
     }
@@ -51,6 +52,8 @@ extension ScreenData {
             data.spaceId
         case .chat(let data):
             data.spaceId
+        case .widget(let data):
+            data.spaceId
         }
     }
     
@@ -58,7 +61,7 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData
-        case .alert, .preview, .bookmark, .spaceInfo, .chat:
+        default:
             return nil
         }
     }
@@ -67,7 +70,7 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData.isSimpleSet
-        case .alert, .preview, .bookmark, .spaceInfo, .chat:
+        default:
             return false
         }
     }

@@ -17,7 +17,7 @@ struct SpaceHubCoordinatorView: View {
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
         
-            .task { await model.setup() }
+            .taskWithMemoryScope { await model.setup() }
             
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
