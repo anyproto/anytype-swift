@@ -1,0 +1,73 @@
+name: 'Send Slack Message'
+
+# Add your email to SLACK_MAP env, if you have to receive notifications.
+
+inputs:
+  success_message:
+    description: 'Message to send on success'
+    required: true
+  error_message:
+    description: 'Message to send on error'
+    required: true
+  status:
+    description: 'Status of the message (success/error)'
+    required: true
+    default: 'success'
+  slack_token:
+    description: 'Slack Bot Token'
+    required: true
+  slack_map:
+    description: 'JSON mapping of GitHub usernames to work emails'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get user email
+      id: user_email
+      shell: bash
+      run: |
+        USER_EMAIL=$(echo '${{ inputs.slack_map }}' | jq -r --arg user "${{ github.actor }}" '.[$user]')
+        if [ -z "$USER_EMAIL" ]; then
+          echo "No email found for user ${{ github.actor }}"
+          exit 0
+        fi
+        echo "USER_EMAIL=$USER_EMAIL" >> $GITHUB_ENV
+
+    # https://tools.slack.dev/slack-github-action/sending-techniques/sending-data-slack-api-method/direct-message-author
+    - name: Find correspondences
+      id: email
+      if: env.USER_EMAIL != ''
+      uses: slackapi/slack-github-action@v2.1.0
+      with:
+        method: users.lookupByEmail
+        token: ${{ inputs.slack_token }}
+        payload: |
+          email: ${{ env.USER_EMAIL }}
+
+    - name: Search email detail
+      if: ${{ steps.email.outputs.ok }}
+      shell: bash
+      run: |
+        SLACK_USER_ID=$(echo '${{ steps.email.outputs.response }}' | jq -r '.user.id')
+        echo "SLACK_USER_ID=$SLACK_USER_ID" >> $GITHUB_ENV
+
+    - name: Send a direct message
+      if: ${{ steps.email.outputs.ok }}
+      uses: slackapi/slack-github-action@v2.1.0
+      with:
+        method: chat.postMessage
+        token: ${{ inputs.slack_token }}
+        payload: |
+          {
+            "text": "${{ format(
+              '{0} {1}\n<{2}/{3}/actions/runs/{4}|View workflow run>',
+              inputs.status == 'success' && '✅' || '❌',
+              inputs.status == 'success' && inputs.success_message || inputs.error_message,
+              github.server_url,
+              github.repository,
+              github.run_id
+            ) }}",
+            "channel":"${{ env.SLACK_USER_ID }}",
+            "mrkdwn":true
+          }

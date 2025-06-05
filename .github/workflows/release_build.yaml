@@ -84,7 +84,8 @@ jobs:
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Summary Anytype
-        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        if: ${{ inputs.build_anytype_app == true }}
+        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Build and upload Any App to Testflight
         if: ${{ inputs.build_any_app == true }}
@@ -111,4 +112,15 @@ jobs:
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Summary Any App
-        run: echo "${{ env.FASTLANE_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+        if: ${{ inputs.build_any_app == true }}
+        run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Send Slack Notification
+        if: always()
+        uses: ./.github/actions/send-slack-message
+        with:
+          success_message: "Release build success\\n${{ env.FASTLANE_SLACK_SUMMARY }}"
+          error_message: "Release build finished with error"
+          status: ${{ job.status }}
+          slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
+          slack_map: ${{ vars.SLACK_MAP }}

@@ -57,6 +57,9 @@ extension Anytype_Model_Block.Content.Dataview {
         /// Default object type that is chosen for new object created within the view
         public var defaultObjectTypeID: String = String()
 
+        /// Group view by this relationKey
+        public var endRelationKey: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum, Swift.CaseIterable {
@@ -169,6 +172,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     13: .same(proto: "pageLimit"),
     14: .same(proto: "defaultTemplateId"),
     15: .same(proto: "defaultObjectTypeId"),
+    16: .same(proto: "endRelationKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -192,6 +196,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 13: try { try decoder.decodeSingularInt32Field(value: &self.pageLimit) }()
       case 14: try { try decoder.decodeSingularStringField(value: &self.defaultTemplateID) }()
       case 15: try { try decoder.decodeSingularStringField(value: &self.defaultObjectTypeID) }()
+      case 16: try { try decoder.decodeSingularStringField(value: &self.endRelationKey) }()
       default: break
       }
     }
@@ -243,6 +248,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if !self.defaultObjectTypeID.isEmpty {
       try visitor.visitSingularStringField(value: self.defaultObjectTypeID, fieldNumber: 15)
     }
+    if !self.endRelationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.endRelationKey, fieldNumber: 16)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -262,6 +270,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.pageLimit != rhs.pageLimit {return false}
     if lhs.defaultTemplateID != rhs.defaultTemplateID {return false}
     if lhs.defaultObjectTypeID != rhs.defaultObjectTypeID {return false}
+    if lhs.endRelationKey != rhs.endRelationKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
