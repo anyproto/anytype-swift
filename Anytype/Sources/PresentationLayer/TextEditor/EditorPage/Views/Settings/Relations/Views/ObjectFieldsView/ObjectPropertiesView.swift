@@ -115,7 +115,9 @@ struct ObjectPropertiesView: View {
             if section.isMissingFields {
                 Menu {
                     Button(Loc.Fields.addToType) { model.addRelationToType(relation) }
-                    Button(Loc.Fields.removeFromObject, role: .destructive) { model.removeRelation(relation) }
+                    if relation.canBeRemovedFromObject {
+                        Button(Loc.Fields.removeFromObject, role: .destructive) { model.removeRelation(relation) }
+                    }
                 } label: {
                     MoreIndicator()
                 }
