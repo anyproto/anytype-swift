@@ -22,6 +22,9 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var spaceIdToLeave: StringIdentifiable?
     @Published var spaceIdToDelete: StringIdentifiable?
     
+    // TODO: remove when middle is ready
+    @Published var mutedSpaces = false
+    
     @Published var profileIcon: Icon?
     
     private weak var output: (any SpaceHubModuleOutput)?
@@ -80,6 +83,11 @@ final class SpaceHubViewModel: ObservableObject {
     
     func copySpaceInfo(spaceView: SpaceView) {
         UIPasteboard.general.string = String(describing: spaceView)
+    }
+    
+    func muteSpace(spaceId: String) {
+        // TODO: implement logic when middle is ready
+        mutedSpaces.toggle()
     }
     
     func startSubscriptions() async {

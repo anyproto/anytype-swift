@@ -165,12 +165,16 @@ struct NewSpaceHubView: View {
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggable: draggable,
+            muted: model.mutedSpaces,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
             },
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)
+            },
+            onTapMute: {
+                model.muteSpace(spaceId: space.spaceView.targetSpaceId)
             },
             onTapLeave: {
                 model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
