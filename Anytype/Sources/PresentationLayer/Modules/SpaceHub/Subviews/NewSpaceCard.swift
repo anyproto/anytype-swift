@@ -70,7 +70,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
             HStack {
                 Text(muted ? Loc.unmute : Loc.mute)
                 Spacer()
-                Image(systemName: muted ? "bell.fill" : "bell.slash.fill")
+                Image(systemName: muted ? "bell" : "bell.slash")
             }
         }
     }
