@@ -259,6 +259,7 @@ public enum Loc {
   public static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
   public static let noDate = Loc.tr("Localizable", "No date", fallback: "No date")
   public static let noItemsMatchFilter = Loc.tr("Localizable", "No items match filter", fallback: "No items match filter")
+  public static let noPropertiesYet = Loc.tr("Localizable", "No properties yet", fallback: "No properties yet. Add some to this type.")
   public static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here", fallback: "No related options here. You can add some")
   public static func noTypeFoundText(_ p1: Any) -> String {
     return Loc.tr("Localizable", "No type found text", String(describing: p1), fallback: "No type “%@” found. Change your request or create new type.")
