@@ -68,6 +68,14 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
             }
             
+            if uxType.isChat {
+                // Do not rethrow error to main flow
+                do {
+                    _ = try await workspaceService.makeSharable(spaceId: spaceId)
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId)
+                } catch {}
+            }
+            
             if FeatureFlags.openWelcomeObject {
                 if createResponse.startingObjectID.isNotEmpty {
                     appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
