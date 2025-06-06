@@ -6,7 +6,7 @@ enum AnytypePopupLayoutType {
     case fullScreen
     case propertyOptions
     case constantHeight(height: CGFloat, floatingPanelStyle: Bool, needBottomInset: Bool = true)
-    case adaptiveTextRelationDetails(layoutGuide: UILayoutGuide)
+    case adaptiveTextPropertyDetails(layoutGuide: UILayoutGuide)
     case alert(height: CGFloat)
 
     @MainActor
@@ -24,8 +24,8 @@ enum AnytypePopupLayoutType {
                 floatingPanelStyle: floatingPanelStyle,
                 needBottomInset: needBottomInset
             )
-        case .adaptiveTextRelationDetails(let layoutGuide):
-            return AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
+        case .adaptiveTextPropertyDetails(let layoutGuide):
+            return AdaptiveTextPropertyDetailsPopupLayout(layout: layoutGuide)
         }
     }
 }
