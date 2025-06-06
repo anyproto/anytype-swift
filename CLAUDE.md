@@ -12,7 +12,7 @@ When setting up the project for the first time, run these commands in order:
 3. `make setup-middle` - Download and configure middleware dependencies
 
 ### Additional Setup Notes
-- If Dependencies/Middleware/Lib.xcframework is missing binaries, try `make generate-middle`
+- If Dependencies/Middleware/Lib.xcframework is missing binaries, try `make generate`
 - Use Xcode 16.1 or later for development
 - The project uses Swift Package Manager for dependency management
 
