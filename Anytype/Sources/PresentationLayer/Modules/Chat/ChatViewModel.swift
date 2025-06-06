@@ -712,6 +712,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func handleInviteLinkShow() async {
+        if let dd = participantSpaceView?.spaceView.createdDate {
+            print("have space view \(participantSpaceView?.spaceView)")
+            print("date diff \(Date().timeIntervalSince(dd))")
+        }
         guard !inviteLinkShown,
               participantPermissions == .owner,
               let createdDate = participantSpaceView?.spaceView.createdDate,
