@@ -4,7 +4,14 @@
 Anytype is a privacy-focused, local-first workspace application for iOS. Built with Swift and SwiftUI, it provides users with a secure environment for creating and organizing their digital content including notes, tasks, and documents. The app uses a custom middleware for data synchronization and storage.
 
 ## Development Setup
-- Run `make setup-middle` for initial dependency setup
+
+### First-Time Setup
+When setting up the project for the first time, run these commands in order:
+1. `make setup-env` - Set up environment configuration
+2. `make setup-tools` - Install required development tools
+3. `make setup-middle` - Download and configure middleware dependencies
+
+### Additional Setup Notes
 - If Dependencies/Middleware/Lib.xcframework is missing binaries, try `make generate-middle`
 - Use Xcode 16.1 or later for development
 - The project uses Swift Package Manager for dependency management
@@ -23,10 +30,43 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 - These files are automatically generated and will be overwritten
 
 ### Localization
-- To change localization constants (e.g., `Loc.constantName` or `Loc.Group.constantName`):
-  1. Edit `Localizable.xcstrings` file
-  2. Run `make generate-middle` to regenerate constants
-  3. The generated Loc constants will be updated automatically
+- **Never use hardcoded strings in UI** - Always use localization constants
+- **IMPORTANT**: All user-facing text must be localized for international support
+
+#### Adding New Localized Strings
+1. **Add to Localizable.xcstrings**: Edit `Modules/Loc/Sources/Loc/Resources/Localizable.xcstrings`
+   ```json
+   "Your localization key" : {
+     "extractionState" : "manual",
+     "localizations" : {
+       "en" : {
+         "stringUnit" : {
+           "state" : "translated",
+           "value" : "Your English text here"
+         }
+       }
+     }
+   }
+   ```
+
+2. **Use short, descriptive keys**: 
+   - ✅ Good: `"No properties yet"`
+   - ❌ Bad: `"No properties yet. Add some to this type."`
+
+3. **Generate constants**: Run `make generate-middle` to update `Modules/Loc/Sources/Loc/Generated/Strings.swift`
+
+4. **Use in code**: 
+   ```swift
+   import Loc
+   
+   AnytypeText(Loc.noPropertiesYet, style: .uxCalloutMedium)
+   ```
+
+#### Key Guidelines
+- Localization keys are converted to camelCase constants (e.g., "No properties yet" → `Loc.noPropertiesYet`)
+- The English value in the xcstrings file becomes the fallback text
+- Always import `Loc` module when using localization constants
+- Generated constants are found in `Modules/Loc/Sources/Loc/Generated/Strings.swift`
 
 ## Code Style Guidelines
 
@@ -125,6 +165,15 @@ The project uses Factory for dependency injection. Services are registered in:
 - Always create pull requests for code review
 - Run tests before pushing changes
 - **Git commit messages must be a single line** (no multi-line descriptions)
+- **Do not include AI-generated signatures** in commit messages (no "Generated with Claude Code" or "Co-Authored-By: Claude")
+
+### Pull Request Format
+Keep pull requests simple and concise:
+```
+## Summary
+- Brief description of changes (1-3 bullet points)
+```
+No test plans or testing steps needed.
 
 ### Incremental Branch Strategy
 When making multiple related changes:
