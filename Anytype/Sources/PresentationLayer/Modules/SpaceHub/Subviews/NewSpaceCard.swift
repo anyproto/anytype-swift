@@ -27,26 +27,21 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
             )
         }
         .disabled(FeatureFlags.spaceLoadingForScreen ? false : spaceData.spaceView.isLoading)
-        .contextMenu {
-            if !spaceData.spaceView.isLoading {
-                menuItems
-            }
-        }
+        .contextMenu { menuItems }
     }
     
     @ViewBuilder
     private var menuItems: some View {
         if spaceData.spaceView.isLoading {
             copyButton
+            Divider()
         }
-        
-        Divider()
         
         if FeatureFlags.muteSpacePossibility {
             muteButton
+            Divider()
         }
         
-        Divider()
         if spaceData.space.canLeave {
             leaveButton
         }
