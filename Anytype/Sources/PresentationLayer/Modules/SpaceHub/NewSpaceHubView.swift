@@ -60,7 +60,7 @@ struct NewSpaceHubView: View {
     private func scrollView(unread: [ParticipantSpaceViewDataWithPreview], spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
             VStack(spacing: 0) {
-                Spacer.fixedHeight(44) // navbar
+                Spacer.fixedHeight(68) // navbar
                 HomeUpdateSubmoduleView().padding(8)
                 
                 if #available(iOS 17.0, *) {
