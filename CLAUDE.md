@@ -23,10 +23,43 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 - These files are automatically generated and will be overwritten
 
 ### Localization
-- To change localization constants (e.g., `Loc.constantName` or `Loc.Group.constantName`):
-  1. Edit `Localizable.xcstrings` file
-  2. Run `make generate-middle` to regenerate constants
-  3. The generated Loc constants will be updated automatically
+- **Never use hardcoded strings in UI** - Always use localization constants
+- **IMPORTANT**: All user-facing text must be localized for international support
+
+#### Adding New Localized Strings
+1. **Add to Localizable.xcstrings**: Edit `Modules/Loc/Sources/Loc/Resources/Localizable.xcstrings`
+   ```json
+   "Your localization key" : {
+     "extractionState" : "manual",
+     "localizations" : {
+       "en" : {
+         "stringUnit" : {
+           "state" : "translated",
+           "value" : "Your English text here"
+         }
+       }
+     }
+   }
+   ```
+
+2. **Use short, descriptive keys**: 
+   - ✅ Good: `"No properties yet"`
+   - ❌ Bad: `"No properties yet. Add some to this type."`
+
+3. **Generate constants**: Run `make generate-middle` to update `Modules/Loc/Sources/Loc/Generated/Strings.swift`
+
+4. **Use in code**: 
+   ```swift
+   import Loc
+   
+   AnytypeText(Loc.noPropertiesYet, style: .uxCalloutMedium)
+   ```
+
+#### Key Guidelines
+- Localization keys are converted to camelCase constants (e.g., "No properties yet" → `Loc.noPropertiesYet`)
+- The English value in the xcstrings file becomes the fallback text
+- Always import `Loc` module when using localization constants
+- Generated constants are found in `Modules/Loc/Sources/Loc/Generated/Strings.swift`
 
 ## Code Style Guidelines
 
