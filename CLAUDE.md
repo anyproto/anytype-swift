@@ -167,6 +167,14 @@ The project uses Factory for dependency injection. Services are registered in:
 - **Git commit messages must be a single line** (no multi-line descriptions)
 - **Do not include AI-generated signatures** in commit messages (no "Generated with Claude Code" or "Co-Authored-By: Claude")
 
+### Pull Request Format
+Keep pull requests simple and concise:
+```
+## Summary
+- Brief description of changes (1-3 bullet points)
+```
+No test plans or testing steps needed.
+
 ### Incremental Branch Strategy
 When making multiple related changes:
 - Create sequential branches: `ios-XXXX-description-1`, `ios-XXXX-description-2`, etc.
