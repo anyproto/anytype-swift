@@ -1,6 +1,6 @@
 import Services
 
-struct RelationItemData: Identifiable, Hashable {
+struct PropertyItemData: Identifiable, Hashable {
     let id: String
     let icon: Icon?
     let title: String

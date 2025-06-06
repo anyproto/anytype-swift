@@ -2,7 +2,7 @@ import Foundation
 import FloatingPanel
 import UIKit
 
-final class RelationDetailsPopupBehavior: FloatingPanelBehavior {
+final class PropertyDetailsPopupBehavior: FloatingPanelBehavior {
     
     public let springDecelerationRate: CGFloat = UIScrollView.DecelerationRate.fast.rawValue + 0.001
 
