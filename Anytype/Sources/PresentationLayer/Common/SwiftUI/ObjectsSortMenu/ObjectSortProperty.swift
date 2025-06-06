@@ -1,6 +1,6 @@
 import Services
 
-enum ObjectSortRelation: String, CaseIterable, Codable {
+enum ObjectSortProperty: String, CaseIterable, Codable {
     case dateUpdated
     case dateCreated
     case name

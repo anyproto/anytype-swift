@@ -7,7 +7,7 @@ struct ObjectsSortMenu<Label> : View where Label : View {
     
     @Binding var sort: ObjectSort
     
-    @State private var sortRelation: ObjectSortRelation
+    @State private var sortRelation: ObjectSortProperty
     @State private var sortType: DataviewSort.TypeEnum
     
     init(
@@ -33,7 +33,7 @@ struct ObjectsSortMenu<Label> : View where Label : View {
     
     private var sortRelationView: some View {
         Picker("", selection: $sortRelation) {
-            ForEach(ObjectSortRelation.allCases, id: \.self) { sortRelation in
+            ForEach(ObjectSortProperty.allCases, id: \.self) { sortRelation in
                 AnytypeText(sortRelation.title, style: .uxTitle2Medium)
                     .foregroundColor(.Control.button)
             }
