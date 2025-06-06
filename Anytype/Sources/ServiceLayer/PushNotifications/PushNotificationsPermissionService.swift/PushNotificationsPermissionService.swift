@@ -3,16 +3,20 @@ import UserNotifications
 import UIKit
 import AnytypeCore
 
-enum PushNotificationsPermissionStatus {
+enum PushNotificationsPermissionStatus: Codable {
     case notDetermined
     case denied
     case authorized
     case unknown
+    
+    var isDenied: Bool {
+        self == .denied
+    }
 }
 
 protocol PushNotificationsPermissionServiceProtocol: AnyObject, Sendable {
     func authorizationStatus() async -> PushNotificationsPermissionStatus
-    func requestAuthorization()
+    func requestAuthorization() async -> Bool
     func registerForRemoteNotificationsIfNeeded() async
     func unregisterForRemoteNotifications()
 }
@@ -23,23 +27,16 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
     
     func authorizationStatus() async -> PushNotificationsPermissionStatus {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
-        switch settings.authorizationStatus {
-        case .notDetermined:
-            return .notDetermined
-        case .denied:
-            return .denied
-        case .authorized, .provisional, .ephemeral:
-            return .authorized
-        @unknown default:
-            return .unknown
-        }
+        return settings.authorizationStatus.asPushNotificationsPermissionStatus
     }
     
-    func requestAuthorization() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
-            if granted {
-                self?.registerForRemoteNotifications()
-            }
+    func requestAuthorization() async -> Bool {
+        do {
+            let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])
+            return granted
+        } catch {
+            anytypeAssertionFailure("Notifications authorization request error", info: ["error": error.localizedDescription])
+            return false
         }
     }
     
@@ -61,6 +58,21 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
     private func registerForRemoteNotifications() {
         DispatchQueue.main.async {
             UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+}
+
+extension UNAuthorizationStatus {
+    var asPushNotificationsPermissionStatus: PushNotificationsPermissionStatus {
+        switch self {
+        case .notDetermined:
+            return .notDetermined
+        case .denied:
+            return .denied
+        case .authorized, .provisional, .ephemeral:
+            return .authorized
+        @unknown default:
+            return .unknown
         }
     }
 }

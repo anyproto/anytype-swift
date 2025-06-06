@@ -179,19 +179,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             if updates.contains(.messages), let messages {
                 
                 let prevChatIsEmpty = self.messages.isEmpty
-                // After displaying a new message, we scroll to bottom and mark the messages as read.
-                // Without this logic, the button will appear for half a second while scrolling is in progress — which doesn’t look good.
-                if !bigDistanceToBottom {
-                    // Don't hide buttons if unread message or mention from past
-                    if let bottomVisibleOrderId, let chatState {
-                        let hideForMessage = chatState.messages.oldestOrderID.isNotEmpty ? bottomVisibleOrderId < chatState.messages.oldestOrderID : false
-                        let hideForMention = chatState.mentions.oldestOrderID.isNotEmpty ? bottomVisibleOrderId < chatState.mentions.oldestOrderID : false
-                        forceHiddenActionPanel = hideForMessage || hideForMention
-                    } else {
-                        forceHiddenActionPanel = true
-                    }
-                    updateActions()
-                }
                 
                 self.messages = messages
                 self.dataLoaded = true
@@ -428,9 +415,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
             bottomVisibleOrderId = toMessage.message.orderID
+            forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
             await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
-            forceHiddenActionPanel = false
-            updateActions()
         }
     }
     
@@ -489,8 +475,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.didSelectAddReaction(messageId: messageId)
     }
     
-    func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws {
-        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
+    func didTapOnReaction(data: MessageViewData, emoji: String) async throws {
+        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
     }
     
     func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
@@ -551,11 +537,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
-    func didSelectUnread(message: MessageViewData) {
-        Task {
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
-        }
+    func didSelectUnread(message: MessageViewData) async throws {
+        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
     }
 
     func didSelectCopyPlainText(message: MessageViewData) {
@@ -721,7 +705,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             url: linkPreview.url,
             title: linkPreview.title,
             description: linkPreview.description_p,
-            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .asset(.EmptyIcon.bookmark), 
+            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.emptyBookmarkIcon), 
             loading: false
         )
         linkedObjects[index] = .localBookmark(bookmark)
@@ -752,7 +736,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 mentionsCounter: Int(chatState.mentions.counter)
             )
         } else {
-            actionModel = .hidden
+            actionModel = ChatActionPanelModel(
+                showScrollToBottom: bigDistanceToBottom,
+                srollToBottomCounter: 0,
+                showMentions: false,
+                mentionsCounter: 0
+            )
         }
     }
 }

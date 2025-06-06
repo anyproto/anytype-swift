@@ -1,5 +1,5 @@
 {
-  "originHash" : "75f7ea61b063130681bb1a8d6a32f705da4f31f6a706de0d2810574e3b0697fd",
+  "originHash" : "b0ae4b9d190304855593b007418f60be453375c9a40b1ca61ae406602ff1a10c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -29,12 +29,30 @@
       }
     },
     {
+      "identity" : "any-crypto-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/anyproto/any-crypto-swift",
+      "state" : {
+        "revision" : "0d7429888f8ec60d1730341ff1122d5ddf0ff1ab",
+        "version" : "1.0.1"
+      }
+    },
+    {
       "identity" : "app-check",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/app-check.git",
       "state" : {
         "revision" : "61b85103a1aeed8218f17c794687781505fbbef5",
         "version" : "11.2.0"
+      }
+    },
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt.git",
+      "state" : {
+        "revision" : "d013a2b66ee468aade6da1f26c6d55cb6cd2e9ad",
+        "version" : "5.5.2"
       }
     },
     {
@@ -227,6 +245,15 @@
       }
     },
     {
+      "identity" : "swift-asn1",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-asn1.git",
+      "state" : {
+        "revision" : "a54383ada6cecde007d374f58f864e29370ba5c3",
+        "version" : "1.3.2"
+      }
+    },
+    {
       "identity" : "swift-async-algorithms",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-async-algorithms",
@@ -242,6 +269,15 @@
       "state" : {
         "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
         "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "e8d6eba1fef23ae5b359c46b03f7d94be2f41fed",
+        "version" : "3.12.3"
       }
     },
     {

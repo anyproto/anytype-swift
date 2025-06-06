@@ -223,10 +223,11 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let checkLoginInNotificationService = FeatureDescription(
-        title: "Check login in NotificationService",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: true
+    static let muteSpacePossibility = FeatureDescription(
+        title: "Mute space possibility",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11.1"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

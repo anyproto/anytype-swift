@@ -2,7 +2,7 @@ import Services
 
 extension Relation {
     
-    struct Text: RelationProtocol, Hashable, Identifiable {
+    struct Text: PropertyProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String

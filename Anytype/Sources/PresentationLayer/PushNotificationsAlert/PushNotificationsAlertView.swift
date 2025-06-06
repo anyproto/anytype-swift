@@ -5,14 +5,17 @@ struct PushNotificationsAlertView: View {
     @StateObject private var model: PushNotificationsAlertViewModel
     @Environment(\.dismiss) var dismiss
     
-    init() {
-        _model = StateObject(wrappedValue: PushNotificationsAlertViewModel())
+    init(data: PushNotificationsAlertData) {
+        _model = StateObject(wrappedValue: PushNotificationsAlertViewModel(data: data))
     }
     
     var body: some View {
         content
             .onAppear {
                 model.onAppear()
+            }
+            .task(item: model.requestAuthorizationId) { _ in
+                await model.requestAuthorization()
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
@@ -115,8 +118,6 @@ struct PushNotificationsAlertView: View {
             AnytypeText(Loc.PushNotifications.RequestAlert.title, style: .heading)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            
-            Spacer.fixedHeight(8)
             
             AnytypeText(Loc.PushNotifications.RequestAlert.description, style: .bodyRegular)
                 .foregroundColor(.Text.primary)

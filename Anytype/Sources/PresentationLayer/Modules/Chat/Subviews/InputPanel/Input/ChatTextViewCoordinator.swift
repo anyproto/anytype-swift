@@ -310,7 +310,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             
             if let underlineStyle {
                 newText.addAttribute(.underlineStyle, value: underlineStyle.rawValue, range: range)
-                newText.addAttribute(.underlineColor, value: UIColor.Text.primary, range: range)
+                newText.addAttribute(.underlineColor, value: UIColor.Text.primary.withAlphaComponent(0.3), range: range)
             } else {
                 newText.removeAttribute(.underlineStyle, range: range)
             }

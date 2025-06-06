@@ -17,15 +17,17 @@ public struct Invocation<Request, Response>: Sendable where Request: Message & S
     
     @discardableResult
     public func invoke(
-        requestMask: ((inout Request) -> Void)? = nil,
-        responseMask: ((inout Response) -> Void)? = nil,
+        requestMask: (@Sendable (inout Request) -> Void)? = nil,
+        responseMask: (@Sendable (inout Response) -> Void)? = nil,
         file: StaticString = #file,
         function: String = #function,
         line: UInt = #line,
         ignoreLogErrors: Response.Error.ErrorCode...
     ) async throws -> Response {
         do {
-            return try await internalInvoke(requestMask: requestMask, responseMask: responseMask)
+            return try await withUncancellableHandler {
+                try await internalInvoke(requestMask: requestMask, responseMask: responseMask)
+            }
         } catch let error as CancellationError {
             // Ignore try Task.checkCancellation()
             throw error

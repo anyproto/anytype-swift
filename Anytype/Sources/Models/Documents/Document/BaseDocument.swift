@@ -39,7 +39,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private var syncStatusStorage: any SyncStatusStorageProtocol
     @Injected(\.historyVersionsService)
     private var historyVersionsService: any HistoryVersionsServiceProtocol
-    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
@@ -69,7 +69,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         spaceId: String,
         mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
-        relationDetailsStorage: some RelationDetailsStorageProtocol,
+        propertyDetailsStorage: some PropertyDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
         accountParticipantsStorage: some AccountParticipantsStorageProtocol,
         eventsListener: some EventsListenerProtocol,
@@ -84,7 +84,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
         self.objectLifecycleService = objectLifecycleService
-        self.relationDetailsStorage = relationDetailsStorage
+        self.propertyDetailsStorage = propertyDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.infoContainer = infoContainer
@@ -274,7 +274,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         }
         .store(in: &subscriptions)
         
-        relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId)
+        propertyDetailsStorage.relationsDetailsPublisher(spaceId: spaceId)
             .sink { [weak self] details in
                 guard let self, let objectDetails = self.details else { return }
                 
@@ -320,23 +320,23 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
             return nil
         }
         
-        let objectRelations = relationDetailsStorage.relationsDetails(
+        let objectRelations = propertyDetailsStorage.relationsDetails(
             keys:  details.values.map(\.key), spaceId: spaceId
         )
         
-        let objectFeaturedRelations = relationDetailsStorage.relationsDetails(
+        let objectFeaturedRelations = propertyDetailsStorage.relationsDetails(
             ids:  details.featuredRelations, spaceId: spaceId
         )
 
-        let recommendedRelations = relationDetailsStorage.relationsDetails(
+        let recommendedRelations = propertyDetailsStorage.relationsDetails(
             ids: targetObjectType.recommendedRelations, spaceId: spaceId
         )
         
-        let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(
+        let recommendedFeaturedRelations = propertyDetailsStorage.relationsDetails(
             ids: targetObjectType.recommendedFeaturedRelations, spaceId: spaceId
         )
         
-        let recommendedHiddenRelations = relationDetailsStorage.relationsDetails(
+        let recommendedHiddenRelations = propertyDetailsStorage.relationsDetails(
             ids: targetObjectType.recommendedHiddenRelations, spaceId: spaceId
         )
         
@@ -353,23 +353,23 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     }
     
     private func buildRelationsForObject(details: ObjectDetails) -> ParsedRelations {
-        let objectRelations = relationDetailsStorage.relationsDetails(
+        let objectRelations = propertyDetailsStorage.relationsDetails(
             keys:  details.values.map(\.key), spaceId: spaceId
         )
         
-        let objectFeaturedRelations = relationDetailsStorage.relationsDetails(
+        let objectFeaturedRelations = propertyDetailsStorage.relationsDetails(
             keys: details.featuredRelations, spaceId: spaceId
         )
 
-        let recommendedRelations = relationDetailsStorage.relationsDetails(
+        let recommendedRelations = propertyDetailsStorage.relationsDetails(
             ids: details.objectType.recommendedRelations, spaceId: spaceId
         )
         
-        let recommendedFeaturedRelations = relationDetailsStorage.relationsDetails(
+        let recommendedFeaturedRelations = propertyDetailsStorage.relationsDetails(
             ids: details.objectType.recommendedFeaturedRelations, spaceId: spaceId
         )
         
-        let recommendedHiddenRelations = relationDetailsStorage.relationsDetails(
+        let recommendedHiddenRelations = propertyDetailsStorage.relationsDetails(
             ids: details.objectType.recommendedHiddenRelations, spaceId: spaceId
         )
         

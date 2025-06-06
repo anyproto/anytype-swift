@@ -67,9 +67,9 @@ struct SetFilterRow: View {
     @ViewBuilder
     private func relationValueView(for relation: Relation?) -> some View {
         if let relation = relation {
-            RelationValueView(
-                model: RelationValueViewModel(
-                    relation: RelationItemModel(relation: relation),
+            PropertyValueView(
+                model: PropertyValueViewModel(
+                    property: PropertyItemModel(property: relation),
                     style: .filter(hasValues: configuration.hasValues),
                     mode: .button(action: nil)
                 )

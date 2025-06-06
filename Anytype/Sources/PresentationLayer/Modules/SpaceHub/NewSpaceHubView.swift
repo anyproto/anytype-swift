@@ -130,6 +130,11 @@ struct NewSpaceHubView: View {
                 IconView(icon: model.profileIcon)
                     .foregroundStyle(Color.Control.active)
                     .frame(width: 28, height: 28)
+                    .overlay(alignment: .topTrailing) {
+                        if model.notificationsDenied {
+                            attentionDotView
+                        }
+                    }
                     .padding(.vertical, 8)
             }
             
@@ -147,7 +152,7 @@ struct NewSpaceHubView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .if(offset.isNotNil && offset!.y < 0, if: {
+        .if(applyBlur, if: {
             $0.background(Material.ultraThinMaterial)
         }, else: {
             $0.background(Color.Background.primary)
@@ -160,12 +165,16 @@ struct NewSpaceHubView: View {
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggable: draggable,
+            muted: model.mutedSpaces,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
             },
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)
+            },
+            onTapMute: {
+                model.muteSpace(spaceId: space.spaceView.targetSpaceId)
             },
             onTapLeave: {
                 model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
@@ -186,6 +195,26 @@ struct NewSpaceHubView: View {
                 )
             )
         }
+    }
+    
+    private var attentionDotView: some View {
+        Circle()
+            .fill(Color.System.red)
+            .frame(width: 8, height: 8)
+            .background(
+                Circle()
+                    .if(applyBlur, if: {
+                        $0.fill(Material.ultraThinMaterial)
+                    }, else: {
+                        $0.fill(Color.Background.primary)
+                    })
+                    .frame(width: 12, height: 12)
+            )
+            .padding(.top, -2)
+    }
+    
+    private var applyBlur: Bool {
+        offset.isNotNil && offset!.y < 0
     }
 }
 

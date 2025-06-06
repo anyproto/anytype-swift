@@ -14,6 +14,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     @Published var showFileStorage = false
     @Published var showAppearance = false
+    @Published var showPushNotificationsSettings = false
     @Published var showLogoutAlert = false
     @Published var showSettingsAccount = false
     @Published var showKeychainPhraseForLogout = false
@@ -34,6 +35,10 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     func onAppearanceSelected() {
         showAppearance = true
+    }
+    
+    func onNotificationsSelected() {
+        showPushNotificationsSettings = true
     }
     
     func onFileStorageSelected() {

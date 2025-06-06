@@ -49,8 +49,11 @@ struct ChatCoordinatorView: View {
             .sheet(item: $model.newLinkedObject) {
                 ChatCreateObjectCoordinatorView(data: $0)
             }
-            .anytypeSheet(isPresented: $model.showPushNotificationsAlert) {
-                PushNotificationsAlertView()
+            .anytypeSheet(item: $model.pushNotificationsAlertData) {
+                PushNotificationsAlertView(data: $0)
+            }
+            .anytypeSheet(isPresented: $model.showDisabledPushNotificationsAlert){
+                DisabledPushNotificationsAlertView()
             }
             .anytypeSheet(item: $model.inviteLinkData) {
                 InviteLinkCoordinatorView(data: $0)

@@ -21,7 +21,8 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     @Published var showFilesPicker = false
     @Published var showPhotosPicker = false
-    @Published var showPushNotificationsAlert = false
+    @Published var pushNotificationsAlertData: PushNotificationsAlertData?
+    @Published var showDisabledPushNotificationsAlert = false
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
     @Published var safariUrl: URL?
@@ -100,7 +101,9 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     }
     
     func onPushNotificationsAlertSelected() {
-        showPushNotificationsAlert.toggle()
+        pushNotificationsAlertData = PushNotificationsAlertData(completion: { [weak self] granted in
+            self?.showDisabledPushNotificationsAlert = !granted
+        })
     }
     
     func didSelectCreateObject(type: ObjectType) {

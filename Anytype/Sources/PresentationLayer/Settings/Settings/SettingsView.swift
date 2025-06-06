@@ -33,6 +33,13 @@ struct SettingsView: View {
                     )
                     
                     SettingsSectionItemView(
+                        name: Loc.notifications,
+                        imageAsset: .Settings.notifications,
+                        decoration: .arrow(needAttention: model.notificationsDenied),
+                        onTap: { model.onNotificationsTap() }
+                    )
+                    
+                    SettingsSectionItemView(
                         name: Loc.Spaces.title,
                         imageAsset: .Settings.spaces,
                         onTap: { model.onSpacesTap() }

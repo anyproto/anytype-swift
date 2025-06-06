@@ -12,8 +12,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.accountManager)
@@ -63,6 +63,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var editingData: SettingsInfoEditingViewData?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
+    @Published var muted = false
     @Published private(set) var inviteLink: URL?
     
     let workspaceInfo: AccountInfo
@@ -119,6 +120,11 @@ final class SpaceSettingsViewModel: ObservableObject {
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     
+    func onMuteTap() {
+        // TODO: implement when middle is ready
+        muted.toggle()
+    }
+    
     func onInviteTap() {
         Task {
             try await generateInviteIfNeeded()
@@ -139,6 +145,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onObjectTypesTap() {
         output?.onObjectTypesSelected()
+    }
+    
+    func onPropertiesTap() {
+        output?.onPropertiesSelected()
     }
     
     func toggleCreateTypeWidgetState(isOn: Bool) {

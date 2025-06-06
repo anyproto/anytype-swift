@@ -7,6 +7,7 @@ struct NewSpaceCardLabel: View {
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
     let draggable: Bool
+    let muted: Bool
     private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
@@ -20,6 +21,10 @@ struct NewSpaceCardLabel: View {
                         .anytypeFontStyle(.bodySemibold)
                         .lineLimit(1)
                         .foregroundStyle(Color.Text.primary)
+                    if FeatureFlags.muteSpacePossibility, muted {
+                        Spacer.fixedWidth(8)
+                        Image(asset: .X18.muted).foregroundColor(.Control.active)
+                    }
                     Spacer(minLength: 8)
                     createdDate
                 }
@@ -79,7 +84,8 @@ struct NewSpaceCardLabel: View {
                 // Show attachements and 1 line of text
                 messageWithAttachements(message)
             } else {
-                EmptyView()
+                Text(message.creator?.name ?? Loc.Chat.newMessages)
+                    .anytypeStyle(.uxTitle2Medium).lineLimit(1)
             }
         }
     }

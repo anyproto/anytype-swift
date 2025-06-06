@@ -18,8 +18,12 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
+    @Published var notificationsDenied = false
     @Published var spaceIdToLeave: StringIdentifiable?
     @Published var spaceIdToDelete: StringIdentifiable?
+    
+    // TODO: remove when middle is ready
+    @Published var mutedSpaces = false
     
     @Published var profileIcon: Icon?
     
@@ -42,6 +46,8 @@ final class SpaceHubViewModel: ObservableObject {
     private var profileStorage: any ProfileStorageProtocol
     @Injected(\.spaceHubSpacesStorage)
     private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
@@ -79,12 +85,18 @@ final class SpaceHubViewModel: ObservableObject {
         UIPasteboard.general.string = String(describing: spaceView)
     }
     
+    func muteSpace(spaceId: String) {
+        // TODO: implement logic when middle is ready
+        mutedSpaces.toggle()
+    }
+    
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
+        async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
     
-        (_, _, _) = await (spacesSub, wallpapersSub, profileSub)
+        _ = await (spacesSub, wallpapersSub, profileSub, pushNotificationsSystemSettingsSub)
     }
     
     // MARK: - Private
@@ -114,6 +126,12 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnProfile() async {
         for await profile in profileStorage.profilePublisher.values {
             profileIcon = profile.icon
+        }
+    }
+    
+    private func pushNotificationsSystemSettingsSubscription() async {
+        for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
+            notificationsDenied = status.isDenied
         }
     }
 }

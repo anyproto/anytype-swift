@@ -555,19 +555,11 @@ extension ImageAsset {
     public static let duck = ImageAsset.bundle(name: "Dialog/duck")
     public static let exclamation = ImageAsset.bundle(name: "Dialog/exclamation")
     public static let invite = ImageAsset.bundle(name: "Dialog/invite")
+    public static let lock = ImageAsset.bundle(name: "Dialog/lock")
     public static let question = ImageAsset.bundle(name: "Dialog/question")
     public static let send = ImageAsset.bundle(name: "Dialog/send")
     public static let update = ImageAsset.bundle(name: "Dialog/update")
     public static let updated = ImageAsset.bundle(name: "Dialog/updated")
-  }
-  public enum EmptyIcon {
-    public static let bookmark = ImageAsset.bundle(name: "EmptyIcon/bookmark")
-    public static let chat = ImageAsset.bundle(name: "EmptyIcon/chat")
-    public static let date = ImageAsset.bundle(name: "EmptyIcon/date")
-    public static let list = ImageAsset.bundle(name: "EmptyIcon/list")
-    public static let objectType = ImageAsset.bundle(name: "EmptyIcon/objectType")
-    public static let page = ImageAsset.bundle(name: "EmptyIcon/page")
-    public static let tag = ImageAsset.bundle(name: "EmptyIcon/tag")
   }
   public enum FileTypes {
     public static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
@@ -614,6 +606,9 @@ extension ImageAsset {
   public enum QrCode {
     public static let smile = ImageAsset.bundle(name: "QrCode/Smile")
   }
+  public enum Reactions {
+    public static let selectEmoji = ImageAsset.bundle(name: "Reactions/SelectEmoji")
+  }
   public enum Settings {
     public static let about = ImageAsset.bundle(name: "Settings/About")
     public static let appearance = ImageAsset.bundle(name: "Settings/Appearance")
@@ -621,6 +616,7 @@ extension ImageAsset {
     public static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
     public static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
     public static let membership = ImageAsset.bundle(name: "Settings/Membership")
+    public static let notifications = ImageAsset.bundle(name: "Settings/Notifications")
     public static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     public static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
     public static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
@@ -671,12 +667,14 @@ extension ImageAsset {
     public static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
     public static let list = ImageAsset.bundle(name: "x18/List")
     public static let lock = ImageAsset.bundle(name: "x18/Lock")
+    public static let muted = ImageAsset.bundle(name: "x18/Muted")
     public static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
     public static let plus = ImageAsset.bundle(name: "x18/Plus")
     public static let search = ImageAsset.bundle(name: "x18/Search")
     public static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
     public static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     public static let webLink = ImageAsset.bundle(name: "x18/Web link")
+    public static let redAttention = ImageAsset.bundle(name: "x18/redAttention")
   }
   public enum X19 {
     public static let more = ImageAsset.bundle(name: "x19/more")
@@ -833,6 +831,7 @@ extension ImageAsset {
     }
     public static let moveTo = ImageAsset.bundle(name: "x32/Move To")
     public static let move = ImageAsset.bundle(name: "x32/Move")
+    public static let mute = ImageAsset.bundle(name: "x32/Mute")
     public static let navigation = ImageAsset.bundle(name: "x32/Navigation")
     public static let openAsObject = ImageAsset.bundle(name: "x32/Open as Object")
     public static let paste = ImageAsset.bundle(name: "x32/Paste")
@@ -854,6 +853,7 @@ extension ImageAsset {
       public static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
     }
     public static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
+    public static let unmute = ImageAsset.bundle(name: "x32/Unmute")
     public static let video = ImageAsset.bundle(name: "x32/Video")
     public enum View {
       public static let hide = ImageAsset.bundle(name: "x32/View/Hide")
@@ -954,6 +954,7 @@ extension ImageAsset {
   public static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
   public enum PushNotifications {
     public static let screenTop = ImageAsset.bundle(name: "PushNotifications/ScreenTop")
+    public static let bell = ImageAsset.bundle(name: "PushNotifications/bell")
   }
   public enum RightAttribute {
     public static let disclosure = ImageAsset.bundle(name: "Right Attribute/Disclosure")

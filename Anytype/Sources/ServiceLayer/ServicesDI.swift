@@ -148,12 +148,12 @@ extension Container {
         self { TextServiceHandler() }.shared
     }
     
-    var relationDetailsStorage: Factory<any RelationDetailsStorageProtocol> {
-        self { RelationDetailsStorage() }.singleton
+    var propertyDetailsStorage: Factory<any PropertyDetailsStorageProtocol> {
+        self { PropertyDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
-        self { RelationSubscriptionDataBuilder() }
+    var propertySubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+        self { PropertySubscriptionDataBuilder() }
     }
     
     var middlewareConfigurationProvider: Factory<any MiddlewareConfigurationProviderProtocol> {
@@ -236,8 +236,8 @@ extension Container {
         self { AudioSessionService() }.singleton
     }
     
-    var textRelationEditingService: Factory<any TextRelationEditingServiceProtocol> {
-        self { TextRelationEditingService() }.shared
+    var textRelationEditingService: Factory<any TextPropertyEditingServiceProtocol> {
+        self { TextPropertyEditingService() }.shared
     }
     
     var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
@@ -378,5 +378,9 @@ extension Container {
     
     var pushNotificationsAlertHandler: Factory<any PushNotificationsAlertHandlerProtocol> {
         self { PushNotificationsAlertHandler() }.shared
+    }
+    
+    var pushNotificationsSystemSettingsBroadcaster: Factory<any PushNotificationsSystemSettingsBroadcasterProtocol> {
+        self { PushNotificationsSystemSettingsBroadcaster() }.singleton
     }
 }

@@ -30,8 +30,8 @@ struct ObjectActionsView: View {
                             viewModel.linkItselfAction()
                         case .makeAsTemplate:
                             try await viewModel.makeAsTempalte()
-                        case .templateSetAsDefault:
-                            viewModel.makeTemplateAsDefault()
+                        case .templateToggleDefaultState:
+                            try await viewModel.templateToggleDefaultState()
                         case .delete:
                             try await viewModel.deleteAction()
                         case .createWidget:

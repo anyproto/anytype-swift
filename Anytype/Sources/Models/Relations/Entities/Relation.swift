@@ -18,7 +18,7 @@ enum Relation: Hashable, Identifiable, Sendable {
 
 // MARK: - RelationValueProtocol
 
-extension Relation: RelationProtocol {
+extension Relation: PropertyProtocol {
     
     var id: String {
         switch self {
@@ -188,7 +188,7 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var format: SupportedRelationFormat? {
+    var format: SupportedPropertyFormat? {
         switch self {
         case .text:
             .text

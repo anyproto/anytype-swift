@@ -26,7 +26,7 @@ struct EditorPageCoordinatorView: View {
                 dismiss()
             }
             .sheet(item: $model.relationValueData) { data in
-                RelationValueCoordinatorView(data: data, output: model)
+                PropertyValueCoordinatorView(data: data, output: model)
             }
             .sheet(item: $model.codeLanguageData) {
                 CodeLanguageListView(data: $0)
@@ -49,7 +49,7 @@ struct EditorPageCoordinatorView: View {
                 BlockObjectSearchView(data: $0)
             }
             .sheet(item: $model.relationsSearchData) {
-                RelationCreationView(data: $0)
+                PropertyCreationView(data: $0)
             }
             .anytypeSheet(item: $model.undoRedoObjectId) {
                 UndoRedoView(objectId: $0.value)
