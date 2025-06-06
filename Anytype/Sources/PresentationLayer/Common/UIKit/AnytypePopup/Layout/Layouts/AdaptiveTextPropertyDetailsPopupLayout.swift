@@ -3,7 +3,7 @@ import FloatingPanel
 import CoreGraphics
 import UIKit
 
-final class AdaptiveTextRelationDetailsPopupLayout: AnytypePopupLayout {
+final class AdaptiveTextPropertyDetailsPopupLayout: AnytypePopupLayout {
     
     init(layout: UILayoutGuide) {
         let anchors: [FloatingPanelState : any FloatingPanelLayoutAnchoring] = [

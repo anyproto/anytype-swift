@@ -154,7 +154,7 @@ private extension AnytypePopup {
         setupGestures()
         setupSurfaceView()
         
-        behavior = RelationDetailsPopupBehavior()
+        behavior = PropertyDetailsPopupBehavior()
         contentMode = .static
         delegate = self
         

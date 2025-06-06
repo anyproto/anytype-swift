@@ -144,7 +144,7 @@ struct DateView: View {
         }
     }
     
-    private func relationView(item: RelationItemData) -> some View {
+    private func relationView(item: PropertyItemData) -> some View {
         Button {
             model.onRelationTap(item.details)
         } label: {
