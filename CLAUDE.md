@@ -4,7 +4,14 @@
 Anytype is a privacy-focused, local-first workspace application for iOS. Built with Swift and SwiftUI, it provides users with a secure environment for creating and organizing their digital content including notes, tasks, and documents. The app uses a custom middleware for data synchronization and storage.
 
 ## Development Setup
-- Run `make setup-middle` for initial dependency setup
+
+### First-Time Setup
+When setting up the project for the first time, run these commands in order:
+1. `make setup-env` - Set up environment configuration
+2. `make setup-tools` - Install required development tools
+3. `make setup-middle` - Download and configure middleware dependencies
+
+### Additional Setup Notes
 - If Dependencies/Middleware/Lib.xcframework is missing binaries, try `make generate-middle`
 - Use Xcode 16.1 or later for development
 - The project uses Swift Package Manager for dependency management
