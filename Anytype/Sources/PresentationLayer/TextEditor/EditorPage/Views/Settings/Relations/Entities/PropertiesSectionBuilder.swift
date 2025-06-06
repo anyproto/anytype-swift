@@ -14,7 +14,20 @@ final class PropertiesSectionBuilder {
                     id: PropertiesSection.Constants.featuredPropertiesSectionId,
                     title: "",
                     relations: parsedRelations.featuredRelations + parsedRelations.sidebarRelations,
-                    isMissingFields: false
+                    isMissingFields: false,
+                    isExpandable: false
+                )
+            )
+        }
+        
+        if parsedRelations.hiddenRelations.isNotEmpty {
+            sections.append(
+                PropertiesSection(
+                    id: PropertiesSection.Constants.hiddenPropertiesSectionId,
+                    title: Loc.hidden,
+                    relations: parsedRelations.hiddenRelations,
+                    isMissingFields: false,
+                    isExpandable: true
                 )
             )
         }
@@ -25,7 +38,8 @@ final class PropertiesSectionBuilder {
                     id: PropertiesSection.Constants.conflictingPropertiesSectionId,
                     title: Loc.Fields.local,
                     relations: parsedRelations.conflictedRelations,
-                    isMissingFields: true
+                    isMissingFields: true,
+                    isExpandable: true
                 )
             )
         }
