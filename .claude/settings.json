@@ -11,6 +11,7 @@
       "Bash(rg:*)",
       "Bash(sed:*)",
       "Bash(cat:*)",
+      "Bash(ls:*)",
 
       "Bash(make setup-middle:*)"
     ],
