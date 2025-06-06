@@ -6,9 +6,11 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
     let draggable: Bool
+    let muted: Bool
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
+    let onTapMute: () -> Void
     let onTapLeave: () -> Void
     let onTapDelete: () async throws -> Void
     
@@ -20,6 +22,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
                 spaceData: spaceData,
                 wallpaper: wallpaper,
                 draggable: draggable,
+                muted: muted,
                 draggedSpace: $draggedSpace
             )
         }
@@ -38,6 +41,12 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
         }
         
         Divider()
+        
+        if FeatureFlags.muteSpacePossibility {
+            muteButton
+        }
+        
+        Divider()
         if spaceData.space.canLeave {
             leaveButton
         }
@@ -51,6 +60,18 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
             onTapCopy()
         } label: {
             Text(Loc.copySpaceInfo)
+        }
+    }
+    
+    private var muteButton: some View {
+        Button {
+            onTapMute()
+        } label: {
+            HStack {
+                Text(muted ? Loc.unmute : Loc.mute)
+                Spacer()
+                Image(systemName: muted ? "bell" : "bell.slash")
+            }
         }
     }
     
