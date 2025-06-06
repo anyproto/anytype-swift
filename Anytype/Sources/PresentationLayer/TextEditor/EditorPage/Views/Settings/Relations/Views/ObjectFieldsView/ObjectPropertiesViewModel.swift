@@ -14,6 +14,11 @@ final class ObjectPropertiesViewModel: ObservableObject {
     
     var typeId: String? { document.details?.objectType.id }
     
+    var shouldShowEmptyState: Bool {
+        guard let firstSection = sections.first else { return true }
+        return firstSection.id != PropertiesSection.Constants.featuredPropertiesSectionId
+    }
+    
     // MARK: - Private variables
     
     private let document: any BaseDocumentProtocol

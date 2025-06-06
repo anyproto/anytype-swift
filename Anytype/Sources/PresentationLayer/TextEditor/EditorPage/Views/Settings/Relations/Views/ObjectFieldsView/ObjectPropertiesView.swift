@@ -1,6 +1,7 @@
 import SwiftUI
 import Services
 import AnytypeCore
+import Loc
 
 
 struct ObjectPropertiesView: View {
@@ -56,6 +57,11 @@ struct ObjectPropertiesView: View {
     private var relationsList: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
+                if model.shouldShowEmptyState {
+                    emptyStateView
+                        .padding(.top, 24)
+                }
+                
                 ForEach(model.sections) { section in
                     Section {
                         if !section.isExpandable || model.isSectionExpanded(section.id) {
@@ -70,6 +76,12 @@ struct ObjectPropertiesView: View {
             }
             .padding(.horizontal, 20)
         }
+    }
+    
+    private var emptyStateView: some View {
+        AnytypeText(Loc.noPropertiesYet, style: .uxCalloutMedium)
+            .foregroundColor(.Text.secondary)
+            .multilineTextAlignment(.center)
     }
     
     private func sectionHeader(section: PropertiesSection) -> some View {
@@ -115,7 +127,9 @@ struct ObjectPropertiesView: View {
             if section.isMissingFields {
                 Menu {
                     Button(Loc.Fields.addToType) { model.addRelationToType(relation) }
-                    Button(Loc.Fields.removeFromObject, role: .destructive) { model.removeRelation(relation) }
+                    if relation.canBeRemovedFromObject {
+                        Button(Loc.Fields.removeFromObject, role: .destructive) { model.removeRelation(relation) }
+                    }
                 } label: {
                     MoreIndicator()
                 }

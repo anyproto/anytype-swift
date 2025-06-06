@@ -17,7 +17,6 @@ struct PropertiesSection: Identifiable {
 extension PropertiesSection {
     enum Constants {
         static let featuredPropertiesSectionId = "featuredPropertiesSectionId "
-        static let sidebarPropertiesSectionId = "sidebarPropertiesSectionId"
         static let conflictingPropertiesSectionId = "conflictingPropertiesSectionId"
         static let hiddenPropertiesSectionId = "hiddenPropertiesSectionId"
     }
