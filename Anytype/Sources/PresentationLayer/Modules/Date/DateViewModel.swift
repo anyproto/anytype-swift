@@ -37,7 +37,7 @@ final class DateViewModel: ObservableObject {
     @Published var relativeTag = ""
     @Published var weekday = ""
     @Published var objects = [ObjectCellData]()
-    @Published var relationItems = [RelationItemData]()
+    @Published var relationItems = [PropertyItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     @Published var scrollToRelationId: String? = nil
@@ -330,10 +330,10 @@ final class DateViewModel: ObservableObject {
         )
     }
     
-    private func relationItemData(from details: RelationDetails) -> RelationItemData {
+    private func relationItemData(from details: RelationDetails) -> PropertyItemData {
         let isMention = details.key == BundledRelationKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
-        return RelationItemData(
+        return PropertyItemData(
             id: details.id,
             icon: icon,
             title: details.name,

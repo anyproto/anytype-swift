@@ -3,7 +3,7 @@ import FloatingPanel
 import CoreGraphics
 import UIKit
 
-final class RelationOptionsPopupLayout: AnytypePopupLayout {
+final class PropertyOptionsPopupLayout: AnytypePopupLayout {
     
     init() {
         let anchors: [FloatingPanelState: any FloatingPanelLayoutAnchoring] = [
