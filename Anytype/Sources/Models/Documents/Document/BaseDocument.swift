@@ -122,6 +122,13 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
                 }
             }
             try await openTask?.value
+        case .refresh:
+            if openTask.isNil {
+                openTask = Task { [weak self] in
+                    try await self?.refreshDocument()
+                }
+            }
+            try await openTask?.value
         case .version(let versionId):
             if openTask.isNil {
                 openTask = Task { [weak self] in
@@ -139,6 +146,8 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
             anytypeAssertionFailure("Document was created in `handling` mode. You can't update it")
         case .preview:
             try await updateDocumentPreview()
+        case .refresh:
+            try await refreshDocument()
         case .version(let versionId):
             try await updateDocumentVersion(versionId)
         }
@@ -176,6 +185,11 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     }
     
     // MARK: - Private methods
+    
+    @MainActor
+    private func refreshDocument() async throws {
+        try await objectLifecycleService.refresh(contextId: objectId, spaceId: spaceId)
+    }
     
     @MainActor
     private func updateDocumentPreview() async throws {

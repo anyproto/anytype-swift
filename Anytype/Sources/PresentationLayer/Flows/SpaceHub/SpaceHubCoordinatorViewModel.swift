@@ -422,6 +422,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func handleOpenObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
+            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .refresh)
+            try await document.open()
             try await showScreen(data: .chat(ChatCoordinatorData(chatId: objectId, spaceId: spaceId)))
         } else {
             let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)

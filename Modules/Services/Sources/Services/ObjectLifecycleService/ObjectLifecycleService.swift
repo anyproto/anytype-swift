@@ -7,6 +7,7 @@ public protocol ObjectLifecycleServiceProtocol: AnyObject, Sendable {
     func close(contextId: String, spaceId: String) async throws
     func open(contextId: String, spaceId: String) async throws -> ObjectViewModel
     func openForPreview(contextId: String, spaceId: String) async throws -> ObjectViewModel
+    func refresh(contextId: String, spaceId: String) async throws
 }
 
 final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
@@ -31,6 +32,13 @@ final class ObjectLifecycleService: ObjectLifecycleServiceProtocol {
             $0.spaceID = spaceId
         }).invoke(ignoreLogErrors: .objectDeleted)
         return result.objectView
+    }
+    
+    public func refresh(contextId: String, spaceId: String) async throws {
+        try await ClientCommands.objectRefresh(.with {
+            $0.objectID = contextId
+            $0.spaceID = spaceId
+        }).invoke()
     }
     
     public func close(contextId: String, spaceId: String) async throws {
