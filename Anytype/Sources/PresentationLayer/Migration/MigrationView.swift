@@ -5,7 +5,7 @@ struct MigrationView: View {
     @StateObject private var model: MigrationViewModel
     @Environment(\.dismiss) var dismiss
     
-    @State private var topOffcet: CGFloat = .zero
+    private let topOffcet: CGFloat = UIDevice.isPad ? 310 : 180
     
     init(data: MigrationModuleData, output: (any MigrationModuleOutput)?) {
         _model = StateObject(wrappedValue: MigrationViewModel(data: data, output: output))
@@ -13,9 +13,6 @@ struct MigrationView: View {
     
     var body: some View {
         content
-            .readSize { size in
-                topOffcet = size.height / 3.5
-            }
             .task(item: model.startFlowId) { _ in
                 await model.startFlow()
             }
