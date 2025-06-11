@@ -439,4 +439,7 @@ public enum BundledRelationKey: String, Sendable {
 
     /// Identifier to use in intergrations with Anytype API
     case apiObjectKey = "apiObjectKey"
+
+    /// Should time be shown for relation values with date format
+    case relationFormatIncludeTime = "relationFormatIncludeTime"
 }

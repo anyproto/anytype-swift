@@ -119,6 +119,12 @@ public struct Anytype_Model_Relation: @unchecked Sendable {
     set {_uniqueStorage()._revision = newValue}
   }
 
+  /// indicates whether value of relation with date format should be processed with seconds precision
+  public var includeTime: Bool {
+    get {return _storage._includeTime}
+    set {_uniqueStorage()._includeTime = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -146,6 +152,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     20: .same(proto: "scope"),
     21: .same(proto: "creator"),
     22: .same(proto: "revision"),
+    23: .same(proto: "includeTime"),
   ]
 
   fileprivate class _StorageClass {
@@ -166,6 +173,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     var _scope: Anytype_Model_Relation.Scope = .object
     var _creator: String = String()
     var _revision: Int64 = 0
+    var _includeTime: Bool = false
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -197,6 +205,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       _scope = source._scope
       _creator = source._creator
       _revision = source._revision
+      _includeTime = source._includeTime
     }
   }
 
@@ -231,6 +240,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         case 20: try { try decoder.decodeSingularEnumField(value: &_storage._scope) }()
         case 21: try { try decoder.decodeSingularStringField(value: &_storage._creator) }()
         case 22: try { try decoder.decodeSingularInt64Field(value: &_storage._revision) }()
+        case 23: try { try decoder.decodeSingularBoolField(value: &_storage._includeTime) }()
         case 100: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
         default: break
         }
@@ -292,6 +302,9 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       if _storage._revision != 0 {
         try visitor.visitSingularInt64Field(value: _storage._revision, fieldNumber: 22)
       }
+      if _storage._includeTime != false {
+        try visitor.visitSingularBoolField(value: _storage._includeTime, fieldNumber: 23)
+      }
       if !_storage._id.isEmpty {
         try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 100)
       }
@@ -321,6 +334,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         if _storage._scope != rhs_storage._scope {return false}
         if _storage._creator != rhs_storage._creator {return false}
         if _storage._revision != rhs_storage._revision {return false}
+        if _storage._includeTime != rhs_storage._includeTime {return false}
         return true
       }
       if !storagesAreEqual {return false}
