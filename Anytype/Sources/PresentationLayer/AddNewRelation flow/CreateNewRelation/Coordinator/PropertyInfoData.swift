@@ -49,4 +49,5 @@ struct PropertyInfoData: Identifiable {
     let spaceId: String
     let target: PropertiesModuleTarget
     let mode: PropertyInfoViewMode
+    let isReadOnly: Bool
 }

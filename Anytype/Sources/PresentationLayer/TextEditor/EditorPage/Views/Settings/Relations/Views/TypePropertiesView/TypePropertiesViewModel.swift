@@ -93,7 +93,8 @@ final class TypePropertiesViewModel: ObservableObject {
             objectId: document.objectId,
             spaceId: document.spaceId,
             target: .type(typeData),
-            mode: .edit(relationId: data.relation.id, format: format, limitedObjectTypes: data.relation.limitedObjectTypes)
+            mode: .edit(relationId: data.relation.id, format: format, limitedObjectTypes: data.relation.limitedObjectTypes),
+            isReadOnly: !data.relation.isEditable
         )
     }
     
