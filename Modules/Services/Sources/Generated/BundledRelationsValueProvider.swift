@@ -161,6 +161,7 @@ public protocol BundledRelationsValueProvider {
     var pluralName: String { get }
     var headerRelationsLayout: Int? { get }
     var apiObjectKey: String { get }
+    var relationFormatIncludeTime: [Bool] { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -750,5 +751,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Identifier to use in intergrations with Anytype API
     var apiObjectKey: String {
         return value(for: BundledRelationKey.apiObjectKey.rawValue)
+    }
+    /// Should time be shown for relation values with date format
+    var relationFormatIncludeTime: [Bool] {
+        return value(for: BundledRelationKey.relationFormatIncludeTime.rawValue)
     }
 }
