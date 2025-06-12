@@ -87,10 +87,11 @@ actor StoreKitService: StoreKitServiceProtocol {
     }
     
     func isPurchased(product: Product) async throws -> Bool {
-        guard let result = await Transaction.latest(for: product.id) else { return false }
-        let transaction = try checkVerified(result)
-        
-        return transaction.revocationDate.isNil  
+        for await result in Transaction.currentEntitlements {
+            let transaction = try checkVerified(result)
+            if transaction.productID == product.id { return true }
+        }
+        return false
     }
     
     func purchase(product: Product, billingId: UUID) async throws -> StoreKitPurchaseSuccess {
