@@ -15,6 +15,7 @@ struct SpaceNotificationsSettingsView: View {
             DragIndicator()
             TitleView(title: Loc.notifications)
             content
+            Spacer()
         }
         .background(Color.Background.secondary)
         .onChange(of: model.dismiss) { _ in
@@ -40,7 +41,7 @@ struct SpaceNotificationsSettingsView: View {
                 Spacer()
                 if model.state == state {
                     Image(asset: .X24.tick)
-                        .foregroundColor(.Control.active)
+                        .foregroundColor(.Control.button)
                 }
             }
             .frame(height: 52)
