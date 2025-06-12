@@ -43,6 +43,16 @@ final class PropertyInfoViewModel: ObservableObject {
     @Published private var format: SupportedPropertyFormat
     @Published private var objectTypes: [ObjectType]?
     @Published var toastData: ToastBarData?
+    @Published var showMenuActions = false
+    
+    var canShowMenu: Bool {
+        switch mode {
+        case .create:
+            false
+        case .edit:
+            !isReadOnly
+        }
+    }
     
     private let target: PropertiesModuleTarget
     private let objectId: String?
@@ -116,6 +126,22 @@ extension PropertyInfoViewModel {
         case .edit:
             updateRelation(relationDetails)
         }
+    }
+    
+    func didTapMenuButton() {
+        showMenuActions = true
+    }
+    
+    func didTapDuplicate() {
+        showMenuActions = false
+        // TODO: Implement duplicate logic
+        toastData = ToastBarData("Duplicate functionality coming soon")
+    }
+    
+    func didTapDelete() {
+        showMenuActions = false
+        // TODO: Implement delete logic
+        toastData = ToastBarData("Delete functionality coming soon")
     }
     
     private func createRelation(_ relationDetails: RelationDetails) {

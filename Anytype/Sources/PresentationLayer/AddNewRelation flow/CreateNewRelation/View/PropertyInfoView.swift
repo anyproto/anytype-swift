@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct PropertyInfoView: View {
     
@@ -17,11 +18,34 @@ struct PropertyInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: viewModel.title)
+            TitleView(title: viewModel.title) {
+                if viewModel.canShowMenu {
+                    Button(action: {
+                        viewModel.didTapMenuButton()
+                    }) {
+                        IconView(icon: .asset(.CustomIcons.ellipsisHorizontal))
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
             content
         }
         .padding(.horizontal, 20)
         .snackbar(toastBarData: $viewModel.toastData)
+        .actionSheet(isPresented: $viewModel.showMenuActions) {
+            ActionSheet(
+                title: Text(viewModel.name.isEmpty ? Loc.untitled : viewModel.name),
+                buttons: [
+                    .default(Text(Loc.duplicate)) {
+                        viewModel.didTapDuplicate()
+                    },
+                    .destructive(Text(Loc.delete)) {
+                        viewModel.didTapDelete()
+                    },
+                    .cancel()
+                ]
+            )
+        }
     }
 
     private var content: some View {
@@ -69,7 +93,7 @@ struct PropertyInfoView: View {
             )
         } else {
             NewPropertySectionView(
-                title: Loc.type,
+                title: Loc.format,
                 contentViewBuilder: {
                     NewPropertyFormatSectionView(model: viewModel.formatModel)
                 },
