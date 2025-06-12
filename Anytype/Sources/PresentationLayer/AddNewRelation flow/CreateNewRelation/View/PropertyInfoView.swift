@@ -33,7 +33,10 @@ struct PropertyInfoView: View {
                 Spacer.fixedHeight(10)
             }
             Spacer()
-            button
+            
+            if !viewModel.isReadOnly {
+                button
+            }
         }
     }
     
@@ -44,6 +47,7 @@ struct PropertyInfoView: View {
                 TextField(Loc.untitled, text: $viewModel.name)
                     .foregroundColor(.Text.primary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+                    .disabled(viewModel.isReadOnly)
             },
             onTap: nil,
             isArrowVisible: false
@@ -86,8 +90,9 @@ struct PropertyInfoView: View {
                     UIApplication.shared.hideKeyboard()
                     viewModel.didTapTypesRestrictionSection()
                 },
-                isArrowVisible: true
+                isArrowVisible: !viewModel.isReadOnly
             )
+            .disabled(viewModel.isReadOnly)
         }
     }
     
@@ -96,7 +101,7 @@ struct PropertyInfoView: View {
             viewModel.didTapAddButton()
             dismiss()
         }
-        .disabled(!viewModel.isCreateButtonActive)
+        .disabled(!viewModel.isSaveButtonActive)
         .padding(.vertical, 10)
     }
 }

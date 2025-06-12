@@ -41,7 +41,8 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
             objectId: nil,
             spaceId: row.spaceId,
             target: .library,
-            mode: .edit(relationId: row.id, format: supportedFormat, limitedObjectTypes: row.objectTypes.isEmpty ? nil : row.objectTypes)
+            mode: .edit(relationId: row.id, format: supportedFormat, limitedObjectTypes: row.objectTypes.isEmpty ? nil : row.objectTypes),
+            isReadOnly: row.isReadOnly
         )
     }
     
@@ -51,7 +52,8 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
             objectId: nil,
             spaceId: spaceId,
             target: .library,
-            mode: .create(format: .text)
+            mode: .create(format: .text),
+            isReadOnly: false
         )
     }
     

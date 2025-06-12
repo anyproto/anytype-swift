@@ -70,7 +70,8 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
                     objectId: data.objectId,
                     spaceId: data.spaceId,
                     target: data.target,
-                    mode: .create(format: format)
+                    mode: .create(format: format),
+                    isReadOnly: false
                 )
             }
         }
@@ -82,7 +83,8 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
             objectId: data.objectId,
             spaceId: data.spaceId,
             target: data.target,
-            mode: .create(format: .text)
+            mode: .create(format: .text),
+            isReadOnly: false
         )
     }
     

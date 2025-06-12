@@ -14,7 +14,7 @@ final class PropertyInfoViewModel: ObservableObject {
         objectTypes.flatMap { $0.asViewModel }
     }
     
-    var isCreateButtonActive: Bool {
+    var isSaveButtonActive: Bool {
         name.isNotEmpty
     }
     
@@ -37,6 +37,7 @@ final class PropertyInfoViewModel: ObservableObject {
     }
     
     let mode: PropertyInfoViewMode
+    let isReadOnly: Bool
     
     @Published var name: String
     @Published private var format: SupportedPropertyFormat
@@ -65,6 +66,7 @@ final class PropertyInfoViewModel: ObservableObject {
         self.relationsInteractor = relationsInteractor
         self.output = output
         self.mode = data.mode
+        self.isReadOnly = data.isReadOnly
         
         self.name = data.name
         self.format = data.mode.format ?? SupportedPropertyFormat.object
