@@ -63,7 +63,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var editingData: SettingsInfoEditingViewData?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
-    @Published var muted = false
     @Published private(set) var inviteLink: URL?
     
     let workspaceInfo: AccountInfo
@@ -120,9 +119,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     
-    func onMuteTap() {
-        // TODO: implement when middle is ready
-        muted.toggle()
+    func onNotificationsTap() {
+        output?.onNotificationsSelected()
     }
     
     func onInviteTap() {

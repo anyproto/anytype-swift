@@ -138,18 +138,7 @@ struct SpaceSettingsView: View {
         if model.inviteLink.isNotNil {
             Spacer.fixedHeight(8)
             
-            HStack(spacing: 8) {
-                if FeatureFlags.muteSpacePossibility {
-                    Button {
-                        model.onMuteTap()
-                    } label: {
-                        borderedView(
-                            asset: model.muted ? .X32.unmute : .X32.mute,
-                            title: model.muted ? Loc.unmute : Loc.mute
-                        )
-                    }
-                }
-                
+            HStack(spacing: 8) {                
                 Button {
                     model.onInviteTap()
                 } label: {
@@ -188,11 +177,24 @@ struct SpaceSettingsView: View {
         case let .private(state):
             privateSpaceSetting(state: state)
         case .ownerOrEditor(let joiningCount):
-            SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : .chervon) { model.onShareTap() }
+            collaborationSection(memberDecoration: joiningCount > 0 ? .caption("\(joiningCount)") : .chervon)
         case .viewer:
+            collaborationSection()
+        }
+    }
+    
+    private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
+        VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member) { model.onShareTap() }
+            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onShareTap() }
+            if FeatureFlags.muteSpacePossibility {
+                Spacer.fixedHeight(8)
+                RoundedButton(
+                    Loc.notifications, icon: .X24.unmuted,
+                    decoration: .caption(SpaceNotificationsSettingsState.allActiviy.titleShort)) {
+                        model.onNotificationsTap()
+                    }
+            }
         }
     }
     
