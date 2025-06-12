@@ -26,7 +26,7 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     
     func startSubscriptions() async {
         for await rows in propertyDetailsStorage.relationsDetailsPublisher(spaceId: spaceId).values {
-            self.rows = rows
+            self.rows = rows.filter { !$0.isHidden }
         }
     }
     

@@ -42,7 +42,7 @@ struct PropertyInfoView: View {
             title: Loc.name,
             contentViewBuilder: {
                 TextField(Loc.untitled, text: $viewModel.name)
-                    .foregroundColor(!viewModel.isReadOnly ? .Text.primary : .Text.secondary)
+                    .foregroundColor(.Text.primary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                     .disabled(viewModel.isReadOnly)
             },
