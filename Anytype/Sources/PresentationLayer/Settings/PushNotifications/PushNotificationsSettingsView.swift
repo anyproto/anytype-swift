@@ -93,6 +93,7 @@ struct PushNotificationsSettingsView: View {
             if !enabled {
                 Spacer.fixedWidth(8)
                 Image(asset: .X18.webLink)
+                    .foregroundColor(.Control.active)
             }
         }
         .frame(height: 52)
