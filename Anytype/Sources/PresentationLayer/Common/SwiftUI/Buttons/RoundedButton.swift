@@ -26,5 +26,5 @@ struct RoundedButton: View {
 }
 
 #Preview {
-    RoundedButton("ClickMe", icon: .X24.member, decoration: .badge(445)) { }
+    RoundedButton("ClickMe", icon: .X24.member, decoration: .caption("445")) { }
 }

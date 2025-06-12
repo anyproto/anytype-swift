@@ -41,5 +41,9 @@ struct SpaceSettingsCoordinatorView: View {
             .sheet(item: $model.showSpaceMembersData) {
                 SpaceMembersView(data: $0)
             }
+            .sheet(item: $model.spaceNotificationsSettingsModuleData) {
+                SpaceNotificationsSettingsView(data: $0)
+                    .mediumPresentationDetents()
+            }
     }
 }

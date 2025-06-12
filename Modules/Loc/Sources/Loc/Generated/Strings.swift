@@ -236,6 +236,7 @@ public enum Loc {
   public static let media = Loc.tr("Localizable", "Media", fallback: "Media")
   public static let members = Loc.tr("Localizable", "Members", fallback: "Members")
   public static let membership = Loc.tr("Localizable", "Membership", fallback: "Membership")
+  public static let mentions = Loc.tr("Localizable", "Mentions", fallback: "Mentions")
   public static func minXCharacters(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Min X characters", String(describing: p1), fallback: "Min %@ characters")
   }
@@ -1848,6 +1849,15 @@ public enum Loc {
   public enum Space {
     public static func membersCount(_ p1: Int) -> String {
       return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: Space.MembersCount")
+    }
+    public enum Notifications {
+      public enum Settings {
+        public enum State {
+          public static let all = Loc.tr("Localizable", "Space.Notifications.Settings.State.All", fallback: "All activity")
+          public static let disabled = Loc.tr("Localizable", "Space.Notifications.Settings.State.Disabled", fallback: "Disable notifications")
+          public static let mentions = Loc.tr("Localizable", "Space.Notifications.Settings.State.Mentions", fallback: "Mentions only")
+        }
+      }
     }
     public enum Status {
       public static let error = Loc.tr("Localizable", "Space.Status.Error", fallback: "Error")

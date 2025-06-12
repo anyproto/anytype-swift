@@ -10,5 +10,6 @@ protocol SpaceSettingsModuleOutput: AnyObject {
     func onRemoteStorageSelected()
     func onSpaceShareSelected()
     func onSpaceMembersSelected()
+    func onNotificationsSelected()
     func onBinSelected()
 }
