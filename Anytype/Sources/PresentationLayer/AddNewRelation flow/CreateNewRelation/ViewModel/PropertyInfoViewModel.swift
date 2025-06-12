@@ -14,7 +14,7 @@ final class PropertyInfoViewModel: ObservableObject {
         objectTypes.flatMap { $0.asViewModel }
     }
     
-    var isCreateButtonActive: Bool {
+    var isSaveButtonActive: Bool {
         name.isNotEmpty
     }
     
