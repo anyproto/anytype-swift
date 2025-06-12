@@ -166,6 +166,7 @@ The project uses Factory for dependency injection. Services are registered in:
 - Run tests before pushing changes
 - **Git commit messages must be a single line** (no multi-line descriptions)
 - **Do not include AI-generated signatures** in commit messages (no "Generated with Claude Code" or "Co-Authored-By: Claude")
+- **We only do work in Feature branches. We never push anything to develop or main directly**
 
 ### Pull Request Format
 Keep pull requests simple and concise:
