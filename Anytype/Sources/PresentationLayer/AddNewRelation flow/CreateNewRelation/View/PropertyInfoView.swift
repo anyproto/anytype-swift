@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct PropertyInfoView: View {
     
@@ -17,7 +18,18 @@ struct PropertyInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: viewModel.title)
+            TitleView(title: viewModel.title) {
+                if viewModel.canShowMenu {
+                    Menu {
+                        AsyncButton(Loc.delete, role: .destructive) {
+                            try await viewModel.didTapDelete()
+                            dismiss()
+                        }
+                    } label: {
+                        MoreIndicator()
+                    }
+                }
+            }
             content
         }
         .padding(.horizontal, 20)
@@ -69,7 +81,7 @@ struct PropertyInfoView: View {
             )
         } else {
             NewPropertySectionView(
-                title: Loc.type,
+                title: Loc.format,
                 contentViewBuilder: {
                     NewPropertyFormatSectionView(model: viewModel.formatModel)
                 },

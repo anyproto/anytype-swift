@@ -36,6 +36,15 @@ final class PropertyInfoViewModel: ObservableObject {
         }
     }
     
+    var canShowMenu: Bool {
+        switch mode {
+        case .create:
+            false
+        case .edit:
+            !isReadOnly
+        }
+    }
+    
     let mode: PropertyInfoViewMode
     let isReadOnly: Bool
     
@@ -45,12 +54,13 @@ final class PropertyInfoViewModel: ObservableObject {
     @Published var toastData: ToastBarData?
     
     private let target: PropertiesModuleTarget
-    private let objectId: String?
     private let spaceId: String
     private let relationId: String
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let relationsInteractor: any PropertiesInteractorProtocol
     private weak var output: (any PropertyInfoModuleOutput)?
@@ -60,7 +70,6 @@ final class PropertyInfoViewModel: ObservableObject {
         relationsInteractor: some PropertiesInteractorProtocol,
         output: (any PropertyInfoModuleOutput)?
     ) {
-        self.objectId = data.objectId
         self.spaceId = data.spaceId
         self.target = data.target
         self.relationsInteractor = relationsInteractor
@@ -116,6 +125,13 @@ extension PropertyInfoViewModel {
         case .edit:
             updateRelation(relationDetails)
         }
+    }
+    
+    func didTapDelete() async throws {
+        guard case let .edit(relationId, _, _) = mode else { return }
+        
+        try await objectActionsService.setArchive(objectIds: [relationId], true)
+        toastData = ToastBarData(Loc.successfullyDeleted(name))
     }
     
     private func createRelation(_ relationDetails: RelationDetails) {
