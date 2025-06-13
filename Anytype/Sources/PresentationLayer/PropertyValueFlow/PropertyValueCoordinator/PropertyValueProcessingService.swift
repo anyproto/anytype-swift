@@ -14,8 +14,8 @@ protocol PropertyValueProcessingServiceProtocol {
 @MainActor
 fileprivate final class PropertyValueProcessingService: PropertyValueProcessingServiceProtocol {
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
@@ -37,7 +37,7 @@ fileprivate final class PropertyValueProcessingService: PropertyValueProcessingS
             guard relation.isEditable else { return nil }
             Task {
                 let newValue = !checkbox.value
-                try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
+                try await propertiesService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
                 let relationDetails = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: objectDetails.spaceId)
                 AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                     isEmpty: !newValue,

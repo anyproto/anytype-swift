@@ -13,8 +13,8 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol

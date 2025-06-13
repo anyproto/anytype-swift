@@ -29,8 +29,8 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
     @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.objectSettingsBuilder)
     private var settingsBuilder: any ObjectSettingsBuilderProtocol
     @Injected(\.objectSettingsConflictManager)
@@ -88,7 +88,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         guard let details = document.details else { return }
         
         let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue })
-        try await relationsService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
+        try await propertiesService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
     }
     
     func onTapResolveConflict() {

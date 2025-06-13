@@ -5,13 +5,13 @@ import Services
 class TypePropertiesMoveHandlerMoveBetweenSectionTests: XCTestCase {
     var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
-    var mockRelationsService: MockRelationsService!
+    var mockPropertiesService: MockPropertiesService!
 
     override func setUp() {
         super.setUp()
-        let mockRelationsService = MockRelationsService()
-        Container.shared.relationsService.register { mockRelationsService }
-        self.mockRelationsService = mockRelationsService
+        let mockPropertiesService = MockPropertiesService()
+        Container.shared.propertiesService.register { mockPropertiesService }
+        self.mockPropertiesService = mockPropertiesService
         mockDocument = MockBaseDocument()
         moveHandler = TypePropertiesMoveHandler()
     }
@@ -31,11 +31,11 @@ class TypePropertiesMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h1", "f1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h2", "h3"]
         )
     }
@@ -55,11 +55,11 @@ class TypePropertiesMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["f1", "h1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h2", "h3"]
         )
     }
@@ -79,11 +79,11 @@ class TypePropertiesMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h2", "f1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h1", "h3"]
         )
     }
@@ -103,11 +103,11 @@ class TypePropertiesMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h3", "f1", "f2", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h1", "h2"]
         )
     }
@@ -127,11 +127,11 @@ class TypePropertiesMoveHandlerMoveBetweenSectionTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["f1", "f3"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["h1", "h2", "h3", "f2"]
         )
     }

@@ -7,7 +7,7 @@ protocol TextPropertyEditingServiceProtocol: AnyObject, Sendable {
 
 final class TextPropertyEditingService: TextPropertyEditingServiceProtocol, Sendable {
 
-    private let service: any RelationsServiceProtocol = Container.shared.relationsService()
+    private let service: any PropertiesServiceProtocol = Container.shared.propertiesService()
     
     private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
