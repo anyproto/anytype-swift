@@ -333,11 +333,11 @@ final class TypePropertiesMoveHandler: Sendable {
     ) async throws {
         AnytypeAnalytics.instance().logReorderRelation(group: from != to ? to.analyticsValue : nil)
         
-        try await propertiesService.updateTypeRelations(
+        try await propertiesService.updateTypeProperties(
             typeId: typeId,
-            recommendedRelations: recommendedRelationIds,
-            recommendedFeaturedRelations: recommendedFeaturedRelationsIds,
-            recommendedHiddenRelations: recommendedHiddenRelationsIds
+            recommendedProperties: recommendedRelationIds,
+            recommendedFeaturedProperties: recommendedFeaturedRelationsIds,
+            recommendedHiddenProperties: recommendedHiddenRelationsIds
         )
     }
 }

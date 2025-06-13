@@ -42,9 +42,9 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
     
     private func create(with data: PropertyOptionSettingsMode.CreateData) {
         Task {
-            let optionId = try await propertiesService.addRelationOption(
+            let optionId = try await propertiesService.addPropertyOption(
                 spaceId: data.spaceId,
-                relationKey: data.relationKey,
+                propertyKey: data.relationKey,
                 optionText: text,
                 color: selectedColor.middlewareString()
             )
@@ -63,7 +63,7 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
     
     private func edit() {
         Task {
-            try await propertiesService.updateRelationOption(
+            try await propertiesService.updatePropertyOption(
                 id: configuration.option.id,
                 text: text,
                 color: selectedColor.middlewareString()

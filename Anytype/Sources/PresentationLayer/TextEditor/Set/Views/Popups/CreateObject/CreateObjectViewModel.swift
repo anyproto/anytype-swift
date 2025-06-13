@@ -62,9 +62,9 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
                 let middlewareString = MiddlewareString(text: text)
                 try await textServiceHandler.setText(contextId: objectId, blockId: blockId, middlewareString: middlewareString)
             case .writeToRelationName:
-                try await propertiesService.updateRelation(
+                try await propertiesService.updateProperty(
                     objectId: objectId,
-                    relationKey: BundledRelationKey.name.rawValue,
+                    propertyKey: BundledRelationKey.name.rawValue,
                     value: text.protobufValue
                 )
             case .none:
