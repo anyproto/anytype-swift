@@ -6,7 +6,8 @@ import AnytypeCore
 @MainActor
 final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
     
-    @Published var rows: [RelationDetails] = []
+    @Published var userProperties: [RelationDetails] = []
+    @Published var systemProperties: [RelationDetails] = []
     @Published var propertyInfo: PropertyInfoData?
     
     @Injected(\.propertyDetailsStorage)
@@ -26,7 +27,10 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     
     func startSubscriptions() async {
         for await rows in propertyDetailsStorage.relationsDetailsPublisher(spaceId: spaceId).values {
-            self.rows = rows.filter { !$0.isHidden }
+            let visibleProperties = rows.filter { !$0.isHidden }
+            
+            self.systemProperties = visibleProperties.filter { $0.sourceObject.isNotEmpty }
+            self.userProperties = visibleProperties.filter { $0.sourceObject.isEmpty }
         }
     }
     
