@@ -21,12 +21,9 @@ struct PropertyInfoView: View {
             TitleView(title: viewModel.title) {
                 if viewModel.canShowMenu {
                     Menu {
-                        Button(Loc.duplicate) {
-                            viewModel.didTapDuplicate()
-                        }
-                        Divider()
-                        Button(Loc.delete, role: .destructive) {
-                            viewModel.didTapDelete()
+                        AsyncButton(Loc.delete, role: .destructive) {
+                            try await viewModel.didTapDelete()
+                            dismiss()
                         }
                     } label: {
                         MoreIndicator()

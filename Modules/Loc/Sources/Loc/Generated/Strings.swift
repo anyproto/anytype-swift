@@ -405,6 +405,9 @@ public enum Loc {
   public static let start = Loc.tr("Localizable", "Start", fallback: "Start")
   public static let style = Loc.tr("Localizable", "Style", fallback: "Style")
   public static let submit = Loc.tr("Localizable", "Submit", fallback: "Submit")
+  public static func successfullyDeleted(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "SuccessfullyDeleted ", String(describing: p1), fallback: "%@ deleted successfully")
+  }
   public static let synced = Loc.tr("Localizable", "Synced", fallback: "Synced")
   public static func tag(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Tag", p1, fallback: "Plural format key: Tag")
