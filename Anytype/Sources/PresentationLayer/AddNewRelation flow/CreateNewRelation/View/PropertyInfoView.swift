@@ -20,11 +20,16 @@ struct PropertyInfoView: View {
             DragIndicator()
             TitleView(title: viewModel.title) {
                 if viewModel.canShowMenu {
-                    Button(action: {
-                        viewModel.didTapMenuButton()
-                    }) {
-                        IconView(icon: .asset(.CustomIcons.ellipsisHorizontal))
-                            .frame(width: 24, height: 24)
+                    Menu {
+                        Button(Loc.duplicate) {
+                            viewModel.didTapDuplicate()
+                        }
+                        Divider()
+                        Button(Loc.delete, role: .destructive) {
+                            viewModel.didTapDelete()
+                        }
+                    } label: {
+                        MoreIndicator()
                     }
                 }
             }
@@ -32,20 +37,6 @@ struct PropertyInfoView: View {
         }
         .padding(.horizontal, 20)
         .snackbar(toastBarData: $viewModel.toastData)
-        .actionSheet(isPresented: $viewModel.showMenuActions) {
-            ActionSheet(
-                title: Text(viewModel.name.isEmpty ? Loc.untitled : viewModel.name),
-                buttons: [
-                    .default(Text(Loc.duplicate)) {
-                        viewModel.didTapDuplicate()
-                    },
-                    .destructive(Text(Loc.delete)) {
-                        viewModel.didTapDelete()
-                    },
-                    .cancel()
-                ]
-            )
-        }
     }
 
     private var content: some View {

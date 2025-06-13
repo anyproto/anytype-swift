@@ -36,15 +36,6 @@ final class PropertyInfoViewModel: ObservableObject {
         }
     }
     
-    let mode: PropertyInfoViewMode
-    let isReadOnly: Bool
-    
-    @Published var name: String
-    @Published private var format: SupportedPropertyFormat
-    @Published private var objectTypes: [ObjectType]?
-    @Published var toastData: ToastBarData?
-    @Published var showMenuActions = false
-    
     var canShowMenu: Bool {
         switch mode {
         case .create:
@@ -53,6 +44,14 @@ final class PropertyInfoViewModel: ObservableObject {
             !isReadOnly
         }
     }
+    
+    let mode: PropertyInfoViewMode
+    let isReadOnly: Bool
+    
+    @Published var name: String
+    @Published private var format: SupportedPropertyFormat
+    @Published private var objectTypes: [ObjectType]?
+    @Published var toastData: ToastBarData?
     
     private let target: PropertiesModuleTarget
     private let objectId: String?
@@ -128,18 +127,12 @@ extension PropertyInfoViewModel {
         }
     }
     
-    func didTapMenuButton() {
-        showMenuActions = true
-    }
-    
     func didTapDuplicate() {
-        showMenuActions = false
         // TODO: Implement duplicate logic
         toastData = ToastBarData("Duplicate functionality coming soon")
     }
     
     func didTapDelete() {
-        showMenuActions = false
         // TODO: Implement delete logic
         toastData = ToastBarData("Delete functionality coming soon")
     }
