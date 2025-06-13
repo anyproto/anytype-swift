@@ -63,7 +63,7 @@ struct NewSpaceCard: View, @preconcurrency Equatable {
             onTapMute()
         } label: {
             HStack {
-                Text(muted ? Loc.unmute : Loc.mute)
+                Text(muted ? Loc.unmuteAll : Loc.muteAll)
                 Spacer()
                 Image(systemName: muted ? "bell" : "bell.slash")
             }

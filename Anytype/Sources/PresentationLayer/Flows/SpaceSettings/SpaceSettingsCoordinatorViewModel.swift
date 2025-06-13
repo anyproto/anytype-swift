@@ -17,6 +17,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: SpaceShareData?
     @Published var showSpaceMembersData: SpaceMembersData?
+    @Published var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
     @Published var showFiles = false
     
     var pageNavigation: PageNavigation?
@@ -49,6 +50,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onSpaceMembersSelected() {
         showSpaceMembersData = SpaceMembersData(spaceId: spaceId, route: .settings)
+    }
+    
+    func onNotificationsSelected() {
+        spaceNotificationsSettingsModuleData = SpaceNotificationsSettingsModuleData(spaceId: spaceId)
     }
     
     func onSelectDefaultObjectType(type: ObjectType) {

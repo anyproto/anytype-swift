@@ -718,6 +718,7 @@ extension ImageAsset {
     public static let mention = ImageAsset.bundle(name: "x24/Mention")
     public static let more = ImageAsset.bundle(name: "x24/More")
     public static let multiselect = ImageAsset.bundle(name: "x24/Multiselect")
+    public static let muted = ImageAsset.bundle(name: "x24/Muted")
     public static let name = ImageAsset.bundle(name: "x24/Name")
     public static let number = ImageAsset.bundle(name: "x24/Number")
     public static let objectType = ImageAsset.bundle(name: "x24/Object Type")
@@ -742,6 +743,7 @@ extension ImageAsset {
     public static let tag = ImageAsset.bundle(name: "x24/Tag")
     public static let text = ImageAsset.bundle(name: "x24/Text")
     public static let tick = ImageAsset.bundle(name: "x24/Tick")
+    public static let unmuted = ImageAsset.bundle(name: "x24/Unmuted")
     public static let url = ImageAsset.bundle(name: "x24/Url")
     public enum View {
       public static let gallery = ImageAsset.bundle(name: "x24/View/Gallery")
@@ -831,7 +833,6 @@ extension ImageAsset {
     }
     public static let moveTo = ImageAsset.bundle(name: "x32/Move To")
     public static let move = ImageAsset.bundle(name: "x32/Move")
-    public static let mute = ImageAsset.bundle(name: "x32/Mute")
     public static let navigation = ImageAsset.bundle(name: "x32/Navigation")
     public static let openAsObject = ImageAsset.bundle(name: "x32/Open as Object")
     public static let paste = ImageAsset.bundle(name: "x32/Paste")
@@ -853,7 +854,6 @@ extension ImageAsset {
       public static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
     }
     public static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
-    public static let unmute = ImageAsset.bundle(name: "x32/Unmute")
     public static let video = ImageAsset.bundle(name: "x32/Video")
     public enum View {
       public static let hide = ImageAsset.bundle(name: "x32/View/Hide")
