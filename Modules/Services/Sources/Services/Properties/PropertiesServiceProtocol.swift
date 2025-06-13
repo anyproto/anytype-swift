@@ -1,7 +1,7 @@
 import Foundation
 import SwiftProtobuf
 
-public protocol RelationsServiceProtocol: AnyObject, Sendable {
+public protocol PropertiesServiceProtocol: AnyObject, Sendable {
     func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws
     
     func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws

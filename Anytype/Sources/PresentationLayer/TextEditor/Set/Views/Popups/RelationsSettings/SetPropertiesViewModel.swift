@@ -15,8 +15,8 @@ final class SetPropertiesViewModel: ObservableObject {
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     
     private weak var output: (any SetPropertiesCoordinatorOutput)?
     
@@ -44,7 +44,7 @@ final class SetPropertiesViewModel: ObservableObject {
                 guard let details = setDocument.details else { return }
                 
                 if details.isObjectType {
-                    try await relationsService.removeTypeRelation(
+                    try await propertiesService.removeTypeRelation(
                         details: details,
                         relationId: relation.relationDetails.id
                     )
@@ -57,7 +57,7 @@ final class SetPropertiesViewModel: ObservableObject {
                 }
                 
                 if let details = setDocument.details, details.isObjectType {
-                    try await relationsService.removeTypeRelation(details: details, relationId: relation.relationDetails.id)
+                    try await propertiesService.removeTypeRelation(details: details, relationId: relation.relationDetails.id)
                 } else {
                     try await dataviewService.removeViewRelations(
                         objectId: setDocument.objectId,

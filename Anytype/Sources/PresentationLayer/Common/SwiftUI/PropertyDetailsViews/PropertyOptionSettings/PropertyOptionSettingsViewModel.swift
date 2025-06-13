@@ -11,8 +11,8 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
     let colors: [Color]
     let configuration: PropertyOptionSettingsConfiguration
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     
     private let completion: (_ optionParams: RelationOptionParameters) -> Void
     
@@ -42,7 +42,7 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
     
     private func create(with data: PropertyOptionSettingsMode.CreateData) {
         Task {
-            let optionId = try await relationsService.addRelationOption(
+            let optionId = try await propertiesService.addRelationOption(
                 spaceId: data.spaceId,
                 relationKey: data.relationKey,
                 optionText: text,
@@ -63,7 +63,7 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
     
     private func edit() {
         Task {
-            try await relationsService.updateRelationOption(
+            try await propertiesService.updateRelationOption(
                 id: configuration.option.id,
                 text: text,
                 color: selectedColor.middlewareString()

@@ -24,8 +24,8 @@ final class ObjectPropertiesViewModel: ObservableObject {
     private let document: any BaseDocumentProtocol
     private let sectionsBuilder = PropertiesSectionBuilder()
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.documentsProvider)
@@ -55,7 +55,7 @@ final class ObjectPropertiesViewModel: ObservableObject {
     
     func removeRelation(_ relation: Relation) {
         Task {
-            try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
+            try await propertiesService.removeRelation(objectId: document.objectId, relationKey: relation.key)
             let relationDetails = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
             AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey, route: .object)
         }
@@ -72,7 +72,7 @@ final class ObjectPropertiesViewModel: ObservableObject {
         
         Task {
             let relationsDetail = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: details.spaceId)
-            try await relationsService.addTypeRecommendedRelation(type: details.objectType, relation: relationsDetail)
+            try await propertiesService.addTypeRecommendedRelation(type: details.objectType, relation: relationsDetail)
         }
     }
     

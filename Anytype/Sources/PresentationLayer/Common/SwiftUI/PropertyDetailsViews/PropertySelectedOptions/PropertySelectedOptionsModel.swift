@@ -20,8 +20,8 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
     
     let config: PropertyModuleConfiguration
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
@@ -32,7 +32,7 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
     
     func onClear() async throws {
         selectedOptionsIds = []
-        try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: nil)
+        try await propertiesService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: nil)
         logChanges()
     }
     
@@ -44,7 +44,7 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
             handleMultiOptionSelected(optionId)
         }
         
-        try await relationsService.updateRelation(
+        try await propertiesService.updateRelation(
             objectId: config.objectId,
             relationKey: config.relationKey,
             value: selectedOptionsIds.protobufValue
@@ -53,14 +53,14 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
     }
     
     func removeRelationOption(_ optionId: String) async throws {
-        try await relationsService.removeRelationOptions(ids: [optionId])
+        try await propertiesService.removeRelationOptions(ids: [optionId])
         try await removeRelationOptionFromSelectedIfNeeded(optionId)
     }
     
     func removeRelationOptionFromSelectedIfNeeded(_ optionId: String) async throws {
         if let index = selectedOptionsIds.firstIndex(of: optionId) {
             selectedOptionsIds.remove(at: index)
-            try await relationsService.updateRelation(
+            try await propertiesService.updateRelation(
                 objectId: config.objectId,
                 relationKey: config.relationKey,
                 value: selectedOptionsIds.protobufValue

@@ -15,8 +15,8 @@ final class PropertyCalendarViewModel: ObservableObject {
     
     let config: PropertyModuleConfiguration
     
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
@@ -48,7 +48,7 @@ final class PropertyCalendarViewModel: ObservableObject {
     
     private func updateDateRelation(with value: Double) {
         Task {
-            try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: value.protobufValue)
+            try await propertiesService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: value.protobufValue)
             let relationDetails = try propertyDetailsStorage.relationsDetails(key: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: value.isZero,
