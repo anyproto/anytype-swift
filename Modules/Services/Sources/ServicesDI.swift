@@ -86,8 +86,8 @@ public extension Container {
         self { ProcessSubscriptionService() }.shared
     }
     
-    var relationsService: Factory<RelationsServiceProtocol> {
-        self { RelationsService() }.shared
+    var propertiesService: Factory<PropertiesServiceProtocol> {
+        self { PropertiesService() }.shared
     }
     
     var sceneLifecycleStateService: Factory<SceneLifecycleStateServiceProtocol> {

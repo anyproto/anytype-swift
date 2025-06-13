@@ -17,8 +17,8 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
@@ -112,9 +112,9 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     private func addPropertyToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let type):
-            try await relationsService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)
+            try await propertiesService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)
         case .recommendedRelations(let type):
-            try await relationsService.addTypeRecommendedRelation(type: type, relation: relation)
+            try await propertiesService.addTypeRecommendedRelation(type: type, relation: relation)
         }
     }
     
@@ -132,6 +132,6 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     
     
     func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
-        try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
+        try await propertiesService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
 }

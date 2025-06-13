@@ -3,7 +3,7 @@ import Services
 import ProtobufMessages
 import SwiftProtobuf
 
-class MockRelationsService: RelationsServiceProtocol {
+class MockPropertiesService: PropertiesServiceProtocol {
     // Last call data storage
     var lastUpdateRelation: (objectId: String, relationKey: String, value: Google_Protobuf_Value)?
     var lastUpdateRelationOption: (id: String, text: String, color: String?)?

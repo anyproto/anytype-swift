@@ -2,13 +2,13 @@ import Foundation
 import ProtobufMessages
 import SwiftProtobuf
 
-enum RelationServiceError: Error {
+enum PropertyServiceError: Error {
     case unableToCreateRelationFromObject
 }
 
-final class RelationsService: RelationsServiceProtocol {
+final class PropertiesService: PropertiesServiceProtocol {
     
-    // MARK: - RelationsServiceProtocol
+    // MARK: - PropertiesServiceProtocol
     
     func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
         try await ClientCommands.objectSetDetails(.with {
@@ -71,7 +71,7 @@ final class RelationsService: RelationsServiceProtocol {
         }).invoke()
         
         guard let objectDetails = try? ObjectDetails(protobufStruct: result.details) else {
-            throw RelationServiceError.unableToCreateRelationFromObject
+            throw PropertyServiceError.unableToCreateRelationFromObject
         }
               
         return RelationDetails(details: objectDetails)

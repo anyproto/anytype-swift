@@ -189,8 +189,8 @@ final class EditorSetViewModel: ObservableObject {
     private var detailsService: any DetailsServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.textServiceHandler)
     private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
@@ -321,7 +321,7 @@ final class EditorSetViewModel: ObservableObject {
     
     private func subscribeOnRelations() async {
         for await relations in setDocument.document.parsedRelationsPublisherForType.values {
-            let conflictingKeys = (try? await relationsService
+            let conflictingKeys = (try? await propertiesService
                 .getConflictRelationsForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
             let conflictingRelations = propertyDetailsStorage
                 .relationsDetails(ids: conflictingKeys, spaceId: setDocument.spaceId)

@@ -15,7 +15,7 @@ protocol TypePropertiesMoveHandlerProtocol: Sendable {
 }
 
 final class TypePropertiesMoveHandler: Sendable {
-    private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
+    private let propertiesService: any PropertiesServiceProtocol = Container.shared.propertiesService()
     
     func onMove(from: Int, to: Int, relationRows: [TypePropertiesRow], document: any BaseDocumentProtocol) async throws {
         guard let fromRow = relationRows[safe: from], case let .relation(fromRelation) = fromRow else {
@@ -333,7 +333,7 @@ final class TypePropertiesMoveHandler: Sendable {
     ) async throws {
         AnytypeAnalytics.instance().logReorderRelation(group: from != to ? to.analyticsValue : nil)
         
-        try await relationsService.updateTypeRelations(
+        try await propertiesService.updateTypeRelations(
             typeId: typeId,
             recommendedRelations: recommendedRelationIds,
             recommendedFeaturedRelations: recommendedFeaturedRelationsIds,

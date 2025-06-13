@@ -1,6 +1,6 @@
 import Services
 
-extension RelationsServiceProtocol {
+extension PropertiesServiceProtocol {
     func updateTypeRelations(
         typeId: String,
         recommendedRelations: [RelationDetails],

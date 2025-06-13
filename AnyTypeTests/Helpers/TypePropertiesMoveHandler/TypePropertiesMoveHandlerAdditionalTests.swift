@@ -5,15 +5,15 @@ import Services
 class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
     var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
-    var mockRelationsService: MockRelationsService!
+    var mockPropertiesService: MockPropertiesService!
     
     override func setUp() {
         super.setUp()
-        let mockRelationsService = MockRelationsService()
-        Container.shared.relationsService.register { mockRelationsService }
+        let mockPropertiesService = MockPropertiesService()
+        Container.shared.propertiesService.register { mockPropertiesService }
         let mockPropertyDetailsStorage = MockPropertyDetailsStorage()
         Container.shared.propertyDetailsStorage.register { mockPropertyDetailsStorage }
-        self.mockRelationsService = mockRelationsService
+        self.mockPropertiesService = mockPropertiesService
         mockDocument = MockBaseDocument()
         moveHandler = TypePropertiesMoveHandler()
     }
@@ -41,11 +41,11 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             []
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             ["f1"]
         )
     }
@@ -71,11 +71,11 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
         )
         
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedRelations.map(\.id),
             ["h1"]
         )
         XCTAssertEqual(
-            mockRelationsService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
+            mockPropertiesService.lastUpdateTypeRelations?.recommendedFeaturedRelations.map(\.id),
             []
         )
     }
@@ -99,7 +99,7 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
             document: mockDocument
         )
         
-        XCTAssertNil(mockRelationsService.lastUpdateRecommendedRelations)
+        XCTAssertNil(mockPropertiesService.lastUpdateRecommendedRelations)
     }
     
     func testMoveWithInvalidRelationId() async throws {
@@ -120,7 +120,7 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
             document: mockDocument
         )
         
-        XCTAssertNil(mockRelationsService.lastUpdateRecommendedFeaturedRelations)
+        XCTAssertNil(mockPropertiesService.lastUpdateRecommendedFeaturedRelations)
     }
     
     // MARK: - Concurrent Updates Tests
@@ -144,7 +144,7 @@ class TypePropertiesMoveHandlerAdditionalTests: XCTestCase {
         try await (move1, move2)
         
         // The last update should be applied
-        XCTAssertNotNil(mockRelationsService.lastUpdateRecommendedFeaturedRelations)
+        XCTAssertNotNil(mockPropertiesService.lastUpdateRecommendedFeaturedRelations)
     }
     
     // MARK: - Header Navigation Tests
