@@ -67,7 +67,6 @@
 		3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */; };
 		3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */; };
 		3DB7063F2D11B0C5000C2F84 /* Models+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */; };
-		3DB7D3472D119285000C2F84 /* MockRelationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7D3462D119284000C2F84 /* MockRelationsService.swift */; };
 		3DB7D3492D11929E000C2F84 /* MockBaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */; };
 		3DC0E59A2D957F7600975ACF /* MockPropertyDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */; };
 		3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
@@ -237,7 +236,6 @@
 		3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionHandlerMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionHandlerMock.swift; sourceTree = SOURCE_ROOT; };
 		3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockMarkupChangerMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockMarkupChangerMock.swift; sourceTree = SOURCE_ROOT; };
 		3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Mocks.swift"; sourceTree = "<group>"; };
-		3DB7D3462D119284000C2F84 /* MockRelationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRelationsService.swift; sourceTree = "<group>"; };
 		3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBaseDocument.swift; sourceTree = "<group>"; };
 		3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPropertyDetailsStorage.swift; sourceTree = "<group>"; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
@@ -564,7 +562,6 @@
 				3DC0E5992D957F7500975ACF /* MockPropertyDetailsStorage.swift */,
 				3DB7063E2D11B0C4000C2F84 /* Models+Mocks.swift */,
 				3DB7D3482D11929A000C2F84 /* MockBaseDocument.swift */,
-				3DB7D3462D119284000C2F84 /* MockRelationsService.swift */,
 				3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */,
 				3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */,
 				3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */,
@@ -984,7 +981,6 @@
 				2AB511AE29093CB4005D0A91 /* InlineMarkdownListenerTests.swift in Sources */,
 				3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */,
 				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
-				3DB7D3472D119285000C2F84 /* MockRelationsService.swift in Sources */,
 				3DB7063F2D11B0C5000C2F84 /* Models+Mocks.swift in Sources */,
 				2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */,
 				2A298E402BC91E6A00F1194C /* UniversalLinkParserTests.swift in Sources */,
