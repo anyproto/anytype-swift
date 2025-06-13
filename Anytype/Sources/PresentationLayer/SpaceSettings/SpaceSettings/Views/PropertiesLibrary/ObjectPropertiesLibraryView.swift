@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import Loc
 
 struct ObjectPropertiesLibraryView: View {
     
@@ -41,11 +42,33 @@ struct ObjectPropertiesLibraryView: View {
     private var propertiesList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(model.rows) { row in
-                    Button {
-                        model.onRowTap(row)
-                    } label: {
-                        rowView(data: row)
+                if !model.userProperties.isEmpty {
+                    Section {
+                        ForEach(model.userProperties) { row in
+                            Button {
+                                model.onRowTap(row)
+                            } label: {
+                                rowView(data: row)
+                            }
+                        }
+                    } header: {
+                        SectionHeaderView(title: Loc.myProperties)
+                            .padding(.horizontal, 16)
+                    }
+                }
+                
+                if !model.systemProperties.isEmpty {
+                    Section {
+                        ForEach(model.systemProperties) { row in
+                            Button {
+                                model.onRowTap(row)
+                            } label: {
+                                rowView(data: row)
+                            }
+                        }
+                    } header: {
+                        SectionHeaderView(title: Loc.systemProperties)
+                            .padding(.horizontal, 16)
                     }
                 }
             }

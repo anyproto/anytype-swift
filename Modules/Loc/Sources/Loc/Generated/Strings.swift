@@ -249,6 +249,7 @@ public enum Loc {
   public static let muteAll = Loc.tr("Localizable", "Mute all", fallback: "Mute all")
   public static let myChannels = Loc.tr("Localizable", "My Channels", fallback: "My Channels")
   public static let myFirstSpace = Loc.tr("Localizable", "My First Space", fallback: "My First Space")
+  public static let myProperties = Loc.tr("Localizable", "My Properties", fallback: "My Properties")
   public static let mySpaces = Loc.tr("Localizable", "My spaces", fallback: "My Spaces")
   public static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   public static let name = Loc.tr("Localizable", "Name", fallback: "Name")
@@ -406,6 +407,7 @@ public enum Loc {
   public static let style = Loc.tr("Localizable", "Style", fallback: "Style")
   public static let submit = Loc.tr("Localizable", "Submit", fallback: "Submit")
   public static let synced = Loc.tr("Localizable", "Synced", fallback: "Synced")
+  public static let systemProperties = Loc.tr("Localizable", "System Properties", fallback: "System Properties")
   public static func tag(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Tag", p1, fallback: "Plural format key: Tag")
   }

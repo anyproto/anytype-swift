@@ -190,3 +190,6 @@ When making multiple related changes:
 ## Useful Commands
 - `make setup-middle` - Initial setup
 - `make generate-middle` - Regenerate middleware and generated files
+
+## Memories
+- Do not add comments if not explicitly asked for
