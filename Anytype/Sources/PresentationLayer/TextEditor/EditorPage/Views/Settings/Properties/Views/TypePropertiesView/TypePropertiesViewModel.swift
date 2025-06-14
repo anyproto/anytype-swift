@@ -125,7 +125,7 @@ final class TypePropertiesViewModel: ObservableObject {
         guard let details = document.details else { return }
         
         Task {
-            try await propertiesService.removeTypeRelation(details: details, relationId: row.relation.id)
+            try await propertiesService.removeTypeProperty(details: details, propertyId: row.relation.id)
             
             guard let format = row.relation.format?.format else {
                 anytypeAssertionFailure("Empty relation format for onRelationRemove")
@@ -140,13 +140,13 @@ final class TypePropertiesViewModel: ObservableObject {
         AnytypeAnalytics.instance().logAddConflictRelation()
         
         Task {
-            try await propertiesService.addTypeRecommendedRelation(details: details, relation: relation)    
+            try await propertiesService.addTypeRecommendedProperty(details: details, property: relation)    
             if let details = document.details { try await updateConflictRelations(details: details) }
         }
     }
     
     private func updateConflictRelations(details: ObjectDetails) async throws {
-        let releationKeys = try await propertiesService.getConflictRelationsForType(typeId: document.objectId, spaceId: document.spaceId)
+        let releationKeys = try await propertiesService.getConflictPropertiesForType(typeId: document.objectId, spaceId: document.spaceId)
         conflictRelations = propertyDetailsStorage
             .relationsDetails(ids: releationKeys, spaceId: document.spaceId)
             .filter { !$0.isHidden && !$0.isDeleted }

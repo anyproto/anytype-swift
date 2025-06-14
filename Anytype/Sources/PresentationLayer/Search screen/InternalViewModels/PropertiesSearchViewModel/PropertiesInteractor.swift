@@ -32,11 +32,11 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
     }
     
     func createProperty(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
-        try await propertiesService.createRelation(spaceId: spaceId, relationDetails: relation)
+        try await propertiesService.createProperty(spaceId: spaceId, propertyDetails: relation)
     }
     
     func updateProperty(spaceId: String, relation: RelationDetails) async throws {
-        try await propertiesService.updateRelation(objectId: relation.id, fields: relation.fields)
+        try await propertiesService.updateProperty(objectId: relation.id, fields: relation.fields)
     }
     
     func addPropertyToType(relation: RelationDetails, isFeatured: Bool) async throws {
@@ -46,9 +46,9 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         guard let details = document.details else { return }
         
         if isFeatured {
-            try await propertiesService.addTypeFeaturedRecommendedRelation(details: details, relation: relation)
+            try await propertiesService.addTypeFeaturedRecommendedProperty(details: details, property: relation)
         } else {
-            try await propertiesService.addTypeRecommendedRelation(details: details, relation: relation)
+            try await propertiesService.addTypeRecommendedProperty(details: details, property: relation)
         }
     }
     
@@ -64,10 +64,10 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
     }
     
     private func addPropertyToType(relation: RelationDetails, details: ObjectDetails) async throws {
-        try await propertiesService.addTypeRecommendedRelation(details: details, relation: relation)
+        try await propertiesService.addTypeRecommendedProperty(details: details, property: relation)
     }
     
     func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
-        try await propertiesService.addRelations(objectId: objectId, relationsDetails: [relation])
+        try await propertiesService.addProperties(objectId: objectId, propertiesDetails: [relation])
     }
 }

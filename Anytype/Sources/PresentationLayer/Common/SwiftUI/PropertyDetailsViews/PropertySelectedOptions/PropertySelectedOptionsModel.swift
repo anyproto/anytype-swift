@@ -32,7 +32,7 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
     
     func onClear() async throws {
         selectedOptionsIds = []
-        try await propertiesService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: nil)
+        try await propertiesService.updateProperty(objectId: config.objectId, propertyKey: config.relationKey, value: [String]().protobufValue)
         logChanges()
     }
     
@@ -44,25 +44,25 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
             handleMultiOptionSelected(optionId)
         }
         
-        try await propertiesService.updateRelation(
+        try await propertiesService.updateProperty(
             objectId: config.objectId,
-            relationKey: config.relationKey,
+            propertyKey: config.relationKey,
             value: selectedOptionsIds.protobufValue
         )
         logChanges()
     }
     
     func removeRelationOption(_ optionId: String) async throws {
-        try await propertiesService.removeRelationOptions(ids: [optionId])
+        try await propertiesService.removePropertyOptions(ids: [optionId])
         try await removeRelationOptionFromSelectedIfNeeded(optionId)
     }
     
     func removeRelationOptionFromSelectedIfNeeded(_ optionId: String) async throws {
         if let index = selectedOptionsIds.firstIndex(of: optionId) {
             selectedOptionsIds.remove(at: index)
-            try await propertiesService.updateRelation(
+            try await propertiesService.updateProperty(
                 objectId: config.objectId,
-                relationKey: config.relationKey,
+                propertyKey: config.relationKey,
                 value: selectedOptionsIds.protobufValue
             )
         }

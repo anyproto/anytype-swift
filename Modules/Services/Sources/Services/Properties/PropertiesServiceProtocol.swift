@@ -2,31 +2,31 @@ import Foundation
 import SwiftProtobuf
 
 public protocol PropertiesServiceProtocol: AnyObject, Sendable {
-    func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws
+    func setFeaturedProperty(objectId: String, featuredPropertyIds: [String]) async throws
     
-    func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws
-    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws
-    func updateRelationOption(id: String, text: String, color: String?) async throws
+    func updateProperty(objectId: String, propertyKey: String, value: Google_Protobuf_Value) async throws
+    func updateProperty(objectId: String, fields: [String: Google_Protobuf_Value]) async throws
+    func updatePropertyOption(id: String, text: String, color: String?) async throws
 
-    func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails
-    func addRelations(objectId: String, relationsDetails: [RelationDetails]) async throws
-    func addRelations(objectId: String, relationKeys: [String]) async throws
+    func createProperty(spaceId: String, propertyDetails: RelationDetails) async throws -> RelationDetails
+    func addProperties(objectId: String, propertiesDetails: [RelationDetails]) async throws
+    func addProperties(objectId: String, propertyKeys: [String]) async throws
 
-    func removeRelation(objectId: String, relationKey: String) async throws
-    func removeRelations(objectId: String, relationKeys: [String]) async throws
+    func removeProperty(objectId: String, propertyKey: String) async throws
+    func removeProperties(objectId: String, propertyKeys: [String]) async throws
     
-    func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String?
-    func removeRelationOptions(ids: [String]) async throws
+    func addPropertyOption(spaceId: String, propertyKey: String, optionText: String, color: String?) async throws -> String?
+    func removePropertyOptions(ids: [String]) async throws
     
     // New api
-    func updateTypeRelations(
+    func updateTypeProperties(
         typeId: String,
         dataviewId: String,
-        recommendedRelations: [RelationDetails],
-        recommendedFeaturedRelations: [RelationDetails],
-        recommendedHiddenRelations: [RelationDetails]
+        recommendedProperties: [RelationDetails],
+        recommendedFeaturedProperties: [RelationDetails],
+        recommendedHiddenProperties: [RelationDetails]
     ) async throws
-    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String]
+    func getConflictPropertiesForType(typeId: String, spaceId: String) async throws -> [String]
     
     func toggleDescription(objectId: String, isOn: Bool) async throws
 }

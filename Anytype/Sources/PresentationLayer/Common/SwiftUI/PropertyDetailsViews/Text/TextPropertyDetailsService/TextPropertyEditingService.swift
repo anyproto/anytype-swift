@@ -17,13 +17,13 @@ final class TextPropertyEditingService: TextPropertyEditingServiceProtocol, Send
         Task {
             switch textType {
             case .text:
-                try await service.updateRelation(objectId: objectId, relationKey: key, value: value.protobufValue)
+                try await service.updateProperty(objectId: objectId, propertyKey: key, value: value.protobufValue)
             case .number, .numberOfDays:
                 guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
-                try await service.updateRelation(objectId: objectId, relationKey: key, value: number.protobufValue)
+                try await service.updateProperty(objectId: objectId, propertyKey: key, value: number.protobufValue)
             case .phone, .email, .url:
                 let value = value.replacingOccurrences(of: " ", with: "")
-                try await service.updateRelation(objectId: objectId, relationKey: key, value: value.protobufValue)
+                try await service.updateProperty(objectId: objectId, propertyKey: key, value: value.protobufValue)
             }
         }
     }
