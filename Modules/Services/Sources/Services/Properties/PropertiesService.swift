@@ -10,31 +10,31 @@ final class PropertiesService: PropertiesServiceProtocol {
     
     // MARK: - PropertiesServiceProtocol
     
-    func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
+    func setFeaturedProperty(objectId: String, featuredPropertyIds: [String]) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = [
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.featuredRelations.rawValue
-                    $0.value = featuredRelationIds.protobufValue
+                    $0.value = featuredPropertyIds.protobufValue
                 }
             ]
         }).invoke()
     }
     
-    public func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws {
+    public func updateProperty(objectId: String, propertyKey: String, value: Google_Protobuf_Value) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = [
                 Anytype_Model_Detail.with {
-                    $0.key = relationKey
+                    $0.key = propertyKey
                     $0.value = value
                 }
             ]
         }).invoke()
     }
     
-    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
+    func updateProperty(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = fields.map { key, value in
@@ -46,7 +46,7 @@ final class PropertiesService: PropertiesServiceProtocol {
         }).invoke()
     }
     
-    public func updateRelationOption(id: String, text: String, color: String?) async throws {
+    public func updatePropertyOption(id: String, text: String, color: String?) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = id
             $0.details = .builder {
@@ -64,9 +64,9 @@ final class PropertiesService: PropertiesServiceProtocol {
         }).invoke()
     }
 
-    public func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
+    public func createProperty(spaceId: String, propertyDetails: RelationDetails) async throws -> RelationDetails {
         let result = try await ClientCommands.objectCreateRelation(.with {
-            $0.details = relationDetails.asMiddleware
+            $0.details = propertyDetails.asMiddleware
             $0.spaceID = spaceId
         }).invoke()
         
@@ -77,35 +77,35 @@ final class PropertiesService: PropertiesServiceProtocol {
         return RelationDetails(details: objectDetails)
     }
 
-    public func addRelations(objectId: String, relationsDetails: [RelationDetails]) async throws {
-        try await addRelations(objectId: objectId, relationKeys: relationsDetails.map(\.key))
+    public func addProperties(objectId: String, propertiesDetails: [RelationDetails]) async throws {
+        try await addProperties(objectId: objectId, propertyKeys: propertiesDetails.map(\.key))
     }
 
-    public func addRelations(objectId: String, relationKeys: [String]) async throws {
+    public func addProperties(objectId: String, propertyKeys: [String]) async throws {
         try await ClientCommands.objectRelationAdd(.with {
             $0.contextID = objectId
-            $0.relationKeys = relationKeys
+            $0.relationKeys = propertyKeys
         }).invoke()
     }
     
-    public func removeRelation(objectId: String, relationKey: String) async throws {
-        try await removeRelations(objectId: objectId, relationKeys: [relationKey])
+    public func removeProperty(objectId: String, propertyKey: String) async throws {
+        try await removeProperties(objectId: objectId, propertyKeys: [propertyKey])
     }
     
-    public func removeRelations(objectId: String, relationKeys: [String]) async throws {
+    public func removeProperties(objectId: String, propertyKeys: [String]) async throws {
         _ = try await ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
-            $0.relationKeys = relationKeys
+            $0.relationKeys = propertyKeys
         }).invoke()
     }
     
-    public func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String? {
+    public func addPropertyOption(spaceId: String, propertyKey: String, optionText: String, color: String?) async throws -> String? {
         let color = color ?? MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
         
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: optionText.protobufValue,
-                BundledRelationKey.relationKey.rawValue: relationKey.protobufValue,
+                BundledRelationKey.relationKey.rawValue: propertyKey.protobufValue,
                 BundledRelationKey.relationOptionColor.rawValue: color.protobufValue
             ]
         )
@@ -118,7 +118,7 @@ final class PropertiesService: PropertiesServiceProtocol {
         return optionResult?.objectID
     }
     
-    public func removeRelationOptions(ids: [String]) async throws {
+    public func removePropertyOptions(ids: [String]) async throws {
         try await ClientCommands.relationListRemoveOption(.with {
             $0.optionIds = ids
         }).invoke()
@@ -126,32 +126,32 @@ final class PropertiesService: PropertiesServiceProtocol {
     
     // MARK: - New api
     // Updating both relations in type and dataview to preserve integrity between them
-    func updateTypeRelations(
+    func updateTypeProperties(
         typeId: String,
         dataviewId: String,
-        recommendedRelations: [RelationDetails],
-        recommendedFeaturedRelations: [RelationDetails],
-        recommendedHiddenRelations: [RelationDetails]
+        recommendedProperties: [RelationDetails],
+        recommendedFeaturedProperties: [RelationDetails],
+        recommendedHiddenProperties: [RelationDetails]
     ) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = typeId
             $0.details = [
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedRelations.rawValue
-                    $0.value = recommendedRelations.map(\.id).protobufValue
+                    $0.value = recommendedProperties.map(\.id).protobufValue
                 },
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedFeaturedRelations.rawValue
-                    $0.value = recommendedFeaturedRelations.map(\.id).protobufValue
+                    $0.value = recommendedFeaturedProperties.map(\.id).protobufValue
                 },
                 Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
-                    $0.value = recommendedHiddenRelations.map(\.id).protobufValue
+                    $0.value = recommendedHiddenProperties.map(\.id).protobufValue
                 }
             ]
         }).invoke()
         
-        let compoundRelationsKeys = (recommendedFeaturedRelations + recommendedRelations + recommendedHiddenRelations).map(\.key)
+        let compoundRelationsKeys = (recommendedFeaturedProperties + recommendedProperties + recommendedHiddenProperties).map(\.key)
         let descriptionKey = BundledRelationKey.description.rawValue // Show description in dataview relations list
         let nameKey = BundledRelationKey.name.rawValue // Show name in dataview relations list
         let dataviewKeys = compoundRelationsKeys + [nameKey, descriptionKey]
@@ -164,7 +164,7 @@ final class PropertiesService: PropertiesServiceProtocol {
         }).invoke()
     }
     
-    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
+    func getConflictPropertiesForType(typeId: String, spaceId: String) async throws -> [String] {
         try await ClientCommands.objectTypeListConflictingRelations(.with {
             $0.spaceID = spaceId
             $0.typeObjectID = typeId

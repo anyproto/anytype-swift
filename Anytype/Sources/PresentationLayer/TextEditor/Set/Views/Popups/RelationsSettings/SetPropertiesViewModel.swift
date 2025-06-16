@@ -44,9 +44,9 @@ final class SetPropertiesViewModel: ObservableObject {
                 guard let details = setDocument.details else { return }
                 
                 if details.isObjectType {
-                    try await propertiesService.removeTypeRelation(
+                    try await propertiesService.removeTypeProperty(
                         details: details,
-                        relationId: relation.relationDetails.id
+                        propertyId: relation.relationDetails.id
                     )
                 } else {
                     try await dataviewService.deleteRelation(
@@ -57,7 +57,7 @@ final class SetPropertiesViewModel: ObservableObject {
                 }
                 
                 if let details = setDocument.details, details.isObjectType {
-                    try await propertiesService.removeTypeRelation(details: details, relationId: relation.relationDetails.id)
+                    try await propertiesService.removeTypeProperty(details: details, propertyId: relation.relationDetails.id)
                 } else {
                     try await dataviewService.removeViewRelations(
                         objectId: setDocument.objectId,

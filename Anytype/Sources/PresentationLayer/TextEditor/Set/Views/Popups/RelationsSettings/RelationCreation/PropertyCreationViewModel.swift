@@ -112,9 +112,9 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     private func addPropertyToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let type):
-            try await propertiesService.addTypeFeaturedRecommendedRelation(type: type, relation: relation)
+            try await propertiesService.addTypeFeaturedRecommendedProperty(type: type, property: relation)
         case .recommendedRelations(let type):
-            try await propertiesService.addTypeRecommendedRelation(type: type, relation: relation)
+            try await propertiesService.addTypeRecommendedProperty(type: type, property: relation)
         }
     }
     
@@ -132,6 +132,6 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     
     
     func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
-        try await propertiesService.addRelations(objectId: objectId, relationsDetails: [relation])
+        try await propertiesService.addProperties(objectId: objectId, propertiesDetails: [relation])
     }
 }

@@ -37,7 +37,7 @@ fileprivate final class PropertyValueProcessingService: PropertyValueProcessingS
             guard relation.isEditable else { return nil }
             Task {
                 let newValue = !checkbox.value
-                try await propertiesService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
+                try await propertiesService.updateProperty(objectId: objectDetails.id, propertyKey: checkbox.key, value: newValue.protobufValue)
                 let relationDetails = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: objectDetails.spaceId)
                 AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                     isEmpty: !newValue,

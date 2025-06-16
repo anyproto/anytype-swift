@@ -39,16 +39,16 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
     
     func resolveConflicts(details: ObjectDetails) async throws {
         // Remove legacy relations
-        try await propertiesService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layout.rawValue)
-        try await propertiesService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutAlign.rawValue)
-        try await propertiesService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutWidth.rawValue)
+        try await propertiesService.removeProperty(objectId: details.id, propertyKey: BundledRelationKey.layout.rawValue)
+        try await propertiesService.removeProperty(objectId: details.id, propertyKey: BundledRelationKey.layoutAlign.rawValue)
+        try await propertiesService.removeProperty(objectId: details.id, propertyKey: BundledRelationKey.layoutWidth.rawValue)
         
         // Remove all legacy relations except for description if present (description uses legacy mechanism to preserve its visibility)
         let featuredRelationIds = propertyDetailsStorage
             .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
                 .filter { $0.key == BundledRelationKey.description.rawValue }
                 .map(\.id)
-        try await propertiesService.setFeaturedRelation(objectId: details.id, featuredRelationIds: featuredRelationIds)
+        try await propertiesService.setFeaturedProperty(objectId: details.id, featuredPropertyIds: featuredRelationIds)
     }
 }
 

@@ -322,7 +322,7 @@ final class EditorSetViewModel: ObservableObject {
     private func subscribeOnRelations() async {
         for await relations in setDocument.document.parsedRelationsPublisherForType.values {
             let conflictingKeys = (try? await propertiesService
-                .getConflictRelationsForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
+                .getConflictPropertiesForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
             let conflictingRelations = propertyDetailsStorage
                 .relationsDetails(ids: conflictingKeys, spaceId: setDocument.spaceId)
                 .filter { !$0.isHidden && !$0.isDeleted }

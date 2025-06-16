@@ -5,148 +5,128 @@ import SwiftProtobuf
 
 class MockPropertiesService: PropertiesServiceProtocol {
     // Last call data storage
-    var lastUpdateRelation: (objectId: String, relationKey: String, value: Google_Protobuf_Value)?
-    var lastUpdateRelationOption: (id: String, text: String, color: String?)?
-    var lastCreateRelation: (spaceId: String, relationDetails: RelationDetails)?
-    var lastAddRelations: (objectId: String, relations: Any)?
-    var lastRemoveRelation: (objectId: String, relationKey: String)?
-    var lastRemoveRelations: (objectId: String, relationKeys: [String])?
-    var lastAddRelationOption: (spaceId: String, relationKey: String, optionText: String, color: String?)?
-    var lastRemoveRelationOptions: [String]?
+    var lastUpdateProperty: (objectId: String, propertyKey: String, value: Google_Protobuf_Value)?
+    var lastUpdatePropertyOption: (id: String, text: String, color: String?)?
+    var lastCreateProperty: (spaceId: String, propertyDetails: RelationDetails)?
+    var lastAddProperties: (objectId: String, properties: Any)?
+    var lastRemoveProperty: (objectId: String, propertyKey: String)?
+    var lastRemoveProperties: (objectId: String, propertyKeys: [String])?
+    var lastAddPropertyOption: (spaceId: String, propertyKey: String, optionText: String, color: String?)?
+    var lastRemovePropertyOptions: [String]?
     
-    // Type relations last call data
-    var lastUpdateTypeRelations: (typeId: String, recommendedRelations: [RelationDetails], recommendedFeaturedRelations: [RelationDetails], recommendedHiddenRelations: [RelationDetails])?
-    var lastUpdateRecommendedRelations: (typeId: String, relations: [RelationDetails])?
-    var lastUpdateRecommendedFeaturedRelations: (typeId: String, relations: [RelationDetails])?
-    var lastUpdateRecommendedHiddenRelations: (typeId: String, relations: [RelationDetails])?
-    var lastSetFeaturedRelation: (objectId: String, featuredRelationIds: [String])?
+    // Type properties last call data
+    var lastUpdateTypeProperties: (typeId: String, dataviewId: String, recommendedProperties: [RelationDetails], recommendedFeaturedProperties: [RelationDetails], recommendedHiddenProperties: [RelationDetails])?
+    var lastGetConflictPropertiesForType: (typeId: String, spaceId: String)?
+    var lastSetFeaturedProperty: (objectId: String, featuredPropertyIds: [String])?
     var lastToggleDescription: (objectId: String, isOn: Bool)?
 
     // Configurable async result handlers (optional error throwing)
-    var updateRelationError: (any Error)?
-    var updateRelationOptionError: (any Error)?
-    var createRelationError: (any Error)?
-    var addRelationsError: (any Error)?
-    var removeRelationError: (any Error)?
-    var removeRelationsError: (any Error)?
-    var addRelationOptionError: (any Error)?
-    var removeRelationOptionsError: (any Error)?
-    var updateTypeRelationsError: (any Error)?
-    var updateRecommendedRelationsError: (any Error)?
-    var updateRecommendedFeaturedRelationsError: (any Error)?
-    var updateRecommendedHiddenRelationsError: (any Error)?
-    var setFeaturedRelationError: (any Error)?
+    var updatePropertyError: (any Error)?
+    var updatePropertyOptionError: (any Error)?
+    var createPropertyError: (any Error)?
+    var addPropertiesError: (any Error)?
+    var removePropertyError: (any Error)?
+    var removePropertiesError: (any Error)?
+    var addPropertyOptionError: (any Error)?
+    var removePropertyOptionsError: (any Error)?
+    var updateTypePropertiesError: (any Error)?
+    var getConflictPropertiesForTypeError: (any Error)?
+    var setFeaturedPropertyError: (any Error)?
     var toggleDescriptionError: (any Error)?
     
-    func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws {
-        lastUpdateRelation = (objectId, relationKey, value)
-        if let error = updateRelationError {
+    func updateProperty(objectId: String, propertyKey: String, value: Google_Protobuf_Value) async throws {
+        lastUpdateProperty = (objectId, propertyKey, value)
+        if let error = updatePropertyError {
             throw error
         }
     }
     
-    func updateRelationOption(id: String, text: String, color: String?) async throws {
-        lastUpdateRelationOption = (id, text, color)
-        if let error = updateRelationOptionError {
+    func updatePropertyOption(id: String, text: String, color: String?) async throws {
+        lastUpdatePropertyOption = (id, text, color)
+        if let error = updatePropertyOptionError {
             throw error
         }
     }
     
-    func updateRelation(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
+    func updateProperty(objectId: String, fields: [String: Google_Protobuf_Value]) async throws {
         // Implementation needed
     }
     
-    func createRelation(spaceId: String, relationDetails: RelationDetails) async throws -> RelationDetails {
-        lastCreateRelation = (spaceId, relationDetails)
-        if let error = createRelationError {
+    func createProperty(spaceId: String, propertyDetails: RelationDetails) async throws -> RelationDetails {
+        lastCreateProperty = (spaceId, propertyDetails)
+        if let error = createPropertyError {
             throw error
         }
-        return relationDetails
+        return propertyDetails
     }
     
-    func addRelations(objectId: String, relationsDetails: [RelationDetails]) async throws {
-        lastAddRelations = (objectId, relationsDetails)
-        if let error = addRelationsError {
-            throw error
-        }
-    }
-    
-    func addRelations(objectId: String, relationKeys: [String]) async throws {
-        lastAddRelations = (objectId, relationKeys)
-        if let error = addRelationsError {
+    func addProperties(objectId: String, propertiesDetails: [RelationDetails]) async throws {
+        lastAddProperties = (objectId, propertiesDetails)
+        if let error = addPropertiesError {
             throw error
         }
     }
     
-    func removeRelation(objectId: String, relationKey: String) async throws {
-        lastRemoveRelation = (objectId, relationKey)
-        if let error = removeRelationError {
+    func addProperties(objectId: String, propertyKeys: [String]) async throws {
+        lastAddProperties = (objectId, propertyKeys)
+        if let error = addPropertiesError {
             throw error
         }
     }
     
-    func removeRelations(objectId: String, relationKeys: [String]) async throws {
-        lastRemoveRelations = (objectId, relationKeys)
-        if let error = removeRelationsError {
+    func removeProperty(objectId: String, propertyKey: String) async throws {
+        lastRemoveProperty = (objectId, propertyKey)
+        if let error = removePropertyError {
             throw error
         }
     }
     
-    func addRelationOption(spaceId: String, relationKey: String, optionText: String, color: String?) async throws -> String? {
-        lastAddRelationOption = (spaceId, relationKey, optionText, color)
-        if let error = addRelationOptionError {
+    func removeProperties(objectId: String, propertyKeys: [String]) async throws {
+        lastRemoveProperties = (objectId, propertyKeys)
+        if let error = removePropertiesError {
+            throw error
+        }
+    }
+    
+    func addPropertyOption(spaceId: String, propertyKey: String, optionText: String, color: String?) async throws -> String? {
+        lastAddPropertyOption = (spaceId, propertyKey, optionText, color)
+        if let error = addPropertyOptionError {
             throw error
         }
         return nil
     }
     
-    func removeRelationOptions(ids: [String]) async throws {
-        lastRemoveRelationOptions = ids
-        if let error = removeRelationOptionsError {
+    func removePropertyOptions(ids: [String]) async throws {
+        lastRemovePropertyOptions = ids
+        if let error = removePropertyOptionsError {
             throw error
         }
     }
     
-    func updateTypeRelations(
+    func updateTypeProperties(
         typeId: String,
-        recommendedRelations: [RelationDetails],
-        recommendedFeaturedRelations: [RelationDetails],
-        recommendedHiddenRelations: [RelationDetails]
+        dataviewId: String,
+        recommendedProperties: [RelationDetails],
+        recommendedFeaturedProperties: [RelationDetails],
+        recommendedHiddenProperties: [RelationDetails]
     ) async throws {
-        lastUpdateTypeRelations = (typeId, recommendedRelations, recommendedFeaturedRelations, recommendedHiddenRelations)
-        if let error = updateTypeRelationsError {
+        lastUpdateTypeProperties = (typeId, dataviewId, recommendedProperties, recommendedFeaturedProperties, recommendedHiddenProperties)
+        if let error = updateTypePropertiesError {
             throw error
         }
     }
     
-    func updateRecommendedRelations(typeId: String, relations: [RelationDetails]) async throws {
-        lastUpdateRecommendedRelations = (typeId, relations)
-        if let error = updateRecommendedRelationsError {
+    func getConflictPropertiesForType(typeId: String, spaceId: String) async throws -> [String] {
+        lastGetConflictPropertiesForType = (typeId, spaceId)
+        if let error = getConflictPropertiesForTypeError {
             throw error
         }
-    }
-    
-    func updateRecommendedFeaturedRelations(typeId: String, relations: [RelationDetails]) async throws {
-        lastUpdateRecommendedFeaturedRelations = (typeId, relations)
-        if let error = updateRecommendedFeaturedRelationsError {
-            throw error
-        }
-    }
-    
-    func updateRecommendedHiddenRelations(typeId: String, relations: [RelationDetails]) async throws {
-        lastUpdateRecommendedHiddenRelations = (typeId, relations)
-        if let error = updateRecommendedHiddenRelationsError {
-            throw error
-        }
-    }
-    
-    func getConflictRelationsForType(typeId: String, spaceId: String) async throws -> [String] {
         return []
     }
     
-    func setFeaturedRelation(objectId: String, featuredRelationIds: [String]) async throws {
-        lastSetFeaturedRelation = (objectId, featuredRelationIds)
-        if let error = setFeaturedRelationError {
+    func setFeaturedProperty(objectId: String, featuredPropertyIds: [String]) async throws {
+        lastSetFeaturedProperty = (objectId, featuredPropertyIds)
+        if let error = setFeaturedPropertyError {
             throw error
         }
     }
@@ -158,25 +138,20 @@ class MockPropertiesService: PropertiesServiceProtocol {
         }
     }
     
-    func updateTypeRelations(typeId: String, dataviewId: String, recommendedRelations: [Services.RelationDetails], recommendedFeaturedRelations: [Services.RelationDetails], recommendedHiddenRelations: [Services.RelationDetails]) async throws {
-        fatalError()
-    }
 
     // Convenience method to reset all last call data
     func reset() {
-        lastUpdateRelation = nil
-        lastUpdateRelationOption = nil
-        lastCreateRelation = nil
-        lastAddRelations = nil
-        lastRemoveRelation = nil
-        lastRemoveRelations = nil
-        lastAddRelationOption = nil
-        lastRemoveRelationOptions = nil
-        lastUpdateTypeRelations = nil
-        lastUpdateRecommendedRelations = nil
-        lastUpdateRecommendedFeaturedRelations = nil
-        lastUpdateRecommendedHiddenRelations = nil
-        lastSetFeaturedRelation = nil
+        lastUpdateProperty = nil
+        lastUpdatePropertyOption = nil
+        lastCreateProperty = nil
+        lastAddProperties = nil
+        lastRemoveProperty = nil
+        lastRemoveProperties = nil
+        lastAddPropertyOption = nil
+        lastRemovePropertyOptions = nil
+        lastUpdateTypeProperties = nil
+        lastGetConflictPropertiesForType = nil
+        lastSetFeaturedProperty = nil
         lastToggleDescription = nil
     }
 }

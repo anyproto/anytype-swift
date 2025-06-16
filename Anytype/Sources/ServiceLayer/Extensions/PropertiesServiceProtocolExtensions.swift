@@ -1,60 +1,60 @@
 import Services
 
 extension PropertiesServiceProtocol {
-    func updateTypeRelations(
+    func updateTypeProperties(
         typeId: String,
-        recommendedRelations: [RelationDetails],
-        recommendedFeaturedRelations: [RelationDetails],
-        recommendedHiddenRelations: [RelationDetails]
+        recommendedProperties: [RelationDetails],
+        recommendedFeaturedProperties: [RelationDetails],
+        recommendedHiddenProperties: [RelationDetails]
     ) async throws {
-        try await updateTypeRelations(
+        try await updateTypeProperties(
             typeId: typeId,
             dataviewId: SetConstants.dataviewBlockId,
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations
+            recommendedProperties: recommendedProperties,
+            recommendedFeaturedProperties: recommendedFeaturedProperties,
+            recommendedHiddenProperties: recommendedHiddenProperties
         )
     }
     
-    func addTypeRecommendedRelation(details: ObjectDetails, relation: RelationDetails) async throws {
-        try await addTypeRecommendedRelation(type: ObjectType(details: details), relation: relation)
+    func addTypeRecommendedProperty(details: ObjectDetails, property: RelationDetails) async throws {
+        try await addTypeRecommendedProperty(type: ObjectType(details: details), property: property)
     }
     
-    func addTypeRecommendedRelation(type: ObjectType, relation: RelationDetails) async throws {
-        var recommendedRelationsDetails = type.recommendedRelationsDetails
-        recommendedRelationsDetails.insert(relation, at: 0)
-        try await updateTypeRelations(
+    func addTypeRecommendedProperty(type: ObjectType, property: RelationDetails) async throws {
+        var recommendedPropertiesDetails = type.recommendedRelationsDetails
+        recommendedPropertiesDetails.insert(property, at: 0)
+        try await updateTypeProperties(
             typeId: type.id,
-            recommendedRelations: recommendedRelationsDetails,
-            recommendedFeaturedRelations: type.recommendedFeaturedRelationsDetails,
-            recommendedHiddenRelations: type.recommendedHiddenRelationsDetails
+            recommendedProperties: recommendedPropertiesDetails,
+            recommendedFeaturedProperties: type.recommendedFeaturedRelationsDetails,
+            recommendedHiddenProperties: type.recommendedHiddenRelationsDetails
         )
     }
     
-    func addTypeFeaturedRecommendedRelation(details: ObjectDetails, relation: RelationDetails) async throws {
-        try await addTypeFeaturedRecommendedRelation(type: ObjectType(details: details), relation: relation)
+    func addTypeFeaturedRecommendedProperty(details: ObjectDetails, property: RelationDetails) async throws {
+        try await addTypeFeaturedRecommendedProperty(type: ObjectType(details: details), property: property)
     }
     
-    func addTypeFeaturedRecommendedRelation(type: ObjectType, relation: RelationDetails) async throws {
-        var recommendedFeaturedRelationsDetails = type.recommendedFeaturedRelationsDetails
-        recommendedFeaturedRelationsDetails.insert(relation, at: 0)
-        try await updateTypeRelations(
+    func addTypeFeaturedRecommendedProperty(type: ObjectType, property: RelationDetails) async throws {
+        var recommendedFeaturedPropertiesDetails = type.recommendedFeaturedRelationsDetails
+        recommendedFeaturedPropertiesDetails.insert(property, at: 0)
+        try await updateTypeProperties(
             typeId: type.id,
-            recommendedRelations: type.recommendedRelationsDetails,
-            recommendedFeaturedRelations: recommendedFeaturedRelationsDetails,
-            recommendedHiddenRelations: type.recommendedHiddenRelationsDetails
+            recommendedProperties: type.recommendedRelationsDetails,
+            recommendedFeaturedProperties: recommendedFeaturedPropertiesDetails,
+            recommendedHiddenProperties: type.recommendedHiddenRelationsDetails
         )
     }
         
-    func removeTypeRelation(details: ObjectDetails, relationId: String) async throws {
-        let recommendedRelations = details.recommendedRelationsDetails.filter({ relationId != $0.id })
-        let recommendedFeaturedRelations = details.recommendedFeaturedRelationsDetails.filter({ relationId != $0.id })
-        let recommendedHiddenRelations = details.recommendedHiddenRelationsDetails.filter({ relationId != $0.id })
-        try await updateTypeRelations(
+    func removeTypeProperty(details: ObjectDetails, propertyId: String) async throws {
+        let recommendedProperties = details.recommendedRelationsDetails.filter({ propertyId != $0.id })
+        let recommendedFeaturedProperties = details.recommendedFeaturedRelationsDetails.filter({ propertyId != $0.id })
+        let recommendedHiddenProperties = details.recommendedHiddenRelationsDetails.filter({ propertyId != $0.id })
+        try await updateTypeProperties(
             typeId: details.id,
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations
+            recommendedProperties: recommendedProperties,
+            recommendedFeaturedProperties: recommendedFeaturedProperties,
+            recommendedHiddenProperties: recommendedHiddenProperties
         )
     }
 }
