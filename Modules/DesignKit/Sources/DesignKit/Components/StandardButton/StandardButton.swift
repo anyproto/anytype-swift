@@ -75,6 +75,7 @@ public struct StandardButton: View {
                 )
                 .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
                 .padding(.horizontal, style.config.horizontalPadding)
+                .multilineTextAlignment(.center)
             case let .image(asset):
                 Image(asset: asset)
                     .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
