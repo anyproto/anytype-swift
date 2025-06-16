@@ -66,7 +66,7 @@ extension BundledRelationsValueProvider {
         case .bookmark:
             return .bookmark
         case .chat, .chatDerived:
-            return FeatureFlags.chatLayoutInsideSpace ? .chat : .page
+            return .chat
         }
     }
     
