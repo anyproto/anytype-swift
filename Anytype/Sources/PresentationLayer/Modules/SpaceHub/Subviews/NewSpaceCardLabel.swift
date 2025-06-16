@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 // SpaceCardLabel and SpaceCard are splitted for better SwiftUI diff.
-struct NewSpaceCardLabel: View {
+struct SpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType

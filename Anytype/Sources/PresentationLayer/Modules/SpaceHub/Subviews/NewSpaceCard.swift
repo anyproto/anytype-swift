@@ -18,7 +18,7 @@ struct SpaceCard: View, @preconcurrency Equatable {
         Button {
             onTap()
         } label: {
-            NewSpaceCardLabel(
+            SpaceCardLabel(
                 spaceData: spaceData,
                 wallpaper: wallpaper,
                 draggable: draggable,
