@@ -102,17 +102,12 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            if FeatureFlags.unreadOnHome {
-                self.unreadSpaces = spaces
-                    .filter { $0.preview.unreadCounter > 0 }
-                    .sorted {
-                        ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
-                    }
-                self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
-            } else {
-                self.unreadSpaces = []
-                self.spaces = spaces
-            }
+            self.unreadSpaces = spaces
+                .filter { $0.preview.unreadCounter > 0 }
+                .sorted {
+                    ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
+                }
+            self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }

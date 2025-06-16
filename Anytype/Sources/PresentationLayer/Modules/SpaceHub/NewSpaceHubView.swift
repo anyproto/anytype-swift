@@ -70,7 +70,7 @@ struct NewSpaceHubView: View {
                     }
                 }
                 
-                if unread.isNotEmpty && FeatureFlags.unreadOnHome {
+                if unread.isNotEmpty {
                     if spaces.isNotEmpty {
                         SectionHeaderView(title: Loc.unread).padding(.horizontal, 20)
                     }
@@ -80,7 +80,7 @@ struct NewSpaceHubView: View {
                 }
                 
                 if spaces.isNotEmpty {
-                    if FeatureFlags.unreadOnHome && unread.isNotEmpty {
+                    if unread.isNotEmpty {
                         SectionHeaderView(title: Loc.all).padding(.horizontal, 20)
                     }
                     ForEach(spaces) {
