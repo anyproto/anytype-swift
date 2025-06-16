@@ -4108,6 +4108,70 @@ extension Anytype_Rpc.Log.Send.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Membership.CodeGetInfo.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeGetInfo.badInput")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeGetInfo.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeGetInfo.paymentNodeError")
+            case .notFound:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeGetInfo.notFound")
+            case .alreadyUsed:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeGetInfo.alreadyUsed")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Membership.CodeRedeem.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeRedeem.badInput")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeRedeem.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeRedeem.paymentNodeError")
+            case .notFound:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeRedeem.notFound")
+            case .alreadyUsed:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeRedeem.alreadyUsed")
+            case .badAnyname:
+                return LocHelper.tr(table: "LocalizableError", key: "Membership.CodeRedeem.badAnyname")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
