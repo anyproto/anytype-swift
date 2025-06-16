@@ -46,6 +46,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.pushNotificationsAlertHandler)
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
+    @Injected(\.chatInviteStateService)
+    private var chatInviteStateService: any ChatInviteStateServiceProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -92,7 +94,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
     private var participants: [Participant] = []
-    private var inviteLinkShown = false
     private var firstUnreadMessageOrderId: String?
     private var bottomVisibleOrderId: String?
     private var bigDistanceToBottom: Bool = false
@@ -711,15 +712,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         linkedObjects[index] = .localBookmark(bookmark)
     }
     
-    private func handleInviteLinkShow() async {
-        guard !inviteLinkShown,
-              participantPermissions == .owner,
-              let createdDate = participantSpaceView?.spaceView.createdDate,
-              Date().timeIntervalSince(createdDate) < 5 else {
-            return
+    private func handleInviteLinkShow() {
+        if chatInviteStateService.shouldShowInvite(for: spaceId) {
+            output?.onInviteLinkSelected()
+            chatInviteStateService.clearInviteState(for: spaceId)
         }
-        output?.onInviteLinkSelected()
-        inviteLinkShown = true
     }
     
     private func handlePushNotificationsAlert() async {
