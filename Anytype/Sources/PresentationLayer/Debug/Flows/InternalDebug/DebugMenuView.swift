@@ -1,6 +1,7 @@
 import SwiftUI
 import AnytypeCore
 import Logger
+import Loc
 
 struct DebugMenuView: View {
     
@@ -205,11 +206,17 @@ struct DebugMenuView: View {
     }
     
     
-    @State private var expanded = true
     var toggles: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ForEach(model.flags, id: \.title) { section in
-                DisclosureGroup(isExpanded: $expanded) {
+            searchBar
+            
+            ForEach(model.filteredSections, id: \.title) { section in
+                DisclosureGroup(
+                    isExpanded: Binding(
+                        get: { model.sectionExpanded[section.title] ?? true },
+                        set: { model.sectionExpanded[section.title] = $0 }
+                    )
+                ) {
                     VStack(spacing: 0) {
                         ForEach(section.rows, id: \.description.title) { row in
                             FeatureFlagView(model: row)
@@ -225,6 +232,32 @@ struct DebugMenuView: View {
         .padding(.horizontal, 20)
         .background(UIColor.systemGroupedBackground.suColor)
         .cornerRadius(20, corners: .top)
+    }
+    
+    private var searchBar: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.Text.secondary)
+            
+            TextField(Loc.search, text: $model.searchText)
+                .textFieldStyle(PlainTextFieldStyle())
+                .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
+                .foregroundColor(.Text.primary)
+            
+            if !model.searchText.isEmpty {
+                Button {
+                    model.searchText = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.Text.secondary)
+                }
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Color.Background.secondary)
+        .cornerRadius(10)
+        .padding(.vertical, 12)
     }
     
     @State var rowsPerPageInSet = ""

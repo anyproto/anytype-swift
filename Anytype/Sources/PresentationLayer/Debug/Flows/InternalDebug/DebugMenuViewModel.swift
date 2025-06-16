@@ -15,6 +15,8 @@ final class DebugMenuViewModel: ObservableObject {
     @Published private(set) var flags = [FeatureFlagSection]()
     @Published var pushToken: StringIdentifiable?
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
+    @Published var sectionExpanded: [String: Bool] = [:]
+    @Published var searchText = ""
     
     @Injected(\.userDefaultsStorage)
     var userDefaults: any UserDefaultsStorageProtocol
@@ -44,6 +46,7 @@ final class DebugMenuViewModel: ObservableObject {
     
     init() {
         updateFlags()
+        initializeSectionStates()
         debugService.debugRunProfilerData.receiveOnMain().assign(to: &$debugRunProfilerData)
     }
     
@@ -162,5 +165,35 @@ final class DebugMenuViewModel: ObservableObject {
                 FeatureFlagSection(title: "Features", rows: productionRows),
                 FeatureFlagSection(title: "Debug", rows: debugRows),
             ]
+    }
+    
+    // MARK: - Section State Management
+    
+    var filteredSections: [FeatureFlagSection] {
+        guard !searchText.isEmpty else { return flags }
+        
+        let searchLower = searchText.lowercased()
+        
+        return flags.compactMap { section in
+            let filteredRows = section.rows.filter { row in
+                matchesSearch(row: row, searchText: searchLower)
+            }
+            
+            return filteredRows.isEmpty ? nil : FeatureFlagSection(title: section.title, rows: filteredRows)
+        }
+    }
+    
+    private func matchesSearch(row: FeatureFlagViewModel, searchText: String) -> Bool {
+        let description = row.description
+        
+        return description.title.lowercased().contains(searchText) ||
+               description.type.author?.lowercased().contains(searchText) ?? false ||
+               description.type.releaseVersion?.lowercased().contains(searchText) ?? false
+    }
+    
+    private func initializeSectionStates() {
+        flags.forEach { section in
+            sectionExpanded[section.title] = sectionExpanded[section.title] ?? true
+        }
     }
 }
