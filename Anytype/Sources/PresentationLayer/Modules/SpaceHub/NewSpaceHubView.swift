@@ -1,7 +1,7 @@
 import SwiftUI
 import AnytypeCore
 
-struct NewSpaceHubView: View {
+struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
@@ -219,5 +219,5 @@ struct NewSpaceHubView: View {
 }
 
 #Preview {
-    NewSpaceHubView(output: nil)
+    SpaceHubView(output: nil)
 }
