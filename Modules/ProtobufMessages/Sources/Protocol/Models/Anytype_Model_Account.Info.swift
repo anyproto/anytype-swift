@@ -12,57 +12,113 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_Account {
-    public struct Info: Sendable {
+    public struct Info: @unchecked Sendable {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     /// home dashboard block id
-    public var homeObjectID: String = String()
+    public var homeObjectID: String {
+      get {return _storage._homeObjectID}
+      set {_uniqueStorage()._homeObjectID = newValue}
+    }
 
     /// archive block id
-    public var archiveObjectID: String = String()
+    public var archiveObjectID: String {
+      get {return _storage._archiveObjectID}
+      set {_uniqueStorage()._archiveObjectID = newValue}
+    }
 
     /// profile block id
-    public var profileObjectID: String = String()
+    public var profileObjectID: String {
+      get {return _storage._profileObjectID}
+      set {_uniqueStorage()._profileObjectID = newValue}
+    }
 
     /// marketplace workspace id
-    public var marketplaceWorkspaceID: String = String()
+    public var marketplaceWorkspaceID: String {
+      get {return _storage._marketplaceWorkspaceID}
+      set {_uniqueStorage()._marketplaceWorkspaceID = newValue}
+    }
 
     /// workspace object id. used for space-level chat
-    public var workspaceObjectID: String = String()
+    public var workspaceObjectID: String {
+      get {return _storage._workspaceObjectID}
+      set {_uniqueStorage()._workspaceObjectID = newValue}
+    }
 
-    public var deviceID: String = String()
+    /// space-level chat if exists
+    public var spaceChatID: String {
+      get {return _storage._spaceChatID}
+      set {_uniqueStorage()._spaceChatID = newValue}
+    }
+
+    public var deviceID: String {
+      get {return _storage._deviceID}
+      set {_uniqueStorage()._deviceID = newValue}
+    }
 
     /// the first created private space. It's filled only when account is created
-    public var accountSpaceID: String = String()
+    public var accountSpaceID: String {
+      get {return _storage._accountSpaceID}
+      set {_uniqueStorage()._accountSpaceID = newValue}
+    }
 
-    public var widgetsID: String = String()
+    public var widgetsID: String {
+      get {return _storage._widgetsID}
+      set {_uniqueStorage()._widgetsID = newValue}
+    }
 
-    public var spaceViewID: String = String()
+    public var spaceViewID: String {
+      get {return _storage._spaceViewID}
+      set {_uniqueStorage()._spaceViewID = newValue}
+    }
 
-    public var techSpaceID: String = String()
+    public var techSpaceID: String {
+      get {return _storage._techSpaceID}
+      set {_uniqueStorage()._techSpaceID = newValue}
+    }
 
     /// gateway url for fetching static files
-    public var gatewayURL: String = String()
+    public var gatewayURL: String {
+      get {return _storage._gatewayURL}
+      set {_uniqueStorage()._gatewayURL = newValue}
+    }
 
     /// path to local storage
-    public var localStoragePath: String = String()
+    public var localStoragePath: String {
+      get {return _storage._localStoragePath}
+      set {_uniqueStorage()._localStoragePath = newValue}
+    }
 
     /// time zone from config
-    public var timeZone: String = String()
+    public var timeZone: String {
+      get {return _storage._timeZone}
+      set {_uniqueStorage()._timeZone = newValue}
+    }
 
-    public var analyticsID: String = String()
+    public var analyticsID: String {
+      get {return _storage._analyticsID}
+      set {_uniqueStorage()._analyticsID = newValue}
+    }
 
     /// network id to which anytype is connected
-    public var networkID: String = String()
+    public var networkID: String {
+      get {return _storage._networkID}
+      set {_uniqueStorage()._networkID = newValue}
+    }
 
     /// we have Any PK AND Ethereum PK derived from one seed phrase
-    public var ethereumAddress: String = String()
+    public var ethereumAddress: String {
+      get {return _storage._ethereumAddress}
+      set {_uniqueStorage()._ethereumAddress = newValue}
+    }
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
+
+    fileprivate var _storage = _StorageClass.defaultInstance
   }    
 }
 
@@ -74,6 +130,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     4: .same(proto: "profileObjectId"),
     11: .same(proto: "marketplaceWorkspaceId"),
     15: .same(proto: "workspaceObjectId"),
+    16: .same(proto: "spaceChatId"),
     8: .same(proto: "deviceId"),
     9: .same(proto: "accountSpaceId"),
     10: .same(proto: "widgetsId"),
@@ -87,102 +144,179 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     107: .same(proto: "ethereumAddress"),
   ]
 
+  fileprivate class _StorageClass {
+    var _homeObjectID: String = String()
+    var _archiveObjectID: String = String()
+    var _profileObjectID: String = String()
+    var _marketplaceWorkspaceID: String = String()
+    var _workspaceObjectID: String = String()
+    var _spaceChatID: String = String()
+    var _deviceID: String = String()
+    var _accountSpaceID: String = String()
+    var _widgetsID: String = String()
+    var _spaceViewID: String = String()
+    var _techSpaceID: String = String()
+    var _gatewayURL: String = String()
+    var _localStoragePath: String = String()
+    var _timeZone: String = String()
+    var _analyticsID: String = String()
+    var _networkID: String = String()
+    var _ethereumAddress: String = String()
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _homeObjectID = source._homeObjectID
+      _archiveObjectID = source._archiveObjectID
+      _profileObjectID = source._profileObjectID
+      _marketplaceWorkspaceID = source._marketplaceWorkspaceID
+      _workspaceObjectID = source._workspaceObjectID
+      _spaceChatID = source._spaceChatID
+      _deviceID = source._deviceID
+      _accountSpaceID = source._accountSpaceID
+      _widgetsID = source._widgetsID
+      _spaceViewID = source._spaceViewID
+      _techSpaceID = source._techSpaceID
+      _gatewayURL = source._gatewayURL
+      _localStoragePath = source._localStoragePath
+      _timeZone = source._timeZone
+      _analyticsID = source._analyticsID
+      _networkID = source._networkID
+      _ethereumAddress = source._ethereumAddress
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 2: try { try decoder.decodeSingularStringField(value: &self.homeObjectID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.archiveObjectID) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.profileObjectID) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
-      case 9: try { try decoder.decodeSingularStringField(value: &self.accountSpaceID) }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.widgetsID) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.marketplaceWorkspaceID) }()
-      case 13: try { try decoder.decodeSingularStringField(value: &self.spaceViewID) }()
-      case 14: try { try decoder.decodeSingularStringField(value: &self.techSpaceID) }()
-      case 15: try { try decoder.decodeSingularStringField(value: &self.workspaceObjectID) }()
-      case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
-      case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
-      case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
-      case 105: try { try decoder.decodeSingularStringField(value: &self.analyticsID) }()
-      case 106: try { try decoder.decodeSingularStringField(value: &self.networkID) }()
-      case 107: try { try decoder.decodeSingularStringField(value: &self.ethereumAddress) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._homeObjectID) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._archiveObjectID) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._profileObjectID) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._deviceID) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._accountSpaceID) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._widgetsID) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._marketplaceWorkspaceID) }()
+        case 13: try { try decoder.decodeSingularStringField(value: &_storage._spaceViewID) }()
+        case 14: try { try decoder.decodeSingularStringField(value: &_storage._techSpaceID) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._workspaceObjectID) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._spaceChatID) }()
+        case 101: try { try decoder.decodeSingularStringField(value: &_storage._gatewayURL) }()
+        case 103: try { try decoder.decodeSingularStringField(value: &_storage._localStoragePath) }()
+        case 104: try { try decoder.decodeSingularStringField(value: &_storage._timeZone) }()
+        case 105: try { try decoder.decodeSingularStringField(value: &_storage._analyticsID) }()
+        case 106: try { try decoder.decodeSingularStringField(value: &_storage._networkID) }()
+        case 107: try { try decoder.decodeSingularStringField(value: &_storage._ethereumAddress) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.homeObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.homeObjectID, fieldNumber: 2)
-    }
-    if !self.archiveObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.archiveObjectID, fieldNumber: 3)
-    }
-    if !self.profileObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.profileObjectID, fieldNumber: 4)
-    }
-    if !self.deviceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 8)
-    }
-    if !self.accountSpaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.accountSpaceID, fieldNumber: 9)
-    }
-    if !self.widgetsID.isEmpty {
-      try visitor.visitSingularStringField(value: self.widgetsID, fieldNumber: 10)
-    }
-    if !self.marketplaceWorkspaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.marketplaceWorkspaceID, fieldNumber: 11)
-    }
-    if !self.spaceViewID.isEmpty {
-      try visitor.visitSingularStringField(value: self.spaceViewID, fieldNumber: 13)
-    }
-    if !self.techSpaceID.isEmpty {
-      try visitor.visitSingularStringField(value: self.techSpaceID, fieldNumber: 14)
-    }
-    if !self.workspaceObjectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.workspaceObjectID, fieldNumber: 15)
-    }
-    if !self.gatewayURL.isEmpty {
-      try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
-    }
-    if !self.localStoragePath.isEmpty {
-      try visitor.visitSingularStringField(value: self.localStoragePath, fieldNumber: 103)
-    }
-    if !self.timeZone.isEmpty {
-      try visitor.visitSingularStringField(value: self.timeZone, fieldNumber: 104)
-    }
-    if !self.analyticsID.isEmpty {
-      try visitor.visitSingularStringField(value: self.analyticsID, fieldNumber: 105)
-    }
-    if !self.networkID.isEmpty {
-      try visitor.visitSingularStringField(value: self.networkID, fieldNumber: 106)
-    }
-    if !self.ethereumAddress.isEmpty {
-      try visitor.visitSingularStringField(value: self.ethereumAddress, fieldNumber: 107)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._homeObjectID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._homeObjectID, fieldNumber: 2)
+      }
+      if !_storage._archiveObjectID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._archiveObjectID, fieldNumber: 3)
+      }
+      if !_storage._profileObjectID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._profileObjectID, fieldNumber: 4)
+      }
+      if !_storage._deviceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._deviceID, fieldNumber: 8)
+      }
+      if !_storage._accountSpaceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._accountSpaceID, fieldNumber: 9)
+      }
+      if !_storage._widgetsID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._widgetsID, fieldNumber: 10)
+      }
+      if !_storage._marketplaceWorkspaceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._marketplaceWorkspaceID, fieldNumber: 11)
+      }
+      if !_storage._spaceViewID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._spaceViewID, fieldNumber: 13)
+      }
+      if !_storage._techSpaceID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._techSpaceID, fieldNumber: 14)
+      }
+      if !_storage._workspaceObjectID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._workspaceObjectID, fieldNumber: 15)
+      }
+      if !_storage._spaceChatID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._spaceChatID, fieldNumber: 16)
+      }
+      if !_storage._gatewayURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._gatewayURL, fieldNumber: 101)
+      }
+      if !_storage._localStoragePath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._localStoragePath, fieldNumber: 103)
+      }
+      if !_storage._timeZone.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._timeZone, fieldNumber: 104)
+      }
+      if !_storage._analyticsID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._analyticsID, fieldNumber: 105)
+      }
+      if !_storage._networkID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._networkID, fieldNumber: 106)
+      }
+      if !_storage._ethereumAddress.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ethereumAddress, fieldNumber: 107)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Account.Info, rhs: Anytype_Model_Account.Info) -> Bool {
-    if lhs.homeObjectID != rhs.homeObjectID {return false}
-    if lhs.archiveObjectID != rhs.archiveObjectID {return false}
-    if lhs.profileObjectID != rhs.profileObjectID {return false}
-    if lhs.marketplaceWorkspaceID != rhs.marketplaceWorkspaceID {return false}
-    if lhs.workspaceObjectID != rhs.workspaceObjectID {return false}
-    if lhs.deviceID != rhs.deviceID {return false}
-    if lhs.accountSpaceID != rhs.accountSpaceID {return false}
-    if lhs.widgetsID != rhs.widgetsID {return false}
-    if lhs.spaceViewID != rhs.spaceViewID {return false}
-    if lhs.techSpaceID != rhs.techSpaceID {return false}
-    if lhs.gatewayURL != rhs.gatewayURL {return false}
-    if lhs.localStoragePath != rhs.localStoragePath {return false}
-    if lhs.timeZone != rhs.timeZone {return false}
-    if lhs.analyticsID != rhs.analyticsID {return false}
-    if lhs.networkID != rhs.networkID {return false}
-    if lhs.ethereumAddress != rhs.ethereumAddress {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._homeObjectID != rhs_storage._homeObjectID {return false}
+        if _storage._archiveObjectID != rhs_storage._archiveObjectID {return false}
+        if _storage._profileObjectID != rhs_storage._profileObjectID {return false}
+        if _storage._marketplaceWorkspaceID != rhs_storage._marketplaceWorkspaceID {return false}
+        if _storage._workspaceObjectID != rhs_storage._workspaceObjectID {return false}
+        if _storage._spaceChatID != rhs_storage._spaceChatID {return false}
+        if _storage._deviceID != rhs_storage._deviceID {return false}
+        if _storage._accountSpaceID != rhs_storage._accountSpaceID {return false}
+        if _storage._widgetsID != rhs_storage._widgetsID {return false}
+        if _storage._spaceViewID != rhs_storage._spaceViewID {return false}
+        if _storage._techSpaceID != rhs_storage._techSpaceID {return false}
+        if _storage._gatewayURL != rhs_storage._gatewayURL {return false}
+        if _storage._localStoragePath != rhs_storage._localStoragePath {return false}
+        if _storage._timeZone != rhs_storage._timeZone {return false}
+        if _storage._analyticsID != rhs_storage._analyticsID {return false}
+        if _storage._networkID != rhs_storage._networkID {return false}
+        if _storage._ethereumAddress != rhs_storage._ethereumAddress {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
