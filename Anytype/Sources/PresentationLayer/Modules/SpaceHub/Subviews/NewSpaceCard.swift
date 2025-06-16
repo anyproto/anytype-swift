@@ -1,7 +1,7 @@
 import SwiftUI
 import AnytypeCore
 
-struct NewSpaceCard: View, @preconcurrency Equatable {
+struct SpaceCard: View, @preconcurrency Equatable {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType

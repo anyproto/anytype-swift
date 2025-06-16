@@ -161,7 +161,7 @@ struct SpaceHubView: View {
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview, draggable: Bool) -> some View {
-        NewSpaceCard(
+        SpaceCard(
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggable: draggable,
