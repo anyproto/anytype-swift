@@ -39,6 +39,8 @@ extension Anytype_Rpc.Object {
 
         public var setSource: [String] = []
 
+        public var includeTypeEdges: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -216,6 +218,7 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
     5: .same(proto: "spaceId"),
     6: .same(proto: "collectionId"),
     7: .same(proto: "setSource"),
+    8: .same(proto: "includeTypeEdges"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -231,6 +234,7 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
       case 5: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.collectionID) }()
       case 7: try { try decoder.decodeRepeatedStringField(value: &self.setSource) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.includeTypeEdges) }()
       default: break
       }
     }
@@ -258,6 +262,9 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
     if !self.setSource.isEmpty {
       try visitor.visitRepeatedStringField(value: self.setSource, fieldNumber: 7)
     }
+    if self.includeTypeEdges != false {
+      try visitor.visitSingularBoolField(value: self.includeTypeEdges, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -269,6 +276,7 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.collectionID != rhs.collectionID {return false}
     if lhs.setSource != rhs.setSource {return false}
+    if lhs.includeTypeEdges != rhs.includeTypeEdges {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
