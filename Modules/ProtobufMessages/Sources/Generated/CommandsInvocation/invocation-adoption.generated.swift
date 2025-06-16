@@ -855,6 +855,16 @@ extension Anytype_Rpc.Log.Send.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Membership.CodeGetInfo.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.CodeGetInfo.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.CodeRedeem.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.CodeRedeem.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Membership.Finalize.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.Finalize.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
