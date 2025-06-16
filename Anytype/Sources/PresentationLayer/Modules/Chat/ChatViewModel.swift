@@ -53,6 +53,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
+    private let chatObject: any BaseDocumentProtocol
     
     // MARK: - State
     
@@ -118,6 +119,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
+        // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
+        self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
     func onTapAddPageToMessage() {
