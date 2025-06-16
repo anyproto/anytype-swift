@@ -8,11 +8,11 @@ func withUncancellableHandler<T>(operation: @escaping @Sendable () async throws 
             Task {
                 do {
                     let result = try await operation()
-                    if !Task.isCancelled {
+                    if !cancelClosure.isCancelled {
                         continuation.resume(returning: result)
                     }
                 } catch {
-                    if !Task.isCancelled {
+                    if !cancelClosure.isCancelled {
                         continuation.resume(throwing: error)
                     }
                 }
@@ -22,10 +22,12 @@ func withUncancellableHandler<T>(operation: @escaping @Sendable () async throws 
             }
         }
     } onCancel: {
+        cancelClosure.isCancelled = true
         cancelClosure.closure?()
     }
 }
 
 private final class ClosureStorage: @unchecked Sendable {
+    var isCancelled: Bool = false
     var closure: (() -> Void)?
 }
