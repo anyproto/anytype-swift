@@ -5,29 +5,28 @@ func withUncancellableHandler<T>(operation: @escaping @Sendable () async throws 
     
     return try await withTaskCancellationHandler {
         try await withCheckedThrowingContinuation { continuation in
-            Task {
+            let task = Task {
                 do {
                     let result = try await operation()
-                    if !cancelClosure.isCancelled {
+                    if !Task.isCancelled {
                         continuation.resume(returning: result)
                     }
                 } catch {
-                    if !cancelClosure.isCancelled {
+                    if !Task.isCancelled {
                         continuation.resume(throwing: error)
                     }
                 }
             }
             cancelClosure.closure = {
+                task.cancel()
                 continuation.resume(throwing: CancellationError())
             }
         }
     } onCancel: {
-        cancelClosure.isCancelled = true
         cancelClosure.closure?()
     }
 }
 
 private final class ClosureStorage: @unchecked Sendable {
-    var isCancelled: Bool = false
     var closure: (() -> Void)?
 }
