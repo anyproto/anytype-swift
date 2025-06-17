@@ -123,7 +123,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         return items.map { item in
             return SetContentViewItemConfiguration(
                 id: item.details.id,
-                title: item.details.title,
+                title: item.details.pluralTitle,
                 showTitle: showTitle,
                 description: item.details.description,
                 icon: item.details.objectIconImage, 
