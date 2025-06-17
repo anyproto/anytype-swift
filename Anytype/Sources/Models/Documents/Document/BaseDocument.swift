@@ -21,7 +21,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     @Atomic
     private(set) var isOpened = false
     @Atomic
-    private(set) var parsedRelations = ParsedRelations.empty
+    private(set) var parsedProperties = ParsedProperties.empty
     @Atomic
     private(set) var permissions = ObjectPermissions()
     @Atomic
@@ -299,15 +299,15 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         
         let dependedObjectIds = newRelations.all.flatMap(\.dependedObjects)
         parsedRelationDependedDetailsEvents = dependedObjectIds.map { .details(id: $0) }
-        if parsedRelations != newRelations {
-            parsedRelations = newRelations
+        if parsedProperties != newRelations {
+            parsedProperties = newRelations
             return [.relations]
         }
         
         return []
     }
     
-    private func buildRelations(details: ObjectDetails) -> ParsedRelations? {
+    private func buildRelations(details: ObjectDetails) -> ParsedProperties? {
         if details.isTemplate {
             return buildRelationsForTemplate(details: details)
         } else {
@@ -315,7 +315,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         }
     }
     
-    private func buildRelationsForTemplate(details: ObjectDetails) -> ParsedRelations? {
+    private func buildRelationsForTemplate(details: ObjectDetails) -> ParsedProperties? {
         guard let targetObjectType = try? objectTypeProvider.objectType(id: details.targetObjectType) else {
             return nil
         }
@@ -352,7 +352,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         )
     }
     
-    private func buildRelationsForObject(details: ObjectDetails) -> ParsedRelations {
+    private func buildRelationsForObject(details: ObjectDetails) -> ParsedProperties {
         let objectRelations = propertyDetailsStorage.relationsDetails(
             keys:  details.values.map(\.key), spaceId: spaceId
         )

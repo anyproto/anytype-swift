@@ -320,14 +320,14 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func subscribeOnRelations() async {
-        for await relations in setDocument.document.parsedRelationsPublisherForType.values {
+        for await properties in setDocument.document.parsedPropertiesPublisherForType.values {
             let conflictingKeys = (try? await propertiesService
                 .getConflictPropertiesForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
             let conflictingRelations = propertyDetailsStorage
                 .relationsDetails(ids: conflictingKeys, spaceId: setDocument.spaceId)
                 .filter { !$0.isHidden && !$0.isDeleted }
 
-            self.relationsCount = relations.installed.count + conflictingRelations.count
+            self.relationsCount = properties.installed.count + conflictingRelations.count
         }
     }
  
@@ -712,7 +712,7 @@ extension EditorSetViewModel {
             return
         }
         
-        let relation = setDocument.parsedRelations.installed.first { $0.key == key }
+        let relation = setDocument.parsedProperties.installed.first { $0.key == key }
         guard let relation = relation else { return }
         guard let objectDetails = setDocument.details else {
             anytypeAssertionFailure("Set document doesn't contains details")

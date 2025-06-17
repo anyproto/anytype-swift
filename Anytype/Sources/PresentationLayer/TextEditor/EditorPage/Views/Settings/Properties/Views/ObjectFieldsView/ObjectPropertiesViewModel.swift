@@ -44,8 +44,8 @@ final class ObjectPropertiesViewModel: ObservableObject {
     }
     
     func setupSubscriptions() async {
-        for await relations in document.parsedRelationsPublisher.values {
-            sections = sectionsBuilder.buildObjectSections(parsedRelations: relations)
+        for await properties in document.parsedPropertiesPublisher.values {
+            sections = sectionsBuilder.buildObjectSections(parsedProperties: properties)
         }
     }
     

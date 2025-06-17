@@ -393,7 +393,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 extension EditorRouter {
     @MainActor
     func showRelationValueEditingView(key: String) {
-        let relation = document.parsedRelations.installed.first { $0.key == key }
+        let relation = document.parsedProperties.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
         output?.showRelationValueEditingView(document: document, relation: relation)

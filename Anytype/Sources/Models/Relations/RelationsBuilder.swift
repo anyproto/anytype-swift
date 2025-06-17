@@ -14,7 +14,7 @@ protocol RelationsBuilderProtocol: AnyObject {
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> ParsedRelations
+    ) -> ParsedProperties
 }
 
 final class RelationsBuilder: RelationsBuilderProtocol {
@@ -31,7 +31,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         objectId: String,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> ParsedRelations {
+    ) -> ParsedProperties {
         guard let objectDetails = storage.get(id: objectId) else { return .empty }
         
         let systemRelations = buildSystemRelations(relationDetails: objectRelations, objectDetails: objectDetails, storage: storage)
@@ -88,14 +88,14 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         let deletedRelations = allConflictedRelations.filter { $0.isDeleted }
         let conflictedRelations = allConflictedRelations.filter { !$0.isDeleted }
         
-        return ParsedRelations(
-            featuredRelations: featuredRelations,
-            sidebarRelations: sidebarRelations,
-            hiddenRelations: hiddenRelations,
-            conflictedRelations: conflictedRelations,
-            deletedRelations: deletedRelations,
-            systemRelations: systemRelations,
-            legacyFeaturedRelations: legacyFeaturedRelations
+        return ParsedProperties(
+            featuredProperties: featuredRelations,
+            sidebarProperties: sidebarRelations,
+            hiddenProperties: hiddenRelations,
+            conflictedProperties: conflictedRelations,
+            deletedProperties: deletedRelations,
+            systemProperties: systemRelations,
+            legacyFeaturedProperties: legacyFeaturedRelations
         )
     }
     

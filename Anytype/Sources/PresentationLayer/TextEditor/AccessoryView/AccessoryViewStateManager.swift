@@ -115,7 +115,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         slashMenuViewModel.update(
             with: document.spaceId,
             restrictions: restrictions,
-            relations: document.parsedRelations.installed
+            relations: document.parsedProperties.installed
         )
         
         // Markup menu
@@ -147,7 +147,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         slashMenuViewModel.update(
             with: document.spaceId,
             restrictions: restrictions,
-            relations: document.parsedRelations.installed
+            relations: document.parsedProperties.installed
         )
         
         // Markup menu

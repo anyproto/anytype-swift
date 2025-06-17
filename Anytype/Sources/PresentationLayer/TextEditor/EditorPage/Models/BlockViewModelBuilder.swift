@@ -336,7 +336,7 @@ final class BlockViewModelBuilder {
                 }
             }
         case let .relation(content):
-            let relation = document.parsedRelations.all.first {
+            let relation = document.parsedProperties.all.first {
                 $0.key == content.key
             }
             
@@ -348,7 +348,7 @@ final class BlockViewModelBuilder {
                 blockInformationProvider: blockInformationProvider,
                 relationProvider: PropertyProvider(
                     relation: relation,
-                    relationPublisher: document.parsedRelationsPublisher
+                    relationPublisher: document.parsedPropertiesPublisher
                 ),
                 collectionController: blockCollectionController
             ) { [weak self] in

@@ -5,39 +5,39 @@ import AnytypeCore
 
 final class PropertiesSectionBuilder {
     
-    func buildObjectSections(parsedRelations: ParsedRelations) -> [PropertiesSection] {
+    func buildObjectSections(parsedProperties: ParsedProperties) -> [PropertiesSection] {
         var sections: [PropertiesSection] = []
         
-        if parsedRelations.featuredRelations.isNotEmpty || parsedRelations.sidebarRelations.isNotEmpty {
+        if parsedProperties.featuredProperties.isNotEmpty || parsedProperties.sidebarProperties.isNotEmpty {
             sections.append(
                 PropertiesSection(
                     id: PropertiesSection.Constants.featuredPropertiesSectionId,
                     title: "",
-                    relations: parsedRelations.featuredRelations + parsedRelations.sidebarRelations,
+                    relations: parsedProperties.featuredProperties + parsedProperties.sidebarProperties,
                     isMissingFields: false,
                     isExpandable: false
                 )
             )
         }
         
-        if parsedRelations.hiddenRelations.isNotEmpty {
+        if parsedProperties.hiddenProperties.isNotEmpty {
             sections.append(
                 PropertiesSection(
                     id: PropertiesSection.Constants.hiddenPropertiesSectionId,
                     title: Loc.hidden,
-                    relations: parsedRelations.hiddenRelations,
+                    relations: parsedProperties.hiddenProperties,
                     isMissingFields: false,
                     isExpandable: true
                 )
             )
         }
         
-        if parsedRelations.conflictedRelations.isNotEmpty {
+        if parsedProperties.conflictedProperties.isNotEmpty {
             sections.append(
                 PropertiesSection(
                     id: PropertiesSection.Constants.conflictingPropertiesSectionId,
                     title: Loc.Fields.local,
-                    relations: parsedRelations.conflictedRelations,
+                    relations: parsedProperties.conflictedProperties,
                     isMissingFields: true,
                     isExpandable: true
                 )
@@ -47,7 +47,7 @@ final class PropertiesSectionBuilder {
         return sections
     }
 
-    func buildSectionsLegacy(from parsedRelations: ParsedRelations, objectTypeName: String) -> [PropertiesSection] {
+    func buildSectionsLegacy(from parsedProperties: ParsedProperties, objectTypeName: String) -> [PropertiesSection] {
         anytypeAssertionFailure("Not supported in a new API")
         return []
     }

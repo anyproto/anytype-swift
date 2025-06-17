@@ -48,8 +48,8 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         document.featuredRelationsForEditor
     }
     
-    var parsedRelations: ParsedRelations {
-        document.parsedRelations
+    var parsedProperties: ParsedProperties {
+        document.parsedProperties
     }
     
     var permissions: ObjectPermissions {
@@ -167,7 +167,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     }
     
     func isSetByRelation() -> Bool {
-        let relation = parsedRelations.systemRelations.first { $0.key == BundledRelationKey.setOf.rawValue }
+        let relation = parsedProperties.systemProperties.first { $0.key == BundledRelationKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {

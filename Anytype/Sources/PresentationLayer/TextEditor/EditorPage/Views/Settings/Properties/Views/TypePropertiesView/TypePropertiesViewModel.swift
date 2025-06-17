@@ -22,7 +22,7 @@ final class TypePropertiesViewModel: ObservableObject {
     private let fieldsDataBuilder = TypePropertiesRowBuilder()
     private let moveHandler = TypePropertiesMoveHandler()
     
-    private var parsedRelations = ParsedRelations.empty
+    private var parsedProperties = ParsedProperties.empty
     
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
@@ -52,12 +52,12 @@ final class TypePropertiesViewModel: ObservableObject {
     }
     
     private func setupRelationsSubscription() async {
-        for await relations in document.parsedRelationsPublisherForType.values {
-            parsedRelations = relations
+        for await properties in document.parsedPropertiesPublisherForType.values {
+            parsedProperties = properties
             let newRows = fieldsDataBuilder.build(
-                relations: relations.sidebarRelations,
-                featured: relations.featuredRelations,
-                hidden: relations.hiddenRelations
+                relations: properties.sidebarProperties,
+                featured: properties.featuredProperties,
+                hidden: properties.hiddenProperties
             )
             
             // do not animate on 1st appearance
@@ -152,9 +152,9 @@ final class TypePropertiesViewModel: ObservableObject {
             .filter { !$0.isHidden && !$0.isDeleted }
         
         let newRows = fieldsDataBuilder.build(
-            relations: parsedRelations.sidebarRelations,
-            featured: parsedRelations.featuredRelations,
-            hidden: parsedRelations.hiddenRelations
+            relations: parsedProperties.sidebarProperties,
+            featured: parsedProperties.featuredProperties,
+            hidden: parsedProperties.hiddenProperties
         )
         
         // do not animate on 1st appearance
