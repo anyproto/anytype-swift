@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   main:
-    name: Update build cache
+    name: Update middleware version
     runs-on: macos-15
 
     steps:
@@ -98,7 +98,6 @@ jobs:
           
           PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
           gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
-          gh pr merge ${{ steps.commit.outputs.branch_name }} --squash --delete-branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
