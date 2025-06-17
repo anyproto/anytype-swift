@@ -165,6 +165,7 @@ public enum Asset {
   // MARK: - DesignSystem
   public enum Background {
     public enum Chat {
+      static let bubbleFlash = ColorAsset(name: "Background/Chat/bubbleFlash")
       static let bubbleSomeones = ColorAsset(name: "Background/Chat/bubbleSomeones")
       static let bubbleYour = ColorAsset(name: "Background/Chat/bubbleYour")
       static let replySomeones = ColorAsset(name: "Background/Chat/replySomeones")
