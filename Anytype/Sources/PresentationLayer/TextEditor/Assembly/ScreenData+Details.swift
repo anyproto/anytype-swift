@@ -46,7 +46,12 @@ extension ScreenData {
                 self = .editor(page)
             }
         case .chat:
-            self = .chat(ChatCoordinatorData(chatId: details.chatId, spaceId: details.spaceId))
+            // Temporary solution. Middleware have plan to delete two chat layouts
+            if details.resolvedLayoutValue == .chatDerived {
+                self = .chat(ChatCoordinatorData(chatId: details.id, spaceId: details.spaceId))
+            } else {
+                self = .chat(ChatCoordinatorData(chatId: details.chatId, spaceId: details.spaceId))
+            }
         }
     }
 }
