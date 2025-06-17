@@ -152,7 +152,7 @@ final class TreeWidgetViewModel: ObservableObject {
             let row = TreeWidgetRowViewModel(
                 rowId: rowId,
                 objectId: details.id,
-                title: details.title,
+                title: details.pluralTitle,
                 icon: details.objectIconImage,
                 expandedType: details.expandedType(
                     isExpanded: isExpanded,
