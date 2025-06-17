@@ -91,12 +91,14 @@ struct SetFullHeader: View {
                 }.minimumScaleFactor(0.5)
             }
 
-            StandardButton(
-                .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
-                style: .secondarySmall
-            ) {
-                model.onObjectTypePropertiesTap()
-            }.minimumScaleFactor(0.5)
+            if model.showProperties {
+                StandardButton(
+                    .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
+                    style: .secondarySmall
+                ) {
+                    model.onObjectTypePropertiesTap()
+                }.minimumScaleFactor(0.5)
+            }
             
             if model.showObjectTypeTemplates {
                 StandardButton(
