@@ -171,7 +171,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + DetailsLayout.listLayouts
+        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + DetailsLayout.listLayouts + [.participant, .objectType]
         let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
