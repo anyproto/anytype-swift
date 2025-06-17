@@ -14,7 +14,7 @@ struct MessageObjectBigBookmarkView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if pictureId.isNotEmpty {
-                ImageIdIconView(imageId: pictureId, square: false, side: .height)
+                ImageIdIconView(imageId: pictureId, square: false, side: .original)
                     .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fit)
                     .cornerRadius(2)
             }

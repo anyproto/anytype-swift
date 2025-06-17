@@ -38,7 +38,8 @@ struct ObjectHeaderCoverView: View {
     
     private func imageWithId(_ imageId: String, _ size: CGSize, _ fitImage: Bool) -> some View {
         CachedAsyncImage(
-            url: ImageMetadata(id: imageId, side: .width(size.width)).contentUrl
+            url: ImageMetadata(id: imageId, side: .width(size.width)).contentUrl,
+            urlCache: .anytypeImages
         ) { image in
             image.resizable()
                 .if(fitImage) {
@@ -64,7 +65,7 @@ struct ObjectHeaderCoverView: View {
         ZStack(alignment: .center) {
             switch previewType {
             case .remote(let url):
-                CachedAsyncImage(url: url)
+                CachedAsyncImage(url: url, urlCache: .anytypeImages)
                     { image in
                         image.resizable().scaledToFill()
                     } placeholder: {

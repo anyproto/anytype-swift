@@ -7,7 +7,8 @@ struct ImageUrlIconView: View {
     
     var body: some View {
         CachedAsyncImage(
-            url: url
+            url: url,
+            urlCache: .anytypeImages
         ) { image in
             image.resizable().scaledToFill()
         } placeholder: {

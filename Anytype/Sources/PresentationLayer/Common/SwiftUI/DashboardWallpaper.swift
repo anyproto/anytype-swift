@@ -65,7 +65,8 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
             IconColorStorage.iconColor(iconOption: iconOption)
         case .imageId(let imageId):
             CachedAsyncImage(
-                url: ImageMetadata(id: imageId, side: .width(50)).contentUrl
+                url: ImageMetadata(id: imageId, side: .width(50)).contentUrl,
+                urlCache: .anytypeImages
             ) { image in
                 image
                     .resizable()
