@@ -5,7 +5,7 @@ func withUncancellableHandler<T>(operation: @escaping @Sendable () async throws 
     
     return try await withTaskCancellationHandler {
         try await withCheckedThrowingContinuation { continuation in
-            Task {
+            let task = Task {
                 do {
                     let result = try await operation()
                     if !Task.isCancelled {
@@ -18,6 +18,7 @@ func withUncancellableHandler<T>(operation: @escaping @Sendable () async throws 
                 }
             }
             cancelClosure.closure = {
+                task.cancel()
                 continuation.resume(throwing: CancellationError())
             }
         }
