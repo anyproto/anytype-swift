@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
-    static var unreadOnHome: Bool {
-        value(for: .unreadOnHome)
-    }
-
     static var enableStreamSpaceType: Bool {
         value(for: .enableStreamSpaceType)
     }
@@ -76,10 +72,6 @@ public extension FeatureFlags {
 
     static var spaceHubNewTitle: Bool {
         value(for: .spaceHubNewTitle)
-    }
-
-    static var spaceHubRedesign: Bool {
-        value(for: .spaceHubRedesign)
     }
 
     static var chatLayoutInsideSpace: Bool {
@@ -208,7 +200,6 @@ public extension FeatureFlags {
         .openMediaFileInPreview,
         .newPlusMenu,
         .spaceUxTypes,
-        .unreadOnHome,
         .enableStreamSpaceType,
         .enablePushMessages,
         .aiToolInSet,
@@ -218,7 +209,6 @@ public extension FeatureFlags {
         .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
-        .spaceHubRedesign,
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,

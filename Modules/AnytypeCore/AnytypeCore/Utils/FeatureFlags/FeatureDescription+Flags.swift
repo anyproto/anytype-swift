@@ -57,13 +57,6 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
-    static let unreadOnHome = FeatureDescription(
-        title: "Unread section on home",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: true,
-        releaseAnyAppValue: true,
-        debugValue: true
-    )
     
     static let enableStreamSpaceType = FeatureDescription(
         title: "Create stream space",
@@ -129,13 +122,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let spaceHubRedesign = FeatureDescription(
-        title: "Space Hub redesign",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: true,
-        releaseAnyAppValue: true,
-        debugValue: true
-    )
     
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
