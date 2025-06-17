@@ -87,6 +87,7 @@ extension BundledRelationsValueProvider {
     }
     
     var isTemplate: Bool { objectType.isTemplateType }
+    var isTemplateType: Bool { uniqueKey == ObjectTypeUniqueKey.template.value }
     
     var canMakeTemplate: Bool {
         resolvedLayoutValue.isEditorLayout && !isTemplate && profileOwnerIdentity.isEmpty && !isObjectType

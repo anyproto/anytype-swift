@@ -84,8 +84,14 @@ final class EditorSetViewModel: ObservableObject {
         guard let details = setDocument.details else { return false }
         
         let isSupportedLayout = details.recommendedLayoutValue.isEditorLayout
-        let isTemplate = details.isTemplate
+        let isTemplate = details.isTemplateType
         return isSupportedLayout && !isTemplate
+    }
+    
+    var showProperties: Bool {
+        guard let details = setDocument.details else { return false }
+        
+        return !details.isTemplateType
     }
     
     var hasTargetObjectId: Bool {
