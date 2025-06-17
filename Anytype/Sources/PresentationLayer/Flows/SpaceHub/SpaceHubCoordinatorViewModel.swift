@@ -369,7 +369,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         await dismissAllPresented?()
         switch action {
         case .createObjectFromQuickAction(let typeId):
-            createAndShowNewObject(typeId: typeId, route: .homeScreen)
+            await createAndShowNewObject(typeId: typeId, route: .homeScreen)
         case .openObject(let objectId, let spaceId):
             if FeatureFlags.openWelcomeObject {
                 try await handleOpenObject(objectId: objectId, spaceId: spaceId)
@@ -435,10 +435,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func createAndShowNewObject(
         typeId: String,
         route: AnalyticsEventsRouteKind
-    ) {
+    ) async {
         do {
+            if fallbackSpaceId != currentSpaceId {
+                // Set active spaces to receive types
+                try await activeSpaceManager.setActiveSpace(spaceId: fallbackSpaceId)
+            }
             let type = try typeProvider.objectType(id: typeId)
-            createAndShowNewObject(type: type, route: route)
+            try await createAndShowNewObject(type: type, route: route)
         } catch {
             anytypeAssertionFailure("No object provided typeId", info: ["typeId": typeId])
             createAndShowDefaultObject(route: route)
@@ -448,24 +452,20 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func createAndShowNewObject(
         type: ObjectType,
         route: AnalyticsEventsRouteKind
-    ) {
-        guard let fallbackSpaceId else { return }
+    ) async throws {
+        let details = try await objectActionsService.createObject(
+            name: "",
+            typeUniqueKey: type.uniqueKey,
+            shouldDeleteEmptyObject: true,
+            shouldSelectType: false,
+            shouldSelectTemplate: true,
+            spaceId: type.spaceId,
+            origin: .none,
+            templateId: type.defaultTemplateId
+        )
+        AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
         
-        Task {
-            let details = try await objectActionsService.createObject(
-                name: "",
-                typeUniqueKey: type.uniqueKey,
-                shouldDeleteEmptyObject: true,
-                shouldSelectType: false,
-                shouldSelectTemplate: true,
-                spaceId: fallbackSpaceId,
-                origin: .none,
-                templateId: type.defaultTemplateId
-            )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-            
-            openObject(screenData: details.screenData())
-        }
+        openObject(screenData: details.screenData())
     }
     
     
