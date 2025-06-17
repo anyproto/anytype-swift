@@ -35,7 +35,7 @@ final class PropertiesListCoordinatorViewModel:
     // MARK: - PropertiesListModuleOutput
     
     func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
-        let relation = document.parsedRelations.installed.first { $0.key == relationKey }
+        let relation = document.parsedProperties.installed.first { $0.key == relationKey }
         guard let relation = relation else {
             anytypeAssertionFailure("Relation not found")
             return

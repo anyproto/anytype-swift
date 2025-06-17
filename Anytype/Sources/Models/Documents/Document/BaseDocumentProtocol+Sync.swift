@@ -52,10 +52,10 @@ extension BaseDocumentProtocol {
         subscribeForDetails(objectId: objectId)
     }
     
-    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
+    var parsedPropertiesPublisher: AnyPublisher<ParsedProperties, Never> {
         subscibeFor(update: [.relations])
             .compactMap { [weak self] _ in
-                self?.parsedRelations
+                self?.parsedProperties
             }
             .eraseToAnyPublisher()
     }
@@ -68,14 +68,14 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    var parsedRelationsPublisherForType: AnyPublisher<ParsedRelations, Never> {
+    var parsedPropertiesPublisherForType: AnyPublisher<ParsedProperties, Never> {
         subscibeFor(update: [.general, .details(id: objectId), .permissions]).compactMap { [weak self] _ in
             self?.buildParsedRelationsForType()
         }.eraseToAnyPublisher()
     }
     
     // Temporary design: Move to the dedicated TypeDocument later
-    private func buildParsedRelationsForType() -> ParsedRelations {
+    private func buildParsedRelationsForType() -> ParsedProperties {
         guard let details else { return .empty }
         
         let propertyDetailsStorage = Container.shared.propertyDetailsStorage()

@@ -101,7 +101,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         relationsSearchData = PropertiesSearchData(
             objectId: details.type,
             spaceId: document.spaceId,
-            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            excludedRelationsIds: document.parsedProperties.installed.map(\.id),
             target: .object(objectId: details.id),
             onRelationSelect: onSelect
         )

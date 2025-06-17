@@ -152,7 +152,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         storage: ObjectDetailsStorage
     ) -> [SetContentViewItem] {
         details.map { details in
-            let parsedRelations = relationsBuilder
+            let parsedProperties = relationsBuilder
                 .parsedRelations(
                     objectRelations: relationsDetails,
                     objectFeaturedRelations: [],
@@ -165,7 +165,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 )
                 .installed
             let sortedRelations = relationsDetails.compactMap { colum in
-                parsedRelations.first { $0.key == colum.key }
+                parsedProperties.first { $0.key == colum.key }
             }
             
             let relations: [Relation] = relationsDetails.map { colum in

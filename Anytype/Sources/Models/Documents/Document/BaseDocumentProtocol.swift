@@ -6,7 +6,7 @@ protocol BaseDocumentProtocol: AnyObject, Sendable {
     var infoContainer: any InfoContainerProtocol { get }
     var detailsStorage: ObjectDetailsStorage { get }
     var children: [BlockInformation] { get }
-    var parsedRelations: ParsedRelations { get }
+    var parsedProperties: ParsedProperties { get }
     var objectId: String { get }
     var spaceId: String { get }
     var isLocked: Bool { get }

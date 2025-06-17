@@ -21,7 +21,7 @@ protocol SetDocumentProtocol: AnyObject, Sendable {
     var dataBuilder: any SetContentViewDataBuilderProtocol { get }
     
     var featuredRelationsForEditor: [Relation] { get }
-    var parsedRelations: ParsedRelations { get }
+    var parsedProperties: ParsedProperties { get }
     var setPermissions: SetPermissions { get }
     
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }

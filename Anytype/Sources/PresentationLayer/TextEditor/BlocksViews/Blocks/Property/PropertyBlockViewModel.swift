@@ -7,7 +7,7 @@ final class PropertyProvider {
     @Published var relation: Relation
     private var subscription: AnyCancellable?
     
-    init(relation: Relation, relationPublisher: AnyPublisher<ParsedRelations, Never>) {
+    init(relation: Relation, relationPublisher: AnyPublisher<ParsedProperties, Never>) {
         self.relation = relation
         
         subscription = relationPublisher

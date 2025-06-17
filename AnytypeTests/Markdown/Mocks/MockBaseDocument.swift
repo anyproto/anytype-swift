@@ -9,7 +9,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var mockInfoContainer: any InfoContainerProtocol = InfoContainerMock()
     var mockDetailsStorage = ObjectDetailsStorage()
     var mockChildren: [BlockInformation] = []
-    var mockParsedRelations = ParsedRelations.empty
+    var mockParsedProperties = ParsedProperties.empty
     var mockObjectId: String
     var mockSpaceId: String = "test-space-id"
     var mockIsLocked: Bool = false
@@ -37,7 +37,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var infoContainer: any InfoContainerProtocol { mockInfoContainer }
     var detailsStorage: ObjectDetailsStorage { mockDetailsStorage }
     var children: [BlockInformation] { mockChildren }
-    var parsedRelations: ParsedRelations { mockParsedRelations }
+    var parsedProperties: ParsedProperties { mockParsedProperties }
     
     var objectId: String { mockObjectId }
     var spaceId: String { mockSpaceId }
