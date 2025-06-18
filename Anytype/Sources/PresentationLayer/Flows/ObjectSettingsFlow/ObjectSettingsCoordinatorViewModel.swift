@@ -65,7 +65,7 @@ final class ObjectSettingsCoordinatorViewModel:
     }
     
     func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
-        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + [.set, .participant]
+        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + [.set, .participant, .objectType]
         blockObjectSearchData = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
