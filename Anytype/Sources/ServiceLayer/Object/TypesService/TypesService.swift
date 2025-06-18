@@ -13,16 +13,16 @@ final class TypesService: TypesServiceProtocol, Sendable {
     
     func createType(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?, spaceId: String) async throws -> ObjectType {
         var fields: [String: Google_Protobuf_Value] = [
-            BundledRelationKey.name.rawValue: name.protobufValue,
-            BundledRelationKey.pluralName.rawValue: pluralName.protobufValue
+            BundledPropertyKey.name.rawValue: name.protobufValue,
+            BundledPropertyKey.pluralName.rawValue: pluralName.protobufValue
         ]
         
         if let icon = icon {
-            fields[BundledRelationKey.iconName.rawValue] = icon.stringRepresentation.protobufValue
+            fields[BundledPropertyKey.iconName.rawValue] = icon.stringRepresentation.protobufValue
         }
         
         if let color = color {
-            fields[BundledRelationKey.iconOption.rawValue] = color.iconOption.protobufValue
+            fields[BundledPropertyKey.iconOption.rawValue] = color.iconOption.protobufValue
         }
         
         let details = Google_Protobuf_Struct(fields: fields)
@@ -56,7 +56,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastUsedDate,
+            relation: BundledPropertyKey.lastUsedDate,
             type: .desc,
             includeTime: true
         )
@@ -101,7 +101,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastUsedDate,
+            relation: BundledPropertyKey.lastUsedDate,
             type: .desc,
             includeTime: true
         )
@@ -121,7 +121,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         let excludedIds = includeInstalledTypes ? [] : typeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
+            relation: BundledPropertyKey.name,
             type: .asc
         )
         

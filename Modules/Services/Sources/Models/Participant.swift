@@ -39,14 +39,14 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
         self.type = details.type
     }
     
-    public static var subscriptionKeys: [BundledRelationKey] {
+    public static var subscriptionKeys: [BundledPropertyKey] {
         .builder {
-            BundledRelationKey.objectListKeys
-            BundledRelationKey.participantStatus
-            BundledRelationKey.participantPermissions
-            BundledRelationKey.identity
-            BundledRelationKey.identityProfileLink
-            BundledRelationKey.globalName
+            BundledPropertyKey.objectListKeys
+            BundledPropertyKey.participantStatus
+            BundledPropertyKey.participantPermissions
+            BundledPropertyKey.identity
+            BundledPropertyKey.identityProfileLink
+            BundledPropertyKey.globalName
         }
     }
 }

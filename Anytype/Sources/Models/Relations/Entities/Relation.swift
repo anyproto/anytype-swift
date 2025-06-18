@@ -157,7 +157,7 @@ extension Relation: PropertyProtocol {
     }
     
     var isSource: Bool {
-        return key == BundledRelationKey.source.rawValue
+        return key == BundledPropertyKey.source.rawValue
     }
     
     var isDeleted: Bool {

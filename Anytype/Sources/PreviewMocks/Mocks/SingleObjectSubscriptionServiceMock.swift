@@ -11,7 +11,7 @@ final class SingleObjectSubscriptionServiceMock: SingleObjectSubscriptionService
         subId: String,
         spaceId: String,
         objectId: String,
-        additionalKeys: [BundledRelationKey],
+        additionalKeys: [BundledPropertyKey],
         dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async {
         if let objectDetails {

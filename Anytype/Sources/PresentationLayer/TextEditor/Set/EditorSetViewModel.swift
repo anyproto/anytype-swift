@@ -76,7 +76,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var showDescription: Bool {
         guard let details = setDocument.details else { return false }
-        let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
+        let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
         return isFeatured
     }
     
@@ -132,7 +132,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func contextMenuItems(for relation: Relation) -> [PropertyValueViewModel.MenuItem] {
-        guard relation.key == BundledRelationKey.type.rawValue else {
+        guard relation.key == BundledPropertyKey.type.rawValue else {
             return []
         }
         return .builder {
@@ -439,7 +439,7 @@ final class EditorSetViewModel: ObservableObject {
             descriptionString = details.description
 
             descriptionSubscription = $descriptionString.sink { [weak self] newValue in
-                self?.updateTextFieldData(newValue: newValue, blockId: BundledRelationKey.description.rawValue) {
+                self?.updateTextFieldData(newValue: newValue, blockId: BundledPropertyKey.description.rawValue) {
                     self?.titleString = $0
                 }
             }
@@ -713,7 +713,7 @@ extension EditorSetViewModel {
     }
 
     func showRelationValueEditingView(key: String) {
-        if key == BundledRelationKey.setOf.rawValue {
+        if key == BundledPropertyKey.setOf.rawValue {
             showSetOfTypeSelection()
             return
         }

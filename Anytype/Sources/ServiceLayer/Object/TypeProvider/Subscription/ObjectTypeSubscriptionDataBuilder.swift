@@ -7,7 +7,7 @@ final class ObjectTypeSubscriptionDataBuilder: MultispaceSubscriptionDataBuilder
     
     func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
+            relation: BundledPropertyKey.name,
             type: .asc
         )
         let filters = [

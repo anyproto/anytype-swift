@@ -30,10 +30,10 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
             let visibleProperties = rows.filter { !$0.isHidden }
             
             self.systemProperties = visibleProperties.filter {
-                BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key)
+                BundledPropertyKey.systemKeys.map(\.rawValue).contains($0.key)
             }
             self.userProperties = visibleProperties.filter {
-                !BundledRelationKey.systemKeys.map(\.rawValue).contains($0.key)
+                !BundledPropertyKey.systemKeys.map(\.rawValue).contains($0.key)
             }
         }
     }

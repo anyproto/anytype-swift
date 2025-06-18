@@ -10,7 +10,7 @@
 {% if files %}
 import Foundation
 
-public enum BundledRelationKey: String, Sendable {
+public enum BundledPropertyKey: String, Sendable {
     {% for file in files %}
       {% for value in file.document.data %}
         {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}

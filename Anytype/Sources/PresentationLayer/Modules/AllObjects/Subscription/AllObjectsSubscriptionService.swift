@@ -48,10 +48,10 @@ final class AllObjectsSubscriptionService: AllObjectsSubscriptionServiceProtocol
         }
         
         let sort = sort.asDataviewSort()
-        let keys: [BundledRelationKey] = .builder {
-            BundledRelationKey.createdDate
-            BundledRelationKey.lastModifiedDate
-            BundledRelationKey.objectListKeys
+        let keys: [BundledPropertyKey] = .builder {
+            BundledPropertyKey.createdDate
+            BundledPropertyKey.lastModifiedDate
+            BundledPropertyKey.objectListKeys
         }
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

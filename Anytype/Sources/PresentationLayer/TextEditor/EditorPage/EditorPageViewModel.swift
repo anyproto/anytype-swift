@@ -286,7 +286,7 @@ extension EditorPageViewModel {
     }
     
     func didFinishEditing(blockId: String) {
-        if blockId == BundledRelationKey.description.rawValue {
+        if blockId == BundledPropertyKey.description.rawValue {
             AnytypeAnalytics.instance().logSetObjectDescription()
         }
     }

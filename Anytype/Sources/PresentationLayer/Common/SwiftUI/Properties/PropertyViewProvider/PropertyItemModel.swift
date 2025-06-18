@@ -50,7 +50,7 @@ enum PropertyItemModel: Hashable {
         case .date: return Loc.selectDate
         case .object:
             switch key {
-            case BundledRelationKey.setOf.rawValue:
+            case BundledPropertyKey.setOf.rawValue:
                 return Loc.Set.FeaturedRelations.query
             default:
                 return Loc.selectObject
@@ -121,8 +121,8 @@ enum PropertyItemModel: Hashable {
         switch self {
         case let .text(text): return text.isDeletedValue
         case let .object(object): return
-            (object.key == BundledRelationKey.setOf.rawValue && object.isDeletedValue)
-            || (object.key == BundledRelationKey.type.rawValue && object.isDeletedValue)
+            (object.key == BundledPropertyKey.setOf.rawValue && object.isDeletedValue)
+            || (object.key == BundledPropertyKey.type.rawValue && object.isDeletedValue)
         default:
             return false
         }

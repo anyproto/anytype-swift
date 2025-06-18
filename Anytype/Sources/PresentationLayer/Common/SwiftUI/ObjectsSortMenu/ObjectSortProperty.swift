@@ -16,14 +16,14 @@ enum ObjectSortProperty: String, CaseIterable, Codable {
         }
     }
     
-    var key: BundledRelationKey {
+    var key: BundledPropertyKey {
         switch self {
         case .dateUpdated:
-            return BundledRelationKey.lastModifiedDate
+            return BundledPropertyKey.lastModifiedDate
         case .dateCreated:
-            return BundledRelationKey.createdDate
+            return BundledPropertyKey.createdDate
         case .name:
-            return BundledRelationKey.name
+            return BundledPropertyKey.name
         }
     }
     

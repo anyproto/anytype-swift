@@ -64,7 +64,7 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
             case .writeToRelationName:
                 try await propertiesService.updateProperty(
                     objectId: objectId,
-                    propertyKey: BundledRelationKey.name.rawValue,
+                    propertyKey: BundledPropertyKey.name.rawValue,
                     value: text.protobufValue
                 )
             case .none:

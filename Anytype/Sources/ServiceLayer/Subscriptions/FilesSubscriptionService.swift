@@ -40,7 +40,7 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     ) async {
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.sizeInBytes,
+            relation: BundledPropertyKey.sizeInBytes,
             type: .desc
         )
         
@@ -58,8 +58,8 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
                 keys: .builder {
-                    BundledRelationKey.objectListKeys.map { $0.rawValue }
-                    BundledRelationKey.sizeInBytes.rawValue
+                    BundledPropertyKey.objectListKeys.map { $0.rawValue }
+                    BundledPropertyKey.sizeInBytes.rawValue
                 }
             )
         )

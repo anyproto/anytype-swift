@@ -62,20 +62,20 @@ extension RelationDetails: DetailsModel {
         self.spaceId = details.spaceId
     }
     
-    public static var subscriptionKeys: [BundledRelationKey] {
+    public static var subscriptionKeys: [BundledPropertyKey] {
         return [
-            BundledRelationKey.id,
-            BundledRelationKey.relationKey,
-            BundledRelationKey.name,
-            BundledRelationKey.relationFormat,
-            BundledRelationKey.relationReadonlyValue,
-            BundledRelationKey.relationFormatObjectTypes,
-            BundledRelationKey.isHidden,
-            BundledRelationKey.isReadonly,
-            BundledRelationKey.relationMaxCount,
-            BundledRelationKey.sourceObject,
-            BundledRelationKey.spaceId,
-            BundledRelationKey.lastUsedDate
+            BundledPropertyKey.id,
+            BundledPropertyKey.relationKey,
+            BundledPropertyKey.name,
+            BundledPropertyKey.relationFormat,
+            BundledPropertyKey.relationReadonlyValue,
+            BundledPropertyKey.relationFormatObjectTypes,
+            BundledPropertyKey.isHidden,
+            BundledPropertyKey.isReadonly,
+            BundledPropertyKey.relationMaxCount,
+            BundledPropertyKey.sourceObject,
+            BundledPropertyKey.spaceId,
+            BundledPropertyKey.lastUsedDate
         ]
     }
     
@@ -86,13 +86,13 @@ extension RelationDetails: DetailsModel {
     public var fields: [String: Google_Protobuf_Value] {
         var fields = [String: Google_Protobuf_Value]()
         if name.isNotEmpty {
-            fields[BundledRelationKey.name.rawValue] = name.protobufValue
+            fields[BundledPropertyKey.name.rawValue] = name.protobufValue
         }
         if format != .unrecognized {
-            fields[BundledRelationKey.relationFormat.rawValue] = format.asMiddleware.rawValue.protobufValue
+            fields[BundledPropertyKey.relationFormat.rawValue] = format.asMiddleware.rawValue.protobufValue
         }
         if objectTypes.isNotEmpty {
-            fields[BundledRelationKey.relationFormatObjectTypes.rawValue] = objectTypes.protobufValue
+            fields[BundledPropertyKey.relationFormatObjectTypes.rawValue] = objectTypes.protobufValue
         }
         return fields
     }

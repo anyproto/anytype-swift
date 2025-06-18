@@ -108,34 +108,34 @@ extension ObjectType: DetailsModel {
         )
     }
     
-    public static var subscriptionKeys: [BundledRelationKey] {
+    public static var subscriptionKeys: [BundledPropertyKey] {
         return [
-            BundledRelationKey.id,
-            BundledRelationKey.name,
-            BundledRelationKey.pluralName,
-            BundledRelationKey.iconEmoji,
-            BundledRelationKey.iconName,
-            BundledRelationKey.iconImage,
-            BundledRelationKey.iconOption,
-            BundledRelationKey.description,
-            BundledRelationKey.isHidden,
-            BundledRelationKey.isReadonly,
-            BundledRelationKey.isArchived,
-            BundledRelationKey.smartblockTypes,
-            BundledRelationKey.sourceObject,
-            BundledRelationKey.recommendedRelations,
-            BundledRelationKey.recommendedFeaturedRelations,
-            BundledRelationKey.recommendedHiddenRelations,
-            BundledRelationKey.recommendedLayout,
-            BundledRelationKey.uniqueKey,
-            BundledRelationKey.spaceId,
-            BundledRelationKey.defaultTemplateId,
-            BundledRelationKey.restrictions,
-            BundledRelationKey.resolvedLayout,
-            BundledRelationKey.layoutAlign,
-            BundledRelationKey.layoutWidth,
-            BundledRelationKey.type,
-            BundledRelationKey.lastUsedDate
+            BundledPropertyKey.id,
+            BundledPropertyKey.name,
+            BundledPropertyKey.pluralName,
+            BundledPropertyKey.iconEmoji,
+            BundledPropertyKey.iconName,
+            BundledPropertyKey.iconImage,
+            BundledPropertyKey.iconOption,
+            BundledPropertyKey.description,
+            BundledPropertyKey.isHidden,
+            BundledPropertyKey.isReadonly,
+            BundledPropertyKey.isArchived,
+            BundledPropertyKey.smartblockTypes,
+            BundledPropertyKey.sourceObject,
+            BundledPropertyKey.recommendedRelations,
+            BundledPropertyKey.recommendedFeaturedRelations,
+            BundledPropertyKey.recommendedHiddenRelations,
+            BundledPropertyKey.recommendedLayout,
+            BundledPropertyKey.uniqueKey,
+            BundledPropertyKey.spaceId,
+            BundledPropertyKey.defaultTemplateId,
+            BundledPropertyKey.restrictions,
+            BundledPropertyKey.resolvedLayout,
+            BundledPropertyKey.layoutAlign,
+            BundledPropertyKey.layoutWidth,
+            BundledPropertyKey.type,
+            BundledPropertyKey.lastUsedDate
         ]
     }
     

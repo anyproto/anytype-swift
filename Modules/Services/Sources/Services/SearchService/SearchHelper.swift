@@ -6,7 +6,7 @@ public typealias EmptyPlacement = Anytype_Model_Block.Content.Dataview.Sort.Empt
 
 public class SearchHelper {
     public static func sort(
-        relation: BundledRelationKey,
+        relation: BundledPropertyKey,
         type: DataviewSort.TypeEnum,
         noCollate: Bool = false,
         includeTime: Bool = false,
@@ -38,7 +38,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = isArchived ? .equal : .notEqual
         filter.value = true
-        filter.relationKey = BundledRelationKey.isArchived.rawValue
+        filter.relationKey = BundledPropertyKey.isArchived.rawValue
         
         return filter
     }
@@ -47,7 +47,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = isDeleted ? .equal : .notEqual
         filter.value = true
-        filter.relationKey = BundledRelationKey.isDeleted.rawValue
+        filter.relationKey = BundledPropertyKey.isDeleted.rawValue
         
         return filter
     }
@@ -56,7 +56,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = isHidden ? .equal : .notEqual
         filter.value = true
-        filter.relationKey = BundledRelationKey.isHidden.rawValue
+        filter.relationKey = BundledPropertyKey.isHidden.rawValue
         
         return filter
     }
@@ -65,7 +65,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notEmpty
         filter.value = nil
-        filter.relationKey = BundledRelationKey.lastOpenedDate.rawValue
+        filter.relationKey = BundledPropertyKey.lastOpenedDate.rawValue
         
         return filter
     }
@@ -74,7 +74,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .greaterOrEqual
         filter.value = date.timeIntervalSince1970.protobufValue
-        filter.relationKey = BundledRelationKey.lastModifiedDate.rawValue
+        filter.relationKey = BundledPropertyKey.lastModifiedDate.rawValue
         
         return filter
     }
@@ -83,7 +83,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
-        filter.relationKey = BundledRelationKey.type.rawValue
+        filter.relationKey = BundledPropertyKey.type.rawValue
         
         return filter
     }
@@ -92,7 +92,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = typeIds.protobufValue
-        filter.relationKey = BundledRelationKey.type.rawValue
+        filter.relationKey = BundledPropertyKey.type.rawValue
         
         return filter
     }
@@ -101,7 +101,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.resolvedLayout.rawValue
+        filter.relationKey = BundledPropertyKey.resolvedLayout.rawValue
         
         return filter
     }
@@ -109,7 +109,7 @@ public class SearchHelper {
     public static func uniqueKeyFilter(key: String, include: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = include ? .equal : .notEqual
-        filter.relationKey = BundledRelationKey.uniqueKey.rawValue
+        filter.relationKey = BundledPropertyKey.uniqueKey.rawValue
         filter.value = key.protobufValue
 
         return filter
@@ -119,7 +119,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = status.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.participantStatus.rawValue
+        filter.relationKey = BundledPropertyKey.participantStatus.rawValue
         
         return filter
     }
@@ -128,7 +128,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.resolvedLayout.rawValue
+        filter.relationKey = BundledPropertyKey.resolvedLayout.rawValue
         
         return filter
     }
@@ -137,7 +137,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.recommendedLayout.rawValue
+        filter.relationKey = BundledPropertyKey.recommendedLayout.rawValue
         
         return filter
     }
@@ -146,7 +146,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
-        filter.relationKey = BundledRelationKey.id.rawValue
+        filter.relationKey = BundledPropertyKey.id.rawValue
         
         return filter
     }
@@ -156,7 +156,7 @@ public class SearchHelper {
         filter.condition = .notIn
         filter.value = ids.protobufValue
         
-        filter.relationKey = BundledRelationKey.id.rawValue
+        filter.relationKey = BundledPropertyKey.id.rawValue
         
         return filter
     }
@@ -166,7 +166,7 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = relationKey.protobufValue
         
-        filter.relationKey = BundledRelationKey.relationKey.rawValue
+        filter.relationKey = BundledPropertyKey.relationKey.rawValue
         
         return filter
     }
@@ -176,7 +176,7 @@ public class SearchHelper {
         filter.condition = .notIn
         filter.value = relationKeys.protobufValue
         
-        filter.relationKey = BundledRelationKey.relationKey.rawValue
+        filter.relationKey = BundledPropertyKey.relationKey.rawValue
         
         return filter
     }
@@ -195,7 +195,7 @@ public class SearchHelper {
         filter.condition = .in
         filter.value = objectsIds.protobufValue
         
-        filter.relationKey = BundledRelationKey.id.rawValue
+        filter.relationKey = BundledPropertyKey.id.rawValue
         
         return filter
     }
@@ -205,7 +205,7 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = identityId.protobufValue
         
-        filter.relationKey = BundledRelationKey.identity.rawValue
+        filter.relationKey = BundledPropertyKey.identity.rawValue
         
         return filter
     }
@@ -214,7 +214,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = status.rawValue.protobufValue
-        filter.relationKey = BundledRelationKey.fileSyncStatus.rawValue
+        filter.relationKey = BundledPropertyKey.fileSyncStatus.rawValue
         
         return filter
     }
@@ -223,7 +223,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = restriction.rawValue.protobufValue
-        filter.relationKey = BundledRelationKey.restrictions.rawValue
+        filter.relationKey = BundledPropertyKey.restrictions.rawValue
         
         return filter
     }
@@ -232,7 +232,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = value.protobufValue
-        filter.relationKey = BundledRelationKey.relationReadonlyValue.rawValue
+        filter.relationKey = BundledPropertyKey.relationReadonlyValue.rawValue
         
         return filter
     }
@@ -241,7 +241,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .notIn
         filter.value = statuses.map { $0.rawValue }.protobufValue
-        filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
+        filter.relationKey = BundledPropertyKey.spaceAccountStatus.rawValue
         
         return filter
     }
@@ -250,7 +250,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = status.rawValue.protobufValue
-        filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
+        filter.relationKey = BundledPropertyKey.spaceLocalStatus.rawValue
         
         return filter
     }
@@ -258,7 +258,7 @@ public class SearchHelper {
     public static func templateScheme(include: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = include ? .equal : .notEqual
-        filter.relationKey = "\(BundledRelationKey.type.rawValue).\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.relationKey = "\(BundledPropertyKey.type.rawValue).\(BundledPropertyKey.uniqueKey.rawValue)"
         filter.value = ObjectTypeUniqueKey.template.value.protobufValue
 
         return filter
@@ -267,7 +267,7 @@ public class SearchHelper {
     public static func filterOutTypeType() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
-        filter.relationKey = "\(BundledRelationKey.uniqueKey.rawValue)"
+        filter.relationKey = "\(BundledPropertyKey.uniqueKey.rawValue)"
         filter.value = ObjectTypeUniqueKey.objectType.value.protobufValue
 
         return filter
@@ -278,7 +278,7 @@ public class SearchHelper {
         filter.condition = isHidden ? .equal : .notEqual
         filter.value = true
         
-        filter.relationKey = BundledRelationKey.isHiddenDiscovery.rawValue
+        filter.relationKey = BundledPropertyKey.isHiddenDiscovery.rawValue
         
         return filter
     }
@@ -305,7 +305,7 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = typeId.protobufValue
         
-        filter.relationKey = BundledRelationKey.setOf.rawValue
+        filter.relationKey = BundledPropertyKey.setOf.rawValue
         
         return filter
     }
@@ -316,7 +316,7 @@ public class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = type.protobufValue
-        filter.relationKey = BundledRelationKey.targetObjectType.rawValue
+        filter.relationKey = BundledPropertyKey.targetObjectType.rawValue
 
         return filter
     }
@@ -324,7 +324,7 @@ public class SearchHelper {
     private static func emptyLinks() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .empty
-        filter.relationKey = BundledRelationKey.links.rawValue
+        filter.relationKey = BundledPropertyKey.links.rawValue
         
         return filter
     }
@@ -332,7 +332,7 @@ public class SearchHelper {
     private static func emptyBacklinks() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .empty
-        filter.relationKey = BundledRelationKey.backlinks.rawValue
+        filter.relationKey = BundledPropertyKey.backlinks.rawValue
         
         return filter
     }

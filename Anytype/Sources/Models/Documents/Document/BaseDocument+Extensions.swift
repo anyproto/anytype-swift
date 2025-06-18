@@ -13,15 +13,15 @@ extension BaseDocumentProtocol {
                 var enhancedRelations = parsedProperties.legacyFeaturedProperties.isNotEmpty ? parsedProperties.legacyFeaturedProperties : parsedProperties.featuredProperties
                 
                 enhancedRelations.reorder(
-                    by: [ BundledRelationKey.setOf.rawValue ]
+                    by: [ BundledPropertyKey.setOf.rawValue ]
                 ) { $0.key }
                 
                 // Do not show Description featured relation, we show it in dedicated block
-                enhancedRelations.removeAll { $0.key == BundledRelationKey.description.rawValue }
+                enhancedRelations.removeAll { $0.key == BundledPropertyKey.description.rawValue }
                 // Do not show empty (back)Links 
                 enhancedRelations.removeAll { $0.links.isNotNil && !$0.hasValue }
                 
-                let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
+                let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledPropertyKey.setOf.rawValue }
                 if permissions.canEditRelationValues,
                    let setOfIndex,
                    let editableRelation = enhancedRelations[setOfIndex].editableRelation
@@ -37,15 +37,15 @@ extension BaseDocumentProtocol {
         var enhancedRelations = parsedProperties.legacyFeaturedProperties.isNotEmpty ? parsedProperties.legacyFeaturedProperties : parsedProperties.featuredProperties
         
         enhancedRelations.reorder(
-            by: [ BundledRelationKey.setOf.rawValue ]
+            by: [ BundledPropertyKey.setOf.rawValue ]
         ) { $0.key }
         
         enhancedRelations.removeAll { relation in
-            relation.key == BundledRelationKey.description.rawValue ||
+            relation.key == BundledPropertyKey.description.rawValue ||
             (relation.links.isNotNil && !relation.hasValue)
         }
         
-        let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
+        let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledPropertyKey.setOf.rawValue }
         if permissions.canEditRelationValues,
            let setOfIndex,
            let editableRelation = enhancedRelations[setOfIndex].editableRelation

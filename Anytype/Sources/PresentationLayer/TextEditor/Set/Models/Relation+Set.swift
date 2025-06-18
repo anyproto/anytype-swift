@@ -14,7 +14,7 @@ extension Relation {
     }
     
     var setOfPrefix: String? {
-        guard key == BundledRelationKey.setOf.rawValue else {
+        guard key == BundledPropertyKey.setOf.rawValue else {
             return nil
         }
         if relationSelectedObjects.isNotEmpty {
@@ -26,7 +26,7 @@ extension Relation {
     }
     
     var showIcon: Bool {
-        key != BundledRelationKey.setOf.rawValue
+        key != BundledPropertyKey.setOf.rawValue
     }
     
     var links: Object.Links? {

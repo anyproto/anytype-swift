@@ -50,7 +50,7 @@ final class PropertiesListCoordinatorViewModel:
     }
     
     private func handlePropertyValue(relation: Relation, objectDetails: ObjectDetails) {
-        if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
+        if relation.key == BundledPropertyKey.type.rawValue && document.permissions.canChangeType {
             showTypePicker = true
         } else {
             relationValueData = propertyValueProcessingService.handlePropertyValue(

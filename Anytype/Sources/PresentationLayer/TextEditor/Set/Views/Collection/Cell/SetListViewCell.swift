@@ -22,7 +22,7 @@ struct SetListViewCell: View {
                 title: configuration.title,
                 description: configuration.description,
                 properties: configuration.relations.filter {
-                    $0.hasValue && $0.key != BundledRelationKey.description.rawValue
+                    $0.hasValue && $0.key != BundledPropertyKey.description.rawValue
                 }
             )
         )

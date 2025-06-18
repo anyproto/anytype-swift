@@ -27,7 +27,7 @@ actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
         update: (@Sendable ([ObjectDetails]) async -> Void)?
     ) async -> AnyPublisher<[ObjectDetails], Never> {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.addedDate,
+            relation: BundledPropertyKey.addedDate,
             type: .desc
         )
         let filters = SearchHelper.templatesFilters(type: objectType)
@@ -39,7 +39,7 @@ actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
                 filters: filters,
                 limit: 100,
                 offset: 0,
-                keys: BundledRelationKey.templatePreviewKeys.map { $0.rawValue }
+                keys: BundledPropertyKey.templatePreviewKeys.map { $0.rawValue }
             )
         )
         

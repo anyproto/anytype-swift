@@ -1,7 +1,7 @@
 // swiftlint:disable all
 
-public extension BundledRelationKey {
-    static let {{param.varName}}: [BundledRelationKey] = [
+public extension BundledPropertyKey {
+    static let {{param.varName}}: [BundledPropertyKey] = [
     {% for file in files %}
       {% for value in file.document.data %}
         .{{value}},

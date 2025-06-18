@@ -15,7 +15,7 @@ final class PropertiesService: PropertiesServiceProtocol {
             $0.contextID = objectId
             $0.details = [
                 Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.featuredRelations.rawValue
+                    $0.key = BundledPropertyKey.featuredRelations.rawValue
                     $0.value = featuredPropertyIds.protobufValue
                 }
             ]
@@ -51,12 +51,12 @@ final class PropertiesService: PropertiesServiceProtocol {
             $0.contextID = id
             $0.details = .builder {
                 Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.name.rawValue
+                    $0.key = BundledPropertyKey.name.rawValue
                     $0.value = text.protobufValue
                 }
                 if let color {
                     Anytype_Model_Detail.with {
-                        $0.key = BundledRelationKey.relationOptionColor.rawValue
+                        $0.key = BundledPropertyKey.relationOptionColor.rawValue
                         $0.value = color.protobufValue
                     }
                 }
@@ -104,9 +104,9 @@ final class PropertiesService: PropertiesServiceProtocol {
         
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.name.rawValue: optionText.protobufValue,
-                BundledRelationKey.relationKey.rawValue: propertyKey.protobufValue,
-                BundledRelationKey.relationOptionColor.rawValue: color.protobufValue
+                BundledPropertyKey.name.rawValue: optionText.protobufValue,
+                BundledPropertyKey.relationKey.rawValue: propertyKey.protobufValue,
+                BundledPropertyKey.relationOptionColor.rawValue: color.protobufValue
             ]
         )
         
@@ -137,23 +137,23 @@ final class PropertiesService: PropertiesServiceProtocol {
             $0.contextID = typeId
             $0.details = [
                 Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.recommendedRelations.rawValue
+                    $0.key = BundledPropertyKey.recommendedRelations.rawValue
                     $0.value = recommendedProperties.map(\.id).protobufValue
                 },
                 Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.recommendedFeaturedRelations.rawValue
+                    $0.key = BundledPropertyKey.recommendedFeaturedRelations.rawValue
                     $0.value = recommendedFeaturedProperties.map(\.id).protobufValue
                 },
                 Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.recommendedHiddenRelations.rawValue
+                    $0.key = BundledPropertyKey.recommendedHiddenRelations.rawValue
                     $0.value = recommendedHiddenProperties.map(\.id).protobufValue
                 }
             ]
         }).invoke()
         
         let compoundRelationsKeys = (recommendedFeaturedProperties + recommendedProperties + recommendedHiddenProperties).map(\.key)
-        let descriptionKey = BundledRelationKey.description.rawValue // Show description in dataview relations list
-        let nameKey = BundledRelationKey.name.rawValue // Show name in dataview relations list
+        let descriptionKey = BundledPropertyKey.description.rawValue // Show description in dataview relations list
+        let nameKey = BundledPropertyKey.name.rawValue // Show name in dataview relations list
         let dataviewKeys = compoundRelationsKeys + [nameKey, descriptionKey]
         
         let uniqueDataviewKeys = NSOrderedSet(array: dataviewKeys).array as! [String]
@@ -177,12 +177,12 @@ final class PropertiesService: PropertiesServiceProtocol {
         if isOn {
             try await ClientCommands.objectRelationAddFeatured(.with {
                 $0.contextID = objectId
-                $0.relations = [BundledRelationKey.description.rawValue]
+                $0.relations = [BundledPropertyKey.description.rawValue]
             }).invoke()
         } else {
             try await ClientCommands.objectRelationRemoveFeatured(.with {
                 $0.contextID = objectId
-                $0.relations = [BundledRelationKey.description.rawValue]
+                $0.relations = [BundledPropertyKey.description.rawValue]
             }).invoke()
         }
     }

@@ -3,7 +3,7 @@ import Services
 extension BlockDataview {
     func groupByRelations(for activeView: DataviewView, dataViewRelationsDetails: [RelationDetails]) -> [RelationDetails] {
         let relations: [RelationDetails] = dataViewRelationsDetails.filter { relation in
-            if relation.key == BundledRelationKey.done.rawValue {
+            if relation.key == BundledPropertyKey.done.rawValue {
                 return true
             }
             

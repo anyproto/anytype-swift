@@ -35,22 +35,22 @@ extension SpaceView: DetailsModel {
         self.uxType = details.spaceUxTypeValue ?? .data
     }
     
-    static let subscriptionKeys: [BundledRelationKey] = .builder {
-        BundledRelationKey.id
-        BundledRelationKey.name
-        BundledRelationKey.description
-        BundledRelationKey.objectIconImageKeys
-        BundledRelationKey.targetSpaceId
-        BundledRelationKey.createdDate
-        BundledRelationKey.spaceAccessType
-        BundledRelationKey.spaceAccountStatus
-        BundledRelationKey.spaceLocalStatus
-        BundledRelationKey.readersLimit
-        BundledRelationKey.writersLimit
-        BundledRelationKey.sharedSpacesLimit
-        BundledRelationKey.chatId
-        BundledRelationKey.spaceOrder
-        BundledRelationKey.spaceUxType
+    static let subscriptionKeys: [BundledPropertyKey] = .builder {
+        BundledPropertyKey.id
+        BundledPropertyKey.name
+        BundledPropertyKey.description
+        BundledPropertyKey.objectIconImageKeys
+        BundledPropertyKey.targetSpaceId
+        BundledPropertyKey.createdDate
+        BundledPropertyKey.spaceAccessType
+        BundledPropertyKey.spaceAccountStatus
+        BundledPropertyKey.spaceLocalStatus
+        BundledPropertyKey.readersLimit
+        BundledPropertyKey.writersLimit
+        BundledPropertyKey.sharedSpacesLimit
+        BundledPropertyKey.chatId
+        BundledPropertyKey.spaceOrder
+        BundledPropertyKey.spaceUxType
     }
 }
 

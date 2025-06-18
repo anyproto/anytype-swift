@@ -45,7 +45,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     
     private func buildHighlightedTitle(from meta: [SearchMeta]) -> AttributedString? {
         let nameMeta = meta.first { item in
-            item.relationKey == BundledRelationKey.pluralName.rawValue
+            item.relationKey == BundledPropertyKey.pluralName.rawValue
         }
         
         guard let nameMeta else { return nil }
@@ -67,7 +67,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     }
     
     private func buildPropertyData(with meta: SearchMeta, spaceId: String) -> HighlightsData? {
-        guard meta.relationKey != BundledRelationKey.name.rawValue && meta.relationKey != BundledRelationKey.pluralName.rawValue else {
+        guard meta.relationKey != BundledPropertyKey.name.rawValue && meta.relationKey != BundledPropertyKey.pluralName.rawValue else {
             return nil
         }
         

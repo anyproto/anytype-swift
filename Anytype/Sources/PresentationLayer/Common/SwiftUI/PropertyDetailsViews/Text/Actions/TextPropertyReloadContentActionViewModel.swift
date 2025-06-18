@@ -24,7 +24,7 @@ final class TextPropertyReloadContentActionViewModel: TextPropertyActionViewMode
         delegate: (any TextPropertyActionButtonViewModelDelegate)?
     ) {
         guard objectDetails.resolvedLayoutValue == .bookmark,
-              relationKey == BundledRelationKey.source.rawValue else { return nil }
+              relationKey == BundledPropertyKey.source.rawValue else { return nil }
         
         self.objectDetails = objectDetails
         self.relationKey = relationKey
