@@ -68,7 +68,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     
     {% call typeDescription value %}
     var {{propertyName}}: {{propertyType}} {
-        return value(for: BundledRelationKey.{{propertyName}}.rawValue)
+        return value(for: BundledPropertyKey.{{propertyName}}.rawValue)
     }
     {% endfor %}
   {% endfor %}

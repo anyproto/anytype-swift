@@ -225,11 +225,11 @@ final class DateViewModel: ObservableObject {
             return try? propertyDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
         }
         return relationDetails.filter { details in
-            if details.key == BundledRelationKey.mentions.rawValue {
+            if details.key == BundledPropertyKey.mentions.rawValue {
                 return true
             }
-            if details.key == BundledRelationKey.links.rawValue ||
-                details.key == BundledRelationKey.backlinks.rawValue {
+            if details.key == BundledPropertyKey.links.rawValue ||
+                details.key == BundledPropertyKey.backlinks.rawValue {
                 return false
             }
             return !details.isHidden
@@ -285,28 +285,28 @@ final class DateViewModel: ObservableObject {
     }
     
     private func creatorFilter() -> DataviewFilter? {
-        guard state.selectedRelation?.key == BundledRelationKey.createdDate.rawValue else {
+        guard state.selectedRelation?.key == BundledPropertyKey.createdDate.rawValue else {
             return nil
         }
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = ObjectOrigin.builtin.rawValue.protobufValue
-        filter.relationKey = BundledRelationKey.origin.rawValue
+        filter.relationKey = BundledPropertyKey.origin.rawValue
         
         return filter
     }
     
     private func creationDateCompositFilter() -> DataviewFilter? {
-        guard state.selectedRelation?.key == BundledRelationKey.lastModifiedDate.rawValue else {
+        guard state.selectedRelation?.key == BundledPropertyKey.lastModifiedDate.rawValue else {
             return nil
         }
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = [
-            Constants.relationKey : BundledRelationKey.lastModifiedDate.rawValue.protobufValue,
+            Constants.relationKey : BundledPropertyKey.lastModifiedDate.rawValue.protobufValue,
             Constants.typeKey : Constants.typeValue.protobufValue
         ].protobufValue
-        filter.relationKey = BundledRelationKey.createdDate.rawValue
+        filter.relationKey = BundledPropertyKey.createdDate.rawValue
         
         return filter
     }
@@ -323,7 +323,7 @@ final class DateViewModel: ObservableObject {
     private func buildSort(from state: DateModuleState) -> DataviewSort? {
         guard let relationDetails = state.selectedRelation else { return nil }
         
-        let relationKey = relationDetails.format == .date ? relationDetails.key : BundledRelationKey.lastOpenedDate.rawValue
+        let relationKey = relationDetails.format == .date ? relationDetails.key : BundledPropertyKey.lastOpenedDate.rawValue
         return SearchHelper.sort(
             relationKey: relationKey,
             type: state.sortType
@@ -331,7 +331,7 @@ final class DateViewModel: ObservableObject {
     }
     
     private func relationItemData(from details: RelationDetails) -> PropertyItemData {
-        let isMention = details.key == BundledRelationKey.mentions.rawValue
+        let isMention = details.key == BundledPropertyKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
         return PropertyItemData(
             id: details.id,

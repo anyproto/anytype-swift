@@ -2,8 +2,8 @@ import Foundation
 import AnytypeCore
 import ProtobufMessages
 
-public extension BundledRelationKey {
-    static let sortIncudeTimeKeys: [BundledRelationKey] = [
+public extension BundledPropertyKey {
+    static let sortIncudeTimeKeys: [BundledPropertyKey] = [
         .lastOpenedDate,
         .lastModifiedDate,
         .createdDate
@@ -14,7 +14,7 @@ public extension BundledRelationKey {
 
 public extension DataviewSort {
     func fixIncludeTime() -> Self {
-        let rawKeys = BundledRelationKey.sortIncudeTimeKeys.map(\.rawValue)
+        let rawKeys = BundledPropertyKey.sortIncudeTimeKeys.map(\.rawValue)
         
         if rawKeys.contains(relationKey) {
             var newSort = self

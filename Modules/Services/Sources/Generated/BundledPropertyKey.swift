@@ -4,7 +4,7 @@
 
 import Foundation
 
-public enum BundledRelationKey: String, Sendable {
+public enum BundledPropertyKey: String, Sendable {
 
     case tag = "tag"
 

@@ -49,11 +49,11 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
             makeDateFilter(type: type, spaceId: spaceId)
         }
         
-        let keys: [BundledRelationKey] = .builder {
-            BundledRelationKey.lastOpenedDate
-            BundledRelationKey.lastModifiedDate
-            BundledRelationKey.links
-            BundledRelationKey.objectListKeys
+        let keys: [BundledPropertyKey] = .builder {
+            BundledPropertyKey.lastOpenedDate
+            BundledPropertyKey.lastModifiedDate
+            BundledPropertyKey.links
+            BundledPropertyKey.objectListKeys
         }
         
         let searchData: SubscriptionData = .search(
@@ -83,12 +83,12 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         switch type {
         case .recentEdit:
             return SearchHelper.sort(
-                relation: BundledRelationKey.lastModifiedDate,
+                relation: BundledPropertyKey.lastModifiedDate,
                 type: .desc
             )
         case .recentOpen:
             return SearchHelper.sort(
-                relation: BundledRelationKey.lastOpenedDate,
+                relation: BundledPropertyKey.lastOpenedDate,
                 type: .desc
             )
         }

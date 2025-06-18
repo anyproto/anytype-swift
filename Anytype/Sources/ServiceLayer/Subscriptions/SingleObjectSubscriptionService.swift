@@ -7,7 +7,7 @@ protocol SingleObjectSubscriptionServiceProtocol: AnyObject, Sendable {
         subId: String,
         spaceId: String,
         objectId: String,
-        additionalKeys: [BundledRelationKey],
+        additionalKeys: [BundledPropertyKey],
         dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async
     func stopSubscription(subId: String) async
@@ -36,7 +36,7 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
         subId: String,
         spaceId: String,
         objectId: String,
-        additionalKeys: [BundledRelationKey],
+        additionalKeys: [BundledPropertyKey],
         dataHandler: @escaping @Sendable (ObjectDetails) async -> Void
     ) async {
         let subData = subscriptionBuilder.build(subId: subId, spaceId: spaceId, objectIds: [objectId], additionalKeys: additionalKeys)

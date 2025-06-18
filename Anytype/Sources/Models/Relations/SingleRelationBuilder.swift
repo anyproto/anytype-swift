@@ -159,14 +159,14 @@ private extension SingleRelationBuilder {
     ) -> Relation? {
         
         let numberValue: String?
-        if relationDetails.key == BundledRelationKey.origin.rawValue,
+        if relationDetails.key == BundledPropertyKey.origin.rawValue,
            let origin = details.intValue(for: relationDetails.key).flatMap({ ObjectOrigin(rawValue: $0) }) {
             if let title = origin.title {
                 numberValue = title
             } else {
                 return nil
             }
-        } else if relationDetails.key == BundledRelationKey.importType.rawValue,
+        } else if relationDetails.key == BundledPropertyKey.importType.rawValue,
                    let importType = details.intValue(for: relationDetails.key).flatMap({ ObjectImportType(rawValue: $0) }) {
             if let title = importType.title {
                 numberValue = title
@@ -377,7 +377,7 @@ private extension SingleRelationBuilder {
 
             let objectOptions: [Relation.Object.Option] = values.compactMap { valueId in
                 
-                if relationDetails.key == BundledRelationKey.type.rawValue {
+                if relationDetails.key == BundledPropertyKey.type.rawValue {
                     let type = details.objectType
                     return Relation.Object.Option(
                         id: type.id,
@@ -392,7 +392,7 @@ private extension SingleRelationBuilder {
                 
                 guard let objectDetail = storage.get(id: valueId) else { return nil }
                     
-                if relationDetails.key == BundledRelationKey.setOf.rawValue, objectDetail.isDeleted {
+                if relationDetails.key == BundledPropertyKey.setOf.rawValue, objectDetail.isDeleted {
                     return Relation.Object.Option(
                         id: valueId,
                         icon: .object(.placeholder("")),

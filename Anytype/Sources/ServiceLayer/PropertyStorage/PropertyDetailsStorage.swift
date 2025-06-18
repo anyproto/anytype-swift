@@ -54,7 +54,7 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
         return multispaceSubscriptionHelper.data[spaceId] ?? []
     }
     
-    func relationsDetails(bundledKey: BundledRelationKey, spaceId: String) throws -> RelationDetails {
+    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> RelationDetails {
         guard let details = searchDetailsByKey[RelationDetailsKey(key: bundledKey.rawValue, spaceId: spaceId)] else {
             throw PropertyDetailsStorageError.relationNotFound
         }

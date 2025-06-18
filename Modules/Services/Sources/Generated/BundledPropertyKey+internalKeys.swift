@@ -1,7 +1,7 @@
 // swiftlint:disable all
 
-public extension BundledRelationKey {
-    static let internalKeys: [BundledRelationKey] = [
+public extension BundledPropertyKey {
+    static let internalKeys: [BundledPropertyKey] = [
         .id,
         .name,
         .description,

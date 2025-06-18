@@ -176,7 +176,7 @@ final class GlobalSearchViewModel: ObservableObject {
                 state.sort.asDataviewSort()
             } else {
                 SearchHelper.sort(
-                    relation: BundledRelationKey.lastOpenedDate,
+                    relation: BundledPropertyKey.lastOpenedDate,
                     type: .desc
                 )
             }

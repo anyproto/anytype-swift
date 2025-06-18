@@ -34,8 +34,8 @@ final class BookmarkService: BookmarkServiceProtocol {
     ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.source.rawValue: url.absoluteString.protobufValue,
-                BundledRelationKey.origin.rawValue: origin.rawValue.protobufValue
+                BundledPropertyKey.source.rawValue: url.absoluteString.protobufValue,
+                BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
             ]
         )
         let result = try await ClientCommands.objectCreateBookmark(.with {

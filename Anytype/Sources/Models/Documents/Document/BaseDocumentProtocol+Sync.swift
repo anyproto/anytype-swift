@@ -82,13 +82,13 @@ extension BaseDocumentProtocol {
         
         let recommendedRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
+            .filter { $0.key != BundledPropertyKey.description.rawValue }
         let recommendedFeaturedRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
+            .filter { $0.key != BundledPropertyKey.description.rawValue }
         let recommendedHiddenRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedHiddenRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
+            .filter { $0.key != BundledPropertyKey.description.rawValue }
         
         
         return Container.shared.relationsBuilder().parsedRelations(

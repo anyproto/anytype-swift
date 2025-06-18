@@ -94,7 +94,7 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
         Task {
             try await detailsService.updateDetails(
                 contextId: content.targetBlockID,
-                relationKey: BundledRelationKey.done.rawValue,
+                relationKey: BundledPropertyKey.done.rawValue,
                 value: .checkbox(.with { $0.checked = !isChecked })
             )
             UIImpactFeedbackGenerator(style: .rigid).impactOccurred()

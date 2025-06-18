@@ -34,7 +34,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         let storageRelationsDetails = propertyDetailsStorage.relationsDetails(keys: dataview.relationLinks.map(\.key), spaceId: spaceId)
             .filter {
                 (!$0.isHidden && !$0.isDeleted) ||
-                (view.canSwitchItemName && $0.key == BundledRelationKey.name.rawValue)
+                (view.canSwitchItemName && $0.key == BundledPropertyKey.name.rawValue)
             }
         
         let relationsPresentInView: [SetProperty] = view.options
@@ -71,10 +71,10 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
             return relationDetails
         }
         // force insert Done relation after the Name for all Sets/Collections if needed
-        let doneRelationIsExcluded = excludeRelations.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
+        let doneRelationIsExcluded = excludeRelations.first { $0.key == BundledPropertyKey.done.rawValue }.isNotNil
+        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
         if !doneRelationIsExcluded, let doneRelationDetails {
-            if let index = relationDetails.firstIndex(where: { $0.key == BundledRelationKey.name.rawValue }),
+            if let index = relationDetails.firstIndex(where: { $0.key == BundledPropertyKey.name.rawValue }),
                 index < relationDetails.count
             {
                 relationDetails.insert(doneRelationDetails, at: index + 1)
@@ -113,7 +113,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         )
         var showTitle = true
         if activeView.canSwitchItemName {
-            showTitle = visibleRelationsDetails.contains { $0.key == BundledRelationKey.name.rawValue }
+            showTitle = visibleRelationsDetails.contains { $0.key == BundledPropertyKey.name.rawValue }
         }
         let showIcon = !activeView.hideIcon
         
@@ -238,7 +238,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         guard excludeRelations.first(where: { $0.key == relationDetails.key }) == nil else {
             return false
         }
-        guard relationDetails.key != BundledRelationKey.name.rawValue else {
+        guard relationDetails.key != BundledPropertyKey.name.rawValue else {
             return true
         }
         return !relationDetails.isHidden &&

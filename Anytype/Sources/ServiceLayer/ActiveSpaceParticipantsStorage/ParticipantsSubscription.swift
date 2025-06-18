@@ -40,7 +40,7 @@ actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
     private func startSubscription(spaceId: String) async throws {
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
+            relation: BundledPropertyKey.name,
             type: .asc
         )
         

@@ -87,7 +87,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     func onTapDescription() async throws {
         guard let details = document.details else { return }
         
-        let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue })
+        let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledPropertyKey.description.rawValue })
         try await propertiesService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
     }
     

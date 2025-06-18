@@ -20,7 +20,7 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
                 ObjectSetting.cover
             }
             
-            let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
+            let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
             ObjectSetting.description(isVisible: isFeatured)
             
             if permissions.canShowRelations {

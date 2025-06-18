@@ -139,7 +139,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         storage: ObjectDetailsStorage
     ) -> [Relation] {
         return relationDetails.compactMap { relation in
-            guard BundledRelationKey.systemKeys.map(\.rawValue).contains(relation.key) else {
+            guard BundledPropertyKey.systemKeys.map(\.rawValue).contains(relation.key) else {
                 return nil
             }
             return builder.relation(
@@ -156,10 +156,10 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         guard !relation.isHidden else { return false }
         
         // We are filtering out description from the list of relations
-        guard relation.key != BundledRelationKey.description.rawValue else { return false }
+        guard relation.key != BundledPropertyKey.description.rawValue else { return false }
         
         // See hackGlobalNameValue
-        guard relation.key != BundledRelationKey.globalName.rawValue && relation.key != BundledRelationKey.identity.rawValue else {
+        guard relation.key != BundledPropertyKey.globalName.rawValue && relation.key != BundledPropertyKey.identity.rawValue else {
             return false
         }
         
@@ -174,7 +174,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         storage: ObjectDetailsStorage
     ) -> Relation? {
         if let globaName = relationForKey(
-            key: BundledRelationKey.globalName.rawValue,
+            key: BundledPropertyKey.globalName.rawValue,
             objectRelations: objectRelations,
             objectDetails: objectDetails,
             isFeatured: true,
@@ -183,7 +183,7 @@ final class RelationsBuilder: RelationsBuilderProtocol {
         ), globaName.hasValue { return globaName }
         
         if let identity = relationForKey(
-            key: BundledRelationKey.identity.rawValue,
+            key: BundledPropertyKey.identity.rawValue,
             objectRelations: objectRelations,
             objectDetails: objectDetails,
             isFeatured: true,

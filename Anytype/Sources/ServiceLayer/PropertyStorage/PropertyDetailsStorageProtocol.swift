@@ -7,7 +7,7 @@ protocol PropertyDetailsStorageProtocol: AnyObject, Sendable {
     
     func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails]
     func relationsDetails(key: String, spaceId: String) throws -> RelationDetails
-    func relationsDetails(bundledKey: BundledRelationKey, spaceId: String) throws -> RelationDetails
+    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> RelationDetails
     
     func relationsDetails(ids: [String], spaceId: String) -> [RelationDetails]
     func relationsDetails(spaceId: String) -> [RelationDetails]

@@ -24,8 +24,8 @@ final class TemplatesService: TemplatesServiceProtocol {
         let response = try await ClientCommands.objectCreate(.with {
             $0.details = .with {
                 var fields = [String: Google_Protobuf_Value]()
-                fields[BundledRelationKey.targetObjectType.rawValue] = objectTypeId.protobufValue
-                fields[BundledRelationKey.resolvedLayout.rawValue] = objectDetails.recommendedLayout?.protobufValue ?? DetailsLayout.note.rawValue.protobufValue
+                fields[BundledPropertyKey.targetObjectType.rawValue] = objectTypeId.protobufValue
+                fields[BundledPropertyKey.resolvedLayout.rawValue] = objectDetails.recommendedLayout?.protobufValue ?? DetailsLayout.note.rawValue.protobufValue
                 $0.fields = fields
             }
             $0.spaceID = objectDetails.spaceId
@@ -57,7 +57,7 @@ final class TemplatesService: TemplatesServiceProtocol {
             
             $0.details = [
                 Anytype_Model_Detail.with {
-                    $0.key = BundledRelationKey.defaultTemplateId.rawValue
+                    $0.key = BundledPropertyKey.defaultTemplateId.rawValue
                     $0.value = templateId.protobufValue
                 }
             ]

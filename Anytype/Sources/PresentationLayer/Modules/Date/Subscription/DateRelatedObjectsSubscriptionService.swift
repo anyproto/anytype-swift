@@ -38,7 +38,7 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
             filters
         }
         
-        let keys = BundledRelationKey.objectListKeys.map { $0.rawValue } + [ BundledRelationKey.origin.rawValue ]
+        let keys = BundledPropertyKey.objectListKeys.map { $0.rawValue } + [ BundledPropertyKey.origin.rawValue ]
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

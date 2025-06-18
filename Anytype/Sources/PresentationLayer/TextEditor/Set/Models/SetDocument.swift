@@ -167,7 +167,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     }
     
     func isSetByRelation() -> Bool {
-        let relation = parsedProperties.systemProperties.first { $0.key == BundledRelationKey.setOf.rawValue }
+        let relation = parsedProperties.systemProperties.first { $0.key == BundledPropertyKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {
@@ -271,8 +271,8 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     private func enrichedByDoneRelationIfNeeded(relationsDetails: [RelationDetails]) -> [RelationDetails] {
         // force insert Done relation for dataView if needed
-        let containsDoneRelation = relationsDetails.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
+        let containsDoneRelation = relationsDetails.first { $0.key == BundledPropertyKey.done.rawValue }.isNotNil
+        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
         if !containsDoneRelation, let doneRelationDetails {
             var relationsDetails = relationsDetails
             relationsDetails.append(doneRelationDetails)

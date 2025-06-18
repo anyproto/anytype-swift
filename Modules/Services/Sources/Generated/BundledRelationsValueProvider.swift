@@ -166,594 +166,594 @@ public protocol BundledRelationsValueProvider {
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
     var tag: [ObjectId] {
-        return value(for: BundledRelationKey.tag.rawValue)
+        return value(for: BundledPropertyKey.tag.rawValue)
     }
     /// Camera used to capture image or video
     var camera: String {
-        return value(for: BundledRelationKey.camera.rawValue)
+        return value(for: BundledPropertyKey.camera.rawValue)
     }
     /// Height of image/video in pixels
     var heightInPixels: Int? {
-        return value(for: BundledRelationKey.heightInPixels.rawValue)
+        return value(for: BundledPropertyKey.heightInPixels.rawValue)
     }
     /// Date when the object was initially created
     var createdDate: Date? {
-        return value(for: BundledRelationKey.createdDate.rawValue)
+        return value(for: BundledPropertyKey.createdDate.rawValue)
     }
     /// Date when the object will be deleted from your device
     var toBeDeletedDate: Date? {
-        return value(for: BundledRelationKey.toBeDeletedDate.rawValue)
+        return value(for: BundledPropertyKey.toBeDeletedDate.rawValue)
     }
     /// Prioritized target types for the relation's value
     var relationFormatObjectTypes: [ObjectId] {
-        return value(for: BundledRelationKey.relationFormatObjectTypes.rawValue)
+        return value(for: BundledPropertyKey.relationFormatObjectTypes.rawValue)
     }
     /// Relation key
     var relationKey: String {
-        return value(for: BundledRelationKey.relationKey.rawValue)
+        return value(for: BundledPropertyKey.relationKey.rawValue)
     }
     /// Relation option color
     var relationOptionColor: String {
-        return value(for: BundledRelationKey.relationOptionColor.rawValue)
+        return value(for: BundledPropertyKey.relationOptionColor.rawValue)
     }
     /// Latest Acl head id
     var latestAclHeadId: String {
-        return value(for: BundledRelationKey.latestAclHeadId.rawValue)
+        return value(for: BundledPropertyKey.latestAclHeadId.rawValue)
     }
     /// Done checkbox used to render action layout. 
     var done: Bool {
-        return value(for: BundledRelationKey.done.rawValue)
+        return value(for: BundledPropertyKey.done.rawValue)
     }
     /// Artist URL
     var mediaArtistURL: AnytypeURL? {
-        return value(for: BundledRelationKey.mediaArtistURL.rawValue)
+        return value(for: BundledPropertyKey.mediaArtistURL.rawValue)
     }
     /// Specifies whether template is provided by anytype
     var templateIsBundled: Bool {
-        return value(for: BundledRelationKey.templateIsBundled.rawValue)
+        return value(for: BundledPropertyKey.templateIsBundled.rawValue)
     }
     /// Object restrictions list
     var restrictions: [Int] {
-        return value(for: BundledRelationKey.restrictions.rawValue)
+        return value(for: BundledPropertyKey.restrictions.rawValue)
     }
     /// Readers limit
     var readersLimit: Int? {
-        return value(for: BundledRelationKey.readersLimit.rawValue)
+        return value(for: BundledPropertyKey.readersLimit.rawValue)
     }
     /// Writers limit
     var writersLimit: Int? {
-        return value(for: BundledRelationKey.writersLimit.rawValue)
+        return value(for: BundledPropertyKey.writersLimit.rawValue)
     }
     /// Shared spaces limit
     var sharedSpacesLimit: Int? {
-        return value(for: BundledRelationKey.sharedSpacesLimit.rawValue)
+        return value(for: BundledPropertyKey.sharedSpacesLimit.rawValue)
     }
     /// Adds the object to the highlighted dataview in space
     var isHighlighted: Bool {
-        return value(for: BundledRelationKey.isHighlighted.rawValue)
+        return value(for: BundledPropertyKey.isHighlighted.rawValue)
     }
     /// List of related tasks
     var tasks: [ObjectId] {
-        return value(for: BundledRelationKey.tasks.rawValue)
+        return value(for: BundledPropertyKey.tasks.rawValue)
     }
     /// Plaintext extracted from the object's blocks 
     var snippet: String {
-        return value(for: BundledRelationKey.snippet.rawValue)
+        return value(for: BundledPropertyKey.snippet.rawValue)
     }
     /// Type of the underlying value
     var relationFormat: Int? {
-        return value(for: BundledRelationKey.relationFormat.rawValue)
+        return value(for: BundledPropertyKey.relationFormat.rawValue)
     }
     /// Indicates whether the relation value is readonly
     var relationReadonlyValue: Bool {
-        return value(for: BundledRelationKey.relationReadonlyValue.rawValue)
+        return value(for: BundledPropertyKey.relationReadonlyValue.rawValue)
     }
     /// Image icon
     var iconImage: ObjectId {
-        return value(for: BundledRelationKey.iconImage.rawValue)
+        return value(for: BundledPropertyKey.iconImage.rawValue)
     }
     var ingredients: String {
-        return value(for: BundledRelationKey.ingredients.rawValue)
+        return value(for: BundledPropertyKey.ingredients.rawValue)
     }
     var genre: [ObjectId] {
-        return value(for: BundledRelationKey.genre.rawValue)
+        return value(for: BundledPropertyKey.genre.rawValue)
     }
     /// Year when this object were released
     var releasedYear: Int? {
-        return value(for: BundledRelationKey.releasedYear.rawValue)
+        return value(for: BundledPropertyKey.releasedYear.rawValue)
     }
     /// Option that contains scale of Cover the image
     var coverScale: Int? {
-        return value(for: BundledRelationKey.coverScale.rawValue)
+        return value(for: BundledPropertyKey.coverScale.rawValue)
     }
     var relationDefaultValue: String {
-        return value(for: BundledRelationKey.relationDefaultValue.rawValue)
+        return value(for: BundledPropertyKey.relationDefaultValue.rawValue)
     }
     var linkedProjects: [ObjectId] {
-        return value(for: BundledRelationKey.linkedProjects.rawValue)
+        return value(for: BundledPropertyKey.linkedProjects.rawValue)
     }
     /// Audio record's album name
     var audioAlbum: String {
-        return value(for: BundledRelationKey.audioAlbum.rawValue)
+        return value(for: BundledPropertyKey.audioAlbum.rawValue)
     }
     /// Specify visual align of the layout
     var layoutAlign: Int? {
-        return value(for: BundledRelationKey.layoutAlign.rawValue)
+        return value(for: BundledPropertyKey.layoutAlign.rawValue)
     }
     /// Task status
     var status: ObjectId? {
-        return value(for: BundledRelationKey.status.rawValue)
+        return value(for: BundledPropertyKey.status.rawValue)
     }
     /// Specify if object is hidden
     var isHidden: Bool {
-        return value(for: BundledRelationKey.isHidden.rawValue)
+        return value(for: BundledPropertyKey.isHidden.rawValue)
     }
     /// Specify if object discovery is hidden
     var isHiddenDiscovery: Bool {
-        return value(for: BundledRelationKey.isHiddenDiscovery.rawValue)
+        return value(for: BundledPropertyKey.isHiddenDiscovery.rawValue)
     }
     /// Artist name
     var mediaArtistName: String {
-        return value(for: BundledRelationKey.mediaArtistName.rawValue)
+        return value(for: BundledPropertyKey.mediaArtistName.rawValue)
     }
     var email: String? {
-        return value(for: BundledRelationKey.email.rawValue)
+        return value(for: BundledPropertyKey.email.rawValue)
     }
     var company: ObjectId {
-        return value(for: BundledRelationKey.company.rawValue)
+        return value(for: BundledPropertyKey.company.rawValue)
     }
     var aperture: String {
-        return value(for: BundledRelationKey.aperture.rawValue)
+        return value(for: BundledPropertyKey.aperture.rawValue)
     }
     /// Date when the object was modified last time
     var lastModifiedDate: Date? {
-        return value(for: BundledRelationKey.lastModifiedDate.rawValue)
+        return value(for: BundledPropertyKey.lastModifiedDate.rawValue)
     }
     /// List of recommended relations
     var recommendedRelations: [ObjectId] {
-        return value(for: BundledRelationKey.recommendedRelations.rawValue)
+        return value(for: BundledPropertyKey.recommendedRelations.rawValue)
     }
     /// Human which created this object
     var creator: ObjectId {
-        return value(for: BundledRelationKey.creator.rawValue)
+        return value(for: BundledPropertyKey.creator.rawValue)
     }
     /// Recommended layout for new templates and objects of specific objec
     var recommendedLayout: Int? {
-        return value(for: BundledRelationKey.recommendedLayout.rawValue)
+        return value(for: BundledPropertyKey.recommendedLayout.rawValue)
     }
     /// Date when the object was modified last opened
     var lastOpenedDate: Date? {
-        return value(for: BundledRelationKey.lastOpenedDate.rawValue)
+        return value(for: BundledPropertyKey.lastOpenedDate.rawValue)
     }
     var author: [ObjectId] {
-        return value(for: BundledRelationKey.author.rawValue)
+        return value(for: BundledPropertyKey.author.rawValue)
     }
     /// Name of artist
     var artist: String {
-        return value(for: BundledRelationKey.artist.rawValue)
+        return value(for: BundledPropertyKey.artist.rawValue)
     }
     var dueDate: Date? {
-        return value(for: BundledRelationKey.dueDate.rawValue)
+        return value(for: BundledPropertyKey.dueDate.rawValue)
     }
     /// 1 emoji(can contains multiple UTF symbols) used as an icon
     var iconEmoji: Emoji? {
-        return value(for: BundledRelationKey.iconEmoji.rawValue)
+        return value(for: BundledPropertyKey.iconEmoji.rawValue)
     }
     /// 1-image, 2-color, 3-gradient, 4-prebuilt bg image, 5 - unsplash image. Value stored in coverId
     var coverType: Int? {
-        return value(for: BundledRelationKey.coverType.rawValue)
+        return value(for: BundledPropertyKey.coverType.rawValue)
     }
     /// Image y offset of the provided image
     var coverY: Int? {
-        return value(for: BundledRelationKey.coverY.rawValue)
+        return value(for: BundledPropertyKey.coverY.rawValue)
     }
     var time: Int? {
-        return value(for: BundledRelationKey.time.rawValue)
+        return value(for: BundledPropertyKey.time.rawValue)
     }
     /// Size of file/image in bytes
     var sizeInBytes: Int? {
-        return value(for: BundledRelationKey.sizeInBytes.rawValue)
+        return value(for: BundledPropertyKey.sizeInBytes.rawValue)
     }
     /// Point to the object types that can be added to collection. Empty means any object type can be added to the collection
     var collectionOf: [ObjectId] {
-        return value(for: BundledRelationKey.collectionOf.rawValue)
+        return value(for: BundledPropertyKey.collectionOf.rawValue)
     }
     /// Indicates whether the object is read-only. Means it can't be edited and archived
     var isReadonly: Bool {
-        return value(for: BundledRelationKey.isReadonly.rawValue)
+        return value(for: BundledPropertyKey.isReadonly.rawValue)
     }
     /// Date when the file were added into the anytype
     var addedDate: Date? {
-        return value(for: BundledRelationKey.addedDate.rawValue)
+        return value(for: BundledPropertyKey.addedDate.rawValue)
     }
     /// Person who is responsible for this task or object
     var assignee: [ObjectId] {
-        return value(for: BundledRelationKey.assignee.rawValue)
+        return value(for: BundledPropertyKey.assignee.rawValue)
     }
     var exposure: String {
-        return value(for: BundledRelationKey.exposure.rawValue)
+        return value(for: BundledPropertyKey.exposure.rawValue)
     }
     /// Type that is used for templating
     var targetObjectType: ObjectId {
-        return value(for: BundledRelationKey.targetObjectType.rawValue)
+        return value(for: BundledPropertyKey.targetObjectType.rawValue)
     }
     /// Adds the object to the home dashboard
     var isFavorite: Bool {
-        return value(for: BundledRelationKey.isFavorite.rawValue)
+        return value(for: BundledPropertyKey.isFavorite.rawValue)
     }
     /// Space object belongs to
     var workspaceId: ObjectId {
-        return value(for: BundledRelationKey.workspaceId.rawValue)
+        return value(for: BundledPropertyKey.workspaceId.rawValue)
     }
     /// Space belongs to
     var spaceId: ObjectId {
-        return value(for: BundledRelationKey.spaceId.rawValue)
+        return value(for: BundledPropertyKey.spaceId.rawValue)
     }
     /// Audio record's genre name
     var audioGenre: String {
-        return value(for: BundledRelationKey.audioGenre.rawValue)
+        return value(for: BundledPropertyKey.audioGenre.rawValue)
     }
     /// Name of the object
     var name: String {
-        return value(for: BundledRelationKey.name.rawValue)
+        return value(for: BundledPropertyKey.name.rawValue)
     }
     var mood: [ObjectId] {
-        return value(for: BundledRelationKey.mood.rawValue)
+        return value(for: BundledPropertyKey.mood.rawValue)
     }
     /// The text lyrics of the music record
     var audioLyrics: String {
-        return value(for: BundledRelationKey.audioLyrics.rawValue)
+        return value(for: BundledPropertyKey.audioLyrics.rawValue)
     }
     var focalRatio: Int? {
-        return value(for: BundledRelationKey.focalRatio.rawValue)
+        return value(for: BundledPropertyKey.focalRatio.rawValue)
     }
     /// Used to order tasks in list/canban
     var priority: Int? {
-        return value(for: BundledRelationKey.priority.rawValue)
+        return value(for: BundledPropertyKey.priority.rawValue)
     }
     /// Mime type of object
     var fileMimeType: String {
-        return value(for: BundledRelationKey.fileMimeType.rawValue)
+        return value(for: BundledPropertyKey.fileMimeType.rawValue)
     }
     /// Relation that stores the object's type
     var type: ObjectId {
-        return value(for: BundledRelationKey.type.rawValue)
+        return value(for: BundledPropertyKey.type.rawValue)
     }
     /// Anytype layout ID(from pb enum)
     var layout: Int? {
-        return value(for: BundledRelationKey.layout.rawValue)
+        return value(for: BundledPropertyKey.layout.rawValue)
     }
     /// Number of the track in the
     var audioAlbumTrackNumber: Int? {
-        return value(for: BundledRelationKey.audioAlbumTrackNumber.rawValue)
+        return value(for: BundledPropertyKey.audioAlbumTrackNumber.rawValue)
     }
     /// Set of internal flags
     var internalFlags: [Int] {
-        return value(for: BundledRelationKey.internalFlags.rawValue)
+        return value(for: BundledPropertyKey.internalFlags.rawValue)
     }
     /// Image x offset of the provided image
     var coverX: Int? {
-        return value(for: BundledRelationKey.coverX.rawValue)
+        return value(for: BundledPropertyKey.coverX.rawValue)
     }
     var description: String {
-        return value(for: BundledRelationKey.description.rawValue)
+        return value(for: BundledPropertyKey.description.rawValue)
     }
     /// An image is an artifact that depicts visual perception, such as a photograph or other two-dimensional picture
     var picture: ObjectId {
-        return value(for: BundledRelationKey.picture.rawValue)
+        return value(for: BundledPropertyKey.picture.rawValue)
     }
     /// Link to itself. Used in databases
     var id: ObjectId {
-        return value(for: BundledRelationKey.id.rawValue)
+        return value(for: BundledPropertyKey.id.rawValue)
     }
     /// Web address, a reference to a web resource that specifies its location on a computer network and a mechanism for retrieving it
     var url: AnytypeURL? {
-        return value(for: BundledRelationKey.url.rawValue)
+        return value(for: BundledPropertyKey.url.rawValue)
     }
     var cameraIso: Int? {
-        return value(for: BundledRelationKey.cameraIso.rawValue)
+        return value(for: BundledPropertyKey.cameraIso.rawValue)
     }
     /// Relation that indicates document has been deleted
     var isDeleted: Bool {
-        return value(for: BundledRelationKey.isDeleted.rawValue)
+        return value(for: BundledPropertyKey.isDeleted.rawValue)
     }
     /// Outgoing links
     var links: [ObjectId] {
-        return value(for: BundledRelationKey.links.rawValue)
+        return value(for: BundledPropertyKey.links.rawValue)
     }
     /// Can contains image hash, color or prebuild bg id, depends on coverType relation
     var coverId: String {
-        return value(for: BundledRelationKey.coverId.rawValue)
+        return value(for: BundledPropertyKey.coverId.rawValue)
     }
     /// Human who updated the object last time
     var lastModifiedBy: ObjectId {
-        return value(for: BundledRelationKey.lastModifiedBy.rawValue)
+        return value(for: BundledPropertyKey.lastModifiedBy.rawValue)
     }
     /// Relation allows multi values
     var relationMaxCount: Int? {
-        return value(for: BundledRelationKey.relationMaxCount.rawValue)
+        return value(for: BundledPropertyKey.relationMaxCount.rawValue)
     }
     /// Width of image/video in pixels
     var widthInPixels: Int? {
-        return value(for: BundledRelationKey.widthInPixels.rawValue)
+        return value(for: BundledPropertyKey.widthInPixels.rawValue)
     }
     var progress: Int? {
-        return value(for: BundledRelationKey.progress.rawValue)
+        return value(for: BundledPropertyKey.progress.rawValue)
     }
     /// Point to the object types or realtions used to aggregate the set. Empty means object of all types will be aggregated 
     var setOf: [ObjectId] {
-        return value(for: BundledRelationKey.setOf.rawValue)
+        return value(for: BundledPropertyKey.setOf.rawValue)
     }
     /// Hides the object
     var isArchived: Bool {
-        return value(for: BundledRelationKey.isArchived.rawValue)
+        return value(for: BundledPropertyKey.isArchived.rawValue)
     }
     var fileExt: String {
-        return value(for: BundledRelationKey.fileExt.rawValue)
+        return value(for: BundledPropertyKey.fileExt.rawValue)
     }
     /// Important relations that always appear at the top of the object
     var featuredRelations: [ObjectId] {
-        return value(for: BundledRelationKey.featuredRelations.rawValue)
+        return value(for: BundledPropertyKey.featuredRelations.rawValue)
     }
     var phone: String? {
-        return value(for: BundledRelationKey.phone.rawValue)
+        return value(for: BundledPropertyKey.phone.rawValue)
     }
     /// Stored for object type. Contains tge list of smartblock types used to create the object
     var smartblockTypes: [Int] {
-        return value(for: BundledRelationKey.smartblockTypes.rawValue)
+        return value(for: BundledPropertyKey.smartblockTypes.rawValue)
     }
     var source: AnytypeURL? {
-        return value(for: BundledRelationKey.source.rawValue)
+        return value(for: BundledPropertyKey.source.rawValue)
     }
     var sourceObject: ObjectId {
-        return value(for: BundledRelationKey.sourceObject.rawValue)
+        return value(for: BundledPropertyKey.sourceObject.rawValue)
     }
     var oldAnytypeID: String {
-        return value(for: BundledRelationKey.oldAnytypeID.rawValue)
+        return value(for: BundledPropertyKey.oldAnytypeID.rawValue)
     }
     /// Space Dashboard object ID
     var spaceDashboardId: ObjectId {
-        return value(for: BundledRelationKey.spaceDashboardId.rawValue)
+        return value(for: BundledPropertyKey.spaceDashboardId.rawValue)
     }
     /// Choose one of our pre-installed icons during On-boarding
     var iconOption: Int? {
-        return value(for: BundledRelationKey.iconOption.rawValue)
+        return value(for: BundledPropertyKey.iconOption.rawValue)
     }
     /// There are two options of accessibility of workspace - private (0) or public (1)
     var spaceAccessibility: Int? {
-        return value(for: BundledRelationKey.spaceAccessibility.rawValue)
+        return value(for: BundledPropertyKey.spaceAccessibility.rawValue)
     }
     /// Space access type, see enum model.SpaceAccessType
     var spaceAccessType: Int? {
-        return value(for: BundledRelationKey.spaceAccessType.rawValue)
+        return value(for: BundledPropertyKey.spaceAccessType.rawValue)
     }
     /// Space UX type, see enum model.SpaceUxType
     var spaceUxType: Int? {
-        return value(for: BundledRelationKey.spaceUxType.rawValue)
+        return value(for: BundledPropertyKey.spaceUxType.rawValue)
     }
     /// File path or url with original object
     var sourceFilePath: String {
-        return value(for: BundledRelationKey.sourceFilePath.rawValue)
+        return value(for: BundledPropertyKey.sourceFilePath.rawValue)
     }
     /// File sync status
     var fileSyncStatus: Int? {
-        return value(for: BundledRelationKey.fileSyncStatus.rawValue)
+        return value(for: BundledPropertyKey.fileSyncStatus.rawValue)
     }
     /// File backup status
     var fileBackupStatus: Int? {
-        return value(for: BundledRelationKey.fileBackupStatus.rawValue)
+        return value(for: BundledPropertyKey.fileBackupStatus.rawValue)
     }
     /// File indexing status
     var fileIndexingStatus: Int? {
-        return value(for: BundledRelationKey.fileIndexingStatus.rawValue)
+        return value(for: BundledPropertyKey.fileIndexingStatus.rawValue)
     }
     /// Last change ID
     var lastChangeId: String {
-        return value(for: BundledRelationKey.lastChangeId.rawValue)
+        return value(for: BundledPropertyKey.lastChangeId.rawValue)
     }
     var starred: Bool {
-        return value(for: BundledRelationKey.starred.rawValue)
+        return value(for: BundledPropertyKey.starred.rawValue)
     }
     /// ID of template chosen as default for particular object type
     var defaultTemplateId: ObjectId {
-        return value(for: BundledRelationKey.defaultTemplateId.rawValue)
+        return value(for: BundledPropertyKey.defaultTemplateId.rawValue)
     }
     /// Unique key used to ensure object uniqueness within the space
     var uniqueKey: String {
-        return value(for: BundledRelationKey.uniqueKey.rawValue)
+        return value(for: BundledPropertyKey.uniqueKey.rawValue)
     }
     /// List of links coming to object
     var backlinks: [ObjectId] {
-        return value(for: BundledRelationKey.backlinks.rawValue)
+        return value(for: BundledPropertyKey.backlinks.rawValue)
     }
     /// Relation that indicates document has been uninstalled
     var isUninstalled: Bool {
-        return value(for: BundledRelationKey.isUninstalled.rawValue)
+        return value(for: BundledPropertyKey.isUninstalled.rawValue)
     }
     /// Source of objects in Anytype (clipboard, import)
     var origin: Int? {
-        return value(for: BundledRelationKey.origin.rawValue)
+        return value(for: BundledPropertyKey.origin.rawValue)
     }
     /// Relation that indicates the local status of space. Possible values: models.SpaceStatus
     var spaceLocalStatus: Int? {
-        return value(for: BundledRelationKey.spaceLocalStatus.rawValue)
+        return value(for: BundledPropertyKey.spaceLocalStatus.rawValue)
     }
     /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
     var spaceRemoteStatus: Int? {
-        return value(for: BundledRelationKey.spaceRemoteStatus.rawValue)
+        return value(for: BundledPropertyKey.spaceRemoteStatus.rawValue)
     }
     /// Specify if the space is shareable
     var spaceShareableStatus: Int? {
-        return value(for: BundledRelationKey.spaceShareableStatus.rawValue)
+        return value(for: BundledPropertyKey.spaceShareableStatus.rawValue)
     }
     /// Specify if access control list is shared
     var isAclShared: Bool {
-        return value(for: BundledRelationKey.isAclShared.rawValue)
+        return value(for: BundledPropertyKey.isAclShared.rawValue)
     }
     /// Relation that indicates the status of space that the user is set. Possible values: models.SpaceStatus
     var spaceAccountStatus: Int? {
-        return value(for: BundledRelationKey.spaceAccountStatus.rawValue)
+        return value(for: BundledPropertyKey.spaceAccountStatus.rawValue)
     }
     /// CID of invite file for current space. It stored in SpaceView
     var spaceInviteFileCid: String {
-        return value(for: BundledRelationKey.spaceInviteFileCid.rawValue)
+        return value(for: BundledPropertyKey.spaceInviteFileCid.rawValue)
     }
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     var spaceInviteFileKey: String {
-        return value(for: BundledRelationKey.spaceInviteFileKey.rawValue)
+        return value(for: BundledPropertyKey.spaceInviteFileKey.rawValue)
     }
     /// Encoded encryption key of invite file for current space. It stored in SpaceView
     var spaceInviteType: Int? {
-        return value(for: BundledRelationKey.spaceInviteType.rawValue)
+        return value(for: BundledPropertyKey.spaceInviteType.rawValue)
     }
     /// CID of invite file for  for guest user in the current space. It's stored in SpaceView
     var spaceInviteGuestFileCid: String {
-        return value(for: BundledRelationKey.spaceInviteGuestFileCid.rawValue)
+        return value(for: BundledPropertyKey.spaceInviteGuestFileCid.rawValue)
     }
     /// Encoded encryption key of invite file for guest user in the current space. It's stored in SpaceView
     var spaceInviteGuestFileKey: String {
-        return value(for: BundledRelationKey.spaceInviteGuestFileKey.rawValue)
+        return value(for: BundledPropertyKey.spaceInviteGuestFileKey.rawValue)
     }
     /// Guest key to read public space
     var guestKey: String {
-        return value(for: BundledRelationKey.guestKey.rawValue)
+        return value(for: BundledPropertyKey.guestKey.rawValue)
     }
     /// Participant permissions. Possible values: models.ParticipantPermissions
     var participantPermissions: Int? {
-        return value(for: BundledRelationKey.participantPermissions.rawValue)
+        return value(for: BundledPropertyKey.participantPermissions.rawValue)
     }
     /// Invite permissions. Possible values: models.ParticipantPermissions
     var spaceInvitePermissions: Int? {
-        return value(for: BundledRelationKey.spaceInvitePermissions.rawValue)
+        return value(for: BundledPropertyKey.spaceInvitePermissions.rawValue)
     }
     /// Identity
     var identity: String {
-        return value(for: BundledRelationKey.identity.rawValue)
+        return value(for: BundledPropertyKey.identity.rawValue)
     }
     /// Participant status. Possible values: models.ParticipantStatus
     var participantStatus: Int? {
-        return value(for: BundledRelationKey.participantStatus.rawValue)
+        return value(for: BundledPropertyKey.participantStatus.rawValue)
     }
     /// Link to the profile attached to Anytype Identity
     var identityProfileLink: ObjectId {
-        return value(for: BundledRelationKey.identityProfileLink.rawValue)
+        return value(for: BundledPropertyKey.identityProfileLink.rawValue)
     }
     /// Link the profile object to specific Identity
     var profileOwnerIdentity: String {
-        return value(for: BundledRelationKey.profileOwnerIdentity.rawValue)
+        return value(for: BundledPropertyKey.profileOwnerIdentity.rawValue)
     }
     /// Relation that indicates the real space id on the spaceView
     var targetSpaceId: String {
-        return value(for: BundledRelationKey.targetSpaceId.rawValue)
+        return value(for: BundledPropertyKey.targetSpaceId.rawValue)
     }
     var fileId: [String] {
-        return value(for: BundledRelationKey.fileId.rawValue)
+        return value(for: BundledPropertyKey.fileId.rawValue)
     }
     /// Last time object type was used
     var lastUsedDate: Date? {
-        return value(for: BundledRelationKey.lastUsedDate.rawValue)
+        return value(for: BundledPropertyKey.lastUsedDate.rawValue)
     }
     /// Revision of system object
     var revision: Int? {
-        return value(for: BundledRelationKey.revision.rawValue)
+        return value(for: BundledPropertyKey.revision.rawValue)
     }
     /// Describes how this image is used
     var imageKind: Int? {
-        return value(for: BundledRelationKey.imageKind.rawValue)
+        return value(for: BundledPropertyKey.imageKind.rawValue)
     }
     /// Import type, used to create object (notion, md and etc)
     var importType: Int? {
-        return value(for: BundledRelationKey.importType.rawValue)
+        return value(for: BundledPropertyKey.importType.rawValue)
     }
     /// Name of profile that the user could be mentioned by
     var globalName: String {
-        return value(for: BundledRelationKey.globalName.rawValue)
+        return value(for: BundledPropertyKey.globalName.rawValue)
     }
     /// Object sync status
     var syncStatus: Int? {
-        return value(for: BundledRelationKey.syncStatus.rawValue)
+        return value(for: BundledPropertyKey.syncStatus.rawValue)
     }
     /// Object sync date
     var syncDate: Date? {
-        return value(for: BundledRelationKey.syncDate.rawValue)
+        return value(for: BundledPropertyKey.syncDate.rawValue)
     }
     /// Object sync error
     var syncError: Int? {
-        return value(for: BundledRelationKey.syncError.rawValue)
+        return value(for: BundledPropertyKey.syncError.rawValue)
     }
     /// Object has a chat
     var hasChat: Bool {
-        return value(for: BundledRelationKey.hasChat.rawValue)
+        return value(for: BundledPropertyKey.hasChat.rawValue)
     }
     /// Chat id
     var chatId: ObjectId {
-        return value(for: BundledRelationKey.chatId.rawValue)
+        return value(for: BundledPropertyKey.chatId.rawValue)
     }
     /// Objects that are mentioned in blocks of this object
     var mentions: [ObjectId] {
-        return value(for: BundledRelationKey.mentions.rawValue)
+        return value(for: BundledPropertyKey.mentions.rawValue)
     }
     /// Unix time representation of date object
     var timestamp: Date? {
-        return value(for: BundledRelationKey.timestamp.rawValue)
+        return value(for: BundledPropertyKey.timestamp.rawValue)
     }
     /// Width of object's layout
     var layoutWidth: Int? {
-        return value(for: BundledRelationKey.layoutWidth.rawValue)
+        return value(for: BundledPropertyKey.layoutWidth.rawValue)
     }
     /// Layout resolved based on object self layout and type recommended layout
     var resolvedLayout: Int? {
-        return value(for: BundledRelationKey.resolvedLayout.rawValue)
+        return value(for: BundledPropertyKey.resolvedLayout.rawValue)
     }
     /// Space order
     var spaceOrder: String {
-        return value(for: BundledRelationKey.spaceOrder.rawValue)
+        return value(for: BundledPropertyKey.spaceOrder.rawValue)
     }
     /// Choose icon for the type among custom Anytype icons
     var iconName: String {
-        return value(for: BundledRelationKey.iconName.rawValue)
+        return value(for: BundledPropertyKey.iconName.rawValue)
     }
     /// List of recommended featured relations
     var recommendedFeaturedRelations: [ObjectId] {
-        return value(for: BundledRelationKey.recommendedFeaturedRelations.rawValue)
+        return value(for: BundledPropertyKey.recommendedFeaturedRelations.rawValue)
     }
     /// List of recommended relations that are hidden in layout
     var recommendedHiddenRelations: [ObjectId] {
-        return value(for: BundledRelationKey.recommendedHiddenRelations.rawValue)
+        return value(for: BundledPropertyKey.recommendedHiddenRelations.rawValue)
     }
     /// List of recommended file-specific relations
     var recommendedFileRelations: [ObjectId] {
-        return value(for: BundledRelationKey.recommendedFileRelations.rawValue)
+        return value(for: BundledPropertyKey.recommendedFileRelations.rawValue)
     }
     /// Default view type that will be used for new sets/collections
     var defaultViewType: Int? {
-        return value(for: BundledRelationKey.defaultViewType.rawValue)
+        return value(for: BundledPropertyKey.defaultViewType.rawValue)
     }
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
-        return value(for: BundledRelationKey.defaultTypeId.rawValue)
+        return value(for: BundledPropertyKey.defaultTypeId.rawValue)
     }
     /// Automatically generated widget. Used to avoid creating widget if was removed by user
     var autoWidgetTargets: [ObjectId] {
-        return value(for: BundledRelationKey.autoWidgetTargets.rawValue)
+        return value(for: BundledPropertyKey.autoWidgetTargets.rawValue)
     }
     var autoWidgetDisabled: Bool {
-        return value(for: BundledRelationKey.autoWidgetDisabled.rawValue)
+        return value(for: BundledPropertyKey.autoWidgetDisabled.rawValue)
     }
     /// Name of Object type in plural form
     var pluralName: String {
-        return value(for: BundledRelationKey.pluralName.rawValue)
+        return value(for: BundledPropertyKey.pluralName.rawValue)
     }
     /// Layout of header relations. Line or column
     var headerRelationsLayout: Int? {
-        return value(for: BundledRelationKey.headerRelationsLayout.rawValue)
+        return value(for: BundledPropertyKey.headerRelationsLayout.rawValue)
     }
     /// Identifier to use in intergrations with Anytype API
     var apiObjectKey: String {
-        return value(for: BundledRelationKey.apiObjectKey.rawValue)
+        return value(for: BundledPropertyKey.apiObjectKey.rawValue)
     }
     /// Should time be shown for relation values with date format
     var relationFormatIncludeTime: [Bool] {
-        return value(for: BundledRelationKey.relationFormatIncludeTime.rawValue)
+        return value(for: BundledPropertyKey.relationFormatIncludeTime.rawValue)
     }
 }

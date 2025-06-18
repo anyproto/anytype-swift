@@ -19,7 +19,7 @@ final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol {
         RelationDetails.mock(key: key)
     }
     
-    func relationsDetails(bundledKey: BundledRelationKey, spaceId: String) throws -> RelationDetails {
+    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> RelationDetails {
         RelationDetails.mock(key: bundledKey.rawValue)
     }
     

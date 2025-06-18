@@ -52,7 +52,7 @@ struct ObjectPreviewModel {
         switch cardStyle {
         case .card:
             self.coverRelation = Relation(
-                key: BundledRelationKey.coverType.rawValue,
+                key: BundledPropertyKey.coverType.rawValue,
                 name: Loc.cover,
                 iconAsset: nil,
                 isLocked: false,
@@ -64,12 +64,12 @@ struct ObjectPreviewModel {
     }
 
     private static func buildRealtions(relations: [BlockLink.Relation]) -> [ListItem] {
-        let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
+        let nameRelation = Relation(key: BundledPropertyKey.name.rawValue,
                                     name: Loc.name,
                                     iconAsset: RelationFormat.shortText.iconAsset,
                                     isLocked: true,
                                     isEnabled: relations.contains(.name))
-        let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
+        let typeRelation = Relation(key: BundledPropertyKey.type.rawValue,
                                     name: Loc.LinkAppearance.ObjectType.title,
                                     iconAsset: RelationFormat.object.iconAsset,
                                     isLocked: false,

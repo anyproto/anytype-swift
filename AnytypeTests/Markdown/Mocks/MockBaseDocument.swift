@@ -88,8 +88,8 @@ extension MockBaseDocument {
         var mockDetails = ObjectDetails.init(
             id: objectId,
             values: [
-                BundledRelationKey.recommendedRelations.rawValue: recommendedRelations.protobufValue,
-                BundledRelationKey.recommendedFeaturedRelations.rawValue: recommendedFeaturedRelations.protobufValue
+                BundledPropertyKey.recommendedRelations.rawValue: recommendedRelations.protobufValue,
+                BundledPropertyKey.recommendedFeaturedRelations.rawValue: recommendedFeaturedRelations.protobufValue
             ]
         )
         
