@@ -5583,31 +5583,6 @@ extension Anytype_Rpc.Object.Redo.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.Refresh.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "Object.Refresh.badInput")
-            case .objectDeleted:
-                return LocHelper.tr(table: "LocalizableError", key: "Object.Refresh.objectDeleted")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.Object.Search.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
