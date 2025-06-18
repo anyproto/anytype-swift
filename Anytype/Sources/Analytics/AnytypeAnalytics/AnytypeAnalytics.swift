@@ -7,6 +7,7 @@ final class AnytypeAnalytics: @unchecked Sendable {
         static let interfaceLang = "interfaceLang"
         static let networkId = "networkId"
         static let tier = "tier"
+        static let tierId = "tierId"
     }
     
     private var isEnabled: Bool = true
@@ -59,7 +60,8 @@ final class AnytypeAnalytics: @unchecked Sendable {
     }
     
     func setMembershipTier(tier: MembershipTier?) {
-        userProperties[Keys.tier] = tier?.name
+        userProperties[Keys.tier] = tier?.analyticsName ?? "None"
+        userProperties[Keys.tierId] = tier?.type.id
     }
     
     func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any] = [:]) {
