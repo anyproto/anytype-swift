@@ -198,6 +198,7 @@ struct ChatView: View {
             model.onTapDismissKeyboard()
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
+        .messageFlashId($model.messageHiglightId)
     }
     
     @ViewBuilder

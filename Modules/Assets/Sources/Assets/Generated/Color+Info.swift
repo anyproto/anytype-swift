@@ -260,6 +260,7 @@ public extension UIColor.Background {
     static let collectionInfo = ColorCollectionInfo(
         name: "Background",
         colors: [
+            ColorInfo(name: "bubbleFlash", color: UIColor.Background.Chat.bubbleFlash),
             ColorInfo(name: "bubbleSomeones", color: UIColor.Background.Chat.bubbleSomeones),
             ColorInfo(name: "bubbleYour", color: UIColor.Background.Chat.bubbleYour),
             ColorInfo(name: "replySomeones", color: UIColor.Background.Chat.replySomeones),

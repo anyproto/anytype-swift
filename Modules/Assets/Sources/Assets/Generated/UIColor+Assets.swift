@@ -164,6 +164,7 @@ extension UIColor {
     public enum Background {
       // MARK: - Chat
       public enum Chat {
+        public static let bubbleFlash = UIColor(asset: Asset.Background.Chat.bubbleFlash)
         public static let bubbleSomeones = UIColor(asset: Asset.Background.Chat.bubbleSomeones)
         public static let bubbleYour = UIColor(asset: Asset.Background.Chat.bubbleYour)
         public static let replySomeones = UIColor(asset: Asset.Background.Chat.replySomeones)
