@@ -187,6 +187,27 @@ When making multiple related changes:
   - And so on...
 - This allows reviewers to review changes incrementally and maintains a clear dependency chain
 
+## Linear Issue Workflow
+
+### Understanding Task Numbers
+Before starting work on any issue, you must identify the task number:
+
+1. **From Branch Name**: Usually the task number can be derived from the current branch name (e.g., `ios-4743-setup-linear-mpc-server` → `IOS-4743`)
+
+2. **When on develop branch**: If you're on the `develop` branch or the task number isn't clear, ask explicitly for the task number
+
+3. **Getting Issue Context**: Once you have the task number:
+   - Use Linear MCP to fetch the issue details: `mcp__linear__get_issue` with the task ID
+   - Download all issue information including description, comments, and requirements
+   - Use this context to understand the full scope of work
+
+4. **Branch Management**: Switch to the appropriate feature branch using the standard naming convention (`ios-XXXX-description`)
+
+### Linear Integration
+- Use Linear MCP tools to read issue details, comments, and requirements
+- Always understand the full context before starting implementation
+- Update issue status and add comments as needed during development
+
 ## Useful Commands
 - `make setup-middle` - Initial setup
 - `make generate-middle` - Regenerate middleware and generated files
