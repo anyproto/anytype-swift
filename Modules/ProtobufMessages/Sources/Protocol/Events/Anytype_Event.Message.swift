@@ -664,14 +664,6 @@ extension Anytype_Event {
       set {_uniqueStorage()._value = .chatStateUpdate(newValue)}
     }
 
-    public var pushEncryptionKeyUpdate: Anytype_Event.PushEncryptionKey.Update {
-      get {
-        if case .pushEncryptionKeyUpdate(let v)? = _storage._value {return v}
-        return Anytype_Event.PushEncryptionKey.Update()
-      }
-      set {_uniqueStorage()._value = .pushEncryptionKeyUpdate(newValue)}
-    }
-
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -763,7 +755,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     135: .same(proto: "chatUpdateMentionReadStatus"),
     131: .same(proto: "chatDelete"),
     133: .same(proto: "chatStateUpdate"),
-    136: .same(proto: "pushEncryptionKeyUpdate"),
   ]
 
   fileprivate class _StorageClass {
@@ -1766,19 +1757,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
             _storage._value = .chatUpdateMentionReadStatus(v)
           }
         }()
-        case 136: try {
-          var v: Anytype_Event.PushEncryptionKey.Update?
-          var hadOneofValue = false
-          if let current = _storage._value {
-            hadOneofValue = true
-            if case .pushEncryptionKeyUpdate(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {
-            if hadOneofValue {try decoder.handleConflictingOneOf()}
-            _storage._value = .pushEncryptionKeyUpdate(v)
-          }
-        }()
         case 201: try {
           var v: Anytype_Event.Account.Details?
           var hadOneofValue = false
@@ -2158,10 +2136,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       case .chatUpdateMentionReadStatus?: try {
         guard case .chatUpdateMentionReadStatus(let v)? = _storage._value else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 135)
-      }()
-      case .pushEncryptionKeyUpdate?: try {
-        guard case .pushEncryptionKeyUpdate(let v)? = _storage._value else { preconditionFailure() }
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 136)
       }()
       case .accountDetails?: try {
         guard case .accountDetails(let v)? = _storage._value else { preconditionFailure() }

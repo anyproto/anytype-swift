@@ -1130,6 +1130,11 @@ extension Anytype_Rpc.Object.Redo.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.Refresh.Response: ResultWithError {}
+extension Anytype_Rpc.Object.Refresh.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.Search.Response: ResultWithError {}
 extension Anytype_Rpc.Object.Search.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1342,6 +1347,11 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
 
 extension Anytype_Rpc.PushNotification.RegisterToken.Response: ResultWithError {}
 extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
