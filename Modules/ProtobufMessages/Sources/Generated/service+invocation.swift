@@ -614,6 +614,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectRefresh(
+        _ request: Anytype_Rpc.Object.Refresh.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.Refresh.Request, Anytype_Rpc.Object.Refresh.Response> {
+        return Invocation(messageName: "ObjectRefresh", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectRefresh(requestData) ?? Data()
+            return try Anytype_Rpc.Object.Refresh.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectClose(
         _ request: Anytype_Rpc.Object.Close.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.Close.Request, Anytype_Rpc.Object.Close.Response> {
