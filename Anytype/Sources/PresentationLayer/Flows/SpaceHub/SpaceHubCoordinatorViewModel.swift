@@ -243,7 +243,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     private func showScreen(data: ScreenData) async throws {
-        
+        var data = data
         let setupNewPath = currentSpaceId != data.spaceId
         // Open space before call object open. If space is loading state, object open return a error
         let spaceView = try await setActiveSpace(spaceId: data.spaceId)
@@ -257,8 +257,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         
         if let objectId = data.objectId { // validate in case of object
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
+            // Document open may not work if the space is not loaded.
+            // SetActiveSpace ensures that the space is present and active.
             try await document.open()
             guard let details = document.details else { return }
+            if data.isAnyObject {
+                data = details.screenData()
+            }
             guard details.isSupportedForOpening || data.isSimpleSet else {
                 toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .neutral)
                 return
@@ -293,6 +298,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .widget(let data):
             let data = HomeWidgetData(spaceId: data.spaceId)
             currentPath.openOnce(data)
+        case .anyObject:
+            anytypeAssertionFailure("Try to open screen data in any object type")
         }
     }
     
@@ -406,9 +413,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
         let route = source.isExternal ? OpenObjectByLinkRoute.web : OpenObjectByLinkRoute.app
         do {
-            try await document.open()
-            guard let editorData = document.details?.screenData() else { return }
-            try? await showScreen(data: editorData)
+            try await showScreen(data: .anyObject(objectId: objectId, spaceId: spaceId))
             AnytypeAnalytics.instance().logOpenObjectByLink(type: .object, route: route)
         } catch {
             guard let cid, let key else {
@@ -427,10 +432,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
             try await showScreen(data: .chat(ChatCoordinatorData(chatId: objectId, spaceId: spaceId)))
         } else {
-            let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
-            try await document.open()
-            guard let editorData = document.details?.screenData() else { return }
-            try await showScreen(data: editorData)
+            try await showScreen(data: .anyObject(objectId: objectId, spaceId: spaceId))
         }
     }
     

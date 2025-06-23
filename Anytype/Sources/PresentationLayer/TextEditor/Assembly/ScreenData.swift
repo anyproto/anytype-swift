@@ -20,6 +20,9 @@ enum ScreenData: Hashable, Identifiable, Sendable {
     case spaceInfo(SpaceInfoScreenData)
     case chat(ChatCoordinatorData)
     case widget(HomeWidgetData)
+    // Use this if you don't know object type.
+    // Navigation will request for the object type after the space is loaded.
+    case anyObject(objectId: String, spaceId: String)
     
     var id: Int { hashValue }
 }
@@ -33,6 +36,8 @@ extension ScreenData {
             return alertScreenData.objectId
         case .bookmark(let data):
             return data.editorScreenData.objectId
+        case .anyObject(let objectId, _):
+            return objectId
         case .preview, .spaceInfo, .chat, .widget:
             return nil
         }
@@ -54,6 +59,8 @@ extension ScreenData {
             data.spaceId
         case .widget(let data):
             data.spaceId
+        case .anyObject(_, let spaceId):
+            spaceId
         }
     }
     
@@ -70,6 +77,15 @@ extension ScreenData {
         switch self {
         case .editor(let editorScreenData):
             return editorScreenData.isSimpleSet
+        default:
+            return false
+        }
+    }
+    
+    var isAnyObject: Bool {
+        switch self {
+        case .anyObject:
+            return true
         default:
             return false
         }
