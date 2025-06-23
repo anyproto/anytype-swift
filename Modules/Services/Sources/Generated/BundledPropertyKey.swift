@@ -405,6 +405,22 @@ public enum BundledPropertyKey: String, Sendable {
     /// Layout resolved based on object self layout and type recommended layout
     case resolvedLayout = "resolvedLayout"
 
+    case fileVariantIds = "fileVariantIds"
+
+    case fileVariantPaths = "fileVariantPaths"
+
+    case fileVariantKeys = "fileVariantKeys"
+
+    case fileVariantWidths = "fileVariantWidths"
+
+    case fileVariantChecksums = "fileVariantChecksums"
+
+    case fileVariantMills = "fileVariantMills"
+
+    case fileVariantOptions = "fileVariantOptions"
+
+    case fileSourceChecksum = "fileSourceChecksum"
+
     /// Space order
     case spaceOrder = "spaceOrder"
 

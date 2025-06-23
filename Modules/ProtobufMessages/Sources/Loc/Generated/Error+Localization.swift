@@ -6500,6 +6500,8 @@ extension Anytype_Rpc.Publishing.Create.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Publishing.Create.noSuchSpace")
             case .limitExceeded:
                 return LocHelper.tr(table: "LocalizableError", key: "Publishing.Create.limitExceeded")
+            case .urlAlreadyTaken:
+                return LocHelper.tr(table: "LocalizableError", key: "Publishing.Create.urlAlreadyTaken")
             case .UNRECOGNIZED:
                 return ""
         }
