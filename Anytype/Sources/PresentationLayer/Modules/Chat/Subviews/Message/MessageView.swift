@@ -12,8 +12,6 @@ struct MessageView: View {
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
-    @State private var contentSize: CGSize = .zero
-    @State private var headerSize: CGSize = .zero
     @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
     init(
@@ -32,6 +30,7 @@ struct MessageView: View {
         }
         .padding(.horizontal, 12)
         .padding(.bottom, data.nextSpacing.height)
+        .id(data.id)
     }
     
     private var content: some View {

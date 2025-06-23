@@ -1,6 +1,9 @@
 import Foundation
 import Services
+import AnytypeCore
+import StoredHashMacro
 
+@StoredHash
 struct MessageViewData: Identifiable, Equatable, Hashable {
     let spaceId: String
     let chatId: String

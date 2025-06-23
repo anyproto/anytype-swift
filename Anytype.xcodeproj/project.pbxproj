@@ -64,6 +64,7 @@
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
 		746F06012DB8E712005795F7 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = 746F06002DB8E712005795F7 /* DesignKit */; };
+		748B36A02E0300C400DA28C2 /* StoredHashMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 748B369F2E0300C400DA28C2 /* StoredHashMacro */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
 		74D79ED52D784FBF00658D0A /* AsyncTools in Frameworks */ = {isa = PBXBuildFile; productRef = 74D79ED42D784FBF00658D0A /* AsyncTools */; };
 		74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = 74EB806B2D79D3EA003F8D84 /* Assets */; };
@@ -285,6 +286,7 @@
 				2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */,
 				2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */,
 				538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */,
+				748B36A02E0300C400DA28C2 /* StoredHashMacro in Frameworks */,
 				C9433E54293EA5EF001662EA /* SwiftEntryKit in Frameworks */,
 				1259300526F3A5C500B115CD /* Highlightr in Frameworks */,
 				1259300826F3A60B00B115CD /* Amplitude in Frameworks */,
@@ -505,6 +507,7 @@
 				7411879A2D9ADD200006EA41 /* Loc */,
 				746F06002DB8E712005795F7 /* DesignKit */,
 				2E074C4B2DE620E800260ABD /* NotificationsCore */,
+				748B369F2E0300C400DA28C2 /* StoredHashMacro */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -2986,6 +2989,10 @@
 		746F06002DB8E712005795F7 /* DesignKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignKit;
+		};
+		748B369F2E0300C400DA28C2 /* StoredHashMacro */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StoredHashMacro;
 		};
 		74B35D252D5B39C500AC9879 /* AsyncAlgorithms */ = {
 			isa = XCSwiftPackageProductDependency;
