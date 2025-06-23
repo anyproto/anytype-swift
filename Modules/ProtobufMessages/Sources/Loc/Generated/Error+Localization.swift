@@ -6500,6 +6500,8 @@ extension Anytype_Rpc.Publishing.Create.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Publishing.Create.noSuchSpace")
             case .limitExceeded:
                 return LocHelper.tr(table: "LocalizableError", key: "Publishing.Create.limitExceeded")
+            case .urlAlreadyTaken:
+                return LocHelper.tr(table: "LocalizableError", key: "Publishing.Create.urlAlreadyTaken")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -6627,6 +6629,29 @@ extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: LocalizedEr
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "PushNotification.RegisterToken.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.SetSpaceMode.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

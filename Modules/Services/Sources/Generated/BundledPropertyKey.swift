@@ -405,6 +405,22 @@ public enum BundledPropertyKey: String, Sendable {
     /// Layout resolved based on object self layout and type recommended layout
     case resolvedLayout = "resolvedLayout"
 
+    case fileVariantIds = "fileVariantIds"
+
+    case fileVariantPaths = "fileVariantPaths"
+
+    case fileVariantKeys = "fileVariantKeys"
+
+    case fileVariantWidths = "fileVariantWidths"
+
+    case fileVariantChecksums = "fileVariantChecksums"
+
+    case fileVariantMills = "fileVariantMills"
+
+    case fileVariantOptions = "fileVariantOptions"
+
+    case fileSourceChecksum = "fileSourceChecksum"
+
     /// Space order
     case spaceOrder = "spaceOrder"
 
@@ -442,4 +458,13 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Should time be shown for relation values with date format
     case relationFormatIncludeTime = "relationFormatIncludeTime"
+
+    /// Push notification mode - mute/all/mentions (see model.SpacePushNotificationMode)
+    case spacePushNotificationMode = "spacePushNotificationMode"
+
+    /// Push notifications space key (base64)
+    case spacePushNotificationKey = "spacePushNotificationKey"
+
+    /// Push notifications encryption key (base64)
+    case spacePushNotificationEncryptionKey = "spacePushNotificationEncryptionKey"
 }

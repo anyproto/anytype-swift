@@ -149,6 +149,14 @@ public protocol BundledRelationsValueProvider {
     var timestamp: Date? { get }
     var layoutWidth: Int? { get }
     var resolvedLayout: Int? { get }
+    var fileVariantIds: [String] { get }
+    var fileVariantPaths: [String] { get }
+    var fileVariantKeys: [String] { get }
+    var fileVariantWidths: [Int] { get }
+    var fileVariantChecksums: [String] { get }
+    var fileVariantMills: [String] { get }
+    var fileVariantOptions: [String] { get }
+    var fileSourceChecksum: String { get }
     var spaceOrder: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
@@ -162,6 +170,9 @@ public protocol BundledRelationsValueProvider {
     var headerRelationsLayout: Int? { get }
     var apiObjectKey: String { get }
     var relationFormatIncludeTime: [Bool] { get }
+    var spacePushNotificationMode: Int? { get }
+    var spacePushNotificationKey: String { get }
+    var spacePushNotificationEncryptionKey: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -705,6 +716,30 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var resolvedLayout: Int? {
         return value(for: BundledPropertyKey.resolvedLayout.rawValue)
     }
+    var fileVariantIds: [String] {
+        return value(for: BundledPropertyKey.fileVariantIds.rawValue)
+    }
+    var fileVariantPaths: [String] {
+        return value(for: BundledPropertyKey.fileVariantPaths.rawValue)
+    }
+    var fileVariantKeys: [String] {
+        return value(for: BundledPropertyKey.fileVariantKeys.rawValue)
+    }
+    var fileVariantWidths: [Int] {
+        return value(for: BundledPropertyKey.fileVariantWidths.rawValue)
+    }
+    var fileVariantChecksums: [String] {
+        return value(for: BundledPropertyKey.fileVariantChecksums.rawValue)
+    }
+    var fileVariantMills: [String] {
+        return value(for: BundledPropertyKey.fileVariantMills.rawValue)
+    }
+    var fileVariantOptions: [String] {
+        return value(for: BundledPropertyKey.fileVariantOptions.rawValue)
+    }
+    var fileSourceChecksum: String {
+        return value(for: BundledPropertyKey.fileSourceChecksum.rawValue)
+    }
     /// Space order
     var spaceOrder: String {
         return value(for: BundledPropertyKey.spaceOrder.rawValue)
@@ -755,5 +790,17 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Should time be shown for relation values with date format
     var relationFormatIncludeTime: [Bool] {
         return value(for: BundledPropertyKey.relationFormatIncludeTime.rawValue)
+    }
+    /// Push notification mode - mute/all/mentions (see model.SpacePushNotificationMode)
+    var spacePushNotificationMode: Int? {
+        return value(for: BundledPropertyKey.spacePushNotificationMode.rawValue)
+    }
+    /// Push notifications space key (base64)
+    var spacePushNotificationKey: String {
+        return value(for: BundledPropertyKey.spacePushNotificationKey.rawValue)
+    }
+    /// Push notifications encryption key (base64)
+    var spacePushNotificationEncryptionKey: String {
+        return value(for: BundledPropertyKey.spacePushNotificationEncryptionKey.rawValue)
     }
 }

@@ -16,6 +16,7 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let writersLimit: Int?
     let chatId: String
     let uxType: SpaceUxType
+    let pushNotificationEncryptionKey: String
 }
 
 extension SpaceView: DetailsModel {
@@ -33,6 +34,7 @@ extension SpaceView: DetailsModel {
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
         self.uxType = details.spaceUxTypeValue ?? .data
+        self.pushNotificationEncryptionKey = details.spacePushNotificationEncryptionKey
     }
     
     static let subscriptionKeys: [BundledPropertyKey] = .builder {
@@ -51,6 +53,7 @@ extension SpaceView: DetailsModel {
         BundledPropertyKey.chatId
         BundledPropertyKey.spaceOrder
         BundledPropertyKey.spaceUxType
+        BundledPropertyKey.spacePushNotificationEncryptionKey
     }
 }
 

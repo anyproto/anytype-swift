@@ -3014,4 +3014,14 @@ public struct ClientCommands {
         }
     }
 
+    public static func pushNotificationSetSpaceMode(
+        _ request: Anytype_Rpc.PushNotification.SetSpaceMode.Request = .init()
+    ) -> Invocation<Anytype_Rpc.PushNotification.SetSpaceMode.Request, Anytype_Rpc.PushNotification.SetSpaceMode.Response> {
+        return Invocation(messageName: "PushNotificationSetSpaceMode", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePushNotificationSetSpaceMode(requestData) ?? Data()
+            return try Anytype_Rpc.PushNotification.SetSpaceMode.Response(serializedBytes: responseData)
+        }
+    }
+
 }

@@ -1350,6 +1350,11 @@ extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: ResponseErr
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Relation.ListRemoveOption.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

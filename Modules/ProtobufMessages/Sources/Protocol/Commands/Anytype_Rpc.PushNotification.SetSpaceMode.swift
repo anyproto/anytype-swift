@@ -11,13 +11,51 @@
 import Foundation
 import SwiftProtobuf
 
-extension Anytype_Rpc.Publishing {
-    public struct Create: Sendable {
+extension Anytype_Rpc.PushNotification {
+    public struct SetSpaceMode: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum Mode: SwiftProtobuf.Enum, Swift.CaseIterable {
+        public typealias RawValue = Int
+        case all // = 0
+        case mentions // = 1
+        case nothing // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .all
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .all
+          case 1: self = .mentions
+          case 2: self = .nothing
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .all: return 0
+          case .mentions: return 1
+          case .nothing: return 2
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static let allCases: [Anytype_Rpc.PushNotification.SetSpaceMode.Mode] = [
+          .all,
+          .mentions,
+          .nothing,
+        ]
+
+      }
 
       public struct Request: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -26,11 +64,7 @@ extension Anytype_Rpc.Publishing {
 
         public var spaceID: String = String()
 
-        public var objectID: String = String()
-
-        public var uri: String = String()
-
-        public var joinSpace: Bool = false
+        public var mode: Anytype_Rpc.PushNotification.SetSpaceMode.Mode = .all
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -42,16 +76,14 @@ extension Anytype_Rpc.Publishing {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Publishing.Create.Response.Error {
-          get {return _error ?? Anytype_Rpc.Publishing.Create.Response.Error()}
+        public var error: Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error {
+          get {return _error ?? Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
-
-        public var uri: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -60,7 +92,7 @@ extension Anytype_Rpc.Publishing {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Publishing.Create.Response.Error.Code = .null
+          public var code: Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -71,10 +103,6 @@ extension Anytype_Rpc.Publishing {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case noSuchObject // = 101
-            case noSuchSpace // = 102
-            case limitExceeded // = 103
-            case urlAlreadyTaken // = 409
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -86,10 +114,6 @@ extension Anytype_Rpc.Publishing {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .noSuchObject
-              case 102: self = .noSuchSpace
-              case 103: self = .limitExceeded
-              case 409: self = .urlAlreadyTaken
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -99,23 +123,15 @@ extension Anytype_Rpc.Publishing {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .noSuchObject: return 101
-              case .noSuchSpace: return 102
-              case .limitExceeded: return 103
-              case .urlAlreadyTaken: return 409
               case .UNRECOGNIZED(let i): return i
               }
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.Publishing.Create.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
-              .noSuchObject,
-              .noSuchSpace,
-              .limitExceeded,
-              .urlAlreadyTaken,
             ]
 
           }
@@ -125,15 +141,15 @@ extension Anytype_Rpc.Publishing {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Publishing.Create.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error? = nil
       }
 
       public init() {}
     }    
 }
 
-extension Anytype_Rpc.Publishing.Create: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Publishing.protoMessageName + ".Create"
+extension Anytype_Rpc.PushNotification.SetSpaceMode: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.protoMessageName + ".SetSpaceMode"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -145,19 +161,25 @@ extension Anytype_Rpc.Publishing.Create: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Publishing.Create, rhs: Anytype_Rpc.Publishing.Create) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetSpaceMode, rhs: Anytype_Rpc.PushNotification.SetSpaceMode) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Publishing.Create.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Publishing.Create.protoMessageName + ".Request"
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Mode: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "All"),
+    1: .same(proto: "Mentions"),
+    2: .same(proto: "Nothing"),
+  ]
+}
+
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.SetSpaceMode.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "spaceId"),
-    2: .same(proto: "objectId"),
-    3: .same(proto: "uri"),
-    4: .same(proto: "joinSpace"),
+    2: .same(proto: "mode"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -167,9 +189,7 @@ extension Anytype_Rpc.Publishing.Create.Request: SwiftProtobuf.Message, SwiftPro
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.uri) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.joinSpace) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.mode) }()
       default: break
       }
     }
@@ -179,33 +199,24 @@ extension Anytype_Rpc.Publishing.Create.Request: SwiftProtobuf.Message, SwiftPro
     if !self.spaceID.isEmpty {
       try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
     }
-    if !self.objectID.isEmpty {
-      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 2)
-    }
-    if !self.uri.isEmpty {
-      try visitor.visitSingularStringField(value: self.uri, fieldNumber: 3)
-    }
-    if self.joinSpace != false {
-      try visitor.visitSingularBoolField(value: self.joinSpace, fieldNumber: 4)
+    if self.mode != .all {
+      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Publishing.Create.Request, rhs: Anytype_Rpc.Publishing.Create.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetSpaceMode.Request, rhs: Anytype_Rpc.PushNotification.SetSpaceMode.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
-    if lhs.objectID != rhs.objectID {return false}
-    if lhs.uri != rhs.uri {return false}
-    if lhs.joinSpace != rhs.joinSpace {return false}
+    if lhs.mode != rhs.mode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Publishing.Create.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Publishing.Create.protoMessageName + ".Response"
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.SetSpaceMode.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "uri"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -215,7 +226,6 @@ extension Anytype_Rpc.Publishing.Create.Response: SwiftProtobuf.Message, SwiftPr
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.uri) }()
       default: break
       }
     }
@@ -229,22 +239,18 @@ extension Anytype_Rpc.Publishing.Create.Response: SwiftProtobuf.Message, SwiftPr
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.uri.isEmpty {
-      try visitor.visitSingularStringField(value: self.uri, fieldNumber: 2)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Publishing.Create.Response, rhs: Anytype_Rpc.Publishing.Create.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetSpaceMode.Response, rhs: Anytype_Rpc.PushNotification.SetSpaceMode.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.uri != rhs.uri {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Publishing.Create.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Publishing.Create.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.SetSpaceMode.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -273,7 +279,7 @@ extension Anytype_Rpc.Publishing.Create.Response.Error: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Publishing.Create.Response.Error, rhs: Anytype_Rpc.Publishing.Create.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error, rhs: Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -281,15 +287,11 @@ extension Anytype_Rpc.Publishing.Create.Response.Error: SwiftProtobuf.Message, S
   }
 }
 
-extension Anytype_Rpc.Publishing.Create.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.PushNotification.SetSpaceMode.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NO_SUCH_OBJECT"),
-    102: .same(proto: "NO_SUCH_SPACE"),
-    103: .same(proto: "LIMIT_EXCEEDED"),
-    409: .same(proto: "URL_ALREADY_TAKEN"),
   ]
 }
 
