@@ -244,6 +244,17 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     private func showScreen(data: ScreenData) async throws {
         
+        let setupNewPath = currentSpaceId != data.spaceId
+        // Open space before call object open. If space is loading state, object open return a error
+        let spaceView = try await setActiveSpace(spaceId: data.spaceId)
+        var currentPath = setupNewPath ? HomePath(initialPath: initialHomePath(spaceView: spaceView)) : navigationPath
+        
+        defer {
+            if navigationPath != currentPath {
+                navigationPath = currentPath
+            }
+        }
+        
         if let objectId = data.objectId { // validate in case of object
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
@@ -253,10 +264,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
                 return
             }
         }
-        
-        let setupNewPath = currentSpaceId != data.spaceId
-        let spaceView = try await setActiveSpace(spaceId: data.spaceId)
-        var currentPath = setupNewPath ? HomePath(initialPath: initialHomePath(spaceView: spaceView)) : navigationPath
         
         await dismissAllPresented?()
         
@@ -286,10 +293,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .widget(let data):
             let data = HomeWidgetData(spaceId: data.spaceId)
             currentPath.openOnce(data)
-        }
-        
-        if navigationPath != currentPath {
-            navigationPath = currentPath
         }
     }
     
