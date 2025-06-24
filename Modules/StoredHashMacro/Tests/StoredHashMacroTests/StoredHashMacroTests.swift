@@ -18,14 +18,18 @@ final class StoredHashTests: XCTestCase {
             @StoredHash
             struct TestStruct: Hashable {
                 var value1: Int
-                var value2: String
+                var value2: String {
+                    didSet { updateHash() }
+                }
                 let constantValue: Int
             }
             """,
             expandedSource: """
             struct TestStruct: Hashable {
                 var value1: Int
-                var value2: String
+                var value2: String {
+                    didSet { updateHash() }
+                }
                 let constantValue: Int
 
                 private var _lastHash: Int = 0
