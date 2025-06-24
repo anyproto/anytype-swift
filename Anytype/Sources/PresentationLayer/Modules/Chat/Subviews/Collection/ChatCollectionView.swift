@@ -99,9 +99,7 @@ struct ChatCollectionView<
         context.coordinator.handleVisibleRange = handleVisibleRange
         context.coordinator.handleBigDistanceToTheBottom = handleBigDistanceToTheBottom
         context.coordinator.onTapCollectionBackground = onTapCollectionBackground
-        Task {
-            await context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
-        }
+        context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView> {

@@ -25,7 +25,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
 actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     
     private enum Constants {
-        static let pageSize = 30
+        static let pageSize = 100
         static let maxCacheSize = 1000
         static let lastMessagesMaxCacheSize = 10
         // As user scroll N messages, we update the attachments subscription. Not every message.

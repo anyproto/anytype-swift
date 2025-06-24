@@ -3,176 +3,13 @@ import SwiftUI
 import Combine
 import UIKit
 
-// ScrollView
-// height = 1_000_000_000_000 px
-// 500_000_000_000
-// 500_000_000_000
-
-// 10
-// 1000
-
-var attrsStorage: [Int: CGSize] = [:]
-var attrsStorage2: [StorKey: CGSize] = [:]
-var attrsStorage3: [CGSize: CGSize] = [:]
-
-struct StorKey: Hashable {
-    let hash: Int
-    let width: CGFloat
-}
-
-final class ChatCell: UICollectionViewListCell {
-    
-    var hashModel: Int?
-    
-    override func preferredLayoutAttributesFitting(
-        _ layoutAttributes: UICollectionViewLayoutAttributes
-    ) -> UICollectionViewLayoutAttributes {
-        layoutAttributes.size = CGSize(width: layoutAttributes.frame.width, height: 100)
-        return layoutAttributes
-        if let hashModel, let size = attrsStorage[hashModel] {
-            var layoutAttributes = layoutAttributes
-            layoutAttributes.size = size
-            return layoutAttributes
-        } else {
-            // Иначе: первый раз запускаем super → SwiftUI мерит вью
-            let updatedAttrs = super.preferredLayoutAttributesFitting(layoutAttributes)
-            if let hashModel {
-                attrsStorage[hashModel] = updatedAttrs.size
-            }
-            return updatedAttrs
-        }
-    }
-}
-
-final class ChatViewCell<Content: View>: UICollectionViewCell {
-    
-    private var hostingController: UIHostingController<Content>?
-    
-    func setContent(_ content: Content) {
-        if hostingController == nil {
-            let hostingController = UIHostingController(rootView: content)
-            hostingController.sizingOptions = [.intrinsicContentSize]
-            hostingController.view.backgroundColor = .clear
-            addSubview(hostingController.view) {
-                $0.pinToSuperview()
-            }
-            self.hostingController = hostingController
-        }
-        
-        hostingController?.rootView = content
-    }
-}
-
-//final class ChatHostingConfiguration: UIHostingConfiguration {
-//    
-//    func make
-//    
-//}
-
-private final class ChatViewCellModel<Item, Content: View>: ObservableObject {
-    @Published var item: Item? = nil
-    var itemBuilder: ((Item) -> Content)?
-}
-
-private struct ChatViewCell2<Item, Content: View>: View {
-    
-    var model: ChatViewCellModel<Item, Content>
-    
-    var body: some View {
-        if let item = model.item {
-            model.itemBuilder?(item)
-        }
-    }
-}
-
-final class ChatViewCellWithModel<Item: Equatable & Hashable, Content: View>: UICollectionViewCell {
-    
-    private let viewModel = ChatViewCellModel<Item, Content>()
-    private var item: Item?
-    private var builder: ((Item) -> Content)?
-    weak var collectionView: UICollectionView?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentConfiguration = UIHostingConfiguration { [viewModel] in
-            ChatViewCell2(model: viewModel)
-        }
-        .margins(.all, 0)
-    }
-    
-    required init?(coder: NSCoder) { fatalError() }
-    
-    func setItem(_ item: Item, builder: ((Item) -> Content)?) {
-        self.item = item
-        self.builder = builder
-        setNeedsUpdateConfiguration()
-    }
-    
-    override func updateConfiguration(using state: UICellConfigurationState) {
-        super.updateConfiguration(using: state)
-        viewModel.itemBuilder = builder
-        if let item {
-            viewModel.item = item
-        }
-    }
-    
-//    override func systemLayoutSizeFitting(
-//        _ targetSize: CGSize,
-//        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
-//        verticalFittingPriority: UILayoutPriority
-//    ) -> CGSize {
-//        if let size = attrsStorage3[targetSize] {
-//            return size
-//        } else {
-//            let newSize = super.systemLayoutSizeFitting(
-//                targetSize,
-//                withHorizontalFittingPriority: horizontalFittingPriority,
-//                verticalFittingPriority: verticalFittingPriority
-//            )
-//            attrsStorage3[targetSize] = newSize
-//            return newSize
-//        }
-//    }
-    
-//    override func preferredLayoutAttributesFitting(
-//        _ layoutAttributes: UICollectionViewLayoutAttributes
-//    ) -> UICollectionViewLayoutAttributes {
-//        let width = collectionView?.frame.width
-//        let hashModel = item?.hashValue
-//        if let width, let hashModel {
-//            let key = StorKey(hash: hashModel, width: width)
-//            if let size = attrsStorage2[key] {
-//                let newAttrs = super.preferredLayoutAttributesFitting(layoutAttributes)
-//                layoutAttributes.size = size
-//                if layoutAttributes != newAttrs {
-//                    print("oh my god!")
-//                }
-//                return layoutAttributes
-//            } else {
-//                let updatedAttrs = super.preferredLayoutAttributesFitting(layoutAttributes)
-//                attrsStorage2[key] = updatedAttrs.size
-//                return updatedAttrs
-//            }
-//        } else {
-//            return super.preferredLayoutAttributesFitting(layoutAttributes)
-//        }
-//    }
-    
-//    override func preferredLayoutAttributesFitting(
-//        _ layoutAttributes: UICollectionViewLayoutAttributes
-//    ) -> UICollectionViewLayoutAttributes {
-//        layoutAttributes.size = CGSize(width: layoutAttributes.frame.width, height: 100)
-//        return layoutAttributes
-//    }
-}
-
 final class ChatCollectionViewCoordinator<
     Section: Hashable & ChatCollectionSection & Identifiable & Sendable,
     Item: Hashable & Identifiable & Sendable,
     DataView: View,
     HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
     
-    private let distanceForLoadNextPage: CGFloat = 3000
+    private let distanceForLoadNextPage: CGFloat = 300
     private let visibleRangeThreshold: CGFloat = 10
     private let bigDistanceFromTheBottomThreshold: CGFloat = 30
     private var canCallScrollToTop = false
@@ -198,8 +35,6 @@ final class ChatCollectionViewCoordinator<
     var handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?
     var onTapCollectionBackground: (() -> Void)?
     
-    private var configs = [Item: any UIContentConfiguration]()
-    
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
         { [weak self] view, _, indexPath in
@@ -211,61 +46,8 @@ final class ChatCollectionViewCoordinator<
             view.layer.zPosition = 1
         }
         
-//        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Item> { [weak self] cell, indexPath, item in
-//            cell.contentConfiguration = UIHostingConfiguration {
-//                self?.itemBuilder?(item)
-//                    .id(item.hashValue)
-//            }
-//            .margins(.all, 0)
-//            .minSize(height: 0)
-//        }
-        
-//        let itemRegistration = UICollectionView.CellRegistration<ChatCell, Item> { [weak self] cell, indexPath, item in
-//            cell.hashModel = item.hashValue
-//            cell.contentConfiguration = UIHostingConfiguration {
-//                self?.itemBuilder?(item)
-//                    .id(item.hashValue)
-//            }
-//            .margins(.all, 0)
-//            .minSize(height: 0)
-//        }
-        
-//        let itemRegistration = UICollectionView.CellRegistration<ChatViewCell, Item> { [weak self] cell, indexPath, item in
-//            guard let self, let itemBuilder else { return }
-//            cell.setContent(itemBuilder(item))
-//        }
-        
-//        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Item> { [weak self] cell, indexPath, item in
-//            
-//            if let config = self?.configs[item] {
-//                cell.contentConfiguration = config
-//            } else {
-//                let newConfig = UIHostingConfiguration {
-//                    self?.itemBuilder?(item)
-//                        .id(item.hashValue)
-//                }
-//                .margins(.all, 0)
-//                .minSize(height: 0)
-//                self?.configs[item] = newConfig
-//                cell.contentConfiguration = newConfig
-//            }
-//        }
-        
-//        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Item> { [weak self] cell, indexPath, item in
-//            
-//            
-//            cell.contentConfiguration = UIHostingConfiguration {
-//                EquatableView(
-//                    content: CellEquitableContainer(item: item, content: self?.itemBuilder?(item))
-//                )
-//            }
-//            .margins(.all, 0)
-//            .minSize(height: 0)
-//        }
-        
-        let itemRegistration = UICollectionView.CellRegistration<ChatViewCellWithModel<Item, DataView>, Item> { [weak self, weak collectionView] cell, indexPath, item in
+        let itemRegistration = UICollectionView.CellRegistration<ChatContainerCell<Item, DataView>, Item> { [weak self] cell, indexPath, item in
             cell.setItem(item, builder: self?.itemBuilder)
-            cell.collectionView = collectionView
         }
         
     
@@ -292,31 +74,10 @@ final class ChatCollectionViewCoordinator<
     
     // MARK: Update
     
-    func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) async {
+    func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
         guard let dataSource, self.sections != sections else {
             appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: false)
             return
-        }
-        
-        let newItems = Array(sections.flatMap { $0.items })
-        let oldItems = Array(self.sections.flatMap { $0.items })
-    
-        let cell = ChatViewCellWithModel<Item, DataView>()
-        cell.frame = collectionView.bounds
-        
-        let diff = newItems.difference(from: oldItems, by: { $0 == $1 })
-        for item in diff.insertions {
-            switch item {
-            case let .insert(_, element, _):
-                let task = Task { @MainActor in
-                    cell.setItem(element, builder: itemBuilder)
-                    cell.setNeedsLayout()
-                    cell.layoutIfNeeded()
-                }
-                await task.value
-            case .remove:
-                break
-            }
         }
         
         var newSnapshot = NSDiffableDataSourceSnapshot<Section.ID, Item>()
@@ -390,7 +151,6 @@ final class ChatCollectionViewCoordinator<
         
         if distanceForLoadNextPage > distanceToTop {
             if canCallScrollToTop, scrollToTopUpdateTask.isNil {
-                print("will scroll to top \(distanceToTop)")
                 canCallScrollToTop = false
                 scrollToTopUpdateTask = Task { [weak self] in
                     await self?.scrollToTop?()
@@ -399,7 +159,6 @@ final class ChatCollectionViewCoordinator<
             }
         } else if distanceForLoadNextPage > distanceToBottom {
             if canCallScrollToBottom, scrollToBottomUpdateTask.isNil {
-                print("will scroll to bottom \(distanceToBottom)")
                 canCallScrollToBottom = false
                 scrollToBottomUpdateTask = Task { [weak self] in
                     await self?.scrollToBottom?()
@@ -590,19 +349,5 @@ final class ChatCollectionViewCoordinator<
         updateVisibleRangeIfNeeded(collectionView: collectionView)
         updateDistanceFromTheBottom(collectionView: collectionView)
         updateHeaders(collectionView: collectionView, animated: false)
-    }
-}
-
-
-struct CellEquitableContainer<Item: Equatable, Content: View>: View, Equatable {
-    let item: Item
-    let content: Content?
-    
-    var body: some View {
-        content
-    }
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.item == rhs.item
     }
 }

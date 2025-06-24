@@ -616,18 +616,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             limits: chatMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }
-//        let task = Task.detach {
-//            let newItems = Array(newMessageBlocks.flatMap { $0.items })
-//            let oldItems = Array(mesageBlocks.flatMap { $0.items })
-//        
-//        let cell = ChatViewCellWithModel()
-//        
-//        let diff = newItems.difference(from: oldItems, by: { $0 == $1 })
-//        for item in diff.inserted {
-        //            cell.setItem(item, builder: T##((Item) -> Content)?)
-//        }
-//            cell.
-//        }
         mesageBlocks = newMessageBlocks
     }
     

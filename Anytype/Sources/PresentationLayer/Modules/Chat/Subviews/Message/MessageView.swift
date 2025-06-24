@@ -31,7 +31,6 @@ struct MessageView: View {
         .padding(.horizontal, 12)
         .padding(.bottom, data.nextSpacing.height)
         .id(data.id)
-//        .frame(height: 100)
     }
     
     private var content: some View {
