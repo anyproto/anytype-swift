@@ -16,7 +16,7 @@ struct ChatHeaderView: View {
             } label: {
                 HStack(spacing: 6) {
                     if model.showLoading {
-                        CircleLoadingView()
+                        CircleLoadingView(.Text.primary)
                             .frame(width: 18, height: 18)
                             .transition(.scale.combined(with: .opacity))
                     } else {

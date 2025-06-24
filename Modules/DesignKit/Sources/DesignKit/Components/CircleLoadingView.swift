@@ -1,4 +1,5 @@
 import SwiftUI
+import Assets
 
 public struct CircleLoadingView: View {
     
@@ -9,8 +10,11 @@ public struct CircleLoadingView: View {
     }
     
     @State private var isRotating = false
+    private var circleColor: Color
     
-    public init() {}
+    public init(_ color: Color = Color.Control.active) {
+        self.circleColor = color
+    }
     
     public var body: some View {
         GeometryReader { reader in
@@ -19,8 +23,8 @@ public struct CircleLoadingView: View {
                 .strokeBorder(
                     AngularGradient(
                         gradient: Gradient(colors: [
-                            Color.Control.active.opacity(0),
-                            Color.Control.active
+                            circleColor.opacity(0),
+                            circleColor
                         ]),
                         center: .center
                     ),
