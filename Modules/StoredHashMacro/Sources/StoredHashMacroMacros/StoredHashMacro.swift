@@ -58,8 +58,23 @@ public struct StoredHashMacro: MemberMacro {
         // Create public init method that calculates hash at the end
         let storedProperties = varDeclarations.filter { varDecl in
             guard let binding = varDecl.bindings.first else { return false }
-            // Exclude computed properties (those with getter/setter or just getter)
-            return binding.accessorBlock == nil
+            
+            // If no accessor block, it's a stored property
+            guard let accessorBlock = binding.accessorBlock else { return true }
+            
+            // Check if it's a computed property (has get/set accessors)
+            switch accessorBlock.accessors {
+            case .accessors(let accessorList):
+                for accessor in accessorList {
+                    if accessor.accessorSpecifier.tokenKind == .keyword(.get) || 
+                       accessor.accessorSpecifier.tokenKind == .keyword(.set) {
+                        return false // It's a computed property, exclude it
+                    }
+                }
+                return true // Has observers like didSet/willSet
+            case .getter:
+                return false // It's a computed property with getter expression
+            }
         }
         
         let initParameters = storedProperties.compactMap { varDecl in

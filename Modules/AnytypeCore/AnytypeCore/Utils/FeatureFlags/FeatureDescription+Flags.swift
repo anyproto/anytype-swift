@@ -216,6 +216,12 @@ public extension FeatureDescription {
         debugValue: false
     )
     
+    static let chatLoadingIndicator = FeatureDescription(
+        title: "Sync Status for Chat - IOS-4762",
+        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
