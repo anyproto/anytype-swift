@@ -113,4 +113,9 @@ extension BundledRelationsValueProvider {
     public var customIconColor: CustomIconColor? {
         CustomIconColor(iconOption: iconOption)
     }
+    
+    public var syncStatusValue: Anytype_Model_SyncStatus? {
+        guard let syncStatus else { return nil }
+        return Anytype_Model_SyncStatus(rawValue: syncStatus)
+    }
 }
