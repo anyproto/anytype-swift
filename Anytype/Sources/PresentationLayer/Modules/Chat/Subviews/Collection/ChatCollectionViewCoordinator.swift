@@ -46,13 +46,10 @@ final class ChatCollectionViewCoordinator<
             view.layer.zPosition = 1
         }
         
-        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { [weak self] cell, indexPath, item in
-            cell.contentConfiguration = UIHostingConfiguration {
-                self?.itemBuilder?(item)
-            }
-            .margins(.all, 0)
-            .minSize(height: 0)
+        let itemRegistration = UICollectionView.CellRegistration<ChatContainerCell<Item, DataView>, Item> { [weak self] cell, indexPath, item in
+            cell.setItem(item, builder: self?.itemBuilder)
         }
+        
     
         let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
             let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)

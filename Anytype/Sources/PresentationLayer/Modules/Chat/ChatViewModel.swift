@@ -604,7 +604,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             await handlePushNotificationsAlert()
-            await handleInviteLinkShow()
+            handleInviteLinkShow()
         }
     }
     
