@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 import Combine
+import AnytypeCore
 
 @MainActor
 final class ChatHeaderViewModel: ObservableObject {
@@ -36,6 +37,8 @@ final class ChatHeaderViewModel: ObservableObject {
     }
     
     func subscribeOnChatStatus() async {
+        guard FeatureFlags.chatLoadingIndicator else { return }
+        
         let loadingPublisher = chatObject.detailsPublisher
             .map {
                 switch $0.syncStatusValue {
