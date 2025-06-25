@@ -36,7 +36,6 @@ public struct CachedAsyncImage<Content: View>: View {
             content(model.state)
         }
         .task(id: url) {
-            guard let url else { return }
             await model.update(url: url)
         }
     }
@@ -61,7 +60,14 @@ private final class CachedAsyncImageModel: ObservableObject {
     }
     
     func update(url: URL?) async {
-        guard url != currentURL || state.image.isNil, let url else { return }
+        guard url != currentURL || state.image.isNil else { return }
+        
+        defer { currentURL = url }
+        
+        guard let url else {
+            state = .empty
+            return
+        }
         
         do {
             let uiImage = try await cache.loadImage(from: url)
@@ -70,6 +76,5 @@ private final class CachedAsyncImageModel: ObservableObject {
         } catch {
             state = .failure(error)
         }
-        currentURL = url
     }
 }
