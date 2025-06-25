@@ -1390,4 +1390,8 @@ extension AnytypeAnalytics {
     func logClickVaultCreateMenuSpace() {
         logEvent("ClickVaultCreateMenuSpace")
     }
+    
+    func logScreenVaultCreateMenu() {
+        logEvent("ScreenVaultCreateMenu")
+    }
 }
