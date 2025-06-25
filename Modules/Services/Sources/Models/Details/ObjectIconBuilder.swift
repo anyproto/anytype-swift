@@ -54,7 +54,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .objectType:
             return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .tag, .chatDerived:
+                .audio, .video, .pdf, .date, .tag, .chatDerived, .notification, .missingObject, .devices:
             return nil
         }
     }

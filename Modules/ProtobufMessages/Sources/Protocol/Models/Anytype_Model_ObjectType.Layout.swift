@@ -41,6 +41,9 @@ extension Anytype_Model_ObjectType {
     case chat // = 21
     case chatDerived // = 22
     case tag // = 23
+    case notification // = 24
+    case missingObject // = 25
+    case devices // = 26
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -73,6 +76,9 @@ extension Anytype_Model_ObjectType {
       case 21: self = .chat
       case 22: self = .chatDerived
       case 23: self = .tag
+      case 24: self = .notification
+      case 25: self = .missingObject
+      case 26: self = .devices
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -103,6 +109,9 @@ extension Anytype_Model_ObjectType {
       case .chat: return 21
       case .chatDerived: return 22
       case .tag: return 23
+      case .notification: return 24
+      case .missingObject: return 25
+      case .devices: return 26
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -133,6 +142,9 @@ extension Anytype_Model_ObjectType {
       .chat,
       .chatDerived,
       .tag,
+      .notification,
+      .missingObject,
+      .devices,
     ]
 
   }}
@@ -163,6 +175,9 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     21: .same(proto: "chat"),
     22: .same(proto: "chatDerived"),
     23: .same(proto: "tag"),
+    24: .same(proto: "notification"),
+    25: .same(proto: "missingObject"),
+    26: .same(proto: "devices"),
   ]
 }
 
