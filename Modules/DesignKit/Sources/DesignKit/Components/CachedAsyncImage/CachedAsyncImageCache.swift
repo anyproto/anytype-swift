@@ -8,6 +8,7 @@ public actor CachedAsyncImageCache {
     
     private let storage: Storage<String, UIImage>?
     private var activeTasks: [String: Task<UIImage, Error>] = [:]
+    private let session: URLSession = .shared
     
     public init(cacheSize: UInt, cacheFolder: String) {
         let diskConfig = DiskConfig(name: cacheFolder, expiry: .seconds(30 * 24 * 60 * 60), maxSize: cacheSize) // 30 Days
@@ -28,12 +29,14 @@ public actor CachedAsyncImageCache {
         }
         
         let task = Task { () -> UIImage in
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, _) = try await session.data(from: url)
             guard let image = UIImage(data: data) else {
                 throw CachedAsyncImageCacheError.imageNotCreated
             }
             try storage.setObject(image, forKey: key)
-            return image
+            // UIImage loaded with data from disk is better decoded, less lags on ui.
+            try? storage.removeInMemoryObject(forKey: key)
+            return (try? storage.object(forKey: key)) ?? image
         }
         activeTasks[key] = task
         defer { activeTasks.removeValue(forKey: key) }
