@@ -1402,4 +1402,8 @@ extension AnytypeAnalytics {
     func logClickScrollToMention() {
         logEvent("ClickScrollToMention")
     }
+    
+    func logClickScrollToBottom() {
+        logEvent("ClickScrollToBottom")
+    }
 }

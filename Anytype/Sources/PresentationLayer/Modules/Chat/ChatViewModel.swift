@@ -444,6 +444,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapScrollToBottom() {
+        AnytypeAnalytics.instance().logClickScrollToBottom()
         if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
             firstUnreadMessageOrderId > bottomVisibleOrderId,
             bottomVisibleOrderId < chatState.messages.oldestOrderID {
