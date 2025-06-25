@@ -223,7 +223,7 @@ public extension FeatureDescription {
     )
     
     static let anytypeImageCacher = FeatureDescription(
-        title: "AnytypeImageCacher",
+        title: "Anytype - Custom image cacher",
         type: .feature(author: "m@anytype.io", releaseVersion: "12"),
         defaultValue: true
     )

@@ -40,14 +40,6 @@ public actor CachedAsyncImageCache {
         return try await task.value
     }
     
-    nonisolated public func prefetchImages(_ urls: [URL]) {
-        for url in urls {
-            Task {
-                _ = try await loadImage(from: url)
-            }
-        }
-    }
-    
     nonisolated func cachedImage(from url: URL) throws -> Image {
         guard let storage else { throw CachedAsyncImageCacheError.storageNotCreated }
         let key = url.absoluteString

@@ -3,6 +3,8 @@ import CachedAsyncImage
 import SwiftUI
 import AnytypeCore
 
+// Delete with toggle FeatureFlags.anytypeImageCacher
+
 extension ToggleCachedAsyncImage {
     init<I: View, P: View>(
         url: URL?,
