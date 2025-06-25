@@ -89,7 +89,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
+            AnytypeAnalytics.instance().logCreateSpace(route: .navigation, spaceUxType: uxType)
             
             if createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)

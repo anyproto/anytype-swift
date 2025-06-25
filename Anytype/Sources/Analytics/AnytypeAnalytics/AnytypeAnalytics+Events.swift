@@ -937,11 +937,12 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsSpaceCreate")
     }
     
-    func logCreateSpace(route: CreateSpaceRoute) {
+    func logCreateSpace(route: CreateSpaceRoute, spaceUxType: SpaceUxType) {
         logEvent(
             "CreateSpace",
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.route: route.rawValue
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+                AnalyticsEventsPropertiesKey.uxType: spaceUxType.analyticsValue
             ]
         )
     }

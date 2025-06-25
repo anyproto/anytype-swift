@@ -50,7 +50,7 @@ actor AuthService: AuthServiceProtocol, Sendable {
         AnytypeAnalytics.instance().setUserId(analyticsId)
         AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
-        AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
+        AnytypeAnalytics.instance().logCreateSpace(route: .navigation, spaceUxType: .data)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         basicUserInfoStorage.usersId = account.id
