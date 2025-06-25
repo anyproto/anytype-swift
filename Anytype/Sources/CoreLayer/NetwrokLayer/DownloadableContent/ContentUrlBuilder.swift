@@ -60,6 +60,7 @@ private extension ContentUrlBuilder {
         
         switch imageMetadata.side {
         case .width(let width):
+            let width = width * ScaleProvider.shared.scale
             let size = widthSizes.first { width <= $0 }
             if let size {
                 components.queryItems = [makeCustomSideQueryItem(size: size, name: Constants.widthQueryItemName)]
@@ -71,14 +72,12 @@ private extension ContentUrlBuilder {
     }
     
     private static func makeCustomSideQueryItem(size: CGFloat, name: String) -> URLQueryItem {
-        let adjustedSize = Int(size * ScaleProvider.shared.scale)
-        
         let queryItemValue: String = {
-            guard adjustedSize > 0 else {
+            guard size > 0 else {
                 return Constants.defaultSize
             }
             
-            return "\(adjustedSize)"
+            return "\(Int(size))"
         }()
         
         return URLQueryItem(name: name, value: queryItemValue)
@@ -94,7 +93,7 @@ private extension ContentUrlBuilder {
         static let fileSubPath = "/file/"
         
         static let widthQueryItemName = "width"
-        static let defaultSize = "700"
+        static let defaultSize = "1920"
         
     }
     
