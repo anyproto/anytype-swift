@@ -39,7 +39,7 @@ final class ChatHeaderViewModel: ObservableObject {
     func subscribeOnChatStatus() async {
         guard FeatureFlags.chatLoadingIndicator else { return }
         
-        let stream = chatObject.detailsPublisher
+        let loadingPublisher = chatObject.detailsPublisher
             .map {
                 switch $0.syncStatusValue {
                 case .synced, .error, .UNRECOGNIZED, .none:
@@ -49,7 +49,23 @@ final class ChatHeaderViewModel: ObservableObject {
                 }
             }
             .removeDuplicates()
+        
+        // Add delay for show loading indicator.
+        // Don't show, if loading state less a one seconds.
+        let stream = loadingPublisher
+            .flatMap { value in
+                if !value {
+                    return Just(false)
+                        .eraseToAnyPublisher()
+                } else {
+                    return Just(true)
+                        .delay(for: .seconds(2), scheduler: RunLoop.main)
+                        .prefix(untilOutputFrom: loadingPublisher.filter { $0 == false })
+                        .eraseToAnyPublisher()
+                }
+            }
             .values
+            .removeDuplicates()
         
         for await loading in stream {
             showLoading = loading
