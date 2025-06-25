@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import CachedAsyncImage
 
 enum ImageIdIconSide {
     case width
@@ -21,7 +20,7 @@ struct ImageIdIconView: View {
     
     var body: some View {
         GeometryReader { reader in
-            CachedAsyncImage(
+            ToggleCachedAsyncImage(
                 url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl,
                 urlCache: .anytypeImages
             ) { image in
