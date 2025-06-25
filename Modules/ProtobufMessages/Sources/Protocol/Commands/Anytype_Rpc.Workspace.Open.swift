@@ -26,7 +26,7 @@ extension Anytype_Rpc.Workspace {
 
         public var spaceID: String = String()
 
-        /// create space-level chat if not exists; temporary solution, should be removed after chats released for all users
+        /// deprecated, chat will be created automatically if space is shared
         public var withChat: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()

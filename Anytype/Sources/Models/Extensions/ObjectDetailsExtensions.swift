@@ -51,7 +51,8 @@ extension BundledRelationsValueProvider {
     var editorViewType: ScreenType {
         switch resolvedLayoutValue {
         case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag:
+                .relationOption, .dashboard, .relationOptionsList, .spaceView,
+                .tag, .notification, .missingObject, .devices:
             return .page
         case .set, .collection:
             return .list

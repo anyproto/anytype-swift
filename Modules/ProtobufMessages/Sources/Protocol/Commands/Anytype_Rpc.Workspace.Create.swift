@@ -37,7 +37,7 @@ extension Anytype_Rpc.Workspace {
         /// use case
         public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .none
 
-        /// deprecated
+        /// deprecated, use spaceUxType
         public var withChat: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()

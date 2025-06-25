@@ -13,7 +13,10 @@ extension DetailsLayout {
             return .Layout.task
         case .note:
             return .Layout.note
-        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
+        case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
+                .video, .date, .spaceView, .tag, .chat, .chatDerived, .notification,
+                .missingObject, .devices:
             return .noImage
         }
     }
@@ -32,7 +35,10 @@ extension DetailsLayout {
             return Loc.set
         case .collection:
             return Loc.collection
-        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
+        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
+                .video, .date, .spaceView, .tag, .chat, .chatDerived, .notification,
+                .missingObject, .devices:
             return ""
         }
     }
@@ -49,7 +55,10 @@ extension DetailsLayout {
             return Loc.designedToCaptureThoughtsQuickly
         case .set, .collection:
             return Loc.collectionOfObjects
-        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .pdf, .audio, .video, .date, .spaceView, .tag, .chat, .chatDerived:
+        case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
+                .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
+                .video, .date, .spaceView, .tag, .chat, .chatDerived, .notification,
+                .missingObject, .devices:
             return ""
         }
     }
