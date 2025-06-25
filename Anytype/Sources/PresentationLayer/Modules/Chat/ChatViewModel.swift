@@ -464,6 +464,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapMention() {
         guard let chatState else { return }
+        AnytypeAnalytics.instance().logClickScrollToMention()
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)

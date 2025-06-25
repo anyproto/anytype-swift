@@ -1398,4 +1398,8 @@ extension AnytypeAnalytics {
     func logClickScrollToReply() {
         logEvent("ClickScrollToReply")
     }
+    
+    func logClickScrollToMention() {
+        logEvent("ClickScrollToMention")
+    }
 }
