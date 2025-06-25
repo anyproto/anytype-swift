@@ -1394,4 +1394,8 @@ extension AnytypeAnalytics {
     func logScreenVaultCreateMenu() {
         logEvent("ScreenVaultCreateMenu")
     }
+    
+    func logClickScrollToReply() {
+        logEvent("ClickScrollToReply")
+    }
 }

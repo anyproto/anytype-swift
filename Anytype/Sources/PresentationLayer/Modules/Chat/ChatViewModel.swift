@@ -520,6 +520,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectReplyMessage(message: MessageViewData) {
         guard let reply = message.reply else { return }
+        AnytypeAnalytics.instance().logClickScrollToReply()
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.id)
             collectionViewScrollProxy.scrollTo(itemId: reply.id)
