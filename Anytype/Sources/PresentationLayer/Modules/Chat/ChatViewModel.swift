@@ -444,6 +444,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapScrollToBottom() {
+        AnytypeAnalytics.instance().logClickScrollToBottom()
         if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
             firstUnreadMessageOrderId > bottomVisibleOrderId,
             bottomVisibleOrderId < chatState.messages.oldestOrderID {
@@ -464,6 +465,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapMention() {
         guard let chatState else { return }
+        AnytypeAnalytics.instance().logClickScrollToMention()
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
@@ -520,6 +522,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectReplyMessage(message: MessageViewData) {
         guard let reply = message.reply else { return }
+        AnytypeAnalytics.instance().logClickScrollToReply()
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.id)
             collectionViewScrollProxy.scrollTo(itemId: reply.id)

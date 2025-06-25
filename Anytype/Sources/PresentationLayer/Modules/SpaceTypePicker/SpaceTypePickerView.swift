@@ -17,6 +17,7 @@ struct SpaceCreateTypePickerView: View {
                 onTap: {
                     dismiss()
                     onSelectSpaceType(.chat)
+                    AnytypeAnalytics.instance().logClickVaultCreateMenuChat()
                 }
             )
             SpaceTypePickerRow(
@@ -26,6 +27,7 @@ struct SpaceCreateTypePickerView: View {
                 onTap: {
                     dismiss()
                     onSelectSpaceType(.data)
+                    AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()
                 }
             )
             if FeatureFlags.enableStreamSpaceType {
@@ -42,5 +44,8 @@ struct SpaceCreateTypePickerView: View {
         }
         .padding(.bottom, 16)
         .background(Color.Background.secondary)
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenVaultCreateMenu()
+        }
     }
 }

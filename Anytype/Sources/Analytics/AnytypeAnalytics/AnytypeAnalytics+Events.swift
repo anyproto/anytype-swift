@@ -937,11 +937,24 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsSpaceCreate")
     }
     
-    func logCreateSpace(route: CreateSpaceRoute) {
+    func logCreateSpace(spaceId: String, spaceUxType: SpaceUxType, route: CreateSpaceRoute) {
+        logEvent(
+            "CreateSpace",
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+                AnalyticsEventsPropertiesKey.uxType: spaceUxType.analyticsValue
+            ]
+        )
+    }
+    
+    func logCreateSpace(spaceAccessType: SpaceAccessType, spaceUxType: SpaceUxType, route: CreateSpaceRoute) {
         logEvent(
             "CreateSpace",
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.route: route.rawValue
+                AnalyticsEventsPropertiesKey.spaceType: spaceAccessType.analyticsType.rawValue,
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+                AnalyticsEventsPropertiesKey.uxType: spaceUxType.analyticsValue
             ]
         )
     }
@@ -1055,10 +1068,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logApproveInviteRequest(type: PermissionAnalyticsType) {
+    func logApproveInviteRequest(type: PermissionAnalyticsType, spaceUxType: SpaceUxType?) {
         logEvent(
             "ApproveInviteRequest",
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.uxType: spaceUxType?.analyticsValue
+            ].compactMapValues { $0 }
         )
     }
     
@@ -1377,5 +1393,29 @@ extension AnytypeAnalytics {
     
     func logReorderSpace() {
         logEvent("ReorderSpace")
+    }
+    
+    func logClickVaultCreateMenuChat() {
+        logEvent("ClickVaultCreateMenuChat")
+    }
+    
+    func logClickVaultCreateMenuSpace() {
+        logEvent("ClickVaultCreateMenuSpace")
+    }
+    
+    func logScreenVaultCreateMenu() {
+        logEvent("ScreenVaultCreateMenu")
+    }
+    
+    func logClickScrollToReply() {
+        logEvent("ClickScrollToReply")
+    }
+    
+    func logClickScrollToMention() {
+        logEvent("ClickScrollToMention")
+    }
+    
+    func logClickScrollToBottom() {
+        logEvent("ClickScrollToBottom")
     }
 }
