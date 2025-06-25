@@ -46,6 +46,7 @@ enum AnalyticsEventsPropertiesKey {
     static let middleTime = "middleTime"
     static let permissions = "permissions"
     static let spaceType = "spaceType"
+    static let uxType = "uxType"
     
     static let relationKey = "relationKey"
 }

@@ -1055,10 +1055,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logApproveInviteRequest(type: PermissionAnalyticsType) {
+    func logApproveInviteRequest(type: PermissionAnalyticsType, spaceUxType: SpaceUxType?) {
         logEvent(
             "ApproveInviteRequest",
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.uxType: spaceUxType?.analyticsValue
+            ].compactMapValues { $0 }
         )
     }
     
