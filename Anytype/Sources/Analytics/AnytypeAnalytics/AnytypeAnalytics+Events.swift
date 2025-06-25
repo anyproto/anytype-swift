@@ -1382,4 +1382,12 @@ extension AnytypeAnalytics {
     func logReorderSpace() {
         logEvent("ReorderSpace")
     }
+    
+    func logClickVaultCreateMenuChat() {
+        logEvent("ClickVaultCreateMenuChat")
+    }
+    
+    func logClickVaultCreateMenuSpace() {
+        logEvent("ClickVaultCreateMenuSpace")
+    }
 }
