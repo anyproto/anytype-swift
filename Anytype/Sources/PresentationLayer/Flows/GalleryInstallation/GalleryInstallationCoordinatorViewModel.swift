@@ -49,7 +49,7 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                     withChat: FeatureFlags.homeSpaceLevelChat,
                     uxType: .data
                 )
-                AnytypeAnalytics.instance().logCreateSpace(route: .gallery, spaceUxType: .data)
+                AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: .data, route: .gallery, )
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: createResponse.spaceID, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
             }

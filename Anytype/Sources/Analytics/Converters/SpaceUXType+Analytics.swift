@@ -6,7 +6,7 @@ extension SpaceUxType {
         case .chat:
             return "Сhat"
         case .data:
-            return "Private"
+            return "Space"
         case .stream:
             return "Stream"
         case .UNRECOGNIZED:
