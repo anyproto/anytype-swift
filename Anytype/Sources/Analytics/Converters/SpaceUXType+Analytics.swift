@@ -4,11 +4,11 @@ extension SpaceUxType {
     var analyticsValue: String {
         switch self {
         case .chat:
-            return "chat"
+            return "Сhat"
         case .data:
-            return "data"
+            return "Private"
         case .stream:
-            return "stream"
+            return "Stream"
         case .UNRECOGNIZED:
             return "UNRECOGNIZED"
         }
