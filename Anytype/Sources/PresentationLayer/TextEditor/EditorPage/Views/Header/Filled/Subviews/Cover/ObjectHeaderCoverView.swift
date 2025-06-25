@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import CachedAsyncImage
 import UIKit
 
 struct ObjectHeaderCoverView: View {
@@ -37,7 +36,7 @@ struct ObjectHeaderCoverView: View {
     }
     
     private func imageWithId(_ imageId: String, _ size: CGSize, _ fitImage: Bool) -> some View {
-        CachedAsyncImage(
+        ToggleCachedAsyncImage(
             url: ImageMetadata(id: imageId, side: .width(size.width)).contentUrl,
             urlCache: .anytypeImages
         ) { image in
@@ -65,7 +64,7 @@ struct ObjectHeaderCoverView: View {
         ZStack(alignment: .center) {
             switch previewType {
             case .remote(let url):
-                CachedAsyncImage(url: url, urlCache: .anytypeImages)
+                ToggleCachedAsyncImage(url: url, urlCache: .anytypeImages)
                     { image in
                         image.resizable().scaledToFill()
                     } placeholder: {

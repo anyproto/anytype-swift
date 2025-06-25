@@ -130,6 +130,10 @@ public extension FeatureFlags {
         value(for: .chatLoadingIndicator)
     }
 
+    static var anytypeImageCacher: Bool {
+        value(for: .anytypeImageCacher)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -227,6 +231,7 @@ public extension FeatureFlags {
         .chatWidget,
         .muteSpacePossibility,
         .chatLoadingIndicator,
+        .anytypeImageCacher,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

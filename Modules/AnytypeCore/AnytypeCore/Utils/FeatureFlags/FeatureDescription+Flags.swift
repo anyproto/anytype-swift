@@ -222,6 +222,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let anytypeImageCacher = FeatureDescription(
+        title: "AnytypeImageCacher",
+        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

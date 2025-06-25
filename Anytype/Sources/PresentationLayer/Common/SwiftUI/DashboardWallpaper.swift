@@ -1,7 +1,6 @@
 import SwiftUI
 import AnytypeCore
 import Services
-import CachedAsyncImage
 
 enum DashboardWallpaperMode: Hashable {
     case `default`
@@ -64,7 +63,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         case let .name(_, iconOption):
             IconColorStorage.iconColor(iconOption: iconOption)
         case .imageId(let imageId):
-            CachedAsyncImage(
+            ToggleCachedAsyncImage(
                 url: ImageMetadata(id: imageId, side: .width(50)).contentUrl,
                 urlCache: .anytypeImages
             ) { image in
