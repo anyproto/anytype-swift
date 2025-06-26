@@ -17,7 +17,7 @@ final class SpaceNotificationsSettingsViewModel: ObservableObject {
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
-    @Published var state = SpaceNotificationsSettingsState.allActiviy
+    @Published var mode = SpaceNotificationsSettingsMode.allActiviy
     @Published var dismiss = false
     
     init(data: SpaceNotificationsSettingsModuleData) {
@@ -26,14 +26,14 @@ final class SpaceNotificationsSettingsViewModel: ObservableObject {
     
     func startParticipantSpacesStorageTask() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: data.spaceId).values {
-            self.state = participantSpaceView.spaceView.pushNotificationMode.asNotificationsSettingsState
+            self.mode = participantSpaceView.spaceView.pushNotificationMode.asNotificationsSettingsMode
         }
     }
     
-    func onStateChange(_ state: SpaceNotificationsSettingsState) async throws {
+    func onModeChange(_ mode: SpaceNotificationsSettingsMode) async throws {
         try await workspaceService.pushNotificationSetSpaceMode(
             spaceId: data.spaceId,
-            mode: state.asPushNotificationsMode
+            mode: mode.asPushNotificationsMode
         )
         dismiss.toggle()
     }

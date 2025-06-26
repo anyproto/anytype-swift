@@ -28,28 +28,28 @@ struct SpaceNotificationsSettingsView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            ForEach(SpaceNotificationsSettingsState.allCases, id: \.self) { state in
-                stateView(state)
+            ForEach(SpaceNotificationsSettingsMode.allCases, id: \.self) { mode in
+                modeView(mode)
             }
         }
     }
     
-    private func stateView(_ state: SpaceNotificationsSettingsState) -> some View {
+    private func modeView(_ mode: SpaceNotificationsSettingsMode) -> some View {
         AsyncButton {
-            try await model.onStateChange(state)
+            try await model.onModeChange(mode)
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(state.title, style: .previewTitle1Regular)
+                AnytypeText(mode.title, style: .previewTitle1Regular)
                     .foregroundColor(.Text.primary)
                 Spacer()
-                if model.state == state {
+                if model.mode == mode {
                     Image(asset: .X24.tick)
                         .foregroundColor(.Control.button)
                 }
             }
             .frame(height: 52)
             .frame(maxWidth: .infinity)
-            .if(!state.isLast) {
+            .if(!mode.isLast) {
                 $0.newDivider()
             }
             .padding(.horizontal, 16)
