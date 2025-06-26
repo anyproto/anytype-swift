@@ -25,8 +25,8 @@ protocol SetContentViewDataBuilderProtocol: AnyObject {
 
 final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
-    @Injected(\.relationsBuilder)
-    private var relationsBuilder: any RelationsBuilderProtocol
+    @Injected(\.propertiesBuilder)
+    private var relationsBuilder: any PropertiesBuilderProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
@@ -153,7 +153,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     ) -> [SetContentViewItem] {
         details.map { details in
             let parsedProperties = relationsBuilder
-                .parsedRelations(
+                .parsedProperties(
                     objectRelations: relationsDetails,
                     objectFeaturedRelations: [],
                     recommendedRelations: [],

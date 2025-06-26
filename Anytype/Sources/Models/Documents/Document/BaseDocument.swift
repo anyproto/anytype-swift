@@ -33,8 +33,8 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     
     private let objectLifecycleService: any ObjectLifecycleServiceProtocol
     private let eventsListener: any EventsListenerProtocol
-    @Injected(\.relationsBuilder)
-    private var relationBuilder: any RelationsBuilderProtocol
+    @Injected(\.propertiesBuilder)
+    private var relationBuilder: any PropertiesBuilderProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
     @Injected(\.historyVersionsService)
@@ -340,7 +340,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
             ids: targetObjectType.recommendedHiddenRelations, spaceId: spaceId
         )
         
-        return relationBuilder.parsedRelations(
+        return relationBuilder.parsedProperties(
             objectRelations: objectRelations,
             objectFeaturedRelations: objectFeaturedRelations,
             recommendedRelations: recommendedRelations,
@@ -373,7 +373,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
             ids: details.objectType.recommendedHiddenRelations, spaceId: spaceId
         )
         
-        return relationBuilder.parsedRelations(
+        return relationBuilder.parsedProperties(
             objectRelations: objectRelations,
             objectFeaturedRelations: objectFeaturedRelations,
             recommendedRelations: recommendedRelations,

@@ -91,7 +91,7 @@ extension BaseDocumentProtocol {
             .filter { $0.key != BundledPropertyKey.description.rawValue }
         
         
-        return Container.shared.relationsBuilder().parsedRelations(
+        return Container.shared.propertiesBuilder().parsedProperties(
             objectRelations: [],
             objectFeaturedRelations: [],
             recommendedRelations: recommendedRelations,

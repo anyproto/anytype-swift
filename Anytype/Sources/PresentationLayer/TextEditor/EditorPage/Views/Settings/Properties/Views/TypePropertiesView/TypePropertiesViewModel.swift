@@ -28,8 +28,8 @@ final class TypePropertiesViewModel: ObservableObject {
     private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
-    @Injected(\.singleRelationBuilder)
-    private var relationsBuilder: any SingleRelationBuilderProtocol
+    @Injected(\.singlePropertyBuilder)
+    private var relationsBuilder: any SinglePropertyBuilderProtocol
     
     
     // MARK: - Initializers
