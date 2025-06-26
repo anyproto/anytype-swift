@@ -130,7 +130,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
     }
 }
 
-private extension SingleRelationBuilder {    
+private extension SinglePropertyBuilder {    
     func textProperty(
         relationDetails: RelationDetails,
         details: ObjectDetails,

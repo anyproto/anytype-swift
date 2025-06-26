@@ -8,7 +8,7 @@ struct PropertyOptionSettingsView: View {
     
     init(
         configuration: PropertyOptionSettingsConfiguration,
-        completion: @escaping (_ optionParams: RelationOptionParameters) -> Void
+        completion: @escaping (_ optionParams: PropertyOptionParameters) -> Void
     ) {
         _model = StateObject(wrappedValue: PropertyOptionSettingsViewModel(
             configuration: configuration,
@@ -103,7 +103,7 @@ struct PropertyOptionSettingsView: View {
 #Preview {
     PropertyOptionSettingsView(
         configuration: PropertyOptionSettingsConfiguration(
-            option: RelationOptionParameters(id: "", text: nil, color: nil),
+            option: PropertyOptionParameters(id: "", text: nil, color: nil),
             mode: .edit
         ),
         completion: { _ in }

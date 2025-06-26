@@ -341,13 +341,13 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         )
         
         return relationBuilder.parsedProperties(
-            objectRelations: objectRelations,
-            objectFeaturedRelations: objectFeaturedRelations,
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations,
+            objectProperties: objectRelations,
+            objectFeaturedProperties: objectFeaturedRelations,
+            recommendedProperties: recommendedRelations,
+            recommendedFeaturedProperties: recommendedFeaturedRelations,
+            recommendedHiddenProperties: recommendedHiddenRelations,
             objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
+            propertyValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }
@@ -374,13 +374,13 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         )
         
         return relationBuilder.parsedProperties(
-            objectRelations: objectRelations,
-            objectFeaturedRelations: objectFeaturedRelations,
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations,
+            objectProperties: objectRelations,
+            objectFeaturedProperties: objectFeaturedRelations,
+            recommendedProperties: recommendedRelations,
+            recommendedFeaturedProperties: recommendedFeaturedRelations,
+            recommendedHiddenProperties: recommendedHiddenRelations,
             objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
+            propertyValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }
