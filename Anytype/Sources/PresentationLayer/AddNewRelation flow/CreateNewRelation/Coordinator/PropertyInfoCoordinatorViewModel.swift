@@ -11,7 +11,7 @@ protocol PropertyInfoCoordinatorViewOutput: AnyObject {
 @MainActor
 final class PropertyInfoCoordinatorViewModel: ObservableObject, PropertyInfoModuleOutput {
     
-    @Published var relationFormatsData: PropertyFormatsData?
+    @Published var propertyFormatsData: PropertyFormatsData?
     @Published var searchData: ObjectTypesLimitedSearchData?
     
     let data: PropertyInfoData
@@ -25,8 +25,8 @@ final class PropertyInfoCoordinatorViewModel: ObservableObject, PropertyInfoModu
     
     // MARK: - PropertyInfoModuleOutput
     
-    func didAskToShowRelationFormats(selectedFormat: SupportedPropertyFormat, onSelect: @escaping (SupportedPropertyFormat) -> Void) {
-        relationFormatsData = PropertyFormatsData(
+    func didAskToShowPropertyFormats(selectedFormat: SupportedPropertyFormat, onSelect: @escaping (SupportedPropertyFormat) -> Void) {
+        propertyFormatsData = PropertyFormatsData(
             format: selectedFormat,
             onSelect: onSelect
         )

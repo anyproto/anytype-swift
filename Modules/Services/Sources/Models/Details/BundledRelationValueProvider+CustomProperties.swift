@@ -61,8 +61,8 @@ extension BundledRelationsValueProvider {
         return internalFlags.contains(flag)
     }
 
-    var relationFormatValue: RelationFormat {
-        relationFormat.map { RelationFormat(rawValue: $0) } ?? .unrecognized
+    var relationFormatValue: PropertyFormat {
+        relationFormat.map { PropertyFormat(rawValue: $0) } ?? .unrecognized
     }
     
     public var spaceAccessTypeValue: SpaceAccessType? {

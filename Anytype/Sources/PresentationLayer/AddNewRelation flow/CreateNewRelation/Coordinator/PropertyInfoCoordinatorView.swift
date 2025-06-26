@@ -14,7 +14,7 @@ struct PropertyInfoCoordinatorView: View {
             data: model.data,
             output: model
         )
-        .sheet(item: $model.relationFormatsData) {
+        .sheet(item: $model.propertyFormatsData) {
             PropertyFormatsListView(
                 selectedFormat: $0.format,
                 onFormatSelect: $0.onSelect
