@@ -11,8 +11,8 @@ public struct PropertyLink: Hashable, Sendable {
 
 public extension PropertyLink {
     
-    init(middlewareRelationLink: Anytype_Model_RelationLink) {
-        self.key = middlewareRelationLink.key
+    init(middlewarePropertyLink: Anytype_Model_RelationLink) {
+        self.key = middlewarePropertyLink.key
     }
     
     var asMiddleware: Anytype_Model_RelationLink {

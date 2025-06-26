@@ -64,7 +64,7 @@ public extension MiddlewareDataview {
         BlockDataview(
             activeViewId: activeView,
             views: views.compactMap(\.asModel),
-            relationLinks: relationLinks.map { PropertyLink(middlewareRelationLink: $0) },
+            relationLinks: relationLinks.map { PropertyLink(middlewarePropertyLink: $0) },
             groupOrders: groupOrders,
             objectOrders: objectOrders,
             targetObjectID: targetObjectID,
