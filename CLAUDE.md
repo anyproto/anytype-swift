@@ -17,7 +17,7 @@ When setting up the project for the first time, run these commands in order:
 - The project uses Swift Package Manager for dependency management
 
 ## Building and Testing
-- **For compilation check**: Use "Build for Testing" (`Cmd+Shift+U`) instead of normal build
+- **For compilation check**: `xcodebuild -scheme Anytype -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 15' build-for-testing`
 - **Normal build**: `xcodebuild -scheme Anytype -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 15' build`
 
 ## Important Guidelines
@@ -214,3 +214,4 @@ Before starting work on any issue, you must identify the task number:
 
 ## Memories
 - Do not add comments if not explicitly asked for
+- If pull request without functional and only like renames or file reuploads add tag "🧠 No brainer" to pr in github.
