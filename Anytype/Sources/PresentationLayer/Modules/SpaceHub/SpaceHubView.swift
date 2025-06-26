@@ -17,6 +17,9 @@ struct SpaceHubView: View {
         content
             .onAppear { model.onAppear() }
             .taskWithMemoryScope { await model.startSubscriptions() }
+            .task(item: model.spaceMuteData) { data in
+                await model.pushNotificationSetSpaceMode(data: data)
+            }
             
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
@@ -165,7 +168,6 @@ struct SpaceHubView: View {
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggable: draggable,
-            muted: model.mutedSpaces,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
@@ -174,7 +176,7 @@ struct SpaceHubView: View {
                 model.copySpaceInfo(spaceView: space.spaceView)
             },
             onTapMute: {
-                model.muteSpace(spaceId: space.spaceView.targetSpaceId)
+                model.muteSpace(spaceView: space.spaceView)
             },
             onTapLeave: {
                 model.leaveSpace(spaceId: space.spaceView.targetSpaceId)

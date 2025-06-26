@@ -54,4 +54,8 @@ extension SpacePushNotificationsMode {
         case .nothing, .UNRECOGNIZED(_): return .disabled
         }
     }
+    
+    var isUnmutedAll: Bool {
+        self == .all
+    }
 }

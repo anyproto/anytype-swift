@@ -6,7 +6,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
     let draggable: Bool
-    let muted: Bool
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
@@ -22,7 +21,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
                 spaceData: spaceData,
                 wallpaper: wallpaper,
                 draggable: draggable,
-                muted: muted,
                 draggedSpace: $draggedSpace
             )
         }
@@ -63,9 +61,9 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTapMute()
         } label: {
             HStack {
-                Text(muted ? Loc.unmuteAll : Loc.muteAll)
+                Text(spaceData.spaceView.pushNotificationMode.isUnmutedAll ? Loc.mute : Loc.unmute)
                 Spacer()
-                Image(systemName: muted ? "bell" : "bell.slash")
+                Image(systemName: spaceData.spaceView.pushNotificationMode.isUnmutedAll ? "bell.slash" : "bell")
             }
         }
     }
