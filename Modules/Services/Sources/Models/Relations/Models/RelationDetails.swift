@@ -6,7 +6,7 @@ public struct RelationDetails: Hashable, Sendable {
     public let id: String
     public let key: String
     public let name: String
-    public let format: RelationFormat
+    public let format: PropertyFormat
     public let isHidden: Bool
     public let isReadOnly: Bool
     public let isReadOnlyValue: Bool
@@ -20,7 +20,7 @@ public struct RelationDetails: Hashable, Sendable {
         id: String,
         key: String,
         name: String,
-        format: RelationFormat,
+        format: PropertyFormat,
         isHidden: Bool,
         isReadOnly: Bool,
         isReadOnlyValue: Bool,

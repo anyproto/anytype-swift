@@ -4,7 +4,7 @@ import Services
 @MainActor
 protocol PropertyInfoModuleOutput: AnyObject {
     
-    func didAskToShowRelationFormats(
+    func didAskToShowPropertyFormats(
         selectedFormat: SupportedPropertyFormat,
         onSelect: @escaping (SupportedPropertyFormat) -> Void
     )

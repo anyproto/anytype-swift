@@ -253,7 +253,7 @@ extension AnytypeAnalytics {
     }
     
     func logAddExistingOrCreateRelation(
-        format: RelationFormat,
+        format: PropertyFormat,
         isNew: Bool,
         type: AnalyticsEventsRelationType,
         key: AnalyticsRelationKey,
@@ -272,7 +272,7 @@ extension AnytypeAnalytics {
 
     func logChangeOrDeleteRelationValue(
         isEmpty: Bool,
-        format: RelationFormat,
+        format: PropertyFormat,
         type: AnalyticsEventsRelationType,
         key: AnalyticsRelationKey,
         spaceId: String
@@ -1133,7 +1133,7 @@ extension AnytypeAnalytics {
         logEvent("DuplicateBlock", spaceId: spaceId)
     }
     
-    func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey? = nil, route: DeleteRelationRoute) {
+    func logDeleteRelation(spaceId: String, format: PropertyFormat, key: AnalyticsRelationKey? = nil, route: DeleteRelationRoute) {
         logEvent("DeleteRelation", spaceId: spaceId, withEventProperties: [
             AnalyticsEventsPropertiesKey.relationKey: key?.value ?? "",
             AnalyticsEventsPropertiesKey.format: format.analyticsName,

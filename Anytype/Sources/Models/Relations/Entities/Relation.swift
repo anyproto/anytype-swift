@@ -73,18 +73,18 @@ extension Relation: PropertyProtocol {
     
     var iconAsset: ImageAsset {
         switch self {
-        case .text: return RelationFormat.longText.iconAsset
-        case .tag: return RelationFormat.tag.iconAsset
-        case .status:  return RelationFormat.status.iconAsset
-        case .number:  return RelationFormat.number.iconAsset
-        case .date:  return RelationFormat.date.iconAsset
-        case .file:  return RelationFormat.file.iconAsset
-        case .object:  return RelationFormat.object.iconAsset
-        case .checkbox: return RelationFormat.checkbox.iconAsset
-        case .url:  return RelationFormat.url.iconAsset
-        case .email: return RelationFormat.email.iconAsset
-        case .phone: return RelationFormat.phone.iconAsset
-        case .unknown: return RelationFormat.unrecognized.iconAsset
+        case .text: return PropertyFormat.longText.iconAsset
+        case .tag: return PropertyFormat.tag.iconAsset
+        case .status:  return PropertyFormat.status.iconAsset
+        case .number:  return PropertyFormat.number.iconAsset
+        case .date:  return PropertyFormat.date.iconAsset
+        case .file:  return PropertyFormat.file.iconAsset
+        case .object:  return PropertyFormat.object.iconAsset
+        case .checkbox: return PropertyFormat.checkbox.iconAsset
+        case .url:  return PropertyFormat.url.iconAsset
+        case .email: return PropertyFormat.email.iconAsset
+        case .phone: return PropertyFormat.phone.iconAsset
+        case .unknown: return PropertyFormat.unrecognized.iconAsset
         }
     }
     

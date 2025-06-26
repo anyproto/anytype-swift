@@ -58,7 +58,7 @@ final class SetFiltersContentViewBuilder {
     // TODO: Migrate from LegacySearchView
     @MainActor
     private func buildSearchView(
-        with format: RelationFormat,
+        with format: PropertyFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> AnyView {
         switch format {

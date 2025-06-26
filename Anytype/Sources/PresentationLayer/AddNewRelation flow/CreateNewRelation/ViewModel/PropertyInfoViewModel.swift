@@ -91,8 +91,8 @@ final class PropertyInfoViewModel: ObservableObject {
 extension PropertyInfoViewModel {
     
     func didTapFormatSection() {
-        output?.didAskToShowRelationFormats(selectedFormat: format, onSelect: { [weak self] format in
-            self?.updateRelationFormat(format)
+        output?.didAskToShowPropertyFormats(selectedFormat: format, onSelect: { [weak self] format in
+            self?.updatePropertyFormat(format)
         })
     }
     
@@ -108,7 +108,7 @@ extension PropertyInfoViewModel {
             id: relationId,
             key: "",
             name: name,
-            format: format.asRelationFormat,
+            format: format.asPropertyFormat,
             isHidden: false,
             isReadOnly: false,
             isReadOnlyValue: false,
@@ -178,7 +178,7 @@ extension PropertyInfoViewModel {
 
 extension PropertyInfoViewModel: PropertyInfoModuleInput {
     
-    func updateRelationFormat(_ newFormat: SupportedPropertyFormat) {
+    func updatePropertyFormat(_ newFormat: SupportedPropertyFormat) {
         format = newFormat
         handleFormatUpdate()
     }
@@ -213,7 +213,7 @@ private extension SupportedPropertyFormat {
         NewPropertyFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
-    var asRelationFormat: RelationFormat {
+    var asPropertyFormat: PropertyFormat {
         switch self {
         case .text: return .longText
         case .tag: return .tag
