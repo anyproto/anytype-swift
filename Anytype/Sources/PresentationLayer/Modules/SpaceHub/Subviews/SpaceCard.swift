@@ -35,7 +35,7 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Divider()
         }
         
-        if FeatureFlags.muteSpacePossibility {
+        if FeatureFlags.muteSpacePossibility, spaceData.spaceView.isShared {
             muteButton
             Divider()
         }
