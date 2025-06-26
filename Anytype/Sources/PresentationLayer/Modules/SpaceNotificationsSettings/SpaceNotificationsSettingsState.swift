@@ -1,3 +1,5 @@
+import Services
+
 enum SpaceNotificationsSettingsState: CaseIterable {
     case allActiviy
     case mentions
@@ -31,5 +33,25 @@ enum SpaceNotificationsSettingsState: CaseIterable {
     
     var isLast: Bool {
         self == SpaceNotificationsSettingsState.allCases.last
+    }
+}
+
+extension SpaceNotificationsSettingsState {
+    var asPushNotificationsMode: SpacePushNotificationsMode {
+        switch self {
+        case .allActiviy: return .all
+        case .mentions: return .mentions
+        case .disabled: return .nothing
+        }
+    }
+}
+
+extension SpacePushNotificationsMode {
+    var asNotificationsSettingsState: SpaceNotificationsSettingsState {
+        switch self {
+        case .all: return .allActiviy
+        case .mentions: return .mentions
+        case .nothing, .UNRECOGNIZED(_): return .disabled
+        }
     }
 }

@@ -61,6 +61,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var defaultObjectType: ObjectType?
     @Published var showIconPickerSpaceId: StringIdentifiable?
     @Published var editingData: SettingsInfoEditingViewData?
+    @Published var pushNotificationsSettingsState: SpaceNotificationsSettingsState = .allActiviy
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
     @Published private(set) var inviteLink: URL?
@@ -270,6 +271,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         spaceName = spaceView.name
         spaceDescription = spaceView.description
+        
+        pushNotificationsSettingsState = spaceView.pushNotificationMode.asNotificationsSettingsState
         
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         

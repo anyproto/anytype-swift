@@ -17,6 +17,9 @@ struct SpaceNotificationsSettingsView: View {
             content
             Spacer()
         }
+        .task {
+            await model.startParticipantSpacesStorageTask()
+        }
         .background(Color.Background.secondary)
         .onChange(of: model.dismiss) { _ in
             dismiss()
@@ -32,8 +35,8 @@ struct SpaceNotificationsSettingsView: View {
     }
     
     private func stateView(_ state: SpaceNotificationsSettingsState) -> some View {
-        Button {
-            model.onStateChange(state)
+        AsyncButton {
+            try await model.onStateChange(state)
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(state.title, style: .previewTitle1Regular)

@@ -191,7 +191,7 @@ struct SpaceSettingsView: View {
                 Spacer.fixedHeight(8)
                 RoundedButton(
                     Loc.notifications, icon: .X24.unmuted,
-                    decoration: .caption(SpaceNotificationsSettingsState.allActiviy.titleShort)) {
+                    decoration: .caption(model.pushNotificationsSettingsState.titleShort)) {
                         model.onNotificationsTap()
                     }
             }
