@@ -66,12 +66,12 @@ struct ObjectPreviewModel {
     private static func buildRealtions(relations: [BlockLink.Relation]) -> [ListItem] {
         let nameRelation = Relation(key: BundledPropertyKey.name.rawValue,
                                     name: Loc.name,
-                                    iconAsset: RelationFormat.shortText.iconAsset,
+                                    iconAsset: PropertyFormat.shortText.iconAsset,
                                     isLocked: true,
                                     isEnabled: relations.contains(.name))
         let typeRelation = Relation(key: BundledPropertyKey.type.rawValue,
                                     name: Loc.LinkAppearance.ObjectType.title,
-                                    iconAsset: RelationFormat.object.iconAsset,
+                                    iconAsset: PropertyFormat.object.iconAsset,
                                     isLocked: false,
                                     isEnabled: relations.contains(.type))
 
@@ -158,6 +158,6 @@ extension BlockLink.Description {
     }
 
     var iconAsset: ImageAsset {
-        RelationFormat.longText.iconAsset
+        PropertyFormat.longText.iconAsset
     }
 }

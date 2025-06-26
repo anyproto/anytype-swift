@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension RelationFormat {
+extension PropertyFormat {
 
     var iconAsset: ImageAsset {
         switch self {

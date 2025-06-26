@@ -108,7 +108,7 @@ extension PropertyInfoViewModel {
             id: relationId,
             key: "",
             name: name,
-            format: format.asRelationFormat,
+            format: format.asPropertyFormat,
             isHidden: false,
             isReadOnly: false,
             isReadOnlyValue: false,
@@ -213,7 +213,7 @@ private extension SupportedPropertyFormat {
         NewPropertyFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
-    var asRelationFormat: RelationFormat {
+    var asPropertyFormat: PropertyFormat {
         switch self {
         case .text: return .longText
         case .tag: return .tag

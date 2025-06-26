@@ -40,7 +40,7 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
     
     private func buildRelationsRows(from activeView: DataviewView) -> [SetViewSettingsImagePreviewRowConfiguration] {
         let fileRelationDetails = setDocument.dataViewRelationsDetails.filter {
-            !$0.isHidden && $0.format == RelationFormat.file
+            !$0.isHidden && $0.format == PropertyFormat.file
         }
         return fileRelationDetails.map { relationDetails in
             SetViewSettingsImagePreviewRowConfiguration(

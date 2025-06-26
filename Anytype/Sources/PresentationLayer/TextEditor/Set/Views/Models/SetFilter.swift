@@ -44,7 +44,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     enum Condition {
         case text
         case number
-        case selected(RelationFormat)
+        case selected(PropertyFormat)
         case checkbox
         case date
         

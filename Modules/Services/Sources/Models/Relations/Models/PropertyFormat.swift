@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public enum RelationFormat: Sendable {
+public enum PropertyFormat: Sendable {
     case object
     case longText
     case shortText
@@ -21,7 +21,7 @@ public enum RelationFormat: Sendable {
     }
 }
 
-extension RelationFormat {
+extension PropertyFormat {
     
     init(rawValue: Int) {
         switch rawValue {
