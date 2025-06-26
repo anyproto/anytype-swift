@@ -1,6 +1,6 @@
 import Services
 
-extension RelationFormat {
+extension PropertyFormat {
     var hint: String {
         switch self {
         case .longText:
