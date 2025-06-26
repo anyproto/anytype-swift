@@ -34,7 +34,7 @@ extension Relation.Status {
 
 extension Relation.Status.Option {
     
-    init(option: RelationOption) {
+    init(option: PropertyOption) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)
         
         self.id = option.id

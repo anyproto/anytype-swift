@@ -130,7 +130,7 @@ public extension InfoContainerProtocol {
     
     func dataviewRelationSet(data: Anytype_Event.Block.Dataview.RelationSet) {
         updateDataview(blockId: data.id) { dataView in
-            let newRelationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
+            let newRelationLinks = data.relationLinks.map { PropertyLink(middlewarePropertyLink: $0) }
             return dataView.updated(relationLinks: dataView.relationLinks + newRelationLinks)
         }
     }

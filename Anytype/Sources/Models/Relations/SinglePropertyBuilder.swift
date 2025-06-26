@@ -265,7 +265,7 @@ private extension SingleRelationBuilder {
             guard optionId.isNotEmpty else { return nil }
             
             guard let optionDetails = storage.get(id: optionId) else { return nil }
-            let option = RelationOption(details: optionDetails)
+            let option = PropertyOption(details: optionDetails)
             return Relation.Status.Option(option: option)
         }()
         var values = [Relation.Status.Option]()
@@ -344,7 +344,7 @@ private extension SingleRelationBuilder {
             
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
-                .map { RelationOption(details: $0) }
+                .map { PropertyOption(details: $0) }
                 .map { Relation.Tag.Option(option: $0) }
 
             return tags

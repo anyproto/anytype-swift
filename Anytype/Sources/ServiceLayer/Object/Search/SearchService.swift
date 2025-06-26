@@ -111,7 +111,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption] {
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [PropertyOption] {
         var filters = SearchFiltersBuilder.build(
             isArchived: false,
             layouts: [DetailsLayout.relationOption]
@@ -125,10 +125,10 @@ final class SearchService: SearchServiceProtocol, Sendable {
         )
         
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: 0)
-        return details.map { RelationOption(details: $0) }
+        return details.map { PropertyOption(details: $0) }
     }
 
-    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption] {
+    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [PropertyOption] {
         var filters = SearchFiltersBuilder.build(
             isArchived: false,
             layouts: [DetailsLayout.relationOption]
@@ -136,7 +136,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
         filters.append(SearchHelper.includeIdsFilter(optionIds))
 
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [], fullText: "")
-        return details.map { RelationOption(details: $0) }
+        return details.map { PropertyOption(details: $0) }
     }
     
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
