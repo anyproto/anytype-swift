@@ -35,7 +35,7 @@ extension Relation.Tag {
 
 extension Relation.Tag.Option {
     
-    init(option: RelationOption) {
+    init(option: PropertyOption) {
         self.id = option.id
         self.text = option.text
         self.textColor = MiddlewareColor(rawValue: option.color)

@@ -9,7 +9,7 @@ struct SelectPropertyOption: Equatable, Identifiable {
 
 extension SelectPropertyOption {
     
-    init(relation: RelationOption) {
+    init(relation: PropertyOption) {
         let middlewareColor = MiddlewareColor(rawValue: relation.color)
         
         self.id = relation.id
@@ -17,7 +17,7 @@ extension SelectPropertyOption {
         self.color = middlewareColor.map { Color.Dark.color(from: $0) } ?? Color.Dark.grey
     }
     
-    init(optionParams: RelationOptionParameters) {
+    init(optionParams: PropertyOptionParameters) {
         self.id = optionParams.id
         self.text = optionParams.text
         self.color = optionParams.color

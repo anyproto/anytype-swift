@@ -16,8 +16,8 @@ protocol SearchServiceProtocol: AnyObject, Sendable {
         spaceId: String,
         sortRelationKey: BundledPropertyKey?
     ) async throws -> [ObjectDetails]
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption]
-    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption]
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [PropertyOption]
+    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [PropertyOption]
     func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails]
     func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails]
     func searchArchiveObjectIds(spaceId: String) async throws -> [String]

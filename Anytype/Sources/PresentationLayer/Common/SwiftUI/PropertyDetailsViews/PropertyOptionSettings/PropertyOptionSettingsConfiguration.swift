@@ -2,7 +2,7 @@ import SwiftUI
 import Services
 
 struct PropertyOptionSettingsConfiguration {
-    let option: RelationOptionParameters
+    let option: PropertyOptionParameters
     let mode: PropertyOptionSettingsMode
 }
 
@@ -30,7 +30,7 @@ enum PropertyOptionSettingsMode {
     }
 }
 
-struct RelationOptionParameters {
+struct PropertyOptionParameters {
     let id: String
     let text: String
     let color: Color

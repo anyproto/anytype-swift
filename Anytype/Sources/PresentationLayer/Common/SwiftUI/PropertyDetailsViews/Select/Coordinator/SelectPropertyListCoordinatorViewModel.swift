@@ -23,7 +23,7 @@ final class SelectPropertyListCoordinatorViewModel: ObservableObject, SelectProp
     func onCreateTap(text: String?, color: Color?, completion: @escaping (_ option: SelectPropertyOption) -> Void) {
         propertyData = PropertyData(
             configuration: PropertyOptionSettingsConfiguration(
-                option: RelationOptionParameters(
+                option: PropertyOptionParameters(
                     text: text,
                     color: color
                 ),
@@ -44,7 +44,7 @@ final class SelectPropertyListCoordinatorViewModel: ObservableObject, SelectProp
     func onEditTap(option: SelectPropertyOption, completion: @escaping (_ option: SelectPropertyOption) -> Void) {
         propertyData = PropertyData(
             configuration: PropertyOptionSettingsConfiguration(
-                option: RelationOptionParameters(
+                option: PropertyOptionParameters(
                     id: option.id,
                     text: option.text,
                     color: option.color
@@ -88,7 +88,7 @@ extension SelectPropertyListCoordinatorViewModel {
     struct PropertyData: Identifiable {
         let id = UUID()
         let configuration: PropertyOptionSettingsConfiguration
-        let completion: (_ optionParams: RelationOptionParameters) -> Void
+        let completion: (_ optionParams: PropertyOptionParameters) -> Void
     }
     
     struct DeletionAlertData: Identifiable {

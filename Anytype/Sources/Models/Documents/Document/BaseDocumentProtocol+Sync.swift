@@ -91,14 +91,14 @@ extension BaseDocumentProtocol {
             .filter { $0.key != BundledPropertyKey.description.rawValue }
         
         
-        return Container.shared.relationsBuilder().parsedRelations(
-            objectRelations: [],
-            objectFeaturedRelations: [],
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations,
+        return Container.shared.propertiesBuilder().parsedProperties(
+            objectProperties: [],
+            objectFeaturedProperties: [],
+            recommendedProperties: recommendedRelations,
+            recommendedFeaturedProperties: recommendedFeaturedRelations,
+            recommendedHiddenProperties: recommendedHiddenRelations,
             objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
+            propertyValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }

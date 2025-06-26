@@ -14,11 +14,11 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
     
-    private let completion: (_ optionParams: RelationOptionParameters) -> Void
+    private let completion: (_ optionParams: PropertyOptionParameters) -> Void
     
     init(
         configuration: PropertyOptionSettingsConfiguration,
-        completion: @escaping (_ optionParams: RelationOptionParameters) -> Void
+        completion: @escaping (_ optionParams: PropertyOptionParameters) -> Void
     ) {
         self.text = configuration.option.text
         self.selectedColor = configuration.option.color
@@ -52,7 +52,7 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
             guard let optionId else { return }
             
             completion(
-                RelationOptionParameters(
+                PropertyOptionParameters(
                     id: optionId,
                     text: text,
                     color: selectedColor
@@ -69,7 +69,7 @@ final class PropertyOptionSettingsViewModel: ObservableObject {
                 color: selectedColor.middlewareString()
             )
             completion(
-                RelationOptionParameters(
+                PropertyOptionParameters(
                     id: configuration.option.id,
                     text: text,
                     color: selectedColor

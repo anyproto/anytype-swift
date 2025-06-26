@@ -214,4 +214,4 @@ Before starting work on any issue, you must identify the task number:
 
 ## Memories
 - Do not add comments if not explicitly asked for
-- If pull request without functional and only like renames or file reuploads add tag "🧠 No brainer" to pr in github.
+- If pull request without functional and only like renames or file reuploads add label "🧠 No brainer" to pr in github.
