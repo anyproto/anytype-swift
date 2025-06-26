@@ -107,6 +107,7 @@ final class SpaceHubViewModel: ObservableObject {
             spaceId: data.spaceId,
             mode: data.mode
         )
+        spaceMuteData = nil
     }
     
     // MARK: - Private
