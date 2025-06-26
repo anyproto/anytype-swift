@@ -15,7 +15,14 @@
       "Bash(ls:*)",
 
       "Bash(make setup-middle:*)",
+      "Bash(make generate-middle:*)",
+      "Bash(make:*)",
       "Bash(xcodebuild:*)",
+      "Bash(open:*)",
+      "Bash(true)",
+
+      "Bash(gh pr view:*)",
+      "Bash(gh issue view:*)",
 
       "mcp__linear__list_my_issues",
       "mcp__linear__list_teams",
