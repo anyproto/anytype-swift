@@ -270,9 +270,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func didSelectMention(_ mention: MentionObject) {
         guard case let .search(_, mentionRange) = mentionSearchState else { return }
         let newMessage = NSMutableAttributedString(attributedString: message)
-        let mentionString = NSAttributedString(string: mention.name, attributes: [
+        let mentionString = NSMutableAttributedString(string: mention.name, attributes: [
             .chatMention: mention
         ])
+        mentionString.append(NSAttributedString(string: " "))
         
         newMessage.replaceCharacters(in: mentionRange, with: mentionString)
         message = newMessage

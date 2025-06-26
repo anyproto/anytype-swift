@@ -30,28 +30,28 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .shortText:
             return textProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .number:
             return numberProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .status:
             return statusProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked,
+                propertyValuesIsLocked: propertyValuesIsLocked,
                 storage: storage
             )
         case .date:
@@ -59,14 +59,14 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .file:
             return fileProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked,
+                propertyValuesIsLocked: propertyValuesIsLocked,
                 storage: storage
             )
         case .checkbox:
@@ -74,35 +74,35 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .url:
             return urlProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .email:
             return emailProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .phone:
             return phoneProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked
+                propertyValuesIsLocked: propertyValuesIsLocked
             )
         case .tag:
             return tagProperty(
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked,
+                propertyValuesIsLocked: propertyValuesIsLocked,
                 storage: storage
             )
         case .object:
@@ -110,7 +110,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
                 relationDetails: relationDetails,
                 details: details,
                 isFeatured: isFeatured,
-                relationValuesIsLocked: relationValuesIsLocked,
+                propertyValuesIsLocked: propertyValuesIsLocked,
                 storage: storage
             )
         case .unrecognized:
@@ -130,7 +130,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
     }
 }
 
-private extension SingleRelationBuilder {    
+private extension SinglePropertyBuilder {    
     func textProperty(
         relationDetails: RelationDetails,
         details: ObjectDetails,

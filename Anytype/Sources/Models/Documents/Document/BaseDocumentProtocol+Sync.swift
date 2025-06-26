@@ -92,13 +92,13 @@ extension BaseDocumentProtocol {
         
         
         return Container.shared.propertiesBuilder().parsedProperties(
-            objectRelations: [],
-            objectFeaturedRelations: [],
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations,
+            objectProperties: [],
+            objectFeaturedProperties: [],
+            recommendedProperties: recommendedRelations,
+            recommendedFeaturedProperties: recommendedFeaturedRelations,
+            recommendedHiddenProperties: recommendedHiddenRelations,
             objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
+            propertyValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }
