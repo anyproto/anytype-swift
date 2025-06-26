@@ -267,7 +267,7 @@ private extension PropertyFilterBuilder {
             
             return selectedSatusesIds
                 .compactMap { detailsStorage.get(id: $0) }
-                .map { RelationOption(details: $0) }
+                .map { PropertyOption(details: $0) }
                 .map { Relation.Status.Option(option: $0) }
         }()
         
@@ -302,7 +302,7 @@ private extension PropertyFilterBuilder {
             
             let tags = selectedTagIds
                 .compactMap { detailsStorage.get(id: $0) }
-                .map { RelationOption(details: $0) }
+                .map { PropertyOption(details: $0) }
                 .map { Relation.Tag.Option(option: $0) }
             
             return tags

@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct RelationLink: Hashable, Sendable {
+public struct PropertyLink: Hashable, Sendable {
     public let key: String
     
     public init(key: String) {
@@ -9,7 +9,7 @@ public struct RelationLink: Hashable, Sendable {
     }
 }
 
-public extension RelationLink {
+public extension PropertyLink {
     
     init(middlewareRelationLink: Anytype_Model_RelationLink) {
         self.key = middlewareRelationLink.key
