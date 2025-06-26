@@ -154,13 +154,13 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         details.map { details in
             let parsedProperties = relationsBuilder
                 .parsedProperties(
-                    objectRelations: relationsDetails,
-                    objectFeaturedRelations: [],
-                    recommendedRelations: [],
-                    recommendedFeaturedRelations: [],
-                    recommendedHiddenRelations: [],
+                    objectProperties: relationsDetails,
+                    objectFeaturedProperties: [],
+                    recommendedProperties: [],
+                    recommendedFeaturedProperties: [],
+                    recommendedHiddenProperties: [],
                     objectId: details.id,
-                    relationValuesIsLocked: viewRelationValueIsLocked,
+                    propertyValuesIsLocked: viewRelationValueIsLocked,
                     storage: storage
                 )
                 .installed
