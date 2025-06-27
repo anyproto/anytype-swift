@@ -24,6 +24,9 @@ extension Anytype_Model_Import {
     case html // = 4
     case txt // = 5
     case csv // = 6
+
+    /// Markdown with obsidian improvements
+    case obsidian // = 7
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -39,6 +42,7 @@ extension Anytype_Model_Import {
       case 4: self = .html
       case 5: self = .txt
       case 6: self = .csv
+      case 7: self = .obsidian
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -52,6 +56,7 @@ extension Anytype_Model_Import {
       case .html: return 4
       case .txt: return 5
       case .csv: return 6
+      case .obsidian: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -65,6 +70,7 @@ extension Anytype_Model_Import {
       .html,
       .txt,
       .csv,
+      .obsidian,
     ]
 
   }}
@@ -78,6 +84,7 @@ extension Anytype_Model_Import.TypeEnum: SwiftProtobuf._ProtoNameProviding {
     4: .same(proto: "Html"),
     5: .same(proto: "Txt"),
     6: .same(proto: "Csv"),
+    7: .same(proto: "Obsidian"),
   ]
 }
 

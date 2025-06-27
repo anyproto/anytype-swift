@@ -1518,6 +1518,7 @@ public enum Loc {
       public static let html = Loc.tr("Localizable", "Relation.ImportType.Html", fallback: "HTML")
       public static let markdown = Loc.tr("Localizable", "Relation.ImportType.Markdown", fallback: "Markdown")
       public static let notion = Loc.tr("Localizable", "Relation.ImportType.Notion", fallback: "Notion")
+      public static let obsidian = Loc.tr("Localizable", "Relation.ImportType.Obsidian", fallback: "Obsidian")
       public static let protobuf = Loc.tr("Localizable", "Relation.ImportType.Protobuf", fallback: "Any-Block")
       public static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
     }

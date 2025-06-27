@@ -15,7 +15,7 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
             return Loc.SpaceCreate.Space.title
         case .stream:
             return Loc.SpaceCreate.Stream.title
-        case .UNRECOGNIZED(_):
+        case .UNRECOGNIZED(_), .none:
             return ""
         }
     }
