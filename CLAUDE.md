@@ -206,12 +206,47 @@ Before starting work on any issue, you must identify the task number:
 ### Linear Integration
 - Use Linear MCP tools to read issue details, comments, and requirements
 - Always understand the full context before starting implementation
+- **Commit, push, pull request**: If doing multistaged work not done in one PR, add progress updates to corresponding Linear task and tick checkboxes
+- **Update issue progress**: When completing part of a task (not the whole task):
+  - Add comments with PR links using `mcp__linear__create_comment`
+  - Update issue description to check off completed items using `mcp__linear__update_issue`
+  - Mark checkboxes as `[X]` for completed items and add PR reference (e.g., `(PR #3517)`)
 - Update issue status and add comments as needed during development
+
+## Code Generation
+
+The project uses several code generation tools. When renaming entities, check if they're generated and update the source files accordingly.
+
+### Code Generation Locations
+1. **SwiftGen** - Generates code from JSON/assets
+   - `/Modules/Services/swiftgen.yml` - Generates BundledPropertyKey, BundledPropertiesValueProvider, etc.
+   - `/Modules/Assets/Templates/swiftgen.yml` - Asset catalogs
+   - `/Modules/DesignKit/Scripts/Configs/swiftgen.yml` - Design system assets
+   - `/Modules/Loc/Scripts/Configs/swiftgen.yml` - Localization strings
+
+2. **Sourcery** - Generates Swift code from templates
+   - `/Modules/AnytypeCore/sourcery.yml` - Core module code generation
+   - `/Modules/ProtobufMessages/sourcery.yml` - Protobuf-related code
+   - `/Modules/ProtobufMessages/Scripts/Loc/sourcery.yml` - Protobuf localization
+
+3. **Custom Generators**
+   - `/Modules/ProtobufMessages/anytypeGen.yml` - Custom Anytype code generator
+   - `anytype-swift-filesplit-v1` - Splits large protobuf files
+
+### Key Commands
+- `make generate-middle` - Runs all middleware-related generation (SwiftGen, Sourcery, protobuf splitting)
+- `make generate` - Runs additional generators for Assets, Loc, and DesignKit
+
+### Important Notes
+- Generated files are marked with `// Generated using Sourcery/SwiftGen` - never edit these directly
+- When renaming entities that appear in generated code, update the source templates/configurations
+- Run `make generate-middle` after updating templates to regenerate files
 
 ## Useful Commands
 - `make setup-middle` - Initial setup
 - `make generate-middle` - Regenerate middleware and generated files
+- `make generate` - Run all code generators
 
 ## Memories
 - Do not add comments if not explicitly asked for
-- If pull request without functional and only like renames or file reuploads add label "🧠 No brainer" to pr in github.
+- For trivial PRs (renames, file moves, simple layout changes), add the GitHub label "🧠 No brainer" using `gh pr edit --add-label` (NOT in the PR title)
