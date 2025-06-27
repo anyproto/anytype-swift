@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-extension BundledRelationsValueProvider {
+extension BundledPropertiesValueProvider {
 
     var setTitle: String {
         switch resolvedLayoutValue {

@@ -6,7 +6,7 @@ import AnytypeCore
 
 public typealias ObjectId = String
 
-public protocol BundledRelationsValueProvider {
+public protocol BundledPropertiesValueProvider {
 
     var tag: [ObjectId] { get }
     var camera: String { get }
@@ -175,7 +175,7 @@ public protocol BundledRelationsValueProvider {
     var spacePushNotificationEncryptionKey: String { get }
 } 
 
-public extension BundledRelationsValueProvider where Self: RelationValueProvider {
+public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
     var tag: [ObjectId] {
         return value(for: BundledPropertyKey.tag.rawValue)
     }

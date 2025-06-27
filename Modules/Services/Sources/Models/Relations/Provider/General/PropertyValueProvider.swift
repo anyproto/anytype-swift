@@ -1,13 +1,13 @@
 import Foundation
 import SwiftProtobuf
 
-public protocol RelationValueProvider {
+public protocol PropertyValueProvider {
     
     var values: [String: Google_Protobuf_Value] { get }
     
 }
 
-extension RelationValueProvider {
+extension PropertyValueProvider {
     
     func value<T>(for key: String) -> T? where T: ProtobufSupport {
         guard let value = values[key]?.unwrapedListValue else { return nil }
@@ -25,7 +25,7 @@ extension RelationValueProvider {
     }
 }
 
-public extension RelationValueProvider {
+public extension PropertyValueProvider {
     
     func stringValue(for key: String) -> String {
         value(for: key)

@@ -1,6 +1,6 @@
 import Foundation
 
-public extension RelationValueProvider {
+public extension PropertyValueProvider {
     
     /// Use this method only for cases where relation can contains single value or array.
     /// In other cases use concreate API.

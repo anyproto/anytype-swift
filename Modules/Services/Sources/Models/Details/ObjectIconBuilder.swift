@@ -1,14 +1,14 @@
 import AnytypeCore
 
 public protocol ObjectIconBuilderProtocol {
-    func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon?
+    func objectIcon(relations: BundledPropertiesValueProvider) -> ObjectIcon?
     func profileIcon(iconImage: String, objectName: String) -> ObjectIcon?
 }
 
 public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     public init() { }
     
-    public func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
+    public func objectIcon(relations: BundledPropertiesValueProvider) -> ObjectIcon? {
         guard !relations.isDeleted else {
             return .deleted
         }
@@ -41,7 +41,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     // MARK: - Private
     
-    private func icon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
+    private func icon(relations: BundledPropertiesValueProvider) -> ObjectIcon? {
         switch relations.resolvedLayoutValue {
         case .basic, .set, .collection, .image, .chat:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)

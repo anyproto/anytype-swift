@@ -6,7 +6,7 @@ enum ObjectDetailsError: Error {
 	case detailsIdIsMissing
 }
 
-public struct ObjectDetails: Hashable, Sendable, RelationValueProvider, BundledRelationsValueProvider, Identifiable {
+public struct ObjectDetails: Hashable, Sendable, PropertyValueProvider, BundledPropertiesValueProvider, Identifiable {
     
     public let id: String
     public let values: [String: Google_Protobuf_Value]
