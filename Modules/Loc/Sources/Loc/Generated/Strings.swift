@@ -11,7 +11,7 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 public enum Loc {
   public static let about = Loc.tr("Localizable", "About", fallback: "About")
-  public static let access = Loc.tr("Localizable", "Access", fallback: "Access")
+  public static let access = Loc.tr("Localizable", "Access", fallback: "Key")
   public static let accessToKeyFromKeychain = Loc.tr("Localizable", "Access to key from keychain", fallback: "Access to key from keychain")
   public static let actionFocusedLayoutWithACheckbox = Loc.tr("Localizable", "Action-focused layout with a checkbox", fallback: "Action-focused layout with a checkbox")
   public static let actions = Loc.tr("Localizable", "Actions", fallback: "Actions")
@@ -1772,7 +1772,7 @@ public enum Loc {
     public static let spaceType = Loc.tr("Localizable", "Settings.SpaceType", fallback: "Space type")
     public static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
     public static let updated = Loc.tr("Localizable", "Settings.Updated", fallback: "Space information updated")
-    public static let vaultAndAccess = Loc.tr("Localizable", "Settings.VaultAndAccess", fallback: "Vault and access")
+    public static let vaultAndAccess = Loc.tr("Localizable", "Settings.VaultAndAccess", fallback: "Vault and key")
   }
   public enum Sharing {
     public static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
