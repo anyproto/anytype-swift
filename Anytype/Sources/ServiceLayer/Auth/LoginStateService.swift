@@ -41,7 +41,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
     private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
     private let pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol = Container.shared.pushNotificationsPermissionService()
-    
+    private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
+        
     // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
@@ -88,6 +89,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await storeKitService.startListenForTransactions()
         await profileStorage.startSubscription()
         await activeSpaceManager.startSubscription()
+        await spaceIconForNotificationsHandler.startUpdating()
         
         Task {
             // Time-heavy operation
@@ -111,5 +113,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await storeKitService.stopListenForTransactions()
         await profileStorage.stopSubscription()
         await activeSpaceManager.stopSubscription()
+        await spaceIconForNotificationsHandler.stopUpdatingAndClearData()
     }
 }

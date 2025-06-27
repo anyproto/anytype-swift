@@ -77,7 +77,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon {
         if iconImage.isNotEmpty {
-            return .space(.imageId(iconImage))
+            return .space(.imageId(iconImage, name: objectName, iconOption: iconOption ?? 1))
         }
         
         return .space(.name(name: objectName, iconOption: iconOption ?? 1))
