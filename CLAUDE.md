@@ -206,6 +206,11 @@ Before starting work on any issue, you must identify the task number:
 ### Linear Integration
 - Use Linear MCP tools to read issue details, comments, and requirements
 - Always understand the full context before starting implementation
+- **Commit, push, pull request**: If doing multistaged work not done in one PR, add progress updates to corresponding Linear task and tick checkboxes
+- **Update issue progress**: When completing part of a task (not the whole task):
+  - Add comments with PR links using `mcp__linear__create_comment`
+  - Update issue description to check off completed items using `mcp__linear__update_issue`
+  - Mark checkboxes as `[X]` for completed items and add PR reference (e.g., `(PR #3517)`)
 - Update issue status and add comments as needed during development
 
 ## Code Generation
