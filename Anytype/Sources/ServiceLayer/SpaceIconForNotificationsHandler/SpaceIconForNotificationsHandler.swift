@@ -2,6 +2,7 @@ import Foundation
 import NotificationsCore
 import SwiftUI
 import Combine
+import AnytypeCore
 
 protocol SpaceIconForNotificationsHandlerProtocol: AnyObject, Sendable {
     func startUpdating() async
@@ -15,8 +16,11 @@ actor SpaceIconForNotificationsHandler: SpaceIconForNotificationsHandlerProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     
+    @UserDefault("SpaceIcon.SavedItems", defaultValue: [:])
+    private var savedIcons: [String: Int]
+    
     private var workspaceSubscription: Task<Void, Never>?
-    private var storage = [String: Icon]()
+    private var tasks = [String: Task<Void, Never>]()
     
     func startUpdating() async {
         workspaceSubscription = Task { [weak self, workspacesStorage] in
@@ -30,32 +34,34 @@ actor SpaceIconForNotificationsHandler: SpaceIconForNotificationsHandlerProtocol
         workspaceSubscription?.cancel()
         workspaceSubscription = nil
         spaceIconStorage.removeAll()
+        savedIcons.removeAll()
+        tasks.removeAll()
     }
     
     // MARK: - Private
     
     private func handleSpaces(workspaces: [SpaceView]) async {
         for space in workspaces {
-            if let value = storage[space.targetSpaceId], value == space.objectIconImage {
-                continue
-            }
             
-            let value = await Task { @MainActor in
+            guard savedIcons[space.targetSpaceId] != space.objectIconImage.hashValue, tasks[space.targetSpaceId].isNil else { continue }
+            
+            let task = Task { @MainActor [weak self] in
                 let spaceId = space.targetSpaceId
                 let renderer = ImageRenderer(content: IconView(icon: space.objectIconImage).frame(width: 256, height: 256))
                 if let cgImage = renderer.cgImage {
                     Task {
-                        await saveIcon(spaceId: spaceId, icon: UIImage(cgImage: cgImage))
+                        await self?.saveIcon(spaceId: spaceId, icon: space.objectIconImage, image: UIImage(cgImage: cgImage))
                     }
                 }
-                return space.objectIconImage
-            }.value
+            }
             
-            storage[space.targetSpaceId] = value
+            tasks[space.targetSpaceId] = task
         }
     }
     
-    private func saveIcon(spaceId: String, icon: UIImage) {
-        spaceIconStorage.addIcon(spaceId: spaceId, icon: icon)
+    private func saveIcon(spaceId: String, icon: Icon, image: UIImage) {
+        spaceIconStorage.addIcon(spaceId: spaceId, icon: image)
+        savedIcons[spaceId] = icon.hashValue
+        tasks.removeValue(forKey: spaceId)
     }
 }

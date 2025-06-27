@@ -2,13 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSExtensionAttributes</key>
-	<dict>
-		<key>IntentsSupported</key>
-		<array>
-			<string>INSendMessageIntent</string>
-		</array>
-	</dict>
 	<key>CompilationCondition</key>
 	<string>$(COMPILATION_CONDITION)</string>
 	<key>NSExtension</key>
