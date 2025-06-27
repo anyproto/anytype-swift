@@ -9,15 +9,21 @@ struct SpaceIconView: View {
     var body: some View {
         switch icon {
         case let .name(name, iconOption):
-            ImageCharIconView(text: name.withPlaceholder)
-                .background(IconColorStorage.iconColor(iconOption: iconOption).gradient)
+            nameIcon(name: name, iconOption: iconOption)
                 .objectIconCornerRadius()
-        case .imageId(let imageId):
-            ImageIdIconView(imageId: imageId)
-                .objectIconCornerRadius()
+        case let .imageId(imageId, name, iconOption):
+            ImageIdIconView(imageId: imageId) {
+                nameIcon(name: name, iconOption: iconOption)
+            }
+            .objectIconCornerRadius()
         case .localPath(let path):
             LocalIconView(contentsOfFile: path)
                 .objectIconCornerRadius()
         }
+    }
+    
+    private func nameIcon(name: String, iconOption: Int) -> some View {
+        ImageCharIconView(text: name.withPlaceholder)
+            .background(IconColorStorage.iconColor(iconOption: iconOption).gradient)
     }
 }

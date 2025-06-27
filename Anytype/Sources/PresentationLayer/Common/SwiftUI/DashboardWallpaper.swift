@@ -62,7 +62,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         switch spaceIcon {
         case let .name(_, iconOption):
             IconColorStorage.iconColor(iconOption: iconOption)
-        case .imageId(let imageId):
+        case let .imageId(imageId, _, iconOption):
             ToggleCachedAsyncImage(
                 url: ImageMetadata(id: imageId, side: .width(50)).contentUrl,
                 urlCache: .anytypeImages
@@ -73,7 +73,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
                     .padding(-64)
                     .blur(radius: 32)
             } placeholder: {
-                LoadingPlaceholderIconView()
+                IconColorStorage.iconColor(iconOption: iconOption)
             }
         case .localPath(let path):
             LocalIconView(contentsOfFile: path)

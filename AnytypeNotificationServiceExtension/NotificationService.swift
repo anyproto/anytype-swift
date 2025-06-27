@@ -2,11 +2,15 @@ import UserNotifications
 import AnytypeCore
 import Loc
 import NotificationsCore
+import Factory
 
 class NotificationService: UNNotificationServiceExtension {
     
     private let decryptionPushContentService: any DecryptionPushContentServiceProtocol = DecryptionPushContentService()
-
+    
+    @Injected(\.spaceIconStorage)
+    private var spaceIconStorage: any SpaceIconStorageProtocol
+    
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
@@ -17,6 +21,11 @@ class NotificationService: UNNotificationServiceExtension {
         
         guard let bestAttemptContent else {
             return
+        }
+        
+        if let iconLocalUrl = spaceIconStorage.iconLocalUrl(forSpaceId: "bafyreibmp7vmwsmsddbom45edkjqwj2jygxovb27ol7mjl4nnm3mxpu3im.20ynjxn3b99xk"),
+            let attachment = try? UNNotificationAttachment(identifier: "contact-image", url: iconLocalUrl, options: nil) {
+            bestAttemptContent.attachments = [attachment]
         }
         
         guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
@@ -47,6 +56,11 @@ class NotificationService: UNNotificationServiceExtension {
                 DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
                 DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
             ]
+
+            if let iconLocalUrl = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId),
+                let attachment = try? UNNotificationAttachment(identifier: "contact-image", url: iconLocalUrl) {
+                bestAttemptContent.attachments = [attachment]
+            }
         }
         
         // Deliver the notification

@@ -63,6 +63,7 @@
 		7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC22D3916FF00E18A0C /* AppTarget */; };
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
+		74424D6B2E0E849600BE5E68 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 74424D6A2E0E849600BE5E68 /* Factory */; };
 		746F06012DB8E712005795F7 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = 746F06002DB8E712005795F7 /* DesignKit */; };
 		748B36A02E0300C400DA28C2 /* StoredHashMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 748B369F2E0300C400DA28C2 /* StoredHashMacro */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
@@ -323,6 +324,7 @@
 				2E074C4E2DE623DB00260ABD /* NotificationsCore in Frameworks */,
 				2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */,
 				2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */,
+				74424D6B2E0E849600BE5E68 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2985,6 +2987,11 @@
 		7434DAC62D39212E00E18A0C /* AppTarget */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppTarget;
+		};
+		74424D6A2E0E849600BE5E68 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		746F06002DB8E712005795F7 /* DesignKit */ = {
 			isa = XCSwiftPackageProductDependency;

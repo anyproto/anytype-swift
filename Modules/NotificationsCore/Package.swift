@@ -15,6 +15,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/anyproto/any-crypto-swift", from: "1.0.1"),
+        .package(url: "https://github.com/hmlongco/Factory", revision: "2.3.1"),
         .package(path: "../AnytypeCore"),
         .package(path: "../SecureService"),
     ],
@@ -24,7 +25,8 @@ let package = Package(
             dependencies: [
                 .product(name: "AnyCryptoSwift", package: "any-crypto-swift"),
                 "AnytypeCore",
-                "SecureService"
+                "SecureService",
+                "Factory"
             ],
             swiftSettings: [
                 .swiftLanguageMode(.v6)
