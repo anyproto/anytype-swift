@@ -58,4 +58,13 @@ extension SpacePushNotificationsMode {
     var isUnmutedAll: Bool {
         self == .all
     }
+    
+    var analyticsValue: String {
+        switch self {
+        case .all: return "All"
+        case .mentions: return "Mentions"
+        case .nothing: return "Nothing"
+        case .UNRECOGNIZED(_): return ""
+        }
+    }
 }
