@@ -1,6 +1,6 @@
 import Foundation
 
-public extension BundledRelationsValueProvider {
+public extension BundledPropertiesValueProvider {
     var objectIcon: ObjectIcon? {
         Container.shared.objectIconBuilder().objectIcon(relations: self)
     }

@@ -2,7 +2,7 @@ import Services
 import UIKit
 import AnytypeCore
 
-extension BundledRelationsValueProvider {
+extension BundledPropertiesValueProvider {
     
     // MARK: - Cover
     
