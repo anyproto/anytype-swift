@@ -66,6 +66,7 @@
 		74424D6B2E0E849600BE5E68 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 74424D6A2E0E849600BE5E68 /* Factory */; };
 		746F06012DB8E712005795F7 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = 746F06002DB8E712005795F7 /* DesignKit */; };
 		748B36A02E0300C400DA28C2 /* StoredHashMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 748B369F2E0300C400DA28C2 /* StoredHashMacro */; };
+		74A696EA2E0EDCD3007F32CA /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 74A696E92E0EDCD3007F32CA /* Loc */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
 		74D79ED52D784FBF00658D0A /* AsyncTools in Frameworks */ = {isa = PBXBuildFile; productRef = 74D79ED42D784FBF00658D0A /* AsyncTools */; };
 		74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = 74EB806B2D79D3EA003F8D84 /* Assets */; };
@@ -322,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E074C4E2DE623DB00260ABD /* NotificationsCore in Frameworks */,
+				74A696EA2E0EDCD3007F32CA /* Loc in Frameworks */,
 				2ED425D22DDE3CF5008C7AD3 /* Loc in Frameworks */,
 				2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */,
 				74424D6B2E0E849600BE5E68 /* Factory in Frameworks */,
@@ -3000,6 +3002,10 @@
 		748B369F2E0300C400DA28C2 /* StoredHashMacro */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StoredHashMacro;
+		};
+		74A696E92E0EDCD3007F32CA /* Loc */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Loc;
 		};
 		74B35D252D5B39C500AC9879 /* AsyncAlgorithms */ = {
 			isa = XCSwiftPackageProductDependency;

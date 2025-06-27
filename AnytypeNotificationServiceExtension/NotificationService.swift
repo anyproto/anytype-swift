@@ -20,14 +20,9 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
-        guard var bestAttemptContent else {
+        guard let bestAttemptContent else {
             return
         }
-        
-//        if let iconLocalUrl = spaceIconStorage.iconLocalUrl(forSpaceId: "bafyreibmp7vmwsmsddbom45edkjqwj2jygxovb27ol7mjl4nnm3mxpu3im.20ynjxn3b99xk"),
-//            let attachment = try? UNNotificationAttachment(identifier: "contact-image", url: iconLocalUrl, options: nil) {
-//            bestAttemptContent.attachments = [attachment]
-//        }
         
         guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
               let encryptedData = Data(base64Encoded: encryptedBase64),
@@ -38,81 +33,55 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId),
-           decryptionPushContentService.isValidSignature(senderId: decryptedMessage.senderId, signatureData: signatureData, encryptedData: encryptedData)
-        {
-//            bestAttemptContent.title = decryptedMessage.newMessage.spaceName
-//            bestAttemptContent.subtitle = decryptedMessage.newMessage.senderName
-            
-            let body: String
-            if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
-                body = "📎 " + decryptedMessage.newMessage.text
-            } else if decryptedMessage.newMessage.hasAttachments, !decryptedMessage.newMessage.hasText {
-                body = "📎 " + Loc.PushNotifications.Message.Attachment.title
-            } else {
-                body = decryptedMessage.newMessage.text
-            }
-//            bestAttemptContent.body = "\(body): "
-            
-            bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
-                DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
-                DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
-            ]
-            
-            //            if let iconLocalUrl = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId),
-            //                let attachment = try? UNNotificationAttachment(identifier: "contact-image", url: iconLocalUrl) {
-            //                bestAttemptContent.attachments = [attachment]
-            //            }
-            
-            let avatar = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId).map { INImage(url: $0) } ?? nil
-            
-            let handle = INPersonHandle(value: "", type: .unknown)
-            let sender = INPerson(
-                personHandle: handle,
-                nameComponents: nil,
-                displayName: decryptedMessage.newMessage.senderName,
-                image: avatar,
-                contactIdentifier: nil,
-                customIdentifier: nil
-            )
-            
-            let sender2 = INPerson(
-                personHandle: handle,
-                nameComponents: nil,
-                displayName: "",
-                image: nil,
-                contactIdentifier: nil,
-                customIdentifier: nil
-            )
-            
-            let sender3 = INPerson(
-                personHandle: handle,
-                nameComponents: nil,
-                displayName: "",
-                image: nil,
-                contactIdentifier: nil,
-                customIdentifier: nil
-            )
-            
-            let intent = INSendMessageIntent(
-                recipients: nil,//[sender2, sender3],
-                outgoingMessageType: .outgoingMessageText,
-                content: body, // Body
-                speakableGroupName: INSpeakableString(spokenPhrase: decryptedMessage.newMessage.spaceName),
-                conversationIdentifier: decryptedMessage.newMessage.chatId,
-                serviceName: decryptedMessage.newMessage.spaceName,
-                sender: sender,
-                attachments: nil
-            )
-            
-            if let content = try? bestAttemptContent.updating(from: intent),
-                let mutableContent = content.mutableCopy() as? UNMutableNotificationContent {
-                bestAttemptContent = mutableContent
-            }
+        guard let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId),
+              decryptionPushContentService.isValidSignature(senderId: decryptedMessage.senderId, signatureData: signatureData, encryptedData: encryptedData) else {
+            contentHandler(bestAttemptContent)
+            return
         }
         
-        // Deliver the notification
-        contentHandler(bestAttemptContent)
+        if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
+            bestAttemptContent.body = "📎 " + decryptedMessage.newMessage.text
+        } else if decryptedMessage.newMessage.hasAttachments, !decryptedMessage.newMessage.hasText {
+            bestAttemptContent.body = "📎 " + Loc.PushNotifications.Message.Attachment.title
+        } else {
+            bestAttemptContent.body = decryptedMessage.newMessage.text
+        }
+
+        bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
+            DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
+            DecryptedPushKeys.chatId : decryptedMessage.newMessage.chatId
+        ]
+        
+        let sender = INPerson(
+            personHandle: INPersonHandle(value: nil, type: .unknown),
+            nameComponents: nil,
+            displayName: decryptedMessage.newMessage.senderName,
+            image: nil,
+            contactIdentifier: nil,
+            customIdentifier: nil
+        )
+        
+        let spaceName = decryptedMessage.newMessage.spaceName.isNotEmpty ? decryptedMessage.newMessage.spaceName : Loc.untitled
+        let intent = INSendMessageIntent(
+            recipients: [makeFakeUser(), makeFakeUser()], // The system identifies the message as a group message and displays the group name
+            outgoingMessageType: .outgoingMessageText,
+            content: nil,
+            speakableGroupName: INSpeakableString(spokenPhrase: spaceName),
+            conversationIdentifier: decryptedMessage.spaceId,
+            serviceName: nil,
+            sender: sender,
+            attachments: nil
+        )
+        
+        let avatar = spaceIconStorage.iconLocalUrl(forSpaceId: decryptedMessage.spaceId).map { INImage(url: $0) } ?? nil
+        intent.setImage(avatar, forParameterNamed: \.speakableGroupName)
+        
+        do {
+            let update = try bestAttemptContent.updating(from: intent)
+            contentHandler(update)
+        } catch {
+            contentHandler(bestAttemptContent)
+        }
     }
     
     override func serviceExtensionTimeWillExpire() {
@@ -121,6 +90,18 @@ class NotificationService: UNNotificationServiceExtension {
         if let contentHandler, let bestAttemptContent {
             contentHandler(bestAttemptContent)
         }
+    }
+    
+    private func makeFakeUser() -> INPerson {
+        let uuid = UUID().uuidString
+        return INPerson(
+            personHandle: INPersonHandle(value: uuid, type: .unknown),
+            nameComponents: nil,
+            displayName: uuid,
+            image: nil,
+            contactIdentifier: nil,
+            customIdentifier: nil
+        )
     }
 }
 
