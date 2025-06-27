@@ -1,7 +1,7 @@
 import Foundation
 import SwiftProtobuf
 
-public struct RelationDetails: Hashable, Sendable {
+public struct PropertyDetails: Hashable, Sendable {
 
     public let id: String
     public let key: String
@@ -45,7 +45,7 @@ public struct RelationDetails: Hashable, Sendable {
     }
 }
 
-extension RelationDetails: DetailsModel {
+extension PropertyDetails: DetailsModel {
     
     public init(details: ObjectDetails) {
         self.id = details.id
@@ -99,7 +99,7 @@ extension RelationDetails: DetailsModel {
 }
 
 
-public extension RelationDetails {
+public extension PropertyDetails {
     var isMultiSelect: Bool {
         return maxCount == 0
     }

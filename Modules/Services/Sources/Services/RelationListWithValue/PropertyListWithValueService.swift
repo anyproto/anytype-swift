@@ -1,11 +1,11 @@
 import Foundation
 import ProtobufMessages
 
-public protocol RelationListWithValueServiceProtocol: AnyObject, Sendable {
+public protocol PropertyListWithValueServiceProtocol: AnyObject, Sendable {
     func relationListWithValue(_ value: String, spaceId: String) async throws -> [String]
 }
 
-final class RelationListWithValueService: RelationListWithValueServiceProtocol, Sendable {
+final class PropertyListWithValueService: PropertyListWithValueServiceProtocol, Sendable {
     func relationListWithValue(_ value: String, spaceId: String) async throws -> [String] {
         let result = try await ClientCommands.relationListWithValue(.with {
             $0.spaceID = spaceId

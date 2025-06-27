@@ -1,6 +1,6 @@
 import Foundation
 
-public struct BlockRelation: Hashable, Sendable {
+public struct BlockProperty: Hashable, Sendable {
     public var key: String
 
     public init(key: String) {

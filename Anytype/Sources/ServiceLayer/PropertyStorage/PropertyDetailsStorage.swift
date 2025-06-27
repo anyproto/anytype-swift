@@ -7,7 +7,7 @@ enum PropertyDetailsStorageError: Error {
     case relationNotFound
 }
 
-private struct RelationDetailsKey: Hashable {
+private struct PropertyDetailsKey: Hashable {
     let key: String
     let spaceId: String
 }
@@ -22,11 +22,11 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
     
     private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.propertySubscriptionDataBuilder()
     
-    private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<RelationDetails>
+    private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<PropertyDetails>
     
     // MARK: - Private properties
     
-    private let searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
+    private let searchDetailsByKey = SynchronizedDictionary<PropertyDetailsKey, PropertyDetails>()
     
     private let sync = AtomicPublishedStorage<Void>(())
     var syncPublisher: AnyPublisher<Void, Never> { sync.publisher.eraseToAnyPublisher() }

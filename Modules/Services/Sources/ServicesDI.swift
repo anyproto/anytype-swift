@@ -138,8 +138,8 @@ public extension Container {
         self { ChatService() }.shared
     }
     
-    var relationListWithValueService: Factory<RelationListWithValueServiceProtocol> {
-        self { RelationListWithValueService() }.shared
+    var relationListWithValueService: Factory<PropertyListWithValueServiceProtocol> {
+        self { PropertyListWithValueService() }.shared
     }
     
     var objectDateByTimestampService: Factory<ObjectDateByTimestampServiceProtocol> {
