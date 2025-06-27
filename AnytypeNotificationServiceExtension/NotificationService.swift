@@ -41,8 +41,8 @@ class NotificationService: UNNotificationServiceExtension {
         if let decryptedMessage = decryptionPushContentService.decrypt(encryptedData, keyId: keyId),
            decryptionPushContentService.isValidSignature(senderId: decryptedMessage.senderId, signatureData: signatureData, encryptedData: encryptedData)
         {
-            bestAttemptContent.title = decryptedMessage.newMessage.spaceName
-            bestAttemptContent.subtitle = decryptedMessage.newMessage.senderName
+//            bestAttemptContent.title = decryptedMessage.newMessage.spaceName
+//            bestAttemptContent.subtitle = decryptedMessage.newMessage.senderName
             
             let body: String
             if decryptedMessage.newMessage.hasAttachments, decryptedMessage.newMessage.hasText {
@@ -52,7 +52,7 @@ class NotificationService: UNNotificationServiceExtension {
             } else {
                 body = decryptedMessage.newMessage.text
             }
-            bestAttemptContent.body = "\(body): "
+//            bestAttemptContent.body = "\(body): "
             
             bestAttemptContent.userInfo[DecryptedPushKeys.decryptedMessage] = [
                 DecryptedPushKeys.spaceId : decryptedMessage.spaceId,
@@ -70,20 +70,37 @@ class NotificationService: UNNotificationServiceExtension {
             let sender = INPerson(
                 personHandle: handle,
                 nameComponents: nil,
-                displayName: decryptedMessage.newMessage.spaceName,
+                displayName: decryptedMessage.newMessage.senderName,
                 image: avatar,
                 contactIdentifier: nil,
                 customIdentifier: nil
             )
             
+            let sender2 = INPerson(
+                personHandle: handle,
+                nameComponents: nil,
+                displayName: "",
+                image: nil,
+                contactIdentifier: nil,
+                customIdentifier: nil
+            )
+            
+            let sender3 = INPerson(
+                personHandle: handle,
+                nameComponents: nil,
+                displayName: "",
+                image: nil,
+                contactIdentifier: nil,
+                customIdentifier: nil
+            )
             
             let intent = INSendMessageIntent(
-                recipients: nil,
+                recipients: nil,//[sender2, sender3],
                 outgoingMessageType: .outgoingMessageText,
-                content: "", // Body
+                content: body, // Body
                 speakableGroupName: INSpeakableString(spokenPhrase: decryptedMessage.newMessage.spaceName),
                 conversationIdentifier: decryptedMessage.newMessage.chatId,
-                serviceName: nil,
+                serviceName: decryptedMessage.newMessage.spaceName,
                 sender: sender,
                 attachments: nil
             )
