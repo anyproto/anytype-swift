@@ -118,4 +118,9 @@ extension BundledRelationsValueProvider {
         guard let syncStatus else { return nil }
         return Anytype_Model_SyncStatus(rawValue: syncStatus)
     }
+    
+    public var spacePushNotificationModeValue: SpacePushNotificationsMode? {
+        guard let spacePushNotificationMode else { return nil }
+        return SpacePushNotificationsMode(rawValue: spacePushNotificationMode)
+    }
 }

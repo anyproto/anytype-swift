@@ -30,7 +30,8 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
                 writersLimit: nil,
                 chatId: "",
                 uxType: .data,
-                pushNotificationEncryptionKey: ""
+                pushNotificationEncryptionKey: "",
+                pushNotificationMode: .all
             )
         ]
     }

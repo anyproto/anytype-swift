@@ -25,6 +25,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func participantRemove(spaceId: String, identity: String) async throws
     func leaveApprove(spaceId: String, identity: String) async throws
+    func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
 }
 
 final class WorkspaceService: WorkspaceServiceProtocol {
@@ -197,6 +198,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         try await ClientCommands.spaceLeaveApprove(.with {
             $0.spaceID = spaceId
             $0.identities = [identity]
+        }).invoke()
+    }
+    
+    public func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws {
+        try await ClientCommands.pushNotificationSetSpaceMode(.with {
+            $0.spaceID = spaceId
+            $0.mode = mode
         }).invoke()
     }
 }

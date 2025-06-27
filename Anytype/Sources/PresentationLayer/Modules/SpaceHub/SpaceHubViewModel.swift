@@ -21,9 +21,7 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var notificationsDenied = false
     @Published var spaceIdToLeave: StringIdentifiable?
     @Published var spaceIdToDelete: StringIdentifiable?
-    
-    // TODO: remove when middle is ready
-    @Published var mutedSpaces = false
+    @Published var spaceMuteData: SpaceMuteData?
     
     @Published var profileIcon: Icon?
     
@@ -48,6 +46,8 @@ final class SpaceHubViewModel: ObservableObject {
     private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
     @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
@@ -85,9 +85,12 @@ final class SpaceHubViewModel: ObservableObject {
         UIPasteboard.general.string = String(describing: spaceView)
     }
     
-    func muteSpace(spaceId: String) {
-        // TODO: implement logic when middle is ready
-        mutedSpaces.toggle()
+    func muteSpace(spaceView: SpaceView) {
+        let isUnmutedAll = spaceView.pushNotificationMode.isUnmutedAll
+        spaceMuteData = SpaceMuteData(
+            spaceId: spaceView.targetSpaceId,
+            mode: isUnmutedAll ? .mentions : .all
+        )
     }
     
     func startSubscriptions() async {
@@ -97,6 +100,14 @@ final class SpaceHubViewModel: ObservableObject {
         async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
     
         _ = await (spacesSub, wallpapersSub, profileSub, pushNotificationsSystemSettingsSub)
+    }
+    
+    func pushNotificationSetSpaceMode(data: SpaceMuteData) async {
+        try? await workspaceService.pushNotificationSetSpaceMode(
+            spaceId: data.spaceId,
+            mode: data.mode
+        )
+        spaceMuteData = nil
     }
     
     // MARK: - Private

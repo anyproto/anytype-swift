@@ -20,7 +20,8 @@ extension SpaceView {
             writersLimit: nil,
             chatId: "",
             uxType: .data,
-            pushNotificationEncryptionKey: ""
+            pushNotificationEncryptionKey: "",
+            pushNotificationMode: .all
         )
     }
 }
