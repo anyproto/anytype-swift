@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-extension BlockRelation {
+extension BlockProperty {
     func handleSetRelation(data: Anytype_Event.Block.Set.Relation) -> Self{
         var newData = self
         

@@ -8,8 +8,8 @@ public protocol PropertiesServiceProtocol: AnyObject, Sendable {
     func updateProperty(objectId: String, fields: [String: Google_Protobuf_Value]) async throws
     func updatePropertyOption(id: String, text: String, color: String?) async throws
 
-    func createProperty(spaceId: String, propertyDetails: RelationDetails) async throws -> RelationDetails
-    func addProperties(objectId: String, propertiesDetails: [RelationDetails]) async throws
+    func createProperty(spaceId: String, propertyDetails: PropertyDetails) async throws -> PropertyDetails
+    func addProperties(objectId: String, propertiesDetails: [PropertyDetails]) async throws
     func addProperties(objectId: String, propertyKeys: [String]) async throws
 
     func removeProperty(objectId: String, propertyKey: String) async throws
@@ -22,9 +22,9 @@ public protocol PropertiesServiceProtocol: AnyObject, Sendable {
     func updateTypeProperties(
         typeId: String,
         dataviewId: String,
-        recommendedProperties: [RelationDetails],
-        recommendedFeaturedProperties: [RelationDetails],
-        recommendedHiddenProperties: [RelationDetails]
+        recommendedProperties: [PropertyDetails],
+        recommendedFeaturedProperties: [PropertyDetails],
+        recommendedHiddenProperties: [PropertyDetails]
     ) async throws
     func getConflictPropertiesForType(typeId: String, spaceId: String) async throws -> [String]
     

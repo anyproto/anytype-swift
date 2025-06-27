@@ -57,7 +57,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.dataView.views.isEmpty
     }
     
-    var colums: [RelationDetails] {
+    var colums: [PropertyDetails] {
         setDocument.sortedRelations(for: setDocument.activeView.id)
             .filter { $0.option.isVisible }.map(\.relationDetails)
     }

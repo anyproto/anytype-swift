@@ -2,7 +2,7 @@ import Services
 import SwiftUI
 
 struct SetProperty: Identifiable, Hashable {
-    let relationDetails: RelationDetails
+    let relationDetails: PropertyDetails
     let option: DataviewRelationOption
     
     var id: String { relationDetails.id }

@@ -1,3 +1,3 @@
 import Services
 
-extension RelationDetails: @retroactive Identifiable { }
+extension PropertyDetails: @retroactive Identifiable { }

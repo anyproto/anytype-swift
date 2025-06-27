@@ -79,7 +79,7 @@ class AnytypePopup: FloatingPanelController {
     }
 }
 
-// MARK: - RelationDetailsViewModelDelegate
+// MARK: - PropertyDetailsViewModelDelegate
 
 @MainActor
 extension AnytypePopup: AnytypePopupProxy {

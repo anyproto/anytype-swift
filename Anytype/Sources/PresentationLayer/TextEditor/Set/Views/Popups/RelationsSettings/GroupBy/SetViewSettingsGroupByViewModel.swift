@@ -7,7 +7,7 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
     @Published private(set) var items: [CheckPopupItem] = []
 
     private var selectedRelationKey: String
-    private var relations: [RelationDetails]
+    private var relations: [PropertyDetails]
     private let onSelect: (String) -> Void
 
     // MARK: - Initializer
@@ -35,7 +35,7 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
         }
     }
 
-    private func onTap(relation: RelationDetails) {
+    private func onTap(relation: PropertyDetails) {
         guard relation.key != selectedRelationKey else {
             return
         }

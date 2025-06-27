@@ -11,7 +11,7 @@ final class TextPropertyEditingService: TextPropertyEditingServiceProtocol, Send
     
     private let numberFormatter = NumberFormatter.decimalWithNoSeparator
     
-    // MARK: - TextRelationDetailsServiceProtocol
+    // MARK: - TextPropertyDetailsServiceProtocol
     
     func saveRelation(objectId: String, value: String, key: String, textType: TextPropertyViewType) {
         Task {

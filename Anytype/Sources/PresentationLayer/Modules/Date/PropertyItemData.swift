@@ -4,5 +4,5 @@ struct PropertyItemData: Identifiable, Hashable {
     let id: String
     let icon: Icon?
     let title: String
-    let details: RelationDetails
+    let details: PropertyDetails
 }

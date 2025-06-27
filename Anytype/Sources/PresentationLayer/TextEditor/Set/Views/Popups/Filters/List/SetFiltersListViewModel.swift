@@ -105,7 +105,7 @@ extension SetFiltersListViewModel {
         showFilterSearch(with: filter)
     }
     
-    private func makeSetFilter(with relationDetails: RelationDetails) -> SetFilter? {
+    private func makeSetFilter(with relationDetails: PropertyDetails) -> SetFilter? {
         guard let filteredDetails = setDocument.viewRelations(viewId: viewId, excludeRelations: []).first(where: { $0.id == relationDetails.id }) else {
             return nil
         }

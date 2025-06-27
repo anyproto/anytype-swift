@@ -12,7 +12,7 @@ final class PropertyFilterBuilder {
     
     func relation(
         detailsStorage: ObjectDetailsStorage,
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         switch relationDetails.format {
@@ -103,7 +103,7 @@ final class PropertyFilterBuilder {
 private extension PropertyFilterBuilder {
     func objectRelation(
         detailsStorage: ObjectDetailsStorage,
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -152,7 +152,7 @@ private extension PropertyFilterBuilder {
     }
     
     func textRelation(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -171,7 +171,7 @@ private extension PropertyFilterBuilder {
     }
     
     func numberRelation(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -196,7 +196,7 @@ private extension PropertyFilterBuilder {
     }
     
     func phoneRelation(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -215,7 +215,7 @@ private extension PropertyFilterBuilder {
     }
     
     func emailRelation(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -234,7 +234,7 @@ private extension PropertyFilterBuilder {
     }
     
     func urlRelation(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -254,7 +254,7 @@ private extension PropertyFilterBuilder {
     
     func statusRelation(
         detailsStorage: ObjectDetailsStorage,
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -287,7 +287,7 @@ private extension PropertyFilterBuilder {
     
     func tagRelation(
         detailsStorage: ObjectDetailsStorage,
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -324,7 +324,7 @@ private extension PropertyFilterBuilder {
     
     func fileRelation(
         detailsStorage: ObjectDetailsStorage,
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }
@@ -361,7 +361,7 @@ private extension PropertyFilterBuilder {
     }
     
     func checkboxRelation(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         filter: DataviewFilter
     ) -> Relation? {
         guard filter.condition.hasValues else { return nil }

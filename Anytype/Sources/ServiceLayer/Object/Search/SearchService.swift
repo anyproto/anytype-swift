@@ -139,7 +139,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
         return details.map { PropertyOption(details: $0) }
     }
     
-    func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
+    func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [PropertyDetails] {
         let sort = SearchHelper.sort(
             relation: BundledPropertyKey.lastUsedDate,
             type: .desc,
@@ -154,10 +154,10 @@ final class SearchService: SearchServiceProtocol, Sendable {
         }
         
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
-        return details.map { RelationDetails(details: $0) }
+        return details.map { PropertyDetails(details: $0) }
     }
     
-    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [PropertyDetails] {
         let sort = SearchHelper.sort(
             relation: BundledPropertyKey.name,
             type: .asc
@@ -171,7 +171,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         let details = try await searchMiddleService.search(spaceId: MarketplaceId.anytypeLibrary.rawValue, filters: filters, sorts: [sort], fullText: text)
-        return details.map { RelationDetails(details: $0) }
+        return details.map { PropertyDetails(details: $0) }
     }
     
     func searchArchiveObjectIds(spaceId: String) async throws -> [String] {

@@ -150,7 +150,7 @@ final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
 
-    public func addRelation(objectId: String, blockId: String, relationDetails: RelationDetails) async throws {
+    public func addRelation(objectId: String, blockId: String, relationDetails: PropertyDetails) async throws {
         try await ClientCommands.blockDataviewRelationAdd(.with {
             $0.contextID = objectId
             $0.blockID = blockId

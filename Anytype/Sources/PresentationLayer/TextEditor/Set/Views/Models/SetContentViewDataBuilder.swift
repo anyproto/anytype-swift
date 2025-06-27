@@ -6,11 +6,11 @@ import SwiftProtobuf
 protocol SetContentViewDataBuilderProtocol: AnyObject {
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetProperty]
     func activeViewRelations(
-        dataViewRelationsDetails: [RelationDetails],
+        dataViewRelationsDetails: [PropertyDetails],
         view: DataviewView,
-        excludeRelations: [RelationDetails],
+        excludeRelations: [PropertyDetails],
         spaceId: String
-    ) -> [RelationDetails]
+    ) -> [PropertyDetails]
     func itemData(
         _ details: [ObjectDetails],
         dataView: BlockDataview,
@@ -55,31 +55,31 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     }
     
     func activeViewRelations(
-        dataViewRelationsDetails: [RelationDetails],
+        dataViewRelationsDetails: [PropertyDetails],
         view: DataviewView,
-        excludeRelations: [RelationDetails],
+        excludeRelations: [PropertyDetails],
         spaceId: String
-    ) -> [RelationDetails] {
-        var relationDetails: [RelationDetails] = view.options.compactMap { option in
+    ) -> [PropertyDetails] {
+        var relationDetails: [PropertyDetails] = view.options.compactMap { option in
             let relationDetails = dataViewRelationsDetails.first { relation in
                 option.key == relation.key
             }
             
             guard let relationDetails = relationDetails,
-                  shouldAddRelationDetails(relationDetails, excludeRelations: excludeRelations) else { return nil }
+                  shouldAddPropertyDetails(relationDetails, excludeRelations: excludeRelations) else { return nil }
             
             return relationDetails
         }
         // force insert Done relation after the Name for all Sets/Collections if needed
         let doneRelationIsExcluded = excludeRelations.first { $0.key == BundledPropertyKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
-        if !doneRelationIsExcluded, let doneRelationDetails {
+        let donePropertyDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
+        if !doneRelationIsExcluded, let donePropertyDetails {
             if let index = relationDetails.firstIndex(where: { $0.key == BundledPropertyKey.name.rawValue }),
                 index < relationDetails.count
             {
-                relationDetails.insert(doneRelationDetails, at: index + 1)
+                relationDetails.insert(donePropertyDetails, at: index + 1)
             } else {
-                relationDetails.insert(doneRelationDetails, at: 0)
+                relationDetails.insert(donePropertyDetails, at: 0)
             }
         }
         return relationDetails
@@ -144,7 +144,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
     private func items(
         details: [ObjectDetails],
-        relationsDetails: [RelationDetails],
+        relationsDetails: [PropertyDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
         viewRelationValueIsLocked: Bool,
@@ -234,7 +234,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         return nil
     }
     
-    private func shouldAddRelationDetails(_ relationDetails: RelationDetails, excludeRelations: [RelationDetails]) -> Bool {
+    private func shouldAddPropertyDetails(_ relationDetails: PropertyDetails, excludeRelations: [PropertyDetails]) -> Bool {
         guard excludeRelations.first(where: { $0.key == relationDetails.key }) == nil else {
             return false
         }

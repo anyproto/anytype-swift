@@ -64,7 +64,7 @@ final class PropertiesService: PropertiesServiceProtocol {
         }).invoke()
     }
 
-    public func createProperty(spaceId: String, propertyDetails: RelationDetails) async throws -> RelationDetails {
+    public func createProperty(spaceId: String, propertyDetails: PropertyDetails) async throws -> PropertyDetails {
         let result = try await ClientCommands.objectCreateRelation(.with {
             $0.details = propertyDetails.asMiddleware
             $0.spaceID = spaceId
@@ -74,10 +74,10 @@ final class PropertiesService: PropertiesServiceProtocol {
             throw PropertyServiceError.unableToCreateRelationFromObject
         }
               
-        return RelationDetails(details: objectDetails)
+        return PropertyDetails(details: objectDetails)
     }
 
-    public func addProperties(objectId: String, propertiesDetails: [RelationDetails]) async throws {
+    public func addProperties(objectId: String, propertiesDetails: [PropertyDetails]) async throws {
         try await addProperties(objectId: objectId, propertyKeys: propertiesDetails.map(\.key))
     }
 
@@ -129,9 +129,9 @@ final class PropertiesService: PropertiesServiceProtocol {
     func updateTypeProperties(
         typeId: String,
         dataviewId: String,
-        recommendedProperties: [RelationDetails],
-        recommendedFeaturedProperties: [RelationDetails],
-        recommendedHiddenProperties: [RelationDetails]
+        recommendedProperties: [PropertyDetails],
+        recommendedFeaturedProperties: [PropertyDetails],
+        recommendedHiddenProperties: [PropertyDetails]
     ) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = typeId

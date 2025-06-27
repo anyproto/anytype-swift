@@ -98,7 +98,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
         return .text(attributedString)
     }
     
-    private func textHighlightsData(with relationDetails: RelationDetails, meta: SearchMeta) -> HighlightsData? {
+    private func textHighlightsData(with relationDetails: PropertyDetails, meta: SearchMeta) -> HighlightsData? {
         guard let attributedString = attributedString(for: meta) else { return nil }
         let result = AttributedString(relationDetails.name + ":") + attributedString
         return .text(result)

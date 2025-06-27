@@ -89,14 +89,14 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     }
     
     // MARK: - PropertyInfoCoordinatorViewOutput
-    func didPressConfirm(_ relation: RelationDetails) {
+    func didPressConfirm(_ relation: PropertyDetails) {
         data.onRelationSelect(relation, true) // isNew = true
         dismiss?()
     }
     
     // MARK: - Private
     
-    private func onExistingPropertyTap(_ details: RelationDetails) async throws {
+    private func onExistingPropertyTap(_ details: PropertyDetails) async throws {
         switch data.target {
         case let .type(data):
             try await addPropertyToType(relation: details, typeData: data)
@@ -109,7 +109,7 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
         }
     }
     
-    private func addPropertyToType(relation: RelationDetails, typeData: PropertiesModuleTypeData) async throws {
+    private func addPropertyToType(relation: PropertyDetails, typeData: PropertiesModuleTypeData) async throws {
         switch typeData {
         case .recommendedFeaturedRelations(let type):
             try await propertiesService.addTypeFeaturedRecommendedProperty(type: type, property: relation)
@@ -118,7 +118,7 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
         }
     }
     
-    private func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+    private func addPropertyToDataview(objectId: String, relation: PropertyDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         if let typeDetails {
             let type = ObjectType(details: typeDetails)
             try await addPropertyToType(relation: relation, typeData: .recommendedRelations(type))
@@ -131,7 +131,7 @@ final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinator
     }
     
     
-    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
+    func addPropertyToObject(objectId: String, relation: PropertyDetails) async throws {
         try await propertiesService.addProperties(objectId: objectId, propertiesDetails: [relation])
     }
 }

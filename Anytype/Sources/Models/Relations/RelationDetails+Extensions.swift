@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-extension RelationDetails {
+extension PropertyDetails {
     var canBeRemovedFromObject: Bool {
         guard let keyType = BundledPropertyKey(rawValue: key) else { return true }
         return !BundledPropertyKey.internalKeys.contains(keyType) && !isHidden && !isReadOnlyValue

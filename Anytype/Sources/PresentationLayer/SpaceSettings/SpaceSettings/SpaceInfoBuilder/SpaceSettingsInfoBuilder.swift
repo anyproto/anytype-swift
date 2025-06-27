@@ -24,11 +24,11 @@ final class SpaceSettingsInfoBuilder: SpaceSettingsInfoBuilderProtocol {
     ) -> [SettingsInfoModel] {
         var info = [SettingsInfoModel]()
         
-        if let spaceRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
+        if let spacePropertyDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: .spaceId, spaceId: workspaceInfo.accountSpaceId) {
             info.append(
-                SettingsInfoModel(title: spaceRelationDetails.name, subtitle: details.targetSpaceId, onTap: {
+                SettingsInfoModel(title: spacePropertyDetails.name, subtitle: details.targetSpaceId, onTap: {
                     UIPasteboard.general.string = details.targetSpaceId
-                    onCopyToClipboard(spaceRelationDetails.name)
+                    onCopyToClipboard(spacePropertyDetails.name)
                 })
             )
         }

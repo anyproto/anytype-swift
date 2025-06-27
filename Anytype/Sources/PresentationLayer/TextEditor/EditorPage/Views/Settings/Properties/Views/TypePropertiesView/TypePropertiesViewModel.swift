@@ -14,7 +14,7 @@ final class TypePropertiesViewModel: ObservableObject {
     @Published var relationRows = [TypePropertiesRow]()
     @Published var relationsSearchData: PropertiesSearchData?
     @Published var propertyData: PropertyInfoData?
-    @Published var conflictRelations = [RelationDetails]()
+    @Published var conflictRelations = [PropertyDetails]()
     
     // MARK: - Private variables
     
@@ -135,7 +135,7 @@ final class TypePropertiesViewModel: ObservableObject {
         }
     }
     
-    func onAddConflictRelation(_ relation: RelationDetails) {
+    func onAddConflictRelation(_ relation: PropertyDetails) {
         guard let details = document.details else { return }
         AnytypeAnalytics.instance().logAddConflictRelation()
         
