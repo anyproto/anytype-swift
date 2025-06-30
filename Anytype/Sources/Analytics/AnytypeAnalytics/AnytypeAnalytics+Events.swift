@@ -1444,4 +1444,8 @@ extension AnytypeAnalytics {
     func logClickMessageMenuReaction() {
         logEvent("ClickMessageMenuReaction")
     }
+    
+    func logDeleteMessage() {
+        logEvent("DeleteMessage")
+    }
 }
