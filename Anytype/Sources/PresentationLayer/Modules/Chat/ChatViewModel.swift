@@ -532,6 +532,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didSelectDeleteMessage(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuDelete()
         deleteMessageConfirmation = message
     }
     
