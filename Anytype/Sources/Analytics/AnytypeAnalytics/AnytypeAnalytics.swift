@@ -76,6 +76,10 @@ final class AnytypeAnalytics: @unchecked Sendable {
             eventProperties[AnalyticsEventsPropertiesKey.spaceType] = spaceType.rawValue
         }
         
+        if let uxType = participantSpaceView?.spaceView.uxType.analyticsValue {
+            eventProperties[AnalyticsEventsPropertiesKey.uxType] = uxType
+        }
+        
         logEvent(eventType, withEventProperties: eventProperties)
     }
     
