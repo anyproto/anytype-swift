@@ -59,7 +59,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startParticipantsTask() async {
-        for await items in participantsSubscription.participantsPublisher.values {
+        for await items in participantsSubscription.withoutRemovingParticipantsPublisher.values {
             participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
             updateView()
         }
