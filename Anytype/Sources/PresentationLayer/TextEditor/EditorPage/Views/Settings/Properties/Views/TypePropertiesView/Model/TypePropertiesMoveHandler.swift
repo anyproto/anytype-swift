@@ -280,7 +280,7 @@ final class TypePropertiesMoveHandler: Sendable {
             case .fieldsMenu:
                 throw TypePropertiesMoveError.movingSectionToItself
             case .hidden:
-                let newHiddenRelations: [RelationDetails]
+                let newHiddenRelations: [PropertyDetails]
                     
                 if details.recommendedHiddenRelations.isEmpty {
                     newHiddenRelations = [fromRelation]
@@ -327,9 +327,9 @@ final class TypePropertiesMoveHandler: Sendable {
         typeId: String,
         from: TypePropertiesSectionRow,
         to: TypePropertiesSectionRow,
-        recommendedRelationIds: [RelationDetails],
-        recommendedFeaturedRelationsIds: [RelationDetails],
-        recommendedHiddenRelationsIds: [RelationDetails]
+        recommendedRelationIds: [PropertyDetails],
+        recommendedFeaturedRelationsIds: [PropertyDetails],
+        recommendedHiddenRelationsIds: [PropertyDetails]
     ) async throws {
         AnytypeAnalytics.instance().logReorderRelation(group: from != to ? to.analyticsValue : nil)
         

@@ -12,6 +12,6 @@ protocol PropertyInfoModuleOutput: AnyObject {
         selectedObjectTypesIds: [String],
         onSelect: @escaping ([String]) -> Void
     )
-    func didPressConfirm(_ relation: RelationDetails)
+    func didPressConfirm(_ relation: PropertyDetails)
     
 }

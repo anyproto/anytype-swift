@@ -3,7 +3,7 @@ import Services
 
 extension SearchObjectRowView.Model {
     
-    init(relationDetails: RelationDetails) {
+    init(relationDetails: PropertyDetails) {
         self.id = relationDetails.id
         self.icon = .asset(relationDetails.format.iconAsset)
         self.title = relationDetails.name

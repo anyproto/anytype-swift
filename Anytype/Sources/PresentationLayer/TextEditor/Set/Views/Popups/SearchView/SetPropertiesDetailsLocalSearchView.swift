@@ -3,9 +3,9 @@ import SwiftUI
 import Services
 
 struct SetPropertiesDetailsLocalSearchData: Identifiable, Equatable, Hashable {
-    let relationsDetails: [RelationDetails]
+    let relationsDetails: [PropertyDetails]
     @EquatableNoop
-    var onSelect: (RelationDetails) -> Void
+    var onSelect: (PropertyDetails) -> Void
     
     var id: Int { hashValue }
 }

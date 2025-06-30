@@ -104,7 +104,7 @@ extension PropertyInfoViewModel {
     
     func didTapAddButton() {
         
-        let relationDetails = RelationDetails(
+        let relationDetails = PropertyDetails(
             id: relationId,
             key: "",
             name: name,
@@ -134,7 +134,7 @@ extension PropertyInfoViewModel {
         toastData = ToastBarData(Loc.successfullyDeleted(name))
     }
     
-    private func createRelation(_ relationDetails: RelationDetails) {
+    private func createRelation(_ relationDetails: PropertyDetails) {
         Task {
             let createdRelation = try await relationsInteractor.createProperty(spaceId: spaceId, relation: relationDetails)
             
@@ -153,14 +153,14 @@ extension PropertyInfoViewModel {
         }
     }
     
-    private func updateRelation(_ details: RelationDetails) {
+    private func updateRelation(_ details: PropertyDetails) {
         Task {
             try await relationsInteractor.updateProperty(spaceId: spaceId, relation: details)
             onSuccessfullAction(relationDetails: details)
         }
     }
     
-    private func onSuccessfullAction(relationDetails: RelationDetails) {
+    private func onSuccessfullAction(relationDetails: PropertyDetails) {
         let text = switch mode {
         case .create:
             Loc.Fields.created(relationDetails.name)

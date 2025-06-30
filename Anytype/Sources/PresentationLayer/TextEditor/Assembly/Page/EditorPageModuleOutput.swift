@@ -16,7 +16,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func versionRestored(_ text: String)
     func openUrl(_ url: URL)
     func showSyncStatusInfo(spaceId: String)
-    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
     func showObectSettings(output: any ObjectSettingsCoordinatorOutput)
     
     // TODO: Refactoring templates. Delete it

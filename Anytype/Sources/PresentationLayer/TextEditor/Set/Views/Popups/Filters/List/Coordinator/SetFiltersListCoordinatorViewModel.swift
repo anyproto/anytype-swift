@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol SetFiltersListCoordinatorOutput: AnyObject {
-    func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void)
+    func onAddButtonTap(relationDetails: [PropertyDetails], completion: @escaping (PropertyDetails) -> Void)
     func onFilterTap(filter: SetFilter, completion: @escaping (SetFilter) -> Void)
 }
 
@@ -27,7 +27,7 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     // MARK: - SetFiltersListCoordinatorOutput
     
     // MARK: - Filters search
-    func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void) {
+    func onAddButtonTap(relationDetails: [PropertyDetails], completion: @escaping (PropertyDetails) -> Void) {
         filtersSearchData = SetPropertiesDetailsLocalSearchData(
             relationsDetails: relationDetails,
             onSelect: completion

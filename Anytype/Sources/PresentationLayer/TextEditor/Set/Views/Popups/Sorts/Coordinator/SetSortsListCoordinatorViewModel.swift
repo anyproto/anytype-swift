@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol SetSortsListCoordinatorOutput: AnyObject {
-    func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void)
+    func onAddButtonTap(relationDetails: [PropertyDetails], completion: @escaping (PropertyDetails) -> Void)
     func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort, String) -> Void)
 }
 
@@ -27,7 +27,7 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     
     // MARK: - Sorts search
     
-    func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void) {
+    func onAddButtonTap(relationDetails: [PropertyDetails], completion: @escaping (PropertyDetails) -> Void) {
         sortsSearchData = SetPropertiesDetailsLocalSearchData(
             relationsDetails: relationDetails,
             onSelect: completion

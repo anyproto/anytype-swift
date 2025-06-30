@@ -6,8 +6,8 @@ import AnytypeCore
 @MainActor
 final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
     
-    @Published var userProperties: [RelationDetails] = []
-    @Published var systemProperties: [RelationDetails] = []
+    @Published var userProperties: [PropertyDetails] = []
+    @Published var systemProperties: [PropertyDetails] = []
     @Published var propertyInfo: PropertyInfoData?
     
     @Injected(\.propertyDetailsStorage)
@@ -38,7 +38,7 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
         }
     }
     
-    func onRowTap(_ row: RelationDetails) {
+    func onRowTap(_ row: PropertyDetails) {
         guard let supportedFormat = row.format.supportedFormat else {
             anytypeAssertionFailure("Unsupported format \(row.format)")
             return
@@ -66,5 +66,5 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     }
     
     // MARK: - PropertyInfoCoordinatorViewOutput
-    func didPressConfirm(_ relation: RelationDetails) { }
+    func didPressConfirm(_ relation: PropertyDetails) { }
 }

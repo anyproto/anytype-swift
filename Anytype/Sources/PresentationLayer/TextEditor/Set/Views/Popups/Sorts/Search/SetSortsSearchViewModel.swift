@@ -7,9 +7,9 @@ final class SetSortsSearchViewModel {
     
     private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never> ()
     private let interactor: SetPropertiesDetailsLocalSearchInteractor
-    private let onSelect: (_ details: [RelationDetails]) -> Void
+    private let onSelect: (_ details: [PropertyDetails]) -> Void
     
-    init(interactor: SetPropertiesDetailsLocalSearchInteractor, onSelect: @escaping (_ details: [RelationDetails]) -> Void) {
+    init(interactor: SetPropertiesDetailsLocalSearchInteractor, onSelect: @escaping (_ details: [PropertyDetails]) -> Void) {
         self.interactor = interactor
         self.onSelect = onSelect
     }
@@ -42,13 +42,13 @@ private extension SetSortsSearchViewModel {
         viewStateSubject.send(.error(error))
     }
     
-    func handleSearchResults(_ relationsDetails: [RelationDetails]) {
+    func handleSearchResults(_ relationsDetails: [PropertyDetails]) {
         viewStateSubject.send(.resultsList(.plain(rows: relationsDetails.asRowConfigurations())))
     }
     
 }
 
-private extension Array where Element == RelationDetails {
+private extension Array where Element == PropertyDetails {
 
     func asRowConfigurations() -> [ListRowConfiguration] {
         map { relationDetails in

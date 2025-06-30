@@ -75,7 +75,7 @@ struct ObjectPropertiesLibraryView: View {
         }
     }
     
-    private func rowView(data: RelationDetails) -> some View {
+    private func rowView(data: PropertyDetails) -> some View {
         HStack(alignment: .center, spacing: 0) {
             if let iconImage = data.iconImage {
                     IconView(icon: iconImage)
