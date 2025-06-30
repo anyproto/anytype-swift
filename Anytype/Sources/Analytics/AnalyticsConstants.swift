@@ -384,3 +384,10 @@ enum ChangeMessageNotificationStateRoute: String {
     case spaceSettings = "ScreenSettingsSpaceIndex"
     case vault = "Vault"
 }
+
+enum ChatAttachmentType: String {
+    case object = "Object"
+    case photo = "Photo"
+    case file = "File"
+    case camera = "Camera"
+}

@@ -336,6 +336,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 self?.linkedObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
             }
             self?.linkPreviewTasks[link] = nil
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object)
         }
         linkPreviewTasks[link] = task.cancellable()
     }
@@ -350,6 +351,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 
                 if let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) {
                     linkedObjects.append(.localBinaryFile(fileData))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .file)
                 }
             }
         }
@@ -412,6 +414,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 photosItems.removeAll { $0 == photosItem }
             }
         }
+        
+        AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
     }
     
     func deleteMessage(message: MessageViewData) async throws {
@@ -574,6 +578,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             }
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+                AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 // Waiting pop transaction and open keyboard.
                 try await Task.sleep(seconds: 1.0)
                 inputFocused = true
@@ -646,6 +651,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 
                 file.stopAccessingSecurityScopedResource()
             }
+            AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         case .failure:
             break
         }
@@ -666,6 +672,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects.append(.localBinaryFile(fileData))
             }
         }
+        AnytypeAnalytics.instance().logAttachItemChat(type: .camera)
     }
     
     private func clearInput() {
@@ -709,6 +716,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 guard let self else { return }
                 if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
                     linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 } else {
                     showFileLimitAlert()
                 }

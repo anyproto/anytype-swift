@@ -1456,4 +1456,13 @@ extension AnytypeAnalytics {
     func logClickMessageMenuReply() {
         logEvent("ClickMessageMenuReply")
     }
+    
+    func logAttachItemChat(type: ChatAttachmentType) {
+        logEvent(
+            "AttachItemChat",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+            ]
+        )
+    }
 }
