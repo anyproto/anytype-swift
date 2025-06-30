@@ -1436,4 +1436,8 @@ extension AnytypeAnalytics {
     func logClickMessageMenuDelete() {
         logEvent("ClickMessageMenuDelete")
     }
+    
+    func logClickMessageMenuCopy() {
+        logEvent("ClickMessageMenuCopy")
+    }
 }

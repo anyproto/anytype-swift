@@ -556,6 +556,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
 
     func didSelectCopyPlainText(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuCopy()
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
     
