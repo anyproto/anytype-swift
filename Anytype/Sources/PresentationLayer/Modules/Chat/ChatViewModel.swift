@@ -277,6 +277,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         
         newMessage.replaceCharacters(in: mentionRange, with: mentionString)
         message = newMessage
+        AnytypeAnalytics.instance().logMention()
     }
     
     func didSelectObject(linkedObject: ChatLinkedObject) {
@@ -510,6 +511,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didSelectReplyTo(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuReply()
         withAnimation {
             inputFocused = true
             replyToMessage = ChatInputReplyModel(
