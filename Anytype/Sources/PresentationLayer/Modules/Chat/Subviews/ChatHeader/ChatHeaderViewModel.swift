@@ -34,7 +34,7 @@ final class ChatHeaderViewModel: ObservableObject {
             title = spaceView.title
             icon = spaceView.objectIconImage
             showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat && spaceView.chatToggleEnable
-            muted = !spaceView.pushNotificationMode.isUnmutedAll
+            muted = FeatureFlags.muteSpacePossibility && !spaceView.pushNotificationMode.isUnmutedAll
         }
     }
     
