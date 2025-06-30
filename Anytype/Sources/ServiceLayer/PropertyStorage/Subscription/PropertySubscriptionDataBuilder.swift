@@ -22,7 +22,7 @@ final class PropertySubscriptionDataBuilder: MultispaceSubscriptionDataBuilderPr
                 filters: filters,
                 limit: 0,
                 offset: 0,
-                keys: RelationDetails.subscriptionKeys.map(\.rawValue),
+                keys: PropertyDetails.subscriptionKeys.map(\.rawValue),
                 noDepSubscription: true
             )
         )

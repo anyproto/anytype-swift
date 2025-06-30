@@ -3,7 +3,7 @@ import SwiftUI
 import AnytypeCore
 
 enum PropertySearchData: SearchDataProtocol {
-    case existing(RelationDetails)
+    case existing(PropertyDetails)
     case new(SupportedPropertyFormat)
     
     var id: String {
@@ -35,7 +35,7 @@ enum PropertySearchData: SearchDataProtocol {
     var mode: SerchDataPresentationMode { .minimal }
 }
 
-extension RelationDetails: SearchDataProtocol {
+extension PropertyDetails: SearchDataProtocol {
     
     var iconImage: Icon? { Icon.asset(format.iconAsset) }
     

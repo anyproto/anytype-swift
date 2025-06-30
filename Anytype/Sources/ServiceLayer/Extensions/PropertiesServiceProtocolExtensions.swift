@@ -3,9 +3,9 @@ import Services
 extension PropertiesServiceProtocol {
     func updateTypeProperties(
         typeId: String,
-        recommendedProperties: [RelationDetails],
-        recommendedFeaturedProperties: [RelationDetails],
-        recommendedHiddenProperties: [RelationDetails]
+        recommendedProperties: [PropertyDetails],
+        recommendedFeaturedProperties: [PropertyDetails],
+        recommendedHiddenProperties: [PropertyDetails]
     ) async throws {
         try await updateTypeProperties(
             typeId: typeId,
@@ -16,11 +16,11 @@ extension PropertiesServiceProtocol {
         )
     }
     
-    func addTypeRecommendedProperty(details: ObjectDetails, property: RelationDetails) async throws {
+    func addTypeRecommendedProperty(details: ObjectDetails, property: PropertyDetails) async throws {
         try await addTypeRecommendedProperty(type: ObjectType(details: details), property: property)
     }
     
-    func addTypeRecommendedProperty(type: ObjectType, property: RelationDetails) async throws {
+    func addTypeRecommendedProperty(type: ObjectType, property: PropertyDetails) async throws {
         var recommendedPropertiesDetails = type.recommendedRelationsDetails
         recommendedPropertiesDetails.insert(property, at: 0)
         try await updateTypeProperties(
@@ -31,11 +31,11 @@ extension PropertiesServiceProtocol {
         )
     }
     
-    func addTypeFeaturedRecommendedProperty(details: ObjectDetails, property: RelationDetails) async throws {
+    func addTypeFeaturedRecommendedProperty(details: ObjectDetails, property: PropertyDetails) async throws {
         try await addTypeFeaturedRecommendedProperty(type: ObjectType(details: details), property: property)
     }
     
-    func addTypeFeaturedRecommendedProperty(type: ObjectType, property: RelationDetails) async throws {
+    func addTypeFeaturedRecommendedProperty(type: ObjectType, property: PropertyDetails) async throws {
         var recommendedFeaturedPropertiesDetails = type.recommendedFeaturedRelationsDetails
         recommendedFeaturedPropertiesDetails.insert(property, at: 0)
         try await updateTypeProperties(

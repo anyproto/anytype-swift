@@ -11,23 +11,23 @@ final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol {
         return syncSubject.eraseToAnyPublisher()
     }
     
-    func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails] {
-        return keys.map { RelationDetails.mock(key: $0) }
+    func relationsDetails(keys: [String], spaceId: String) -> [PropertyDetails] {
+        return keys.map { PropertyDetails.mock(key: $0) }
     }
     
-    func relationsDetails(key: String, spaceId: String) throws -> RelationDetails {
-        RelationDetails.mock(key: key)
+    func relationsDetails(key: String, spaceId: String) throws -> PropertyDetails {
+        PropertyDetails.mock(key: key)
     }
     
-    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> RelationDetails {
-        RelationDetails.mock(key: bundledKey.rawValue)
+    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> PropertyDetails {
+        PropertyDetails.mock(key: bundledKey.rawValue)
     }
     
-    func relationsDetails(ids: [String], spaceId: String) -> [RelationDetails] {
-        return ids.map { RelationDetails.mock(id: $0) }
+    func relationsDetails(ids: [String], spaceId: String) -> [PropertyDetails] {
+        return ids.map { PropertyDetails.mock(id: $0) }
     }
     
-    func relationsDetails(spaceId: String) -> [RelationDetails] {
+    func relationsDetails(spaceId: String) -> [PropertyDetails] {
         fatalError()
     }
     
@@ -40,9 +40,9 @@ final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol {
     }
 }
 
-extension RelationDetails {
-    static func mock(id: String = "", key: String = "") -> RelationDetails {
-        RelationDetails(
+extension PropertyDetails {
+    static func mock(id: String = "", key: String = "") -> PropertyDetails {
+        PropertyDetails(
             id: id,
             key: key,
             name: "name",

@@ -29,7 +29,7 @@ final class DateViewModel: ObservableObject {
     // MARK: - State
     
     private var objectsToLoad = 0
-    private var lastSelectedRelation: RelationDetails? = nil
+    private var lastSelectedRelation: PropertyDetails? = nil
     private var details = [ObjectDetails]()
     
     @Published var document: (any BaseDocumentProtocol)?
@@ -94,7 +94,7 @@ final class DateViewModel: ObservableObject {
         output?.onSyncStatusTap()
     }
     
-    func onRelationTap(_ details: RelationDetails) {
+    func onRelationTap(_ details: PropertyDetails) {
         if state.selectedRelation != details {
             state.selectedRelation = details
             AnytypeAnalytics.instance().logSwitchRelationDate(key: details.analyticsKey)
@@ -218,9 +218,9 @@ final class DateViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func relationDetails(for relationsKeys: [String]?) -> [RelationDetails] {
+    private func relationDetails(for relationsKeys: [String]?) -> [PropertyDetails] {
         guard let relationsKeys else { return [] }
-        let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
+        let relationDetails = relationsKeys.compactMap { [weak self] key -> PropertyDetails? in
             guard let self else { return nil }
             return try? propertyDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
         }
@@ -330,7 +330,7 @@ final class DateViewModel: ObservableObject {
         )
     }
     
-    private func relationItemData(from details: RelationDetails) -> PropertyItemData {
+    private func relationItemData(from details: PropertyDetails) -> PropertyItemData {
         let isMention = details.key == BundledPropertyKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
         return PropertyItemData(

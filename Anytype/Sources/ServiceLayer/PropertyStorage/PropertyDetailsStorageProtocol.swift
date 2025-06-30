@@ -5,12 +5,12 @@ import AnytypeCore
 
 protocol PropertyDetailsStorageProtocol: AnyObject, Sendable {
     
-    func relationsDetails(keys: [String], spaceId: String) -> [RelationDetails]
-    func relationsDetails(key: String, spaceId: String) throws -> RelationDetails
-    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> RelationDetails
+    func relationsDetails(keys: [String], spaceId: String) -> [PropertyDetails]
+    func relationsDetails(key: String, spaceId: String) throws -> PropertyDetails
+    func relationsDetails(bundledKey: BundledPropertyKey, spaceId: String) throws -> PropertyDetails
     
-    func relationsDetails(ids: [String], spaceId: String) -> [RelationDetails]
-    func relationsDetails(spaceId: String) -> [RelationDetails]
+    func relationsDetails(ids: [String], spaceId: String) -> [PropertyDetails]
+    func relationsDetails(spaceId: String) -> [PropertyDetails]
     
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
@@ -19,11 +19,11 @@ protocol PropertyDetailsStorageProtocol: AnyObject, Sendable {
 }
 
 extension PropertyDetailsStorageProtocol {
-    func relationsDetails(keys: [String], spaceId: String, includeDeleted: Bool = false) -> [RelationDetails] {
+    func relationsDetails(keys: [String], spaceId: String, includeDeleted: Bool = false) -> [PropertyDetails] {
         return relationsDetails(keys: keys, spaceId: spaceId).filter { !$0.isDeleted }
     }
     
-    func relationsDetailsPublisher(spaceId: String) -> AnyPublisher<[RelationDetails], Never> {
+    func relationsDetailsPublisher(spaceId: String) -> AnyPublisher<[PropertyDetails], Never> {
         syncPublisher
             .compactMap { [weak self] _ in self?.relationsDetails(spaceId: spaceId) }
             .removeDuplicates()
