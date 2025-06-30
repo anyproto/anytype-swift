@@ -1428,4 +1428,45 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logClickMessageMenuEdit() {
+        logEvent("ClickMessageMenuEdit")
+    }
+    
+    func logClickMessageMenuDelete() {
+        logEvent("ClickMessageMenuDelete")
+    }
+    
+    func logClickMessageMenuCopy() {
+        logEvent("ClickMessageMenuCopy")
+    }
+    
+    func logClickMessageMenuReaction() {
+        logEvent("ClickMessageMenuReaction")
+    }
+    
+    func logDeleteMessage() {
+        logEvent("DeleteMessage")
+    }
+    
+    func logMention() {
+        logEvent("Mention")
+    }
+    
+    func logClickMessageMenuReply() {
+        logEvent("ClickMessageMenuReply")
+    }
+    
+    func logAttachItemChat(type: ChatAttachmentType) {
+        logEvent(
+            "AttachItemChat",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+            ]
+        )
+    }
+    
+    func logDetachItemChat() {
+        logEvent("DetachItemChat")
+    }
 }

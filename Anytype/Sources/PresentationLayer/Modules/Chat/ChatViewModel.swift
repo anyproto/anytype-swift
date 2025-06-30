@@ -247,6 +247,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             linkedObjects.removeAll { $0.id == linkedObject.id }
             photosItems.removeAll { $0.hashValue == linkedObject.id }
         }
+        AnytypeAnalytics.instance().logDetachItemChat()
     }
     
     func scrollToTop() async {
@@ -277,6 +278,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         
         newMessage.replaceCharacters(in: mentionRange, with: mentionString)
         message = newMessage
+        AnytypeAnalytics.instance().logMention()
     }
     
     func didSelectObject(linkedObject: ChatLinkedObject) {
@@ -335,6 +337,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 self?.linkedObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
             }
             self?.linkPreviewTasks[link] = nil
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object)
         }
         linkPreviewTasks[link] = task.cancellable()
     }
@@ -349,6 +352,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 
                 if let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) {
                     linkedObjects.append(.localBinaryFile(fileData))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .file)
                 }
             }
         }
@@ -411,6 +415,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 photosItems.removeAll { $0 == photosItem }
             }
         }
+        
+        AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
     }
     
     func deleteMessage(message: MessageViewData) async throws {
@@ -481,6 +487,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
+        AnytypeAnalytics.instance().logClickMessageMenuReaction()
         output?.didSelectAddReaction(messageId: messageId)
     }
     
@@ -509,6 +516,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didSelectReplyTo(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuReply()
         withAnimation {
             inputFocused = true
             replyToMessage = ChatInputReplyModel(
@@ -532,10 +540,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didSelectDeleteMessage(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuDelete()
         deleteMessageConfirmation = message
     }
     
     func didSelectEditMessage(message messageToEdit: MessageViewData) async {
+        AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
@@ -554,6 +564,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
 
     func didSelectCopyPlainText(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuCopy()
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
     
@@ -568,6 +579,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             }
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+                AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 // Waiting pop transaction and open keyboard.
                 try await Task.sleep(seconds: 1.0)
                 inputFocused = true
@@ -640,6 +652,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 
                 file.stopAccessingSecurityScopedResource()
             }
+            AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         case .failure:
             break
         }
@@ -660,6 +673,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects.append(.localBinaryFile(fileData))
             }
         }
+        AnytypeAnalytics.instance().logAttachItemChat(type: .camera)
     }
     
     private func clearInput() {
@@ -703,6 +717,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 guard let self else { return }
                 if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
                     linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 } else {
                     showFileLimitAlert()
                 }

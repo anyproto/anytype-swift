@@ -18,6 +18,7 @@ final class ChatDeleteMessageAlertModel: ObservableObject {
     }
     
     func onTapDelete() async throws {
+        AnytypeAnalytics.instance().logDeleteMessage()
         try await chatService.deleteMessage(chatObjectId: message.chatId, messageId: message.message.id)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
