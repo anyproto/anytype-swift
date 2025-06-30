@@ -25,6 +25,7 @@ final class PushNotificationsAlertViewModel: ObservableObject {
     
     func onAppear() {
         pushNotificationsAlertHandler.storeAlertShowDate()
+        AnytypeAnalytics.instance().logScreenAllowPushType(.initial)
     }
     
     func enablePushesTap() {
