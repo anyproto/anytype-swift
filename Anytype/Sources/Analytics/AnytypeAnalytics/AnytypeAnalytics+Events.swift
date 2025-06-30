@@ -1487,4 +1487,8 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logAllowPush() {
+        logEvent("AllowPush")
+    }
 }
