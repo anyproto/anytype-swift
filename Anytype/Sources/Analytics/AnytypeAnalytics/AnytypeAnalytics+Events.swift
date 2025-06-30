@@ -1428,4 +1428,8 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logClickMessageMenuEdit() {
+        logEvent("ClickMessageMenuEdit")
+    }
 }

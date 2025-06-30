@@ -536,6 +536,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didSelectEditMessage(message messageToEdit: MessageViewData) async {
+        AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
