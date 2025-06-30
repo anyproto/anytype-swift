@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
 
 @MainActor
 final class SpaceChatWidgetViewModel: ObservableObject {
@@ -16,6 +17,7 @@ final class SpaceChatWidgetViewModel: ObservableObject {
     
     @Published var hasMentions: Bool = false
     @Published var messageCount: Int = 0
+    @Published var muted = false
     
     var widgetBlockId: String { data.widgetBlockId }
     var widgetObject: any BaseDocumentProtocol { data.widgetObject }
@@ -34,7 +36,10 @@ final class SpaceChatWidgetViewModel: ObservableObject {
     
     func startSubscriptions() async {
         let spaceId = data.workspaceInfo.accountSpaceId
-        let chatId = workspaceStorage.spaceView(spaceId: spaceId)?.chatId
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        muted = FeatureFlags.muteSpacePossibility && !(spaceView?.pushNotificationMode.isUnmutedAll ?? true)
+        
+        let chatId = spaceView?.chatId
         let sequence = (await chatMessagesPreviewsStorage.previewsSequence)
             .compactMap { $0.first { $0.spaceId == spaceId && $0.chatId ==  chatId }}
             .removeDuplicates()
