@@ -14,52 +14,59 @@ import SwiftProtobuf
 public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
 
-  /// chat-first UX
-  case chat // = 0
+  /// old value for chat, deprecated
+  case none // = 0
 
   /// objects-first UX
   case data // = 1
 
   /// stream UX (chat with limited amount of owners)
   case stream // = 2
+
+  /// chat UX
+  case chat // = 3
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .chat
+    self = .none
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .chat
+    case 0: self = .none
     case 1: self = .data
     case 2: self = .stream
+    case 3: self = .chat
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .chat: return 0
+    case .none: return 0
     case .data: return 1
     case .stream: return 2
+    case .chat: return 3
     case .UNRECOGNIZED(let i): return i
     }
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Model_SpaceUxType] = [
-    .chat,
+    .none,
     .data,
     .stream,
+    .chat,
   ]
 
 }
 
 extension Anytype_Model_SpaceUxType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Chat"),
+    0: .same(proto: "None"),
     1: .same(proto: "Data"),
     2: .same(proto: "Stream"),
+    3: .same(proto: "Chat"),
   ]
 }
 

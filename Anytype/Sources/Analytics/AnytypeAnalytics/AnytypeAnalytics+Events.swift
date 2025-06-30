@@ -1418,4 +1418,14 @@ extension AnytypeAnalytics {
     func logClickScrollToBottom() {
         logEvent("ClickScrollToBottom")
     }
+    
+    func logChangeMessageNotificationState(type: String, route: ChangeMessageNotificationStateRoute) {
+        logEvent(
+            "ChangeMessageNotificationState",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.route: route.rawValue,
+            ]
+        )
+    }
 }

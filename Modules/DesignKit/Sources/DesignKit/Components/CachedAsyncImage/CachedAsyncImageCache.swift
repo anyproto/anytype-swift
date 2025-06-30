@@ -16,7 +16,7 @@ public actor CachedAsyncImageCache {
         self.storage = try? Storage<String, UIImage>(diskConfig: diskConfig, memoryConfig: memoryConfig, fileManager: .default, transformer: TransformerFactory.forImage())
     }
     
-    public func loadImage(from url: URL) async throws -> Image {
+    public func loadImage(from url: URL) async throws -> UIImage {
         let key = url.absoluteString
         if let task = activeTasks[key] {
             return try await task.value
@@ -43,7 +43,7 @@ public actor CachedAsyncImageCache {
         return try await task.value
     }
     
-    nonisolated func cachedImage(from url: URL) throws -> Image {
+    nonisolated func cachedImage(from url: URL) throws -> UIImage {
         guard let storage else { throw CachedAsyncImageCacheError.storageNotCreated }
         let key = url.absoluteString
         return try storage.object(forKey: key)

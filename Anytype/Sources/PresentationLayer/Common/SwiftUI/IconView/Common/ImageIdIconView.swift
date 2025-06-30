@@ -6,16 +6,18 @@ enum ImageIdIconSide {
     case original
 }
 
-struct ImageIdIconView: View {
+struct ImageIdIconView<Placeholder: View>: View {
     
     let imageId: String
     let square: Bool
     let side: ImageIdIconSide
+    let placeholder: () -> Placeholder
     
-    init(imageId: String, square: Bool = true, side: ImageIdIconSide = .width) {
+    init(imageId: String, square: Bool = true, side: ImageIdIconSide = .width, @ViewBuilder placeholder: @escaping () -> Placeholder) {
         self.imageId = imageId
         self.square = square
         self.side = side
+        self.placeholder = placeholder
     }
     
     var body: some View {
@@ -26,7 +28,7 @@ struct ImageIdIconView: View {
             ) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
-                LoadingPlaceholderIconView()
+                placeholder()
             }
             .if(square) {
                 let side = min(reader.size.width, reader.size.height)
@@ -43,6 +45,14 @@ struct ImageIdIconView: View {
             return .width(size.width)
         case .original:
             return .original
+        }
+    }
+}
+
+extension ImageIdIconView where Placeholder == LoadingPlaceholderIconView {
+    init(imageId: String, square: Bool = true, side: ImageIdIconSide = .width) {
+        self.init(imageId: imageId, square: square, side: side) {
+            LoadingPlaceholderIconView()
         }
     }
 }

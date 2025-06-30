@@ -31,9 +31,14 @@ final class SpaceNotificationsSettingsViewModel: ObservableObject {
     }
     
     func onModeChange(_ mode: SpaceNotificationsSettingsMode) async throws {
+        let pushNotificationsMode = mode.asPushNotificationsMode
         try await workspaceService.pushNotificationSetSpaceMode(
             spaceId: data.spaceId,
-            mode: mode.asPushNotificationsMode
+            mode: pushNotificationsMode
+        )
+        AnytypeAnalytics.instance().logChangeMessageNotificationState(
+            type: pushNotificationsMode.analyticsValue,
+            route: .spaceSettings
         )
         dismiss.toggle()
     }

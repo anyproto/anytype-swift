@@ -10,6 +10,7 @@ extension ObjectImportType {
         case .html: return Loc.Relation.ImportType.html
         case .txt: return Loc.Relation.ImportType.text
         case .csv: return Loc.Relation.ImportType.csv
+        case .obsidian: return Loc.Relation.ImportType.obsidian
         case .external, .UNRECOGNIZED(_): return nil
         }
     }

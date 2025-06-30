@@ -16,7 +16,7 @@ extension SpaceUxType {
             return .chat
         case .stream:
             return .stream
-        case .data, .UNRECOGNIZED(_):
+        case .data, .UNRECOGNIZED(_), .none:
             return nil
         }
     }

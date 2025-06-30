@@ -11,6 +11,8 @@ extension SpaceUxType {
             return "Stream"
         case .UNRECOGNIZED:
             return "UNRECOGNIZED"
+        case .none:
+            return "None"
         }
     }
 }

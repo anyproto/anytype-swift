@@ -379,3 +379,8 @@ enum WidgetCreateType: String {
 enum ResetToTypeDefaultRoute: String {
     case object = "Object"
 }
+
+enum ChangeMessageNotificationStateRoute: String {
+    case spaceSettings = "ScreenSettingsSpaceIndex"
+    case vault = "Vault"
+}
