@@ -9,7 +9,7 @@ public enum BlockContent: Hashable, Sendable {
     case link(BlockLink)
     case layout(BlockLayout)
     case featuredRelations
-    case relation(BlockRelation)
+    case relation(BlockProperty)
     case dataView(BlockDataview)
     case tableOfContents
     case table

@@ -14,7 +14,7 @@ final class DateViewModel: ObservableObject {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     @Injected(\.relationListWithValueService)
-    private var relationListWithValueService: any RelationListWithValueServiceProtocol
+    private var relationListWithValueService: any PropertyListWithValueServiceProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.dateRelatedObjectsSubscriptionService)
