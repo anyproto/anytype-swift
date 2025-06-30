@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct ChatHeaderView: View {
     
@@ -24,7 +25,7 @@ struct ChatHeaderView: View {
                     }
                     AnytypeText(model.title, style: .uxTitle1Semibold)
                         .lineLimit(1)
-                    if model.muted {
+                    if FeatureFlags.muteSpacePossibility, model.muted {
                         Image(asset: .X18.muted)
                             .foregroundColor(.Text.primary)
                     } else {
