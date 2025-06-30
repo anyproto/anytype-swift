@@ -15,7 +15,7 @@ public extension InfoContainerProtocol {
         }
     }
     
-    func updateRelation(blockId: String, update updateAction: (BlockRelation) -> (BlockRelation)) {
+    func updateRelation(blockId: String, update updateAction: (BlockProperty) -> (BlockProperty)) {
         update(blockId: blockId) { info in
             guard case let .relation(relation) = info.content else {
                 anytypeAssertionFailure("Not a relation", info: ["content": "\(info.content.type)"])
