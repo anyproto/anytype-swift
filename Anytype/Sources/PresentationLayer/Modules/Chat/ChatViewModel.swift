@@ -481,6 +481,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
+        AnytypeAnalytics.instance().logClickMessageMenuReaction()
         output?.didSelectAddReaction(messageId: messageId)
     }
     

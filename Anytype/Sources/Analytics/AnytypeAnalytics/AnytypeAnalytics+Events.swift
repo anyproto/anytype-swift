@@ -1440,4 +1440,8 @@ extension AnytypeAnalytics {
     func logClickMessageMenuCopy() {
         logEvent("ClickMessageMenuCopy")
     }
+    
+    func logClickMessageMenuReaction() {
+        logEvent("ClickMessageMenuReaction")
+    }
 }
