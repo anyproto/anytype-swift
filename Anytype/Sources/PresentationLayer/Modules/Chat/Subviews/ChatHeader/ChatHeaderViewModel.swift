@@ -15,6 +15,7 @@ final class ChatHeaderViewModel: ObservableObject {
     @Published var icon: Icon?
     @Published var showWidgetsButton: Bool = false
     @Published var showLoading = false
+    @Published var muted = false
     
     private let spaceId: String
     private let chatId: String
@@ -33,6 +34,7 @@ final class ChatHeaderViewModel: ObservableObject {
             title = spaceView.title
             icon = spaceView.objectIconImage
             showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat && spaceView.chatToggleEnable
+            muted = !spaceView.pushNotificationMode.isUnmutedAll
         }
     }
     
