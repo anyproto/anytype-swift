@@ -1465,4 +1465,8 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logDetachItemChat() {
+        logEvent("DetachItemChat")
+    }
 }

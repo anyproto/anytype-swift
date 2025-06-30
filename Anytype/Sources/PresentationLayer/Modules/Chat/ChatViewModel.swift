@@ -247,6 +247,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             linkedObjects.removeAll { $0.id == linkedObject.id }
             photosItems.removeAll { $0.hashValue == linkedObject.id }
         }
+        AnytypeAnalytics.instance().logDetachItemChat()
     }
     
     func scrollToTop() async {
