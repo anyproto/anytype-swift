@@ -14,6 +14,7 @@ final class DisabledPushNotificationsAlertViewModel: ObservableObject {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
         dismiss.toggle()
+        AnytypeAnalytics.instance().logClickAllowPushType(.settings)
     }
     
     func skip() {

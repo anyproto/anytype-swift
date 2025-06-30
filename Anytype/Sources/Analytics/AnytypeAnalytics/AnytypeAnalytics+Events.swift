@@ -1478,4 +1478,13 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logClickAllowPushType(_ type: ClickAllowPushType) {
+        logEvent(
+            "ClickAllowPush",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+            ]
+        )
+    }
 }

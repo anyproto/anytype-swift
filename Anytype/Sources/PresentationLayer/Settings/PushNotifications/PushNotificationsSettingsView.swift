@@ -17,6 +17,9 @@ struct PushNotificationsSettingsView: View {
             }
             Spacer()
         }
+        .onAppear() {
+            model.onAppear()
+        }
         .task {
             await model.subscribeToSystemSettingsChanges()
         }
