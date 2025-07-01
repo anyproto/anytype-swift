@@ -14,8 +14,8 @@ struct SearchWithMetaModel: Identifiable, Hashable {
 
 enum HighlightsData: Identifiable, Hashable {
     case text(AttributedString)
-    case status(name: String, option: Relation.Status.Option)
-    case tag(name: String, option: Relation.Tag.Option)
+    case status(name: String, option: Property.Status.Option)
+    case tag(name: String, option: Property.Tag.Option)
     
     var id: Int { hashValue }
 }

@@ -1,6 +1,6 @@
 enum SetKanbanColumnHeaderType {
     case uncategorized
-    case status([Relation.Status.Option])
-    case tag([Relation.Tag.Option])
+    case status([Property.Status.Option])
+    case tag([Property.Tag.Option])
     case checkbox(title: String, isChecked: Bool)
 }

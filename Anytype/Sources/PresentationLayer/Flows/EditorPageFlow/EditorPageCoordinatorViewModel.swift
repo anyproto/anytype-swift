@@ -56,7 +56,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         setupEditorInput(input, objectId)
     }
     
-    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Relation) {
+    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Property) {
         guard let objectDetails = document.details else {
             anytypeAssertionFailure("Details not found")
             return
@@ -125,7 +125,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     // MARK: - Private
     
-    private func handlePropertyValue(relation: Relation, objectDetails: ObjectDetails) {
+    private func handlePropertyValue(relation: Property, objectDetails: ObjectDetails) {
         relationValueData = propertyValueProcessingService.handlePropertyValue(
             relation: relation,
             objectDetails: objectDetails,

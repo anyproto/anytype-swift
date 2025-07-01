@@ -121,7 +121,7 @@ struct ObjectPropertiesView: View {
         }
     }
     
-    private func row(with relation: Relation, section: PropertiesSection) -> some View {
+    private func row(with relation: Property, section: PropertiesSection) -> some View {
         HStack {
             rowWithoutActions(with: relation, addedToObject: section.addedToObject)
             if section.isMissingFields {
@@ -138,7 +138,7 @@ struct ObjectPropertiesView: View {
         .divider()
     }
     
-    private func rowWithoutActions(with relation: Relation, addedToObject: Bool) -> some View {
+    private func rowWithoutActions(with relation: Property, addedToObject: Bool) -> some View {
         // Deprecated design
         // TODO: Support new rows without stars and deletion
         // https://www.figma.com/design/16UsBI2PLwydmAC4wJfyu8/%5BM%5D-All-content-%26-Type?node-id=19264-38639&t=fgXeqZbpBgUNrB2C-4

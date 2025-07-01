@@ -1,7 +1,7 @@
 import Services
 import SwiftUI
 
-extension Relation {
+extension Property {
     
     struct Object: PropertyProtocol, Hashable, Identifiable, Sendable {
         let id: String
@@ -29,7 +29,7 @@ extension Relation {
     }
 }
 
-extension Relation.Object {
+extension Property.Object {
 
     struct Option: Hashable, Identifiable, Sendable {
         let id: String
@@ -44,7 +44,7 @@ extension Relation.Object {
     
 }
 
-extension Relation.Object {
+extension Property.Object {
     
     enum Links: String {
         case links

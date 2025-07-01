@@ -12,7 +12,7 @@ struct ObjectPreviewModel {
     var cardStyle: BlockLink.CardStyle
     var iconSize: BlockLink.IconSize
     var description: BlockLink.Description
-    var coverRelation: Relation?
+    var coverRelation: ObjectPreviewModel.Relation?
     var isCoverRelationEnabled: Bool
     var isIconMenuVisible: Bool
     
@@ -51,7 +51,7 @@ struct ObjectPreviewModel {
     mutating func setupCoverRelation() {
         switch cardStyle {
         case .card:
-            self.coverRelation = Relation(
+            self.coverRelation = ObjectPreviewModel.Relation(
                 key: BundledPropertyKey.coverType.rawValue,
                 name: Loc.cover,
                 iconAsset: nil,
@@ -64,12 +64,12 @@ struct ObjectPreviewModel {
     }
 
     private static func buildRealtions(relations: [BlockLink.Relation]) -> [ListItem] {
-        let nameRelation = Relation(key: BundledPropertyKey.name.rawValue,
+        let nameRelation = ObjectPreviewModel.Relation(key: BundledPropertyKey.name.rawValue,
                                     name: Loc.name,
                                     iconAsset: PropertyFormat.shortText.iconAsset,
                                     isLocked: true,
                                     isEnabled: relations.contains(.name))
-        let typeRelation = Relation(key: BundledPropertyKey.type.rawValue,
+        let typeRelation = ObjectPreviewModel.Relation(key: BundledPropertyKey.type.rawValue,
                                     name: Loc.LinkAppearance.ObjectType.title,
                                     iconAsset: PropertyFormat.object.iconAsset,
                                     isLocked: false,
@@ -85,7 +85,7 @@ extension ObjectPreviewModel {
         case relation(Relation)
         case description
 
-        var relation: Relation? {
+        var relation: ObjectPreviewModel.Relation? {
             guard case let .relation(relation) = self else {
                 return nil
             }

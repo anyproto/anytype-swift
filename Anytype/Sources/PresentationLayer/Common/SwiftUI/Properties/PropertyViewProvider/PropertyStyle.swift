@@ -20,9 +20,9 @@ struct FeaturedPropertySettings: Hashable {
     let prefix: String?
     let showIcon: Bool
     let error: Bool
-    let links: Relation.Object.Links?
+    let links: Property.Object.Links?
     
-    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false, links: Relation.Object.Links? = nil) {
+    init(allowMultiLine: Bool, prefix: String? = nil, showIcon: Bool = true, error: Bool = false, links: Property.Object.Links? = nil) {
         self.allowMultiLine = allowMultiLine
         self.prefix = prefix
         self.showIcon = showIcon
@@ -141,7 +141,7 @@ extension PropertyStyle {
         }
     }
     
-    var links: Relation.Object.Links? {
+    var links: Property.Object.Links? {
         switch self {
         case .regular, .set, .filter, .setCollection, .kanbanHeader:
             return nil

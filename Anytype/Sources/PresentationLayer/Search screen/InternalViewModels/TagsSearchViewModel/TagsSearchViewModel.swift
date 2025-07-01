@@ -7,7 +7,7 @@ final class TagsSearchViewModel {
     let selectionMode: LegacySearchViewModel.SelectionMode
     
     private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never> ()
-    private var tags: [Relation.Tag.Option] = []
+    private var tags: [Property.Tag.Option] = []
     private var selectedTagIds: [String] = []
     
     private let interactor: TagsSearchInteractor
@@ -67,7 +67,7 @@ private extension TagsSearchViewModel {
         viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
     }
     
-    func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
+    func makeSections(tags: [Property.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
         LegacySearchSectionsBuilder.makeSections(tags) {
             $0.asRowConfigurations(with: selectedTagIds)
         }
@@ -75,7 +75,7 @@ private extension TagsSearchViewModel {
     
 }
 
-private extension Array where Element == Relation.Tag.Option {
+private extension Array where Element == Property.Tag.Option {
     
     func asRowConfigurations(with selectedTagIds: [String]) -> [ListRowConfiguration] {
         let style = PropertyStyle.regular(allowMultiLine: false)

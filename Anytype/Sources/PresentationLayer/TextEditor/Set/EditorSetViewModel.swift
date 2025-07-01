@@ -13,7 +13,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var descriptionString: String
     @Published var loadingDocument = true
-    @Published var featuredRelations = [Relation]()
+    @Published var featuredRelations = [Property]()
     @Published var dismiss = false
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
@@ -131,7 +131,7 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
-    func contextMenuItems(for relation: Relation) -> [PropertyValueViewModel.MenuItem] {
+    func contextMenuItems(for relation: Property) -> [PropertyValueViewModel.MenuItem] {
         guard relation.key == BundledPropertyKey.type.rawValue else {
             return []
         }
@@ -303,7 +303,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
 
-    func onRelationTap(relation: Relation) {
+    func onRelationTap(relation: Property) {
         if relation.hasSelectedObjectsRelationType {
             output?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
@@ -730,7 +730,7 @@ extension EditorSetViewModel {
     
     func showRelationValueEditingView(
         objectId: String,
-        relation: Relation
+        relation: Property
     ) {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
         guard let objectDetails = detailsStorage.get(id: objectId) else {

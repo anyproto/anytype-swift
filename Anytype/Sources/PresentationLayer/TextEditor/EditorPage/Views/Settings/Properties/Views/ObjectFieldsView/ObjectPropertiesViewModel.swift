@@ -49,11 +49,11 @@ final class ObjectPropertiesViewModel: ObservableObject {
         }
     }
     
-    func handleTapOnRelation(_ relation: Relation) {
+    func handleTapOnRelation(_ relation: Property) {
         output?.editRelationValueAction(document: document, relationKey: relation.key)
     }
     
-    func removeRelation(_ relation: Relation) {
+    func removeRelation(_ relation: Property) {
         Task {
             try await propertiesService.removeProperty(objectId: document.objectId, propertyKey: relation.key)
             let relationDetails = try propertyDetailsStorage.relationsDetails(key: relation.key, spaceId: document.spaceId)
@@ -66,7 +66,7 @@ final class ObjectPropertiesViewModel: ObservableObject {
         output?.showTypeRelationsView(typeId: typeId)
     }
     
-    func addRelationToType(_ relation: Relation) {
+    func addRelationToType(_ relation: Property) {
         AnytypeAnalytics.instance().logAddConflictRelation()
         guard let details = document.details else { return }
         

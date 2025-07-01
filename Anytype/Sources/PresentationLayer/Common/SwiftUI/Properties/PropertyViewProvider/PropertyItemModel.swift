@@ -1,20 +1,20 @@
 import Services
 
 enum PropertyItemModel: Hashable {
-    case text(Relation.Text)
-    case number(Relation.Text)
-    case status(Relation.Status)
-    case date(Relation.Date)
-    case object(Relation.Object)
-    case checkbox(Relation.Checkbox)
-    case url(Relation.Text)
-    case email(Relation.Text)
-    case phone(Relation.Text)
-    case tag(Relation.Tag)
-    case file(Relation.File)
-    case unknown(Relation.Unknown)
+    case text(Property.Text)
+    case number(Property.Text)
+    case status(Property.Status)
+    case date(Property.Date)
+    case object(Property.Object)
+    case checkbox(Property.Checkbox)
+    case url(Property.Text)
+    case email(Property.Text)
+    case phone(Property.Text)
+    case tag(Property.Tag)
+    case file(Property.File)
+    case unknown(Property.Unknown)
 
-    init(property: Relation) {
+    init(property: Property) {
         switch property {
         case .text(let text):
             self = .text(text)
@@ -145,7 +145,7 @@ enum PropertyItemModel: Hashable {
         }
     }
     
-    var links: Relation.Object.Links? {
+    var links: Property.Object.Links? {
         switch self {
         case .object(let object): 
             return object.links

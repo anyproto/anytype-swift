@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct EditorFeaturedPropertiesView: View {
-    let relations: [Relation]
-    let onRelationTap: ((Relation) -> Void)
+    let relations: [Property]
+    let onRelationTap: ((Property) -> Void)
     
-    init(relations: [Relation], onRelationTap: @escaping (Relation) -> Void) {
+    init(relations: [Property], onRelationTap: @escaping (Property) -> Void) {
         self.relations = relations
         self.onRelationTap = onRelationTap
     }

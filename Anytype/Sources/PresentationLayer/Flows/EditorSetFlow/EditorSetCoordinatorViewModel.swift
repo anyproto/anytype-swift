@@ -195,11 +195,11 @@ final class EditorSetCoordinatorViewModel:
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
-    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
+    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Property) {
         handlePropertyValue(relation: relation, objectDetails: objectDetails)
     }
     
-    private func handlePropertyValue(relation: Relation, objectDetails: ObjectDetails) {
+    private func handlePropertyValue(relation: Property, objectDetails: ObjectDetails) {
         relationValueData = propertyValueProcessingService.handlePropertyValue(
             relation: relation,
             objectDetails: objectDetails,

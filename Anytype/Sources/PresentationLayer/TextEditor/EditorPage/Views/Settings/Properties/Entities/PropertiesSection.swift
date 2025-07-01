@@ -5,7 +5,7 @@ import SwiftUI
 struct PropertiesSection: Identifiable {
     let id: String
     let title: String
-    let relations: [Relation]
+    let relations: [Property]
     let isMissingFields: Bool
     let isExpandable: Bool
     

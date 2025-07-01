@@ -6,11 +6,11 @@ struct PropertiesListRowView: View {
     let starButtonAvailable: Bool
     let showLocks: Bool
     let addedToObject: Bool
-    let relation: Relation
+    let relation: Property
     
-    let onRemoveTap: (_ relation: Relation) -> ()
-    let onStarTap: (_ relation: Relation) -> ()
-    let onEditTap: (_ relation: Relation) -> ()
+    let onRemoveTap: (_ relation: Property) -> ()
+    let onStarTap: (_ relation: Property) -> ()
+    let onEditTap: (_ relation: Property) -> ()
     
     @State private var size: CGSize = .zero
     
@@ -125,8 +125,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 starButtonAvailable: true,
                 showLocks: true,
                 addedToObject: true,
-                relation: Relation.tag(
-                    Relation.Tag(
+                relation: Property.tag(
+                    Property.Tag(
                         id: "1",
                         key: "1",
                         name: "relation name",
@@ -135,25 +135,25 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         canBeRemovedFromObject: false,
                         isDeleted: false,
                         selectedTags: [
-                            Relation.Tag.Option(
+                            Property.Tag.Option(
                                 id: "id1",
                                 text: "text1",
                                 textColor: Color.Dark.teal,
                                 backgroundColor: Color.VeryLight.teal
                             ),
-                            Relation.Tag.Option(
+                            Property.Tag.Option(
                                 id: "id2",
                                 text: "text2",
                                 textColor: Color.Dark.red,
                                 backgroundColor: Color.VeryLight.teal
                             ),
-                            Relation.Tag.Option(
+                            Property.Tag.Option(
                                 id: "id3",
                                 text: "text3",
                                 textColor: Color.Dark.teal,
                                 backgroundColor: Color.VeryLight.teal
                             ),
-                            Relation.Tag.Option(
+                            Property.Tag.Option(
                                 id: "id4",
                                 text: "text4",
                                 textColor: Color.Dark.red,
@@ -171,8 +171,8 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 starButtonAvailable: true,
                 showLocks: true,
                 addedToObject: true,
-                relation: Relation.text(
-                    Relation.Text(
+                relation: Property.text(
+                    Property.Text(
                         id: "1",
                         key: "1",
                         name: "Relation name",

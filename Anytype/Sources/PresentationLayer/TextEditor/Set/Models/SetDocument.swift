@@ -44,7 +44,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         details?.analyticsType ?? .object(typeId: "")
     }
     
-    var featuredRelationsForEditor: [Relation] {
+    var featuredRelationsForEditor: [Property] {
         document.featuredRelationsForEditor
     }
     

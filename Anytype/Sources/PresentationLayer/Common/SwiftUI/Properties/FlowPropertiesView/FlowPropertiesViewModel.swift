@@ -6,7 +6,7 @@ class FlowPropertiesViewModel: ObservableObject {
     let canEditIcon: Bool
     let title: String?
     let description: String?
-    let properties: [Relation]
+    let properties: [Property]
     
     init(
         icon: Icon? = nil,
@@ -14,7 +14,7 @@ class FlowPropertiesViewModel: ObservableObject {
         canEditIcon: Bool,
         title: String?,
         description: String?,
-        properties: [Relation]
+        properties: [Property]
     ) {
         self.icon = icon
         self.showIcon = showIcon

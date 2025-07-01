@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FilePropertyView: View {
-    let options: [Relation.File.Option]
+    let options: [Property.File.Option]
     let hint: String
     let style: PropertyStyle
     
@@ -26,7 +26,7 @@ struct FilePropertyView: View {
         }
     }
     
-    private func objectView(option: Relation.File.Option) -> some View {
+    private func objectView(option: Property.File.Option) -> some View {
         HStack(spacing: style.objectPropertyStyle.hSpaсingObject) {
             IconView(icon: option.icon)
                 .frame(
@@ -56,7 +56,7 @@ struct FilePropertyView: View {
         .padding(.horizontal, 1)
     }
     
-    private func objectView(options: [Relation.File.Option]) -> some View {
+    private func objectView(options: [Property.File.Option]) -> some View {
         ForEach(options) { option in
             objectView(option: option)
         }

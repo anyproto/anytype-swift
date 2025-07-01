@@ -7,8 +7,8 @@ enum FeaturedPropertiesConstants {
 }
 
 struct FeaturedPropertiesView<Content>: View where Content: View {
-    let relations: [Relation]
-    let view: (Relation) -> Content
+    let relations: [Property]
+    let view: (Property) -> Content
     
     var body: some View {
         WrappingHStack(
@@ -34,7 +34,7 @@ struct FeaturedPropertiesView<Content>: View where Content: View {
             .frame(width: 3, height: 3)
     }
     
-    private func isLastRelation(_ relation: Relation) -> Bool {
+    private func isLastRelation(_ relation: Property) -> Bool {
         relations.last?.id == relation.id
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-enum Relation: Hashable, Identifiable, Sendable {
+enum Property: Hashable, Identifiable, Sendable {
     case text(Text)
     case number(Text)
     case status(Status)
@@ -18,7 +18,7 @@ enum Relation: Hashable, Identifiable, Sendable {
 
 // MARK: - RelationValueProtocol
 
-extension Relation: PropertyProtocol {
+extension Property: PropertyProtocol {
     
     var id: String {
         switch self {
@@ -177,12 +177,12 @@ extension Relation: PropertyProtocol {
         }
     }
     
-    var editableRelation: Relation? {
+    var editableRelation: Property? {
         switch self {
         case .object(let object):
             var editableObject = object
             editableObject.isEditable = true
-            return Relation.object(editableObject)
+            return Property.object(editableObject)
         default:
             return nil
         }

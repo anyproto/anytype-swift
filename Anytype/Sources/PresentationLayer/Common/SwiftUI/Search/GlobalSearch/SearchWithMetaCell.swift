@@ -75,7 +75,7 @@ struct SearchWithMetaCell: View {
             .multilineTextAlignment(.leading)
     }
     
-    private func statusHighlight(name : String, option: Relation.Status.Option) -> some View {
+    private func statusHighlight(name : String, option: Property.Status.Option) -> some View {
         HStack(spacing: 4) {
             relationName(name)
             StatusPropertyView(
@@ -86,7 +86,7 @@ struct SearchWithMetaCell: View {
         }
     }
     
-    private func tagHighlight(name : String, option: Relation.Tag.Option) -> some View {
+    private func tagHighlight(name : String, option: Property.Tag.Option) -> some View {
         HStack(spacing: 4) {
             relationName(name)
             TagPropertyView(

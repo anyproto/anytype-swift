@@ -7,7 +7,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()
     func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String)
-    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Relation)
+    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Property)
     func showLinkToObject(data: LinkToObjectSearchModuleData)
     func showIconPicker(document: some BaseDocumentProtocol)
     func showTextIconPicker(data: TextIconPickerData)

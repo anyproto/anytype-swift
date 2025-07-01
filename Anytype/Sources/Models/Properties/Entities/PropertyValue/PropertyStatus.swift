@@ -2,7 +2,7 @@ import Foundation
 import Services
 import SwiftUI
 
-extension Relation {
+extension Property {
     
     struct Status: PropertyProtocol, Hashable, Identifiable {
         let id: String
@@ -22,7 +22,7 @@ extension Relation {
     
 }
 
-extension Relation.Status {
+extension Property.Status {
     
     struct Option: Hashable, Identifiable {
         let id: String
@@ -32,7 +32,7 @@ extension Relation.Status {
     
 }
 
-extension Relation.Status.Option {
+extension Property.Status.Option {
     
     init(option: PropertyOption) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)

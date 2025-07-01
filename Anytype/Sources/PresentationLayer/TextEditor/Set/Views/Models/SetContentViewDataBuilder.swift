@@ -168,7 +168,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 parsedProperties.first { $0.key == colum.key }
             }
             
-            let relations: [Relation] = relationsDetails.map { colum in
+            let relations: [Property] = relationsDetails.map { colum in
                 let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
                     return .unknown(.empty(id: colum.id, key: colum.key, name: colum.name))

@@ -2,7 +2,7 @@ import Foundation
 import Services
 import SwiftUI
 
-extension Relation {
+extension Property {
     
     struct Tag: PropertyProtocol, Hashable, Identifiable {
         let id: String
@@ -22,7 +22,7 @@ extension Relation {
     
 }
 
-extension Relation.Tag {
+extension Property.Tag {
     
     struct Option: Hashable, Identifiable {
         let id: String
@@ -33,7 +33,7 @@ extension Relation.Tag {
     
 }
 
-extension Relation.Tag.Option {
+extension Property.Tag.Option {
     
     init(option: PropertyOption) {
         self.id = option.id
