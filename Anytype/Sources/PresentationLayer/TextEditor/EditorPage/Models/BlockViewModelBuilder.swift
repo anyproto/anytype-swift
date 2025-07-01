@@ -73,8 +73,8 @@ final class BlockViewModelBuilder {
         self.output = output
     }
     
-    func buildEditorItems(infos: [String]) -> [EditorItem] {
-        let viewModels = build(infos)
+    func buildEditorItems(infos: [String], ignoreCache: Bool) -> [EditorItem] {
+        let viewModels = build(infos, ignoreCache: ignoreCache)
         return buildEditorItems(viewModels)
     }
     
@@ -142,14 +142,18 @@ final class BlockViewModelBuilder {
         return .system(shimmeringViewModel)
     }
     
-    private func build(_ ids: [String]) -> [any BlockViewModelProtocol] {
+    private func build(_ ids: [String], ignoreCache: Bool) -> [any BlockViewModelProtocol] {
         ids.compactMap {
-            let block = build(blockId: $0)
+            let block = build(blockId: $0, ignoreCache: ignoreCache)
             return block
         }
     }
     
-    func build(blockId: String) -> (any BlockViewModelProtocol)? {
+    func build(blockId: String, ignoreCache: Bool) -> (any BlockViewModelProtocol)? {
+        if !ignoreCache, let model = modelsHolder.blocksMapping[blockId] {
+            return model
+        }
+        
         guard let info = infoContainer.get(id: blockId) else {
             return nil
         }

@@ -104,7 +104,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             guard let self else { return }
             let filtered = Set(blockIds).intersection(modelsHolder.blocksMapping.keys)
             
-            let items = blockBuilder.buildEditorItems(infos: Array(filtered))
+            // ignoring cache when reloading blocks
+            let items = blockBuilder.buildEditorItems(infos: Array(filtered), ignoreCache: true)
+            modelsHolder.updateItems(items)
             viewInput?.reconfigure(items: items)
         }.store(in: &subscriptions)
     }
@@ -121,7 +123,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func handleUpdate(ids: [String]) {
-        let blocksViewModels = blockBuilder.buildEditorItems(infos: ids)
+        let blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
         
         let difference = modelsHolder.difference(between: blocksViewModels)
         if difference.insertions.isNotEmpty {
@@ -160,7 +162,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             for blockId in blockIds {
                 
                 if blockViewModel.blockId == blockId {
-                    guard let newViewModel = blockBuilder.build(blockId: blockId) else {
+                    guard let newViewModel = blockBuilder.build(blockId: blockId, ignoreCache: false) else {
                         continue
                     }
                     
