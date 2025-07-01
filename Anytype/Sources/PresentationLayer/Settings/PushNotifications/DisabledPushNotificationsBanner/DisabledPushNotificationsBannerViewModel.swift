@@ -2,8 +2,9 @@ import Foundation
 import UIKit
 
 @MainActor
-final class PushNotificationsSettingsViewModel: ObservableObject {
-
+final class DisabledPushNotificationsBannerViewModel: ObservableObject {
+    
+    @Published var requestAuthorizationId: String?
     @Published var status: PushNotificationsSettingsStatus?
     
     @Injected(\.pushNotificationsPermissionService)
@@ -11,14 +12,20 @@ final class PushNotificationsSettingsViewModel: ObservableObject {
     @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
-    
-    func onAppear() {
-        AnytypeAnalytics.instance().logScreenAllowPushType(.settings)
-    }
+
     func subscribeToSystemSettingsChanges() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             self.status = status.asPushNotificationsSettingsStatus
         }
+    }
+    
+    func enableNotificationsTap() {
+        requestAuthorizationId = UUID().uuidString
+        AnytypeAnalytics.instance().logClickAllowPushType(.enableNotifications)
+    }
+    
+    func requestAuthorization() async {
+        _ = await pushNotificationsPermissionService.requestAuthorization()
     }
     
     func openSettings() {

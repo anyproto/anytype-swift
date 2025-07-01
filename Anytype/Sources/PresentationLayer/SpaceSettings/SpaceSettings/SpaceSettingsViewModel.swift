@@ -31,6 +31,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
     private let openedDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -62,6 +64,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var showIconPickerSpaceId: StringIdentifiable?
     @Published var editingData: SettingsInfoEditingViewData?
     @Published var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
+    @Published var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
     @Published private(set) var inviteLink: URL?
@@ -197,7 +200,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         async let participantTask: () = startParticipantTask()
         async let defaultTypeTask: () = startDefaultTypeTask()
         async let widgetsObjectTask: () = startWidgetsObjectTask()
-        (_,_,_, _, _) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask)
+        async let systemSettingsChangesTask: () = startSystemSettingsChangesTask()
+        (_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask)
     }
     
     private func startStorageTask() async {
@@ -230,6 +234,12 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func startWidgetsObjectTask() async {
         for await _ in widgetsObject.detailsPublisher.values {
             updateViewState()
+        }
+    }
+    
+    private func startSystemSettingsChangesTask() async {
+        for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
+            self.pushNotificationsSettingsStatus = status.asPushNotificationsSettingsStatus
         }
     }
     

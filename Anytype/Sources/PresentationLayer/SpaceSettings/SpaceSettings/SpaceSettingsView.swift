@@ -190,8 +190,9 @@ struct SpaceSettingsView: View {
             if FeatureFlags.muteSpacePossibility {
                 Spacer.fixedHeight(8)
                 RoundedButton(
-                    Loc.notifications, icon: .X24.unmuted,
-                    decoration: .caption(model.pushNotificationsSettingsMode.titleShort)) {
+                    Loc.notifications,
+                    icon: pushNotificationsSettingIcon(),
+                    decoration: .caption(pushNotificationsSettingCaption())) {
                         model.onNotificationsTap()
                     }
             }
@@ -302,6 +303,20 @@ struct SpaceSettingsView: View {
                 model.onLeaveTap()
             }
         }
+    }
+    
+    private func pushNotificationsSettingIcon() -> ImageAsset {
+        guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
+            return .X24.muted
+        }
+        return model.pushNotificationsSettingsMode.isEnabled ? .X24.unmuted : .X24.muted
+    }
+    
+    private func pushNotificationsSettingCaption() -> String {
+        guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
+            return SpaceNotificationsSettingsMode.disabled.titleShort
+        }
+        return model.pushNotificationsSettingsMode.titleShort
     }
 }
 

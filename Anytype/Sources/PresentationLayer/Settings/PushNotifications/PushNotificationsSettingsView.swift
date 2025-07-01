@@ -12,7 +12,7 @@ struct PushNotificationsSettingsView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.notifications)
-            if let mode = model.mode {
+            if let mode = model.status {
                 content(with: mode)
             }
             Spacer()
@@ -23,58 +23,21 @@ struct PushNotificationsSettingsView: View {
         .task {
             await model.subscribeToSystemSettingsChanges()
         }
-        .task(item: model.requestAuthorizationId) { _ in
-            await model.requestAuthorization()
-        }
     }
     
-    private func content(with mode: PushNotificationsSettingsMode) -> some View {
+    private func content(with status: PushNotificationsSettingsStatus) -> some View {
         VStack(spacing: 0) {
-            switch mode {
+            DisabledPushNotificationsBannerView()
+            switch status {
             case .authorized:
                 notificationsStatusRow(enabled: true)
             case .denied:
-                disabledAlert(with: Loc.openSettings) {
-                    model.openSettings()
-                }
                 notificationsStatusRow(enabled: false)
             case .notDetermined:
-                disabledAlert(with: Loc.PushNotifications.RequestAlert.primaryButton) {
-                    model.enableNotificationsTap()
-                }
+                EmptyView()
             }
         }
         .padding(.horizontal, 12)
-        
-    }
-    
-    private func disabledAlert(with title: String, onTap: @escaping () -> Void) -> some View {
-        VStack(spacing: 0) {
-            Image(asset: .PushNotifications.bell)
-            
-            Spacer.fixedHeight(12)
-            
-            AnytypeText(Loc.PushNotifications.Settings.DisabledAlert.title, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.center)
-            
-            AnytypeText(Loc.PushNotifications.Settings.DisabledAlert.description, style: .uxTitle2Regular)
-                .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.center)
-            
-            Spacer.fixedHeight(12)
-            
-            StandardButton(
-                title,
-                style: .primarySmall,
-                action: onTap
-            )
-        }
-        .padding(.top, 20)
-        .padding(.bottom, 24)
-        .padding(.horizontal, 20)
-        .background(Color.Shape.transperentTertiary)
-        .cornerRadius(12, style: .continuous)
     }
     
     private func notificationsStatusRow(enabled: Bool) -> some View {

@@ -18,7 +18,7 @@ struct SpaceNotificationsSettingsView: View {
             Spacer()
         }
         .task {
-            await model.startParticipantSpacesStorageTask()
+            await model.startSubscriptions()
         }
         .background(Color.Background.secondary)
         .onChange(of: model.dismiss) { _ in
@@ -28,9 +28,15 @@ struct SpaceNotificationsSettingsView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
+            DisabledPushNotificationsBannerView()
+            
+            ListSectionHeaderView(title: Loc.PushNotifications.Settings.Status.title)
+                .padding(.horizontal, 16)
+                
             ForEach(SpaceNotificationsSettingsMode.allCases, id: \.self) { mode in
                 modeView(mode)
             }
+            .padding(.horizontal, 16)
         }
     }
     
@@ -40,9 +46,9 @@ struct SpaceNotificationsSettingsView: View {
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(mode.title, style: .previewTitle1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundColor(model.disabledStatus() ? .Text.tertiary : .Text.primary)
                 Spacer()
-                if model.mode == mode {
+                if !model.disabledStatus(), model.mode == mode {
                     Image(asset: .X24.tick)
                         .foregroundColor(.Control.button)
                 }
@@ -52,7 +58,7 @@ struct SpaceNotificationsSettingsView: View {
             .if(!mode.isLast) {
                 $0.newDivider()
             }
-            .padding(.horizontal, 16)
         }
+        .disabled(model.disabledStatus())
     }
 }
