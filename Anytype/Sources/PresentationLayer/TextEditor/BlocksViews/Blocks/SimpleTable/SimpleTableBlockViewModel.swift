@@ -7,7 +7,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     let info: BlockInformation
 
-    nonisolated var hashable: AnyHashable { info.id as AnyHashable }
+    let className = "SimpleTableBlockViewModel"
 
     private let dependenciesBuilder: SimpleTableDependenciesBuilder
     private let infoContainer: any InfoContainerProtocol
