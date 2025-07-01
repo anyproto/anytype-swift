@@ -150,10 +150,6 @@ final class BlockViewModelBuilder {
     }
     
     func build(blockId: String) -> (any BlockViewModelProtocol)? {
-        if let model = modelsHolder.blocksMapping[blockId] {
-            return model
-        }
-        
         guard let info = infoContainer.get(id: blockId) else {
             return nil
         }
