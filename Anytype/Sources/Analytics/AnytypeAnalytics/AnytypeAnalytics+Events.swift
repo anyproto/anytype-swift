@@ -1491,4 +1491,14 @@ extension AnytypeAnalytics {
     func logAllowPush() {
         logEvent("AllowPush")
     }
+    
+    func logClickScreenChatAttach(type: ChatAttachmentType, objectType: ObjectType? = nil) {
+        logEvent(
+            "ClickScreenChatAttach",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsType
+            ].compactMapValues { $0 }
+        )
+    }
 }

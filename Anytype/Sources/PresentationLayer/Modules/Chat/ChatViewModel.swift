@@ -135,6 +135,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddMediaToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo)
         let data = ChatPhotosPickerData(selectedItems: photosItems) { [weak self] result in
             self?.photosItems = result
             self?.photosItemsTask = UUID()
@@ -143,6 +144,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddFilesToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file)
         let data = ChatFilesPickerData(handler: { [weak self] result in
             self?.handleFilePicker(result: result)
         })
@@ -150,6 +152,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCamera() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera)
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             self?.handleCameraMedia(media)
         })
@@ -447,6 +450,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCreateObject(type: ObjectType) {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, objectType: type)
         output?.didSelectCreateObject(type: type)
     }
     
