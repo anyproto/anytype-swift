@@ -12,8 +12,8 @@ enum PropertyOptionSettingsMode {
     
     var title: String {
         switch self {
-        case .create: return Loc.Property.View.Create.title
-        case .edit: return Loc.Property.View.Edit.title
+        case .create: return Loc.Relation.View.Create.title
+        case .edit: return Loc.Relation.View.Edit.title
         }
     }
     

@@ -42,7 +42,7 @@ struct PropertyOptionSettingsView: View {
     
     private var textField: some View {
         TextField(
-            Loc.Property.Create.Textfield.placeholder,
+            Loc.Relation.Create.Textfield.placeholder,
             text: $model.text
         )
         .foregroundColor(model.selectedColor)

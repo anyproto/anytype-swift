@@ -6,7 +6,7 @@ struct PropertyListEmptyState: View {
             Spacer.fixedHeight(24)
             Image(asset: .Dialog.duck)
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.Property.EmptyState.Blocked.title, style: .uxCalloutMedium)
+            AnytypeText(Loc.Relation.EmptyState.Blocked.title, style: .uxCalloutMedium)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(24)
         }
