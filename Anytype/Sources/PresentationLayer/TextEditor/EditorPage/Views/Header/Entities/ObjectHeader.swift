@@ -17,9 +17,12 @@ enum ObjectHeader: Hashable {
         return .empty(data: .init(presentationStyle: usecase, onTap: onTap), isShimmering: false)
     }
 }
-extension ObjectHeader: ContentConfigurationProvider {
-    var hashable: AnyHashable { "ObjectHeader" }
 
+extension ObjectHeader: HashableProvier {
+    var hashable: AnyHashable { "ObjectHeader" }
+}
+
+extension ObjectHeader: ContentConfigurationProvider {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
     func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {

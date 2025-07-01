@@ -30,6 +30,10 @@ extension URL {
         return urlBySettingScheme(Constants.https)
     }
     
+    var isEmail: Bool {
+        absoluteString.hasPrefix("mailto:")
+    }
+    
     private func urlBySettingScheme(_ scheme: String) -> URL {
         return URL(string: "\(scheme)://\(absoluteString)") ?? self
     }

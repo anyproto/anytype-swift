@@ -6,7 +6,7 @@ import AnytypeCore
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 final class BlockBookmarkViewModel: BlockViewModelProtocol {
     
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "BlockBookmarkViewModel"
     nonisolated var info: BlockInformation { infoProvider.info }
     
     var bookmarkData: BlockBookmark {

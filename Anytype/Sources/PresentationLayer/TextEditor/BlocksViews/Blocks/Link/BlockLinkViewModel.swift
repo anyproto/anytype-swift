@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 final class BlockLinkViewModel: BlockViewModelProtocol {
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "BlockLinkViewModel"
     
     nonisolated var info: BlockInformation { informationProvider.info }
 

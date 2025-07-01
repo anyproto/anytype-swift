@@ -15,7 +15,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
     
     nonisolated var info: BlockInformation { blockInformationProvider.info }
 
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "DataViewBlockViewModel"
     var detailsSubscription: AnyCancellable?
 
     private var blockData: BlockDataview {

@@ -6,7 +6,7 @@ import AnytypeCore
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "AudioBlockViewModel"
     nonisolated var info: BlockInformation { informantionProvider.info }
     let informantionProvider: BlockModelInfomationProvider
     var fileData: BlockFile? {

@@ -4,8 +4,7 @@ import AnytypeCore
 
 struct NonExistentBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
-
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "NonExistentBlockViewModel"
 
     init(info: BlockInformation) {
         self.info = info
