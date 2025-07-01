@@ -25,10 +25,12 @@ final class PushNotificationsAlertViewModel: ObservableObject {
     
     func onAppear() {
         pushNotificationsAlertHandler.storeAlertShowDate()
+        AnytypeAnalytics.instance().logScreenAllowPushType(.initial)
     }
     
     func enablePushesTap() {
         requestAuthorizationId = UUID().uuidString
+        AnytypeAnalytics.instance().logClickAllowPushType(.enableNotifications)
     }
     
     func laterTap() {

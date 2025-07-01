@@ -12,6 +12,10 @@ enum PushNotificationsPermissionStatus: Codable {
     var isDenied: Bool {
         self == .denied
     }
+    
+    var isAuthorized: Bool {
+        self == .authorized
+    }
 }
 
 protocol PushNotificationsPermissionServiceProtocol: AnyObject, Sendable {

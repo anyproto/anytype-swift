@@ -391,3 +391,14 @@ enum ChatAttachmentType: String {
     case file = "File"
     case camera = "Camera"
 }
+
+enum ScreenAllowPushType: String {
+    case initial = "Initial"
+    case subsequent = "Subsequent"
+    case settings = "Settings"
+}
+
+enum ClickAllowPushType: String {
+    case enableNotifications = "EnableNotifications"
+    case settings = "Settings"
+}

@@ -48,6 +48,9 @@ final class PushNotificationsSystemSettingsBroadcaster: PushNotificationsSystemS
         if currentStatus != lastStatus {
             lastStatus = currentStatus
             statusStreamInternal.send(currentStatus)
+            if currentStatus.isAuthorized {
+                AnytypeAnalytics.instance().logAllowPush()
+            }
         }
     }
 }
