@@ -12,6 +12,10 @@ final class PushNotificationsSettingsViewModel: ObservableObject {
     @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenAllowPushType(.settings)
+    }
     func subscribeToSystemSettingsChanges() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             mode = status.asPushNotificationsSettingsMode
@@ -20,6 +24,7 @@ final class PushNotificationsSettingsViewModel: ObservableObject {
     
     func enableNotificationsTap() {
         requestAuthorizationId = UUID().uuidString
+        AnytypeAnalytics.instance().logClickAllowPushType(.enableNotifications)
     }
     
     func requestAuthorization() async {
@@ -30,5 +35,6 @@ final class PushNotificationsSettingsViewModel: ObservableObject {
     func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
+        AnytypeAnalytics.instance().logClickAllowPushType(.settings)
     }
 }

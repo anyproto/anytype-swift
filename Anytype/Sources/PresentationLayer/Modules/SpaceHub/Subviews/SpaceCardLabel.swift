@@ -20,7 +20,7 @@ struct SpaceCardLabel: View {
                         .anytypeFontStyle(.bodySemibold)
                         .lineLimit(1)
                         .foregroundStyle(Color.Text.primary)
-                    if FeatureFlags.muteSpacePossibility, !spaceData.spaceView.pushNotificationMode.isUnmutedAll {
+                    if isMuted {
                         Spacer.fixedWidth(8)
                         Image(asset: .X18.muted).foregroundColor(.Control.active)
                     }
@@ -129,11 +129,18 @@ struct SpaceCardLabel: View {
     private var unreadCounters: some View {
         HStack(spacing: 4) {
             if spaceData.preview.mentionCounter > 0 {
-                MentionBadge()
+                MentionBadge(style: isMuted ? .muted : .highlighted)
             }
             if spaceData.preview.unreadCounter > 0 {
-                CounterView(count: spaceData.preview.unreadCounter)
+                CounterView(
+                    count: spaceData.preview.unreadCounter,
+                    style: isMuted ? .muted : .highlighted
+                )
             }
         }
+    }
+    
+    private var isMuted: Bool {
+        FeatureFlags.muteSpacePossibility && !spaceData.spaceView.pushNotificationMode.isUnmutedAll
     }
 }

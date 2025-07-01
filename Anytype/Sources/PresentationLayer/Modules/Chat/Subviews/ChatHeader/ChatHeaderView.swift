@@ -24,7 +24,12 @@ struct ChatHeaderView: View {
                     }
                     AnytypeText(model.title, style: .uxTitle1Semibold)
                         .lineLimit(1)
-                    Spacer.fixedWidth(18)
+                    if model.muted {
+                        Image(asset: .X18.muted)
+                            .foregroundColor(.Text.primary)
+                    } else {
+                        Spacer.fixedWidth(18)
+                    }
                 }
             }
         } rightView: {

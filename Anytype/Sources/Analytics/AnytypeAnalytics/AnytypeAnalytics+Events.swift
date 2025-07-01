@@ -1469,4 +1469,26 @@ extension AnytypeAnalytics {
     func logDetachItemChat() {
         logEvent("DetachItemChat")
     }
+    
+    func logScreenAllowPushType(_ type: ScreenAllowPushType) {
+        logEvent(
+            "ScreenAllowPush",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+            ]
+        )
+    }
+    
+    func logClickAllowPushType(_ type: ClickAllowPushType) {
+        logEvent(
+            "ClickAllowPush",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+            ]
+        )
+    }
+    
+    func logAllowPush() {
+        logEvent("AllowPush")
+    }
 }
