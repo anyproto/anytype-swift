@@ -125,16 +125,19 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddPageToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pages)
         let data = buildObjectSearcData(type: .pages)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddListToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .lists)
         let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddMediaToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo)
         let data = ChatPhotosPickerData(selectedItems: photosItems) { [weak self] result in
             self?.photosItems = result
             self?.photosItemsTask = UUID()
@@ -143,6 +146,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddFilesToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file)
         let data = ChatFilesPickerData(handler: { [weak self] result in
             self?.handleFilePicker(result: result)
         })
@@ -150,6 +154,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCamera() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera)
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             self?.handleCameraMedia(media)
         })
@@ -232,6 +237,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
+            let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
+            AnytypeAnalytics.instance().logSentMessage(type: type)
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
             clearInput()
@@ -447,6 +454,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCreateObject(type: ObjectType) {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, objectType: type)
         output?.didSelectCreateObject(type: type)
     }
     
