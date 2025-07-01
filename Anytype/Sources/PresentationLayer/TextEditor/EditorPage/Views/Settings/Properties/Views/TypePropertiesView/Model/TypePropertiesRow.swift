@@ -30,7 +30,7 @@ enum TypePropertiesRow: Identifiable, Equatable {
 
 struct TypePropertiesRelationRow: Identifiable, Equatable {
     let section: TypePropertiesSectionRow
-    let relation: Relation
+    let relation: Property
     let canDrag: Bool
     
     var id: String { section.id + relation.id }

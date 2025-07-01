@@ -61,7 +61,7 @@ struct SetTableViewRow: View {
         .frame(height: 18)
     }
     
-    private func cell(_ relation: Relation) -> some View {
+    private func cell(_ relation: Property) -> some View {
         PropertyValueView(
             model: PropertyValueViewModel(
                 property: PropertyItemModel(property: relation),

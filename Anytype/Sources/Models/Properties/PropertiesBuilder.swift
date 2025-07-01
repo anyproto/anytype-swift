@@ -106,8 +106,8 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
         propertyValuesIsLocked: Bool,
         hackGlobalName: Bool = false,
         storage: ObjectDetailsStorage
-    ) -> [Relation] {
-        var properties: [Relation] = relationDetails.compactMap { property in
+    ) -> [Property] {
+        var properties: [Property] = relationDetails.compactMap { property in
             guard isPropertyCanBeAddedToList(property) else {
                 return nil
             }
@@ -137,7 +137,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
         relationDetails: [PropertyDetails],
         objectDetails: ObjectDetails,
         storage: ObjectDetailsStorage
-    ) -> [Relation] {
+    ) -> [Property] {
         return relationDetails.compactMap { property in
             guard BundledPropertyKey.systemKeys.map(\.rawValue).contains(property.key) else {
                 return nil
@@ -172,7 +172,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
         objectDetails: ObjectDetails,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation? {
+    ) -> Property? {
         if let globaName = propertyForKey(
             key: BundledPropertyKey.globalName.rawValue,
             objectProperties: objectProperties,
@@ -201,7 +201,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation? {
+    ) -> Property? {
         guard let details = objectProperties.first(where: { $0.key == key }) else {
             return nil
         }

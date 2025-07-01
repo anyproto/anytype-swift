@@ -1,11 +1,11 @@
 import Services
 
-extension Relation {
+extension Property {
     var hasSelectedObjectsRelationType: Bool {
         relationSelectedObjects.isNotEmpty
     }
     
-    var relationSelectedObjects: [Relation.Object.Option] {
+    var relationSelectedObjects: [Property.Object.Option] {
         if case let .object(object) = self {
             return object.selectedObjects.filter { $0.type == Constants.relationType }
         } else {

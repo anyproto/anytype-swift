@@ -67,7 +67,7 @@ struct SetGalleryViewCell: View {
         }
     }
     
-    private func row(_ relation: Relation) -> some View {
+    private func row(_ relation: Property) -> some View {
         PropertyValueView(
             model: PropertyValueViewModel(
                 property:  PropertyItemModel(property: relation),

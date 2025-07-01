@@ -2,7 +2,7 @@ import Services
 
 
 final class TypePropertiesRowBuilder {
-    func build(relations: [Relation], featured: [Relation], hidden: [Relation]) -> [TypePropertiesRow] {
+    func build(relations: [Property], featured: [Property], hidden: [Property]) -> [TypePropertiesRow] {
         var data = [TypePropertiesRow]()
 
         

@@ -60,8 +60,8 @@ final class SelectPropertyListCoordinatorViewModel: ObservableObject, SelectProp
     
     func onDeleteTap(completion: @escaping (_ isSuccess: Bool) -> Void) {
         deletionAlertData = DeletionAlertData(
-            title: Loc.Relation.Delete.Alert.title,
-            description: Loc.Relation.Delete.Alert.description,
+            title: Loc.Property.Delete.Alert.title,
+            description: Loc.Property.Delete.Alert.description,
             completion: completion
         )
     }

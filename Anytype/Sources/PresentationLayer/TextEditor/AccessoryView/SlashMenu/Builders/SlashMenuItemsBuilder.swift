@@ -4,7 +4,7 @@ struct SlashMenuItemsBuilder: Sendable {
     
     private let typesService: any TypesServiceProtocol = Container.shared.typesService()
     
-    func slashMenuItems(spaceId: String, resrictions: some BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
+    func slashMenuItems(spaceId: String, resrictions: some BlockRestrictions, relations: [Property]) async throws -> [SlashMenuItem] {
         let searchObjectsMenuItem = try? await searchObjectsMenuItem(spaceId: spaceId)
         
         return [
@@ -87,7 +87,7 @@ struct SlashMenuItemsBuilder: Sendable {
         )
     }
     
-    private func relationMenuItem(relations: [Relation]) -> SlashMenuItem? {
+    private func relationMenuItem(relations: [Property]) -> SlashMenuItem? {
         let relations = relations.map {
             SlashAction.relations(.relation($0))
         }

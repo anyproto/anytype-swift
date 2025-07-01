@@ -4,10 +4,10 @@ import AnytypeCore
 import Combine
 
 final class PropertyProvider {
-    @Published var relation: Relation
+    @Published var relation: Property
     private var subscription: AnyCancellable?
     
-    init(relation: Relation, relationPublisher: AnyPublisher<ParsedProperties, Never>) {
+    init(relation: Property, relationPublisher: AnyPublisher<ParsedProperties, Never>) {
         self.relation = relation
         
         subscription = relationPublisher

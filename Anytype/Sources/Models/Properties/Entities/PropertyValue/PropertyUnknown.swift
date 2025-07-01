@@ -2,7 +2,7 @@ import Foundation
 import Services
 import CoreImage
 
-extension Relation {
+extension Property {
     
     struct Unknown: PropertyProtocol, Hashable, Identifiable {
         let id: String

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StatusPropertyView: View {
-    let options: [Relation.Status.Option]
+    let options: [Property.Status.Option]
     let hint: String
     let style: PropertyStyle
     
@@ -27,7 +27,7 @@ struct StatusPropertyView: View {
         }
     }
     
-    private func statusView(option: Relation.Status.Option) -> some View {
+    private func statusView(option: Property.Status.Option) -> some View {
         AnytypeText(option.text, style: style.font)
             .foregroundColor(option.color)
             .lineLimit(1)
@@ -46,7 +46,7 @@ struct StatusPropertyView: View {
         .padding(.horizontal, 1)
     }
     
-    private func statusView(options: [Relation.Status.Option]) -> some View {
+    private func statusView(options: [Property.Status.Option]) -> some View {
         ForEach(options) { option in
             statusView(option: option)
         }
@@ -65,7 +65,7 @@ extension StatusPropertyView {
 struct StatusRelationView_Previews: PreviewProvider {
     static var previews: some View {
         StatusPropertyView(
-            options: [Relation.Status.Option(
+            options: [Property.Status.Option(
                 id: "id",
                 text: "text",
                 color: Color.Dark.yellow

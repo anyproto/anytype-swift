@@ -1,6 +1,6 @@
 import Foundation
 
-extension Relation {
+extension Property {
     
     // For calculated changes in base document
     var dependedObjects: [String] {

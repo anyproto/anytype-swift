@@ -46,14 +46,14 @@ extension DataviewGroup {
             let tags = tag.ids
                 .compactMap { document.detailsStorage.get(id: $0) }
                 .map { PropertyOption(details: $0) }
-                .map { Relation.Tag.Option(option: $0) }
+                .map { Property.Tag.Option(option: $0) }
             return tags.isEmpty ? .uncategorized : .tag(tags)
         case .status(let status):
             guard let optionDetails = document.detailsStorage.get(id: status.id) else {
                 return .uncategorized
             }
             let option = PropertyOption(details: optionDetails)
-            return .status([Relation.Status.Option(option: option)])
+            return .status([Property.Status.Option(option: option)])
         case .checkbox(let checkbox):
             return .checkbox(title: groupRelationKey.capitalized, isChecked: checkbox.checked)
         default:

@@ -9,7 +9,7 @@ protocol SinglePropertyBuilderProtocol {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation?
+    ) -> Property?
 }
 
 final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
@@ -23,7 +23,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation? {
+    ) -> Property? {
         switch relationDetails.format {
         case .longText:
             return textProperty(
@@ -115,7 +115,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
             )
         case .unrecognized:
             return .text(
-                Relation.Text(
+                Property.Text(
                     id: relationDetails.id,
                     key: relationDetails.key,
                     name: relationDetails.name,
@@ -136,9 +136,9 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation {
+    ) -> Property {
         .text(
-            Relation.Text(
+            Property.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -156,7 +156,7 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation? {
+    ) -> Property? {
         
         let numberValue: String?
         if relationDetails.key == BundledPropertyKey.origin.rawValue,
@@ -178,7 +178,7 @@ private extension SinglePropertyBuilder {
         }
         
         return .number(
-            Relation.Text(
+            Property.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -196,9 +196,9 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation {
+    ) -> Property {
         .phone(
-            Relation.Text(
+            Property.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -216,9 +216,9 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation {
+    ) -> Property {
         .email(
-            Relation.Text(
+            Property.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -236,9 +236,9 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation {
+    ) -> Property {
         .url(
-            Relation.Text(
+            Property.Text(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -257,23 +257,23 @@ private extension SinglePropertyBuilder {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation {
+    ) -> Property {
         
-        let selectedOption: Relation.Status.Option? = {
+        let selectedOption: Property.Status.Option? = {
             let optionId = details.stringValue(for: relationDetails.key)
             
             guard optionId.isNotEmpty else { return nil }
             
             guard let optionDetails = storage.get(id: optionId) else { return nil }
             let option = PropertyOption(details: optionDetails)
-            return Relation.Status.Option(option: option)
+            return Property.Status.Option(option: option)
         }()
-        var values = [Relation.Status.Option]()
+        var values = [Property.Status.Option]()
         if let selectedOption = selectedOption {
             values.append(selectedOption)
         }
         return .status(
-            Relation.Status(
+            Property.Status(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -291,14 +291,14 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation {
+    ) -> Property {
         let value: DatePropertyValue? = {
             guard let date = details.dateValue(for: relationDetails.key) else { return nil }
             return DatePropertyValue(date: date, text: dateFormatter.string(from: date))
         }()
         
         return .date(
-            Relation.Date(
+            Property.Date(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -316,9 +316,9 @@ private extension SinglePropertyBuilder {
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
-    ) -> Relation {
+    ) -> Property {
         .checkbox(
-            Relation.Checkbox(
+            Property.Checkbox(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -337,21 +337,21 @@ private extension SinglePropertyBuilder {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation {
+    ) -> Property {
         
-        let selectedTags: [Relation.Tag.Option] = {
+        let selectedTags: [Property.Tag.Option] = {
             let selectedTagIds = details.stringArrayValue(for: relationDetails.key)
             
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
                 .map { PropertyOption(details: $0) }
-                .map { Relation.Tag.Option(option: $0) }
+                .map { Property.Tag.Option(option: $0) }
 
             return tags
         }()
         
         return .tag(
-            Relation.Tag(
+            Property.Tag(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -370,16 +370,16 @@ private extension SinglePropertyBuilder {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation {
-        let objectOptions: [Relation.Object.Option] = {
+    ) -> Property {
+        let objectOptions: [Property.Object.Option] = {
             
             let values = details.stringValueOrArray(for: relationDetails)
 
-            let objectOptions: [Relation.Object.Option] = values.compactMap { valueId in
+            let objectOptions: [Property.Object.Option] = values.compactMap { valueId in
                 
                 if relationDetails.key == BundledPropertyKey.type.rawValue {
                     let type = details.objectType
-                    return Relation.Object.Option(
+                    return Property.Object.Option(
                         id: type.id,
                         icon: nil,
                         title: type.displayName,
@@ -393,7 +393,7 @@ private extension SinglePropertyBuilder {
                 guard let objectDetail = storage.get(id: valueId) else { return nil }
                     
                 if relationDetails.key == BundledPropertyKey.setOf.rawValue, objectDetail.isDeleted {
-                    return Relation.Object.Option(
+                    return Property.Object.Option(
                         id: valueId,
                         icon: .object(.placeholder("")),
                         title: Loc.deleted,
@@ -404,7 +404,7 @@ private extension SinglePropertyBuilder {
                     )
                 }
                 
-                return Relation.Object.Option(
+                return Property.Object.Option(
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
@@ -419,7 +419,7 @@ private extension SinglePropertyBuilder {
         }()
         
         return .object(
-            Relation.Object(
+            Property.Object(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
@@ -439,16 +439,16 @@ private extension SinglePropertyBuilder {
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
-    ) -> Relation {
-        let fileOptions: [Relation.File.Option] = {
+    ) -> Property {
+        let fileOptions: [Property.File.Option] = {
             let values = details.stringArrayValue(for: relationDetails.key)
             
             let objectDetails: [ObjectDetails] = values.compactMap {
                 return storage.get(id: $0)
             }
 
-            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
-                return Relation.File.Option(
+            let objectOptions: [Property.File.Option] = objectDetails.map { objectDetail in
+                return Property.File.Option(
                     id: objectDetail.id,
                     icon: objectDetail.objectIconImage,
                     title: objectDetail.title,
@@ -460,7 +460,7 @@ private extension SinglePropertyBuilder {
         }()
         
         return .file(
-            Relation.File(
+            Property.File(
                 id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,

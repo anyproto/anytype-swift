@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TagPropertyView: View {
-    let tags: [Relation.Tag.Option]
+    let tags: [Property.Tag.Option]
     let hint: String
     let style: PropertyStyle
 
@@ -39,7 +39,7 @@ struct TagPropertyView: View {
         .padding(.horizontal, 1)
     }
 
-    private func contnetView(tags: [Relation.Tag.Option]) -> some View {
+    private func contnetView(tags: [Property.Tag.Option]) -> some View {
         ForEach(tags) { tag in
             TagView(
                 config: TagView.Config(
@@ -93,16 +93,16 @@ struct TagRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TagPropertyView(
             tags: [
-                Relation.Tag.Option(id: "id1", text: "text1", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.default),
-                Relation.Tag.Option(id: "id2", text: "text2", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Relation.Tag.Option(id: "id3", text: "text3", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Relation.Tag.Option(id: "id4", text: "text4", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Relation.Tag.Option(id: "id5", text: "text5", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Relation.Tag.Option(id: "id6", text: "text6", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Relation.Tag.Option(id: "id7", text: "text7", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Relation.Tag.Option(id: "id8", text: "text8", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
-                Relation.Tag.Option(id: "id9", text: "text9", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
-                Relation.Tag.Option(id: "id10", text: "text10", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red)
+                Property.Tag.Option(id: "id1", text: "text1", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.default),
+                Property.Tag.Option(id: "id2", text: "text2", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
+                Property.Tag.Option(id: "id3", text: "text3", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
+                Property.Tag.Option(id: "id4", text: "text4", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
+                Property.Tag.Option(id: "id5", text: "text5", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
+                Property.Tag.Option(id: "id6", text: "text6", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
+                Property.Tag.Option(id: "id7", text: "text7", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
+                Property.Tag.Option(id: "id8", text: "text8", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red),
+                Property.Tag.Option(id: "id9", text: "text9", textColor: Color.Dark.teal, backgroundColor: Color.VeryLight.teal),
+                Property.Tag.Option(id: "id10", text: "text10", textColor: Color.Dark.red, backgroundColor: Color.VeryLight.red)
             ],
             hint: "Hint",
             style: .regular(allowMultiLine: false)

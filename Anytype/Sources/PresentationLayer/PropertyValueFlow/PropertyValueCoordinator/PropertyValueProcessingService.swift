@@ -5,7 +5,7 @@ import Services
 @MainActor
 protocol PropertyValueProcessingServiceProtocol {
     func handlePropertyValue(
-        relation: Relation,
+        relation: Property,
         objectDetails: ObjectDetails,
         analyticsType: AnalyticsEventsRelationType
     ) -> PropertyValueData?
@@ -22,7 +22,7 @@ fileprivate final class PropertyValueProcessingService: PropertyValueProcessingS
     nonisolated init() {}
     
     func handlePropertyValue(
-        relation: Relation,
+        relation: Property,
         objectDetails: ObjectDetails,
         analyticsType: AnalyticsEventsRelationType
     ) -> PropertyValueData? {
@@ -57,7 +57,7 @@ fileprivate final class PropertyValueProcessingService: PropertyValueProcessingS
 
 struct PropertyValueData: Identifiable {
     let id = UUID()
-    let relation: Relation
+    let relation: Property
     let objectDetails: ObjectDetails
     let analyticsType: AnalyticsEventsRelationType
 }

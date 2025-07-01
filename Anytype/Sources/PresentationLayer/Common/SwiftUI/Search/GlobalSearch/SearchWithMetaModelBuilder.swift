@@ -81,12 +81,12 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
         case .status:
             guard let details = meta.relationDetails.asDetails else { return nil }
             let option = PropertyOption(details: details)
-            let relationStatusOption = Relation.Status.Option(option: option)
+            let relationStatusOption = Property.Status.Option(option: option)
             return .status(name: relationDetails.name, option: relationStatusOption)
         case .tag:
             guard let details = meta.relationDetails.asDetails else { return nil }
             let option = PropertyOption(details: details)
-            let relationTagOption = Relation.Tag.Option(option: option)
+            let relationTagOption = Property.Tag.Option(option: option)
             return .tag(name: relationDetails.name, option: relationTagOption)
         default:
             return nil

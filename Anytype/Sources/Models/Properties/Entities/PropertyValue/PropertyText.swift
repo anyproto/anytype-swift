@@ -1,6 +1,6 @@
 import Services
 
-extension Relation {
+extension Property {
     
     struct Text: PropertyProtocol, Hashable, Identifiable {
         let id: String

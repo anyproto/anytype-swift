@@ -9,8 +9,8 @@ final class FeaturedPropertiesBlockViewModel: BlockViewModelProtocol {
     nonisolated var hashable: AnyHashable { info.id }
 
     private let document: any BaseDocumentProtocol
-    private var featuredRelations: [Relation]
-    private let onRelationTap: (Relation) -> Void
+    private var featuredRelations: [Property]
+    private let onRelationTap: (Property) -> Void
     private let collectionController: any EditorCollectionReloadable
     
     private var cancellables = [AnyCancellable]()
@@ -19,7 +19,7 @@ final class FeaturedPropertiesBlockViewModel: BlockViewModelProtocol {
         infoProvider: BlockModelInfomationProvider,
         document: some BaseDocumentProtocol,
         collectionController: some EditorCollectionReloadable,
-        onRelationValueTap: @escaping (Relation) -> Void
+        onRelationValueTap: @escaping (Property) -> Void
     ) {
         self.infoProvider = infoProvider
         self.document = document

@@ -1,8 +1,8 @@
 import Services
 
-extension Relation {
+extension Property {
     
-    struct Checkbox: PropertyProtocol, Hashable, Identifiable {
+    struct Date: PropertyProtocol, Hashable, Identifiable {
         let id: String
         let key: String
         let name: String
@@ -11,10 +11,10 @@ extension Relation {
         let canBeRemovedFromObject: Bool
         let isDeleted: Bool
         
-        let value: Bool
+        let value: DatePropertyValue?
         
         var hasValue: Bool {
-            return true
+            value != nil
         }
     }
     

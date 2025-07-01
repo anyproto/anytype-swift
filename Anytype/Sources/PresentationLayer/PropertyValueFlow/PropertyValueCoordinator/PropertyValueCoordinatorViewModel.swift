@@ -20,7 +20,7 @@ final class PropertyValueCoordinatorViewModel:
     
     var mediumDetent: Bool = false
     
-    private let relation: Relation
+    private let relation: Property
     private let objectDetails: ObjectDetails
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: (any PropertyValueCoordinatorOutput)?
@@ -173,7 +173,7 @@ final class PropertyValueCoordinatorViewModel:
         }
     }
     
-    private func dateModule(date: Relation.Date) -> AnyView {
+    private func dateModule(date: Property.Date) -> AnyView {
         if date.isEditable {
             let dateValue = date.value?.date
             let configuration = PropertyModuleConfiguration(

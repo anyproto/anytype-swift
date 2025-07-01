@@ -3,25 +3,25 @@ import Services
 
 struct ParsedProperties: Equatable, Sendable {
     
-    let featuredProperties: [Relation]
-    let sidebarProperties: [Relation]
-    let hiddenProperties: [Relation]
-    let conflictedProperties: [Relation]
-    let deletedProperties: [Relation]
-    let systemProperties: [Relation]
-    let legacyFeaturedProperties: [Relation]
+    let featuredProperties: [Property]
+    let sidebarProperties: [Property]
+    let hiddenProperties: [Property]
+    let conflictedProperties: [Property]
+    let deletedProperties: [Property]
+    let systemProperties: [Property]
+    let legacyFeaturedProperties: [Property]
     
-    var installed: [Relation] { featuredProperties + sidebarProperties + conflictedProperties + hiddenProperties + legacyFeaturedProperties }
-    var all: [Relation] { installed + deletedProperties }
+    var installed: [Property] { featuredProperties + sidebarProperties + conflictedProperties + hiddenProperties + legacyFeaturedProperties }
+    var all: [Property] { installed + deletedProperties }
     
     init(
-        featuredProperties: [Relation],
-        sidebarProperties: [Relation],
-        hiddenProperties: [Relation],
-        conflictedProperties: [Relation],
-        deletedProperties: [Relation],
-        systemProperties: [Relation],
-        legacyFeaturedProperties: [Relation]
+        featuredProperties: [Property],
+        sidebarProperties: [Property],
+        hiddenProperties: [Property],
+        conflictedProperties: [Property],
+        deletedProperties: [Property],
+        systemProperties: [Property],
+        legacyFeaturedProperties: [Property]
     ){
         self.featuredProperties = featuredProperties
         self.sidebarProperties = sidebarProperties

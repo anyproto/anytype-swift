@@ -189,7 +189,7 @@ extension SetFullHeader {
     }
     
     @ViewBuilder
-    private func relationContent(for relation: Relation) -> some View {
+    private func relationContent(for relation: Property) -> some View {
         let item = PropertyItemModel(property: relation)
         let style = PropertyStyle.featuredBlock(
             FeaturedPropertySettings(

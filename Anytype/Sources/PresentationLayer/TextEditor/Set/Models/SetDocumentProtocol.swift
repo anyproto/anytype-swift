@@ -20,7 +20,7 @@ protocol SetDocumentProtocol: AnyObject, Sendable {
     // TODO Refactor this
     var dataBuilder: any SetContentViewDataBuilderProtocol { get }
     
-    var featuredRelationsForEditor: [Relation] { get }
+    var featuredRelationsForEditor: [Property] { get }
     var parsedProperties: ParsedProperties { get }
     var setPermissions: SetPermissions { get }
     

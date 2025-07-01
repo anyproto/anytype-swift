@@ -28,16 +28,16 @@ final class StatusSearchInteractor {
 
 extension StatusSearchInteractor {
     
-    func search(text: String) async throws -> [Relation.Status.Option] {
+    func search(text: String) async throws -> [Property.Status.Option] {
         try await searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedStatusesIds,
             spaceId: spaceId
-        ).map { Relation.Status.Option(option: $0) }
+        ).map { Property.Status.Option(option: $0) }
     }
     
-    func isCreateButtonAvailable(searchText: String, statuses: [Relation.Status.Option]) -> Bool {
+    func isCreateButtonAvailable(searchText: String, statuses: [Property.Status.Option]) -> Bool {
         searchText.isNotEmpty && statuses.isEmpty
     }
     
