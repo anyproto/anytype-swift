@@ -6,11 +6,11 @@ import AnytypeCore
 
 protocol PropertiesBuilderProtocol: AnyObject {
     func parsedProperties(
-        objectProperties: [RelationDetails],
-        objectFeaturedProperties: [RelationDetails],
-        recommendedProperties: [RelationDetails],
-        recommendedFeaturedProperties: [RelationDetails],
-        recommendedHiddenProperties: [RelationDetails],
+        objectProperties: [PropertyDetails],
+        objectFeaturedProperties: [PropertyDetails],
+        recommendedProperties: [PropertyDetails],
+        recommendedFeaturedProperties: [PropertyDetails],
+        recommendedHiddenProperties: [PropertyDetails],
         objectId: String,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -23,11 +23,11 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
     private var builder: any SinglePropertyBuilderProtocol
     
     func parsedProperties(
-        objectProperties: [RelationDetails],
-        objectFeaturedProperties: [RelationDetails],
-        recommendedProperties: [RelationDetails],
-        recommendedFeaturedProperties: [RelationDetails],
-        recommendedHiddenProperties: [RelationDetails],
+        objectProperties: [PropertyDetails],
+        objectFeaturedProperties: [PropertyDetails],
+        recommendedProperties: [PropertyDetails],
+        recommendedFeaturedProperties: [PropertyDetails],
+        recommendedHiddenProperties: [PropertyDetails],
         objectId: String,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -100,7 +100,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
     }
     
     private func buildProperties(
-        relationDetails: [RelationDetails],
+        relationDetails: [PropertyDetails],
         objectDetails: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -134,7 +134,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
     }
     
     private func buildSystemProperties(
-        relationDetails: [RelationDetails],
+        relationDetails: [PropertyDetails],
         objectDetails: ObjectDetails,
         storage: ObjectDetailsStorage
     ) -> [Relation] {
@@ -152,7 +152,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
         }
     }
     
-    private func isPropertyCanBeAddedToList(_ property: RelationDetails) -> Bool {
+    private func isPropertyCanBeAddedToList(_ property: PropertyDetails) -> Bool {
         guard !property.isHidden else { return false }
         
         // We are filtering out description from the list of relations
@@ -168,7 +168,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
     
     //fallback to identiy if globalName is empty
     private func hackGlobalNameValue(
-        objectProperties: [RelationDetails],
+        objectProperties: [PropertyDetails],
         objectDetails: ObjectDetails,
         propertyValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
@@ -196,7 +196,7 @@ final class PropertiesBuilder: PropertiesBuilderProtocol {
     
     private func propertyForKey(
         key: String,
-        objectProperties: [RelationDetails],
+        objectProperties: [PropertyDetails],
         objectDetails: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,

@@ -96,7 +96,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
     private func createObject(
         setDocument: some SetDocumentProtocol,
         type: ObjectType?,
-        relationsDetails: [RelationDetails],
+        relationsDetails: [PropertyDetails],
         templateId: String?
     ) async throws -> SetObjectCreationResult {
         let details = try await dataviewService.addRecord(

@@ -2,16 +2,16 @@ import Services
 
 final class SetPropertiesDetailsLocalSearchInteractor {
     
-    private let relationsDetails: [RelationDetails]
+    private let relationsDetails: [PropertyDetails]
     
-    init(relationsDetails: [RelationDetails]) {
+    init(relationsDetails: [PropertyDetails]) {
         self.relationsDetails = relationsDetails
     }
 }
 
 extension SetPropertiesDetailsLocalSearchInteractor {
     
-    func search(text: String) -> Result<[RelationDetails], LegacySearchError> {
+    func search(text: String) -> Result<[PropertyDetails], LegacySearchError> {
         guard text.isNotEmpty else {
             return .success(relationsDetails)
         }
@@ -27,7 +27,7 @@ extension SetPropertiesDetailsLocalSearchInteractor {
         }
     }
     
-    func convert(ids: [String]) -> [RelationDetails] {
+    func convert(ids: [String]) -> [PropertyDetails] {
         return relationsDetails.filter { ids.contains($0.id) }
     }
 }

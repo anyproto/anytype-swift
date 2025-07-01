@@ -7,11 +7,11 @@ enum PropertiesInteractorError: Error {
 }
 
 protocol PropertiesInteractorProtocol: Sendable {
-    func createProperty(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
-    func updateProperty(spaceId: String, relation: RelationDetails) async throws
-    func addPropertyToType(relation: RelationDetails, isFeatured: Bool) async throws
-    func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws
-    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws
+    func createProperty(spaceId: String, relation: PropertyDetails) async throws -> PropertyDetails
+    func updateProperty(spaceId: String, relation: PropertyDetails) async throws
+    func addPropertyToType(relation: PropertyDetails, isFeatured: Bool) async throws
+    func addPropertyToDataview(objectId: String, relation: PropertyDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws
+    func addPropertyToObject(objectId: String, relation: PropertyDetails) async throws
 }
 
 final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
@@ -31,15 +31,15 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         }
     }
     
-    func createProperty(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
+    func createProperty(spaceId: String, relation: PropertyDetails) async throws -> PropertyDetails {
         try await propertiesService.createProperty(spaceId: spaceId, propertyDetails: relation)
     }
     
-    func updateProperty(spaceId: String, relation: RelationDetails) async throws {
+    func updateProperty(spaceId: String, relation: PropertyDetails) async throws {
         try await propertiesService.updateProperty(objectId: relation.id, fields: relation.fields)
     }
     
-    func addPropertyToType(relation: RelationDetails, isFeatured: Bool) async throws {
+    func addPropertyToType(relation: PropertyDetails, isFeatured: Bool) async throws {
         guard let document = document else { 
             throw PropertiesInteractorError.documentRequired 
         }
@@ -52,7 +52,7 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         }
     }
     
-    func addPropertyToDataview(objectId: String, relation: RelationDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
+    func addPropertyToDataview(objectId: String, relation: PropertyDetails, activeViewId: String, typeDetails: ObjectDetails?) async throws {
         if let typeDetails {
             try await addPropertyToType(relation: relation, details: typeDetails)
         } else {
@@ -63,11 +63,11 @@ final class PropertiesInteractor: PropertiesInteractorProtocol, Sendable {
         try await dataviewService.addViewRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)
     }
     
-    private func addPropertyToType(relation: RelationDetails, details: ObjectDetails) async throws {
+    private func addPropertyToType(relation: PropertyDetails, details: ObjectDetails) async throws {
         try await propertiesService.addTypeRecommendedProperty(details: details, property: relation)
     }
     
-    func addPropertyToObject(objectId: String, relation: RelationDetails) async throws {
+    func addPropertyToObject(objectId: String, relation: PropertyDetails) async throws {
         try await propertiesService.addProperties(objectId: objectId, propertiesDetails: [relation])
     }
 }

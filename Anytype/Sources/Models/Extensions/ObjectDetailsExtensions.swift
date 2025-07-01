@@ -95,14 +95,14 @@ extension BundledPropertiesValueProvider {
     }
     
     // Properties
-    var recommendedRelationsDetails: [RelationDetails] {
+    var recommendedRelationsDetails: [PropertyDetails] {
         Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
     }
-    var recommendedFeaturedRelationsDetails: [RelationDetails] {
+    var recommendedFeaturedRelationsDetails: [PropertyDetails] {
         Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
     }
 
-    var recommendedHiddenRelationsDetails: [RelationDetails] {
+    var recommendedHiddenRelationsDetails: [PropertyDetails] {
         Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
     }
     

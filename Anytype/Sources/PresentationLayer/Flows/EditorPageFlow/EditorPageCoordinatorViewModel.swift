@@ -96,7 +96,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .neutral)
     }
     
-    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
         guard let details = document.details else { return }
         relationsSearchData = PropertiesSearchData(
             objectId: details.type,

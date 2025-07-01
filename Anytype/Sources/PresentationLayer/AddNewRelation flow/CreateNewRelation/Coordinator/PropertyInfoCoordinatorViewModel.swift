@@ -5,7 +5,7 @@ import Combine
 
 @MainActor
 protocol PropertyInfoCoordinatorViewOutput: AnyObject {
-    func didPressConfirm(_ relation: RelationDetails)
+    func didPressConfirm(_ relation: PropertyDetails)
 }
 
 @MainActor
@@ -43,7 +43,7 @@ final class PropertyInfoCoordinatorViewModel: ObservableObject, PropertyInfoModu
         )
     }
     
-    func didPressConfirm(_ relation: RelationDetails) {
+    func didPressConfirm(_ relation: PropertyDetails) {
         output?.didPressConfirm(relation)
     }
     

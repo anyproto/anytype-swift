@@ -24,7 +24,7 @@ public protocol DataviewServiceProtocol: Sendable {
     @discardableResult
     func createView(objectId: String, blockId: String, view: DataviewView, source: [String]) async throws -> String
     func deleteView(objectId: String, blockId: String, viewId: String) async throws
-    func addRelation(objectId: String, blockId: String, relationDetails: RelationDetails) async throws
+    func addRelation(objectId: String, blockId: String, relationDetails: PropertyDetails) async throws
     func deleteRelation(objectId: String, blockId: String, relationKey: String) async throws
     func addRecord(
         typeUniqueKey: ObjectTypeUniqueKey?,

@@ -38,7 +38,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         }
     }
     
-    var dataViewRelationsDetails: [RelationDetails] = []
+    var dataViewRelationsDetails: [PropertyDetails] = []
     
     var analyticsType: AnalyticsObjectType {
         details?.analyticsType ?? .object(typeId: "")
@@ -134,7 +134,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         (details?.filteredSetOf.isNotEmpty ?? false) || isCollection()
     }
     
-    func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails] {
+    func viewRelations(viewId: String, excludeRelations: [PropertyDetails]) -> [PropertyDetails] {
         let view = view(by: viewId)
         return dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
@@ -269,13 +269,13 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         dataViewRelationsDetails = enrichedByDoneRelationIfNeeded(relationsDetails: relationsDetails)
     }
     
-    private func enrichedByDoneRelationIfNeeded(relationsDetails: [RelationDetails]) -> [RelationDetails] {
+    private func enrichedByDoneRelationIfNeeded(relationsDetails: [PropertyDetails]) -> [PropertyDetails] {
         // force insert Done relation for dataView if needed
         let containsDoneRelation = relationsDetails.first { $0.key == BundledPropertyKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
-        if !containsDoneRelation, let doneRelationDetails {
+        let donePropertyDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
+        if !containsDoneRelation, let donePropertyDetails {
             var relationsDetails = relationsDetails
-            relationsDetails.append(doneRelationDetails)
+            relationsDetails.append(donePropertyDetails)
             return relationsDetails
         } else {
             return relationsDetails

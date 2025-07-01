@@ -8,5 +8,5 @@ struct PropertiesSearchData: Identifiable {
     let excludedRelationsIds: [String]
     let target: PropertiesModuleTarget
     @EquatableNoop
-    var onRelationSelect: (_ relationDetails: RelationDetails, _ isNew: Bool) -> Void
+    var onRelationSelect: (_ relationDetails: PropertyDetails, _ isNew: Bool) -> Void
 }

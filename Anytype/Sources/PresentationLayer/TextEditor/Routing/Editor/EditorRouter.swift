@@ -400,7 +400,7 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
         output?.showAddPropertyInfoView(document: document, onSelect: onSelect)
     }
 }

@@ -5,7 +5,7 @@ import AnytypeCore
 
 @MainActor
 protocol SetPropertiesCoordinatorOutput: AnyObject {
-    func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func onAddButtonTap(completion: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
 }
 
 @MainActor
@@ -25,7 +25,7 @@ final class SetPropertiesCoordinatorViewModel:
     
     // MARK: - EditorSetPropertiesCoordinatorOutput
 
-    func onAddButtonTap(completion: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func onAddButtonTap(completion: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
         
         // In case we are working with set in object type we have to update relations of this type as well
         var typeDetails: ObjectDetails? = nil

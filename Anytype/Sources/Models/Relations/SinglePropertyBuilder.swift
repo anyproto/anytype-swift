@@ -4,7 +4,7 @@ import Foundation
 
 protocol SinglePropertyBuilderProtocol {
     func property(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -18,7 +18,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
     
     
     func property(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -132,7 +132,7 @@ final class SinglePropertyBuilder: SinglePropertyBuilderProtocol {
 
 private extension SinglePropertyBuilder {    
     func textProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -152,7 +152,7 @@ private extension SinglePropertyBuilder {
     }
     
     func numberProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -192,7 +192,7 @@ private extension SinglePropertyBuilder {
     }
     
     func phoneProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -212,7 +212,7 @@ private extension SinglePropertyBuilder {
     }
     
     func emailProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -232,7 +232,7 @@ private extension SinglePropertyBuilder {
     }
     
     func urlProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -252,7 +252,7 @@ private extension SinglePropertyBuilder {
     }
     
     func statusProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -287,7 +287,7 @@ private extension SinglePropertyBuilder {
     }
     
     func dateProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -312,7 +312,7 @@ private extension SinglePropertyBuilder {
     }
     
     func checkboxProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool
@@ -332,7 +332,7 @@ private extension SinglePropertyBuilder {
     }
     
     func tagProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -365,7 +365,7 @@ private extension SinglePropertyBuilder {
     }
     
     func objectProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -434,7 +434,7 @@ private extension SinglePropertyBuilder {
     }
     
     func fileProperty(
-        relationDetails: RelationDetails,
+        relationDetails: PropertyDetails,
         details: ObjectDetails,
         isFeatured: Bool,
         propertyValuesIsLocked: Bool,
@@ -475,7 +475,7 @@ private extension SinglePropertyBuilder {
 }
 
 
-private extension RelationDetails {
+private extension PropertyDetails {
     
     func isEditable(valueLockedInObject: Bool) -> Bool {
         guard !valueLockedInObject else { return false }

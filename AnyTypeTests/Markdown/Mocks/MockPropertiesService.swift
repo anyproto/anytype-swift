@@ -7,7 +7,7 @@ class MockPropertiesService: PropertiesServiceProtocol {
     // Last call data storage
     var lastUpdateProperty: (objectId: String, propertyKey: String, value: Google_Protobuf_Value)?
     var lastUpdatePropertyOption: (id: String, text: String, color: String?)?
-    var lastCreateProperty: (spaceId: String, propertyDetails: RelationDetails)?
+    var lastCreateProperty: (spaceId: String, propertyDetails: PropertyDetails)?
     var lastAddProperties: (objectId: String, properties: Any)?
     var lastRemoveProperty: (objectId: String, propertyKey: String)?
     var lastRemoveProperties: (objectId: String, propertyKeys: [String])?
@@ -15,7 +15,7 @@ class MockPropertiesService: PropertiesServiceProtocol {
     var lastRemovePropertyOptions: [String]?
     
     // Type properties last call data
-    var lastUpdateTypeProperties: (typeId: String, dataviewId: String, recommendedProperties: [RelationDetails], recommendedFeaturedProperties: [RelationDetails], recommendedHiddenProperties: [RelationDetails])?
+    var lastUpdateTypeProperties: (typeId: String, dataviewId: String, recommendedProperties: [PropertyDetails], recommendedFeaturedProperties: [PropertyDetails], recommendedHiddenProperties: [PropertyDetails])?
     var lastGetConflictPropertiesForType: (typeId: String, spaceId: String)?
     var lastSetFeaturedProperty: (objectId: String, featuredPropertyIds: [String])?
     var lastToggleDescription: (objectId: String, isOn: Bool)?
@@ -52,7 +52,7 @@ class MockPropertiesService: PropertiesServiceProtocol {
         // Implementation needed
     }
     
-    func createProperty(spaceId: String, propertyDetails: RelationDetails) async throws -> RelationDetails {
+    func createProperty(spaceId: String, propertyDetails: PropertyDetails) async throws -> PropertyDetails {
         lastCreateProperty = (spaceId, propertyDetails)
         if let error = createPropertyError {
             throw error
@@ -60,7 +60,7 @@ class MockPropertiesService: PropertiesServiceProtocol {
         return propertyDetails
     }
     
-    func addProperties(objectId: String, propertiesDetails: [RelationDetails]) async throws {
+    func addProperties(objectId: String, propertiesDetails: [PropertyDetails]) async throws {
         lastAddProperties = (objectId, propertiesDetails)
         if let error = addPropertiesError {
             throw error
@@ -106,9 +106,9 @@ class MockPropertiesService: PropertiesServiceProtocol {
     func updateTypeProperties(
         typeId: String,
         dataviewId: String,
-        recommendedProperties: [RelationDetails],
-        recommendedFeaturedProperties: [RelationDetails],
-        recommendedHiddenProperties: [RelationDetails]
+        recommendedProperties: [PropertyDetails],
+        recommendedFeaturedProperties: [PropertyDetails],
+        recommendedHiddenProperties: [PropertyDetails]
     ) async throws {
         lastUpdateTypeProperties = (typeId, dataviewId, recommendedProperties, recommendedFeaturedProperties, recommendedHiddenProperties)
         if let error = updateTypePropertiesError {

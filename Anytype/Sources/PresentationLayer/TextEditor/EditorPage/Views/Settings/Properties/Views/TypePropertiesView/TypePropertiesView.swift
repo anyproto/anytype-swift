@@ -173,7 +173,7 @@ struct TypePropertiesView: View {
         }
     }
     
-    private func localFieldRow(_ data: RelationDetails) -> some View {
+    private func localFieldRow(_ data: PropertyDetails) -> some View {
         HStack(spacing: 0) {
             Menu {
                 Button(Loc.Fields.addToType) { model.onAddConflictRelation(data) }

@@ -33,7 +33,7 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        let excludeRelations: [RelationDetails] = setDocument.sorts(for: viewId).map { $0.relationDetails }
+        let excludeRelations: [PropertyDetails] = setDocument.sorts(for: viewId).map { $0.relationDetails }
         let relationsDetails = setDocument.viewRelations(viewId: viewId, excludeRelations: excludeRelations)
         output?.onAddButtonTap(relationDetails: relationsDetails, completion: { [weak self] relationDetails in
             self?.addNewSort(with: relationDetails)
@@ -86,7 +86,7 @@ extension SetSortsListViewModel {
         }
     }
     
-    func addNewSort(with relation: RelationDetails) {
+    func addNewSort(with relation: PropertyDetails) {
         let newSort = DataviewSort(
             relationKey: relation.key,
             type: .asc
