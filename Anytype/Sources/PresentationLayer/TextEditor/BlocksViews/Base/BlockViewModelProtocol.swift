@@ -19,7 +19,7 @@ protocol ClassNameProvider {
 }
 
 extension BlockViewModelProtocol {
-    var hashable: AnyHashable { className + info.id }
+    nonisolated var hashable: AnyHashable { className + info.id }
 }
 
 protocol ContentConfigurationProvider: BlockFocusing {
