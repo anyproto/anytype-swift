@@ -5,23 +5,25 @@ typealias BlockMapping = Dictionary<String, any BlockViewModelProtocol>
 
 final class EditorMainItemModelsHolder {
     var items = [EditorItem]() {
-        didSet {
-            let dictionary = items.reduce(into: BlockMapping(), { result, pair in
-                guard case let .block(blockViewModel) = pair else { return }
-                
-                if let viewModel = result[blockViewModel.blockId] {
-                    anytypeAssertionFailure("There are duplicates with block type: \(viewModel.content.type)")
-                }
-                
-                result[blockViewModel.blockId] = blockViewModel
-            })
-            
-            blocksMapping = dictionary
-        }
+        didSet { updateMappings() }
     }
     
     var header: ObjectHeader?
     var blocksMapping = BlockMapping()
+    
+    func updateMappings() {
+        let dictionary = items.reduce(into: BlockMapping(), { result, pair in
+            guard case let .block(blockViewModel) = pair else { return }
+            
+            if let viewModel = result[blockViewModel.blockId] {
+                anytypeAssertionFailure("There are duplicates with block type: \(viewModel.content.type)")
+            }
+            
+            result[blockViewModel.blockId] = blockViewModel
+        })
+        
+        blocksMapping = dictionary
+    }
 }
 
 // MARK: - Models searching
@@ -99,6 +101,18 @@ extension EditorMainItemModelsHolder {
         if !difference.isEmpty, let result = items.applying(difference) {
             items = result
         }
+    }
+    
+    func updateItems(_ newItems: [EditorItem]) {
+        newItems.forEach { newItem in
+            guard let oldItemIndex = items.firstIndex(where: { $0.id == newItem.id }) else { return }
+            let oldItem = items[oldItemIndex]
+            guard oldItem != newItem else { return }
+            
+            items[oldItemIndex] = newItem
+        }
+        
+        updateMappings()
     }
 }
 

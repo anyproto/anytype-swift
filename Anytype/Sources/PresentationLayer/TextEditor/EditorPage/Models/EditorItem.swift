@@ -28,6 +28,15 @@ enum EditorItem: Hashable, @unchecked Sendable {
             hasher.combine(system.hashable)
         }
     }
+    
+    var id: String? {
+        switch self {
+        case let .block(block):
+            return block.info.id
+        case .header, .system:
+            return nil
+        }
+    }
 }
 
 extension EditorItem: HashableProvier {

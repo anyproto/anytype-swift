@@ -308,9 +308,36 @@ extension EditorPageController: EditorPageViewInput {
         guard items.count > 0 else { return }
 
         var snapshot = dataSource.snapshot()
+        let notExistingItems = items.filter { !snapshot.itemIdentifiers.contains($0) }
+        
+        // If we received an update for item not presented in a data source
+        // probably the new item is a new view model for an existing block. So we have to check by ID.
+        // Example: BlockFileViewModel -> BlockImageViewModel when uploading image into file block
+        for item in notExistingItems {
+            guard let itemId = item.id else { continue }
+            guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.id == itemId }) else {
+                anytypeAssertionFailure(
+                    "Not found old item in snapshot",
+                    info: ["item": String(describing: item)]
+                )
+                continue
+            }
+            guard let index = snapshot.indexOfItem(oldItem) else { continue }
+            guard let previousItem = snapshot.itemIdentifiers[safe: index - 1] else {
+                anytypeAssertionFailure(
+                    "Not found previous item in snapshot",
+                    info: ["oldItem": String(describing: oldItem)]
+                )
+                continue
+            }
+            
+            snapshot.deleteItems([oldItem])
+            snapshot.insertItems([item], afterItem: previousItem)
+        }
         
         let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
-        snapshot.reconfigureItems(existingItems)
+        snapshot.reloadItems(existingItems)
+        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 
