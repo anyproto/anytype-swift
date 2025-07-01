@@ -235,6 +235,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
+            let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
+            AnytypeAnalytics.instance().logSentMessage(type: type)
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
             clearInput()

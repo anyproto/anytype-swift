@@ -402,3 +402,9 @@ enum ClickAllowPushType: String {
     case enableNotifications = "EnableNotifications"
     case settings = "Settings"
 }
+
+enum SentMessageType: String {
+    case text = "Text"
+    case attachment = "Attachment"
+    case mixed = "Mixed"
+}
