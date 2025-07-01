@@ -125,11 +125,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddPageToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pages)
         let data = buildObjectSearcData(type: .pages)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddListToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .lists)
         let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
