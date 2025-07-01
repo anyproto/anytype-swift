@@ -30,7 +30,7 @@ final class PropertyBlockViewModel: BlockViewModelProtocol {
 
     // MARK: - BlockViewModelProtocol methods
 
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "PropertyBlockViewModel"
     
     init(
         blockInformationProvider: BlockModelInfomationProvider,

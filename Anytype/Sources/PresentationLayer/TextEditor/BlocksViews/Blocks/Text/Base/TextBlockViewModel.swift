@@ -43,7 +43,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     private var customBackgroundColor: UIColor?
     private var cursorManager: EditorCursorManager
     
-    nonisolated var hashable: AnyHashable { blockInformationProvider.info.id }
+    let className = "TextBlockViewModel"
     
     private var cancellables = [AnyCancellable]()
     

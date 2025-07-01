@@ -3,7 +3,7 @@ import UIKit
 import Services
 
 struct CodeBlockViewModel: BlockViewModelProtocol {    
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "CodeBlockViewModel"
     nonisolated var info: BlockInformation { infoProvider.info }
     
     let infoProvider: BlockModelInfomationProvider

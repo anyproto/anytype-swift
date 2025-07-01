@@ -5,14 +5,24 @@ import AnytypeCore
 @MainActor
 protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
-    BlockInformationProvider
+    BlockInformationProvider,
+    HashableProvier,
+    ClassNameProvider
 { }
 
 protocol HashableProvier {
     var hashable: AnyHashable { get }
 }
 
-protocol ContentConfigurationProvider: HashableProvier, BlockFocusing {
+protocol ClassNameProvider {
+    var className: String { get }
+}
+
+extension BlockViewModelProtocol {
+    var hashable: AnyHashable { className + info.id }
+}
+
+protocol ContentConfigurationProvider: BlockFocusing {
     @MainActor
     func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration
     @MainActor
