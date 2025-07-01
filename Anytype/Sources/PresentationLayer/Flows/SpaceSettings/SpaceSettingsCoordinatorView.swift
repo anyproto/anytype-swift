@@ -43,7 +43,6 @@ struct SpaceSettingsCoordinatorView: View {
             }
             .sheet(item: $model.spaceNotificationsSettingsModuleData) {
                 SpaceNotificationsSettingsView(data: $0)
-                    .mediumPresentationDetents()
             }
     }
 }
