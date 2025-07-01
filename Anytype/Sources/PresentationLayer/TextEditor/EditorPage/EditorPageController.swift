@@ -316,12 +316,18 @@ extension EditorPageController: EditorPageViewInput {
         for item in notExistingItems {
             guard let itemId = item.id else { continue }
             guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.id == itemId }) else {
-                anytypeAssertionFailure("Not found old item in snapshot", info: ["item": item] )
+                anytypeAssertionFailure(
+                    "Not found old item in snapshot",
+                    info: ["item": String(describing: item)]
+                )
                 continue
             }
             guard let index = snapshot.indexOfItem(oldItem) else { continue }
             guard let previousItem = snapshot.itemIdentifiers[safe: index - 1] else {
-                anytypeAssertionFailure("Not found previous item in snapshot", info: ["oldItem": oldItem] )
+                anytypeAssertionFailure(
+                    "Not found previous item in snapshot",
+                    info: ["oldItem": String(describing: oldItem)]
+                )
                 continue
             }
             
