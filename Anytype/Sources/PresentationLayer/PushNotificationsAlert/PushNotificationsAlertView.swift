@@ -21,7 +21,6 @@ struct PushNotificationsAlertView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
-            .background(Color.Background.secondary)
     }
     
     private var content: some View {

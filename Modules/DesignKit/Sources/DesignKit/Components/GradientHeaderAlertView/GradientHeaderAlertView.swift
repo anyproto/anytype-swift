@@ -36,6 +36,7 @@ public struct GradientHeaderAlertView<HeaderContent: View>: View {
             
             Spacer.fixedHeight(16)
         }
+        .background(Color.Background.secondary)
     }
     
     private var header: some View {
