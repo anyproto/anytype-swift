@@ -168,6 +168,12 @@ The project uses Factory for dependency injection. Services are registered in:
 - **Do not include AI-generated signatures** in commit messages or pull requests (no "Generated with Claude Code" or "Co-Authored-By: Claude")
 - **We only do work in Feature branches. We never push anything to develop or main directly**
 
+### GitHub CLI Usage
+- **Always use the `gh` tool for GitHub operations** instead of WebFetch or other tools
+- Use `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift` to get PR details
+- Use `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift` to see code changes
+- This provides faster access to PR information and avoids rate limits
+
 ### Pull Request Format
 Keep pull requests simple and concise:
 ```
@@ -199,6 +205,7 @@ Before starting work on any issue, you must identify the task number:
 3. **Getting Issue Context**: Once you have the task number:
    - Use Linear MCP to fetch the issue details: `mcp__linear__get_issue` with the task ID
    - Download all issue information including description, comments, and requirements
+   - **Check for attached PRs**: Linear issues often have related pull requests attached - use `gh` tool to examine these PRs for additional context about previous work or related changes
    - Use this context to understand the full scope of work
 
 4. **Branch Management**: Switch to the appropriate feature branch using the standard naming convention (`ios-XXXX-description`)
