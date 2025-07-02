@@ -108,10 +108,12 @@ extension UIColor {
     }
     // MARK: - Gradients
     public enum Gradients {
-      // MARK: - Push
-      public enum Push {
-        public static let violetEnd = UIColor(asset: Asset.Gradients.Push.violetEnd)
-        public static let violetStart = UIColor(asset: Asset.Gradients.Push.violetStart)
+      // MARK: - HeaderAlert
+      public enum HeaderAlert {
+        public static let redEnd = UIColor(asset: Asset.Gradients.HeaderAlert.redEnd)
+        public static let redStart = UIColor(asset: Asset.Gradients.HeaderAlert.redStart)
+        public static let violetEnd = UIColor(asset: Asset.Gradients.HeaderAlert.violetEnd)
+        public static let violetStart = UIColor(asset: Asset.Gradients.HeaderAlert.violetStart)
       }
       // MARK: - UpdateAlert
       public enum UpdateAlert {

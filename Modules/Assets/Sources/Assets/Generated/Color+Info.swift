@@ -187,8 +187,10 @@ public extension UIColor.Gradients {
     static let collectionInfo = ColorCollectionInfo(
         name: "Gradients",
         colors: [
-            ColorInfo(name: "violetEnd", color: UIColor.Gradients.Push.violetEnd),
-            ColorInfo(name: "violetStart", color: UIColor.Gradients.Push.violetStart)
+            ColorInfo(name: "redEnd", color: UIColor.Gradients.HeaderAlert.redEnd),
+            ColorInfo(name: "redStart", color: UIColor.Gradients.HeaderAlert.redStart),
+            ColorInfo(name: "violetEnd", color: UIColor.Gradients.HeaderAlert.violetEnd),
+            ColorInfo(name: "violetStart", color: UIColor.Gradients.HeaderAlert.violetStart)
     ,
             ColorInfo(name: "darkBlue", color: UIColor.Gradients.UpdateAlert.darkBlue),
             ColorInfo(name: "green", color: UIColor.Gradients.UpdateAlert.green),
