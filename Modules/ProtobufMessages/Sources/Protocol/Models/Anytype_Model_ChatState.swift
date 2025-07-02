@@ -38,6 +38,9 @@ public struct Anytype_Model_ChatState: Sendable {
   /// reflects the state of the chat db at the moment of sending response/event that includes this state
   public var lastStateID: String = String()
 
+  /// Order is serial number of this state. Client should apply chat state only if its order is greater than previously saved order
+  public var order: Int64 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -52,6 +55,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
     1: .same(proto: "messages"),
     2: .same(proto: "mentions"),
     3: .same(proto: "lastStateId"),
+    4: .same(proto: "order"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -63,6 +67,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
       case 1: try { try decoder.decodeSingularMessageField(value: &self._messages) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._mentions) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.lastStateID) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.order) }()
       default: break
       }
     }
@@ -82,6 +87,9 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
     if !self.lastStateID.isEmpty {
       try visitor.visitSingularStringField(value: self.lastStateID, fieldNumber: 3)
     }
+    if self.order != 0 {
+      try visitor.visitSingularInt64Field(value: self.order, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -89,6 +97,7 @@ extension Anytype_Model_ChatState: SwiftProtobuf.Message, SwiftProtobuf._Message
     if lhs._messages != rhs._messages {return false}
     if lhs._mentions != rhs._mentions {return false}
     if lhs.lastStateID != rhs.lastStateID {return false}
+    if lhs.order != rhs.order {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
