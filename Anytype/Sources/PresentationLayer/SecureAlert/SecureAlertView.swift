@@ -37,7 +37,7 @@ struct SecureAlertView: View {
             
             Spacer.fixedHeight(16)
             
-            Image(asset: .PushNotifications.screenTop)
+            Image(asset: .Secure.screenTop)
         }
     }
 }
