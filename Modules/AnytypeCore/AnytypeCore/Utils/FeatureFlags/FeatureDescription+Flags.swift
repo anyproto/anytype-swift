@@ -122,7 +122,6 @@ public extension FeatureDescription {
         debugValue: true
     )
     
-    
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
@@ -217,7 +216,7 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let binScreenEmptyAction = FeatureDescription(
