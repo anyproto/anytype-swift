@@ -26,6 +26,7 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var profileIcon: Icon?
     
     private weak var output: (any SpaceHubModuleOutput)?
+    private let showOnlyChats: Bool
     
     var showPlusInNavbar: Bool {
         guard let allSpaces else { return false }
@@ -49,8 +50,9 @@ final class SpaceHubViewModel: ObservableObject {
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     
-    init(output: (any SpaceHubModuleOutput)?) {
+    init(output: (any SpaceHubModuleOutput)?, showOnlyChats: Bool) {
         self.output = output
+        self.showOnlyChats = showOnlyChats
     }
     
     func onTapCreateSpace() {
@@ -117,6 +119,8 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
+            let spaces = showOnlyChats ? spaces.filter { $0.space.spaceView.chatId.isNotEmpty } : spaces
+            
             self.unreadSpaces = spaces
                 .filter { $0.preview.unreadCounter > 0 }
                 .sorted {

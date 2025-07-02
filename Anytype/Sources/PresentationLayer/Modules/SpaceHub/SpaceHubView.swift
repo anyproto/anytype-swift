@@ -10,7 +10,9 @@ struct SpaceHubView: View {
     @State private var offset: CGPoint?
     
     init(output: (any SpaceHubModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
+        _model = StateObject(wrappedValue: SpaceHubViewModel(
+            output: output, showOnlyChats: FeatureFlags.newHome ? true : false
+        ))
     }
     
     var body: some View {
