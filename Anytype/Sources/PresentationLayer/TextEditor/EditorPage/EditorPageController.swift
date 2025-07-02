@@ -316,10 +316,6 @@ extension EditorPageController: EditorPageViewInput {
         for item in notExistingItems {
             guard let itemId = item.id else { continue }
             guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.id == itemId }) else {
-                anytypeAssertionFailure(
-                    "Not found old item in snapshot",
-                    info: ["item": String(describing: item)]
-                )
                 continue
             }
             guard let index = snapshot.indexOfItem(oldItem) else { continue }
@@ -336,7 +332,7 @@ extension EditorPageController: EditorPageViewInput {
         }
         
         let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
-        snapshot.reloadItems(existingItems)
+        snapshot.reconfigureItems(existingItems)
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
