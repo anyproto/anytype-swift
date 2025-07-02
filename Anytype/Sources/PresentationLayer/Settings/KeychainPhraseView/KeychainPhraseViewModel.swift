@@ -31,9 +31,6 @@ class KeychainPhraseViewModel: ObservableObject {
             if recoveryPhrase.isNil {
                 try await obtainRecoveryPhrase()
             }
-            
-            onSuccessfullRecovery()
-            showToast()
         }
     }
     
@@ -41,7 +38,10 @@ class KeychainPhraseViewModel: ObservableObject {
     
     private func obtainRecoveryPhrase() async throws {
         try await localAuthWithContinuation { [weak self] in
-            try self?.obtainSeed()
+            guard let self else { return }
+            try obtainSeed()
+            onSuccessfullRecovery()
+            showToast()
         }
     }
     
