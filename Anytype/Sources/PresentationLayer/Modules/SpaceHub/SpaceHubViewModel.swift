@@ -119,6 +119,7 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
+            // todo change chatId check to uxType when fixed
             let spaces = showOnlyChats ? spaces.filter { $0.space.spaceView.chatId.isNotEmpty } : spaces
             
             self.unreadSpaces = spaces
