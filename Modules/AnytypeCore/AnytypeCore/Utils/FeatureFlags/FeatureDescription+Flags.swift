@@ -119,7 +119,7 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
-        debugValue: false
+        debugValue: true
     )
     
     
@@ -226,6 +226,14 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let newHome = FeatureDescription(
+        title: "New Home prototype",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
