@@ -172,7 +172,10 @@ struct SpaceHubView: View {
             draggable: draggable,
             draggedSpace: $draggedSpace,
             onTap: {
-                model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
+                model.onSpaceTap(
+                    spaceId: space.spaceView.targetSpaceId,
+                    presentation: FeatureFlags.newHome ? .chat : nil
+                )
             },
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)

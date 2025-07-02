@@ -63,9 +63,9 @@ final class SpaceHubViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenVault(type: "General")
     }
     
-    func onSpaceTap(spaceId: String) {
+    func onSpaceTap(spaceId: String, presentation: SpacePreferredPresentationMode?) {
         if FeatureFlags.spaceLoadingForScreen {
-            output?.onSelectSpace(spaceId: spaceId)
+            output?.onSelectSpace(spaceId: spaceId, preferredPresentation: presentation)
             UISelectionFeedbackGenerator().selectionChanged()
         } else {
             Task {

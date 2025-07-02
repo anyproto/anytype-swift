@@ -209,8 +209,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         }
     }
     
-    func onSelectSpace(spaceId: String) {
-        Task { try await openSpaceWithIntialScreen(spaceId: spaceId) }
+    func onSelectSpace(spaceId: String, preferredPresentation: SpacePreferredPresentationMode?) {
+        Task { try await openSpaceWithIntialScreen(spaceId: spaceId, preferredPresentation: preferredPresentation) }
     }
     
     // MARK: - Private
@@ -231,14 +231,21 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         Task { try await showScreen(data: data) }
     }
     
-    private func openSpaceWithIntialScreen(spaceId: String) async throws {
+    private func openSpaceWithIntialScreen(spaceId: String, preferredPresentation: SpacePreferredPresentationMode?) async throws {
         let spaceView = try await setActiveSpace(spaceId: spaceId)
-        if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
-            let chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
-            try await showScreen(data: .chat(chatData))
-        } else {
+        
+        switch preferredPresentation {
+        case .widgets:
             let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
             try await showScreen(data: .widget(widgetData))
+        case .chat, nil:
+            if spaceView.initialScreenIsChat, (spaceView.chatToggleEnable || preferredPresentation == .chat) {
+                let chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
+                try await showScreen(data: .chat(chatData))
+            } else {
+                let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
+                try await showScreen(data: .widget(widgetData))
+            }
         }
     }
     
@@ -341,7 +348,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         
         if let info {
             do {
-                try await openSpaceWithIntialScreen(spaceId: info.accountSpaceId)
+                try await openSpaceWithIntialScreen(spaceId: info.accountSpaceId, preferredPresentation: nil)
             } catch {
                 await dismissAllPresented?()
                 navigationPath.popToRoot()

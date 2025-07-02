@@ -122,7 +122,7 @@ struct OldSpaceHubView: View {
             wallpeper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
             draggedSpace: $draggedSpace,
             onTap: {
-                model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
+                model.onSpaceTap(spaceId: space.spaceView.targetSpaceId, presentation: .widgets)
             },
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)
