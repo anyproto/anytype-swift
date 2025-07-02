@@ -29,6 +29,9 @@ struct SecureAlertView: View {
                 )
             ]
         )
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
     }
     
     private var headerContent: some View {
