@@ -24,6 +24,7 @@ final class LoginViewModel: ObservableObject {
     @Published var dismiss = false
     @Published var accountId: String?
     @Published var migrationData: MigrationModuleData?
+    @Published var secureAlertData: SecureAlertData?
     
     var loginButtonDisabled: Bool {
         phrase.isEmpty || loadingRoute.isKeychainInProgress || loadingRoute.isQRInProgress
@@ -97,9 +98,25 @@ final class LoginViewModel: ObservableObject {
     func onKeychainButtonAction() {
         AnytypeAnalytics.instance().logClickLogin(button: .keychain)
         Task {
-            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
-            let phrase = try seedService.obtainSeed()
-            await walletRecovery(with: phrase, route: .keychain)
+            try await localAuthWithContinuation { [weak self] in
+                guard let self else { return }
+                let phrase = try seedService.obtainSeed()
+                await walletRecovery(with: phrase, route: .keychain)
+            }
+        }
+    }
+    
+    private func localAuthWithContinuation(_ continuation: @escaping () async throws -> Void) async throws {
+        do {
+            try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
+            try await continuation()
+        } catch LocalAuthServiceError.passcodeNotSet {
+            secureAlertData = SecureAlertData(completion: { proceed in
+                Task {
+                    guard proceed else { return }
+                    try await continuation()
+                }
+            })
         }
     }
     

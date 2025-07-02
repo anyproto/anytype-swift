@@ -27,6 +27,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData?
     @Published var middlewareShareFile: URL? = nil
     @Published var localStoreURL: URL? = nil
+    @Published var secureAlertData: SecureAlertData?
     
     var userId: String {
         basicUserInfoStorage.usersId
@@ -55,20 +56,24 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     func onCopyPhrase() {
         Task {
-            try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
-            let phrase = try seedService.obtainSeed()
-            UIPasteboard.general.string = phrase
-            toastBarData = ToastBarData(Loc.copied)
+            try await localAuthWithContinuation(reason: Loc.accessToKeyFromKeychain) { [weak self] in
+                guard let self else { return }
+                let phrase = try seedService.obtainSeed()
+                UIPasteboard.general.string = phrase
+                toastBarData = ToastBarData(Loc.copied)
+            }
         }
     }
     
     func onShareMiddleware() {
         Task {
-            try await localAuthService.auth(reason: "Share working directory")
-            let source = localRepoService.middlewareRepoURL
-            let to = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
-            try FileManager.default.zipItem(at: source, to: to)
-            middlewareShareFile = to
+            try await localAuthWithContinuation(reason: "Share working directory") { [weak self] in
+                guard let self else { return }
+                let source = localRepoService.middlewareRepoURL
+                let to = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
+                try FileManager.default.zipItem(at: source, to: to)
+                middlewareShareFile = to
+            }
         }
     }
     
@@ -83,6 +88,20 @@ final class InitialCoordinatorViewModel: ObservableObject {
             applicationStateService.state = .login
         } else {
             applicationStateService.state = .auth
+        }
+    }
+    
+    private func localAuthWithContinuation(reason: String, continuation: @escaping () async throws -> Void) async throws {
+        do {
+            try await localAuthService.auth(reason: reason)
+            try await continuation()
+        } catch LocalAuthServiceError.passcodeNotSet {
+            secureAlertData = SecureAlertData(completion: { proceed in
+                Task {
+                    guard proceed else { return }
+                    try await continuation()
+                }
+            })
         }
     }
     

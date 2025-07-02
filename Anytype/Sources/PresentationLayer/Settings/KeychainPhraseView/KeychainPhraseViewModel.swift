@@ -16,6 +16,7 @@ class KeychainPhraseViewModel: ObservableObject {
     
     @Published private(set) var recoveryPhrase: String? = nil
     @Published var toastBarData: ToastBarData?
+    @Published var secureAlertData: SecureAlertData?
     
     init(shownInContext: AnalyticsEventsKeychainContext) {
         self.shownInContext = shownInContext
@@ -39,7 +40,26 @@ class KeychainPhraseViewModel: ObservableObject {
     // MARK: - Private
     
     private func obtainRecoveryPhrase() async throws {
-        try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
+        try await localAuthWithContinuation { [weak self] in
+            try self?.obtainSeed()
+        }
+    }
+    
+    private func localAuthWithContinuation(_ continuation: @escaping () async throws -> Void) async throws {
+        do {
+            try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
+            try await continuation()
+        } catch LocalAuthServiceError.passcodeNotSet {
+            secureAlertData = SecureAlertData(completion: { proceed in
+                Task {
+                    guard proceed else { return }
+                    try await continuation()
+                }
+            })
+        }
+    }
+        
+    private func obtainSeed() throws {
         recoveryPhrase = try seedService.obtainSeed()
     }
     
