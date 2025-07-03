@@ -10,6 +10,7 @@ final class PublicDebugMenuViewModel: ObservableObject {
     
     @Published var shareUrlFile: URL?
     @Published var showZipPicker = false
+    @Published var secureAlertData: SecureAlertData?
     
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
     
@@ -37,11 +38,13 @@ final class PublicDebugMenuViewModel: ObservableObject {
     }
     
     func getLocalStoreData() async throws {
-        try await localAuthService.auth(reason: "Share local store")
-        let path = try await debugService.exportLocalStore()
-        let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
-        try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-        shareUrlFile = zipFile
+        try await localAuthWithContinuation(reason: "Share local store") { [weak self] in
+            guard let self else { return }
+            let path = try await debugService.exportLocalStore()
+            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
+            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
+            shareUrlFile = zipFile
+        }        
     }
     
     func getGoroutinesData() async throws {
@@ -50,10 +53,12 @@ final class PublicDebugMenuViewModel: ObservableObject {
     
     func zipWorkingDirectory() {
         Task {
-            try await localAuthService.auth(reason: "Share working directory")
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
-            try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
-            shareUrlFile = zipFile
+            try await localAuthWithContinuation(reason: "Share working directory") { [weak self] in
+                guard let self else { return }
+                let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
+                try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
+                shareUrlFile = zipFile
+            }
         }
     }
     
@@ -86,5 +91,18 @@ final class PublicDebugMenuViewModel: ObservableObject {
     
     func debugStat() async throws {
         shareUrlFile = try await debugService.debugStat()
+    }
+    
+    private func localAuthWithContinuation(reason: String, continuation: @escaping () async throws -> Void) async throws {
+        do {
+            try await localAuthService.auth(reason: reason)
+            try await continuation()
+        } catch LocalAuthServiceError.passcodeNotSet {
+            secureAlertData = SecureAlertData(completion: { [weak self] proceed in
+                guard proceed else { return }
+                try await continuation()
+                self?.secureAlertData = nil
+            })
+        }
     }
 }

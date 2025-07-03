@@ -1615,6 +1615,13 @@ public enum Loc {
       }
     }
   }
+  public enum SecureAlert {
+    public static let message = Loc.tr("Localizable", "SecureAlert.message", fallback: "You phone doesn’t have a passcode or biometric authorization. It might make it easier to steal your data. Enable it in your app settings to secure your data.")
+    public static let title = Loc.tr("Localizable", "SecureAlert.title", fallback: "Secure your phone")
+    public enum Proceed {
+      public static let button = Loc.tr("Localizable", "SecureAlert.Proceed.button", fallback: "Proceed anyway")
+    }
+  }
   public enum Server {
     public static let addButton = Loc.tr("Localizable", "Server.AddButton", fallback: "Add Self-hosted Network")
     public static let anytype = Loc.tr("Localizable", "Server.Anytype", fallback: "Anytype")

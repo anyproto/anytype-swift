@@ -31,6 +31,9 @@ struct KeychainPhraseView: View {
             model.onAppear()
         }
         .snackbar(toastBarData: $model.toastBarData)
+        .anytypeSheet(item: $model.secureAlertData) {
+            SecureAlertView(data: $0)
+        }
     }
 }
 

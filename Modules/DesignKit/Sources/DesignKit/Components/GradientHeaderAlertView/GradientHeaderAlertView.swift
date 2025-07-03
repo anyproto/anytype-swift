@@ -36,6 +36,7 @@ public struct GradientHeaderAlertView<HeaderContent: View>: View {
             
             Spacer.fixedHeight(16)
         }
+        .background(Color.Background.secondary)
     }
     
     private var header: some View {
@@ -73,6 +74,7 @@ public struct GradientHeaderAlertView<HeaderContent: View>: View {
             ForEach(buttons, id: \.id) { button in
                 StandardButton(
                     button.title,
+                    inProgress: button.inProgress,
                     style: button.style,
                     action: button.action
                 )
@@ -86,11 +88,13 @@ public struct GradientHeaderAlertButton: Identifiable {
     public let id = UUID().uuidString
     public let title: String
     public let style: StandardButtonStyle
+    public let inProgress: Bool
     public let action: () -> Void
     
-    public init(title: String, style: StandardButtonStyle, action: @escaping () -> Void) {
+    public init(title: String, style: StandardButtonStyle, inProgress: Bool = false, action: @escaping () -> Void) {
         self.title = title
         self.style = style
+        self.inProgress = inProgress
         self.action = action
     }
 }

@@ -86,6 +86,9 @@ struct DebugMenuView: View {
         .anytypeSheet(item: $model.pushToken) {
             DebugMenuPushTokenAlert(token: $0.value)
         }
+        .anytypeSheet(item: $model.secureAlertData) {
+            SecureAlertView(data: $0)
+        }
     }
     
     private var mainActions: some View {

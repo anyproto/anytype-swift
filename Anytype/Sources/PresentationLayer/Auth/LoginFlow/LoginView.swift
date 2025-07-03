@@ -60,6 +60,9 @@ struct LoginView: View {
             .sheet(isPresented: $model.showDebugMenu) {
                 PublicDebugMenuView()
             }
+            .anytypeSheet(item: $model.secureAlertData) {
+                SecureAlertView(data: $0)
+            }
         
             // migration
             .fullScreenCover(item: $model.migrationData) {

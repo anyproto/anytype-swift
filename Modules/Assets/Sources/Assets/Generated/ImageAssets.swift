@@ -961,6 +961,9 @@ extension ImageAsset {
   }
   public static let handPointLeft = ImageAsset.bundle(name: "HandPointLeft")
   public static let webPage = ImageAsset.bundle(name: "web_page")
+  public enum Secure {
+    public static let screenTop = ImageAsset.bundle(name: "Secure/ScreenTop")
+  }
   public static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   public static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
   public enum SettingsOld {

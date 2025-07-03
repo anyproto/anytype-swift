@@ -38,6 +38,9 @@ struct PublicDebugMenuView: View {
         .sheet(item: $model.shareUrlFile) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
+        .anytypeSheet(item: $model.secureAlertData) {
+            SecureAlertView(data: $0)
+        }
     }
     
     private var actions: some View {
