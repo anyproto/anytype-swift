@@ -51,10 +51,8 @@ class KeychainPhraseViewModel: ObservableObject {
             try await continuation()
         } catch LocalAuthServiceError.passcodeNotSet {
             secureAlertData = SecureAlertData(completion: { proceed in
-                Task {
-                    guard proceed else { return }
-                    try await continuation()
-                }
+                guard proceed else { return }
+                try await continuation()
             })
         }
     }

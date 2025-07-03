@@ -178,11 +178,9 @@ final class DebugMenuViewModel: ObservableObject {
             try await continuation()
         } catch LocalAuthServiceError.passcodeNotSet {
             secureAlertData = SecureAlertData(completion: { [weak self] proceed in
+                guard proceed else { return }
+                try await continuation()
                 self?.secureAlertData = nil
-                Task {
-                    guard proceed else { return }
-                    try await continuation()
-                }
             })
         }
     }

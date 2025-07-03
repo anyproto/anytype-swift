@@ -25,10 +25,14 @@ struct SecureAlertView: View {
                 GradientHeaderAlertButton(
                     title: Loc.SecureAlert.Proceed.button,
                     style: .secondaryLarge,
-                    action: { model.proceed() }
+                    inProgress: model.inProgress,
+                    action: { model.proceedTap() }
                 )
             ]
         )
+        .task(item: model.proceedTaskId) { _ in
+            await model.proceed()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
