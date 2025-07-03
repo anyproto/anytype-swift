@@ -190,7 +190,7 @@ public extension FeatureDescription {
     static let chatWidget = FeatureDescription(
         title: "Chat Widget",
         type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let muteSpacePossibility = FeatureDescription(
@@ -202,7 +202,7 @@ public extension FeatureDescription {
     static let chatLoadingIndicator = FeatureDescription(
         title: "Sync Status for Chat - IOS-4762",
         type: .feature(author: "m@anytype.io", releaseVersion: "12"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let anytypeImageCacher = FeatureDescription(
