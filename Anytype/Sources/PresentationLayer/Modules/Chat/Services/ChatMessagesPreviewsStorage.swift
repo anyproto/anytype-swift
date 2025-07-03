@@ -114,9 +114,11 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     private func handleChatState(spaceId: String, chatId: String, state: ChatState) {
         let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: chatId)
         var preview = previewsBySpace[key] ?? ChatMessagePreview(spaceId: spaceId, chatId: chatId)
-        preview.unreadCounter = Int(state.messages.counter)
-        preview.mentionCounter = Int(state.mentions.counter)
-            
+        
+        if (preview.state?.order ?? -1) < state.order {
+            preview.state = state
+        }
+        
         self.previewsBySpace[key] = preview
     }
     

@@ -270,8 +270,10 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 messages.chatUpdateMentionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
-                chatState = data.state
-                updates.insert(.state)
+                if (chatState?.order ?? -1) < data.state.order {
+                    chatState = data.state
+                    updates.insert(.state)
+                }
             default:
                 break
             }

@@ -26,10 +26,16 @@ struct ChatMessagePreview: Hashable {
     let spaceId: String
     let chatId: String
     
-    var unreadCounter: Int
-    var mentionCounter: Int
-    
+    var state: ChatState?
     var lastMessage: LastMessagePreview?
+    
+    var unreadCounter: Int {
+        Int(state?.messages.counter ?? 0)
+    }
+    
+    var mentionCounter: Int {
+        Int(state?.mentions.counter ?? 0)
+    }
 }
 
 extension ChatMessagePreview {
@@ -37,9 +43,7 @@ extension ChatMessagePreview {
         self.spaceId = spaceId
         self.chatId = chatId
         
-        self.unreadCounter = 0
-        self.mentionCounter = 0
-        
+        self.state = nil
         self.lastMessage = nil
     }
 }
