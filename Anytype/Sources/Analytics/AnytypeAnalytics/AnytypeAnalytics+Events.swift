@@ -1529,4 +1529,20 @@ extension AnytypeAnalytics {
             }
         )
     }
+    
+    func logAddReaction() {
+        logEvent("AddReaction")
+    }
+    
+    func logRemoveReaction() {
+        logEvent("RemoveReaction")
+    }
+    
+    func logToggleReaction(added: Bool) {
+        if added {
+            logAddReaction()
+        } else {
+            logRemoveReaction()
+        }
+    }
 }

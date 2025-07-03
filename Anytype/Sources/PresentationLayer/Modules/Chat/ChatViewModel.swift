@@ -511,7 +511,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didTapOnReaction(data: MessageViewData, emoji: String) async throws {
-        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
+        let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
+        AnytypeAnalytics.instance().logToggleReaction(added: added)
     }
     
     func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
