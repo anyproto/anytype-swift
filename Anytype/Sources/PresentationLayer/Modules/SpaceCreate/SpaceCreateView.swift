@@ -27,7 +27,7 @@ struct SpaceCreateView: View {
                     .focused(.constant(true))
                     
                     if !FeatureFlags.spaceUxTypes {
-                        SectionHeaderView(title: Loc.type)
+                        SectionHeaderView(title: Loc.typeLabel)
                         SpaceTypeView(name: model.spaceAccessType.name)
                     }
                 }
