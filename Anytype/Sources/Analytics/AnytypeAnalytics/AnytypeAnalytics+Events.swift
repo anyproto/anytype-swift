@@ -1,5 +1,6 @@
 import Services
 import UIKit
+import AnytypeCore
 
 extension AnytypeAnalytics {
     func logAccountCreate(analyticsId: String, middleTime: Int) {
@@ -1508,6 +1509,24 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
             ]
+        )
+    }
+    
+    func logOpenChatByPush() {
+        logEvent("OpenChatByPush")
+    }
+    
+    func logScreenChat(unreadMessageCount: Int32?, hasMention: Bool?) {
+        logEvent(
+            "ScreenChat",
+            withEventProperties: .builder {
+                if let unreadMessageCount {
+                    [AnalyticsEventsPropertiesKey.unreadMessageCount: unreadMessageCount]
+                }
+                if let hasMention {
+                    [AnalyticsEventsPropertiesKey.hasMention: hasMention]
+                }
+            }
         )
     }
 }

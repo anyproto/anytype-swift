@@ -100,6 +100,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var bottomVisibleOrderId: String?
     private var bigDistanceToBottom: Bool = false
     private var forceHiddenActionPanel: Bool = true
+    private var showScreenLogged = false
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
@@ -185,6 +186,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
+            
+            if !showScreenLogged {
+                AnytypeAnalytics.instance().logScreenChat(
+                    unreadMessageCount: chatState?.messages.counter,
+                    hasMention: chatState.map { $0.mentions.counter > 0 }
+                )
+                showScreenLogged = true
+            }
             
             if updates.contains(.messages), let messages {
                 

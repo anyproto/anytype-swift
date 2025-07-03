@@ -95,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if let decryptedMessage = userInfo[DecryptedPushKeys.decryptedMessage] as? [String : Any],
            let spaceId = decryptedMessage[DecryptedPushKeys.spaceId] as? String,
            let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String {
+            AnytypeAnalytics.instance().logOpenChatByPush()
             Task { @MainActor in
                 appActionStorage.action = .openObject(objectId: chatId, spaceId: spaceId)
             }
