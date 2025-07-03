@@ -49,6 +49,9 @@ extension Anytype_Rpc.Chat {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
+        /// Added is true when reaction is added, false when removed
+        public var added: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -181,6 +184,7 @@ extension Anytype_Rpc.Chat.ToggleMessageReaction.Response: SwiftProtobuf.Message
   public static let protoMessageName: String = Anytype_Rpc.Chat.ToggleMessageReaction.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "added"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -190,6 +194,7 @@ extension Anytype_Rpc.Chat.ToggleMessageReaction.Response: SwiftProtobuf.Message
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.added) }()
       default: break
       }
     }
@@ -203,11 +208,15 @@ extension Anytype_Rpc.Chat.ToggleMessageReaction.Response: SwiftProtobuf.Message
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if self.added != false {
+      try visitor.visitSingularBoolField(value: self.added, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.ToggleMessageReaction.Response, rhs: Anytype_Rpc.Chat.ToggleMessageReaction.Response) -> Bool {
     if lhs._error != rhs._error {return false}
+    if lhs.added != rhs.added {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
