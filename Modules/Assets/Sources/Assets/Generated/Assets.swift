@@ -117,9 +117,11 @@ public enum Asset {
     static let yellowStart = ColorAsset(name: "CoverGradients/yellowStart")
   }
   public enum Gradients {
-    public enum Push {
-      static let violetEnd = ColorAsset(name: "Gradients/Push/violetEnd")
-      static let violetStart = ColorAsset(name: "Gradients/Push/violetStart")
+    public enum HeaderAlert {
+      static let redEnd = ColorAsset(name: "Gradients/HeaderAlert/redEnd")
+      static let redStart = ColorAsset(name: "Gradients/HeaderAlert/redStart")
+      static let violetEnd = ColorAsset(name: "Gradients/HeaderAlert/violetEnd")
+      static let violetStart = ColorAsset(name: "Gradients/HeaderAlert/violetStart")
     }
     public enum UpdateAlert {
       static let darkBlue = ColorAsset(name: "Gradients/UpdateAlert/darkBlue")
