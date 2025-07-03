@@ -432,7 +432,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             }
         }
         
-        AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
+        if newItems.isNotEmpty {
+            AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
+        }
     }
     
     func deleteMessage(message: MessageViewData) async throws {
