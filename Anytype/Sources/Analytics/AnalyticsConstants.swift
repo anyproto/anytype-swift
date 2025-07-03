@@ -49,6 +49,8 @@ enum AnalyticsEventsPropertiesKey {
     static let uxType = "uxType"
     
     static let relationKey = "relationKey"
+    static let unreadMessageCount = "unreadMessageCount"
+    static let hasMention = "hasMention"
 }
 
 enum AnalyticsEventsTypeValues {

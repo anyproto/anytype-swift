@@ -100,6 +100,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var bottomVisibleOrderId: String?
     private var bigDistanceToBottom: Bool = false
     private var forceHiddenActionPanel: Bool = true
+    private var showScreenLogged = false
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
@@ -185,6 +186,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
+            
+            if !showScreenLogged {
+                AnytypeAnalytics.instance().logScreenChat(
+                    unreadMessageCount: chatState?.messages.counter,
+                    hasMention: chatState.map { $0.mentions.counter > 0 }
+                )
+                showScreenLogged = true
+            }
             
             if updates.contains(.messages), let messages {
                 
@@ -423,7 +432,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             }
         }
         
-        AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
+        if newItems.isNotEmpty {
+            AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
+        }
     }
     
     func deleteMessage(message: MessageViewData) async throws {
@@ -500,7 +511,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didTapOnReaction(data: MessageViewData, emoji: String) async throws {
-        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
+        let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
+        AnytypeAnalytics.instance().logToggleReaction(added: added)
     }
     
     func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {

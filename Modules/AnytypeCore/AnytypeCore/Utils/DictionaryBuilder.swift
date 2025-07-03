@@ -19,7 +19,7 @@ public struct DictionaryBuilder<Key: Hashable, Value>  {
 }
 
 public extension Dictionary {
-    init(@DictionaryBuilder<Key, Value> content: @escaping () -> Self) {
-        self = content()
+    static func builder(@DictionaryBuilder<Key, Value> builder: @escaping () -> Dictionary<Key, Value>) -> Dictionary<Key, Value> {
+        return builder()
     }
 }
