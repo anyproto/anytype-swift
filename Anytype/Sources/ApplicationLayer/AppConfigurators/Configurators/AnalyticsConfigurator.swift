@@ -22,7 +22,10 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol, Sendable {
         
         // Initialize SDK
         guard let apiKey = Bundle.main.object(forInfoDictionaryKey: AnalyticsConfiguration.apiKey) as? String,
-              apiKey.isNotEmpty else { return }
+              apiKey.isNotEmpty else {
+            AnytypeAnalytics.instance().setIsEnabled(false)
+            return
+        }
         
         AnytypeAnalytics.instance().initializeApiKey(apiKey)
     }
