@@ -4,7 +4,7 @@ import ProtobufMessages
 import Combine
 
 enum ObjectTypeError: Error {
-    case objectTypeNotFound
+    case objectTypeNotFound(_ id: String? = nil)
 }
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable {
@@ -63,7 +63,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
 
     func objectType(id: String) throws -> ObjectType {
         guard let result = searchTypesById[id] else {
-            throw ObjectTypeError.objectTypeNotFound
+            throw ObjectTypeError.objectTypeNotFound(id)
         }
         return result
     }
@@ -75,7 +75,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
         }
         guard let first = result.first else {
             anytypeAssertionFailure("Object type not found by recommendedLayout", info: ["recommendedLayout": "\(recommendedLayout.rawValue)"])
-            throw ObjectTypeError.objectTypeNotFound
+            throw ObjectTypeError.objectTypeNotFound()
         }
         return first
     }
@@ -88,7 +88,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
         
         guard let first = result.first else {
             anytypeAssertionFailure("Object type not found by uniqueKey", info: ["uniqueKey": "\(uniqueKey)"])
-            throw ObjectTypeError.objectTypeNotFound
+            throw ObjectTypeError.objectTypeNotFound()
         }
         return first
     }
@@ -162,7 +162,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
     private func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
         let typeId = storage[spaceId]
         guard let type = objectTypes(spaceId: spaceId).first(where: { $0.id == typeId }) ?? findPageType(spaceId: spaceId) else {
-            throw ObjectTypeError.objectTypeNotFound
+            throw ObjectTypeError.objectTypeNotFound()
         }
         return type
     }

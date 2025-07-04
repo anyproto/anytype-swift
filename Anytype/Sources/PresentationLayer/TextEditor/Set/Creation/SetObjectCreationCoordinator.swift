@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 enum SetObjectCreationMode {
     case `internal`
@@ -45,8 +46,14 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             
             self.output = output
             self.customAnalyticsRoute = customAnalyticsRoute
-            let result = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
-            handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument, mode: mode)
+            do {
+                let result = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
+                handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument, mode: mode)
+            } catch {
+                anytypeAssertionFailure("Cannot create object for set document", info: [
+                    "error": error.localizedDescription
+                ])
+            }
         }
     }
     
