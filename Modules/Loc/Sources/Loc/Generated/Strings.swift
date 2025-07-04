@@ -1434,6 +1434,11 @@ public enum Loc {
       }
     }
   }
+  public enum Qr {
+    public enum Join {
+      public static let title = Loc.tr("Localizable", "QR.join.title", fallback: "Join via QR Code")
+    }
+  }
   public enum QuickAction {
     public static func create(_ p1: Any) -> String {
       return Loc.tr("Localizable", "QuickAction.create", String(describing: p1), fallback: "Create %@")

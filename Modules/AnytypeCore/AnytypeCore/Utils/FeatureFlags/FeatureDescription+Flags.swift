@@ -233,6 +233,13 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let joinSpaceViaQRCode = FeatureDescription(
+        title: "Join Space via QR Code",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

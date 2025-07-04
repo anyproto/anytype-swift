@@ -138,6 +138,10 @@ public extension FeatureFlags {
         value(for: .newHome)
     }
 
+    static var joinSpaceViaQRCode: Bool {
+        value(for: .joinSpaceViaQRCode)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -237,6 +241,7 @@ public extension FeatureFlags {
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
         .newHome,
+        .joinSpaceViaQRCode,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
