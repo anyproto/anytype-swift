@@ -13,7 +13,7 @@ final class AnytypeAnalytics: @unchecked Sendable {
     }
     
     private enum Constants {
-        static let url = "https://amplitude.anytype.io"
+        static let url = "https://amplitude.anytype.io/2/httpapi"
     }
     
     private var isEnabled: Bool = true
