@@ -3,6 +3,10 @@ import AnytypeCore
 import FirebaseMessaging
 import Services
 import NotificationsCore
+#if DEBUG
+import Network
+#endif
+
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
@@ -23,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        
+        #if DEBUG
+        // Xcode 26 beta 2 - fix crash for URLSessions.shared
+        // https://developer.apple.com/forums/thread/787365?page=1#842851022
+        // https://github.com/firebase/firebase-ios-sdk/issues/14948#issuecomment-2960860573
+        _ = nw_tls_create_options()
+        #endif
         
         // Target contains GODEBUG=asyncpreemptoff=1 for fix debug on device
         // More https://github.com/golang/go/issues/57651
