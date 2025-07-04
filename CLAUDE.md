@@ -68,6 +68,21 @@ When setting up the project for the first time, run these commands in order:
 - Always import `Loc` module when using localization constants
 - Generated constants are found in `Modules/Loc/Sources/Loc/Generated/Strings.swift`
 
+#### Hierarchical Naming Structure
+- Use dot notation for hierarchical organization: `"QR.join.title"`
+- This creates nested enums in generated code: `Loc.Qr.Join.title`
+- Groups related strings together for better organization
+- Examples:
+  - `"QR.join.title"` → `Loc.Qr.Join.title`
+  - `"SpaceShare.Join.button"` → `Loc.SpaceShare.Join.button`
+
+#### Working with Large Localization Files
+- The Localizable.xcstrings file is very large (160,000+ lines)
+- Use targeted search with `grep` or `rg` to find specific entries
+- When adding new entries, find the alphabetical position carefully
+- Be patient with file operations - the file size makes edits slower
+- Always run `make generate-middle` after adding new localization keys
+
 ## Code Style Guidelines
 
 ### Formatting
@@ -98,6 +113,107 @@ When setting up the project for the first time, run these commands in order:
 - Leverage SwiftUI property wrappers (@State, @StateObject, @Published)
 - Use trailing closures for last closure parameters
 - Type inference where obvious, explicit types for clarity  
+
+## Feature Flags System
+
+### Overview
+Most new features must be wrapped in feature flags - boolean toggles that allow turning features on/off. This enables safe feature rollouts, A/B testing, and debug-only functionality.
+
+### Adding New Feature Flags
+1. **Add to FeatureDescription+Flags**: Edit `/Modules/AnytypeCore/AnytypeCore/Utils/FeatureFlags/FeatureDescription+Flags.swift`
+   ```swift
+   static let yourFeatureName = FeatureDescription(
+       title: "Your Feature Name",
+       type: .feature(author: "Your Name", releaseVersion: "X.X.X"),
+       defaultValue: false,
+       debugValue: true
+   )
+   ```
+
+2. **Generate constants**: Run `make generate` to create `FeatureFlags.yourFeatureName` static property
+
+3. **Wrap feature code**:
+   ```swift
+   import AnytypeCore
+   
+   if FeatureFlags.yourFeatureName {
+       // Your feature code here
+   }
+   ```
+
+### Feature Flag Types
+- **`.debug`**: Debug-only features, never enabled in production
+- **`.feature(author:releaseVersion:)`**: Production features with metadata
+
+### Configuration Options
+- **defaultValue**: Value for both release variants when uniform behavior is needed
+- **releaseAnytypeValue/releaseAnyAppValue**: Different values for different app variants  
+- **debugValue**: Value used in debug builds (usually `true` for testing)
+
+### Usage Patterns
+```swift
+// Conditional UI elements
+if FeatureFlags.newHome {
+    NewHomeView()
+} else {
+    LegacyHomeView()  
+}
+
+// Feature gates in existing flows
+SpaceTypePickerRow(...)
+    .opacity(FeatureFlags.joinSpaceViaQRCode ? 1.0 : 0.0)
+```
+
+### Best Practices
+- Always wrap new feature entry points with feature flags
+- Use descriptive flag names that clearly indicate the feature
+- Set `debugValue: true` for features under development
+- Include author and target release version for production features
+
+## Icon System
+
+### Overview
+The project uses a code-generated icon system that creates Swift constants from image assets. Icons are organized by size (e.g., x18, x24, x32, x40) and accessed through generated `ImageAsset` properties.
+
+### Icon Assets Location
+- **Main assets**: `/Modules/Assets/Sources/Assets/Resources/Assets.xcassets/`
+- **Icon sizes**: Located in `DesignSystem/` subdirectory (x18, x19, x22, x24, x28, x32, x40, x54)
+
+### Using Icons in Code
+```swift
+// Icons are accessed through generated ImageAsset properties
+Image(asset: .X32.qrCode)        // For a 32pt QR code icon
+Image(asset: .X24.search)        // For a 24pt search icon
+Image(asset: .Channel.chat)      // For channel-specific icons
+```
+
+### Adding New Icons
+1. **Export SVG from Figma**: 
+   - Icons in Figma follow naming pattern like "32/qr code"
+   - Export as SVG format
+
+2. **Add to Assets.xcassets**:
+   - Navigate to the appropriate size folder (e.g., `x32/` for 32pt icons)
+   - Create a new Image Set (e.g., `QRCode.imageset`)
+   - Add the SVG/PDF file and update `Contents.json`
+   - Follow existing naming conventions (camelCase)
+
+3. **Generate code**: 
+   ```bash
+   make generate
+   ```
+   This runs SwiftGen to generate the `ImageAsset` constants
+
+### Naming Conventions
+- **Figma**: "32/qr code" (size/icon name with spaces)
+- **Asset folder**: `QRCode.imageset` (PascalCase)
+- **Swift code**: `.X32.qrCode` (uppercase size + camelCase property)
+
+### Example: Adding a New Icon
+1. Export "32/new icon" from Figma as SVG
+2. Add to `/Modules/Assets/.../Assets.xcassets/DesignSystem/x32/NewIcon.imageset/`
+3. Run `make generate`
+4. Use in code: `Image(asset: .X32.newIcon)`
 
 ## Architecture
 
