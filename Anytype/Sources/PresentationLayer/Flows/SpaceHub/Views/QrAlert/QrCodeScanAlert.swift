@@ -1,4 +1,5 @@
 import SwiftUI
+import Loc
 
 enum QrCodeScanAlertError: Identifiable {
     case notAnUrl
@@ -37,15 +38,18 @@ enum QrCodeScanAlertError: Identifiable {
 
 struct QrCodeScanAlert: View {
     let error: QrCodeScanAlertError
+    let tryAgain: () -> Void
+    
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         BottomAlertView(title: error.title, message: error.message, icon: .Dialog.exclamation) {
             BottomAlertButton(text: "Try again", style: .primary) {
-                // TODO
+                tryAgain()
             }
             
             BottomAlertButton(text: Loc.cancel, style: .secondary) {
-                // TODO
+                dismiss()
             }
         }
         

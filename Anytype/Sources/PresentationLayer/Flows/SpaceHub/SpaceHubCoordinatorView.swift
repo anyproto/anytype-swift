@@ -86,7 +86,9 @@ struct SpaceHubCoordinatorView: View {
                 QrCodeScannerView(qrCode: $model.qrCode, error: $model.qrCodeScanErrorText)
             }
             .anytypeSheet(item: $model.qrCodeScanAlertError) {
-                QrCodeScanAlert(error: $0)
+                QrCodeScanAlert(error: $0) {
+                    model.onQrScanTryAgain()
+                }
             }
     }
     

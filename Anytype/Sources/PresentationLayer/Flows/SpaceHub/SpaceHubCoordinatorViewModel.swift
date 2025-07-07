@@ -216,16 +216,19 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         guard qrCode.isNotEmpty else { return }
         
         guard let url = URL(string: qrCode) else {
+            qrCode = ""
             qrCodeScanAlertError = .notAnUrl
             return
         }
         
         guard let link = universalLinkParser.parse(url: url) else {
+            qrCode = ""
             qrCodeScanAlertError = .invalidFormat
             return
         }
         
         guard case .invite = link else {
+            qrCode = ""
             qrCodeScanAlertError = .wrongLinkType
             return
         }
@@ -236,7 +239,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     func onQrCodeScanErrorChange() {
         guard let qrCodeScanErrorText, qrCodeScanErrorText.isNotEmpty else { return }
         
+        self.qrCodeScanErrorText = nil
         qrCodeScanAlertError = .custom(qrCodeScanErrorText)
+    }
+    
+    func onQrScanTryAgain() {
+        qrCodeScanAlertError = nil
+        showQrCodeScanner = true
     }
     
     // MARK: - SpaceHubModuleOutput
