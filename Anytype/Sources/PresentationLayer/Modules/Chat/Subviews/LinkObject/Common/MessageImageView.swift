@@ -15,7 +15,10 @@ struct MessageImageView: View {
                 case .empty:
                     MessageAttachmentLoadingIndicator()
                 case .success(let image):
-                    image.resizable().scaledToFill()
+                    ZStack {
+                        image.resizable().scaledToFill()
+                        MessageUploadingStatus(syncStatus: details.syncStatus, syncError: details.syncError)
+                    }
                 case .failure:
                     MessageAttachmentErrorIndicator()
                 @unknown default:

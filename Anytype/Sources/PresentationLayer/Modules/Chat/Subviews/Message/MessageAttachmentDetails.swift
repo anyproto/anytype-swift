@@ -9,6 +9,8 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let resolvedLayoutValue: DetailsLayout
     let objectIconImage: Icon
     let source: String?
+    let syncStatus: SyncStatus?
+    let syncError: SyncError?
     let downloadingState: Bool
 }
 
@@ -23,6 +25,8 @@ extension MessageAttachmentDetails {
             resolvedLayoutValue: details.resolvedLayoutValue,
             objectIconImage: details.objectIconImage,
             source: source,
+            syncStatus: details.syncStatusValue,
+            syncError: details.syncErrorValue,
             downloadingState: false
         )
     }
@@ -36,6 +40,8 @@ extension MessageAttachmentDetails {
             resolvedLayoutValue: .basic,
             objectIconImage: .object(.defaultObjectIcon),
             source: nil,
+            syncStatus: nil,
+            syncError: nil,
             downloadingState: true
         )
     }
