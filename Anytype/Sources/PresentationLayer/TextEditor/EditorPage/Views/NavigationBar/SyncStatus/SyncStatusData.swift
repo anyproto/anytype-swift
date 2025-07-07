@@ -7,7 +7,7 @@ enum SyncStatusIconType {
 }
 
 struct SyncStatusData: Equatable {
-    let status: SyncStatus
+    let status: SpaceSyncStatus
     let networkId: String
     let isHidden: Bool
     

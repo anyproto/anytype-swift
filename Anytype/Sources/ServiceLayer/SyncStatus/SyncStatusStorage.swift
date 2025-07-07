@@ -4,7 +4,7 @@ import AnytypeCore
 import ProtobufMessages
 
 protocol SyncStatusStorageProtocol: Sendable {
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never>
+    func statusPublisher(spaceId: String) -> AnyPublisher<SpaceSyncStatusInfo, Never>
     
     func startSubscription() async
     func stopSubscriptionAndClean() async
@@ -12,12 +12,12 @@ protocol SyncStatusStorageProtocol: Sendable {
 
 actor SyncStatusStorage: SyncStatusStorageProtocol, Sendable {
     
-    private let storage = AtomicPublishedStorage([String: SyncStatusInfo]())
+    private let storage = AtomicPublishedStorage([String: SpaceSyncStatusInfo]())
     private var subscription: AnyCancellable?
     
     init() { }
     
-    nonisolated func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
+    nonisolated func statusPublisher(spaceId: String) -> AnyPublisher<SpaceSyncStatusInfo, Never> {
         storage.publisher
             .compactMap { $0[spaceId] }
             .eraseToAnyPublisher()

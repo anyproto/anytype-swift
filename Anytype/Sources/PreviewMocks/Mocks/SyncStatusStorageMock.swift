@@ -6,10 +6,10 @@ final class SyncStatusStorageMock: SyncStatusStorageProtocol, @unchecked Sendabl
     
     static let shared = SyncStatusStorageMock()
     
-    @Published private var publishedInfo: SyncStatusInfo = .default(spaceId: "")
-    var infoToReturn = Services.SyncStatusInfo.mockArray()
+    @Published private var publishedInfo: SpaceSyncStatusInfo = .default(spaceId: "")
+    var infoToReturn = Services.SpaceSyncStatusInfo.mockArray()
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<Services.SyncStatusInfo, Never> {
+    func statusPublisher(spaceId: String) -> AnyPublisher<Services.SpaceSyncStatusInfo, Never> {
         Task.detached { [infoToReturn] in
             while true {
                 for info in infoToReturn {
@@ -31,8 +31,8 @@ final class SyncStatusStorageMock: SyncStatusStorageProtocol, @unchecked Sendabl
     }
 }
 
-extension SyncStatusInfo {
-    static func mockArray(network: Anytype_Event.Space.Network = .anytype) -> [Services.SyncStatusInfo] {
+extension SpaceSyncStatusInfo {
+    static func mockArray(network: Anytype_Event.Space.Network = .anytype) -> [Services.SpaceSyncStatusInfo] {
         [
             .mock(network: network, status: .offline),
             .mock(network: network, status: .syncing),
@@ -44,8 +44,8 @@ extension SyncStatusInfo {
     static func mock(
         network: Anytype_Event.Space.Network = .anytype,
         status: Anytype_Event.Space.Status = .offline
-    ) -> Services.SyncStatusInfo {
-        var mock = Services.SyncStatusInfo.init()
+    ) -> Services.SpaceSyncStatusInfo {
+        var mock = Services.SpaceSyncStatusInfo.init()
         mock.id = "1337"
         mock.status = status
         mock.error = .incompatibleVersion

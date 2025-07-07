@@ -13,11 +13,11 @@ struct MessageListAttachmentsViewContainer: View {
             ForEach(objects, id: \.id) { details in
                 content(for: details)
                     .onTapGesture {
-                        if !details.loadingState {
+                        if !details.downloadingState {
                             onTapObject(details)
                         }
                     }
-                    .if(details.loadingState) {
+                    .if(details.downloadingState) {
                         $0.redacted(reason: .placeholder)
                     }
             }

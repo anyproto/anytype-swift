@@ -15,7 +15,7 @@ protocol BaseDocumentProtocol: AnyObject, Sendable {
     var mode: DocumentMode { get }
     var details: ObjectDetails? { get }
     var permissions: ObjectPermissions { get }
-    var syncStatus: SyncStatus? { get }
+    var syncStatus: SpaceSyncStatus? { get }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never>
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> { get }

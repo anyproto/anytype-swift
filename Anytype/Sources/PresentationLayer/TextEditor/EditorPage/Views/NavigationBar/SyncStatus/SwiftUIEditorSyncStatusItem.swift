@@ -17,7 +17,7 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
 }
 
 private struct SwiftUIEditorSyncStatusItemPreviewView: View {
-    let status: SyncStatus
+    let status: SpaceSyncStatus
     let networkId: String
     
     var body: some View {
@@ -32,7 +32,7 @@ private struct SwiftUIEditorSyncStatusItemPreviewView: View {
 #Preview {
     
     return VStack {
-        ForEach(SyncStatus.allCases, id:\.self) {
+        ForEach(SpaceSyncStatus.allCases, id:\.self) {
             SwiftUIEditorSyncStatusItemPreviewView(status: $0, networkId: "1337")
                 .padding()
             Divider()
