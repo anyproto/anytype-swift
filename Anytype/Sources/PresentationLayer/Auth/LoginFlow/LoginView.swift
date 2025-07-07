@@ -36,7 +36,7 @@ struct LoginView: View {
                 }
             }
             .sheet(isPresented: $model.showQrCodeView) {
-                QRCodeScannerView(qrCode: self.$model.entropy, error: self.$model.errorText)
+                QrCodeScannerView(qrCode: self.$model.entropy, error: self.$model.errorText)
             }
             .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
                 Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
