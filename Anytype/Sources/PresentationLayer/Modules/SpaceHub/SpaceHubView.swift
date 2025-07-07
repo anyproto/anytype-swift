@@ -10,9 +10,7 @@ struct SpaceHubView: View {
     @State private var offset: CGPoint?
     
     init(output: (any SpaceHubModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(
-            output: output, showOnlyChats: FeatureFlags.newHome ? true : false
-        ))
+        _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
     }
     
     var body: some View {
@@ -172,10 +170,7 @@ struct SpaceHubView: View {
             draggable: draggable,
             draggedSpace: $draggedSpace,
             onTap: {
-                model.onSpaceTap(
-                    spaceId: space.spaceView.targetSpaceId,
-                    presentation: FeatureFlags.newHome ? .chat : nil
-                )
+                model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
             },
             onTapCopy: {
                 model.copySpaceInfo(spaceView: space.spaceView)

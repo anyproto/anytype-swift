@@ -119,8 +119,9 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "11"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
-        debugValue: true
+        debugValue: false
     )
+    
     
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
@@ -181,6 +182,21 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let spaceLoadingForScreen = FeatureDescription(
+        title: "Space Loading State Inside Screen",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: false
+    )
+    
+    static let binScreenEmptyAction = FeatureDescription(
+        title: "Bin screen - empty action",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     static let openFullscreenObjectsFromSetWidget = FeatureDescription(
         title: "Open fullscreen object from set widget",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
@@ -209,28 +225,6 @@ public extension FeatureDescription {
         title: "Anytype - Custom image cacher",
         type: .feature(author: "m@anytype.io", releaseVersion: "12"),
         defaultValue: true
-    )
-    
-    static let spaceLoadingForScreen = FeatureDescription(
-        title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
-        debugValue: true
-    )
-    
-    static let binScreenEmptyAction = FeatureDescription(
-        title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let newHome = FeatureDescription(
-        title: "New Home prototype",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: true
     )
     
     // MARK: - Debug
