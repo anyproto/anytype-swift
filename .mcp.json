@@ -8,11 +8,9 @@
         "https://mcp.linear.app/sse"
       ]
     },
-    "Figma": {
-      "type": "stdio",
-      "command": "http://127.0.0.1:3845/sse",
-      "args": [],
-      "env": {}
+    "figma": {
+      "type": "sse",
+      "url": "http://127.0.0.1:3845/sse"
     }
   }
 }
