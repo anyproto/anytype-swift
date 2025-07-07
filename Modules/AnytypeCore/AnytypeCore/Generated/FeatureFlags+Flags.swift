@@ -102,10 +102,6 @@ public extension FeatureFlags {
         value(for: .openWelcomeObject)
     }
 
-    static var openFullscreenObjectsFromSetWidget: Bool {
-        value(for: .openFullscreenObjectsFromSetWidget)
-    }
-
     static var chatWidget: Bool {
         value(for: .chatWidget)
     }
@@ -224,7 +220,6 @@ public extension FeatureFlags {
         .doNotWaitCompletionInAnytypePreview,
         .plusButtonOnWidgets,
         .openWelcomeObject,
-        .openFullscreenObjectsFromSetWidget,
         .chatWidget,
         .muteSpacePossibility,
         .chatLoadingIndicator,

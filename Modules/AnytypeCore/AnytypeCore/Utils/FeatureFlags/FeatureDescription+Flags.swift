@@ -175,12 +175,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let openFullscreenObjectsFromSetWidget = FeatureDescription(
-        title: "Open fullscreen object from set widget",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: true
-    )
-    
     static let chatWidget = FeatureDescription(
         title: "Chat Widget",
         type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
