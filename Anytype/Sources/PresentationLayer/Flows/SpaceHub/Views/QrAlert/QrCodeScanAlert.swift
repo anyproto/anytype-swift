@@ -12,24 +12,24 @@ enum QrCodeScanAlertError: Identifiable {
     var title: String {
         switch self {
         case .notAnUrl:
-            "Invalid QR Code"
+            Loc.Qr.Scan.Error.InvalidQR.title
         case .invalidFormat:
-            "Invalid QR Code"
+            Loc.Qr.Scan.Error.InvalidQR.title
         case .wrongLinkType:
-            "Invalid QR Code"
+            Loc.Qr.Scan.Error.InvalidQR.title
         case .custom(let string):
-            "Scanning error"
+            Loc.Qr.Scan.Error.Custom.title
         }
     }
     
     var message: String {
         switch self {
         case .notAnUrl:
-            "The scanned QR code doesn’t contain a valid URL"
+            Loc.Qr.Scan.Error.NotUrl.message
         case .invalidFormat:
-            "The scanned QR code contains URL in invalid format"
+            Loc.Qr.Scan.Error.InvalidFormat.message
         case .wrongLinkType:
-            "The scanned QR code contains different action"
+            Loc.Qr.Scan.Error.WrongLink.message
         case .custom(let string):
             string
         }
@@ -44,7 +44,7 @@ struct QrCodeScanAlert: View {
     
     var body: some View {
         BottomAlertView(title: error.title, message: error.message, icon: .Dialog.exclamation) {
-            BottomAlertButton(text: "Try again", style: .primary) {
+            BottomAlertButton(text: Loc.tryAgain, style: .primary) {
                 tryAgain()
             }
             

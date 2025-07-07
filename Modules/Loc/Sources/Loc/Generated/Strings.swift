@@ -437,6 +437,7 @@ public enum Loc {
   public static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
   public static let tryToFindANewOne = Loc.tr("Localizable", "Try to find a new one", fallback: "Try to find a new one")
   public static let tryToFindANewOneOrUploadYourImage = Loc.tr("Localizable", "Try to find a new one or upload your image", fallback: "Try to find a new one or upload your image")
+  public static let tryAgain = Loc.tr("Localizable", "TryAgain", fallback: "Try again")
   public static let typeLabel = Loc.tr("Localizable", "Type Label", fallback: "Type")
   public static let typeName = Loc.tr("Localizable", "Type Name", fallback: "Type Name")
   public static let typePluralName = Loc.tr("Localizable", "Type Plural name", fallback: "Type Plural name")
@@ -1053,7 +1054,6 @@ public enum Loc {
     public enum Common {
       public static let message = Loc.tr("Localizable", "Error.Common.Message", fallback: "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).")
       public static let title = Loc.tr("Localizable", "Error.Common.Title", fallback: "Oops!")
-      public static let tryAgain = Loc.tr("Localizable", "Error.Common.TryAgain", fallback: "Try again")
     }
   }
   public enum ErrorOccurred {
@@ -1437,6 +1437,26 @@ public enum Loc {
   public enum Qr {
     public enum Join {
       public static let title = Loc.tr("Localizable", "QR.join.title", fallback: "Join via QR Code")
+    }
+    public enum Scan {
+      public enum Error {
+        public static let tryAgain = Loc.tr("Localizable", "QR.scan.error.tryAgain", fallback: "Try again")
+        public enum Custom {
+          public static let title = Loc.tr("Localizable", "QR.scan.error.custom.title", fallback: "Scanning error")
+        }
+        public enum InvalidFormat {
+          public static let message = Loc.tr("Localizable", "QR.scan.error.invalidFormat.message", fallback: "The scanned QR code contains URL in invalid format")
+        }
+        public enum InvalidQR {
+          public static let title = Loc.tr("Localizable", "QR.scan.error.invalidQR.title", fallback: "Invalid QR Code")
+        }
+        public enum NotUrl {
+          public static let message = Loc.tr("Localizable", "QR.scan.error.notUrl.message", fallback: "The scanned QR code doesn't contain a valid URL")
+        }
+        public enum WrongLink {
+          public static let message = Loc.tr("Localizable", "QR.scan.error.wrongLink.message", fallback: "The scanned QR code contains different action")
+        }
+      }
     }
   }
   public enum QuickAction {
