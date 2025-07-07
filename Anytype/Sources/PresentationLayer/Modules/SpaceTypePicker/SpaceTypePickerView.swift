@@ -5,8 +5,9 @@ import AnytypeCore
 struct SpaceCreateTypePickerView: View {
     
     let onSelectSpaceType: (_ data : SpaceUxType) -> Void
-    @Environment(\.dismiss) private var dismiss
-    
+    let onSelectQrCodeScan: () -> Void
+    @Environment(\.dismiss) private var dismiss    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -43,12 +44,12 @@ struct SpaceCreateTypePickerView: View {
             }
             if FeatureFlags.joinSpaceViaQRCode {
                 SpaceTypePickerRow(
-                    icon: .X32.qrCode,
+                    icon: .X32.qrCodeJoin,
                     title: Loc.Qr.Join.title,
                     subtitle: "",
                     onTap: {
                         dismiss()
-                        // TODO: Implement QR code scanning flow
+                        onSelectQrCodeScan()
                     }
                 )
             }

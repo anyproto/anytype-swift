@@ -28,6 +28,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var bookmarkScreenData: BookmarkScreenData?
     @Published var spaceCreateData: SpaceCreateData?
     @Published var showSpaceTypeForCreate = false
+    @Published var showQrCodeScanner = false
+    @Published var qrCode = ""
+    @Published var qrCodeScanErrorText: String?
+    @Published var qrCodeScanAlertError: QrCodeScanAlertError?
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -91,6 +95,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.appActionStorage)
+    private var appActionStorage: AppActionStorage
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
+        
     
     private var needSetup = true
     
@@ -197,6 +206,37 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             await dismissAllPresented?()
             spaceCreateData = SpaceCreateData(spaceUxType: type)
         }
+    }
+    
+    func onSelectQrCodeScan() {
+        showQrCodeScanner.toggle()
+    }
+    
+    func onQrCodeChange() {
+        guard qrCode.isNotEmpty else { return }
+        
+        guard let url = URL(string: qrCode) else {
+            qrCodeScanAlertError = .notAnUrl
+            return
+        }
+        
+        guard let link = universalLinkParser.parse(url: url) else {
+            qrCodeScanAlertError = .invalidFormat
+            return
+        }
+        
+        guard case .invite = link else {
+            qrCodeScanAlertError = .wrongLinkType
+            return
+        }
+        
+        appActionStorage.action = .deepLink(link.toDeepLink(), .internal)
+    }
+    
+    func onQrCodeScanErrorChange() {
+        guard let qrCodeScanErrorText, qrCodeScanErrorText.isNotEmpty else { return }
+        
+        qrCodeScanAlertError = .custom(qrCodeScanErrorText)
     }
     
     // MARK: - SpaceHubModuleOutput

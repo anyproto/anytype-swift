@@ -17,9 +17,11 @@ struct SpaceTypePickerRow: View {
                     Text(title)
                         .anytypeStyle(.uxTitle1Semibold)
                         .foregroundStyle(Color.Text.primary)
-                    Text(subtitle)
-                        .anytypeStyle(.caption1Regular)
-                        .foregroundStyle(Color.Text.secondary)
+                    if subtitle.isNotEmpty {
+                        Text(subtitle)
+                            .anytypeStyle(.caption1Regular)
+                            .foregroundStyle(Color.Text.secondary)
+                    }
                 }
                 .padding(.bottom, 2)
                 Spacer()
