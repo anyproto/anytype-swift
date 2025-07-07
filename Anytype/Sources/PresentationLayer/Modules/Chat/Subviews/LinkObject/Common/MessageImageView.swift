@@ -17,6 +17,8 @@ struct MessageImageView: View {
                 case .success(let image):
                     ZStack {
                         image.resizable().scaledToFill()
+                            .frame(width: reader.size.width, height: reader.size.height, alignment: .center)
+                            .clipped()
                         MessageUploadingStatus(syncStatus: details.syncStatus, syncError: details.syncError)
                     }
                 case .failure:
