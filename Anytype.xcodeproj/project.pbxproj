@@ -12,7 +12,6 @@
 		03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03A46A42231417D6009AC10C /* InfoPlist.strings */; };
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
 		1259300526F3A5C500B115CD /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300426F3A5C500B115CD /* Highlightr */; };
-		1259300826F3A60B00B115CD /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300726F3A60B00B115CD /* Amplitude */; };
 		1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300D26F3A6AE00B115CD /* Kingfisher */; };
 		1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */; };
 		2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A01A4F82A1FB507002042FB /* DeviceKit */; };
@@ -64,6 +63,7 @@
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
 		74424D6B2E0E849600BE5E68 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 74424D6A2E0E849600BE5E68 /* Factory */; };
 		746F06012DB8E712005795F7 /* DesignKit in Frameworks */ = {isa = PBXBuildFile; productRef = 746F06002DB8E712005795F7 /* DesignKit */; };
+		74819CB42E169F5D0042D5EC /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 74819CB32E169F5D0042D5EC /* AmplitudeSwift */; };
 		748B36A02E0300C400DA28C2 /* StoredHashMacro in Frameworks */ = {isa = PBXBuildFile; productRef = 748B369F2E0300C400DA28C2 /* StoredHashMacro */; };
 		74A696EC2E0EEB70007F32CA /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 74A696EB2E0EEB70007F32CA /* Loc */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
@@ -271,6 +271,7 @@
 				2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */,
 				746F06012DB8E712005795F7 /* DesignKit in Frameworks */,
 				C99A53AC28A1380300B3E5F4 /* ShimmerSwift in Frameworks */,
+				74819CB42E169F5D0042D5EC /* AmplitudeSwift in Frameworks */,
 				74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */,
 				538ABD4E284F9F88000D3CCC /* Collections in Frameworks */,
 				7411879B2D9ADD200006EA41 /* Loc in Frameworks */,
@@ -290,7 +291,6 @@
 				748B36A02E0300C400DA28C2 /* StoredHashMacro in Frameworks */,
 				C9433E54293EA5EF001662EA /* SwiftEntryKit in Frameworks */,
 				1259300526F3A5C500B115CD /* Highlightr in Frameworks */,
-				1259300826F3A60B00B115CD /* Amplitude in Frameworks */,
 				3D3B350E2BCE872E008456F8 /* StoreKit.framework in Frameworks */,
 				2A6ED170285B452600AAA21C /* SwiftProtobuf in Frameworks */,
 				86E69DD62A938CE8009F2221 /* SecureService in Frameworks */,
@@ -476,7 +476,6 @@
 			packageProductDependencies = (
 				5333421B262E249100238121 /* FloatingPanel */,
 				1259300426F3A5C500B115CD /* Highlightr */,
-				1259300726F3A60B00B115CD /* Amplitude */,
 				1259300D26F3A6AE00B115CD /* Kingfisher */,
 				1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */,
 				538ABD4D284F9F88000D3CCC /* Collections */,
@@ -510,6 +509,7 @@
 				746F06002DB8E712005795F7 /* DesignKit */,
 				2E074C4B2DE620E800260ABD /* NotificationsCore */,
 				748B369F2E0300C400DA28C2 /* StoredHashMacro */,
+				74819CB32E169F5D0042D5EC /* AmplitudeSwift */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -665,7 +665,6 @@
 			packageReferences = (
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */,
-				1259300626F3A60B00B115CD /* XCRemoteSwiftPackageReference "Amplitude-iOS" */,
 				1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
 				538ABD4C284F9F88000D3CCC /* XCRemoteSwiftPackageReference "swift-collections" */,
@@ -683,6 +682,7 @@
 				2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */,
 				2E63D9B52D56520C008A733A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				74B35D242D5B39C500AC9879 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				74819CB22E169F5D0042D5EC /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 			);
 			preferredProjectObjectVersion = 52;
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
@@ -2645,14 +2645,6 @@
 				version = 2.2.0;
 			};
 		};
-		1259300626F3A60B00B115CD /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/amplitude/Amplitude-iOS";
-			requirement = {
-				kind = exactVersion;
-				version = 8.15.2;
-			};
-		};
 		1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -2773,6 +2765,14 @@
 				version = 1.1.4;
 			};
 		};
+		74819CB22E169F5D0042D5EC /* XCRemoteSwiftPackageReference "Amplitude-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-Swift";
+			requirement = {
+				kind = exactVersion;
+				version = 1.13.7;
+			};
+		};
 		74B35D242D5B39C500AC9879 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
@@ -2804,11 +2804,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */;
 			productName = Highlightr;
-		};
-		1259300726F3A60B00B115CD /* Amplitude */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1259300626F3A60B00B115CD /* XCRemoteSwiftPackageReference "Amplitude-iOS" */;
-			productName = Amplitude;
 		};
 		1259300D26F3A6AE00B115CD /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2992,6 +2987,11 @@
 		746F06002DB8E712005795F7 /* DesignKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignKit;
+		};
+		74819CB32E169F5D0042D5EC /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74819CB22E169F5D0042D5EC /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
 		};
 		748B369F2E0300C400DA28C2 /* StoredHashMacro */ = {
 			isa = XCSwiftPackageProductDependency;
