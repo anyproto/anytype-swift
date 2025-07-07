@@ -42,10 +42,6 @@ public extension FeatureFlags {
         value(for: .enableStreamSpaceType)
     }
 
-    static var enablePushMessages: Bool {
-        value(for: .enablePushMessages)
-    }
-
     static var aiToolInSet: Bool {
         value(for: .aiToolInSet)
     }
@@ -213,7 +209,6 @@ public extension FeatureFlags {
         .newPlusMenu,
         .spaceUxTypes,
         .enableStreamSpaceType,
-        .enablePushMessages,
         .aiToolInSet,
         .disableColorfulSeedPhrase,
         .binWidgetFromLibrary,

@@ -18,10 +18,6 @@ final class PushNotificationsAlertHandler: PushNotificationsAlertHandlerProtocol
     // MARK: - PushNotificationsAlertHandlerProtocol
     
     func shouldShowAlert() async -> Bool {
-        guard FeatureFlags.enablePushMessages else {
-            return false
-        }
-        
         guard serverConfigurationStorage.currentConfiguration() != .localOnly else {
             return false
         }
