@@ -839,6 +839,7 @@ extension ImageAsset {
     public static let plus = ImageAsset.bundle(name: "x32/Plus")
     public static let properties = ImageAsset.bundle(name: "x32/Properties")
     public static let qrCode = ImageAsset.bundle(name: "x32/QRCode")
+    public static let qrCodeJoin = ImageAsset.bundle(name: "x32/QrCodeJoin")
     public static let remove = ImageAsset.bundle(name: "x32/Remove")
     public static let rename = ImageAsset.bundle(name: "x32/Rename")
     public static let replace = ImageAsset.bundle(name: "x32/Replace")
