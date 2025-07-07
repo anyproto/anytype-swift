@@ -106,6 +106,14 @@ public extension FeatureFlags {
         value(for: .openWelcomeObject)
     }
 
+    static var spaceLoadingForScreen: Bool {
+        value(for: .spaceLoadingForScreen)
+    }
+
+    static var binScreenEmptyAction: Bool {
+        value(for: .binScreenEmptyAction)
+    }
+
     static var openFullscreenObjectsFromSetWidget: Bool {
         value(for: .openFullscreenObjectsFromSetWidget)
     }
@@ -124,18 +132,6 @@ public extension FeatureFlags {
 
     static var anytypeImageCacher: Bool {
         value(for: .anytypeImageCacher)
-    }
-
-    static var spaceLoadingForScreen: Bool {
-        value(for: .spaceLoadingForScreen)
-    }
-
-    static var binScreenEmptyAction: Bool {
-        value(for: .binScreenEmptyAction)
-    }
-
-    static var newHome: Bool {
-        value(for: .newHome)
     }
 
     static var joinSpaceViaQRCode: Bool {
@@ -233,14 +229,13 @@ public extension FeatureFlags {
         .doNotWaitCompletionInAnytypePreview,
         .plusButtonOnWidgets,
         .openWelcomeObject,
+        .spaceLoadingForScreen,
+        .binScreenEmptyAction,
         .openFullscreenObjectsFromSetWidget,
         .chatWidget,
         .muteSpacePossibility,
         .chatLoadingIndicator,
         .anytypeImageCacher,
-        .spaceLoadingForScreen,
-        .binScreenEmptyAction,
-        .newHome,
         .joinSpaceViaQRCode,
         .rainbowViews,
         .showAlertOnAssert,

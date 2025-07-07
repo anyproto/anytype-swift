@@ -18,7 +18,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var mockMode: DocumentMode = .handling
     var mockDetails: ObjectDetails?
     var mockPermissions: ObjectPermissions = ObjectPermissions()
-    var mockSyncStatus: SyncStatus?
+    var mockSyncStatus: SpaceSyncStatus?
     
     // Publishers
     private let updateSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
@@ -47,7 +47,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var mode: DocumentMode { mockMode }
     var details: ObjectDetails? { mockDetails }
     var permissions: ObjectPermissions { mockPermissions }
-    var syncStatus: SyncStatus? { mockSyncStatus }
+    var syncStatus: SpaceSyncStatus? { mockSyncStatus }
     
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
         updateSubject.eraseToAnyPublisher()

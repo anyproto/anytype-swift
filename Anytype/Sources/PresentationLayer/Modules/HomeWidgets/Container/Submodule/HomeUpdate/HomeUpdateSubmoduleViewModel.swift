@@ -11,6 +11,7 @@ final class HomeUpdateSubmoduleViewModel: ObservableObject {
     @Published var openUrl: URL?
     
     init() {
+        #if RELEASE_ANYTYPE
         Task {
             do {
                 let result = try await appVersionUpdateService.newVersionIsAvailable()
@@ -19,6 +20,7 @@ final class HomeUpdateSubmoduleViewModel: ObservableObject {
                 showUpdateAlert = false
             }
         }
+        #endif
     }
     
     func onTapUpdate() {
