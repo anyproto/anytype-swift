@@ -91,7 +91,7 @@ import Services
 
 #Preview("Self host") {
     MockView {
-        SyncStatusStorageMock.shared.infoToReturn = SyncStatusInfo.mockArray(network: .selfHost)
+        SyncStatusStorageMock.shared.infoToReturn = SpaceSyncStatusInfo.mockArray(network: .selfHost)
     } content: {
         SyncStatusInfoView(spaceId: "")
     }
@@ -99,7 +99,7 @@ import Services
 
 #Preview("Local only") {
     MockView {
-        SyncStatusStorageMock.shared.infoToReturn = SyncStatusInfo.mockArray(network: .localOnly)
+        SyncStatusStorageMock.shared.infoToReturn = SpaceSyncStatusInfo.mockArray(network: .localOnly)
     } content: {
         SyncStatusInfoView(spaceId: "")
     }

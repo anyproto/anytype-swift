@@ -3,13 +3,13 @@ import Services
 import Combine
 
 struct DocumentSyncStatusData: Equatable {
-    let syncStatus: SyncStatus
+    let syncStatus: SpaceSyncStatus
     let layout: DetailsLayout
 }
 
 extension BaseDocumentProtocol {
     
-    private var syncStatusPublisher: AnyPublisher<SyncStatus, Never> {
+    private var syncStatusPublisher: AnyPublisher<SpaceSyncStatus, Never> {
         subscibeFor(update: [.syncStatus])
             .compactMap { [weak self] _ in
                 self?.syncStatus

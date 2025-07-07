@@ -25,7 +25,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     @Atomic
     private(set) var permissions = ObjectPermissions()
     @Atomic
-    private(set) var syncStatus: SyncStatus?
+    private(set) var syncStatus: SpaceSyncStatus?
     
     let infoContainer: any InfoContainerProtocol
     let restrictionsContainer: ObjectRestrictionsContainer
