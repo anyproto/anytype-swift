@@ -45,6 +45,6 @@ struct NetworkIconView<T: NetworkIconProvider>: View {
     MockView {
         SyncStatusStorageMock.shared.infoToReturn = [.mock(status: .syncing)]
     } content: {
-        NetworkIconView(iconProvider: .constant(SyncStatusInfo.default(spaceId: "")))
+        NetworkIconView(iconProvider: .constant(SpaceSyncStatusInfo.default(spaceId: "")))
     }
 }

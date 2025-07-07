@@ -2,9 +2,9 @@ import Services
 import SwiftUI
 
 
-extension SyncStatusInfo {
-    static func `default`(spaceId: String) -> SyncStatusInfo {
-        var info = SyncStatusInfo()
+extension SpaceSyncStatusInfo {
+    static func `default`(spaceId: String) -> SpaceSyncStatusInfo {
+        var info = SpaceSyncStatusInfo()
         info.network = .UNRECOGNIZED(1337)
         info.id = spaceId
         return info
@@ -12,7 +12,7 @@ extension SyncStatusInfo {
 }
 
 // Texts
-extension SyncStatusInfo {
+extension SpaceSyncStatusInfo {
     var networkTitle: String {
         switch network {
         case .anytype:
@@ -75,7 +75,7 @@ extension SyncStatusInfo {
 }
 
 // MARK: - NetworkIconProvider
-extension SyncStatusInfo: NetworkIconProvider {
+extension SpaceSyncStatusInfo: NetworkIconProvider {
     var iconData: NetworkIconData {
         switch network {
         case .anytype:
