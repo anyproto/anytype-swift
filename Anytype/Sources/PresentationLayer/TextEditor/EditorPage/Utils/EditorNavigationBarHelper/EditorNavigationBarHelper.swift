@@ -51,7 +51,7 @@ final class EditorNavigationBarHelper {
         // Done button
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = Loc.done
-        buttonConfig.baseForegroundColor = .Control.accent
+        buttonConfig.baseForegroundColor = .Control.accent100
         self.doneButton = UIButton(configuration: buttonConfig)
         self.doneButton.addAction(
             UIAction(

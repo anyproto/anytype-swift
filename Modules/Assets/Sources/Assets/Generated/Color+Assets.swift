@@ -182,7 +182,11 @@ extension Color {
     }
     // MARK: - Control
     public enum Control {
-      public static let accent = Color(asset: Asset.Control.accent)
+      public static let accent100 = Color(asset: Asset.Control.accent100)
+      public static let accent125 = Color(asset: Asset.Control.accent125)
+      public static let accent25 = Color(asset: Asset.Control.accent25)
+      public static let accent50 = Color(asset: Asset.Control.accent50)
+      public static let accent80 = Color(asset: Asset.Control.accent80)
       public static let active = Color(asset: Asset.Control.active)
       public static let button = Color(asset: Asset.Control.button)
       public static let inactive = Color(asset: Asset.Control.inactive)

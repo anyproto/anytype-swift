@@ -282,7 +282,11 @@ public extension UIColor.Control {
     static let collectionInfo = ColorCollectionInfo(
         name: "Control",
         colors: [
-            ColorInfo(name: "accent", color: UIColor.Control.accent),
+            ColorInfo(name: "accent100", color: UIColor.Control.accent100),
+            ColorInfo(name: "accent125", color: UIColor.Control.accent125),
+            ColorInfo(name: "accent25", color: UIColor.Control.accent25),
+            ColorInfo(name: "accent50", color: UIColor.Control.accent50),
+            ColorInfo(name: "accent80", color: UIColor.Control.accent80),
             ColorInfo(name: "active", color: UIColor.Control.active),
             ColorInfo(name: "button", color: UIColor.Control.button),
             ColorInfo(name: "inactive", color: UIColor.Control.inactive),

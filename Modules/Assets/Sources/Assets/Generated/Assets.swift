@@ -182,7 +182,11 @@ public enum Asset {
     static let widget = ColorAsset(name: "Background/widget")
   }
   public enum Control {
-    static let accent = ColorAsset(name: "Control/accent")
+    static let accent100 = ColorAsset(name: "Control/accent100")
+    static let accent125 = ColorAsset(name: "Control/accent125")
+    static let accent25 = ColorAsset(name: "Control/accent25")
+    static let accent50 = ColorAsset(name: "Control/accent50")
+    static let accent80 = ColorAsset(name: "Control/accent80")
     static let active = ColorAsset(name: "Control/active")
     static let button = ColorAsset(name: "Control/button")
     static let inactive = ColorAsset(name: "Control/inactive")
