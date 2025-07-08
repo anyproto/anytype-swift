@@ -1,6 +1,8 @@
 import Foundation
 import Services
 import AnytypeCore
+import UIKit
+
 
 @MainActor
 protocol BlockActionHandlerProtocol: AnyObject, Sendable {
@@ -45,6 +47,7 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
         contentType: BlockContentType
     ) async throws -> SafeNSAttributedString
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
+    func uploadImage(image: UIImage, type: String, blockId: String)
     func uploadFileAt(localPath: String, blockId: String)
     func createAndFetchBookmark(
         targetID: String,

@@ -116,6 +116,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(vc)
     }
     
+    func showCamera(onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
+        let vc = ImagePickerView(sourceType: .camera, onMediaTaken: onMediaTaken).ignoresSafeArea()
+        
+        navigationContext.present(vc)
+    }
+    
     func saveFile(fileURL: URL, type: FileContentType) {
         fileCoordinator.downloadFileAt(fileURL, withType: type, spaceId: document.spaceId)
     }

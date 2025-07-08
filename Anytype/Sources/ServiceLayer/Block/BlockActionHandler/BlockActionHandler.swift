@@ -235,6 +235,23 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId)
     }
     
+    func uploadImage(image: UIImage, type: String, blockId: String) {
+        Task {
+            guard let fileData = try? fileService.createFileData(image: image, type: type) else {
+                return
+            }
+            
+            await EventsBunch(
+                contextId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            ).send()
+            
+            try await fileService.uploadDataAt(data: fileData, contextID: document.objectId, blockID: blockId)
+        }
+
+        AnytypeAnalytics.instance().logUploadMedia(type: .image, spaceId: document.spaceId)
+    }
+    
     func uploadFileAt(localPath: String, blockId: String) {
         AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId)
         

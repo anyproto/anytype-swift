@@ -2,7 +2,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 enum ImagePickerMediaType {
-    case image(_ image: UIImage,_ type: String)
+    case image(image: UIImage, type: String)
     case video(URL)
 }
 
@@ -46,7 +46,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
         ) {
             if let image = info[.originalImage] as? UIImage,
                let mediaType = info[.mediaType] as? String {
-                onMediaTaken(.image(image, mediaType))
+                onMediaTaken(.image(image: image, type: mediaType))
             }
             if let url = info[.mediaURL] as? URL {
                 onMediaTaken(.video(url))

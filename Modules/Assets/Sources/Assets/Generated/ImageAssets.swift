@@ -871,6 +871,7 @@ extension ImageAsset {
     public static let bookmark = ImageAsset.bundle(name: "x40/Bookmark")
     public static let bulleted = ImageAsset.bundle(name: "x40/Bulleted")
     public static let callout = ImageAsset.bundle(name: "x40/Callout")
+    public static let camera = ImageAsset.bundle(name: "x40/Camera")
     public static let checkbox = ImageAsset.bundle(name: "x40/Checkbox")
     public static let codeSnippet = ImageAsset.bundle(name: "x40/Code Snippet")
     public static let code = ImageAsset.bundle(name: "x40/Code")
