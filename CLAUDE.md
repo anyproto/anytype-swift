@@ -192,7 +192,10 @@ Modules/                # Swift packages
 ### Git & GitHub
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
-- **Commit messages**: Single line only, no AI signatures
+- **Commit messages**: 
+  - Single line only
+  - **NO AI signatures** (no "Generated with Claude", no co-author attribution)
+  - Professional and concise
 - **GitHub CLI**: Use `gh` tool for all GitHub operations
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
@@ -203,6 +206,11 @@ Modules/                # Swift packages
 ## Summary
 - Brief description of changes (1-3 bullet points)
 ```
+
+**IMPORTANT**: 
+- **NEVER add AI signatures** like "🤖 Generated with Claude Code" to pull requests
+- **NEVER add AI signatures** to commit messages
+- Keep commits and PRs professional without AI attribution
 
 **Incremental Strategy** (for related changes):
 - Sequential branches: `ios-XXXX-description-1`, `ios-XXXX-description-2`
