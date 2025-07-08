@@ -126,6 +126,10 @@ public extension FeatureFlags {
         value(for: .anytypeImageCacher)
     }
 
+    static var joinSpaceViaQRCode: Bool {
+        value(for: .joinSpaceViaQRCode)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -222,6 +226,7 @@ public extension FeatureFlags {
         .muteSpacePossibility,
         .chatLoadingIndicator,
         .anytypeImageCacher,
+        .joinSpaceViaQRCode,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

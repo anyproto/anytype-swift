@@ -29,7 +29,7 @@ struct SpaceLoadingContainerView<Content: View>: View {
                 VStack(spacing: 20) {
                     Text(errorText)
                     StandardButton(
-                        Loc.Error.Common.tryAgain,
+                        Loc.tryAgain,
                         inProgress: false,
                         style: .warningMedium,
                         action: {

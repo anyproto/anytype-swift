@@ -16,6 +16,8 @@ struct SpaceHubCoordinatorView: View {
                 model.dismissAllPresented = dismissAllPresented
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
+            .onChange(of: model.qrCode) { _ in model.onQrCodeChange() }
+            .onChange(of: model.qrCodeScanErrorText) { _ in model.onQrCodeScanErrorChange() }
         
             .taskWithMemoryScope { await model.setup() }
             
@@ -74,8 +76,18 @@ struct SpaceHubCoordinatorView: View {
                 SpaceCreateCoordinatorView(data: $0)
             }
             .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
-                SpaceCreateTypePickerView { type in
+                SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)
+                }, onSelectQrCodeScan: {
+                    model.onSelectQrCodeScan()
+                })
+            }
+            .sheet(isPresented: $model.showQrCodeScanner) {
+                QrCodeScannerView(qrCode: $model.qrCode, error: $model.qrCodeScanErrorText)
+            }
+            .anytypeSheet(item: $model.qrCodeScanAlertError) {
+                QrCodeScanAlert(error: $0) {
+                    model.onQrScanTryAgain()
                 }
             }
     }

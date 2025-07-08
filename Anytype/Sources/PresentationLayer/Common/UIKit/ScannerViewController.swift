@@ -5,7 +5,7 @@ import SwiftUI
 
 // MARK: - SwiftUI adapter
 
-struct QRCodeScannerView: UIViewControllerRepresentable {
+struct QrCodeScannerView: UIViewControllerRepresentable {
     @Binding var qrCode: String
     @Binding var error: String?
     
@@ -13,14 +13,14 @@ struct QRCodeScannerView: UIViewControllerRepresentable {
         return Coordinator(qrCode: $qrCode, error: $error)
     }
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<QRCodeScannerView>) -> ScannerViewController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<QrCodeScannerView>) -> ScannerViewController {
         let scanner = ScannerViewController()
         scanner.delegate = context.coordinator
         return scanner
     }
 
     func updateUIViewController(_ uiViewController: ScannerViewController,
-                                context: UIViewControllerRepresentableContext<QRCodeScannerView>) {
+                                context: UIViewControllerRepresentableContext<QrCodeScannerView>) {
 
     }
     

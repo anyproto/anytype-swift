@@ -111,7 +111,7 @@ struct MigrationView: View {
                 .multilineTextAlignment(.center)
             Spacer()
             StandardButton(
-                Loc.Error.Common.tryAgain,
+                Loc.tryAgain,
                 style: .primaryLarge,
                 action: {
                     model.tryAgainTapped()
