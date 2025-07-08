@@ -19,8 +19,8 @@ final class EditorSelectionView: UIView {
             guard let self else { return }
             if isSelected {
                 layer.borderWidth = Constants.borderWidth
-                dynamicBorderColor = UIColor.System.amber100
-                backgroundColor = UIColor.System.amber100.withAlphaComponent(0.2)
+                dynamicBorderColor = UIColor.Control.accent100
+                backgroundColor = UIColor.Control.accent100.withAlphaComponent(0.2)
             } else {
                 layer.borderWidth = 0.0
                 dynamicBorderColor = nil
@@ -52,7 +52,7 @@ final class SpreadsheetSelectionView: UIView {
     func updateStyle(isSelected: Bool) {
         if isSelected {
             layer.borderWidth = Constants.borderWidth
-            dynamicBorderColor = UIColor.System.amber100
+            dynamicBorderColor = UIColor.Control.accent100
         } else {
             layer.borderWidth = 0.0
             backgroundColor = .clear

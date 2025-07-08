@@ -134,11 +134,11 @@ struct MembershipDebugView: View {
             AnytypeText("Environment: \(transaction.environment.rawValue)", style: .caption1Medium)
             if let revocationReason = transaction.revocationReason {
                 AnytypeText("Revocation reason: \(revocationReason.localizedDescription)", style: .caption1Medium)
-                    .foregroundStyle(Color.System.red)
+                    .foregroundStyle(Color.Pure.red)
             }
             if let revocationDate = transaction.revocationDate {
                 AnytypeText("Revocation data: \(revocationDate)", style: .caption1Medium)
-                    .foregroundStyle(Color.System.red)
+                    .foregroundStyle(Color.Pure.red)
             }
             StandardButton("Copy to clipboard", style: .secondaryLarge) {
                 UIPasteboard.general.string = transaction.debugDescription

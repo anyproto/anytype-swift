@@ -106,7 +106,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
 
 extension UIPhraseTextView {
     private static let colors: [UIColor] = [
-        .System.yellow, .System.red, .System.pink, .System.purple, .System.blue, .System.sky, .System.green
+        .Pure.yellow, .Pure.red, .Pure.pink, .Pure.purple, .Pure.blue, .Pure.sky, .Pure.green
     ]
     
     private func configureAttributedString(from text: String, hidden: Bool) -> NSAttributedString {

@@ -24,7 +24,7 @@ struct InstalledObjectTypeView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(
-                        model.isSelected ? Color.System.amber50 : Color.Shape.primary,
+                        model.isSelected ? Color.Control.accent50 : Color.Shape.primary,
                         lineWidth: model.isSelected ? 2 : 1
                     )
             )

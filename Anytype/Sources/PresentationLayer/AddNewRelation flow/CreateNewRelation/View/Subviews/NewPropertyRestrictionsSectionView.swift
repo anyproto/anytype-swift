@@ -70,7 +70,7 @@ struct NewPropertyRestrictionsSectionView_Previews: PreviewProvider {
                 ),
                 NewPropertyRestrictionsSectionView.ObjectTypeModel(
                     id: UUID().uuidString,
-                    icon: .customIcon(CustomIconData(icon: .telescope, customColor: .amber)),
+                    icon: .customIcon(CustomIconData(icon: .telescope, customColor: .orange)),
                     title: "custom icon title 3"
                 ),
                 NewPropertyRestrictionsSectionView.ObjectTypeModel(

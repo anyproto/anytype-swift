@@ -135,7 +135,7 @@ extension SpaceSyncStatusInfo: NetworkIconProvider {
         case .error:
             NetworkIconData(
                 icon:ImageAsset.SyncStatus.syncAnytypenetworkError,
-                color: .System.red
+                color: .Pure.red
             )
         case .networkNeedsUpdate:
             NetworkIconData(
@@ -160,7 +160,7 @@ extension SpaceSyncStatusInfo: NetworkIconProvider {
         case .error:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncSelfhost,
-                color: .System.red
+                color: .Pure.red
             )
         case .networkNeedsUpdate:
             NetworkIconData(

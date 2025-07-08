@@ -45,7 +45,7 @@ extension P2PStatusInfo: NetworkIconProvider {
         case .restricted:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncP2p,
-                color: .System.red
+                color: .Pure.red
             )
         }
     }

@@ -294,12 +294,12 @@ struct SpaceSettingsView: View {
         Spacer.fixedHeight(8)
         
         if model.allowDelete {
-            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .System.red) {
+            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .Pure.red) {
                 model.onDeleteTap()
             }
         }
         if model.allowLeave {
-            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .System.red) {
+            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .Pure.red) {
                 model.onLeaveTap()
             }
         }

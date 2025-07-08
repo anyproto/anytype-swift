@@ -24,7 +24,7 @@ struct EmailVerificationView: View {
             textInput
             Spacer.fixedHeight(7)
             AnytypeText(model.error, style: .relation2Regular)
-                .foregroundColor(.System.red)
+                .foregroundColor(.Pure.red)
             Spacer()
             resend
             Spacer.fixedHeight(30)

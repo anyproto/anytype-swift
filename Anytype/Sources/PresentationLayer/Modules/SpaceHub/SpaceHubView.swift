@@ -207,7 +207,7 @@ struct SpaceHubView: View {
     
     private var attentionDotView: some View {
         Circle()
-            .fill(Color.System.red)
+            .fill(Color.Pure.red)
             .frame(width: 8, height: 8)
             .background(
                 Circle()

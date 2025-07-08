@@ -28,22 +28,18 @@ extension Color {
       public static let teal = Color(asset: Asset.Light.teal)
       public static let yellow = Color(asset: Asset.Light.yellow)
     }
-    // MARK: - System
-    public enum System {
-      public static let amber100 = Color(asset: Asset.System.amber100)
-      public static let amber125 = Color(asset: Asset.System.amber125)
-      public static let amber25 = Color(asset: Asset.System.amber25)
-      public static let amber50 = Color(asset: Asset.System.amber50)
-      public static let amber80 = Color(asset: Asset.System.amber80)
-      public static let blue = Color(asset: Asset.System.blue)
-      public static let green = Color(asset: Asset.System.green)
-      public static let grey = Color(asset: Asset.System.grey)
-      public static let pink = Color(asset: Asset.System.pink)
-      public static let purple = Color(asset: Asset.System.purple)
-      public static let red = Color(asset: Asset.System.red)
-      public static let sky = Color(asset: Asset.System.sky)
-      public static let teal = Color(asset: Asset.System.teal)
-      public static let yellow = Color(asset: Asset.System.yellow)
+    // MARK: - Pure
+    public enum Pure {
+      public static let blue = Color(asset: Asset.Pure.blue)
+      public static let green = Color(asset: Asset.Pure.green)
+      public static let grey = Color(asset: Asset.Pure.grey)
+      public static let orange = Color(asset: Asset.Pure.orange)
+      public static let pink = Color(asset: Asset.Pure.pink)
+      public static let purple = Color(asset: Asset.Pure.purple)
+      public static let red = Color(asset: Asset.Pure.red)
+      public static let sky = Color(asset: Asset.Pure.sky)
+      public static let teal = Color(asset: Asset.Pure.teal)
+      public static let yellow = Color(asset: Asset.Pure.yellow)
     }
     // MARK: - VeryLight
     public enum VeryLight {
@@ -182,7 +178,11 @@ extension Color {
     }
     // MARK: - Control
     public enum Control {
-      public static let accent = Color(asset: Asset.Control.accent)
+      public static let accent100 = Color(asset: Asset.Control.accent100)
+      public static let accent125 = Color(asset: Asset.Control.accent125)
+      public static let accent25 = Color(asset: Asset.Control.accent25)
+      public static let accent50 = Color(asset: Asset.Control.accent50)
+      public static let accent80 = Color(asset: Asset.Control.accent80)
       public static let active = Color(asset: Asset.Control.active)
       public static let button = Color(asset: Asset.Control.button)
       public static let inactive = Color(asset: Asset.Control.inactive)

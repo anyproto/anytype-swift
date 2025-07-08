@@ -52,7 +52,7 @@ struct EmailCollectionView: View {
             VStack(spacing: 4) {
                 if model.showIncorrectEmailError {
                     AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
-                        .foregroundColor(.System.red)
+                        .foregroundColor(.Pure.red)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }

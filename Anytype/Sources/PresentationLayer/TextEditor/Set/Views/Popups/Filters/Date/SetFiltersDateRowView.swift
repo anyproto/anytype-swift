@@ -38,7 +38,7 @@ struct SetFiltersDateRowView: View {
                 DatePicker("", selection: $date, in: ClosedRange.anytypeDateRange, displayedComponents: .date)
                     .datePickerStyle(.compact)
                     .frame(height: 24)
-                    .accentColor(Color.System.amber100)
+                    .accentColor(Color.Control.accent100)
                 Spacer.fixedWidth(4)
             case let .days(count):
                 AnytypeText(count, style: .uxBodyRegular)

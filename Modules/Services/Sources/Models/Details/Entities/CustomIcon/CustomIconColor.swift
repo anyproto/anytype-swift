@@ -3,7 +3,7 @@ import SwiftUI
 public enum CustomIconColor: Int, CaseIterable, Sendable, Codable, Identifiable {
     case gray
     case yellow
-    case amber
+    case orange
     case red
     case pink
     case purple

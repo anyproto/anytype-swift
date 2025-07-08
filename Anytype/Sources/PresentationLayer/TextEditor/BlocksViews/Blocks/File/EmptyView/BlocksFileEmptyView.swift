@@ -58,8 +58,8 @@ class BlocksFileEmptyView: UIView, BlockContentView {
             icon.tintColor = .Control.active
         case .error:
             activityIndicator.stopAnimation()
-            label.textColor = .System.red
-            icon.tintColor = .System.red
+            label.textColor = .Pure.red
+            icon.tintColor = .Pure.red
         }
     }
     

@@ -85,7 +85,7 @@ public extension StandardButtonStyle {
         case .warningLarge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .System.red,
+                    textColor: .Pure.red,
                     borderColor: .Shape.primary
                 ),
                 higlighted: StandardButtonConfig.Style(

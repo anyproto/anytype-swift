@@ -48,7 +48,7 @@ struct SettingsAccountView: View {
             model.onDeleteAccountTap()
         }
         
-        SettingsButton(text: Loc.logOut, textColor: .System.red) {
+        SettingsButton(text: Loc.logOut, textColor: .Pure.red) {
             model.onLogOutTap()
         }
     }

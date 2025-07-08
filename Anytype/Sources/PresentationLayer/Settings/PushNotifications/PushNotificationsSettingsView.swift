@@ -48,7 +48,7 @@ struct PushNotificationsSettingsView: View {
             Spacer()
             
             Circle()
-                .fill(enabled ? Color.System.green : Color.System.red)
+                .fill(enabled ? Color.Pure.green : Color.Pure.red)
                 .frame(width: 10, height: 10)
             
             Spacer.fixedWidth(8)

@@ -24,7 +24,7 @@ struct SelectionIndicatorView: View {
             .foregroundColor(.Text.white)
             .lineLimit(1)
             .frame(width:24, height: 24)
-            .background(Color.System.sky)
+            .background(Color.Pure.sky)
             .clipShape(Circle())
     }
 }

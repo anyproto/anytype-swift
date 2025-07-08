@@ -7,7 +7,7 @@ struct LoadingAnimationView: View {
     
     var color: Color {
         if showError {
-            return Color.System.red
+            return Color.Pure.red
         }
         
         return shouldAnimate ? Color.Shape.primary : Color.Shape.tertiary

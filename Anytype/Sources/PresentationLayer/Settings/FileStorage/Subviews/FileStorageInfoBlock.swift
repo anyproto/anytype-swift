@@ -15,7 +15,7 @@ struct FileStorageInfoBlock: View {
                 AnytypeText(title, style: .previewTitle2Medium)
                     .foregroundColor(.Text.primary)
                 AnytypeText(description, style: .relation3Regular)
-                    .foregroundColor(isWarning ? .System.red : .Text.secondary)
+                    .foregroundColor(isWarning ? .Pure.red : .Text.secondary)
             }
             .lineLimit(1)
         }
