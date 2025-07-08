@@ -6,7 +6,7 @@ extension CustomIconColor {
         switch self {
         case .gray:
                 .Control.active
-        case .amber:
+        case .orange:
                 .System.orange
         case .yellow:
                 .System.yellow
