@@ -15,7 +15,7 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let readersLimit: Int?
     let writersLimit: Int?
     let chatId: String
-    let isPinned: Bool
+    let spaceOrder: String
     let uxType: SpaceUxType
     let pushNotificationEncryptionKey: String
     let pushNotificationMode: SpacePushNotificationsMode
@@ -35,7 +35,7 @@ extension SpaceView: DetailsModel {
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
-        self.isPinned = details.spaceOrder.isNotEmpty
+        self.spaceOrder = details.spaceOrder
         self.uxType = details.spaceUxTypeValue ?? .data
         self.pushNotificationEncryptionKey = details.spacePushNotificationEncryptionKey
         self.pushNotificationMode = details.spacePushNotificationModeValue ?? .all
@@ -66,6 +66,10 @@ extension SpaceView {
     
     var title: String {
         name.withPlaceholder
+    }
+    
+    var isPinned: Bool {
+        spaceOrder.isNotEmpty
     }
     
     var isShared: Bool {

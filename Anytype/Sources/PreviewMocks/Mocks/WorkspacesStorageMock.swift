@@ -29,7 +29,7 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
                 readersLimit: nil,
                 writersLimit: nil,
                 chatId: "",
-                isPinned: false,
+                spaceOrder: "",
                 uxType: .data,
                 pushNotificationEncryptionKey: "",
                 pushNotificationMode: .all
