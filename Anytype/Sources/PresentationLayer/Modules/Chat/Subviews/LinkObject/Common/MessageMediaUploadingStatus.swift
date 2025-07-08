@@ -1,7 +1,7 @@
 import SwiftUI
 import Services
 
-struct MessageUploadingStatus<Content: View>: View {
+struct MessageMediaUploadingStatus<Content: View>: View {
     
     let syncStatus: SyncStatus?
     let syncError: SyncError?
@@ -22,7 +22,7 @@ struct MessageUploadingStatus<Content: View>: View {
     }
 }
 
-extension MessageUploadingStatus where Content == EmptyView {
+extension MessageMediaUploadingStatus where Content == EmptyView {
     init(syncStatus: SyncStatus?, syncError: SyncError?) {
         self.init(
             syncStatus: syncStatus,

@@ -9,12 +9,12 @@ struct MessageCommonObjectView: View {
     let description: String
     let style: MessageAttachmentStyle
     let size: String?
+    let syncStatus: SyncStatus?
+    let syncError: SyncError?
     
     var body: some View {
         HStack(spacing: 12) {
-            IconView(icon: icon)
-                .frame(width: 48, height: 48)
-                .allowsHitTesting(false)
+            MessageFileUploadingStatus(icon: icon, syncStatus: syncStatus, syncError: syncError)
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)

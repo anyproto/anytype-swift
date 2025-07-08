@@ -27,7 +27,7 @@ struct MessageVideoView: View {
                             .frame(width: reader.size.width, height: reader.size.height, alignment: .center)
                             .clipped()
                         Color.black.opacity(0.2)
-                        MessageUploadingStatus(
+                        MessageMediaUploadingStatus(
                             syncStatus: syncStatus,
                             syncError: syncError
                         ) {
