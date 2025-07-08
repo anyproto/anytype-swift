@@ -208,17 +208,8 @@ struct SpaceHubView: View {
     private var attentionDotView: some View {
         Circle()
             .fill(Color.Pure.red)
-            .frame(width: 8, height: 8)
-            .background(
-                Circle()
-                    .if(applyBlur, if: {
-                        $0.fill(Material.ultraThinMaterial)
-                    }, else: {
-                        $0.fill(Color.Background.primary)
-                    })
-                    .frame(width: 12, height: 12)
-            )
-            .padding(.top, -2)
+            .frame(width: 6, height: 6)
+            .padding([.top, .trailing], -4)
     }
     
     private var applyBlur: Bool {
