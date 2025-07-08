@@ -42,10 +42,6 @@ public extension FeatureFlags {
         value(for: .enableStreamSpaceType)
     }
 
-    static var enablePushMessages: Bool {
-        value(for: .enablePushMessages)
-    }
-
     static var aiToolInSet: Bool {
         value(for: .aiToolInSet)
     }
@@ -112,10 +108,6 @@ public extension FeatureFlags {
 
     static var binScreenEmptyAction: Bool {
         value(for: .binScreenEmptyAction)
-    }
-
-    static var openFullscreenObjectsFromSetWidget: Bool {
-        value(for: .openFullscreenObjectsFromSetWidget)
     }
 
     static var chatWidget: Bool {
@@ -209,7 +201,6 @@ public extension FeatureFlags {
         .newPlusMenu,
         .spaceUxTypes,
         .enableStreamSpaceType,
-        .enablePushMessages,
         .aiToolInSet,
         .disableColorfulSeedPhrase,
         .binWidgetFromLibrary,
@@ -227,7 +218,6 @@ public extension FeatureFlags {
         .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .openFullscreenObjectsFromSetWidget,
         .chatWidget,
         .muteSpacePossibility,
         .chatLoadingIndicator,

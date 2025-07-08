@@ -44,9 +44,7 @@ final class PushNotificationsPermissionService: PushNotificationsPermissionServi
         }
     }
     
-    func registerForRemoteNotificationsIfNeeded() async {
-        guard FeatureFlags.enablePushMessages else { return }
-        
+    func registerForRemoteNotificationsIfNeeded() async {        
         let status = await authorizationStatus()
         if status == .authorized {
             registerForRemoteNotifications()

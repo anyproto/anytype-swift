@@ -64,12 +64,6 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
-
-    static let enablePushMessages = FeatureDescription(
-        title: "Enable push messages (⚠️ please restart the app after enabling)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: true
-    )
     
     static let aiToolInSet = FeatureDescription(
         title: "Add AI tool in Set / Collection",
@@ -195,12 +189,6 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
-    )
-    
-    static let openFullscreenObjectsFromSetWidget = FeatureDescription(
-        title: "Open fullscreen object from set widget",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        defaultValue: true
     )
     
     static let chatWidget = FeatureDescription(
