@@ -21,7 +21,7 @@ struct MessageImageView: View {
                         image.resizable().scaledToFill()
                             .frame(width: reader.size.width, height: reader.size.height, alignment: .center)
                             .clipped()
-                        MessageUploadingStatus(syncStatus: syncStatus, syncError: syncError)
+                        MessageMediaUploadingStatus(syncStatus: syncStatus, syncError: syncError)
                     }
                 case .failure:
                     MessageAttachmentErrorIndicator()

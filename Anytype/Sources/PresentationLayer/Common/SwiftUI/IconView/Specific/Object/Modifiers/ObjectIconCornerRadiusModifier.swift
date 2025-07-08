@@ -10,11 +10,14 @@ struct ObjectIconCornerRadiusBuilder {
 
 private struct ObjectIconCornerRadiusModifier: ViewModifier {
     
+    @State private var size: CGSize = .zero
+    
     func body(content: Content) -> some View {
-        GeometryReader { reader in
-            content
-                .cornerRadius(ObjectIconCornerRadiusBuilder.calculateObjectIconCornerRadius(size: reader.size), style: .continuous)
-        }
+        content
+            .readSize {
+                size = $0
+            }
+            .cornerRadius(ObjectIconCornerRadiusBuilder.calculateObjectIconCornerRadius(size: size), style: .continuous)
     }
 }
 

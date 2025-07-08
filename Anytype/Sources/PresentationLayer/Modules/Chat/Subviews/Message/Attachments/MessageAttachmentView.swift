@@ -9,6 +9,8 @@ struct MessageAttachmentView: View {
     let description: String
     let position: MessageHorizontalPosition
     let size: String?
+    let syncStatus: SyncStatus?
+    let syncError: SyncError?
     
     var body: some View {
         MessageCommonObjectView(
@@ -16,7 +18,9 @@ struct MessageAttachmentView: View {
             title: title,
             description: description,
             style: position.isRight ? .messageYour : .messageOther,
-            size: size
+            size: size,
+            syncStatus: syncStatus,
+            syncError: syncError
         )
         .frame(height: 64)
         .frame(minWidth: 231)
@@ -34,7 +38,9 @@ extension MessageAttachmentView {
             title: details.title,
             description: details.description,
             position: position,
-            size: size
+            size: size,
+            syncStatus: details.syncStatus,
+            syncError: details.syncError
         )
     }
 }
