@@ -37,6 +37,13 @@ public extension FeatureDescription {
         releaseAnyAppValue: true
     )
     
+    static let pinnedSpaces = FeatureDescription(
+        title: "Pinned Spaces",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     static let openMediaFileInPreview = FeatureDescription(
         title: "Open all media files in preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),

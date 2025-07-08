@@ -19,6 +19,7 @@ extension SpaceView {
             readersLimit: nil,
             writersLimit: nil,
             chatId: "",
+            isPinned: false,
             uxType: .data,
             pushNotificationEncryptionKey: "",
             pushNotificationMode: .all

@@ -31,6 +31,9 @@ struct SpaceCardLabel: View {
                     info
                     Spacer()
                     unreadCounters
+                    if FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
+                        Image(asset: .X24.pin).frame(width: 22, height: 22)
+                    }
                 }
                 Spacer(minLength: 1)
             }
@@ -44,7 +47,8 @@ struct SpaceCardLabel: View {
         
         .if(spaceData.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .if(draggable) {
+        
+        .if((!FeatureFlags.pinnedSpaces && draggable) || spaceData.spaceView.isPinned) {
             $0.onDrag {
                 draggedSpace = spaceData
                 return NSItemProvider()

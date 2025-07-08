@@ -10,6 +10,8 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTap: () -> Void
     let onTapCopy: () -> Void
     let onTapMute: () -> Void
+    let onTapPin: () async throws -> Void
+    let onTapUnpin: () async throws -> Void
     let onTapLeave: () -> Void
     let onTapDelete: () async throws -> Void
     
@@ -40,6 +42,14 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Divider()
         }
         
+        if FeatureFlags.pinnedSpaces {
+            if spaceData.spaceView.isPinned {
+                unpinButton
+            } else {
+                pinButton
+            }
+        }
+        
         if spaceData.space.canLeave {
             leaveButton
         }
@@ -65,6 +75,22 @@ struct SpaceCard: View, @preconcurrency Equatable {
                 Spacer()
                 Image(systemName: spaceData.spaceView.pushNotificationMode.isUnmutedAll ? "bell.slash" : "bell")
             }
+        }
+    }
+    
+    private var unpinButton: some View {
+        AsyncButton {
+            try await onTapUnpin()
+        } label: {
+            Text(Loc.unpin)
+        }
+    }
+    
+    private var pinButton: some View {
+        AsyncButton {
+            try await onTapPin()
+        } label: {
+            Text(Loc.pin)
         }
     }
     

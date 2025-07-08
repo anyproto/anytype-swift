@@ -35,12 +35,14 @@ struct SpaceHubDropDelegate: DropDelegate {
         if initialIndex.isNil { initialIndex = fromIndex }
         
         guard let destinationSpace = allSpaces[safe: toIndex] else { return }
+        guard destinationSpace.spaceView.isPinned || !FeatureFlags.pinnedSpaces else { return }
         
         allSpaces.move(
             fromOffsets: IndexSet(integer: fromIndex),
             toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)
         )
         let newOrder = allSpaces
+            .filter({ $0.spaceView.isPinned || !FeatureFlags.pinnedSpaces })
             .map(\.spaceView.id)
         
         // Doesn't use @Injected(\.spaceOrderService)
@@ -48,11 +50,19 @@ struct SpaceHubDropDelegate: DropDelegate {
         let spaceOrderService = Container.shared.spaceOrderService()
         let workspaceStorage = Container.shared.workspaceStorage()
         
-        let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
-        if let destinationItem = allSpaces[safe: destinationIndex] {
+        if FeatureFlags.pinnedSpaces {
             Task {
-                await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
-                AnytypeAnalytics.instance().logReorderSpace()
+                try await spaceOrderService.setOrder(
+                    spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
+                )
+            }
+        } else {
+            let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
+            if let destinationItem = allSpaces[safe: destinationIndex] {
+                Task {
+                    await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
+                    AnytypeAnalytics.instance().logReorderSpace()
+                }
             }
         }
     }
