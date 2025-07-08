@@ -4,6 +4,7 @@ enum SlashActionMedia: CaseIterable {
     case file
     case image
     case video
+    case camera
     case audio
     case bookmark
     case codeSnippet
@@ -11,51 +12,57 @@ enum SlashActionMedia: CaseIterable {
     var title: String {
         switch self {
         case .file:
-            return Loc.file(1)
+            Loc.file(1)
         case .image:
-            return Loc.image(1)
+            Loc.image(1)
         case .video:
-            return Loc.video(1)
+            Loc.video(1)
+        case .camera:
+            Loc.cameraBlockTitle
         case .audio:
-            return Loc.audio(1)
+            Loc.audio(1)
         case .bookmark:
-            return Loc.bookmark(1)
+            Loc.bookmark(1)
         case .codeSnippet:
-            return Loc.codeSnippet
+            Loc.codeSnippet
         }
     }
     
     var iconAsset: ImageAsset {
         switch self {
         case .file:
-            return .X40.attachment
+            .X40.attachment
         case .image:
-            return .X40.picture
+            .X40.picture
         case .video:
-            return .X40.video
+            .X40.video
+        case .camera:
+            .X40.camera
         case .audio:
-            return .X40.audio
+            .X40.audio
         case .bookmark:
-            return .X40.bookmark
+            .X40.bookmark
         case .codeSnippet:
-            return .X40.codeSnippet
+            .X40.codeSnippet
         }
     }
     
     var subtitle: String {
         switch self {
         case .file:
-            return Loc.fileBlockSubtitle
+            Loc.fileBlockSubtitle
         case .image:
-            return Loc.imageBlockSubtitle
+            Loc.imageBlockSubtitle
         case .video:
-            return Loc.videoBlockSubtitle
+            Loc.videoBlockSubtitle
+        case .camera:
+            Loc.cameraBlockSubtitle
         case .audio:
-            return Loc.uploadPlayableAudio
+            Loc.uploadPlayableAudio
         case .bookmark:
-            return Loc.bookmarkBlockSubtitle
+            Loc.bookmarkBlockSubtitle
         case .codeSnippet:
-            return Loc.codeBlockSubtitle
+            Loc.codeBlockSubtitle
         }
     }
     
@@ -67,6 +74,8 @@ enum SlashActionMedia: CaseIterable {
             return .file(FileBlockContentData(contentType: .image))
         case .video:
             return .file(FileBlockContentData(contentType: .video))
+        case .camera:
+            return .file(FileBlockContentData(contentType: .image))
         case .audio:
             return .file(FileBlockContentData(contentType: .audio))
         case .bookmark:
@@ -80,6 +89,8 @@ enum SlashActionMedia: CaseIterable {
         switch self {
         case .image:
             return [Loc.picture]
+        case .camera:
+            return [Loc.camera, Loc.photo, Loc.picture, Loc.video(1)]
         default:
             return []
         }

@@ -8,6 +8,7 @@ protocol MediaBlockActionsProviderProtocol: AnyObject {
     func openVideoPicker(blockId: String)
     func openFilePicker(blockId: String)
     func openAudioPicker(blockId: String)
+    func openCamera(blockId: String)
 }
 
 @MainActor
@@ -40,6 +41,19 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
     
     func openAudioPicker(blockId: String) {
         showFilePicker(blockId: blockId, types: [.audio])
+    }
+    
+    func openCamera(blockId: String) {
+        router.showCamera { [weak self] media in
+            guard let self else { return }
+            
+            switch media {
+            case let .image(image, type):
+                handler.uploadImage(image: image, type: type, blockId: blockId)
+            case .video(let url):
+                handler.uploadMediaFile(uploadingSource: .path(url.path()), type: .videos, blockId: blockId)
+            }
+        }
     }
     
     // MARK: - Private

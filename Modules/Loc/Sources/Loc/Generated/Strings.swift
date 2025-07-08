@@ -69,6 +69,9 @@ public enum Loc {
   public static let bookmarkBlockSubtitle = Loc.tr("Localizable", "Bookmark block subtitle", fallback: "Save your favorite link with summary")
   public static let bookmarks = Loc.tr("Localizable", "Bookmarks", fallback: "Bookmarks")
   public static let callout = Loc.tr("Localizable", "Callout", fallback: "Callout")
+  public static let camera = Loc.tr("Localizable", "Camera", fallback: "Camera")
+  public static let cameraBlockSubtitle = Loc.tr("Localizable", "Camera block subtitle", fallback: "Capture a moment and enrich the page with it")
+  public static let cameraBlockTitle = Loc.tr("Localizable", "Camera block title", fallback: "Take photo or video")
   public static let cancel = Loc.tr("Localizable", "Cancel", fallback: "Cancel")
   public static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion", fallback: "Cancel deletion")
   public static let changeCover = Loc.tr("Localizable", "Change cover", fallback: "Change cover")
@@ -329,6 +332,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Per Year", p1, fallback: "per %#@year@")
   }
   public static let personalization = Loc.tr("Localizable", "Personalization", fallback: "Personalization")
+  public static let photo = Loc.tr("Localizable", "Photo", fallback: "Photo")
   public static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")
   public static let pin = Loc.tr("Localizable", "Pin", fallback: "Pin")
   public static let pinOnTop = Loc.tr("Localizable", "Pin on top", fallback: "Pin on top")
