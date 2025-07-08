@@ -88,9 +88,9 @@ private extension SpaceStatus {
         case .UNRECOGNIZED, .spaceJoining, .loading:
             return .Control.accent125
         case .error, .missing, .remoteDeleted, .remoteWaitingDeletion, .spaceDeleted, .spaceRemoving:
-            return .System.red
+            return .Pure.red
         case .unknown, .ok, .spaceActive:
-            return .System.green
+            return .Pure.green
         }
     }
 }

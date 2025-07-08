@@ -60,7 +60,7 @@ struct FileDownloadingView: View {
             viewModel.didTapCancelButton()
         } label: {
             AnytypeText(Loc.cancel, style: .uxBodyRegular)
-                .foregroundColor(.System.red)
+                .foregroundColor(.Pure.red)
         }
     }
     

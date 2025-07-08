@@ -22,7 +22,7 @@ public extension UIColor {
             collections: [
                 UIColor.Dark.collectionInfo,
                 UIColor.Light.collectionInfo,
-                UIColor.System.collectionInfo,
+                UIColor.Pure.collectionInfo,
                 UIColor.VeryLight.collectionInfo
             ]
         ), 
@@ -83,20 +83,20 @@ public extension UIColor.Light {
         ]
     )
 }
-public extension UIColor.System {
+public extension UIColor.Pure {
     static let collectionInfo = ColorCollectionInfo(
-        name: "System",
+        name: "Pure",
         colors: [
-            ColorInfo(name: "blue", color: UIColor.System.blue),
-            ColorInfo(name: "green", color: UIColor.System.green),
-            ColorInfo(name: "grey", color: UIColor.System.grey),
-            ColorInfo(name: "orange", color: UIColor.System.orange),
-            ColorInfo(name: "pink", color: UIColor.System.pink),
-            ColorInfo(name: "purple", color: UIColor.System.purple),
-            ColorInfo(name: "red", color: UIColor.System.red),
-            ColorInfo(name: "sky", color: UIColor.System.sky),
-            ColorInfo(name: "teal", color: UIColor.System.teal),
-            ColorInfo(name: "yellow", color: UIColor.System.yellow)
+            ColorInfo(name: "blue", color: UIColor.Pure.blue),
+            ColorInfo(name: "green", color: UIColor.Pure.green),
+            ColorInfo(name: "grey", color: UIColor.Pure.grey),
+            ColorInfo(name: "orange", color: UIColor.Pure.orange),
+            ColorInfo(name: "pink", color: UIColor.Pure.pink),
+            ColorInfo(name: "purple", color: UIColor.Pure.purple),
+            ColorInfo(name: "red", color: UIColor.Pure.red),
+            ColorInfo(name: "sky", color: UIColor.Pure.sky),
+            ColorInfo(name: "teal", color: UIColor.Pure.teal),
+            ColorInfo(name: "yellow", color: UIColor.Pure.yellow)
         ]
     )
 }

@@ -44,17 +44,17 @@ public enum Asset {
     static let teal = ColorAsset(name: "Light/teal")
     static let yellow = ColorAsset(name: "Light/yellow")
   }
-  public enum System {
-    static let blue = ColorAsset(name: "System/blue")
-    static let green = ColorAsset(name: "System/green")
-    static let grey = ColorAsset(name: "System/grey")
-    static let orange = ColorAsset(name: "System/orange")
-    static let pink = ColorAsset(name: "System/pink")
-    static let purple = ColorAsset(name: "System/purple")
-    static let red = ColorAsset(name: "System/red")
-    static let sky = ColorAsset(name: "System/sky")
-    static let teal = ColorAsset(name: "System/teal")
-    static let yellow = ColorAsset(name: "System/yellow")
+  public enum Pure {
+    static let blue = ColorAsset(name: "Pure/blue")
+    static let green = ColorAsset(name: "Pure/green")
+    static let grey = ColorAsset(name: "Pure/grey")
+    static let orange = ColorAsset(name: "Pure/orange")
+    static let pink = ColorAsset(name: "Pure/pink")
+    static let purple = ColorAsset(name: "Pure/purple")
+    static let red = ColorAsset(name: "Pure/red")
+    static let sky = ColorAsset(name: "Pure/sky")
+    static let teal = ColorAsset(name: "Pure/teal")
+    static let yellow = ColorAsset(name: "Pure/yellow")
   }
   public enum VeryLight {
     static let blue = ColorAsset(name: "VeryLight/blue")

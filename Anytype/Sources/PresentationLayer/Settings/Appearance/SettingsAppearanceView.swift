@@ -126,7 +126,7 @@ struct SettingsAppearanceView: View {
 struct SettingsAppearanceView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.System.blue
+            Color.Pure.blue
             SettingsAppearanceView()
         }
     }

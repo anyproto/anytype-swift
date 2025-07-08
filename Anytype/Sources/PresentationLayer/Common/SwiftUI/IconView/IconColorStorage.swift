@@ -6,16 +6,16 @@ import AnytypeCore
 final class IconColorStorage {
         
     static let allColors = [
-        Color.System.yellow,
-        Color.System.orange,
-        Color.System.red,
-        Color.System.pink,
-        Color.System.purple,
-        Color.System.blue,
-        Color.System.sky,
-        Color.System.teal,
-        Color.System.green,
-        Color.System.grey
+        Color.Pure.yellow,
+        Color.Pure.orange,
+        Color.Pure.red,
+        Color.Pure.pink,
+        Color.Pure.purple,
+        Color.Pure.blue,
+        Color.Pure.sky,
+        Color.Pure.teal,
+        Color.Pure.green,
+        Color.Pure.grey
     ]
     
     static func iconColor(iconOption: Int) -> Color {
@@ -23,7 +23,7 @@ final class IconColorStorage {
         
         guard let color = allColors[safe: index] else {
             anytypeAssertionFailure("Corrupted icon option", info: ["iconOption": "\(iconOption)"])
-            return .System.sky
+            return .Pure.sky
         }
         
         return color

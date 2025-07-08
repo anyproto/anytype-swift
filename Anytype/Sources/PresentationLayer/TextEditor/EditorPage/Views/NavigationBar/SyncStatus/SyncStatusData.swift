@@ -22,16 +22,16 @@ struct SyncStatusData: Equatable {
         
         switch status {
         case .error:
-            return .image(makeIcon(color: .System.red))
+            return .image(makeIcon(color: .Pure.red))
         case .networkNeedsUpdate:
-            return .image(makeIcon(color: .System.yellow))
+            return .image(makeIcon(color: .Pure.yellow))
         case .syncing:
             return .animation(
-                makeIcon(color: .System.green, diameter: 8),
+                makeIcon(color: .Pure.green, diameter: 8),
                 UIImage(asset: ImageAsset.SyncStatus.syncInProgress) ?? UIImage()
             )
         case .synced:
-            return .image(makeIcon(color: .System.green))
+            return .image(makeIcon(color: .Pure.green))
         case .offline, .UNRECOGNIZED:
             return .image(makeIcon(color: .Control.active))
         }

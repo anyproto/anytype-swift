@@ -28,18 +28,18 @@ extension UIColor {
       public static let teal = UIColor(asset: Asset.Light.teal)
       public static let yellow = UIColor(asset: Asset.Light.yellow)
     }
-    // MARK: - System
-    public enum System {
-      public static let blue = UIColor(asset: Asset.System.blue)
-      public static let green = UIColor(asset: Asset.System.green)
-      public static let grey = UIColor(asset: Asset.System.grey)
-      public static let orange = UIColor(asset: Asset.System.orange)
-      public static let pink = UIColor(asset: Asset.System.pink)
-      public static let purple = UIColor(asset: Asset.System.purple)
-      public static let red = UIColor(asset: Asset.System.red)
-      public static let sky = UIColor(asset: Asset.System.sky)
-      public static let teal = UIColor(asset: Asset.System.teal)
-      public static let yellow = UIColor(asset: Asset.System.yellow)
+    // MARK: - Pure
+    public enum Pure {
+      public static let blue = UIColor(asset: Asset.Pure.blue)
+      public static let green = UIColor(asset: Asset.Pure.green)
+      public static let grey = UIColor(asset: Asset.Pure.grey)
+      public static let orange = UIColor(asset: Asset.Pure.orange)
+      public static let pink = UIColor(asset: Asset.Pure.pink)
+      public static let purple = UIColor(asset: Asset.Pure.purple)
+      public static let red = UIColor(asset: Asset.Pure.red)
+      public static let sky = UIColor(asset: Asset.Pure.sky)
+      public static let teal = UIColor(asset: Asset.Pure.teal)
+      public static let yellow = UIColor(asset: Asset.Pure.yellow)
     }
     // MARK: - VeryLight
     public enum VeryLight {

@@ -32,7 +32,7 @@ struct PersonalizationView: View {
 struct PersonalizationView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.System.blue
+            Color.Pure.blue
             PersonalizationView(spaceId: "", output: nil)
         }
     }

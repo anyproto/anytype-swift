@@ -28,18 +28,18 @@ extension Color {
       public static let teal = Color(asset: Asset.Light.teal)
       public static let yellow = Color(asset: Asset.Light.yellow)
     }
-    // MARK: - System
-    public enum System {
-      public static let blue = Color(asset: Asset.System.blue)
-      public static let green = Color(asset: Asset.System.green)
-      public static let grey = Color(asset: Asset.System.grey)
-      public static let orange = Color(asset: Asset.System.orange)
-      public static let pink = Color(asset: Asset.System.pink)
-      public static let purple = Color(asset: Asset.System.purple)
-      public static let red = Color(asset: Asset.System.red)
-      public static let sky = Color(asset: Asset.System.sky)
-      public static let teal = Color(asset: Asset.System.teal)
-      public static let yellow = Color(asset: Asset.System.yellow)
+    // MARK: - Pure
+    public enum Pure {
+      public static let blue = Color(asset: Asset.Pure.blue)
+      public static let green = Color(asset: Asset.Pure.green)
+      public static let grey = Color(asset: Asset.Pure.grey)
+      public static let orange = Color(asset: Asset.Pure.orange)
+      public static let pink = Color(asset: Asset.Pure.pink)
+      public static let purple = Color(asset: Asset.Pure.purple)
+      public static let red = Color(asset: Asset.Pure.red)
+      public static let sky = Color(asset: Asset.Pure.sky)
+      public static let teal = Color(asset: Asset.Pure.teal)
+      public static let yellow = Color(asset: Asset.Pure.yellow)
     }
     // MARK: - VeryLight
     public enum VeryLight {

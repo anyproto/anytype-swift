@@ -44,8 +44,8 @@ struct DeletedAccountView: View {
             AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(14)
-            SettingsButton(text: Loc.cancelDeletion, textColor: .System.red) { viewModel.cancel() }
-            SettingsButton(text: Loc.logoutAndClearData, textColor: .System.red) { viewModel.logOut() }
+            SettingsButton(text: Loc.cancelDeletion, textColor: .Pure.red) { viewModel.cancel() }
+            SettingsButton(text: Loc.logoutAndClearData, textColor: .Pure.red) { viewModel.logOut() }
         }
     }
     
@@ -57,7 +57,7 @@ struct DeletedAccountView: View {
                     .stroke(Color.Shape.primary, lineWidth: 2)
                     .frame(width: 52, height: 52)
                 Clock(progress: clockProgress)
-                    .fill(Color.System.red)
+                    .fill(Color.Pure.red)
                     .frame(width: 36, height: 36)
             }
             Spacer()
