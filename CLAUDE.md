@@ -83,6 +83,34 @@ When setting up the project for the first time, run these commands in order:
 - Be patient with file operations - the file size makes edits slower
 - Always run `make generate-middle` after adding new localization keys
 
+#### Before Adding New Localization Keys
+**IMPORTANT**: Always search for existing keys before adding new ones:
+
+1. **Search generated constants first**:
+   ```bash
+   rg "yourSearchTerm" Modules/Loc/Sources/Loc/Generated/Strings.swift
+   ```
+   This file contains all available localization constants with their fallback values.
+
+2. **Check for related/similar keys**: Look for keys that might already exist with similar meanings:
+   - `cameraBlockTitle` instead of creating "Take photo or video"
+   - `cameraBlockSubtitle` instead of creating "Capture a moment..."
+   - `camera`, `photo`, `picture` for synonyms
+
+3. **Pattern matching**: Use existing patterns:
+   - Block titles: `[feature]BlockTitle`
+   - Block subtitles: `[feature]BlockSubtitle`
+   - Common words: `camera`, `photo`, `picture`, `video(1)`
+
+4. **Import Loc module**: Always add `import Loc` to files using localization
+
+#### Efficient Localization Workflow
+1. Check `Modules/Loc/Sources/Loc/Generated/Strings.swift` for existing keys
+2. Search for similar functionality that might already have localization
+3. Only add new keys if absolutely necessary
+4. Use semantic, descriptive key names that follow existing patterns
+5. Run `make generate-middle` after any changes
+
 ## Code Style Guidelines
 
 ### Formatting
