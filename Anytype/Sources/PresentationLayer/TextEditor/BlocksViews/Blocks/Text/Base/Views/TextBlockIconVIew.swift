@@ -176,7 +176,7 @@ extension TextBlockIconView {
 
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
-        quoteView.backgroundColor = UIColor.System.amber100
+        quoteView.backgroundColor = UIColor.Control.accent100
         setContentHuggingPriority(.defaultLow + 1, for: .horizontal)
 
         addSubview(quoteView) {

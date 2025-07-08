@@ -7,7 +7,7 @@ extension CustomIconColor {
         case .gray:
                 .Control.active
         case .amber:
-                .System.amber100
+                .System.orange
         case .yellow:
                 .System.yellow
         case .red:

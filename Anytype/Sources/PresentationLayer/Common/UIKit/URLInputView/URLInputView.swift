@@ -28,7 +28,7 @@ final class URLInputView: UIView {
         button.setAttributedTitle(NSAttributedString(
                                     string: Loc.done,
                                     attributes: [.font: UIFont.uxBodyRegular,
-                                                 .foregroundColor: UIColor.System.amber100]),
+                                                 .foregroundColor: UIColor.Control.accent100]),
                                   for: .normal)
         button.setAttributedTitle(NSAttributedString(
                                     string: Loc.done,

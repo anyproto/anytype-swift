@@ -39,7 +39,7 @@ final class DividerCursorController {
 
     lazy var moveCursorView: UIView = {
         let view: UIView = UIView()
-        view.backgroundColor = UIColor.System.amber100
+        view.backgroundColor = UIColor.Control.accent100
         view.layer.cornerRadius = Constants.Divider.cornerRadius
         view.layer.masksToBounds = true
 

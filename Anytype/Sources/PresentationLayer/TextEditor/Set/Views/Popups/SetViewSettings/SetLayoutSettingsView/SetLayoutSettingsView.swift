@@ -50,7 +50,7 @@ struct SetLayoutSettingsView: View {
                 configuration.name,
                 style: configuration.isSelected ? .caption2Medium : .caption2Regular
             )
-            .foregroundColor(configuration.isSelected ? .System.amber100 : .Text.secondary)
+            .foregroundColor(configuration.isSelected ? .Control.accent100 : .Text.secondary)
         }
         .frame(height: 96)
         .frame(maxWidth: .infinity)

@@ -87,10 +87,10 @@ public extension UIColor.System {
     static let collectionInfo = ColorCollectionInfo(
         name: "System",
         colors: [
-            ColorInfo(name: "amber100", color: UIColor.System.amber100),
             ColorInfo(name: "blue", color: UIColor.System.blue),
             ColorInfo(name: "green", color: UIColor.System.green),
             ColorInfo(name: "grey", color: UIColor.System.grey),
+            ColorInfo(name: "orange", color: UIColor.System.orange),
             ColorInfo(name: "pink", color: UIColor.System.pink),
             ColorInfo(name: "purple", color: UIColor.System.purple),
             ColorInfo(name: "red", color: UIColor.System.red),

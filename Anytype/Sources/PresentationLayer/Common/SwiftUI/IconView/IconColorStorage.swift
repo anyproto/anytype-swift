@@ -7,7 +7,7 @@ final class IconColorStorage {
         
     static let allColors = [
         Color.System.yellow,
-        Color.System.amber100,
+        Color.System.orange,
         Color.System.red,
         Color.System.pink,
         Color.System.purple,

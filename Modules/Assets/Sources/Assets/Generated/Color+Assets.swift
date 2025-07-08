@@ -30,10 +30,10 @@ extension Color {
     }
     // MARK: - System
     public enum System {
-      public static let amber100 = Color(asset: Asset.System.amber100)
       public static let blue = Color(asset: Asset.System.blue)
       public static let green = Color(asset: Asset.System.green)
       public static let grey = Color(asset: Asset.System.grey)
+      public static let orange = Color(asset: Asset.System.orange)
       public static let pink = Color(asset: Asset.System.pink)
       public static let purple = Color(asset: Asset.System.purple)
       public static let red = Color(asset: Asset.System.red)
