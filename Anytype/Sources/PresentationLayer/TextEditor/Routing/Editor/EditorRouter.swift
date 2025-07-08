@@ -119,7 +119,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func showCamera(onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
         let vc = ImagePickerView(sourceType: .camera, onMediaTaken: onMediaTaken).ignoresSafeArea()
         
-        navigationContext.present(vc)
+        navigationContext.present(vc, modalPresentationStyle: .overFullScreen)
     }
     
     func saveFile(fileURL: URL, type: FileContentType) {
