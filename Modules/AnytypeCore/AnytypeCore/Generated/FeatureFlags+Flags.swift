@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
+    static var pinnedSpaces: Bool {
+        value(for: .pinnedSpaces)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -205,6 +209,7 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .hideWebPayments,
         .homeSpaceLevelChat,
+        .pinnedSpaces,
         .openMediaFileInPreview,
         .newPlusMenu,
         .spaceUxTypes,

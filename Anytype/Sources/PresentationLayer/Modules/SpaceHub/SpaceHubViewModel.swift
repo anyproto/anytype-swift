@@ -93,6 +93,18 @@ final class SpaceHubViewModel: ObservableObject {
         )
     }
     
+    func pin(spaceView: SpaceView) async throws {
+        guard let spaces else { return }
+        var newOrder = spaces.filter { $0.spaceView.id != spaceView.id && $0.spaceView.isPinned }.map(\.spaceView.id)
+        newOrder.insert(spaceView.id, at: 0)
+        
+        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
+    }
+    
+    func unpin(spaceView: SpaceView) async throws {
+        try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
+    }
+    
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
@@ -117,12 +129,17 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            self.unreadSpaces = spaces
-                .filter { $0.preview.unreadCounter > 0 }
-                .sorted {
-                    ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
-                }
-            self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
+            if FeatureFlags.pinnedSpaces {
+                self.spaces = spaces
+                self.unreadSpaces = []
+            } else {
+                self.unreadSpaces = spaces
+                    .filter { $0.preview.unreadCounter > 0 }
+                    .sorted {
+                        ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
+                    }
+                self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
+            }
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
         }
     }

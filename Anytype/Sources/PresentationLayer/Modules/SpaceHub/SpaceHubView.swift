@@ -178,6 +178,12 @@ struct SpaceHubView: View {
             onTapMute: {
                 model.muteSpace(spaceView: space.spaceView)
             },
+            onTapPin: {
+                try await model.pin(spaceView: space.spaceView)
+            },
+            onTapUnpin: {
+                try await model.unpin(spaceView: space.spaceView)
+            },
             onTapLeave: {
                 model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
             },
