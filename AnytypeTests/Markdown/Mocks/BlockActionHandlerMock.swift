@@ -2,6 +2,8 @@
 import Services
 import Foundation
 import AnytypeCore
+import UIKit
+
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     var turnIntoStub = false
@@ -202,6 +204,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     }
     
     func pasteContent() {
+        assertionFailure()
+    }
+    
+    func uploadImage(image: UIImage, type: String, blockId: String) {
         assertionFailure()
     }
     
