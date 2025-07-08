@@ -18,7 +18,7 @@ enum SlashActionMedia: CaseIterable {
         case .video:
             Loc.video(1)
         case .camera:
-            "Take photo or video"
+            Loc.cameraBlockTitle
         case .audio:
             Loc.audio(1)
         case .bookmark:
@@ -56,7 +56,7 @@ enum SlashActionMedia: CaseIterable {
         case .video:
             Loc.videoBlockSubtitle
         case .camera:
-            "Capture a moment and enrich the page with it"
+            Loc.cameraBlockSubtitle
         case .audio:
             Loc.uploadPlayableAudio
         case .bookmark:
@@ -90,7 +90,7 @@ enum SlashActionMedia: CaseIterable {
         case .image:
             return [Loc.picture]
         case .camera:
-            return ["Camera", "Photo", "Snapshot", "Picture", "Video"]
+            return [Loc.camera, Loc.photo, Loc.picture, Loc.video(1)]
         default:
             return []
         }
