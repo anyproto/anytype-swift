@@ -391,7 +391,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         await objectIdsSubscriptionService.startSubscription(
             spaceId: spaceId,
             objectIds: Array(attachmentIds),
-            additionalKeys: [.sizeInBytes, .source, .picture]
+            additionalKeys: [.sizeInBytes, .source, .picture, .syncStatus, .syncError]
         ) { [weak self] details in
             await self?.handleAttachmentSubscription(details: details)
         }

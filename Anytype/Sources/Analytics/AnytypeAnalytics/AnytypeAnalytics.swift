@@ -65,6 +65,8 @@ final class AnytypeAnalytics: @unchecked Sendable {
     }
 
     func setUserId(_ userId: String) {
+        guard isEnabled else { return }
+        
         guard let amplitude else {
             anytypeAssertionFailure("Amplitude is not loaded")
             return

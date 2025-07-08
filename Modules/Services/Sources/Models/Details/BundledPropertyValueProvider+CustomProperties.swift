@@ -114,13 +114,18 @@ extension BundledPropertiesValueProvider {
         CustomIconColor(iconOption: iconOption)
     }
     
-    public var syncStatusValue: Anytype_Model_SyncStatus? {
+    public var syncStatusValue: SyncStatus? {
         guard let syncStatus else { return nil }
-        return Anytype_Model_SyncStatus(rawValue: syncStatus)
+        return SyncStatus(rawValue: syncStatus)
     }
     
     public var spacePushNotificationModeValue: SpacePushNotificationsMode? {
         guard let spacePushNotificationMode else { return nil }
         return SpacePushNotificationsMode(rawValue: spacePushNotificationMode)
+    }
+    
+    public var syncErrorValue: SyncError? {
+        guard let syncError else { return nil }
+        return SyncError(rawValue: syncError)
     }
 }
