@@ -174,7 +174,7 @@ struct ObjectTypeSearchView: View {
                 }
                 .border(
                     12,
-                    color: shouldHighlightType(typeData) ? .System.amber50 : .Shape.primary,
+                    color: shouldHighlightType(typeData) ? .Control.accent50 : .Shape.primary,
                     lineWidth: shouldHighlightType(typeData) ? 2 : 1
                 )
                 .background(Color.Background.secondary)

@@ -100,7 +100,7 @@ private extension View {
     func coverGridSelection(show: Bool) -> some View {
         Group {
             if show {
-                self.border(12, color: .System.amber80, lineWidth: 2)
+                self.border(12, color: .Control.accent80, lineWidth: 2)
             } else {
                 self
             }

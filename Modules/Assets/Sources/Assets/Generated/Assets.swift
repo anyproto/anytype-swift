@@ -46,10 +46,6 @@ public enum Asset {
   }
   public enum System {
     static let amber100 = ColorAsset(name: "System/amber100")
-    static let amber125 = ColorAsset(name: "System/amber125")
-    static let amber25 = ColorAsset(name: "System/amber25")
-    static let amber50 = ColorAsset(name: "System/amber50")
-    static let amber80 = ColorAsset(name: "System/amber80")
     static let blue = ColorAsset(name: "System/blue")
     static let green = ColorAsset(name: "System/green")
     static let grey = ColorAsset(name: "System/grey")

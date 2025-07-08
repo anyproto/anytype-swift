@@ -30,7 +30,7 @@ struct AnytypeToggle: View {
         .if(title.isEmpty) {
             $0.labelsHidden()
         }
-        .toggleStyle(SwitchToggleStyle(tint: .System.amber50))
+        .toggleStyle(SwitchToggleStyle(tint: .Control.accent50))
         
         .onChange(of: model.isOn) { onChange($0) }
     }

@@ -57,7 +57,7 @@ struct SetLayoutSettingsView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(
-                    configuration.isSelected ? Color.System.amber50 : Color.Shape.primary,
+                    configuration.isSelected ? Color.Control.accent50 : Color.Shape.primary,
                     lineWidth: configuration.isSelected ? 2 : 0.5
                 )
         )

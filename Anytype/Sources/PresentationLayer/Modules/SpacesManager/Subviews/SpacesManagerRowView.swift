@@ -86,7 +86,7 @@ private extension SpaceStatus {
     var color: Color {
         switch self {
         case .UNRECOGNIZED, .spaceJoining, .loading:
-            return .System.amber125
+            return .Control.accent125
         case .error, .missing, .remoteDeleted, .remoteWaitingDeletion, .spaceDeleted, .spaceRemoving:
             return .System.red
         case .unknown, .ok, .spaceActive:

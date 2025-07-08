@@ -88,10 +88,6 @@ public extension UIColor.System {
         name: "System",
         colors: [
             ColorInfo(name: "amber100", color: UIColor.System.amber100),
-            ColorInfo(name: "amber125", color: UIColor.System.amber125),
-            ColorInfo(name: "amber25", color: UIColor.System.amber25),
-            ColorInfo(name: "amber50", color: UIColor.System.amber50),
-            ColorInfo(name: "amber80", color: UIColor.System.amber80),
             ColorInfo(name: "blue", color: UIColor.System.blue),
             ColorInfo(name: "green", color: UIColor.System.green),
             ColorInfo(name: "grey", color: UIColor.System.grey),

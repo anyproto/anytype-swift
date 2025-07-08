@@ -62,7 +62,7 @@ struct SettingsAppearanceView: View {
                 .frame(width: 60, height: 60, alignment: .center)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16).stroke(
-                        model.currentStyle == style ? Color.System.amber25 : Color.clear,
+                        model.currentStyle == style ? Color.Control.accent25 : Color.clear,
                         lineWidth: 2
                     ).frame(width: 66, height: 66)
                 )
@@ -109,7 +109,7 @@ struct SettingsAppearanceView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(
-                                    model.currentIcon == icon ? Color.System.amber25 : .clear,
+                                    model.currentIcon == icon ? Color.Control.accent25 : .clear,
                                     lineWidth: 2
                                 )
                                 .frame(width: 66, height: 66)

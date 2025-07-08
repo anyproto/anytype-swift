@@ -7,7 +7,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     var body: some View {
         content
             .if(viewModel.model.decoration == .border, if: {
-                $0.border(16, color: Color.System.amber50, lineWidth: 2)
+                $0.border(16, color: Color.Control.accent50, lineWidth: 2)
             }, else: {
                 $0.border(16, color: .Shape.primary, lineWidth: 1)
             })

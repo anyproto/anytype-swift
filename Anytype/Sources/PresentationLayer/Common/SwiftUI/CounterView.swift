@@ -35,7 +35,7 @@ struct CounterView: View {
         switch style {
         case .default: return Color.Control.transparentActive
         case .muted: return Color.Control.inactive
-        case .highlighted: return Color.System.amber125
+        case .highlighted: return Color.Control.accent125
         }
     }
 }
