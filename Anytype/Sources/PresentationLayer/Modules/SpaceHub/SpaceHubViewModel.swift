@@ -102,6 +102,7 @@ final class SpaceHubViewModel: ObservableObject {
         let pinnedSpacesLimit = 6
         if pinnedSpaces.count >= pinnedSpacesLimit {
             toastBarData = ToastBarData(Loc.pinLimitReached(pinnedSpacesLimit), type: .failure)
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
             return
         }
         
