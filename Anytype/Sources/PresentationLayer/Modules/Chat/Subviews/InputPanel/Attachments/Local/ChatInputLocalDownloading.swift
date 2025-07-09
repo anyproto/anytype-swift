@@ -7,7 +7,7 @@ struct ChatInputLocalDownloading: View {
     var body: some View {
         ZStack {
             MessageCircleLoadingView()
-                .frame(width: 32, height: 32)
+                .frame(width: 52, height: 52)
         }
         .frame(width: 72, height: 72)
         .background(Color.Background.secondary)

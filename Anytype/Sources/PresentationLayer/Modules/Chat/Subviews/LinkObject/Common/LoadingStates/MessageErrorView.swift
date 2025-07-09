@@ -7,5 +7,6 @@ struct MessageErrorView: View {
             .resizable()
             .foregroundStyle(Color.Control.transparentActive)
             .background(Circle().foregroundStyle(.ultraThinMaterial))
+            .proportionalPadding(padding: 2, side: 52)
     }
 }
