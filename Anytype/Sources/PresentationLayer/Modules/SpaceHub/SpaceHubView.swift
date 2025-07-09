@@ -31,6 +31,7 @@ struct SpaceHubView: View {
                 SpaceDeleteAlert(spaceId: $0.value)
             }
             .homeBottomPanelHidden(true)
+            .snackbar(toastBarData: $model.toastBarData)
     }
     
     var content: some View {
