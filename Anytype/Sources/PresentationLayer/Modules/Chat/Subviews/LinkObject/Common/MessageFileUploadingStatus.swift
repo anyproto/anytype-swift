@@ -20,8 +20,7 @@ struct MessageFileUploadingStatus: View {
             }
         case .error:
             container {
-                Image(asset: .Dialog.exclamation)
-                    .resizable()
+                MessageErrorView()
                     .frame(width: 30, height: 30)
             }
         }
