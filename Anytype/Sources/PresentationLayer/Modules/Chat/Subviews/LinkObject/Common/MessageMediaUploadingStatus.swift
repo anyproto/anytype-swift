@@ -15,8 +15,7 @@ struct MessageMediaUploadingStatus<Content: View>: View {
             MessageCircleLoadingView()
                 .frame(width: 52, height: 52)
         case .error:
-            Image(asset: .Dialog.exclamation)
-                .resizable()
+            MessageErrorView()
                 .frame(width: 52, height: 52)
         }
     }
