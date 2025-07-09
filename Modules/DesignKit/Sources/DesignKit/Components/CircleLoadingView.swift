@@ -4,9 +4,9 @@ import Assets
 public struct CircleLoadingView: View {
     
     private enum Constants {
-        static let idealSize: CGFloat = 18
-        static let widthForIdealSize: CGFloat = 2
-        static let paddingForIdealSize: CGFloat = 2
+        static let idealSize: CGFloat = 52
+        static let widthForIdealSize: CGFloat = 4
+        static let paddingForIdealSize: CGFloat = 3
     }
     
     @State private var isRotating = false
@@ -42,7 +42,7 @@ public struct CircleLoadingView: View {
                     }
                 }
                 .background(backgroundStyle.map { Circle().foregroundStyle($0) })
-                .padding((minSide / Constants.idealSize) * Constants.paddingForIdealSize)
+                .proportionalPadding(padding: Constants.paddingForIdealSize, side: Constants.idealSize)
         }
         .frame(idealWidth: Constants.idealSize, idealHeight: Constants.idealSize)
     }
