@@ -252,6 +252,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         replacementText: String,
         range: NSRange
     ) -> Bool {
+        guard isCreateBookmarkAvailableForBlock() else { return false }
+        
         let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
 
@@ -383,6 +385,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         viewModel.map {
             collectionController.itemDidChangeFrame(item: .block($0))
         }
+    }
+    
+    private func isCreateBookmarkAvailableForBlock() -> Bool {
+        info.content.type != .text(.title) && info.content.type != .text(.description)
     }
 
     @MainActor
