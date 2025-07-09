@@ -198,6 +198,10 @@ public extension FeatureFlags {
         value(for: .showPushMessagesInForeground)
     }
 
+    static var quicLegacyTransport: Bool {
+        value(for: .quicLegacyTransport)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -247,6 +251,7 @@ public extension FeatureFlags {
         .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
-        .showPushMessagesInForeground
+        .showPushMessagesInForeground,
+        .quicLegacyTransport
     ]
 }

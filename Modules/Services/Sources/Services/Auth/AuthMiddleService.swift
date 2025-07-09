@@ -20,7 +20,8 @@ public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
         rootPath: String,
         networkMode: Anytype_Rpc.Account.NetworkMode,
         joinStreamUrl: String,
-        configPath: String?
+        useYamux: Bool,
+        configPath: String?,
     ) async throws -> AccountData
     func deleteAccount() async throws -> AccountStatus
     func restoreAccount() async throws -> AccountStatus
@@ -92,6 +93,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
         rootPath: String,
         networkMode: Anytype_Rpc.Account.NetworkMode,
         joinStreamUrl: String,
+        useYamux: Bool,
         configPath: String?
     ) async throws -> AccountData {
         do {
@@ -102,6 +104,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""
                 $0.joinStreamURL = joinStreamUrl
+                $0.preferYamuxTransport = useYamux
             }).invoke(ignoreLogErrors: .accountLoadIsCanceled, .accountStoreNotMigrated)
             
             return try response.account.asModel()

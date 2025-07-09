@@ -342,4 +342,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let quicLegacyTransport = FeatureDescription(
+        title: "Use quick instead of yamux",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
 }

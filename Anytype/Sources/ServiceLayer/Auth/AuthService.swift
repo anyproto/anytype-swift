@@ -79,6 +79,7 @@ actor AuthService: AuthServiceProtocol, Sendable {
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
             joinStreamUrl: joinStreamUrl,
+            useYamux: !FeatureFlags.quicLegacyTransport,
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
         
