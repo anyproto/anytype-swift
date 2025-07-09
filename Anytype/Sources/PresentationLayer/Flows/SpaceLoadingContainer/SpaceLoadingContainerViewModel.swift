@@ -20,11 +20,18 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
         self.spaceId = spaceId
         self.showBackground = showBackground
         self.spaceIcon = workspacesStorage.spaceView(spaceId: spaceId)?.objectIconImage
-        // Open space as fast as possible
-        openSpace()
+        
+        let activeSpaceInfo = activeSpaceManager.workspaceInfo
+        if activeSpaceInfo?.accountSpaceId == spaceId {
+            info = activeSpaceInfo
+        } else {
+            // Open space as fast as possible
+            openSpace()
+        }
     }
     
     func onTryOpenSpaceAgain() {
+        guard info.isNil else { return }
         openSpace()
     }
     
