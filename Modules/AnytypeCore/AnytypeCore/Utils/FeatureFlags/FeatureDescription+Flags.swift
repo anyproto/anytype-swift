@@ -185,7 +185,7 @@ public extension FeatureDescription {
     
     static let spaceLoadingForScreen = FeatureDescription(
         title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
         debugValue: false

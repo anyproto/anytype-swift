@@ -6,15 +6,20 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
-    private let spaceId: String
+    let spaceId: String
+    let showBackground: Bool
+    let spaceIcon: Icon?
     private var task: Task<Void, Never>?
     
     @Published var info: AccountInfo?
     @Published var errorText: String?
     
-    init(spaceId: String) {
+    init(spaceId: String, showBackground: Bool) {
         self.spaceId = spaceId
+        self.showBackground = showBackground
+        self.spaceIcon = workspacesStorage.spaceView(spaceId: spaceId)?.objectIconImage
         // Open space as fast as possible
         openSpace()
     }

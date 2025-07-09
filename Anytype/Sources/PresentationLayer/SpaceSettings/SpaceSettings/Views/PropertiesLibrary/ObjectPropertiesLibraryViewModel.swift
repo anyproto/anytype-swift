@@ -19,7 +19,7 @@ final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoor
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     
-    private let spaceId: String
+    let spaceId: String
     
     init(spaceId: String) {
         self.spaceId = spaceId
