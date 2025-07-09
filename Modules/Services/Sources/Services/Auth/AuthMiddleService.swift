@@ -21,7 +21,7 @@ public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
         networkMode: Anytype_Rpc.Account.NetworkMode,
         joinStreamUrl: String,
         useYamux: Bool,
-        configPath: String?,
+        configPath: String?
     ) async throws -> AccountData
     func deleteAccount() async throws -> AccountStatus
     func restoreAccount() async throws -> AccountStatus
