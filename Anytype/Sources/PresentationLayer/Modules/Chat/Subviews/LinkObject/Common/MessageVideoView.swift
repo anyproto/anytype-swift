@@ -77,3 +77,9 @@ extension MessageVideoView {
         )
     }
 }
+
+
+#Preview {
+    MessageVideoView(url: nil, syncStatus: .syncing, syncError: nil)
+        .frame(width: 100, height: 100)
+}

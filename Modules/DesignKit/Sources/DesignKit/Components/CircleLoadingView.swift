@@ -12,8 +12,6 @@ public struct CircleLoadingView: View {
     @State private var isRotating = false
     private var circleColor: Color
     
-    @Environment(\.backgroundStyle) private var backgroundStyle
-    
     public init(_ color: Color = Color.Control.active) {
         self.circleColor = color
     }
@@ -41,7 +39,6 @@ public struct CircleLoadingView: View {
                         isRotating = true
                     }
                 }
-                .background(backgroundStyle.map { Circle().foregroundStyle($0) })
                 .proportionalPadding(padding: Constants.paddingForIdealSize, side: Constants.idealSize)
         }
         .frame(idealWidth: Constants.idealSize, idealHeight: Constants.idealSize)

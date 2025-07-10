@@ -16,12 +16,10 @@ struct MessageFileUploadingStatus: View {
         case .syncing, .queued:
             container {
                 MessageCircleLoadingView()
-                    .frame(width: 30, height: 30)
             }
         case .error:
             container {
                 MessageErrorView()
-                    .frame(width: 30, height: 30)
             }
         }
     }
@@ -31,7 +29,6 @@ struct MessageFileUploadingStatus: View {
             content()
         }
         .frame(width: 48, height: 48)
-        .background(Color.Shape.tertiary)
         .objectIconCornerRadius()
     }
 }
