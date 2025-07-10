@@ -335,6 +335,9 @@ public enum Loc {
   public static let photo = Loc.tr("Localizable", "Photo", fallback: "Photo")
   public static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")
   public static let pin = Loc.tr("Localizable", "Pin", fallback: "Pin")
+  public static func pinLimitReached(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Pin limit reached", p1, fallback: "You've reached the limit of %d pinned spaces.")
+  }
   public static let pinOnTop = Loc.tr("Localizable", "Pin on top", fallback: "Pin on top")
   public static let pink = Loc.tr("Localizable", "Pink", fallback: "Pink")
   public static let pinkBackground = Loc.tr("Localizable", "Pink background", fallback: "Pink background")

@@ -3,6 +3,7 @@ import SwiftUI
 @preconcurrency import Combine
 import AnytypeCore
 import AsyncAlgorithms
+import Loc
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
@@ -22,6 +23,7 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var spaceIdToLeave: StringIdentifiable?
     @Published var spaceIdToDelete: StringIdentifiable?
     @Published var spaceMuteData: SpaceMuteData?
+    @Published var toastBarData: ToastBarData?
     
     @Published var profileIcon: Icon?
     
@@ -95,7 +97,16 @@ final class SpaceHubViewModel: ObservableObject {
     
     func pin(spaceView: SpaceView) async throws {
         guard let spaces else { return }
-        var newOrder = spaces.filter { $0.spaceView.id != spaceView.id && $0.spaceView.isPinned }.map(\.spaceView.id)
+        let pinnedSpaces = spaces.filter { $0.spaceView.isPinned }
+        
+        let pinnedSpacesLimit = 6
+        if pinnedSpaces.count >= pinnedSpacesLimit {
+            toastBarData = ToastBarData(Loc.pinLimitReached(pinnedSpacesLimit), type: .failure)
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            return
+        }
+        
+        var newOrder = pinnedSpaces.filter { $0.spaceView.id != spaceView.id }.map(\.spaceView.id)
         newOrder.insert(spaceView.id, at: 0)
         
         try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
