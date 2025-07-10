@@ -45,13 +45,13 @@ struct SpaceHubDropDelegate: DropDelegate {
             .filter({ $0.spaceView.isPinned || !FeatureFlags.pinnedSpaces })
             .map(\.spaceView.id)
         
-        // Doesn't use @Injected(\.spaceOrderService)
-        // Delegate is created for each update. Resolving DI takes time on the main thread.
-        let spaceOrderService = Container.shared.spaceOrderService()
-        let workspaceStorage = Container.shared.workspaceStorage()
         
         if FeatureFlags.pinnedSpaces {
             Task {
+                // Doesn't use @Injected(\.spaceOrderService)
+                // Delegate is created for each update. Resolving DI takes time on the main thread.
+                let spaceOrderService = Container.shared.spaceOrderService()
+                
                 try await spaceOrderService.setOrder(
                     spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
                 )
@@ -60,6 +60,7 @@ struct SpaceHubDropDelegate: DropDelegate {
             let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
             if let destinationItem = allSpaces[safe: destinationIndex] {
                 Task {
+                    let workspaceStorage = Container.shared.workspaceStorage()
                     await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
                     AnytypeAnalytics.instance().logReorderSpace()
                 }

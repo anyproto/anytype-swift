@@ -158,7 +158,7 @@ final class SpaceHubViewModel: ObservableObject {
     private func sortSpacesForPinnedFeature(_ lhs: ParticipantSpaceViewDataWithPreview, _ rhs: ParticipantSpaceViewDataWithPreview) -> Bool {
         switch (lhs.spaceView.isPinned, rhs.spaceView.isPinned) {
         case (true, true):
-            return lhs.spaceView.spaceOrder > rhs.spaceView.spaceOrder
+            return lhs.spaceView.spaceOrder < rhs.spaceView.spaceOrder
         case (true, false):
             return true
         case (false, true):
