@@ -28,11 +28,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var bookmarkScreenData: BookmarkScreenData?
     @Published var spaceCreateData: SpaceCreateData?
     @Published var showSpaceTypeForCreate = false
-    @Published var showQrCodeScanner = false
-    @Published var qrCode = ""
-    @Published var qrCodeScanErrorText: String?
-    @Published var qrCodeScanAlertError: QrCodeScanAlertError?
-    @Published var openSettingsURL = false
+    @Published var shouldScanQrCode = false
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -96,12 +92,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
-    @Injected(\.appActionStorage)
-    private var appActionStorage: AppActionStorage
-    @Injected(\.universalLinkParser)
-    private var universalLinkParser: any UniversalLinkParserProtocol
-    @Injected(\.cameraPermissionVerifier)
-    private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
         
     
     private var needSetup = true
@@ -212,56 +202,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func onSelectQrCodeScan() {
-        Task { @MainActor in
-            let isGranted = await cameraPermissionVerifier.cameraPermission.value
-            if isGranted {
-                showQrCodeScanner = true
-            } else {
-                openSettingsURL = true
-            }
-        }
-    }
-    
-    func onQrCodeChange() {
-        guard qrCode.isNotEmpty else { return }
-        
-        guard let url = URL(string: qrCode) else {
-            qrCode = ""
-            qrCodeScanAlertError = .notAnUrl
-            return
-        }
-        
-        guard let link = universalLinkParser.parse(url: url) else {
-            qrCode = ""
-            qrCodeScanAlertError = .invalidFormat
-            return
-        }
-        
-        guard case .invite = link else {
-            qrCode = ""
-            qrCodeScanAlertError = .wrongLinkType
-            return
-        }
-        
-        appActionStorage.action = .deepLink(link.toDeepLink(), .internal)
-    }
-    
-    func onQrCodeScanErrorChange() {
-        guard let qrCodeScanErrorText, qrCodeScanErrorText.isNotEmpty else { return }
-        
-        self.qrCodeScanErrorText = nil
-        qrCodeScanAlertError = .custom(qrCodeScanErrorText)
-    }
-    
-    func onQrScanTryAgain() {
-        qrCodeScanAlertError = nil
-        showQrCodeScanner = true
-    }
-    
-    func onSettingsTap() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
+        shouldScanQrCode = true
     }
     
     // MARK: - SpaceHubModuleOutput
