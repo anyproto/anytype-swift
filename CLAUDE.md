@@ -5,6 +5,11 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 
 ## 🚀 Quick Start
 
+### ⚠️ CRITICAL RULES - NEVER VIOLATE
+1. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
+2. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
+3. **NEVER add any form of AI attribution** anywhere in the codebase
+
 ### Development Setup
 1. **First-time setup** (run in order):
    ```bash
@@ -189,6 +194,14 @@ Modules/                # Swift packages
 
 ## 🔄 Development Workflow
 
+### 🚨 Pre-Commit Checklist
+**STOP** before EVERY commit and verify:
+- [ ] NO "Co-Authored-By: Claude" in commit message
+- [ ] NO "Generated with Claude" or similar AI signatures
+- [ ] NO emoji signatures like 🤖
+- [ ] Single line commit message only
+- [ ] Professional message without AI attribution
+
 ### Git & GitHub
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
@@ -199,6 +212,25 @@ Modules/                # Swift packages
 - **GitHub CLI**: Use `gh` tool for all GitHub operations
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
+
+### ❌ FORBIDDEN Git Practices
+
+**NEVER do this:**
+```bash
+# ❌ WRONG - Contains AI attribution
+git commit -m "Fix pinned spaces limit
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# ❌ WRONG - Contains AI signature
+git commit -m "Add feature 🤖 Generated with Claude Code"
+```
+
+**ALWAYS do this:**
+```bash
+# ✅ CORRECT - Clean, professional, single line
+git commit -m "IOS-4852 Add limit check for pinned spaces"
+```
 
 ### Pull Requests
 **Format**:
