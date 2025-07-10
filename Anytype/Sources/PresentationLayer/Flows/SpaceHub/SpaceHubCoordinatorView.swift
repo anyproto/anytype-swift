@@ -16,8 +16,6 @@ struct SpaceHubCoordinatorView: View {
                 model.dismissAllPresented = dismissAllPresented
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
-            .onChange(of: model.qrCode) { _ in model.onQrCodeChange() }
-            .onChange(of: model.qrCodeScanErrorText) { _ in model.onQrCodeScanErrorChange() }
         
             .taskWithMemoryScope { await model.setup() }
             
@@ -82,20 +80,7 @@ struct SpaceHubCoordinatorView: View {
                     model.onSelectQrCodeScan()
                 })
             }
-            .sheet(isPresented: $model.showQrCodeScanner) {
-                QrCodeScannerView(qrCode: $model.qrCode, error: $model.qrCodeScanErrorText)
-            }
-            .anytypeSheet(item: $model.qrCodeScanAlertError) {
-                QrCodeScanAlert(error: $0) {
-                    model.onQrScanTryAgain()
-                }
-            }
-            .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
-                Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
-                Button(Loc.cancel, action: {})
-            }, message: {
-                Text(verbatim: Loc.Alert.CameraPermissions.goToSettings)
-            })
+            .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
     }
     
     private var content: some View {  
