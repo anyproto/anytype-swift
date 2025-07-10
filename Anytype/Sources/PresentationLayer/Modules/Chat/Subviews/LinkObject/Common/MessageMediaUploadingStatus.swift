@@ -13,10 +13,8 @@ struct MessageMediaUploadingStatus<Content: View>: View {
             synced()
         case .syncing, .queued:
             MessageCircleLoadingView()
-                .frame(width: 52, height: 52)
         case .error:
             MessageErrorView()
-                .frame(width: 52, height: 52)
         }
     }
 }

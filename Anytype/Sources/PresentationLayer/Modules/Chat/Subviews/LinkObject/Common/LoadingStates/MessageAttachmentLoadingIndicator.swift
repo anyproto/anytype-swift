@@ -3,11 +3,12 @@ import SwiftUI
 struct MessageAttachmentLoadingIndicator: View {
     
     var body: some View {
-        ZStack {
-            MessageCircleLoadingView()
-                .frame(width: 52, height: 52, alignment: .center)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.Shape.tertiary)
+        MessageCircleLoadingView()
+            .background(Color.Shape.tertiary)
     }
+}
+
+#Preview {
+    MessageAttachmentLoadingIndicator()
+        .frame(width: 100, height: 100)
 }

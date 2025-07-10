@@ -2,10 +2,18 @@ import SwiftUI
 
 struct MessageErrorView: View {
     var body: some View {
-        Image(asset: .Dialog.exclamation)
-            .renderingMode(.template)
-            .resizable()
-            .foregroundStyle(Color.Control.transparentActive)
-            .background(Circle().foregroundStyle(.ultraThinMaterial))
+        MessageLoadingStateContainer {
+            Image(asset: .FileTypes.WithoutIcon.error)
+                .resizable()
+                .foregroundStyle(Color.Control.white)
+        }
+        .background(.black.opacity(0.5))
     }
+}
+
+#Preview {
+    MessageErrorView()
+        .frame(width: 48, height: 48)
+    MessageErrorView()
+        .frame(width: 100, height: 100)
 }
