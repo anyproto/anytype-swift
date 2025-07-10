@@ -50,5 +50,8 @@ struct SpaceLoadingContainerView<Content: View>: View {
                 Spacer()
             }
         }
+        .task {
+            try? await model.iconTask()
+        }
     }
 }

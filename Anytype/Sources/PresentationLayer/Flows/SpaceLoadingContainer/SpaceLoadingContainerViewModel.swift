@@ -1,5 +1,6 @@
 import Combine
 import Services
+import Foundation
 
 @MainActor
 final class SpaceLoadingContainerViewModel: ObservableObject {
@@ -10,17 +11,16 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     
     let spaceId: String
     let showBackground: Bool
-    let spaceIcon: Icon?
     private var task: Task<Void, Never>?
+    private var timeoutTask: Task<Void, any Error>?
     
     @Published var info: AccountInfo?
     @Published var errorText: String?
+    @Published var spaceIcon: Icon?
     
     init(spaceId: String, showBackground: Bool) {
         self.spaceId = spaceId
         self.showBackground = showBackground
-        self.spaceIcon = workspacesStorage.spaceView(spaceId: spaceId)?.objectIconImage
-        
         let activeSpaceInfo = activeSpaceManager.workspaceInfo
         if activeSpaceInfo?.accountSpaceId == spaceId {
             info = activeSpaceInfo
@@ -33,6 +33,12 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     func onTryOpenSpaceAgain() {
         guard info.isNil else { return }
         openSpace()
+    }
+    
+    func iconTask() async throws {
+        try await Task.sleep(seconds: 1)
+        try Task.checkCancellation()
+        spaceIcon = workspacesStorage.spaceView(spaceId: spaceId)?.objectIconImage
     }
     
     private func openSpace() {
