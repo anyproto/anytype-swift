@@ -175,9 +175,9 @@ final class SpaceHubViewModel: ObservableObject {
             case (nil, _?):
                 return false
             case (nil, nil):
-                let lhsCreatedDate = lhs.spaceView.createdDate ?? .distantFuture
-                let rhsCreatedDate = rhs.spaceView.createdDate ?? .distantFuture
-                return lhsCreatedDate < rhsCreatedDate
+                let lhsCreatedDate = lhs.spaceView.createdDate ?? .distantPast
+                let rhsCreatedDate = rhs.spaceView.createdDate ?? .distantPast
+                return lhsCreatedDate > rhsCreatedDate
             }
         }
     }
