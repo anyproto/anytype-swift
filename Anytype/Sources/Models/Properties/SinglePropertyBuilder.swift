@@ -344,6 +344,7 @@ private extension SinglePropertyBuilder {
             
             let tags = selectedTagIds
                 .compactMap { storage.get(id: $0) }
+                .filter { !$0.isDeleted }
                 .map { PropertyOption(details: $0) }
                 .map { Property.Tag.Option(option: $0) }
 
