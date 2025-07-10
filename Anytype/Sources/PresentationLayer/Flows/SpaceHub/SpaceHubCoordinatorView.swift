@@ -90,6 +90,12 @@ struct SpaceHubCoordinatorView: View {
                     model.onQrScanTryAgain()
                 }
             }
+            .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
+                Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
+                Button(Loc.cancel, action: {})
+            }, message: {
+                Text(verbatim: Loc.Alert.CameraPermissions.goToSettings)
+            })
     }
     
     private var content: some View {  

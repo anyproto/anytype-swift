@@ -32,6 +32,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var qrCode = ""
     @Published var qrCodeScanErrorText: String?
     @Published var qrCodeScanAlertError: QrCodeScanAlertError?
+    @Published var openSettingsURL = false
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -99,6 +100,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var appActionStorage: AppActionStorage
     @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
+    @Injected(\.cameraPermissionVerifier)
+    private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
         
     
     private var needSetup = true
@@ -209,7 +212,14 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func onSelectQrCodeScan() {
-        showQrCodeScanner.toggle()
+        Task { @MainActor in
+            let isGranted = await cameraPermissionVerifier.cameraPermission.value
+            if isGranted {
+                showQrCodeScanner = true
+            } else {
+                openSettingsURL = true
+            }
+        }
     }
     
     func onQrCodeChange() {
@@ -246,6 +256,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     func onQrScanTryAgain() {
         qrCodeScanAlertError = nil
         showQrCodeScanner = true
+    }
+    
+    func onSettingsTap() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
     }
     
     // MARK: - SpaceHubModuleOutput
