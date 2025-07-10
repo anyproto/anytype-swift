@@ -12,6 +12,12 @@ struct SpaceSettingsCoordinatorView: View {
     }
     
     var body: some View {
+        SpaceLoadingContainerView(spaceId: model.spaceId, showBackground: false) { _ in
+            content
+        }
+    }
+    
+    private var content: some View {
         SpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation

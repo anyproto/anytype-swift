@@ -5,6 +5,7 @@ import AsyncTools
 
 protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
     var workspaceInfoStream: AnyAsyncSequence<AccountInfo?> { get }
+    var workspaceInfo: AccountInfo? { get }
     @discardableResult
     func setActiveSpace(spaceId: String?) async throws -> AccountInfo?
     func startSubscription() async
@@ -25,6 +26,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     private var activeSpaceId: String?
     private var spaceIsLoading: Bool = false
     private let workspaceInfoStreamInternal = AsyncToManyStream<AccountInfo?>()
+    private let workspaceInfoStorage = AtomicStorage<AccountInfo?>(nil)
     private var setActiveSpaceTask: Task<AccountInfo?, any Error>?
     
     @Injected(\.objectTypeProvider)
@@ -36,6 +38,10 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     nonisolated var workspaceInfoStream: AnyAsyncSequence<AccountInfo?> {
         workspaceInfoStreamInternal.eraseToAnyAsyncSequence()
+    }
+    
+    nonisolated var workspaceInfo: AccountInfo? {
+        workspaceInfoStorage.value
     }
     
     @discardableResult
@@ -60,6 +66,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
                     logSwitchSpace(spaceId: spaceId)
                     
                     workspaceInfoStreamInternal.send(info)
+                    workspaceInfoStorage.value = info
                     return info
                 } catch {
                     // Reset active space for try open again in next time
@@ -88,6 +95,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceSubscription = nil
         activeSpaceId = nil
         workspaceInfoStreamInternal.send(nil)
+        workspaceInfoStorage.value = nil
     }
     
     // MARK: - Private
@@ -125,6 +133,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     private func clearActiveSpace() async {
         workspaceInfoStreamInternal.send(nil)
+        workspaceInfoStorage.value = nil
         activeSpaceId = nil
         await objectTypeProvider.stopSubscription(cleanCache: false)
         await propertyDetailsStorage.stopSubscription(cleanCache: false)

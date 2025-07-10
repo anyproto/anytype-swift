@@ -11,6 +11,12 @@ struct ObjectPropertiesLibraryView: View {
     }
     
     var body: some View {
+        SpaceLoadingContainerView(spaceId: model.spaceId, showBackground: false) { _ in
+            container
+        }
+    }
+    
+    private var container: some View {
         content
             .homeBottomPanelHidden(true)
             .task { await model.startSubscriptions() }
