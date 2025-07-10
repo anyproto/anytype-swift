@@ -14,7 +14,7 @@ struct MessageMediaUploadingStatus<Content: View>: View {
         case .syncing, .queued:
             MessageCircleLoadingView()
         case .error:
-            MessageErrorView()
+            MessageErrorView(syncError: syncError)
         }
     }
 }

@@ -19,7 +19,7 @@ struct MessageFileUploadingStatus: View {
             }
         case .error:
             container {
-                MessageErrorView()
+                MessageErrorView(syncError: syncError)
             }
         }
     }

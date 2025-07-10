@@ -782,6 +782,18 @@ public enum Loc {
         public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and spark it up!")
       }
     }
+    public enum FileSyncError {
+      public enum IncompatibleVersion {
+        public static let action = Loc.tr("Localizable", "Chat.FileSyncError.IncompatibleVersion.Action", fallback: "Update App")
+        public static let description = Loc.tr("Localizable", "Chat.FileSyncError.IncompatibleVersion.Description", fallback: "This version doesn’t support sending files or images. Update the app to share media in chats.")
+        public static let title = Loc.tr("Localizable", "Chat.FileSyncError.IncompatibleVersion.Title", fallback: "Incompatible Version")
+      }
+      public enum Network {
+        public static let description = Loc.tr("Localizable", "Chat.FileSyncError.Network.description", fallback: "We couldn’t connect right now. This may be due to no internet or a temporary sync issue. We’ll keep trying in the background.")
+        public static let done = Loc.tr("Localizable", "Chat.FileSyncError.Network.done", fallback: "Got it")
+        public static let title = Loc.tr("Localizable", "Chat.FileSyncError.Network.title", fallback: "Network Error")
+      }
+    }
     public enum Participant {
       public static let badge = Loc.tr("Localizable", "Chat.Participant.Badge", fallback: "(You)")
     }
