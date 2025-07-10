@@ -27,8 +27,8 @@ struct SpaceHubDropDelegate: DropDelegate {
     
     func dropEntered(info: DropInfo) {
         guard var allSpaces, let draggedItem else { return }
-        guard let fromIndex = allSpaces.firstIndex(of: draggedItem) else { return }
-        guard let toIndex = allSpaces.firstIndex(of: destinationItem) else { return }
+        guard let fromIndex = allSpaces.firstIndex(where: { $0.space.id == draggedItem.space.id } ) else { return }
+        guard let toIndex = allSpaces.firstIndex(where: { $0.space.id == destinationItem.space.id } ) else { return }
         
         guard fromIndex != toIndex else { return }
         
