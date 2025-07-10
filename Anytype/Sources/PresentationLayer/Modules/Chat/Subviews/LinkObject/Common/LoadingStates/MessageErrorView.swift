@@ -3,7 +3,7 @@ import SwiftUI
 struct MessageErrorView: View {
     var body: some View {
         MessageLoadingStateContainer {
-            Image(asset: .CustomIcons.alert)
+            Image(asset: .FileTypes.WithoutIcon.error)
                 .resizable()
                 .foregroundStyle(Color.Control.white)
         }

@@ -571,6 +571,9 @@ extension ImageAsset {
     public static let table = ImageAsset.bundle(name: "FileTypes/Table")
     public static let text = ImageAsset.bundle(name: "FileTypes/Text")
     public static let video = ImageAsset.bundle(name: "FileTypes/Video")
+    public enum WithoutIcon {
+      public static let error = ImageAsset.bundle(name: "FileTypes/WithoutIcon/Error")
+    }
   }
   public enum Layout {
     public static let basic = ImageAsset.bundle(name: "Layout/Basic")
