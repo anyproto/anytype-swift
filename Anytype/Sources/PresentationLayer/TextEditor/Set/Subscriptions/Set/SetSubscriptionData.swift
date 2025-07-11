@@ -33,7 +33,7 @@ struct SetSubscriptionData: Hashable {
             sorts.append(SearchHelper.customSort(ids: objectOrderIds))
         }
         let setSorts = document.sorts(for: view.id)
-        self.sorts = sorts.map { sort in
+        sorts = sorts.map { sort in
             guard let setSort = setSorts.first(where: { $0.sort.id == sort.id }) else {
                 return sort
             }
@@ -41,6 +41,14 @@ struct SetSubscriptionData: Hashable {
             newSort.format = setSort.relationDetails.format.asMiddleware
             return newSort
         }
+        if sorts.isEmpty {
+            sorts.append(SearchHelper.sort(
+                relation: .createdDate,
+                type: .desc,
+                includeTime: true
+            ))
+        }
+        self.sorts = sorts
         
         // Filters
         var filters = view.filters
