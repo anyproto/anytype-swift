@@ -211,7 +211,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     func tapOnEmptyPlace() {
-        actionHandler.createEmptyBlock(parentId: document.objectId, spaceId: document.spaceId)
+        actionHandler.createEmptyBlock(parentId: document.objectId)
     }
     
     private func handleTemplateSubscription(details: [ObjectDetails]) {

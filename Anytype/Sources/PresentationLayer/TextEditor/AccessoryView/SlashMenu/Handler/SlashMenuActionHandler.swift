@@ -64,7 +64,7 @@ final class SlashMenuActionHandler {
                 try await actionHandler
                     .createPage(
                         targetId: blockInformation.id,
-                        spaceId: spaceId,
+                        spaceId: object.spaceId,
                         typeUniqueKey: object.uniqueKeyValue,
                         templateId: object.defaultTemplateId
                     )
@@ -78,7 +78,7 @@ final class SlashMenuActionHandler {
             case .newRealtion:
                 router.showAddPropertyInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
                     Task {
-                        try await self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
+                        try await self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
                     }
                     AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                         format: relation.format,
@@ -89,7 +89,7 @@ final class SlashMenuActionHandler {
                     )
                 }
             case .relation(let relation):
-                try await actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+                try await actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
             }
         case let .other(other):
             switch other {
@@ -98,13 +98,12 @@ final class SlashMenuActionHandler {
                     blockId: blockInformation.id,
                     rowsCount: rowsCount,
                     columnsCount: columnsCount,
-                    blockText: textView?.attributedText.sendable(),
-                    spaceId: document.spaceId
+                    blockText: textView?.attributedText.sendable()
                 ) else { return }
                 
                 cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
             default:
-                try await actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+                try await actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
             }
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
@@ -214,7 +213,7 @@ final class SlashMenuActionHandler {
         case .delete:
             actionHandler.delete(blockIds: [blockId])
         case .duplicate:
-            actionHandler.duplicate(blockId: blockId, spaceId: document.spaceId)
+            actionHandler.duplicate(blockId: blockId)
         case .moveTo:
             router.showMoveTo { [weak self] details in
                 Task {
@@ -233,7 +232,7 @@ final class SlashMenuActionHandler {
         textView: UITextView?,
         blockInformation: BlockInformation
     ) async throws {
-        let blockId = try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
+        let blockId = try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
         
         switch media {
         case .file:
