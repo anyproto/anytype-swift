@@ -118,7 +118,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showCamera(onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
         let vc = ImagePickerView(sourceType: .camera, onMediaTaken: onMediaTaken).ignoresSafeArea()
-        
+        navigationContext.present(vc, modalPresentationStyle: .overFullScreen)
+    }
+    
+    func showDocumentScanner(completion: @escaping (Result<[UIImage], any Error>) -> Void) {
+        let vc = DocumentScannerView(completion: completion).ignoresSafeArea()
         navigationContext.present(vc, modalPresentationStyle: .overFullScreen)
     }
     

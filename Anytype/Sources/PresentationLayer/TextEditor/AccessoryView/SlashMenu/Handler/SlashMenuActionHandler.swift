@@ -244,7 +244,7 @@ final class SlashMenuActionHandler {
         case .camera:
             mediaBlockActionsProvider.openCamera(blockId: blockId)
         case .scanDocuments:
-            mediaBlockActionsProvider.openCamera(blockId: blockId)
+            mediaBlockActionsProvider.openDocumentScanner(blockId: blockId)
         case .audio:
             mediaBlockActionsProvider.openAudioPicker(blockId: blockId)
         case .bookmark, .codeSnippet:

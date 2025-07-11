@@ -143,6 +143,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Devices connected", p1, fallback: "%#@device@ connected")
   }
   public static let disabled = Loc.tr("Localizable", "Disabled", fallback: "Disabled")
+  public static let documentScanFailed = Loc.tr("Localizable", "Document scan failed", fallback: "Document scan failed")
   public static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   public static let download = Loc.tr("Localizable", "Download", fallback: "Download")
   public static let downloadingOrUploadingDataToSomeNode = Loc.tr("Localizable", "Downloading or uploading data to some node", fallback: "Downloading or uploading data to some node")
