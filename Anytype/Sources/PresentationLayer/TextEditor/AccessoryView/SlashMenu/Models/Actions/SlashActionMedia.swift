@@ -5,6 +5,7 @@ enum SlashActionMedia: CaseIterable {
     case image
     case video
     case camera
+    case scanDocuments
     case audio
     case bookmark
     case codeSnippet
@@ -19,6 +20,8 @@ enum SlashActionMedia: CaseIterable {
             Loc.video(1)
         case .camera:
             Loc.cameraBlockTitle
+        case .scanDocuments:
+            Loc.scanDocuments
         case .audio:
             Loc.audio(1)
         case .bookmark:
@@ -38,6 +41,8 @@ enum SlashActionMedia: CaseIterable {
             .X40.video
         case .camera:
             .X40.camera
+        case .scanDocuments:
+            .X40.scanDocuments
         case .audio:
             .X40.audio
         case .bookmark:
@@ -57,6 +62,8 @@ enum SlashActionMedia: CaseIterable {
             Loc.videoBlockSubtitle
         case .camera:
             Loc.cameraBlockSubtitle
+        case .scanDocuments:
+            Loc.scanDocumentsBlockSubtitle
         case .audio:
             Loc.uploadPlayableAudio
         case .bookmark:
@@ -75,6 +82,8 @@ enum SlashActionMedia: CaseIterable {
         case .video:
             return .file(FileBlockContentData(contentType: .video))
         case .camera:
+            return .file(FileBlockContentData(contentType: .image))
+        case .scanDocuments:
             return .file(FileBlockContentData(contentType: .image))
         case .audio:
             return .file(FileBlockContentData(contentType: .audio))

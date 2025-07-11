@@ -376,6 +376,8 @@ public enum Loc {
   public static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
   public static let restoreKeyFromKeychain = Loc.tr("Localizable", "Restore key from keychain", fallback: "Restore Key from the keychain")
   public static let save = Loc.tr("Localizable", "Save", fallback: "Save")
+  public static let scanDocuments = Loc.tr("Localizable", "Scan documents", fallback: "Scan documents")
+  public static let scanDocumentsBlockSubtitle = Loc.tr("Localizable", "Scan documents block subtitle", fallback: "Capture and upload document image")
   public static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   public static let search = Loc.tr("Localizable", "Search", fallback: "Search")
   public static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")

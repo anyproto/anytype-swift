@@ -894,6 +894,7 @@ extension ImageAsset {
     public static let other = ImageAsset.bundle(name: "x40/Other")
     public static let picture = ImageAsset.bundle(name: "x40/Picture")
     public static let properties = ImageAsset.bundle(name: "x40/Properties")
+    public static let scanDocuments = ImageAsset.bundle(name: "x40/ScanDocuments")
     public static let simpleTables = ImageAsset.bundle(name: "x40/Simple Tables")
     public static let sorts = ImageAsset.bundle(name: "x40/Sorts")
     public static let strikethrough = ImageAsset.bundle(name: "x40/Strikethrough")
