@@ -134,6 +134,10 @@ public extension FeatureFlags {
         value(for: .joinSpaceViaQRCode)
     }
 
+    static var swipeToReply: Bool {
+        value(for: .swipeToReply)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -232,6 +236,7 @@ public extension FeatureFlags {
         .chatLoadingIndicator,
         .anytypeImageCacher,
         .joinSpaceViaQRCode,
+        .swipeToReply,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

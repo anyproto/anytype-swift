@@ -228,6 +228,12 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let swipeToReply = FeatureDescription(
+        title: "Swipe to reply in chats",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
+        defaultValue: true
+    )
 
     // MARK: - Debug
     

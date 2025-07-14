@@ -12,6 +12,8 @@ struct MessageView: View {
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
+    @State private var offsetX: CGFloat = 0
+    
     @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
     init(
@@ -31,6 +33,30 @@ struct MessageView: View {
         .padding(.horizontal, 12)
         .padding(.bottom, data.nextSpacing.height)
         .id(data.id)
+        .offset(x: offsetX)
+        .animation(.easeOut(duration: 0.15), value: offsetX)
+        .highPriorityGesture(
+            DragGesture(minimumDistance: 20)
+                .onChanged { value in
+                    let dx = value.translation.width
+                    let dy = value.translation.height
+
+                    if abs(dx) > abs(dy), dx < 0 {
+                        offsetX = dx
+                    }
+                }
+                .onEnded { value in
+                    if value.translation.width < -50 {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        output?.didSelectReplyTo(message: data)
+                        
+                    }
+                    withAnimation {
+                        offsetX = 0
+                    }
+                },
+            isEnabled: FeatureFlags.swipeToReply && data.canReply
+        )
     }
     
     private var content: some View {
