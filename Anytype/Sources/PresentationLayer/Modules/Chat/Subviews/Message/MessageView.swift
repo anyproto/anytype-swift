@@ -6,6 +6,10 @@ struct MessageView: View {
     
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
+        static let messageHorizontalPadding: CGFloat = 12
+        static let minReplyWidth: CGFloat = 50
+        static let replyImageWidth: CGFloat = 32
+        static let coordinateSpace = "MessageViewCoordinateSpace"
         static let emoji = ["👍🏻", "️️❤️", "😂"]
     }
     
@@ -13,6 +17,7 @@ struct MessageView: View {
     private weak var output: (any MessageModuleOutput)?
     
     @State private var offsetX: CGFloat = 0
+    @State private var bubbleCenterOffsetY: CGFloat = 0
     
     @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
@@ -30,9 +35,22 @@ struct MessageView: View {
             content
             trailingView
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Constants.messageHorizontalPadding)
         .padding(.bottom, data.nextSpacing.height)
         .id(data.id)
+        
+        // reply logic
+        .overlay(alignment: .topTrailing) {
+            if FeatureFlags.swipeToReply && data.canReply {
+                Image(asset: .X32.reply)
+                    .renderingMode(.template)
+                    .foregroundColor(.Control.active)
+                    .padding(.trailing, -(Constants.messageHorizontalPadding + Constants.replyImageWidth))
+                    .opacity(Double(-offsetX / Constants.minReplyWidth).clamped(to: 0...1))
+                    .scaleEffect(Double(-offsetX / Constants.minReplyWidth).clamped(to: 0.5...1))
+                    .offset(y: bubbleCenterOffsetY - Constants.replyImageWidth/2)
+            }
+        }
         .offset(x: offsetX)
         .animation(.easeOut(duration: 0.15), value: offsetX)
         .highPriorityGesture(
@@ -46,10 +64,9 @@ struct MessageView: View {
                     }
                 }
                 .onEnded { value in
-                    if value.translation.width < -50 {
+                    if value.translation.width < -Constants.minReplyWidth {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         output?.didSelectReplyTo(message: data)
-                        
                     }
                     withAnimation {
                         offsetX = 0
@@ -57,6 +74,8 @@ struct MessageView: View {
                 },
             isEnabled: FeatureFlags.swipeToReply && data.canReply
         )
+        
+        .coordinateSpace(name: Constants.coordinateSpace)
     }
     
     private var content: some View {
@@ -120,6 +139,9 @@ struct MessageView: View {
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
         .contextMenu {
             contextMenu
+        }
+        .readFrame(space: .named(Constants.coordinateSpace)) {
+            bubbleCenterOffsetY = $0.midY
         }
     }
     
@@ -246,7 +268,6 @@ struct MessageView: View {
         }
     }
     
-    @ViewBuilder
     private var horizontalBubbleSpacing: some View {
         Spacer(minLength: 26)
     }
