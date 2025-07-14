@@ -9,10 +9,25 @@ import Loc
 final class SpaceHubViewModel: ObservableObject {
     @Published var unreadSpaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
+    @Published var searchText: String = ""
     
     var allSpaces: [ParticipantSpaceViewDataWithPreview]? {
         guard let unreadSpaces, let spaces else { return nil }
         return unreadSpaces + spaces
+    }
+    
+    var filteredUnreadSpaces: [ParticipantSpaceViewDataWithPreview]? {
+        guard !searchText.isEmpty, let unreadSpaces else { return unreadSpaces }
+        return unreadSpaces.filter { space in
+            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+    
+    var filteredSpaces: [ParticipantSpaceViewDataWithPreview]? {
+        guard !searchText.isEmpty, let spaces else { return spaces }
+        return spaces.filter { space in
+            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
+        }
     }
     
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
