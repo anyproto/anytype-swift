@@ -194,7 +194,7 @@ Image(asset: .X32.plus)
 - Colors are generated from Assets.xcassets using SwiftGen
 - Icons are generated from Assets.xcassets using SwiftGen  
 - Typography is manually maintained in AnytypeFont.swift
-- Always run `make generate-middle` after asset changes
+- Always run `make generate` after asset changes
 
 ## File Locations
 - **Colors**: `/Modules/Assets/Sources/Assets/Generated/Color+Assets.swift`
