@@ -581,6 +581,10 @@ extension ImageAsset {
     public static let profile = ImageAsset.bundle(name: "Layout/Profile")
     public static let task = ImageAsset.bundle(name: "Layout/Task")
   }
+  public enum MessageStatus {
+    public static let failed = ImageAsset.bundle(name: "MessageStatus/Failed")
+    public static let loading = ImageAsset.bundle(name: "MessageStatus/Loading")
+  }
   public enum NavigationBase {
     public static let add = ImageAsset.bundle(name: "NavigationBase/Add")
     public static let empty = ImageAsset.bundle(name: "NavigationBase/Empty")
