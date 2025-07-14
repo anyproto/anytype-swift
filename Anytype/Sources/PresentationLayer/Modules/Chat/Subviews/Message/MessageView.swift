@@ -44,7 +44,7 @@ struct MessageView: View {
             if FeatureFlags.swipeToReply && data.canReply {
                 Image(asset: .X32.reply)
                     .renderingMode(.template)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.transparentActive)
                     .padding(.trailing, -(Constants.messageHorizontalPadding + Constants.replyImageWidth))
                     .opacity(Double(-offsetX / Constants.minReplyWidth).clamped(to: 0...1))
                     .scaleEffect(Double(-offsetX / Constants.minReplyWidth).clamped(to: 0.5...1))
