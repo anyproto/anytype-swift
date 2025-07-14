@@ -7,7 +7,7 @@ struct MessageView: View {
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
         static let messageHorizontalPadding: CGFloat = 12
-        static let minReplyWidth: CGFloat = 50
+        static let minReplyWidth: CGFloat = 60
         static let replyImageWidth: CGFloat = 32
         static let coordinateSpace = "MessageViewCoordinateSpace"
         static let emoji = ["👍🏻", "️️❤️", "😂"]
