@@ -100,8 +100,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
-    func duplicate(blockId: String, spaceId: String) {
-        AnytypeAnalytics.instance().logDuplicateBlock(spaceId: spaceId)
+    func duplicate(blockId: String) {
+        AnytypeAnalytics.instance().logDuplicateBlock(spaceId: document.spaceId)
         service.duplicate(blockId: blockId)
     }
     
@@ -137,10 +137,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
 
 
-    func createEmptyBlock(parentId: String, spaceId: String) {
+    func createEmptyBlock(parentId: String) {
         Task {
             let emptyBlock = BlockInformation.emptyText
-            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type, spaceId: spaceId)
+            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type, spaceId: document.spaceId)
             try await service.addChild(info: emptyBlock, parentId: parentId)
         }
     }
@@ -280,15 +280,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeNSAttributedString?,
-        spaceId: String
+        blockText: SafeNSAttributedString?
     ) async throws -> String {
         guard let isTextAndEmpty = blockText?.value.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
-        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue, spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue, spaceId: document.spaceId)
         
         return try await blockTableService.createTable(
             contextId: document.objectId,
@@ -300,7 +299,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?) async throws -> String {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead")
             throw CommonError.undefined
@@ -313,7 +312,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
         
-        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type, spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type, spaceId: document.spaceId)
         return try await service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 

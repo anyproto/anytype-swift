@@ -35,7 +35,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func duplicate(blockId: String, spaceId: String) {
+    func duplicate(blockId: String) {
         assertionFailure()
     }
     
@@ -79,7 +79,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createEmptyBlock(parentId: String, spaceId: String) {
+    func createEmptyBlock(parentId: String) {
         assertionFailure()
     }
     
@@ -95,7 +95,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?) async throws -> String {
         assertionFailure()
         return ""
     }
@@ -186,7 +186,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: SafeNSAttributedString?, spaceId: String) async throws -> String {
+    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: SafeNSAttributedString?) async throws -> String {
         fatalError()
     }
     

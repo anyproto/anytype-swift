@@ -431,11 +431,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .addBlockBelow:
             elements.forEach { element in
                 Task {
-                    try await actionHandler.addBlock(.text(.text), blockId: element.blockId, spaceId: document.spaceId)
+                    try await actionHandler.addBlock(.text(.text), blockId: element.blockId)
                 }
             }
         case .duplicate:
-            elements.forEach { actionHandler.duplicate(blockId: $0.blockId, spaceId: document.spaceId) }
+            elements.forEach { actionHandler.duplicate(blockId: $0.blockId) }
         case .turnInto:
             Task {
                 for block in elements {
