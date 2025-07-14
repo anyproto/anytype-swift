@@ -94,7 +94,11 @@ make setup-middle    # Initial setup
 - **Generated file**: 160,000+ lines, use `rg` for searching
 - **Always import**: `import Loc` when using localization
 
-## 🎨 Design System
+## 🎨 Design System & Common UI Components
+
+### Quick Reference
+- **Search Patterns**: `/PresentationLayer/Common/SwiftUI/Search/SEARCH_PATTERNS.md`
+- **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
 
 ### Icons
 Icons are code-generated from assets organized by size (x18, x24, x32, x40).
