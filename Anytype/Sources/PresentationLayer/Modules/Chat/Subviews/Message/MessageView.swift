@@ -37,6 +37,7 @@ struct MessageView: View {
         }
         .padding(.horizontal, Constants.messageHorizontalPadding)
         .padding(.bottom, data.nextSpacing.height)
+        .fixTappableArea()
         .id(data.id)
         
         // reply logic
