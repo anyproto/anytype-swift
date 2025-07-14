@@ -95,6 +95,7 @@ extension Anytype_Event.Message {
       case chatUpdateMessageReadStatus(Anytype_Event.Chat.UpdateMessageReadStatus)
       /// received to update per-message mention read status (if needed to highlight the unread mentions in the UI)
       case chatUpdateMentionReadStatus(Anytype_Event.Chat.UpdateMentionReadStatus)
+      case chatUpdateMessageSyncStatus(Anytype_Event.Chat.UpdateMessageSyncStatus)
       case chatDelete(Anytype_Event.Chat.Delete)
       /// in case new unread messages received or chat state changed (e.g. message read on another device)
       case chatStateUpdate(Anytype_Event.Chat.UpdateState)
