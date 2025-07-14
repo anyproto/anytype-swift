@@ -34,8 +34,8 @@ xcodebuild -scheme Anytype -configuration Debug -destination 'platform=iOS Simul
 
 ### Essential Commands
 ```bash
-make generate-middle  # Regenerate middleware and generated files
-make generate        # Run all code generators
+make generate        # Run all code generators (sourcery, assets, localization)
+make generate-middle # Regenerate middleware and protobuf files (when needed)
 make setup-middle    # Initial setup
 ```
 
@@ -81,7 +81,7 @@ make setup-middle    # Initial setup
 
 4. **Generate and use**:
    ```bash
-   make generate-middle
+   make generate
    ```
    ```swift
    import Loc
@@ -94,7 +94,11 @@ make setup-middle    # Initial setup
 - **Generated file**: 160,000+ lines, use `rg` for searching
 - **Always import**: `import Loc` when using localization
 
-## 🎨 Design System
+## 🎨 Design System & Common UI Components
+
+### Quick Reference
+- **Search Patterns**: `/PresentationLayer/Common/SwiftUI/Search/SEARCH_PATTERNS.md`
+- **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
 
 ### Icons
 Icons are code-generated from assets organized by size (x18, x24, x32, x40).
@@ -266,7 +270,7 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Generated files marked with `// Generated using Sourcery/SwiftGen`
 - Never edit generated files directly
 - Update source templates/configurations instead
-- Always run `make generate-middle` after template changes
+- Always run `make generate` after template changes
 
 ## 📚 Common Tasks
 
