@@ -9,6 +9,7 @@ protocol MediaBlockActionsProviderProtocol: AnyObject {
     func openFilePicker(blockId: String)
     func openAudioPicker(blockId: String)
     func openCamera(blockId: String)
+    func openDocumentScanner(blockId: String)
 }
 
 @MainActor
@@ -52,6 +53,31 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
                 handler.uploadImage(image: image, type: type, blockId: blockId)
             case .video(let url):
                 handler.uploadMediaFile(uploadingSource: .path(url.path()), type: .videos, blockId: blockId)
+            }
+        }
+    }
+    
+    func openDocumentScanner(blockId: String) {
+        router.showDocumentScanner { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let images):
+                Task {
+                    var currentBlockId = blockId
+                    for (index, image) in images.enumerated() {
+                        if index == 0 {
+                            // First image: upload to the provided block ID
+                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId)
+                        } else {
+                            // Subsequent images: create new block below the previous one
+                            currentBlockId = try await self.handler.addBlock(.file(.init(contentType: .image)), blockId: currentBlockId)
+                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId)
+                        }
+                    }
+                }
+            case .failure(let error):
+                self.router.showAlert(alertModel: AlertModel(title: Loc.documentScanFailed, message: error.localizedDescription, buttons: []))
             }
         }
     }
