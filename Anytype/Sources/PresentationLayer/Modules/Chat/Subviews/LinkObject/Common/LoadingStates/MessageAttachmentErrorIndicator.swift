@@ -3,7 +3,7 @@ import SwiftUI
 struct MessageAttachmentErrorIndicator: View {
     
     var body: some View {
-        MessageErrorView()
+        MessageErrorView(syncError: nil)
             .background(Color.Shape.tertiary)
     }
 }
