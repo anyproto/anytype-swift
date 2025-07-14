@@ -51,6 +51,8 @@ struct SpaceHubView: View {
             
             if let spaces = model.filteredSpaces, let unreadSpaces = model.filteredUnreadSpaces, spaces.isNotEmpty || unreadSpaces.isNotEmpty {
                 scrollView(unread: unreadSpaces, spaces: spaces)
+            } else if model.searchText.isNotEmpty {
+                searchEmptyStateView
             } else if model.spaces.isNotNil {
                 emptyStateView
             } else {
@@ -117,6 +119,17 @@ struct SpaceHubView: View {
             buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
                 model.onTapCreateSpace()
             }
+        )
+    }
+    
+    @ViewBuilder
+    private var searchEmptyStateView: some View {
+        HomeUpdateSubmoduleView().padding(8)
+        EmptyStateView(
+            title: Loc.noMatchesFound,
+            subtitle: "",
+            style: .withImage,
+            buttonData: nil
         )
     }
     
