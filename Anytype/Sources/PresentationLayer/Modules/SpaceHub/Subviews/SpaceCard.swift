@@ -12,8 +12,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTapMute: () -> Void
     let onTapPin: () async throws -> Void
     let onTapUnpin: () async throws -> Void
-    let onTapLeave: () -> Void
-    let onTapDelete: () async throws -> Void
     
     var body: some View {
         Button {
@@ -50,12 +48,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
             }
         }
         
-        if spaceData.space.canLeave {
-            leaveButton
-        }
-        if spaceData.space.canBeDeleted {
-            deleteButton
-        }
     }
     
     private var copyButton: some View {
@@ -94,21 +86,7 @@ struct SpaceCard: View, @preconcurrency Equatable {
         }
     }
     
-    private var leaveButton: some View {
-        Button(role: .destructive) {
-            onTapLeave()
-        } label: {
-            Text(Loc.leaveASpace)
-        }
-    }
     
-    private var deleteButton: some View {
-        AsyncButton(role: .destructive) {
-            try await onTapDelete()
-        } label: {
-            Text(Loc.delete)
-        }
-    }
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.spaceData == rhs.spaceData

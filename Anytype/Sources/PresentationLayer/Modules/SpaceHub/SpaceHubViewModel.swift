@@ -20,8 +20,6 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var showSettings = false
     @Published var createSpaceAvailable = false
     @Published var notificationsDenied = false
-    @Published var spaceIdToLeave: StringIdentifiable?
-    @Published var spaceIdToDelete: StringIdentifiable?
     @Published var spaceMuteData: SpaceMuteData?
     @Published var toastBarData: ToastBarData?
     
@@ -75,13 +73,6 @@ final class SpaceHubViewModel: ObservableObject {
         }
     }
     
-    func deleteSpace(spaceId: String) async throws {
-        spaceIdToDelete = spaceId.identifiable
-    }
-    
-    func leaveSpace(spaceId: String) {
-        spaceIdToLeave = spaceId.identifiable
-    }
     
     func copySpaceInfo(spaceView: SpaceView) {
         UIPasteboard.general.string = String(describing: spaceView)

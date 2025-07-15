@@ -24,12 +24,6 @@ struct SpaceHubView: View {
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
             }
-            .anytypeSheet(item: $model.spaceIdToLeave) {
-                SpaceLeaveAlert(spaceId: $0.value)
-            }
-            .anytypeSheet(item: $model.spaceIdToDelete) {
-                SpaceDeleteAlert(spaceId: $0.value)
-            }
             .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.toastBarData)
     }
@@ -185,12 +179,6 @@ struct SpaceHubView: View {
             onTapUnpin: {
                 try await model.unpin(spaceView: space.spaceView)
             },
-            onTapLeave: {
-                model.leaveSpace(spaceId: space.spaceView.targetSpaceId)
-            },
-            onTapDelete: {
-                try await model.deleteSpace(spaceId: space.spaceView.targetSpaceId)
-            }
         )
         .equatable()
         .if(draggable) {
