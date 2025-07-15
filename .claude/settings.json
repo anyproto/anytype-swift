@@ -42,7 +42,16 @@
       "mcp__linear__get_issue_status",
       "mcp__linear__list_issue_labels",
       "mcp__linear__get_team",
-      "mcp__linear__search_documentation"
+      "mcp__linear__search_documentation",
+      
+      "Bash(gh pr list:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(git fetch:*)",
+      "Bash(od:*)",
+      "Bash(awk:*)",
+      "Bash(git stash show:*)",
+      "mcp__figma__get_image",
+      "mcp__figma__get_code"
     ],
     "deny": []
   },
