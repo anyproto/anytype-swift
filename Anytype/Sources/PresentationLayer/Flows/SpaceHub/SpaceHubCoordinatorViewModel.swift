@@ -219,6 +219,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         Task { try await openSpaceWithIntialScreen(spaceId: spaceId) }
     }
     
+    func onOpenSpaceSettings(spaceId: String) {
+        openSync(data: .spaceInfo(.settings(spaceId: spaceId)))
+    }
+    
     // MARK: - Private
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {

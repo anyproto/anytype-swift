@@ -12,6 +12,7 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTapMute: () -> Void
     let onTapPin: () async throws -> Void
     let onTapUnpin: () async throws -> Void
+    let onTapSettings: () -> Void
     
     var body: some View {
         Button {
@@ -35,11 +36,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Divider()
         }
         
-        if FeatureFlags.muteSpacePossibility, spaceData.spaceView.isShared {
-            muteButton
-            Divider()
-        }
-        
         if FeatureFlags.pinnedSpaces {
             if spaceData.spaceView.isPinned {
                 unpinButton
@@ -48,6 +44,11 @@ struct SpaceCard: View, @preconcurrency Equatable {
             }
         }
         
+        if FeatureFlags.muteSpacePossibility, spaceData.spaceView.isShared {
+            muteButton
+        }
+        
+        settingsButton
     }
     
     private var copyButton: some View {
@@ -87,6 +88,13 @@ struct SpaceCard: View, @preconcurrency Equatable {
     }
     
     
+    private var settingsButton: some View {
+        Button {
+            onTapSettings()
+        } label: {
+            Text(Loc.SpaceSettings.title)
+        }
+    }
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.spaceData == rhs.spaceData
