@@ -45,7 +45,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
     lazy var pageNavigation = PageNavigation(
         open: { [weak self] data in
-            self?.openSync(data: data)
+            self?.showScreenSync(data: data)
         }, pushHome: { [weak self] in
             guard let self, let currentSpaceId else { return }
             navigationPath.push(HomeWidgetData(spaceId: currentSpaceId))
@@ -190,7 +190,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func onOpenBookmarkAsObject(_ data: BookmarkScreenData) {
-        openObject(screenData: .editor(data.editorScreenData))
+        showScreenSync(data: .editor(data.editorScreenData))
     }
     
     func onSpaceTypeSelected(_ type: SpaceUxType) {
@@ -220,7 +220,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func onOpenSpaceSettings(spaceId: String) {
-        openSync(data: .spaceInfo(.settings(spaceId: spaceId)))
+        showScreenSync(data: .spaceInfo(.settings(spaceId: spaceId)))
     }
     
     // MARK: - Private
@@ -228,16 +228,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
         TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in
             guard let self else { return }
-            openObject(screenData: details.screenData())
+            showScreenSync(data: details.screenData())
         }
     }
     
     // MARK: - Navigation
-    private func openObject(screenData: ScreenData) {
-        openSync(data: screenData)
-    }
     
-    private func openSync(data: ScreenData) {
+    private func showScreenSync(data: ScreenData) {
         Task { try await showScreen(data: data) }
     }
     
@@ -475,7 +472,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         )
         AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
         
-        openObject(screenData: details.screenData())
+        showScreenSync(data: details.screenData())
     }
     
     
@@ -485,7 +482,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallbackSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-            openObject(screenData: details.screenData())
+            showScreenSync(data: details.screenData())
         }
     }
 }
@@ -497,14 +494,14 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         showGlobalSearchData = GlobalSearchModuleData(
             spaceId: spaceInfo.accountSpaceId,
             onSelect: { [weak self] screenData in
-                self?.openObject(screenData: screenData)
+                self?.showScreenSync(data: screenData)
             }
         )
     }
     
     func onCreateObjectSelected(screenData: ScreenData) {
         UISelectionFeedbackGenerator().selectionChanged()
-        openObject(screenData: screenData)
+        showScreenSync(data: screenData)
     }
 
     func popToFirstInSpace() {
