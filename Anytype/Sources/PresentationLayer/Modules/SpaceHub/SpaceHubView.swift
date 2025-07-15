@@ -155,11 +155,7 @@ struct SpaceHubView: View {
             searchBar
         }
         .frame(height: 108)
-        .if(applyBlur, if: {
-            $0.background(Material.ultraThinMaterial)
-        }, else: {
-            $0.background(Color.Background.primary)
-        })
+        .background(applyBlur ? AnyShapeStyle(Material.ultraThinMaterial) : AnyShapeStyle(Color.Background.primary))
     }
     
     private var navBarContent: some View {
