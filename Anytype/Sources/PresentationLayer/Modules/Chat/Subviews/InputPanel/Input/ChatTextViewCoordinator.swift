@@ -273,7 +273,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
             var newFont = UIKitFontBuilder.uiKitFont(font: anytypeFont)
             
             if attrs[.chatBold] != nil {
-                newFont = newFont.bold
+                newFont = newFont.semibold
             }
             
             if attrs[.chatItalic] != nil {

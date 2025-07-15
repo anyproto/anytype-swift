@@ -14,6 +14,11 @@ public extension UIFont {
         }
     }
     
+    var semibold: UIFont {
+        guard !isBold else { return self }
+        return applyWeight(.semibold)
+    }
+    
     var isBold: Bool {
         fontDescriptor.symbolicTraits.contains(.traitBold)
     }
