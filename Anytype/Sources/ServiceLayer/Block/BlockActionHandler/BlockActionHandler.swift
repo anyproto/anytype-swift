@@ -220,10 +220,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
     
     // MARK: - Public methods
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String, route: UploadMediaRoute) {
         
         Task {
-            
             await EventsBunch(
                 contextId: document.objectId,
                 localEvents: [.setLoadingState(blockId: blockId)]
@@ -232,10 +231,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
             try await fileService.uploadDataAt(source: uploadingSource, contextID: document.objectId, blockID: blockId)
         }
 
-        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId)
+        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId, route: route)
     }
     
-    func uploadImage(image: UIImage, type: String, blockId: String) {
+    func uploadImage(image: UIImage, type: String, blockId: String, route: UploadMediaRoute) {
         Task {
             guard let fileData = try? fileService.createFileData(image: image, type: type) else {
                 return
@@ -249,11 +248,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
             try await fileService.uploadDataAt(data: fileData, contextID: document.objectId, blockID: blockId)
         }
 
-        AnytypeAnalytics.instance().logUploadMedia(type: .image, spaceId: document.spaceId)
+        AnytypeAnalytics.instance().logUploadMedia(type: .image, spaceId: document.spaceId, route: route)
     }
     
-    func uploadFileAt(localPath: String, blockId: String) {
-        AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId)
+    func uploadFileAt(localPath: String, blockId: String, route: UploadMediaRoute) {
+        AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId, route: route)
         
         Task {
             await EventsBunch(

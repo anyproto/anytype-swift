@@ -412,3 +412,9 @@ enum SentMessageType: String {
     case attachment = "Attachment"
     case mixed = "Mixed"
 }
+
+enum UploadMediaRoute: String {
+    case camera = "Camera"
+    case scan = "Scan"
+    case filePicker = "FilePicker"
+}
