@@ -178,7 +178,7 @@ struct SpaceHubView: View {
             },
             onTapUnpin: {
                 try await model.unpin(spaceView: space.spaceView)
-            },
+            }
         )
         .equatable()
         .if(draggable) {
