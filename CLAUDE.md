@@ -99,6 +99,7 @@ make setup-middle    # Initial setup
 ### Quick Reference
 - **Search Patterns**: `/PresentationLayer/Common/SwiftUI/Search/SEARCH_PATTERNS.md`
 - **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
+- **Analytics Patterns**: `/PresentationLayer/Common/Analytics/ANALYTICS_PATTERNS.md`
 
 ### Icons
 Icons are code-generated from assets organized by size (x18, x24, x32, x40).
