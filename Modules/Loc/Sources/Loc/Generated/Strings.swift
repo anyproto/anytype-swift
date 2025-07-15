@@ -266,6 +266,7 @@ public enum Loc {
   public static let noConnection = Loc.tr("Localizable", "No connection", fallback: "No connection")
   public static let noDate = Loc.tr("Localizable", "No date", fallback: "No date")
   public static let noItemsMatchFilter = Loc.tr("Localizable", "No items match filter", fallback: "No items match filter")
+  public static let noMatchesFound = Loc.tr("Localizable", "No matches found", fallback: "No matches found.\nTry a different keyword or check your spelling.")
   public static let noPropertiesYet = Loc.tr("Localizable", "No properties yet", fallback: "No properties yet. Add some to this type.")
   public static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here", fallback: "No related options here. You can add some")
   public static func noTypeFoundText(_ p1: Any) -> String {
@@ -380,7 +381,7 @@ public enum Loc {
   public static let scanDocuments = Loc.tr("Localizable", "Scan documents", fallback: "Scan documents")
   public static let scanDocumentsBlockSubtitle = Loc.tr("Localizable", "Scan documents block subtitle", fallback: "Capture and upload document image")
   public static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
-  public static let search = Loc.tr("Localizable", "Search", fallback: "Search")
+  public static let search = Loc.tr("Localizable", "Search", fallback: "Search...")
   public static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
   public static let searchOrCreateNew = Loc.tr("Localizable", "Search or create new", fallback: "Search or create new")
   public static let selectAll = Loc.tr("Localizable", "Select all", fallback: "Select all")

@@ -47,8 +47,12 @@ struct SpaceHubView: View {
     
     private var mainContent: some View {
         VStack(spacing: 0) {
-            if let spaces = model.spaces, let unreadSpaces = model.unreadSpaces, spaces.isNotEmpty || unreadSpaces.isNotEmpty {
+            Spacer.fixedHeight(108) // navbar
+            
+            if let spaces = model.filteredSpaces, let unreadSpaces = model.filteredUnreadSpaces, spaces.isNotEmpty || unreadSpaces.isNotEmpty {
                 scrollView(unread: unreadSpaces, spaces: spaces)
+            } else if model.searchText.isNotEmpty {
+                searchEmptyStateView
             } else if model.spaces.isNotNil {
                 emptyStateView
             } else {
@@ -61,10 +65,18 @@ struct SpaceHubView: View {
         .animation(.default, value: model.spaces)
     }
     
+    private var searchBar: some View {
+        SearchBar(
+            text: $model.searchText,
+            focused: false,
+            placeholder: Loc.search,
+            shouldShowDivider: false
+        ).frame(height: 60)
+    }
+    
     private func scrollView(unread: [ParticipantSpaceViewDataWithPreview], spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
             VStack(spacing: 0) {
-                Spacer.fixedHeight(68) // navbar
                 HomeUpdateSubmoduleView().padding(8)
                 
                 if #available(iOS 17.0, *) {
@@ -99,7 +111,6 @@ struct SpaceHubView: View {
     
     @ViewBuilder
     private var emptyStateView: some View {
-        Spacer.fixedHeight(44) // navbar
         HomeUpdateSubmoduleView().padding(8)
         EmptyStateView(
             title: Loc.thereAreNoSpacesYet,
@@ -108,6 +119,17 @@ struct SpaceHubView: View {
             buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
                 model.onTapCreateSpace()
             }
+        )
+    }
+    
+    @ViewBuilder
+    private var searchEmptyStateView: some View {
+        HomeUpdateSubmoduleView().padding(8)
+        EmptyStateView(
+            title: Loc.noMatchesFound,
+            subtitle: "",
+            style: .withImage,
+            buttonData: nil
         )
     }
     
@@ -128,6 +150,15 @@ struct SpaceHubView: View {
     }
     
     private var navBar: some View {
+        VStack(spacing: 4) {
+            navBarContent
+            searchBar
+        }
+        .frame(height: 108)
+        .background(applyBlur ? AnyShapeStyle(Material.ultraThinMaterial) : AnyShapeStyle(Color.Background.primary))
+    }
+    
+    private var navBarContent: some View {
         HStack(alignment: .center, spacing: 0) {
             Button { model.showSettings = true }
             label: {
@@ -156,11 +187,6 @@ struct SpaceHubView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .if(applyBlur, if: {
-            $0.background(Material.ultraThinMaterial)
-        }, else: {
-            $0.background(Color.Background.primary)
-        })
         .frame(height: 44)
     }
     
