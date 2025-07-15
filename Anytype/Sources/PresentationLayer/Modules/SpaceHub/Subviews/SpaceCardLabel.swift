@@ -32,7 +32,9 @@ struct SpaceCardLabel: View {
                     Spacer()
                     unreadCounters
                     if FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
-                        Image(asset: .X24.pin).frame(width: 22, height: 22)
+                        Image(asset: .X24.pin)
+                            .foregroundStyle(Color.Control.active)
+                            .frame(width: 22, height: 22)
                     }
                 }
                 Spacer(minLength: 1)
