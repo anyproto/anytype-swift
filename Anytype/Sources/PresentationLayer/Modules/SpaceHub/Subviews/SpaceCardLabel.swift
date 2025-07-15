@@ -31,11 +31,7 @@ struct SpaceCardLabel: View {
                     info
                     Spacer()
                     unreadCounters
-                    if FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
-                        Image(asset: .X24.pin)
-                            .foregroundStyle(Color.Control.active)
-                            .frame(width: 22, height: 22)
-                    }
+                    pin
                 }
                 Spacer(minLength: 1)
             }
@@ -143,6 +139,15 @@ struct SpaceCardLabel: View {
                     style: isMuted ? .muted : .highlighted
                 )
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var pin: some View {
+        if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
+            Image(asset: .X24.pin)
+                .foregroundStyle(Color.Control.active)
+                .frame(width: 22, height: 22)
         }
     }
     
