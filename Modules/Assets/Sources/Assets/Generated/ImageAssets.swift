@@ -846,6 +846,7 @@ extension ImageAsset {
     public static let remove = ImageAsset.bundle(name: "x32/Remove")
     public static let rename = ImageAsset.bundle(name: "x32/Rename")
     public static let replace = ImageAsset.bundle(name: "x32/Replace")
+    public static let reply = ImageAsset.bundle(name: "x32/Reply")
     public static let restore = ImageAsset.bundle(name: "x32/Restore")
     public static let search = ImageAsset.bundle(name: "x32/Search")
     public static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")

@@ -6,11 +6,15 @@ struct MessageView: View {
     
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
+        static let messageHorizontalPadding: CGFloat = 12
+        static let coordinateSpace = "MessageViewCoordinateSpace"
         static let emoji = ["👍🏻", "️️❤️", "😂"]
     }
     
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
+    
+    @State private var bubbleCenterOffsetY: CGFloat = 0
     
     @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
@@ -23,14 +27,31 @@ struct MessageView: View {
     }
     
     var body: some View {
+        MessageReplyActionView(
+            isEnable: FeatureFlags.swipeToReply && data.canReply,
+            contentHorizontalPadding: Constants.messageHorizontalPadding,
+            centerOffsetY: $bubbleCenterOffsetY,
+            content: {
+                alignedСontent
+            },
+            action: {
+                output?.didSelectReplyTo(message: data)
+            }
+        )
+        .id(data.id)
+        
+    }
+    
+    private var alignedСontent: some View {
         HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content
             trailingView
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Constants.messageHorizontalPadding)
         .padding(.bottom, data.nextSpacing.height)
-        .id(data.id)
+        .fixTappableArea()
+        .coordinateSpace(name: Constants.coordinateSpace)
     }
     
     private var content: some View {
@@ -94,6 +115,9 @@ struct MessageView: View {
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
         .contextMenu {
             contextMenu
+        }
+        .readFrame(space: .named(Constants.coordinateSpace)) {
+            bubbleCenterOffsetY = $0.midY
         }
     }
     
@@ -220,7 +244,6 @@ struct MessageView: View {
         }
     }
     
-    @ViewBuilder
     private var horizontalBubbleSpacing: some View {
         Spacer(minLength: 26)
     }
