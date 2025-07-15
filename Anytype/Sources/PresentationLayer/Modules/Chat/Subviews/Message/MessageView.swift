@@ -7,8 +7,6 @@ struct MessageView: View {
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
         static let messageHorizontalPadding: CGFloat = 12
-        static let minReplyWidth: CGFloat = 60
-        static let replyImageWidth: CGFloat = 32
         static let coordinateSpace = "MessageViewCoordinateSpace"
         static let emoji = ["👍🏻", "️️❤️", "😂"]
     }
@@ -16,7 +14,6 @@ struct MessageView: View {
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
-    @State private var offsetX: CGFloat = 0
     @State private var bubbleCenterOffsetY: CGFloat = 0
     
     @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
@@ -30,6 +27,22 @@ struct MessageView: View {
     }
     
     var body: some View {
+        MessageReplyActionView(
+            isEnable: FeatureFlags.swipeToReply && data.canReply,
+            contentHorizontalPadding: Constants.messageHorizontalPadding,
+            centerOffsetY: $bubbleCenterOffsetY,
+            content: {
+                alignedСontent
+            },
+            action: {
+                output?.didSelectReplyTo(message: data)
+            }
+        )
+        .id(data.id)
+        
+    }
+    
+    private var alignedСontent: some View {
         HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content
@@ -38,44 +51,6 @@ struct MessageView: View {
         .padding(.horizontal, Constants.messageHorizontalPadding)
         .padding(.bottom, data.nextSpacing.height)
         .fixTappableArea()
-        .id(data.id)
-        
-        // reply logic
-        .overlay(alignment: .topTrailing) {
-            if FeatureFlags.swipeToReply && data.canReply {
-                Image(asset: .X32.reply)
-                    .renderingMode(.template)
-                    .foregroundColor(.Control.transparentActive)
-                    .padding(.trailing, -(Constants.messageHorizontalPadding + Constants.replyImageWidth))
-                    .opacity(Double(-offsetX / Constants.minReplyWidth).clamped(to: 0...1))
-                    .scaleEffect(Double(-offsetX / Constants.minReplyWidth).clamped(to: 0.5...1))
-                    .offset(y: bubbleCenterOffsetY - Constants.replyImageWidth/2)
-            }
-        }
-        .offset(x: offsetX)
-        .animation(.easeOut(duration: 0.15), value: offsetX)
-        .highPriorityGesture(
-            DragGesture(minimumDistance: 20)
-                .onChanged { value in
-                    let dx = value.translation.width
-                    let dy = value.translation.height
-
-                    if abs(dx) > abs(dy), dx < 0 {
-                        offsetX = dx
-                    }
-                }
-                .onEnded { value in
-                    if value.translation.width < -Constants.minReplyWidth {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        output?.didSelectReplyTo(message: data)
-                    }
-                    withAnimation {
-                        offsetX = 0
-                    }
-                },
-            isEnabled: FeatureFlags.swipeToReply && data.canReply
-        )
-        
         .coordinateSpace(name: Constants.coordinateSpace)
     }
     
