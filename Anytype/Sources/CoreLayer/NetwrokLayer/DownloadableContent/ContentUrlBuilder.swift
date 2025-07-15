@@ -45,7 +45,7 @@ final class ContentUrlBuilder {
 private extension ContentUrlBuilder {
     
     // Middleware have only this sizes + original
-    private static let widthSizes: [CGFloat] = [100, 320, 1920]
+    private static let widthSizes: [CGFloat] = [320, 1920]
     
     static func makeFileUrl(initialComponents: URLComponents, fileId: String) -> URL? {
         var components = initialComponents
