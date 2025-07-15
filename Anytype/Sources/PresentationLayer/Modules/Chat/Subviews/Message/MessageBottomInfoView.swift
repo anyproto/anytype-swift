@@ -13,7 +13,7 @@ private struct MessageBottomInfoViewBuilder {
     
     let synced: Bool
     let edited: Bool
-    let isYour: Bool
+    let showSyncIndicator: Bool
     let createDate: String
     
     var body: Text {
@@ -27,7 +27,7 @@ private struct MessageBottomInfoViewBuilder {
     }
     
     private var syncIndicator: Text {
-        if isYour {
+        if showSyncIndicator {
             syncIndicatorText
         } else {
             Text("")
@@ -46,7 +46,7 @@ private extension MessageBottomInfoViewBuilder {
         self.init(
             synced: data.message.synced,
             edited: data.message.modifiedAtDate != nil,
-            isYour: data.position.isRight,
+            showSyncIndicator: data.showMessageSyncIndicator,
             createDate: data.createDate
         )
     }
