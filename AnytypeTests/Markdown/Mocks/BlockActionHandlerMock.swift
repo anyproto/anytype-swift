@@ -162,7 +162,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func uploadFileAt(localPath: String, blockId: String) {
+    func uploadFileAt(localPath: String, blockId: String, route: UploadMediaRoute) {
         assertionFailure()
     }
     
@@ -190,7 +190,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         fatalError()
     }
     
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String, route: UploadMediaRoute) {
         assertionFailure()
     }
     
@@ -207,7 +207,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func uploadImage(image: UIImage, type: String, blockId: String) {
+    func uploadImage(image: UIImage, type: String, blockId: String, route: UploadMediaRoute) {
         assertionFailure()
     }
     

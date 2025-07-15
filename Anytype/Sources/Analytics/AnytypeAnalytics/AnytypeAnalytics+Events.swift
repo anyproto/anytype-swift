@@ -232,11 +232,14 @@ extension AnytypeAnalytics {
         logEvent("DeleteBlock")
     }
     
-    func logUploadMedia(type: FileContentType, spaceId: String) {
+    func logUploadMedia(type: FileContentType, spaceId: String, route: UploadMediaRoute) {
         logEvent(
             "UploadMedia",
             spaceId: spaceId,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
         )
     }
 

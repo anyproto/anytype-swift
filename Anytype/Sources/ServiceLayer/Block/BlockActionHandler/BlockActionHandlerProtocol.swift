@@ -46,9 +46,9 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
         currentText: SafeNSAttributedString,
         contentType: BlockContentType
     ) async throws -> SafeNSAttributedString
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
-    func uploadImage(image: UIImage, type: String, blockId: String)
-    func uploadFileAt(localPath: String, blockId: String)
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String, route: UploadMediaRoute)
+    func uploadImage(image: UIImage, type: String, blockId: String, route: UploadMediaRoute)
+    func uploadFileAt(localPath: String, blockId: String, route: UploadMediaRoute)
     func createAndFetchBookmark(
         targetID: String,
         position: BlockPosition,

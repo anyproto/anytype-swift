@@ -50,9 +50,9 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
             
             switch media {
             case let .image(image, type):
-                handler.uploadImage(image: image, type: type, blockId: blockId)
+                handler.uploadImage(image: image, type: type, blockId: blockId, route: .camera)
             case .video(let url):
-                handler.uploadMediaFile(uploadingSource: .path(url.path()), type: .videos, blockId: blockId)
+                handler.uploadMediaFile(uploadingSource: .path(url.path()), type: .videos, blockId: blockId, route: .camera)
             }
         }
     }
@@ -68,11 +68,11 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
                     for (index, image) in images.enumerated() {
                         if index == 0 {
                             // First image: upload to the provided block ID
-                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId)
+                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId, route: .scan)
                         } else {
                             // Subsequent images: create new block below the previous one
                             currentBlockId = try await self.handler.addBlock(.file(.init(contentType: .image)), blockId: currentBlockId)
-                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId)
+                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId, route: .scan)
                         }
                     }
                 }
@@ -91,7 +91,8 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
             self?.handler.uploadMediaFile(
                 uploadingSource: .itemProvider(itemProvider),
                 type: type,
-                blockId: blockId
+                blockId: blockId,
+                route: .filePicker
             )
         }
     }
@@ -99,7 +100,7 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
     private func showFilePicker(blockId: String, types: [UTType]) {
         let model = AnytypePicker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
+            self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId, route: .filePicker)
         }.store(in: &subscriptions)
         
         router.showFilePicker(model: model)
