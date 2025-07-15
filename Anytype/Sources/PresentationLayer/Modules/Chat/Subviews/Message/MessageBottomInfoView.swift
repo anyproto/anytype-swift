@@ -28,12 +28,7 @@ private struct MessageBottomInfoViewBuilder {
     
     private var syncIndicator: Text {
         if isYour {
-            if synced {
-                syncIndicatorText
-                    .foregroundColor(.clear)
-            } else {
-                syncIndicatorText
-            }
+            syncIndicatorText
         } else {
             Text("")
         }
