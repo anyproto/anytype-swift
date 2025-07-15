@@ -584,6 +584,7 @@ extension ImageAsset {
   public enum MessageStatus {
     public static let failed = ImageAsset.bundle(name: "MessageStatus/Failed")
     public static let loading = ImageAsset.bundle(name: "MessageStatus/Loading")
+    public static let synced = ImageAsset.bundle(name: "MessageStatus/Synced")
   }
   public enum NavigationBase {
     public static let add = ImageAsset.bundle(name: "NavigationBase/Add")

@@ -40,7 +40,7 @@ private struct MessageBottomInfoViewBuilder {
     }
     
     private var syncIndicatorText: Text {
-        Text(Image(asset: .MessageStatus.loading))
+        Text(Image(asset: synced ? .MessageStatus.synced : .MessageStatus.loading))
             .baselineOffset(-2)
         + Text(" ")
     }
