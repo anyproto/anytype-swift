@@ -204,6 +204,9 @@ struct SpaceHubView: View {
             },
             onTapUnpin: {
                 try await model.unpin(spaceView: space.spaceView)
+            },
+            onTapSettings: {
+                model.openSpaceSettings(spaceId: space.spaceView.targetSpaceId)
             }
         )
         .equatable()

@@ -122,6 +122,10 @@ final class SpaceHubViewModel: ObservableObject {
         try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
     }
     
+    func openSpaceSettings(spaceId: String) {
+        output?.onOpenSpaceSettings(spaceId: spaceId)
+    }
+    
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
