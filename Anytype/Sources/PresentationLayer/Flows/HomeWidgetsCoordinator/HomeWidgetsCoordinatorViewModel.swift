@@ -29,7 +29,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
-        pageNavigation?.open(.spaceInfo(.mainScreen(info: spaceInfo)))
+        pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceInfo.accountSpaceId)))
     }
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
