@@ -13,13 +13,13 @@ struct MessageReplyActionView<Content: View>: View {
     @State private var offsetX: CGFloat = 0
     @Binding private var centerOffsetY: CGFloat
     
-    let isEnable: Bool
+    let isEnabled: Bool
     let contentHorizontalPadding: CGFloat
     let content: Content
     let action: () -> Void
     
-    init(isEnable: Bool, contentHorizontalPadding: CGFloat, centerOffsetY: Binding<CGFloat>, @ViewBuilder content: () -> Content, action: @escaping () -> Void) {
-        self.isEnable = isEnable
+    init(isEnabled: Bool, contentHorizontalPadding: CGFloat, centerOffsetY: Binding<CGFloat>, @ViewBuilder content: () -> Content, action: @escaping () -> Void) {
+        self.isEnabled = isEnabled
         self.contentHorizontalPadding = contentHorizontalPadding
         self._centerOffsetY = centerOffsetY
         self.action = action
@@ -29,7 +29,7 @@ struct MessageReplyActionView<Content: View>: View {
     var body: some View {
         content
             .overlay(alignment: .topTrailing) {
-                if isEnable {
+                if isEnabled {
                     Image(asset: .X32.reply)
                         .renderingMode(.template)
                         .foregroundColor(.Control.transparentActive)
@@ -60,7 +60,7 @@ struct MessageReplyActionView<Content: View>: View {
                             offsetX = 0
                         }
                     },
-                isEnabled: isEnable
+                isEnabled: isEnabled
             )
     }
 }
