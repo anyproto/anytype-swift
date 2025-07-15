@@ -243,6 +243,8 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Brief description of changes (1-3 bullet points)
 ```
 
+**Note**: PRs are for programmers, not testers - no test plan needed
+
 **IMPORTANT**: 
 - **NEVER add AI signatures** like "🤖 Generated with Claude Code" to pull requests
 - **NEVER add AI signatures** to commit messages
