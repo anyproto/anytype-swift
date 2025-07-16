@@ -336,54 +336,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     }
 }
 
-
-func layoutDetails(for blockModels: [BlockInformation]) -> [AnyHashable: RowInformation] {
-    var output = [AnyHashable: RowInformation]()
-    
-    func traverseBlock(_ block: BlockInformation) -> [AnyHashable] {
-        block.childrenIds.map { childId -> [AnyHashable] in
-            
-            var childIndentifiers = [AnyHashable]()
-            if let childInformation = blockModels.first(where: { info in info.id == childId }) {
-                childIndentifiers.append(childInformation.hashable)
-                childIndentifiers.append(contentsOf: traverseBlock(childInformation))
-            }
-            
-            return childIndentifiers
-        }.flatMap { $0 }
-    }
-    
-    let dictionary = Dictionary(uniqueKeysWithValues: blockModels.map { ($0.hashable, $0) })
-    
-    func findIdentation(
-        currentIdentations: [BlockIndentationStyle],
-        block: BlockInformation
-    ) -> [BlockIndentationStyle] {
-        guard let parentId = block.configurationData.parentId,
-              let parent = dictionary[parentId]  else {
-            return currentIdentations
-        }
-        var indentations = currentIdentations
-        indentations.append(parent.content.indentationStyle)
-        
-        return findIdentation(
-            currentIdentations: indentations,
-            block: parent
-        )
-    }
-    
-    for rootBlockInfo in blockModels.enumerated() {
-        output[rootBlockInfo.element.hashable] = RowInformation(
-            hashable: rootBlockInfo.element.hashable,
-            allChilds: traverseBlock(rootBlockInfo.element),
-            indentations: findIdentation(currentIdentations: [], block: rootBlockInfo.element),
-            ownStyle: rootBlockInfo.element.content.indentationStyle
-        )
-    }
-    
-    return output
-}
-
 extension BlockContent {
     var indentationStyle: BlockIndentationStyle {
         switch self {
