@@ -80,4 +80,15 @@ public extension InfoContainerProtocol {
             return info.updated(content: .link(updateAction(link)))
         }
     }
+    
+    func updateLatex(blockId: String, update updateAction: (BlockLatex) -> (BlockLatex)) {
+        update(blockId: blockId) { info in
+            guard case let .embed(latex) = info.content else {
+                anytypeAssertionFailure("Not a embed", info: ["content": "\(info.content.type)"])
+                return nil
+            }
+            
+            return info.updated(content: .embed(updateAction(latex)))
+        }
+    }
 }

@@ -112,6 +112,10 @@ final class MiddlewareEventConverter {
             infoContainer.setLink(data: data)
             return .block(blockId: data.id)
             
+        case .blockSetLatex(let data):
+            infoContainer.setLatex(data: data)
+            return .block(blockId: data.id)
+            
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
             infoContainer.dataviewViewSet(data: data)
