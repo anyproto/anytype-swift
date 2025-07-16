@@ -2,7 +2,7 @@ import UIKit
 import Combine
 import Services
 
-struct RowInformation: Equatable, Hashable {
+struct BlockLayoutDetails: Equatable, Hashable {
     let id: String
     
     let allChilds: [AnyHashable]
@@ -58,7 +58,7 @@ final class CustomInvalidation: UICollectionViewLayoutInvalidationContext {
 
 final class EditorCollectionFlowLayout: UICollectionViewLayout {
     weak var dataSource: UICollectionViewDiffableDataSource<EditorSection, EditorItem>?
-    var layoutDetailsPublisher: AnyPublisher<[String: RowInformation], Never>? {
+    var layoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never>? {
         didSet {
             blocksLayoutSubscription = layoutDetailsPublisher?
                 .sink { [weak self] layoutDetails in
@@ -97,7 +97,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     private var cachedAttributes = [AnyHashable: LayoutItem]() // Actual
     private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
     
-    private var blockLayoutDetails = [AnyHashable: RowInformation]()
+    private var blockLayoutDetails = [AnyHashable: BlockLayoutDetails]()
     
 
     private var maxHeight = LayoutConstants.estimatedItemHeight
