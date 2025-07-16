@@ -69,13 +69,13 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                     let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
                     
                     
-                    for (key, value) in blockLayoutDetails {
-                        if let info = newLayoutDetails[value.id] {
-                            if info != value,
-                                let layoutItem = cachedAttributes[value.id] {
+                    for blockLayout in blockLayoutDetails.values {
+                        if let info = newLayoutDetails[blockLayout.id] {
+                            if info != blockLayout,
+                                let layoutItem = cachedAttributes[blockLayout.id] {
                                 invalidationIndexPaths.append(layoutItem.indexPath)
                                 
-                                if info.ownStyle != value.ownStyle {
+                                if info.ownStyle != blockLayout.ownStyle {
                                     let allChilds = info.allChilds.compactMap { childHash -> IndexPath? in
                                         self.cachedAttributes[childHash]?.indexPath
                                     }
