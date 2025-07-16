@@ -36,6 +36,8 @@ extension BlockContentType {
             return "widget"
         case .chat:
             return "chat"
+        case .embed:
+            return "latex"
         }
     }
     
@@ -73,6 +75,8 @@ extension BlockContentType {
             return "Widget \(String(describing: layout))"
         case .chat:
             return "chat"
+        case .embed:
+            return "latex"
         }
     }
 }

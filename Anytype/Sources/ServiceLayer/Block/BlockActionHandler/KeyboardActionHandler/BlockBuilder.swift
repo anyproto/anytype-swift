@@ -40,6 +40,8 @@ struct BlockBuilder {
             return .tableColumn
         case .tableRow:
             return .tableRow(BlockTableRow(isHeader: false))
+        case .embed:
+            return .embed(BlockLatex())
         }
     }
 }
