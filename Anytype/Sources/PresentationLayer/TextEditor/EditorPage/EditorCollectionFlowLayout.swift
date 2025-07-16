@@ -66,26 +66,26 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                     
                     var invalidationIndexPaths = [IndexPath]()
                     
-                    let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
+                    let newLayoutDetailsDict = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
                     
                     
-                    for blockLayout in blockLayoutDetails.values {
-                        if let info = newLayoutDetails[blockLayout.id] {
-                            if info != blockLayout,
-                                let layoutItem = cachedAttributes[blockLayout.id] {
+                    for oldLayoutDetails in blockLayoutDetails.values {
+                        if let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id] {
+                            if newLayoutDetails != oldLayoutDetails,
+                                let layoutItem = cachedAttributes[oldLayoutDetails.id] {
                                 invalidationIndexPaths.append(layoutItem.indexPath)
                                 
-                                if info.ownStyle != blockLayout.ownStyle {
-                                    let allChilds = info.allChilds.compactMap { childHash -> IndexPath? in
+                                if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
+                                    let childIndexPaths = newLayoutDetails.allChilds.compactMap { childHash -> IndexPath? in
                                         self.cachedAttributes[childHash]?.indexPath
                                     }
                                     
-                                    invalidationIndexPaths.append(contentsOf: allChilds)
+                                    invalidationIndexPaths.append(contentsOf: childIndexPaths)
                                 }
                             }
                         }
                     }
-                    blockLayoutDetails = newLayoutDetails
+                    blockLayoutDetails = newLayoutDetailsDict
                     
                     if invalidationIndexPaths.isNotEmpty {
                         invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
