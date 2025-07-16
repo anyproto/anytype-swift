@@ -63,7 +63,7 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    var layoutDetailsPublisher: AnyPublisher<[AnyHashable: RowInformation], Never> {
+    var layoutDetailsPublisher: AnyPublisher<[String: RowInformation], Never> {
         childrenPublisher
             .map { EditorCollectionFlowLayout.layoutDetails(blockInfos: $0) }
             .removeDuplicates()
