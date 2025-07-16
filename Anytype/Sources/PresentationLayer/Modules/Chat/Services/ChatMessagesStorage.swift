@@ -274,6 +274,11 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                     chatState = data.state
                     updates.insert(.state)
                 }
+            case let .chatUpdateMessageSyncStatus(data):
+                guard data.subIds.contains(subId) else { break }
+                if messages.chatUpdateMessageSyncStatus(data) {
+                    updates.insert(.messages)
+                }
             default:
                 break
             }

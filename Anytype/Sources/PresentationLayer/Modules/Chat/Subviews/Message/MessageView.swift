@@ -169,21 +169,14 @@ struct MessageView: View {
     }
     
     private var infoView: some View {
-        Text(infoText)
-            .anytypeFontStyle(.caption2Regular)
-            .lineLimit(1)
+        Text(messageBottomInfo: data)
             .foregroundColor(messageTimeColor)
+            .lineLimit(1)
     }
     
     private var infoForSpacing: Text {
-        Text(infoText)
-            .anytypeFontStyle(.caption2Regular)
+        Text(messageBottomInfo: data)
             .foregroundColor(.clear)
-    }
-    
-    private var infoText: String {
-        let editText = data.message.modifiedAtDate != nil ? Loc.Message.edited + " " : ""
-        return "  " + editText + data.createDate
     }
     
     @ViewBuilder
