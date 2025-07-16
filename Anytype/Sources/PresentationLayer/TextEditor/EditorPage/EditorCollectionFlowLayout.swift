@@ -61,13 +61,10 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     var blockLayoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never>? {
         didSet {
             blocksLayoutSubscription = blockLayoutDetailsPublisher?
-                .sink { [weak self] layoutDetails in
+                .sink { [weak self] newLayoutDetailsDict in
                     guard let self else { return }
                     
                     var invalidationIndexPaths = [IndexPath]()
-                    
-                    let newLayoutDetailsDict = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
-                    
                     
                     for oldLayoutDetails in blockLayoutDetails.values {
                         if let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id] {
