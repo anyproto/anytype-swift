@@ -1058,6 +1058,25 @@ public enum Loc {
       }
     }
   }
+  public enum Embed {
+    public enum Block {
+      public enum Content {
+        public static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Embed.Block.Content.title", String(describing: p1), fallback: "%@ embed. This content is not available on mobile")
+        }
+        public enum Url {
+          public static func title(_ p1: Any) -> String {
+            return Loc.tr("Localizable", "Embed.Block.Content.Url.title", String(describing: p1), fallback: "%@ embed. Opens in external app or browser")
+          }
+        }
+      }
+      public enum Empty {
+        public static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Embed.Block.Empty.title", String(describing: p1), fallback: "%@ embed is empty")
+        }
+      }
+    }
+  }
   public enum EmptyView {
     public enum Bin {
       public static let subtitle = Loc.tr("Localizable", "EmptyView.Bin.subtitle", fallback: "Looks like you’re all tidy and organized!")

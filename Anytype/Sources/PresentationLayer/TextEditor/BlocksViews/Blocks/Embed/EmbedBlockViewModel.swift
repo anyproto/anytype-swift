@@ -4,9 +4,15 @@ import AnytypeCore
 import SwiftUI
 
 struct EmbedBlockViewModel: BlockViewModelProtocol {
+    
     let info: BlockInformation
 
     let className = "EmbedBlockViewModel"
+    
+    private var content: BlockLatex {
+        guard case let .embed(blockLatex) = info.content else { return BlockLatex() }
+        return blockLatex
+    }
 
     init(info: BlockInformation) {
         self.info = info
@@ -16,11 +22,7 @@ struct EmbedBlockViewModel: BlockViewModelProtocol {
         return UIHostingConfiguration {
             EmbedContentView(
                 model: EmbedContentViewModel(
-                    data: EmbedContentData(
-                        icon: .X32.attachment,
-                        text: "Figma embed. This content is not available on mobile",
-                        url: nil
-                    )
+                    data: content.asEmbedContentData
                 )
             )
         }
