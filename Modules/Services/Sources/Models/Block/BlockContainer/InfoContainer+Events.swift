@@ -60,4 +60,8 @@ public extension InfoContainerProtocol {
     func setWidget(data: Anytype_Event.Block.Set.Widget) {
         updateWidget(blockId: data.id) { $0.handleSetWidget(data: data) }
     }
+    
+    func setLatex(data: Anytype_Event.Block.Set.Latex) {
+        updateLatex(blockId: data.id) { $0.handleSetLatex(data: data) }
+    }
 }

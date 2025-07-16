@@ -2,28 +2,46 @@ import Services
 import UIKit
 import AnytypeCore
 import SwiftUI
+import Combine
 
-struct EmbedBlockViewModel: BlockViewModelProtocol {
+final class EmbedBlockViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
+    
+    private let document: any BaseDocumentProtocol
+    private var subscription: AnyCancellable?
+    private let collectionController: any EditorCollectionReloadable
+    
+    private var embedContentData: EmbedContentData
 
     let className = "EmbedBlockViewModel"
-    
-    private var content: BlockLatex {
-        guard case let .embed(blockLatex) = info.content else { return BlockLatex() }
-        return blockLatex
-    }
 
-    init(info: BlockInformation) {
+    init(
+        info: BlockInformation,
+        document: some BaseDocumentProtocol,
+        collectionController: some EditorCollectionReloadable
+    ) {
         self.info = info
+        self.document = document
+        self.collectionController = collectionController
+        self.embedContentData = Self.content(for: info).asEmbedContentData
+        
+        setupBlockSubscription()
+    }
+    
+    func setupBlockSubscription() {
+        subscription = document.subscribeForBlockInfo(blockId: info.id)
+            .sinkOnMain { [weak self] info in
+                guard let self else { return }
+                embedContentData = Self.content(for: info).asEmbedContentData
+                collectionController.reconfigure(items: [.block(self)])
+            }
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> any UIContentConfiguration {
         return UIHostingConfiguration {
             EmbedContentView(
-                model: EmbedContentViewModel(
-                    data: content.asEmbedContentData
-                )
+                model: EmbedContentViewModel(data: embedContentData)
             )
         }
         .minSize(height: 0)
@@ -32,4 +50,9 @@ struct EmbedBlockViewModel: BlockViewModelProtocol {
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
+    
+    private static func content(for info: BlockInformation) -> BlockLatex {
+        guard case let .embed(blockLatex) = info.content else { return BlockLatex() }
+        return blockLatex
+    }
 }

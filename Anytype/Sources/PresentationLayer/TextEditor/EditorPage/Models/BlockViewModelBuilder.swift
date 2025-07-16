@@ -390,7 +390,11 @@ final class BlockViewModelBuilder {
                 }
             )
         case .embed:
-            return EmbedBlockViewModel(info: info)
+            return EmbedBlockViewModel(
+                info: info,
+                document: document,
+                collectionController: blockCollectionController
+            )
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),
