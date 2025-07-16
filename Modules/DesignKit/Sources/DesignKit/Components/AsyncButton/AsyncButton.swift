@@ -24,6 +24,7 @@ public struct AsyncButton<Label> : View where Label : View {
         }
         .throwingTask(id: taskId) {
             guard taskId.isNotNil else { return }
+            defer { taskId = nil }
             do {
                 disable = true
                 defer { disable = false }
