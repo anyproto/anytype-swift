@@ -2,8 +2,17 @@ import SwiftUI
 
 struct EmbedContentData {
     let icon: ImageAsset
-    let text: String
+    let processorName: String
+    let hasContent: Bool
     let url: URL?
+    
+    var text: String {
+        if hasContent {
+            return url.isNil ? Loc.Embed.Block.Content.title(processorName) : Loc.Embed.Block.Content.Url.title(processorName)
+        } else {
+            return Loc.Embed.Block.Empty.title(processorName)
+        }
+    }
 }
 
 struct EmbedContentView: View {
@@ -15,13 +24,16 @@ struct EmbedContentView: View {
     }
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 0) {
             icon
+            
+            Spacer.fixedWidth(12)
             
             AnytypeText(model.data.text, style: .relation2Regular)
                 .foregroundColor(.Text.secondary)
             
             if model.data.url.isNotNil {
+                Spacer()
                 StandardButton(
                     Loc.open,
                     style: .primaryXSmall,
