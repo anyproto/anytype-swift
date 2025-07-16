@@ -62,24 +62,22 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         didSet {
             blocksLayoutSubscription = layoutDetailsPublisher?
                 .sink { [weak self] layoutDetails in
+                    guard let self else { return }
+                    
                     var invalidationIndexPaths = [IndexPath]()
                     
                     let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
                     
                     
-                    self?.blockLayoutDetails.forEach { key, value in
+                    for (key, value) in blockLayoutDetails {
                         if let info = newLayoutDetails[value.id] {
                             if info != value,
-                                let layoutItem = self?.cachedAttributes[value.id] {
+                                let layoutItem = cachedAttributes[value.id] {
                                 invalidationIndexPaths.append(layoutItem.indexPath)
                                 
                                 if info.ownStyle != value.ownStyle {
                                     let allChilds = info.allChilds.compactMap { childHash -> IndexPath? in
-                                        guard let childAttr = self?.cachedAttributes[childHash] else {
-                                            return nil
-                                        }
-                                        
-                                        return childAttr.indexPath
+                                        self.cachedAttributes[childHash]?.indexPath
                                     }
                                     
                                     invalidationIndexPaths.append(contentsOf: allChilds)
@@ -87,10 +85,10 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                             }
                         }
                     }
-                    self?.blockLayoutDetails = newLayoutDetails
+                    blockLayoutDetails = newLayoutDetails
                     
                     if invalidationIndexPaths.isNotEmpty {
-                        self?.invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
+                        invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
                     }
                 }
         }
