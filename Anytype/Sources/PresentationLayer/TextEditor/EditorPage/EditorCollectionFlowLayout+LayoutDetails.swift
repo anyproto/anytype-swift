@@ -8,16 +8,16 @@ extension EditorCollectionFlowLayout {
         
         let dictionary = Dictionary(uniqueKeysWithValues: blockInfos.map { ($0.hashable, $0) })
         
-        for rootBlockInfo in blockInfos.enumerated() {
-            output[rootBlockInfo.element.hashable] = RowInformation(
-                hashable: rootBlockInfo.element.hashable,
-                allChilds: traverseBlock(rootBlockInfo.element, blockInfos: blockInfos),
+        for rootBlockInfo in blockInfos {
+            output[rootBlockInfo.hashable] = RowInformation(
+                hashable: rootBlockInfo.hashable,
+                allChilds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
                 indentations: findIdentation(
                     currentIdentations: [],
-                    blockInfo: rootBlockInfo.element,
+                    blockInfo: rootBlockInfo,
                     dictionary: dictionary
                 ),
-                ownStyle: rootBlockInfo.element.content.indentationStyle
+                ownStyle: rootBlockInfo.content.indentationStyle
             )
         }
         
