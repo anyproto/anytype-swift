@@ -63,9 +63,9 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    var layoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never> {
+    var blockLayoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never> {
         childrenPublisher
-            .map { EditorCollectionFlowLayout.layoutDetails(blockInfos: $0) }
+            .map { EditorCollectionFlowLayout.blockLayoutDetails(blockInfos: $0) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }

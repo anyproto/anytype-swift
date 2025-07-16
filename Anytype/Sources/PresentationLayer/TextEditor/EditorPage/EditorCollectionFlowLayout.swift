@@ -58,9 +58,9 @@ final class CustomInvalidation: UICollectionViewLayoutInvalidationContext {
 
 final class EditorCollectionFlowLayout: UICollectionViewLayout {
     weak var dataSource: UICollectionViewDiffableDataSource<EditorSection, EditorItem>?
-    var layoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never>? {
+    var blockLayoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never>? {
         didSet {
-            blocksLayoutSubscription = layoutDetailsPublisher?
+            blocksLayoutSubscription = blockLayoutDetailsPublisher?
                 .sink { [weak self] layoutDetails in
                     guard let self else { return }
                     

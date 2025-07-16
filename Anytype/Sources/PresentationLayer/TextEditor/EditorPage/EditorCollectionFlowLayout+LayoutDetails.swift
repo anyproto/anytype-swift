@@ -3,7 +3,7 @@ import Services
 
 extension EditorCollectionFlowLayout {
     
-    nonisolated static func layoutDetails(blockInfos: [BlockInformation]) -> [String: BlockLayoutDetails] {
+    nonisolated static func blockLayoutDetails(blockInfos: [BlockInformation]) -> [String: BlockLayoutDetails] {
         var output = [String: BlockLayoutDetails]()
         
         let dictionary = Dictionary(

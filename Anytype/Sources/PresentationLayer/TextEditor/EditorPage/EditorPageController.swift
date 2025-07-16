@@ -81,7 +81,7 @@ final class EditorPageController: UIViewController {
     var viewModel: (any EditorPageViewModelProtocol)! {
         didSet {
             viewModel.setupSubscriptions()
-            layout.layoutDetailsPublisher = viewModel.document.layoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
+            layout.blockLayoutDetailsPublisher = viewModel.document.blockLayoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
         }
     }
     
