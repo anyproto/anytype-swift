@@ -403,8 +403,3 @@ extension UICollectionView {
         return indexPaths
     }
 }
-
-
-extension BlockInformation: HashableProvier {
-    var hashable: AnyHashable { id }
-}

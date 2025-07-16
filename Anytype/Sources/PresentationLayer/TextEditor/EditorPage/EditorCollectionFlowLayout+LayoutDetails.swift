@@ -4,13 +4,15 @@ import Services
 extension EditorCollectionFlowLayout {
     
     nonisolated static func layoutDetails(blockInfos: [BlockInformation]) -> [AnyHashable: RowInformation] {
-        var output = [AnyHashable: RowInformation]()
+        var output = [String: RowInformation]()
         
-        let dictionary = Dictionary(uniqueKeysWithValues: blockInfos.map { ($0.hashable, $0) })
+        let dictionary = Dictionary(
+            uniqueKeysWithValues: blockInfos.map { ($0.id, $0) }
+        )
         
         for rootBlockInfo in blockInfos {
-            output[rootBlockInfo.hashable] = RowInformation(
-                hashable: rootBlockInfo.hashable,
+            output[rootBlockInfo.id] = RowInformation(
+                hashable: rootBlockInfo.id,
                 allChilds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
                 indentations: findIdentation(
                     currentIdentations: [],
@@ -25,12 +27,12 @@ extension EditorCollectionFlowLayout {
     }
     
     // MARK: - Private
-    nonisolated private static func traverseBlock(_ block: BlockInformation, blockInfos: [BlockInformation]) -> [AnyHashable] {
-        block.childrenIds.map { childId -> [AnyHashable] in
+    nonisolated private static func traverseBlock(_ block: BlockInformation, blockInfos: [BlockInformation]) -> [String] {
+        block.childrenIds.map { childId -> [String] in
             
-            var childIndentifiers = [AnyHashable]()
+            var childIndentifiers = [String]()
             if let childInformation = blockInfos.first(where: { info in info.id == childId }) {
-                childIndentifiers.append(childInformation.hashable)
+                childIndentifiers.append(childInformation.id)
                 childIndentifiers.append(
                     contentsOf: traverseBlock(childInformation, blockInfos: blockInfos)
                 )
