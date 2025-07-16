@@ -389,6 +389,8 @@ final class BlockViewModelBuilder {
                     self?.router.showEditorScreen(data: data)
                 }
             )
+        case .embed:
+            return EmbedBlockViewModel(info: info)
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),

@@ -294,6 +294,7 @@ public enum Loc {
   public static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   public static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   public static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
+  public static let `open` = Loc.tr("Localizable", "Open", fallback: "Open")
   public static let openAsObject = Loc.tr("Localizable", "Open as Object", fallback: "Open as Object")
   public static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   public static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")

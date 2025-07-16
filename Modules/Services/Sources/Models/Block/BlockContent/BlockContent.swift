@@ -17,6 +17,7 @@ public enum BlockContent: Hashable, Sendable {
     case tableRow(BlockTableRow)
     case widget(BlockWidget)
     case chat(BlockChat)
+    case embed(BlockLatex)
     case unsupported
     
     public var type: BlockContentType {
@@ -57,6 +58,8 @@ public enum BlockContent: Hashable, Sendable {
             return .widget(widget.layout)
         case .chat:
             return .chat
+        case .embed:
+            return .embed
         case .unsupported:
             return .text(.text)
         }
