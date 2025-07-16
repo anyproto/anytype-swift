@@ -67,19 +67,17 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                     var invalidationIndexPaths = [IndexPath]()
                     
                     for oldLayoutDetails in blockLayoutDetails.values {
-                        if let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id] {
-                            if newLayoutDetails != oldLayoutDetails,
-                                let layoutItem = cachedAttributes[oldLayoutDetails.id] {
-                                invalidationIndexPaths.append(layoutItem.indexPath)
-                                
-                                if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
-                                    let childIndexPaths = newLayoutDetails.allChilds.compactMap { childHash -> IndexPath? in
-                                        self.cachedAttributes[childHash]?.indexPath
-                                    }
-                                    
-                                    invalidationIndexPaths.append(contentsOf: childIndexPaths)
-                                }
-                            }
+                        guard let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id],
+                              newLayoutDetails != oldLayoutDetails,
+                              let layoutItem = cachedAttributes[oldLayoutDetails.id] else { continue }
+                        
+                        invalidationIndexPaths.append(layoutItem.indexPath)
+                        
+                        if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
+                            let childIndexPaths = newLayoutDetails.allChilds
+                                .compactMap { self.cachedAttributes[$0]?.indexPath }
+                            
+                            invalidationIndexPaths.append(contentsOf: childIndexPaths)
                         }
                     }
                     blockLayoutDetails = newLayoutDetailsDict
