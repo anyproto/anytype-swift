@@ -1,9 +1,9 @@
 import Services
 
-// Designed by Dmitry Bilienko - bududomasidet@gmail.com
+
 extension EditorCollectionFlowLayout {
     
-    nonisolated static func layoutDetails(blockInfos: [BlockInformation]) -> [AnyHashable: RowInformation] {
+    nonisolated static func layoutDetails(blockInfos: [BlockInformation]) -> [String: RowInformation] {
         var output = [String: RowInformation]()
         
         let dictionary = Dictionary(
@@ -12,7 +12,7 @@ extension EditorCollectionFlowLayout {
         
         for rootBlockInfo in blockInfos {
             output[rootBlockInfo.id] = RowInformation(
-                hashable: rootBlockInfo.id,
+                id: rootBlockInfo.id,
                 allChilds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
                 indentations: findIdentation(
                     currentIdentations: [],
