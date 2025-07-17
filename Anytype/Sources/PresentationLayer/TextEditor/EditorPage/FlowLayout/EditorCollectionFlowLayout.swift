@@ -14,31 +14,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         }
     }
     
-    private func invalidateLayout(_ newLayoutDetailsDict: [String: BlockLayoutDetails]) {
-        var invalidationIndexPaths = [IndexPath]()
-        
-        for oldLayoutDetails in blockLayoutDetails.values {
-            guard let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id],
-                  newLayoutDetails != oldLayoutDetails,
-                  let layoutItem = cachedAttributes[oldLayoutDetails.id] else { continue }
-            
-            invalidationIndexPaths.append(layoutItem.indexPath)
-            
-            if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
-                let childIndexPaths = newLayoutDetails.allChilds
-                    .compactMap { cachedAttributes[$0]?.indexPath }
-                
-                invalidationIndexPaths.append(contentsOf: childIndexPaths)
-            }
-        }
-        
-        blockLayoutDetails = newLayoutDetailsDict
-        
-        if invalidationIndexPaths.isNotEmpty {
-            invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
-        }
-    }
-    
     private var cachedAttributes = [AnyHashable: LayoutItem]() // Actual
     private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
     
@@ -120,8 +95,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                     }
                     
                     if let ownStyle = blockLayoutDetails?.ownStyle,
-                        let lastChild = blockLayoutDetails?.allChilds.last {
-                        lastBlockPadding[lastChild] = (lastBlockPadding[lastChild] ?? 0) + ownStyle.extraHeight
+                        let lastChildId = blockLayoutDetails?.allChildIds.last {
+                        lastBlockPadding[lastChildId] = (lastBlockPadding[lastChildId] ?? 0) + ownStyle.extraHeight
                     }
                     
                     if let padding = lastBlockPadding[blockViewModel.hashable] {
@@ -239,6 +214,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         }
     }
     
+    // MARK: - Private
+    
     private func itemIdentifier(for indexPath: IndexPath) -> EditorItem? {
         dataSource?.itemIdentifier(for: indexPath)
     }
@@ -258,23 +235,48 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         var additionalSize: CGFloat = 0
         
         if let layoutDetails = blockLayoutDetails[blockViewModel.hashable] {
-            for childHash in layoutDetails.allChilds {
+            for childId in layoutDetails.allChildIds {
                 var height: CGFloat = 0
                 
-                if let childLayoutItem = cache[childHash] {
+                if let childLayoutItem = cache[childId] {
                     height = childLayoutItem.ownPreferedHeight
                 }
                 
                 additionalSize = additionalSize + height
                 
-                guard blockLayoutDetails[childHash]?.ownStyle != nil else { continue }
+                guard blockLayoutDetails[childId]?.ownStyle != nil else { continue }
             }
             
-            if layoutDetails.allChilds.count > 0 {
+            if layoutDetails.allChildIds.count > 0 {
                 additionalSize += layoutDetails.ownStyle.extraHeight
             }
         }
         
         return additionalSize
+    }
+    
+    private func invalidateLayout(_ newLayoutDetailsDict: [String: BlockLayoutDetails]) {
+        var invalidationIndexPaths = [IndexPath]()
+        
+        for oldLayoutDetails in blockLayoutDetails.values {
+            guard let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id],
+                  newLayoutDetails != oldLayoutDetails,
+                  let layoutItem = cachedAttributes[oldLayoutDetails.id] else { continue }
+            
+            invalidationIndexPaths.append(layoutItem.indexPath)
+            
+            if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
+                let childIndexPaths = newLayoutDetails.allChildIds
+                    .compactMap { cachedAttributes[$0]?.indexPath }
+                
+                invalidationIndexPaths.append(contentsOf: childIndexPaths)
+            }
+        }
+        
+        blockLayoutDetails = newLayoutDetailsDict
+        
+        if invalidationIndexPaths.isNotEmpty {
+            invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
+        }
     }
 }
