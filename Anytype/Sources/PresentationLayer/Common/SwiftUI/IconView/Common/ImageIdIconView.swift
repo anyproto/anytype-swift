@@ -26,7 +26,7 @@ struct ImageIdIconView<Placeholder: View>: View {
                 url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl,
                 urlCache: .anytypeImages
             ) { image in
-                image.resizable().scaledToFill()
+                image.resizable().scaledToFill().clipped()
             } placeholder: {
                 placeholder()
             }

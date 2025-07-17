@@ -18,6 +18,6 @@ struct ProfileIconView: View {
             }
         }
         .background(Color.Background.highlightedMedium)
-        .clipShape(Circle())
+        .circleOverCornerRadius()
     }
 }
