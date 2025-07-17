@@ -18,13 +18,14 @@ final class EmbedBlockViewModel: BlockViewModelProtocol {
 
     init(
         info: BlockInformation,
+        blockContent: BlockLatex,
         document: some BaseDocumentProtocol,
         collectionController: some EditorCollectionReloadable
     ) {
         self.info = info
         self.document = document
         self.collectionController = collectionController
-        self.embedContentData = Self.content(for: info).asEmbedContentData
+        self.embedContentData = blockContent.asEmbedContentData
         
         setupBlockSubscription()
     }
@@ -33,7 +34,7 @@ final class EmbedBlockViewModel: BlockViewModelProtocol {
         subscription = document.subscribeForBlockInfo(blockId: info.id)
             .sinkOnMain { [weak self] info in
                 guard let self else { return }
-                embedContentData = Self.content(for: info).asEmbedContentData
+                embedContentData = content(for: info).asEmbedContentData
                 collectionController.reconfigure(items: [.block(self)])
             }
     }
@@ -51,7 +52,7 @@ final class EmbedBlockViewModel: BlockViewModelProtocol {
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
     
-    private static func content(for info: BlockInformation) -> BlockLatex {
+    private func content(for info: BlockInformation) -> BlockLatex {
         guard case let .embed(blockLatex) = info.content else { return BlockLatex() }
         return blockLatex
     }
