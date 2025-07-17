@@ -1,4 +1,4 @@
-typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
+typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing & BlockIdProvider)
 
 enum EditorItem: Hashable, @unchecked Sendable {
     case header(ObjectHeader)
