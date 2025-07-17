@@ -14,31 +14,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         }
     }
     
-    private func invalidateLayout(_ newLayoutDetailsDict: [String: BlockLayoutDetails]) {
-        var invalidationIndexPaths = [IndexPath]()
-        
-        for oldLayoutDetails in blockLayoutDetails.values {
-            guard let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id],
-                  newLayoutDetails != oldLayoutDetails,
-                  let layoutItem = cachedAttributes[oldLayoutDetails.id] else { continue }
-            
-            invalidationIndexPaths.append(layoutItem.indexPath)
-            
-            if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
-                let childIndexPaths = newLayoutDetails.allChildIds
-                    .compactMap { cachedAttributes[$0]?.indexPath }
-                
-                invalidationIndexPaths.append(contentsOf: childIndexPaths)
-            }
-        }
-        
-        blockLayoutDetails = newLayoutDetailsDict
-        
-        if invalidationIndexPaths.isNotEmpty {
-            invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
-        }
-    }
-    
     private var cachedAttributes = [AnyHashable: LayoutItem]() // Actual
     private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
     
@@ -239,6 +214,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         }
     }
     
+    // MARK: - Private
+    
     private func itemIdentifier(for indexPath: IndexPath) -> EditorItem? {
         dataSource?.itemIdentifier(for: indexPath)
     }
@@ -276,5 +253,30 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         }
         
         return additionalSize
+    }
+    
+    private func invalidateLayout(_ newLayoutDetailsDict: [String: BlockLayoutDetails]) {
+        var invalidationIndexPaths = [IndexPath]()
+        
+        for oldLayoutDetails in blockLayoutDetails.values {
+            guard let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id],
+                  newLayoutDetails != oldLayoutDetails,
+                  let layoutItem = cachedAttributes[oldLayoutDetails.id] else { continue }
+            
+            invalidationIndexPaths.append(layoutItem.indexPath)
+            
+            if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
+                let childIndexPaths = newLayoutDetails.allChildIds
+                    .compactMap { cachedAttributes[$0]?.indexPath }
+                
+                invalidationIndexPaths.append(contentsOf: childIndexPaths)
+            }
+        }
+        
+        blockLayoutDetails = newLayoutDetailsDict
+        
+        if invalidationIndexPaths.isNotEmpty {
+            invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
+        }
     }
 }
