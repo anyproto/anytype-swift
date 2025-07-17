@@ -61,36 +61,34 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     var blockLayoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never>? {
         didSet {
             blocksLayoutSubscription = blockLayoutDetailsPublisher?
-                .sink { [weak self] layoutDetails in
-                    guard let self else { return }
-                    
-                    var invalidationIndexPaths = [IndexPath]()
-                    
-                    let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
-                    
-                    
-                    for blockLayout in blockLayoutDetails.values {
-                        if let info = newLayoutDetails[blockLayout.id] {
-                            if info != blockLayout,
-                                let layoutItem = cachedAttributes[blockLayout.id] {
-                                invalidationIndexPaths.append(layoutItem.indexPath)
-                                
-                                if info.ownStyle != blockLayout.ownStyle {
-                                    let allChilds = info.allChilds.compactMap { childHash -> IndexPath? in
-                                        self.cachedAttributes[childHash]?.indexPath
-                                    }
-                                    
-                                    invalidationIndexPaths.append(contentsOf: allChilds)
-                                }
-                            }
-                        }
-                    }
-                    blockLayoutDetails = newLayoutDetails
-                    
-                    if invalidationIndexPaths.isNotEmpty {
-                        invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
-                    }
+                .sink { [weak self] newLayoutDetailsDict in
+                    self?.invalidateLayout(newLayoutDetailsDict)
                 }
+        }
+    }
+    
+    private func invalidateLayout(_ newLayoutDetailsDict: [String: BlockLayoutDetails]) {
+        var invalidationIndexPaths = [IndexPath]()
+        
+        for oldLayoutDetails in blockLayoutDetails.values {
+            guard let newLayoutDetails = newLayoutDetailsDict[oldLayoutDetails.id],
+                  newLayoutDetails != oldLayoutDetails,
+                  let layoutItem = cachedAttributes[oldLayoutDetails.id] else { continue }
+            
+            invalidationIndexPaths.append(layoutItem.indexPath)
+            
+            if newLayoutDetails.ownStyle != oldLayoutDetails.ownStyle {
+                let childIndexPaths = newLayoutDetails.allChilds
+                    .compactMap { cachedAttributes[$0]?.indexPath }
+                
+                invalidationIndexPaths.append(contentsOf: childIndexPaths)
+            }
+        }
+        
+        blockLayoutDetails = newLayoutDetailsDict
+        
+        if invalidationIndexPaths.isNotEmpty {
+            invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
         }
     }
     
