@@ -2,13 +2,8 @@ import Services
 import Foundation
 
 extension BlockLatex {
-    var asEmbedContentData: EmbedContentData {
-        EmbedContentData(
-            icon: processor.icon,
-            processorName: processor.name,
-            hasContent: text.isNotEmpty,
-            url: URL(string: text)
-        )
+    var canTryExtractUrl: Bool {
+        processor.canTryExtractUrl
     }
 }
 
@@ -68,6 +63,13 @@ extension BlockLatexProcessor {
         case .sketchfab: return "Sketchfab"
         case .image: return "External image"
         case .UNRECOGNIZED(_): return "Unrecognized"
+        }
+    }
+    
+    var canTryExtractUrl: Bool {
+        switch self {
+        case .latex, .mermaid, .chart, .googleMaps, .miro, .figma, .twitter, .instagram, .openStreetMap, .telegram, .image, .graphviz, .kroki, .codepen, .githubGist, .reddit, .UNRECOGNIZED(_): return false
+        case .youtube, .vimeo, .soundcloud, .facebook, .sketchfab, .excalidraw, .bilibili: return true
         }
     }
 }

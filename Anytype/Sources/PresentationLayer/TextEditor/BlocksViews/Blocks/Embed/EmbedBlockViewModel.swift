@@ -8,11 +8,14 @@ final class EmbedBlockViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     
+    @Injected(\.embedContentDataBuilder)
+    private var embedContentDataBuilder: any EmbedContentDataBuilderProtocol
+    
     private let document: any BaseDocumentProtocol
     private var subscription: AnyCancellable?
     private let collectionController: any EditorCollectionReloadable
     
-    private var embedContentData: EmbedContentData
+    private var embedContentData: EmbedContentData?
 
     let className = "EmbedBlockViewModel"
 
@@ -25,7 +28,7 @@ final class EmbedBlockViewModel: BlockViewModelProtocol {
         self.info = info
         self.document = document
         self.collectionController = collectionController
-        self.embedContentData = blockContent.asEmbedContentData
+        self.embedContentData = embedContentDataBuilder.build(from: blockContent)
         
         setupBlockSubscription()
     }
@@ -34,12 +37,15 @@ final class EmbedBlockViewModel: BlockViewModelProtocol {
         subscription = document.subscribeForBlockInfo(blockId: info.id)
             .sinkOnMain { [weak self] info in
                 guard let self else { return }
-                embedContentData = content(for: info).asEmbedContentData
+                embedContentData = embedContentDataBuilder.build(from: content(for: info))
                 collectionController.reconfigure(items: [.block(self)])
             }
     }
     
-    func makeContentConfiguration(maxWidth _: CGFloat) -> any UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
+        guard let embedContentData else {
+            return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: maxWidth)
+        }
         return UIHostingConfiguration {
             EmbedContentView(
                 model: EmbedContentViewModel(data: embedContentData)
