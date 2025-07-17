@@ -314,8 +314,7 @@ extension EditorPageController: EditorPageViewInput {
         // probably the new item is a new view model for an existing block. So we have to check by ID.
         // Example: BlockFileViewModel -> BlockImageViewModel when uploading image into file block
         for item in notExistingItems {
-            guard let itemId = item.id else { continue }
-            guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.id == itemId }) else {
+            guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.blockId == item.blockId }) else {
                 continue
             }
             guard let index = snapshot.indexOfItem(oldItem) else { continue }

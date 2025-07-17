@@ -1,6 +1,6 @@
 typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing & BlockIdProvider)
 
-enum EditorItem: Hashable, @unchecked Sendable {
+enum EditorItem: Hashable, @unchecked Sendable, BlockIdProvider {
     case header(ObjectHeader)
     case block(any BlockViewModelProtocol)
     case system(any SystemContentConfiguationProvider)
@@ -29,12 +29,14 @@ enum EditorItem: Hashable, @unchecked Sendable {
         }
     }
     
-    var id: String? {
+    var blockId: String {
         switch self {
-        case let .block(block):
-            return block.info.id
-        case .header, .system:
-            return nil
+        case .block(let block):
+            block.blockId
+        case .header(let header):
+            header.blockId
+        case .system(let systemBlock):
+            systemBlock.blockId
         }
     }
 }

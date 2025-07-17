@@ -322,16 +322,3 @@ extension Array where Element == [ComputedTable.Cell] {
         return blockIds
     }
 }
-
-private extension EditorItem {
-     var blockId: String? {
-        switch self {
-        case .header:
-            return nil
-        case .block(let blockViewModel):
-            return blockViewModel.blockId
-        case .system:
-            return nil
-        }
-    }
-}

@@ -105,7 +105,7 @@ extension EditorMainItemModelsHolder {
     
     func updateItems(_ newItems: [EditorItem]) {
         newItems.forEach { newItem in
-            guard let oldItemIndex = items.firstIndex(where: { $0.id == newItem.id }) else { return }
+            guard let oldItemIndex = items.firstIndex(where: { $0.blockId == newItem.blockId }) else { return }
             let oldItem = items[oldItemIndex]
             guard oldItem != newItem else { return }
             
