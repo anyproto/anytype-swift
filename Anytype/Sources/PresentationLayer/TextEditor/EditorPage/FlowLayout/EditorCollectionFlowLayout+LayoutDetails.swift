@@ -13,7 +13,7 @@ extension EditorCollectionFlowLayout {
         for rootBlockInfo in blockInfos {
             output[rootBlockInfo.id] = BlockLayoutDetails(
                 id: rootBlockInfo.id,
-                allChilds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
+                allChildIds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
                 indentations: findIdentation(
                     currentIdentations: [],
                     blockInfo: rootBlockInfo,

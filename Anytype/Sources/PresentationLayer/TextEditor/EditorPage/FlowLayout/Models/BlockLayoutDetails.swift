@@ -1,7 +1,7 @@
 struct BlockLayoutDetails: Equatable, Hashable {
     let id: String
     
-    let allChilds: [AnyHashable]
+    let allChildIds: [String]
     let indentations: [BlockIndentationStyle]
     let ownStyle: BlockIndentationStyle
 }
