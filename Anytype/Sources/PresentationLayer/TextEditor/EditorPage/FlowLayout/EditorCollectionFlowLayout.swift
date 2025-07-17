@@ -16,9 +16,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     
     private var cachedAttributes = [AnyHashable: LayoutItem]() // Actual
     private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
-    
-    private var blockLayoutDetails = [AnyHashable: BlockLayoutDetails]()
-    
+    private var blockLayoutDetails = [String: BlockLayoutDetails]()
+
     override var collectionViewContentSize: CGSize { CGSize(width: collectionViewWidth, height: collectionViewHeight) }
     
     private var blocksLayoutSubscription: AnyCancellable?
@@ -67,7 +66,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                         offset += layoutItem.height
                     }
                 case .block(let blockViewModel):
-                    let blockLayout = blockLayoutDetails[blockViewModel.hashable]
+                    let blockLayout = blockLayoutDetails[blockViewModel.blockId]
                     
                     if var cachedLayoutItem = cachedAttributes[blockViewModel.hashable] {
                         cachedLayoutItem.x = blockLayout?.indentations.totalIndentation ?? 0
@@ -230,7 +229,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     ) -> CGFloat {
         var additionalSize: CGFloat = 0
         
-        if let layoutDetails = blockLayoutDetails[blockViewModel.hashable] {
+        if let layoutDetails = blockLayoutDetails[blockViewModel.blockId] {
             for childId in layoutDetails.allChildIds {
                 var height: CGFloat = 0
                 
