@@ -1212,6 +1212,10 @@ extension AnytypeAnalytics {
         logEvent("ScreenSlashMenu", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
+    func logClickSlashMenu(type: SlashMenuItemType) {
+        logEvent("ClickSlashMenu", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.analyticsType])
+    }
+    
     func logKeyboardBarStyleMenu() {
         logEvent("KeyboardBarStyleMenu")
     }
