@@ -3,7 +3,7 @@ import Combine
 import Services
 
 struct RowInformation: Equatable, Hashable {
-    let hashable: AnyHashable // There is a cache hash table inside FlowLayout,
+    let id: String
     
     let allChilds: [AnyHashable]
     let indentations: [BlockIndentationStyle]
@@ -64,13 +64,13 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                 .sink { [weak self] layoutDetails in
                     var invalidationIndexPaths = [IndexPath]()
                     
-                    let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.hashable, $0.value) })
+                    let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
                     
                     
                     self?.blockLayoutDetails.forEach { key, value in
-                        if let info = newLayoutDetails[value.hashable] {
+                        if let info = newLayoutDetails[value.id] {
                             if info != value,
-                                let layoutItem = self?.cachedAttributes[value.hashable] {
+                                let layoutItem = self?.cachedAttributes[value.id] {
                                 invalidationIndexPaths.append(layoutItem.indexPath)
                                 
                                 if info.ownStyle != value.ownStyle {
@@ -402,9 +402,4 @@ extension UICollectionView {
         
         return indexPaths
     }
-}
-
-
-extension BlockInformation: HashableProvier {
-    var hashable: AnyHashable { id }
 }
