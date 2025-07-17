@@ -18,8 +18,9 @@ enum ObjectHeader: Hashable {
     }
 }
 
-extension ObjectHeader: HashableProvier {
-    var hashable: AnyHashable { "ObjectHeader" }
+extension ObjectHeader: HashableProvier, BlockIdProvider {
+    var blockId: String { "ObjectHeader" }
+    var hashable: AnyHashable { blockId }
 }
 
 extension ObjectHeader: ContentConfigurationProvider {

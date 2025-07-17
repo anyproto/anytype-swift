@@ -7,7 +7,8 @@ protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
     BlockInformationProvider,
     HashableProvier,
-    ClassNameProvider
+    ClassNameProvider,
+    BlockIdProvider
 { }
 
 protocol HashableProvier {
@@ -19,7 +20,7 @@ protocol ClassNameProvider {
 }
 
 extension BlockViewModelProtocol {
-    nonisolated var hashable: AnyHashable { className + info.id }
+    nonisolated var hashable: AnyHashable { className + blockId }
 }
 
 protocol ContentConfigurationProvider: BlockFocusing {
@@ -55,6 +56,10 @@ extension BlockFocusing {
 
 protocol BlockInformationProvider {
     var info: BlockInformation { get }
+}
+
+protocol BlockIdProvider {
+    var blockId: String { get }
 }
 
 // MARK: - Extensions
