@@ -14,7 +14,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         }
     }
     
-    private var cachedAttributes = [AnyHashable: LayoutItem]() // Actual
+    private var cachedAttributes = [String: LayoutItem]()
     private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
     private var blockLayoutDetails = [String: BlockLayoutDetails]()
 
@@ -44,12 +44,12 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                 }
                         
                 switch item {
-                case let .header(hashable as any HashableProvier), let .system(hashable as any HashableProvier):
-                    if var cachedLayoutItem = cachedAttributes[hashable.hashable] {
+                case let .header(block as any BlockIdProvider), let .system(block as any BlockIdProvider):
+                    if var cachedLayoutItem = cachedAttributes[block.blockId] {
                         cachedLayoutItem.y = offset
                         cachedLayoutItem.zIndex = zIndex
                         cachedLayoutItem.indexPath = indexPath
-                        cachedAttributes[hashable.hashable] = cachedLayoutItem
+                        cachedAttributes[block.blockId] = cachedLayoutItem
                         
                         offset += cachedLayoutItem.height
                     } else {
@@ -61,20 +61,20 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                             zIndex: zIndex, 
                             indexPath: indexPath
                         )
-                        cachedAttributes[hashable.hashable] = layoutItem
+                        cachedAttributes[block.blockId] = layoutItem
                         
                         offset += layoutItem.height
                     }
                 case .block(let blockViewModel):
                     let blockLayout = blockLayoutDetails[blockViewModel.blockId]
                     
-                    if var cachedLayoutItem = cachedAttributes[blockViewModel.hashable] {
+                    if var cachedLayoutItem = cachedAttributes[blockViewModel.blockId] {
                         cachedLayoutItem.x = blockLayout?.indentations.totalIndentation ?? 0
                         cachedLayoutItem.y = offset
                         cachedLayoutItem.height = cachedLayoutItem.ownPreferedHeight + additionalHeight(for: blockViewModel)
                         cachedLayoutItem.zIndex = zIndex
                         cachedLayoutItem.indexPath = indexPath
-                        cachedAttributes[blockViewModel.hashable] = cachedLayoutItem
+                        cachedAttributes[blockViewModel.blockId] = cachedLayoutItem
                         
                         offset += cachedLayoutItem.ownPreferedHeight
                     } else {
@@ -86,7 +86,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                             zIndex: zIndex,
                             indexPath: indexPath
                         )
-                        cachedAttributes[blockViewModel.hashable] = layoutItem
+                        cachedAttributes[blockViewModel.blockId] = layoutItem
                         
                         offset += layoutItem.ownPreferedHeight
                     }
@@ -129,8 +129,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard let item = itemIdentifier(for: indexPath),
-               let layoutDetails = cachedAttributes[item.hashable] else {
-            return nil //
+              let layoutDetails = cachedAttributes[item.blockId] else {
+            return nil
         }
         
         return layoutDetails.attributes(collectionViewWidth: collectionViewWidth)
@@ -165,7 +165,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         context.contentSizeAdjustment.height -= heightDiff
         
         if let item = itemIdentifier(for: preferredAttributes.indexPath),
-           var cachedItem = cachedAttributes[item.hashable] {
+           var cachedItem = cachedAttributes[item.blockId] {
             
             switch item {
             case .header, .system:
@@ -175,7 +175,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
             }
         
             cachedItem.ownPreferedHeight = preferredAttributes.frame.height
-            cachedAttributes[item.hashable] = cachedItem
+            cachedAttributes[item.blockId] = cachedItem
         }
         
         return context
@@ -203,8 +203,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         
         if let indexPaths = context.invalidatedItemIndexPaths, let dataSource {
             indexPaths.forEach {
-                let hash = dataSource.itemIdentifier(for: $0)?.hashable
-                hash.map { cachedAttributes[$0] = nil }
+                let blockId = dataSource.itemIdentifier(for: $0)?.blockId
+                blockId.map { cachedAttributes[$0] = nil }
             }
         }
     }
@@ -225,7 +225,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     
     private func additionalHeight(
         for blockViewModel: some BlockViewModelProtocol,
-        using cache: [AnyHashable: LayoutItem]
+        using cache: [String: LayoutItem]
     ) -> CGFloat {
         var additionalSize: CGFloat = 0
         
