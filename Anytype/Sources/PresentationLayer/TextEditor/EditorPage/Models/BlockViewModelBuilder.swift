@@ -389,9 +389,10 @@ final class BlockViewModelBuilder {
                     self?.router.showEditorScreen(data: data)
                 }
             )
-        case .embed:
+        case let .embed(content):
             return EmbedBlockViewModel(
                 info: info,
+                blockContent: content,
                 document: document,
                 collectionController: blockCollectionController
             )
