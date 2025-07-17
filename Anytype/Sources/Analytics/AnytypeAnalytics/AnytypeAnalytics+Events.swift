@@ -48,17 +48,25 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logChangeBlockStyle(_ style: BlockText.Style) {
+    func logChangeBlockStyle(_ style: BlockText.Style, route: AnalyticsEventsRouteKind? = nil) {
+        var properties = [AnalyticsEventsPropertiesKey.blockStyle: style.analyticsValue]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
         logEvent(
             "ChangeBlockStyle",
-            withEventProperties: [AnalyticsEventsPropertiesKey.blockStyle: style.analyticsValue]
+            withEventProperties: properties
         )
     }
 
-    func logChangeBlockStyle(_ markupType: MarkupType) {
+    func logChangeBlockStyle(_ markupType: MarkupType, route: AnalyticsEventsRouteKind? = nil) {
+        var properties = [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
         logEvent(
             "ChangeBlockStyle",
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
+            withEventProperties: properties
         )
     }
 
@@ -176,13 +184,16 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.layout: layout.rawValue])
     }
 
-    func logSetAlignment(_ alignment: LayoutAlignment, isBlock: Bool) {
+    func logSetAlignment(_ alignment: LayoutAlignment, isBlock: Bool, route: AnalyticsEventsRouteKind? = nil) {
+        var properties = [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
+        
         if isBlock {
-            logEvent("ChangeBlockAlign",
-                     withEventProperties: [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue])
+            logEvent("ChangeBlockAlign", withEventProperties: properties)
         } else {
-            logEvent("SetLayoutAlign",
-                     withEventProperties: [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue])
+            logEvent("SetLayoutAlign", withEventProperties: properties)
         }
     }
     
@@ -758,10 +769,12 @@ extension AnytypeAnalytics {
         logEvent("MoveBlock")
     }
     
-    func logChangeBlockBackground(color: MiddlewareColor) {
-        logEvent("ChangeBlockBackground", withEventProperties: [
-            AnalyticsEventsPropertiesKey.color: color.rawValue
-        ])
+    func logChangeBlockBackground(color: MiddlewareColor, route: AnalyticsEventsRouteKind? = nil) {
+        var properties = [AnalyticsEventsPropertiesKey.color: color.rawValue]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
+        logEvent("ChangeBlockBackground", withEventProperties: properties)
     }
     
     func logScreenSettingsStorageIndex() {
