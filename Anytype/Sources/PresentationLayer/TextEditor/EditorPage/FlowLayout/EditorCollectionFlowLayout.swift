@@ -19,8 +19,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     
     private var blockLayoutDetails = [AnyHashable: BlockLayoutDetails]()
     
-
-    private var maxHeight = LayoutConstants.estimatedItemHeight
     override var collectionViewContentSize: CGSize { CGSize(width: collectionViewWidth, height: collectionViewHeight) }
     
     private var blocksLayoutSubscription: AnyCancellable?
@@ -69,10 +67,10 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                         offset += layoutItem.height
                     }
                 case .block(let blockViewModel):
-                    let blockLayoutDetails = blockLayoutDetails[blockViewModel.hashable]
+                    let blockLayout = blockLayoutDetails[blockViewModel.hashable]
                     
                     if var cachedLayoutItem = cachedAttributes[blockViewModel.hashable] {
-                        cachedLayoutItem.x = blockLayoutDetails?.indentations.totalIndentation ?? 0
+                        cachedLayoutItem.x = blockLayout?.indentations.totalIndentation ?? 0
                         cachedLayoutItem.y = offset
                         cachedLayoutItem.height = cachedLayoutItem.ownPreferedHeight + additionalHeight(for: blockViewModel)
                         cachedLayoutItem.zIndex = zIndex
@@ -82,7 +80,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                         offset += cachedLayoutItem.ownPreferedHeight
                     } else {
                         let layoutItem = LayoutItem(
-                            x: blockLayoutDetails?.indentations.totalIndentation ?? 0,
+                            x: blockLayout?.indentations.totalIndentation ?? 0,
                             y: offset,
                             ownPreferedHeight: _nonInvalidatedAttributed[blockViewModel.hashable]?.ownPreferedHeight ?? LayoutConstants.estimatedItemHeight,
                             height: (_nonInvalidatedAttributed[blockViewModel.hashable]?.ownPreferedHeight ?? LayoutConstants.estimatedItemHeight) + additionalEstimatedHeight(for: blockViewModel),
@@ -94,8 +92,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                         offset += layoutItem.ownPreferedHeight
                     }
                     
-                    if let ownStyle = blockLayoutDetails?.ownStyle,
-                        let lastChildId = blockLayoutDetails?.allChildIds.last {
+                    if let ownStyle = blockLayout?.ownStyle,
+                        let lastChildId = blockLayout?.allChildIds.last {
                         lastBlockPadding[lastChildId] = (lastBlockPadding[lastChildId] ?? 0) + ownStyle.extraHeight
                     }
                     
@@ -166,8 +164,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         )
         let heightDiff = originalAttributes.frame.height - preferredAttributes.frame.height
         context.contentSizeAdjustment.height -= heightDiff
-        
-        maxHeight = max(maxHeight, preferredAttributes.frame.height)
         
         if let item = itemIdentifier(for: preferredAttributes.indexPath),
            var cachedItem = cachedAttributes[item.hashable] {
