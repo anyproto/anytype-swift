@@ -3,15 +3,15 @@ import Services
 
 extension EditorCollectionFlowLayout {
     
-    nonisolated static func layoutDetails(blockInfos: [BlockInformation]) -> [String: RowInformation] {
-        var output = [String: RowInformation]()
+    nonisolated static func blockLayoutDetails(blockInfos: [BlockInformation]) -> [String: BlockLayoutDetails] {
+        var output = [String: BlockLayoutDetails]()
         
         let dictionary = Dictionary(
             uniqueKeysWithValues: blockInfos.map { ($0.id, $0) }
         )
         
         for rootBlockInfo in blockInfos {
-            output[rootBlockInfo.id] = RowInformation(
+            output[rootBlockInfo.id] = BlockLayoutDetails(
                 id: rootBlockInfo.id,
                 allChilds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
                 indentations: findIdentation(

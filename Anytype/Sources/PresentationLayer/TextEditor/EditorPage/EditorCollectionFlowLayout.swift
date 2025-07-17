@@ -2,7 +2,7 @@ import UIKit
 import Combine
 import Services
 
-struct RowInformation: Equatable, Hashable {
+struct BlockLayoutDetails: Equatable, Hashable {
     let id: String
     
     let allChilds: [AnyHashable]
@@ -58,28 +58,26 @@ final class CustomInvalidation: UICollectionViewLayoutInvalidationContext {
 
 final class EditorCollectionFlowLayout: UICollectionViewLayout {
     weak var dataSource: UICollectionViewDiffableDataSource<EditorSection, EditorItem>?
-    var layoutDetailsPublisher: AnyPublisher<[AnyHashable: RowInformation], Never>? {
+    var blockLayoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never>? {
         didSet {
-            blocksLayoutSubscription = layoutDetailsPublisher?
+            blocksLayoutSubscription = blockLayoutDetailsPublisher?
                 .sink { [weak self] layoutDetails in
+                    guard let self else { return }
+                    
                     var invalidationIndexPaths = [IndexPath]()
                     
                     let newLayoutDetails = Dictionary(uniqueKeysWithValues: layoutDetails.map { ($0.value.id, $0.value) })
                     
                     
-                    self?.blockLayoutDetails.forEach { key, value in
-                        if let info = newLayoutDetails[value.id] {
-                            if info != value,
-                                let layoutItem = self?.cachedAttributes[value.id] {
+                    for blockLayout in blockLayoutDetails.values {
+                        if let info = newLayoutDetails[blockLayout.id] {
+                            if info != blockLayout,
+                                let layoutItem = cachedAttributes[blockLayout.id] {
                                 invalidationIndexPaths.append(layoutItem.indexPath)
                                 
-                                if info.ownStyle != value.ownStyle {
+                                if info.ownStyle != blockLayout.ownStyle {
                                     let allChilds = info.allChilds.compactMap { childHash -> IndexPath? in
-                                        guard let childAttr = self?.cachedAttributes[childHash] else {
-                                            return nil
-                                        }
-                                        
-                                        return childAttr.indexPath
+                                        self.cachedAttributes[childHash]?.indexPath
                                     }
                                     
                                     invalidationIndexPaths.append(contentsOf: allChilds)
@@ -87,10 +85,10 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                             }
                         }
                     }
-                    self?.blockLayoutDetails = newLayoutDetails
+                    blockLayoutDetails = newLayoutDetails
                     
                     if invalidationIndexPaths.isNotEmpty {
-                        self?.invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
+                        invalidateLayout(with: CustomInvalidation(indexPaths: invalidationIndexPaths))
                     }
                 }
         }
@@ -99,7 +97,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     private var cachedAttributes = [AnyHashable: LayoutItem]() // Actual
     private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
     
-    private var blockLayoutDetails = [AnyHashable: RowInformation]()
+    private var blockLayoutDetails = [AnyHashable: BlockLayoutDetails]()
     
 
     private var maxHeight = LayoutConstants.estimatedItemHeight
