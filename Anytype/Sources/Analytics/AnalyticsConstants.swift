@@ -418,3 +418,8 @@ enum UploadMediaRoute: String {
     case scan = "Scan"
     case filePicker = "FilePicker"
 }
+
+enum ScreenSlashMenuRoute: String {
+    case slash = "Slash"
+    case keyboardBar = "KeyboardBar"
+}

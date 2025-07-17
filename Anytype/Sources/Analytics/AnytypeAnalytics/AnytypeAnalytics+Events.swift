@@ -1208,8 +1208,8 @@ extension AnytypeAnalytics {
         logEvent("RelationUrlEditMobile")
     }
     
-    func logKeyboardBarSlashMenu() {
-        logEvent("KeyboardBarSlashMenu")
+    func logScreenSlashMenu(route: ScreenSlashMenuRoute) {
+        logEvent("ScreenSlashMenu", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
     func logKeyboardBarStyleMenu() {

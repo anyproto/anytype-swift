@@ -278,6 +278,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
 
         if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) && configuration.usecase != .simpleTable {
             showSlashMenuView()
+            AnytypeAnalytics.instance().logScreenSlashMenu(route: .slash)
         } else if textBeforeCaret.hasSuffix(TextTriggerSymbols.mention(prependSpace: prependSpace)) {
             showMentionsView()
         } else {
@@ -449,7 +450,7 @@ extension AccessoryViewStateManagerImpl {
     private func logEvent(for action: CursorModeAccessoryViewAction) {
         switch action {
         case .slashMenu:
-            AnytypeAnalytics.instance().logKeyboardBarSlashMenu()
+            AnytypeAnalytics.instance().logScreenSlashMenu(route: .keyboardBar)
         case .keyboardDismiss:
             AnytypeAnalytics.instance().logKeyboardBarHideKeyboardMenu()
         case .showStyleMenu:
