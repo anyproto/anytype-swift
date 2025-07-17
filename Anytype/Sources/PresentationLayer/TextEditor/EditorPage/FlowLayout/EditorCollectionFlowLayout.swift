@@ -19,8 +19,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     
     private var blockLayoutDetails = [AnyHashable: BlockLayoutDetails]()
     
-
-    private var maxHeight = LayoutConstants.estimatedItemHeight
     override var collectionViewContentSize: CGSize { CGSize(width: collectionViewWidth, height: collectionViewHeight) }
     
     private var blocksLayoutSubscription: AnyCancellable?
@@ -166,8 +164,6 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         )
         let heightDiff = originalAttributes.frame.height - preferredAttributes.frame.height
         context.contentSizeAdjustment.height -= heightDiff
-        
-        maxHeight = max(maxHeight, preferredAttributes.frame.height)
         
         if let item = itemIdentifier(for: preferredAttributes.indexPath),
            var cachedItem = cachedAttributes[item.hashable] {
