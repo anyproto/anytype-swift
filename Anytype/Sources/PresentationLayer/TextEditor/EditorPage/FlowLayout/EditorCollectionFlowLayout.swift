@@ -32,7 +32,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         let numberOfSections = collectionView?.numberOfSections ?? 0
         var offset: CGFloat = 0
         var zIndex = 1
-        var lastBlockPadding = [String: CGFloat]()
+        var lastBlockPadding = [AnyHashable: CGFloat]()
         
         for section in 0..<numberOfSections {
             let numberOfRows = collectionView?.numberOfItems(inSection: section) ?? 0
@@ -97,7 +97,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                         lastBlockPadding[lastChildId] = (lastBlockPadding[lastChildId] ?? 0) + ownStyle.extraHeight
                     }
                     
-                    if let padding = lastBlockPadding[blockViewModel.blockId] {
+                    if let padding = lastBlockPadding[blockViewModel.hashable] {
                         offset += padding
                     }
                 }
