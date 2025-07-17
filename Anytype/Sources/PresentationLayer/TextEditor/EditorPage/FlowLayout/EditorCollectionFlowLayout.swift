@@ -15,7 +15,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
     }
     
     private var cachedAttributes = [String: LayoutItem]()
-    private var _nonInvalidatedAttributed = [AnyHashable: LayoutItem]()
+    private var _nonInvalidatedAttributed = [String: LayoutItem]()
     private var blockLayoutDetails = [String: BlockLayoutDetails]()
 
     override var collectionViewContentSize: CGSize { CGSize(width: collectionViewWidth, height: collectionViewHeight) }
@@ -81,8 +81,8 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                         let layoutItem = LayoutItem(
                             x: blockLayout?.indentations.totalIndentation ?? 0,
                             y: offset,
-                            ownPreferedHeight: _nonInvalidatedAttributed[blockViewModel.hashable]?.ownPreferedHeight ?? LayoutConstants.estimatedItemHeight,
-                            height: (_nonInvalidatedAttributed[blockViewModel.hashable]?.ownPreferedHeight ?? LayoutConstants.estimatedItemHeight) + additionalEstimatedHeight(for: blockViewModel),
+                            ownPreferedHeight: _nonInvalidatedAttributed[blockViewModel.blockId]?.ownPreferedHeight ?? LayoutConstants.estimatedItemHeight,
+                            height: (_nonInvalidatedAttributed[blockViewModel.blockId]?.ownPreferedHeight ?? LayoutConstants.estimatedItemHeight) + additionalEstimatedHeight(for: blockViewModel),
                             zIndex: zIndex,
                             indexPath: indexPath
                         )
@@ -188,11 +188,11 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
 
         // Removing cache layout items for removed blocks
         if let dataSource {
-            let dataSourceItems = dataSource.snapshot().itemIdentifiers.map { $0.hashable }
-            var allCachedKeys = Set(cachedAttributes.keys)
-            allCachedKeys.subtract(dataSourceItems)
+            let dataSourceBlockIds = dataSource.snapshot().itemIdentifiers.map { $0.blockId }
+            var allCachedBlockIds = Set(cachedAttributes.keys)
+            allCachedBlockIds.subtract(dataSourceBlockIds)
             
-            allCachedKeys.forEach {
+            allCachedBlockIds.forEach {
                 cachedAttributes[$0] = nil
             }
         }
