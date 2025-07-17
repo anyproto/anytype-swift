@@ -3,21 +3,21 @@ import Services
 // Designed by Dmitry Bilienko - bududomasidet@gmail.com
 extension EditorCollectionFlowLayout {
     
-    nonisolated static func layoutDetails(for blockModels: [BlockInformation]) -> [AnyHashable: RowInformation] {
+    nonisolated static func layoutDetails(blockInfos: [BlockInformation]) -> [AnyHashable: RowInformation] {
         var output = [AnyHashable: RowInformation]()
         
-        let dictionary = Dictionary(uniqueKeysWithValues: blockModels.map { ($0.hashable, $0) })
+        let dictionary = Dictionary(uniqueKeysWithValues: blockInfos.map { ($0.hashable, $0) })
         
-        for rootBlockInfo in blockModels.enumerated() {
-            output[rootBlockInfo.element.hashable] = RowInformation(
-                hashable: rootBlockInfo.element.hashable,
-                allChilds: traverseBlock(rootBlockInfo.element, blockModels: blockModels),
+        for rootBlockInfo in blockInfos {
+            output[rootBlockInfo.hashable] = RowInformation(
+                hashable: rootBlockInfo.hashable,
+                allChilds: traverseBlock(rootBlockInfo, blockInfos: blockInfos),
                 indentations: findIdentation(
                     currentIdentations: [],
-                    block: rootBlockInfo.element,
+                    blockInfo: rootBlockInfo,
                     dictionary: dictionary
                 ),
-                ownStyle: rootBlockInfo.element.content.indentationStyle
+                ownStyle: rootBlockInfo.content.indentationStyle
             )
         }
         
@@ -25,14 +25,14 @@ extension EditorCollectionFlowLayout {
     }
     
     // MARK: - Private
-    nonisolated private static func traverseBlock(_ block: BlockInformation, blockModels: [BlockInformation]) -> [AnyHashable] {
+    nonisolated private static func traverseBlock(_ block: BlockInformation, blockInfos: [BlockInformation]) -> [AnyHashable] {
         block.childrenIds.map { childId -> [AnyHashable] in
             
             var childIndentifiers = [AnyHashable]()
-            if let childInformation = blockModels.first(where: { info in info.id == childId }) {
+            if let childInformation = blockInfos.first(where: { info in info.id == childId }) {
                 childIndentifiers.append(childInformation.hashable)
                 childIndentifiers.append(
-                    contentsOf: traverseBlock(childInformation, blockModels: blockModels)
+                    contentsOf: traverseBlock(childInformation, blockInfos: blockInfos)
                 )
             }
             
@@ -42,10 +42,10 @@ extension EditorCollectionFlowLayout {
     
     nonisolated private static func findIdentation(
         currentIdentations: [BlockIndentationStyle],
-        block: BlockInformation,
+        blockInfo: BlockInformation,
         dictionary: [AnyHashable : BlockInformation]
     ) -> [BlockIndentationStyle] {
-        guard let parentId = block.configurationData.parentId,
+        guard let parentId = blockInfo.configurationData.parentId,
               let parent = dictionary[parentId]  else {
             return currentIdentations
         }
@@ -54,7 +54,7 @@ extension EditorCollectionFlowLayout {
         
         return findIdentation(
             currentIdentations: indentations,
-            block: parent,
+            blockInfo: parent,
             dictionary: dictionary
         )
     }
