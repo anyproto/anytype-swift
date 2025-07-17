@@ -261,16 +261,21 @@ extension AnytypeAnalytics {
         isNew: Bool,
         type: AnalyticsEventsRelationType,
         key: AnalyticsRelationKey,
-        spaceId: String
+        spaceId: String,
+        route: AnalyticsEventsRouteKind? = nil
     ) {
+        var properties = [
+            AnalyticsEventsPropertiesKey.format: format.analyticsName,
+            AnalyticsEventsPropertiesKey.type: type.rawValue,
+            AnalyticsEventsPropertiesKey.relationKey: key.value
+        ]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
         logEvent(
             isNew ? "CreateRelation" : "AddExistingRelation",
             spaceId: spaceId,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.format: format.analyticsName,
-                AnalyticsEventsPropertiesKey.type: type.rawValue,
-                AnalyticsEventsPropertiesKey.relationKey: key.value
-            ]
+            withEventProperties: properties
         )
     }
 
@@ -927,13 +932,15 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType) {
+    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind? = nil) {
+        var properties = [AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
         logEvent(
             "CreateLink",
             spaceId: spaceId,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
-            ]
+            withEventProperties: properties
         )
     }
     
