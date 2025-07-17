@@ -107,7 +107,7 @@ final class SlashMenuActionHandler {
                 try await actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
             }
         case let .color(color):
-            actionHandler.setTextColor(color, blockIds: [blockInformation.id])
+            actionHandler.setTextColor(color, blockIds: [blockInformation.id], route: .slashMenu)
         case let .background(color):
             actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id], route: .slashMenu)
         }

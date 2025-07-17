@@ -89,7 +89,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         try await objectService.applyTemplate(objectId: objectId, templateId: templateId)
     }
     
-    func setTextColor(_ color: BlockColor, blockIds: [String]) {
+    func setTextColor(_ color: BlockColor, blockIds: [String], route: AnalyticsEventsRouteKind? = nil) {
+        AnytypeAnalytics.instance().logChangeBlockColor(route: route)
         Task {
             try await blockService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
         }

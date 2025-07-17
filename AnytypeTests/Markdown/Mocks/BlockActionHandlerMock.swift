@@ -27,7 +27,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         return nil
     }
     
-    func setTextColor(_ color: BlockColor, blockIds: [String]) {
+    func setTextColor(_ color: BlockColor, blockIds: [String], route: AnalyticsEventsRouteKind?) {
         assertionFailure()
     }
 
