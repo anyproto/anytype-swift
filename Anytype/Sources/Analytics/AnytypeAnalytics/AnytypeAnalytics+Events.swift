@@ -49,24 +49,22 @@ extension AnytypeAnalytics {
     }
     
     func logChangeBlockStyle(_ style: BlockText.Style, route: AnalyticsEventsRouteKind? = nil) {
-        var properties = [AnalyticsEventsPropertiesKey.blockStyle: style.analyticsValue]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
         logEvent(
             "ChangeBlockStyle",
-            withEventProperties: properties
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.blockStyle: style.analyticsValue,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
 
     func logChangeBlockStyle(_ markupType: MarkupType, route: AnalyticsEventsRouteKind? = nil) {
-        var properties = [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
         logEvent(
             "ChangeBlockStyle",
-            withEventProperties: properties
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: markupType.analyticsValue,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
 
@@ -185,10 +183,10 @@ extension AnytypeAnalytics {
     }
 
     func logSetAlignment(_ alignment: LayoutAlignment, isBlock: Bool, route: AnalyticsEventsRouteKind? = nil) {
-        var properties = [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
+        let properties = [
+            AnalyticsEventsPropertiesKey.align: alignment.analyticsValue,
+            AnalyticsEventsPropertiesKey.route: route?.rawValue
+        ].compactMapValues { $0 }
         
         if isBlock {
             logEvent("ChangeBlockAlign", withEventProperties: properties)
@@ -275,14 +273,13 @@ extension AnytypeAnalytics {
         spaceId: String,
         route: AnalyticsEventsRouteKind? = nil
     ) {
-        var properties = [
+        let properties = [
             AnalyticsEventsPropertiesKey.format: format.analyticsName,
             AnalyticsEventsPropertiesKey.type: type.rawValue,
-            AnalyticsEventsPropertiesKey.relationKey: key.value
-        ]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
+            AnalyticsEventsPropertiesKey.relationKey: key.value,
+            AnalyticsEventsPropertiesKey.route: route?.rawValue
+        ].compactMapValues { $0 }
+        
         logEvent(
             isNew ? "CreateRelation" : "AddExistingRelation",
             spaceId: spaceId,
@@ -770,19 +767,16 @@ extension AnytypeAnalytics {
     }
     
     func logChangeBlockBackground(color: MiddlewareColor, route: AnalyticsEventsRouteKind? = nil) {
-        var properties = [AnalyticsEventsPropertiesKey.color: color.rawValue]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
-        logEvent("ChangeBlockBackground", withEventProperties: properties)
+        logEvent("ChangeBlockBackground", withEventProperties: [
+            AnalyticsEventsPropertiesKey.color: color.rawValue,
+            AnalyticsEventsPropertiesKey.route: route?.rawValue
+        ].compactMapValues { $0 })
     }
     
     func logChangeBlockColor(route: AnalyticsEventsRouteKind? = nil) {
-        var properties: [String: String] = [:]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
-        logEvent("ChangeBlockColor", withEventProperties: properties)
+        logEvent("ChangeBlockColor", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue
+        ].compactMapValues { $0 })
     }
     
     func logScreenSettingsStorageIndex() {
@@ -954,14 +948,13 @@ extension AnytypeAnalytics {
     }
     
     func logCreateLink(spaceId: String, objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind? = nil) {
-        var properties = [AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId]
-        if let route = route {
-            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
-        }
         logEvent(
             "CreateLink",
             spaceId: spaceId,
-            withEventProperties: properties
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
     
