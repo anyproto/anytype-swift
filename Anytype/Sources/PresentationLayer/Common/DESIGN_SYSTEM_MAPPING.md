@@ -42,8 +42,15 @@ Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transperentSecondar
 #### Control Colors
 | Figma Name | Code Implementation | Usage |
 |------------|-------------------|--------|
-| `Control/Active` | `Color.Control.active` | Active buttons, icons |
-| `Control/Inactive` | `Color.Control.inactive` | Disabled controls |
+| `Control/Button` | `Color.Control.primary` | Primary control color (renamed from button) |
+| `Control/Active` | `Color.Control.secondary` | Secondary control state (renamed from active) |
+| `Control/Inactive` | `Color.Control.tertiary` | Tertiary/disabled control state (renamed from inactive) |
+| `Control/Accent 25` | `Color.Control.accent25` | Accent color with 25% opacity |
+| `Control/Accent 50` | `Color.Control.accent50` | Accent color with 50% opacity |
+| `Control/Accent 80` | `Color.Control.accent80` | Accent color with 80% opacity |
+| `Control/Accent 100` | `Color.Control.accent100` | Full accent color |
+| `Control/Accent 125` | `Color.Control.accent125` | Accent color with 125% intensity |
+
 
 #### Pure Colors
 | Figma Name | Code Implementation | Usage |
@@ -201,3 +208,13 @@ Image(asset: .X32.plus)
 - **Typography**: `/Modules/DesignKit/Sources/DesignKit/Fonts/Config/AnytypeFont.swift`
 - **Icons**: Generated in various Asset enums
 - **Assets Source**: `/Modules/Assets/.../Assets.xcassets/`
+
+## Reference Material
+
+### Color System Documentation
+- **[COLOR_SYSTEM.md](../../DesignSystem/COLOR_SYSTEM.md)** - Complete guide to color system architecture, renaming process, and code generation
+
+### Key Workflows
+- **Color Renaming**: Never rename colors in code - update assets, run `make generate`, then update usages
+- **Asset Generation**: Run `make generate` after any asset changes
+- **Design System Updates**: Update both asset catalogs and this mapping document
