@@ -109,7 +109,7 @@ final class SlashMenuActionHandler {
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
         case let .background(color):
-            actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id])
+            actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id], route: .slashMenu)
         }
     }
     
@@ -134,7 +134,7 @@ final class SlashMenuActionHandler {
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [String]) {
-        actionHandler.setAlignment(alignment.blockAlignment, blockIds: blockIds)
+        actionHandler.setAlignment(alignment.blockAlignment, blockIds: blockIds, route: .slashMenu)
     }
     
     private func handleStyle(
@@ -145,30 +145,31 @@ final class SlashMenuActionHandler {
     ) async throws {
         switch style {
         case .text:
-            try await actionHandler.turnInto(.text, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.text, blockId: blockInformation.id, route: .slashMenu)
         case .title:
-            try await actionHandler.turnInto(.header, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.header, blockId: blockInformation.id, route: .slashMenu)
         case .heading:
-            try await actionHandler.turnInto(.header2, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.header2, blockId: blockInformation.id, route: .slashMenu)
         case .subheading:
-            try await actionHandler.turnInto(.header3, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.header3, blockId: blockInformation.id, route: .slashMenu)
         case .highlighted:
-            try await actionHandler.turnInto(.quote, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.quote, blockId: blockInformation.id, route: .slashMenu)
         case .callout:
-            try await actionHandler.turnInto(.callout, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.callout, blockId: blockInformation.id, route: .slashMenu)
         case .checkbox:
-            try await actionHandler.turnInto(.checkbox, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.checkbox, blockId: blockInformation.id, route: .slashMenu)
         case .bulleted:
-            try await actionHandler.turnInto(.bulleted, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.bulleted, blockId: blockInformation.id, route: .slashMenu)
         case .numberedList:
-            try await actionHandler.turnInto(.numbered, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.numbered, blockId: blockInformation.id, route: .slashMenu)
         case .toggle:
-            try await actionHandler.turnInto(.toggle, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.toggle, blockId: blockInformation.id, route: .slashMenu)
         case .bold:
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .bold,
-                info: blockInformation
+                info: blockInformation,
+                route: .slashMenu
             )
             
             modifiedAttributedString.map(modifiedStringHandler)
@@ -176,7 +177,8 @@ final class SlashMenuActionHandler {
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .italic,
-                info: blockInformation
+                info: blockInformation,
+                route: .slashMenu
             )
             
             modifiedAttributedString.map(modifiedStringHandler)
@@ -184,7 +186,8 @@ final class SlashMenuActionHandler {
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .strikethrough,
-                info: blockInformation
+                info: blockInformation,
+                route: .slashMenu
             )
             
             modifiedAttributedString.map(modifiedStringHandler)
@@ -192,7 +195,8 @@ final class SlashMenuActionHandler {
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .underscored,
-                info: blockInformation
+                info: blockInformation,
+                route: .slashMenu
             )
             
             modifiedAttributedString.map(modifiedStringHandler)
@@ -200,7 +204,8 @@ final class SlashMenuActionHandler {
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .keyboard,
-                info: blockInformation
+                info: blockInformation,
+                route: .slashMenu
             )
             
             modifiedAttributedString.map(modifiedStringHandler)

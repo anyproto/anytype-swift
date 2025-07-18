@@ -43,7 +43,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         try await service.turnIntoObject(blockId: blockId, spaceId: document.spaceId)
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: String) async throws {
+    func turnInto(_ style: BlockText.Style, blockId: String, route: AnalyticsEventsRouteKind?) async throws {
         switch style {
         case .toggle:
             if let blockInformation = document.infoContainer.get(id: blockId),
@@ -54,7 +54,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         default:
             try await service.turnInto(style, blockId: blockId)
         }
-        AnytypeAnalytics.instance().logChangeBlockStyle(style)
+        AnytypeAnalytics.instance().logChangeBlockStyle(style, route: route)
     }
     
     func upload(blockId: String, filePath: String) async throws {
@@ -95,8 +95,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         }
     }
     
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String]) {
-        AnytypeAnalytics.instance().logChangeBlockBackground(color: color.middleware)
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String], route: AnalyticsEventsRouteKind?) {
+        AnytypeAnalytics.instance().logChangeBlockBackground(color: color.middleware, route: route)
         service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
@@ -120,8 +120,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         }
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String]) {
-        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String], route: AnalyticsEventsRouteKind?) {
+        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty, route: route)
         Task {
             try await blockService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
         }
@@ -160,9 +160,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         }
     }
     
-    func changeMarkup(blockIds: [String], markType: MarkupType) {
+    func changeMarkup(blockIds: [String], markType: MarkupType, route: AnalyticsEventsRouteKind?) {
         Task {
-            AnytypeAnalytics.instance().logChangeBlockStyle(markType)
+            AnytypeAnalytics.instance().logChangeBlockStyle(markType, route: route)
             try await blockService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
         }
     }
@@ -171,9 +171,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     func toggleWholeBlockMarkup(
         _ attributedString: SafeNSAttributedString?,
         markup: MarkupType,
-        info: BlockInformation
+        info: BlockInformation,
+        route: AnalyticsEventsRouteKind?
     ) async throws -> SafeNSAttributedString? {
         guard let textContent = info.textContent, let attributedString else { return nil }
+        AnytypeAnalytics.instance().logChangeBlockStyle(markup, route: route)
+        
         let changedAttributedString = markupChanger.toggleMarkup(
             attributedString.value,
             markup: markup,
