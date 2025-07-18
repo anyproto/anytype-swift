@@ -60,7 +60,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 let spaceId = document.spaceId
-                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId, objectType: object.objectType.analyticsType)
+                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId, objectType: object.objectType.analyticsType, route: .slashMenu)
                 try await actionHandler
                     .createPage(
                         targetId: blockInformation.id,
@@ -69,7 +69,7 @@ final class SlashMenuActionHandler {
                         templateId: object.defaultTemplateId
                     )
                     .flatMap { objectId in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, spaceId: object.spaceId, route: .powertool)
+                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, spaceId: object.spaceId, route: .slashMenu)
                         router.showEditorScreen(data: .editor(editorScreenData(objectId: objectId, objectDetails: object)))
                     }
             }
@@ -85,7 +85,8 @@ final class SlashMenuActionHandler {
                         isNew: isNew,
                         type: .block,
                         key: relation.analyticsKey,
-                        spaceId: spaceId
+                        spaceId: spaceId,
+                        route: .slashMenu
                     )
                 }
             case .relation(let relation):

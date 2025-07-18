@@ -74,4 +74,27 @@ enum SlashMenuItemType: Sendable {
     var displayData: SlashMenuItemDisplayData {
         SlashMenuItemDisplayData(iconData: iconName, title: self.title)
     }
+    
+    var analyticsType: String {
+        switch self {
+        case .style:
+            return "Style"
+        case .media:
+            return "Media"
+        case .objects:
+            return "Objects"
+        case .relations:
+            return "Properties"
+        case .other:
+            return "Other"
+        case .actions:
+            return "Actions"
+        case .color:
+            return "Color"
+        case .background:
+            return "Background"
+        case .alignment:
+            return "Alignment"
+        }
+    }
 }
