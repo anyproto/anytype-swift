@@ -29,7 +29,7 @@ struct ObjectLayoutRow: View {
         HStack(spacing: 0) {
             Image(asset: layout.iconAsset)
                 .frame(width: 44, height: 44)
-                .border(8, color: .Control.active.opacity(0.4))
+                .border(8, color: .Control.secondary.opacity(0.4))
             
             Spacer.fixedWidth(12)
             
@@ -49,7 +49,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image(asset: .X24.tick).frame(width: 24, height: 24).foregroundColor(.Control.button)
+                        Image(asset: .X24.tick).frame(width: 24, height: 24).foregroundColor(.Control.primary)
                     }
                 }
                 

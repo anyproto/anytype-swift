@@ -55,7 +55,7 @@ struct SetFiltersCheckboxView: View {
     
     private var icon: some View {
         Image(asset: .X24.tick)
-            .foregroundColor(.Control.button)
+            .foregroundColor(.Control.primary)
     }
     
     private var button: some View {

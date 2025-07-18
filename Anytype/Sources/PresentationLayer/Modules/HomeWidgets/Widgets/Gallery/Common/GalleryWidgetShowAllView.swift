@@ -8,7 +8,7 @@ struct GalleryWidgetShowAllView: View {
     var body: some View {
         Text(Loc.Widgets.Actions.seeAllObjects)
             .anytypeStyle(.caption1Medium)
-            .foregroundColor(.Control.active)
+            .foregroundColor(.Control.secondary)
             .frame(width: 136)
             .frame(maxHeight: .infinity)
             .border(8, color: .Shape.transperentPrimary)

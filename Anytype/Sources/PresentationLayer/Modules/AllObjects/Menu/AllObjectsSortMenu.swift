@@ -9,7 +9,7 @@ struct AllObjectsSortMenu: View {
             sort: $sort,
             label: {
                 AnytypeText(Loc.AllObjects.Settings.Sort.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Control.button)
+                    .foregroundColor(.Control.primary)
                 Text(sort.relation.title)
             }
         )

@@ -35,7 +35,7 @@ struct SetSortsListView: View {
                     viewModel.addButtonTapped()
                 } label: {
                     Image(asset: .X32.plus)
-                        .foregroundColor(.Control.active)
+                        .foregroundColor(.Control.secondary)
                 }
             }
         }
@@ -92,7 +92,7 @@ struct SetSortsListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.active)
+                    .foregroundColor(Color.Control.secondary)
             }
         }
         .background(Color.Background.secondary)

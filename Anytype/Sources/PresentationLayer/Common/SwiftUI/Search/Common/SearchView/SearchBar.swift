@@ -24,13 +24,13 @@ struct SearchBar: View {
         .cornerRadius(10)
         .overlay(alignment: .leading) {
             Image(asset: .X18.search)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
                 .padding(.leading, 9)
         }
         .overlay(alignment: .trailing) {
             Image(asset: .multiplyCircleFill)
                 .renderingMode(.template)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
                 .padding(.trailing, 8)
                 .opacity(text.isEmpty ? 0 : 1)
                 .fixTappableArea()

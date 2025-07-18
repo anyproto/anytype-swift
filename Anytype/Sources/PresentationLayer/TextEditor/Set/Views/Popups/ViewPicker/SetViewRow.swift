@@ -22,7 +22,7 @@ struct SetViewRow: View {
                     configuration.name,
                     style: .subheading
                 )
-                .foregroundColor(configuration.isActive ? .Text.primary : .Control.active)
+                .foregroundColor(configuration.isActive ? .Text.primary : .Control.secondary)
                 
                 Spacer(minLength: 5)
                 
@@ -47,7 +47,7 @@ struct SetViewRow: View {
                     configuration.onEditTap()
                 }) {
                     Image(asset: .X24.edit)
-                        .foregroundColor(.Control.active)
+                        .foregroundColor(.Control.secondary)
                 }
             }
         }

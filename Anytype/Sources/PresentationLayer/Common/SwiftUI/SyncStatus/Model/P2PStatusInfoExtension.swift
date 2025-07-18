@@ -35,7 +35,7 @@ extension P2PStatusInfo: NetworkIconProvider {
         case .notConnected, .notPossible, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncP2p,
-                color: .Control.active
+                color: .Control.secondary
             )
         case .connected:
             NetworkIconData(

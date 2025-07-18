@@ -141,7 +141,7 @@ struct SetLayoutSettingsView: View {
                 .foregroundColor(.Text.secondary)
             Spacer.fixedWidth(6)
             Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
     }
 }

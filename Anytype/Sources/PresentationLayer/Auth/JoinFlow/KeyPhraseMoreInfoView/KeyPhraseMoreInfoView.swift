@@ -65,7 +65,7 @@ struct KeyPhraseMoreInfoView: View {
             Spacer.fixedHeight(16)
             
             Image(asset: .X18.lock)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
             
             Spacer.fixedHeight(12)
             

@@ -34,7 +34,7 @@ struct SetPropertiesView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.active)
+                    .foregroundColor(Color.Control.secondary)
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
@@ -46,7 +46,7 @@ struct SetPropertiesView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddPropertyInfoView()
                 }) {
-                    Image(asset: .X32.plus).foregroundColor(.Control.active)
+                    Image(asset: .X32.plus).foregroundColor(.Control.secondary)
                 }
             }
         }
@@ -69,7 +69,7 @@ struct SetPropertiesView: View {
     private func propertyRow(_ property: SetViewSettingsProperty) -> some View {
         HStack(spacing: 0) {
             Image(asset: property.image)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
             Spacer.fixedWidth(10)
             AnytypeToggle(
                 title: property.title,

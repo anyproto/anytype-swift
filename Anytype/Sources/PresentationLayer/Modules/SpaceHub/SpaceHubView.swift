@@ -157,7 +157,7 @@ struct SpaceHubView: View {
             Button { model.showSettings = true }
             label: {
                 IconView(icon: model.profileIcon)
-                    .foregroundStyle(Color.Control.active)
+                    .foregroundStyle(Color.Control.secondary)
                     .frame(width: 28, height: 28)
                     .overlay(alignment: .topTrailing) {
                         if model.notificationsDenied {
@@ -174,7 +174,7 @@ struct SpaceHubView: View {
             Button { model.onTapCreateSpace() }
             label: {
                 Image(asset: .X32.addFilled)
-                    .foregroundStyle(Color.Control.active)
+                    .foregroundStyle(Color.Control.secondary)
                     .frame(width: 32, height: 32)
                     .padding(.vertical, 6)
             }

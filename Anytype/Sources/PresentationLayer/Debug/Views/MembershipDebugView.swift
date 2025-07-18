@@ -150,7 +150,7 @@ struct MembershipDebugView: View {
             }
         }
         .padding()
-        .background(Color.Control.inactive.gradient)
+        .background(Color.Control.tertiary.gradient)
         .cornerRadius(18, style: .continuous)
     }
     

@@ -18,7 +18,7 @@ struct SetTableViewHeader: View {
                     Spacer.fixedWidth(15)
                     if data.isReadOnlyValue || !model.setDocument.setPermissions.canEditRelationValuesInView {
                         Image(asset: .relationLockedSmall)
-                            .tint(.Control.active)
+                            .tint(.Control.secondary)
                         Spacer.fixedWidth(4)
                     }
                     AnytypeText(data.name, style: .relation2Regular)

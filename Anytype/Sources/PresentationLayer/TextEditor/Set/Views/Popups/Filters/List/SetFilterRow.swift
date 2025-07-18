@@ -22,7 +22,7 @@ struct SetFilterRow: View {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.Background.highlightedMedium)
                 Image(asset: configuration.iconAsset)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
             }
             .frame(width: 48, height: 48)
             

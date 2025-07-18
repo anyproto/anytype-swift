@@ -127,7 +127,7 @@ extension TextBlockIconView {
             ),
             for: .touchUpInside
         )
-        checkboxView.tintColor = .Control.active
+        checkboxView.tintColor = .Control.secondary
 
         addSubview(checkboxView) {
             $0.width.equal(to: viewSize.width)

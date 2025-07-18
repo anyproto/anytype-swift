@@ -35,7 +35,7 @@ struct ChatInputReplyView: View {
                 onTapDelete()
             } label: {
                 Image(asset: .X24.close)
-                    .foregroundStyle(Color.Control.button)
+                    .foregroundStyle(Color.Control.primary)
             }
         }
         .padding(.horizontal, 12)

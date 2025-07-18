@@ -34,7 +34,7 @@ struct CheckboxPropertyView: View {
             } else {
                 Image(asset: .relationCheckboxUnchecked)
                     .resizable()
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
             }
         }
         .frame(width: style.checkboxSize.width, height: style.checkboxSize.height)
@@ -46,7 +46,7 @@ struct CheckboxPropertyView: View {
             Image(asset: .relationCheckboxChecked)
         } else {
             Image(asset: .relationCheckboxUnchecked)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
     }
     

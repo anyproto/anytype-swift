@@ -231,7 +231,7 @@ final class StyleView: UIView {
         let isCalloutEnabled = style == .callout ? true : restrictions.turnIntoStyles.contains(.text(.callout))
         let calloutImage = UIImage.imageWithText(
             Loc.callout,
-            textColor: isCalloutEnabled ? .Text.primary : .Control.inactive,
+            textColor: isCalloutEnabled ? .Text.primary : .Control.tertiary,
             backgroundColor: .Background.highlightedMedium,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
@@ -442,7 +442,7 @@ private extension UIImage {
         let frame = CGRect(x: 0, y: 0, width: 70, height: 24)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .right
-        nameLabel.textColor = .Control.button
+        nameLabel.textColor = .Control.primary
         nameLabel.font = AnytypeFont.uxCalloutRegular.uiKitFont
         nameLabel.text = Loc.highlight
 
@@ -450,7 +450,7 @@ private extension UIImage {
         backgroundView.addSubview(nameLabel)
 
         let quoteView = UIView(frame: .init(x: 0, y: 0, width: 1, height: frame.height))
-        quoteView.backgroundColor = .Control.button
+        quoteView.backgroundColor = .Control.primary
 
         backgroundView.addSubview(quoteView)
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)

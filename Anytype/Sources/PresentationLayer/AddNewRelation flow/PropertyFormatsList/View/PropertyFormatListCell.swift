@@ -9,7 +9,7 @@ struct PropertyFormatListCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             Image(asset: model.iconAsset)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
 
             AnytypeText(model.title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)

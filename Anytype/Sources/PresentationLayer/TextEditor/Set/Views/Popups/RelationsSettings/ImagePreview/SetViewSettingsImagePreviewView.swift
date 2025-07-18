@@ -75,7 +75,7 @@ struct SetViewSettingsImagePreviewView: View {
         HStack(spacing: 0) {
             if let iconAsset = configuration.iconAsset {
                 Image(asset: iconAsset)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                 Spacer.fixedWidth(12)
             }
             AnytypeText(configuration.title, style: .uxBodyRegular)
@@ -83,7 +83,7 @@ struct SetViewSettingsImagePreviewView: View {
             Spacer()
 
             if configuration.isSelected {
-                Image(asset: .X24.tick).foregroundColor(.Control.button)
+                Image(asset: .X24.tick).foregroundColor(.Control.primary)
             }
         }
         .frame(height: 52)
