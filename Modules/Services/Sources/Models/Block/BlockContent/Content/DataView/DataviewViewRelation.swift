@@ -2,7 +2,7 @@ public struct DataviewRelationOption: Hashable, Sendable {
     public let key: String
     public let isVisible: Bool
     public let width: Int32
-    public let dateIncludeTime: Bool
+    public let relationFormatIncludeTime: Bool
     public let timeFormat: DataviewTimeFormat
     public let dateFormat: DataviewDateFormat
     
@@ -11,7 +11,7 @@ public struct DataviewRelationOption: Hashable, Sendable {
             $0.key = key
             $0.isVisible = isVisible
             $0.width = width
-            $0.dateIncludeTime = dateIncludeTime
+            $0.relationFormatIncludeTime = relationFormatIncludeTime
             $0.timeFormat = timeFormat
             $0.dateFormat = dateFormat
         }
@@ -22,7 +22,7 @@ public struct DataviewRelationOption: Hashable, Sendable {
             key: key,
             isVisible: isVisible,
             width: width,
-            dateIncludeTime: dateIncludeTime,
+            relationFormatIncludeTime: relationFormatIncludeTime,
             timeFormat: timeFormat,
             dateFormat: dateFormat
         )
@@ -34,7 +34,7 @@ public extension DataviewRelationOption {
         self.key = data.key
         self.isVisible = data.isVisible
         self.width = data.width
-        self.dateIncludeTime = data.dateIncludeTime
+        self.relationFormatIncludeTime = data.relationFormatIncludeTime
         self.timeFormat = data.timeFormat
         self.dateFormat = data.dateFormat
     }
@@ -44,7 +44,7 @@ public extension DataviewRelationOption {
             key: key,
             isVisible: isVisible,
             width: 0,
-            dateIncludeTime: false,
+            relationFormatIncludeTime: false,
             timeFormat: .format12,
             dateFormat: .monthAbbrBeforeDay
         )
