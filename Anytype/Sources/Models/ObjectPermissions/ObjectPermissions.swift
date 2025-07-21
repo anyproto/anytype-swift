@@ -20,6 +20,7 @@ struct ObjectPermissions: Equatable {
     var canEditPropertiesList: Bool = false
     var canApplyTemplates: Bool = false
     var canShare: Bool = false
+    var canPublish: Bool = false
     var canEditBlocks: Bool = false
     var canEditMessages: Bool = false
     var canShowVersionHistory: Bool = false
@@ -75,6 +76,7 @@ extension ObjectPermissions {
         self.canEditRelationValues = caEditRelations && canEditDetails
         self.canEditPropertiesList = canEditRelationValues && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplate && !isObjectType
+        self.canPublish = canShare && specificTypes
         self.canApplyTemplates = canEdit && !isTemplate
         self.canEditMessages = canEdit
         self.canShowRelations = !isObjectType
