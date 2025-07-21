@@ -169,4 +169,8 @@ public extension Container {
     var basicUserInfoStorage: Factory<BasicUserInfoStorageProtocol> {
         self { BasicUserInfoStorage() }.singleton
     }
+    
+    var publishingService: Factory<PublishingServiceProtocol> {
+        self { PublishingService() }.shared
+    }
 }
