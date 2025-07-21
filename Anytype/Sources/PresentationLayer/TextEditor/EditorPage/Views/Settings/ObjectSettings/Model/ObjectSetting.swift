@@ -42,7 +42,7 @@ extension ObjectSetting {
         case .resolveConflict:
             Loc.resolveLayoutConflict
         case .webPublishing:
-            Loc.Actions.publishToWeb
+            Loc.publishToWeb
         }
     }
     

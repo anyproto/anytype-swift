@@ -116,8 +116,7 @@ struct ObjectSettingsView: View {
         case .resolveConflict:
             viewModel.onTapResolveConflict()
         case .webPublishing:
-            // TODO: Implement publish to web action
-            break
+            viewModel.onTapPublishing()
         }
     }
     

@@ -27,6 +27,9 @@ struct ObjectSettingsCoordinatorView: View {
             .sheet(item: $model.versionHistoryData) {
                 VersionHistoryCoordinatorView(data: $0, output: model)
             }
+            .sheet(isPresented: $model.showPublishing) {
+                PublishToWebView()
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
