@@ -10,7 +10,7 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
     @discardableResult
     func turnIntoObject(blockId: String) async throws -> String?
     
-    func setTextColor(_ color: BlockColor, blockIds: [String])
+    func setTextColor(_ color: BlockColor, blockIds: [String], route: AnalyticsEventsRouteKind?)
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String], route: AnalyticsEventsRouteKind?)
     func duplicate(blockId: String)
     func fetch(url: AnytypeURL, blockId: String) async throws
@@ -93,5 +93,9 @@ extension BlockActionHandlerProtocol {
         info: BlockInformation
     ) async throws -> SafeNSAttributedString? {
         return try await toggleWholeBlockMarkup(attributedString, markup: markup, info: info, route: nil)
+    }
+    
+    func setTextColor(_ color: BlockColor, blockIds: [String]) {
+        setTextColor(color, blockIds: blockIds, route: nil)
     }
 }

@@ -777,6 +777,14 @@ extension AnytypeAnalytics {
         logEvent("ChangeBlockBackground", withEventProperties: properties)
     }
     
+    func logChangeBlockColor(route: AnalyticsEventsRouteKind? = nil) {
+        var properties: [String: String] = [:]
+        if let route = route {
+            properties[AnalyticsEventsPropertiesKey.route] = route.rawValue
+        }
+        logEvent("ChangeBlockColor", withEventProperties: properties)
+    }
+    
     func logScreenSettingsStorageIndex() {
         logEvent("ScreenSettingsStorageIndex")
     }
