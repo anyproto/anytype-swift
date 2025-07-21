@@ -15,10 +15,12 @@ struct EmbedBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _: CGFloat) -> any UIContentConfiguration {
         return UIHostingConfiguration {
             EmbedContentView(
-                data: EmbedContentData(
-                    icon: .X32.attachment,
-                    text: "Figma embed. This content is not available on mobile",
-                    url: nil
+                model: EmbedContentViewModel(
+                    data: EmbedContentData(
+                        icon: .X32.attachment,
+                        text: "Figma embed. This content is not available on mobile",
+                        url: nil
+                    )
                 )
             )
         }

@@ -8,11 +8,7 @@ struct EmbedContentData {
 
 struct EmbedContentView: View {
     
-    @StateObject private var model: EmbedContentViewModel
-
-    init(data: EmbedContentData) {
-        self._model = StateObject(wrappedValue: EmbedContentViewModel(data: data))
-    }
+    @ObservedObject var model: EmbedContentViewModel
     
     var body: some View {
         HStack(spacing: 12) {
