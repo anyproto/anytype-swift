@@ -294,6 +294,7 @@ public enum Loc {
   public static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
   public static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   public static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
+  public static let `open` = Loc.tr("Localizable", "Open", fallback: "Open")
   public static let openAsObject = Loc.tr("Localizable", "Open as Object", fallback: "Open as Object")
   public static let openFile = Loc.tr("Localizable", "Open file", fallback: "Open file")
   public static let openObject = Loc.tr("Localizable", "Open object", fallback: "Open object")
@@ -1053,6 +1054,25 @@ public enum Loc {
       public enum Not {
         public enum Supported {
           public static let title = Loc.tr("Localizable", "EditorSet.View.Not.Supported.Title", fallback: "Unsupported")
+        }
+      }
+    }
+  }
+  public enum Embed {
+    public enum Block {
+      public enum Content {
+        public static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Embed.Block.Content.title", String(describing: p1), fallback: "%@ embed. This content is not available on mobile")
+        }
+        public enum Url {
+          public static func title(_ p1: Any) -> String {
+            return Loc.tr("Localizable", "Embed.Block.Content.Url.title", String(describing: p1), fallback: "%@ embed. Opens in external app or browser")
+          }
+        }
+      }
+      public enum Empty {
+        public static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Embed.Block.Empty.title", String(describing: p1), fallback: "%@ embed is empty")
         }
       }
     }
