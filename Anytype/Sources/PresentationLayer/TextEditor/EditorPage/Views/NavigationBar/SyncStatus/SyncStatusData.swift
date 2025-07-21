@@ -17,7 +17,7 @@ struct SyncStatusData: Equatable {
     @MainActor
     var icon: SyncStatusIconType {
         guard isNotLocalOnly else {
-            return .image(makeIcon(color: .Control.active))
+            return .image(makeIcon(color: .Control.secondary))
         }
         
         switch status {
@@ -33,7 +33,7 @@ struct SyncStatusData: Equatable {
         case .synced:
             return .image(makeIcon(color: .Pure.green))
         case .offline, .UNRECOGNIZED:
-            return .image(makeIcon(color: .Control.active))
+            return .image(makeIcon(color: .Control.secondary))
         }
     }
     

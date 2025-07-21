@@ -17,7 +17,7 @@ struct ChatInputEditView: View {
                 onTapClose()
             } label: {
                 Image(asset: .X24.close)
-                    .foregroundStyle(Color.Control.button)
+                    .foregroundStyle(Color.Control.primary)
             }
         }
         .padding(.horizontal, 12)

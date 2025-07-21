@@ -22,7 +22,7 @@ struct SpaceCardLabel: View {
                         .foregroundStyle(Color.Text.primary)
                     if isMuted {
                         Spacer.fixedWidth(8)
-                        Image(asset: .X18.muted).foregroundColor(.Control.active)
+                        Image(asset: .X18.muted).foregroundColor(.Control.secondary)
                     }
                     Spacer(minLength: 8)
                     createdDate
@@ -146,7 +146,7 @@ struct SpaceCardLabel: View {
     private var pin: some View {
         if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
             Image(asset: .X24.pin)
-                .foregroundStyle(Color.Control.active)
+                .foregroundStyle(Color.Control.secondary)
                 .frame(width: 22, height: 22)
         }
     }

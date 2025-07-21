@@ -108,7 +108,7 @@ struct ObjectPreviewView: View {
         if let imageAsset = imageAsset {
             return Group {
                 Image(asset: imageAsset)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                 Spacer.fixedWidth(10)
             }.eraseToAnyView()
         } else {
@@ -123,7 +123,7 @@ struct ObjectPreviewView: View {
             HStack(spacing: 0) {
                 if let icon = icon {
                     Image(asset: icon)
-                        .foregroundColor(.Control.active)
+                        .foregroundColor(.Control.secondary)
                     Spacer.fixedWidth(10)
                 }
 

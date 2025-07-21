@@ -12,7 +12,7 @@ public struct CircleLoadingView: View {
     @State private var isRotating = false
     private var circleColor: Color
     
-    public init(_ color: Color = Color.Control.active) {
+    public init(_ color: Color = Color.Control.secondary) {
         self.circleColor = color
     }
     

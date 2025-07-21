@@ -92,7 +92,7 @@ struct ObjectPropertiesView: View {
                 } label: {
                     HStack(spacing: 0) {
                         Image(asset: .X18.Disclosure.right)
-                            .foregroundColor(.Control.active)
+                            .foregroundColor(.Control.secondary)
                             .rotationEffect(.degrees(model.isSectionExpanded(section.id) ? 90 : 0))
                         
                         AnytypeText(section.title, style: .uxCalloutMedium)
@@ -105,7 +105,7 @@ struct ObjectPropertiesView: View {
                                 model.onConflictingInfoTap()
                             } label: {
                                 Image(systemName: "questionmark.circle.fill")
-                                    .foregroundStyle(Color.Control.active)
+                                    .foregroundStyle(Color.Control.secondary)
                                     .frame(width: 18, height: 18)
                             }
                         } else {

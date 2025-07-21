@@ -77,7 +77,7 @@ struct PropertyCalendarView: View {
             viewModel.clear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
         .readSize { size in
             clearButtonWidth = size.width

@@ -66,7 +66,7 @@ struct JoinFlowView: View {
             }
         }) {
             Image(asset: .X18.slashMenuArrow)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 10))
         }
         .disabled(model.disableBackAction)

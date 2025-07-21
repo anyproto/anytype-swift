@@ -85,7 +85,7 @@ public struct StandardButton: View {
                     AnytypeText(text, style: style.config.textFont)
                         .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
                     AnytypeText(badge, style: style.config.textFont)
-                        .foregroundColor(Color.Control.active)
+                        .foregroundColor(Color.Control.secondary)
                 }
                 .padding(.horizontal, style.config.horizontalPadding)
             }

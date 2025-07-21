@@ -78,7 +78,7 @@ final class EditorNavigationBarHelper {
         
         // Select all button
         var selectAllConfig = UIButton.Configuration.plain()
-        selectAllConfig.baseForegroundColor = .Control.active
+        selectAllConfig.baseForegroundColor = .Control.secondary
         self.selectAllButton = UIButton(configuration: selectAllConfig)
         self.selectAllButton.addAction(
             UIAction(

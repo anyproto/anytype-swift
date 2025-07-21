@@ -107,7 +107,7 @@ struct AllObjectsView: View {
                             section.title,
                             style: .uxTitle2Medium
                         )
-                        .foregroundColor(model.state.section == section ? Color.Control.button : Color.Control.active)
+                        .foregroundColor(model.state.section == section ? Color.Control.primary : Color.Control.secondary)
                     }
                 }
             }

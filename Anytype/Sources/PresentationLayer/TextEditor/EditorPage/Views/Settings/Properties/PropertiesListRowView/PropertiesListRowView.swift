@@ -58,7 +58,7 @@ struct PropertiesListRowView: View {
             HStack(spacing: 6) {
                 if !relation.isEditable && showLocks {
                     Image(asset: .relationLocked)
-                        .tint(.Control.active)
+                        .tint(.Control.secondary)
                         .frame(width: 15, height: 12)
                 }
                 AnytypeText(relation.name, style: .relation1Regular)

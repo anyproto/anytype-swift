@@ -90,7 +90,7 @@ struct TextPropertyEditingView: View {
                 viewModel.onClear()
             } label: {
                 AnytypeText(Loc.clear, style: .uxBodyRegular)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
             }
         } else {
             Spacer()
@@ -104,7 +104,7 @@ struct TextPropertyEditingView: View {
                 viewModel.onPaste()
             } label: {
                 AnytypeText(Loc.paste, style: .uxBodyRegular)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
             }
         } else {
             Spacer()
@@ -123,7 +123,7 @@ struct TextPropertyEditingView: View {
                 } label: {
                     HStack(spacing: 0) {
                         Image(asset: model.iconAsset)
-                            .foregroundColor(model.isActionAvailable ? .Control.active : .Control.inactive)
+                            .foregroundColor(model.isActionAvailable ? .Control.secondary : .Control.tertiary)
                         Spacer.fixedWidth(10)
                         AnytypeText(
                             model.title,

@@ -13,7 +13,7 @@ enum ButtonsFactory {
         button.setForegroundColor(.clear, state: .normal)
         button.setForegroundColor(.clear, state: .disabled)
         button.setForegroundColor(.Background.highlightedMedium, state: .selected)
-        button.setImageTintColor(.Control.inactive, state: .disabled)
+        button.setImageTintColor(.Control.tertiary, state: .disabled)
         button.setImageTintColor(.Text.primary, state: .normal)
 
         return button

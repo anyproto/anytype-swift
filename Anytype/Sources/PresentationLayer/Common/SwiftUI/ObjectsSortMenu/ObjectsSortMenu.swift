@@ -35,7 +35,7 @@ struct ObjectsSortMenu<Label> : View where Label : View {
         Picker("", selection: $sortRelation) {
             ForEach(ObjectSortProperty.allCases, id: \.self) { sortRelation in
                 AnytypeText(sortRelation.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Control.button)
+                    .foregroundColor(.Control.primary)
             }
         }
         .onChange(of: sortRelation) { newValue in
@@ -48,7 +48,7 @@ struct ObjectsSortMenu<Label> : View where Label : View {
         Picker("", selection: $sortType) {
             ForEach(sortRelation.availableSortTypes, id: \.self) { type in
                 AnytypeText(sortRelation.titleFor(sortType: type), style: .uxTitle2Medium)
-                    .foregroundColor(.Control.button)
+                    .foregroundColor(.Control.primary)
             }
         }
         .onChange(of: sortType) { newValue in

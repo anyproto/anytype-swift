@@ -50,7 +50,7 @@ struct SpaceNotificationsSettingsView: View {
                 Spacer()
                 if !model.disabledStatus(), model.mode == mode {
                     Image(asset: .X24.tick)
-                        .foregroundColor(.Control.button)
+                        .foregroundColor(.Control.primary)
                 }
             }
             .frame(height: 52)

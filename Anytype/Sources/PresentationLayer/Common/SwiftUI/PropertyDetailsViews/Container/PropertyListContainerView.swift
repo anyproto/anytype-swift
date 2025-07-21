@@ -75,7 +75,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
             onClear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
     }
     
@@ -83,7 +83,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
         Button {
             onCreate(nil)
         } label: {
-            Image(asset: .X32.plus).foregroundColor(.Control.active)
+            Image(asset: .X32.plus).foregroundColor(.Control.secondary)
         }
     }
     
@@ -92,7 +92,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
             onCreate(searchText)
         } label: {
             HStack(spacing: 10) {
-                Image(asset: .X32.plus).foregroundColor(.Control.active)
+                Image(asset: .X32.plus).foregroundColor(.Control.secondary)
                 AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular)
                     .foregroundColor(.Text.primary)
             }

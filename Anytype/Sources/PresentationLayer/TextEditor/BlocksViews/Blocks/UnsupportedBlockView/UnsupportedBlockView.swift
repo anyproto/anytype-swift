@@ -12,7 +12,7 @@ class UnsupportedBlockView: UIView, BlockContentView {
 
     private let icon: UIImageView = {
         let imageView = UIImageView(asset: .X18.help)
-        imageView.tintColor = .Control.active
+        imageView.tintColor = .Control.secondary
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

@@ -49,7 +49,7 @@ struct SetObjectCreationSettingsView: View {
                         model.isEditingState ? Loc.done : Loc.edit,
                         style: .bodyRegular
                     )
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                 }
                 Spacer()
             }

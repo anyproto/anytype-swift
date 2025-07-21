@@ -28,7 +28,7 @@ struct AllObjectsSettingsMenu: View {
         Picker("", selection: $state.mode) {
             ForEach(AllObjectsMode.allCases, id: \.self) { mode in
                 AnytypeText(mode.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Control.button)
+                    .foregroundColor(.Control.primary)
             }
         }
     }

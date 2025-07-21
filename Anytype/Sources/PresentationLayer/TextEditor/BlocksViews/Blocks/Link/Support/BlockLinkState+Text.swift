@@ -12,11 +12,11 @@ extension BlockLinkState {
 
     var titleColor: UIColor {
         if case let .object(.todo(value, _)) = icon, value {
-            return .Control.active
+            return .Control.secondary
         }
 
         if deleted || archived {
-            return .Control.active
+            return .Control.secondary
         }
         
         return .Text.primary

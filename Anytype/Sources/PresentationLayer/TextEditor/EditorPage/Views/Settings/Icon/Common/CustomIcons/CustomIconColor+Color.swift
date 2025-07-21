@@ -4,7 +4,7 @@ import Services
 extension CustomIconColor {
     var color: Color {
         switch self {
-        case .gray: .Control.active
+        case .gray: .Control.secondary
         case .orange: .Pure.orange
         case .yellow: .Pure.yellow
         case .red: .Pure.red

@@ -61,7 +61,7 @@ struct AuthView: View {
                 model.showSettings.toggle()
             } label: {
                 Image(asset: .NavigationBase.settings)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
             }
             .disabled(model.inProgress)
         }

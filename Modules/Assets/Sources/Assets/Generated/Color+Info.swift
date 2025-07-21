@@ -283,9 +283,9 @@ public extension UIColor.Control {
             ColorInfo(name: "accent25", color: UIColor.Control.accent25),
             ColorInfo(name: "accent50", color: UIColor.Control.accent50),
             ColorInfo(name: "accent80", color: UIColor.Control.accent80),
-            ColorInfo(name: "active", color: UIColor.Control.active),
-            ColorInfo(name: "button", color: UIColor.Control.button),
-            ColorInfo(name: "inactive", color: UIColor.Control.inactive),
+            ColorInfo(name: "primary", color: UIColor.Control.primary),
+            ColorInfo(name: "secondary", color: UIColor.Control.secondary),
+            ColorInfo(name: "tertiary", color: UIColor.Control.tertiary),
             ColorInfo(name: "transparentActive", color: UIColor.Control.transparentActive),
             ColorInfo(name: "transparentInactive", color: UIColor.Control.transparentInactive),
             ColorInfo(name: "white", color: UIColor.Control.white)

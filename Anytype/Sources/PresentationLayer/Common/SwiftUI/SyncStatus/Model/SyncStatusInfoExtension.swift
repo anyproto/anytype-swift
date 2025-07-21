@@ -87,7 +87,7 @@ extension SpaceSyncStatusInfo: NetworkIconProvider {
         case .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncOffline,
-                color: .Control.active
+                color: .Control.secondary
             )
         }
     }
@@ -145,7 +145,7 @@ extension SpaceSyncStatusInfo: NetworkIconProvider {
         case .offline, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncOffline,
-                color: .Control.active
+                color: .Control.secondary
             )
         }
     }
@@ -170,7 +170,7 @@ extension SpaceSyncStatusInfo: NetworkIconProvider {
         case .offline, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncSelfhost,
-                color: .Control.active
+                color: .Control.secondary
             )
         }
     }
@@ -178,7 +178,7 @@ extension SpaceSyncStatusInfo: NetworkIconProvider {
     private var localOnlyIcon: NetworkIconData {
         NetworkIconData(
             icon: ImageAsset.SyncStatus.syncLocalonlyDefault,
-            color: .Control.active
+            color: .Control.secondary
         )
     }
 }
