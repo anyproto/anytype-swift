@@ -142,6 +142,10 @@ public extension FeatureFlags {
         value(for: .supportSimpleEmbedBlocks)
     }
 
+    static var webPublishing: Bool {
+        value(for: .webPublishing)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -242,6 +246,7 @@ public extension FeatureFlags {
         .joinSpaceViaQRCode,
         .swipeToReply,
         .supportSimpleEmbedBlocks,
+        .webPublishing,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
