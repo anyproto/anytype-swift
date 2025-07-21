@@ -48,6 +48,9 @@ extension Anytype_Rpc.Space {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
+        /// final order of space view ids with their lexids
+        public var spaceViewOrder: [String] = []
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -172,6 +175,7 @@ extension Anytype_Rpc.Space.SetOrder.Response: SwiftProtobuf.Message, SwiftProto
   public static let protoMessageName: String = Anytype_Rpc.Space.SetOrder.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "spaceViewOrder"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -181,6 +185,7 @@ extension Anytype_Rpc.Space.SetOrder.Response: SwiftProtobuf.Message, SwiftProto
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.spaceViewOrder) }()
       default: break
       }
     }
@@ -194,11 +199,15 @@ extension Anytype_Rpc.Space.SetOrder.Response: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.spaceViewOrder.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.spaceViewOrder, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Space.SetOrder.Response, rhs: Anytype_Rpc.Space.SetOrder.Response) -> Bool {
     if lhs._error != rhs._error {return false}
+    if lhs.spaceViewOrder != rhs.spaceViewOrder {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
