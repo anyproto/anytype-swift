@@ -22,7 +22,7 @@ public enum BlocksModelsConverter: Sendable {
         case .tableRow(let data): return data.blockContent
         case .widget(let data): return .widget(data)
         case .chat(let data): return .chat(data)
-        case .latex(let data): return .embed(data)
+        case .latex(let data): return FeatureFlags.supportSimpleEmbedBlocks ? .embed(data) : .unsupported
         case .icon:
             return .unsupported
         }

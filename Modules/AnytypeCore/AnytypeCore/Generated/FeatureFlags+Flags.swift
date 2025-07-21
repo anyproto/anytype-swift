@@ -138,6 +138,10 @@ public extension FeatureFlags {
         value(for: .swipeToReply)
     }
 
+    static var supportSimpleEmbedBlocks: Bool {
+        value(for: .supportSimpleEmbedBlocks)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -237,6 +241,7 @@ public extension FeatureFlags {
         .anytypeImageCacher,
         .joinSpaceViaQRCode,
         .swipeToReply,
+        .supportSimpleEmbedBlocks,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
