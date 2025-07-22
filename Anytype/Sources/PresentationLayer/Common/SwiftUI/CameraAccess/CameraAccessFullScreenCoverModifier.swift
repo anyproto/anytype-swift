@@ -1,14 +1,14 @@
 import SwiftUI
 
 extension View {
-    func cameraAccessFullScreen<Target: View, Item: Identifiable>(item: Binding<Item?>, @ViewBuilder targetScreen: @escaping (Item) -> Target) -> some View {
-        modifier(CameraAccessFullScreenModifier(item: item, targetScreen: targetScreen))
+    func cameraAccessFullScreenCover<Target: View, Item: Identifiable>(item: Binding<Item?>, @ViewBuilder targetScreen: @escaping (Item) -> Target) -> some View {
+        modifier(CameraAccessFullScreenCoverModifier(item: item, targetScreen: targetScreen))
     }
 }
 
-private struct CameraAccessFullScreenModifier<Target: View, Item: Identifiable>: ViewModifier {
+private struct CameraAccessFullScreenCoverModifier<Target: View, Item: Identifiable>: ViewModifier {
     
-    @StateObject private var model = CameraAccessFullScreenModifierModel<Item>()
+    @StateObject private var model = CameraAccessFullScreenCoverModifierModel<Item>()
     
     @Binding var item: Item?
     @ViewBuilder var targetScreen: (_ item: Item) -> Target
@@ -28,7 +28,7 @@ private struct CameraAccessFullScreenModifier<Target: View, Item: Identifiable>:
 }
 
 @MainActor
-private final class CameraAccessFullScreenModifierModel<Item>: ObservableObject {
+private final class CameraAccessFullScreenCoverModifierModel<Item>: ObservableObject {
     
     @Injected(\.cameraPermissionVerifier)
     private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
