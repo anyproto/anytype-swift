@@ -122,6 +122,7 @@ public enum Loc {
   public static let createSpace = Loc.tr("Localizable", "Create Space", fallback: "Create Space")
   public static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   public static let current = Loc.tr("Localizable", "Current", fallback: "Current")
+  public static let customizeURL = Loc.tr("Localizable", "Customize URL", fallback: "Customize URL")
   public static func date(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Date", p1, fallback: "Plural format key: Date")
   }
@@ -216,6 +217,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   public static let learnMore = Loc.tr("Localizable", "Learn more", fallback: "Learn more")
@@ -352,6 +354,8 @@ public enum Loc {
   public static let progress = Loc.tr("Localizable", "Progress...", fallback: "Progress...")
   public static let properties = Loc.tr("Localizable", "Properties", fallback: "Properties")
   public static let propertiesFormats = Loc.tr("Localizable", "Properties formats", fallback: "Properties formats")
+  public static let publish = Loc.tr("Localizable", "Publish", fallback: "Publish")
+  public static let publishToWeb = Loc.tr("Localizable", "Publish to Web", fallback: "Publish to Web")
   public static let purple = Loc.tr("Localizable", "Purple", fallback: "Purple")
   public static let purpleBackground = Loc.tr("Localizable", "Purple background", fallback: "Purple background")
   public static let puzzle = Loc.tr("Localizable", "Puzzle", fallback: "Puzzle")
@@ -551,7 +555,6 @@ public enum Loc {
     public static let copyLink = Loc.tr("Localizable", "Actions.CopyLink", fallback: "Copy link")
     public static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     public static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
-    public static let publishToWeb = Loc.tr("Localizable", "Actions.PublishToWeb", fallback: "Publish to Web")
     public static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
     public enum CreateWidget {
       public static let success = Loc.tr("Localizable", "Actions.CreateWidget.Success", fallback: "New widget was created")

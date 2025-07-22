@@ -76,7 +76,7 @@ extension ObjectPermissions {
         self.canEditRelationValues = caEditRelations && canEditDetails
         self.canEditPropertiesList = canEditRelationValues && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplate && !isObjectType
-        self.canPublish = canShare && specificTypes
+        self.canPublish = canShare && specificTypes && !isArchive
         self.canApplyTemplates = canEdit && !isTemplate
         self.canEditMessages = canEdit
         self.canShowRelations = !isObjectType

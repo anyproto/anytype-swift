@@ -21,6 +21,7 @@ final class ObjectSettingsCoordinatorViewModel:
     @Published var relationsListData: PropertiesListData?
     @Published var versionHistoryData: VersionHistoryData?
     @Published var dismiss = false
+    @Published var showPublishing = false
     
     init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self.objectId = objectId
@@ -58,6 +59,10 @@ final class ObjectSettingsCoordinatorViewModel:
             isListType: details.isList,
             canRestore: document.permissions.canRestoreVersionHistory
         )
+    }
+    
+    func showPublising(document: some BaseDocumentProtocol) {
+        showPublishing.toggle()
     }
     
     func openPageAction(screenData: ScreenData) {
