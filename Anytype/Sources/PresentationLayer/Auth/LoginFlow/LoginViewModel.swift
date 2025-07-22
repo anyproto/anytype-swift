@@ -61,18 +61,12 @@ final class LoginViewModel: ObservableObject {
     
     private weak var output: (any LoginFlowOutput)?
     
-    private var subscriptions = [AnyCancellable]()
-    
     init(output: (any LoginFlowOutput)?) {
         self.output = output
     }
     
     func onAppear() {
         AnytypeAnalytics.instance().logLoginScreenShow()
-    }
-    
-    func onSettingsTap() {
-        output?.onSettingsAction()
     }
     
     func onEnterButtonAction() {
@@ -82,17 +76,14 @@ final class LoginViewModel: ObservableObject {
     
     func onScanQRButtonAction() {
         AnytypeAnalytics.instance().logClickLogin(button: .qr)
-        cameraPermissionVerifier.cameraPermission
-            .receiveOnMain()
-            .sink { [weak self] isGranted in
-                guard let self else { return }
-                if isGranted {
-                    showQrCodeView = true
-                } else {
-                    openSettingsURL = true
-                }
+        Task {
+            let isGranted = await cameraPermissionVerifier.cameraIsGranted()
+            if isGranted {
+                showQrCodeView = true
+            } else {
+                openSettingsURL = true
             }
-            .store(in: &subscriptions)
+        }
     }
     
     func onKeychainButtonAction() {

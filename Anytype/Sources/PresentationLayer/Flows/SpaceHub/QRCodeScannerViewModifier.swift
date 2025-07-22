@@ -22,7 +22,7 @@ final class QRCodeScannerViewModifierModel: ObservableObject {
     
     func requestQrCodeScan() {
         Task { @MainActor in
-            let isGranted = await cameraPermissionVerifier.cameraPermission.value
+            let isGranted = await cameraPermissionVerifier.cameraIsGranted()
             if isGranted {
                 showQrCodeScanner = true
             } else {
@@ -66,12 +66,6 @@ final class QRCodeScannerViewModifierModel: ObservableObject {
         qrCodeScanAlertError = nil
         showQrCodeScanner = true
     }
-    
-    func onSettingsTap() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
 }
 
 struct QRCodeScannerViewModifier: ViewModifier {
@@ -105,12 +99,7 @@ struct QRCodeScannerViewModifier: ViewModifier {
                     model.onQrScanTryAgain()
                 }
             }
-            .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
-                Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
-                Button(Loc.cancel, action: {})
-            }, message: {
-                Text(verbatim: Loc.Alert.CameraPermissions.goToSettings)
-            })
+            .cameraPermissionAlert(isPresented: $model.openSettingsURL)
     }
 }
 

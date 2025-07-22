@@ -48,7 +48,7 @@ struct ChatCoordinatorView: View {
                 model.fileImporterFinished(result: result)
             }
             .safariSheet(url: $model.safariUrl)
-            .fullScreenCover(item: $model.cameraData) {
+            .cameraAccessFullScreenCover(item: $model.cameraData) {
                 SimpleCameraView(data: $0)
             }
             .sheet(item: $model.newLinkedObject) {
