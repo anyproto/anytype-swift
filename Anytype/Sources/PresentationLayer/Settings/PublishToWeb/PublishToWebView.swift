@@ -1,10 +1,22 @@
 import SwiftUI
 import AnytypeCore
 
+struct PublishToWebViewData: Identifiable, Hashable {
+    let objectId: String
+    let spaceId: String
+    
+    var id: Int { hashValue }
+}
+
+
 struct PublishToWebView: View {
     
-    @StateObject private var model = PublishToWebViewModel()
+    @StateObject private var model: PublishToWebViewModel
     @Environment(\.dismiss) private var dismiss
+    
+    init(data: PublishToWebViewData) {
+        _model = StateObject(wrappedValue: PublishToWebViewModel(data: data))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -14,8 +26,12 @@ struct PublishToWebView: View {
             content
             
             publishButton
+            
+            errorView
         }
         .padding(.horizontal, 16)
+        
+        .task { await model.onAppear() }
     }
     
     private var content: some View {
@@ -33,6 +49,7 @@ struct PublishToWebView: View {
                 Spacer.fixedHeight(12)
             }
         }
+        .disabled(model.state.isError)
     }
     
     private var customUrlSection: some View {
@@ -40,17 +57,18 @@ struct PublishToWebView: View {
             SectionHeaderView(title: Loc.customizeURL)
             
             HStack {
-                AnytypeText(model.domain, style: .uxBodyRegular)
+                AnytypeText(model.domain, style: .bodyRegular)
                     .foregroundColor(.Text.secondary)
                 Spacer()
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
-            .background(Color.Shape.primary)
+            .border(10, color: .Shape.primary)
+            .background(Color.Shape.transperentTertiary)
             .cornerRadius(10)
             
             HStack {
-                AnytypeText("/", style: .uxBodyRegular)
+                AnytypeText("/", style: .bodyRegular)
                     .foregroundColor(.Text.secondary)
                 TextField("", text: $model.customPath)
                     .textFieldStyle(PlainTextFieldStyle())
@@ -59,7 +77,8 @@ struct PublishToWebView: View {
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
-            .background(Color.Shape.primary)
+            .border(10, color: .Shape.primary)
+            .background(Color.Background.primary)
             .cornerRadius(10)
         }
     }
@@ -67,8 +86,11 @@ struct PublishToWebView: View {
     private var joinSpaceButtonToggle: some View {
         HStack {
             HStack(spacing: 12) {
-                Image(asset: .X24.plus)
-                    .foregroundColor(.Text.primary)
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(Color.Background.primary, Color.Control.secondary)
                 
                 AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
                     .foregroundColor(.Text.primary)
@@ -116,4 +138,20 @@ struct PublishToWebView: View {
             Spacer.fixedHeight(16)
         }
     }
+    
+    @ViewBuilder
+    private var errorView: some View {
+        switch model.state {
+        case .error(let error):
+            AnytypeText(error, style: .caption1Regular)
+                .foregroundColor(.Pure.red)
+            
+        case .ok:
+            EmptyView()
+        }
+    }
+}
+
+#Preview {
+    PublishToWebView(data: PublishToWebViewData(objectId: "", spaceId: ""))
 }
