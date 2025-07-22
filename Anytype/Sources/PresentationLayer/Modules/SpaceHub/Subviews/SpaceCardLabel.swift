@@ -85,7 +85,7 @@ struct SpaceCardLabel: View {
                 // Show attachements and 1 line of text
                 messageWithAttachements(message)
             } else {
-                Text(message.creator?.name ?? Loc.Chat.newMessages)
+                Text(message.creator?.title ?? Loc.Chat.newMessages)
                     .anytypeStyle(.uxTitle2Medium).lineLimit(1)
             }
         }
@@ -94,7 +94,7 @@ struct SpaceCardLabel: View {
     func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
         Group {
             if let creator = message.creator {
-                Text(creator.name + ": ").anytypeFontStyle(.uxTitle2Medium) +
+                Text(creator.title + ": ").anytypeFontStyle(.uxTitle2Medium) +
                 Text(message.text).anytypeFontStyle(.uxTitle2Regular)
             } else {
                 Text(message.text).anytypeFontStyle(.uxTitle2Regular)
@@ -106,7 +106,7 @@ struct SpaceCardLabel: View {
     func messageWithAttachements(_ message: LastMessagePreview) -> some View {
         HStack(spacing: 2) {
             if let creator = message.creator {
-                Text(creator.name + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                Text(creator.title + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
                 Spacer.fixedWidth(4)
             }
             
