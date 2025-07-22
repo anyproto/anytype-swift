@@ -102,11 +102,8 @@ final class DebugService: ObservableObject, DebugServiceProtocol {
                 $0.durationInSeconds = 60
             }).invoke().path
 
-            if let url = URL(string: path) {
-                await storage.setDebugRunProfilerData(.done(url: url))
-            } else {
-                await storage.setDebugRunProfilerData(.empty)
-            }
+            let url = URL(fileURLWithPath: path)
+            await storage.setDebugRunProfilerData(.done(url: url))
         }
     }
 }
