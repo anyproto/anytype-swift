@@ -551,6 +551,7 @@ public enum Loc {
     public static let copyLink = Loc.tr("Localizable", "Actions.CopyLink", fallback: "Copy link")
     public static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     public static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
+    public static let publishToWeb = Loc.tr("Localizable", "Actions.PublishToWeb", fallback: "Publish to Web")
     public static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
     public enum CreateWidget {
       public static let success = Loc.tr("Localizable", "Actions.CreateWidget.Success", fallback: "New widget was created")

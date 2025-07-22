@@ -27,13 +27,18 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
                 ObjectSetting.relations
             }
             
+            if conflictManager.haveLayoutConflicts(details: details) {
+                ObjectSetting.resolveConflict
+            }
+            
+            if FeatureFlags.webPublishing && permissions.canPublish {
+                ObjectSetting.webPublishing
+            }
+            
             if permissions.canShowVersionHistory {
                 ObjectSetting.history
             }
             
-            if conflictManager.haveLayoutConflicts(details: details) {
-                ObjectSetting.resolveConflict
-            }
         }
     }
 }

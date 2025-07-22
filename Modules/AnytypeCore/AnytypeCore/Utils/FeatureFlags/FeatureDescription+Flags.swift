@@ -241,6 +241,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let webPublishing = FeatureDescription(
+        title: "Web Publishing",
+        type: .feature(author: "vyuignatiov@anytype.io", releaseVersion: "12"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Debug
     

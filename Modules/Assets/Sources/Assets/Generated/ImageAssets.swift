@@ -785,6 +785,7 @@ extension ImageAsset {
       public static let list = ImageAsset.bundle(name: "x24/View/List")
       public static let table = ImageAsset.bundle(name: "x24/View/Table")
     }
+    public static let web = ImageAsset.bundle(name: "x24/Web")
     public static let allObjects = ImageAsset.bundle(name: "x24/allObjects")
     public static let bin = ImageAsset.bundle(name: "x24/bin")
   }
