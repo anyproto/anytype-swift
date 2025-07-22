@@ -36,6 +36,8 @@ final class DebugMenuViewModel: ObservableObject {
     private var seedService: any SeedServiceProtocol
     @Injected(\.applePushNotificationService)
     private var applePushNotificationService: any ApplePushNotificationServiceProtocol
+    @Injected(\.chatService)
+    private var chatService: any ChatServiceProtocol
     
     var shouldRunDebugProfilerOnNextStartup: Bool {
         get {
@@ -127,6 +129,10 @@ final class DebugMenuViewModel: ObservableObject {
     
     func getAppleNotificationToken() {
         pushToken = applePushNotificationService.token()?.identifiable
+    }
+    
+    func readAllMessages() async throws {
+        try await chatService.readAllMessages()
     }
     
     // MARK: - Private
