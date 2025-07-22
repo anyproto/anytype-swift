@@ -20,6 +20,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
         lastStateId: String
     ) async throws
     func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws
+    func readAllMessages() async throws
 }
 
 public extension ChatServiceProtocol {
@@ -132,5 +133,9 @@ final class ChatService: ChatServiceProtocol {
             $0.afterOrderID = afterOrderId
             $0.type = type
         }).invoke()
+    }
+    
+    func readAllMessages() async throws {
+        try await ClientCommands.chatReadAll().invoke()
     }
 }

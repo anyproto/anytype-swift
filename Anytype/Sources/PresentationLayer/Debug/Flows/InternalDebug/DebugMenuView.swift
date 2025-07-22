@@ -173,6 +173,12 @@ struct DebugMenuView: View {
             } label: {
                 Text("Apple notification Token 🔔")
             }
+            
+            AsyncButton {
+                try await model.readAllMessages()
+            } label: {
+                Text("Read all messages 💬")
+            }
         }
     }
     
