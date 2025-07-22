@@ -76,6 +76,8 @@ struct SpaceCard: View, @preconcurrency Equatable {
             try await onTapUnpin()
         } label: {
             Text(Loc.unpin)
+            Spacer()
+            Image(systemName: "pin.slash")
         }
     }
     
@@ -84,6 +86,8 @@ struct SpaceCard: View, @preconcurrency Equatable {
             try await onTapPin()
         } label: {
             Text(Loc.pin)
+            Spacer()
+            Image(systemName: "pin")
         }
     }
     
@@ -93,6 +97,8 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTapSettings()
         } label: {
             Text(Loc.SpaceSettings.title)
+            Spacer()
+            Image(systemName: "gearshape")
         }
     }
     
