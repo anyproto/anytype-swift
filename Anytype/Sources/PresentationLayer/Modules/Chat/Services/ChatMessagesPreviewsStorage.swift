@@ -18,6 +18,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
 
     private let chatService: any ChatServiceProtocol = Container.shared.chatService()
     private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
+    private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
     
     // MARK: - Subscriptions State
     
@@ -139,11 +140,11 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         let attachments = attachmentsIds.compactMap { id in dependencies.first { $0.id == id } }
         
         // TODO: change to full equality after MW fix
-        let creator = dependencies.first { $0.id.hasSuffix(message.creator) }
+        let creator = dependencies.first { $0.id.hasSuffix(message.creator) }.flatMap { try? Participant(details: $0) }
         
         let message = LastMessagePreview(
             creator: creator,
-            text: message.message.text,
+            text: messageTextBuilder.makeMessaeWithoutStyle(content: message.message),
             createdAt: message.createdAtDate,
             modifiedAt: message.modifiedAtDate,
             attachments: attachments
