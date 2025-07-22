@@ -2,25 +2,25 @@ import AVFoundation
 import AnytypeCore
 import Combine
 
-protocol CameraPermissionVerifierProtocol {
-    var cameraPermission: Future<Bool, Never> { get }
+protocol CameraPermissionVerifierProtocol: Sendable {
+    func cameraIsGranted() async -> Bool
 }
 
 final class CameraPermissionVerifier: CameraPermissionVerifierProtocol {
-    var cameraPermission: Future<Bool, Never> {
-        Future<Bool, Never> { promise in
+    func cameraIsGranted() async -> Bool {
+        await withCheckedContinuation { continuation in
             switch AVCaptureDevice.authorizationStatus(for: .video) {
             case .denied, .restricted:
-                promise(.success(false))
+                continuation.resume(returning: false)
             case .authorized:
-                promise(.success(true))
+                continuation.resume(returning: true)
             case .notDetermined:
                 AVCaptureDevice.requestAccess(for: .video) { success in
-                    promise(.success(success))
+                    continuation.resume(returning: success)
                 }
             @unknown default:
                 anytypeAssertionFailure("@unknown AVAuthorizationStatus case")
-                promise(.success(false))
+                continuation.resume(returning: false)
             }
         }
     }

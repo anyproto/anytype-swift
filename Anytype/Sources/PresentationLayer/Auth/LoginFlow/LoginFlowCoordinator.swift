@@ -14,9 +14,4 @@ final class LoginFlowCoordinator: LoginFlowCoordinatorProtocol, LoginFlowOutput 
     func startFlow() -> AnyView {
         LoginView(output: self).eraseToAnyView()
     }
-    
-    func onSettingsAction() {
-        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-        UIApplication.shared.open(url)
-    }
 }

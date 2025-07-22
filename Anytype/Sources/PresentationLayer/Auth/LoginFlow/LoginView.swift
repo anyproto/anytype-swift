@@ -38,12 +38,7 @@ struct LoginView: View {
             .sheet(isPresented: $model.showQrCodeView) {
                 QrCodeScannerView(qrCode: self.$model.entropy, error: self.$model.errorText)
             }
-            .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
-                Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
-                Button(Loc.cancel, action: {})
-            }, message: {
-                Text(verbatim: Loc.Alert.CameraPermissions.goToSettings)
-            })
+            .cameraPermissionAlert(isPresented: $model.openSettingsURL)
             .ifLet(model.errorText) { view, errorText in
                 view.alertView(isShowing: $model.showError, errorText: errorText)
             }
