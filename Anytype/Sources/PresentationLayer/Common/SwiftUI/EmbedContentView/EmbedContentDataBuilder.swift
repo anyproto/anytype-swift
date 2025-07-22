@@ -17,13 +17,17 @@ final class EmbedContentDataBuilder: EmbedContentDataBuilderProtocol {
     }
     
     private func url(from block: BlockLatex) -> URL? {
-        guard block.canTryExtractUrl else { return nil }
-        
-        if let url = URL(string: block.text) {
+        if let url = URL(string: block.text),
+           url.scheme.isNotNil,
+           url.host.isNotNil
+        {
             return url
         }
         
-        if let urlString = extractUrlString(from: block.text), let url = URL(string: urlString) {
+        if block.canTryExtractUrl,
+           let urlString = extractUrlString(from: block.text),
+           let url = URL(string: urlString)
+        {
             return url
         }
         
