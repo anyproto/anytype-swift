@@ -11,6 +11,13 @@ struct PublishToWebInternalView: View {
     }
     
     var body: some View {
+        content
+            .sheet(isPresented: $model.showMembership) {
+                MembershipCoordinator()
+            }
+    }
+    
+    var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.publishToWeb)
@@ -62,14 +69,35 @@ struct PublishToWebInternalView: View {
         }
     }
     
+    @ViewBuilder
     private var domain: some View {
+        switch model.domain {
+        case .paid(let domainUrl):
+            paidDomain(domainUrl: domainUrl)
+        case .free(let domainUrl):
+            freeDomain(domainUrl: domainUrl)
+        }
+    }
+    
+    private func paidDomain(domainUrl: String) -> some View {
         HStack {
-            switch model.domain {
-            case .paid(let domainUrl):
-                AnytypeText(domainUrl, style: .bodyRegular)
-                    .foregroundColor(.Text.primary)
-                    .lineLimit(1)
-            case .free(let domainUrl):
+            AnytypeText(domainUrl, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
+                .lineLimit(1)
+            Spacer()
+        }
+        .padding(.vertical, 16)
+        .padding(.horizontal, 12)
+        .border(10, color: .Shape.primary)
+        .background(Color.Shape.transperentTertiary)
+        .cornerRadius(10)
+    }
+    
+    private func freeDomain(domainUrl: String) -> some View {
+        Button(action: {
+            model.onFreeDomainTap()
+        }, label: {
+            HStack {
                 HStack(spacing: 8) {
                     AnytypeText(domainUrl, style: .bodyRegular)
                         .foregroundColor(.Text.primary)
@@ -87,14 +115,14 @@ struct PublishToWebInternalView: View {
                     .background(Color.Control.accent25)
                     .cornerRadius(4, style: .continuous)
                 }
+                Spacer()
             }
-            Spacer()
-        }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 12)
-        .border(10, color: .Shape.primary)
-        .background(Color.Shape.transperentTertiary)
-        .cornerRadius(10)
+            .padding(.vertical, 16)
+            .padding(.horizontal, 12)
+            .border(10, color: .Shape.primary)
+            .background(Color.Shape.transperentTertiary)
+            .cornerRadius(10)
+        })
     }
     
     private var joinSpaceButtonToggle: some View {

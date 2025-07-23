@@ -29,6 +29,8 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     @Published var error: String?
     
+    @Published var showMembership = false
+    
     let domain: DomainType
     
     @Injected(\.publishingService)
@@ -52,6 +54,10 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     func onUnpublishTap() {
         // TBD;
+    }
+    
+    func onFreeDomainTap() {
+        showMembership.toggle()
     }
     
     private func setupBindings() {
