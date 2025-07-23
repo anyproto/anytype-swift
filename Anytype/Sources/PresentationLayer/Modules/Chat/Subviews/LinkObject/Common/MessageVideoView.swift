@@ -26,13 +26,15 @@ struct MessageVideoView: View {
                             .scaledToFill()
                             .frame(width: reader.size.width, height: reader.size.height, alignment: .center)
                             .clipped()
-                        Color.black.opacity(0.2)
                         MessageMediaUploadingStatus(
                             syncStatus: syncStatus,
                             syncError: syncError
                         ) {
-                            Image(asset: .X32.video)
-                                .foregroundStyle(Color.white)
+                            MessageLoadingStateContainer {
+                                Image(asset: .Controls.play)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .background(.black.opacity(0.5))
                         }
                     }
                 } else if model.hasError {
