@@ -20,6 +20,7 @@ final class PublishToWebInternalViewModel: ObservableObject {
     @Published var customPath: String = ""
     @Published var showJoinSpaceButton: Bool = true
     @Published var canPublish: Bool = true
+    @Published var status: PublishState?
     
     @Published var error: String?
     
@@ -35,11 +36,16 @@ final class PublishToWebInternalViewModel: ObservableObject {
         spaceId = data.spaceId
         objectId = data.objectId
         domain = data.domain
+        status = data.status
         
         setupBindings()
     }
     
     func onPublishTap() {
+        // TBD;
+    }
+    
+    func onUnpublishTap() {
         // TBD;
     }
     

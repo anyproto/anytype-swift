@@ -15,29 +15,27 @@ struct PublishToWebInternalView: View {
             DragIndicator()
             TitleView(title: Loc.publishToWeb)
             
-            scrollView
+            mainContent
             
-            publishButton
+            buttons
             
             errorView
         }
         .padding(.horizontal, 16)
     }
     
-    private var scrollView: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                customUrlSection
-                
-                SectionHeaderView(title: Loc.preferences)
-                joinSpaceButtonToggle
-                
-                Spacer()
-                
-                previewSection
-                
-                Spacer.fixedHeight(12)
-            }
+    private var mainContent: some View {
+        VStack(spacing: 0) {
+            customUrlSection
+            
+            SectionHeaderView(title: Loc.preferences)
+            joinSpaceButtonToggle
+            
+            Spacer()
+            
+            previewSection
+            
+            Spacer.fixedHeight(12)
         }
     }
     
@@ -62,6 +60,7 @@ struct PublishToWebInternalView: View {
                     .foregroundColor(.Text.secondary)
                 TextField(Loc.Publishing.Url.placeholder, text: $model.customPath)
                     .textFieldStyle(PlainTextFieldStyle())
+                    .textInputAutocapitalization(.never)
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.Text.primary)
             }
@@ -109,6 +108,38 @@ struct PublishToWebInternalView: View {
                             .foregroundColor(.white.opacity(0.8))
                     }
                 )
+        }
+    }
+    
+    @ViewBuilder
+    private var buttons: some View {
+        if model.status.isNotNil {
+            controlButtons
+        } else {
+            publishButton
+        }
+    }
+    
+    private var controlButtons: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(16)
+            
+            HStack(spacing: 8) {
+                StandardButton(
+                    Loc.unpublish,
+                    style: .secondaryLarge,
+                    action: { model.onUnpublishTap() }
+                )
+                
+                StandardButton(
+                    Loc.update,
+                    style: .primaryLarge,
+                    action: { model.onPublishTap() }
+                )
+                .disabled(!model.canPublish)
+            }
+            
+            Spacer.fixedHeight(16)
         }
     }
     
