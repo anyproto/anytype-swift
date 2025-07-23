@@ -3,6 +3,16 @@
     {
       "filename" : "Miro.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "MiroDark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -3,6 +3,16 @@
     {
       "filename" : "OpenStreetMap.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "OpenStreetMapDark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

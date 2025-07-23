@@ -3,6 +3,16 @@
     {
       "filename" : "Twitter.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "TwitterDark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

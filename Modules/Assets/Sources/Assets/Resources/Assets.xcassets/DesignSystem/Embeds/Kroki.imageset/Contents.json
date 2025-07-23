@@ -3,6 +3,16 @@
     {
       "filename" : "Kroki.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "KrokiDark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

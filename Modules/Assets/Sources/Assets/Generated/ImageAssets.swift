@@ -582,6 +582,7 @@ extension ImageAsset {
     public static let reddit = ImageAsset.bundle(name: "Embeds/Reddit")
     public static let sketchfab = ImageAsset.bundle(name: "Embeds/Sketchfab")
     public static let soundcloud = ImageAsset.bundle(name: "Embeds/Soundcloud")
+    public static let spotify = ImageAsset.bundle(name: "Embeds/Spotify")
     public static let telegram = ImageAsset.bundle(name: "Embeds/Telegram")
     public static let twitter = ImageAsset.bundle(name: "Embeds/Twitter")
     public static let vimeo = ImageAsset.bundle(name: "Embeds/Vimeo")
