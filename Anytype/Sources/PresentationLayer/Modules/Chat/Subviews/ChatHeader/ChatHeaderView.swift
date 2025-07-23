@@ -43,10 +43,7 @@ struct ChatHeaderView: View {
             }
         }
         .task {
-            await model.subscribeOnSpaceView()
-        }
-        .task {
-            await model.subscribeOnChatStatus()
+            await model.startSubscriptions()
         }
         .animation(.default, value: model.showLoading)
     }

@@ -9,13 +9,20 @@ final class ChatHeaderViewModel: ObservableObject {
     
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.syncStatusStorage)
+    private var syncStatusStorage: any SyncStatusStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     
     @Published var title: String?
     @Published var icon: Icon?
     @Published var showWidgetsButton: Bool = false
-    @Published var showLoading = false
+    @Published var chatLoading = false
+    @Published var spaceLoading = false
     @Published var muted = false
+    
+    var showLoading: Bool {
+        chatLoading || spaceLoading
+    }
     
     private let spaceId: String
     private let chatId: String
@@ -29,7 +36,21 @@ final class ChatHeaderViewModel: ObservableObject {
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
-    func subscribeOnSpaceView() async {
+    func startSubscriptions() async {
+        async let spaceViewSub: () = subscribeOnSpaceView()
+        async let chatSub: () = subscribeOnChatStatus()
+        async let spaceStatusSub: () = subscribeOnSpaceStatus()
+        
+        _ = await (spaceViewSub, chatSub, spaceStatusSub)
+    }
+    
+    func tapOpenWidgets() {
+        onTapOpenWidgets()
+    }
+    
+    // MARK: - Private
+    
+    private func subscribeOnSpaceView() async {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
             title = spaceView.title
             icon = spaceView.objectIconImage
@@ -38,7 +59,7 @@ final class ChatHeaderViewModel: ObservableObject {
         }
     }
     
-    func subscribeOnChatStatus() async {
+    private func subscribeOnChatStatus() async {
         guard FeatureFlags.chatLoadingIndicator else { return }
         
         let loadingPublisher = chatObject.detailsPublisher
@@ -70,11 +91,15 @@ final class ChatHeaderViewModel: ObservableObject {
             .removeDuplicates()
         
         for await loading in stream {
-            showLoading = loading
+            chatLoading = loading
         }
     }
     
-    func tapOpenWidgets() {
-        onTapOpenWidgets()
+    private func subscribeOnSpaceStatus() async {
+        guard FeatureFlags.chatLoadingIndicator else { return }
+        
+        for await spaceStatus in syncStatusStorage.statusPublisher(spaceId: spaceId).values {
+            spaceLoading = spaceStatus.status == .error
+        }
     }
 }
