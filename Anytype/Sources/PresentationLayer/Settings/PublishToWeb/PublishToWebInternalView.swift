@@ -178,16 +178,16 @@ struct PublishToWebInternalView: View {
             Spacer.fixedHeight(16)
             
             HStack(spacing: 8) {
-                StandardButton(
+                AsyncStandardButton(
                     Loc.unpublish,
                     style: .secondaryLarge,
-                    action: { model.onUnpublishTap() }
+                    action: { try await model.onUnpublishTap() }
                 )
                 
-                StandardButton(
+                AsyncStandardButton(
                     Loc.update,
                     style: .primaryLarge,
-                    action: { model.onPublishTap() }
+                    action: { try await model.onPublishTap() }
                 )
                 .disabled(!model.canPublish)
             }
@@ -200,10 +200,10 @@ struct PublishToWebInternalView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(16)
             
-            StandardButton(
+            AsyncStandardButton(
                 Loc.publish,
                 style: .primaryLarge,
-                action: { model.onPublishTap() }
+                action: { try await model.onPublishTap() }
             )
             .disabled(!model.canPublish)
             

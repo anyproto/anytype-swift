@@ -45,15 +45,22 @@ final class PublishToWebInternalViewModel: ObservableObject {
         domain = data.domain
         status = data.status
         
+        customPath = data.status?.uri ?? ""
+        showJoinSpaceButton = data.status?.joinSpace ?? true
+        
         setupBindings()
     }
     
-    func onPublishTap() {
-        // TBD;
+    func onPublishTap() async throws {
+        try await publishingService.create(spaceId: spaceId, objectId: objectId, uri: customPath, joinSpace: showJoinSpaceButton)
+        status = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
-    func onUnpublishTap() {
-        // TBD;
+    func onUnpublishTap() async throws {
+        try await publishingService.remove(spaceId: spaceId, objectId: objectId)
+        status = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     func onFreeDomainTap() {
