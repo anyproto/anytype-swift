@@ -20,8 +20,8 @@ final class ObjectSettingsCoordinatorViewModel:
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var relationsListData: PropertiesListData?
     @Published var versionHistoryData: VersionHistoryData?
+    @Published var publishingData: PublishToWebViewData?
     @Published var dismiss = false
-    @Published var showPublishing = false
     
     init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self.objectId = objectId
@@ -62,7 +62,7 @@ final class ObjectSettingsCoordinatorViewModel:
     }
     
     func showPublising(document: some BaseDocumentProtocol) {
-        showPublishing.toggle()
+        publishingData = PublishToWebViewData(objectId: document.objectId, spaceId: document.spaceId)
     }
     
     func openPageAction(screenData: ScreenData) {

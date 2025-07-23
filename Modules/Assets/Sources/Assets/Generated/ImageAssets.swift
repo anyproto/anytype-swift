@@ -762,6 +762,7 @@ extension ImageAsset {
     public static let `open` = ImageAsset.bundle(name: "x24/Open")
     public static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
     public static let pin = ImageAsset.bundle(name: "x24/Pin")
+    public static let plusRounded = ImageAsset.bundle(name: "x24/Plus Rounded")
     public static let plus = ImageAsset.bundle(name: "x24/Plus")
     public static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
     public static let properties = ImageAsset.bundle(name: "x24/Properties")

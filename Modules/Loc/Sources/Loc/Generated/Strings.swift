@@ -1451,6 +1451,14 @@ public enum Loc {
       public static let description = Loc.tr("Localizable", "Primitives.LayoutConflict.Description", fallback: "This layout differs from the type's default. Reset to match?")
     }
   }
+  public enum Publishing {
+    public enum Error {
+      public static let noDomain = Loc.tr("Localizable", "Publishing.Error.NoDomain", fallback: "Failed to load your domain. Please try again.")
+    }
+    public enum Url {
+      public static let placeholder = Loc.tr("Localizable", "Publishing.URL.placeholder", fallback: "insert-page-name-here")
+    }
+  }
   public enum PushNotifications {
     public enum DisabledAlert {
       public static let description = Loc.tr("Localizable", "PushNotifications.DisabledAlert.description", fallback: "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on.")
