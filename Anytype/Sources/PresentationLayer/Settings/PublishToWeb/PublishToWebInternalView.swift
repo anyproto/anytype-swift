@@ -43,17 +43,7 @@ struct PublishToWebInternalView: View {
         VStack(spacing: 12) {
             SectionHeaderView(title: Loc.customizeURL)
             
-            HStack {
-                AnytypeText(model.domain, style: .bodyRegular)
-                    .foregroundColor(.Text.primary)
-                    .lineLimit(1)
-                Spacer()
-            }
-            .padding(.vertical, 16)
-            .padding(.horizontal, 12)
-            .border(10, color: .Shape.primary)
-            .background(Color.Shape.transperentTertiary)
-            .cornerRadius(10)
+            domain
             
             HStack {
                 AnytypeText("/", style: .bodyRegular)
@@ -70,6 +60,41 @@ struct PublishToWebInternalView: View {
             .background(Color.Background.primary)
             .cornerRadius(10)
         }
+    }
+    
+    private var domain: some View {
+        HStack {
+            switch model.domain {
+            case .paid(let domainUrl):
+                AnytypeText(domainUrl, style: .bodyRegular)
+                    .foregroundColor(.Text.primary)
+                    .lineLimit(1)
+            case .free(let domainUrl):
+                HStack(spacing: 8) {
+                    AnytypeText(domainUrl, style: .bodyRegular)
+                        .foregroundColor(.Text.primary)
+                        .lineLimit(1)
+                    
+                    HStack(spacing: 4) {
+                        AnytypeText("Pro", style: .relation1Regular)
+                            .foregroundColor(.Control.accent125)
+                        Image(systemName: "line.diagonal.arrow")
+                            .resizable()
+                            .frame(width: 8, height: 8)
+                            .foregroundStyle(Color.Control.accent125)
+                    }
+                    .padding(.horizontal, 6)
+                    .background(Color.Control.accent25)
+                    .cornerRadius(4, style: .continuous)
+                }
+            }
+            Spacer()
+        }
+        .padding(.vertical, 16)
+        .padding(.horizontal, 12)
+        .border(10, color: .Shape.primary)
+        .background(Color.Shape.transperentTertiary)
+        .cornerRadius(10)
     }
     
     private var joinSpaceButtonToggle: some View {
@@ -168,5 +193,7 @@ struct PublishToWebInternalView: View {
 }
 
 #Preview {
-    PublishToWebInternalView(data: PublishToWebViewInternalData(objectId: "", spaceId: "", domain: "vo.va", status: nil))
+    PublishToWebInternalView(data: PublishToWebViewInternalData(
+        objectId: "", spaceId: "", domain: .paid("vo.va"), status: nil
+    ))
 }

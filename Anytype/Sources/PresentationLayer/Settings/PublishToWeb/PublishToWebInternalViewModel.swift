@@ -5,13 +5,18 @@ import Services
 import AnytypeCore
 import ProtobufMessages
 
+enum DomainType: Equatable, Hashable {
+    case paid(String)
+    case free(String)
+}
+
 struct PublishToWebViewInternalData: Identifiable, Hashable {
     let objectId: String
     let spaceId: String
-    let domain: String
+    let domain: DomainType
     let status: PublishState?
     
-    var id: Int { hashValue }
+    var id: String { objectId + spaceId }
 }
 
 @MainActor
@@ -24,7 +29,7 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     @Published var error: String?
     
-    let domain: String
+    let domain: DomainType
     
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
