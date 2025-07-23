@@ -36,13 +36,12 @@ final class PublishToWebViewModel: ObservableObject {
         objectId = data.objectId
         
         let participantStorage = Container.shared.accountParticipantsStorage()
-        let identity = participantStorage.participants.first?.identity
-        if let identity {
-            domain = "\(identity).any.org" // TODO: or any.coop
+        if let participant = participantStorage.participants.first {
+            domain = participant.publishingDomain
         } else {
-            anytypeAssertionFailure("No participants for account")
+            anytypeAssertionFailure("No participants found for account")
             domain = ""
-            state = .error("Failed to load your domain. Please try again.")
+            state = .error(Loc.Publishing.Error.noDomain)
         }
         
         setupBindings()
