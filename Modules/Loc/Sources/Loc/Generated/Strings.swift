@@ -1455,6 +1455,9 @@ public enum Loc {
     public enum Error {
       public static let noDomain = Loc.tr("Localizable", "Publishing.Error.NoDomain", fallback: "Failed to load your domain. Please try again.")
     }
+    public enum Url {
+      public static let placeholder = Loc.tr("Localizable", "Publishing.URL.placeholder", fallback: "insert-page-name-here")
+    }
   }
   public enum PushNotifications {
     public enum DisabledAlert {

@@ -48,13 +48,12 @@ final class PublishToWebViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        let status = try? await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
-        
-        print(status)
+//        let status = try? await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
+        // TBD;
     }
     
     func onPublishTap() {
-        
+        // TBD;
     }
     
     private func setupBindings() {

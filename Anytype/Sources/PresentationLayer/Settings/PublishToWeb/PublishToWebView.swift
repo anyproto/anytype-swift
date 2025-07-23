@@ -59,6 +59,7 @@ struct PublishToWebView: View {
             HStack {
                 AnytypeText(model.domain, style: .bodyRegular)
                     .foregroundColor(.Text.secondary)
+                    .lineLimit(1)
                 Spacer()
             }
             .padding(.vertical, 16)
@@ -70,7 +71,7 @@ struct PublishToWebView: View {
             HStack {
                 AnytypeText("/", style: .bodyRegular)
                     .foregroundColor(.Text.secondary)
-                TextField("", text: $model.customPath)
+                TextField(Loc.Publishing.Url.placeholder, text: $model.customPath)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.Text.primary)
