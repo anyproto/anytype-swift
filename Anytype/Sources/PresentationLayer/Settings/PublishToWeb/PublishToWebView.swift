@@ -86,11 +86,9 @@ struct PublishToWebView: View {
     private var joinSpaceButtonToggle: some View {
         HStack {
             HStack(spacing: 12) {
-                Image(systemName: "plus.circle.fill")
-                    .resizable()
+                Image(asset: .X24.plusRounded)
                     .frame(width: 24, height: 24)
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(Color.Background.primary, Color.Control.secondary)
+                    .foregroundStyle( Color.Control.secondary)
                 
                 AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
                     .foregroundColor(.Text.primary)
