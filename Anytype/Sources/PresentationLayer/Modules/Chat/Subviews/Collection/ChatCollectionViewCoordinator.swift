@@ -239,6 +239,7 @@ final class ChatCollectionViewCoordinator<
         guard let handleBigDistanceToTheBottom else { return }
         
         let value = (collectionView.bottomOffset.y - collectionView.contentOffset.y) > bigDistanceFromTheBottomThreshold
+            && (collectionView.contentSize.height - collectionView.visibleHeight) > bigDistanceFromTheBottomThreshold
         guard oldIsBigDistance != value else { return }
         
         oldIsBigDistance = value
