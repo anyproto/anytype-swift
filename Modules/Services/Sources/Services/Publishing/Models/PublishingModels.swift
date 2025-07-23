@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 
 
-public struct PublishState: Sendable {
+public struct PublishState: Sendable, Equatable, Hashable {
     public let spaceId: String
     public let objectId: String
     public let uri: String

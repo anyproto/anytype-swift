@@ -7,7 +7,7 @@ public protocol PublishingServiceProtocol: Sendable {
     func remove(spaceId: String, objectId: String) async throws
     func list(spaceId: String) async throws -> [PublishState]
     func resolveUri(uri: String) async throws -> PublishState
-    func getStatus(spaceId: String, objectId: String) async throws -> PublishState
+    func getStatus(spaceId: String, objectId: String) async throws -> PublishState?
 }
 
 public final class PublishingService: PublishingServiceProtocol {
@@ -48,12 +48,17 @@ public final class PublishingService: PublishingServiceProtocol {
         return PublishState(from: response.publish)
     }
     
-    public func getStatus(spaceId: String, objectId: String) async throws -> PublishState {
-        let response = try await ClientCommands.publishingGetStatus(.with {
-            $0.spaceID = spaceId
-            $0.objectID = objectId
-        }).invoke(ignoreLogErrors: .badInput, .noSuchObject, .noSuchSpace)
-        
-        return PublishState(from: response.publish)
+    public func getStatus(spaceId: String, objectId: String) async throws -> PublishState? {
+        do {
+            let response = try await ClientCommands.publishingGetStatus(.with {
+                $0.spaceID = spaceId
+                $0.objectID = objectId
+            }).invoke(ignoreLogErrors: .badInput, .noSuchObject, .noSuchSpace, .null)
+            
+            return PublishState(from: response.publish)
+        } catch let error as Anytype_Rpc.Publishing.GetStatus.Response.Error {
+            if error.code == .null { return nil }
+            else { throw error }
+        }
     }
 }
