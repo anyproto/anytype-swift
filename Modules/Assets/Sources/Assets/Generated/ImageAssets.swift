@@ -550,6 +550,9 @@ extension ImageAsset {
       public static let inactive = ImageAsset.bundle(name: "Chat/SendMessage/inactive")
     }
   }
+  public enum Controls {
+    public static let play = ImageAsset.bundle(name: "Controls/Play")
+  }
   public enum Dialog {
     public static let coffee = ImageAsset.bundle(name: "Dialog/coffee")
     public static let duck = ImageAsset.bundle(name: "Dialog/duck")
