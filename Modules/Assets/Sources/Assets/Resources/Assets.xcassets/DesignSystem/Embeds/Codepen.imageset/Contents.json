@@ -3,6 +3,16 @@
     {
       "filename" : "Codepen.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "CodepenDark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -3,6 +3,16 @@
     {
       "filename" : "Graphviz.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GraphvizDark.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
