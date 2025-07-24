@@ -3,6 +3,7 @@ import Foundation
 import AnytypeCore
 
 public protocol PublishingServiceProtocol: Sendable {
+    @discardableResult
     func create(spaceId: String, objectId: String, uri: String, joinSpace: Bool) async throws -> String
     func remove(spaceId: String, objectId: String) async throws
     func list(spaceId: String) async throws -> [PublishState]
