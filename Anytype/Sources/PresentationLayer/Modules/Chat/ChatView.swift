@@ -90,6 +90,7 @@ struct ChatView: View {
                 hasAdditionalData: model.linkedObjects.isNotEmpty,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
                 disableAddButton: model.sendMessageTaskInProgress,
+                sendButtonIsLoading: model.sendMessageTaskInProgress,
                 createObjectTypes: model.typesForCreateObject,
                 conversationType: model.conversationType,
                 onTapAddPage: {
