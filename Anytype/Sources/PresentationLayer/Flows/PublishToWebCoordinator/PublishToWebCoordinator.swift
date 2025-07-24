@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct PublishToWebCoordinatorView: View {
+struct PublishToWebCoordinator: View {
     
-    @StateObject private var model: PublishToWebCoordinatorViewModel
+    @StateObject private var model: PublishToWebCoordinatorModel
     
     init(data: PublishToWebViewData) {
-        _model = StateObject(wrappedValue: PublishToWebCoordinatorViewModel(data: data))
+        _model = StateObject(wrappedValue: PublishToWebCoordinatorModel(data: data))
     }
     
     var body: some View {

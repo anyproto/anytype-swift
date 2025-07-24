@@ -7,7 +7,7 @@ protocol PublishToWebModuleOutput: AnyObject {
 }
 
 @MainActor
-final class PublishToWebCoordinatorViewModel: ObservableObject, PublishToWebModuleOutput {
+final class PublishToWebCoordinatorModel: ObservableObject, PublishToWebModuleOutput {
     
     @Published var showMembership = false
     
