@@ -28,7 +28,7 @@ struct ObjectSettingsCoordinatorView: View {
                 VersionHistoryCoordinatorView(data: $0, output: model)
             }
             .sheet(item: $model.publishingData) {
-                PublishToWebView(data: $0)
+                PublishToWebCoordinatorView(data: $0)
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
