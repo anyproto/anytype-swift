@@ -1456,6 +1456,7 @@ public enum Loc {
   public enum Publishing {
     public enum Error {
       public static let noDomain = Loc.tr("Localizable", "Publishing.Error.NoDomain", fallback: "Failed to load your domain. Please try again.")
+      public static let noObjectData = Loc.tr("Localizable", "Publishing.Error.NoObjectData", fallback: "Failed to load object data. Please try again.")
     }
     public enum Url {
       public static let placeholder = Loc.tr("Localizable", "Publishing.URL.placeholder", fallback: "insert-page-name-here")
