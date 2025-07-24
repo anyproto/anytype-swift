@@ -73,6 +73,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var replyToMessage: ChatInputReplyModel?
     @Published var editMessage: ChatMessage?
     @Published var sendMessageTaskInProgress: Bool = false
+    @Published var sendButtonIsLoading: Bool = false
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
     @Published var typesForCreateObject: [ObjectType] = []
@@ -227,6 +228,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func sendMessageTask() async throws {
         guard sendMessageTaskInProgress else { return }
+        let loadingTask = Task {
+            try await Task.sleep(seconds: 0.3)
+            try Task.checkCancellation()
+            sendButtonIsLoading = true
+        }
         mentionSearchState = .finish
         if let editMessage {
             try await chatActionService.updateMessage(
@@ -255,6 +261,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             keyboardDismiss?()
             showSendLimitAlert = true
         }
+        loadingTask.cancel()
+        sendButtonIsLoading = false
         sendMessageTaskInProgress = false
     }
     

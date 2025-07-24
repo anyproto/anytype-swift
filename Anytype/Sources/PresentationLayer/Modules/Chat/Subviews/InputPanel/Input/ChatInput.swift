@@ -108,7 +108,7 @@ struct ChatInput: View {
                 CircleLoadingView()
                     .frame(width: 32, height: 32)
             } else {
-                EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
+                Image(asset: .Chat.SendMessage.active)
             }
         }
         .buttonStyle(StandardPlainButtonStyle())
