@@ -1,11 +1,11 @@
 import Services
 
 extension Participant {
-    var publishingDomain: String {
+    var publishingDomain: DomainType {
         if globalName.isNotEmpty {
-            "\(globalName).any.coop"
+            .paid("\(globalName).any.coop")
         } else {
-            "any.coop/\(identity)"
+            .free("any.coop/\(identity)")
         }
     }
 }
