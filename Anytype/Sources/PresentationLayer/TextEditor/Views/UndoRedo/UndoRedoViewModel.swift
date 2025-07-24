@@ -18,7 +18,7 @@ final class UndoRedoViewModel: ObservableObject {
         self.objectId = objectId
     }
 
-    func undo() async throws {
+    func undo() async throws {//
         AnytypeAnalytics.instance().logUndo()
         do {
             try await objectActionsService.undo(objectId: objectId)
@@ -27,7 +27,7 @@ final class UndoRedoViewModel: ObservableObject {
         }
     }
 
-    func redo() async throws {
+    func redo() async throws {//
         do {
             AnytypeAnalytics.instance().logRedo()
             try await objectActionsService.redo(objectId: objectId)

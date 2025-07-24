@@ -36,6 +36,7 @@ protocol AccessoryViewOutput: AnyObject {
     
     func didSelectEditButton()
     func didSelectShowStyleMenu()
+    func didSelectUndoRedo()
 }
 
 @MainActor
@@ -433,6 +434,8 @@ extension AccessoryViewStateManagerImpl {
             configuration?.output?.accessoryState = .search
         case .editingMode:
             configuration?.output?.didSelectEditButton()
+        case .undoRedo:
+            configuration?.output?.didSelectUndoRedo()
         }
     }
     
@@ -459,6 +462,8 @@ extension AccessoryViewStateManagerImpl {
             AnytypeAnalytics.instance().logKeyboardBarMentionMenu()
         case .editingMode:
             AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
+        case .undoRedo:
+            break
         }
     }
 }

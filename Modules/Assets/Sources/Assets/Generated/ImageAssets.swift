@@ -896,6 +896,7 @@ extension ImageAsset {
       public static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
     }
     public static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
+    public static let undoRedoCompact = ImageAsset.bundle(name: "x32/UndoRedoCompact")
     public static let video = ImageAsset.bundle(name: "x32/Video")
     public enum View {
       public static let hide = ImageAsset.bundle(name: "x32/View/Hide")

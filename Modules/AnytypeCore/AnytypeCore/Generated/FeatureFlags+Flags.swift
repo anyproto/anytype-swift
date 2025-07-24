@@ -146,6 +146,10 @@ public extension FeatureFlags {
         value(for: .webPublishing)
     }
 
+    static var keyboardMenuUndoRedo: Bool {
+        value(for: .keyboardMenuUndoRedo)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -247,6 +251,7 @@ public extension FeatureFlags {
         .swipeToReply,
         .supportSimpleEmbedBlocks,
         .webPublishing,
+        .keyboardMenuUndoRedo,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

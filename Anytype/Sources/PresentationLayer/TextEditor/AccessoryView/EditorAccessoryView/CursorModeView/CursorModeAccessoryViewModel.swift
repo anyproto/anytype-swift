@@ -14,6 +14,8 @@ enum CursorModeAccessoryViewAction {
     case mention
     /// Enter editing mode
     case editingMode
+    /// Show undo / redo mode
+    case undoRedo
 }
 
 
@@ -23,7 +25,7 @@ final class CursorModeAccessoryViewModel {
     var onActionHandler: ((CursorModeAccessoryViewAction) -> Void)?
     
     func update(with configuration: TextViewAccessoryConfiguration) {
-        let actions: [CursorModeAccessoryView.Item]
+        var actions: [CursorModeAccessoryView.Item]
         if configuration.contentType == .text(.title) || configuration.contentType == .text(.description) {
             actions = [.style]
         } else {
@@ -33,6 +35,11 @@ final class CursorModeAccessoryViewModel {
             case .simpleTable:
                 actions = [.style, .actions, .mention]
             }
+        }
+        
+        if FeatureFlags.keyboardMenuUndoRedo {
+            actions = actions.filter { $0 != .mention }
+            actions.append(.undoRedo)
         }
         
         self.items = actions

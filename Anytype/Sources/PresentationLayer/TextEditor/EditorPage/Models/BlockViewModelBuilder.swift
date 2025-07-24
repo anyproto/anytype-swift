@@ -33,6 +33,8 @@ final class BlockViewModelBuilder {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardBlockDocumentService)
     private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     
     init(
@@ -197,6 +199,9 @@ final class BlockViewModelBuilder {
                             self?.editorPageBlocksStateManager.didSelectEditingState(info: blockInformation)
                         }
                         
+                    },
+                    onSelectUndoRedo: { [weak self] in
+                        self?.output?.didUndoRedo()
                     },
                     showTextIconPicker: { [weak router, weak document] in
                         guard let router, let document else { return }
