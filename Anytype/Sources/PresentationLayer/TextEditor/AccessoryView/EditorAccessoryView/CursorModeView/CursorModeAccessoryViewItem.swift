@@ -19,7 +19,7 @@ extension CursorModeAccessoryView {
             case .actions:
                 return UIImage(asset: .X32.actions)
             case .undoRedo:
-                return UIImage(asset: .X32.undoRedoCompact)
+                return UIImage(asset: .X32.undoRedo)
             }
         }
 
