@@ -29,9 +29,9 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     @Published var error: String?
     
-    @Published var showMembership = false
-    
     let domain: DomainType
+    
+    private weak var output: (any PublishToWebModuleOutput)?
     
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
@@ -39,11 +39,12 @@ final class PublishToWebInternalViewModel: ObservableObject {
     private let spaceId: String
     private let objectId: String
     
-    init(data: PublishToWebViewInternalData) {
+    init(data: PublishToWebViewInternalData, output: (any PublishToWebModuleOutput)?) {
         spaceId = data.spaceId
         objectId = data.objectId
         domain = data.domain
         status = data.status
+        self.output = output
         
         customPath = data.status?.uri ?? ""
         showJoinSpaceButton = data.status?.joinSpace ?? true
@@ -64,7 +65,7 @@ final class PublishToWebInternalViewModel: ObservableObject {
     }
     
     func onFreeDomainTap() {
-        showMembership.toggle()
+        output?.onShowMembership()
     }
     
     private func setupBindings() {

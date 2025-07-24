@@ -12,10 +12,11 @@ struct PublishToWebViewData: Identifiable, Hashable {
 struct PublishToWebView: View {
     
     @StateObject private var model: PublishToWebViewModel
-
+    private weak var output: (any PublishToWebModuleOutput)?
     
-    init(data: PublishToWebViewData) {
+    init(data: PublishToWebViewData, output: (any PublishToWebModuleOutput)?) {
         _model = StateObject(wrappedValue: PublishToWebViewModel(data: data))
+        self.output = output
     }
     
     var body: some View {
@@ -26,7 +27,7 @@ struct PublishToWebView: View {
             case .error(let error):
                 ErrorStateView(message: error)
             case .loaded(let data):
-                PublishToWebInternalView(data: data)
+                PublishToWebInternalView(data: data, output: output)
             }
         }
         .task { await model.onAppear() }
@@ -35,5 +36,5 @@ struct PublishToWebView: View {
 }
 
 #Preview {
-    PublishToWebView(data: PublishToWebViewData(objectId: "", spaceId: ""))
+    PublishToWebView(data: PublishToWebViewData(objectId: "", spaceId: ""), output: nil)
 }

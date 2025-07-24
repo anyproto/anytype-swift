@@ -6,15 +6,12 @@ struct PublishToWebInternalView: View {
     
     @StateObject private var model: PublishToWebInternalViewModel
     
-    init(data: PublishToWebViewInternalData) {
-        _model = StateObject(wrappedValue: PublishToWebInternalViewModel(data: data))
+    init(data: PublishToWebViewInternalData, output: (any PublishToWebModuleOutput)?) {
+        _model = StateObject(wrappedValue: PublishToWebInternalViewModel(data: data, output: output))
     }
     
     var body: some View {
         content
-            .sheet(isPresented: $model.showMembership) {
-                MembershipCoordinator()
-            }
     }
     
     var content: some View {
@@ -223,5 +220,5 @@ struct PublishToWebInternalView: View {
 #Preview {
     PublishToWebInternalView(data: PublishToWebViewInternalData(
         objectId: "", spaceId: "", domain: .paid("vo.va"), status: nil
-    ))
+    ), output: nil)
 }
