@@ -6,6 +6,7 @@ extension CursorModeAccessoryView {
         case style
         case actions
         case mention
+        case undoRedo
         
         var image: UIImage? {
             switch self {
@@ -17,6 +18,8 @@ extension CursorModeAccessoryView {
                 return UIImage(asset: .X32.style)
             case .actions:
                 return UIImage(asset: .X32.actions)
+            case .undoRedo:
+                return UIImage(asset: .X32.undoRedo)
             }
         }
 
@@ -30,6 +33,8 @@ extension CursorModeAccessoryView {
                 return .showStyleMenu
             case .actions:
                 return .editingMode
+            case .undoRedo:
+                return .undoRedo
             }
         }
     }

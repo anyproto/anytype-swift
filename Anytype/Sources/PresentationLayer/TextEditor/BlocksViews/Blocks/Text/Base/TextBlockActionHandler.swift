@@ -18,6 +18,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
+    private let onSelectUndoRedo: () -> Void
     let showTextIconPicker: () -> Void
     let resetSubject = PassthroughSubject<NSAttributedString?, Never>()
     let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -55,6 +56,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         openURL: @escaping (URL) -> Void,
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,
+        onSelectUndoRedo: @escaping () -> Void,
         showTextIconPicker: @escaping () -> Void,
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
@@ -77,6 +79,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.openURL = openURL
         self.onShowStyleMenu = onShowStyleMenu
         self.onEnterSelectionMode = onEnterSelectionMode
+        self.onSelectUndoRedo = onSelectUndoRedo
         self.showTextIconPicker = showTextIconPicker
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
@@ -545,6 +548,10 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     
     func didSelectShowStyleMenu() {
         onShowStyleMenu(info)
+    }
+    
+    func didSelectUndoRedo() {
+        onSelectUndoRedo()
     }
     
     private func setNewTextSync(attributedString: NSAttributedString) {

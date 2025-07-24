@@ -135,6 +135,9 @@ final class SimpleTableCellsBuilder {
                     stateManager?.didSelectEditingState(info: info)
                 }
             },
+            onSelectUndoRedo: { [weak self] in
+                self?.moduleOutput?.didUndoRedo()
+            },
             showTextIconPicker: { [weak router, weak document] in
                 guard let router, let document else { return }
                 router.showTextIconPicker(
