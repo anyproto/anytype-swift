@@ -19,6 +19,10 @@ final class PublishToWebViewModel: ObservableObject {
     private var publishingService: any PublishingServiceProtocol
     @Injected(\.accountParticipantsStorage)
     private var participantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.workspaceStorage)
+    private var activeWorkspaceStorage: any WorkspacesStorageProtocol
     
     private let spaceId: String
     private let objectId: String
@@ -35,6 +39,15 @@ final class PublishToWebViewModel: ObservableObject {
             return
         }
         
+        let document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
+        guard let objectDetails = document.details else {
+            anytypeAssertionFailure("No details found object")
+            state = .error(Loc.Publishing.Error.noObjectData)
+            return
+        }
+        
+        let spaceName = activeWorkspaceStorage.spaceView(spaceId: spaceId)?.title ?? ""
+        
         do {
             let status: PublishState?
             if let newStatus = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId) {
@@ -47,7 +60,9 @@ final class PublishToWebViewModel: ObservableObject {
                 objectId: objectId,
                 spaceId: spaceId,
                 domain: domain,
-                status: status
+                status: status,
+                objectDetails: objectDetails,
+                spaceName: spaceName
             ))
         } catch {
             state = .error(error.localizedDescription)

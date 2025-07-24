@@ -1,23 +1,9 @@
 import Foundation
-import Combine
 import SwiftUI
 import Services
 import AnytypeCore
 import ProtobufMessages
 
-enum DomainType: Equatable, Hashable {
-    case paid(String)
-    case free(String)
-}
-
-struct PublishToWebViewInternalData: Identifiable, Hashable {
-    let objectId: String
-    let spaceId: String
-    let domain: DomainType
-    let status: PublishState?
-    
-    var id: String { objectId + spaceId }
-}
 
 @MainActor
 final class PublishToWebInternalViewModel: ObservableObject {
@@ -28,6 +14,7 @@ final class PublishToWebInternalViewModel: ObservableObject {
     @Published var status: PublishState?
     
     @Published var error: String?
+    @Published var previewData: PublishingPreviewData = .empty
     
     let domain: DomainType
     
@@ -35,6 +22,8 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
+    @Injected(\.publishingPreviewBuilder)
+    private var previewBuilder: any PublishingPreviewBuilderProtocol
     
     private let spaceId: String
     private let objectId: String
@@ -48,6 +37,12 @@ final class PublishToWebInternalViewModel: ObservableObject {
         
         customPath = data.status?.uri ?? ""
         showJoinSpaceButton = data.status?.joinSpace ?? true
+        
+        previewData = previewBuilder.buildPreviewData(
+            from: data.objectDetails,
+            spaceName: data.spaceName,
+            showJoinButton: showJoinSpaceButton
+        )
         
         setupBindings()
     }
@@ -66,6 +61,13 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     func onFreeDomainTap() {
         output?.onShowMembership()
+    }
+    
+    func updatePreviewForJoinButton(_ showJoin: Bool) {
+        previewData = previewBuilder.buildPreviewData(
+            from: previewData,
+            showJoinButton: showJoin
+        )
     }
     
     private func setupBindings() {

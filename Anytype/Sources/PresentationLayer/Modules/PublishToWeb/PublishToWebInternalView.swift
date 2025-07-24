@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Services
 
 
 struct PublishToWebInternalView: View {
@@ -12,6 +13,9 @@ struct PublishToWebInternalView: View {
     
     var body: some View {
         content
+            .onChange(of: model.showJoinSpaceButton) { showJoin in
+                model.updatePreviewForJoinButton(showJoin)
+            }
     }
     
     var content: some View {
@@ -37,7 +41,8 @@ struct PublishToWebInternalView: View {
             
             Spacer()
             
-            previewSection
+            PublishingPreview(data: model.previewData)
+                .frame(maxWidth: .infinity)
             
             Spacer.fixedHeight(12)
         }
@@ -144,23 +149,6 @@ struct PublishToWebInternalView: View {
         .padding(.vertical, 16)
     }
     
-    private var previewSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.orange)
-                .frame(height: 200)
-                .overlay(
-                    VStack(spacing: 8) {
-                        AnytypeText("Preview Placeholder", style: .uxTitle2Medium)
-                            .foregroundColor(.white)
-                        AnytypeText("Your published page will appear here", style: .uxCalloutRegular)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                )
-        }
-    }
-    
     @ViewBuilder
     private var buttons: some View {
         if model.status.isNotNil {
@@ -219,6 +207,11 @@ struct PublishToWebInternalView: View {
 
 #Preview {
     PublishToWebInternalView(data: PublishToWebViewInternalData(
-        objectId: "", spaceId: "", domain: .paid("vo.va"), status: nil
+        objectId: "",
+        spaceId: "",
+        domain: .paid("vo.va"),
+        status: nil,
+        objectDetails: ObjectDetails(id: ""),
+        spaceName: "My Space"
     ), output: nil)
 }

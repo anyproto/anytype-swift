@@ -1,13 +1,6 @@
 import SwiftUI
 import AnytypeCore
 
-struct PublishToWebViewData: Identifiable, Hashable {
-    let objectId: String
-    let spaceId: String
-    
-    var id: Int { hashValue }
-}
-
 
 struct PublishToWebView: View {
     

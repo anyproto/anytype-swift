@@ -296,3 +296,8 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Check existing keys before adding new localization
 - Feature flags for all new features
 - Import `Loc` for localization, `AnytypeCore` for feature flags
+
+### ⚠️ Common Mistakes to Avoid
+
+#### File Operations & Architecture
+**Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually, keep UI in PresentationLayer.
