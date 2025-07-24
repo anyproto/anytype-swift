@@ -18,7 +18,6 @@ protocol PublishingPreviewBuilderProtocol {
 struct PublishingPreviewData {
     let spaceName: String
     let title: String
-    let description: String?
     let cover: DocumentCover?
     let icon: ObjectIcon?
     let showJoinButton: Bool
@@ -27,7 +26,6 @@ struct PublishingPreviewData {
         PublishingPreviewData(
             spaceName: "",
             title: "",
-            description: nil,
             cover: nil,
             icon: nil,
             showJoinButton: false
@@ -44,13 +42,11 @@ struct PublishingPreviewBuilder: PublishingPreviewBuilderProtocol {
     ) -> PublishingPreviewData {
         
         let title = details.title
-        let description = details.snippet
         let icon = details.objectIcon
         
         return PublishingPreviewData(
             spaceName: spaceName,
             title: title.isEmpty ? Loc.untitled : title,
-            description: description.isEmpty ? nil : description,
             cover: details.documentCover,
             icon: icon,
             showJoinButton: showJoinButton
@@ -64,7 +60,6 @@ struct PublishingPreviewBuilder: PublishingPreviewBuilderProtocol {
         return PublishingPreviewData(
             spaceName: existing.spaceName,
             title: existing.title,
-            description: existing.description,
             cover: existing.cover,
             icon: existing.icon,
             showJoinButton: showJoinButton
