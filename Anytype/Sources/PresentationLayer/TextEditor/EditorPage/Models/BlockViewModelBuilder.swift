@@ -32,10 +32,7 @@ final class BlockViewModelBuilder {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
-    
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol    
     
     init(
         document: some BaseDocumentProtocol,
