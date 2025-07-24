@@ -51,7 +51,11 @@ struct PublishingPreview: View {
     
     private var previewContent: some View {
         VStack(spacing: 0) {
-            spaceHeader
+            if data.showJoinButton {
+                spaceHeader
+            } else {
+                Spacer.fixedHeight(8)
+            }
             
             if data.cover != nil || data.icon != nil {
                 coverSection
@@ -61,6 +65,7 @@ struct PublishingPreview: View {
             
             Spacer()
         }
+        .animation(.default, value: data.showJoinButton)
     }
     
     private var spaceHeader: some View {
@@ -71,14 +76,11 @@ struct PublishingPreview: View {
             
             Spacer()
             
-            if data.showJoinButton {
-                joinButton
-            }
+            joinButton
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 7)
         .frame(height: 28)
-        .animation(.default, value: data.showJoinButton)
     }
     
     private var joinButton: some View {
@@ -97,6 +99,7 @@ struct PublishingPreview: View {
         ZStack(alignment: .bottomLeading) {
             coverBackground
             iconOverlay
+                .offset(y: data.cover.isNotNil ? max(8, screenSize.width * 0.01) : 0)
         }
         .padding(.horizontal, 8)
     }
@@ -118,7 +121,7 @@ struct PublishingPreview: View {
                         height: min(40, screenSize.width * 0.1)
                     )
             }
-            .padding([.leading, .bottom], 8)
+            .padding(.leading, 24)
         }
     }
     
