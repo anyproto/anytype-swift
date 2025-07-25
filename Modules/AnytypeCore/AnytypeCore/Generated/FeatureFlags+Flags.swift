@@ -150,6 +150,10 @@ public extension FeatureFlags {
         value(for: .keyboardMenuUndoRedo)
     }
 
+    static var newSharingExtension: Bool {
+        value(for: .newSharingExtension)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -252,6 +256,7 @@ public extension FeatureFlags {
         .supportSimpleEmbedBlocks,
         .webPublishing,
         .keyboardMenuUndoRedo,
+        .newSharingExtension,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
