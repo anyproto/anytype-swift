@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct ShareSelectionRow: View {
+struct ShareLegacySelectionRow: View {
     
     let text: String
     let selected: Bool

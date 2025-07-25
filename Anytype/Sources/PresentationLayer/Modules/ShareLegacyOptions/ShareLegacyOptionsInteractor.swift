@@ -4,11 +4,11 @@ import SharedContentManager
 import AnytypeCore
 
 
-protocol ShareOptionsInteractorProtocol: AnyObject, Sendable {
-    func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws
+protocol ShareLegacyOptionsInteractorProtocol: AnyObject, Sendable {
+    func saveContent(saveOptions: SharedLegacySaveOptions, content: SharedContent) async throws
 }
 
-final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
+final class ShareLegacyOptionsInteractor: ShareLegacyOptionsInteractorProtocol {
     
     private let blockService: any BlockServiceProtocol = Container.shared.blockService()
     private let bookmarkService: any BookmarkServiceProtocol = Container.shared.bookmarkService()
@@ -17,7 +17,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private let pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol = Container.shared.pasteboardMiddleService()
     private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     
-    func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
+    func saveContent(saveOptions: SharedLegacySaveOptions, content: SharedContent) async throws {
         switch saveOptions {
         case .container(let spaceId, let linkToObject):
             try await saveNewContainer(spaceId: spaceId, linkToObject: linkToObject, content: content)

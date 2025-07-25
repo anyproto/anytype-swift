@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// Delete with FeatureFlags.newSharingExtension
 @available(*, deprecated, message: "Use SearchView directly")
 struct ObjectSearchView: View {
     

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// Delete with FeatureFlags.newSharingExtension
 struct SpaceSearchView: View {
     
     @StateObject private var model: SpaceSearchViewModel

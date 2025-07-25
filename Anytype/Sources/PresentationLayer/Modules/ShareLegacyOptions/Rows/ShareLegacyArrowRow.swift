@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct ShareArrowRow: View {
+struct ShareLegacyArrowRow: View {
     
     let title: String
     let description: String?

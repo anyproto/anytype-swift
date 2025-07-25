@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct ShareDebugRowView: View {
+struct ShareLegacyDebugRowView: View {
     
     let index: Int
     let mimeTypes: [String]

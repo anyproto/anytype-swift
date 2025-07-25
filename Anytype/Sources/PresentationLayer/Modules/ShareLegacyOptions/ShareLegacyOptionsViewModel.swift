@@ -4,24 +4,24 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class ShareOptionsViewModel: ObservableObject {
+final class ShareLegacyOptionsViewModel: ObservableObject {
     
     @Injected(\.sharedContentManager)
     private var contentManager: any SharedContentManagerProtocol
-    @Injected(\.shareOptionsInteractor)
-    private var interactor: any ShareOptionsInteractorProtocol
+    @Injected(\.shareLegacyOptionsInteractor)
+    private var interactor: any ShareLegacyOptionsInteractorProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     
     private let spaceId: String
-    private weak var output: (any ShareOptionsModuleOutput)?
+    private weak var output: (any ShareLegacyOptionsModuleOutput)?
     
     // First Group
-    @Published var availableOptions: [ShareSaveAsType] = []
+    @Published var availableOptions: [ShareLegacySaveAsType] = []
     @Published var newContainerTitle: String = ""
     @Published var newObjectTitle: String = ""
     @Published var newBlockTitle: String = ""
-    @Published var saveAsType: ShareSaveAsType = .object
+    @Published var saveAsType: ShareLegacySaveAsType = .object
     // Second Group
     @Published var spaceName: String = ""
     @Published var linkTitle: String = ""
@@ -33,14 +33,14 @@ final class ShareOptionsViewModel: ObservableObject {
     // Debug
     @Published var debugInfo: SharedContentDebugInfo? = nil
     
-    private var saveOptions: SharedSaveOptions?
-    private var counter = ShareContentCounter(textCount: 0, bookmarksCount: 0, filesCount: 0)
+    private var saveOptions: SharedLegacySaveOptions?
+    private var counter = ShareLegacyContentCounter(textCount: 0, bookmarksCount: 0, filesCount: 0)
     private var spaceDetails: SpaceView?
     private var linkObjectDetails: ObjectDetails?
     
     init(
         spaceId: String,
-        output: (any ShareOptionsModuleOutput)?
+        output: (any ShareLegacyOptionsModuleOutput)?
     ) {
         self.spaceId = spaceId
         self.output = output
