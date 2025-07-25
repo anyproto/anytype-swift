@@ -21,10 +21,6 @@ struct PageNavigationHeader<TitleView: View, RightView: View>: View {
         }
         .padding(.horizontal, 16)
         .frame(height: PageNavigationHeaderConstants.height)
-        .background {
-            HomeBlurEffectView(direction: .topToBottom)
-                .ignoresSafeArea()
-        }
     }
 }
 

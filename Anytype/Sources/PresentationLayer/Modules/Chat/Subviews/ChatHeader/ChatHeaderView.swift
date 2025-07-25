@@ -42,6 +42,10 @@ struct ChatHeaderView: View {
                 }
             }
         }
+        .background {
+            HomeBlurEffectView(direction: .topToBottom)
+                .ignoresSafeArea()
+        }
         .task {
             await model.startSubscriptions()
         }
