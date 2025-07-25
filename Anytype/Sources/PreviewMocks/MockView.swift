@@ -51,5 +51,8 @@ struct MockView<Content: View>: View {
         Container.shared.syncStatusStorage.onPreview {
             SyncStatusStorageMock.shared
         }
+        Container.shared.participantSpacesStorage.onPreview {
+            ParticipantSpacesStorageMock.shared
+        }
     }
 }

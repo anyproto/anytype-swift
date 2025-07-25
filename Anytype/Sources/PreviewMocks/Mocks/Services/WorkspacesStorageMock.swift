@@ -15,26 +15,9 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
     }
     
     nonisolated private init() {
-        self.allWorkspaces =  [
-            SpaceView(
-                id: "1",
-                name: "ABC",
-                description: "desc",
-                objectIconImage: .object(.space(.name(name: "test", iconOption: 1))),
-                targetSpaceId: "",
-                createdDate: nil,
-                accountStatus: .spaceActive,
-                localStatus: .spaceActive,
-                spaceAccessType: .shared,
-                readersLimit: nil,
-                writersLimit: nil,
-                chatId: "",
-                spaceOrder: "",
-                uxType: .data,
-                pushNotificationEncryptionKey: "",
-                pushNotificationMode: .all
-            )
-        ]
+        for _ in 0 ..< 50 {
+            self.allWorkspaces.append(SpaceView.mock())
+        }
     }
     
     var allWorkspaces: [SpaceView] = []
