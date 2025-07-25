@@ -7,8 +7,7 @@ struct SharingExtensionChatView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text("Spaces \(spaces.count)")
-                Text("2")
+                Text("\(spaces.count)")
             }
         }
     }
