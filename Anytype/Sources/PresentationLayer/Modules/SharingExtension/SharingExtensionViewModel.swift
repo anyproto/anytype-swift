@@ -16,7 +16,7 @@ final class SharingExtensionViewModel: ObservableObject {
     
     private func startSpacesSub() async {
         for await spaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
-            spacesWithChat = spaces.filter { $0.sp }
+            spacesWithChat = spaces.filter { $0.canEdit && !$0.spaceView.chatId.isEmpty }.map { $0.spaceView }
         }
     }
 }

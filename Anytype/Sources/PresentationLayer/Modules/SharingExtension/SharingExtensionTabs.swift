@@ -9,9 +9,9 @@ extension SharingExtensionTabs {
     var title: String {
         switch self {
         case .chat:
-            Loc.Shating.Tab.chat
+            Loc.Sharing.Tab.chat
         case .object:
-            Loc.Shating.Tab.object
+            Loc.Sharing.Tab.object
         }
     }
 }
