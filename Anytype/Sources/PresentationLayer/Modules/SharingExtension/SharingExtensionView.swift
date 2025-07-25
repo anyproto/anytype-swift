@@ -10,7 +10,7 @@ struct SharingExtensionView: View {
             NavigationHeaderContainer(spacing: 20) {
                 EmptyView()
             } titleView: {
-                AnytypeText("Select Space", style: .uxTitle1Semibold)
+                AnytypeText(Loc.Sharing.title, style: .uxTitle1Semibold)
                     .foregroundColor(.Text.primary)
                     .lineLimit(1)
             } rightView: {

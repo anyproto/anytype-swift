@@ -2,16 +2,16 @@ import Foundation
 
 enum SharingExtensionTabs: CaseIterable {
     case chat
-    case data
+    case object
 }
 
 extension SharingExtensionTabs {
     var title: String {
         switch self {
         case .chat:
-            "Send to chat"
-        case .data:
-            "Save as object"
+            Loc.Shating.Tab.chat
+        case .object:
+            Loc.Shating.Tab.object
         }
     }
 }
