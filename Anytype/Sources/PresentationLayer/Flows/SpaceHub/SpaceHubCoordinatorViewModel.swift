@@ -16,6 +16,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var userWarningAlert: UserWarningAlert?
     @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     @Published var sharingSpaceId: StringIdentifiable?
+    @Published var showSharingExtension = false
     @Published var membershipTierId: IntIdentifiable?
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var spaceJoinData: SpaceJoinModuleData?
@@ -391,7 +392,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            sharingSpaceId = fallbackSpaceId?.identifiable
+            if FeatureFlags.newSharingExtension {
+                showSharingExtension = true
+            } else {
+                sharingSpaceId = fallbackSpaceId?.identifiable
+            }
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
