@@ -1255,6 +1255,10 @@ extension AnytypeAnalytics {
         logEvent("KeyboardBarSelectionMenu")
     }
     
+    func logKeyboardBarUndoMenu() {
+        logEvent("KeyboardBarUndoMenu")
+    }
+    
     func logKeyboardBarMentionMenu() {
         logEvent("KeyboardBarMentionMenu")
     }
