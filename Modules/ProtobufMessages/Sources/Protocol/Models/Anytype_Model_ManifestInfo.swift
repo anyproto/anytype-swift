@@ -47,7 +47,7 @@ public struct Anytype_Model_ManifestInfo: Sendable {
 extension Anytype_Model_ManifestInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ManifestInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "schema"),
+    1: .unique(proto: "schema", json: "$schema"),
     2: .same(proto: "id"),
     3: .same(proto: "name"),
     4: .same(proto: "author"),
