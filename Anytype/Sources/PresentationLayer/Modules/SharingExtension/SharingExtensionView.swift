@@ -3,6 +3,7 @@ import SwiftUI
 struct SharingExtensionView: View {
     
     @State private var tab: SharingExtensionTabs = .chat
+    @StateObject private var model = SharingExtensionViewModel()
     
     var body: some View {
         VStack {
@@ -31,18 +32,20 @@ struct SharingExtensionView: View {
             tabView
         }
         .task {
-            
+            await model.onAppear()
         }
     }
     
     private var tabView: some View {
         ZStack {
-            SharingExtensionChatList()
+            SharingExtensionChatView(spaces: model.spacesWithChat)
                 .opacity(tab == .chat ? 1 : 0)
         }
     }
 }
 
 #Preview {
-    SharingExtensionView()
+    MockView {
+        SharingExtensionView()
+    }
 }

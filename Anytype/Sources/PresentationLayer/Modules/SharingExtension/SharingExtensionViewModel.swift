@@ -9,7 +9,7 @@ final class SharingExtensionViewModel: ObservableObject {
     @Published var spacesWithChat: [SpaceView] = []
     
     func onAppear() async {
-        
+        await startSpacesSub()
     }
     
     // MARK: - Private

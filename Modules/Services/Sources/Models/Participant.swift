@@ -5,7 +5,7 @@ import AnytypeCore
 public typealias ParticipantPermissions = Anytype_Model_ParticipantPermissions
 public typealias ParticipantStatus = Anytype_Model_ParticipantStatus
 
-public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsModel {
+public struct Participant: Identifiable, Equatable, Sendable, Hashable {
     
     public let id: String
     public let localName: String
@@ -17,6 +17,33 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
     public let identityProfileLink: String
     public let spaceId: String
     public let type: String
+    
+    public init(
+        id: String,
+        localName: String,
+        globalName: String,
+        icon: ObjectIcon?,
+        status: ParticipantStatus,
+        permission: ParticipantPermissions,
+        identity: String,
+        identityProfileLink: String,
+        spaceId: String,
+        type: String
+    ) {
+        self.id = id
+        self.localName = localName
+        self.globalName = globalName
+        self.icon = icon
+        self.status = status
+        self.permission = permission
+        self.identity = identity
+        self.identityProfileLink = identityProfileLink
+        self.spaceId = spaceId
+        self.type = type
+    }
+}
+
+extension Participant: DetailsModel {
     
     public init(details: ObjectDetails) throws {
         self.id = details.id
@@ -38,6 +65,7 @@ public struct Participant: Identifiable, Equatable, Sendable, Hashable, DetailsM
         self.spaceId = details.spaceId
         self.type = details.type
     }
+    
     
     public static var subscriptionKeys: [BundledPropertyKey] {
         .builder {
