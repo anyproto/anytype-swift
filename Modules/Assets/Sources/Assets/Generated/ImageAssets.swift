@@ -825,7 +825,6 @@ extension ImageAsset {
     public static let chat = ImageAsset.bundle(name: "x32/Chat")
     public static let clear = ImageAsset.bundle(name: "x32/Clear")
     public static let color = ImageAsset.bundle(name: "x32/Color")
-    public static let command = ImageAsset.bundle(name: "x32/Command")
     public static let copy = ImageAsset.bundle(name: "x32/Copy")
     public static let dashboard = ImageAsset.bundle(name: "x32/Dashboard")
     public static let dashboardOld = ImageAsset.bundle(name: "x32/Dashboard_old")
