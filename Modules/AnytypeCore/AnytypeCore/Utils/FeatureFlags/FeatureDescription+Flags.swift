@@ -76,7 +76,8 @@ public extension FeatureDescription {
         title: "Add AI tool in Set / Collection",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
-        releaseAnyAppValue: false
+        releaseAnyAppValue: false,
+        debugValue: false
     )
     
     static let disableColorfulSeedPhrase = FeatureDescription(
