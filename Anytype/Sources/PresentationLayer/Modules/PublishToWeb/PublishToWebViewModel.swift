@@ -40,6 +40,10 @@ final class PublishToWebViewModel: ObservableObject {
         }
         
         let document = documentsProvider.document(objectId: objectId, spaceId: spaceId)
+        
+        // Open the document to ensure data exists
+        try? await document.open()
+        
         guard let objectDetails = document.details else {
             anytypeAssertionFailure("No details found object")
             state = .error(Loc.Publishing.Error.noObjectData)
