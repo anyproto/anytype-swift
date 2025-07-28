@@ -186,8 +186,8 @@ public enum Asset {
     static let primary = ColorAsset(name: "Control/primary")
     static let secondary = ColorAsset(name: "Control/secondary")
     static let tertiary = ColorAsset(name: "Control/tertiary")
-    static let transparentActive = ColorAsset(name: "Control/transparentActive")
-    static let transparentInactive = ColorAsset(name: "Control/transparentInactive")
+    static let transparentSecondary = ColorAsset(name: "Control/transparentSecondary")
+    static let transparentTertiary = ColorAsset(name: "Control/transparentTertiary")
     static let white = ColorAsset(name: "Control/white")
   }
   public enum Shape {

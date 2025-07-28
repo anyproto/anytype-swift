@@ -124,7 +124,7 @@ struct SpaceCardLabel: View {
         if let lastMessage = spaceData.preview.lastMessage {
             Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
                 .anytypeStyle(.relation2Regular)
-                .foregroundStyle(Color.Control.transparentActive)
+                .foregroundStyle(Color.Control.transparentSecondary)
         }
     }
     

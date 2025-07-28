@@ -22,7 +22,7 @@ extension MessageAttachmentStyle {
     var descriptionColor: Color {
         switch self {
         case .messageOther:
-            .Control.transparentActive
+            .Control.transparentSecondary
         case .messageYour:
             .Background.Chat.whiteTransparent
         case .chatInput:

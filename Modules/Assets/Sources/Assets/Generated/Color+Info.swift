@@ -286,8 +286,8 @@ public extension UIColor.Control {
             ColorInfo(name: "primary", color: UIColor.Control.primary),
             ColorInfo(name: "secondary", color: UIColor.Control.secondary),
             ColorInfo(name: "tertiary", color: UIColor.Control.tertiary),
-            ColorInfo(name: "transparentActive", color: UIColor.Control.transparentActive),
-            ColorInfo(name: "transparentInactive", color: UIColor.Control.transparentInactive),
+            ColorInfo(name: "transparentSecondary", color: UIColor.Control.transparentSecondary),
+            ColorInfo(name: "transparentTertiary", color: UIColor.Control.transparentTertiary),
             ColorInfo(name: "white", color: UIColor.Control.white)
         ]
     )

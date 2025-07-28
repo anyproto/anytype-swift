@@ -84,7 +84,7 @@ struct CustomIconGridView: View {
                 Image(asset: icon.imageAsset)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(iconToPickColor == icon ? Color.Control.transparentInactive : defaultColor.color)
+                    .foregroundColor(iconToPickColor == icon ? Color.Control.transparentTertiary : defaultColor.color)
                     .frame(width: 40, height: 40)
                     .padding(.top, 12)
                     .onTapGesture {

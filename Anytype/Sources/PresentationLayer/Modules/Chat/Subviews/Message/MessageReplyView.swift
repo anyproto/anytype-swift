@@ -23,7 +23,7 @@ struct MessageReplyView: View {
     private var author: some View {
         Text(model.author.isNotEmpty ? model.author : " ") // Safe height if participant is not loaded
             .anytypeStyle(.caption1Medium)
-            .foregroundStyle(Color.Control.transparentActive)
+            .foregroundStyle(Color.Control.transparentSecondary)
             .padding(.horizontal, 16)
             .lineLimit(1)
     }
@@ -36,7 +36,7 @@ struct MessageReplyView: View {
             }
             Text(model.description)
                 .anytypeStyle(.caption1Regular)
-                .foregroundStyle(Color.Control.transparentActive)
+                .foregroundStyle(Color.Control.transparentSecondary)
                 .lineLimit(model.attachmentIcon.isNotNil ? 1 : 3)
                 .fixedSize(horizontal: false, vertical: true)
         }
