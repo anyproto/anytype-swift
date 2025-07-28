@@ -1,9 +1,20 @@
 import SwiftUI
 import Services
 import AnytypeCore
+import Loc
+
+@MainActor
+protocol PublishingPreviewOutput: AnyObject {
+    func onPreviewTap()
+    func onPreviewOpenWebPage()
+    func onPreviewShareLink()
+    func onPreviewCopyLink()
+}
 
 struct PublishingPreview: View {
     let data: PublishingPreviewData
+    let isPublished: Bool
+    weak var output: (any PublishingPreviewOutput)?
     @State private var screenSize: CGSize = .zero
     
     var body: some View {
@@ -30,6 +41,15 @@ struct PublishingPreview: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.Shape.secondary, lineWidth: 1)
         )
+        .if(isPublished) { view in
+            view
+                .onTapGesture {
+                    output?.onPreviewTap()
+                }
+                .contextMenu {
+                    contextMenuContent
+                }
+        }
     }
     
     private var browserHeader: some View {
@@ -86,7 +106,7 @@ struct PublishingPreview: View {
     private var joinButton: some View {
         HStack(spacing: 4) {
             AnytypeText(Loc.join, style: .caption2Medium)
-                .foregroundColor(.Text.white)
+                .foregroundColor(.Text.inversion)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 2.5)
@@ -173,6 +193,27 @@ struct PublishingPreview: View {
         .padding(.horizontal, 32)
         .padding(.top, 8)
     }
+    
+    @ViewBuilder
+    private var contextMenuContent: some View {
+        Button {
+            output?.onPreviewOpenWebPage()
+        } label: {
+            Label(Loc.openWebPage, systemImage: "arrow.up.forward.app")
+        }
+        
+        Button {
+            output?.onPreviewShareLink()
+        } label: {
+            Label(Loc.SpaceShare.Share.link, systemImage: "square.and.arrow.up")
+        }
+        
+        Button {
+            output?.onPreviewCopyLink()
+        } label: {
+            Label(Loc.Actions.copyLink, systemImage: "doc.on.doc")
+        }
+    }
 }
 
 #Preview {
@@ -191,7 +232,7 @@ struct PublishingPreview: View {
                     )),
                     icon: .emoji(Emoji("🎨")!),
                     showJoinButton: true
-                ))
+                ), isPublished: true, output: nil)
             }
             
             // Branch 2: Has cover but no icon
@@ -207,7 +248,7 @@ struct PublishingPreview: View {
                     )),
                     icon: nil,
                     showJoinButton: false
-                ))
+                ), isPublished: false, output: nil)
             }
             
             // Branch 3: No cover but has icon (white background)
@@ -220,7 +261,7 @@ struct PublishingPreview: View {
                     cover: nil,
                     icon: .emoji(Emoji("📝")!),
                     showJoinButton: true
-                ))
+                ), isPublished: true, output: nil)
             }
             
             // Branch 4: No cover and no icon (no cover section)
@@ -233,7 +274,7 @@ struct PublishingPreview: View {
                     cover: nil,
                     icon: nil,
                     showJoinButton: false
-                ))
+                ), isPublished: false, output: nil)
             }
         }
         .padding()

@@ -16,6 +16,7 @@ struct PublishToWebInternalView: View {
             .onChange(of: model.showJoinSpaceButton) { showJoin in
                 model.updatePreviewForJoinButton(showJoin)
             }
+            .snackbar(toastBarData: $model.toastBarData)
     }
     
     var content: some View {
@@ -41,7 +42,7 @@ struct PublishToWebInternalView: View {
             
             Spacer()
             
-            PublishingPreview(data: model.previewData)
+            PublishingPreview(data: model.previewData, isPublished: model.status.isNotNil, output: model)
                 .frame(maxWidth: .infinity)
             
             Spacer.fixedHeight(12)
@@ -174,7 +175,6 @@ struct PublishToWebInternalView: View {
                     style: .primaryLarge,
                     action: { try await model.onPublishTap() }
                 )
-                .disabled(!model.canPublish)
             }
             
             Spacer.fixedHeight(16)
@@ -190,7 +190,6 @@ struct PublishToWebInternalView: View {
                 style: .primaryLarge,
                 action: { try await model.onPublishTap() }
             )
-            .disabled(!model.canPublish)
             
             Spacer.fixedHeight(16)
         }

@@ -305,6 +305,7 @@ public enum Loc {
   public static func openTypeError(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Open Type Error", String(describing: p1), fallback: "Not supported type \"%@\". You can open it via desktop.")
   }
+  public static let openWebPage = Loc.tr("Localizable", "Open web page", fallback: "Open web page")
   public static let openSettings = Loc.tr("Localizable", "OpenSettings", fallback: "Open Settings")
   public static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   public static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other properties")

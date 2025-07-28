@@ -66,7 +66,7 @@ struct PushNotificationsSettingsView: View {
         .padding(.horizontal, 4)
         .newDivider()
         .fixTappableArea()
-        .applyIf(!enabled) {
+        .if(!enabled) {
             $0.onTapGesture {
                 model.openSettings()
             }

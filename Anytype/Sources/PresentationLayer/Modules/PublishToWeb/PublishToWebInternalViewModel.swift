@@ -6,15 +6,15 @@ import ProtobufMessages
 
 
 @MainActor
-final class PublishToWebInternalViewModel: ObservableObject {
+final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOutput {
     
     @Published var customPath: String = ""
     @Published var showJoinSpaceButton: Bool = true
-    @Published var canPublish: Bool = true
     @Published var status: PublishState?
     
     @Published var error: String?
     @Published var previewData: PublishingPreviewData = .empty
+    @Published var toastBarData: ToastBarData?
     
     let domain: DomainType
     
@@ -24,6 +24,8 @@ final class PublishToWebInternalViewModel: ObservableObject {
     private var publishingService: any PublishingServiceProtocol
     @Injected(\.publishingPreviewBuilder)
     private var previewBuilder: any PublishingPreviewBuilderProtocol
+    @Injected(\.publishedUrlBuilder)
+    private var urlBuilder: any PublishedUrlBuilderProtocol
     
     private let spaceId: String
     private let objectId: String
@@ -43,8 +45,6 @@ final class PublishToWebInternalViewModel: ObservableObject {
             spaceName: data.spaceName,
             showJoinButton: showJoinSpaceButton
         )
-        
-        setupBindings()
     }
     
     func onPublishTap() async throws {
@@ -70,9 +70,26 @@ final class PublishToWebInternalViewModel: ObservableObject {
         )
     }
     
-    private func setupBindings() {
-        $customPath
-            .map { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-            .assign(to: &$canPublish)
+    // MARK: - PublishingPreviewOutput
+    
+    func onPreviewTap() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        output?.onOpenPreview(url: publishedUrl)
+    }
+    
+    func onPreviewOpenWebPage() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        output?.onOpenPreview(url: publishedUrl)
+    }
+    
+    func onPreviewShareLink() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        output?.onSharePreview(url: publishedUrl)
+    }
+    
+    func onPreviewCopyLink() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        UIPasteboard.general.string = publishedUrl.absoluteString
+        toastBarData = ToastBarData(Loc.copiedToClipboard(Loc.link))
     }
 }

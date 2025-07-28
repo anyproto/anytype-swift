@@ -245,7 +245,7 @@ public extension FeatureDescription {
     
     static let webPublishing = FeatureDescription(
         title: "Web Publishing",
-        type: .feature(author: "vyuignatiov@anytype.io", releaseVersion: "12"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
         defaultValue: false,
         debugValue: true
     )
