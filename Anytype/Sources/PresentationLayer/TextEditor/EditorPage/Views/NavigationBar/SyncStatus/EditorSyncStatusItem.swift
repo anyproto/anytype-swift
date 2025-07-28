@@ -73,7 +73,7 @@ final class EditorSyncStatusItem: UIView {
             return
         }
         
-        backgroundView.backgroundColor = haveBackground ? .black.withAlphaComponent(0.15) : .clear
+        backgroundView.backgroundColor = haveBackground ? .black.withAlphaComponent(0.35) : .clear
     }
 
     private func updateButtonState() {
