@@ -30,6 +30,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var spaceCreateData: SpaceCreateData?
     @Published var showSpaceTypeForCreate = false
     @Published var shouldScanQrCode = false
+    @Published var showAppSettings = false
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -110,6 +111,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.spaceId)
         } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
             userDefaults.lastOpenedScreen = .chat(chatData)
+        } else if let chatData = navigationPath.lastPathElement as? SpaceChatCoordinatorData {
+            userDefaults.lastOpenedScreen = .spaceChat(chatData)
         } else {
             userDefaults.lastOpenedScreen = nil
         }
@@ -150,7 +153,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .widgets(let spaceId):
             try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
         case .chat(let data):
-            try? await showScreen(data: .chat(ChatCoordinatorData(chatId: data.chatId, spaceId: data.spaceId)))
+            try? await showScreen(data: .chat(data))
+        case .spaceChat(let data):
+            try? await showScreen(data: .spaceChat(data))
         case .none:
             return
         }
@@ -224,6 +229,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         showScreenSync(data: .spaceInfo(.settings(spaceId: spaceId)))
     }
     
+    func onSelectAppSettings() {
+        showAppSettings = true
+    }
+    
     // MARK: - Private
 
     func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
@@ -242,8 +251,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func openSpaceWithIntialScreen(spaceId: String) async throws {
         let spaceView = try await setActiveSpace(spaceId: spaceId)
         if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
-            let chatData = ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
-            try await showScreen(data: .chat(chatData))
+            let chatData = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
+            try await showScreen(data: .spaceChat(chatData))
         } else {
             let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
             try await showScreen(data: .widget(widgetData))
@@ -290,6 +299,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
                 spaceProfileData = spaceInfo
             }
         case .chat(let data):
+            currentPath.openOnce(data)
+        case .spaceChat(let data):
             currentPath.openOnce(data)
         case .widget(let data):
             let data = HomeWidgetData(spaceId: data.spaceId)
@@ -364,7 +375,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         .builder {
             SpaceHubNavigationItem()
             if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
-                ChatCoordinatorData(chatId: spaceView.chatId, spaceId: spaceView.targetSpaceId)
+                SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
             } else {
                 HomeWidgetData(spaceId: spaceView.targetSpaceId)
             }
@@ -434,7 +445,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func handleOpenObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
-            try await showScreen(data: .chat(ChatCoordinatorData(chatId: objectId, spaceId: spaceId)))
+            try await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: spaceId)))
         } else {
             let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
             try await document.open()

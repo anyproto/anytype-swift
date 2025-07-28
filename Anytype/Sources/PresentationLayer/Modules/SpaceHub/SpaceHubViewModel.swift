@@ -32,12 +32,11 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var showSettings = false
     @Published var createSpaceAvailable = false
     @Published var notificationsDenied = false
     @Published var spaceMuteData: SpaceMuteData?
     @Published var toastBarData: ToastBarData?
-    
+    @Published var showLoading = false
     @Published var profileIcon: Icon?
     
     private weak var output: (any SpaceHubModuleOutput)?
@@ -66,6 +65,10 @@ final class SpaceHubViewModel: ObservableObject {
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
+    }
+    
+    func onTapSettings() {
+        output?.onSelectAppSettings()
     }
     
     func onTapCreateSpace() {
@@ -162,6 +165,9 @@ final class SpaceHubViewModel: ObservableObject {
                 self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
             }
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
+            if FeatureFlags.spaceLoadingForScreen {
+                showLoading = spaces.contains { $0.spaceView.isLoading }
+            }
         }
     }
     

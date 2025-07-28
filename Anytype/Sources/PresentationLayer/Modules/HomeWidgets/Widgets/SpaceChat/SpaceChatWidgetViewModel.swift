@@ -31,7 +31,7 @@ final class SpaceChatWidgetViewModel: ObservableObject {
         let spaceId = data.workspaceInfo.accountSpaceId
         guard let chatId = workspaceStorage.spaceView(spaceId: spaceId)?.chatId, chatId.isNotEmpty else { return }
         AnytypeAnalytics.instance().logClickWidgetTitle(source: .chat, createType: .manual)
-        data.output?.onObjectSelected(screenData: .chat(ChatCoordinatorData(chatId: chatId, spaceId: spaceId)))
+        data.output?.onObjectSelected(screenData: .spaceChat(SpaceChatCoordinatorData(spaceId: spaceId)))
     }
     
     func startSubscriptions() async {

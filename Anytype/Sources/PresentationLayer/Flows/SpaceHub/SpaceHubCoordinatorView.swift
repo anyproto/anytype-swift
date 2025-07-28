@@ -84,6 +84,9 @@ struct SpaceHubCoordinatorView: View {
             .sheet(isPresented: $model.showSharingExtension) {
                 SharingExtensionCoordinatorView()
             }
+            .sheet(isPresented: $model.showAppSettings) {
+                SettingsCoordinatorView()
+            }
     }
     
     private var content: some View {  
@@ -102,6 +105,9 @@ struct SpaceHubCoordinatorView: View {
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
                             SpaceHubView(output: model)
+                        }
+                        builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
+                            SpaceChatCoordinatorView(data: $0)
                         }
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)

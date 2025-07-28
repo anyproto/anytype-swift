@@ -20,10 +20,6 @@ struct SpaceHubView: View {
             .task(item: model.spaceMuteData) { data in
                 await model.pushNotificationSetSpaceMode(data: data)
             }
-            
-            .sheet(isPresented: $model.showSettings) {
-                SettingsCoordinatorView()
-            }
             .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.toastBarData)
     }
@@ -153,35 +149,17 @@ struct SpaceHubView: View {
     }
     
     private var navBarContent: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Button { model.showSettings = true }
-            label: {
-                IconView(icon: model.profileIcon)
-                    .foregroundStyle(Color.Control.secondary)
-                    .frame(width: 28, height: 28)
-                    .overlay(alignment: .topTrailing) {
-                        if model.notificationsDenied {
-                            attentionDotView
-                        }
-                    }
-                    .padding(.vertical, 8)
+        SpaceHubNavBar(
+            profileIcon: model.profileIcon,
+            notificationsDenied: model.notificationsDenied,
+            showLoading: model.showLoading,
+            onTapSettings: {
+                model.onTapSettings()
+            },
+            onTapCreateSpace: {
+                model.onTapCreateSpace()
             }
-            
-            Spacer()
-            AnytypeText(FeatureFlags.spaceHubNewTitle ? Loc.myChannels : Loc.mySpaces, style: .uxTitle1Semibold)
-            Spacer()
-            
-            Button { model.onTapCreateSpace() }
-            label: {
-                Image(asset: .X32.addFilled)
-                    .foregroundStyle(Color.Control.secondary)
-                    .frame(width: 32, height: 32)
-                    .padding(.vertical, 6)
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .frame(height: 44)
+        )
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview, draggable: Bool) -> some View {
@@ -221,13 +199,6 @@ struct SpaceHubView: View {
                 )
             )
         }
-    }
-    
-    private var attentionDotView: some View {
-        Circle()
-            .fill(Color.Pure.red)
-            .frame(width: 6, height: 6)
-            .padding([.top, .trailing], -4)
     }
     
     private var applyBlur: Bool {
