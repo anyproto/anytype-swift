@@ -35,7 +35,6 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
             guard let range = Range(nsRange, in: message) else {
-                anytypeAssertionFailure("Out of range", info: ["range": nsRange.description, "textLenght": content.text.count.description])
                 continue
             }
             
