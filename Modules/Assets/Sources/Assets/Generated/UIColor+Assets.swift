@@ -186,8 +186,8 @@ extension UIColor {
       public static let primary = UIColor(asset: Asset.Control.primary)
       public static let secondary = UIColor(asset: Asset.Control.secondary)
       public static let tertiary = UIColor(asset: Asset.Control.tertiary)
-      public static let transparentActive = UIColor(asset: Asset.Control.transparentActive)
-      public static let transparentInactive = UIColor(asset: Asset.Control.transparentInactive)
+      public static let transparentSecondary = UIColor(asset: Asset.Control.transparentSecondary)
+      public static let transparentTertiary = UIColor(asset: Asset.Control.transparentTertiary)
       public static let white = UIColor(asset: Asset.Control.white)
     }
     // MARK: - Shape

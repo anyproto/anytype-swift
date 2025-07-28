@@ -65,7 +65,7 @@ struct ConversationEmptyStateView: View {
                 .foregroundStyle(Color.Text.primary)
             Text(description)
                 .anytypeStyle(.bodyRegular)
-                .foregroundStyle(Color.Control.transparentActive)
+                .foregroundStyle(Color.Control.transparentSecondary)
             if let action {
                 Spacer.fixedHeight(10)
                 StandardButton(
