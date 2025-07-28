@@ -23,6 +23,7 @@ struct SimpleSetView: View {
         .onDisappear {
             model.onDisappear()
         }
+        .homeBottomPanelHidden(false)
     }
     
     @ViewBuilder
