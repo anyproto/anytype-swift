@@ -19,20 +19,22 @@ final class UndoRedoViewModel: ObservableObject {
     }
 
     func undo() async throws {
-        AnytypeAnalytics.instance().logUndo()
         do {
             try await objectActionsService.undo(objectId: objectId)
+            AnytypeAnalytics.instance().logUndo(resultType: .true)
         } catch let error as ObjectActionsServiceError {
             toastData = ToastBarData(error.localizedDescription, type: .neutral)
+            AnytypeAnalytics.instance().logUndo(resultType: .false)
         }
     }
 
     func redo() async throws {
         do {
-            AnytypeAnalytics.instance().logRedo()
             try await objectActionsService.redo(objectId: objectId)
+            AnytypeAnalytics.instance().logRedo(resultType: .true)
         } catch let error as ObjectActionsServiceError {
             toastData = ToastBarData(error.localizedDescription, type: .neutral)
+            AnytypeAnalytics.instance().logRedo(resultType: .false)
         }
     }
 }

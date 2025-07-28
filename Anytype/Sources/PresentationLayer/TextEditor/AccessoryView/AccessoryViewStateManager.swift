@@ -463,7 +463,7 @@ extension AccessoryViewStateManagerImpl {
         case .editingMode:
             AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
         case .undoRedo:
-            break
+            AnytypeAnalytics.instance().logKeyboardBarUndoMenu()
         }
     }
 }
