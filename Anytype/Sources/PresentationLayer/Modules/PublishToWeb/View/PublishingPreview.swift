@@ -86,7 +86,7 @@ struct PublishingPreview: View {
     private var joinButton: some View {
         HStack(spacing: 4) {
             AnytypeText(Loc.join, style: .caption2Medium)
-                .foregroundColor(.Text.white)
+                .foregroundColor(.Text.primary)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 2.5)

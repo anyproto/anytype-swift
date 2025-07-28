@@ -174,7 +174,6 @@ struct PublishToWebInternalView: View {
                     style: .primaryLarge,
                     action: { try await model.onPublishTap() }
                 )
-                .disabled(!model.canPublish)
             }
             
             Spacer.fixedHeight(16)
@@ -190,7 +189,6 @@ struct PublishToWebInternalView: View {
                 style: .primaryLarge,
                 action: { try await model.onPublishTap() }
             )
-            .disabled(!model.canPublish)
             
             Spacer.fixedHeight(16)
         }
