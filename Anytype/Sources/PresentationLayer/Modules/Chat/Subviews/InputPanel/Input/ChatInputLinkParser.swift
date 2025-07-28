@@ -40,7 +40,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         let textLenDiff = replacedText.count - sourceText.string.count
         guard let match = matches.last, match.range.contains(range.location - textLenDiff) else { return nil }
         
-        guard let linkUrl = match.url, !linkUrl.isEmail else { return nil }
+        guard let linkUrl = match.url?.urlWithLowercaseScheme, !linkUrl.isEmail else { return nil }
         
         return .addLinkStyle(range: match.range, link: linkUrl)
     }
@@ -55,7 +55,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         )
         
         let changes = matches.compactMap { match -> ChatInputLinkParserChange? in
-            guard let linkUrl = match.url, !linkUrl.isEmail else { return nil }
+            guard let linkUrl = match.url?.urlWithLowercaseScheme, !linkUrl.isEmail else { return nil }
             return .addLinkStyle(range: match.range, link: linkUrl)
         }
         

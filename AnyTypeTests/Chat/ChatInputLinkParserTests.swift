@@ -52,6 +52,15 @@ struct ChatInputLinkParserTests {
             NSRange(location: 17, length: 0),
             " ",
             nil
+        ),
+        (
+            NSAttributedString(string: "A H://A.B"),
+            NSRange(location: 9, length: 0),
+            " ",
+            ChatInputLinkParserChange.addLinkStyle(
+                range: NSRange(location: 2, length: 7),
+                link: URL(string: "h://A.B")!
+            )
         )
     ])
     func testHandleInput(
@@ -101,6 +110,15 @@ struct ChatInputLinkParserTests {
         (
             "A testuser@gmail.com",
             []
+        ),
+        (
+            "C://D.E",
+            [
+                ChatInputLinkParserChange.addLinkStyle(
+                    range: NSRange(location: 0, length: 7),
+                    link: URL(string: "c://D.E")!
+                )
+            ]
         ),
     ])
     func testHandlePaste(
