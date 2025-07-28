@@ -81,6 +81,9 @@ struct SpaceHubCoordinatorView: View {
                 })
             }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
+            .sheet(isPresented: $model.showSharingExtension) {
+                SharingExtensionCoordinatorView()
+            }
     }
     
     private var content: some View {  

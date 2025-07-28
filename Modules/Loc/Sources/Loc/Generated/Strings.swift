@@ -1870,6 +1870,7 @@ public enum Loc {
     public static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
     public static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
     public static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
+    public static let title = Loc.tr("Localizable", "Sharing.Title", fallback: "Select Space")
     public enum `Any` {
       public static let block = Loc.tr("Localizable", "Sharing.Any.Block", fallback: "Blocks")
     }
@@ -1889,6 +1890,10 @@ public enum Loc {
       public enum RightButton {
         public static let title = Loc.tr("Localizable", "Sharing.Navigation.RightButton.Title", fallback: "Done")
       }
+    }
+    public enum Tab {
+      public static let chat = Loc.tr("Localizable", "Sharing.Tab.Chat", fallback: "Send to chat")
+      public static let object = Loc.tr("Localizable", "Sharing.Tab.Object", fallback: "Save as object")
     }
     public enum Text {
       public static let noteObject = Loc.tr("Localizable", "Sharing.Text.NoteObject", fallback: "Note object")

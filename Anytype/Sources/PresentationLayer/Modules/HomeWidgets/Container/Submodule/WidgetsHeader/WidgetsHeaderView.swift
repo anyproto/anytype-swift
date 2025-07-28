@@ -34,6 +34,10 @@ struct WidgetsHeaderView: View {
                     .foregroundStyle(Color.Control.transparentActive)
             }
         }
+        .background {
+            HomeBlurEffectView(direction: .topToBottom)
+                .ignoresSafeArea()
+        }
         .fixTappableArea()
         .onTapGesture {
             model.onTapSpaceSettings()
