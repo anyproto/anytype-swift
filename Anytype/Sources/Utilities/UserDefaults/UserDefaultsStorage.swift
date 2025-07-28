@@ -7,6 +7,7 @@ enum LastOpenedScreen: Codable {
     case editor(EditorScreenData)
     case widgets(spaceId: String)
     case chat(ChatCoordinatorData)
+    case spaceChat(SpaceChatCoordinatorData)
     
     var spaceId: String {
         switch self {
@@ -15,6 +16,8 @@ enum LastOpenedScreen: Codable {
         case .widgets(let spaceId):
             spaceId
         case .chat(let data):
+            data.spaceId
+        case .spaceChat(let data):
             data.spaceId
         }
     }
