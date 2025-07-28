@@ -30,6 +30,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var spaceCreateData: SpaceCreateData?
     @Published var showSpaceTypeForCreate = false
     @Published var shouldScanQrCode = false
+    @Published var showAppSettings = false
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -222,6 +223,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     func onOpenSpaceSettings(spaceId: String) {
         showScreenSync(data: .spaceInfo(.settings(spaceId: spaceId)))
+    }
+    
+    func onSelectAppSettings() {
+        showAppSettings = true
     }
     
     // MARK: - Private
