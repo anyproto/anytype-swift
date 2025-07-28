@@ -24,7 +24,7 @@ struct SpaceHubCoordinatorView: View {
             .snackbar(toastBarData: $model.toastBarData)
             
             .sheet(item: $model.sharingSpaceId) {
-                ShareCoordinatorView(spaceId: $0.value)
+                ShareLegacyCoordinatorView(spaceId: $0.value)
             }
             .sheet(item: $model.showGalleryImport) { data in
                 GalleryInstallationCoordinatorView(data: data)

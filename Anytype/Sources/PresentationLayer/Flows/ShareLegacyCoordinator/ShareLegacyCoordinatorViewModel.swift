@@ -3,7 +3,7 @@ import SwiftUI
 import Services
 
 @MainActor
-final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutput {
+final class ShareLegacyCoordinatorViewModel: ObservableObject, ShareLegacyOptionsModuleOutput {
     
     let spaceId: String
     @Published var showSearchObjectData: ObjectSearchModuleData?

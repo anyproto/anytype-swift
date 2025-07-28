@@ -2,7 +2,7 @@ import Foundation
 import Services
 import AnytypeCore
 
-struct ShareContentCounter {
+struct ShareLegacyContentCounter {
     var textCount: Int
     var bookmarksCount: Int
     var filesCount: Int
@@ -20,13 +20,13 @@ struct ShareContentCounter {
     }
 }
 
-enum SharedSaveOptions {
+enum SharedLegacySaveOptions {
     case container(spaceId: String, linkToObject: ObjectDetails?)
     case newObject(spaceId: String, linkToObject: ObjectDetails?)
     case blocks(spaceId: String, addToObject: ObjectDetails)
 }
 
-enum ShareSaveAsType {
+enum ShareLegacySaveAsType {
     case container
     case object
     case block

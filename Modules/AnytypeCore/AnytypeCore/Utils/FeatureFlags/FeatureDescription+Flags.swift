@@ -255,6 +255,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let newSharingExtension = FeatureDescription(
+        title: "New Sharing Extension - IOS-4915",
+        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
+        defaultValue: false,
+        debugValue: false
+    )
 
     // MARK: - Debug
     
