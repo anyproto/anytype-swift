@@ -244,7 +244,7 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Brief description of changes (1-3 bullet points)
 ```
 
-**Note**: PRs are for programmers, not testers - no test plan needed
+**Note**: PRs are for programmers, not testers - **NO test plan needed**
 
 **IMPORTANT**: 
 - **NEVER add AI signatures** like "🤖 Generated with Claude Code" to pull requests
@@ -295,7 +295,8 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Use `rg` for searching large files
 - Check existing keys before adding new localization
 - Feature flags for all new features
-- Import `Loc` for localization, `AnytypeCore` for feature flags
+- **NO need to import `Loc` manually** - it's pre-imported by default in shared header
+- Import `AnytypeCore` for feature flags
 
 ### ⚠️ Common Mistakes to Avoid
 
