@@ -13,5 +13,9 @@ struct PublishToWebCoordinator: View {
             .sheet(isPresented: $model.showMembership) {
                 MembershipCoordinator()
             }
+            .sheet(item: $model.sharedUrl) { url in
+                ActivityView(activityItems: [url])
+            }
+            .safariSheet(url: $model.safariUrl)
     }
 }

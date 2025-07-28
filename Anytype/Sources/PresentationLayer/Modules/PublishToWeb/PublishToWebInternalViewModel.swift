@@ -6,7 +6,7 @@ import ProtobufMessages
 
 
 @MainActor
-final class PublishToWebInternalViewModel: ObservableObject {
+final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOutput {
     
     @Published var customPath: String = ""
     @Published var showJoinSpaceButton: Bool = true
@@ -14,6 +14,7 @@ final class PublishToWebInternalViewModel: ObservableObject {
     
     @Published var error: String?
     @Published var previewData: PublishingPreviewData = .empty
+    @Published var toastBarData: ToastBarData?
     
     let domain: DomainType
     
@@ -23,6 +24,8 @@ final class PublishToWebInternalViewModel: ObservableObject {
     private var publishingService: any PublishingServiceProtocol
     @Injected(\.publishingPreviewBuilder)
     private var previewBuilder: any PublishingPreviewBuilderProtocol
+    @Injected(\.publishedUrlBuilder)
+    private var urlBuilder: any PublishedUrlBuilderProtocol
     
     private let spaceId: String
     private let objectId: String
@@ -67,5 +70,26 @@ final class PublishToWebInternalViewModel: ObservableObject {
         )
     }
     
+    // MARK: - PublishingPreviewOutput
+    
+    func onPreviewTap() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        output?.onOpenPreview(url: publishedUrl)
+    }
+    
+    func onPreviewOpenWebPage() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        output?.onOpenPreview(url: publishedUrl)
+    }
+    
+    func onPreviewShareLink() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        output?.onSharePreview(url: publishedUrl)
+    }
+    
+    func onPreviewCopyLink() {
+        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
+        UIPasteboard.general.string = publishedUrl.absoluteString
+        toastBarData = ToastBarData(Loc.copiedToClipboard(Loc.link))
     }
 }
