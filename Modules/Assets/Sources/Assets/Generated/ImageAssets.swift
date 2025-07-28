@@ -886,7 +886,7 @@ extension ImageAsset {
     public static let reply = ImageAsset.bundle(name: "x32/Reply")
     public static let restore = ImageAsset.bundle(name: "x32/Restore")
     public static let search = ImageAsset.bundle(name: "x32/Search")
-    public static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
+    public static let slashMenu = ImageAsset.bundle(name: "x32/SlashMenu")
     public static let sort = ImageAsset.bundle(name: "x32/Sort")
     public static let style = ImageAsset.bundle(name: "x32/Style")
     public static let tableOfContents = ImageAsset.bundle(name: "x32/Table of Contents")
