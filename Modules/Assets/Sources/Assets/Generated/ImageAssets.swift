@@ -799,7 +799,6 @@ extension ImageAsset {
   }
   public enum X32 {
     public static let actions = ImageAsset.bundle(name: "x32/Actions")
-    public static let actions2 = ImageAsset.bundle(name: "x32/Actions2")
     public static let addBelow = ImageAsset.bundle(name: "x32/Add Below")
     public enum AddColumn {
       public static let above = ImageAsset.bundle(name: "x32/Add Column/Above")
