@@ -27,6 +27,7 @@ struct DateView: View {
         .onDisappear {
             model.onDisappear()
         }
+        .homeBottomPanelHidden(false)
     }
     
     private var navigationBar: some View {

@@ -15,6 +15,7 @@ struct AllObjectsView: View {
             SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             content
         }
+        .homeBottomPanelHidden(false)
         .task {
             await model.startParticipantTask()
         }
