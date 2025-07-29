@@ -80,7 +80,7 @@ final class SpaceJoinViewModel: ObservableObject {
             } else {
                 showSuccessAlert.toggle()
             }
-        } catch SpaceJoinError.limitReached {
+        } catch let error as SpaceJoinError where error.code == .limitReached {
             dataState = .limitReached
             state = .data
         } catch {
@@ -156,10 +156,10 @@ final class SpaceJoinViewModel: ObservableObject {
             } else {
                 dataState = .invite(withoutApprove: inviteWithoutApprove)
             }
-        } catch SpaceInviteViewError.inviteNotFound {
+        } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
             dataState = .inviteNotFound
             state = .data
-        } catch SpaceInviteViewError.spaceIsDeleted {
+        } catch let error as SpaceInviteViewError where error.code == .spaceIsDeleted {
             dataState = .spaceDeleted
             state = .data
         } catch {
