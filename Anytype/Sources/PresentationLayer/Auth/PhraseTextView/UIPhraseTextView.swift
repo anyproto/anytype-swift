@@ -121,9 +121,7 @@ extension UIPhraseTextView {
         ]
         
         let words = text.components(separatedBy: " ")
-        
-        let attributedWords: [NSAttributedString]
-        attributedWords = words.map { NSAttributedString(string: $0, attributes: attributes) }
+        let attributedWords = words.map { NSAttributedString(string: $0, attributes: attributes) }
         
         // hack to increase words spacing when view is noninteractive
         let separator = noninteractive ? "     " : " "
