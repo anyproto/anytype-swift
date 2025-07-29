@@ -71,6 +71,7 @@ final class EditorPageController: UIViewController {
         onSyncStatusTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSyncStatusInfo()
+        }, onWebBannerTap: {
         }
     )
 
