@@ -57,7 +57,7 @@ struct PublishingPreview: View {
             HStack(spacing: 6) {
                 ForEach(0..<3) { _ in
                     Circle()
-                        .fill(Color.Control.transparentInactive)
+                        .fill(Color.Control.transparentTertiary)
                         .frame(width: 6, height: 6)
                 }
             }

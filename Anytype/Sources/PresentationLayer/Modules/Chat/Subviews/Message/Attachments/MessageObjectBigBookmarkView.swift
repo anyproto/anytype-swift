@@ -24,7 +24,7 @@ struct MessageObjectBigBookmarkView: View {
                         Text(host)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(1)
-                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive)
+                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary)
                     }
                     
                     if title.isNotEmpty {
@@ -38,7 +38,7 @@ struct MessageObjectBigBookmarkView: View {
                         Text(description)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(2)
-                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive)
+                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary)
                     }
                 }
                 Spacer()

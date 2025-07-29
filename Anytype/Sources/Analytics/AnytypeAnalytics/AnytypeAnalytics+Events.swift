@@ -731,12 +731,22 @@ extension AnytypeAnalytics {
         logEvent("UnlockPage")
     }
     
-    func logUndo() {
-        logEvent("Undo")
+    func logUndo(resultType: UndoRedoResultType) {
+        logEvent(
+            "Undo",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: resultType.rawValue
+            ]
+        )
     }
     
-    func logRedo() {
-        logEvent("Redo")
+    func logRedo(resultType: UndoRedoResultType) {
+        logEvent(
+            "Redo",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: resultType.rawValue
+            ]
+        )
     }
     
     func logDuplicateObject(count: Int, objectType: AnalyticsObjectType, spaceId: String) {
@@ -1243,6 +1253,10 @@ extension AnytypeAnalytics {
     
     func logKeyboardBarSelectionMenu() {
         logEvent("KeyboardBarSelectionMenu")
+    }
+    
+    func logKeyboardBarUndoMenu() {
+        logEvent("KeyboardBarUndoMenu")
     }
     
     func logKeyboardBarMentionMenu() {

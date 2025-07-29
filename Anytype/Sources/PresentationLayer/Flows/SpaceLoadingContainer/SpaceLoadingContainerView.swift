@@ -17,6 +17,7 @@ struct SpaceLoadingContainerView<Content: View>: View {
                 content(info)
             } else {
                 loadingState
+                    .homeBottomPanelHidden(true)
             }
         }
     }

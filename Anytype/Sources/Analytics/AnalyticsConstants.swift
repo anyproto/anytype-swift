@@ -424,3 +424,8 @@ enum ScreenSlashMenuRoute: String {
     case slash = "Slash"
     case keyboardBar = "KeyboardBar"
 }
+
+enum UndoRedoResultType: String {
+    case `true` = "True"
+    case `false` = "False"
+}

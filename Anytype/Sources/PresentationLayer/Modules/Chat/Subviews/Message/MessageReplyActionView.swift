@@ -40,7 +40,7 @@ struct MessageReplyActionView<Content: View>: View {
             .overlay(alignment: .topTrailing) {
                 Image(asset: .X32.reply)
                     .renderingMode(.template)
-                    .foregroundColor(.Control.transparentActive)
+                    .foregroundColor(.Control.transparentSecondary)
                     .padding(.trailing, -(contentHorizontalPadding + replyImageWidth))
                     .opacity(Double(-offsetX / minReplyWidth).clamped(to: 0...1))
                     .scaleEffect(Double(-offsetX / minReplyWidth).clamped(to: 0.5...1))

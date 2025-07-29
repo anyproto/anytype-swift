@@ -317,7 +317,7 @@ struct MessageView: View {
     }
     
     private var messageTimeColor: Color {
-        return data.position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive
+        return data.position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary
     }
 }
 

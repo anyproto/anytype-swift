@@ -14,6 +14,7 @@ public struct AccountInfo: Equatable, Hashable, Sendable, Identifiable, Codable 
     public let networkId: String
     public let techSpaceId: String
     public let ethereumAddress: String
+    public let spaceChatId: String
     
     
     public var id: Int { hashValue }
@@ -32,7 +33,8 @@ public extension AccountInfo {
         deviceId: "",
         networkId: "",
         techSpaceId: "",
-        ethereumAddress: ""
+        ethereumAddress: "",
+        spaceChatId: ""
     )
 }
 
@@ -50,7 +52,8 @@ extension Anytype_Model_Account.Info {
             deviceId: deviceID,
             networkId: networkID,
             techSpaceId: techSpaceID,
-            ethereumAddress: ethereumAddress
+            ethereumAddress: ethereumAddress,
+            spaceChatId: spaceChatID
         )
     }
 }

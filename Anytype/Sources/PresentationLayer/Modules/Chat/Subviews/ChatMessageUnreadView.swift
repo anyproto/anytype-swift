@@ -7,7 +7,7 @@ struct ChatMessageUnreadView: View {
             Spacer()
             Text(Loc.Chat.newMessages)
                 .anytypeStyle(.caption1Medium)
-                .foregroundColor(.Control.transparentActive)
+                .foregroundColor(.Control.transparentSecondary)
                 .frame(height: 50)
                 .lineLimit(1)
             Spacer()

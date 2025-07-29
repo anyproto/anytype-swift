@@ -186,8 +186,8 @@ extension Color {
       public static let primary = Color(asset: Asset.Control.primary)
       public static let secondary = Color(asset: Asset.Control.secondary)
       public static let tertiary = Color(asset: Asset.Control.tertiary)
-      public static let transparentActive = Color(asset: Asset.Control.transparentActive)
-      public static let transparentInactive = Color(asset: Asset.Control.transparentInactive)
+      public static let transparentSecondary = Color(asset: Asset.Control.transparentSecondary)
+      public static let transparentTertiary = Color(asset: Asset.Control.transparentTertiary)
       public static let white = Color(asset: Asset.Control.white)
     }
     // MARK: - Shape

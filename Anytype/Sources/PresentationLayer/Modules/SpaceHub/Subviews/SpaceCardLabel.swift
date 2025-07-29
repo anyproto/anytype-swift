@@ -42,8 +42,8 @@ struct SpaceCardLabel: View {
         // Optimization for fast sizeThatFits
         .frame(height: 80)
         .background(Color.Background.primary)
-        
-        .if(spaceData.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
+        // Delete this line with FeatureFlags.spaceLoadingForScreen
+        .if(spaceData.spaceView.isLoading && !FeatureFlags.spaceLoadingForScreen) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
         .if((!FeatureFlags.pinnedSpaces && draggable) || spaceData.spaceView.isPinned) {
@@ -124,7 +124,7 @@ struct SpaceCardLabel: View {
         if let lastMessage = spaceData.preview.lastMessage {
             Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
                 .anytypeStyle(.relation2Regular)
-                .foregroundStyle(Color.Control.transparentActive)
+                .foregroundStyle(Color.Control.transparentSecondary)
         }
     }
     
