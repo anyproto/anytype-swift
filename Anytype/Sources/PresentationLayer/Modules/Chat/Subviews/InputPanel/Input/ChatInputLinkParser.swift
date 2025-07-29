@@ -13,7 +13,10 @@ protocol ChatInputLinkParserProtocol: AnyObject {
 
 final class ChatInputLinkParser: ChatInputLinkParserProtocol {
     
-    let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    @Injected(\.systemURLService)
+    private var systemURLService: SystemURLServiceProtocol
+    
+    let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue | NSTextCheckingResult.CheckingType.phoneNumber.rawValue)
     
     // MARK: - ChatInputLinkParserProtocol
     
@@ -40,9 +43,7 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         let textLenDiff = replacedText.count - sourceText.string.count
         guard let match = matches.last, match.range.contains(range.location - textLenDiff) else { return nil }
         
-        guard let linkUrl = match.url?.urlWithLowercaseScheme, !linkUrl.isEmail else { return nil }
-        
-        return .addLinkStyle(range: match.range, link: linkUrl)
+        return convertMatch(match)
     }
         
     func handlePaste(text: String) -> [ChatInputLinkParserChange] {
@@ -55,11 +56,23 @@ final class ChatInputLinkParser: ChatInputLinkParserProtocol {
         )
         
         let changes = matches.compactMap { match -> ChatInputLinkParserChange? in
-            guard let linkUrl = match.url?.urlWithLowercaseScheme, !linkUrl.isEmail else { return nil }
-            return .addLinkStyle(range: match.range, link: linkUrl)
+            convertMatch(match)
         }
         
         return changes
+    }
+    
+    private func convertMatch(_ match: NSTextCheckingResult) -> ChatInputLinkParserChange? {
+        
+        if let linkUrl = match.url?.urlWithLowercaseScheme {
+            return .addLinkStyle(range: match.range, link: linkUrl)
+        }
+        
+        if let phone = match.phoneNumber, let phoneLink = systemURLService.buildPhoneUrl(phone: phone) {
+            return .addLinkStyle(range: match.range, link: phoneLink)
+        }
+        
+        return nil
     }
 }
 
