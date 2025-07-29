@@ -71,64 +71,30 @@ struct SpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "")
+        PageNavigationHeader(title: "") {
+            Button {
+                model.onEditTap()
+            } label: {
+                AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+            }
+        }
     }
     
     private var spaceDetails: some View {
         VStack(spacing: 0) {
-            Button {
-                model.onChangeIconTap()
-            } label: {
-                VStack(spacing: 0) {
-                    Spacer.fixedHeight(8)
-                    IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
-                    Spacer.fixedHeight(8)
-                    AnytypeText(Loc.Settings.editPicture, style: .caption1Medium).foregroundColor(.Text.secondary)
-                }
-            }
-            
-            Spacer.fixedHeight(24)
-            
-            Button {
-                model.onTitleTap()
-            } label: {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        AnytypeText(Loc.name, style: .caption1Regular).foregroundColor(.Text.secondary)
-                        if model.spaceName.isNotEmpty {
-                            AnytypeText(model.spaceName, style: .bodySemibold)
-                        } else {
-                            AnytypeText(Loc.untitled, style: .bodySemibold).foregroundColor(.Text.tertiary)
-                        }
+            VStack(spacing: 0) {
+                Button {
+                    model.onChangeIconTap()
+                } label: {
+                    VStack(spacing: 0) {
+                        Spacer.fixedHeight(8)
+                        IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
+                        Spacer.fixedHeight(16)
                     }
-                    Spacer()
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .border(16, color: .Shape.primary, lineWidth: 0.5)
-            }
-            
-            Spacer.fixedHeight(8)
-            
-            Button {
-                model.onDescriptionTap()
-            } label: {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        AnytypeText(Loc.description, style: .caption1Regular).foregroundColor(.Text.secondary)
-                        if model.spaceDescription.isNotEmpty {
-                            AnytypeText(model.spaceDescription, style: .previewTitle1Regular)
-                                .multilineTextAlignment(.leading)
-                        } else {
-                            AnytypeText(Loc.addADescription, style: .previewTitle1Regular).foregroundColor(.Text.tertiary)
-                                .multilineTextAlignment(.leading)
-                        }
-                    }
-                    Spacer()
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .border(16, color: .Shape.primary, lineWidth: 0.5)
+                AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
+                Spacer.fixedHeight(4)
+                AnytypeText(Loc.members(model.participantsCount), style: .caption1Medium).foregroundColor(.Text.secondary)
             }
         }
     }
@@ -136,7 +102,7 @@ struct SpaceSettingsView: View {
     @ViewBuilder
     private var sharing: some View {
         if model.inviteLink.isNotNil {
-            Spacer.fixedHeight(8)
+            Spacer.fixedHeight(24)
             
             HStack(spacing: 8) {                
                 Button {
