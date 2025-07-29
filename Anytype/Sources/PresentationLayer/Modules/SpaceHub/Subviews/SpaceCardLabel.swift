@@ -10,6 +10,8 @@ struct SpaceCardLabel: View {
     private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
+    @Namespace private var namespace
+    
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             IconView(icon: spaceData.spaceView.objectIconImage)
@@ -35,7 +37,10 @@ struct SpaceCardLabel: View {
                 }
                 Spacer(minLength: 1)
             }
-            
+            // Fixing the animation when the cell is moved and updated inside
+            // Optimization - create a data model for SpaceCard and map to in in SpaceHubViewModel on background thread
+            .id(spaceData.hashValue)
+            .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)

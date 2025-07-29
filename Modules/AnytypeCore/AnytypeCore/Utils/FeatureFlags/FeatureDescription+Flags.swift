@@ -189,7 +189,7 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "12"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let binScreenEmptyAction = FeatureDescription(
