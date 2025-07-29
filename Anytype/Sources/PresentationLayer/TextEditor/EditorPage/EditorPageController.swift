@@ -305,6 +305,10 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.updateSyncStatusData(syncStatusData)
     }
     
+    func update(webBannerVisible: Bool) {
+        navigationBarHelper.updateWebBannerVisibility(webBannerVisible)
+    }
+    
     func reconfigure(items: [EditorItem]) {
         guard items.count > 0 else { return }
 

@@ -26,6 +26,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.publishingService)
+    private var publishingService: any PublishingServiceProtocol
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
@@ -109,6 +111,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             modelsHolder.updateItems(items)
             viewInput?.reconfigure(items: items)
         }.store(in: &subscriptions)
+        
+        // TODO: Use subscription when ready
+        Task {
+            let state = try await publishingService.getStatus(spaceId: document.spaceId, objectId: document.objectId)
+            
+            viewInput?.update(webBannerVisible: state.isNotNil)
+        }
     }
     
     private func setupLoadingState() {
