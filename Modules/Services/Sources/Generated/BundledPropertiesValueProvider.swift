@@ -173,6 +173,7 @@ public protocol BundledPropertiesValueProvider {
     var spacePushNotificationMode: Int? { get }
     var spacePushNotificationKey: String { get }
     var spacePushNotificationEncryptionKey: String { get }
+    var spaceJoinDate: Date? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -802,5 +803,9 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Push notifications encryption key (base64)
     var spacePushNotificationEncryptionKey: String {
         return value(for: BundledPropertyKey.spacePushNotificationEncryptionKey.rawValue)
+    }
+    /// Space join date
+    var spaceJoinDate: Date? {
+        return value(for: BundledPropertyKey.spaceJoinDate.rawValue)
     }
 }

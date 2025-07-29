@@ -18,7 +18,8 @@ extension Anytype_Event.Object {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      /// Amend (i.e. add a new key-value pair or update an existing key-value pair) existing state
+      /// Amend (i.e. add a new key-value pair or update an existing key-value
+      /// pair) existing state
       public struct Amend: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -70,7 +71,7 @@ extension Anytype_Event.Object {
         /// context objectId
         public var id: String = String()
 
-        /// can not be a partial state. Should replace client details state
+        /// can not be a partial state. Should replace client details
         public var details: SwiftProtobuf.Google_Protobuf_Struct {
           get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
           set {_details = newValue}
@@ -80,6 +81,7 @@ extension Anytype_Event.Object {
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
         public mutating func clearDetails() {self._details = nil}
 
+        /// state
         public var subIds: [String] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()

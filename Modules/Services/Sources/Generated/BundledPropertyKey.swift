@@ -467,4 +467,7 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Push notifications encryption key (base64)
     case spacePushNotificationEncryptionKey = "spacePushNotificationEncryptionKey"
+
+    /// Space join date
+    case spaceJoinDate = "spaceJoinDate"
 }
