@@ -24,6 +24,9 @@ struct SoulView: View {
             )
             .colorScheme(.light)
         }
+        .task {
+            await model.startParticipantTask()
+        }
         .onAppear {
             model.onAppear()
         }
@@ -54,7 +57,7 @@ struct SoulView: View {
     
     private var input: some View {
         AutofocusedTextField(
-            placeholder: Loc.Auth.JoinFlow.Soul.placeholder,
+            placeholder: model.generatedNamePlaceholder,
             font: .authInput,
             text: $model.inputText
         )

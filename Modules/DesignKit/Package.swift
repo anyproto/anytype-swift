@@ -18,7 +18,7 @@ let package = Package(
         .package(path: "../Assets"),
         .package(path: "../AsyncTools"),
         .package(path: "../LayoutKit"),
-        .package(url: "https://github.com/bududomasidet/SwiftEntryKit", exact: "1.0.0"),
+        .package(url: "https://github.com/huri000/SwiftEntryKit", exact: "2.0.0"),
         .package(url: "https://github.com/hyperoslo/Cache", exact: "7.4.0")
     ],
     targets: [

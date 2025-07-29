@@ -2783,10 +2783,10 @@
 		};
 		C9433E52293EA5EF001662EA /* XCRemoteSwiftPackageReference "SwiftEntryKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/bududomasidet/SwiftEntryKit";
+			repositoryURL = "https://github.com/huri000/SwiftEntryKit";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.0;
+				version = 2.0.0;
 			};
 		};
 		C9BFBA8C28A133320003D9E6 /* XCRemoteSwiftPackageReference "ShimmerSwift" */ = {
