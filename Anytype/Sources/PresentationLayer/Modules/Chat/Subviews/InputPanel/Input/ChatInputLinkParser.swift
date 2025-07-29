@@ -14,7 +14,7 @@ protocol ChatInputLinkParserProtocol: AnyObject {
 final class ChatInputLinkParser: ChatInputLinkParserProtocol {
     
     @Injected(\.systemURLService)
-    private var systemURLService: SystemURLServiceProtocol
+    private var systemURLService: any SystemURLServiceProtocol
     
     let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue | NSTextCheckingResult.CheckingType.phoneNumber.rawValue)
     
