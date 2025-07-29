@@ -14,6 +14,7 @@ enum SpaceJoinDataState {
     case alreadyJoined
     case inviteNotFound
     case spaceDeleted
+    case limitReached
     
     var inviteWithoutApprove: Bool {
         switch self {
@@ -50,6 +51,7 @@ final class SpaceJoinViewModel: ObservableObject {
     @Published var dataState: SpaceJoinDataState = .invite(withoutApprove: false)
     @Published var toast: ToastBarData?
     @Published var showSuccessAlert = false
+    @Published var joinTaskId: String?
     @Published var dismiss = false
     
     init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
@@ -57,21 +59,33 @@ final class SpaceJoinViewModel: ObservableObject {
         self.onManageSpaces = onManageSpaces
     }
     
-    func onJoin() async throws {
+    func onJoinTapped() {
+        joinTaskId = UUID().uuidString
+    }
+    
+    func onJoin() async {
         guard let inviteView else {
             anytypeAssertionFailure("Try to join without invite")
-            throw CommonError.undefined
+            return
         }
-        try await workspaceService.join(
-            spaceId: inviteView.spaceId,
-            cid: data.cid,
-            key: data.key,
-            networkId: accountManager.account.info.networkId
-        )
-        if inviteView.inviteType.withoutApprove {
-            dismiss.toggle()
-        } else {
-            showSuccessAlert.toggle()
+        do {
+            try await workspaceService.join(
+                spaceId: inviteView.spaceId,
+                cid: data.cid,
+                key: data.key,
+                networkId: accountManager.account.info.networkId
+            )
+            if inviteView.inviteType.withoutApprove {
+                dismiss.toggle()
+            } else {
+                showSuccessAlert.toggle()
+            }
+        } catch let error as SpaceJoinError where error.code == .limitReached {
+            dataState = .limitReached
+            state = .data
+        } catch {
+            errorMessage = error.localizedDescription
+            state = .error
         }
     }
     

@@ -2089,6 +2089,10 @@ public enum Loc {
       public enum InviteNotFound {
         public static let message = Loc.tr("Localizable", "SpaceShare.Join.InviteNotFound.Message", fallback: "The link you are using does not seem to work. Please ask the owner to share a new one with you.")
       }
+      public enum LimitReached {
+        public static let message = Loc.tr("Localizable", "SpaceShare.Join.LimitReached.Message", fallback: "To join as an editor, ask the owner to add more editor seats or send you a new link with view-only access.")
+        public static let title = Loc.tr("Localizable", "SpaceShare.Join.LimitReached.Title", fallback: "This space has reached its limit")
+      }
       public enum NoAccess {
         public static let title = Loc.tr("Localizable", "SpaceShare.Join.NoAccess.Title", fallback: "No access to this space")
       }
