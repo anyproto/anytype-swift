@@ -68,6 +68,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
     @Published private(set) var inviteLink: URL?
+    @Published var participantsCount: Int = 0
     
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
@@ -162,7 +163,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
 
-    func onTitleTap() {
+    func onEditTap() {
         editingData = SettingsInfoEditingViewData(
             title: Loc.name,
             placeholder: Loc.untitled,
@@ -175,18 +176,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         )
     }
     
-    func onDescriptionTap() {
-        editingData = SettingsInfoEditingViewData(
-            title: Loc.description,
-            placeholder: Loc.addADescription,
-            initialValue: spaceDescription,
-            font: .previewTitle1Regular,
-            onSave: { [weak self] in
-                guard let self else { return }
-                saveDetails(name: spaceName, description: $0)
-            }
-        )
-    }
     
     func onBinTap() {
         output?.onBinSelected()
@@ -212,6 +201,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
+            participantsCount = participants.count
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
             updateViewState()
