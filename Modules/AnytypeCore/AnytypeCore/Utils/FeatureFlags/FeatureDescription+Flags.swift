@@ -263,6 +263,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let newHome = FeatureDescription(
+        title: "New Home prototype",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Debug
     

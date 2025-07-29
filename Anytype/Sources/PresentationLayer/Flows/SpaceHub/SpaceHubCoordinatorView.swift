@@ -104,7 +104,11 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(output: model)
+                            if FeatureFlags.newHome {
+                                HomeView(output: model)
+                            } else {
+                                SpaceHubView(output: model)
+                            }
                         }
                         builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
                             SpaceChatCoordinatorView(data: $0)

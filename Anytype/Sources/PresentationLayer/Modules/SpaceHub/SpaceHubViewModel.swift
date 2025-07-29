@@ -38,8 +38,12 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData?
     @Published var showLoading = false
     @Published var profileIcon: Icon?
+    @Published var showSettings = false
+    @Published var spaceIdToLeave: StringIdentifiable?
+    @Published var spaceIdToDelete: StringIdentifiable?
     
     private weak var output: (any SpaceHubModuleOutput)?
+    private let showOnlyChats: Bool
     
     var showPlusInNavbar: Bool {
         guard let allSpaces else { return false }
@@ -63,8 +67,9 @@ final class SpaceHubViewModel: ObservableObject {
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     
-    init(output: (any SpaceHubModuleOutput)?) {
+    init(output: (any SpaceHubModuleOutput)?, showOnlyChats: Bool) {
         self.output = output
+        self.showOnlyChats = showOnlyChats
     }
     
     func onTapSettings() {
@@ -79,9 +84,9 @@ final class SpaceHubViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenVault(type: "General")
     }
     
-    func onSpaceTap(spaceId: String) {
+    func onSpaceTap(spaceId: String, presentation: SpacePreferredPresentationMode?) {
         if FeatureFlags.spaceLoadingForScreen {
-            output?.onSelectSpace(spaceId: spaceId)
+            output?.onSelectSpace(spaceId: spaceId, preferredPresentation: presentation)
             UISelectionFeedbackGenerator().selectionChanged()
         } else {
             Task {
@@ -129,6 +134,14 @@ final class SpaceHubViewModel: ObservableObject {
         output?.onOpenSpaceSettings(spaceId: spaceId)
     }
     
+    func leaveSpace(spaceId: String) {
+        spaceIdToLeave = spaceId.identifiable
+    }
+    
+    func deleteSpace(spaceId: String) async throws {
+        spaceIdToDelete = spaceId.identifiable
+    }
+    
     func startSubscriptions() async {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
@@ -153,6 +166,9 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
+            // todo change chatId check to uxType when fixed
+            let spaces = showOnlyChats ? spaces.filter { $0.space.spaceView.chatId.isNotEmpty } : spaces.filter { $0.space.spaceView.chatId.isEmpty }
+            
             if FeatureFlags.pinnedSpaces {
                 self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
                 self.unreadSpaces = []

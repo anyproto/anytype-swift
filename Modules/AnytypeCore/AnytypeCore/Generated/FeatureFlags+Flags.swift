@@ -154,6 +154,10 @@ public extension FeatureFlags {
         value(for: .newSharingExtension)
     }
 
+    static var newHome: Bool {
+        value(for: .newHome)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -257,6 +261,7 @@ public extension FeatureFlags {
         .webPublishing,
         .keyboardMenuUndoRedo,
         .newSharingExtension,
+        .newHome,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
