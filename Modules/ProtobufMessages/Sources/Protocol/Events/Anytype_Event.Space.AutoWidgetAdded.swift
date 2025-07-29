@@ -18,9 +18,10 @@ extension Anytype_Event.Space {
 
       public var targetID: String = String()
 
-      /// pluralName (if exists) for types, fallback to name. Special cases for "bin" and "favorites"
+      /// pluralName (if exists) for types, fallback to
       public var targetName: String = String()
 
+      /// name. Special cases for "bin" and "favorites"
       public var widgetBlockID: String = String()
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()

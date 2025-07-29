@@ -623,7 +623,7 @@ extension Anytype_Event {
       set {value = .chatUpdateReactions(newValue)}
     }
 
-    /// received to update per-message read status (if needed to highlight the unread messages in the UI)
+    /// received to update per-message read status (if needed to
     public var chatUpdateMessageReadStatus: Anytype_Event.Chat.UpdateMessageReadStatus {
       get {
         if case .chatUpdateMessageReadStatus(let v)? = value {return v}
@@ -632,7 +632,7 @@ extension Anytype_Event {
       set {value = .chatUpdateMessageReadStatus(newValue)}
     }
 
-    /// received to update per-message mention read status (if needed to highlight the unread mentions in the UI)
+    /// highlight the unread messages in the UI)
     public var chatUpdateMentionReadStatus: Anytype_Event.Chat.UpdateMentionReadStatus {
       get {
         if case .chatUpdateMentionReadStatus(let v)? = value {return v}
@@ -641,6 +641,7 @@ extension Anytype_Event {
       set {value = .chatUpdateMentionReadStatus(newValue)}
     }
 
+    /// to highlight the unread mentions in the UI)
     public var chatUpdateMessageSyncStatus: Anytype_Event.Chat.UpdateMessageSyncStatus {
       get {
         if case .chatUpdateMessageSyncStatus(let v)? = value {return v}
@@ -657,7 +658,7 @@ extension Anytype_Event {
       set {value = .chatDelete(newValue)}
     }
 
-    /// in case new unread messages received or chat state changed (e.g. message read on another device)
+    /// in case new unread messages received or chat state changed
     public var chatStateUpdate: Anytype_Event.Chat.UpdateState {
       get {
         if case .chatStateUpdate(let v)? = value {return v}

@@ -19,8 +19,8 @@ extension Anytype_Event.User {
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       ///*
-      ///  Middleware to front end event message, that will be sent in this scenario:
-      /// Precondition: user A opened a block
+      ///  Middleware to front end event message, that will be sent in this
+      /// scenario: Precondition: user A opened a block
       /// 1. User B opens the same block
       /// 2. User A receives a message about p.1
       public struct Join: Sendable {
@@ -46,8 +46,8 @@ extension Anytype_Event.User {
       }
 
       ///*
-      ///  Middleware to front end event message, that will be sent in this scenario:
-      /// Precondition: user A and user B opened the same block
+      ///  Middleware to front end event message, that will be sent in this
+      /// scenario: Precondition: user A and user B opened the same block
       /// 1. User B closes the block
       /// 2. User A receives a message about p.1
       public struct Left: Sendable {
@@ -73,8 +73,8 @@ extension Anytype_Event.User {
       }
 
       ///*
-      /// Middleware to front end event message, that will be sent in this scenario:
-      /// Precondition: user A and user B opened the same block
+      /// Middleware to front end event message, that will be sent in this
+      /// scenario: Precondition: user A and user B opened the same block
       /// 1. User B sets cursor or selects a text region into a text block
       /// 2. User A receives a message about p.1
       public struct TextRange: Sendable {
@@ -114,8 +114,8 @@ extension Anytype_Event.User {
       }
 
       ///*
-      /// Middleware to front end event message, that will be sent in this scenario:
-      /// Precondition: user A and user B opened the same block
+      /// Middleware to front end event message, that will be sent in this
+      /// scenario: Precondition: user A and user B opened the same block
       /// 1. User B selects some inner blocks
       /// 2. User A receives a message about p.1
       public struct SelectRange: Sendable {
