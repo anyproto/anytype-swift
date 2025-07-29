@@ -99,20 +99,34 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     }
     
     public func inviteView(cid: String, key: String) async throws -> SpaceInviteView {
-        let result = try await ClientCommands.spaceInviteView(.with {
-            $0.inviteCid = cid
-            $0.inviteFileKey = key
-        }).invoke(ignoreLogErrors: .inviteNotFound)
-        return result.asModel()
+        do {
+            let result = try await ClientCommands.spaceInviteView(.with {
+                $0.inviteCid = cid
+                $0.inviteFileKey = key
+            }).invoke(ignoreLogErrors: .inviteNotFound)
+            return result.asModel()
+        } catch let error as Anytype_Rpc.Space.InviteView.Response.Error where error.code == .spaceIsDeleted {
+            throw SpaceInviteViewError.spaceIsDeleted
+        } catch let error as Anytype_Rpc.Space.InviteView.Response.Error where error.code == .inviteNotFound {
+            throw SpaceInviteViewError.inviteNotFound
+        } catch {
+            throw error
+        }
     }
     
     public func join(spaceId: String, cid: String, key: String, networkId: String) async throws {
-        try await ClientCommands.spaceJoin(.with {
-            $0.spaceID = spaceId
-            $0.inviteCid = cid
-            $0.inviteFileKey = key
-            $0.networkID = networkId
-        }).invoke()
+        do {
+            try await ClientCommands.spaceJoin(.with {
+                $0.spaceID = spaceId
+                $0.inviteCid = cid
+                $0.inviteFileKey = key
+                $0.networkID = networkId
+            }).invoke()
+        } catch let error as Anytype_Rpc.Space.Join.Response.Error where error.code == .limitReached {
+            throw SpaceJoinError.limitReached
+        } catch {
+            throw error
+        }
     }
     
     public func joinCancel(spaceId: String) async throws {

@@ -240,10 +240,10 @@ public enum Loc {
   public static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("Localizable", "Manage payment", fallback: "Manage payment")
   public static let media = Loc.tr("Localizable", "Media", fallback: "Media")
+  public static let members = Loc.tr("Localizable", "Members", fallback: "Members")
   public static func members(_ p1: Int) -> String {
     return Loc.tr("Localizable", "members", p1, fallback: "Plural format key: members")
   }
-  public static let members = Loc.tr("Localizable", "Members", fallback: "Members")
   public static let membership = Loc.tr("Localizable", "Membership", fallback: "Membership")
   public static let mentions = Loc.tr("Localizable", "Mentions", fallback: "Mentions")
   public static func minXCharacters(_ p1: Any) -> String {
@@ -2088,6 +2088,10 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
       public enum InviteNotFound {
         public static let message = Loc.tr("Localizable", "SpaceShare.Join.InviteNotFound.Message", fallback: "The link you are using does not seem to work. Please ask the owner to share a new one with you.")
+      }
+      public enum LimitReached {
+        public static let message = Loc.tr("Localizable", "SpaceShare.Join.LimitReached.Message", fallback: "To join as an editor, ask the owner to add more editor seats or send you a new link with view-only access.")
+        public static let title = Loc.tr("Localizable", "SpaceShare.Join.LimitReached.Title", fallback: "This space has reached its limit")
       }
       public enum NoAccess {
         public static let title = Loc.tr("Localizable", "SpaceShare.Join.NoAccess.Title", fallback: "No access to this space")
