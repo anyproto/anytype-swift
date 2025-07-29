@@ -50,10 +50,6 @@ public extension FeatureFlags {
         value(for: .aiToolInSet)
     }
 
-    static var disableColorfulSeedPhrase: Bool {
-        value(for: .disableColorfulSeedPhrase)
-    }
-
     static var binWidgetFromLibrary: Bool {
         value(for: .binWidgetFromLibrary)
     }
@@ -231,7 +227,6 @@ public extension FeatureFlags {
         .spaceUxTypes,
         .enableStreamSpaceType,
         .aiToolInSet,
-        .disableColorfulSeedPhrase,
         .binWidgetFromLibrary,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,

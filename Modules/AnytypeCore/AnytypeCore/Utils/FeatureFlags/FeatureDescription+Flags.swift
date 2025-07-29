@@ -80,12 +80,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let disableColorfulSeedPhrase = FeatureDescription(
-        title: "Disable colorful seed phrase",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let binWidgetFromLibrary = FeatureDescription(
         title: "Bin widget from library",
         type: .feature(author: "m@anytype.io", releaseVersion: "10"),

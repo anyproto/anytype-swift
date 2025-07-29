@@ -113,30 +113,17 @@ extension UIPhraseTextView {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = AnytypeFont.authInput.config.lineHeight
-        var attributes = [
+        let attributes = [
             NSAttributedString.Key.paragraphStyle : style,
             NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,
-            NSAttributedString.Key.foregroundColor: UIColor.Auth.inputText
+            NSAttributedString.Key.foregroundColor: UIColor.Control.white,
+            NSAttributedString.Key.backgroundColor: hidden ? UIColor.Control.white : UIColor.clear
         ]
         
         let words = text.components(separatedBy: " ")
         
         let attributedWords: [NSAttributedString]
-        if FeatureFlags.disableColorfulSeedPhrase {
-            let color = UIColor.Control.white
-            attributedWords = words.map { word in
-                attributes[NSAttributedString.Key.foregroundColor] = color
-                attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
-                return NSAttributedString(string: word, attributes: attributes)
-            }
-        } else {
-            let colors = Self.colors + Self.colors
-            attributedWords = zip(words, colors).map { (word, color) in
-                attributes[NSAttributedString.Key.foregroundColor] = color
-                attributes[NSAttributedString.Key.backgroundColor] = hidden ? color : nil
-                return NSAttributedString(string: word, attributes: attributes)
-            }
-        }
+        attributedWords = words.map { NSAttributedString(string: $0, attributes: attributes) }
         
         // hack to increase words spacing when view is noninteractive
         let separator = noninteractive ? "     " : " "
