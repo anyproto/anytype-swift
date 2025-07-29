@@ -1,7 +1,8 @@
 import Services
+import StoredHashMacro
 
-
-struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable {
+@StoredHash
+struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     let space: ParticipantSpaceViewData
     let preview: ChatMessagePreview
     

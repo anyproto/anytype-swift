@@ -240,11 +240,11 @@ public enum Loc {
   public static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("Localizable", "Manage payment", fallback: "Manage payment")
   public static let media = Loc.tr("Localizable", "Media", fallback: "Media")
-  public static func members(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "members", p1, fallback: "Plural format key: members")
-  }
   public static let members = Loc.tr("Localizable", "Members", fallback: "Members")
   public static let membership = Loc.tr("Localizable", "Membership", fallback: "Membership")
+  public static func membersPlural(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "membersPlural", p1, fallback: "Plural format key: membersPlural")
+  }
   public static let mentions = Loc.tr("Localizable", "Mentions", fallback: "Mentions")
   public static func minXCharacters(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Min X characters", String(describing: p1), fallback: "Min %@ characters")
