@@ -40,7 +40,7 @@ struct SpaceCardLabel: View {
             // Fixing the animation when the cell is moved and updated inside
             // Optimization - create a data model for SpaceCard and map to in in SpaceHubViewModel on background thread
             .id(spaceData.hashValue)
-            .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading )
+            .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
