@@ -44,11 +44,7 @@ struct HomeWidgetSubmoduleView: View {
         case (.recentOpen, .compactList):
             RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
         case (.bin, _):
-            if FeatureFlags.binWidgetFromLibrary {
-                BinWidgetView(data: widgetData)
-            } else {
-                EmptyView()
-            }
+            BinWidgetView(data: widgetData)
         case (.chat, _):
             if FeatureFlags.chatWidget {
                 SpaceChatWidgetView(data: widgetData)
