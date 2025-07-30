@@ -110,10 +110,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onSpaceSelected()
     }
     
-    func submoduleOutput() -> (any CommonWidgetModuleOutput)? {
-        output
-    }
-    
     func onCreateWidgetFromEditMode() {
         AnytypeAnalytics.instance().logClickAddWidget(context: .editor)
         output?.onCreateWidgetSelected(context: .editor)

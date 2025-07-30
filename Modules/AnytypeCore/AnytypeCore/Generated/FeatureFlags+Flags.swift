@@ -54,10 +54,6 @@ public extension FeatureFlags {
         value(for: .disableColorfulSeedPhrase)
     }
 
-    static var binWidgetFromLibrary: Bool {
-        value(for: .binWidgetFromLibrary)
-    }
-
     static var anyAppBetaTip: Bool {
         value(for: .anyAppBetaTip)
     }
@@ -232,7 +228,6 @@ public extension FeatureFlags {
         .enableStreamSpaceType,
         .aiToolInSet,
         .disableColorfulSeedPhrase,
-        .binWidgetFromLibrary,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,

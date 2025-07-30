@@ -52,18 +52,17 @@ public extension FeatureDescription {
     
     static let newPlusMenu = FeatureDescription(
         title: "New plus menu",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
     
     static let spaceUxTypes = FeatureDescription(
         title: "Create chat space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
-    
     
     static let enableStreamSpaceType = FeatureDescription(
         title: "Create stream space",
@@ -83,12 +82,6 @@ public extension FeatureDescription {
     static let disableColorfulSeedPhrase = FeatureDescription(
         title: "Disable colorful seed phrase",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let binWidgetFromLibrary = FeatureDescription(
-        title: "Bin widget from library",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
         defaultValue: true
     )
     

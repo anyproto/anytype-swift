@@ -9,10 +9,6 @@ extension AnytypeWidgetId {
             widgets.removeAll { $0 == .chat }
         }
         
-        if !FeatureFlags.binWidgetFromLibrary {
-            widgets.removeAll { $0 == .bin }
-        }
-        
         return widgets
     }
 }
