@@ -104,35 +104,46 @@ struct SpaceSettingsView: View {
         if model.inviteLink.isNotNil {
             Spacer.fixedHeight(24)
             
-            HStack(spacing: 8) {                
+            HStack(spacing: 24) {
                 Button {
                     model.onInviteTap()
                 } label: {
-                    borderedView(asset: .X32.Island.addMember, title: Loc.invite)
+                    inviteLinkActionView(asset: .X32.linkTo, title: Loc.SpaceShare.Share.link)
+                }
+                
+                Button {
+                    model.onCopyLinkTap()
+                } label: {
+                    inviteLinkActionView(asset: .X32.copy, title: Loc.copyLink)
                 }
                 
                 Button {
                     model.onQRCodeTap()
                 } label: {
-                    borderedView(asset: .X32.qrCode, title: Loc.qrCode)
+                    inviteLinkActionView(asset: .X32.qrCode, title: Loc.qrCode)
                 }
             }
+            
+            Spacer.fixedHeight(16)
         }
     }
     
-    private func borderedView(asset: ImageAsset, title: String) -> some View {
-        HStack {
-            Spacer()
+    private func inviteLinkActionView(asset: ImageAsset, title: String) -> some View {
+        VStack(spacing: 0) {
             VStack(spacing: 0) {
                 Image(asset: asset)
                     .foregroundStyle(Color.Text.primary)
-                    .frame(width: 32, height: 32)
-                AnytypeText(title, style: .caption1Regular)
+                    .frame(width: 24, height: 24)
             }
-            .padding(.vertical, 14)
-            Spacer()
+            .padding(20)
+            .background(Color.Shape.transperentSecondary)
+            .cornerRadius(10)
+            
+            Spacer.fixedHeight(6)
+            
+            AnytypeText(title, style: .caption2Regular)
+                .foregroundColor(.Text.primary)
         }
-        .border(16, color: .Shape.primary, lineWidth: 0.5)
     }
     
     @ViewBuilder

@@ -142,6 +142,15 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
+    func onCopyLinkTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            guard let inviteLink else { return }
+            UIPasteboard.general.string = inviteLink.absoluteString
+            snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
+        }
+    }
+    
     func onChangeIconTap() {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }

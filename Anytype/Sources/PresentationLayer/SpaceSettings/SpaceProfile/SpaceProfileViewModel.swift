@@ -73,6 +73,12 @@ final class SpaceProfileViewModel: ObservableObject {
         shareInviteLink = inviteLink
     }
     
+    func onCopyLinkTap() {
+        guard let inviteLink else { return }
+        UIPasteboard.general.string = inviteLink.absoluteString
+        snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
+    }
+    
     // MARK: - Private
     
     private func generateInviteIfPossible(spaceView: SpaceView) async {

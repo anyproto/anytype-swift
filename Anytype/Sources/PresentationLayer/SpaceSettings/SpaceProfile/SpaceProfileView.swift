@@ -81,41 +81,45 @@ struct SpaceProfileView: View {
         if model.inviteLink.isNotNil {
             Spacer.fixedHeight(8)
             
-            HStack(spacing: 8) {
+            HStack(spacing: 24) {
                 Button {
                     model.onInviteTap()
                 } label: {
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.Island.addMember)
-                                .foregroundStyle(Color.Text.primary)
-                                .frame(width: 32, height: 32)
-                            AnytypeText(Loc.invite, style: .caption1Regular)
-                        }
-                        .padding(.vertical, 14)
-                        Spacer()
-                    }
-                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                    inviteLinkActionView(asset: .X32.linkTo, title: Loc.SpaceShare.Share.link)
+                }
+                
+                Button {
+                    model.onCopyLinkTap()
+                } label: {
+                    inviteLinkActionView(asset: .X32.copy, title: Loc.copyLink)
                 }
                 
                 Button {
                     model.onQRCodeTap()
                 } label: {
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.qrCode)
-                                .foregroundStyle(Color.Text.primary)
-                                .frame(width: 32, height: 32)
-                            AnytypeText(Loc.qrCode, style: .caption1Regular)
-                        }
-                        .padding(.vertical, 14)
-                        Spacer()
-                    }
-                    .border(12, color: .Shape.primary, lineWidth: 0.5)
+                    inviteLinkActionView(asset: .X32.qrCode, title: Loc.qrCode)
                 }
             }.padding(.horizontal, 16)
+            
+            Spacer.fixedHeight(16)
+        }
+    }
+    
+    private func inviteLinkActionView(asset: ImageAsset, title: String) -> some View {
+        VStack(spacing: 0) {
+            VStack(spacing: 0) {
+                Image(asset: asset)
+                    .foregroundStyle(Color.Text.primary)
+                    .frame(width: 24, height: 24)
+            }
+            .padding(20)
+            .background(Color.Shape.transperentSecondary)
+            .cornerRadius(10)
+            
+            Spacer.fixedHeight(6)
+            
+            AnytypeText(title, style: .caption2Regular)
+                .foregroundColor(.Text.primary)
         }
     }
 }
