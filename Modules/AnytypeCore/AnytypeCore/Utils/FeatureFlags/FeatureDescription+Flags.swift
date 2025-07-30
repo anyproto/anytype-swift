@@ -79,12 +79,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let disableColorfulSeedPhrase = FeatureDescription(
-        title: "Disable colorful seed phrase",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let anyAppBetaTip = FeatureDescription(
         title: "Show any app beta alert",
         type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
