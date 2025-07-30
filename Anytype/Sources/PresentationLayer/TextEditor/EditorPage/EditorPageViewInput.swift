@@ -29,6 +29,7 @@ protocol EditorPageViewInput: EditorCollectionReloadable {
     )
     func update(syncStatusData: SyncStatusData)
     func update(permissions: ObjectPermissions)
+    func update(webBannerVisible: Bool)
     
     func endEditing()
 

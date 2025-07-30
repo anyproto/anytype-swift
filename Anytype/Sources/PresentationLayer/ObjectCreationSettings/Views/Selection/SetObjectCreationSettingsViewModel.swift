@@ -300,6 +300,7 @@ extension TemplatePreviewModel {
                     details: objectDetails,
                     usecase: .templatePreview,
                     presentationUsecase: .full,
+                    showPublishingBanner: false,
                     onIconTap: {},
                     onCoverTap: {}
                 ),

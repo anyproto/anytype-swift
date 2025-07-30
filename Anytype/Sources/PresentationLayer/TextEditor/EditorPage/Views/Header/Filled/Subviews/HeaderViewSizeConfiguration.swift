@@ -13,15 +13,17 @@ struct HeaderViewSizeConfiguration: Hashable {
 }
 
 extension HeaderViewSizeConfiguration {
-    static func editorSizeConfiguration(width: CGFloat) -> HeaderViewSizeConfiguration {
-        HeaderViewSizeConfiguration(
+    static func editorSizeConfiguration(width: CGFloat, showPublishingBanner: Bool) -> HeaderViewSizeConfiguration {
+        let bannerOffset = showPublishingBanner ? 30 : 0
+        
+        return HeaderViewSizeConfiguration(
             width: width,
             fullHeight: ObjectHeaderConstants.coverFullHeight,
             coverBottomInset: ObjectHeaderConstants.coverBottomInset,
             coverHeight: ObjectHeaderConstants.coverHeight,
             iconBottomInset: ObjectHeaderConstants.iconBottomInset,
             iconHorizontalInset: ObjectHeaderConstants.iconHorizontalInset,
-            onlyIconTopInset: ObjectHeaderConstants.emptyViewHeight,
+            onlyIconTopInset: bannerOffset + ObjectHeaderConstants.emptyViewHeight,
             iconBorderWidth: 4,
             iconBorderColor: .Background.primary
         )

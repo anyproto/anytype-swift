@@ -30,7 +30,8 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
         
         switch configuration.data.presentationStyle {
         case .full:
-            heightConstraint?.constant = ObjectHeaderConstants.emptyViewHeight
+            let bannerPadding = configuration.showPublishingBanner ? 40 : 0
+            heightConstraint?.constant = bannerPadding + ObjectHeaderConstants.emptyViewHeight
         case .embedded:
             heightConstraint?.constant = ObjectHeaderConstants.emptyViewHeightCompact
         }

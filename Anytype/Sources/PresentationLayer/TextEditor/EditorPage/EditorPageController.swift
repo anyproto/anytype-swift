@@ -71,6 +71,7 @@ final class EditorPageController: UIViewController {
         onSyncStatusTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSyncStatusInfo()
+        }, onWebBannerTap: {
         }
     )
 
@@ -302,6 +303,10 @@ extension EditorPageController: EditorPageViewInput {
     
     func update(syncStatusData: SyncStatusData) {
         navigationBarHelper.updateSyncStatusData(syncStatusData)
+    }
+    
+    func update(webBannerVisible: Bool) {
+        navigationBarHelper.updateWebBannerVisibility(webBannerVisible)
     }
     
     func reconfigure(items: [EditorItem]) {

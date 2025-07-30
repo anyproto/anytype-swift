@@ -1463,6 +1463,10 @@ public enum Loc {
     public enum Url {
       public static let placeholder = Loc.tr("Localizable", "Publishing.URL.placeholder", fallback: "insert-page-name-here")
     }
+    public enum WebBanner {
+      public static let liveOnWeb = Loc.tr("Localizable", "Publishing.WebBanner.LiveOnWeb", fallback: "This object is live on the web.")
+      public static let viewSite = Loc.tr("Localizable", "Publishing.WebBanner.ViewSite", fallback: "View site ↗︎")
+    }
   }
   public enum PushNotifications {
     public enum DisabledAlert {
