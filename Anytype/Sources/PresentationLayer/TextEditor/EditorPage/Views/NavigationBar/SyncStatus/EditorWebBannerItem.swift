@@ -15,7 +15,7 @@ final class EditorWebBannerItem: UIView {
         attributedString.append(NSAttributedString(string: Loc.Publishing.WebBanner.liveOnWeb + " ", attributes: liveOnWebAttributes))
         
         let viewSiteAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.caption1Medium,
+            .font: UIFont.caption1Semibold,
             .foregroundColor: UIColor.Text.primary
         ]
         attributedString.append(NSAttributedString(string: Loc.Publishing.WebBanner.viewSite, attributes: viewSiteAttributes))

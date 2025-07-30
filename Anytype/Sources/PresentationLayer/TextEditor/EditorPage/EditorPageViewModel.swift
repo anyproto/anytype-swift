@@ -28,6 +28,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var accountManager: any AccountManagerProtocol
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var participantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.publishedUrlBuilder)
+    private var publishedUrlBuilder: any PublishedUrlBuilderProtocol
+    
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
@@ -38,6 +43,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private weak var output: (any EditorPageModuleOutput)?
     lazy var subscriptions = [AnyCancellable]()
     private var didScrollToInitialBlock = false
+    private var publishState: PublishState?
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -114,8 +120,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         
         // TODO: Use subscription when ready
         Task {
-            let state = try await publishingService.getStatus(spaceId: document.spaceId, objectId: document.objectId)
-            let isVisible = state.isNotNil
+            publishState = try await publishingService.getStatus(spaceId: document.spaceId, objectId: document.objectId)
+            let isVisible = publishState.isNotNil
             
             headerModel.updatePublishingBannerVisibility(isVisible)
             viewInput?.update(webBannerVisible: isVisible)
@@ -280,6 +286,22 @@ extension EditorPageViewModel {
                 }
             )
         )
+    }
+    
+    func onPublishingBannerTap() {
+        guard let publishState else {
+            anytypeAssertionFailure("Empty PublishState upon banner tap")
+            return
+        }
+        
+        guard let domain = participantStorage.participants.first?.publishingDomain else {
+            anytypeAssertionFailure("No participants found for account")
+            return
+        }
+        
+        guard let url = publishedUrlBuilder.buildPublishedUrl(domain: domain, customPath: publishState.uri) else { return }
+        
+        output?.openUrl(url)
     }
 
     // MARK: - EditorBottomNavigationManagerOutput
