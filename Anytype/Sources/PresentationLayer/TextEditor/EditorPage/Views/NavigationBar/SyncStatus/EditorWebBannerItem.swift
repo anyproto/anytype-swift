@@ -1,14 +1,26 @@
 import UIKit
 import Services
+import Loc
 
 final class EditorWebBannerItem: UIView {
     private lazy var label: UILabel = {
         let label = UILabel()
         
-        label.text = "This object is live on the web. View site ↗︎"
-        label.font = .systemFont(ofSize: 14, weight: .medium)
+        let attributedString = NSMutableAttributedString()
         
-        label.textColor = .Text.primary
+        let liveOnWebAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.caption1Regular,
+            .foregroundColor: UIColor.Text.primary
+        ]
+        attributedString.append(NSAttributedString(string: Loc.Publishing.WebBanner.liveOnWeb + " ", attributes: liveOnWebAttributes))
+        
+        let viewSiteAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.caption1Medium,
+            .foregroundColor: UIColor.Text.primary
+        ]
+        attributedString.append(NSAttributedString(string: Loc.Publishing.WebBanner.viewSite, attributes: viewSiteAttributes))
+        
+        label.attributedText = attributedString
         label.textAlignment = .center
         return label
     }()
@@ -66,13 +78,21 @@ final class EditorWebBannerItem: UIView {
         guard let itemState = itemState else {
             backgroundView.backgroundColor = .clear
             backgroundView.alpha = 0
-            label.textColor = .Text.primary
+            updateLabelTextColor(.Text.primary)
             return
         }
         
         backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
         backgroundView.alpha = itemState.backgroundAlpha
-        label.textColor = itemState.buttonTextColor
+        updateLabelTextColor(itemState.buttonTextColor)
+    }
+    
+    private func updateLabelTextColor(_ color: UIColor) {
+        guard let attributedText = label.attributedText else { return }
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
+        mutableAttributedString.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: attributedText.length))
+        label.attributedText = mutableAttributedString
     }
     
     // MARK: - Unavailable
