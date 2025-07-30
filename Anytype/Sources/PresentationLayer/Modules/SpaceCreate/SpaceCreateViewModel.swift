@@ -79,12 +79,8 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 } catch {}
             }
             
-            if FeatureFlags.openWelcomeObject {
-                if createResponse.startingObjectID.isNotEmpty {
-                    appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
-                } else {
-                    try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-                }
+            if createResponse.startingObjectID.isNotEmpty {
+                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             } else {
                 try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             }

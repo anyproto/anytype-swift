@@ -94,14 +94,6 @@ public extension FeatureFlags {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
-    static var plusButtonOnWidgets: Bool {
-        value(for: .plusButtonOnWidgets)
-    }
-
-    static var openWelcomeObject: Bool {
-        value(for: .openWelcomeObject)
-    }
-
     static var spaceLoadingForScreen: Bool {
         value(for: .spaceLoadingForScreen)
     }
@@ -238,8 +230,6 @@ public extension FeatureFlags {
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
-        .plusButtonOnWidgets,
-        .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
         .chatWidget,
