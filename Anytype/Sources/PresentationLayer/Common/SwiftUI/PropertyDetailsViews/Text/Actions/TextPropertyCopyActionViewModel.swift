@@ -51,7 +51,7 @@ private extension TextPropertyCopyActionViewModel.SupportedTextType {
         switch self {
         case .phone: return Loc.RelationAction.copyPhone
         case .email: return Loc.RelationAction.copyEmail
-        case .url: return Loc.RelationAction.copyLink
+        case .url: return Loc.copyLink
         }
     }
 }

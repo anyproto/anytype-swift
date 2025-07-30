@@ -211,7 +211,7 @@ struct PublishingPreview: View {
         Button {
             output?.onPreviewCopyLink()
         } label: {
-            Label(Loc.Actions.copyLink, systemImage: "doc.on.doc")
+            Label(Loc.copyLink, systemImage: "doc.on.doc")
         }
     }
 }
