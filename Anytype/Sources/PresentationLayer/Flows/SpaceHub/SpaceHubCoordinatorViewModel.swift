@@ -390,9 +390,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         case .createObjectFromQuickAction(let typeId):
             await createAndShowNewObject(typeId: typeId, route: .homeScreen)
         case .openObject(let objectId, let spaceId):
-            if FeatureFlags.openWelcomeObject {
-                try await handleOpenObject(objectId: objectId, spaceId: spaceId)
-            }
+            try await handleOpenObject(objectId: objectId, spaceId: spaceId)
         case .deepLink(let deepLink, let source):
             try await handleDeepLink(deepLink: deepLink, source: source)
         }

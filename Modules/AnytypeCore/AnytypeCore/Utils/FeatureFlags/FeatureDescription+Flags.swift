@@ -97,7 +97,7 @@ public extension FeatureDescription {
     
     static let disableRestoreLastScreen = FeatureDescription(
         title: "Disable restore last opened screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -105,12 +105,11 @@ public extension FeatureDescription {
     
     static let spaceHubNewTitle = FeatureDescription(
         title: "New title for Space Hub",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
     )
-    
     
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
@@ -157,18 +156,6 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
-    )
-    
-    static let plusButtonOnWidgets = FeatureDescription(
-        title: "Wodgets - add plus button",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let openWelcomeObject = FeatureDescription(
-        title: "Open welcome object",
-        type: .feature(author: "m@anytype.io", releaseVersion: "10.5"),
-        defaultValue: true
     )
     
     static let spaceLoadingForScreen = FeatureDescription(
