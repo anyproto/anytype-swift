@@ -101,6 +101,7 @@ public enum Loc {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1), fallback: "%@ copied to clipboard")
   }
   public static let copy = Loc.tr("Localizable", "Copy", fallback: "Copy")
+  public static let copyLink = Loc.tr("Localizable", "Copy link", fallback: "Copy link")
   public static let copySpaceInfo = Loc.tr("Localizable", "Copy space info", fallback: "Copy space info")
   public static let cover = Loc.tr("Localizable", "Cover", fallback: "Cover")
   public static let create = Loc.tr("Localizable", "Create", fallback: "Create")
@@ -557,7 +558,6 @@ public enum Loc {
     }
   }
   public enum Actions {
-    public static let copyLink = Loc.tr("Localizable", "Actions.CopyLink", fallback: "Copy link")
     public static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     public static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
     public static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
@@ -1043,7 +1043,6 @@ public enum Loc {
   }
   public enum Editor {
     public enum LinkToObject {
-      public static let copyLink = Loc.tr("Localizable", "Editor.LinkToObject.CopyLink", fallback: "Copy link")
       public static let linkedTo = Loc.tr("Localizable", "Editor.LinkToObject.LinkedTo", fallback: "Linked to")
       public static let pasteFromClipboard = Loc.tr("Localizable", "Editor.LinkToObject.PasteFromClipboard", fallback: "Paste from clipboard")
       public static let removeLink = Loc.tr("Localizable", "Editor.LinkToObject.RemoveLink", fallback: "Remove link")
@@ -1655,7 +1654,6 @@ public enum Loc {
     public static let callPhone = Loc.tr("Localizable", "RelationAction.CallPhone", fallback: "Call phone numbler")
     public static let copied = Loc.tr("Localizable", "RelationAction.Copied", fallback: "Copied")
     public static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail", fallback: "Copy email")
-    public static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink", fallback: "Copy link")
     public static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone", fallback: "Copy phone number")
     public static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink", fallback: "Open link")
     public static let reloadContent = Loc.tr("Localizable", "RelationAction.ReloadContent", fallback: "Reload object content")

@@ -138,7 +138,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
             
             copyLink = LinkToObjectSearchData(
                 searchKind: .copyLink(url),
-                searchTitle: Loc.Editor.LinkToObject.copyLink,
+                searchTitle: Loc.copyLink,
                 iconImage: .asset(.TextEditor.BlocksOption.copy)
             )
         } else if let blockId = data.currentLinkString {

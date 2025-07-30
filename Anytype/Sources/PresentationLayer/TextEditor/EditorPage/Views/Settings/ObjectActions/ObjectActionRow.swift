@@ -70,7 +70,7 @@ private extension ObjectAction {
         case .createWidget:
             return Loc.Actions.CreateWidget.title
         case .copyLink:
-            return Loc.Actions.copyLink
+            return Loc.copyLink
         }
     }
 
