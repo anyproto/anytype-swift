@@ -56,16 +56,19 @@ struct SetFullHeader: View {
     private var cover: some View {
         Group {
             switch model.headerModel.header {
-            case .empty(let data, _):
+            case .empty(let data, _, _):
                 Button(action: data.onTap) {
                     emptyCover(presentationStyle: data.presentationStyle)
                 }
-            case .filled(let state, _):
+            case let .filled(state, showPublishingBanner, _):
                 ObjectHeaderFilledContentSwitfUIView(
                     configuration: ObjectHeaderFilledConfiguration(
                         state: state,
                         isShimmering: false,
-                        sizeConfiguration: .editorSizeConfiguration(width: width)
+                        sizeConfiguration: .editorSizeConfiguration(
+                            width: width,
+                            showPublishingBanner: showPublishingBanner
+                        )
                     )
                 )
             default:

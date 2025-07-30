@@ -28,8 +28,6 @@ final class EditorWebBannerItem: UIView {
     func setVisible(_ visible: Bool) {
         self.isVisible = visible
         self.isHidden = !visible
-        
-        heightAnchor.constraint(equalToConstant: visible ? 40 : 0).isActive = true
     }
     
     init(onTap: @escaping () -> ()) {
@@ -45,6 +43,8 @@ final class EditorWebBannerItem: UIView {
         
         backgroundView.layer.cornerRadius = 8
         backgroundView.backgroundColor = .Control.secondary
+        
+        heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         addSubview(backgroundView) { $0.pinToSuperview() }
         addSubview(label) { 

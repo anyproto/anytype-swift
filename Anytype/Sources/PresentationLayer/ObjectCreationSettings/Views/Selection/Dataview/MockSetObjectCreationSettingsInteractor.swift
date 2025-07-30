@@ -80,7 +80,8 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                                 ),
                                 onCoverTap: {}
                             )
-                        )
+                        ),
+                        showPublishingBanner: false
                     ),
                     isBundled: false,
                     isDefault: false,
@@ -111,7 +112,10 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                             ),
                             cover: .init(
                                 coverType: .cover(.gradient(.init(start: .red, end: .blue))),
-                                onTap: {}))
+                                onTap: {}
+                            )
+                        ),
+                        showPublishingBanner: false
                     ),
                     isBundled: false,
                     isDefault: false,
@@ -136,7 +140,8 @@ extension MockTemplatePreviewModel: @unchecked Sendable {
                                 coverType: .cover(.gradient(.init(start: .red, end: .blue))),
                                 onTap: {}
                             )
-                        )
+                        ),
+                        showPublishingBanner: false
                     ),
                     isBundled: false,
                     isDefault: false,

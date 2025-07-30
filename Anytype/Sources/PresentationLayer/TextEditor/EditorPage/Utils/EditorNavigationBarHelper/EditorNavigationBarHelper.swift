@@ -299,7 +299,7 @@ private extension ObjectHeader {
     
     var hasCover: Bool {
         switch self {
-        case .filled(let filledState, _):
+        case .filled(let filledState, _, _):
             return filledState.hasCover
         case .empty:
             return false

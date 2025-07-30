@@ -81,7 +81,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
         Group {
             if case let .installed(templateModel) = viewModel.model.mode {
                 switch templateModel.header {
-                case .filled(let state, _):
+                case .filled(let state, _, _):
                     ObjectHeaderFilledContentSwitfUIView(
                         configuration: ObjectHeaderFilledConfiguration(
                             state: state,

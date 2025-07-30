@@ -115,8 +115,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         // TODO: Use subscription when ready
         Task {
             let state = try await publishingService.getStatus(spaceId: document.spaceId, objectId: document.objectId)
+            let isVisible = state.isNotNil
             
-            viewInput?.update(webBannerVisible: state.isNotNil)
+            headerModel.updatePublishingBannerVisibility(isVisible)
+            viewInput?.update(webBannerVisible: isVisible)
         }
     }
     

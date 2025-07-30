@@ -44,6 +44,8 @@ final class ObjectHeaderViewModel: ObservableObject {
     private let configuration: EditorPageViewModelConfiguration
     private weak var output: (any ObjectHeaderModuleOutput)?
     
+    private var showPublishingBanner: Bool = false
+    
     var onIconPickerTap: RoutingAction<any BaseDocumentProtocol>?
     
     // MARK: - Initializers
@@ -64,10 +66,17 @@ final class ObjectHeaderViewModel: ObservableObject {
         header = buildShimmeringHeader()
     }
     
+    func updatePublishingBannerVisibility(_ isVisible: Bool) {
+        showPublishingBanner = isVisible
+        onUpdate(details: document.details, showPublishingBanner: isVisible)
+    }
+    
     // MARK: - Private
     private func setupSubscription() {
         subscription = document.detailsPublisher.receiveOnMain().sink { [weak self] details in
-            self?.onUpdate(details: details)
+            guard let self else { return }
+            
+            onUpdate(details: details, showPublishingBanner: showPublishingBanner)
         }
     }
 
@@ -92,12 +101,15 @@ final class ObjectHeaderViewModel: ObservableObject {
                     coverType: .cover(.color(.Shape.tertiary)),
                     onTap: {})
             ),
+            showPublishingBanner: showPublishingBanner,
             isShimmering: true
         )
     }
     
-    private func onUpdate(details: ObjectDetails) {
-        let header = buildHeader(details: details)
+    private func onUpdate(details: ObjectDetails?, showPublishingBanner: Bool) {
+        guard let details else { return }
+        
+        let header = buildHeader(details: details, showPublishingBanner: showPublishingBanner)
         
         if self.header != header {
             self.header = header
@@ -107,13 +119,15 @@ final class ObjectHeaderViewModel: ObservableObject {
             .coverUploadPublisher(objectId: details.id, spaceId: details.spaceId)
             .receiveOnMain()
             .sink { [weak self] update in
-                if let loadingHeader = self?.buildLoadingHeader(update) {
+                if let loadingHeader = self?.buildLoadingHeader(
+                    update, showPublishingBanner: showPublishingBanner
+                ) {
                     self?.header = loadingHeader
                 }
             }
     }
     
-    private func buildHeader(details: ObjectDetails) -> ObjectHeader {
+    private func buildHeader(details: ObjectDetails, showPublishingBanner: Bool) -> ObjectHeader {
         guard let details = document.details else {
             return buildShimmeringHeader()
         }
@@ -122,12 +136,13 @@ final class ObjectHeaderViewModel: ObservableObject {
             details: details,
             usecase: .openedObject,
             presentationUsecase: configuration.usecase,
+            showPublishingBanner: showPublishingBanner,
             onIconTap: onIconTap,
             onCoverTap: onCoverTap
         )
     }
     
-    private func buildLoadingHeader(_ update: ObjectHeaderUpdate) -> ObjectHeader {
+    private func buildLoadingHeader(_ update: ObjectHeaderUpdate, showPublishingBanner: Bool) -> ObjectHeader {
         guard let details = document.details else {
             return fakeHeader(update: update)
         }
@@ -136,6 +151,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             details: details,
             usecase: .openedObject,
             presentationUsecase: configuration.usecase,
+            showPublishingBanner: showPublishingBanner,
             onIconTap: onIconTap,
             onCoverTap: onCoverTap
         )
@@ -159,7 +175,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                             ),
                             onCoverTap: onCoverTap
                         )
-                    )
+                    ), showPublishingBanner: showPublishingBanner
             )
         case .coverUploading(let coverUpdate):
             switch coverUpdate {
@@ -170,7 +186,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                                 coverType: .preview(.image(UIImage(contentsOfFile: string))),
                                 onTap: onCoverTap
                             )
-                        )
+                        ), showPublishingBanner: showPublishingBanner
                 )
             case .remotePreviewURL(let url):
                 return ObjectHeader.filled(state:
@@ -179,7 +195,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                                 coverType: .preview(.remote(url)),
                                 onTap: onCoverTap
                             )
-                        )
+                        ), showPublishingBanner: showPublishingBanner
                 )
             }
         }
