@@ -2,8 +2,13 @@ import SwiftUI
 
 struct SharingExtensionView: View {
     
-    @State private var tab: SharingExtensionTabs = .chat
     @StateObject private var model = SharingExtensionViewModel()
+    
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         VStack {
@@ -15,32 +20,36 @@ struct SharingExtensionView: View {
                     .foregroundColor(.Text.primary)
                     .lineLimit(1)
             } rightView: {
-                Image(asset: .X32.search)
-                    .foregroundStyle(Color.Control.secondary)
+                EmptyView()
             }
             .frame(height: 48)
             .padding(.horizontal, 16)
             
-            Picker("", selection: $tab) {
-                ForEach(SharingExtensionTabs.allCases, id:\.self) {
-                    Text($0.title)
-                }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal, 16)
-            
-            tabView
+            listView
         }
         .task {
             await model.onAppear()
         }
     }
     
-    private var tabView: some View {
-        ZStack {
-            SharingExtensionChatView(spaces: model.spacesWithChat)
-                .opacity(tab == .chat ? 1 : 0)
+    private var listView: some View {
+        ScrollView(.vertical) {
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(model.spaces) { space in
+                    Button {
+                        model.onTapSpace(space)
+                    } label: {
+                        SharingExtensionSpaceView(
+                            icon: space.objectIconImage,
+                            title: space.title,
+                            isSelected: model.selectedSpace?.id == space.id
+                        )
+                    }
+                }
+            }
         }
+        .scrollIndicators(.hidden)
+        .padding(.horizontal, 16)
     }
 }
 
