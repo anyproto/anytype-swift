@@ -50,10 +50,6 @@ public extension FeatureFlags {
         value(for: .aiToolInSet)
     }
 
-    static var binWidgetFromLibrary: Bool {
-        value(for: .binWidgetFromLibrary)
-    }
-
     static var anyAppBetaTip: Bool {
         value(for: .anyAppBetaTip)
     }
@@ -227,7 +223,6 @@ public extension FeatureFlags {
         .spaceUxTypes,
         .enableStreamSpaceType,
         .aiToolInSet,
-        .binWidgetFromLibrary,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,
