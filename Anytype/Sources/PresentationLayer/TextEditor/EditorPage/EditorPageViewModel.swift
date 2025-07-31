@@ -289,6 +289,10 @@ extension EditorPageViewModel {
     }
     
     func onPublishingBannerTap() {
+        if let details = document.details {
+            AnytypeAnalytics.instance().logClickShareObjectOpenPage(objectType: details.objectType.analyticsType, route: .notification)
+        }
+        
         guard let publishState else {
             anytypeAssertionFailure("Empty PublishState upon banner tap")
             return

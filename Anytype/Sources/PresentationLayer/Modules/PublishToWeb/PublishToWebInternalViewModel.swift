@@ -4,6 +4,10 @@ import Services
 import AnytypeCore
 import ProtobufMessages
 
+enum PublishAction {
+    case create
+    case update
+}
 
 @MainActor
 final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOutput {
@@ -17,6 +21,7 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
     @Published var toastBarData: ToastBarData?
     
     let domain: DomainType
+    let objectDetails: ObjectDetails
     
     private weak var output: (any PublishToWebModuleOutput)?
     
@@ -30,11 +35,16 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
     private let spaceId: String
     private let objectId: String
     
+    private var analyticsObjectType: AnalyticsObjectType {
+        return objectDetails.objectType.analyticsType
+    }
+    
     init(data: PublishToWebViewInternalData, output: (any PublishToWebModuleOutput)?) {
         spaceId = data.spaceId
         objectId = data.objectId
         domain = data.domain
         status = data.status
+        objectDetails = data.objectDetails
         self.output = output
         
         customPath = data.status?.uri ?? ""
@@ -47,23 +57,49 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
         )
     }
     
-    func onPublishTap() async throws {
+    func onPublishTap(action: PublishAction) async throws {
+        switch action {
+        case .create:
+            AnytypeAnalytics.instance().logClickShareObjectPublish(objectType: analyticsObjectType)
+        case .update:
+            AnytypeAnalytics.instance().logClickShareObjectUpdate(objectType: analyticsObjectType)
+        }
+        
         try await publishingService.create(spaceId: spaceId, objectId: objectId, uri: customPath, joinSpace: showJoinSpaceButton)
         status = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
+        
+        if status.isNotNil {
+            switch action {
+            case .create:
+                AnytypeAnalytics.instance().logShareObjectPublish(objectType: analyticsObjectType)
+            case .update:
+                AnytypeAnalytics.instance().logShareObjectUpdate(objectType: analyticsObjectType)
+            }
+        }
+        
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     func onUnpublishTap() async throws {
+        AnytypeAnalytics.instance().logClickShareObjectUnpublish(objectType: analyticsObjectType)
+        
         try await publishingService.remove(spaceId: spaceId, objectId: objectId)
         status = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
+        
+        if status.isNil {
+            AnytypeAnalytics.instance().logShareObjectUnpublish(objectType: analyticsObjectType)
+        }
+        
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     func onFreeDomainTap() {
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .publish, route: .publish)
         output?.onShowMembership()
     }
     
     func updatePreviewForJoinButton(_ showJoin: Bool) {
+        AnytypeAnalytics.instance().logJoinSpaceButtonToPublish(objectType: analyticsObjectType, type: showJoin)
         previewData = previewBuilder.buildPreviewData(
             from: previewData,
             showJoinButton: showJoin
@@ -72,22 +108,20 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
     
     // MARK: - PublishingPreviewOutput
     
-    func onPreviewTap() {
-        guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
-        output?.onOpenPreview(url: publishedUrl)
-    }
-    
     func onPreviewOpenWebPage() {
+        AnytypeAnalytics.instance().logClickShareObjectOpenPage(objectType: analyticsObjectType, route: .menu)
         guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
         output?.onOpenPreview(url: publishedUrl)
     }
     
     func onPreviewShareLink() {
+        AnytypeAnalytics.instance().logClickShareObjectShareLink(objectType: analyticsObjectType)
         guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
         output?.onSharePreview(url: publishedUrl)
     }
     
     func onPreviewCopyLink() {
+        AnytypeAnalytics.instance().logClickShareObjectCopyUrl(objectType: analyticsObjectType)
         guard let publishedUrl = urlBuilder.buildPublishedUrl(domain: domain, customPath: customPath) else { return }
         UIPasteboard.general.string = publishedUrl.absoluteString
         toastBarData = ToastBarData(Loc.copiedToClipboard(Loc.link))

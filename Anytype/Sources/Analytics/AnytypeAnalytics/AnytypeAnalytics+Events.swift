@@ -1587,4 +1587,108 @@ extension AnytypeAnalytics {
             logRemoveReaction()
         }
     }
+    
+    // MARK: - Publishing to Web
+    
+    func logClickShareObject(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ClickShareObject",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logClickShareObjectPublish(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ClickShareObjectPublish",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logClickShareObjectCopyUrl(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ClickShareObjectCopyUrl",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logJoinSpaceButtonToPublish(objectType: AnalyticsObjectType, type: Bool) {
+        logEvent(
+            "JoinSpaceButtonToPublish",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
+    
+    func logShareObjectPublish(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ShareObjectPublish",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logClickShareObjectUnpublish(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ClickShareObjectUnpublish",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logShareObjectUnpublish(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ShareObjectUnpublish",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logClickShareObjectUpdate(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ClickShareObjectUpdate",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logShareObjectUpdate(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ShareObjectUpdate",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
+    
+    func logClickShareObjectOpenPage(objectType: AnalyticsObjectType, route: ShareObjectOpenPageRoute) {
+        logEvent(
+            "ClickShareObjectOpenPage",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+    
+    func logClickShareObjectShareLink(objectType: AnalyticsObjectType) {
+        logEvent(
+            "ClickShareObjectShareLink",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
+            ]
+        )
+    }
 }

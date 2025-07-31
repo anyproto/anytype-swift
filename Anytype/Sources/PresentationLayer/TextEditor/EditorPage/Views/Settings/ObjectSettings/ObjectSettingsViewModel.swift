@@ -103,6 +103,9 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     }
     
     func onTapPublishing() {
+        if let details = document.details {
+            AnytypeAnalytics.instance().logClickShareObject(objectType: details.objectType.analyticsType)
+        }
         output?.showPublising(document: document)
     }
     

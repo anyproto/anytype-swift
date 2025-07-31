@@ -5,7 +5,6 @@ import Loc
 
 @MainActor
 protocol PublishingPreviewOutput: AnyObject {
-    func onPreviewTap()
     func onPreviewOpenWebPage()
     func onPreviewShareLink()
     func onPreviewCopyLink()
@@ -44,7 +43,7 @@ struct PublishingPreview: View {
         .if(isPublished) { view in
             view
                 .onTapGesture {
-                    output?.onPreviewTap()
+                    output?.onPreviewOpenWebPage()
                 }
                 .contextMenu {
                     contextMenuContent
