@@ -32,12 +32,14 @@ struct SettingsView: View {
                         onTap: { model.onAppearanceTap() }
                     )
                     
-                    SettingsSectionItemView(
-                        name: Loc.notifications,
-                        imageAsset: .Settings.notifications,
-                        decoration: .arrow(needAttention: model.notificationsDenied),
-                        onTap: { model.onNotificationsTap() }
-                    )
+                    if FeatureFlags.addNotificationsSettings {
+                        SettingsSectionItemView(
+                            name: Loc.notifications,
+                            imageAsset: .Settings.notifications,
+                            decoration: .arrow(needAttention: model.notificationsDenied),
+                            onTap: { model.onNotificationsTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.Spaces.title,

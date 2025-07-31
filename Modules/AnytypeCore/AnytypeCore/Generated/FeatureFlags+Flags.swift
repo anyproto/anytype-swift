@@ -106,6 +106,10 @@ public extension FeatureFlags {
         value(for: .muteSpacePossibility)
     }
 
+    static var addNotificationsSettings: Bool {
+        value(for: .addNotificationsSettings)
+    }
+
     static var chatLoadingIndicator: Bool {
         value(for: .chatLoadingIndicator)
     }
@@ -233,6 +237,7 @@ public extension FeatureFlags {
         .binScreenEmptyAction,
         .chatWidget,
         .muteSpacePossibility,
+        .addNotificationsSettings,
         .chatLoadingIndicator,
         .anytypeImageCacher,
         .joinSpaceViaQRCode,
