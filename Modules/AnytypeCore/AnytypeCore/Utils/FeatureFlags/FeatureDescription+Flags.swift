@@ -237,6 +237,12 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let mandatoryOnboardingEmailCollection = FeatureDescription(
+        title: "Mandatory onboarding email collection",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
+        defaultValue: true
+    )
 
     // MARK: - Debug
     
