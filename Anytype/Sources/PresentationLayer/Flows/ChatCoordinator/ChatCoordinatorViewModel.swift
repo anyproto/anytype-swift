@@ -2,6 +2,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
@@ -30,6 +31,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var newLinkedObject: EditorScreenData?
     @Published var inviteLinkData: SpaceShareData?
+    @Published var spaceShareData: SpaceShareData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -97,7 +99,12 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     }
     
     func onInviteLinkSelected() {
-        inviteLinkData = SpaceShareData(spaceId: spaceId, route: .chat)
+        let data = SpaceShareData(spaceId: spaceId, route: .chat)
+        if FeatureFlags.newSpaceMembersFlow {
+            spaceShareData = data
+        } else {
+            inviteLinkData = data
+        }
     }
     
     func onPushNotificationsAlertSelected() {
