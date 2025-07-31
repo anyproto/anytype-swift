@@ -1470,6 +1470,11 @@ public enum Loc {
       public static let viewSite = Loc.tr("Localizable", "Publishing.WebBanner.ViewSite", fallback: "View site ↗︎")
     }
   }
+  public enum PublishingToWeb {
+    public static let published = Loc.tr("Localizable", "PublishingToWeb.published", fallback: "Successfully published")
+    public static let unpublished = Loc.tr("Localizable", "PublishingToWeb.unpublished", fallback: "Successfully unpublished")
+    public static let updated = Loc.tr("Localizable", "PublishingToWeb.updated", fallback: "Successfully updated")
+  }
   public enum PushNotifications {
     public enum DisabledAlert {
       public static let description = Loc.tr("Localizable", "PushNotifications.DisabledAlert.description", fallback: "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on.")

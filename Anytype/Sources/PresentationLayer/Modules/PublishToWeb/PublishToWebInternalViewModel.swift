@@ -72,8 +72,10 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
             switch action {
             case .create:
                 AnytypeAnalytics.instance().logShareObjectPublish(objectType: analyticsObjectType)
+                toastBarData = ToastBarData(Loc.PublishingToWeb.published)
             case .update:
                 AnytypeAnalytics.instance().logShareObjectUpdate(objectType: analyticsObjectType)
+                toastBarData = ToastBarData(Loc.PublishingToWeb.updated)
             }
         }
         
@@ -88,6 +90,7 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
         
         if status.isNil {
             AnytypeAnalytics.instance().logShareObjectUnpublish(objectType: analyticsObjectType)
+            toastBarData = ToastBarData(Loc.PublishingToWeb.unpublished)
         }
         
         UINotificationFeedbackGenerator().notificationOccurred(.success)
