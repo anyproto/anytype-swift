@@ -39,9 +39,8 @@ public extension FeatureDescription {
     
     static let pinnedSpaces = FeatureDescription(
         title: "Pinned Spaces",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "11"),
-        defaultValue: false,
-        debugValue: true
+        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
+        defaultValue: true
     )
     
     static let openMediaFileInPreview = FeatureDescription(
@@ -206,8 +205,7 @@ public extension FeatureDescription {
     static let joinSpaceViaQRCode = FeatureDescription(
         title: "Join Space via QR Code",
         type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let swipeToReply = FeatureDescription(
@@ -225,8 +223,7 @@ public extension FeatureDescription {
     static let webPublishing = FeatureDescription(
         title: "Web Publishing",
         type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let keyboardMenuUndoRedo = FeatureDescription(
