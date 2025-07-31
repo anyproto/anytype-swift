@@ -181,8 +181,14 @@ public extension FeatureDescription {
     
     static let muteSpacePossibility = FeatureDescription(
         title: "Mute space possibility",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
-        defaultValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: false
+    )
+    
+    static let addNotificationsSettings = FeatureDescription(
+        title: "Add notifications settings",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: false
     )
     
     static let chatLoadingIndicator = FeatureDescription(
