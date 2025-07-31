@@ -243,6 +243,13 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
         defaultValue: true
     )
+    
+    static let newSpaceMembersFlow = FeatureDescription(
+        title: "New Space Members Flow",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Debug
     

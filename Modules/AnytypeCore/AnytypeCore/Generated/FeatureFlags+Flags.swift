@@ -142,6 +142,10 @@ public extension FeatureFlags {
         value(for: .mandatoryOnboardingEmailCollection)
     }
 
+    static var newSpaceMembersFlow: Bool {
+        value(for: .newSpaceMembersFlow)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -242,6 +246,7 @@ public extension FeatureFlags {
         .keyboardMenuUndoRedo,
         .newSharingExtension,
         .mandatoryOnboardingEmailCollection,
+        .newSpaceMembersFlow,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
