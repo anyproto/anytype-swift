@@ -14,9 +14,7 @@ struct SpaceShareCoordinatorView: View {
     var body: some View {
         Group {
             if FeatureFlags.newSpaceMembersFlow {
-                NewSpaceShareView(data: model.data) {
-                    model.onMoreInfoSelected()
-                }
+                NewSpaceShareView(data: model.data, output: model)
             } else {
                 SpaceShareView(data: model.data) {
                     model.onMoreInfoSelected()
@@ -25,6 +23,12 @@ struct SpaceShareCoordinatorView: View {
         }
         .sheet(isPresented: $model.showMoreInfo) {
             SpaceMoreInfoView()
+        }
+        .sheet(item: $model.shareInviteLink) { link in
+            ActivityView(activityItems: [link])
+        }
+        .anytypeSheet(item: $model.qrCodeInviteLink) {
+            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
         }
     }
 }

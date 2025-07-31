@@ -6,8 +6,8 @@ struct NewSpaceShareView: View {
     
     @StateObject private var model: NewSpaceShareViewModel
     
-    init(data: SpaceShareData, onMoreInfo: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: NewSpaceShareViewModel(data: data, onMoreInfo: onMoreInfo))
+    init(data: SpaceShareData, output: (any NewSpaceShareModuleOutput)?) {
+        self._model = StateObject(wrappedValue: NewSpaceShareViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -63,7 +63,7 @@ struct NewSpaceShareView: View {
                     .padding(.horizontal, 16)
                 }
                 .safeAreaInset(edge: .bottom) {
-                    NewInviteLinkCoordinatorView(data: model.data)
+                    NewInviteLinkView(data: model.data, output: model.output)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 36)
                 }
