@@ -173,7 +173,7 @@ struct PublishToWebInternalView: View {
                 AsyncStandardButton(
                     Loc.update,
                     style: .primaryLarge,
-                    action: { try await model.onPublishTap() }
+                    action: { try await model.onPublishTap(action: .update) }
                 )
             }
             
@@ -188,7 +188,7 @@ struct PublishToWebInternalView: View {
             AsyncStandardButton(
                 Loc.publish,
                 style: .primaryLarge,
-                action: { try await model.onPublishTap() }
+                action: { try await model.onPublishTap(action: .create) }
             )
             
             Spacer.fixedHeight(16)

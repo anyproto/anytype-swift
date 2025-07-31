@@ -310,6 +310,7 @@ enum ClickUpgradePlanTooltipType: String {
     case members = "members"
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
+    case publish = "publish"
 }
 
 enum ClickUpgradePlanTooltipRoute: String {
@@ -317,6 +318,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case spaceSharing = "ScreenSettingsSpaceShare"
     case confirmInvite = "ScreenInviteConfirm"
     case remoteStorage = "ScreenRemoteStorage"
+    case publish = "ScreenPublish"
 }
 
 enum ChangeObjectTypeRoute: String {
@@ -428,4 +430,9 @@ enum ScreenSlashMenuRoute: String {
 enum UndoRedoResultType: String {
     case `true` = "True"
     case `false` = "False"
+}
+
+enum ShareObjectOpenPageRoute: String {
+    case menu = "Menu"
+    case notification = "Notification"
 }
