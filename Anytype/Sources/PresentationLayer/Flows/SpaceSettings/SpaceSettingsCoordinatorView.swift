@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import Services
-import AnytypeCore
 
 struct SpaceSettingsCoordinator: View {
     let spaceId: String
@@ -51,11 +50,7 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
                 SpaceShareCoordinatorView(data: $0)
             }
             .sheet(item: $model.showSpaceMembersData) { data in
-                if FeatureFlags.newSpaceMembersFlow {
-                    NewSpaceMembersView(data: data)
-                } else {
-                    SpaceMembersView(data: data)
-                }
+                SpaceMembersView(data: data)
             }
             .sheet(item: $model.spaceNotificationsSettingsModuleData) {
                 SpaceNotificationsSettingsView(data: $0)
