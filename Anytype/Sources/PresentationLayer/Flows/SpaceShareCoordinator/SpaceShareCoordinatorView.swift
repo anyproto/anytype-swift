@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct SpaceShareCoordinatorView: View {
     
@@ -11,8 +12,16 @@ struct SpaceShareCoordinatorView: View {
     }
     
     var body: some View {
-        SpaceShareView(data: model.data) {
-            model.onMoreInfoSelected()
+        Group {
+            if FeatureFlags.newSpaceMembersFlow {
+                NewSpaceShareView(data: model.data) {
+                    model.onMoreInfoSelected()
+                }
+            } else {
+                SpaceShareView(data: model.data) {
+                    model.onMoreInfoSelected()
+                }
+            }
         }
         .sheet(isPresented: $model.showMoreInfo) {
             SpaceMoreInfoView()

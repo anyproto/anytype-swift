@@ -138,6 +138,10 @@ public extension FeatureFlags {
         value(for: .newSharingExtension)
     }
 
+    static var newSpaceMembersFlow: Bool {
+        value(for: .newSpaceMembersFlow)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -237,6 +241,7 @@ public extension FeatureFlags {
         .webPublishing,
         .keyboardMenuUndoRedo,
         .newSharingExtension,
+        .newSpaceMembersFlow,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
