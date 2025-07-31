@@ -212,9 +212,8 @@ public extension FeatureDescription {
     
     static let supportSimpleEmbedBlocks = FeatureDescription(
         title: "Support simple embed blocks",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
+        defaultValue: true
     )
     
     static let webPublishing = FeatureDescription(
