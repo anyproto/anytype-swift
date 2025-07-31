@@ -1,13 +1,27 @@
 import SwiftUI
+import AnytypeCore
+import SharedContentManager
 
 @MainActor
 final class SharingExtensionViewModel: ObservableObject {
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.sharedContentManager)
+    private var contentManager: any SharedContentManagerProtocol
+    @Injected(\.chatActionService)
+    private var chatActionService: any ChatActionServiceProtocol
     
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
+    // Debug
+    @Published var debugInfo: SharedContentDebugInfo? = nil
+    
+    init() {
+        if #available(iOS 17.0, *) {
+            SharingTip().invalidate(reason: .actionPerformed)
+        }
+    }
     
     func onAppear() async {
         await startSpacesSub()
@@ -17,7 +31,27 @@ final class SharingExtensionViewModel: ObservableObject {
         selectedSpace = space
     }
     
+    func onTapSend() async throws {
+        let content = try await contentManager.getSharedContent()
+        
+        var text = content.title ?? ""
+        var linkedObjects: [ChatLinkedObject] = []
+        
+        
+    }
+    
     // MARK: - Private
+    
+    private func setupData() async {
+        guard let content = try? await contentManager.getSharedContent() else {
+            try? await contentManager.clearSharedContent()
+            return
+        }
+        
+        if FeatureFlags.sharingExtensionShowContentTypes {
+            debugInfo = content.debugInfo
+        }
+    }
     
     private func startSpacesSub() async {
         for await participantSpaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {

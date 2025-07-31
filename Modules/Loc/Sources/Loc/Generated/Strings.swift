@@ -406,6 +406,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: Selected blocks")
   }
   public static let selfHost = Loc.tr("Localizable", "Self Host", fallback: "Self Host")
+  public static let send = Loc.tr("Localizable", "Send", fallback: "Send")
   public static let `set` = Loc.tr("Localizable", "Set", fallback: "Query")
   public static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
   public static func setOf(_ p1: Any) -> String {

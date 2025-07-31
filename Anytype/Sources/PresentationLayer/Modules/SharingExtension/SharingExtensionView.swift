@@ -25,7 +25,13 @@ struct SharingExtensionView: View {
             .frame(height: 48)
             .padding(.horizontal, 16)
             
-            listView
+            ZStack(alignment: .bottom) {
+                listView
+                    .safeAreaInset(edge: .bottom) {
+                        Spacer.fixedHeight(100)
+                    }
+                confirmButton
+            }
         }
         .task {
             await model.onAppear()
@@ -47,9 +53,30 @@ struct SharingExtensionView: View {
                     }
                 }
             }
+            if let debugItems = model.debugInfo?.items {
+                Section(header: Text(Loc.Debug.info)) {
+                    ForEach(0..<debugItems.count, id: \.self) { index in
+                        SharingExtensionDebugView(
+                            index: index,
+                            mimeTypes: debugItems[index].mimeTypes
+                        )
+                    }
+                }
+            }
         }
         .scrollIndicators(.hidden)
         .padding(.horizontal, 16)
+    }
+    
+    @ViewBuilder
+    private var confirmButton: some View {
+        if model.selectedSpace != nil {
+            AsyncStandardButton(Loc.send, style: .primaryLarge) {
+                try await model.onTapSend()
+            }
+            .padding(16)
+            .background(Color.Background.secondary)
+        }
     }
 }
 
