@@ -226,9 +226,8 @@ public extension FeatureDescription {
     
     static let keyboardMenuUndoRedo = FeatureDescription(
         title: "Place undo/redo on keyboard menu in Editor",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
+        defaultValue: true
     )
     
     static let newSharingExtension = FeatureDescription(
