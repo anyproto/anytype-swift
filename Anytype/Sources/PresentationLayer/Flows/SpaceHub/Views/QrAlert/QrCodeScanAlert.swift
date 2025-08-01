@@ -17,7 +17,7 @@ enum QrCodeScanAlertError: Identifiable {
             Loc.Qr.Scan.Error.InvalidQR.title
         case .wrongLinkType:
             Loc.Qr.Scan.Error.InvalidQR.title
-        case .custom(let string):
+        case .custom:
             Loc.Qr.Scan.Error.Custom.title
         }
     }

@@ -5,11 +5,11 @@ import Services
 struct SpacesManagerRowView: View {
     
     let model: ParticipantSpaceViewData
-    let onDelete: () async throws -> Void
-    let onLeave: () async throws -> Void
-    let onCancelRequest: () async throws -> Void
-    let onArchive: () async throws -> Void
-    let onStopSharing: () async throws -> Void
+    let onDelete: @MainActor () async throws -> Void
+    let onLeave: @MainActor () async throws -> Void
+    let onCancelRequest: @MainActor () async throws -> Void
+    let onArchive: @MainActor () async throws -> Void
+    let onStopSharing: @MainActor () async throws -> Void
     
     var body: some View {
         VStack(spacing: 0) {
