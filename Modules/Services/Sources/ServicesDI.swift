@@ -173,4 +173,8 @@ public extension Container {
     var publishingService: Factory<PublishingServiceProtocol> {
         self { PublishingService() }.shared
     }
+    
+    var notificationsCenterService: Factory<NotificationsCenterServiceProtocol> {
+        self { NotificationsCenterService() }.shared
+    }
 }
