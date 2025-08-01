@@ -42,6 +42,7 @@ struct NewInviteLinkView: View {
     
     private var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
+            InviteStateView(invite: model.invite)
             linkView
             Spacer.fixedHeight(8)
             StandardButton(Loc.copyLink, style: .primaryLarge) {
