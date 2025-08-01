@@ -247,7 +247,7 @@ public extension FeatureDescription {
     
     static let newSpaceMembersFlow = FeatureDescription(
         title: "New Space Members Flow",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
         defaultValue: false,
         debugValue: true
     )
