@@ -248,6 +248,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let readMessagesFromNotificationsCenterOnChatAppear = FeatureDescription(
+        title: "Read messages from NotificationsCenter on chat appear",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Debug
     
