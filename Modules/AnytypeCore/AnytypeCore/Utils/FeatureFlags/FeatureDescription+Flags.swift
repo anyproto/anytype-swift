@@ -253,7 +253,7 @@ public extension FeatureDescription {
         title: "Read messages from NotificationsCenter on chat appear",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: false,
-        debugValue: true
+        debugValue: false
     )
 
     // MARK: - Debug
