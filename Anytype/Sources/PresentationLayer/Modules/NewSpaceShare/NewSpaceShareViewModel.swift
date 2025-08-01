@@ -6,6 +6,11 @@ import Combine
 import AnytypeCore
 
 @MainActor
+protocol NewSpaceShareModuleOutput: NewInviteLinkModuleOutput {
+    func onMoreInfoSelected()
+}
+
+@MainActor
 final class NewSpaceShareViewModel: ObservableObject {
     
     @Injected(\.workspaceService)
@@ -23,13 +28,13 @@ final class NewSpaceShareViewModel: ObservableObject {
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
-    private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     
     let data: SpaceShareData
+    weak var output: (any NewSpaceShareModuleOutput)?
     var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
@@ -47,9 +52,9 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
     
-    init(data: SpaceShareData, onMoreInfo: @escaping () -> Void) {
+    init(data: SpaceShareData, output: (any NewSpaceShareModuleOutput)?) {
         self.data = data
-        self.onMoreInfo = onMoreInfo
+        self.output = output
     }
     
     func startParticipantsTask() async {
@@ -72,7 +77,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     
     func onMoreInfoTap() {
         AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .moreInfo)
-        onMoreInfo()
+        output?.onMoreInfoSelected()
     }
     
     func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {

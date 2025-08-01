@@ -60,8 +60,11 @@ struct ChatCoordinatorView: View {
             .anytypeSheet(isPresented: $model.showDisabledPushNotificationsAlert){
                 DisabledPushNotificationsAlertView()
             }
-            .anytypeSheet(item: $model.inviteLinkData) {
-                InviteLinkCoordinatorView(data: $0)
+            .anytypeSheet(item: $model.inviteLinkData) { data in
+                InviteLinkCoordinatorView(data: data)
+            }
+            .sheet(item: $model.spaceShareData) { data in
+                SpaceShareCoordinatorView(data: data)
             }
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
