@@ -10,8 +10,6 @@ final class SharingExtensionViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.sharedContentManager)
     private var contentManager: any SharedContentManagerProtocol
-    @Injected(\.chatActionService)
-    private var chatActionService: any ChatActionServiceProtocol
     
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
