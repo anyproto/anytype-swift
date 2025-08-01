@@ -1,13 +1,15 @@
 import Foundation
 import UserNotifications
 
-protocol NotificationsCenterServiceProtocol: AnyObject, Sendable {
+public protocol NotificationsCenterServiceProtocol: AnyObject, Sendable {
     func removeDeliveredNotifications(for chatIds: [String])
 }
 
-final class NotificationsCenterService: NotificationsCenterServiceProtocol {
+public final class NotificationsCenterService: NotificationsCenterServiceProtocol {
     
-    func removeDeliveredNotifications(for chatIds: [String]) {
+    public init() {}
+    
+    public func removeDeliveredNotifications(for chatIds: [String]) {
         let center = UNUserNotificationCenter.current()
         center.getDeliveredNotifications { notifications in
             let idsToRemove = notifications
