@@ -10,8 +10,6 @@ struct InviteStateView: View {
             switch invite.inviteType {
             case .member:
                 content(icon: .X24.addMembers, title: Loc.Space.Invite.RequestAccess.title, subtitle: Loc.Space.Invite.RequestAccess.subtitle)
-            case .none:
-                content(icon: .X24.lock, title: Loc.Space.Invite.LinkDisabled.title, subtitle: Loc.Space.Invite.LinkDisabled.subtitle)
             case .withoutApprove:
                 switch invite.permissions {
                 case .reader:
@@ -21,11 +19,11 @@ struct InviteStateView: View {
                 case .owner, .noPermissions, .UNRECOGNIZED, .none:
                     errorState
                 }
-            case .guest, .UNRECOGNIZED:
+            case .guest, .none, .UNRECOGNIZED:
                 errorState
             }
         } else {
-            errorState
+            content(icon: .X24.lock, title: Loc.Space.Invite.LinkDisabled.title, subtitle: Loc.Space.Invite.LinkDisabled.subtitle)
         }
     }
     
