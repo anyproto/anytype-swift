@@ -6,11 +6,6 @@ import Combine
 import AnytypeCore
 
 @MainActor
-protocol NewSpaceShareModuleOutput: NewInviteLinkModuleOutput {
-    func onMoreInfoSelected()
-}
-
-@MainActor
 final class NewSpaceShareViewModel: ObservableObject {
     
     @Injected(\.workspaceService)
@@ -34,7 +29,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     private var canChangeReaderToWriter = false
     
     let data: SpaceShareData
-    weak var output: (any NewSpaceShareModuleOutput)?
+    weak var output: (any NewInviteLinkModuleOutput)?
     var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
@@ -52,7 +47,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
     
-    init(data: SpaceShareData, output: (any NewSpaceShareModuleOutput)?) {
+    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
     }
@@ -73,11 +68,6 @@ final class NewSpaceShareViewModel: ObservableObject {
     
     func onStopSharing() {
         showStopSharingAlert = true
-    }
-    
-    func onMoreInfoTap() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .moreInfo)
-        output?.onMoreInfoSelected()
     }
     
     func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {

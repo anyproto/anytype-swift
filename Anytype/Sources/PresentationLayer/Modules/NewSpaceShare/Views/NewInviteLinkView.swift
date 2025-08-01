@@ -19,10 +19,7 @@ struct NewInviteLinkView: View {
                 emptyLinkContent
             }
         }
-        .padding(20)
-        .background(Color.Background.secondary)
-        .cornerRadius(16, style: .continuous)
-        .shadow(radius: 16)
+        .background(Color.Background.primary)
         .task {
             await model.startSubscription()
         }
@@ -32,7 +29,6 @@ struct NewInviteLinkView: View {
             }
         }
         .snackbar(toastBarData: $model.toastBarData)
-        
     }
     
     private var loadingView: some View {
@@ -46,52 +42,48 @@ struct NewInviteLinkView: View {
     
     private var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
-                Spacer()
-                Menu {
-                    if model.canCopyInviteLink {
-                        Button() {
-                            model.onCopyInviteLink()
-                        } label: {
-                            Text(Loc.SpaceShare.CopyInviteLink.title)
-                        }
-                    }
-                    Button(role: .destructive) {
-                        model.onDeleteSharingLink()
-                    } label: {
-                        Text(Loc.SpaceShare.DeleteSharingLink.title)
-                    }
-                    .disabled(!model.canDeleteLink)
-                } label: {
-                    IconView(icon: .asset(.X24.more))
-                        .frame(width: 24, height: 24)
-                }
-                .menuOrder(.fixed)
+            linkView
+            Spacer.fixedHeight(8)
+            StandardButton(Loc.copyLink, style: .primaryLarge) {
+                model.onCopyLink()
             }
-            Spacer.fixedHeight(4)
+        }
+    }
+    
+    private var linkView: some View {
+        HStack {
             Button {
                 model.onCopyLink()
             } label: {
                 AnytypeText(model.shareLink?.absoluteString ?? "", style: .uxCalloutRegular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
-                    .frame(height: 48)
-                    .newDivider()
+                    .frame(height: 44)
+                    .frame(maxWidth: .infinity)
             }
-            Spacer.fixedHeight(10)
-            AnytypeText(model.description, style: .relation3Regular)
-                .foregroundColor(.Text.secondary)
-            Spacer.fixedHeight(20)
-            StandardButton(model.isStream ? Loc.SpaceShare.Share.link : Loc.SpaceShare.Invite.share, style: .primaryLarge) {
-                model.onShareInvite()
+            Menu {
+                if model.canCopyInviteLink {
+                    Button() {
+                        model.onCopyInviteLink()
+                    } label: {
+                        Text(Loc.SpaceShare.CopyInviteLink.title)
+                    }
+                }
+                Button(role: .destructive) {
+                    model.onDeleteSharingLink()
+                } label: {
+                    Text(Loc.SpaceShare.DeleteSharingLink.title)
+                }
+                .disabled(!model.canDeleteLink)
+            } label: {
+                IconView(icon: .asset(.X24.more))
+                    .frame(width: 24, height: 24)
             }
-            Spacer.fixedHeight(10)
-            StandardButton(Loc.SpaceShare.Qr.button, style: .secondaryLarge) {
-                model.onShowQrCode()
-            }
+            .menuOrder(.fixed)
         }
+        .padding(.horizontal, 12)
+        .background(Color.Shape.transperentTertiary)
+        .cornerRadius(10, style: .circular)
     }
     
     private var emptyLinkContent: some View {
