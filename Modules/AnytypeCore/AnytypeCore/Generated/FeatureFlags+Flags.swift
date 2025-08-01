@@ -150,6 +150,10 @@ public extension FeatureFlags {
         value(for: .newSpaceMembersFlow)
     }
 
+    static var readMessagesFromNotificationsCenterOnChatAppear: Bool {
+        value(for: .readMessagesFromNotificationsCenterOnChatAppear)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -252,6 +256,7 @@ public extension FeatureFlags {
         .newSharingExtension,
         .mandatoryOnboardingEmailCollection,
         .newSpaceMembersFlow,
+        .readMessagesFromNotificationsCenterOnChatAppear,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
