@@ -1,6 +1,7 @@
 import SwiftUI
 import AnytypeCore
 import SharedContentManager
+import Services
 
 @MainActor
 final class SharingExtensionViewModel: ObservableObject {
@@ -32,12 +33,12 @@ final class SharingExtensionViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
-        let content = try await contentManager.getSharedContent()
-        
-        var text = content.title ?? ""
-        var linkedObjects: [ChatLinkedObject] = []
-        
-        
+        guard let selectedSpace else { return }
+        if selectedSpace.uxType.isChat {
+            // TODO: Create chat
+        } else {
+            // TODO: Open object list
+        }
     }
     
     // MARK: - Private
