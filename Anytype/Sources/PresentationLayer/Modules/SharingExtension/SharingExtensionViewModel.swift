@@ -23,7 +23,10 @@ final class SharingExtensionViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        await startSpacesSub()
+        async let spacesSub: () = await startSpacesSub()
+        async let debugSub: () = await startDebugData()
+        
+        _ = await (spacesSub, debugSub)
     }
     
     func onTapSpace(_ space: SpaceView) {
@@ -41,13 +44,10 @@ final class SharingExtensionViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func setupData() async {
-        guard let content = try? await contentManager.getSharedContent() else {
-            try? await contentManager.clearSharedContent()
-            return
-        }
+    private func startDebugData() async {
+        guard FeatureFlags.sharingExtensionShowContentTypes else { return }
         
-        if FeatureFlags.sharingExtensionShowContentTypes {
+        if let content = try? await contentManager.getSharedContent() {
             debugInfo = content.debugInfo
         }
     }
