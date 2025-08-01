@@ -14,7 +14,8 @@ public final class NotificationsCenterService: NotificationsCenterServiceProtoco
         center.getDeliveredNotifications { notifications in
             let idsToRemove = notifications
                 .filter {
-                    guard let chatId = $0.request.content.userInfo[DecryptedPushKeys.chatId] as? String else {
+                    guard let decryptedMessage = $0.request.content.userInfo[DecryptedPushKeys.decryptedMessage] as? [String : Any],
+                          let chatId = decryptedMessage[DecryptedPushKeys.chatId] as? String else {
                         return false
                     }
                     return chatIds.contains(chatId)

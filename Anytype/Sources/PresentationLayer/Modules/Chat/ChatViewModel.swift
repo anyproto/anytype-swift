@@ -5,6 +5,7 @@ import PhotosUI
 import AnytypeCore
 import Collections
 import UIKit
+import NotificationsCore
 @preconcurrency import Combine
 
 @MainActor
@@ -48,6 +49,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     @Injected(\.chatInviteStateService)
     private var chatInviteStateService: any ChatInviteStateServiceProtocol
+    @Injected(\.notificationsCenterService)
+    private var notificationsCenterService: any NotificationsCenterServiceProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -124,6 +127,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
+    }
+    
+    func onAppear() {
+        notificationsCenterService.removeDeliveredNotifications(for: [chatId])
     }
     
     func onTapAddPageToMessage() {
