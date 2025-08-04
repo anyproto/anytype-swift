@@ -173,7 +173,7 @@ public extension AnytypeFont {
             )
         case .caption1Semibold:
             return AnytypeFontConfig(
-                font: FontFamily.Inter.bold,
+                font: FontFamily.Inter.semiBold,
                 size: 13,
                 lineHeight: 18,
                 kern: -0.08
