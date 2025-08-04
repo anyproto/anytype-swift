@@ -252,8 +252,8 @@ public extension FeatureDescription {
         debugValue: true
     )
     
-    static let readMessagesFromNotificationsCenterOnChatAppear = FeatureDescription(
-        title: "Read messages from NotificationsCenter on chat appear",
+    static let removeMessagesFromNotificationsCenter = FeatureDescription(
+        title: "Remove messages from NotificationsCenter",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: false,
         debugValue: true
