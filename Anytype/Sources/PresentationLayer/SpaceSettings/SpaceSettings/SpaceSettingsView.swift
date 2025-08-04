@@ -92,9 +92,32 @@ struct SpaceSettingsView: View {
                         Spacer.fixedHeight(16)
                     }
                 }
-                AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
+                Menu {
+                    spaceNameMenuItems
+                } label: {
+                    AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
+                }
                 Spacer.fixedHeight(4)
-                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Medium).foregroundColor(.Text.secondary)
+                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
+            }
+        }
+    }
+    
+    private var spaceNameMenuItems: some View {
+        VStack {
+            Button {
+                model.onCopyTitleTap()
+            } label: {
+                Text(Loc.copy)
+                Spacer()
+                Image(systemName: "document.on.document")
+            }
+            Button {
+                model.onEditTap()
+            } label: {
+                Text(Loc.edit)
+                Spacer()
+                Image(systemName: "pencil")
             }
         }
     }
@@ -108,13 +131,13 @@ struct SpaceSettingsView: View {
                 Button {
                     model.onInviteTap()
                 } label: {
-                    inviteLinkActionView(asset: .X32.linkTo, title: Loc.SpaceShare.Share.link)
+                    inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }
                 
                 Button {
                     model.onCopyLinkTap()
                 } label: {
-                    inviteLinkActionView(asset: .X32.copy, title: Loc.copyLink)
+                    inviteLinkActionView(asset: .X32.copyLink, title: Loc.copyLink)
                 }
                 
                 Button {
