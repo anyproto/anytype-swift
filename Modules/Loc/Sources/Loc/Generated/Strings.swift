@@ -1964,6 +1964,24 @@ public enum Loc {
     public static func membersCount(_ p1: Int) -> String {
       return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: Space.MembersCount")
     }
+    public enum Invite {
+      public enum EditorAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.EditorAccess.Subtitle", fallback: "People with link can edit and write in chat")
+        public static let title = Loc.tr("Localizable", "Space.Invite.EditorAccess.Title", fallback: "Editor access")
+      }
+      public enum LinkDisabled {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.LinkDisabled.Subtitle", fallback: "Only already invited members have access")
+        public static let title = Loc.tr("Localizable", "Space.Invite.LinkDisabled.Title", fallback: "Link disabled")
+      }
+      public enum RequestAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.RequestAccess.Subtitle", fallback: "Owner must approve each join request")
+        public static let title = Loc.tr("Localizable", "Space.Invite.RequestAccess.Title", fallback: "Request access")
+      }
+      public enum ViewerAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.ViewerAccess.Subtitle", fallback: "People with link can view and read chat")
+        public static let title = Loc.tr("Localizable", "Space.Invite.ViewerAccess.Title", fallback: "Viewer access")
+      }
+    }
     public enum Notifications {
       public enum Settings {
         public enum State {

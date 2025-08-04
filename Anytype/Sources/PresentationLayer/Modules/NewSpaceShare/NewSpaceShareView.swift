@@ -64,6 +64,7 @@ struct NewSpaceShareView: View {
                 .padding(.horizontal, 16)
             }
         }
+        .background(Color.Background.primary)
         .animation(.default, value: model.upgradeTooltipData)
     }
 }

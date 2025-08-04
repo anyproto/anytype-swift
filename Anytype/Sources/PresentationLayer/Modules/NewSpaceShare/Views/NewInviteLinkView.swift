@@ -16,7 +16,7 @@ struct NewInviteLinkView: View {
             } else if model.shareLink.isNotNil {
                 linkContent
             } else {
-                emptyLinkContent
+                InviteStateView(invite: model.invite)
             }
         }
         .background(Color.Background.primary)
@@ -42,6 +42,7 @@ struct NewInviteLinkView: View {
     
     private var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
+            InviteStateView(invite: model.invite)
             linkView
             Spacer.fixedHeight(8)
             StandardButton(Loc.copyLink, style: .primaryLarge) {
@@ -84,19 +85,5 @@ struct NewInviteLinkView: View {
         .padding(.horizontal, 12)
         .background(Color.Shape.transperentTertiary)
         .cornerRadius(10, style: .circular)
-    }
-    
-    private var emptyLinkContent: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
-            Spacer.fixedHeight(8)
-            AnytypeText(Loc.SpaceShare.Invite.empty, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
-            Spacer.fixedHeight(12)
-            AsyncStandardButton(Loc.SpaceShare.Invite.generate, style: .primaryLarge) {
-                try await model.onGenerateInvite()
-            }
-        }
     }
 }
