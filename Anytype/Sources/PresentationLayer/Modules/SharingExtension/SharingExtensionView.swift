@@ -2,7 +2,11 @@ import SwiftUI
 
 struct SharingExtensionView: View {
     
-    @StateObject private var model = SharingExtensionViewModel()
+    @StateObject private var model: SharingExtensionViewModel
+    
+    init(output: SharingExtensionModuleOutput?) {
+        self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
+    }
     
     private let columns = [
         GridItem(.flexible()),
@@ -82,6 +86,6 @@ struct SharingExtensionView: View {
 
 #Preview {
     MockView {
-        SharingExtensionView()
+        SharingExtensionView(output: nil)
     }
 }

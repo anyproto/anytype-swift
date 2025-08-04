@@ -11,12 +11,15 @@ final class SharingExtensionViewModel: ObservableObject {
     @Injected(\.sharedContentManager)
     private var contentManager: any SharedContentManagerProtocol
     
+    private weak var output: (any SharingExtensionModuleOutput)?
+    
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
     // Debug
     @Published var debugInfo: SharedContentDebugInfo? = nil
     
-    init() {
+    init(output: (any SharingExtensionModuleOutput)?) {
+        self.output = output
         if #available(iOS 17.0, *) {
             SharingTip().invalidate(reason: .actionPerformed)
         }
@@ -38,7 +41,7 @@ final class SharingExtensionViewModel: ObservableObject {
         if selectedSpace.uxType.isChat {
             // TODO: Create chat
         } else {
-            // TODO: Open object list
+            output?.onSelectDataSpce(spaceId: selectedSpace.targetSpaceId)
         }
     }
     
