@@ -15,7 +15,17 @@ struct SharingExtensionShareToView: View {
     }
     
     var body: some View {
-        Text("Hello, world!")
+        VStack {
+            DragIndicator()
+            ModalNavigationHeader(title: model.title)
+        }
+    }
+    
+    private var list: some View {
+        List {
+            
+        }
+        .listStyle(.plain)
     }
 }
 

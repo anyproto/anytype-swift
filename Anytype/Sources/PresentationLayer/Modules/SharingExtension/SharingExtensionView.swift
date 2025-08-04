@@ -17,17 +17,7 @@ struct SharingExtensionView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            NavigationHeaderContainer(spacing: 20) {
-                EmptyView()
-            } titleView: {
-                AnytypeText(Loc.Sharing.title, style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
-                    .lineLimit(1)
-            } rightView: {
-                EmptyView()
-            }
-            .frame(height: 48)
-            .padding(.horizontal, 16)
+            ModalNavigationHeader(title: Loc.Sharing.title)
             
             ZStack(alignment: .bottom) {
                 listView
