@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignKit
 
 struct SharingExtensionShareToData: Hashable, Identifiable {
     let spaceId: String
@@ -18,14 +19,18 @@ struct SharingExtensionShareToView: View {
         VStack {
             DragIndicator()
             ModalNavigationHeader(title: model.title)
+            list
+        }
+        .throwingTask(id: model.searchText) {
+            try await model.search()
         }
     }
     
     private var list: some View {
-        List {
-            
+        PlainList {
+            Text("1")
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
-        .listStyle(.plain)
     }
 }
 

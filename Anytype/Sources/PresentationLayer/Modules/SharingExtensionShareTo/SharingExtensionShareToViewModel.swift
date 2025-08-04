@@ -9,9 +9,14 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private let data: SharingExtensionShareToData
     
     @Published var title: String = ""
+    @Published var searchText: String = ""
     
     init(data: SharingExtensionShareToData) {
         self.data = data
-        self.title = workspacesStorage.spaceView(spaceId: data.spaceId)?.name ?? ""
+        self.title = workspacesStorage.spaceView(spaceId: data.spaceId)?.title ?? ""
+    }
+    
+    func search() async throws {
+        
     }
 }
