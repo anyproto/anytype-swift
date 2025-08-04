@@ -1,9 +1,9 @@
 USE EXTENDED THINKING
 
-# iOS Release Impact Analysis & Release Notes Generator
+# iOS Release Impact Analysis & Comprehensive Changelog Generator
 
 ## Purpose
-This document combines Linear context and Git changes to produce comprehensive impact analysis and release notes.
+This document combines Linear context and Git changes to produce comprehensive impact analysis and detailed changelog for professional writers.
 
 ## Required Inputs
 1. `linear_context_release_[NUMBER].md` - From Part 1
@@ -172,59 +172,172 @@ git checkout [commit_hash]
 ```
 ```
 
-## Output 2: Release Notes
+## Output 2: Comprehensive Changelog for Writers
 
 ```markdown
-# iOS App Release [NUMBER] - Release Notes
+# iOS Release [NUMBER] - Comprehensive Changelog
 
-## Version [X.Y.Z] - [DATE]
+## Release Overview
+- **Version**: [X.Y.Z]
+- **Release Date**: [TARGET DATE]
+- **Linear Initiative**: [Name] ([ID])
+- **Theme**: [Main theme or focus of this release]
+- **Total Features**: [COUNT]
+- **Total Improvements**: [COUNT]
+- **Total Bug Fixes**: [COUNT]
 
-### 🎉 What's New
+## Linear Projects & Features Matrix
 
-#### [Feature Name 1]
-[User-friendly description of the feature, derived from Linear description and code implementation]
-- [Benefit 1]
-- [Benefit 2]
+### [Linear Project Name 1] ([PROJECT_ID])
+**Project Description**: [From Linear]
+**Status**: [Completed/Partial]
+**Stories Included**: [COUNT]
 
-#### [Feature Name 2]
-[Description]
+#### Features Delivered:
+1. **[Feature Name]** ([LINEAR_STORY_ID])
+   - **User Story**: [Original user story from Linear]
+   - **Technical Implementation**: [How it was built]
+   - **User-Facing Impact**: [What users will experience]
+   - **Business Value**: [Why this matters]
 
-### 🔧 Improvements
-- **[Area]**: [Improvement description]
-- **[Area]**: [Improvement description]
+2. **[Feature Name]** ([LINEAR_STORY_ID])
+   [Continue structure]
 
-### 🐛 Bug Fixes
-- Fixed an issue where [description from commit/Linear]
-- Resolved [description]
-- Corrected [description]
+### [Linear Project Name 2] ([PROJECT_ID])
+[Continue structure]
 
-### 🔒 Security Updates
-- [Any security-related changes, if applicable]
+## Detailed Change Categories
 
-### 📱 Compatibility
-- Requires iOS [version] or later
-- Optimized for [devices]
+### 🆕 NEW FEATURES
 
-### 💡 Known Issues
-- [Issue 1] - Workaround: [if any]
-- [Issue 2] - Fix planned for next release
+#### [Feature Category 1]
 
----
+##### [Feature Name] 
+- **Linear Reference**: Project [PROJECT_ID], Story [STORY_ID]
+- **Description for Writers**: 
+  - What it does: [Detailed explanation]
+  - How users access it: [Entry points, menu locations]
+  - Key benefits: [User value propositions]
+- **Technical Context**:
+  - Components added: [List]
+  - Integration points: [APIs, services]
+  - Data flow: [Brief explanation]
+- **Visual/UX Changes**:
+  - New screens: [List with purpose]
+  - New UI elements: [Buttons, controls, etc.]
+  - User journey: [Step-by-step flow]
+- **Related Features**: [Other features this connects with]
+- **Limitations**: [Any constraints writers should know]
 
-### Internal Release Notes (For QA/Dev Team)
+##### [Feature Name 2]
+[Continue structure]
 
-#### Technical Changes
-- [Technical change 1]
-- [Technical change 2]
+### 🔄 IMPROVEMENTS & ENHANCEMENTS
+
+#### [Improvement Category 1]
+
+##### [Improvement Name]
+- **Linear Reference**: Story [STORY_ID]
+- **Previous Behavior**: [How it worked before]
+- **New Behavior**: [How it works now]
+- **Reason for Change**: [User feedback, performance, etc.]
+- **Technical Changes**: 
+  - Code refactored: [Areas]
+  - Performance gains: [Metrics if available]
+- **User Impact**: [What users will notice]
+
+### 🐛 BUG FIXES
+
+#### [Bug Category 1]
+
+##### [Bug Description]
+- **Linear Reference**: Bug [BUG_ID]
+- **Issue**: [What was broken]
+- **User Impact**: [How it affected users]
+- **Root Cause**: [Technical explanation]
+- **Solution**: [How it was fixed]
+- **Verification**: [How to confirm it's fixed]
+
+### 🏗️ TECHNICAL FOUNDATION
+
+#### Architecture Changes
+- **What Changed**: [Description]
+- **Why It Matters**: [Future benefits, performance, etc.]
+- **User Impact**: [Immediate or future benefits]
 
 #### API Updates
-- [Endpoint changes]
+- **New Endpoints**: 
+  - [Endpoint]: [Purpose and data handled]
+- **Modified Endpoints**:
+  - [Endpoint]: [Changes and reasons]
 
-#### Configuration Changes
-- [Config updates]
+#### Data Model Changes
+- **New Models**: [Purpose and relationships]
+- **Modified Models**: [Changes and migration notes]
 
-#### Dependencies Updated
-- [Library updates]
+### 📊 METRICS & PERFORMANCE
+
+#### Performance Improvements
+- **Area**: [Feature/Screen]
+  - Previous: [Metric]
+  - Current: [Metric]
+  - User Benefit: [Faster loading, smoother experience]
+
+#### Size & Efficiency
+- **App Size Change**: [+/- MB]
+- **Memory Usage**: [Improvements]
+- **Battery Impact**: [Changes]
+
+## DEPENDENCIES & REQUIREMENTS
+
+### iOS Version Support
+- **Minimum iOS**: [Version]
+- **Optimal iOS**: [Version]
+- **New iOS Features Used**: [List]
+
+### Device Compatibility
+- **Newly Supported**: [Devices]
+- **Enhanced Support**: [Devices with special features]
+- **Known Limitations**: [Device-specific issues]
+
+### Third-Party Services
+- **New Integrations**: [Service and purpose]
+- **Updated SDKs**: [Version changes]
+
+## WRITER'S GUIDE
+
+### Key Messages for This Release
+1. **Primary Theme**: [Main story to tell]
+2. **Secondary Themes**: [Supporting narratives]
+3. **User Benefits to Highlight**: [Top 3-5]
+
+### Feature Groupings for Storytelling
+- **Productivity Features**: [List]
+- **User Experience Improvements**: [List]
+- **Performance & Reliability**: [List]
+
+### Technical Terms Glossary
+- **[Term]**: [User-friendly explanation]
+- **[Term]**: [User-friendly explanation]
+
+### Screenshots & Assets Needed
+1. **[Feature]**: [What to capture]
+2. **[Feature]**: [Key screens or flows]
+
+### Competitive Advantages
+- **[Feature]**: [How it compares to competitors]
+- **[Improvement]**: [Market differentiation]
+
+## APPENDIX: Raw Change List
+
+### Complete Commit Summary
+[Organized list of all commits with Linear references]
+
+### File Change Statistics
+- Total files changed: [COUNT]
+- Lines added: [COUNT]
+- Lines removed: [COUNT]
+- Top changed components: [List]
 ```
 
 ## Usage Instructions
@@ -232,14 +345,17 @@ git checkout [commit_hash]
 2. Cross-reference Linear stories with Git changes
 3. Calculate impact scores for each change
 4. Generate comprehensive testing recommendations
-5. Create both QA impact analysis and release notes
+5. Create detailed changelog with full context for writers
 6. Save outputs:
    - `impact_analysis_release_[NUMBER].md`
-   - `release_notes_[NUMBER].md`
+   - `comprehensive_changelog_[NUMBER].md`
 
-## Tips for Analysis
-- Always verify Linear story completion against actual code
-- Look for implicit changes (e.g., a UI change might affect accessibility)
-- Consider cascade effects of data model changes
-- Check for performance implications of new features
-- Validate that all acceptance criteria have corresponding code
+## Tips for Creating Writer-Friendly Changelog
+- Always provide the "why" behind each change
+- Connect technical changes to user benefits
+- Include Linear project context to show feature relationships
+- Explain technical terms in user-friendly language
+- Highlight business value and competitive advantages
+- Group related changes for better storytelling
+- Include enough detail for writers to craft compelling narratives
+- Note any limitations or known issues transparently
