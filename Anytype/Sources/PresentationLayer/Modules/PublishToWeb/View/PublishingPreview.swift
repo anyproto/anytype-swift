@@ -130,14 +130,14 @@ struct PublishingPreview: View {
                 RoundedRectangle(cornerRadius: 4)
                     .fill(Color.Background.primary)
                     .frame(
-                        width: min(40, screenSize.width * 0.1) + 1,
-                        height: min(40, screenSize.width * 0.1) + 1
+                        width: max(41, screenSize.width * 0.1) + 1,
+                        height: max(41, screenSize.width * 0.1) + 1
                     )
                 
                 ObjectIconView(icon: icon)
                     .frame(
-                        width: min(40, screenSize.width * 0.1),
-                        height: min(40, screenSize.width * 0.1)
+                        width: max(40, screenSize.width * 0.1),
+                        height: max(40, screenSize.width * 0.1)
                     )
             }
             .padding(.leading, 24)
@@ -155,7 +155,7 @@ struct PublishingPreview: View {
                 .frame(height: screenSize.width * 0.23)
             } else if data.icon.isNotNil {
                 Rectangle()
-                    .fill(Color.Background.primary)
+                    .fill(Color.Background.secondary)
                     .frame(height: screenSize.width * 0.12)
             } else {
                 EmptyView()
@@ -166,16 +166,16 @@ struct PublishingPreview: View {
     
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            AnytypeText(data.title, style: .uxTitle2Medium)
+            AnytypeText(data.title, style: .subheading)
                 .foregroundColor(.Text.primary)
                 .lineLimit(2)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 8) {
                 Rectangle()
                     .fill(Color.Shape.secondary)
                     .frame(
-                        width: min(240, screenSize.width * 0.8),
+                        width: max(300, screenSize.width * 0.8),
                         height: 6
                     )
                     .cornerRadius(1)
@@ -183,7 +183,7 @@ struct PublishingPreview: View {
                 Rectangle()
                     .fill(Color.Shape.secondary)
                     .frame(
-                        width: min(140, screenSize.width * 0.6),
+                        width: max(180, screenSize.width * 0.6),
                         height: 6
                     )
                     .cornerRadius(1)

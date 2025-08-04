@@ -47,7 +47,7 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
         objectDetails = data.objectDetails
         self.output = output
         
-        customPath = data.status?.uri ?? ""
+        customPath = data.status?.uri ?? data.objectDetails.name
         showJoinSpaceButton = data.status?.joinSpace ?? true
         
         previewData = previewBuilder.buildPreviewData(
