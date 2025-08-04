@@ -167,7 +167,7 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             // todo change chatId check to uxType when fixed
-            let spaces = showOnlyChats ? spaces.filter { $0.space.spaceView.chatId.isNotEmpty } : spaces.filter { $0.space.spaceView.chatId.isEmpty }
+            let spaces = showOnlyChats ? spaces.filter { $0.space.spaceView.uxType == .chat  } : spaces.filter { $0.space.spaceView.uxType == .data }
             
             if FeatureFlags.pinnedSpaces {
                 self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
