@@ -1,4 +1,5 @@
 import SwiftUI
+import Services
 
 @MainActor
 final class SharingExtensionShareToViewModel: ObservableObject {
@@ -21,7 +22,12 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     
     func search() async {
         do {
-            let result = try await searchService.search(text: searchText, spaceId: data.spaceId)
+            let result = try await searchService.searchObjectsWithLayouts(
+                text: searchText,
+                layouts: DetailsLayout.supportedForSharingExtension,
+                excludedIds: [],
+                spaceId: data.spaceId
+            )
             searchData = result.compactMap { ObjectSearchData(details: $0) }
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
