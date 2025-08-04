@@ -903,6 +903,8 @@ extension ImageAsset {
     public static let view = ImageAsset.bundle(name: "x32/View")
     public static let widgets = ImageAsset.bundle(name: "x32/Widgets")
     public static let addFilled = ImageAsset.bundle(name: "x32/add_filled")
+    public static let copyLink = ImageAsset.bundle(name: "x32/copy link")
+    public static let shareLink = ImageAsset.bundle(name: "x32/share link")
   }
   public enum X40 {
     public static let actions = ImageAsset.bundle(name: "x40/Actions")
