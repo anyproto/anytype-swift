@@ -1,5 +1,4 @@
 {
-  "originHash" : "aec196fa4e95caaeff714cacf8372d5db65b901ab934b625165128e2f3b2296c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -299,15 +298,6 @@
       }
     },
     {
-      "identity" : "swift-protobuf",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-protobuf",
-      "state" : {
-        "branch" : "1.28.2",
-        "revision" : "ebc7251dd5b37f627c93698e4374084d98409633"
-      }
-    },
-    {
       "identity" : "swift-qrcode-generator",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dagronf/swift-qrcode-generator",
@@ -380,5 +370,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
