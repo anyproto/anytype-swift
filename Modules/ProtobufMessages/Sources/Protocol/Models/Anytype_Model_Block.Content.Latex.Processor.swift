@@ -38,6 +38,8 @@ extension Anytype_Model_Block.Content.Latex {
         case graphviz // = 20
         case sketchfab // = 21
         case image // = 22
+        case drawio // = 23
+        case spotify // = 24
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -69,6 +71,8 @@ extension Anytype_Model_Block.Content.Latex {
           case 20: self = .graphviz
           case 21: self = .sketchfab
           case 22: self = .image
+          case 23: self = .drawio
+          case 24: self = .spotify
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -98,6 +102,8 @@ extension Anytype_Model_Block.Content.Latex {
           case .graphviz: return 20
           case .sketchfab: return 21
           case .image: return 22
+          case .drawio: return 23
+          case .spotify: return 24
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -127,6 +133,8 @@ extension Anytype_Model_Block.Content.Latex {
           .graphviz,
           .sketchfab,
           .image,
+          .drawio,
+          .spotify,
         ]
 
       }}
@@ -156,6 +164,8 @@ extension Anytype_Model_Block.Content.Latex.Processor: SwiftProtobuf._ProtoNameP
     20: .same(proto: "Graphviz"),
     21: .same(proto: "Sketchfab"),
     22: .same(proto: "Image"),
+    23: .same(proto: "Drawio"),
+    24: .same(proto: "Spotify"),
   ]
 }
 
