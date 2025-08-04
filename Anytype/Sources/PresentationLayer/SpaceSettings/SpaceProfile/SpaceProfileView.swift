@@ -69,7 +69,8 @@ struct SpaceProfileView: View {
                     }
                 }
             } label: {
-                IconView(asset: .X32.more)
+                IconView(asset: .X24.more)
+                    .frame(width: 24, height: 24)
             }
             
             Spacer.fixedWidth(12)
@@ -85,13 +86,13 @@ struct SpaceProfileView: View {
                 Button {
                     model.onInviteTap()
                 } label: {
-                    inviteLinkActionView(asset: .X32.linkTo, title: Loc.SpaceShare.Share.link)
+                    inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }
                 
                 Button {
                     model.onCopyLinkTap()
                 } label: {
-                    inviteLinkActionView(asset: .X32.copy, title: Loc.copyLink)
+                    inviteLinkActionView(asset: .X32.copyLink, title: Loc.copyLink)
                 }
                 
                 Button {

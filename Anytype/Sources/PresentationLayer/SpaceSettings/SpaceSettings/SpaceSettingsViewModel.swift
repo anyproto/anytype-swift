@@ -86,6 +86,11 @@ final class SpaceSettingsViewModel: ObservableObject {
         showInfoView.toggle()
     }
     
+    func onCopyTitleTap() {
+        UIPasteboard.general.string = spaceName
+        snackBarData = ToastBarData(Loc.copiedToClipboard(spaceName), type: .success)
+    }
+    
     func onWallpaperTap() {
         output?.onWallpaperSelected()
     }
