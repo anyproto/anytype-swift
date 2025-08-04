@@ -94,7 +94,7 @@ struct SpaceSettingsView: View {
                 }
                 AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
                 Spacer.fixedHeight(4)
-                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Medium).foregroundColor(.Text.secondary)
+                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
             }
         }
     }

@@ -69,7 +69,8 @@ struct SpaceProfileView: View {
                     }
                 }
             } label: {
-                IconView(asset: .X32.more)
+                IconView(asset: .X24.more)
+                    .frame(width: 24, height: 24)
             }
             
             Spacer.fixedWidth(12)
