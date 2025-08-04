@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         didReceiveRemoteNotification userInfo: [AnyHashable: Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        guard FeatureFlags.readMessagesFromNotificationsCenter, let groupId = userInfo[PushNotificationKeys.groupId] as? String else {
+        guard FeatureFlags.removeMessagesFromNotificationsCenter, let groupId = userInfo[PushNotificationKeys.groupId] as? String else {
             completionHandler(.noData)
             return
         }

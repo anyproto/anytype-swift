@@ -146,8 +146,8 @@ public extension FeatureFlags {
         value(for: .newSpaceMembersFlow)
     }
 
-    static var readMessagesFromNotificationsCenter: Bool {
-        value(for: .readMessagesFromNotificationsCenter)
+    static var removeMessagesFromNotificationsCenter: Bool {
+        value(for: .removeMessagesFromNotificationsCenter)
     }
 
     static var rainbowViews: Bool {
@@ -251,7 +251,7 @@ public extension FeatureFlags {
         .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,
-        .readMessagesFromNotificationsCenter,
+        .removeMessagesFromNotificationsCenter,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

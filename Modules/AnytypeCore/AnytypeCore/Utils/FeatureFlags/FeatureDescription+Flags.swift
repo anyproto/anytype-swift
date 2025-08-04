@@ -249,8 +249,8 @@ public extension FeatureDescription {
         debugValue: true
     )
     
-    static let readMessagesFromNotificationsCenter = FeatureDescription(
-        title: "Read messages from NotificationsCenter",
+    static let removeMessagesFromNotificationsCenter = FeatureDescription(
+        title: "Remove messages from NotificationsCenter",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: false,
         debugValue: true

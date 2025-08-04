@@ -130,7 +130,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onAppear() {
-        guard FeatureFlags.readMessagesFromNotificationsCenter else { return }
+        guard FeatureFlags.removeMessagesFromNotificationsCenter else { return }
         notificationsCenterService.removeDeliveredNotifications(for: [chatId])
     }
     
