@@ -92,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             completionHandler(.noData)
             return
         }
-        notificationsCenterService.removeDeliveredNotifications(for: groupId)
+        notificationsCenterService.removeDeliveredNotifications(groupId: groupId)
         completionHandler(.newData)
     }
     

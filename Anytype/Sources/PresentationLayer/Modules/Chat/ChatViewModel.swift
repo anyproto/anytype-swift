@@ -131,7 +131,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onAppear() {
         guard FeatureFlags.removeMessagesFromNotificationsCenter else { return }
-        notificationsCenterService.removeDeliveredNotifications(for: [chatId])
+        notificationsCenterService.removeDeliveredNotifications(chatId: chatId)
     }
     
     func onTapAddPageToMessage() {
