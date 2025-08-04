@@ -15,8 +15,8 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
     }
     
     nonisolated private init() {
-        for _ in 0 ..< 50 {
-            self.allWorkspaces.append(SpaceView.mock())
+        for id in 0 ..< 50 {
+            self.allWorkspaces.append(SpaceView.mock(id: "\(id)"))
         }
     }
     

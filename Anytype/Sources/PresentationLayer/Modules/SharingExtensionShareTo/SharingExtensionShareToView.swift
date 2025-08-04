@@ -18,3 +18,9 @@ struct SharingExtensionShareToView: View {
         Text("Hello, world!")
     }
 }
+
+#Preview {
+    MockView {
+        SharingExtensionShareToView(data: SharingExtensionShareToData(spaceId: "1"))
+    }
+}
