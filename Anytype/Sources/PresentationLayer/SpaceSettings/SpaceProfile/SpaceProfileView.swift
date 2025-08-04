@@ -86,13 +86,13 @@ struct SpaceProfileView: View {
                 Button {
                     model.onInviteTap()
                 } label: {
-                    inviteLinkActionView(asset: .X32.linkTo, title: Loc.SpaceShare.Share.link)
+                    inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }
                 
                 Button {
                     model.onCopyLinkTap()
                 } label: {
-                    inviteLinkActionView(asset: .X32.copy, title: Loc.copyLink)
+                    inviteLinkActionView(asset: .X32.copyLink, title: Loc.copyLink)
                 }
                 
                 Button {
