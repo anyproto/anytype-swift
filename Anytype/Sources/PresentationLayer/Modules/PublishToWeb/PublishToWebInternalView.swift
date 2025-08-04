@@ -50,12 +50,12 @@ struct PublishToWebInternalView: View {
     }
     
     private var customUrlSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             SectionHeaderView(title: Loc.customizeURL)
             
             domain
             
-            HStack {
+            HStack(spacing: 0) {
                 AnytypeText("/", style: .bodyRegular)
                     .foregroundColor(.Text.secondary)
                 TextField(Loc.Publishing.Url.placeholder, text: $model.customPath)
@@ -136,6 +136,7 @@ struct PublishToWebInternalView: View {
                     .foregroundStyle( Color.Control.secondary)
                 
                 AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
+                    .lineLimit(1)
                     .foregroundColor(.Text.primary)
             }
             
