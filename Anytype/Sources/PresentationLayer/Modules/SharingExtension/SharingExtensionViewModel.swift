@@ -33,16 +33,16 @@ final class SharingExtensionViewModel: ObservableObject {
     }
     
     func onTapSpace(_ space: SpaceView) {
-        selectedSpace = space
+        if space.uxType.isChat {
+            selectedSpace = space
+        } else {
+            output?.onSelectDataSpce(spaceId: space.targetSpaceId)
+        }
     }
     
     func onTapSend() async throws {
-        guard let selectedSpace else { return }
-        if selectedSpace.uxType.isChat {
-            // TODO: Create chat
-        } else {
-            output?.onSelectDataSpce(spaceId: selectedSpace.targetSpaceId)
-        }
+        guard let selectedSpace, selectedSpace.uxType.isChat else { return }
+        // TODO: Create chat
     }
     
     // MARK: - Private
