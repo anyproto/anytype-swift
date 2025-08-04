@@ -146,8 +146,8 @@ public extension FeatureFlags {
         value(for: .newSpaceMembersFlow)
     }
 
-    static var readMessagesFromNotificationsCenterOnChatAppear: Bool {
-        value(for: .readMessagesFromNotificationsCenterOnChatAppear)
+    static var readMessagesFromNotificationsCenter: Bool {
+        value(for: .readMessagesFromNotificationsCenter)
     }
 
     static var rainbowViews: Bool {
@@ -251,7 +251,7 @@ public extension FeatureFlags {
         .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,
-        .readMessagesFromNotificationsCenterOnChatAppear,
+        .readMessagesFromNotificationsCenter,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
