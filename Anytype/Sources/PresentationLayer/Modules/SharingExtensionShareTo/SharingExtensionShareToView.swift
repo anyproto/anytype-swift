@@ -19,17 +19,19 @@ struct SharingExtensionShareToView: View {
         VStack {
             DragIndicator()
             ModalNavigationHeader(title: model.title)
+            SearchBar(text: $model.searchText, focused: false, placeholder: Loc.search)
             list
         }
-        .throwingTask(id: model.searchText) {
-            try await model.search()
+        .task(id: model.searchText) {
+            await model.search()
         }
     }
     
     private var list: some View {
         PlainList {
-            Text("1")
-                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+            ForEach(model.searchData) {
+                SearchCell(data: $0)
+            }
         }
     }
 }
