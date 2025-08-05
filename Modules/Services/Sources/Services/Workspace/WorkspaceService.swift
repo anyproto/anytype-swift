@@ -14,7 +14,8 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func inviteView(cid: String, key: String) async throws -> SpaceInviteView
     func join(spaceId: String, cid: String, key: String, networkId: String) async throws
     func joinCancel(spaceId: String) async throws
-    func generateInvite(spaceId: String) async throws -> SpaceInvite
+    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?) async throws -> SpaceInvite
+    func changeInvite(spaceId: String, permissions: InvitePermissions) async throws
     func revokeInvite(spaceId: String) async throws
     func stopSharing(spaceId: String) async throws
     func makeSharable(spaceId: String) async throws
@@ -26,6 +27,12 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func participantRemove(spaceId: String, identity: String) async throws
     func leaveApprove(spaceId: String, identity: String) async throws
     func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
+}
+
+public extension WorkspaceServiceProtocol {
+    func generateInvite(spaceId: String) async throws -> SpaceInvite {
+        try await generateInvite(spaceId: spaceId, inviteType: nil, permissions: nil)
+    }
 }
 
 final class WorkspaceService: WorkspaceServiceProtocol {
@@ -121,11 +128,20 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
     }
     
-    public func generateInvite(spaceId: String) async throws -> SpaceInvite {
+    func generateInvite(spaceId: String, inviteType: InviteType?, permissions: InvitePermissions?) async throws -> SpaceInvite {
         let result = try await ClientCommands.spaceInviteGenerate(.with {
             $0.spaceID = spaceId
+            if let inviteType { $0.inviteType = inviteType }
+            if let permissions { $0.permissions = permissions }
         }).invoke()
         return result.asModel()
+    }
+    
+    func changeInvite(spaceId: String, permissions: InvitePermissions) async throws {
+        try await ClientCommands.spaceInviteChange(.with {
+            $0.spaceID = spaceId
+            $0.permissions = permissions
+        }).invoke()
     }
     
     public func revokeInvite(spaceId: String) async throws {
