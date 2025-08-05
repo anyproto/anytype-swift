@@ -1,5 +1,5 @@
 {
-  "originHash" : "aec196fa4e95caaeff714cacf8372d5db65b901ab934b625165128e2f3b2296c",
+  "originHash" : "c2b39eb24ed26ac9ce02ed849ece37c1ff5222f1b7cc9eacbe9a8f4587e8d18a",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -350,15 +350,6 @@
       "state" : {
         "revision" : "467a3d17479887943ab917a379e62bbaff60ac8a",
         "version" : "2.1.1"
-      }
-    },
-    {
-      "identity" : "swiftui-visual-effects",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/lucasbrown/swiftui-visual-effects",
-      "state" : {
-        "revision" : "b26f8cebd55ff60ed8953768aa818dfb005b5838",
-        "version" : "1.0.3"
       }
     },
     {
