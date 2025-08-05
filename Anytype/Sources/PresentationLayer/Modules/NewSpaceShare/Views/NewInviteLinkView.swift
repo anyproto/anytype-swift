@@ -11,12 +11,12 @@ struct NewInviteLinkView: View {
     
     var body: some View {
         Group {
+            if model.showInitialLoading {
                 loadingView
-            if model.showLoading {
             } else if model.shareLink.isNotNil {
                 linkContent
             } else {
-                linkDisabledView
+                linkStateButton
             }
         }
         .transition(.opacity)
@@ -43,35 +43,32 @@ struct NewInviteLinkView: View {
         .frame(maxWidth: .infinity)
     }
     
-    private var linkDisabledView: some View {
-        Button {
-            model.onLinkTypeTap()
-        } label: {
-            HStack {
-                InviteStateView(richInviteType: model.inviteType)
-                Spacer()
-                Image(asset: .RightAttribute.disclosure)
-            }
-        }
-    }
-    
     private var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Button {
-                model.onLinkTypeTap()
-            } label: {
-                HStack {
-                    InviteStateView(richInviteType: model.inviteType)
-                    Spacer()
-                    Image(asset: .RightAttribute.disclosure)
-                }
-            }
+            linkStateButton
             linkView
             Spacer.fixedHeight(8)
             StandardButton(Loc.copyLink, style: .primaryLarge) {
                 model.onCopyLink()
             }
         }
+    }
+    
+    private var linkStateButton: some View {
+        Button {
+            model.onLinkTypeTap()
+        } label: {
+            HStack {
+                InviteStateView(richInviteType: model.inviteType)
+                Spacer()
+                if model.isLoading {
+                    CircleLoadingView()
+                        .frame(width: 24, height: 24)
+                } else {
+                    Image(asset: .RightAttribute.disclosure)
+                }
+            }
+        }.disabled(model.isLoading)
     }
     
     private var linkView: some View {

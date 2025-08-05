@@ -14,7 +14,8 @@ final class NewInviteLinkViewModel: ObservableObject {
     @Published var inviteLink: URL? = nil
     @Published var toastBarData: ToastBarData?
     @Published var invitePickerItem: SpaceRichIviteType?
-    @Published var showLoading = true
+    @Published var showInitialLoading = true
+    @Published var isLoading = false
     
     @Published private var participantSpaceView: ParticipantSpaceViewData?
     
@@ -55,6 +56,7 @@ final class NewInviteLinkViewModel: ObservableObject {
         guard inviteType != type else { return }
         
         Task {
+            isLoading = true
             do {
                 switch type {
                 case .editor:
@@ -78,10 +80,12 @@ final class NewInviteLinkViewModel: ObservableObject {
                     try await workspaceService.revokeInvite(spaceId: spaceId)
                 }
             } catch {
+                isLoading = false
                 toastBarData = ToastBarData(error.localizedDescription)
             }
             
             await updateView()
+            isLoading = false
         }
     }
     
@@ -122,7 +126,7 @@ final class NewInviteLinkViewModel: ObservableObject {
     }
     
     private func updateInvite() async {
-        defer { showLoading = false }
+        defer { showInitialLoading = false }
         AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
         
         do {
