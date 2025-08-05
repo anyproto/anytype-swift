@@ -64,8 +64,41 @@ final class NewInviteLinkViewModel: ObservableObject {
         }
     }
     
+    // TBD: Update without revoiking. Waiting for middleware
     func onInviteLinkTypeSelected(_ type: SpaceRichIviteType) {
-        // TBD;
+        invitePickerItem = nil
+        guard self.inviteType != type else { return }
+        
+        Task {
+            do {
+                switch type {
+                case .editor:
+                    try await workspaceService.revokeInvite(spaceId: spaceId)
+                    let invite = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+                    inviteType = invite.richInviteType
+                    shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+                    
+                case .viewer:
+                    try await workspaceService.revokeInvite(spaceId: spaceId)
+                    let invite = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
+                    inviteType = invite.richInviteType
+                    shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+                    
+                case .requestAccess:
+                    try await workspaceService.revokeInvite(spaceId: spaceId)
+                    let invite = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
+                    inviteType = invite.richInviteType
+                    shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+                    
+                case .disabled:
+                    try await workspaceService.revokeInvite(spaceId: spaceId)
+                    inviteType = .disabled
+                    shareLink = nil
+                }
+            } catch {
+                toastBarData = ToastBarData(error.localizedDescription)
+            }
+        }
     }
     
     func onGenerateInvite() async throws {

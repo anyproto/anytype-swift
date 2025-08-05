@@ -19,7 +19,10 @@ struct NewInviteLinkView: View {
                 linkDisabledView
             }
         }
+        .transition(.opacity)
         .background(Color.Background.primary)
+        .animation(.default, value: model.shareLink)
+        .animation(.default, value: model.inviteType)
         .task {
             await model.startSubscription()
         }
@@ -29,8 +32,8 @@ struct NewInviteLinkView: View {
             }
         }
         .anytypeSheet(item: $model.invitePickerItem) {
-            InviteTypePicker(currentType: $0) {
-                model.onInviteLinkTypeSelected($0)
+            InviteTypePicker(currentType: $0) { type in
+                model.onInviteLinkTypeSelected(type)
             }
         }
         .snackbar(toastBarData: $model.toastBarData)
@@ -59,7 +62,15 @@ struct NewInviteLinkView: View {
     
     private var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            InviteStateView(richInviteType: model.inviteType)
+            Button {
+                model.onLinkTypeTap()
+            } label: {
+                HStack {
+                    InviteStateView(richInviteType: model.inviteType)
+                    Spacer()
+                    Image(asset: .RightAttribute.disclosure)
+                }
+            }
             linkView
             Spacer.fixedHeight(8)
             StandardButton(Loc.copyLink, style: .primaryLarge) {

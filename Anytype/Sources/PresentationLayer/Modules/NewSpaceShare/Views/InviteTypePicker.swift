@@ -10,6 +10,7 @@ struct InviteTypePicker: View {
             DragIndicator()
             ForEach(Array(SpaceRichIviteType.allCases.enumerated()), id: \.element) { index, type in
                 Button {
+                    UISelectionFeedbackGenerator().selectionChanged()
                     onSelect(type)
                 } label: {
                     HStack(spacing: 0) {
