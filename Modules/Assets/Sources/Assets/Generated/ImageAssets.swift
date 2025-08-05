@@ -568,6 +568,7 @@ extension ImageAsset {
     public static let bilibili = ImageAsset.bundle(name: "Embeds/Bilibili")
     public static let chart = ImageAsset.bundle(name: "Embeds/Chart")
     public static let codepen = ImageAsset.bundle(name: "Embeds/Codepen")
+    public static let drawio = ImageAsset.bundle(name: "Embeds/Drawio")
     public static let excalidraw = ImageAsset.bundle(name: "Embeds/Excalidraw")
     public static let externalImage = ImageAsset.bundle(name: "Embeds/ExternalImage")
     public static let facebook = ImageAsset.bundle(name: "Embeds/Facebook")
