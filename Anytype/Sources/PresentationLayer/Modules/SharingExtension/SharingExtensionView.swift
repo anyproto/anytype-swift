@@ -4,7 +4,7 @@ struct SharingExtensionView: View {
     
     @StateObject private var model: SharingExtensionViewModel
     
-    init(output: SharingExtensionModuleOutput?) {
+    init(output: (any SharingExtensionModuleOutput)?) {
         self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
     }
     

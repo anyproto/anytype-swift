@@ -7,7 +7,7 @@ final class SharingExtensionCoordinatorViewModel: ObservableObject, SharingExten
     
     // MARK: - SharingExtensionModuleOutput
     
-    func onSelectDataSpce(spaceId: String) {
+    func onSelectDataSpace(spaceId: String) {
         showShareTo = SharingExtensionShareToData(spaceId: spaceId)
     }
 }

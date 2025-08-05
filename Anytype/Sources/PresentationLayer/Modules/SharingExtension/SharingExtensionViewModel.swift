@@ -36,7 +36,7 @@ final class SharingExtensionViewModel: ObservableObject {
         if space.uxType.isChat {
             selectedSpace = space
         } else {
-            output?.onSelectDataSpce(spaceId: space.targetSpaceId)
+            output?.onSelectDataSpace(spaceId: space.targetSpaceId)
         }
     }
     
