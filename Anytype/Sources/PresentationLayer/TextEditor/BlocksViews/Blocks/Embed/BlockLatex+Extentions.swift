@@ -33,6 +33,8 @@ extension BlockLatexProcessor {
         case .graphviz: return .Embeds.graphviz
         case .sketchfab: return .Embeds.sketchfab
         case .image: return .Embeds.externalImage
+        case .spotify: return .Embeds.spotify
+        case .drawio: return .Embeds.drawio
         case .UNRECOGNIZED(_): return .Embeds.genericEmbedIcon
         }
     }
@@ -62,6 +64,8 @@ extension BlockLatexProcessor {
         case .graphviz: return "Graphviz"
         case .sketchfab: return "Sketchfab"
         case .image: return "External image"
+        case .spotify: return "Spotify"
+        case .drawio: return "Draw.io"
         case .UNRECOGNIZED(_): return "Unrecognized"
         }
     }
@@ -69,7 +73,7 @@ extension BlockLatexProcessor {
     var canTryExtractUrl: Bool {
         switch self {
         case .latex, .mermaid, .chart, .googleMaps, .twitter, .instagram, .openStreetMap, .image, .graphviz, .codepen, .githubGist, .reddit, .telegram, .UNRECOGNIZED(_): return false
-        case .youtube, .vimeo, .soundcloud, .facebook, .sketchfab, .excalidraw, .bilibili, .miro, .figma, .kroki: return true
+        case .youtube, .vimeo, .soundcloud, .facebook, .sketchfab, .excalidraw, .bilibili, .miro, .figma, .kroki, .spotify, .drawio: return true
         }
     }
 }
