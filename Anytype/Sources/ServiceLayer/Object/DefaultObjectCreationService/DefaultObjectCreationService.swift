@@ -43,7 +43,7 @@ final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol, 
         }
         
         // In case no space is open, we have not started the subscription yet.
-        await objectTypeProvider.startSubscription(spaceId: spaceId)
+        await objectTypeProvider.prepareData(spaceId: spaceId)
         return try objectTypeProvider.defaultObjectType(spaceId: spaceId)
     }
 }

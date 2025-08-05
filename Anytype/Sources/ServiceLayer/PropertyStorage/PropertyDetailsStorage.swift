@@ -81,6 +81,11 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
         sync.value = ()
     }
     
+    func prepareData(spaceId: String) async {
+        await multispaceSubscriptionHelper.prepareData(spaceId: spaceId)
+        updateSearchCache()
+    }
+    
     // MARK: - Private
     
     private func updateSearchCache() {

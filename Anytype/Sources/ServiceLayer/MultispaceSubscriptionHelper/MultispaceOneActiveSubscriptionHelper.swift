@@ -50,7 +50,8 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
     }
     
     func prepareData(spaceId: String) async {
-        guard activeSpaceId != spaceId else { return }
+        guard data[spaceId].isNil else { return }
+        
         let request = subscriptionBuilder.buildSearch(spaceId: spaceId)
         guard let result = try? await searchMiddleService.search(data: request) else { return }
         let items = result.compactMap { try? Value(details: $0) }

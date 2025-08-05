@@ -18,6 +18,8 @@ protocol ObjectTypeProviderProtocol: AnyObject, Sendable {
     
     func startSubscription(spaceId: String) async
     func stopSubscription() async
+    
+    func prepareData(spaceId: String) async
 }
 
 extension ObjectTypeProviderProtocol {

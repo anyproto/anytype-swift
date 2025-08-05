@@ -8,8 +8,11 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.activeSpaceManager)
+    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     
     private let data: SharingExtensionShareToData
+    private var dataPrepared = false
     
     @Published var title: String = ""
     @Published var searchText: String = ""
@@ -21,6 +24,12 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     }
     
     func search() async {
+        
+        if !dataPrepared {
+            await activeSpaceManager.prepareSpaceForPreview(spaceId: data.spaceId)
+            dataPrepared = true
+        }
+        
         do {
             let result = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
