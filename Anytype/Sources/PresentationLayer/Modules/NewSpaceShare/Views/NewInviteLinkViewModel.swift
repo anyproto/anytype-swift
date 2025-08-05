@@ -50,20 +50,27 @@ final class NewInviteLinkViewModel: ObservableObject {
         }
     }
     
-    // TBD: Update without revoiking. Waiting for middleware
     func onInviteLinkTypeSelected(_ type: SpaceRichIviteType) {
         invitePickerItem = nil
-        guard self.inviteType != type else { return }
+        guard inviteType != type else { return }
         
         Task {
             do {
                 switch type {
                 case .editor:
-                    try await workspaceService.revokeInvite(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+                    if inviteType == .viewer {
+                        try await workspaceService.changeInvite(spaceId: spaceId, permissions: .writer)
+                    } else {
+                        try await workspaceService.revokeInvite(spaceId: spaceId)
+                        _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+                    }
                 case .viewer:
-                    try await workspaceService.revokeInvite(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
+                    if inviteType == .editor {
+                        try await workspaceService.changeInvite(spaceId: spaceId, permissions: .reader)
+                    } else {
+                        try await workspaceService.revokeInvite(spaceId: spaceId)
+                        _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
+                    }
                 case .requestAccess:
                     try await workspaceService.revokeInvite(spaceId: spaceId)
                     _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
