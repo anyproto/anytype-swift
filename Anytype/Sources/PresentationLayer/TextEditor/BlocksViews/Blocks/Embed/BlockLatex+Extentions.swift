@@ -34,7 +34,7 @@ extension BlockLatexProcessor {
         case .sketchfab: return .Embeds.sketchfab
         case .image: return .Embeds.externalImage
         case .spotify: return .Embeds.spotify
-        case .drawio: return .Embeds.spotify
+        case .drawio: return .Embeds.drawio
         case .UNRECOGNIZED(_): return .Embeds.genericEmbedIcon
         }
     }
