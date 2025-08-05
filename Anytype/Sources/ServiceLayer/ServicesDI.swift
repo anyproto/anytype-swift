@@ -100,7 +100,7 @@ extension Container {
         self { TreeSubscriptionDataBuilder() }
     }
     
-    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceOneActiveSubscriptionDataBuilder> {
         self { ObjectTypeSubscriptionDataBuilder() }
     }
     
@@ -152,7 +152,7 @@ extension Container {
         self { PropertyDetailsStorage() }.singleton
     }
     
-    var propertySubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+    var propertySubscriptionDataBuilder: Factory<any MultispaceOneActiveSubscriptionDataBuilder> {
         self { PropertySubscriptionDataBuilder() }
     }
     

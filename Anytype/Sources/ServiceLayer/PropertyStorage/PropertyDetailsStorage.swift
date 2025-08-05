@@ -20,7 +20,7 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
     
     // MARK: - DI
     
-    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.propertySubscriptionDataBuilder()
+    private let subscriptionDataBuilder: any MultispaceOneActiveSubscriptionDataBuilder = Container.shared.propertySubscriptionDataBuilder()
     
     private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<PropertyDetails>
     

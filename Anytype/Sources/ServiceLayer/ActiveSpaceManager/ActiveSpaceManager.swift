@@ -135,7 +135,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceInfoStreamInternal.send(nil)
         workspaceInfoStorage.value = nil
         activeSpaceId = nil
-        await objectTypeProvider.stopSubscription(cleanCache: false)
-        await propertyDetailsStorage.stopSubscription(cleanCache: false)
+        await objectTypeProvider.stopSubscription()
+        await propertyDetailsStorage.stopSubscription()
     }
 }

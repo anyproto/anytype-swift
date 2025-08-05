@@ -3,17 +3,25 @@ import AnytypeCore
 import Combine
 import Services
 
+protocol MultispaceSearchDataBuilderProtocol: AnyObject, Sendable {
+    func buildSearch(spaceId: String) -> SearchRequest
+}
+
+typealias MultispaceOneActiveSubscriptionDataBuilder = MultispaceSubscriptionDataBuilderProtocol & MultispaceSearchDataBuilderProtocol
+
 actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
 
     // MARK: - DI
     
     private let subIdPrefix: String
-    private let subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
+    private let subscriptionBuilder: any MultispaceOneActiveSubscriptionDataBuilder
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.searchMiddleService)
+    private var searchMiddleService: any SearchMiddleServiceProtocol
     
     // MARK: - State
     
@@ -23,7 +31,7 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
     private var activeSpaceId: String?
     private var spacesSubscription: AnyCancellable?
     
-    init(subIdPrefix: String, subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol) {
+    init(subIdPrefix: String, subscriptionBuilder: any MultispaceOneActiveSubscriptionDataBuilder) {
         self.subIdPrefix = subIdPrefix
         self.subscriptionBuilder = subscriptionBuilder
     }
@@ -41,6 +49,14 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         data.removeAll()
     }
     
+    func prepareData(spaceId: String) async {
+        guard activeSpaceId != spaceId else { return }
+        let request = subscriptionBuilder.buildSearch(spaceId: spaceId)
+        guard let result = try? await searchMiddleService.search(data: request) else { return }
+        let items = result.compactMap { try? Value(details: $0) }
+        data[spaceId] = items
+    }
+    
     private func updateSubscription(spaceId: String, update: @escaping (@Sendable () -> Void)) async {
         guard activeSpaceId != spaceId else { return }
         
@@ -50,6 +66,8 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         let subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subId)
         activeSpaceId = spaceId
         activeSubscriptionStorage = subscriptionStorage
+        data.removeAll()
+        
         try? await subscriptionStorage.startOrUpdateSubscription(
             data: subscriptionBuilder.build(accountId: accountManager.account.id, spaceId: spaceId, subId: subId)
         ) { [weak self] data in

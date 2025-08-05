@@ -19,7 +19,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
     
     // MARK: - DI
     
-    private let subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.objectTypeSubscriptionDataBuilder()
+    private let subscriptionBuilder: any MultispaceOneActiveSubscriptionDataBuilder = Container.shared.objectTypeSubscriptionDataBuilder()
     private let userDefaults: any UserDefaultsStorageProtocol = Container.shared.userDefaultsStorage()
     private let multispaceSubscriptionHelper: MultispaceOneActiveSubscriptionHelper<ObjectType>
     
