@@ -141,8 +141,7 @@ final class NewInviteLinkViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
         
         do {
-            let isStream = participantSpaceView?.spaceView.uxType.isStream ?? false
-            let invite = isStream ? try await workspaceService.getGuestInvite(spaceId: spaceId) : try await workspaceService.getCurrentInvite(spaceId: spaceId)
+            let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
             inviteType = invite.richInviteType
             
             shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
