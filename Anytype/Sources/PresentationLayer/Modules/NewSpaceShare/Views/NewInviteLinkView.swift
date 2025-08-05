@@ -24,7 +24,7 @@ struct NewInviteLinkView: View {
         .animation(.default, value: model.shareLink)
         .animation(.default, value: model.inviteType)
         .task {
-            await model.startSubscription()
+            await model.onAppear()
         }
         .anytypeSheet(item: $model.invitePickerItem) {
             InviteTypePicker(currentType: $0) { type in
