@@ -75,12 +75,10 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
         }
     }
     
-    func stopSubscription(cleanCache: Bool) async {
-        await multispaceSubscriptionHelper.stopSubscription(cleanCache: cleanCache)
-        if cleanCache {
-            updateSearchCache()
-            sync.value = ()
-        }
+    func stopSubscription() async {
+        await multispaceSubscriptionHelper.stopSubscription()
+        updateSearchCache()
+        sync.value = ()
     }
     
     // MARK: - Private

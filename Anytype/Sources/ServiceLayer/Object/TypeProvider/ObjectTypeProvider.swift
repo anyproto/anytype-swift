@@ -131,11 +131,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
         }
     }
     
-    func stopSubscription(cleanCache: Bool) async {
-        await multispaceSubscriptionHelper.stopSubscription(cleanCache: cleanCache)
-        if cleanCache {
-            updateAllCache()
-        }
+    func stopSubscription() async {
+        await multispaceSubscriptionHelper.stopSubscription()
+        updateAllCache()
     }
     
     // MARK: - Private func

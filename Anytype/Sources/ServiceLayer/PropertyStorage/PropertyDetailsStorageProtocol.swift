@@ -15,7 +15,7 @@ protocol PropertyDetailsStorageProtocol: AnyObject, Sendable {
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
     func startSubscription(spaceId: String) async
-    func stopSubscription(cleanCache: Bool) async
+    func stopSubscription() async
 }
 
 extension PropertyDetailsStorageProtocol {

@@ -102,8 +102,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
-        await propertyDetailsStorage.stopSubscription(cleanCache: true)
-        await objectTypeProvider.stopSubscription(cleanCache: true)
+        await propertyDetailsStorage.stopSubscription()
+        await objectTypeProvider.stopSubscription()
         await accountParticipantsStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()

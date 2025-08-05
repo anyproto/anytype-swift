@@ -32,15 +32,13 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         await updateSubscription(spaceId: spaceId, update: update)
     }
     
-    func stopSubscription(cleanCache: Bool) async {
+    func stopSubscription() async {
         spacesSubscription?.cancel()
         spacesSubscription = nil
         try? await activeSubscriptionStorage?.stopSubscription()
         activeSubscriptionStorage = nil
         activeSpaceId = nil
-        if cleanCache {
-            data.removeAll()
-        }
+        data.removeAll()
     }
     
     private func updateSubscription(spaceId: String, update: @escaping (@Sendable () -> Void)) async {
