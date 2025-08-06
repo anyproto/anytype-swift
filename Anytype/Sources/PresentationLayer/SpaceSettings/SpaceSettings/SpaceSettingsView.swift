@@ -206,11 +206,11 @@ struct SpaceSettingsView: View {
                 EmptyView()
             case .shareable:
                 SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.share, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
+                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
             case .reachedSharesLimit(let limit):
                 SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
-                    RoundedButton(Loc.share, icon: .X24.member, decoration: .chervon) { }
+                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { }
                         .disabled(true)
                     AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
                         .foregroundColor(.Text.primary)

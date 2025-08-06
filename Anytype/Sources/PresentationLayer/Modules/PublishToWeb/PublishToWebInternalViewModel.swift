@@ -16,7 +16,6 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
     @Published var showJoinSpaceButton: Bool = true
     @Published var status: PublishState?
     
-    @Published var error: String?
     @Published var previewData: PublishingPreviewData = .empty
     @Published var toastBarData: ToastBarData?
     
