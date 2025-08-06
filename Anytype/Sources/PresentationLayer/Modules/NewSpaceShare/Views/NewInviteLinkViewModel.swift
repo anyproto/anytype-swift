@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import ProtobufMessages
+
 
 @MainActor
 protocol NewInviteLinkModuleOutput: AnyObject {
@@ -14,14 +16,10 @@ final class NewInviteLinkViewModel: ObservableObject {
     @Published var inviteLink: URL? = nil
     @Published var toastBarData: ToastBarData?
     @Published var invitePickerItem: SpaceRichIviteType?
-    @Published var showLoading = true
+    @Published var showInitialLoading = true
+    @Published var isLoading = false
+    @Published var inviteType: SpaceRichIviteType?
     
-    @Published private var participantSpaceView: ParticipantSpaceViewData?
-    
-    @Published var inviteType: SpaceRichIviteType? = .disabled
-    
-    @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.workspaceService)
@@ -38,43 +36,49 @@ final class NewInviteLinkViewModel: ObservableObject {
         self.output = output
     }
     
-    func startSubscription() async {
-        async let spaceViewSubscription: () = startSpaceViewSubscription()
-        (_) = await (spaceViewSubscription)
+    func onAppear() async {
+        await updateView()
+        showInitialLoading = false
     }
     
-    private func startSpaceViewSubscription() async {
-        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
-            self.participantSpaceView = participantSpaceView
-            await updateView()
-        }
-    }
-    
-    // TBD: Update without revoiking. Waiting for middleware
     func onInviteLinkTypeSelected(_ type: SpaceRichIviteType) {
         invitePickerItem = nil
-        guard self.inviteType != type else { return }
+        guard inviteType != type else { return }
         
         Task {
+            isLoading = true
             do {
-                switch type {
-                case .editor:
-                    try await workspaceService.revokeInvite(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-                case .viewer:
-                    try await workspaceService.revokeInvite(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
-                case .requestAccess:
-                    try await workspaceService.revokeInvite(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
-                case .disabled:
-                    try await workspaceService.revokeInvite(spaceId: spaceId)
-                }
+                defer { isLoading = false }
+                
+                try await updateInvite(type)
+                await updateView()
             } catch {
                 toastBarData = ToastBarData(error.localizedDescription)
             }
-            
-            await updateView()
+        }
+    }
+    
+    private func updateInvite(_ type: SpaceRichIviteType) async throws {
+        switch type {
+        case .editor:
+            if inviteType == .viewer {
+                try await workspaceService.changeInvite(spaceId: spaceId, permissions: .writer)
+            } else {
+                try await workspaceService.revokeInvite(spaceId: spaceId)
+                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
+            }
+        case .viewer:
+            if inviteType == .editor {
+                try await workspaceService.changeInvite(spaceId: spaceId, permissions: .reader)
+            } else {
+                try await workspaceService.revokeInvite(spaceId: spaceId)
+                _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
+            }
+        case .requestAccess:
+            try await workspaceService.revokeInvite(spaceId: spaceId)
+            _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
+        case .disabled:
+            try await workspaceService.revokeInvite(spaceId: spaceId)
         }
     }
     
@@ -107,22 +111,23 @@ final class NewInviteLinkViewModel: ObservableObject {
     }
     
     private func updateView() async {
-        guard let participantSpaceView else { return }
-        await updateInvite()
-        if !participantSpaceView.spaceView.isShared {
-            shareLink = nil
-        }
-    }
-    
-    private func updateInvite() async {
-        defer { showLoading = false }
         AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
         
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
             inviteType = invite.richInviteType
-            
             shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } catch {}
+        } catch let error as Anytype_Rpc.Space.InviteGetCurrent.Response.Error {
+            if error.code == .noActiveInvite {
+                inviteType = .disabled
+                shareLink = nil
+            } else {
+                inviteType = nil
+                shareLink = nil
+            }
+        } catch {
+            inviteType = nil
+            shareLink = nil
+        }
     }
 }
