@@ -28,7 +28,7 @@ struct SpaceShareCoordinatorView: View {
             ActivityView(activityItems: [link])
         }
         .anytypeSheet(item: $model.qrCodeInviteLink) {
-            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+            QrCodeView(title: Loc.joinSpace, data: $0.absoluteString, analyticsType: .inviteSpace)
         }
     }
 }

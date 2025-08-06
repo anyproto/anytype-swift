@@ -87,6 +87,22 @@ struct NewInviteLinkView: View {
                     model.onCopyInviteLink()
                 } label: {
                     Text(Loc.SpaceShare.CopyInviteLink.title)
+                    Spacer()
+                    Image(systemName: "link")
+                }
+                Button() {
+                    model.onShareInvite()
+                } label: {
+                    Text(Loc.SpaceShare.Share.link)
+                    Spacer()
+                    Image(systemName: "square.and.arrow.up")
+                }
+                Button() {
+                    model.onShowQrCode()
+                } label: {
+                    Text(Loc.SpaceShare.Qr.button)
+                    Spacer()
+                    Image(systemName: "qrcode")
                 }
             } label: {
                 IconView(icon: .asset(.X24.more))

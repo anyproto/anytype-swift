@@ -218,6 +218,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  public static let joinSpace = Loc.tr("Localizable", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
