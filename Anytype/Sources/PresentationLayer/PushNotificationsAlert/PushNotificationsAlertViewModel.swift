@@ -38,7 +38,7 @@ final class PushNotificationsAlertViewModel: ObservableObject {
     }
     
     func requestAuthorization() async  {
-        let granted = await pushNotificationsPermissionService.requestAuthorization()
+        let granted = await pushNotificationsPermissionService.requestAuthorizationAndRegisterIfNeeded()
         data.completion(granted)
         dismiss.toggle()
     }
