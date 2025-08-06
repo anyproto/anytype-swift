@@ -12,7 +12,6 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     
     private let data: SharingExtensionShareToData
-    private var dataPrepared = false
     
     @Published var title: String = ""
     @Published var searchText: String = ""
@@ -25,10 +24,8 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     
     func search() async {
         
-        if !dataPrepared {
-            await activeSpaceManager.prepareSpaceForPreview(spaceId: data.spaceId)
-            dataPrepared = true
-        }
+        // Can call each times. Method is optimized
+        await activeSpaceManager.prepareSpaceForPreview(spaceId: data.spaceId)
         
         do {
             let result = try await searchService.searchObjectsWithLayouts(

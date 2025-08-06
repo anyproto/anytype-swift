@@ -58,6 +58,10 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         data[spaceId] = items
     }
     
+    func dataIsPrepared(spaceId: String) async -> Bool {
+        return data[spaceId].isNotNil
+    }
+    
     private func updateSubscription(spaceId: String, update: @escaping (@Sendable () -> Void)) async {
         guard activeSpaceId != spaceId else { return }
         

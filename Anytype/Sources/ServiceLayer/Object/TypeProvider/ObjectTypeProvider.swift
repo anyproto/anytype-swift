@@ -137,8 +137,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
     }
     
     func prepareData(spaceId: String) async {
-        await multispaceSubscriptionHelper.prepareData(spaceId: spaceId)
-        updateAllCache()
+        if !(await multispaceSubscriptionHelper.dataIsPrepared(spaceId: spaceId)) {
+            await multispaceSubscriptionHelper.prepareData(spaceId: spaceId)
+            updateAllCache()
+        }
     }
     
     // MARK: - Private func
