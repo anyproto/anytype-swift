@@ -17,16 +17,8 @@ struct PublishingPreview: View {
     @State private var screenSize: CGSize = .zero
     
     var body: some View {
-        GeometryReader { geometry in
-            content
-                .onAppear {
-                    screenSize = geometry.size
-                }
-                .onChange(of: geometry.size) { newSize in
-                    screenSize = newSize
-                }
-        }
-        .frame(height: screenSize.width * 0.65)
+        content
+            .readFrame { screenSize = $0.size }
     }
     
     var content: some View {
@@ -82,7 +74,7 @@ struct PublishingPreview: View {
             
             contentSection
             
-            Spacer()
+            Spacer().frame(maxHeight: screenSize.width * 0.08)
         }
         .animation(.default, value: data.showJoinButton)
     }
@@ -127,12 +119,13 @@ struct PublishingPreview: View {
     private var iconOverlay: some View {
         if let icon = data.icon {
             ZStack {
-                RoundedRectangle(cornerRadius: 4)
+                Rectangle()
                     .fill(Color.Background.primary)
                     .frame(
                         width: max(41, screenSize.width * 0.1) + 1,
                         height: max(41, screenSize.width * 0.1) + 1
                     )
+                    .objectIconCornerRadius()
                 
                 ObjectIconView(icon: icon)
                     .frame(

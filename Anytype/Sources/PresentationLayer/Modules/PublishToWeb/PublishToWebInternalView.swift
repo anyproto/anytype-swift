@@ -24,52 +24,47 @@ struct PublishToWebInternalView: View {
             DragIndicator()
             TitleView(title: Loc.publishToWeb)
             
-            mainContent
+            topContent
             
-            buttons
+            Spacer()
             
-            errorView
+            bottomContent
         }
         .padding(.horizontal, 16)
     }
     
-    private var mainContent: some View {
+    private var topContent: some View {
         VStack(spacing: 0) {
             customUrlSection
             
             SectionHeaderView(title: Loc.preferences)
             joinSpaceButtonToggle
-            
-            Spacer()
-            
-            PublishingPreview(data: model.previewData, isPublished: model.status.isNotNil, output: model)
-                .frame(maxWidth: .infinity)
-            
-            Spacer.fixedHeight(12)
         }
     }
     
     private var customUrlSection: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 0) {
             SectionHeaderView(title: Loc.customizeURL)
-            
             domain
-            
-            HStack(spacing: 0) {
-                AnytypeText("/", style: .bodyRegular)
-                    .foregroundColor(.Text.secondary)
-                TextField(Loc.Publishing.Url.placeholder, text: $model.customPath)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .textInputAutocapitalization(.never)
-                    .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                    .foregroundColor(.Text.primary)
-            }
-            .padding(.vertical, 16)
-            .padding(.horizontal, 12)
-            .border(10, color: .Shape.primary)
-            .background(Color.Background.primary)
-            .cornerRadius(10)
+            Spacer.fixedHeight(8)
+            customPathInput
         }
+    }
+    
+    private var customPathInput: some View {
+        HStack(spacing: 0) {
+            AnytypeText("/", style: .bodyRegular)
+                .foregroundColor(.Text.primary)
+            TextField(Loc.Publishing.Url.placeholder, text: $model.customPath)
+                .textFieldStyle(PlainTextFieldStyle())
+                .textInputAutocapitalization(.never)
+                .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
+                .foregroundColor(.Text.primary)
+        }
+        .padding(12)
+        .border(10, color: .Shape.primary)
+        .background(Color.Background.primary)
+        .cornerRadius(10)
     }
     
     @ViewBuilder
@@ -129,16 +124,17 @@ struct PublishToWebInternalView: View {
     }
     
     private var joinSpaceButtonToggle: some View {
-        HStack {
-            HStack(spacing: 12) {
-                Image(asset: .X24.plusRounded)
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle( Color.Control.secondary)
-                
-                AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
-                    .lineLimit(1)
-                    .foregroundColor(.Text.primary)
-            }
+        HStack(spacing: 0) {
+            Image(asset: .X24.plusRounded)
+                .frame(width: 24, height: 24)
+                .foregroundStyle( Color.Control.secondary)
+            
+            Spacer.fixedWidth(12)
+            
+            AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
+                .lineLimit(1)
+                .foregroundColor(.Text.primary)
+                .frame(maxWidth: .infinity)
             
             Spacer()
             
@@ -149,6 +145,20 @@ struct PublishToWebInternalView: View {
         }
 
         .padding(.vertical, 16)
+    }
+    
+    @ViewBuilder
+    private var bottomContent: some View {
+        Spacer.fixedHeight(16)
+        
+        PublishingPreview(data: model.previewData, isPublished: model.status.isNotNil, output: model)
+            .frame(maxWidth: .infinity)
+        
+        Spacer.fixedHeight(12)
+        
+        buttons
+        
+        Spacer.fixedHeight(10)
     }
     
     @ViewBuilder
@@ -193,14 +203,6 @@ struct PublishToWebInternalView: View {
             )
             
             Spacer.fixedHeight(16)
-        }
-    }
-    
-    @ViewBuilder
-    private var errorView: some View {
-        if let error = model.error {
-            AnytypeText(error, style: .caption1Regular)
-                .foregroundColor(.Pure.red)
         }
     }
 }
