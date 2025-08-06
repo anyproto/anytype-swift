@@ -8,6 +8,7 @@ protocol ActiveSpaceManagerProtocol: AnyObject, Sendable {
     var workspaceInfo: AccountInfo? { get }
     @discardableResult
     func setActiveSpace(spaceId: String?) async throws -> AccountInfo?
+    func prepareSpaceForPreview(spaceId: String) async
     func startSubscription() async
     func stopSubscription() async
 }
@@ -98,6 +99,11 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceInfoStorage.value = nil
     }
     
+    func prepareSpaceForPreview(spaceId: String) async {
+        await objectTypeProvider.prepareData(spaceId: spaceId)
+        await propertyDetailsStorage.prepareData(spaceId: spaceId)
+    }
+    
     // MARK: - Private
     
     private func handleSpaces(workspaces: [SpaceView]) async {
@@ -135,7 +141,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
         workspaceInfoStreamInternal.send(nil)
         workspaceInfoStorage.value = nil
         activeSpaceId = nil
-        await objectTypeProvider.stopSubscription(cleanCache: false)
-        await propertyDetailsStorage.stopSubscription(cleanCache: false)
+        await objectTypeProvider.stopSubscription()
+        await propertyDetailsStorage.stopSubscription()
     }
 }
