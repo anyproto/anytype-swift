@@ -797,6 +797,7 @@ extension ImageAsset {
     public static let allObjects = ImageAsset.bundle(name: "x24/allObjects")
     public static let bin = ImageAsset.bundle(name: "x24/bin")
     public static let editor = ImageAsset.bundle(name: "x24/editor")
+    public static let exclamation = ImageAsset.bundle(name: "x24/exclamation")
     public static let viewer = ImageAsset.bundle(name: "x24/viewer")
   }
   public enum X28 {
