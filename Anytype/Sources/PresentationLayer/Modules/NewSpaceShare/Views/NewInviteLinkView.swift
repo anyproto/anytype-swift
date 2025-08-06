@@ -16,16 +16,24 @@ struct NewInviteLinkView: View {
             } else if model.shareLink.isNotNil {
                 linkContent
             } else {
-                InviteStateView(invite: model.invite)
+                linkDisabledView
             }
         }
+        .transition(.opacity)
         .background(Color.Background.primary)
+        .animation(.default, value: model.shareLink)
+        .animation(.default, value: model.inviteType)
         .task {
             await model.startSubscription()
         }
         .anytypeSheet(item: $model.deleteLinkSpaceId) {
             DeleteSharingLinkAlert(spaceId: $0.value) {
                 model.onDeleteLinkCompleted()
+            }
+        }
+        .anytypeSheet(item: $model.invitePickerItem) {
+            InviteTypePicker(currentType: $0) { type in
+                model.onInviteLinkTypeSelected(type)
             }
         }
         .snackbar(toastBarData: $model.toastBarData)
@@ -40,9 +48,29 @@ struct NewInviteLinkView: View {
         .frame(maxWidth: .infinity)
     }
     
+    private var linkDisabledView: some View {
+        Button {
+            model.onLinkTypeTap()
+        } label: {
+            HStack {
+                InviteStateView(richInviteType: model.inviteType)
+                Spacer()
+                Image(asset: .RightAttribute.disclosure)
+            }
+        }
+    }
+    
     private var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            InviteStateView(invite: model.invite)
+            Button {
+                model.onLinkTypeTap()
+            } label: {
+                HStack {
+                    InviteStateView(richInviteType: model.inviteType)
+                    Spacer()
+                    Image(asset: .RightAttribute.disclosure)
+                }
+            }
             linkView
             Spacer.fixedHeight(8)
             StandardButton(Loc.copyLink, style: .primaryLarge) {
