@@ -31,6 +31,11 @@ struct NewInviteLinkView: View {
                 model.onInviteLinkTypeSelected(type)
             }
         }
+        .anytypeSheet(item: $model.inviteChangeConfirmation) { invite in
+            SpaceInviteChangeAlert {
+                model.onInviteChangeConfirmed(invite)
+            }
+        }
         .snackbar(toastBarData: $model.toastBarData)
     }
     
