@@ -12,12 +12,13 @@ final class NewInviteLinkViewModel: ObservableObject {
     
     @Published var shareLink: URL? = nil
     @Published var inviteLink: URL? = nil
-    @Published var canDeleteLink = false
-    @Published var canCopyInviteLink = false
-    @Published var deleteLinkSpaceId: StringIdentifiable? = nil
     @Published var toastBarData: ToastBarData?
-    @Published var inviteType: SpaceRichIviteType? = .disabled
     @Published var invitePickerItem: SpaceRichIviteType?
+    @Published var showLoading = true
+    
+    @Published private var participantSpaceView: ParticipantSpaceViewData?
+    
+    @Published var inviteType: SpaceRichIviteType? = .disabled
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
@@ -30,11 +31,7 @@ final class NewInviteLinkViewModel: ObservableObject {
     
     private let data: SpaceShareData
     var spaceId: String { data.spaceId }
-    private var participantSpaceView: ParticipantSpaceViewData?
     private weak var output: (any NewInviteLinkModuleOutput)?
-    
-    var isStream: Bool { participantSpaceView?.spaceView.uxType.isStream ?? false }    
-    var firstOpen = true
     
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
@@ -42,22 +39,11 @@ final class NewInviteLinkViewModel: ObservableObject {
     }
     
     func startSubscription() async {
-        async let spaceViewSubscription: () = startSpaceViewTask()
+        async let spaceViewSubscription: () = startSpaceViewSubscription()
         (_) = await (spaceViewSubscription)
     }
     
-    private func getInvite() async {
-        defer { firstOpen = false }
-        AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
-        do {
-            let invite = isStream ? try await workspaceService.getGuestInvite(spaceId: spaceId) : try await workspaceService.getCurrentInvite(spaceId: spaceId)
-            inviteType = invite.richInviteType
-            
-            shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } catch {}
-    }
-    
-    private func startSpaceViewTask() async {
+    private func startSpaceViewSubscription() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             await updateView()
@@ -74,70 +60,28 @@ final class NewInviteLinkViewModel: ObservableObject {
                 switch type {
                 case .editor:
                     try await workspaceService.revokeInvite(spaceId: spaceId)
-                    let invite = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
-                    inviteType = invite.richInviteType
-                    shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-                    
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
                 case .viewer:
                     try await workspaceService.revokeInvite(spaceId: spaceId)
-                    let invite = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
-                    inviteType = invite.richInviteType
-                    shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-                    
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
                 case .requestAccess:
                     try await workspaceService.revokeInvite(spaceId: spaceId)
-                    let invite = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
-                    inviteType = invite.richInviteType
-                    shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-                    
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
                 case .disabled:
                     try await workspaceService.revokeInvite(spaceId: spaceId)
-                    inviteType = .disabled
-                    shareLink = nil
                 }
             } catch {
                 toastBarData = ToastBarData(error.localizedDescription)
             }
+            
+            await updateView()
         }
-    }
-    
-    func onGenerateInvite() async throws {
-        guard let spaceView = participantSpaceView?.spaceView else { return }
-        
-        AnytypeAnalytics.instance().logShareSpace()
-        
-        if !spaceView.isShared {
-            try await workspaceService.makeSharable(spaceId: spaceId)
-        }
-        
-        let invite = try await workspaceService.generateInvite(spaceId: spaceId)
-        shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-    }
-    
-    func onDeleteSharingLink() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .revoke)
-        deleteLinkSpaceId = spaceId.identifiable
-    }
-    
-    func onDeleteLinkCompleted() {
-        shareLink = nil
     }
     
     func onCopyInviteLink() {
-        Task {
-            if inviteLink.isNil {
-                let invite = try await workspaceService.generateInvite(spaceId: spaceId)
-                self.inviteType = invite.richInviteType
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
-                inviteType = invite.richInviteType
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            }
-            AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
-            UIPasteboard.general.string = inviteLink?.absoluteString
-            toastBarData = ToastBarData(Loc.copied)
-        }
+        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
+        UIPasteboard.general.string = inviteLink?.absoluteString
+        toastBarData = ToastBarData(Loc.copied)
     }
     
     func onCopyLink() {
@@ -164,11 +108,21 @@ final class NewInviteLinkViewModel: ObservableObject {
     
     private func updateView() async {
         guard let participantSpaceView else { return }
-        await getInvite()
-        canDeleteLink = participantSpaceView.permissions.canDeleteLink
-        canCopyInviteLink = participantSpaceView.spaceView.uxType.isStream
+        await updateInvite()
         if !participantSpaceView.spaceView.isShared {
             shareLink = nil
         }
+    }
+    
+    private func updateInvite() async {
+        defer { showLoading = false }
+        AnytypeAnalytics.instance().logScreenSettingsSpaceShare(route: data.route)
+        
+        do {
+            let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
+            inviteType = invite.richInviteType
+            
+            shareLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        } catch {}
     }
 }

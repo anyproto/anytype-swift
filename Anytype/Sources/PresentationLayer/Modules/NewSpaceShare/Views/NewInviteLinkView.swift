@@ -11,8 +11,8 @@ struct NewInviteLinkView: View {
     
     var body: some View {
         Group {
-            if model.firstOpen {
                 loadingView
+            if model.showLoading {
             } else if model.shareLink.isNotNil {
                 linkContent
             } else {
@@ -25,11 +25,6 @@ struct NewInviteLinkView: View {
         .animation(.default, value: model.inviteType)
         .task {
             await model.startSubscription()
-        }
-        .anytypeSheet(item: $model.deleteLinkSpaceId) {
-            DeleteSharingLinkAlert(spaceId: $0.value) {
-                model.onDeleteLinkCompleted()
-            }
         }
         .anytypeSheet(item: $model.invitePickerItem) {
             InviteTypePicker(currentType: $0) { type in
@@ -91,19 +86,11 @@ struct NewInviteLinkView: View {
                     .frame(maxWidth: .infinity)
             }
             Menu {
-                if model.canCopyInviteLink {
-                    Button() {
-                        model.onCopyInviteLink()
-                    } label: {
-                        Text(Loc.SpaceShare.CopyInviteLink.title)
-                    }
-                }
-                Button(role: .destructive) {
-                    model.onDeleteSharingLink()
+                Button() {
+                    model.onCopyInviteLink()
                 } label: {
-                    Text(Loc.SpaceShare.DeleteSharingLink.title)
+                    Text(Loc.SpaceShare.CopyInviteLink.title)
                 }
-                .disabled(!model.canDeleteLink)
             } label: {
                 IconView(icon: .asset(.X24.more))
                     .frame(width: 24, height: 24)
