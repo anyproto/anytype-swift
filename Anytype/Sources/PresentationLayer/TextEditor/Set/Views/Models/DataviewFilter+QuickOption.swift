@@ -59,6 +59,9 @@ extension DataviewFilter.QuickOption {
         .currentMonth,
         .lastMonth,
         .nextMonth,
+        .lastYear,
+        .currentYear,
+        .nextYear,
         .numberOfDaysAgo,
         .numberOfDaysNow,
         .exactDate
@@ -82,6 +85,9 @@ extension DataviewFilter.QuickOption {
         .nextWeek,
         .currentMonth,
         .lastMonth,
-        .nextMonth
+        .nextMonth,
+        .lastYear,
+        .currentYear,
+        .nextYear
     ]
 }
