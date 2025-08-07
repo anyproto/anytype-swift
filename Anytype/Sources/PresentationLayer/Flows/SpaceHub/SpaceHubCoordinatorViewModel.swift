@@ -214,11 +214,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     // MARK: - SpaceHubModuleOutput
     
     func onSelectCreateObject() {
-        if FeatureFlags.spaceUxTypes {
-            showSpaceTypeForCreate = true
-        } else {
-            spaceCreateData = SpaceCreateData(spaceUxType: .data)
-        }
+        showSpaceTypeForCreate = true
     }
     
     func onSelectSpace(spaceId: String) {
