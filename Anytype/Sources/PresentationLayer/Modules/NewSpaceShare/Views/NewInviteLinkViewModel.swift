@@ -19,6 +19,7 @@ final class NewInviteLinkViewModel: ObservableObject {
     @Published var showInitialLoading = true
     @Published var isLoading = false
     @Published var inviteType: SpaceRichIviteType?
+    @Published var inviteChangeConfirmation: SpaceRichIviteType?
     
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
@@ -41,16 +42,43 @@ final class NewInviteLinkViewModel: ObservableObject {
         showInitialLoading = false
     }
     
-    func onInviteLinkTypeSelected(_ type: SpaceRichIviteType) {
+    func onInviteLinkTypeSelected(_ invite: SpaceRichIviteType) {
         invitePickerItem = nil
-        guard inviteType != type else { return }
+        guard inviteType != invite else { return }
+        guard !inviteUpdateNeedsConfirmation(invite) else {
+            inviteChangeConfirmation = invite
+            return
+        }
         
+        updateInviteAndView(invite)
+    }
+    
+    func onInviteChangeConfirmed(_ invite: SpaceRichIviteType) {
+        updateInviteAndView(invite)
+    }
+    
+    private func inviteUpdateNeedsConfirmation(_ invite: SpaceRichIviteType) -> Bool {
+        guard inviteType != .disabled else { return false }
+        
+        switch invite {
+        case .editor:
+            return inviteType != .viewer
+        case .viewer:
+            return inviteType != .editor
+        case .requestAccess:
+            return true
+        case .disabled:
+            return true
+        }
+    }
+    
+    private func updateInviteAndView(_ invite: SpaceRichIviteType) {
         Task {
             isLoading = true
             do {
                 defer { isLoading = false }
                 
-                try await updateInvite(type)
+                try await updateInvite(invite)
                 await updateView()
             } catch {
                 toastBarData = ToastBarData(error.localizedDescription)

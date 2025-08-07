@@ -218,6 +218,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  public static let joinSpace = Loc.tr("Localizable", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
@@ -2014,6 +2015,12 @@ public enum Loc {
     }
     public enum Stream {
       public static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Title", fallback: "Create a stream")
+    }
+  }
+  public enum SpaceInvite {
+    public enum Alert {
+      public static let subtitle = Loc.tr("Localizable", "SpaceInvite.Alert.subtitle", fallback: "If you switch link type, your existing link will be deactivated.")
+      public static let title = Loc.tr("Localizable", "SpaceInvite.Alert.title", fallback: "The current link will stop working")
     }
   }
   public enum SpaceManager {

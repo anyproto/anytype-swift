@@ -22,7 +22,7 @@ struct InviteStateView: View {
     }
     
     private var errorState: some View {
-        content(icon: .X24.lock, title: Loc.Error.Common.title, subtitle: Loc.Content.Common.error)
+        content(icon: .X24.exclamation, title: Loc.Error.Common.title, subtitle: Loc.Content.Common.error)
     }
     
     private func content(icon: ImageAsset, title: String, subtitle: String) -> some View {
