@@ -725,6 +725,7 @@ extension ImageAsset {
   }
   public enum X24 {
     public static let ai = ImageAsset.bundle(name: "x24/AI")
+    public static let addMembers = ImageAsset.bundle(name: "x24/Add Members")
     public static let add = ImageAsset.bundle(name: "x24/Add")
     public enum Arrow {
       public static let down = ImageAsset.bundle(name: "x24/Arrow/Down")
@@ -753,6 +754,7 @@ extension ImageAsset {
       public static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
     }
     public static let folder = ImageAsset.bundle(name: "x24/Folder")
+    public static let lock = ImageAsset.bundle(name: "x24/Lock")
     public static let member = ImageAsset.bundle(name: "x24/Member")
     public static let mention = ImageAsset.bundle(name: "x24/Mention")
     public static let more = ImageAsset.bundle(name: "x24/More")
@@ -794,6 +796,8 @@ extension ImageAsset {
     public static let web = ImageAsset.bundle(name: "x24/Web")
     public static let allObjects = ImageAsset.bundle(name: "x24/allObjects")
     public static let bin = ImageAsset.bundle(name: "x24/bin")
+    public static let editor = ImageAsset.bundle(name: "x24/editor")
+    public static let viewer = ImageAsset.bundle(name: "x24/viewer")
   }
   public enum X28 {
     public static let sort = ImageAsset.bundle(name: "x28/Sort")

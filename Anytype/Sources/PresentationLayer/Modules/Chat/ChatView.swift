@@ -27,6 +27,7 @@ struct ChatView: View {
         .onAppear {
             model.keyboardDismiss = keyboardDismiss
             model.configureProvider(chatActionProvider)
+            model.onAppear()
         }
         .ignoresSafeArea(.keyboard)
         .chatActionOverlay(state: $actionState) {

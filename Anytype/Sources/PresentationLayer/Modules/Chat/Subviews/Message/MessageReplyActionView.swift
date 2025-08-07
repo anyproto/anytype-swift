@@ -11,6 +11,7 @@ struct MessageReplyActionView<Content: View>: View {
     // MARK: - State
     
     @State private var offsetX: CGFloat = 0
+    @State private var hasTriggeredFeedback = false
     @Binding private var centerOffsetY: CGFloat
     
     let isEnabled: Bool
@@ -36,14 +37,15 @@ struct MessageReplyActionView<Content: View>: View {
     
     @available(iOS 18.0, *)
     private var contentWithReply: some View {
-        content
+        let progress = (-offsetX / minReplyWidth).clamped(to: 0...1)
+        return content
             .overlay(alignment: .topTrailing) {
                 Image(asset: .X32.reply)
                     .renderingMode(.template)
-                    .foregroundColor(.Control.transparentSecondary)
+                    .foregroundColor(.Control.primary)
                     .padding(.trailing, -(contentHorizontalPadding + replyImageWidth))
-                    .opacity(Double(-offsetX / minReplyWidth).clamped(to: 0...1))
-                    .scaleEffect(Double(-offsetX / minReplyWidth).clamped(to: 0.5...1))
+                    .opacity(progress)
+                    .scaleEffect(progress)
                     .offset(y: centerOffsetY - replyImageWidth/2)
             }
             .offset(x: offsetX)
@@ -52,17 +54,22 @@ struct MessageReplyActionView<Content: View>: View {
                 let translation = gesture.translation(in: gesture.view)
                 switch gesture.state {
                 case .changed:
-                    if translation.x < 0 {
-                        offsetX = translation.x
+                    guard translation.x < 0 else { return }
+                    
+                    offsetX = translation.x
+                    
+                    if !hasTriggeredFeedback && -offsetX >= minReplyWidth {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        hasTriggeredFeedback = true
                     }
                 case .ended:
                     if abs(translation.x) > minReplyWidth {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         action()
                     }
                     withAnimation {
                         offsetX = 0
                     }
+                    hasTriggeredFeedback = false
                 default:
                     break
                 }

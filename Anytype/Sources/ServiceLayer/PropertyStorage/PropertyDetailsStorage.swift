@@ -20,7 +20,7 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
     
     // MARK: - DI
     
-    private let subscriptionDataBuilder: any MultispaceSubscriptionDataBuilderProtocol = Container.shared.propertySubscriptionDataBuilder()
+    private let subscriptionDataBuilder: any MultispaceOneActiveSubscriptionDataBuilder = Container.shared.propertySubscriptionDataBuilder()
     
     private let multispaceSubscriptionHelper : MultispaceOneActiveSubscriptionHelper<PropertyDetails>
     
@@ -75,11 +75,16 @@ final class PropertyDetailsStorage: PropertyDetailsStorageProtocol, Sendable {
         }
     }
     
-    func stopSubscription(cleanCache: Bool) async {
-        await multispaceSubscriptionHelper.stopSubscription(cleanCache: cleanCache)
-        if cleanCache {
+    func stopSubscription() async {
+        await multispaceSubscriptionHelper.stopSubscription()
+        updateSearchCache()
+        sync.value = ()
+    }
+    
+    func prepareData(spaceId: String) async {
+        if !(await multispaceSubscriptionHelper.dataIsPrepared(spaceId: spaceId)) {
+            await multispaceSubscriptionHelper.prepareData(spaceId: spaceId)
             updateSearchCache()
-            sync.value = ()
         }
     }
     
