@@ -4,18 +4,20 @@ struct RoundedTextFieldWithTitle: View {
     
     let title: String
     let placeholder: String
+    let axis: Axis
     @Binding var text: String
     
-    init(title: String, placeholder: String, text: Binding<String>) {
+    init(title: String, placeholder: String, axis: Axis = .horizontal, text: Binding<String>) {
         self.title = title
         self.placeholder = placeholder
+        self.axis = axis
         _text = text
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             AnytypeText(title, style: .calloutRegular).foregroundColor(.Text.secondary)
-            AnytypeTextField(placeholder: placeholder, font: .bodySemibold, text: $text)
+            AnytypeTextField(placeholder: placeholder, font: .bodySemibold, axis: axis, text: $text)
                 .autocorrectionDisabled()
         }
         .padding(.horizontal, 16)
