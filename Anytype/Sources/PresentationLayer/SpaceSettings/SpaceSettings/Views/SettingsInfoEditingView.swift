@@ -1,14 +1,17 @@
 import SwiftUI
+import DesignKit
+
 
 struct SettingsInfoEditingViewData: Identifiable {
     let title: String
     let placeholder: String
     let initialValue: String
     let font: AnytypeFont
+    let usecase: ThresholdCounterUsecase
     
     let onSave: (String) -> Void
     
-    var id: String { title + placeholder + initialValue + String(describing: font) }
+    var id: String { usecase.rawValue }
 }
 
 struct SettingsInfoEditingView: View {
@@ -16,6 +19,7 @@ struct SettingsInfoEditingView: View {
     private let placeholder: String
     private let initialValue: String
     private let font: AnytypeFont
+    private let usecase: ThresholdCounterUsecase
     
     private let onSave: (String) -> Void
     
@@ -26,12 +30,14 @@ struct SettingsInfoEditingView: View {
         placeholder = data.placeholder
         initialValue = data.initialValue
         font = data.font
+        usecase = data.usecase
         onSave = data.onSave
     }
     
     @State private var value: String = ""
     
     private var haveChanges: Bool { value != initialValue }
+    private var saveDisabled: Bool { !haveChanges || value.count > usecase.threshold }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -39,6 +45,9 @@ struct SettingsInfoEditingView: View {
             header
             editingView
             Spacer()
+        }
+        .safeAreaInset(edge: .bottom) {
+            ThresholdCounter(usecase: usecase, count: value.count)
         }
         .onAppear {
             value = initialValue
@@ -55,9 +64,9 @@ struct SettingsInfoEditingView: View {
                 onSave(value)
             } label: {
                 AnytypeText(Loc.save, style: .previewTitle1Medium)
-                    .foregroundColor(haveChanges ? .Text.primary : .Text.tertiary)
+                    .foregroundColor(saveDisabled ? .Text.tertiary: .Text.primary)
             }
-            .disabled(!haveChanges)
+            .disabled(saveDisabled)
             
             Spacer.fixedWidth(16)
         }
