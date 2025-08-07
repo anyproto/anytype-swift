@@ -28,7 +28,7 @@ final class EditorWebBannerItem: UIView {
     private let backgroundView = UIView()
     
     private var itemState: EditorBarItemState?
-    private var isVisible: Bool = false
+    private var heightConstraint: NSLayoutConstraint?
     
     private let onTap: () -> ()
     
@@ -38,8 +38,8 @@ final class EditorWebBannerItem: UIView {
     }
     
     func setVisible(_ visible: Bool) {
-        self.isVisible = visible
-        self.isHidden = !visible
+        isHidden = !visible
+        heightConstraint?.constant = visible ? 40 : 0
     }
     
     init(onTap: @escaping () -> ()) {
@@ -56,7 +56,8 @@ final class EditorWebBannerItem: UIView {
         backgroundView.layer.cornerRadius = 8
         backgroundView.backgroundColor = .Control.secondary
         
-        heightAnchor.constraint(equalToConstant: 40).isActive = true
+        heightConstraint = heightAnchor.constraint(equalToConstant: 40)
+        heightConstraint?.isActive = true
         
         addSubview(backgroundView) { $0.pinToSuperview() }
         addSubview(label) { 

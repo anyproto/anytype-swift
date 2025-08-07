@@ -7,8 +7,6 @@ struct LaunchCircle: View {
         static let maxSide: CGFloat = 128
         static let middleSide: CGFloat = 48
         static let minSide: CGFloat = 16
-        static let duration: CGFloat = 1.6
-        static let initialDuration: CGFloat = Constants.duration + Constants.duration
     }
     
     @State private var side: CGFloat = Constants.minSide
@@ -24,15 +22,7 @@ struct LaunchCircle: View {
                 )
             )
             .frame(width: side, height: side)
-            .onAppear {
-                withAnimation(.easeInOut(duration: Constants.initialDuration)) {
-                    side = Constants.maxSide
-                }
-                // TODO: Migrate to completion from iOS 17
-                withAnimation(.easeInOut(duration: Constants.duration).repeatForever().delay(Constants.initialDuration)) {
-                    side = Constants.middleSide
-                }
-            }
+            .modifier(PulseAnimation(side: $side, middleSide: Constants.middleSide, maxSide: Constants.maxSide))
     }
     
     private var opacity: CGFloat {

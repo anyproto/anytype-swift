@@ -11,6 +11,12 @@ struct SpaceLoadingContainerView<Content: View>: View {
         self.content = content
     }
     
+    private let minSide: CGFloat = 16
+    private let middleSide: CGFloat = 80
+    private let maxSide: CGFloat = 96
+    
+    @State private var side: CGFloat = 16
+
     var body: some View {
         ZStack {
             if let info = model.info {
@@ -32,23 +38,28 @@ struct SpaceLoadingContainerView<Content: View>: View {
             VStack(spacing: 0) {
                 PageNavigationHeader(title: "")
                 Spacer()
-                if let errorText = model.errorText {
-                    VStack(spacing: 20) {
-                        Text(errorText)
-                        StandardButton(
-                            Loc.tryAgain,
-                            inProgress: false,
-                            style: .warningMedium,
-                            action: {
-                                model.onTryOpenSpaceAgain()
-                            }
-                        )
-                    }.padding(.horizontal, 16)
-                } else {
-                    IconView(icon: model.spaceIcon)
-                        .frame(width: 96, height: 96)
+            }
+            
+            if let errorText = model.errorText {
+                VStack(spacing: 20) {
+                    Text(errorText)
+                    StandardButton(
+                        Loc.tryAgain,
+                        inProgress: false,
+                        style: .warningMedium,
+                        action: {
+                            model.onTryOpenSpaceAgain()
+                        }
+                    )
+                }.padding(.horizontal, 16)
+            } else {
+                if let icon = model.spaceIcon {
+                    IconView(icon: icon)
+                        .frame(width: maxSide, height: maxSide)
+                        .scaleEffect(side / maxSide)
+                        .opacity(min(1, (side - minSide) / minSide))
+                        .modifier(PulseAnimation(side: $side, middleSide: middleSide, maxSide: maxSide))
                 }
-                Spacer()
             }
         }
         .task {
