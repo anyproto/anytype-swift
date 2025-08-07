@@ -12,8 +12,8 @@ struct SpaceLoadingContainerView<Content: View>: View {
     }
     
     private let minSide: CGFloat = 16
-    private let middleSide: CGFloat = 96
-    private let maxSide: CGFloat = 128
+    private let middleSide: CGFloat = 80
+    private let maxSide: CGFloat = 96
     
     @State private var side: CGFloat = 16
 
