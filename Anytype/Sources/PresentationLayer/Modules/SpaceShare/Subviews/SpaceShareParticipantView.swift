@@ -26,7 +26,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
         let isSelected: Bool
         let destructive: Bool
         let enabled: Bool
-        let action: () -> Void
+        let action: () async throws -> Void
     }
 }
 
@@ -93,11 +93,17 @@ struct SpaceShareParticipantView: View {
     private var menu: some View {
         if participant.contextActions.isEmpty {
             status
+        } else if participant.contextActions.count == 1, let action = participant.contextActions.first  {
+            AsyncButton {
+                try await action.action()
+            } label: {
+                status.padding()
+            }
         } else {
             Menu {
                 ForEach(participant.contextActions) { action in
-                    Button(role: action.destructive ? .destructive : nil) {
-                        action.action()
+                    AsyncButton(role: action.destructive ? .destructive : nil) {
+                        try await action.action()
                     } label: {
                         HStack {
                             AnytypeText(action.title, style: .uxCalloutRegular)
@@ -112,7 +118,7 @@ struct SpaceShareParticipantView: View {
                 }
                 
             } label: {
-                status
+                status.padding()
             }
         }
     }
