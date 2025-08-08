@@ -1128,8 +1128,8 @@ extension AnytypeAnalytics {
         logEvent("RemoveSpaceMember")
     }
     
-    func logScreenInviteRequest() {
-        logEvent("ScreenInviteRequest")
+    func logScreenInviteRequest(type: ScreenInviteRequestType) {
+        logEvent("ScreenInviteRequest", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logScreenRequestSent() {

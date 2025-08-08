@@ -301,6 +301,9 @@ enum ScreenQrAnalyticsType: String {
 enum ScreenQrRoute: String {
     case inviteLink = "InviteLink"
     case settingsSpace = "SettingsSpace"
+enum ScreenInviteRequestType: String {
+    case approval = "Approval"
+    case withoutApproval = "WithoutApproval"
 }
 
 enum ClickMembershipType: String {
