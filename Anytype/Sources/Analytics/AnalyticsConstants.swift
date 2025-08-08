@@ -298,6 +298,11 @@ enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
 }
 
+enum ScreenQrRoute: String {
+    case inviteLink = "InviteLink"
+    case settingsSpace = "SettingsSpace"
+}
+
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"

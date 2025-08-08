@@ -26,7 +26,7 @@ struct SpaceProfileView: View {
                 SpaceSettingsInfoView(info: model.settingsInfo)
             }
             .anytypeSheet(item: $model.qrInviteLink) {
-                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace, route: .spaceProfile)
             }
             .snackbar(toastBarData: $model.snackBarData)
     }

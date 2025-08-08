@@ -1152,8 +1152,11 @@ extension AnytypeAnalytics {
         logEvent("ApproveLeaveRequest")
     }
     
-    func logScreenQr(type: ScreenQrAnalyticsType) {
-        logEvent("ScreenQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logScreenQr(type: ScreenQrAnalyticsType, route: ScreenQrRoute) {
+        logEvent("ScreenQr", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ])
     }
     
     func logClickQr() {

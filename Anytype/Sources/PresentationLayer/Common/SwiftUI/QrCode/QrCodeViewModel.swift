@@ -5,14 +5,16 @@ import UIKit
 final class QrCodeViewModel: ObservableObject {
     
     private let analyticsType: ScreenQrAnalyticsType
+    private let route: ScreenQrRoute
     
     let document: QRCode.Document
     let title: String
     @Published var sharedData: DataIdentifiable?
     
-    init(title: String, data: String, analyticsType: ScreenQrAnalyticsType) {
+    init(title: String, data: String, analyticsType: ScreenQrAnalyticsType, route: ScreenQrRoute) {
         self.title = title
         self.analyticsType = analyticsType
+        self.route = route
         
         document = QRCode.Document(generator: QRCodeGenerator_External())
         document.utf8String = data
@@ -30,7 +32,7 @@ final class QrCodeViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenQr(type: analyticsType)
+        AnytypeAnalytics.instance().logScreenQr(type: analyticsType, route: route)
     }
     
     func onShare() {
