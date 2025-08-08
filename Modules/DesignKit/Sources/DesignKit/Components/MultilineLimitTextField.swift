@@ -1,16 +1,26 @@
 import SwiftUI
 
-struct MultilineLimitTextEditor: View {
+public struct MultilineLimitTextField: View {
     
     let placeholder: String
-    let font: AnytypeFont
-    let axis: Axis
     let limit: Int
     let warningLimit: Int
     @Binding var text: String
     
-    var body: some View {
-        AnytypeTextField(placeholder: placeholder, font: font, axis: axis, text: $text)
+    public init(
+        placeholder: String,
+        limit: Int,
+        warningLimit: Int,
+        text: Binding<String>
+    ) {
+        self.placeholder = placeholder
+        self.limit = limit
+        self.warningLimit = warningLimit
+        self._text = text
+    }
+    
+    public var body: some View {
+        AnytypeTextField(placeholder: placeholder, font: .bodyRegular, axis: .vertical, text: $text)
             .padding(.horizontal, 16)
             .frame(minHeight: 48, maxHeight: 64, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
@@ -35,15 +45,13 @@ struct MultilineLimitTextEditor: View {
 }
 
 // Use @Previewable @State from iOS 17
-private struct MultilineLimitTextEditor_Preview: View {
+private struct MultilineLimitTextField_Preview: View {
     
     @State var text = "2"
     
     var body: some View {
-        MultilineLimitTextEditor(
+        MultilineLimitTextField(
             placeholder: "Add a comment...",
-            font: .bodyRegular,
-            axis: .vertical,
             limit: 20,
             warningLimit: 15,
             text: $text
@@ -53,7 +61,7 @@ private struct MultilineLimitTextEditor_Preview: View {
 
 #Preview {
     ZStack {
-        MultilineLimitTextEditor_Preview()
+        MultilineLimitTextField_Preview()
             .padding()
     }
     .background(Color.red)
