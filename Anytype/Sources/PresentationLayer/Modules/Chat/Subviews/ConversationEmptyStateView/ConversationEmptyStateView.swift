@@ -60,6 +60,8 @@ struct ConversationEmptyStateView: View {
     private func emptyStateView(title: String, description: String, action: (() -> Void)?) -> some View {
         VStack(alignment: .center, spacing: 0) {
             Spacer()
+            Image(asset: .Dialog.coffee)
+            Spacer.fixedHeight(10)
             Text(title)
                 .anytypeStyle(.bodyRegular)
                 .foregroundStyle(Color.Text.primary)
