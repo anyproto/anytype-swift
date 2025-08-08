@@ -789,15 +789,15 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     public enum Empty {
-      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages yet")
+      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty.")
       public enum Button {
-        public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Share invite link")
+        public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Invite members")
       }
       public enum Editor {
-        public static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first one to spark it up!")
+        public static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first message to spark it up!")
       }
       public enum Owner {
-        public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and spark it up!")
+        public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and start the conversation!")
       }
     }
     public enum FileSyncError {
