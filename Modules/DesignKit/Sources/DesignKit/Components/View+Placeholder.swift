@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension View {
+public extension View {
     func placeholder<Content: View>(
         when shouldShow: Bool,
         alignment: Alignment = .leading,
