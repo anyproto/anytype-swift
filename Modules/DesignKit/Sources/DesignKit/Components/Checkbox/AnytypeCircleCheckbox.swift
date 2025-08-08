@@ -44,13 +44,13 @@ public struct AnytypeCircleCheckbox: View {
     }
 }
 
-extension AnytypeCircleCheckbox {
+public extension AnytypeCircleCheckbox {
     init(checked: Bool) {
         self.init(checked: .constant(checked))
     }
 }
 
-extension AnytypeCircleCheckbox {
+public extension AnytypeCircleCheckbox {
     func blueStyle() -> some View {
         var view = self
         view.backgroundCheckedColor = .Control.accent100
