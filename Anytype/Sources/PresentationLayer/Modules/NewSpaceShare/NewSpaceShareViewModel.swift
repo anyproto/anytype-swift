@@ -102,6 +102,7 @@ final class NewSpaceShareViewModel: ObservableObject {
                 id: participant.id,
                 icon: participant.icon?.icon,
                 name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
+                globalName: participant.displayGlobalName,
                 status: participantStatus(participant),
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
@@ -242,12 +243,24 @@ final class NewSpaceShareViewModel: ObservableObject {
 
 private extension Participant {
     var sortingWeight: Int {
+        if permission == .owner {
+            return 1000
+        }
+        
         if status == .joining {
-            return 3
+            return 30
         }
         
         if status == .removing {
-            return 2
+            return 20
+        }
+        
+        if permission == .writer {
+            return 5
+        }
+        
+        if permission == .reader {
+            return 4
         }
         
         return 1
