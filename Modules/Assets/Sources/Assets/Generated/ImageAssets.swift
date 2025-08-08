@@ -711,6 +711,7 @@ extension ImageAsset {
     public static let plus = ImageAsset.bundle(name: "x18/Plus")
     public static let search = ImageAsset.bundle(name: "x18/Search")
     public static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+    public static let tick = ImageAsset.bundle(name: "x18/Tick")
     public static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     public static let webLink = ImageAsset.bundle(name: "x18/Web link")
     public static let redAttention = ImageAsset.bundle(name: "x18/redAttention")
