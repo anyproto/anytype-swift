@@ -37,7 +37,7 @@ extension ScreenData {
             if openMediaFileAsObject {
                 self = .editor(page)
             } else {
-                self = .preview(MediaFileScreenData(selectedItem: details))
+                self = .preview(MediaFileScreenData(items: [details.previewRemoteItem]))
             }
         case .bookmark:
             if !openBookmarkAsObject, let source = details.source {

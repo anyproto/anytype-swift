@@ -18,7 +18,7 @@ struct MediaFileScreenData: Hashable, Sendable {
 }
 
 extension MediaFileScreenData {
-    init(selectedItem: ObjectDetails, allItems: [ObjectDetails] = [], sourceView: UIView? = nil) {
+    init(selectedItem: ObjectDetails, allItems: [ObjectDetails], sourceView: UIView? = nil) {
         let items = allItems.compactMap { $0.previewRemoteItem }
         let startAtIndex = items.firstIndex { $0.id == selectedItem.id } ?? 0
         self.items = items
