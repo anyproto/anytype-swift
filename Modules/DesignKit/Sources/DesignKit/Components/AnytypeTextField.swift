@@ -1,12 +1,20 @@
 import SwiftUI
 
-struct AnytypeTextField: View {
+public struct AnytypeTextField: View {
+    
     let placeholder: String
     let font: AnytypeFont
-    var axis: Axis = .horizontal
+    let axis: Axis
     @Binding var text: String
     
-    var body: some View {
+    public init(placeholder: String, font: AnytypeFont, axis: Axis = .horizontal, text: Binding<String>) {
+        self.placeholder = placeholder
+        self.font = font
+        self.axis = axis
+        self._text = text
+    }
+    
+    public var body: some View {
         Group {
             TextField("", text: $text, axis: axis)
                 .placeholder(when: text.isEmpty) {

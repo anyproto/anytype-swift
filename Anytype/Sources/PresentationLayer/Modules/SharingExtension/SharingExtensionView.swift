@@ -24,7 +24,9 @@ struct SharingExtensionView: View {
                     .safeAreaInset(edge: .bottom) {
                         Spacer.fixedHeight(100)
                     }
-                confirmButton
+                    .scrollDismissesKeyboard(.immediately)
+                
+                    bottomPanel
             }
         }
         .task {
@@ -36,14 +38,13 @@ struct SharingExtensionView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(model.spaces) { space in
-                    Button {
+                    SharingExtensionSpaceView(
+                        icon: space.objectIconImage,
+                        title: space.title,
+                        isSelected: model.selectedSpace?.id == space.id
+                    )
+                    .onTapGesture {
                         model.onTapSpace(space)
-                    } label: {
-                        SharingExtensionSpaceView(
-                            icon: space.objectIconImage,
-                            title: space.title,
-                            isSelected: model.selectedSpace?.id == space.id
-                        )
                     }
                 }
             }
@@ -63,13 +64,14 @@ struct SharingExtensionView: View {
     }
     
     @ViewBuilder
-    private var confirmButton: some View {
+    private var bottomPanel: some View {
         if model.selectedSpace != nil {
-            AsyncStandardButton(Loc.send, style: .primaryLarge) {
-                try await model.onTapSend()
-            }
-            .padding(16)
-            .background(Color.Background.secondary)
+            SharingExtensionBottomPanel(
+                comment: $model.comment,
+                commentLimit: model.commentLimit,
+                commentWarningLimit: model.commentWarningLimit) {
+                    try await model.onTapSend()
+                }
         }
     }
 }

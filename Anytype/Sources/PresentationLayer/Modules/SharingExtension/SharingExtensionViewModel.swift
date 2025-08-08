@@ -15,6 +15,10 @@ final class SharingExtensionViewModel: ObservableObject {
     
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
+    @Published var comment: String = ""
+    let commentLimit = 2000
+    let commentWarningLimit = 1900
+    
     // Debug
     @Published var debugInfo: SharedContentDebugInfo? = nil
     
