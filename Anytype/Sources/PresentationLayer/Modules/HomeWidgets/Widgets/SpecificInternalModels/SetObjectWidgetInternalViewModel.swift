@@ -287,15 +287,22 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in
-                self?.handleTapOnObject(details: $0)
+                self?.handleTapOnObject(details: $0, allDetails: sortedDetails)
             }
         )
         updateRows(rowDetails: rowDetails)
     }
     
-    private func handleTapOnObject(details: ObjectDetails) {
+    private func handleTapOnObject(details: ObjectDetails, allDetails: [ObjectDetails]) {
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
-        output?.onObjectSelected(screenData: details.screenData())
+        let isAllMediaFiles = allDetails.allSatisfy { $0.editorViewType.isMediaFile }
+        if FeatureFlags.mediaCarouselForWidgets, isAllMediaFiles {
+            output?.onObjectSelected(screenData: .preview(
+                MediaFileScreenData(selectedItem: details, allItems: allDetails)
+            ))
+        } else {
+            output?.onObjectSelected(screenData: details.screenData())
+        }
     }
 }
