@@ -47,4 +47,8 @@ extension Participant {
     var canEdit: Bool {
         permission.canEdit
     }
+    
+    var displayGlobalName: String {
+        globalName.isNotEmpty ? globalName : identity
+    }
 }

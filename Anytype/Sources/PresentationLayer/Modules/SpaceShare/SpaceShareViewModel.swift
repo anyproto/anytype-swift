@@ -113,6 +113,7 @@ final class SpaceShareViewModel: ObservableObject {
                 id: participant.id,
                 icon: participant.icon?.icon,
                 name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
+                globalName: participant.displayGlobalName,
                 status: participantStatus(participant),
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
