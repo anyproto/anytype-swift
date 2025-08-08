@@ -38,6 +38,14 @@ struct SpaceShareParticipantView: View {
         HStack(spacing: 12) {
             IconView(icon: participant.icon)
                 .frame(width: 48, height: 48)
+                .overlay(alignment: .topTrailing) {
+                    if case .pending = participant.status  {
+                        attentionDotView
+                            .padding(.trailing, 2)
+                            .padding(.top, 2)
+                    }
+                }
+            
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(participant.name, style: .uxTitle2Medium)
                     .foregroundColor(.Text.primary)
@@ -120,6 +128,18 @@ struct SpaceShareParticipantView: View {
             } label: {
                 status.padding()
             }
+        }
+    }
+    
+    private var attentionDotView: some View {
+        ZStack(alignment: .center) {
+            Circle()
+                .fill(Color.Control.accent100)
+                .frame(width: 8, height: 8)
+
+            Circle()
+                .strokeBorder(Color.Background.primary, lineWidth: 2)
+                .frame(width: 10, height: 10)
         }
     }
 }
