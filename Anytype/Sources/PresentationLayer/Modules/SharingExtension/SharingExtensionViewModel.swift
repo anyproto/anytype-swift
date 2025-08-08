@@ -16,8 +16,8 @@ final class SharingExtensionViewModel: ObservableObject {
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
     @Published var comment: String = ""
-    let commentLimit = 2000
-    let commentWarningLimit = 1900
+    let commentLimit = ChatMessageGlobalLimits.textLimit
+    let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
     
     // Debug
     @Published var debugInfo: SharedContentDebugInfo? = nil
@@ -40,6 +40,7 @@ final class SharingExtensionViewModel: ObservableObject {
         if space.uxType.isChat {
             selectedSpace = space
         } else {
+            selectedSpace = nil
             output?.onSelectDataSpace(spaceId: space.targetSpaceId)
         }
     }
