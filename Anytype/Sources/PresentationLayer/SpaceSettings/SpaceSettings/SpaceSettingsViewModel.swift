@@ -120,10 +120,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceLeaveAlert.toggle()
     }
     
-    func onMembersTap() {
-        output?.onSpaceMembersSelected()
-    }
-    
     func onMembershipUpgradeTap() {
         AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .sharedSpaces, route: .spaceSettings)
         membershipUpgradeReason = .numberOfSharedSpaces
