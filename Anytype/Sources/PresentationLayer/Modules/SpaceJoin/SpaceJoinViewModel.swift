@@ -60,6 +60,9 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     func onJoinTapped() {
+        if dataState.inviteWithoutApprove {
+            AnytypeAnalytics.instance().logClickJoinSpaceWithoutApproval()
+        }
         joinTaskId = UUID().uuidString
     }
     
@@ -129,7 +132,8 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     func onInviewViewAppear() {
-        AnytypeAnalytics.instance().logScreenInviteRequest()
+        let type: ScreenInviteRequestType = dataState.inviteWithoutApprove ? .withoutApproval : .approval
+        AnytypeAnalytics.instance().logScreenInviteRequest(type: type)
     }
     
     // MARK: - Private

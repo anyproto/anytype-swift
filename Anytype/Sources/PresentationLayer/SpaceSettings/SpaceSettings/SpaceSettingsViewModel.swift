@@ -147,6 +147,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         Task {
             try await generateInviteIfNeeded()
             guard let inviteLink else { return }
+            AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .spaceSettings)
             UIPasteboard.general.string = inviteLink.absoluteString
             snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
         }
