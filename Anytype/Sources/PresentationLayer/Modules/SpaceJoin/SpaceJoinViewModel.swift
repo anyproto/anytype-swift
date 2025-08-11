@@ -60,6 +60,9 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     func onJoinTapped() {
+        if dataState.inviteWithoutApprove {
+            AnytypeAnalytics.instance().logClickJoinSpaceWithoutApproval()
+        }
         joinTaskId = UUID().uuidString
     }
     
