@@ -1,4 +1,5 @@
 import SwiftUI
+import Loc
 
 struct SharingExtensionBottomPanel: View {
     
@@ -10,7 +11,7 @@ struct SharingExtensionBottomPanel: View {
     var body: some View {
         VStack(spacing: 10) {
             MultilineLimitTextField(
-                placeholder: "Add a comment...",
+                placeholder: Loc.Sharing.inputPlaceholder,
                 limit: commentLimit,
                 warningLimit: commentWarningLimit,
                 text: $comment
