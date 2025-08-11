@@ -18,6 +18,7 @@ struct PublishingPreview: View {
     
     var body: some View {
         content
+            .frame(height: screenSize.width * 0.6)
             .readFrame { screenSize = $0.size }
     }
     
@@ -74,7 +75,7 @@ struct PublishingPreview: View {
             
             contentSection
             
-            Spacer().frame(maxHeight: screenSize.width * 0.08)
+            Spacer()
         }
         .animation(.default, value: data.showJoinButton)
     }
