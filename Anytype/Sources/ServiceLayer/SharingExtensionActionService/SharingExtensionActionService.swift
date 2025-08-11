@@ -7,8 +7,27 @@ import Factory
 protocol SharingExtensionActionServiceProtocol: AnyObject, Sendable {
     func saveObjects(
         spaceId: String,
-        content: SharedContent
-    ) async
+        content: SharedContent,
+        linkToObjects: [ObjectDetails],
+        chatId: String?
+    ) async throws
+}
+
+private enum SharedSavedContentItem {
+    case text(String)
+    case bookmark(ObjectDetails)
+    case file(FileDetails)
+    
+    var objectId: String? {
+        switch self {
+        case .text:
+            nil
+        case .bookmark(let objectDetails):
+            objectDetails.id
+        case .file(let fileDetails):
+            fileDetails.id
+        }
+    }
 }
 
 actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
@@ -21,27 +40,59 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.blockService)
+    private var blockService: any BlockServiceProtocol
+    @Injected(\.pasteboardMiddleService)
+    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
     
     func saveObjects(
         spaceId: String,
-        content: SharedContent
-    ) async {
+        content: SharedContent,
+        linkToObjects: [ObjectDetails],
+        chatId: String?
+    ) async throws {
         await objectTypeProvider.prepareData(spaceId: spaceId)
         
-        let textItems = content.items.filter { $0.isText }
-        if content.title?.isNotEmpty ?? false || textItems.isNotEmpty {
-            // Create Note object and link it
-        } else {
-            // Create objects and link it
-        }
+        // Create objects for media & bookmarks
+        let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content)
+        
+        try await linkToObjectFlow(spaceId: spaceId, content: content, savedContent: contentItems, linkToObjects: linkToObjects)
     }
     
     // MARK: - Private
     
+    private func linkToObjectFlow(
+        spaceId: String,
+        content: SharedContent,
+        savedContent: [SharedSavedContentItem],
+        linkToObjects: [ObjectDetails]
+    ) async throws {
+        // Final link to ids
+        // One object - if contains text
+        // Multiple objects - if contains only media & bookmarks
+        var linkedObjectIds: [String] = []
+        
+        let textItems = content.items.filter { $0.isText }
+        if content.title?.isNotEmpty ?? false || textItems.isNotEmpty {
+            let noteObject = try await createContainer(spaceId: spaceId, title: content.title)
+            try await createBlocks(object: noteObject, contentItems: savedContent)
+            linkedObjectIds.append(noteObject.id)
+        } else {
+            let ids = savedContent.compactMap { $0.objectId }
+            linkedObjectIds.append(contentsOf: ids)
+        }
+        
+        for linkToObject in linkToObjects {
+            for linkedId in linkedObjectIds {
+                try await linkTo(object: linkToObject, linkedObjectId: linkedId)
+            }
+        }
+    }
+    
     private func createContainer(
         spaceId: String,
         title: String?
-    ) async throws {
+    ) async throws -> ObjectDetails {
         
         let noteObject = try await objectActionsService.createObject(
             name: title ?? "",
@@ -55,32 +106,31 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         )
         
         AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, spaceId: noteObject.spaceId, route: .sharingExtension)
+        
+        return noteObject
     }
     
-    private func createObjectFromSharedContent(
+    private func createObjectsFromSharedContent(
         spaceId: String,
-        linkToObject: ObjectDetails?,
         content: SharedContent
-    ) async throws -> [BlockInformation] {
-        var blockInformations = [BlockInformation]()
+    ) async throws -> [SharedSavedContentItem] {
+        var details = [SharedSavedContentItem]()
         
         for contentItem in content.items {
             let newObjectId: String
             switch contentItem {
             case let .text(text):
-                break
+                details.append(.text(text))
             case let .url(url):
-                newObjectId = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId).id
-                let blockInformation = BlockInformation.bookmark(targetId: newObjectId)
-                blockInformations.append(blockInformation)
+                let objectDetails = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId)
+                details.append(.bookmark(objectDetails))
             case let .file(url):
-                newObjectId = try await createFileObject(url: url, spaceId: spaceId).id
-                let blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
-                blockInformations.append(blockInformation)
+                let objectDetails = try await createFileObject(url: url, spaceId: spaceId)
+                details.append(.file(objectDetails))
             }
         }
         
-        return blockInformations
+        return details
     }
     
     
@@ -114,5 +164,73 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
             route: .sharingExtension
         )
         return details
+    }
+    
+    private func createBlocks(object: ObjectDetails, contentItems: [SharedSavedContentItem]) async throws {
+        
+        guard contentItems.isNotEmpty else { return }
+        
+        for item in contentItems {
+            switch item {
+            case .text(let text):
+                try await createTextBlock(text: text, addToObject: object)
+            case .bookmark(let objectDetails):
+                try await createBookmarkBlock(bookmarkObject: objectDetails, addToObject: object)
+            case .file(let fileDetails):
+                try await createFileBlock(fileDetails: fileDetails, addToObject: object)
+            }
+        }
+    }
+    
+    private func createTextBlock(text: String, addToObject: ObjectDetails) async throws {
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
+        let newBlockId = try await blockService.add(
+            contextId: addToObject.id,
+            targetId: lastBlockInDocument,
+            info: .emptyText,
+            position: .bottom
+        )
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected(blockIds: [newBlockId]))
+    }
+    
+    private func createBookmarkBlock(bookmarkObject: ObjectDetails, addToObject: ObjectDetails) async throws {
+        let blockInformation = BlockInformation.bookmark(targetId: bookmarkObject.id)
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
+        _ = try await blockService.add(
+            contextId: addToObject.id,
+            targetId: lastBlockInDocument,
+            info: blockInformation,
+            position: .bottom
+        )
+    }
+    
+    private func createFileBlock(fileDetails: FileDetails, addToObject: ObjectDetails) async throws {
+        let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
+        let blockInformation = BlockInformation.file(fileDetails: fileDetails)
+        _ = try await blockService.add(
+            contextId: addToObject.id,
+            targetId: lastBlockInDocument,
+            info: blockInformation,
+            position: .bottom
+        )
+    }
+    
+    private func linkTo(object linkToObject: ObjectDetails, linkedObjectId: String) async throws {
+        if linkToObject.isCollection {
+            try await objectActionsService.addObjectsToCollection(
+                contextId: linkToObject.id,
+                objectIds: [linkedObjectId]
+            )
+        } else {
+            let blockInformation = BlockInformation.emptyLink(targetId: linkedObjectId)
+            let lastBlockInDocument = try await blockService.lastBlockId(from: linkToObject.id, spaceId: linkToObject.spaceId)
+            _ = try await blockService.add(
+                contextId: linkToObject.id,
+                targetId: lastBlockInDocument,
+                info: blockInformation,
+                position: .bottom
+            )
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: linkToObject.spaceId, route: .sharingExtension)
+        }
     }
 }
