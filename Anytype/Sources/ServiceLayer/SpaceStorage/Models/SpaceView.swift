@@ -102,7 +102,7 @@ extension SpaceView {
     }
     
     var canAddChatWidget: Bool {
-        !initialScreenIsChat && isShared && hasChat && FeatureFlags.chatWidget
+        !initialScreenIsChat && isShared && hasChat && FeatureFlags.createChatWidget
     }
     
     var hasChat: Bool {
