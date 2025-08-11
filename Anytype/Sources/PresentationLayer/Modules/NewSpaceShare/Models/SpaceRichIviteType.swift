@@ -17,6 +17,19 @@ enum SpaceRichIviteType: String, CaseIterable, Identifiable {
             false
         }
     }
+    
+    var analyticsValue: ClickShareSpaceNewLinkType? {
+        switch self {
+        case .editor:
+            .editor
+        case .viewer:
+            .viewer
+        case .requestAccess:
+            .manual
+        case .disabled:
+            nil
+        }
+    }
 }
 
 extension SpaceInvite {

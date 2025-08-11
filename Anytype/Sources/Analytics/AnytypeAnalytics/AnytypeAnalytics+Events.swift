@@ -1139,6 +1139,11 @@ extension AnytypeAnalytics {
     func logClickShareSpaceShareLink(route: ClickShareSpaceShareLinkRoute) {
         logEvent("ClickShareSpaceShareLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
+    
+    func logClickShareSpaceNewLink(type: ClickShareSpaceNewLinkType) {
+        logEvent("ClickShareSpaceNewLink", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
     func logScreenRequestSent() {
         logEvent("ScreenRequestSent")
     }
