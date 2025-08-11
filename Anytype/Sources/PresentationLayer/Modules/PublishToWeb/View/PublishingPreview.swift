@@ -62,11 +62,15 @@ struct PublishingPreview: View {
     
     private var previewContent: some View {
         VStack(spacing: 0) {
-            if data.showJoinButton {
-                spaceHeader
-            } else {
-                Spacer.fixedHeight(8)
+            Group {
+                if data.showJoinButton {
+                    spaceHeader
+                } else {
+                    Spacer.fixedHeight(8)
+                }
             }
+            .transition(.identity)
+
             
             if data.cover != nil || data.icon != nil {
                 coverSection
