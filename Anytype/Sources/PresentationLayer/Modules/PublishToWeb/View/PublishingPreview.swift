@@ -18,6 +18,7 @@ struct PublishingPreview: View {
     
     var body: some View {
         content
+            .frame(height: screenSize.width * 0.6)
             .readFrame { screenSize = $0.size }
     }
     
@@ -74,7 +75,7 @@ struct PublishingPreview: View {
             
             contentSection
             
-            Spacer().frame(maxHeight: screenSize.width * 0.08)
+            Spacer()
         }
         .animation(.default, value: data.showJoinButton)
     }
@@ -168,7 +169,7 @@ struct PublishingPreview: View {
                 Rectangle()
                     .fill(Color.Shape.secondary)
                     .frame(
-                        width: max(300, screenSize.width * 0.8),
+                        width: max(280, screenSize.width * 0.8),
                         height: 6
                     )
                     .cornerRadius(1)

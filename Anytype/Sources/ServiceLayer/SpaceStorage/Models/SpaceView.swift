@@ -102,7 +102,11 @@ extension SpaceView {
     }
     
     var canAddChatWidget: Bool {
-        !initialScreenIsChat && isShared
+        !initialScreenIsChat && isShared && hasChat && FeatureFlags.createChatWidget
+    }
+    
+    var hasChat: Bool {
+        chatId.isNotEmpty
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {
