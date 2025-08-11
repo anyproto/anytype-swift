@@ -79,6 +79,7 @@ final class NewInviteLinkViewModel: ObservableObject {
                 defer { isLoading = false }
                 
                 try await updateInvite(invite)
+                if invite.isShared { AnytypeAnalytics.instance().logShareSpace() }
                 await updateView()
             } catch {
                 toastBarData = ToastBarData(error.localizedDescription)

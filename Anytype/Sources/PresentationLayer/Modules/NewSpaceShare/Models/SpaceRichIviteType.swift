@@ -8,6 +8,15 @@ enum SpaceRichIviteType: String, CaseIterable, Identifiable {
     case disabled
     
     var id: String { rawValue }
+    
+    var isShared: Bool {
+        switch self {
+        case .editor, .viewer, .requestAccess:
+            true
+        case .disabled:
+            false
+        }
+    }
 }
 
 extension SpaceInvite {
