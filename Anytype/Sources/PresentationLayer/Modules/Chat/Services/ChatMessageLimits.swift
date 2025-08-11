@@ -15,6 +15,11 @@ protocol ChatMessageLimitsProtocol: AnyObject, Sendable {
     func oneAttachmentCanBeAdded(current: Int) -> Bool
 }
 
+enum ChatMessageGlobalLimits {
+    static let textLimit = 2000
+    static let textLimitWarning = 1950
+}
+
 final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     
     private struct MessageLimitStorage {
@@ -23,8 +28,6 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     }
     
     private enum Constants {
-        static let textLimit = 2000
-        static let textLimitWarning = 1950
         static let reactionsForMemberLimit = 3
         static let reactionsForMessageLimit = 12
         static let sendMessagesCountLimit = 5
@@ -35,7 +38,7 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     private let messageLimitStorage = AtomicStorage(MessageLimitStorage())
     
     var textLimit: Int {
-        Constants.textLimit
+        ChatMessageGlobalLimits.textLimit
     }
     
     var attachmentsLimit: Int {
@@ -43,11 +46,11 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     }
     
     func textIsLimited(text: NSAttributedString) -> Bool {
-        text.string.count > Constants.textLimit
+        text.string.count > ChatMessageGlobalLimits.textLimit
     }
     
     func textIsWarinig(text: NSAttributedString) -> Bool {
-        text.string.count >= Constants.textLimitWarning
+        text.string.count >= ChatMessageGlobalLimits.textLimitWarning
     }
     
     func canAddReaction(message: ChatMessage, yourProfileIdentity: String) -> Bool {

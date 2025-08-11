@@ -13,9 +13,16 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     
     private let data: SharingExtensionShareToData
     
+    private var details: [ObjectDetails] = []
+    
     @Published var title: String = ""
     @Published var searchText: String = ""
-    @Published var searchData: [ObjectSearchData] = []
+    @Published var rows: [SharingExtensionsShareRowData] = []
+    @Published var selectedObjectIds: Set<String> = []
+    
+    @Published var comment: String = ""
+    let commentLimit = ChatMessageGlobalLimits.textLimit
+    let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
     
     init(data: SharingExtensionShareToData) {
         self.data = data
@@ -34,11 +41,39 @@ final class SharingExtensionShareToViewModel: ObservableObject {
                 excludedIds: [],
                 spaceId: data.spaceId
             )
-            searchData = result.compactMap { ObjectSearchData(details: $0) }
+            details = result
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
-            searchData = []
+            details = []
+        }
+        updateRows()
+    }
+    
+    func onTapCell(data: SharingExtensionsShareRowData) {
+        if selectedObjectIds.contains(data.objectId) {
+            selectedObjectIds.remove(data.objectId)
+        } else {
+            selectedObjectIds.insert(data.objectId)
+        }
+        updateRows()
+    }
+    
+    func onTapSend() async throws {
+        // TODO: Implement
+    }
+    
+    // MARK: - Private
+    
+    private func updateRows() {
+        rows = details.compactMap { details in
+            SharingExtensionsShareRowData(
+                objectId: details.id,
+                icon: details.objectIconImage,
+                title: details.pluralTitle,
+                subtitle: details.description,
+                selected: selectedObjectIds.contains(details.id)
+            )
         }
     }
 }
