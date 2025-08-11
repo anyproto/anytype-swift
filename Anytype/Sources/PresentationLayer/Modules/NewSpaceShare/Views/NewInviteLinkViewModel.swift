@@ -118,6 +118,7 @@ final class NewInviteLinkViewModel: ObservableObject {
     
     func onShareInvite() {
         AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .shareLink)
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .membersScreen)
         guard let shareLink else { return }
         output?.shareInvite(url: shareLink)
     }

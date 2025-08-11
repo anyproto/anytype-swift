@@ -331,6 +331,12 @@ enum ClickUpgradePlanTooltipType: String {
     case publish = "publish"
 }
 
+enum ClickShareSpaceShareLinkRoute: String {
+    case spaceSettings = "SpaceSettings"
+    case spaceProfile = "SpaceProfile"
+    case membersScreen = "MembersScreen"
+}
+
 enum ClickUpgradePlanTooltipRoute: String {
     case spaceSettings = "ScreenSettingsSpaceIndex"
     case spaceSharing = "ScreenSettingsSpaceShare"

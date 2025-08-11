@@ -129,7 +129,7 @@ struct SpaceSettingsView: View {
             
             HStack(spacing: 24) {
                 Button {
-                    model.onInviteTap()
+                    model.onShareTap()
                 } label: {
                     inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }
@@ -186,7 +186,7 @@ struct SpaceSettingsView: View {
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onShareTap() }
+            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
             if FeatureFlags.muteSpacePossibility {
                 Spacer.fixedHeight(8)
                 RoundedButton(
@@ -206,7 +206,7 @@ struct SpaceSettingsView: View {
                 EmptyView()
             case .shareable:
                 SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
+                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
             case .reachedSharesLimit(let limit):
                 SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
