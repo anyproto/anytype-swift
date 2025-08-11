@@ -2,7 +2,11 @@ import SwiftUI
 
 struct SharingExtensionView: View {
     
-    @StateObject private var model = SharingExtensionViewModel()
+    @StateObject private var model: SharingExtensionViewModel
+    
+    init(output: (any SharingExtensionModuleOutput)?) {
+        self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
+    }
     
     private let columns = [
         GridItem(.flexible()),
@@ -13,24 +17,16 @@ struct SharingExtensionView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            NavigationHeaderContainer(spacing: 20) {
-                EmptyView()
-            } titleView: {
-                AnytypeText(Loc.Sharing.title, style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
-                    .lineLimit(1)
-            } rightView: {
-                EmptyView()
-            }
-            .frame(height: 48)
-            .padding(.horizontal, 16)
+            ModalNavigationHeader(title: Loc.Sharing.title)
             
             ZStack(alignment: .bottom) {
                 listView
                     .safeAreaInset(edge: .bottom) {
-                        Spacer.fixedHeight(100)
+                        Spacer.fixedHeight(150)
                     }
-                confirmButton
+                    .scrollDismissesKeyboard(.immediately)
+                
+                    bottomPanel
             }
         }
         .task {
@@ -42,14 +38,13 @@ struct SharingExtensionView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(model.spaces) { space in
-                    Button {
+                    SharingExtensionSpaceView(
+                        icon: space.objectIconImage,
+                        title: space.title,
+                        isSelected: model.selectedSpace?.id == space.id
+                    )
+                    .onTapGesture {
                         model.onTapSpace(space)
-                    } label: {
-                        SharingExtensionSpaceView(
-                            icon: space.objectIconImage,
-                            title: space.title,
-                            isSelected: model.selectedSpace?.id == space.id
-                        )
                     }
                 }
             }
@@ -69,19 +64,20 @@ struct SharingExtensionView: View {
     }
     
     @ViewBuilder
-    private var confirmButton: some View {
+    private var bottomPanel: some View {
         if model.selectedSpace != nil {
-            AsyncStandardButton(Loc.send, style: .primaryLarge) {
-                try await model.onTapSend()
-            }
-            .padding(16)
-            .background(Color.Background.secondary)
+            SharingExtensionBottomPanel(
+                comment: $model.comment,
+                commentLimit: model.commentLimit,
+                commentWarningLimit: model.commentWarningLimit) {
+                    try await model.onTapSend()
+                }
         }
     }
 }
 
 #Preview {
     MockView {
-        SharingExtensionView()
+        SharingExtensionView(output: nil)
     }
 }

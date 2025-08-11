@@ -100,14 +100,14 @@ final class InviteLinkViewModel: ObservableObject {
                 let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
                 inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
             }
-            AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
+            AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .menu)
             UIPasteboard.general.string = inviteLink?.absoluteString
             toastBarData = ToastBarData(Loc.copied)
         }
     }
     
     func onCopyLink() {
-        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
+        AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .button)
         UIPasteboard.general.string = shareLink?.absoluteString
         toastBarData = ToastBarData(Loc.copied)
     }

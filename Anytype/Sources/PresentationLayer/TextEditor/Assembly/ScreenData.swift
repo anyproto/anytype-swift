@@ -10,6 +10,10 @@ enum ScreenType {
     case mediaFile
     case bookmark
     case chat
+    
+    var isMediaFile: Bool {
+        self == .mediaFile
+    }
 }
 
 enum ScreenData: Hashable, Identifiable, Sendable {

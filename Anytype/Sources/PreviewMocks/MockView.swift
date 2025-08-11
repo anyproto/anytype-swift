@@ -54,5 +54,8 @@ struct MockView<Content: View>: View {
         Container.shared.participantSpacesStorage.register {
             ParticipantSpacesStorageMock.shared
         }
+        Container.shared.searchService.register {
+            SearchServiceMock.shared
+        }
     }
 }

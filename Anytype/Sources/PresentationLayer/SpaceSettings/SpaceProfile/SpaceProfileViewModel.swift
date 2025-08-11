@@ -75,6 +75,7 @@ final class SpaceProfileViewModel: ObservableObject {
     
     func onCopyLinkTap() {
         guard let inviteLink else { return }
+        AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .spaceProfile)
         UIPasteboard.general.string = inviteLink.absoluteString
         snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
     }

@@ -5,6 +5,7 @@ import PhotosUI
 import AnytypeCore
 import Collections
 import UIKit
+import NotificationsCore
 @preconcurrency import Combine
 
 @MainActor
@@ -48,6 +49,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     @Injected(\.chatInviteStateService)
     private var chatInviteStateService: any ChatInviteStateServiceProtocol
+    @Injected(\.notificationsCenterService)
+    private var notificationsCenterService: any NotificationsCenterServiceProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -124,6 +127,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
+    }
+    
+    func onAppear() {
+        guard FeatureFlags.removeMessagesFromNotificationsCenter else { return }
+        notificationsCenterService.removeDeliveredNotifications(chatId: chatId)
     }
     
     func onTapAddPageToMessage() {
@@ -724,9 +732,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if FeatureFlags.openMediaFileInPreview, attachment.resolvedLayoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
-            let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
-            output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
+            output?.onObjectSelected(screenData: .preview(
+                MediaFileScreenData(selectedItem: attachment, allItems: reorderedAttachments)
+            ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }

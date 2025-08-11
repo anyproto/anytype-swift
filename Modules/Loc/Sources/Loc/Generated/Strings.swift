@@ -218,6 +218,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  public static let joinSpace = Loc.tr("Localizable", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
@@ -788,15 +789,15 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     public enum Empty {
-      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages yet")
+      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty.")
       public enum Button {
-        public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Share invite link")
+        public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Invite members")
       }
       public enum Editor {
-        public static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first one to spark it up!")
+        public static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first message to spark it up!")
       }
       public enum Owner {
-        public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and spark it up!")
+        public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and start the conversation!")
       }
     }
     public enum FileSyncError {
@@ -1880,6 +1881,7 @@ public enum Loc {
   }
   public enum Sharing {
     public static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
+    public static let inputPlaceholder = Loc.tr("Localizable", "Sharing.InputPlaceholder", fallback: "Add a comment...")
     public static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
     public static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
     public static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
@@ -1964,6 +1966,24 @@ public enum Loc {
     public static func membersCount(_ p1: Int) -> String {
       return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: Space.MembersCount")
     }
+    public enum Invite {
+      public enum EditorAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.EditorAccess.Subtitle", fallback: "People with link can edit and write in chat")
+        public static let title = Loc.tr("Localizable", "Space.Invite.EditorAccess.Title", fallback: "Editor access")
+      }
+      public enum LinkDisabled {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.LinkDisabled.Subtitle", fallback: "Only already invited members have access")
+        public static let title = Loc.tr("Localizable", "Space.Invite.LinkDisabled.Title", fallback: "Link disabled")
+      }
+      public enum RequestAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.RequestAccess.Subtitle", fallback: "Owner must approve each join request")
+        public static let title = Loc.tr("Localizable", "Space.Invite.RequestAccess.Title", fallback: "Request access")
+      }
+      public enum ViewerAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.ViewerAccess.Subtitle", fallback: "People with link can view and read chat")
+        public static let title = Loc.tr("Localizable", "Space.Invite.ViewerAccess.Title", fallback: "Viewer access")
+      }
+    }
     public enum Notifications {
       public enum Settings {
         public enum State {
@@ -1996,6 +2016,12 @@ public enum Loc {
     }
     public enum Stream {
       public static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Title", fallback: "Create a stream")
+    }
+  }
+  public enum SpaceInvite {
+    public enum Alert {
+      public static let subtitle = Loc.tr("Localizable", "SpaceInvite.Alert.subtitle", fallback: "If you switch link type, your existing link will be deactivated.")
+      public static let title = Loc.tr("Localizable", "SpaceInvite.Alert.title", fallback: "The current link will stop working")
     }
   }
   public enum SpaceManager {

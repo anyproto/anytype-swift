@@ -17,7 +17,7 @@ struct InviteLinkCoordinatorView: View {
             ActivityView(activityItems: [link])
         }
         .anytypeSheet(item: $model.qrCodeInviteLink) {
-            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace, route: .inviteLink)
         }
     }
 }

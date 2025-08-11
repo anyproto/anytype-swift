@@ -13,7 +13,6 @@
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
 		1259300526F3A5C500B115CD /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300426F3A5C500B115CD /* Highlightr */; };
 		1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300D26F3A6AE00B115CD /* Kingfisher */; };
-		1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */; };
 		2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A01A4F82A1FB507002042FB /* DeviceKit */; };
 		2A10D8502C53A6C90088BB46 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2A10D84F2C53A6C90088BB46 /* WrappingHStack */; };
 		2A1254A02CB440DD0081C151 /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -298,7 +297,6 @@
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */,
-				1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */,
 				2A10D8502C53A6C90088BB46 /* WrappingHStack in Frameworks */,
 				74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */,
 				2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */,
@@ -477,7 +475,6 @@
 				5333421B262E249100238121 /* FloatingPanel */,
 				1259300426F3A5C500B115CD /* Highlightr */,
 				1259300D26F3A6AE00B115CD /* Kingfisher */,
-				1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */,
 				538ABD4D284F9F88000D3CCC /* Collections */,
 				538ABD4F284F9F88000D3CCC /* DequeModule */,
 				538ABD51284F9F88000D3CCC /* OrderedCollections */,
@@ -666,7 +663,6 @@
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */,
 				1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
 				538ABD4C284F9F88000D3CCC /* XCRemoteSwiftPackageReference "swift-collections" */,
 				2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				C9BFBA8C28A133320003D9E6 /* XCRemoteSwiftPackageReference "ShimmerSwift" */,
@@ -1048,7 +1044,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1093,7 +1089,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1122,7 +1118,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1148,7 +1144,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1265,7 +1261,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1294,7 +1290,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1334,7 +1330,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1409,7 +1405,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1486,7 +1482,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1563,7 +1559,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1684,7 +1680,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1712,7 +1708,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1745,7 +1741,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.homewidget";
@@ -1777,7 +1773,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1852,7 +1848,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1973,7 +1969,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -2001,7 +1997,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2034,7 +2030,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.any.app.homewidget";
@@ -2066,7 +2062,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2141,7 +2137,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2260,7 +2256,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -2289,7 +2285,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2322,7 +2318,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.any.app.homewidget";
@@ -2353,7 +2349,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2384,7 +2380,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.AnytypeShareExtension";
@@ -2414,7 +2410,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2445,7 +2441,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2477,7 +2473,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.homewidget";
@@ -2509,7 +2505,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.homewidget";
@@ -2541,7 +2537,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.0;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev.homewidget";
@@ -2651,14 +2647,6 @@
 			requirement = {
 				kind = exactVersion;
 				version = 8.2.0;
-			};
-		};
-		1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lucasbrown/swiftui-visual-effects";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
 			};
 		};
 		2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
@@ -2809,11 +2797,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */;
-			productName = SwiftUIVisualEffects;
 		};
 		2A01A4F82A1FB507002042FB /* DeviceKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -259,6 +259,19 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let removeMessagesFromNotificationsCenter = FeatureDescription(
+        title: "Remove messages from NotificationsCenter",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
+    static let mediaCarouselForWidgets = FeatureDescription(
+        title: "Media carousel for widgets",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
 
     // MARK: - Debug
     

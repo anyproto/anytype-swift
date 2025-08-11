@@ -154,6 +154,14 @@ public extension FeatureFlags {
         value(for: .newSpaceMembersFlow)
     }
 
+    static var removeMessagesFromNotificationsCenter: Bool {
+        value(for: .removeMessagesFromNotificationsCenter)
+    }
+
+    static var mediaCarouselForWidgets: Bool {
+        value(for: .mediaCarouselForWidgets)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -257,6 +265,8 @@ public extension FeatureFlags {
         .newSharingExtension,
         .mandatoryOnboardingEmailCollection,
         .newSpaceMembersFlow,
+        .removeMessagesFromNotificationsCenter,
+        .mediaCarouselForWidgets,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

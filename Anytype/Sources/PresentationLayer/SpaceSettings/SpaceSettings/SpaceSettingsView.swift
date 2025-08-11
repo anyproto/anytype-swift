@@ -37,7 +37,7 @@ struct SpaceSettingsView: View {
                 SettingsInfoEditingView($0)
             }
             .anytypeSheet(item: $model.qrInviteLink) {
-                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace, route: .settingsSpace)
             }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
@@ -177,7 +177,7 @@ struct SpaceSettingsView: View {
         case let .private(state):
             privateSpaceSetting(state: state)
         case .ownerOrEditor(let joiningCount):
-            collaborationSection(memberDecoration: joiningCount > 0 ? .caption("\(joiningCount)") : .chervon)
+            collaborationSection(memberDecoration: joiningCount > 0 ? .badge(joiningCount) : .chervon)
         case .viewer:
             collaborationSection()
         }

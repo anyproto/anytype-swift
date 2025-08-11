@@ -44,7 +44,7 @@ extension ObjectHeader {
                 ), showPublishingBanner: showPublishingBanner
             )
             
-        case .empty(let data, let showPublishingBanner, _):
+        case .empty(_, let showPublishingBanner, _):
             return .filled(state:
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
@@ -80,7 +80,7 @@ extension ObjectHeader {
                 return .filled(state: .iconAndCover(icon: objectHeaderIcon, cover: newCover), showPublishingBanner: showPublishingBanner)
             }
             
-        case .empty(let data, let showPublishingBanner, _):
+        case .empty(_, let showPublishingBanner, _):
             return .filled(state: .coverOnly(newCover), showPublishingBanner: showPublishingBanner)
         }
     }

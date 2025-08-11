@@ -27,6 +27,7 @@ struct ChatView: View {
         .onAppear {
             model.keyboardDismiss = keyboardDismiss
             model.configureProvider(chatActionProvider)
+            model.onAppear()
         }
         .ignoresSafeArea(.keyboard)
         .chatActionOverlay(state: $actionState) {
@@ -126,15 +127,11 @@ struct ChatView: View {
             )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {
-                    Text(messageTextLimit)
-                        .foregroundStyle(model.textLimitReached ? Color.Dark.red : Color.Text.primary)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background(Color.Background.secondary)
-                        .cornerRadius(12)
-                        .border(12, color: .Shape.tertiary)
-                        .shadow(color: .black.opacity(0.15), radius: 12)
-                        .padding(.top, 8)
+                    TextLimitView(
+                        text: messageTextLimit,
+                        limitReached: model.textLimitReached
+                    )
+                    .padding(.top, 8)
                 }
             }
         }
