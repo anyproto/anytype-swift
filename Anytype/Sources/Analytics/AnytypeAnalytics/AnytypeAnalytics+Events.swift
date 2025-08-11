@@ -1069,8 +1069,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsSpaceShare", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
-    func logClickShareSpaceCopyLink() {
-        logEvent("ClickShareSpaceCopyLink")
+    func logClickShareSpaceCopyLink(route: ClickShareSpaceCopyLinkRoute) {
+        logEvent("ClickShareSpaceCopyLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
     func logScreenStopShare() {
@@ -1128,10 +1128,13 @@ extension AnytypeAnalytics {
         logEvent("RemoveSpaceMember")
     }
     
-    func logScreenInviteRequest() {
-        logEvent("ScreenInviteRequest")
+    func logScreenInviteRequest(type: ScreenInviteRequestType) {
+        logEvent("ScreenInviteRequest", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
+    func logClickJoinSpaceWithoutApproval() {
+        logEvent("ClickJoinSpaceWithoutApproval")
+    }
     func logScreenRequestSent() {
         logEvent("ScreenRequestSent")
     }
@@ -1152,8 +1155,11 @@ extension AnytypeAnalytics {
         logEvent("ApproveLeaveRequest")
     }
     
-    func logScreenQr(type: ScreenQrAnalyticsType) {
-        logEvent("ScreenQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logScreenQr(type: ScreenQrAnalyticsType, route: ScreenQrRoute) {
+        logEvent("ScreenQr", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ])
     }
     
     func logClickQr() {

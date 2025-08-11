@@ -54,7 +54,7 @@ struct NewInviteLinkView: View {
             linkView
             Spacer.fixedHeight(8)
             StandardButton(Loc.copyLink, style: .primaryLarge) {
-                model.onCopyLink()
+                model.onCopyLink(route: .button)
             }
         }
     }
@@ -79,7 +79,7 @@ struct NewInviteLinkView: View {
     private var linkView: some View {
         HStack {
             Button {
-                model.onCopyLink()
+                model.onCopyLink(route: .menu)
             } label: {
                 AnytypeText(model.shareLink?.absoluteString ?? "", style: .uxCalloutRegular)
                     .foregroundColor(.Text.primary)
@@ -89,7 +89,7 @@ struct NewInviteLinkView: View {
             }
             Menu {
                 Button() {
-                    model.onCopyInviteLink()
+                    model.onCopyLink(route: .menu)
                 } label: {
                     Text(Loc.SpaceShare.CopyInviteLink.title)
                     Spacer()

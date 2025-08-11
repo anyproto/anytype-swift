@@ -298,6 +298,24 @@ enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
 }
 
+enum ScreenQrRoute: String {
+    case inviteLink = "InviteLink"
+    case settingsSpace = "SettingsSpace"
+    case spaceProfile = "SpaceProfile"
+}
+
+enum ClickShareSpaceCopyLinkRoute: String {
+    case button = "Button"
+    case menu = "Menu"
+    case spaceProfile = "SpaceProfile"
+    case spaceSettings = "SpaceSettings"
+}
+
+enum ScreenInviteRequestType: String {
+    case approval = "Approval"
+    case withoutApproval = "WithoutApproval"
+}
+
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"
