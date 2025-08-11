@@ -13,7 +13,6 @@ protocol NewInviteLinkModuleOutput: AnyObject {
 final class NewInviteLinkViewModel: ObservableObject {
     
     @Published var shareLink: URL? = nil
-    @Published var inviteLink: URL? = nil
     @Published var toastBarData: ToastBarData?
     @Published var invitePickerItem: SpaceRichIviteType?
     @Published var showInitialLoading = true
@@ -111,14 +110,8 @@ final class NewInviteLinkViewModel: ObservableObject {
         }
     }
     
-    func onCopyInviteLink() {
-        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
-        UIPasteboard.general.string = inviteLink?.absoluteString
-        toastBarData = ToastBarData(Loc.copied)
-    }
-    
-    func onCopyLink() {
-        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
+    func onCopyLink(route: ClickShareSpaceCopyLinkRoute) {
+        AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: route)
         UIPasteboard.general.string = shareLink?.absoluteString
         toastBarData = ToastBarData(Loc.copied)
     }
