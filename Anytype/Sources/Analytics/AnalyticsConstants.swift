@@ -301,6 +301,8 @@ enum ScreenQrAnalyticsType: String {
 enum ScreenQrRoute: String {
     case inviteLink = "InviteLink"
     case settingsSpace = "SettingsSpace"
+    case spaceProfile = "SpaceProfile"
+}
 
 enum ClickShareSpaceCopyLinkRoute: String {
     case button = "Button"
