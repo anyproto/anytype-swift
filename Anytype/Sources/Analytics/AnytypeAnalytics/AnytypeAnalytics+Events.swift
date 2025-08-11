@@ -1697,4 +1697,23 @@ extension AnytypeAnalytics {
             ]
         )
     }
+    
+    func logScreenMedia(type: String) {
+        logEvent(
+            "ScreenMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
+    func logSwipeMedia(type: String, route: MediaFileScreenRoute?) {
+        logEvent(
+            "SwipeMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
+    }
 }
