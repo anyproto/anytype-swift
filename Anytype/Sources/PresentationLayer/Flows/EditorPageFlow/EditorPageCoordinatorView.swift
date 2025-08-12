@@ -66,5 +66,6 @@ struct EditorPageCoordinatorView: View {
             }
             .snackbar(toastBarData: $model.toastBarData)
             .openUrl(url: $model.openUrlData)
+            .cameraPermissionAlert(isPresented: $model.showCameraPermissionAlertData)
     }
 }

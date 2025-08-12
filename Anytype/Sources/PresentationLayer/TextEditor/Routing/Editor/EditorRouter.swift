@@ -413,6 +413,12 @@ extension EditorRouter {
     func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
         output?.showAddPropertyInfoView(document: document, onSelect: onSelect)
     }
+    
+    func showCameraPermissionAlert() {
+        Task { @MainActor in
+            output?.showCameraPermissionAlert()
+        }
+    }
 }
 
 extension EditorRouter: PropertyValueCoordinatorOutput {
