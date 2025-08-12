@@ -71,7 +71,9 @@ final class SharingExtensionShareToViewModel: ObservableObject {
         let content = try await contentManager.getSharedContent()
         let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
         
-        try await sharingExtensionActionService.saveObjects(spaceId: data.spaceId, content: content, linkToObjects: linkToDetails, chatId: nil)
+        try await sharingExtensionActionService.saveObjects(spaceId: data.spaceId, content: content, linkToObjects: linkToDetails, chatId: nil, comment: comment)
+        try await contentManager.clearSharedContent()
+        
         if #available(iOS 16.4, *) {
         } else {
             dismiss.toggle()

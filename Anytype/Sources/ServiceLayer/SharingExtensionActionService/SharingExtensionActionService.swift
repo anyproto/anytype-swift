@@ -9,7 +9,8 @@ protocol SharingExtensionActionServiceProtocol: AnyObject, Sendable {
         spaceId: String,
         content: SharedContent,
         linkToObjects: [ObjectDetails],
-        chatId: String?
+        chatId: String?,
+        comment: String
     ) async throws
 }
 
@@ -44,12 +45,15 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     private var blockService: any BlockServiceProtocol
     @Injected(\.pasteboardMiddleService)
     private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
+    @Injected(\.chatService)
+    private var chatService: any ChatServiceProtocol
     
     func saveObjects(
         spaceId: String,
         content: SharedContent,
         linkToObjects: [ObjectDetails],
-        chatId: String?
+        chatId: String?,
+        comment: String
     ) async throws {
         await objectTypeProvider.prepareData(spaceId: spaceId)
         
@@ -58,7 +62,9 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         
         try await linkToObjectFlow(spaceId: spaceId, content: content, savedContent: contentItems, linkToObjects: linkToObjects)
         
-        // TODO: Implement save to chat
+        if let chatId {
+            try await createMessageToChatFlow(spaceId: spaceId, content: content, savedContent: contentItems, chatId: chatId, comment: comment)
+        }
     }
     
     // MARK: - Private
@@ -82,8 +88,53 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
                 try await createBlocks(object: linkToObject, contentItems: savedContent)
             }
         }
+    }
+    
+    private func createMessageToChatFlow(
+        spaceId: String,
+        content: SharedContent,
+        savedContent: [SharedSavedContentItem],
+        chatId: String,
+        comment: String
+    ) async throws {
         
+        var fullMessage: String = ""
+        var attachments: [ChatMessageAttachment] = []
         
+        for savedContentItem in savedContent {
+            switch savedContentItem {
+            case .text(let text):
+                fullMessage.append(text)
+            case .bookmark(let objectDetails):
+                var attachment = ChatMessageAttachment()
+                attachment.target = objectDetails.id
+                attachments.append(attachment)
+            case .file(let fileDetails):
+                var attachment = ChatMessageAttachment()
+                attachment.target = fileDetails.id
+                attachments.append(attachment)
+            }
+        }
+        
+        var chatMessageContent = ChatMessageContent()
+        chatMessageContent.text = String(fullMessage.prefix(ChatMessageGlobalLimits.textLimit))
+        
+        var chatMessage = ChatMessage()
+        chatMessage.message = chatMessageContent
+        chatMessage.attachments = attachments
+        
+        _ = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+        
+        if comment.isNotEmpty {
+            
+            var chatMessageContent = ChatMessageContent()
+            chatMessageContent.text = String(comment.prefix(ChatMessageGlobalLimits.textLimit))
+            
+            var chatMessage = ChatMessage()
+            chatMessage.message = chatMessageContent
+            
+            _ = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+        }
     }
     
     private func createContainer(
