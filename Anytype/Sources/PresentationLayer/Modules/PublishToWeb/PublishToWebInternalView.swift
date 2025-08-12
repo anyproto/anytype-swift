@@ -129,7 +129,7 @@ struct PublishToWebInternalView: View {
                 .frame(width: 24, height: 24)
                 .foregroundStyle( Color.Control.secondary)
             
-            Spacer.fixedWidth(10)
+            Spacer.fixedWidth(6)
             
             AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
                 .lineLimit(1)
@@ -143,8 +143,7 @@ struct PublishToWebInternalView: View {
             
             Spacer.fixedWidth(6)
         }
-
-        .padding(.vertical, 14)
+        .padding(.vertical, 10)
     }
     
     @ViewBuilder
