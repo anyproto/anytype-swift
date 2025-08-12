@@ -299,7 +299,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         let isAllMediaFiles = allDetails.allSatisfy { $0.editorViewType.isMediaFile }
         if FeatureFlags.mediaCarouselForWidgets, isAllMediaFiles {
             output?.onObjectSelected(screenData: .preview(
-                MediaFileScreenData(selectedItem: details, allItems: allDetails)
+                MediaFileScreenData(selectedItem: details, allItems: allDetails, route: .widget)
             ))
         } else {
             output?.onObjectSelected(screenData: details.screenData())

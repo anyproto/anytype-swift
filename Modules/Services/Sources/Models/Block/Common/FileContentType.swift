@@ -28,6 +28,16 @@ public enum FileContentType: String, Hashable, Sendable {
         case .audio: return .audio
         }
     }
+    
+    public var analyticsValue: String {
+        switch self {
+        case .none: return "none"
+        case .file: return "file"
+        case .image: return "image"
+        case .video: return "video"
+        case .audio: return "audio"
+        }
+    }
 }
 
 public struct FileBlockContentData: Hashable, Sendable {
