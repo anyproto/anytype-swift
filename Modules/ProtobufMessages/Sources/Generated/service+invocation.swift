@@ -1024,16 +1024,6 @@ public struct ClientCommands {
         }
     }
 
-    public static func objectToBookmark(
-        _ request: Anytype_Rpc.Object.ToBookmark.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Object.ToBookmark.Request, Anytype_Rpc.Object.ToBookmark.Response> {
-        return Invocation(messageName: "ObjectToBookmark", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceObjectToBookmark(requestData) ?? Data()
-            return try Anytype_Rpc.Object.ToBookmark.Response(serializedBytes: responseData)
-        }
-    }
-
     public static func objectImport(
         _ request: Anytype_Rpc.Object.Import.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.Import.Request, Anytype_Rpc.Object.Import.Response> {
