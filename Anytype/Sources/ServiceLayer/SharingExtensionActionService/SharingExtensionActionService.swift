@@ -72,23 +72,22 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         // Final link to ids
         // One object - if contains text
         // Multiple objects - if contains only media & bookmarks
-        var linkedObjectIds: [String] = []
         
         let textItems = content.items.filter { $0.isText }
         if content.title?.isNotEmpty ?? false || textItems.isNotEmpty {
             let noteObject = try await createContainer(spaceId: spaceId, title: content.title)
             try await createBlocks(object: noteObject, contentItems: savedContent)
-            linkedObjectIds.append(noteObject.id)
+            
+            for linkToObject in linkToObjects {
+                try await linkTo(object: linkToObject, linkedObjectId: noteObject.id)
+            }
         } else {
-            let ids = savedContent.compactMap { $0.objectId }
-            linkedObjectIds.append(contentsOf: ids)
-        }
-        
-        for linkToObject in linkToObjects {
-            for linkedId in linkedObjectIds {
-                try await linkTo(object: linkToObject, linkedObjectId: linkedId)
+            for linkToObject in linkToObjects {
+                try await createBlocks(object: linkToObject, contentItems: savedContent)
             }
         }
+        
+        
     }
     
     private func createContainer(
@@ -197,12 +196,16 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     private func createBookmarkBlock(bookmarkObject: ObjectDetails, addToObject: ObjectDetails) async throws {
         let blockInformation = BlockInformation.bookmark(targetId: bookmarkObject.id)
         let lastBlockInDocument = try await blockService.lastBlockId(from: addToObject.id, spaceId: addToObject.spaceId)
-        _ = try await blockService.add(
+        let blockId = try await blockService.add(
             contextId: addToObject.id,
             targetId: lastBlockInDocument,
             info: blockInformation,
             position: .bottom
         )
+        // Fetch for legacy logic
+        if let url = bookmarkObject.source {
+            try await bookmarkService.fetchBookmark(objectId: addToObject.id, blockID: blockId, url: url)
+        }
     }
     
     private func createFileBlock(fileDetails: FileDetails, addToObject: ObjectDetails) async throws {
