@@ -72,7 +72,7 @@ extension SlashMenuViewController: UITableViewDataSource {
         switch item {
         case let .action(action):
             switch action.displayData {
-            case let .titleSubtitleDisplayData(displayData):
+            case let .titleDisplayData(displayData):
                 cell = tableView.dequeueReusableCell(withIdentifier: Constants.titleSubtitleReuseCellId, for: indexPath)
                 if case .relations = action {
                     cell.separatorInset = SlashMenuConstants.relationSeparatorInsets

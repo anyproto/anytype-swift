@@ -16,48 +16,48 @@ enum SlashAction {
     var displayData: NewSlashMenuItemDisplayData {
         switch self {
         case let .actions(action):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(action.iconAsset), title: action.title)
             )
         case let .alignment(alignment):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(alignment.iconAsset), title: alignment.title)
                 )
         case let .background(color):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .image(color.image), title: color.title)
             )
         case let .color(color):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .image(color.image), title: color.title)
             )
         case let .media(media):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms)
             )
         case let .single(single):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(single.iconAsset), title: single.title, titleSynonyms: single.titleSynonyms)
             )
         case let .style(style):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(style.imageAsset), title: style.title, expandedIcon: true)
             )
         case let .other(other):
-            return .titleSubtitleDisplayData(
+            return .titleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(other.iconAsset), title: other.title, searchAliases: other.searchAliases)
             )
         case let .objects(object):
             switch object {
             case .date:
-                return .titleSubtitleDisplayData(
+                return .titleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .object(.emptyDateIcon),
                         title: Loc.selectDate
                     )
                 )
             case .objectType(let objectType):
-                return .titleSubtitleDisplayData(
+                return .titleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: objectType.objectIconImage,
                         title: objectType.objectName.isEmpty ? Loc.untitled : objectType.objectName
@@ -67,7 +67,7 @@ enum SlashAction {
         case let .relations(relationAction):
             switch relationAction {
             case .newRealtion:
-                return .titleSubtitleDisplayData(
+                return .titleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .asset(.X24.plus),
                         title: Loc.newField

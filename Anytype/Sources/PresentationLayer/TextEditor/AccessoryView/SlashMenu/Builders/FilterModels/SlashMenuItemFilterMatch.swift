@@ -5,7 +5,5 @@ enum SlashMenuItemFilterMatch: Comparable {
     case fullTitle
     case titleSubstring
     case titleSynonymsSubstring
-    case fullSubtitle
-    case subtitleSubstring
     case aliaseSubstring
 }
