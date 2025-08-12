@@ -9,6 +9,7 @@ struct SlashMenuItemsBuilder: Sendable {
         
         return [
             cameraMenuItem,
+            linkMenuItem,
             styleMenuItem(restrictions: resrictions),
             mediaMenuItem,
             searchObjectsMenuItem,
@@ -50,7 +51,11 @@ struct SlashMenuItemsBuilder: Sendable {
     }
     
     private var cameraMenuItem: SlashMenuItem {
-        return .single(action: .camera(.camera))
+        return .single(action: .single(.camera))
+    }
+    
+    private var linkMenuItem: SlashMenuItem {
+        return .single(action: .single(.linkTo))
     }
     
     private var otherMenuItem: SlashMenuItem {
@@ -82,13 +87,12 @@ struct SlashMenuItemsBuilder: Sendable {
             return nil
         }
 
-        let linkTo = SlashActionObject.linkTo
         let date = SlashActionObject.date
         let objectTypes = searchTypes.map(SlashActionObject.objectType)
 
         return .multi(
             type: .objects,
-            children: ([linkTo, date] + objectTypes).map(SlashAction.objects)
+            children: ([date] + objectTypes).map(SlashAction.objects)
         )
     }
     

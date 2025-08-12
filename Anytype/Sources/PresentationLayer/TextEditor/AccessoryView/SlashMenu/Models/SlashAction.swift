@@ -1,9 +1,9 @@
 import UIKit
 
 enum SlashAction {
+    case single(SlashActionSingle)
     case style(SlashActionStyle)
     case media(SlashActionMedia)
-    case camera(SlashActionCamera)
     case objects(SlashActionObject)
     case relations(SlashActionProperties)
     case other(SlashActionOther)
@@ -35,9 +35,9 @@ enum SlashAction {
             return .titleSubtitleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms, subtitle: media.subtitle)
             )
-        case let .camera(camera):
+        case let .single(single):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .asset(camera.iconAsset), title: camera.title, titleSynonyms: camera.titleSynonyms, subtitle: camera.subtitle)
+                SlashMenuItemDisplayData(iconData: .asset(single.iconAsset), title: single.title, titleSynonyms: single.titleSynonyms, subtitle: single.subtitle)
             )
         case let .style(style):
             return .titleSubtitleDisplayData(
@@ -49,14 +49,6 @@ enum SlashAction {
             )
         case let .objects(object):
             switch object {
-            case .linkTo:
-                return .titleSubtitleDisplayData(
-                    SlashMenuItemDisplayData(
-                        iconData: .asset(.X40.linkToExistingObject),
-                        title: Loc.addLink,
-                        subtitle: Loc.SlashMenu.LinkTo.description
-                    )
-                )
             case .date:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
