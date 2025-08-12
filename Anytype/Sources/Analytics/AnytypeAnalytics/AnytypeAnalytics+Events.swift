@@ -1132,9 +1132,22 @@ extension AnytypeAnalytics {
         logEvent("ScreenInviteRequest", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
+    func logScreenSpaceLinkTypePicker() {
+        logEvent("ScreenSpaceLinkTypePicker")
+    }
+    
     func logClickJoinSpaceWithoutApproval() {
         logEvent("ClickJoinSpaceWithoutApproval")
     }
+    
+    func logClickShareSpaceShareLink(route: ClickShareSpaceShareLinkRoute) {
+        logEvent("ClickShareSpaceShareLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+    }
+    
+    func logClickShareSpaceNewLink(type: ClickShareSpaceNewLinkType) {
+        logEvent("ClickShareSpaceNewLink", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
     func logScreenRequestSent() {
         logEvent("ScreenRequestSent")
     }

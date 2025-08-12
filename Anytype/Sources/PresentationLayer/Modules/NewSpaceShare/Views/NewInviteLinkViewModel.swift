@@ -79,6 +79,7 @@ final class NewInviteLinkViewModel: ObservableObject {
                 
                 try await updateInvite(invite)
                 if invite.isShared { AnytypeAnalytics.instance().logShareSpace() }
+                if let analyticsValue = invite.analyticsValue { AnytypeAnalytics.instance().logClickShareSpaceNewLink(type: analyticsValue) }
                 await updateView()
             } catch {
                 toastBarData = ToastBarData(error.localizedDescription)
@@ -118,6 +119,7 @@ final class NewInviteLinkViewModel: ObservableObject {
     
     func onShareInvite() {
         AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .shareLink)
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .membersScreen)
         guard let shareLink else { return }
         output?.shareInvite(url: shareLink)
     }

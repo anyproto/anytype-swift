@@ -69,7 +69,8 @@ final class SpaceProfileViewModel: ObservableObject {
         qrInviteLink = inviteLink
     }
     
-    func onInviteTap() {
+    func onShareTap() {
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .spaceProfile)
         shareInviteLink = inviteLink
     }
     

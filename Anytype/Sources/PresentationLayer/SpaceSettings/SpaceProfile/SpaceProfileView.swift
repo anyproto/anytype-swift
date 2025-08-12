@@ -84,7 +84,7 @@ struct SpaceProfileView: View {
             
             HStack(spacing: 24) {
                 Button {
-                    model.onInviteTap()
+                    model.onShareTap()
                 } label: {
                     inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }

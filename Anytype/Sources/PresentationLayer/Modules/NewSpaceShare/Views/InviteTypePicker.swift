@@ -29,6 +29,9 @@ struct InviteTypePicker: View {
         }
         .padding(.horizontal, 16)
         .background(Color.Background.secondary)
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenSpaceLinkTypePicker()
+        }
     }
 }
 

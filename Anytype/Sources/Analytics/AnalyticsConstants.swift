@@ -316,6 +316,12 @@ enum ScreenInviteRequestType: String {
     case withoutApproval = "WithoutApproval"
 }
 
+enum ClickShareSpaceNewLinkType: String {
+    case editor = "Editor"
+    case viewer = "Viewer"
+    case manual = "Manual"
+}
+
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"
@@ -329,6 +335,12 @@ enum ClickUpgradePlanTooltipType: String {
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
     case publish = "publish"
+}
+
+enum ClickShareSpaceShareLinkRoute: String {
+    case spaceSettings = "SpaceSettings"
+    case spaceProfile = "SpaceProfile"
+    case membersScreen = "MembersScreen"
 }
 
 enum ClickUpgradePlanTooltipRoute: String {

@@ -108,7 +108,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceDeleteAlert.toggle()
     }
     
-    func onShareTap() {
+    func onMembersTap() {
         output?.onSpaceShareSelected()
     }
     
@@ -129,7 +129,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onNotificationsSelected()
     }
     
-    func onInviteTap() {
+    func onShareTap() {
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .spaceSettings)
         Task {
             try await generateInviteIfNeeded()
             shareInviteLink = inviteLink
