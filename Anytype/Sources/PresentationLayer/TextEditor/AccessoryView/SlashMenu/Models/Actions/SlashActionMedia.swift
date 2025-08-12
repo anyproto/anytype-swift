@@ -1,10 +1,9 @@
 import Services
 
 enum SlashActionMedia: CaseIterable {
-    case file
     case image
+    case file
     case video
-    case camera
     case scanDocuments
     case audio
     case bookmark
@@ -15,11 +14,9 @@ enum SlashActionMedia: CaseIterable {
         case .file:
             Loc.file(1)
         case .image:
-            Loc.image(1)
+            Loc.imageFromPhotoLibrary
         case .video:
             Loc.video(1)
-        case .camera:
-            Loc.cameraBlockTitle
         case .scanDocuments:
             Loc.scanDocuments
         case .audio:
@@ -39,8 +36,6 @@ enum SlashActionMedia: CaseIterable {
             .X40.picture
         case .video:
             .X40.video
-        case .camera:
-            .X40.camera
         case .scanDocuments:
             .X40.scanDocuments
         case .audio:
@@ -60,8 +55,6 @@ enum SlashActionMedia: CaseIterable {
             Loc.imageBlockSubtitle
         case .video:
             Loc.videoBlockSubtitle
-        case .camera:
-            Loc.cameraBlockSubtitle
         case .scanDocuments:
             Loc.scanDocumentsBlockSubtitle
         case .audio:
@@ -81,8 +74,6 @@ enum SlashActionMedia: CaseIterable {
             return .file(FileBlockContentData(contentType: .image))
         case .video:
             return .file(FileBlockContentData(contentType: .video))
-        case .camera:
-            return .file(FileBlockContentData(contentType: .image))
         case .scanDocuments:
             return .file(FileBlockContentData(contentType: .image))
         case .audio:
@@ -98,8 +89,8 @@ enum SlashActionMedia: CaseIterable {
         switch self {
         case .image:
             return [Loc.picture]
-        case .camera:
-            return [Loc.camera, Loc.photo, Loc.picture, Loc.video(1)]
+        case .scanDocuments:
+            return [Loc.camera]
         default:
             return []
         }

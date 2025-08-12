@@ -14,11 +14,11 @@ enum SlashMenuItemType: Sendable {
     var title: String {
         switch self {
         case .style:
-            return Loc.style
+            return Loc.textStyle
         case .media:
             return Loc.media
         case .objects:
-            return Loc.objects
+            return Loc.newObject
         case .relations:
             return Loc.fields
         case .other:

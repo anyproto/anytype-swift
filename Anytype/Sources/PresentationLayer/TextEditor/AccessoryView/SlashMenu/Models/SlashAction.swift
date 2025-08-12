@@ -1,6 +1,7 @@
 import UIKit
 
 enum SlashAction {
+    case single(SlashActionSingle)
     case style(SlashActionStyle)
     case media(SlashActionMedia)
     case objects(SlashActionObject)
@@ -34,6 +35,10 @@ enum SlashAction {
             return .titleSubtitleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms, subtitle: media.subtitle)
             )
+        case let .single(single):
+            return .titleSubtitleDisplayData(
+                SlashMenuItemDisplayData(iconData: .asset(single.iconAsset), title: single.title, titleSynonyms: single.titleSynonyms, subtitle: single.subtitle)
+            )
         case let .style(style):
             return .titleSubtitleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(style.imageAsset), title: style.title, subtitle: style.subtitle, expandedIcon: true)
@@ -44,14 +49,6 @@ enum SlashAction {
             )
         case let .objects(object):
             switch object {
-            case .linkTo:
-                return .titleSubtitleDisplayData(
-                    SlashMenuItemDisplayData(
-                        iconData: .asset(.X40.linkToExistingObject),
-                        title: Loc.addLink,
-                        subtitle: Loc.SlashMenu.LinkTo.description
-                    )
-                )
             case .date:
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
