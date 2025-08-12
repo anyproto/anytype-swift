@@ -11,17 +11,17 @@ struct SlashMenuComparator {
     private let result: SlashMenuItemFilterMatch
     
     @MainActor
-    static func match(slashAction: SlashAction, string: String) -> SlashActionFilterMatch? {
+    static func match(slashAction: SlashAction, string: String, isSingleAction: Bool = false) -> SlashActionFilterMatch? {
         let data = slashAction.displayData
         let lowecasedTitle = data.title?.lowercased()
         let comparators = [
             SlashMenuComparator(
                 predicate: { lowecasedTitle == $0 },
-                result: .fullTitle
+                result: isSingleAction ? .singleActionFullTitle : .fullTitle
             ),
             SlashMenuComparator(
                 predicate: { lowecasedTitle?.contains($0) ?? false },
-                result: .titleSubstring
+                result: isSingleAction ? .singleActionTitleSubstring : .titleSubstring
             ),
             SlashMenuComparator(
                 predicate: { search in data.titleSynonyms?.contains { $0.lowercased().contains(search) } ?? false },

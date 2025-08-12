@@ -27,7 +27,7 @@ final class SlashMenuCellDataBuilder {
     private func filterItem(item: SlashMenuItem, filter: String) -> SlashMenuFilteredItem? {
         switch item {
         case .single(let action):
-            if let match = SlashMenuComparator.match(slashAction: action, string: filter) {
+            if let match = SlashMenuComparator.match(slashAction: action, string: filter, isSingleAction: true) {
                 return SlashMenuFilteredItem(title: "", topMatch: match.filterMatch, actions: [action])
             }
             return nil
