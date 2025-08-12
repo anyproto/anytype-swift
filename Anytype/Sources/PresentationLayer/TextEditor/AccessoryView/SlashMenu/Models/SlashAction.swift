@@ -3,6 +3,7 @@ import UIKit
 enum SlashAction {
     case style(SlashActionStyle)
     case media(SlashActionMedia)
+    case camera(SlashActionCamera)
     case objects(SlashActionObject)
     case relations(SlashActionProperties)
     case other(SlashActionOther)
@@ -33,6 +34,10 @@ enum SlashAction {
         case let .media(media):
             return .titleSubtitleDisplayData(
                 SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms, subtitle: media.subtitle)
+            )
+        case let .camera(camera):
+            return .titleSubtitleDisplayData(
+                SlashMenuItemDisplayData(iconData: .asset(camera.iconAsset), title: camera.title, titleSynonyms: camera.titleSynonyms, subtitle: camera.subtitle)
             )
         case let .style(style):
             return .titleSubtitleDisplayData(

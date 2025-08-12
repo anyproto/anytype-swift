@@ -110,6 +110,9 @@ final class SlashMenuActionHandler {
             actionHandler.setTextColor(color, blockIds: [blockInformation.id], route: .slashMenu)
         case let .background(color):
             actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id], route: .slashMenu)
+        case .camera(let media):
+            let blockId = try await actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
+            mediaBlockActionsProvider.openCamera(blockId: blockId)
         }
     }
     
@@ -246,8 +249,6 @@ final class SlashMenuActionHandler {
             mediaBlockActionsProvider.openImagePicker(blockId: blockId)
         case .video:
             mediaBlockActionsProvider.openVideoPicker(blockId: blockId)
-        case .camera:
-            mediaBlockActionsProvider.openCamera(blockId: blockId)
         case .scanDocuments:
             mediaBlockActionsProvider.openDocumentScanner(blockId: blockId)
         case .audio:

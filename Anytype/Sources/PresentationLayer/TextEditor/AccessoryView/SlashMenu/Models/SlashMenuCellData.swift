@@ -4,6 +4,11 @@ enum SlashMenuCellData {
     case header(title: String)
     
     static func menu(item: SlashMenuItem) -> SlashMenuCellData {
-        .menu(type: item.type, actions: item.children)
+        switch item {
+        case .single(let action):
+            return .action(action)
+        case .multi(let type, let children):
+            return .menu(type: type, actions: children)
+        }
     }
 }
