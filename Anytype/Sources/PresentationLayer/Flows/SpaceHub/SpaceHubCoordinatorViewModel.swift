@@ -214,11 +214,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     // MARK: - SpaceHubModuleOutput
     
     func onSelectCreateObject() {
-        if FeatureFlags.spaceUxTypes {
-            showSpaceTypeForCreate = true
-        } else {
-            spaceCreateData = SpaceCreateData(spaceUxType: .data)
-        }
+        showSpaceTypeForCreate = true
     }
     
     func onSelectSpace(spaceId: String) {
@@ -326,10 +322,16 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         let previewController = AnytypePreviewController(
             with: data.items,
             initialPreviewItemIndex: data.startAtIndex,
-            sourceView: data.sourceView
+            sourceView: data.sourceView,
+            route: data.route
         )
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
+        }
+        if (0..<data.items.count).contains(data.startAtIndex) {
+            let item = data.items[data.startAtIndex]
+            let type = item.fileDetails.fileContentType.analyticsValue
+            AnytypeAnalytics.instance().logScreenMedia(type: type)
         }
     }
     

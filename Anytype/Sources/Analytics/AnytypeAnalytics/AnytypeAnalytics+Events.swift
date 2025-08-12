@@ -1148,6 +1148,9 @@ extension AnytypeAnalytics {
         logEvent("ClickShareSpaceNewLink", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
+    func logClickJoinSpaceWithoutApproval() {
+        logEvent("ClickJoinSpaceWithoutApproval")
+    }
     func logScreenRequestSent() {
         logEvent("ScreenRequestSent")
     }
@@ -1708,6 +1711,25 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
+        )
+    }
+    
+    func logScreenMedia(type: String) {
+        logEvent(
+            "ScreenMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
+    func logSwipeMedia(type: String, route: MediaFileScreenRoute?) {
+        logEvent(
+            "SwipeMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
 }

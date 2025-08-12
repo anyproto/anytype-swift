@@ -12,9 +12,8 @@ struct SharingExtensionSpaceView: View {
                 .frame(width: 80, height: 80)
                 .overlay(alignment: .bottomTrailing) {
                     if isSelected {
-                        Circle()
-                            .foregroundStyle(Color.Control.accent100)
-                            .frame(width: 24, height: 24)
+                        AnytypeCircleCheckbox(checked: true)
+                            .blueStyle()
                             .offset(x: 6, y: 6)
                     }
                 }

@@ -733,7 +733,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         if FeatureFlags.openMediaFileInPreview, attachment.resolvedLayoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
             output?.onObjectSelected(screenData: .preview(
-                MediaFileScreenData(selectedItem: attachment, allItems: reorderedAttachments)
+                MediaFileScreenData(selectedItem: attachment, allItems: reorderedAttachments, route: .chat)
             ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())

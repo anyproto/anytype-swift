@@ -172,10 +172,18 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let chatWidget = FeatureDescription(
-        title: "Chat Widget",
+    static let showChatWidget = FeatureDescription(
+        title: "Show Chat Widget",
         type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
         defaultValue: true
+    )
+    
+    static let createChatWidget = FeatureDescription(
+        title: "Create Chat Widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        releaseAnytypeValue: false,
+        releaseAnyAppValue: false,
+        debugValue: true
     )
     
     static let muteSpacePossibility = FeatureDescription(

@@ -22,7 +22,7 @@ struct SharingExtensionView: View {
             ZStack(alignment: .bottom) {
                 listView
                     .safeAreaInset(edge: .bottom) {
-                        Spacer.fixedHeight(100)
+                        Spacer.fixedHeight(150)
                     }
                     .scrollDismissesKeyboard(.immediately)
                 

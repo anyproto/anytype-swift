@@ -466,3 +466,9 @@ enum ShareObjectOpenPageRoute: String {
     case menu = "Menu"
     case notification = "Notification"
 }
+
+enum MediaFileScreenRoute: String {
+    case widget = "Widget"
+    case chat = "Chat"
+}
+
