@@ -1,7 +1,7 @@
 import UIKit
 
 private enum SlashMenuConstants {
-    static let cellHeight: CGFloat = 56
+    static let cellHeight: CGFloat = 44
     static let dividerCellhHeight: CGFloat = 35
     static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 16)
     static let relationSeparatorInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)

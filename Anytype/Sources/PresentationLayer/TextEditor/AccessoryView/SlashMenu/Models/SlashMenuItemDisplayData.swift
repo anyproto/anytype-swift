@@ -4,7 +4,7 @@ struct SlashMenuItemDisplayData {
     let titleSynonyms: [String]
     let searchAliases: [String]
     let expandedIcon: Bool
-    let customPredicate: ((String) -> SlashAction?)?
+    let showDecoration: Bool
     
     init(
         iconData: Icon,
@@ -12,14 +12,14 @@ struct SlashMenuItemDisplayData {
         titleSynonyms: [String] = [],
         searchAliases: [String] = [],
         expandedIcon: Bool = false,
-        customPredicate: ((String) -> SlashAction?)? = nil
+        showDecoration: Bool = false
     ) {
         self.iconData = iconData
         self.title = title
         self.titleSynonyms = titleSynonyms
         self.searchAliases = searchAliases
         self.expandedIcon = expandedIcon
-        self.customPredicate = customPredicate
+        self.showDecoration = showDecoration
     }
 }
 

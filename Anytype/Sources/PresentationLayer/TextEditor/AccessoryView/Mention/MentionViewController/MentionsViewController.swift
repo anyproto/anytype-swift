@@ -93,7 +93,8 @@ final class MentionsViewController: UITableViewController {
                 title: title,
                 subtitle: subtitle,
                 icon: icon,
-                expandedIcon: false
+                expandedIcon: false,
+                showDecoration: false
             )
         )
     }
