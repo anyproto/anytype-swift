@@ -69,12 +69,8 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         savedContent: [SharedSavedContentItem],
         linkToObjects: [ObjectDetails]
     ) async throws {
-        // Final link to ids
-        // One object - if contains text
-        // Multiple objects - if contains only media & bookmarks
-        
         let textItems = content.items.filter { $0.isText }
-        if content.title?.isNotEmpty ?? false || textItems.isNotEmpty {
+        if (content.title?.isNotEmpty ?? false) || textItems.isNotEmpty {
             let noteObject = try await createContainer(spaceId: spaceId, title: content.title)
             try await createBlocks(object: noteObject, contentItems: savedContent)
             
