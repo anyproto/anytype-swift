@@ -1148,9 +1148,6 @@ extension AnytypeAnalytics {
         logEvent("ClickShareSpaceNewLink", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
-    func logClickJoinSpaceWithoutApproval() {
-        logEvent("ClickJoinSpaceWithoutApproval")
-    }
     func logScreenRequestSent() {
         logEvent("ScreenRequestSent")
     }
