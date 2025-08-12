@@ -54,14 +54,13 @@ struct SharingExtensionShareToView: View {
     
     @ViewBuilder
     private var bottomPanel: some View {
-        if model.selectedObjectIds.isNotEmpty {
-            SharingExtensionBottomPanel(
-                comment: $model.comment,
-                commentLimit: model.commentLimit,
-                commentWarningLimit: model.commentWarningLimit) {
-                    try await model.onTapSend()
-                }
-        }
+        SharingExtensionBottomPanel(
+            comment: $model.comment,
+            showComment: false, // TODO: Add chat in list
+            commentLimit: model.commentLimit,
+            commentWarningLimit: model.commentWarningLimit) {
+                try await model.onTapSend()
+            }
     }
 }
 

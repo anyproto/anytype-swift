@@ -68,6 +68,7 @@ struct SharingExtensionView: View {
         if model.selectedSpace != nil {
             SharingExtensionBottomPanel(
                 comment: $model.comment,
+                showComment: true,
                 commentLimit: model.commentLimit,
                 commentWarningLimit: model.commentWarningLimit) {
                     try await model.onTapSend()

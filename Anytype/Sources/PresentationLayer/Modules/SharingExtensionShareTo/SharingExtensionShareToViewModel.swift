@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import SharedContentManager
 
 @MainActor
 final class SharingExtensionShareToViewModel: ObservableObject {
@@ -10,6 +11,10 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private var searchService: any SearchServiceProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @Injected(\.sharingExtensionActionService)
+    private var sharingExtensionActionService: any SharingExtensionActionServiceProtocol
+    @Injected(\.sharedContentManager)
+    private var contentManager: any SharedContentManagerProtocol
     
     private let data: SharingExtensionShareToData
     
@@ -60,7 +65,11 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
-        // TODO: Implement
+        let content = try await contentManager.getSharedContent()
+        let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
+        
+        try await sharingExtensionActionService.saveObjects(spaceId: data.spaceId, content: content, linkToObjects: linkToDetails, chatId: nil)
+        
     }
     
     // MARK: - Private

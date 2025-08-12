@@ -57,6 +57,8 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         let contentItems = try await createObjectsFromSharedContent(spaceId: spaceId, content: content)
         
         try await linkToObjectFlow(spaceId: spaceId, content: content, savedContent: contentItems, linkToObjects: linkToObjects)
+        
+        // TODO: Implement save to chat
     }
     
     // MARK: - Private
@@ -117,7 +119,6 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         var details = [SharedSavedContentItem]()
         
         for contentItem in content.items {
-            let newObjectId: String
             switch contentItem {
             case let .text(text):
                 details.append(.text(text))
