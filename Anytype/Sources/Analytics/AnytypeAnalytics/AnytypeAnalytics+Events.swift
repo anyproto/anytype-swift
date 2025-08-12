@@ -1132,6 +1132,10 @@ extension AnytypeAnalytics {
         logEvent("ScreenInviteRequest", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
+    func logScreenSpaceLinkTypePicker() {
+        logEvent("ScreenSpaceLinkTypePicker")
+    }
+    
     func logClickJoinSpaceWithoutApproval() {
         logEvent("ClickJoinSpaceWithoutApproval")
     }
