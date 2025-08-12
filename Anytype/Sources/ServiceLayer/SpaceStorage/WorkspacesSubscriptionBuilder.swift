@@ -22,6 +22,7 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
     func build(techSpaceId: String) -> SubscriptionData {
         let sorts: [DataviewSort] = .builder {
             SearchHelper.sort(relation: .spaceOrder, type: .asc, noCollate: true, emptyPlacement: .end)
+            SearchHelper.sort(relation: .spaceJoinDate, type: .desc)
             SearchHelper.sort(relation: .createdDate, type: .desc)
         }
         
