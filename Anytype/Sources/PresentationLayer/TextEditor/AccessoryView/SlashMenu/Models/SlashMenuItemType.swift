@@ -72,7 +72,7 @@ enum SlashMenuItemType: Sendable {
 
     @MainActor
     var displayData: SlashMenuItemDisplayData {
-        SlashMenuItemDisplayData(iconData: iconName, title: self.title)
+        SlashMenuItemDisplayData(iconData: iconName, title: self.title, showDecoration: true)
     }
     
     var analyticsType: String {

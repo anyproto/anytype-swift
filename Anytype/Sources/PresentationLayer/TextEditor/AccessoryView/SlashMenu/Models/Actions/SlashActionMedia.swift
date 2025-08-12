@@ -47,25 +47,6 @@ enum SlashActionMedia: CaseIterable {
         }
     }
     
-    var subtitle: String {
-        switch self {
-        case .file:
-            Loc.fileBlockSubtitle
-        case .image:
-            Loc.imageBlockSubtitle
-        case .video:
-            Loc.videoBlockSubtitle
-        case .scanDocuments:
-            Loc.scanDocumentsBlockSubtitle
-        case .audio:
-            Loc.uploadPlayableAudio
-        case .bookmark:
-            Loc.bookmarkBlockSubtitle
-        case .codeSnippet:
-            Loc.codeBlockSubtitle
-        }
-    }
-    
     var blockViewsType: BlockContentType {
         switch self {
         case .file:

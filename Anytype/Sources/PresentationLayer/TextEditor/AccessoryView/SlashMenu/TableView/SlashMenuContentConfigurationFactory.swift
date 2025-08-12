@@ -15,9 +15,10 @@ final class SlashMenuContentConfigurationFactory {
         EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
                 title: displayData.title,
-                subtitle: displayData.subtitle ?? "",
+                subtitle: "",
                 icon: displayData.iconData,
-                expandedIcon: displayData.expandedIcon
+                expandedIcon: displayData.expandedIcon,
+                showDecoration: displayData.showDecoration
             )
         )
     }
