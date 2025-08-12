@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import SharedContentManager
 
 @MainActor
 final class SharingExtensionShareToViewModel: ObservableObject {
@@ -10,8 +11,13 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private var searchService: any SearchServiceProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @Injected(\.sharingExtensionActionService)
+    private var sharingExtensionActionService: any SharingExtensionActionServiceProtocol
+    @Injected(\.sharedContentManager)
+    private var contentManager: any SharedContentManagerProtocol
     
     private let data: SharingExtensionShareToData
+    private weak var output: (any SharingExtensionShareToModuleOutput)?
     
     private var details: [ObjectDetails] = []
     
@@ -19,13 +25,15 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var rows: [SharingExtensionsShareRowData] = []
     @Published var selectedObjectIds: Set<String> = []
+    @Published var dismiss = false
     
     @Published var comment: String = ""
     let commentLimit = ChatMessageGlobalLimits.textLimit
     let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
     
-    init(data: SharingExtensionShareToData) {
+    init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
         self.data = data
+        self.output = output
         self.title = workspacesStorage.spaceView(spaceId: data.spaceId)?.title ?? ""
     }
     
@@ -60,7 +68,15 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
-        // TODO: Implement
+        let content = try await contentManager.getSharedContent()
+        let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
+        
+        try await sharingExtensionActionService.saveObjects(spaceId: data.spaceId, content: content, linkToObjects: linkToDetails, chatId: nil)
+        if #available(iOS 16.4, *) {
+        } else {
+            dismiss.toggle()
+        }
+        output?.shareToFinished()
     }
     
     // MARK: - Private

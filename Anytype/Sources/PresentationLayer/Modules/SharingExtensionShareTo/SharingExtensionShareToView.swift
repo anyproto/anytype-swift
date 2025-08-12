@@ -10,9 +10,10 @@ struct SharingExtensionShareToData: Hashable, Identifiable {
 struct SharingExtensionShareToView: View {
     
     @StateObject private var model: SharingExtensionShareToViewModel
+    @Environment(\.dismiss) private var dismiss
     
-    init(data: SharingExtensionShareToData) {
-        self._model = StateObject(wrappedValue: SharingExtensionShareToViewModel(data: data))
+    init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
+        self._model = StateObject(wrappedValue: SharingExtensionShareToViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -32,6 +33,9 @@ struct SharingExtensionShareToView: View {
         }
         .task(id: model.searchText) {
             await model.search()
+        }
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
         }
     }
     
@@ -54,19 +58,18 @@ struct SharingExtensionShareToView: View {
     
     @ViewBuilder
     private var bottomPanel: some View {
-        if model.selectedObjectIds.isNotEmpty {
-            SharingExtensionBottomPanel(
-                comment: $model.comment,
-                commentLimit: model.commentLimit,
-                commentWarningLimit: model.commentWarningLimit) {
-                    try await model.onTapSend()
-                }
-        }
+        SharingExtensionBottomPanel(
+            comment: $model.comment,
+            showComment: false, // TODO: Add chat in list
+            commentLimit: model.commentLimit,
+            commentWarningLimit: model.commentWarningLimit) {
+                try await model.onTapSend()
+            }
     }
 }
 
 #Preview {
     MockView {
-        SharingExtensionShareToView(data: SharingExtensionShareToData(spaceId: "1"))
+        SharingExtensionShareToView(data: SharingExtensionShareToData(spaceId: "1"), output: nil)
     }
 }

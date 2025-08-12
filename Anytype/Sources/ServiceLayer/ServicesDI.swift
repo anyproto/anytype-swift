@@ -391,4 +391,8 @@ extension Container {
     var spaceIconForNotificationsHandler: Factory<any SpaceIconForNotificationsHandlerProtocol> {
         self { SpaceIconForNotificationsHandler() }.singleton
     }
+    
+    var sharingExtensionActionService: Factory<any SharingExtensionActionServiceProtocol> {
+        self { SharingExtensionActionService() }.shared
+    }
 }
