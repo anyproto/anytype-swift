@@ -209,6 +209,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Image", p1, fallback: "Plural format key: Image")
   }
   public static let imageBlockSubtitle = Loc.tr("Localizable", "Image block subtitle", fallback: "Upload and enrich the page with image")
+  public static let imageFromPhotoLibrary = Loc.tr("Localizable", "Image from Photo Library", fallback: "Image from Photo Library")
   public static let inThisObject = Loc.tr("Localizable", "In this object", fallback: "In this object")
   public static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version", fallback: "Incompatible version")
   public static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
@@ -441,6 +442,7 @@ public enum Loc {
   public static let teal = Loc.tr("Localizable", "Teal", fallback: "Teal")
   public static let tealBackground = Loc.tr("Localizable", "Teal background", fallback: "Teal background")
   public static let templates = Loc.tr("Localizable", "Templates", fallback: "Templates")
+  public static let textStyle = Loc.tr("Localizable", "Text Style", fallback: "Text Style")
   public static let thereAreNoSpacesYet = Loc.tr("Localizable", "There are no spaces yet", fallback: "There are no spaces yet")
   public static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
   public static let thereIsNoIconNamed = Loc.tr("Localizable", "There is no icon named", fallback: "There is no icon named")
