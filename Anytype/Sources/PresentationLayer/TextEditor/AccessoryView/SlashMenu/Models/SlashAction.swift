@@ -33,15 +33,15 @@ enum SlashAction {
             )
         case let .media(media):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms, subtitle: media.subtitle)
+                SlashMenuItemDisplayData(iconData: .asset(media.iconAsset), title: media.title, titleSynonyms: media.titleSynonyms)
             )
         case let .single(single):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .asset(single.iconAsset), title: single.title, titleSynonyms: single.titleSynonyms, subtitle: single.subtitle)
+                SlashMenuItemDisplayData(iconData: .asset(single.iconAsset), title: single.title, titleSynonyms: single.titleSynonyms)
             )
         case let .style(style):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .asset(style.imageAsset), title: style.title, subtitle: style.subtitle, expandedIcon: true)
+                SlashMenuItemDisplayData(iconData: .asset(style.imageAsset), title: style.title, expandedIcon: true)
             )
         case let .other(other):
             return .titleSubtitleDisplayData(
@@ -60,8 +60,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: objectType.objectIconImage,
-                        title: objectType.objectName.isEmpty ? Loc.untitled : objectType.objectName,
-                        subtitle: objectType.description
+                        title: objectType.objectName.isEmpty ? Loc.untitled : objectType.objectName
                     )
                 )
             }

@@ -93,33 +93,6 @@ enum SlashActionStyle: CaseIterable {
         }
     }
     
-    var subtitle: String? {
-        switch self {
-        case .text:
-            return Loc.TextStyle.Text.subtitle
-        case .title:
-            return Loc.TextStyle.Title.subtitle
-        case .heading:
-            return Loc.TextStyle.Heading.subtitle
-        case .subheading:
-            return Loc.TextStyle.Subheading.subtitle
-        case .highlighted:
-            return Loc.TextStyle.Highlighted.subtitle
-        case .callout:
-            return Loc.TextStyle.Callout.subtitle
-        case .checkbox:
-            return Loc.TextStyle.Checkbox.subtitle
-        case .bulleted:
-            return Loc.TextStyle.Bulleted.subtitle
-        case .numberedList:
-            return Loc.TextStyle.Numbered.subtitle
-        case .toggle:
-            return Loc.TextStyle.Toggle.subtitle
-        case .bold, .italic, .strikethrough, .code, .link, .underline:
-            return nil
-        }
-    }
-    
     var blockViewsType: BlockContentType? {
         switch self {
         case .text:

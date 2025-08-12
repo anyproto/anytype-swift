@@ -22,15 +22,6 @@ enum SlashActionSingle: CaseIterable {
         }
     }
     
-    var subtitle: String {
-        switch self {
-        case .camera:
-            return Loc.cameraBlockSubtitle
-        case .linkTo:
-            return Loc.SlashMenu.LinkTo.description
-        }
-    }
-    
     var blockViewsType: BlockContentType {
         switch self {
         case .camera:
