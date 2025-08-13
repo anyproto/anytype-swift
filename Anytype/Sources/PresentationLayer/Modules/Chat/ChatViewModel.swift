@@ -645,9 +645,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func subscribeOnTypes() async {
-        for await _ in objectTypeProvider.syncPublisher.values {
-            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
-            self.typesForCreateObject = objectTypesCreateInChat
+        for await types in objectTypeProvider.objectTypesPublisher(spaceId: spaceId).values {
+            let objectTypesCreateInChat = types.filter(\.canCreateInChat)
+            let sortedObjectTypesByDate = objectTypesCreateInChat.sorted {
+                $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
+            }
+            self.typesForCreateObject = sortedObjectTypesByDate
         }
     }
     
