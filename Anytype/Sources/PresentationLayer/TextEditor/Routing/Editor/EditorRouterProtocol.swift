@@ -53,7 +53,6 @@ protocol EditorRouterProtocol:
     func showRelationValueEditingView(key: String)
     func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
-    func showCameraPermissionAlert()
 
     func showWaitingView(text: String)
     func hideWaitingView()

@@ -117,8 +117,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showCamera(onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
-        let vc = ImagePickerView(sourceType: .camera, onMediaTaken: onMediaTaken).ignoresSafeArea()
-        navigationContext.present(vc, modalPresentationStyle: .overFullScreen)
+        output?.showCamera(SimpleCameraData(onMediaTaken: onMediaTaken))
     }
     
     func showDocumentScanner(completion: @escaping (Result<[UIImage], any Error>) -> Void) {
@@ -412,12 +411,6 @@ extension EditorRouter {
     @MainActor
     func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
         output?.showAddPropertyInfoView(document: document, onSelect: onSelect)
-    }
-    
-    func showCameraPermissionAlert() {
-        Task { @MainActor in
-            output?.showCameraPermissionAlert()
-        }
     }
 }
 

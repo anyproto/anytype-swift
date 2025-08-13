@@ -1,7 +1,6 @@
 import Foundation
 import UniformTypeIdentifiers
 import Combine
-import Services
 
 @MainActor
 protocol MediaBlockActionsProviderProtocol: AnyObject {
@@ -20,8 +19,6 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
 
     private let handler: any BlockActionHandlerProtocol
     private let router: any EditorRouterProtocol
-    @Injected(\.cameraPermissionVerifier)
-    private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
     
     init(
         handler: some BlockActionHandlerProtocol,
@@ -48,17 +45,6 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
     }
     
     func openCamera(blockId: String) {
-        Task {
-            let isGranted = await cameraPermissionVerifier.cameraIsGranted()
-            if isGranted {
-                showCamera(blockId: blockId)
-            } else {
-                router.showCameraPermissionAlert()
-            }
-        }
-    }
-    
-    private func showCamera(blockId: String) {
         router.showCamera { [weak self] media in
             guard let self else { return }
             
@@ -72,17 +58,6 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
     }
     
     func openDocumentScanner(blockId: String) {
-        Task {
-            let isGranted = await cameraPermissionVerifier.cameraIsGranted()
-            if isGranted {
-                showDocumentScanner(blockId: blockId)
-            } else {
-                router.showCameraPermissionAlert()
-            }
-        }
-    }
-    
-    private func showDocumentScanner(blockId: String) {
         router.showDocumentScanner { [weak self] result in
             guard let self else { return }
             

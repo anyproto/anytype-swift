@@ -27,7 +27,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var openUrlData: URL?
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
-    @Published var showCameraPermissionAlertData = false
+    @Published var cameraData: SimpleCameraData?
     
     init(
         data: EditorPageObject,
@@ -124,8 +124,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         settingsOutput = ObjectSettingsCoordinatorOutputIdentifiable(value: output)
     }
     
-    func showCameraPermissionAlert() {
-        showCameraPermissionAlertData = true
+    func showCamera(_ data: SimpleCameraData) {
+        cameraData = data
     }
     
     // MARK: - Private

@@ -18,7 +18,8 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showSyncStatusInfo(spaceId: String)
     func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
     func showObectSettings(output: any ObjectSettingsCoordinatorOutput)
-    func showCameraPermissionAlert()
+    func showCamera(_ data: SimpleCameraData)
+    
     
     // TODO: Refactoring templates. Delete it
     func setModuleInput(input: some EditorPageModuleInput, objectId: String)
