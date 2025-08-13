@@ -24,7 +24,7 @@ public struct DataviewView: Hashable, Identifiable, Sendable {
         DataviewView(
             id: "",
             name: "",
-            type: .table,
+            type: .list,
             options: [],
             sorts: [],
             filters: [],

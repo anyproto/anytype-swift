@@ -10,4 +10,5 @@ public extension ObjectTypeUniqueKey {
 public extension ObjectTypeUniqueKey {
     static let note = ObjectTypeUniqueKey(value: "ot-note")
     static let task = ObjectTypeUniqueKey(value: "ot-task")
+    static let project = ObjectTypeUniqueKey(value: "ot-project")
 }
