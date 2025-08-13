@@ -111,15 +111,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     }
 }
 
-extension ObjectSearchWithMetaModuleData {
-    static let objectTypesCreationKeys: [ObjectTypeUniqueKey] =
-        [
-            ObjectTypeUniqueKey.page,
-            ObjectTypeUniqueKey.note,
-            ObjectTypeUniqueKey.set,
-            ObjectTypeUniqueKey.collection
-        ]
-    
+extension ObjectSearchWithMetaModuleData {    
     static let supportedLayouts: [DetailsLayout] =
         ObjectTypeSection.pages.supportedLayouts + ObjectTypeSection.lists.supportedLayouts
 }

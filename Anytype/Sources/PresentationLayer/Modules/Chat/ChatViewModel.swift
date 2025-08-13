@@ -135,7 +135,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddObjectToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pagesLists)
         let data = ObjectSearchWithMetaModuleData(
             spaceId: spaceId,
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },

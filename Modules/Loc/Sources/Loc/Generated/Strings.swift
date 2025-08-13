@@ -755,14 +755,6 @@ public enum Loc {
         public static let photos = Loc.tr("Localizable", "Chat.Actions.Menu.Photos", fallback: "Photos")
       }
     }
-    public enum Attach {
-      public enum List {
-        public static let title = Loc.tr("Localizable", "Chat.Attach.List.title", fallback: "Attach List")
-      }
-      public enum Page {
-        public static let title = Loc.tr("Localizable", "Chat.Attach.Page.title", fallback: "Attach Page")
-      }
-    }
     public enum AttachedObject {
       public static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
