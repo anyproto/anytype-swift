@@ -79,6 +79,7 @@ final class SpaceJoinViewModel: ObservableObject {
                 networkId: accountManager.account.info.networkId
             )
             if inviteView.inviteType.withoutApprove {
+                toast = ToastBarData(Loc.youJoined(inviteView.spaceName))
                 dismiss.toggle()
             } else {
                 showSuccessAlert.toggle()
