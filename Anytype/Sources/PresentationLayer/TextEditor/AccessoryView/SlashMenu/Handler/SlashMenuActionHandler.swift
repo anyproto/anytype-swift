@@ -36,7 +36,7 @@ final class SlashMenuActionHandler {
         _ action: SlashAction,
         textView: UITextView?,
         blockInformation: BlockInformation,
-        modifiedStringHandler: (SafeNSAttributedString) -> Void
+        modifiedStringHandler: (SafeNSAttributedString?) -> Void
     ) async throws {
         switch action {
         case let .actions(action):
@@ -140,7 +140,7 @@ final class SlashMenuActionHandler {
         _ style: SlashActionStyle,
         attributedString: SafeNSAttributedString?,
         blockInformation: BlockInformation,
-        modifiedStringHandler: (SafeNSAttributedString) -> Void
+        modifiedStringHandler: (SafeNSAttributedString?) -> Void
     ) async throws {
         switch style {
         case .text:
@@ -163,6 +163,7 @@ final class SlashMenuActionHandler {
             try await actionHandler.turnInto(.numbered, blockId: blockInformation.id, route: .slashMenu)
         case .toggle:
             try await actionHandler.turnInto(.toggle, blockId: blockInformation.id, route: .slashMenu)
+            modifiedStringHandler(nil)
         case .bold:
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
