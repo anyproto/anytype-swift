@@ -44,6 +44,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Are you sure you want to delete %#@object@?")
   }
   public static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
+  public static let attachObject = Loc.tr("Localizable", "Attach Object", fallback: "Attach Object")
   public static func attachment(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Attachment", p1, fallback: "Plural format key: Attachment")
   }
@@ -262,6 +263,7 @@ public enum Loc {
   public static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   public static let new = Loc.tr("Localizable", "New", fallback: "New")
   public static let newField = Loc.tr("Localizable", "New field", fallback: "New property")
+  public static let newPage = Loc.tr("Localizable", "New Page", fallback: "New Page")
   public static let newSet = Loc.tr("Localizable", "New set", fallback: "New query")
   public static let newObject = Loc.tr("Localizable", "NewObject", fallback: "New Object")
   public static let newProperty = Loc.tr("Localizable", "NewProperty", fallback: "New Property")
@@ -749,9 +751,7 @@ public enum Loc {
       public enum Menu {
         public static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Camera")
         public static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Files")
-        public static let lists = Loc.tr("Localizable", "Chat.Actions.Menu.Lists", fallback: "Lists")
         public static let more = Loc.tr("Localizable", "Chat.Actions.Menu.More", fallback: "More")
-        public static let pages = Loc.tr("Localizable", "Chat.Actions.Menu.Pages", fallback: "Pages")
         public static let photos = Loc.tr("Localizable", "Chat.Actions.Menu.Photos", fallback: "Photos")
       }
     }
@@ -1407,14 +1407,6 @@ public enum Loc {
   public enum Object {
     public enum Deleted {
       public static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder", fallback: "Deleted object")
-    }
-  }
-  public enum ObjectSearchWithMeta {
-    public enum Create {
-      public static let collection = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Collection", fallback: "New Collection")
-      public static let note = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Note", fallback: "New Note")
-      public static let page = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Page", fallback: "New Page")
-      public static let `set` = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Set", fallback: "New Query")
     }
   }
   public enum ObjectType {
