@@ -29,7 +29,7 @@ extension MembershipTier {
                 Loc.Membership.Feature.storageGB(128),
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
-                Loc.Membership.Feature.viewers("Unlimited")
+                Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
             color: .blue
@@ -46,7 +46,7 @@ extension MembershipTier {
                 Loc.Membership.Feature.storageGB(256),
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
-                Loc.Membership.Feature.viewers("Unlimited")
+                Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
             color: .red
@@ -63,7 +63,7 @@ extension MembershipTier {
                 Loc.Membership.Feature.storageGB(2560),
                 Loc.Membership.Feature.sharedSpaces(333),
                 Loc.Membership.Feature.spaceWriters(100),
-                Loc.Membership.Feature.viewers("Unlimited")
+                Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
             color: .purple
@@ -80,7 +80,7 @@ extension MembershipTier {
                 Loc.Membership.Feature.storageGB(128),
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
-                Loc.Membership.Feature.viewers("Unlimited")
+                Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
             color: .blue
