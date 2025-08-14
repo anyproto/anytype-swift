@@ -3,6 +3,7 @@ import SwiftUI
 struct SharingExtensionView: View {
     
     @StateObject private var model: SharingExtensionViewModel
+    @Environment(\.dismiss) private var dismiss
     
     init(output: (any SharingExtensionModuleOutput)?) {
         self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
@@ -32,6 +33,10 @@ struct SharingExtensionView: View {
         .task {
             await model.onAppear()
         }
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
+        .disabled(model.sendInProgress)
     }
     
     private var listView: some View {

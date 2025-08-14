@@ -10,12 +10,17 @@ final class SharingExtensionViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.sharedContentManager)
     private var contentManager: any SharedContentManagerProtocol
+    @Injected(\.sharingExtensionActionService)
+    private var sharingExtensionActionService: any SharingExtensionActionServiceProtocol
     
     private weak var output: (any SharingExtensionModuleOutput)?
     
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
     @Published var comment: String = ""
+    @Published var dismiss = false
+    @Published var sendInProgress = false
+    
     let commentLimit = ChatMessageGlobalLimits.textLimit
     let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
     
@@ -46,8 +51,23 @@ final class SharingExtensionViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
+        sendInProgress = true
+        defer { sendInProgress = false }
+        
         guard let selectedSpace, selectedSpace.uxType.isChat else { return }
-        // TODO: Create chat
+        
+        let content = try await contentManager.getSharedContent()
+        
+        try await sharingExtensionActionService.saveObjects(
+            spaceId: selectedSpace.targetSpaceId,
+            content: content,
+            linkToObjects: [],
+            chatId: selectedSpace.chatId,
+            comment: comment
+        )
+        try await contentManager.clearSharedContent()
+        
+        dismiss.toggle()
     }
     
     // MARK: - Private

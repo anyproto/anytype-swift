@@ -20,12 +20,19 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private weak var output: (any SharingExtensionShareToModuleOutput)?
     
     private var details: [ObjectDetails] = []
+    private var showChatRow = true
+    private let chatRowTitle = Loc.Sharing.sendToChat
     
-    @Published var title: String = ""
+    private var spaceView: SpaceView?
+    var title: String { spaceView?.title ?? "" }
+    
     @Published var searchText: String = ""
     @Published var rows: [SharingExtensionsShareRowData] = []
     @Published var selectedObjectIds: Set<String> = []
     @Published var dismiss = false
+    @Published var chatRow: SharingExtensionsChatRowData?
+    @Published var chatRowSelected = false
+    @Published var sendInProgress = false
     
     @Published var comment: String = ""
     let commentLimit = ChatMessageGlobalLimits.textLimit
@@ -34,7 +41,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
         self.data = data
         self.output = output
-        self.title = workspacesStorage.spaceView(spaceId: data.spaceId)?.title ?? ""
+        self.spaceView = workspacesStorage.spaceView(spaceId: data.spaceId)
     }
     
     func search() async {
@@ -55,6 +62,18 @@ final class SharingExtensionShareToViewModel: ObservableObject {
         } catch {
             details = []
         }
+        
+        if spaceView?.chatId.isNotEmpty ?? false {
+            showChatRow = searchText.isNotEmpty ? chatRowTitle.lowercased().contains(searchText.lowercased()) : true
+        } else {
+            showChatRow = false
+        }
+        
+        updateRows()
+    }
+    
+    func onTapChat() {
+        chatRowSelected = !chatRowSelected
         updateRows()
     }
     
@@ -68,10 +87,21 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
+        sendInProgress = true
+        defer { sendInProgress = false }
+        
         let content = try await contentManager.getSharedContent()
         let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
         
-        try await sharingExtensionActionService.saveObjects(spaceId: data.spaceId, content: content, linkToObjects: linkToDetails, chatId: nil)
+        try await sharingExtensionActionService.saveObjects(
+            spaceId: data.spaceId,
+            content: content,
+            linkToObjects: linkToDetails,
+            chatId: chatRowSelected ? spaceView?.chatId : nil,
+            comment: comment
+        )
+        try await contentManager.clearSharedContent()
+        
         if #available(iOS 16.4, *) {
         } else {
             dismiss.toggle()
@@ -91,5 +121,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
                 selected: selectedObjectIds.contains(details.id)
             )
         }
+        
+        chatRow = showChatRow ? SharingExtensionsChatRowData(title: chatRowTitle, selected: chatRowSelected) : nil
     }
 }

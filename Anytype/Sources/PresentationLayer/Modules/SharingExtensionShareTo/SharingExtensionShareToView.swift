@@ -37,10 +37,18 @@ struct SharingExtensionShareToView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .disabled(model.sendInProgress)
     }
     
     private var list: some View {
         PlainList {
+            if let chatRow = model.chatRow {
+                SharingExtensionsChatRow(data: chatRow)
+                    .fixTappableArea()
+                    .onTapGesture {
+                        model.onTapChat()
+                    }
+            }
             ForEach(model.rows) { data in
                 SharingExtensionsShareRow(data: data)
                     .fixTappableArea()
@@ -60,7 +68,7 @@ struct SharingExtensionShareToView: View {
     private var bottomPanel: some View {
         SharingExtensionBottomPanel(
             comment: $model.comment,
-            showComment: false, // TODO: Add chat in list
+            showComment: model.chatRowSelected,
             commentLimit: model.commentLimit,
             commentWarningLimit: model.commentWarningLimit) {
                 try await model.onTapSend()

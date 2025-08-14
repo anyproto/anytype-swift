@@ -10,6 +10,12 @@ public extension Array {
         }
         return result
     }
+    
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
+    }
 }
 
 public extension Array where Element: Hashable {
