@@ -19,6 +19,8 @@ final class SharingExtensionViewModel: ObservableObject {
     @Published var selectedSpace: SpaceView?
     @Published var comment: String = ""
     @Published var dismiss = false
+    @Published var sendInProgress = false
+    
     let commentLimit = ChatMessageGlobalLimits.textLimit
     let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
     
@@ -49,6 +51,9 @@ final class SharingExtensionViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
+        sendInProgress = true
+        defer { sendInProgress = false }
+        
         guard let selectedSpace, selectedSpace.uxType.isChat else { return }
         
         let content = try await contentManager.getSharedContent()

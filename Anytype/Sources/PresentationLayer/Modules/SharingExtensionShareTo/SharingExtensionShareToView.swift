@@ -37,6 +37,7 @@ struct SharingExtensionShareToView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .disabled(model.sendInProgress)
     }
     
     private var list: some View {

@@ -32,6 +32,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     @Published var dismiss = false
     @Published var chatRow: SharingExtensionsChatRowData?
     @Published var chatRowSelected = false
+    @Published var sendInProgress = false
     
     @Published var comment: String = ""
     let commentLimit = ChatMessageGlobalLimits.textLimit
@@ -86,6 +87,9 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     }
     
     func onTapSend() async throws {
+        sendInProgress = true
+        defer { sendInProgress = false }
+        
         let content = try await contentManager.getSharedContent()
         let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
         
