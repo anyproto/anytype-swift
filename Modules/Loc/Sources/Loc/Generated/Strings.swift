@@ -38,6 +38,7 @@ public enum Loc {
   public static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library", fallback: "Anytype Library")
   public static let anytypeNetwork = Loc.tr("Localizable", "Anytype Network", fallback: "Anytype Network")
   public static let appearance = Loc.tr("Localizable", "Appearance", fallback: "Appearance")
+  public static let application = Loc.tr("Localizable", "Application", fallback: "Application")
   public static let applicationIcon = Loc.tr("Localizable", "Application icon", fallback: "Application icon")
   public static let apply = Loc.tr("Localizable", "Apply", fallback: "Apply")
   public static func areYouSureYouWantToDelete(_ p1: Int) -> String {
@@ -235,6 +236,7 @@ public enum Loc {
   public static let localOnly = Loc.tr("Localizable", "Local Only", fallback: "Local Only")
   public static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
   public static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
+  public static let loginKey = Loc.tr("Localizable", "Login key", fallback: "Login key")
   public static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("Localizable", "Manage payment", fallback: "Manage payment")
   public static let media = Loc.tr("Localizable", "Media", fallback: "Media")
