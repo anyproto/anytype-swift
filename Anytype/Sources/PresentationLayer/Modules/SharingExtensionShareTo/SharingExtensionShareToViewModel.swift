@@ -20,12 +20,16 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private weak var output: (any SharingExtensionShareToModuleOutput)?
     
     private var details: [ObjectDetails] = []
+    private var showChatRow = true
+    private let chatRowTitle = Loc.Sharing.sendToChat
     
     @Published var title: String = ""
     @Published var searchText: String = ""
     @Published var rows: [SharingExtensionsShareRowData] = []
     @Published var selectedObjectIds: Set<String> = []
     @Published var dismiss = false
+    @Published var chatRow: SharingExtensionsChatRowData?
+    @Published var chatRowSelected = false
     
     @Published var comment: String = ""
     let commentLimit = ChatMessageGlobalLimits.textLimit
@@ -55,6 +59,14 @@ final class SharingExtensionShareToViewModel: ObservableObject {
         } catch {
             details = []
         }
+        
+        showChatRow = searchText.isNotEmpty ? chatRowTitle.lowercased().contains(searchText.lowercased()) : true
+        
+        updateRows()
+    }
+    
+    func onTapChat() {
+        chatRowSelected = !chatRowSelected
         updateRows()
     }
     
@@ -93,5 +105,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
                 selected: selectedObjectIds.contains(details.id)
             )
         }
+        
+        chatRow = showChatRow ? SharingExtensionsChatRowData(title: chatRowTitle, selected: chatRowSelected) : nil
     }
 }
