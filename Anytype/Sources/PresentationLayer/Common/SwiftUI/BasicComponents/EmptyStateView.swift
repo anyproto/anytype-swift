@@ -36,8 +36,8 @@ struct EmptyStateView: View {
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)
             if let buttonData {
-                StandardButton(buttonData.title, style: .secondarySmall) {
-                    buttonData.action()
+                AsyncStandardButton(buttonData.title, style: .secondarySmall) {
+                    try await buttonData.action()
                 }
             }
             Spacer.fixedHeight(48)
@@ -50,7 +50,7 @@ struct EmptyStateView: View {
 extension EmptyStateView {
     struct ButtonData {
         let title: String
-        let action: () -> ()
+        let action: () async throws -> ()
     }
     
     enum Style {

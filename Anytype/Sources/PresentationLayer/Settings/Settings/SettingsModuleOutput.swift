@@ -6,6 +6,7 @@ protocol SettingsModuleOutput: AnyObject {
     func onAppearanceSelected()
     func onNotificationsSelected()
     func onFileStorageSelected()
+    func onMySitesSelected()
     func onAboutSelected()
     func onAccountDataSelected()
     func onChangeIconSelected(objectId: String, spaceId: String)
