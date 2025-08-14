@@ -12,8 +12,7 @@ struct ChatInput: View {
     let sendButtonIsLoading: Bool
     let createObjectTypes: [ObjectType]
     let conversationType: ConversationType
-    let onTapAddPage: () -> Void
-    let onTapAddList: () -> Void
+    let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
     let onTapCamera: () -> Void
@@ -22,6 +21,8 @@ struct ChatInput: View {
     let onTapLinkTo: (_ range: NSRange) -> Void
     let onLinkAdded: (_ url: URL) -> Void
     let onPasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
+    
+    private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
@@ -34,30 +35,36 @@ struct ChatInput: View {
     
     private var plusButton: some View {
         Menu {
-            Button { onTapCamera() } label: {
-                Label(Loc.Chat.Actions.Menu.camera, systemImage: "camera")
-            }
-            
             Button { onTapAddMedia() } label: {
                 Label(Loc.Chat.Actions.Menu.photos, systemImage: "photo")
             }
             
-            Button { onTapAddFiles() } label: {
-                Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
+            if let objectType = mainObjectTypeToCreate() {
+                Button {
+                    onTapCreateObject(objectType)
+                } label: {
+                    Label(Loc.newPage, systemImage: "doc.plaintext")
+                }
             }
             
-            Button { onTapAddPage() } label: {
-                Label(Loc.Chat.Actions.Menu.pages, systemImage: "doc.plaintext")
-            }
-            
-            Button { onTapAddList() } label: {
-                Label(Loc.Chat.Actions.Menu.lists, systemImage: "list.bullet")
+            Button { onTapAddObject() } label: {
+                Label(Loc.attachObject, systemImage: "link")
             }
             
             Divider()
             
             Menu {
-                ForEach(createObjectTypes) { type in
+                Button { onTapCamera() } label: {
+                    Label(Loc.Chat.Actions.Menu.camera, systemImage: "camera")
+                }
+                
+                Button { onTapAddFiles() } label: {
+                    Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
+                }
+                
+                Divider()
+                
+                ForEach(moreObjectTypesToCreate()) { type in
                     Button {
                         onTapCreateObject(type)
                     } label: {
@@ -116,5 +123,16 @@ struct ChatInput: View {
         .frame(width: 32, height: 56)
         // Store in layout for calculate correct textview height when user paste in empty textview
         .opacity(hasAdditionalData || !text.string.isEmpty ? 1 : 0)
+    }
+}
+
+extension ChatInput {
+    
+    private func mainObjectTypeToCreate() -> ObjectType? {
+        createObjectTypes.first { $0.uniqueKey == mainObjectTypeToCreateKey }
+    }
+    
+    private func moreObjectTypesToCreate() -> [ObjectType] {
+        createObjectTypes.filter { $0.uniqueKey != mainObjectTypeToCreateKey }
     }
 }

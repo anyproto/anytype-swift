@@ -94,11 +94,8 @@ struct ChatView: View {
                 sendButtonIsLoading: model.sendButtonIsLoading,
                 createObjectTypes: model.typesForCreateObject,
                 conversationType: model.conversationType,
-                onTapAddPage: {
-                    model.onTapAddPageToMessage()
-                },
-                onTapAddList: {
-                    model.onTapAddListToMessage()
+                onTapAddObject: {
+                    model.onTapAddObjectToMessage()
                 },
                 onTapAddMedia: {
                     model.onTapAddMediaToMessage()
