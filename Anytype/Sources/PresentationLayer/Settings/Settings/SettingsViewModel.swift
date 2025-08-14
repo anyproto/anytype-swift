@@ -69,6 +69,10 @@ final class SettingsViewModel: ObservableObject {
         output?.onFileStorageSelected()
     }
     
+    func onMySitesTap() {
+        output?.onMySitesSelected()
+    }
+    
     func onAboutTap() {
         output?.onAboutSelected()
     }

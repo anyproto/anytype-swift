@@ -259,6 +259,7 @@ public enum Loc {
   public static let myChannels = Loc.tr("Localizable", "My Channels", fallback: "My Channels")
   public static let myFirstSpace = Loc.tr("Localizable", "My First Space", fallback: "My First Space")
   public static let myProperties = Loc.tr("Localizable", "My Properties", fallback: "My Properties")
+  public static let mySites = Loc.tr("Localizable", "My Sites", fallback: "My Sites")
   public static let mySpaces = Loc.tr("Localizable", "My spaces", fallback: "My Spaces")
   public static let myself = Loc.tr("Localizable", "Myself", fallback: "Myself")
   public static let name = Loc.tr("Localizable", "Name", fallback: "Name")
@@ -1087,6 +1088,9 @@ public enum Loc {
     public enum Default {
       public static let subtitle = Loc.tr("Localizable", "EmptyView.Default.subtitle", fallback: "Create your first objects to get started.")
       public static let title = Loc.tr("Localizable", "EmptyView.Default.title", fallback: "It’s empty here.")
+    }
+    public enum Publishing {
+      public static let subtitle = Loc.tr("Localizable", "EmptyView.Publishing.subtitle", fallback: "Publish your first web site to get started.")
     }
   }
   public enum Error {

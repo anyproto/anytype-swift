@@ -22,6 +22,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showDebugMenu = false
     @Published var showSpaceManager = false
     @Published var showMembership = false
+    @Published var showMySites = false
     @Published var showKeychainPhraseForSettings = false
     @Published var objectIconPickerData: ObjectIconPickerData?
     
@@ -41,6 +42,10 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     func onFileStorageSelected() {
         showFileStorage = true
+    }
+    
+    func onMySitesSelected() {
+        showMySites = true
     }
     
     func onAboutSelected() {

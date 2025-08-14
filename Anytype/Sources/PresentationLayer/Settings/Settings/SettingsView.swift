@@ -77,6 +77,12 @@ struct SettingsView: View {
                         onTap: { model.onFileStorageTap() }
                     )
                     
+                    SettingsSectionItemView(
+                        name: Loc.mySites,
+                        imageAsset: .Settings.mySites,
+                        onTap: { model.onMySitesTap() }
+                    )
+                    
                     SectionHeaderView(title: Loc.misc)
                     
                     SettingsSectionItemView(
