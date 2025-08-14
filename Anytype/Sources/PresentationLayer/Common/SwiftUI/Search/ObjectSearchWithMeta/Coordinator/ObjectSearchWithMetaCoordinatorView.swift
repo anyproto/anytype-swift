@@ -11,23 +11,14 @@ struct ObjectSearchWithMetaCoordinatorView: View {
     
     var body: some View {
         ObjectSearchWithMetaView(
-            data: model.data,
-            output: model
+            data: model.data
         )
-        .sheet(item: $model.newLinkedObject) {
-            ChatCreateObjectCoordinatorView(
-                data: $0,
-                onDismiss: { result in
-                    model.handleDismissResult(result)
-                }
-            )
-        }
         .onChange(of: model.dismiss) { _ in dismiss() }
     }
 }
 
 #Preview {
     ObjectSearchWithMetaCoordinatorView(
-        data: ObjectSearchWithMetaModuleData(spaceId: "", type: .pages, excludedObjectIds: [], onSelect: { _ in })
+        data: ObjectSearchWithMetaModuleData(spaceId: "", excludedObjectIds: [], onSelect: { _ in })
     )
 }

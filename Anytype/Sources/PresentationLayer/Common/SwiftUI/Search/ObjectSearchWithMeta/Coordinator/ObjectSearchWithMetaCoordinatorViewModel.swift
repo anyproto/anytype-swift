@@ -2,11 +2,10 @@ import SwiftUI
 import Services
 
 @MainActor
-final class ObjectSearchWithMetaCoordinatorViewModel: ObservableObject, ObjectSearchWithMetaModuleOutput {
+final class ObjectSearchWithMetaCoordinatorViewModel: ObservableObject {
     
     let data: ObjectSearchWithMetaModuleData
     
-    @Published var newLinkedObject: EditorScreenData?
     @Published var dismiss = false
     
     init(data: ObjectSearchWithMetaModuleData) {
@@ -20,11 +19,5 @@ final class ObjectSearchWithMetaCoordinatorViewModel: ObservableObject, ObjectSe
         case .canceled:
             break
         }
-    }
-    
-    // MARK: - ObjectSearchWithMetaModuleOutput
-    
-    func onOpenObject(data: EditorScreenData) {
-        newLinkedObject = data
     }
 }
