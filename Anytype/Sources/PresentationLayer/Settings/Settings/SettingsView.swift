@@ -24,7 +24,7 @@ struct SettingsView: View {
                         model.onChangeIconTap()
                     })
                     
-                    SectionHeaderView(title: Loc.settings)
+                    SectionHeaderView(title: Loc.application)
                     
                     SettingsSectionItemView(
                         name: Loc.appearance,
@@ -42,19 +42,7 @@ struct SettingsView: View {
                     }
                     
                     SettingsSectionItemView(
-                        name: Loc.Spaces.title,
-                        imageAsset: .Settings.spaces,
-                        onTap: { model.onSpacesTap() }
-                    )
-                    
-                    SettingsSectionItemView(
-                        name: Loc.FileStorage.Local.title,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onFileStorageTap() }
-                    )
-                    
-                    SettingsSectionItemView(
-                        name: Loc.Settings.vaultAndAccess,
+                        name: Loc.loginKey,
                         imageAsset: .Settings.keychainPhrase,
                         onTap: { model.onAccountDataTap() }
                     )
@@ -67,6 +55,22 @@ struct SettingsView: View {
                             onTap: { model.onMembershipTap() }
                         )
                     }
+                    
+                    SectionHeaderView(title: Loc.Settings.dataManagement)
+                    
+                    SettingsSectionItemView(
+                        name: Loc.Spaces.title,
+                        imageAsset: .Settings.spaces,
+                        onTap: { model.onSpacesTap() }
+                    )
+                    
+                    SettingsSectionItemView(
+                        name: Loc.FileStorage.Local.title,
+                        imageAsset: .Settings.fileStorage,
+                        onTap: { model.onFileStorageTap() }
+                    )
+                    
+                    SectionHeaderView(title: Loc.misc)
                     
                     SettingsSectionItemView(
                         name: Loc.about,

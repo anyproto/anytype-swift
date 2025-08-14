@@ -77,7 +77,7 @@ struct SettingsSectionItemView: View {
                     .lineLimit(1)
                     .padding(.horizontal, 11)
                     .padding(.vertical, 5)
-                    .background(Color.Control.primary)
+                    .background(Color.Control.accent100)
                     .cornerRadius(6, style: .continuous)
             case .none:
                 EmptyView()
@@ -89,7 +89,7 @@ struct SettingsSectionItemView: View {
 struct SettingsSectionItemView_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
-            SettingsSectionItemView(name: "Keychain", imageAsset: .Settings.pinCode, onTap: {})
+            SettingsSectionItemView(name: "Keychain", imageAsset: .Settings.appearance, onTap: {})
             SettingsSectionItemView(name: "Membership", imageAsset: .Settings.membership, decoration: .button(text: "Join"), onTap: {})
         }.padding()
     }
