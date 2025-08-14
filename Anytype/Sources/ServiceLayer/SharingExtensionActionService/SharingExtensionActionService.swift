@@ -98,8 +98,9 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         comment: String
     ) async throws {
         
-        var fullMessage: String = ""
+        var fullMessage: String = content.title ?? ""
         var attachments: [ChatMessageAttachment] = []
+        var countOfImages: Int = 0
         
         for savedContentItem in savedContent {
             switch savedContentItem {
@@ -113,28 +114,44 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
                 var attachment = ChatMessageAttachment()
                 attachment.target = fileDetails.id
                 attachments.append(attachment)
+                if fileDetails.fileContentType == .image {
+                    countOfImages += 1
+                }
             }
         }
         
-        var chatMessageContent = ChatMessageContent()
-        chatMessageContent.text = String(fullMessage.prefix(ChatMessageGlobalLimits.textLimit))
+        let onlyImages = countOfImages == attachments.count && (content.title?.isEmpty ?? true)
         
-        var chatMessage = ChatMessage()
-        chatMessage.message = chatMessageContent
-        chatMessage.attachments = attachments
+        let batches = attachments.chunked(into: 20)
         
-        _ = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
-        
-        if comment.isNotEmpty {
-            
+        for (index, batch) in batches.enumerated() {
             var chatMessageContent = ChatMessageContent()
-            chatMessageContent.text = String(comment.prefix(ChatMessageGlobalLimits.textLimit))
+            chatMessageContent.text = (index == 0 && onlyImages) ? comment : ""
             
             var chatMessage = ChatMessage()
             chatMessage.message = chatMessageContent
+            chatMessage.attachments = attachments
             
             _ = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
         }
+        
+        if fullMessage.isNotEmpty {
+            try await addTextMessage(text: String(fullMessage.prefix(ChatMessageGlobalLimits.textLimit)), chatId: chatId)
+        }
+        
+        if comment.isNotEmpty && !onlyImages {
+            try await addTextMessage(text: String(comment.prefix(ChatMessageGlobalLimits.textLimit)), chatId: chatId)
+        }
+    }
+    
+    private func addTextMessage(text: String, chatId: String) async throws {
+        var chatMessageContent = ChatMessageContent()
+        chatMessageContent.text = text
+        
+        var chatMessage = ChatMessage()
+        chatMessage.message = chatMessageContent
+        
+        _ = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
     }
     
     private func createContainer(
