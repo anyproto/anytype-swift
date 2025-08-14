@@ -35,7 +35,11 @@ final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol {
         fatalError()
     }
     
-    func stopSubscription(cleanCache: Bool) async {
+    func stopSubscription() async {
+        fatalError()
+    }
+    
+    func prepareData(spaceId: String) async {
         fatalError()
     }
 }

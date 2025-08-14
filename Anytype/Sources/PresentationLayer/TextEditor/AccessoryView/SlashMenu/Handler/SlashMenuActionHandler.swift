@@ -36,7 +36,7 @@ final class SlashMenuActionHandler {
         _ action: SlashAction,
         textView: UITextView?,
         blockInformation: BlockInformation,
-        modifiedStringHandler: (SafeNSAttributedString) -> Void
+        modifiedStringHandler: (SafeNSAttributedString?) -> Void
     ) async throws {
         switch action {
         case let .actions(action):
@@ -49,10 +49,6 @@ final class SlashMenuActionHandler {
             try await handleMediaAction(media, textView: textView, blockInformation: blockInformation)
         case let .objects(action):
             switch action {
-            case .linkTo:
-                router.showLinkTo { [weak self] details in
-                    self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
-                }
             case .date:
                 textView?.shouldResignFirstResponder()
                 router.showDatePicker { [weak self] newDate in
@@ -110,6 +106,17 @@ final class SlashMenuActionHandler {
             actionHandler.setTextColor(color, blockIds: [blockInformation.id], route: .slashMenu)
         case let .background(color):
             actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id], route: .slashMenu)
+        case let .single(single):
+            switch single {
+            case .camera:
+                let blockId = try await actionHandler.addBlock(single.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
+                mediaBlockActionsProvider.openCamera(blockId: blockId)
+            case .linkTo:
+                textView?.shouldResignFirstResponder()
+                router.showLinkTo { [weak self] details in
+                    self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
+                }
+            }
         }
     }
     
@@ -140,7 +147,7 @@ final class SlashMenuActionHandler {
         _ style: SlashActionStyle,
         attributedString: SafeNSAttributedString?,
         blockInformation: BlockInformation,
-        modifiedStringHandler: (SafeNSAttributedString) -> Void
+        modifiedStringHandler: (SafeNSAttributedString?) -> Void
     ) async throws {
         switch style {
         case .text:
@@ -163,6 +170,7 @@ final class SlashMenuActionHandler {
             try await actionHandler.turnInto(.numbered, blockId: blockInformation.id, route: .slashMenu)
         case .toggle:
             try await actionHandler.turnInto(.toggle, blockId: blockInformation.id, route: .slashMenu)
+            modifiedStringHandler(nil)
         case .bold:
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
@@ -246,8 +254,6 @@ final class SlashMenuActionHandler {
             mediaBlockActionsProvider.openImagePicker(blockId: blockId)
         case .video:
             mediaBlockActionsProvider.openVideoPicker(blockId: blockId)
-        case .camera:
-            mediaBlockActionsProvider.openCamera(blockId: blockId)
         case .scanDocuments:
             mediaBlockActionsProvider.openDocumentScanner(blockId: blockId)
         case .audio:

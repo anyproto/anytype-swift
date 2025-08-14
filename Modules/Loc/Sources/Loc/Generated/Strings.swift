@@ -44,6 +44,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1, fallback: "Are you sure you want to delete %#@object@?")
   }
   public static let areYouSure = Loc.tr("Localizable", "AreYouSure", fallback: "Are you sure?")
+  public static let attachObject = Loc.tr("Localizable", "Attach Object", fallback: "Attach Object")
   public static func attachment(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Attachment", p1, fallback: "Plural format key: Attachment")
   }
@@ -66,11 +67,9 @@ public enum Loc {
   public static func bookmark(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Bookmark", p1, fallback: "Plural format key: Bookmark")
   }
-  public static let bookmarkBlockSubtitle = Loc.tr("Localizable", "Bookmark block subtitle", fallback: "Save your favorite link with summary")
   public static let bookmarks = Loc.tr("Localizable", "Bookmarks", fallback: "Bookmarks")
   public static let callout = Loc.tr("Localizable", "Callout", fallback: "Callout")
   public static let camera = Loc.tr("Localizable", "Camera", fallback: "Camera")
-  public static let cameraBlockSubtitle = Loc.tr("Localizable", "Camera block subtitle", fallback: "Capture a moment and enrich the page with it")
   public static let cameraBlockTitle = Loc.tr("Localizable", "Camera block title", fallback: "Take photo or video")
   public static let cancel = Loc.tr("Localizable", "Cancel", fallback: "Cancel")
   public static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion", fallback: "Cancel deletion")
@@ -84,7 +83,6 @@ public enum Loc {
   public static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
   public static let clear = Loc.tr("Localizable", "Clear", fallback: "Clear")
   public static let close = Loc.tr("Localizable", "Close", fallback: "Close")
-  public static let codeBlockSubtitle = Loc.tr("Localizable", "Code block subtitle", fallback: "Capture code snippet")
   public static let codeSnippet = Loc.tr("Localizable", "Code snippet", fallback: "Code snippet")
   public static let collaboration = Loc.tr("Localizable", "Collaboration", fallback: "Collaboration")
   public static let collection = Loc.tr("Localizable", "Collection", fallback: "Collection")
@@ -183,7 +181,6 @@ public enum Loc {
   public static func file(_ p1: Int) -> String {
     return Loc.tr("Localizable", "File", p1, fallback: "Plural format key: File")
   }
-  public static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle", fallback: "Store file in original state")
   public static let files = Loc.tr("Localizable", "Files", fallback: "Files")
   public static let filter = Loc.tr("Localizable", "Filter", fallback: "Filter")
   public static let forever = Loc.tr("Localizable", "Forever", fallback: "Forever")
@@ -208,7 +205,7 @@ public enum Loc {
   public static func image(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Image", p1, fallback: "Plural format key: Image")
   }
-  public static let imageBlockSubtitle = Loc.tr("Localizable", "Image block subtitle", fallback: "Upload and enrich the page with image")
+  public static let imageFromPhotoLibrary = Loc.tr("Localizable", "Image from Photo Library", fallback: "Image from Photo Library")
   public static let inThisObject = Loc.tr("Localizable", "In this object", fallback: "In this object")
   public static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version", fallback: "Incompatible version")
   public static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
@@ -218,6 +215,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Items syncing", p1, fallback: "%#@item@ syncing...")
   }
   public static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  public static let joinSpace = Loc.tr("Localizable", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
@@ -265,6 +263,7 @@ public enum Loc {
   public static let name = Loc.tr("Localizable", "Name", fallback: "Name")
   public static let new = Loc.tr("Localizable", "New", fallback: "New")
   public static let newField = Loc.tr("Localizable", "New field", fallback: "New property")
+  public static let newPage = Loc.tr("Localizable", "New Page", fallback: "New Page")
   public static let newSet = Loc.tr("Localizable", "New set", fallback: "New query")
   public static let newObject = Loc.tr("Localizable", "NewObject", fallback: "New Object")
   public static let newProperty = Loc.tr("Localizable", "NewProperty", fallback: "New Property")
@@ -389,7 +388,6 @@ public enum Loc {
   public static let restoreKeyFromKeychain = Loc.tr("Localizable", "Restore key from keychain", fallback: "Restore Key from the keychain")
   public static let save = Loc.tr("Localizable", "Save", fallback: "Save")
   public static let scanDocuments = Loc.tr("Localizable", "Scan documents", fallback: "Scan documents")
-  public static let scanDocumentsBlockSubtitle = Loc.tr("Localizable", "Scan documents block subtitle", fallback: "Capture and upload document image")
   public static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   public static let search = Loc.tr("Localizable", "Search", fallback: "Search...")
   public static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
@@ -440,6 +438,7 @@ public enum Loc {
   public static let teal = Loc.tr("Localizable", "Teal", fallback: "Teal")
   public static let tealBackground = Loc.tr("Localizable", "Teal background", fallback: "Teal background")
   public static let templates = Loc.tr("Localizable", "Templates", fallback: "Templates")
+  public static let textStyle = Loc.tr("Localizable", "Text Style", fallback: "Text Style")
   public static let thereAreNoSpacesYet = Loc.tr("Localizable", "There are no spaces yet", fallback: "There are no spaces yet")
   public static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named", fallback: "There is no emoji named")
   public static let thereIsNoIconNamed = Loc.tr("Localizable", "There is no icon named", fallback: "There is no icon named")
@@ -488,7 +487,6 @@ public enum Loc {
   public static let update = Loc.tr("Localizable", "Update", fallback: "Update")
   public static let upgrade = Loc.tr("Localizable", "Upgrade", fallback: "Upgrade")
   public static let upload = Loc.tr("Localizable", "Upload", fallback: "Upload")
-  public static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio", fallback: "Upload playable audio")
   public static let validUntil = Loc.tr("Localizable", "Valid until", fallback: "Valid until:")
   public static func validUntilDate(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Valid until date", String(describing: p1), fallback: "Valid until %@")
@@ -500,7 +498,6 @@ public enum Loc {
   public static func video(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Video", p1, fallback: "Plural format key: Video")
   }
-  public static let videoBlockSubtitle = Loc.tr("Localizable", "Video block subtitle", fallback: "Upload playable video")
   public static let view = Loc.tr("Localizable", "View", fallback: "View")
   public static let views = Loc.tr("Localizable", "Views", fallback: "Views")
   public static let wallpaper = Loc.tr("Localizable", "Wallpaper", fallback: "Wallpaper")
@@ -509,6 +506,9 @@ public enum Loc {
   public static let yellow = Loc.tr("Localizable", "Yellow", fallback: "Yellow")
   public static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   public static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
+  public static func youJoined(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "You joined", String(describing: p1), fallback: "You joined %@")
+  }
   public static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
   public enum AITool {
     public static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
@@ -754,26 +754,16 @@ public enum Loc {
       public enum Menu {
         public static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Camera")
         public static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Files")
-        public static let lists = Loc.tr("Localizable", "Chat.Actions.Menu.Lists", fallback: "Lists")
         public static let more = Loc.tr("Localizable", "Chat.Actions.Menu.More", fallback: "More")
-        public static let pages = Loc.tr("Localizable", "Chat.Actions.Menu.Pages", fallback: "Pages")
         public static let photos = Loc.tr("Localizable", "Chat.Actions.Menu.Photos", fallback: "Photos")
-      }
-    }
-    public enum Attach {
-      public enum List {
-        public static let title = Loc.tr("Localizable", "Chat.Attach.List.title", fallback: "Attach List")
-      }
-      public enum Page {
-        public static let title = Loc.tr("Localizable", "Chat.Attach.Page.title", fallback: "Attach Page")
       }
     }
     public enum AttachedObject {
       public static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
     public enum AttachmentsLimit {
-      public static func alert(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ attachments at a time")
+      public static func alert(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", p1, fallback: "Plural format key: Chat.AttachmentsLimit.Alert")
       }
     }
     public enum CreateObject {
@@ -788,15 +778,15 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     public enum Empty {
-      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "No messages yet")
+      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty.")
       public enum Button {
-        public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Share invite link")
+        public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Invite members")
       }
       public enum Editor {
-        public static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first one to spark it up!")
+        public static let description = Loc.tr("Localizable", "Chat.Empty.Editor.Description", fallback: "Write the first message to spark it up!")
       }
       public enum Owner {
-        public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and spark it up!")
+        public static let description = Loc.tr("Localizable", "Chat.Empty.Owner.Description", fallback: "Invite people and start the conversation!")
       }
     }
     public enum FileSyncError {
@@ -992,13 +982,13 @@ public enum Loc {
             public static let tomorrow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Tomorrow", fallback: "Tomorrow")
             public static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday", fallback: "Yesterday")
             public enum NumberOfDaysAgo {
-              public static func short(_ p1: Any) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", String(describing: p1), fallback: "%@ days ago")
+              public static func short(_ p1: Int) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", p1, fallback: "Plural format key: EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short")
               }
             }
             public enum NumberOfDaysFromNow {
-              public static func short(_ p1: Any) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", String(describing: p1), fallback: "%@ days from now")
+              public static func short(_ p1: Int) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", p1, fallback: "Plural format key: EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short")
               }
             }
           }
@@ -1285,15 +1275,12 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
     }
     public enum Feature {
-      public static func invites(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.Invites", String(describing: p1), fallback: "%@ Invitations")
-      }
       public static let localName = Loc.tr("Localizable", "Membership.Feature.LocalName", fallback: "Local, non-unique name")
-      public static func sharedSpaces(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", String(describing: p1), fallback: "Up to %@ Shared spaces")
+      public static func sharedSpaces(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", p1, fallback: "Plural format key: Membership.Feature.SharedSpaces")
       }
-      public static func spaceWriters(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", String(describing: p1), fallback: "%@ Editors per shared space")
+      public static func spaceWriters(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", p1, fallback: "Plural format key: Membership.Feature.SpaceWriters")
       }
       public static func storageGB(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Membership.Feature.StorageGB", String(describing: p1), fallback: "%@ GB of backup & sync space on the Anytype network")
@@ -1302,8 +1289,8 @@ public enum Loc {
         return Loc.tr("Localizable", "Membership.Feature.UniqueName", String(describing: p1), fallback: "Unique Network name (%@+ characters)")
       }
       public static let unlimitedViewers = Loc.tr("Localizable", "Membership.Feature.UnlimitedViewers", fallback: "Unlimited Viewers for shared spaces")
-      public static func viewers(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.Viewers", String(describing: p1), fallback: "%@ Viewers for shared spaces")
+      public static func viewers(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.Viewers", p1, fallback: "Plural format key: Membership.Feature.Viewers")
       }
     }
     public enum Legal {
@@ -1412,14 +1399,6 @@ public enum Loc {
   public enum Object {
     public enum Deleted {
       public static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder", fallback: "Deleted object")
-    }
-  }
-  public enum ObjectSearchWithMeta {
-    public enum Create {
-      public static let collection = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Collection", fallback: "New Collection")
-      public static let note = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Note", fallback: "New Note")
-      public static let page = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Page", fallback: "New Page")
-      public static let `set` = Loc.tr("Localizable", "ObjectSearchWithMeta.Create.Set", fallback: "New Query")
     }
   }
   public enum ObjectType {
@@ -1880,6 +1859,7 @@ public enum Loc {
   }
   public enum Sharing {
     public static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
+    public static let inputPlaceholder = Loc.tr("Localizable", "Sharing.InputPlaceholder", fallback: "Add a comment...")
     public static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
     public static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
     public static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
@@ -1956,13 +1936,28 @@ public enum Loc {
     public static let lineDivider = Loc.tr("Localizable", "SlashMenu.LineDivider", fallback: "Line divider")
     public static let table = Loc.tr("Localizable", "SlashMenu.Table", fallback: "Table")
     public static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents", fallback: "Table of contents")
-    public enum LinkTo {
-      public static let description = Loc.tr("Localizable", "SlashMenu.LinkTo.Description", fallback: "Create link to another object")
-    }
   }
   public enum Space {
     public static func membersCount(_ p1: Int) -> String {
       return Loc.tr("Localizable", "Space.MembersCount", p1, fallback: "Plural format key: Space.MembersCount")
+    }
+    public enum Invite {
+      public enum EditorAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.EditorAccess.Subtitle", fallback: "People with link can edit and write in chat")
+        public static let title = Loc.tr("Localizable", "Space.Invite.EditorAccess.Title", fallback: "Editor access")
+      }
+      public enum LinkDisabled {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.LinkDisabled.Subtitle", fallback: "Only already invited members have access")
+        public static let title = Loc.tr("Localizable", "Space.Invite.LinkDisabled.Title", fallback: "Link disabled")
+      }
+      public enum RequestAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.RequestAccess.Subtitle", fallback: "Owner must approve each join request")
+        public static let title = Loc.tr("Localizable", "Space.Invite.RequestAccess.Title", fallback: "Request access")
+      }
+      public enum ViewerAccess {
+        public static let subtitle = Loc.tr("Localizable", "Space.Invite.ViewerAccess.Subtitle", fallback: "People with link can view and read chat")
+        public static let title = Loc.tr("Localizable", "Space.Invite.ViewerAccess.Title", fallback: "Viewer access")
+      }
     }
     public enum Notifications {
       public enum Settings {
@@ -1996,6 +1991,12 @@ public enum Loc {
     }
     public enum Stream {
       public static let title = Loc.tr("Localizable", "SpaceCreate.Stream.Title", fallback: "Create a stream")
+    }
+  }
+  public enum SpaceInvite {
+    public enum Alert {
+      public static let subtitle = Loc.tr("Localizable", "SpaceInvite.Alert.subtitle", fallback: "If you switch link type, your existing link will be deactivated.")
+      public static let title = Loc.tr("Localizable", "SpaceInvite.Alert.title", fallback: "The current link will stop working")
     }
   }
   public enum SpaceManager {
@@ -2298,26 +2299,21 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "TextStyle.Bold.Title", fallback: "Bold")
     }
     public enum Bulleted {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Bulleted.Subtitle", fallback: "Simple list")
       public static let title = Loc.tr("Localizable", "TextStyle.Bulleted.Title", fallback: "Bulleted")
     }
     public enum Callout {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Callout.Subtitle", fallback: "Bordered text with icon")
       public static let title = Loc.tr("Localizable", "TextStyle.Callout.Title", fallback: "Callout")
     }
     public enum Checkbox {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Checkbox.Subtitle", fallback: "Create and track task with to-do list")
       public static let title = Loc.tr("Localizable", "TextStyle.Checkbox.Title", fallback: "Checkbox")
     }
     public enum Code {
       public static let title = Loc.tr("Localizable", "TextStyle.Code.Title", fallback: "Code")
     }
     public enum Heading {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Heading.Subtitle", fallback: "Medium headline")
       public static let title = Loc.tr("Localizable", "TextStyle.Heading.Title", fallback: "Heading")
     }
     public enum Highlighted {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Highlighted.Subtitle", fallback: "Spotlight, that needs special attention")
       public static let title = Loc.tr("Localizable", "TextStyle.Highlighted.Title", fallback: "Highlighted")
     }
     public enum Italic {
@@ -2327,26 +2323,21 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "TextStyle.Link.Title", fallback: "Link")
     }
     public enum Numbered {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Numbered.Subtitle", fallback: "Numbered list")
       public static let title = Loc.tr("Localizable", "TextStyle.Numbered.Title", fallback: "Numbered list")
     }
     public enum Strikethrough {
       public static let title = Loc.tr("Localizable", "TextStyle.Strikethrough.Title", fallback: "Strikethrough")
     }
     public enum Subheading {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Subheading.Subtitle", fallback: "Small headline")
       public static let title = Loc.tr("Localizable", "TextStyle.Subheading.Title", fallback: "Subheading")
     }
     public enum Text {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Text.Subtitle", fallback: "Just start writing with a plain text")
       public static let title = Loc.tr("Localizable", "TextStyle.Text.Title", fallback: "Text")
     }
     public enum Title {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Title.Subtitle", fallback: "Big section heading")
       public static let title = Loc.tr("Localizable", "TextStyle.Title.Title", fallback: "Title")
     }
     public enum Toggle {
-      public static let subtitle = Loc.tr("Localizable", "TextStyle.Toggle.Subtitle", fallback: "Hide and show content inside")
       public static let title = Loc.tr("Localizable", "TextStyle.Toggle.Title", fallback: "Toggle")
     }
     public enum Underline {

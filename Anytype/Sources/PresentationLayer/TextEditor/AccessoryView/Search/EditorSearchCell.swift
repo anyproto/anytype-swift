@@ -34,6 +34,8 @@ final class EditorSearchCell: UIView, UIContentView {
         
         icon.widthAnchor.constraint(equalToConstant: 40).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        decoration.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        decoration.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         container.layoutUsing.stack {
             $0.hStack(
@@ -43,7 +45,9 @@ final class EditorSearchCell: UIView, UIContentView {
                 $0.vStack(
                     title,
                     subtitle
-                )
+                ),
+                $0.hGap(),
+                decoration
             )
         }
     }
@@ -59,6 +63,8 @@ final class EditorSearchCell: UIView, UIContentView {
         } else {
             subtitle.isHidden = true
         }
+        
+        decoration.isHidden = !configuration.cellData.showDecoration
     }
     
     // MARK: - Views
@@ -75,6 +81,11 @@ final class EditorSearchCell: UIView, UIContentView {
         subtitle.textColor = .Text.secondary
         subtitle.numberOfLines = 1
         return subtitle
+    }()
+    private let decoration: IconViewUIKit = {
+        let decoration = IconViewUIKit()
+        decoration.icon = .asset(.RightAttribute.disclosure)
+        return decoration
     }()
     
     // MARK: - Not implemented

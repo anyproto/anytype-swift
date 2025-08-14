@@ -48,7 +48,7 @@ extension ObjectType {
         
         guard let recommendedLayout else { return false }
         
-        return recommendedLayout.isEditorLayout || recommendedLayout.isSet
+        return recommendedLayout.isEditorLayout || recommendedLayout.isList
     }
     
     // Properties

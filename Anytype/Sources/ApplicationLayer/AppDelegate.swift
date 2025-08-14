@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private var applePushNotificationService: any ApplePushNotificationServiceProtocol
     @Injected(\.pushNotificationsRegistrationService)
     private var pushNotificationsRegistrationService: any PushNotificationsRegistrationServiceProtocol
+    @Injected(\.notificationsCenterService)
+    private var notificationsCenterService: any NotificationsCenterServiceProtocol
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -81,6 +83,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         pushNotificationsRegistrationService.registerForPushNotifications()
     }
     
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
+        guard FeatureFlags.removeMessagesFromNotificationsCenter, let groupId = userInfo[PushNotificationKeys.groupId] as? String else {
+            completionHandler(.noData)
+            return
+        }
+        notificationsCenterService.removeDeliveredNotifications(groupId: groupId)
+        completionHandler(.newData)
+    }
+    
     // MARK: - UNUserNotificationCenterDelegate
     
     nonisolated func userNotificationCenter(
@@ -113,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         completionHandler()
-      }
+    }
     
     // MARK: - Termination
     

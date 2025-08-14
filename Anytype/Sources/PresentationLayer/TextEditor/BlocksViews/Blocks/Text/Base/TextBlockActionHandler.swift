@@ -196,6 +196,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 Task { @MainActor in
                     try await actionHandler.turnInto(style, blockId: info.id)
                     try await setNewText(attributedString: newText.sendable())
+                    resetSubject.send(nil)
                     textView.setFocus(.beginning)
                 }
             case let .addBlock(type, newText):
@@ -537,7 +538,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
             textView: textView,
             blockInformation: info,
             modifiedStringHandler: { [weak resetSubject] modifiedAttributedString in
-                resetSubject?.send(modifiedAttributedString.value)
+                resetSubject?.send(modifiedAttributedString?.value)
             }
         )
     }

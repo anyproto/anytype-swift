@@ -24,11 +24,11 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        guard let encryptedBase64 = request.content.userInfo[Constants.payload] as? String,
+        guard let encryptedBase64 = request.content.userInfo[PushNotificationKeys.payload] as? String,
               let encryptedData = Data(base64Encoded: encryptedBase64),
-              let signature = request.content.userInfo[Constants.signature] as? String,
+              let signature = request.content.userInfo[PushNotificationKeys.signature] as? String,
               let signatureData = Data(base64Encoded: signature),
-              let keyId = request.content.userInfo[Constants.keyId] as? String else {
+              let keyId = request.content.userInfo[PushNotificationKeys.keyId] as? String else {
             contentHandler(bestAttemptContent)
             return
         }
@@ -102,13 +102,5 @@ class NotificationService: UNNotificationServiceExtension {
             contactIdentifier: nil,
             customIdentifier: nil
         )
-    }
-}
-
-extension NotificationService {
-    enum Constants {
-        static let payload = "x-any-payload"
-        static let keyId = "x-any-key-id"
-        static let signature = "x-any-signature"
     }
 }

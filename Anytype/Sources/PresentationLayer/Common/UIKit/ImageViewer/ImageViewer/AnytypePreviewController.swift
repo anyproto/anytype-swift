@@ -3,6 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
+@MainActor
 final class AnytypePreviewController: QLPreviewController {
     var didFinishTransition = false {
         didSet {
@@ -20,22 +21,30 @@ final class AnytypePreviewController: QLPreviewController {
     private var itemsSubscriptions = [AnyCancellable]()
     private weak var sourceView: UIView?
     private let initialPreviewItemIndex: Int
+    private let route: MediaFileScreenRoute?
+    
+    private var observation: NSKeyValueObservation?
+    private var previewItemIndexInitialOpen = true
 
     init(
         with items: [PreviewRemoteItem],
         initialPreviewItemIndex: Int = 0,
         sourceView: UIView? = nil,
+        route: MediaFileScreenRoute?,
         onContentChanged: @escaping (URL) -> Void = { _ in }
     ) {
         self.items = items
         self.sourceView = sourceView
         self.onContentChanged = onContentChanged
         self.initialPreviewItemIndex = initialPreviewItemIndex
+        self.route = route
 
         super.init(nibName: nil, bundle: nil)
 
         navigationItem.leftBarButtonItem = nil
         navigationController?.navigationItem.leftBarButtonItem = nil
+        
+        setupCurrentPreviewItemIndexObserver()
     }
 
 
@@ -67,6 +76,22 @@ final class AnytypePreviewController: QLPreviewController {
             refreshCurrentPreviewItem()
         } else {
             hasUpdates = true
+        }
+    }
+    
+    private func setupCurrentPreviewItemIndexObserver() {
+        observation = observe(\.currentPreviewItemIndex, options: [.new]) { [weak self] controller, _ in
+            MainActor.assumeIsolated {
+                let currentIndex = controller.currentPreviewItemIndex
+                guard let self, (0..<self.items.count).contains(currentIndex) else { return }
+                guard !self.previewItemIndexInitialOpen else {
+                    self.previewItemIndexInitialOpen = false
+                    return
+                }
+                let item = self.items[currentIndex]
+                let type = item.fileDetails.fileContentType.analyticsValue
+                AnytypeAnalytics.instance().logSwipeMedia(type: type, route: self.route)
+            }
         }
     }
 }

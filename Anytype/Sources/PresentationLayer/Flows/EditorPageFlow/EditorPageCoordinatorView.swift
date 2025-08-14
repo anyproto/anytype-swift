@@ -66,5 +66,8 @@ struct EditorPageCoordinatorView: View {
             }
             .snackbar(toastBarData: $model.toastBarData)
             .openUrl(url: $model.openUrlData)
+            .cameraAccessFullScreenCover(item: $model.cameraData) {
+                SimpleCameraView(data: $0)
+            }
     }
 }

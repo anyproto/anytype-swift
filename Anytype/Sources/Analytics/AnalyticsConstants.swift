@@ -298,6 +298,30 @@ enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
 }
 
+enum ScreenQrRoute: String {
+    case inviteLink = "InviteLink"
+    case settingsSpace = "SettingsSpace"
+    case spaceProfile = "SpaceProfile"
+}
+
+enum ClickShareSpaceCopyLinkRoute: String {
+    case button = "Button"
+    case menu = "Menu"
+    case spaceProfile = "SpaceProfile"
+    case spaceSettings = "SpaceSettings"
+}
+
+enum ScreenInviteRequestType: String {
+    case approval = "Approval"
+    case withoutApproval = "WithoutApproval"
+}
+
+enum ClickShareSpaceNewLinkType: String {
+    case editor = "Editor"
+    case viewer = "Viewer"
+    case manual = "Manual"
+}
+
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"
@@ -311,6 +335,12 @@ enum ClickUpgradePlanTooltipType: String {
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
     case publish = "publish"
+}
+
+enum ClickShareSpaceShareLinkRoute: String {
+    case spaceSettings = "SpaceSettings"
+    case spaceProfile = "SpaceProfile"
+    case membersScreen = "MembersScreen"
 }
 
 enum ClickUpgradePlanTooltipRoute: String {
@@ -395,8 +425,7 @@ enum ChatAttachmentType: String {
     case photo = "Photo"
     case file = "File"
     case camera = "Camera"
-    case pages = "Pages"
-    case lists = "Lists"
+    case pagesLists = "PagesLists"
 }
 
 enum ScreenAllowPushType: String {
@@ -436,3 +465,9 @@ enum ShareObjectOpenPageRoute: String {
     case menu = "Menu"
     case notification = "Notification"
 }
+
+enum MediaFileScreenRoute: String {
+    case widget = "Widget"
+    case chat = "Chat"
+}
+

@@ -1,9 +1,13 @@
 import SwiftUI
 
-struct AnytypeCheckbox: View {
+public struct AnytypeCheckbox: View {
     @Binding var checked: Bool
     
-    var body: some View {
+    public init(checked: Binding<Bool>) {
+        self._checked = checked
+    }
+    
+    public var body: some View {
         Group {
             if checked {
                 Image(asset: .System.checkboxChecked)

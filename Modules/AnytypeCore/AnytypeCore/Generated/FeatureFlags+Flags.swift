@@ -146,12 +146,16 @@ public extension FeatureFlags {
         value(for: .newSharingExtension)
     }
 
-    static var mandatoryOnboardingEmailCollection: Bool {
-        value(for: .mandatoryOnboardingEmailCollection)
-    }
-
     static var newSpaceMembersFlow: Bool {
         value(for: .newSpaceMembersFlow)
+    }
+
+    static var removeMessagesFromNotificationsCenter: Bool {
+        value(for: .removeMessagesFromNotificationsCenter)
+    }
+
+    static var mediaCarouselForWidgets: Bool {
+        value(for: .mediaCarouselForWidgets)
     }
 
     static var rainbowViews: Bool {
@@ -218,6 +222,10 @@ public extension FeatureFlags {
         value(for: .showPushMessagesInForeground)
     }
 
+    static var skipOnboardingEmailCollection: Bool {
+        value(for: .skipOnboardingEmailCollection)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -255,8 +263,9 @@ public extension FeatureFlags {
         .webPublishing,
         .keyboardMenuUndoRedo,
         .newSharingExtension,
-        .mandatoryOnboardingEmailCollection,
         .newSpaceMembersFlow,
+        .removeMessagesFromNotificationsCenter,
+        .mediaCarouselForWidgets,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -272,6 +281,7 @@ public extension FeatureFlags {
         .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
-        .showPushMessagesInForeground
+        .showPushMessagesInForeground,
+        .skipOnboardingEmailCollection
     ]
 }

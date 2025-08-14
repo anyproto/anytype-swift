@@ -149,7 +149,7 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
             AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: .type)
-        case .toggleIsDefault(let isDefault):
+        case .toggleIsDefault:
             AnytypeAnalytics.instance().logChangeDefaultTemplate(objectType: objectType, route: .type)
         }
     }

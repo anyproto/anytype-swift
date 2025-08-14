@@ -5,6 +5,7 @@ import PhotosUI
 import AnytypeCore
 import Collections
 import UIKit
+import NotificationsCore
 @preconcurrency import Combine
 
 @MainActor
@@ -48,6 +49,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     @Injected(\.chatInviteStateService)
     private var chatInviteStateService: any ChatInviteStateServiceProtocol
+    @Injected(\.notificationsCenterService)
+    private var notificationsCenterService: any NotificationsCenterServiceProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -126,15 +129,26 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
-    func onTapAddPageToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pages)
-        let data = buildObjectSearcData(type: .pages)
-        output?.onLinkObjectSelected(data: data)
+    func onAppear() {
+        guard FeatureFlags.removeMessagesFromNotificationsCenter else { return }
+        notificationsCenterService.removeDeliveredNotifications(chatId: chatId)
     }
     
-    func onTapAddListToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .lists)
-        let data = buildObjectSearcData(type: .lists)
+    func onTapAddObjectToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pagesLists)
+        let data = ObjectSearchWithMetaModuleData(
+            spaceId: spaceId,
+            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
+            onSelect: { [weak self] details in
+                guard let self else { return }
+                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object)
+                } else {
+                    showFileLimitAlert()
+                }
+            }
+        )
         output?.onLinkObjectSelected(data: data)
     }
     
@@ -631,10 +645,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func subscribeOnTypes() async {
-        for await _ in objectTypeProvider.syncPublisher.values {
-            let objectTypesCreateInChat = objectTypeProvider.objectTypes(spaceId: spaceId).filter(\.canCreateInChat)
-            let usedObjecTypesKeys = ObjectSearchWithMetaType.allCases.flatMap(\.objectTypesCreationKeys)
-            self.typesForCreateObject = objectTypesCreateInChat.filter { !usedObjecTypesKeys.contains($0.uniqueKey) }
+        for await types in objectTypeProvider.objectTypesPublisher(spaceId: spaceId).values {
+            let objectTypesCreateInChat = types.filter(\.canCreateInChat)
+            let sortedObjectTypesByDate = objectTypesCreateInChat.sorted {
+                $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
+            }
+            self.typesForCreateObject = sortedObjectTypesByDate
         }
     }
     
@@ -724,9 +740,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if FeatureFlags.openMediaFileInPreview, attachment.resolvedLayoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
-            let items = reorderedAttachments.compactMap { $0.previewRemoteItem }
-            let startAtIndex = items.firstIndex { $0.id == attachment.id } ?? 0
-            output?.onObjectSelected(screenData: .preview(MediaFileScreenData(items: items, startAtIndex: startAtIndex)))
+            output?.onObjectSelected(screenData: .preview(
+                MediaFileScreenData(selectedItem: attachment, allItems: reorderedAttachments, route: .chat)
+            ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }
@@ -734,23 +750,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func showFileLimitAlert() {
         toastBarData = ToastBarData(Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), type: .failure)
-    }
-    
-    private func buildObjectSearcData(type: ObjectSearchWithMetaType) -> ObjectSearchWithMetaModuleData {
-        ObjectSearchWithMetaModuleData(
-            spaceId: spaceId,
-            type: type,
-            excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
-            onSelect: { [weak self] details in
-                guard let self else { return }
-                if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
-                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
-                    AnytypeAnalytics.instance().logAttachItemChat(type: .object)
-                } else {
-                    showFileLimitAlert()
-                }
-            }
-        )
     }
     
     private func updateLocalBookmark(linkPreview: LinkPreview) {

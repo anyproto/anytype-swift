@@ -5,6 +5,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
     let id: String
     let icon: Icon?
     let name: String
+    let globalName: String
     let status: Status?
     let action: Action?
     let contextActions: [ContextAction]
@@ -25,7 +26,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
         let isSelected: Bool
         let destructive: Bool
         let enabled: Bool
-        let action: () -> Void
+        let action: () async throws -> Void
     }
 }
 
@@ -37,11 +38,21 @@ struct SpaceShareParticipantView: View {
         HStack(spacing: 12) {
             IconView(icon: participant.icon)
                 .frame(width: 48, height: 48)
-            VStack(alignment: .leading, spacing: 2) {
+                .overlay(alignment: .topTrailing) {
+                    if case .pending = participant.status  {
+                        attentionDotView
+                            .padding(.trailing, 2)
+                            .padding(.top, 2)
+                    }
+                }
+            
+            VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(participant.name, style: .uxTitle2Medium)
                     .foregroundColor(.Text.primary)
                     .truncationMode(.middle)
-                status
+                AnytypeText(participant.globalName, style: .caption1Regular)
+                    .foregroundColor(.Text.secondary)
+                    .truncationMode(.tail)
             }
             Spacer()
             if let action = participant.action, let title = action.title {
@@ -66,14 +77,21 @@ struct SpaceShareParticipantView: View {
     private var status: some View {
         switch participant.status {
         case .active(let permission):
-            AnytypeText(permission, style: .relation3Regular)
-                .foregroundColor(.Text.secondary)
+            HStack(spacing: 4) {
+                AnytypeText(permission, style: .uxTitle2Regular)
+                    .foregroundColor(.Text.primary)
+                if participant.contextActions.isNotEmpty {
+                    Image(asset: .X18.Disclosure.down)
+                }
+            }
         case .pending(let message):
-            AnytypeText(message, style: .relation3Regular)
-                .foregroundColor(.Text.inversion)
-                .padding(.horizontal, 3)
-                .background(Color.Control.primary)
-                .cornerRadius(3, style: .continuous)
+            HStack(spacing: 4) {
+                AnytypeText(message, style: .uxTitle2Regular)
+                    .foregroundColor(.Text.secondary)
+                if participant.contextActions.isNotEmpty {
+                    Image(asset: .X18.Disclosure.down)
+                }
+            }
         case .none:
             EmptyView()
         }
@@ -82,12 +100,18 @@ struct SpaceShareParticipantView: View {
     @ViewBuilder
     private var menu: some View {
         if participant.contextActions.isEmpty {
-            EmptyView()
+            status
+        } else if participant.contextActions.count == 1, let action = participant.contextActions.first  {
+            AsyncButton {
+                try await action.action()
+            } label: {
+                status.padding()
+            }
         } else {
             Menu {
                 ForEach(participant.contextActions) { action in
-                    Button(role: action.destructive ? .destructive : nil) {
-                        action.action()
+                    AsyncButton(role: action.destructive ? .destructive : nil) {
+                        try await action.action()
                     } label: {
                         HStack {
                             AnytypeText(action.title, style: .uxCalloutRegular)
@@ -102,9 +126,20 @@ struct SpaceShareParticipantView: View {
                 }
                 
             } label: {
-                IconView(icon: .asset(.X24.more))
-                    .frame(width: 24, height: 24)
+                status.padding()
             }
+        }
+    }
+    
+    private var attentionDotView: some View {
+        ZStack(alignment: .center) {
+            Circle()
+                .fill(Color.Control.accent100)
+                .frame(width: 8, height: 8)
+
+            Circle()
+                .strokeBorder(Color.Background.primary, lineWidth: 2)
+                .frame(width: 10, height: 10)
         }
     }
 }

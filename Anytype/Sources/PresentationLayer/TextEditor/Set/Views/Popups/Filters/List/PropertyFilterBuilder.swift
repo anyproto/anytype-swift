@@ -390,7 +390,7 @@ private extension PropertyFilterBuilder {
     }
     
     func buildNumberOfDaysDateString(for filter: DataviewFilter, option: DataviewFilter.QuickOption) -> String {
-        let count = "\(filter.value.safeIntValue ?? 0)"
+        let count = filter.value.safeIntValue ?? 0
         return option == .numberOfDaysAgo ?
         Loc.EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.short(count) :
         Loc.EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.short(count)

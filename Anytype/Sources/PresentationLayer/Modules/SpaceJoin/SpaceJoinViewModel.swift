@@ -60,6 +60,9 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     func onJoinTapped() {
+        if dataState.inviteWithoutApprove {
+            AnytypeAnalytics.instance().logClickJoinSpaceWithoutApproval()
+        }
         joinTaskId = UUID().uuidString
     }
     
@@ -76,6 +79,7 @@ final class SpaceJoinViewModel: ObservableObject {
                 networkId: accountManager.account.info.networkId
             )
             if inviteView.inviteType.withoutApprove {
+                toast = ToastBarData(Loc.youJoined(inviteView.spaceName))
                 dismiss.toggle()
             } else {
                 showSuccessAlert.toggle()
@@ -129,7 +133,8 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     func onInviewViewAppear() {
-        AnytypeAnalytics.instance().logScreenInviteRequest()
+        let type: ScreenInviteRequestType = dataState.inviteWithoutApprove ? .withoutApproval : .approval
+        AnytypeAnalytics.instance().logScreenInviteRequest(type: type)
     }
     
     // MARK: - Private

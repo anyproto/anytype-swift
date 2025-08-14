@@ -25,24 +25,37 @@ final class SlashMenuCellDataBuilder {
     }
     
     private func filterItem(item: SlashMenuItem, filter: String) -> SlashMenuFilteredItem? {
-        if item.type.title.localizedCaseInsensitiveContains(filter) {
-            return SlashMenuFilteredItem(title: item.type.title, topMatch: .groupName, actions: item.children)
-        } else {
-            return filterItemContent(item: item, filter: filter)
+        switch item {
+        case .single(let action):
+            if let match = SlashMenuComparator.match(slashAction: action, string: filter, isSingleAction: true) {
+                return SlashMenuFilteredItem(title: "", topMatch: match.filterMatch, actions: [action])
+            }
+            return nil
+        case .multi(let type, let children):
+            if type.title.localizedCaseInsensitiveContains(filter) {
+                return SlashMenuFilteredItem(title: type.title, topMatch: .groupName, actions: children)
+            } else {
+                return filterItemContent(item: item, filter: filter)
+            }
         }
     }
     
     private func filterItemContent(item: SlashMenuItem, filter: String) -> SlashMenuFilteredItem? {
-        var filteredActions = filterActions(item: item, filter: filter)
-        guard !filteredActions.isEmpty else { return nil }
+        switch item {
+        case .single:
+            return nil
+        case .multi(let type, _):
+            var filteredActions = filterActions(item: item, filter: filter)
+            guard !filteredActions.isEmpty else { return nil }
 
-        filteredActions.sort { $0.filterMatch < $1.filterMatch }
+            filteredActions.sort { $0.filterMatch < $1.filterMatch }
 
-        return SlashMenuFilteredItem(
-            title: item.type.title,
-            topMatch: filteredActions.first!.filterMatch,
-            actions: filteredActions.map { $0.action }
-        )
+            return SlashMenuFilteredItem(
+                title: type.title,
+                topMatch: filteredActions.first!.filterMatch,
+                actions: filteredActions.map { $0.action }
+            )
+        }
     }
     
     private func filterActions(item: SlashMenuItem, filter: String) -> [SlashActionFilterMatch] {
@@ -62,6 +75,11 @@ final class SlashMenuCellDataBuilder {
     
     private func searchCellData(title: String, actions: [SlashAction]) -> [SlashMenuCellData] {
         guard !actions.isEmpty else { return [] }
+        
+        // For single actions with empty title, don't add header
+        if title.isEmpty {
+            return actions.map { .action($0) }
+        }
         
         var result: [SlashMenuCellData] = [.header(title: title)]
         result.append(contentsOf: actions.map { .action($0) })

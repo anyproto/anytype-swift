@@ -108,7 +108,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceDeleteAlert.toggle()
     }
     
-    func onShareTap() {
+    func onMembersTap() {
         output?.onSpaceShareSelected()
     }
     
@@ -120,10 +120,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceLeaveAlert.toggle()
     }
     
-    func onMembersTap() {
-        output?.onSpaceMembersSelected()
-    }
-    
     func onMembershipUpgradeTap() {
         AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .sharedSpaces, route: .spaceSettings)
         membershipUpgradeReason = .numberOfSharedSpaces
@@ -133,7 +129,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onNotificationsSelected()
     }
     
-    func onInviteTap() {
+    func onShareTap() {
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .spaceSettings)
         Task {
             try await generateInviteIfNeeded()
             shareInviteLink = inviteLink
@@ -151,6 +148,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         Task {
             try await generateInviteIfNeeded()
             guard let inviteLink else { return }
+            AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .spaceSettings)
             UIPasteboard.general.string = inviteLink.absoluteString
             snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
         }
@@ -183,6 +181,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             placeholder: Loc.untitled,
             initialValue: spaceName,
             font: .bodySemibold,
+            usecase: .spaceName,
             onSave: { [weak self] in
                 guard let self else { return }
                 saveDetails(name: $0, description: spaceDescription)

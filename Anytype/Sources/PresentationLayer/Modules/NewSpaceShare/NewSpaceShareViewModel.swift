@@ -6,11 +6,6 @@ import Combine
 import AnytypeCore
 
 @MainActor
-protocol NewSpaceShareModuleOutput: NewInviteLinkModuleOutput {
-    func onMoreInfoSelected()
-}
-
-@MainActor
 final class NewSpaceShareViewModel: ObservableObject {
     
     @Injected(\.workspaceService)
@@ -34,7 +29,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     private var canChangeReaderToWriter = false
     
     let data: SpaceShareData
-    weak var output: (any NewSpaceShareModuleOutput)?
+    weak var output: (any NewInviteLinkModuleOutput)?
     var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
@@ -52,7 +47,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
     
-    init(data: SpaceShareData, output: (any NewSpaceShareModuleOutput)?) {
+    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
     }
@@ -73,11 +68,6 @@ final class NewSpaceShareViewModel: ObservableObject {
     
     func onStopSharing() {
         showStopSharingAlert = true
-    }
-    
-    func onMoreInfoTap() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .moreInfo)
-        output?.onMoreInfoSelected()
     }
     
     func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
@@ -112,6 +102,7 @@ final class NewSpaceShareViewModel: ObservableObject {
                 id: participant.id,
                 icon: participant.icon?.icon,
                 name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
+                globalName: participant.displayGlobalName,
                 status: participantStatus(participant),
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
@@ -150,59 +141,69 @@ final class NewSpaceShareViewModel: ObservableObject {
     }
     
     private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
-        switch participant.status {
-        case .joining:
-            guard canApproveRequests else { return nil }
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
-                self?.showRequestAlert(participant: participant)
-            })
-        case .removing:
-            guard canApproveRequests else { return nil }
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
-                AnytypeAnalytics.instance().logApproveLeaveRequest()
-                try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
-                self?.toastBarData = ToastBarData(Loc.SpaceShare.Approve.toast(participant.title))
-            })
-        case .active:
-            return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
-                self?.showParticipantInfo(participant)
-            })
-        case .canceled, .declined, .removed, .UNRECOGNIZED:
-            return nil
-        }
+        return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
+            self?.showParticipantInfo(participant)
+        })
     }
     
     private func participantContextActions(_ participant: Participant) -> [SpaceShareParticipantViewModel.ContextAction] {
-        guard participant.permission != .owner, participant.status == .active else { return [] }
-        return [
-            SpaceShareParticipantViewModel.ContextAction(
-                title: Loc.SpaceShare.Permissions.reader,
-                isSelected: participant.permission == .reader,
-                destructive: false,
-                enabled: canChangeWriterToReader || participant.permission == .reader,
-                action: { [weak self] in
-                    self?.showPermissionAlert(participant: participant, newPermission: .reader)
-                }
-            ),
-            SpaceShareParticipantViewModel.ContextAction(
-                title: Loc.SpaceShare.Permissions.writer,
-                isSelected: participant.permission == .writer,
-                destructive: false,
-                enabled: canChangeReaderToWriter || participant.permission == .writer,
-                action: { [weak self] in
-                    self?.showPermissionAlert(participant: participant, newPermission: .writer)
-                }
-            ),
-            SpaceShareParticipantViewModel.ContextAction(
-                title: Loc.SpaceShare.RemoveMember.title,
+        guard participant.permission != .owner else { return [] }
+        switch participant.status {
+        case .active:
+            return [
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.reader,
+                    isSelected: participant.permission == .reader,
+                    destructive: false,
+                    enabled: canChangeWriterToReader || participant.permission == .reader,
+                    action: { [weak self] in
+                        self?.showPermissionAlert(participant: participant, newPermission: .reader)
+                    }
+                ),
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.writer,
+                    isSelected: participant.permission == .writer,
+                    destructive: false,
+                    enabled: canChangeReaderToWriter || participant.permission == .writer,
+                    action: { [weak self] in
+                        self?.showPermissionAlert(participant: participant, newPermission: .writer)
+                    }
+                ),
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.RemoveMember.title,
+                    isSelected: false,
+                    destructive: true,
+                    enabled: canRemoveMember,
+                    action: { [weak self] in
+                        self?.showRemoveAlert(participant: participant)
+                    }
+                )]
+        case .joining:
+            return [SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.Action.viewRequest,
                 isSelected: false,
-                destructive: true,
-                enabled: canRemoveMember,
+                destructive: false,
+                enabled: canApproveRequests,
                 action: { [weak self] in
-                    self?.showRemoveAlert(participant: participant)
+                    self?.showRequestAlert(participant: participant)
                 }
-            )
-        ]
+            )]
+        case .removing:
+            return [
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Action.approve,
+                    isSelected: false,
+                    destructive: false,
+                    enabled: canApproveRequests,
+                    action: { [weak self] in
+                        AnytypeAnalytics.instance().logApproveLeaveRequest()
+                        try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
+                        self?.toastBarData = ToastBarData(Loc.SpaceShare.Approve.toast(participant.title))
+                    }
+                )]
+        case .removed, .declined, .canceled, .UNRECOGNIZED(_):
+            return []
+        }
     }
     
     private func showRequestAlert(participant: Participant) {
@@ -252,12 +253,24 @@ final class NewSpaceShareViewModel: ObservableObject {
 
 private extension Participant {
     var sortingWeight: Int {
+        if permission == .owner {
+            return 1000
+        }
+        
         if status == .joining {
-            return 3
+            return 30
         }
         
         if status == .removing {
-            return 2
+            return 20
+        }
+        
+        if permission == .writer {
+            return 5
+        }
+        
+        if permission == .reader {
+            return 4
         }
         
         return 1

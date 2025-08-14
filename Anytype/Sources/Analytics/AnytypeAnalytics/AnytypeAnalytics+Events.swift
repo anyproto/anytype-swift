@@ -1069,8 +1069,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsSpaceShare", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
-    func logClickShareSpaceCopyLink() {
-        logEvent("ClickShareSpaceCopyLink")
+    func logClickShareSpaceCopyLink(route: ClickShareSpaceCopyLinkRoute) {
+        logEvent("ClickShareSpaceCopyLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
     func logScreenStopShare() {
@@ -1128,8 +1128,24 @@ extension AnytypeAnalytics {
         logEvent("RemoveSpaceMember")
     }
     
-    func logScreenInviteRequest() {
-        logEvent("ScreenInviteRequest")
+    func logScreenInviteRequest(type: ScreenInviteRequestType) {
+        logEvent("ScreenInviteRequest", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logScreenSpaceLinkTypePicker() {
+        logEvent("ScreenSpaceLinkTypePicker")
+    }
+    
+    func logClickJoinSpaceWithoutApproval() {
+        logEvent("ClickJoinSpaceWithoutApproval")
+    }
+    
+    func logClickShareSpaceShareLink(route: ClickShareSpaceShareLinkRoute) {
+        logEvent("ClickShareSpaceShareLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+    }
+    
+    func logClickShareSpaceNewLink(type: ClickShareSpaceNewLinkType) {
+        logEvent("ClickShareSpaceNewLink", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logScreenRequestSent() {
@@ -1152,8 +1168,11 @@ extension AnytypeAnalytics {
         logEvent("ApproveLeaveRequest")
     }
     
-    func logScreenQr(type: ScreenQrAnalyticsType) {
-        logEvent("ScreenQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logScreenQr(type: ScreenQrAnalyticsType, route: ScreenQrRoute) {
+        logEvent("ScreenQr", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ])
     }
     
     func logClickQr() {
@@ -1690,5 +1709,32 @@ extension AnytypeAnalytics {
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
         )
+    }
+    
+    func logScreenMedia(type: String) {
+        logEvent(
+            "ScreenMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
+    func logSwipeMedia(type: String, route: MediaFileScreenRoute?) {
+        logEvent(
+            "SwipeMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
+    }
+    
+    func logPinSpace() {
+        logEvent("PinSpace")
+    }
+    
+    func logUnpinSpace() {
+        logEvent("UnpinSpace")
     }
 }
