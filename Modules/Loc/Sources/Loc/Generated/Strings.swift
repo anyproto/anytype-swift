@@ -53,7 +53,6 @@ public enum Loc {
   }
   public static let back = Loc.tr("Localizable", "Back", fallback: "Back")
   public static let backUpKey = Loc.tr("Localizable", "Back up key", fallback: "Back up key")
-  public static let backUpYourKey = Loc.tr("Localizable", "Back up your key", fallback: "Back up your key")
   public static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   public static func backlinksCount(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Backlinks count", p1, fallback: "Plural format key: Backlinks count")
@@ -1873,7 +1872,6 @@ public enum Loc {
     public static let spaceType = Loc.tr("Localizable", "Settings.SpaceType", fallback: "Space type")
     public static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
     public static let updated = Loc.tr("Localizable", "Settings.Updated", fallback: "Space information updated")
-    public static let vaultAndAccess = Loc.tr("Localizable", "Settings.VaultAndAccess", fallback: "Vault and key")
   }
   public enum Sharing {
     public static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
