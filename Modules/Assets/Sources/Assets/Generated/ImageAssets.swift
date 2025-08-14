@@ -654,10 +654,10 @@ extension ImageAsset {
     public static let debug = ImageAsset.bundle(name: "Settings/Debug")
     public static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
     public static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
+    public static let logOut = ImageAsset.bundle(name: "Settings/Log Out")
     public static let membership = ImageAsset.bundle(name: "Settings/Membership")
+    public static let mySites = ImageAsset.bundle(name: "Settings/MySites")
     public static let notifications = ImageAsset.bundle(name: "Settings/Notifications")
-    public static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
-    public static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
     public static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
   }
   public enum System {
