@@ -6,7 +6,7 @@ struct EmptyStateView: View {
     let style: Style
     let buttonData: ButtonData?
     
-    init(title: String, subtitle: String, style: Style, buttonData: ButtonData? = nil) {
+    init(title: String, subtitle: String = "", style: Style, buttonData: ButtonData? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.style = style
@@ -31,9 +31,11 @@ struct EmptyStateView: View {
             AnytypeText(title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxBodyRegular, enableMarkdown: true)
-                .foregroundColor(.Text.secondary)
-                .multilineTextAlignment(.center)
+            if subtitle.isNotEmpty {
+                AnytypeText(subtitle, style: .uxBodyRegular, enableMarkdown: true)
+                    .foregroundColor(.Text.secondary)
+                    .multilineTextAlignment(.center)
+            }
             Spacer.fixedHeight(12)
             if let buttonData {
                 AsyncStandardButton(buttonData.title, style: .secondarySmall) {

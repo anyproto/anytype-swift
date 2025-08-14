@@ -14,12 +14,16 @@ final class SharingExtensionViewModel: ObservableObject {
     private var sharingExtensionActionService: any SharingExtensionActionServiceProtocol
     
     private weak var output: (any SharingExtensionModuleOutput)?
+    @Published private var allSpaces: [SpaceView] = []
     
     @Published var spaces: [SpaceView] = []
     @Published var selectedSpace: SpaceView?
     @Published var comment: String = ""
     @Published var dismiss = false
     @Published var sendInProgress = false
+    @Published var searchText: String = ""
+    
+    var withoutSpaceState: Bool { allSpaces.isEmpty }
     
     let commentLimit = ChatMessageGlobalLimits.textLimit
     let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
@@ -70,6 +74,10 @@ final class SharingExtensionViewModel: ObservableObject {
         dismiss.toggle()
     }
     
+    func search() {
+        spaces = searchText.isNotEmpty ? allSpaces.filter { $0.title.lowercased().contains(searchText.lowercased()) } : allSpaces
+    }
+    
     // MARK: - Private
     
     private func startDebugData() async {
@@ -82,7 +90,8 @@ final class SharingExtensionViewModel: ObservableObject {
     
     private func startSpacesSub() async {
         for await participantSpaces in participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values {
-            spaces = participantSpaces.filter { $0.canEdit }.map { $0.spaceView }
+            allSpaces = participantSpaces.filter { $0.canEdit }.map { $0.spaceView }
+            search()
         }
     }
 }
