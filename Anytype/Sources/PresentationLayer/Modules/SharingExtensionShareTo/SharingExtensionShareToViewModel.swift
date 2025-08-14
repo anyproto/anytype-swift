@@ -62,7 +62,11 @@ final class SharingExtensionShareToViewModel: ObservableObject {
             details = []
         }
         
-        showChatRow = searchText.isNotEmpty ? chatRowTitle.lowercased().contains(searchText.lowercased()) : true
+        if spaceView?.chatId.isNotEmpty ?? false {
+            showChatRow = searchText.isNotEmpty ? chatRowTitle.lowercased().contains(searchText.lowercased()) : true
+        } else {
+            showChatRow = false
+        }
         
         updateRows()
     }
