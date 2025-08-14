@@ -11,36 +11,20 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     private var searchWithMetaService: any SearchWithMetaServiceProtocol
     @Injected(\.searchWithMetaModelBuilder)
     private var searchWithMetaModelBuilder: any SearchWithMetaModelBuilderProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
     @Published var searchText = ""
     @Published var sections = [ListSectionData<String?, SearchWithMetaModel>]()
-    @Published var objectTypesModelsToCreate = [ObjectSearchCreationModel]()
     @Published var dismiss = false
     
-    private weak var output: (any ObjectSearchWithMetaModuleOutput)?
     private var searchResult = [SearchResultWithMeta]()
     
     let moduleData: ObjectSearchWithMetaModuleData
     var isInitial = true
     
-    init(data: ObjectSearchWithMetaModuleData, output: (any ObjectSearchWithMetaModuleOutput)?) {
+    init(data: ObjectSearchWithMetaModuleData) {
         self.moduleData = data
-        self.output = output
-    }
-    
-    func subscribeOnTypes() async {
-        for await _ in objectTypeProvider.syncPublisher.values {
-            let objectTypes = objectTypeProvider.objectTypes(spaceId: moduleData.spaceId).filter {
-                moduleData.type.objectTypesCreationKeys.contains($0.uniqueKey)
-            }
-            updateObjectTypesModels(objectTypes: objectTypes)
-        }
     }
     
     func search() async {
@@ -52,7 +36,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
             searchResult = try await searchWithMetaService.search(
                 text: searchText,
                 spaceId: moduleData.spaceId,
-                layouts: moduleData.type.section.supportedLayouts,
+                layouts: ObjectSearchWithMetaModuleData.supportedLayouts,
                 sorts: buildSorts(),
                 excludedObjectIds: moduleData.excludedObjectIds
             )
@@ -94,19 +78,6 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
         }
     }
     
-    private func updateObjectTypesModels(objectTypes: [ObjectType]) {
-        objectTypesModelsToCreate = moduleData.type.objectTypesCreationKeys.compactMap { [weak self] key in
-            guard let self, let objectType = objectTypes.first(where: { $0.uniqueKey == key }),
-                  let title = moduleData.type.title(for: key) else { return nil }
-            return ObjectSearchCreationModel(
-                title: title,
-                onTap: { [weak self] in
-                    self?.didSelectCreateObject(type: objectType)
-                }
-            )
-        }
-    }
-    
     private func updateInitialStateIfNeeded() {
         guard isInitial else { return }
         isInitial = false
@@ -138,21 +109,9 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
             )
         }
     }
-    
-    private func didSelectCreateObject(type: ObjectType) {
-        Task {
-            let objectDetails = try await objectActionsService.createObject(
-                name: "",
-                typeUniqueKey: type.uniqueKey,
-                shouldDeleteEmptyObject: true,
-                shouldSelectType: false,
-                shouldSelectTemplate: false,
-                spaceId: moduleData.spaceId,
-                origin: .none,
-                templateId: type.defaultTemplateId
-            )
-            guard let data = objectDetails.screenData().editorScreenData else { return }
-            output?.onOpenObject(data: data)
-        }
-    }
+}
+
+extension ObjectSearchWithMetaModuleData {    
+    static let supportedLayouts: [DetailsLayout] =
+        ObjectTypeSection.pages.supportedLayouts + ObjectTypeSection.lists.supportedLayouts
 }
