@@ -88,7 +88,7 @@ struct EmailCollectionView: View {
             )
             .colorScheme(.light)
             
-            if !FeatureFlags.mandatoryOnboardingEmailCollection {
+            if FeatureFlags.skipOnboardingEmailCollection {
                 StandardButton(
                     Loc.skip,
                     style: .secondaryLarge,

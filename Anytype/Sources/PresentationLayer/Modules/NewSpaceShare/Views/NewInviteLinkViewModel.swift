@@ -93,6 +93,7 @@ final class NewInviteLinkViewModel: ObservableObject {
             if inviteType == .viewer {
                 try await workspaceService.changeInvite(spaceId: spaceId, permissions: .writer)
             } else {
+                try await workspaceService.makeSharable(spaceId: spaceId)
                 try await workspaceService.revokeInvite(spaceId: spaceId)
                 _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
             }
@@ -100,10 +101,12 @@ final class NewInviteLinkViewModel: ObservableObject {
             if inviteType == .editor {
                 try await workspaceService.changeInvite(spaceId: spaceId, permissions: .reader)
             } else {
+                try await workspaceService.makeSharable(spaceId: spaceId)
                 try await workspaceService.revokeInvite(spaceId: spaceId)
                 _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .reader)
             }
         case .requestAccess:
+            try await workspaceService.makeSharable(spaceId: spaceId)
             try await workspaceService.revokeInvite(spaceId: spaceId)
             _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .member, permissions: nil)
         case .disabled:

@@ -119,10 +119,12 @@ final class SpaceHubViewModel: ObservableObject {
         newOrder.insert(spaceView.id, at: 0)
         
         try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
+        AnytypeAnalytics.instance().logPinSpace()
     }
     
     func unpin(spaceView: SpaceView) async throws {
         try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
+        AnytypeAnalytics.instance().logUnpinSpace()
     }
     
     func openSpaceSettings(spaceId: String) {

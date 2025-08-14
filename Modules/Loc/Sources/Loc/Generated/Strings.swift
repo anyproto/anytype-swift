@@ -506,6 +506,9 @@ public enum Loc {
   public static let yellow = Loc.tr("Localizable", "Yellow", fallback: "Yellow")
   public static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   public static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
+  public static func youJoined(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "You joined", String(describing: p1), fallback: "You joined %@")
+  }
   public static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
   public enum AITool {
     public static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
@@ -759,8 +762,8 @@ public enum Loc {
       public static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
     public enum AttachmentsLimit {
-      public static func alert(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", String(describing: p1), fallback: "You can upload only %@ attachments at a time")
+      public static func alert(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", p1, fallback: "Plural format key: Chat.AttachmentsLimit.Alert")
       }
     }
     public enum CreateObject {
@@ -979,13 +982,13 @@ public enum Loc {
             public static let tomorrow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Tomorrow", fallback: "Tomorrow")
             public static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday", fallback: "Yesterday")
             public enum NumberOfDaysAgo {
-              public static func short(_ p1: Any) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", String(describing: p1), fallback: "%@ days ago")
+              public static func short(_ p1: Int) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", p1, fallback: "Plural format key: EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short")
               }
             }
             public enum NumberOfDaysFromNow {
-              public static func short(_ p1: Any) -> String {
-                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", String(describing: p1), fallback: "%@ days from now")
+              public static func short(_ p1: Int) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", p1, fallback: "Plural format key: EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short")
               }
             }
           }
@@ -1272,15 +1275,12 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "Membership.EmailForm.Title", fallback: "Get updates and enjoy free perks!")
     }
     public enum Feature {
-      public static func invites(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.Invites", String(describing: p1), fallback: "%@ Invitations")
-      }
       public static let localName = Loc.tr("Localizable", "Membership.Feature.LocalName", fallback: "Local, non-unique name")
-      public static func sharedSpaces(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", String(describing: p1), fallback: "Up to %@ Shared spaces")
+      public static func sharedSpaces(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", p1, fallback: "Plural format key: Membership.Feature.SharedSpaces")
       }
-      public static func spaceWriters(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", String(describing: p1), fallback: "%@ Editors per shared space")
+      public static func spaceWriters(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", p1, fallback: "Plural format key: Membership.Feature.SpaceWriters")
       }
       public static func storageGB(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Membership.Feature.StorageGB", String(describing: p1), fallback: "%@ GB of backup & sync space on the Anytype network")
@@ -1289,8 +1289,8 @@ public enum Loc {
         return Loc.tr("Localizable", "Membership.Feature.UniqueName", String(describing: p1), fallback: "Unique Network name (%@+ characters)")
       }
       public static let unlimitedViewers = Loc.tr("Localizable", "Membership.Feature.UnlimitedViewers", fallback: "Unlimited Viewers for shared spaces")
-      public static func viewers(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.Viewers", String(describing: p1), fallback: "%@ Viewers for shared spaces")
+      public static func viewers(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.Viewers", p1, fallback: "Plural format key: Membership.Feature.Viewers")
       }
     }
     public enum Legal {

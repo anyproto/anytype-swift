@@ -41,7 +41,7 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
         case .pages:
             DetailsLayout.editorLayouts
         case .lists:
-            DetailsLayout.listLayouts
+            DetailsLayout.listLayouts + [DetailsLayout.objectType]
         case .files:
             DetailsLayout.fileLayouts
         case .media:

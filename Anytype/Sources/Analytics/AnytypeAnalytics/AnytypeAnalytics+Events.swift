@@ -1729,4 +1729,12 @@ extension AnytypeAnalytics {
             ].compactMapValues { $0 }
         )
     }
+    
+    func logPinSpace() {
+        logEvent("PinSpace")
+    }
+    
+    func logUnpinSpace() {
+        logEvent("UnpinSpace")
+    }
 }
