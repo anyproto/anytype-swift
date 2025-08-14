@@ -20,14 +20,10 @@ struct SharingExtensionView: View {
             DragIndicator()
             ModalNavigationHeader(title: Loc.Sharing.title)
             
-            ZStack(alignment: .bottom) {
-                listView
-                    .safeAreaInset(edge: .bottom) {
-                        Spacer.fixedHeight(150)
-                    }
-                    .scrollDismissesKeyboard(.immediately)
-                
-                    bottomPanel
+            if model.withoutSpaceState {
+                withoutSpace
+            } else {
+                content
             }
         }
         .task {
@@ -37,6 +33,28 @@ struct SharingExtensionView: View {
             dismiss()
         }
         .disabled(model.sendInProgress)
+        .onChange(of: model.searchText) { _ in
+            model.search()
+        }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        SearchBar(
+            text: $model.searchText,
+            focused: false,
+            placeholder: Loc.search,
+            shouldShowDivider: false
+        )
+        ZStack(alignment: .bottom) {
+            listView
+                .safeAreaInset(edge: .bottom) {
+                    Spacer.fixedHeight(150)
+                }
+                .scrollDismissesKeyboard(.immediately)
+            
+                bottomPanel
+        }
     }
     
     private var listView: some View {
@@ -79,6 +97,10 @@ struct SharingExtensionView: View {
                     try await model.onTapSend()
                 }
         }
+    }
+    
+    private var withoutSpace: some View {
+        EmptyStateView(title: "You don't have any spaces yet", subtitle: "", style: .withImage, buttonData: nil)
     }
 }
 
