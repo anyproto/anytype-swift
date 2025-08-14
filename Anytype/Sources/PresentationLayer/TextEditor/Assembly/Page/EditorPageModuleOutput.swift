@@ -7,7 +7,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()
     func onSelectCodeLanguage(objectId: String, spaceId: String, blockId: String)
-    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Relation)
+    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Property)
     func showLinkToObject(data: LinkToObjectSearchModuleData)
     func showIconPicker(document: some BaseDocumentProtocol)
     func showTextIconPicker(data: TextIconPickerData)
@@ -16,7 +16,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func versionRestored(_ text: String)
     func openUrl(_ url: URL)
     func showSyncStatusInfo(spaceId: String)
-    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
     func showObectSettings(output: any ObjectSettingsCoordinatorOutput)
     
     // TODO: Refactoring templates. Delete it

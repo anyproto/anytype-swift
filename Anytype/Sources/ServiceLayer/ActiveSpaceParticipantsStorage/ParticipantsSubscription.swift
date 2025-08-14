@@ -10,6 +10,10 @@ extension ParticipantsSubscriptionProtocol {
     var activeParticipantsPublisher: AnyPublisher<[Participant], Never> {
         participantsPublisher.map { $0.filter { $0.status == .active } }.eraseToAnyPublisher()
     }
+    
+    var withoutRemovingParticipantsPublisher: AnyPublisher<[Participant], Never> {
+        participantsPublisher.map { $0.filter { $0.status != .removing } }.eraseToAnyPublisher()
+    }
 }
 
 actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
@@ -40,7 +44,7 @@ actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
     private func startSubscription(spaceId: String) async throws {
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
+            relation: BundledPropertyKey.name,
             type: .asc
         )
         

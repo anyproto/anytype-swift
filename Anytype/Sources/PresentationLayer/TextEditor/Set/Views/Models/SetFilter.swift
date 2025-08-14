@@ -3,7 +3,7 @@ import SwiftProtobuf
 import OrderedCollections
 
 struct SetFilter: Identifiable, Equatable, Hashable {
-    let relationDetails: RelationDetails
+    let relationDetails: PropertyDetails
     let filter: DataviewFilter
     
     var id: String { relationDetails.id }
@@ -12,7 +12,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         conditionType.data[filter.condition]
     }
     
-    static func defaultCondition(for relationDetails: RelationDetails) -> DataviewFilter.Condition {
+    static func defaultCondition(for relationDetails: PropertyDetails) -> DataviewFilter.Condition {
         let conditionType =  Self.conditionType(for: relationDetails)
         switch conditionType {
         case .text, .number, .checkbox, .date:
@@ -26,7 +26,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         Self.conditionType(for: relationDetails)
     }
     
-    static func conditionType(for relationDetails: RelationDetails) -> Condition {
+    static func conditionType(for relationDetails: PropertyDetails) -> Condition {
         switch relationDetails.format {
         case .shortText, .longText, .url, .email, .unrecognized, .phone:
             return .text
@@ -44,7 +44,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     enum Condition {
         case text
         case number
-        case selected(RelationFormat)
+        case selected(PropertyFormat)
         case checkbox
         case date
         
@@ -117,7 +117,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
 
 extension SetFilter {
     func updated(
-        relationDetails: RelationDetails? = nil,
+        relationDetails: PropertyDetails? = nil,
         filter: DataviewFilter? = nil
     ) -> SetFilter {
         SetFilter(

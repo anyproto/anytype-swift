@@ -36,20 +36,23 @@ struct MockView<Content: View>: View {
     }
     
     private func setupPreviewMocks() {
-        Container.shared.workspaceStorage.onPreview {
+        Container.shared.workspaceStorage.register {
             WorkspacesStorageMock.shared
         }
-        Container.shared.singleObjectSubscriptionService.onPreview {
+        Container.shared.singleObjectSubscriptionService.register {
             SingleObjectSubscriptionServiceMock.shared
         }
-        Container.shared.membershipStatusStorage.onPreview {
+        Container.shared.membershipStatusStorage.register {
             MembershipStatusStorageMock.shared
         }
-        Container.shared.fileLimitsStorage.onPreview {
+        Container.shared.fileLimitsStorage.register {
             FileLimitsStorageMock.shared
         }
-        Container.shared.syncStatusStorage.onPreview {
+        Container.shared.syncStatusStorage.register {
             SyncStatusStorageMock.shared
+        }
+        Container.shared.participantSpacesStorage.register {
+            ParticipantSpacesStorageMock.shared
         }
     }
 }

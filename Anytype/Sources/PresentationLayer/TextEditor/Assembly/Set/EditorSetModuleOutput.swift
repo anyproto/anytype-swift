@@ -21,7 +21,7 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showSettings()
     func showCoverPicker(document: some BaseDocumentProtocol)
     func showIconPicker(document: some BaseDocumentProtocol)
-    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
+    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Property)
     func showSetObjectCreationSettings(
         document: some SetDocumentProtocol,
         viewId: String,

@@ -46,6 +46,48 @@ struct ChatInputLinkParserTests {
                 range: NSRange(location: 10, length: 7),
                 link: URL(string: "c://d.e")!
             )
+        ),
+        (
+            NSAttributedString(string: "A testuser@gmail.com"),
+            NSRange(location: 17, length: 0),
+            " ",
+            nil
+        ),
+        (
+            NSAttributedString(string: "A H://A.B"),
+            NSRange(location: 9, length: 0),
+            " ",
+            ChatInputLinkParserChange.addLinkStyle(
+                range: NSRange(location: 2, length: 7),
+                link: URL(string: "h://A.B")!
+            )
+        ),
+        (
+            NSAttributedString(string: "A +14081112233"),
+            NSRange(location: 14, length: 0),
+            " ",
+            ChatInputLinkParserChange.addLinkStyle(
+                range: NSRange(location: 2, length: 12),
+                link: URL(string: "tel:+14081112233")!
+            )
+        ),
+        (
+            NSAttributedString(string: "A +1(408)111-22-33"),
+            NSRange(location: 18, length: 0),
+            " ",
+            ChatInputLinkParserChange.addLinkStyle(
+                range: NSRange(location: 2, length: 16),
+                link: URL(string: "tel:+1(408)111-22-33")!
+            )
+        ),
+        (
+            NSAttributedString(string: "A testuser@gmail.com"),
+            NSRange(location: 20, length: 0),
+            " ",
+            ChatInputLinkParserChange.addLinkStyle(
+                range: NSRange(location: 2, length: 18),
+                link: URL(string: "mailto:testuser@gmail.com")!
+            )
         )
     ])
     func testHandleInput(
@@ -80,6 +122,51 @@ struct ChatInputLinkParserTests {
                 ChatInputLinkParserChange.addLinkStyle(
                     range: NSRange(location: 14, length: 7),
                     link: URL(string: "f://g.h")!
+                )
+            ]
+        ),
+        (
+            "AAA site.com",
+            [
+                ChatInputLinkParserChange.addLinkStyle(
+                    range: NSRange(location: 4, length: 8),
+                    link: URL(string: "http://site.com")!
+                )
+            ]
+        ),
+        (
+            "C://D.E",
+            [
+                ChatInputLinkParserChange.addLinkStyle(
+                    range: NSRange(location: 0, length: 7),
+                    link: URL(string: "c://D.E")!
+                )
+            ]
+        ),
+        (
+            "A +14081112233",
+            [
+                ChatInputLinkParserChange.addLinkStyle(
+                    range: NSRange(location: 2, length: 12),
+                    link: URL(string: "tel:+14081112233")!
+                )
+            ]
+        ),
+        (
+            "A +1(408)111-22-33",
+            [
+                ChatInputLinkParserChange.addLinkStyle(
+                    range: NSRange(location: 2, length: 16),
+                    link: URL(string: "tel:+1(408)111-22-33")!
+                )
+            ]
+        ),
+        (
+            "A testuser@gmail.com",
+            [
+                ChatInputLinkParserChange.addLinkStyle(
+                    range: NSRange(location: 2, length: 18),
+                    link: URL(string: "mailto:testuser@gmail.com")!
                 )
             ]
         )

@@ -74,6 +74,7 @@ extension Anytype_Rpc.Publishing {
             case noSuchObject // = 101
             case noSuchSpace // = 102
             case limitExceeded // = 103
+            case urlAlreadyTaken // = 409
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -88,6 +89,7 @@ extension Anytype_Rpc.Publishing {
               case 101: self = .noSuchObject
               case 102: self = .noSuchSpace
               case 103: self = .limitExceeded
+              case 409: self = .urlAlreadyTaken
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -100,6 +102,7 @@ extension Anytype_Rpc.Publishing {
               case .noSuchObject: return 101
               case .noSuchSpace: return 102
               case .limitExceeded: return 103
+              case .urlAlreadyTaken: return 409
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -112,6 +115,7 @@ extension Anytype_Rpc.Publishing {
               .noSuchObject,
               .noSuchSpace,
               .limitExceeded,
+              .urlAlreadyTaken,
             ]
 
           }
@@ -285,6 +289,7 @@ extension Anytype_Rpc.Publishing.Create.Response.Error.Code: SwiftProtobuf._Prot
     101: .same(proto: "NO_SUCH_OBJECT"),
     102: .same(proto: "NO_SUCH_SPACE"),
     103: .same(proto: "LIMIT_EXCEEDED"),
+    409: .same(proto: "URL_ALREADY_TAKEN"),
   ]
 }
 

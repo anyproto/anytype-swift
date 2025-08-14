@@ -2,9 +2,9 @@ import Services
 import SwiftUI
 
 
-extension SyncStatusInfo {
-    static func `default`(spaceId: String) -> SyncStatusInfo {
-        var info = SyncStatusInfo()
+extension SpaceSyncStatusInfo {
+    static func `default`(spaceId: String) -> SpaceSyncStatusInfo {
+        var info = SpaceSyncStatusInfo()
         info.network = .UNRECOGNIZED(1337)
         info.id = spaceId
         return info
@@ -12,7 +12,7 @@ extension SyncStatusInfo {
 }
 
 // Texts
-extension SyncStatusInfo {
+extension SpaceSyncStatusInfo {
     var networkTitle: String {
         switch network {
         case .anytype:
@@ -75,7 +75,7 @@ extension SyncStatusInfo {
 }
 
 // MARK: - NetworkIconProvider
-extension SyncStatusInfo: NetworkIconProvider {
+extension SpaceSyncStatusInfo: NetworkIconProvider {
     var iconData: NetworkIconData {
         switch network {
         case .anytype:
@@ -87,7 +87,7 @@ extension SyncStatusInfo: NetworkIconProvider {
         case .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncOffline,
-                color: .Control.active
+                color: .Control.secondary
             )
         }
     }
@@ -135,7 +135,7 @@ extension SyncStatusInfo: NetworkIconProvider {
         case .error:
             NetworkIconData(
                 icon:ImageAsset.SyncStatus.syncAnytypenetworkError,
-                color: .System.red
+                color: .Pure.red
             )
         case .networkNeedsUpdate:
             NetworkIconData(
@@ -145,7 +145,7 @@ extension SyncStatusInfo: NetworkIconProvider {
         case .offline, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncOffline,
-                color: .Control.active
+                color: .Control.secondary
             )
         }
     }
@@ -160,7 +160,7 @@ extension SyncStatusInfo: NetworkIconProvider {
         case .error:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncSelfhost,
-                color: .System.red
+                color: .Pure.red
             )
         case .networkNeedsUpdate:
             NetworkIconData(
@@ -170,7 +170,7 @@ extension SyncStatusInfo: NetworkIconProvider {
         case .offline, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncSelfhost,
-                color: .Control.active
+                color: .Control.secondary
             )
         }
     }
@@ -178,7 +178,7 @@ extension SyncStatusInfo: NetworkIconProvider {
     private var localOnlyIcon: NetworkIconData {
         NetworkIconData(
             icon: ImageAsset.SyncStatus.syncLocalonlyDefault,
-            color: .Control.active
+            color: .Control.secondary
         )
     }
 }

@@ -32,8 +32,7 @@ final class BlockViewModelBuilder {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
-    
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol    
     
     init(
         document: some BaseDocumentProtocol,
@@ -73,8 +72,8 @@ final class BlockViewModelBuilder {
         self.output = output
     }
     
-    func buildEditorItems(infos: [String]) -> [EditorItem] {
-        let viewModels = build(infos)
+    func buildEditorItems(infos: [String], ignoreCache: Bool) -> [EditorItem] {
+        let viewModels = build(infos, ignoreCache: ignoreCache)
         return buildEditorItems(viewModels)
     }
     
@@ -142,15 +141,15 @@ final class BlockViewModelBuilder {
         return .system(shimmeringViewModel)
     }
     
-    private func build(_ ids: [String]) -> [any BlockViewModelProtocol] {
+    private func build(_ ids: [String], ignoreCache: Bool) -> [any BlockViewModelProtocol] {
         ids.compactMap {
-            let block = build(blockId: $0)
+            let block = build(blockId: $0, ignoreCache: ignoreCache)
             return block
         }
     }
     
-    func build(blockId: String) -> (any BlockViewModelProtocol)? {
-        if let model = modelsHolder.blocksMapping[blockId] {
+    func build(blockId: String, ignoreCache: Bool) -> (any BlockViewModelProtocol)? {
+        if !ignoreCache, let model = modelsHolder.blocksMapping[blockId] {
             return model
         }
         
@@ -197,6 +196,9 @@ final class BlockViewModelBuilder {
                             self?.editorPageBlocksStateManager.didSelectEditingState(info: blockInformation)
                         }
                         
+                    },
+                    onSelectUndoRedo: { [weak self] in
+                        self?.output?.didUndoRedo()
                     },
                     showTextIconPicker: { [weak router, weak document] in
                         guard let router, let document else { return }
@@ -317,14 +319,14 @@ final class BlockViewModelBuilder {
                 }
             )
         case .featuredRelations:
-            return FeaturedRelationsBlockViewModel(
+            return FeaturedPropertiesBlockViewModel(
                 infoProvider: blockInformationProvider,
                 document: document,
                 collectionController: blockCollectionController
             ) { [weak self] relation in
                 guard let self = self else { return }
                 
-                if relation.key == BundledRelationKey.type.rawValue && document.permissions.canChangeType {
+                if relation.key == BundledPropertyKey.type.rawValue && document.permissions.canChangeType {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in
@@ -336,7 +338,7 @@ final class BlockViewModelBuilder {
                 }
             }
         case let .relation(content):
-            let relation = document.parsedRelations.all.first {
+            let relation = document.parsedProperties.all.first {
                 $0.key == content.key
             }
             
@@ -344,11 +346,11 @@ final class BlockViewModelBuilder {
                 return nil
             }
             
-            return RelationBlockViewModel(
+            return PropertyBlockViewModel(
                 blockInformationProvider: blockInformationProvider,
-                relationProvider: RelationProvider(
+                relationProvider: PropertyProvider(
                     relation: relation,
-                    relationPublisher: document.parsedRelationsPublisher
+                    relationPublisher: document.parsedPropertiesPublisher
                 ),
                 collectionController: blockCollectionController
             ) { [weak self] in
@@ -388,6 +390,13 @@ final class BlockViewModelBuilder {
                 openSet: { [weak self] data in
                     self?.router.showEditorScreen(data: data)
                 }
+            )
+        case let .embed(content):
+            return EmbedBlockViewModel(
+                info: info,
+                blockContent: content,
+                document: document,
+                collectionController: blockCollectionController
             )
         case .unsupported:
             guard let parentId = info.configurationData.parentId,

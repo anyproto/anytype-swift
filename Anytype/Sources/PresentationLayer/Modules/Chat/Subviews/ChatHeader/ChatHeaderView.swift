@@ -14,8 +14,23 @@ struct ChatHeaderView: View {
             IncreaseTapButton {
                 model.tapOpenWidgets()
             } label: {
-                AnytypeText(model.title, style: .uxTitle1Semibold)
-                    .lineLimit(1)
+                HStack(spacing: 6) {
+                    if model.showLoading {
+                        CircleLoadingView(.Text.primary)
+                            .frame(width: 18, height: 18)
+                            .transition(.scale.combined(with: .opacity))
+                    } else {
+                        Spacer.fixedWidth(18)
+                    }
+                    AnytypeText(model.title, style: .uxTitle1Semibold)
+                        .lineLimit(1)
+                    if model.muted {
+                        Image(asset: .X18.muted)
+                            .foregroundColor(.Text.primary)
+                    } else {
+                        Spacer.fixedWidth(18)
+                    }
+                }
             }
         } rightView: {
             if model.showWidgetsButton {
@@ -27,8 +42,13 @@ struct ChatHeaderView: View {
                 }
             }
         }
-        .task {
-            await model.subscribe()
+        .background {
+            HomeBlurEffectView(direction: .topToBottom)
+                .ignoresSafeArea()
         }
+        .task {
+            await model.startSubscriptions()
+        }
+        .animation(.default, value: model.showLoading)
     }
 }

@@ -12,7 +12,7 @@ struct ObjectPreviewModel {
     var cardStyle: BlockLink.CardStyle
     var iconSize: BlockLink.IconSize
     var description: BlockLink.Description
-    var coverRelation: Relation?
+    var coverRelation: ObjectPreviewModel.Relation?
     var isCoverRelationEnabled: Bool
     var isIconMenuVisible: Bool
     
@@ -51,8 +51,8 @@ struct ObjectPreviewModel {
     mutating func setupCoverRelation() {
         switch cardStyle {
         case .card:
-            self.coverRelation = Relation(
-                key: BundledRelationKey.coverType.rawValue,
+            self.coverRelation = ObjectPreviewModel.Relation(
+                key: BundledPropertyKey.coverType.rawValue,
                 name: Loc.cover,
                 iconAsset: nil,
                 isLocked: false,
@@ -64,14 +64,14 @@ struct ObjectPreviewModel {
     }
 
     private static func buildRealtions(relations: [BlockLink.Relation]) -> [ListItem] {
-        let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
+        let nameRelation = ObjectPreviewModel.Relation(key: BundledPropertyKey.name.rawValue,
                                     name: Loc.name,
-                                    iconAsset: RelationFormat.shortText.iconAsset,
+                                    iconAsset: PropertyFormat.shortText.iconAsset,
                                     isLocked: true,
                                     isEnabled: relations.contains(.name))
-        let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
+        let typeRelation = ObjectPreviewModel.Relation(key: BundledPropertyKey.type.rawValue,
                                     name: Loc.LinkAppearance.ObjectType.title,
-                                    iconAsset: RelationFormat.object.iconAsset,
+                                    iconAsset: PropertyFormat.object.iconAsset,
                                     isLocked: false,
                                     isEnabled: relations.contains(.type))
 
@@ -85,7 +85,7 @@ extension ObjectPreviewModel {
         case relation(Relation)
         case description
 
-        var relation: Relation? {
+        var relation: ObjectPreviewModel.Relation? {
             guard case let .relation(relation) = self else {
                 return nil
             }
@@ -158,6 +158,6 @@ extension BlockLink.Description {
     }
 
     var iconAsset: ImageAsset {
-        RelationFormat.longText.iconAsset
+        PropertyFormat.longText.iconAsset
     }
 }

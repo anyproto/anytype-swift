@@ -1,6 +1,9 @@
 import Foundation
 import Services
+import AnytypeCore
+import StoredHashMacro
 
+@StoredHash
 struct MessageViewData: Identifiable, Equatable, Hashable {
     let spaceId: String
     let chatId: String
@@ -20,6 +23,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let showAuthorName: Bool
     let canDelete: Bool
     let canEdit: Bool
+    let showMessageSyncIndicator: Bool
     
     // Raw data for action logic
     let message: ChatMessage

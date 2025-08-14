@@ -5,13 +5,14 @@ enum HeaderBuilder {
         details: ObjectDetails,
         usecase: ObjectIconImageUsecase,
         presentationUsecase: ObjectHeaderEmptyUsecase,
+        showPublishingBanner: Bool,
         onIconTap: @escaping () -> Void,
         onCoverTap: @escaping () -> Void
     ) -> ObjectHeader {
         let layoutAlign = details.layoutAlignValue
         
         if details.resolvedLayoutValue.isNote {
-            return .empty(usecase: presentationUsecase, onTap: {})
+            return .empty(usecase: presentationUsecase, showPublishingBanner: showPublishingBanner, onTap: {})
         }
         
         let icon = details.resolvedLayoutValue.haveIcon ? details.objectIcon : nil
@@ -28,7 +29,7 @@ enum HeaderBuilder {
                             coverType: .cover(cover),
                             onTap: onCoverTap
                         )
-                    )
+                    ), showPublishingBanner: showPublishingBanner
             )
         }
         
@@ -43,7 +44,7 @@ enum HeaderBuilder {
                             ),
                             onCoverTap: onCoverTap
                         )
-                    )
+                    ), showPublishingBanner: showPublishingBanner
             )
         }
         
@@ -54,12 +55,16 @@ enum HeaderBuilder {
                             coverType: .cover(cover),
                             onTap: onCoverTap
                         )
-                    )
+                    ), showPublishingBanner: showPublishingBanner
             )
         }
         
         return .empty(
-            data: .init(presentationStyle: presentationUsecase, onTap: onCoverTap),
+            data: ObjectHeaderEmptyData(
+                presentationStyle: presentationUsecase,
+                onTap: onCoverTap
+            ),
+            showPublishingBanner: showPublishingBanner,
             isShimmering: false
         )
     }

@@ -1,34 +1,43 @@
 import Services
 import AnytypeCore
+import NotificationsCore
+import Foundation
+import CryptoKit
 
 protocol EncryptionKeyEventHandlerProtocol: AnyObject, Sendable {
     func startSubscription() async
 }
 
-final class EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
+actor EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
     
     private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
     
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
+    
     func startSubscription() async {
-        for await events in await EventBunchSubscribtion.default.stream() {
-            for event in events.middlewareEvents {
-                switch event.value {
-                case let .pushEncryptionKeyUpdate(data):
-                    updateKey(data.encryptionKey, keyId: data.encryptionKeyID)
-                default:
-                    break
-                }
+        let stream = workspaceStorage.allWorkspsacesPublisher.values
+            .map { $0.map { $0.pushNotificationEncryptionKey }.filter { $0.isNotEmpty } }
+            .removeDuplicates()
+        for await keys in stream {
+            for key in keys {
+                updateKey(key)
             }
         }
     }
     
-    private func updateKey(_ key: String, keyId: String) {
+    private func updateKey(_ key: String) {
         do {
+            guard let keyData = Data(base64Encoded: key) else {
+                throw CommonError.undefined
+            }
+            let keyId = SHA256.hash(data: keyData)
+                    .compactMap { String(format: "%02x", $0) }
+                    .joined()
             try encryptionKeyService.saveKey(key, keyId: keyId)
         } catch {
             anytypeAssertionFailure("Can't save encryption key", info: [
-                "error": error.localizedDescription,
-                "keyId": keyId
+                "error": error.localizedDescription
             ])
         }
     }

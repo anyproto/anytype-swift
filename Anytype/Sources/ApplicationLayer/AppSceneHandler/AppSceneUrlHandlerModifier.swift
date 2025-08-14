@@ -1,15 +1,21 @@
 import Foundation
 import SwiftUI
+import DesignKit
 
 private struct AppSceneUrlHandlerModifier: ViewModifier {
     
     @StateObject private var model = AppSceneUrlHandlerModifierModel()
+    @State private var toast: ToastBarData?
     
     func body(content: Content) -> some View {
         content
             .environment(\.openURL, OpenURLAction { url in
                 if model.onOpenURL(url) {
                     return .handled
+                }
+                if !UIApplication.shared.canOpenURL(url) {
+                    UIPasteboard.general.string = url.absoluteString
+                    toast = ToastBarData(Loc.copiedToClipboard(url.absoluteString))
                 }
                 return .systemAction(url)
             })
@@ -25,6 +31,7 @@ private struct AppSceneUrlHandlerModifier: ViewModifier {
                 _ = model.onOpenURL(url)
             }
             .safariSheet(url: $model.safariUrl)
+            .snackbar(toastBarData: $toast)
     }
 }
 

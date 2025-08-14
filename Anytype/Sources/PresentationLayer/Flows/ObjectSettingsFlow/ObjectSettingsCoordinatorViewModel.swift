@@ -7,7 +7,7 @@ import SwiftUI
 final class ObjectSettingsCoordinatorViewModel: 
     ObservableObject,
     ObjectSettingsModelOutput,
-    RelationValueCoordinatorOutput,
+    PropertyValueCoordinatorOutput,
     ObjectVersionModuleOutput
 {
     
@@ -18,8 +18,9 @@ final class ObjectSettingsCoordinatorViewModel:
     @Published var coverPickerData: BaseDocumentIdentifiable?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
-    @Published var relationsListData: RelationsListData?
+    @Published var relationsListData: PropertiesListData?
     @Published var versionHistoryData: VersionHistoryData?
+    @Published var publishingData: PublishToWebViewData?
     @Published var dismiss = false
     
     init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
@@ -47,7 +48,7 @@ final class ObjectSettingsCoordinatorViewModel:
     
     func relationsAction(document: some BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logScreenObjectRelation()
-        relationsListData = RelationsListData(document: document)
+        relationsListData = PropertiesListData(document: document)
     }
     
     func showVersionHistory(document: some BaseDocumentProtocol) {
@@ -60,12 +61,16 @@ final class ObjectSettingsCoordinatorViewModel:
         )
     }
     
+    func showPublising(document: some BaseDocumentProtocol) {
+        publishingData = PublishToWebViewData(objectId: document.objectId, spaceId: document.spaceId)
+    }
+    
     func openPageAction(screenData: ScreenData) {
         output?.showEditorScreen(data: screenData)
     }
     
     func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
-        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + [.set, .participant]
+        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + [.set, .participant, .objectType]
         blockObjectSearchData = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
@@ -93,7 +98,7 @@ final class ObjectSettingsCoordinatorViewModel:
         output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
     
-    // MARK: - RelationValueCoordinatorOutput
+    // MARK: - PropertyValueCoordinatorOutput
     
     func showEditorScreen(data: ScreenData) {
         Task { @MainActor in

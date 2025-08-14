@@ -41,6 +41,9 @@ struct InitialCoordinatorView: View {
         .sheet(item: $model.localStoreURL) { link in
             ActivityView(activityItems: [link])
         }
+        .anytypeSheet(item: $model.secureAlertData) {
+            SecureAlertView(data: $0)
+        }
     }
     
     private var crashView: some View {

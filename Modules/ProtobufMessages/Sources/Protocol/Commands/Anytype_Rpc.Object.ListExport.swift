@@ -66,6 +66,9 @@ extension Anytype_Rpc.Object {
 
         public var includeSpace: Bool = false
 
+        /// include properties frontmatter and schema in directory for markdown export
+        public var mdIncludePropertiesAndSchema: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -229,6 +232,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     12: .same(proto: "linksStateFilters"),
     13: .same(proto: "includeBacklinks"),
     14: .same(proto: "includeSpace"),
+    15: .same(proto: "mdIncludePropertiesAndSchema"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -250,6 +254,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
       case 12: try { try decoder.decodeSingularMessageField(value: &self._linksStateFilters) }()
       case 13: try { try decoder.decodeSingularBoolField(value: &self.includeBacklinks) }()
       case 14: try { try decoder.decodeSingularBoolField(value: &self.includeSpace) }()
+      case 15: try { try decoder.decodeSingularBoolField(value: &self.mdIncludePropertiesAndSchema) }()
       default: break
       }
     }
@@ -299,6 +304,9 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if self.includeSpace != false {
       try visitor.visitSingularBoolField(value: self.includeSpace, fieldNumber: 14)
     }
+    if self.mdIncludePropertiesAndSchema != false {
+      try visitor.visitSingularBoolField(value: self.mdIncludePropertiesAndSchema, fieldNumber: 15)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -316,6 +324,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
     if lhs._linksStateFilters != rhs._linksStateFilters {return false}
     if lhs.includeBacklinks != rhs.includeBacklinks {return false}
     if lhs.includeSpace != rhs.includeSpace {return false}
+    if lhs.mdIncludePropertiesAndSchema != rhs.mdIncludePropertiesAndSchema {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -56,16 +56,19 @@ struct SetFullHeader: View {
     private var cover: some View {
         Group {
             switch model.headerModel.header {
-            case .empty(let data, _):
+            case .empty(let data, _, _):
                 Button(action: data.onTap) {
                     emptyCover(presentationStyle: data.presentationStyle)
                 }
-            case .filled(let state, _):
+            case let .filled(state, showPublishingBanner, _):
                 ObjectHeaderFilledContentSwitfUIView(
                     configuration: ObjectHeaderFilledConfiguration(
                         state: state,
                         isShimmering: false,
-                        sizeConfiguration: .editorSizeConfiguration(width: width)
+                        sizeConfiguration: .editorSizeConfiguration(
+                            width: width,
+                            showPublishingBanner: showPublishingBanner
+                        )
                     )
                 )
             default:
@@ -91,12 +94,14 @@ struct SetFullHeader: View {
                 }.minimumScaleFactor(0.5)
             }
 
-            StandardButton(
-                .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
-                style: .secondarySmall
-            ) {
-                model.onObjectTypePropertiesTap()
-            }.minimumScaleFactor(0.5)
+            if model.showProperties {
+                StandardButton(
+                    .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
+                    style: .secondarySmall
+                ) {
+                    model.onObjectTypePropertiesTap()
+                }.minimumScaleFactor(0.5)
+            }
             
             if model.showObjectTypeTemplates {
                 StandardButton(
@@ -178,7 +183,7 @@ extension SetFullHeader {
     }
 
     private var featuredRelationsView: some View {
-        FeaturedRelationsView(
+        FeaturedPropertiesView(
             relations: model.featuredRelations,
             view: { relation in
                 relationContent(for: relation)
@@ -187,10 +192,10 @@ extension SetFullHeader {
     }
     
     @ViewBuilder
-    private func relationContent(for relation: Relation) -> some View {
-        let item = RelationItemModel(relation: relation)
-        let style = RelationStyle.featuredRelationBlock(
-            FeaturedRelationSettings(
+    private func relationContent(for relation: Property) -> some View {
+        let item = PropertyItemModel(property: relation)
+        let style = PropertyStyle.featuredBlock(
+            FeaturedPropertySettings(
                 allowMultiLine: false,
                 prefix: relation.setOfPrefix,
                 showIcon: relation.showIcon,
@@ -199,13 +204,13 @@ extension SetFullHeader {
             )
         )
         let contextMenuItems = model.contextMenuItems(for: relation)
-        let mode: RelationValueViewModel.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
+        let mode: PropertyValueViewModel.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
             UIApplication.shared.hideKeyboard()
             model?.onRelationTap(relation: relation)
         })
-        RelationValueView(
-            model: RelationValueViewModel(
-                relation: item,
+        PropertyValueView(
+            model: PropertyValueViewModel(
+                property: item,
                 style: style,
                 mode: mode
             )

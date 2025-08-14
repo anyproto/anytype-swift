@@ -29,7 +29,7 @@ final class SpaceMembersViewModel: ObservableObject {
     }
     
     func startParticipantTask() async {
-        for await participants in participantsSubscription.activeParticipantsPublisher.values {
+        for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
             updateParticipant(items: participants)
         }
     }

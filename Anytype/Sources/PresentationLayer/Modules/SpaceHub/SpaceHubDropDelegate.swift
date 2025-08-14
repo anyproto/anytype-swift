@@ -27,32 +27,43 @@ struct SpaceHubDropDelegate: DropDelegate {
     
     func dropEntered(info: DropInfo) {
         guard var allSpaces, let draggedItem else { return }
-        guard let fromIndex = allSpaces.firstIndex(of: draggedItem) else { return }
-        guard let toIndex = allSpaces.firstIndex(of: destinationItem) else { return }
+        guard let fromIndex = allSpaces.firstIndex(where: { $0.space.id == draggedItem.space.id } ) else { return }
+        guard let toIndex = allSpaces.firstIndex(where: { $0.space.id == destinationItem.space.id } ) else { return }
         
         guard fromIndex != toIndex else { return }
         
         if initialIndex.isNil { initialIndex = fromIndex }
         
         guard let destinationSpace = allSpaces[safe: toIndex] else { return }
+        guard destinationSpace.spaceView.isPinned || !FeatureFlags.pinnedSpaces else { return }
         
         allSpaces.move(
             fromOffsets: IndexSet(integer: fromIndex),
             toOffset: (toIndex > fromIndex ? (toIndex + 1) : toIndex)
         )
         let newOrder = allSpaces
+            .filter({ $0.spaceView.isPinned || !FeatureFlags.pinnedSpaces })
             .map(\.spaceView.id)
         
-        // Doesn't use @Injected(\.spaceOrderService)
-        // Delegate is created for each update. Resolving DI takes time on the main thread.
-        let spaceOrderService = Container.shared.spaceOrderService()
-        let workspaceStorage = Container.shared.workspaceStorage()
         
-        let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
-        if let destinationItem = allSpaces[safe: destinationIndex] {
+        if FeatureFlags.pinnedSpaces {
             Task {
-                await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
-                AnytypeAnalytics.instance().logReorderSpace()
+                // Doesn't use @Injected(\.spaceOrderService)
+                // Delegate is created for each update. Resolving DI takes time on the main thread.
+                let spaceOrderService = Container.shared.spaceOrderService()
+                
+                try await spaceOrderService.setOrder(
+                    spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
+                )
+            }
+        } else {
+            let destinationIndex = toIndex > initialIndex! ? toIndex - 1 : toIndex + 1
+            if let destinationItem = allSpaces[safe: destinationIndex] {
+                Task {
+                    let workspaceStorage = Container.shared.workspaceStorage()
+                    await workspaceStorage.move(space: draggedItem.spaceView, after: destinationItem.spaceView)
+                    AnytypeAnalytics.instance().logReorderSpace()
+                }
             }
         }
     }

@@ -3,7 +3,7 @@ import UIKit
 import AnytypeCore
 
 struct DividerBlockViewModel: BlockViewModelProtocol {
-    nonisolated var hashable: AnyHashable { info.id }
+    let className = "DividerBlockViewModel"
     nonisolated var info: BlockInformation { blockInformationProvider.info }
     
     private let blockInformationProvider: BlockModelInfomationProvider

@@ -28,6 +28,8 @@ extension SlashMenuViewController: UITableViewDelegate {
         switch cellData[indexPath.row] {
         case let .menu(type, children):
             guard !children.isEmpty else { return }
+            
+            AnytypeAnalytics.instance().logClickSlashMenu(type: type)
 
             let childCellData: [SlashMenuCellData] = children.map { .action($0) }
             

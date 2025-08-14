@@ -14,7 +14,7 @@ struct ObjectActionRow: View {
         label: {
             VStack(spacing: Constants.space) {
                 Image(asset: icon)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                     .frame(width: 52, height: 52)
                     .background(Color.Background.highlightedMedium)
                     .cornerRadius(10)
@@ -63,14 +63,14 @@ private extension ObjectAction {
             return Loc.Actions.linkItself
         case .makeAsTemplate:
             return Loc.Actions.makeAsTemplate
-        case .templateSetAsDefault:
-            return Loc.Actions.templateMakeDefault
+        case .templateToggleDefaultState(let isDefault):
+            return isDefault ? Loc.unsetDefault : Loc.Actions.templateMakeDefault
         case .delete:
             return Loc.delete
         case .createWidget:
             return Loc.Actions.CreateWidget.title
         case .copyLink:
-            return Loc.Actions.copyLink
+            return Loc.copyLink
         }
     }
 
@@ -90,8 +90,8 @@ private extension ObjectAction {
             return .X32.linkTo
         case .makeAsTemplate:
             return .makeAsTemplate
-        case .templateSetAsDefault:
-            return .templateMakeDefault
+        case .templateToggleDefaultState(let isDefault):
+            return isDefault ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case .delete:
             return .X32.delete
         case .createWidget:

@@ -25,6 +25,7 @@ public protocol WorkspaceServiceProtocol: Sendable {
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func participantRemove(spaceId: String, identity: String) async throws
     func leaveApprove(spaceId: String, identity: String) async throws
+    func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws
 }
 
 final class WorkspaceService: WorkspaceServiceProtocol {
@@ -50,10 +51,10 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     
     public func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> WorkspaceCreateResponse {
         let result = try await ClientCommands.workspaceCreate(.with {
-            $0.details.fields[BundledRelationKey.name.rawValue] = name.protobufValue
-            $0.details.fields[BundledRelationKey.iconOption.rawValue] = iconOption.protobufValue
-            $0.details.fields[BundledRelationKey.spaceAccessType.rawValue] = accessType.rawValue.protobufValue
-            $0.details.fields[BundledRelationKey.spaceUxType.rawValue] = uxType.rawValue.protobufValue
+            $0.details.fields[BundledPropertyKey.name.rawValue] = name.protobufValue
+            $0.details.fields[BundledPropertyKey.iconOption.rawValue] = iconOption.protobufValue
+            $0.details.fields[BundledPropertyKey.spaceAccessType.rawValue] = accessType.rawValue.protobufValue
+            $0.details.fields[BundledPropertyKey.spaceUxType.rawValue] = uxType.rawValue.protobufValue
             $0.useCase = useCase
             $0.withChat = withChat
         }).invoke()
@@ -197,6 +198,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         try await ClientCommands.spaceLeaveApprove(.with {
             $0.spaceID = spaceId
             $0.identities = [identity]
+        }).invoke()
+    }
+    
+    public func pushNotificationSetSpaceMode(spaceId: String, mode: SpacePushNotificationsMode) async throws {
+        try await ClientCommands.pushNotificationSetSpaceMode(.with {
+            $0.spaceID = spaceId
+            $0.mode = mode
         }).invoke()
     }
 }

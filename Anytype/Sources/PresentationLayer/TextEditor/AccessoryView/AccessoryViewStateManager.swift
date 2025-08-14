@@ -36,6 +36,7 @@ protocol AccessoryViewOutput: AnyObject {
     
     func didSelectEditButton()
     func didSelectShowStyleMenu()
+    func didSelectUndoRedo()
 }
 
 @MainActor
@@ -115,7 +116,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         slashMenuViewModel.update(
             with: document.spaceId,
             restrictions: restrictions,
-            relations: document.parsedRelations.installed
+            relations: document.parsedProperties.installed
         )
         
         // Markup menu
@@ -147,7 +148,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         slashMenuViewModel.update(
             with: document.spaceId,
             restrictions: restrictions,
-            relations: document.parsedRelations.installed
+            relations: document.parsedProperties.installed
         )
         
         // Markup menu
@@ -278,6 +279,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
 
         if textBeforeCaret.hasSuffix(TextTriggerSymbols.slashMenu) && configuration.usecase != .simpleTable {
             showSlashMenuView()
+            AnytypeAnalytics.instance().logScreenSlashMenu(route: .slash)
         } else if textBeforeCaret.hasSuffix(TextTriggerSymbols.mention(prependSpace: prependSpace)) {
             showMentionsView()
         } else {
@@ -432,6 +434,8 @@ extension AccessoryViewStateManagerImpl {
             configuration?.output?.accessoryState = .search
         case .editingMode:
             configuration?.output?.didSelectEditButton()
+        case .undoRedo:
+            configuration?.output?.didSelectUndoRedo()
         }
     }
     
@@ -449,7 +453,7 @@ extension AccessoryViewStateManagerImpl {
     private func logEvent(for action: CursorModeAccessoryViewAction) {
         switch action {
         case .slashMenu:
-            AnytypeAnalytics.instance().logKeyboardBarSlashMenu()
+            AnytypeAnalytics.instance().logScreenSlashMenu(route: .keyboardBar)
         case .keyboardDismiss:
             AnytypeAnalytics.instance().logKeyboardBarHideKeyboardMenu()
         case .showStyleMenu:
@@ -458,6 +462,8 @@ extension AccessoryViewStateManagerImpl {
             AnytypeAnalytics.instance().logKeyboardBarMentionMenu()
         case .editingMode:
             AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
+        case .undoRedo:
+            AnytypeAnalytics.instance().logKeyboardBarUndoMenu()
         }
     }
 }

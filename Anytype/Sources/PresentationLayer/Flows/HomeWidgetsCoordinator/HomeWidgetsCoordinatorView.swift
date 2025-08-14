@@ -10,7 +10,7 @@ struct HomeWidgetsCoordinatorView: View {
     let data: HomeWidgetData
     
     var body: some View {
-        SpaceLoadingContainerView(spaceId: data.spaceId) {
+        SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) {
             HomeWidgetsCoordinatorInternalView(info: $0)
         }
     }

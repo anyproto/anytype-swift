@@ -25,7 +25,7 @@ final class EditorSetCoordinatorViewModel:
     EditorSetModuleOutput,
     SetObjectCreationCoordinatorOutput,
     ObjectSettingsCoordinatorOutput,
-    RelationValueCoordinatorOutput,
+    PropertyValueCoordinatorOutput,
     SetObjectCreationSettingsOutput
 {
     let data: EditorListObject
@@ -34,8 +34,8 @@ final class EditorSetCoordinatorViewModel:
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
     private var legacySetObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
-    @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.propertyValueProcessingService)
+    private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
     @Injected(\.detailsService)
@@ -55,7 +55,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setViewPickerData: SetViewData?
     @Published var setViewSettingsData: SetSettingsData?
     @Published var setQueryData: SetQueryData?
-    @Published var relationValueData: RelationValueData?
+    @Published var relationValueData: PropertyValueData?
     @Published var covertPickerData: BaseDocumentIdentifiable?
     @Published var toastBarData: ToastBarData?
     @Published var objectIconPickerData: ObjectIconPickerData?
@@ -195,12 +195,12 @@ final class EditorSetCoordinatorViewModel:
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
-    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
-        handleRelationValue(relation: relation, objectDetails: objectDetails)
+    func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Property) {
+        handlePropertyValue(relation: relation, objectDetails: objectDetails)
     }
     
-    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        relationValueData = relationValueProcessingService.handleRelationValue(
+    private func handlePropertyValue(relation: Property, objectDetails: ObjectDetails) {
+        relationValueData = propertyValueProcessingService.handlePropertyValue(
             relation: relation,
             objectDetails: objectDetails,
             analyticsType: .dataview
@@ -306,7 +306,7 @@ final class EditorSetCoordinatorViewModel:
         Task { @MainActor in
             try? await templatesService.setTemplateAsDefaultForType(objectTypeId: objectId, templateId: templateId)
             navigationContext.dismissTopPresented(animated: true, completion: nil)
-            toastPresenter.show(message: Loc.Templates.Popup.default)
+            toastPresenter.show(message: templateId.isEmpty ? Loc.unsetAsDefault : Loc.Templates.Popup.default)
         }
     }
     

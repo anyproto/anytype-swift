@@ -14,14 +14,14 @@ protocol SetDocumentProtocol: AnyObject, Sendable {
     var targetObjectId: String { get }
     var inlineParameters: EditorInlineSetObject? { get }
     var blockDataview: BlockDataview? { get }
-    var dataViewRelationsDetails: [RelationDetails] { get }
+    var dataViewRelationsDetails: [PropertyDetails] { get }
     var analyticsType: AnalyticsObjectType { get }
     var details: ObjectDetails? { get }
     // TODO Refactor this
     var dataBuilder: any SetContentViewDataBuilderProtocol { get }
     
-    var featuredRelationsForEditor: [Relation] { get }
-    var parsedRelations: ParsedRelations { get }
+    var featuredRelationsForEditor: [Property] { get }
+    var parsedProperties: ParsedProperties { get }
     var setPermissions: SetPermissions { get }
     
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }
@@ -40,9 +40,9 @@ protocol SetDocumentProtocol: AnyObject, Sendable {
     func filters(for viewId: String) -> [SetFilter]
     
     func view(by id: String) -> DataviewView
-    func sortedRelations(for viewId: String) -> [SetRelation]
+    func sortedRelations(for viewId: String) -> [SetProperty]
     func canStartSubscription() -> Bool
-    func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails]
+    func viewRelations(viewId: String, excludeRelations: [PropertyDetails]) -> [PropertyDetails]
     func objectOrderIds(for groupId: String) -> [String]
     func updateActiveViewIdAndReload(_ id: String)
     func isTypeSet() -> Bool

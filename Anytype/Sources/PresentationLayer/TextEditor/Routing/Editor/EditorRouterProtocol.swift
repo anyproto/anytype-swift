@@ -19,6 +19,8 @@ protocol EditorRouterProtocol:
     
     func showFilePicker(model: AnytypePicker.ViewModel)
     func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
+    func showCamera(onMediaTaken: @escaping (ImagePickerMediaType) -> Void)
+    func showDocumentScanner(completion: @escaping (Result<[UIImage], any Error>) -> Void)
     
     func saveFile(fileURL: URL, type: FileContentType)
     
@@ -49,7 +51,7 @@ protocol EditorRouterProtocol:
     )
     
     func showRelationValueEditingView(key: String)
-    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)

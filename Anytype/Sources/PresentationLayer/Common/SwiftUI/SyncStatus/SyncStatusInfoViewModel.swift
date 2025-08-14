@@ -9,7 +9,7 @@ final class SyncStatusInfoViewModel: ObservableObject {
     @Injected(\.p2pStatusStorage)
     private var p2pStatusStorage: any P2PStatusStorageProtocol
     
-    @Published var syncStatusInfo: SyncStatusInfo
+    @Published var syncStatusInfo: SpaceSyncStatusInfo
     @Published var p2pStatusInfo: P2PStatusInfo
     
     init(spaceId: String) {

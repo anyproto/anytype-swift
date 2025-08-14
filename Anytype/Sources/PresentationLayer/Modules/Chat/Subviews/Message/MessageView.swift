@@ -6,13 +6,16 @@ struct MessageView: View {
     
     private enum Constants {
         static let attachmentsPadding: CGFloat = 4
+        static let messageHorizontalPadding: CGFloat = 12
+        static let coordinateSpace = "MessageViewCoordinateSpace"
+        static let emoji = ["👍🏻", "️️❤️", "😂"]
     }
     
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
-    @State private var contentSize: CGSize = .zero
-    @State private var headerSize: CGSize = .zero
+    @State private var bubbleCenterOffsetY: CGFloat = 0
+    
     @Environment(\.messageYourBackgroundColor) private var messageYourBackgroundColor
     
     init(
@@ -24,13 +27,30 @@ struct MessageView: View {
     }
     
     var body: some View {
+        MessageReplyActionView(
+            isEnabled: FeatureFlags.swipeToReply && data.canReply,
+            contentHorizontalPadding: Constants.messageHorizontalPadding,
+            centerOffsetY: $bubbleCenterOffsetY,
+            content: {
+                alignedСontent
+            },
+            action: {
+                output?.didSelectReplyTo(message: data)
+            }
+        )
+        .id(data.id)
+    }
+    
+    private var alignedСontent: some View {
         HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content
             trailingView
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, Constants.messageHorizontalPadding)
         .padding(.bottom, data.nextSpacing.height)
+        .fixTappableArea()
+        .coordinateSpace(name: Constants.coordinateSpace)
     }
     
     private var content: some View {
@@ -73,7 +93,7 @@ struct MessageView: View {
             
             if !data.messageString.isEmpty {
                 // Add spacing for date
-                (Text(data.messageString) + createDateTextForSpacing)
+                (Text(data.messageString) + infoForSpacing)
                     .anytypeStyle(.chatText)
                     .padding(.horizontal, 12)
                     .alignmentGuide(.timeVerticalAlignment) { $0[.bottom] }
@@ -84,15 +104,19 @@ struct MessageView: View {
         }
         .overlay(alignment: Alignment(horizontal: .trailing, vertical: .timeVerticalAlignment)) {
             if !data.messageString.isEmpty {
-                createDate
+                infoView
                     .padding(.horizontal, 12)
             }
         }
+        .messageFlashBackground(id: data.id)
         .background(messageBackgorundColor)
         .cornerRadius(16, style: .continuous)
         .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
         .contextMenu {
             contextMenu
+        }
+        .readFrame(space: .named(Constants.coordinateSpace)) {
+            bubbleCenterOffsetY = $0.midY
         }
     }
     
@@ -144,16 +168,14 @@ struct MessageView: View {
         }
     }
     
-    private var createDate: some View {
-        Text(data.createDate)
-            .anytypeFontStyle(.caption2Regular)
-            .lineLimit(1)
+    private var infoView: some View {
+        Text(messageBottomInfo: data)
             .foregroundColor(messageTimeColor)
+            .lineLimit(1)
     }
     
-    private var createDateTextForSpacing: Text {
-        (Text("  ") + Text(data.createDate))
-            .anytypeFontStyle(.caption2Regular)
+    private var infoForSpacing: Text {
+        Text(messageBottomInfo: data)
             .foregroundColor(.clear)
     }
     
@@ -165,7 +187,7 @@ struct MessageView: View {
                 canAddReaction: data.canAddReaction,
                 position: data.position,
                 onTapRow: { reaction in
-                    try await output?.didTapOnReaction(data: data, reaction: reaction)
+                    try await output?.didTapOnReaction(data: data, emoji: reaction.emoji)
                 },
                 onLongTapRow: { reaction in
                     output?.didLongTapOnReaction(data: data, reaction: reaction)
@@ -214,7 +236,6 @@ struct MessageView: View {
         }
     }
     
-    @ViewBuilder
     private var horizontalBubbleSpacing: some View {
         Spacer(minLength: 26)
     }
@@ -222,18 +243,37 @@ struct MessageView: View {
     @ViewBuilder
     private var contextMenu: some View {
         if data.canAddReaction {
-            Button {
-                output?.didSelectAddReaction(messageId: data.message.id)
-            } label: {
-                Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+            if #available(iOS 16.4, *) {
+                ControlGroup {
+                    ForEach(Constants.emoji, id:\.self) { emoji in
+                        AsyncButton {
+                            try await output?.didTapOnReaction(data: data, emoji: emoji)
+                        } label: {
+                            Text(emoji)
+                        }
+                    }
+                    Button {
+                        output?.didSelectAddReaction(messageId: data.message.id)
+                    } label: {
+                        Image(asset: .Reactions.selectEmoji)
+                    }
+                }
+                .controlGroupStyle(.compactMenu)
+            } else {
+                
+                Button {
+                    output?.didSelectAddReaction(messageId: data.message.id)
+                } label: {
+                    Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+                }
             }
         }
         
         Divider()
         
         #if DEBUG || RELEASE_NIGHTLY
-        Button {
-            output?.didSelectUnread(message: data)
+        AsyncButton {
+            try await output?.didSelectUnread(message: data)
         } label: {
             Text(Loc.Message.Action.unread)
         }
@@ -277,7 +317,7 @@ struct MessageView: View {
     }
     
     private var messageTimeColor: Color {
-        return data.position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive
+        return data.position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary
     }
 }
 

@@ -99,7 +99,7 @@ struct ObjectTypeSearchView: View {
                     viewModel.createObjectFromClipboard()
                 } label: {
                     HStack(spacing: 6) {
-                        Image(asset: .X24.clipboard).foregroundColor(.Control.active)
+                        Image(asset: .X24.clipboard).foregroundColor(.Control.secondary)
                         AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium)
                             .foregroundColor(.Text.secondary)
                         Spacer()
@@ -174,7 +174,7 @@ struct ObjectTypeSearchView: View {
                 }
                 .border(
                     12,
-                    color: shouldHighlightType(typeData) ? .System.amber50 : .Shape.primary,
+                    color: shouldHighlightType(typeData) ? .Control.accent50 : .Shape.primary,
                     lineWidth: shouldHighlightType(typeData) ? 2 : 1
                 )
                 .background(Color.Background.secondary)

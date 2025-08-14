@@ -1,7 +1,6 @@
 import SwiftUI
 import AnytypeCore
 import Services
-import CachedAsyncImage
 
 enum DashboardWallpaperMode: Hashable {
     case `default`
@@ -63,9 +62,10 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
         switch spaceIcon {
         case let .name(_, iconOption):
             IconColorStorage.iconColor(iconOption: iconOption)
-        case .imageId(let imageId):
-            CachedAsyncImage(
-                url: ImageMetadata(id: imageId, side: .width(50)).contentUrl
+        case let .imageId(imageId, _, iconOption):
+            ToggleCachedAsyncImage(
+                url: ImageMetadata(id: imageId, side: .width(50)).contentUrl,
+                urlCache: .anytypeImages
             ) { image in
                 image
                     .resizable()
@@ -73,7 +73,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
                     .padding(-64)
                     .blur(radius: 32)
             } placeholder: {
-                LoadingPlaceholderIconView()
+                IconColorStorage.iconColor(iconOption: iconOption)
             }
         case .localPath(let path):
             LocalIconView(contentsOfFile: path)

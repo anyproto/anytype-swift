@@ -60,7 +60,10 @@ struct ChatInternalMessageStorage: Sendable {
     
     mutating func add(_ message: ChatMessage) {
         if allMessages[message.id].isNotNil {
-            anytypeAssertionFailure("Try to add existing message")
+            // We don't make assert. It's normal for cases:
+            // 1. We requested a chat subscription, and it was empty.
+            // 2. They requested messages via ChatGetMessage, the middle gave the messages
+            // 3. The chatAdd event came with the same messages
             return
         }
         allMessages[message.id] = message

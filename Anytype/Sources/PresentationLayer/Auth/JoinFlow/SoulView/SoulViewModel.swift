@@ -10,6 +10,7 @@ final class SoulViewModel: ObservableObject {
         }
     }
     @Published var inProgress = false
+    @Published var generatedNamePlaceholder = ""
     
     // MARK: - DI
     
@@ -20,8 +21,8 @@ final class SoulViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.workspaceService)
-    private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
     init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
@@ -35,6 +36,12 @@ final class SoulViewModel: ObservableObject {
     
     func onNextAction() {
         updateNames()
+    }
+    
+    func startParticipantTask() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: accountManager.account.info.accountSpaceId).values {
+            generatedNamePlaceholder = participant.localName
+        }
     }
     
     // MARK: - Update names step

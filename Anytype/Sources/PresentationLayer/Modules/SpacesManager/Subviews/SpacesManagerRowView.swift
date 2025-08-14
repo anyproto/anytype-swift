@@ -86,11 +86,11 @@ private extension SpaceStatus {
     var color: Color {
         switch self {
         case .UNRECOGNIZED, .spaceJoining, .loading:
-            return .System.amber125
+            return .Pure.orange
         case .error, .missing, .remoteDeleted, .remoteWaitingDeletion, .spaceDeleted, .spaceRemoving:
-            return .System.red
+            return .Pure.red
         case .unknown, .ok, .spaceActive:
-            return .System.green
+            return .Pure.green
         }
     }
 }

@@ -1,7 +1,8 @@
 import Services
+import StoredHashMacro
 
-
-struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable {
+@StoredHash
+struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     let space: ParticipantSpaceViewData
     let preview: ChatMessagePreview
     
@@ -18,7 +19,6 @@ struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable {
 
 extension ParticipantSpaceViewDataWithPreview {
     init(space: ParticipantSpaceViewData) {
-        self.space = space
-        self.preview = ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId)
+        self.init(space: space, preview: ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId))
     }
 }

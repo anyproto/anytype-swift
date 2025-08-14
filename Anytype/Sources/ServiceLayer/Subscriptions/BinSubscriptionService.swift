@@ -36,7 +36,7 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
     ) async {
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
+            relation: BundledPropertyKey.lastModifiedDate,
             type: .desc
         )
         
@@ -52,7 +52,7 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
+                keys: BundledPropertyKey.objectListKeys.map { $0.rawValue }
             )
         )
         
@@ -63,7 +63,7 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
     
     func startSubscription(spaceId: String, objectLimit: Int?) async -> AnyAsyncSequence<[ObjectDetails]> {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
+            relation: BundledPropertyKey.lastModifiedDate,
             type: .desc
         )
         
@@ -79,7 +79,7 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
                 filters: filters,
                 limit: objectLimit ?? Constants.limit,
                 offset: 0,
-                keys: BundledRelationKey.objectListKeys.map { $0.rawValue }
+                keys: BundledPropertyKey.objectListKeys.map { $0.rawValue }
             )
         )
         

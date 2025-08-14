@@ -16,16 +16,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Download Middleware
-        run: make setup-middle-ci
-        env:
-          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
+      
+      - name: Restore cache for local build folder
+        uses: actions/cache/restore@v4
+        with:
+          path: build
+          key: build-local-tools-${{ github.sha }}
+          restore-keys: |
+            build-local-tools-
 
       - name: Setup tools
         run: make setup-env
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Middleware and Generate Files
+        run: make setup-middle
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
       - name: Run generate
         run: make generate

@@ -16,7 +16,9 @@ struct ChatInputObjectView: View {
             title: title,
             description: description,
             style: .chatInput,
-            size: size
+            size: size,
+            syncStatus: nil,
+            syncError: nil
         )
         .messageLinkObjectStyle()
         .messageLinkRemoveButton(onTapRemove: onTapRemove)

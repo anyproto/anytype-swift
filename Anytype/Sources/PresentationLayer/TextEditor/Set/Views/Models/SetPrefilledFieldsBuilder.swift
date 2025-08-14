@@ -2,14 +2,14 @@ import Services
 import SwiftProtobuf
 
 protocol SetPrefilledFieldsBuilderProtocol: Sendable {
-    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> ObjectDetails
+    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [PropertyDetails]) -> ObjectDetails
 }
 
 final class SetPrefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol, Sendable {
     
     private let prefilledConditions: [DataviewFilter.Condition] = [.allIn, .equal, .in]
     
-    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [RelationDetails]) -> ObjectDetails {
+    func buildPrefilledFields(from setFilters: [SetFilter], relationsDetails: [PropertyDetails]) -> ObjectDetails {
         var prefilledFields: [String: Google_Protobuf_Value] = [:]
         
         for relationDetails in relationsDetails {

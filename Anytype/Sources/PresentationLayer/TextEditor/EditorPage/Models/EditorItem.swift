@@ -1,6 +1,6 @@
-typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
+typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing & BlockIdProvider)
 
-enum EditorItem: Hashable, @unchecked Sendable {
+enum EditorItem: Hashable, @unchecked Sendable, BlockIdProvider {
     case header(ObjectHeader)
     case block(any BlockViewModelProtocol)
     case system(any SystemContentConfiguationProvider)
@@ -8,7 +8,7 @@ enum EditorItem: Hashable, @unchecked Sendable {
     static func == (lhs: EditorItem, rhs: EditorItem) -> Bool {
         switch (lhs, rhs) {
         case let (.block(lhsBlock), .block(rhsBlock)):
-            return lhsBlock.info.id == rhsBlock.info.id
+            return lhsBlock.hashable == rhsBlock.hashable
         case let (.header(lhsHeader), .header(rhsHeader)):
             return lhsHeader == rhsHeader
         case let (.system(rhsSystem), .system(lhsSystem)):
@@ -21,11 +21,22 @@ enum EditorItem: Hashable, @unchecked Sendable {
     func hash(into hasher: inout Hasher) {
         switch self {
         case let .block(block):
-            hasher.combine(block.info.id)
+            hasher.combine(block.hashable)
         case let .header(header):
             hasher.combine(header)
         case let.system(system):
             hasher.combine(system.hashable)
+        }
+    }
+    
+    var blockId: String {
+        switch self {
+        case .block(let block):
+            block.blockId
+        case .header(let header):
+            header.blockId
+        case .system(let systemBlock):
+            systemBlock.blockId
         }
     }
 }

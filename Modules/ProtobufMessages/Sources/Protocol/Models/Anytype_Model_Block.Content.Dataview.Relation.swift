@@ -24,10 +24,13 @@ extension Anytype_Model_Block.Content.Dataview {
         /// the displayed column % calculated based on other visible relations
         public var width: Int32 = 0
 
+        /// bool isReadOnly = 4; // deprecated
         public var dateIncludeTime: Bool = false
 
+        /// deprecated
         public var timeFormat: Anytype_Model_Block.Content.Dataview.Relation.TimeFormat = .format12
 
+        /// deprecated
         public var dateFormat: Anytype_Model_Block.Content.Dataview.Relation.DateFormat = .monthAbbrBeforeDay
 
         public var formula: Anytype_Model_Block.Content.Dataview.Relation.FormulaType = .none

@@ -18,7 +18,7 @@ extension Anytype_Event.P2PStatus {
       case notPossible // = 1
       case connected // = 2
 
-      /// only for ios for now, fallback to NotPossible if not implemented on client
+      /// only for ios for now, fallback to NotPossible if not
       case restricted // = 3
       case UNRECOGNIZED(Int)
 

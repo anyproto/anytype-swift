@@ -133,7 +133,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     private func buildSorts() -> [DataviewSort] {
         .builder {
             SearchHelper.sort(
-                relation: BundledRelationKey.lastModifiedDate,
+                relation: BundledPropertyKey.lastModifiedDate,
                 type: .desc
             )
         }

@@ -71,6 +71,9 @@ final class EditorPageController: UIViewController {
         onSyncStatusTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSyncStatusInfo()
+        }, onWebBannerTap: { [weak viewModel] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            viewModel?.onPublishingBannerTap()
         }
     )
 
@@ -81,7 +84,7 @@ final class EditorPageController: UIViewController {
     var viewModel: (any EditorPageViewModelProtocol)! {
         didSet {
             viewModel.setupSubscriptions()
-            layout.layoutDetailsPublisher = viewModel.document.layoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
+            layout.blockLayoutDetailsPublisher = viewModel.document.blockLayoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
         }
     }
     
@@ -304,13 +307,39 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.updateSyncStatusData(syncStatusData)
     }
     
+    func update(webBannerVisible: Bool) {
+        navigationBarHelper.updateWebBannerVisibility(webBannerVisible)
+    }
+    
     func reconfigure(items: [EditorItem]) {
         guard items.count > 0 else { return }
 
         var snapshot = dataSource.snapshot()
+        let notExistingItems = items.filter { !snapshot.itemIdentifiers.contains($0) }
+        
+        // If we received an update for item not presented in a data source
+        // probably the new item is a new view model for an existing block. So we have to check by ID.
+        // Example: BlockFileViewModel -> BlockImageViewModel when uploading image into file block
+        for item in notExistingItems {
+            guard let oldItem = snapshot.itemIdentifiers.first(where: { $0.blockId == item.blockId }) else {
+                continue
+            }
+            guard let index = snapshot.indexOfItem(oldItem) else { continue }
+            guard let previousItem = snapshot.itemIdentifiers[safe: index - 1] else {
+                anytypeAssertionFailure(
+                    "Not found previous item in snapshot",
+                    info: ["oldItem": String(describing: oldItem)]
+                )
+                continue
+            }
+            
+            snapshot.deleteItems([oldItem])
+            snapshot.insertItems([item], afterItem: previousItem)
+        }
         
         let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
         snapshot.reconfigureItems(existingItems)
+        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 

@@ -24,6 +24,9 @@ struct SpaceJoinView: View {
         .anytypeSheet(isPresented: $model.showSuccessAlert, cancelAction: { model.onDismissSuccessAlert() }) {
             requestSent
         }
+        .task(item: model.joinTaskId) { _ in
+            await model.onJoin()
+        }
         .task {
             await model.onAppear()
         }
@@ -48,6 +51,8 @@ struct SpaceJoinView: View {
             inviteNotFound
         case .spaceDeleted:
             spaceDeleted
+        case .limitReached:
+            limitReached
         }
     }
     
@@ -75,8 +80,8 @@ struct SpaceJoinView: View {
                     $0.redacted(reason: .placeholder)
                 }
             Spacer.fixedHeight(19)
-            AsyncStandardButton(model.button, style: .primaryLarge) {
-                try await model.onJoin()
+            StandardButton(model.button, style: .primaryLarge) {
+                model.onJoinTapped()
             }
             .if(placeholder) {
                 $0.redacted(reason: .placeholder)
@@ -127,7 +132,7 @@ struct SpaceJoinView: View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.NoAccess.title,
             message: Loc.SpaceShare.Join.InviteNotFound.message,
-            icon: .Dialog.duck
+            icon: .Dialog.lock
         ) {
             BottomAlertButton(
                 text: Loc.okay,
@@ -142,6 +147,22 @@ struct SpaceJoinView: View {
     private var spaceDeleted: some View {
         BottomAlertView(
             title: Loc.SpaceShare.Join.spaceDeleted,
+            icon: .Dialog.duck
+        ) {
+            BottomAlertButton(
+                text: Loc.okay,
+                style: .secondary,
+                action: {
+                    model.onDismissInviteNotFoundAlert()
+                }
+            )
+        }
+    }
+    
+    private var limitReached: some View {
+        BottomAlertView(
+            title: Loc.SpaceShare.Join.LimitReached.title,
+            message: Loc.SpaceShare.Join.LimitReached.message,
             icon: .Dialog.duck
         ) {
             BottomAlertButton(

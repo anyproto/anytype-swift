@@ -70,7 +70,7 @@ struct GlobalSearchView: View {
                     .foregroundColor(model.state.section == section ? .Text.inversion : .Text.secondary)
                     .padding(.vertical, 6)
                     .padding(.horizontal, 10)
-                    .background(model.state.section == section ? Color.Control.active : .clear)
+                    .background(model.state.section == section ? Color.Control.secondary : .clear)
                     .cornerRadius(16)
                     .fixTappableArea()
                     .onTapGesture {

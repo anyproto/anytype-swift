@@ -14,15 +14,15 @@ struct SetListViewCell: View {
     }
     
     private var content: some View {
-        FlowRelationsView(
-            viewModel: FlowRelationsViewModel(
+        FlowPropertiesView(
+            viewModel: FlowPropertiesViewModel(
                 icon: configuration.icon,
                 showIcon: configuration.showIcon, 
                 canEditIcon: configuration.canEditIcon,
                 title: configuration.title,
                 description: configuration.description,
-                relations: configuration.relations.filter {
-                    $0.hasValue && $0.key != BundledRelationKey.description.rawValue
+                properties: configuration.relations.filter {
+                    $0.hasValue && $0.key != BundledPropertyKey.description.rawValue
                 }
             )
         )

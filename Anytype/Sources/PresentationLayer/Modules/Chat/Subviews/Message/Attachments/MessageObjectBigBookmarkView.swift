@@ -14,7 +14,7 @@ struct MessageObjectBigBookmarkView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if pictureId.isNotEmpty {
-                ImageIdIconView(imageId: pictureId, square: false, side: .height)
+                ImageIdIconView(imageId: pictureId, square: false, side: .original)
                     .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fit)
                     .cornerRadius(2)
             }
@@ -24,7 +24,7 @@ struct MessageObjectBigBookmarkView: View {
                         Text(host)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(1)
-                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive)
+                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary)
                     }
                     
                     if title.isNotEmpty {
@@ -38,7 +38,7 @@ struct MessageObjectBigBookmarkView: View {
                         Text(description)
                             .anytypeStyle(.relation3Regular)
                             .lineLimit(2)
-                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentActive)
+                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary)
                     }
                 }
                 Spacer()

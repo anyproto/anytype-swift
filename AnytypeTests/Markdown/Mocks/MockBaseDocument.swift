@@ -9,7 +9,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var mockInfoContainer: any InfoContainerProtocol = InfoContainerMock()
     var mockDetailsStorage = ObjectDetailsStorage()
     var mockChildren: [BlockInformation] = []
-    var mockParsedRelations = ParsedRelations.empty
+    var mockParsedProperties = ParsedProperties.empty
     var mockObjectId: String
     var mockSpaceId: String = "test-space-id"
     var mockIsLocked: Bool = false
@@ -18,7 +18,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var mockMode: DocumentMode = .handling
     var mockDetails: ObjectDetails?
     var mockPermissions: ObjectPermissions = ObjectPermissions()
-    var mockSyncStatus: SyncStatus?
+    var mockSyncStatus: SpaceSyncStatus?
     
     // Publishers
     private let updateSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
@@ -37,7 +37,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var infoContainer: any InfoContainerProtocol { mockInfoContainer }
     var detailsStorage: ObjectDetailsStorage { mockDetailsStorage }
     var children: [BlockInformation] { mockChildren }
-    var parsedRelations: ParsedRelations { mockParsedRelations }
+    var parsedProperties: ParsedProperties { mockParsedProperties }
     
     var objectId: String { mockObjectId }
     var spaceId: String { mockSpaceId }
@@ -47,7 +47,7 @@ class MockBaseDocument: BaseDocumentProtocol {
     var mode: DocumentMode { mockMode }
     var details: ObjectDetails? { mockDetails }
     var permissions: ObjectPermissions { mockPermissions }
-    var syncStatus: SyncStatus? { mockSyncStatus }
+    var syncStatus: SpaceSyncStatus? { mockSyncStatus }
     
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
         updateSubject.eraseToAnyPublisher()
@@ -88,8 +88,8 @@ extension MockBaseDocument {
         var mockDetails = ObjectDetails.init(
             id: objectId,
             values: [
-                BundledRelationKey.recommendedRelations.rawValue: recommendedRelations.protobufValue,
-                BundledRelationKey.recommendedFeaturedRelations.rawValue: recommendedFeaturedRelations.protobufValue
+                BundledPropertyKey.recommendedRelations.rawValue: recommendedRelations.protobufValue,
+                BundledPropertyKey.recommendedFeaturedRelations.rawValue: recommendedFeaturedRelations.protobufValue
             ]
         )
         

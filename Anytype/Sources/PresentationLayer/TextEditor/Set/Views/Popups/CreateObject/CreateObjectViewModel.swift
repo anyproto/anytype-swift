@@ -5,8 +5,8 @@ import AnytypeCore
 final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.default
     
-    @Injected(\.relationsService)
-    private var relationService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.textService)
     private var textServiceHandler: any TextServiceProtocol
     
@@ -62,9 +62,9 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
                 let middlewareString = MiddlewareString(text: text)
                 try await textServiceHandler.setText(contextId: objectId, blockId: blockId, middlewareString: middlewareString)
             case .writeToRelationName:
-                try await relationService.updateRelation(
+                try await propertiesService.updateProperty(
                     objectId: objectId,
-                    relationKey: BundledRelationKey.name.rawValue,
+                    propertyKey: BundledPropertyKey.name.rawValue,
                     value: text.protobufValue
                 )
             case .none:

@@ -4,17 +4,17 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, RelationValueCoordinatorOutput {
+final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, PropertyValueCoordinatorOutput {
     
     let data: EditorPageObject
     let showHeader: Bool
     private let setupEditorInput: (any EditorPageModuleInput, String) -> Void
-    @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
+    @Injected(\.propertyValueProcessingService)
+    private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
-    @Published var relationValueData: RelationValueData?
+    @Published var relationValueData: PropertyValueData?
     @Published var toastBarData: ToastBarData?
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: BaseDocumentIdentifiable?
@@ -23,7 +23,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var textIconPickerData: TextIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var undoRedoObjectId: StringIdentifiable?
-    @Published var relationsSearchData: RelationsSearchData?
+    @Published var relationsSearchData: PropertiesSearchData?
     @Published var openUrlData: URL?
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
@@ -56,12 +56,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         setupEditorInput(input, objectId)
     }
     
-    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Relation) {
+    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Property) {
         guard let objectDetails = document.details else {
             anytypeAssertionFailure("Details not found")
             return
         }
-        handleRelationValue(relation: relation, objectDetails: objectDetails)
+        handlePropertyValue(relation: relation, objectDetails: objectDetails)
     }
     
     func showCoverPicker(document: some BaseDocumentProtocol) {
@@ -96,12 +96,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         toastBarData = ToastBarData(Loc.VersionHistory.Toast.message(text), type: .neutral)
     }
     
-    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
         guard let details = document.details else { return }
-        relationsSearchData = RelationsSearchData(
+        relationsSearchData = PropertiesSearchData(
             objectId: details.type,
             spaceId: document.spaceId,
-            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            excludedRelationsIds: document.parsedProperties.installed.map(\.id),
             target: .object(objectId: details.id),
             onRelationSelect: onSelect
         )
@@ -125,8 +125,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     // MARK: - Private
     
-    private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        relationValueData = relationValueProcessingService.handleRelationValue(
+    private func handlePropertyValue(relation: Property, objectDetails: ObjectDetails) {
+        relationValueData = propertyValueProcessingService.handlePropertyValue(
             relation: relation,
             objectDetails: objectDetails,
             analyticsType: .block

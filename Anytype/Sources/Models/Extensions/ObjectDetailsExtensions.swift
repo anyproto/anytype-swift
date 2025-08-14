@@ -2,7 +2,7 @@ import Services
 import UIKit
 import AnytypeCore
 
-extension BundledRelationsValueProvider {
+extension BundledPropertiesValueProvider {
     
     // MARK: - Cover
     
@@ -44,10 +44,15 @@ extension BundledRelationsValueProvider {
         return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)
     }
     
+    var targetObjectTypeValue: ObjectType? {
+        return try? ObjectTypeProvider.shared.objectType(id: targetObjectType)
+    }
+    
     var editorViewType: ScreenType {
         switch resolvedLayoutValue {
         case .basic, .profile, .todo, .note, .space, .UNRECOGNIZED, .relation,
-                .relationOption, .dashboard, .relationOptionsList, .spaceView, .tag:
+                .relationOption, .dashboard, .relationOptionsList, .spaceView,
+                .tag, .notification, .missingObject, .devices:
             return .page
         case .set, .collection:
             return .list
@@ -62,7 +67,7 @@ extension BundledRelationsValueProvider {
         case .bookmark:
             return .bookmark
         case .chat, .chatDerived:
-            return FeatureFlags.chatLayoutInsideSpace ? .chat : .page
+            return .chat
         }
     }
     
@@ -83,21 +88,22 @@ extension BundledRelationsValueProvider {
     }
     
     var isTemplate: Bool { objectType.isTemplateType }
+    var isTemplateType: Bool { uniqueKey == ObjectTypeUniqueKey.template.value }
     
     var canMakeTemplate: Bool {
         resolvedLayoutValue.isEditorLayout && !isTemplate && profileOwnerIdentity.isEmpty && !isObjectType
     }
     
     // Properties
-    var recommendedRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+    var recommendedRelationsDetails: [PropertyDetails] {
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
     }
-    var recommendedFeaturedRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+    var recommendedFeaturedRelationsDetails: [PropertyDetails] {
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
     }
 
-    var recommendedHiddenRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
+    var recommendedHiddenRelationsDetails: [PropertyDetails] {
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
     }
     
     // MARK: - DetailsLayout proxy

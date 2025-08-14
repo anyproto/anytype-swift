@@ -17,7 +17,7 @@ extension ChatLocalBookmark {
             url: url.absoluteString,
             title: url.absoluteString,
             description: "Placeholder",
-            icon: .asset(.EmptyIcon.bookmark),
+            icon: .object(.emptyBookmarkIcon),
             loading: true
         )
     }

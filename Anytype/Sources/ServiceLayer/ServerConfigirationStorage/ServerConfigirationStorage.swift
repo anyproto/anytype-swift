@@ -1,5 +1,6 @@
 import Foundation
 import AnytypeCore
+import UniformTypeIdentifiers
 @preconcurrency import Combine
 
 protocol ServerConfigurationStorageProtocol: AnyObject, Sendable {
@@ -25,8 +26,6 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol, Send
     
     private enum Constants {
         static let configStorageFolder = "Servers"
-        static let pathExtension = "yml"
-        
         static let deeplinkProvidedConfigName = "DeeplinkProvidedConfig.yml"
     }
     
@@ -51,7 +50,7 @@ final class ServerConfigurationStorage: ServerConfigurationStorageProtocol, Send
     
     func addConfiguration(filePath: URL, setupAsCurrent: Bool) throws {
         do {
-            guard filePath.pathExtension == Constants.pathExtension else { throw ServerError.badExtension }
+            guard let type = UTType(filenameExtension: filePath.pathExtension), type == .yaml else { throw ServerError.badExtension }
             
             guard filePath.startAccessingSecurityScopedResource() else { throw ServerError.accessError }
             defer { filePath.stopAccessingSecurityScopedResource() }

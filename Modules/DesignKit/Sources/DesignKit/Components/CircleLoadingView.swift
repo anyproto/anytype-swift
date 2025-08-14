@@ -1,0 +1,63 @@
+import SwiftUI
+import Assets
+
+public struct CircleLoadingView: View {
+    
+    private enum Constants {
+        static let idealSize: CGFloat = 52
+        static let widthForIdealSize: CGFloat = 4
+        static let paddingForIdealSize: CGFloat = 3
+    }
+    
+    @State private var isRotating = false
+    private var circleColor: Color
+    
+    public init(_ color: Color = Color.Control.secondary) {
+        self.circleColor = color
+    }
+    
+    public var body: some View {
+        GeometryReader { reader in
+            let minSide = min(reader.size.width, reader.size.height)
+            Circle()
+                .strokeBorder(
+                    AngularGradient(
+                        gradient: Gradient(colors: [
+                            circleColor.opacity(0),
+                            circleColor
+                        ]),
+                        center: .center
+                    ),
+                    lineWidth: (minSide / Constants.idealSize) * Constants.widthForIdealSize
+                )
+                .rotationEffect(.degrees(isRotating ? 360 : 0))
+                .task {
+                    withAnimation(
+                        .linear(duration: 1)
+                        .repeatForever(autoreverses: false)
+                    ) {
+                        isRotating = true
+                    }
+                }
+                .proportionalPadding(padding: Constants.paddingForIdealSize, side: Constants.idealSize)
+        }
+        .frame(idealWidth: Constants.idealSize, idealHeight: Constants.idealSize)
+    }
+}
+
+
+#Preview {
+    VStack {
+        CircleLoadingView()
+            .frame(width: 30, height: 30)
+            .background(Color.Shape.transperentPrimary)
+        
+        CircleLoadingView()
+            .frame(width: 50, height: 50)
+            .background(Color.Shape.transperentPrimary)
+        
+        CircleLoadingView()
+            .frame(width: 100, height: 100)
+            .background(Color.Shape.transperentPrimary)
+    }
+}

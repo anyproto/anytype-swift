@@ -127,7 +127,7 @@ extension TextBlockIconView {
             ),
             for: .touchUpInside
         )
-        checkboxView.tintColor = .Control.active
+        checkboxView.tintColor = .Control.secondary
 
         addSubview(checkboxView) {
             $0.width.equal(to: viewSize.width)
@@ -176,7 +176,7 @@ extension TextBlockIconView {
 
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
-        quoteView.backgroundColor = UIColor.System.amber100
+        quoteView.backgroundColor = UIColor.Control.accent100
         setContentHuggingPriority(.defaultLow + 1, for: .horizontal)
 
         addSubview(quoteView) {

@@ -1,5 +1,9 @@
 import SwiftUI
 
+enum ObjectSettingsSectionType {
+    case layout
+    case object
+}
 
 // Used in ObjectSettingBuilder
 enum ObjectSetting {
@@ -9,9 +13,19 @@ enum ObjectSetting {
     case relations
     case history
     case resolveConflict
+    case webPublishing
 }
 
 extension ObjectSetting {
+    
+    var section: ObjectSettingsSectionType {
+        switch self {
+        case .icon, .cover, .description, .relations, .resolveConflict:
+            return .layout
+        case .history, .webPublishing:
+            return .object
+        }
+    }
     
     var title: String {
         switch self {
@@ -27,6 +41,8 @@ extension ObjectSetting {
             Loc.history
         case .resolveConflict:
             Loc.resolveLayoutConflict
+        case .webPublishing:
+            Loc.publishToWeb
         }
     }
     
@@ -44,6 +60,8 @@ extension ObjectSetting {
             .ObjectSettings.history
         case .resolveConflict:
             .X18.attention
+        case .webPublishing:
+            .X24.web
         }
     }
 }

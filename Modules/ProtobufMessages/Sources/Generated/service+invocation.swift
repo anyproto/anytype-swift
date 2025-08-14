@@ -614,6 +614,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectRefresh(
+        _ request: Anytype_Rpc.Object.Refresh.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.Refresh.Request, Anytype_Rpc.Object.Refresh.Response> {
+        return Invocation(messageName: "ObjectRefresh", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectRefresh(requestData) ?? Data()
+            return try Anytype_Rpc.Object.Refresh.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func objectClose(
         _ request: Anytype_Rpc.Object.Close.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.Close.Request, Anytype_Rpc.Object.Close.Response> {
@@ -2724,6 +2734,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipCodeGetInfo(
+        _ request: Anytype_Rpc.Membership.CodeGetInfo.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.CodeGetInfo.Request, Anytype_Rpc.Membership.CodeGetInfo.Response> {
+        return Invocation(messageName: "MembershipCodeGetInfo", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipCodeGetInfo(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.CodeGetInfo.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipCodeRedeem(
+        _ request: Anytype_Rpc.Membership.CodeRedeem.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.CodeRedeem.Request, Anytype_Rpc.Membership.CodeRedeem.Response> {
+        return Invocation(messageName: "MembershipCodeRedeem", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipCodeRedeem(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.CodeRedeem.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func nameServiceUserAccountGet(
         _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
     ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
@@ -2981,6 +3011,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServicePushNotificationRegisterToken(requestData) ?? Data()
             return try Anytype_Rpc.PushNotification.RegisterToken.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func pushNotificationSetSpaceMode(
+        _ request: Anytype_Rpc.PushNotification.SetSpaceMode.Request = .init()
+    ) -> Invocation<Anytype_Rpc.PushNotification.SetSpaceMode.Request, Anytype_Rpc.PushNotification.SetSpaceMode.Response> {
+        return Invocation(messageName: "PushNotificationSetSpaceMode", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePushNotificationSetSpaceMode(requestData) ?? Data()
+            return try Anytype_Rpc.PushNotification.SetSpaceMode.Response(serializedBytes: responseData)
         }
     }
 

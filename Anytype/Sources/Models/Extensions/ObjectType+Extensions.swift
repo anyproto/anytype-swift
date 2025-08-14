@@ -52,15 +52,15 @@ extension ObjectType {
     }
     
     // Properties
-    var recommendedRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
+    var recommendedRelationsDetails: [PropertyDetails] {
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedRelations, spaceId: spaceId)
     }
-    var recommendedFeaturedRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
+    var recommendedFeaturedRelationsDetails: [PropertyDetails] {
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedFeaturedRelations, spaceId: spaceId)
     }
 
-    var recommendedHiddenRelationsDetails: [RelationDetails] {
-        Container.shared.relationDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
+    var recommendedHiddenRelationsDetails: [PropertyDetails] {
+        Container.shared.propertyDetailsStorage().relationsDetails(ids: recommendedHiddenRelations, spaceId: spaceId)
     }
     
 }

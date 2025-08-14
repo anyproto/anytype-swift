@@ -84,9 +84,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
             header
                 .allowsHitTesting(!homeState.isEditWidgets)
             HStack(spacing: 16) {
-                if FeatureFlags.plusButtonOnWidgets {
-                    createObjectButton
-                }
+                createObjectButton
                 menuButton
                 arrowButton
             }

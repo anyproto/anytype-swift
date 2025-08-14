@@ -24,7 +24,8 @@ final class MessageReactionPickerViewModel: ObservableObject {
     
     func onTapEmoji(_ emoji: EmojiData) {
         Task {
-            try await chatService.toggleMessageReaction(chatObjectId: data.chatObjectId, messageId: data.messageId, emoji: emoji.emoji)
+            let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatObjectId, messageId: data.messageId, emoji: emoji.emoji)
+            AnytypeAnalytics.instance().logToggleReaction(added: added)
             dismiss.toggle()
         }
     }

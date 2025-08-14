@@ -1,8 +1,8 @@
 import Foundation
 import SwiftUI
 import Services
-import Kingfisher
 import Factory
+import DesignKit
 
 protocol IconColorServiceProtocol: AnyObject {
     func color(spaceId: String) -> AsyncStream<Color>
@@ -11,6 +11,7 @@ protocol IconColorServiceProtocol: AnyObject {
 final class IconColorService: IconColorServiceProtocol, Sendable {
     
     private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let imageCacher = CachedAsyncImageCache.default
     
     func color(spaceId: String) -> AsyncStream<Color> {
         AsyncStream { continuation in
@@ -43,13 +44,18 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
         switch icon {
         case .space(let spaceIcon):
             switch spaceIcon {
-            case .imageId(let imageId):
-                guard let url = ImageMetadata(id: imageId, side: .width(10)).contentUrl else {
-                    throw CommonError.undefined
+            case let .imageId(imageId, _, iconOption):
+                do {
+                    guard let url = ImageMetadata(id: imageId, side: .width(10)).contentUrl else {
+                        throw CommonError.undefined
+                    }
+                    let image = try await imageCacher.loadImage(from: url)
+                    let color = try image.averageColor()
+                    return optimizeColor(color).suColor
+                } catch {
+                    let color = IconColorStorage.iconColor(iconOption: iconOption)
+                    return optimizeColor(UIColor(color)).suColor
                 }
-                let image = try await KingfisherManager.shared.retrieveImage(with: .network(url)).image
-                let color = try image.averageColor()
-                return optimizeColor(color).suColor
             case .name(_, let iconOption):
                 let color = IconColorStorage.iconColor(iconOption: iconOption)
                 return optimizeColor(UIColor(color)).suColor

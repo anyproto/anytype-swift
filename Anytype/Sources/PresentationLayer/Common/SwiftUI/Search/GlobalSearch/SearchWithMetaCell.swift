@@ -75,24 +75,24 @@ struct SearchWithMetaCell: View {
             .multilineTextAlignment(.leading)
     }
     
-    private func statusHighlight(name : String, option: Relation.Status.Option) -> some View {
+    private func statusHighlight(name : String, option: Property.Status.Option) -> some View {
         HStack(spacing: 4) {
             relationName(name)
-            StatusRelationView(
+            StatusPropertyView(
                 options: [option],
                 hint: "",
-                style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
+                style: .featuredBlock(FeaturedPropertySettings(allowMultiLine: false))
             )
         }
     }
     
-    private func tagHighlight(name : String, option: Relation.Tag.Option) -> some View {
+    private func tagHighlight(name : String, option: Property.Tag.Option) -> some View {
         HStack(spacing: 4) {
             relationName(name)
-            TagRelationView(
+            TagPropertyView(
                 tags: [option],
                 hint: "",
-                style: .featuredRelationBlock(FeaturedRelationSettings(allowMultiLine: false))
+                style: .featuredBlock(FeaturedPropertySettings(allowMultiLine: false))
             )
         }
     }

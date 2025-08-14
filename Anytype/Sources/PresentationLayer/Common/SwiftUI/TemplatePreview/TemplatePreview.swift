@@ -7,7 +7,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
     var body: some View {
         content
             .if(viewModel.model.decoration == .border, if: {
-                $0.border(16, color: Color.System.amber50, lineWidth: 2)
+                $0.border(16, color: Color.Control.accent50, lineWidth: 2)
             }, else: {
                 $0.border(16, color: .Shape.primary, lineWidth: 1)
             })
@@ -43,7 +43,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                 }
             case .addTemplate:
                 Image(asset: .X32.plus)
-                    .tint(.Control.active)
+                    .tint(.Control.secondary)
             }
         }
         .frame(width: 120, height: 224)
@@ -81,7 +81,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
         Group {
             if case let .installed(templateModel) = viewModel.model.mode {
                 switch templateModel.header {
-                case .filled(let state, _):
+                case .filled(let state, _, _):
                     ObjectHeaderFilledContentSwitfUIView(
                         configuration: ObjectHeaderFilledConfiguration(
                             state: state,

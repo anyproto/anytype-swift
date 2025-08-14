@@ -37,7 +37,7 @@ extension Anytype_Rpc.Workspace {
         /// use case
         public var useCase: Anytype_Rpc.Object.ImportUseCase.Request.UseCase = .none
 
-        /// create space-level chat; temporary solution, should be removed after chats released for all users
+        /// deprecated, use spaceUxType
         public var withChat: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()

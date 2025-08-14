@@ -32,6 +32,15 @@ struct SettingsView: View {
                         onTap: { model.onAppearanceTap() }
                     )
                     
+                    if FeatureFlags.addNotificationsSettings {
+                        SettingsSectionItemView(
+                            name: Loc.notifications,
+                            imageAsset: .Settings.notifications,
+                            decoration: .arrow(needAttention: model.notificationsDenied),
+                            onTap: { model.onNotificationsTap() }
+                        )
+                    }
+                    
                     SettingsSectionItemView(
                         name: Loc.Spaces.title,
                         imageAsset: .Settings.spaces,
@@ -54,7 +63,7 @@ struct SettingsView: View {
                         SettingsSectionItemView(
                             name: Loc.membership,
                             imageAsset: .Settings.membership,
-                            decoration: model.membership.tier.map { .arrow (text: $0.name) } ?? .button(text: Loc.join),
+                            decoration: model.membership.decoration,
                             onTap: { model.onMembershipTap() }
                         )
                     }

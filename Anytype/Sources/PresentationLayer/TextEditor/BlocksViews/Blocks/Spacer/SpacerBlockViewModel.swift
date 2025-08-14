@@ -8,7 +8,8 @@ struct SpacerBlockViewModel: SystemContentConfiguationProvider {
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
-    var hashable: AnyHashable { usage }
+    var hashable: AnyHashable { blockId }
+    var blockId: String { "SpacerBlockViewModel" + String(describing: usage) }
 
     let usage: SpacerCase
 

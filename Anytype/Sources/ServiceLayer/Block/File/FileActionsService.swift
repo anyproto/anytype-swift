@@ -154,14 +154,14 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         try await fileService.uploadFileBlock(path: data.path, contextID: contextID, blockID: blockID)
     }
     
-    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin, createTypeWidgetIfMissing: Bool) async throws -> FileDetails {
+    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
         defer {
             if data.isTemporary {
                 try? FileManager.default.removeItem(atPath: data.path)
             }
         }
         
-        return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId, origin: origin, createTypeWidgetIfMissing: createTypeWidgetIfMissing)
+        return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId, origin: origin)
     }
     
     func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws {
@@ -169,9 +169,9 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         try await uploadDataAt(data: data, contextID: contextID, blockID: blockID)
     }
     
-    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin, createTypeWidgetIfMissing: Bool) async throws -> FileDetails {
+    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails {
         let data = try await createFileData(source: source)
-        return try await uploadFileObject(spaceId: spaceId, data: data, origin: origin, createTypeWidgetIfMissing: createTypeWidgetIfMissing)
+        return try await uploadFileObject(spaceId: spaceId, data: data, origin: origin)
     }
     
     func clearCache() async throws {
@@ -220,10 +220,10 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
 
 extension FileActionsServiceProtocol {
     func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
-        try await uploadFileObject(spaceId: spaceId, data: data, origin: origin, createTypeWidgetIfMissing: false)
+        try await uploadFileObject(spaceId: spaceId, data: data, origin: origin)
     }
     
     func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails {
-        try await uploadImage(spaceId: spaceId, source: source, origin: origin, createTypeWidgetIfMissing: false)
+        try await uploadImage(spaceId: spaceId, source: source, origin: origin)
     }
 }

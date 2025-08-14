@@ -28,7 +28,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol = Container.shared.middlewareConfigurationProvider()
     private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol = Container.shared.blockWidgetExpandedService()
     private let membershipStatusStorage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
-    private let relationDetailsStorage: any RelationDetailsStorageProtocol = Container.shared.relationDetailsStorage()
+    private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
     private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
     private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
@@ -41,7 +41,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
     private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
     private let pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol = Container.shared.pushNotificationsPermissionService()
-    
+    private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
+        
     // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
@@ -88,6 +89,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await storeKitService.startListenForTransactions()
         await profileStorage.startSubscription()
         await activeSpaceManager.startSubscription()
+        await spaceIconForNotificationsHandler.startUpdating()
         
         Task {
             // Time-heavy operation
@@ -100,7 +102,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
-        await relationDetailsStorage.stopSubscription(cleanCache: true)
+        await propertyDetailsStorage.stopSubscription(cleanCache: true)
         await objectTypeProvider.stopSubscription(cleanCache: true)
         await accountParticipantsStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
@@ -111,5 +113,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await storeKitService.stopListenForTransactions()
         await profileStorage.stopSubscription()
         await activeSpaceManager.stopSubscription()
+        await spaceIconForNotificationsHandler.stopUpdatingAndClearData()
     }
 }

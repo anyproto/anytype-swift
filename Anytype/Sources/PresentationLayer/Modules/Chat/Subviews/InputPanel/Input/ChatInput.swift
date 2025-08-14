@@ -9,6 +9,7 @@ struct ChatInput: View {
     let hasAdditionalData: Bool
     let disableSendButton: Bool
     let disableAddButton: Bool
+    let sendButtonIsLoading: Bool
     let createObjectTypes: [ObjectType]
     let conversationType: ConversationType
     let onTapAddPage: () -> Void
@@ -103,8 +104,14 @@ struct ChatInput: View {
         Button {
             onTapSend()
         } label: {
-            EnableStateImage(enable: .Chat.SendMessage.active, disable: .Chat.SendMessage.inactive)
+            if sendButtonIsLoading {
+                CircleLoadingView()
+                    .frame(width: 32, height: 32)
+            } else {
+                Image(asset: .Chat.SendMessage.active)
+            }
         }
+        .buttonStyle(StandardPlainButtonStyle())
         .disabled(disableSendButton)
         .frame(width: 32, height: 56)
         // Store in layout for calculate correct textview height when user paste in empty textview

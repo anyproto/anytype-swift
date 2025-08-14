@@ -5,13 +5,13 @@ import Services
 class TypePropertiesMoveHandlerTests: XCTestCase {
     var moveHandler: TypePropertiesMoveHandler!
     var mockDocument: MockBaseDocument!
-    var mockRelationsService: MockRelationsService!
+    var mockPropertiesService: MockPropertiesService!
 
     override func setUp() {
         super.setUp()
-        let mockRelationsService = MockRelationsService()
-        Container.shared.relationsService.register { mockRelationsService }
-        self.mockRelationsService = mockRelationsService
+        let mockPropertiesService = MockPropertiesService()
+        Container.shared.propertiesService.register { mockPropertiesService }
+        self.mockPropertiesService = mockPropertiesService
         mockDocument = MockBaseDocument()
         moveHandler = TypePropertiesMoveHandler()
     }
@@ -68,7 +68,7 @@ class TypePropertiesMoveHandlerTests: XCTestCase {
             document: mockDocument
         )
         // No error should be thrown, and no service calls should be made
-        XCTAssertNil(mockRelationsService.lastUpdateRecommendedFeaturedRelations)
-        XCTAssertNil(mockRelationsService.lastUpdateTypeRelations)
+        XCTAssertNil(mockPropertiesService.lastUpdateRecommendedFeaturedRelations)
+        XCTAssertNil(mockPropertiesService.lastUpdateTypeRelations)
     }
 }

@@ -1,8 +1,10 @@
 import SwiftUI
 
-struct StandardPlainButtonStyle: ButtonStyle {
+public struct StandardPlainButtonStyle: ButtonStyle {
     
-    func makeBody(configuration: Configuration) -> some View {
+    public init() {}
+    
+    public func makeBody(configuration: Configuration) -> some View {
         configuration.label
     }
 }

@@ -1,5 +1,7 @@
-import Amplitude
+import AmplitudeSwift
 import Services
+import AnytypeCore
+import Foundation
 
 final class AnytypeAnalytics: @unchecked Sendable {
 
@@ -7,6 +9,11 @@ final class AnytypeAnalytics: @unchecked Sendable {
         static let interfaceLang = "interfaceLang"
         static let networkId = "networkId"
         static let tier = "tier"
+        static let tierId = "tierId"
+    }
+    
+    private enum Constants {
+        static let url = "https://amplitude.anytype.io/2/httpapi"
     }
     
     private var isEnabled: Bool = true
@@ -16,17 +23,13 @@ final class AnytypeAnalytics: @unchecked Sendable {
 
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
     private var lastEvents: String = ""
-    private var userProperties: [AnyHashable: Any] = [:]
+    private var userProperties: [String: Any] = [:]
+    private var amplitude: Amplitude?
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private init() {
-        // Disable IDFA/IPAddress for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress() {
-            Amplitude.instance().setTrackingOptions(trackingOptions)
-        }
-        Amplitude.instance().setServerUrl("https://amplitude.anytype.io")
         userProperties[Keys.interfaceLang] = Locale.current.language.languageCode?.identifier
     }
 
@@ -47,11 +50,28 @@ final class AnytypeAnalytics: @unchecked Sendable {
     }
 
     func initializeApiKey(_ apiKey: String) {
-        Amplitude.instance().initializeApiKey(apiKey)
+        guard amplitude.isNil else {
+            anytypeAssertionFailure("Try to setup amplitude multiple times")
+            return
+        }
+        
+        amplitude = Amplitude(configuration: Configuration(
+            apiKey: apiKey,
+            serverUrl: Constants.url,
+            trackingOptions: TrackingOptions().disableTrackIpAddress(),
+            minTimeBetweenSessionsMillis: 5 * 60 * 1000,
+            autocapture: [.sessions, .appLifecycles]
+        ))
     }
 
     func setUserId(_ userId: String) {
-        Amplitude.instance().setUserId(userId)
+        guard isEnabled else { return }
+        
+        guard let amplitude else {
+            anytypeAssertionFailure("Amplitude is not loaded")
+            return
+        }
+        amplitude.setUserId(userId: userId)
     }
 
     func setNetworkId(_ networkId: String) {
@@ -59,10 +79,11 @@ final class AnytypeAnalytics: @unchecked Sendable {
     }
     
     func setMembershipTier(tier: MembershipTier?) {
-        userProperties[Keys.tier] = tier?.name
+        userProperties[Keys.tier] = tier?.analyticsName ?? "None"
+        userProperties[Keys.tierId] = tier?.type.id
     }
     
-    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any] = [:]) {
+    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [String : Any] = [:]) {
         var eventProperties = eventProperties
         let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
         
@@ -74,10 +95,14 @@ final class AnytypeAnalytics: @unchecked Sendable {
             eventProperties[AnalyticsEventsPropertiesKey.spaceType] = spaceType.rawValue
         }
         
+        if let uxType = participantSpaceView?.spaceView.uxType.analyticsValue {
+            eventProperties[AnalyticsEventsPropertiesKey.uxType] = uxType
+        }
+        
         logEvent(eventType, withEventProperties: eventProperties)
     }
     
-    func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any] = [:]) {
+    func logEvent(_ eventType: String, withEventProperties eventProperties: [String : Any] = [:]) {
         let eventConfiguration = eventsConfiguration[eventType]
 
         if case .notInRow = eventConfiguration?.threshold, lastEvents == eventType {
@@ -89,6 +114,17 @@ final class AnytypeAnalytics: @unchecked Sendable {
         eventHandler?(eventType, eventProperties)
         
         guard isEnabled else { return }
-        Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties, withUserProperties: userProperties)
+        
+        guard let amplitude else {
+            anytypeAssertionFailure("Amplitude is not loaded")
+            return
+        }
+        
+        let event = BaseEvent(
+          eventType: eventType,
+          eventProperties: eventProperties,
+          userProperties: userProperties
+        )
+        amplitude.track(event: event)
     }
 }

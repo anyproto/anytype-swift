@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct SpaceShareCoordinatorView: View {
     
@@ -11,11 +12,23 @@ struct SpaceShareCoordinatorView: View {
     }
     
     var body: some View {
-        SpaceShareView(data: model.data) {
-            model.onMoreInfoSelected()
+        Group {
+            if FeatureFlags.newSpaceMembersFlow {
+                NewSpaceShareView(data: model.data, output: model)
+            } else {
+                SpaceShareView(data: model.data) {
+                    model.onMoreInfoSelected()
+                }
+            }
         }
         .sheet(isPresented: $model.showMoreInfo) {
             SpaceMoreInfoView()
+        }
+        .sheet(item: $model.shareInviteLink) { link in
+            ActivityView(activityItems: [link])
+        }
+        .anytypeSheet(item: $model.qrCodeInviteLink) {
+            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
         }
     }
 }

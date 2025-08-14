@@ -27,7 +27,7 @@ struct SpaceCreateView: View {
                     .focused(.constant(true))
                     
                     if !FeatureFlags.spaceUxTypes {
-                        SectionHeaderView(title: Loc.type)
+                        SectionHeaderView(title: Loc.typeLabel)
                         SpaceTypeView(name: model.spaceAccessType.name)
                     }
                 }
@@ -60,7 +60,7 @@ struct SpaceCreateView: View {
                 .frame(width: 96, height: 96)
             Spacer.fixedHeight(6)
             AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
             Spacer.fixedHeight(20)
         }
         .fixTappableArea()

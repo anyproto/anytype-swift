@@ -18,6 +18,8 @@ final class SettingsViewModel: ObservableObject {
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.profileStorage)
     private var profileStorage: any ProfileStorageProtocol
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
     private weak var output: (any SettingsModuleOutput)?
     
@@ -34,6 +36,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileIcon: Icon?
     @Published var membership: MembershipStatus = .empty
     @Published var showDebugMenu = false
+    @Published var notificationsDenied = false
     
     init(output: some SettingsModuleOutput) {
         self.output = output
@@ -56,6 +59,10 @@ final class SettingsViewModel: ObservableObject {
     
     func onAppearanceTap() {
         output?.onAppearanceSelected()
+    }
+    
+    func onNotificationsTap() {
+        output?.onNotificationsSelected()
     }
     
     func onFileStorageTap() {
@@ -81,7 +88,8 @@ final class SettingsViewModel: ObservableObject {
     func startSubscriptions() async {
         async let membershipSub: () = membershipSubscriotion()
         async let profileSub: () = profileSubscription()
-        _ = await (membershipSub, profileSub)
+        async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
+        _ = await (membershipSub, profileSub, pushNotificationsSystemSettingsSub)
     }
     
     // MARK: - Private
@@ -95,6 +103,12 @@ final class SettingsViewModel: ObservableObject {
     private func profileSubscription() async {
         for await profile in profileStorage.profilePublisher.values {
             handleProfileDetails(profile: profile)
+        }
+    }
+    
+    private func pushNotificationsSystemSettingsSubscription() async {
+        for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
+            notificationsDenied = status.isDenied
         }
     }
     

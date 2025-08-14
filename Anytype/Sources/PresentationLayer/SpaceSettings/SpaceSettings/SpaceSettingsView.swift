@@ -71,64 +71,53 @@ struct SpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "")
+        PageNavigationHeader(title: "") {
+            Button {
+                model.onEditTap()
+            } label: {
+                AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+            }
+        }
     }
     
     private var spaceDetails: some View {
         VStack(spacing: 0) {
-            Button {
-                model.onChangeIconTap()
-            } label: {
-                VStack(spacing: 0) {
-                    Spacer.fixedHeight(8)
-                    IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
-                    Spacer.fixedHeight(8)
-                    AnytypeText(Loc.Settings.editPicture, style: .caption1Medium).foregroundColor(.Text.secondary)
-                }
-            }
-            
-            Spacer.fixedHeight(24)
-            
-            Button {
-                model.onTitleTap()
-            } label: {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        AnytypeText(Loc.name, style: .caption1Regular).foregroundColor(.Text.secondary)
-                        if model.spaceName.isNotEmpty {
-                            AnytypeText(model.spaceName, style: .bodySemibold)
-                        } else {
-                            AnytypeText(Loc.untitled, style: .bodySemibold).foregroundColor(.Text.tertiary)
-                        }
+            VStack(spacing: 0) {
+                Button {
+                    model.onChangeIconTap()
+                } label: {
+                    VStack(spacing: 0) {
+                        Spacer.fixedHeight(8)
+                        IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
+                        Spacer.fixedHeight(16)
                     }
-                    Spacer()
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .border(16, color: .Shape.primary, lineWidth: 0.5)
+                Menu {
+                    spaceNameMenuItems
+                } label: {
+                    AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
+                }
+                Spacer.fixedHeight(4)
+                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
             }
-            
-            Spacer.fixedHeight(8)
-            
+        }
+    }
+    
+    private var spaceNameMenuItems: some View {
+        VStack {
             Button {
-                model.onDescriptionTap()
+                model.onCopyTitleTap()
             } label: {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        AnytypeText(Loc.description, style: .caption1Regular).foregroundColor(.Text.secondary)
-                        if model.spaceDescription.isNotEmpty {
-                            AnytypeText(model.spaceDescription, style: .previewTitle1Regular)
-                                .multilineTextAlignment(.leading)
-                        } else {
-                            AnytypeText(Loc.addADescription, style: .previewTitle1Regular).foregroundColor(.Text.tertiary)
-                                .multilineTextAlignment(.leading)
-                        }
-                    }
-                    Spacer()
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .border(16, color: .Shape.primary, lineWidth: 0.5)
+                Text(Loc.copy)
+                Spacer()
+                Image(systemName: "document.on.document")
+            }
+            Button {
+                model.onEditTap()
+            } label: {
+                Text(Loc.edit)
+                Spacer()
+                Image(systemName: "pencil")
             }
         }
     }
@@ -136,43 +125,47 @@ struct SpaceSettingsView: View {
     @ViewBuilder
     private var sharing: some View {
         if model.inviteLink.isNotNil {
-            Spacer.fixedHeight(8)
+            Spacer.fixedHeight(24)
             
-            HStack(spacing: 8) {
+            HStack(spacing: 24) {
                 Button {
                     model.onInviteTap()
                 } label: {
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.Island.addMember)
-                                .foregroundStyle(Color.Text.primary)
-                                .frame(width: 32, height: 32)
-                            AnytypeText(Loc.invite, style: .caption1Regular)
-                        }
-                        .padding(.vertical, 14)
-                        Spacer()
-                    }
-                    .border(16, color: .Shape.primary, lineWidth: 0.5)
+                    inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
+                }
+                
+                Button {
+                    model.onCopyLinkTap()
+                } label: {
+                    inviteLinkActionView(asset: .X32.copyLink, title: Loc.copyLink)
                 }
                 
                 Button {
                     model.onQRCodeTap()
                 } label: {
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 0) {
-                            Image(asset: .X32.qrCode)
-                                .foregroundStyle(Color.Text.primary)
-                                .frame(width: 32, height: 32)
-                            AnytypeText(Loc.qrCode, style: .caption1Regular)
-                        }
-                        .padding(.vertical, 14)
-                        Spacer()
-                    }
-                    .border(16, color: .Shape.primary, lineWidth: 0.5)
+                    inviteLinkActionView(asset: .X32.qrCode, title: Loc.qrCode)
                 }
             }
+            
+            Spacer.fixedHeight(16)
+        }
+    }
+    
+    private func inviteLinkActionView(asset: ImageAsset, title: String) -> some View {
+        VStack(spacing: 0) {
+            VStack(spacing: 0) {
+                Image(asset: asset)
+                    .foregroundStyle(Color.Text.primary)
+                    .frame(width: 24, height: 24)
+            }
+            .padding(20)
+            .background(Color.Shape.transperentSecondary)
+            .cornerRadius(10)
+            
+            Spacer.fixedHeight(6)
+            
+            AnytypeText(title, style: .caption2Regular)
+                .foregroundColor(.Text.primary)
         }
     }
     
@@ -184,11 +177,25 @@ struct SpaceSettingsView: View {
         case let .private(state):
             privateSpaceSetting(state: state)
         case .ownerOrEditor(let joiningCount):
-            SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: joiningCount > 0 ? .badge(joiningCount) : .chervon) { model.onShareTap() }
+            collaborationSection(memberDecoration: joiningCount > 0 ? .caption("\(joiningCount)") : .chervon)
         case .viewer:
+            collaborationSection()
+        }
+    }
+    
+    private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
+        VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member) { model.onShareTap() }
+            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onShareTap() }
+            if FeatureFlags.muteSpacePossibility {
+                Spacer.fixedHeight(8)
+                RoundedButton(
+                    Loc.notifications,
+                    icon: pushNotificationsSettingIcon(),
+                    decoration: .caption(pushNotificationsSettingCaption())) {
+                        model.onNotificationsTap()
+                    }
+            }
         }
     }
     
@@ -199,11 +206,11 @@ struct SpaceSettingsView: View {
                 EmptyView()
             case .shareable:
                 SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.share, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
+                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
             case .reachedSharesLimit(let limit):
                 SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
-                    RoundedButton(Loc.share, icon: .X24.member, decoration: .chervon) { }
+                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { }
                         .disabled(true)
                     AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
                         .foregroundColor(.Text.primary)
@@ -220,6 +227,8 @@ struct SpaceSettingsView: View {
     private var contentModel: some View {
         SectionHeaderView(title: Loc.contentModel)
         RoundedButton(Loc.objectTypes, icon: .X24.objectType, decoration: .chervon) { model.onObjectTypesTap() }
+        Spacer.fixedHeight(8)
+        RoundedButton(Loc.properties, icon: .X24.properties, decoration: .chervon) { model.onPropertiesTap() }
     }
     
     @ViewBuilder
@@ -285,15 +294,29 @@ struct SpaceSettingsView: View {
         Spacer.fixedHeight(8)
         
         if model.allowDelete {
-            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .System.red) {
+            RoundedButton(Loc.SpaceSettings.deleteButton, textColor: .Pure.red) {
                 model.onDeleteTap()
             }
         }
         if model.allowLeave {
-            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .System.red) {
+            RoundedButton(Loc.SpaceSettings.leaveButton, textColor: .Pure.red) {
                 model.onLeaveTap()
             }
         }
+    }
+    
+    private func pushNotificationsSettingIcon() -> ImageAsset {
+        guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
+            return .X24.muted
+        }
+        return model.pushNotificationsSettingsMode.isEnabled ? .X24.unmuted : .X24.muted
+    }
+    
+    private func pushNotificationsSettingCaption() -> String {
+        guard let status = model.pushNotificationsSettingsStatus, status.isAuthorized else {
+            return SpaceNotificationsSettingsMode.disabled.titleShort
+        }
+        return model.pushNotificationsSettingsMode.titleShort
     }
 }
 

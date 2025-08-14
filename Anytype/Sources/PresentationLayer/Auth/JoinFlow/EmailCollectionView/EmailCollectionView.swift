@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct EmailCollectionView: View {
     
@@ -52,7 +53,7 @@ struct EmailCollectionView: View {
             VStack(spacing: 4) {
                 if model.showIncorrectEmailError {
                     AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
-                        .foregroundColor(.System.red)
+                        .foregroundColor(.Pure.red)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -87,13 +88,15 @@ struct EmailCollectionView: View {
             )
             .colorScheme(.light)
             
-            StandardButton(
-                Loc.skip,
-                style: .secondaryLarge,
-                action: {
-                    model.onSkipAction()
-                }
-            )
+            if !FeatureFlags.mandatoryOnboardingEmailCollection {
+                StandardButton(
+                    Loc.skip,
+                    style: .secondaryLarge,
+                    action: {
+                        model.onSkipAction()
+                    }
+                )
+            }
         }
     }
 }

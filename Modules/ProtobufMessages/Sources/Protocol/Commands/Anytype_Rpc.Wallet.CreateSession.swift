@@ -44,6 +44,15 @@ extension Anytype_Rpc.Wallet {
           set {auth = .appKey(newValue)}
         }
 
+        /// token from the previous session
+        public var token: String {
+          get {
+            if case .token(let v)? = auth {return v}
+            return String()
+          }
+          set {auth = .token(newValue)}
+        }
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum OneOf_Auth: Equatable, Sendable {
@@ -51,6 +60,8 @@ extension Anytype_Rpc.Wallet {
           case mnemonic(String)
           /// persistent app key, that can be used to restore session
           case appKey(String)
+          /// token from the previous session
+          case token(String)
 
         }
 
@@ -172,6 +183,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "mnemonic"),
     2: .same(proto: "appKey"),
+    3: .same(proto: "token"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -196,6 +208,14 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
           self.auth = .appKey(v)
         }
       }()
+      case 3: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.auth != nil {try decoder.handleConflictingOneOf()}
+          self.auth = .token(v)
+        }
+      }()
       default: break
       }
     }
@@ -214,6 +234,10 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
     case .appKey?: try {
       guard case .appKey(let v)? = self.auth else { preconditionFailure() }
       try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    }()
+    case .token?: try {
+      guard case .token(let v)? = self.auth else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
     }()
     case nil: break
     }

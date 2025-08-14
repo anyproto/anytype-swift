@@ -43,7 +43,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         try await service.turnIntoObject(blockId: blockId, spaceId: document.spaceId)
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: String) async throws {
+    func turnInto(_ style: BlockText.Style, blockId: String, route: AnalyticsEventsRouteKind?) async throws {
         switch style {
         case .toggle:
             if let blockInformation = document.infoContainer.get(id: blockId),
@@ -54,7 +54,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         default:
             try await service.turnInto(style, blockId: blockId)
         }
-        AnytypeAnalytics.instance().logChangeBlockStyle(style)
+        AnytypeAnalytics.instance().logChangeBlockStyle(style, route: route)
     }
     
     func upload(blockId: String, filePath: String) async throws {
@@ -89,19 +89,20 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         try await objectService.applyTemplate(objectId: objectId, templateId: templateId)
     }
     
-    func setTextColor(_ color: BlockColor, blockIds: [String]) {
+    func setTextColor(_ color: BlockColor, blockIds: [String], route: AnalyticsEventsRouteKind? = nil) {
+        AnytypeAnalytics.instance().logChangeBlockColor(route: route)
         Task {
             try await blockService.setBlockColor(objectId: document.objectId, blockIds: blockIds, color: color.middleware)
         }
     }
     
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String]) {
-        AnytypeAnalytics.instance().logChangeBlockBackground(color: color.middleware)
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String], route: AnalyticsEventsRouteKind?) {
+        AnytypeAnalytics.instance().logChangeBlockBackground(color: color.middleware, route: route)
         service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
-    func duplicate(blockId: String, spaceId: String) {
-        AnytypeAnalytics.instance().logDuplicateBlock(spaceId: spaceId)
+    func duplicate(blockId: String) {
+        AnytypeAnalytics.instance().logDuplicateBlock(spaceId: document.spaceId)
         service.duplicate(blockId: blockId)
     }
     
@@ -120,8 +121,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         }
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String]) {
-        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String], route: AnalyticsEventsRouteKind?) {
+        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty, route: route)
         Task {
             try await blockService.setAlign(objectId: document.objectId, blockIds: blockIds, alignment: alignment)
         }
@@ -137,10 +138,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
 
 
-    func createEmptyBlock(parentId: String, spaceId: String) {
+    func createEmptyBlock(parentId: String) {
         Task {
             let emptyBlock = BlockInformation.emptyText
-            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type, spaceId: spaceId)
+            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type, spaceId: document.spaceId)
             try await service.addChild(info: emptyBlock, parentId: parentId)
         }
     }
@@ -160,9 +161,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         }
     }
     
-    func changeMarkup(blockIds: [String], markType: MarkupType) {
+    func changeMarkup(blockIds: [String], markType: MarkupType, route: AnalyticsEventsRouteKind?) {
         Task {
-            AnytypeAnalytics.instance().logChangeBlockStyle(markType)
+            AnytypeAnalytics.instance().logChangeBlockStyle(markType, route: route)
             try await blockService.changeMarkup(objectId: document.objectId, blockIds: blockIds, markType: markType)
         }
     }
@@ -171,9 +172,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     func toggleWholeBlockMarkup(
         _ attributedString: SafeNSAttributedString?,
         markup: MarkupType,
-        info: BlockInformation
+        info: BlockInformation,
+        route: AnalyticsEventsRouteKind?
     ) async throws -> SafeNSAttributedString? {
         guard let textContent = info.textContent, let attributedString else { return nil }
+        AnytypeAnalytics.instance().logChangeBlockStyle(markup, route: route)
+        
         let changedAttributedString = markupChanger.toggleMarkup(
             attributedString.value,
             markup: markup,
@@ -220,10 +224,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
     
     // MARK: - Public methods
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String, route: UploadMediaRoute) {
         
         Task {
-            
             await EventsBunch(
                 contextId: document.objectId,
                 localEvents: [.setLoadingState(blockId: blockId)]
@@ -232,11 +235,28 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
             try await fileService.uploadDataAt(source: uploadingSource, contextID: document.objectId, blockID: blockId)
         }
 
-        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId)
+        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId, route: route)
     }
     
-    func uploadFileAt(localPath: String, blockId: String) {
-        AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId)
+    func uploadImage(image: UIImage, type: String, blockId: String, route: UploadMediaRoute) {
+        Task {
+            guard let fileData = try? fileService.createFileData(image: image, type: type) else {
+                return
+            }
+            
+            await EventsBunch(
+                contextId: document.objectId,
+                localEvents: [.setLoadingState(blockId: blockId)]
+            ).send()
+            
+            try await fileService.uploadDataAt(data: fileData, contextID: document.objectId, blockID: blockId)
+        }
+
+        AnytypeAnalytics.instance().logUploadMedia(type: .image, spaceId: document.spaceId, route: route)
+    }
+    
+    func uploadFileAt(localPath: String, blockId: String, route: UploadMediaRoute) {
+        AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId, route: route)
         
         Task {
             await EventsBunch(
@@ -263,15 +283,14 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeNSAttributedString?,
-        spaceId: String
+        blockText: SafeNSAttributedString?
     ) async throws -> String {
         guard let isTextAndEmpty = blockText?.value.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
-        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue, spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue, spaceId: document.spaceId)
         
         return try await blockTableService.createTable(
             contextId: document.objectId,
@@ -283,7 +302,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?) async throws -> String {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead")
             throw CommonError.undefined
@@ -296,7 +315,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
         
-        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type, spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type, spaceId: document.spaceId)
         return try await service.add(info: newBlock, targetBlockId: blockId, position: position)
     }
 

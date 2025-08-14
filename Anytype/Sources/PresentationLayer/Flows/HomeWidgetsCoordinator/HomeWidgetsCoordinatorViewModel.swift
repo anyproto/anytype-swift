@@ -29,7 +29,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
-        pageNavigation?.open(.spaceInfo(.mainScreen(info: spaceInfo)))
+        pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceInfo.accountSpaceId)))
     }
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
@@ -69,7 +69,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
         setObjectCreationCoordinator.startCreateObject(
             setDocument: setDocument,
-            mode: FeatureFlags.openFullscreenObjectsFromSetWidget ? .fullscreen : .internal,
+            mode: .fullscreen,
             output: self,
             customAnalyticsRoute: .widget
         )

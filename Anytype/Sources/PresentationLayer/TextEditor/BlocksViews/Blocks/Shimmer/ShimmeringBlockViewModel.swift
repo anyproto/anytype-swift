@@ -7,9 +7,8 @@ struct ShimmeringBlockViewModel: SystemContentConfiguationProvider {
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
-    var hashable: AnyHashable {
-        "shimmering" as AnyHashable
-    }
+    var blockId: String { "ShimmeringBlockViewModel" }
+    var hashable: AnyHashable { blockId }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         ShimmeringBlockConfiguration(image: ImageAsset.TextEditor.shimmering)

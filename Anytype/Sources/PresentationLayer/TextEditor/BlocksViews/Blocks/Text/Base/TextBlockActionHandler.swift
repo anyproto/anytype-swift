@@ -18,6 +18,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
+    private let onSelectUndoRedo: () -> Void
     let showTextIconPicker: () -> Void
     let resetSubject = PassthroughSubject<NSAttributedString?, Never>()
     let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -55,6 +56,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         openURL: @escaping (URL) -> Void,
         onShowStyleMenu: @escaping (BlockInformation) -> Void,
         onEnterSelectionMode: @escaping (BlockInformation) -> Void,
+        onSelectUndoRedo: @escaping () -> Void,
         showTextIconPicker: @escaping () -> Void,
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
@@ -77,6 +79,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.openURL = openURL
         self.onShowStyleMenu = onShowStyleMenu
         self.onEnterSelectionMode = onEnterSelectionMode
+        self.onSelectUndoRedo = onSelectUndoRedo
         self.showTextIconPicker = showTextIconPicker
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
@@ -198,7 +201,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             case let .addBlock(type, newText):
                 Task { @MainActor in
                     try await setNewText(attributedString: newText.sendable())
-                    try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top, spaceId: document.spaceId)
+                    try await actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top)
                     resetSubject.send(nil)
                 }
             case let .addStyle(style, currentText, styleRange, focusRange):
@@ -252,6 +255,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         replacementText: String,
         range: NSRange
     ) -> Bool {
+        guard isCreateBookmarkAvailableForBlock() else { return false }
+        
         let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
 
@@ -364,7 +369,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func createEmptyBlock() {
-        actionHandler.createEmptyBlock(parentId: info.id, spaceId: document.spaceId)
+        actionHandler.createEmptyBlock(parentId: info.id)
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
@@ -383,6 +388,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         viewModel.map {
             collectionController.itemDidChangeFrame(item: .block($0))
         }
+    }
+    
+    private func isCreateBookmarkAvailableForBlock() -> Bool {
+        info.content.type != .text(.title) && info.content.type != .text(.description)
     }
 
     @MainActor
@@ -539,6 +548,10 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     
     func didSelectShowStyleMenu() {
         onShowStyleMenu(info)
+    }
+    
+    func didSelectUndoRedo() {
+        onSelectUndoRedo()
     }
     
     private func setNewTextSync(attributedString: NSAttributedString) {

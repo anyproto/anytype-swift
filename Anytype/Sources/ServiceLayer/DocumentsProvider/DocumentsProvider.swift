@@ -48,8 +48,8 @@ extension DocumentsProviderProtocol {
 final class DocumentsProvider: DocumentsProviderProtocol {
     private var documentCache = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectLifecycleService)
@@ -72,7 +72,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         return SetDocument(
             document: document,
             inlineParameters: inlineParameters,
-            relationDetailsStorage: relationDetailsStorage,
+            propertyDetailsStorage: propertyDetailsStorage,
             objectTypeProvider: objectTypeProvider,
             accountParticipantsStorage: accountParticipantsStorage,
             permissionsBuilder: SetPermissionsBuilder()
@@ -117,7 +117,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             spaceId: spaceId,
             mode: mode,
             objectLifecycleService: objectLifecycleService,
-            relationDetailsStorage: relationDetailsStorage, 
+            propertyDetailsStorage: propertyDetailsStorage, 
             objectTypeProvider: objectTypeProvider,
             accountParticipantsStorage: accountParticipantsStorage,
             eventsListener: eventsListener,

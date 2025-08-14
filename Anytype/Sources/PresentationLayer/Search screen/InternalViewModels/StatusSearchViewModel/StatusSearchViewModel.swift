@@ -9,7 +9,7 @@ final class StatusSearchViewModel {
     
     private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
     private var selectedStatusesIds: [String] = []
-    private var statuses: [Relation.Status.Option] = []
+    private var statuses: [Property.Status.Option] = []
     
     private let interactor: StatusSearchInteractor
     private let onSelect: (_ ids: [String]) -> Void
@@ -66,7 +66,7 @@ private extension StatusSearchViewModel {
         viewStateSubject.send(.error(error))
     }
     
-    func handleSearchResults(_ statuses: [Relation.Status.Option]) {
+    func handleSearchResults(_ statuses: [Property.Status.Option]) {
         let sections = LegacySearchSectionsBuilder.makeSections(statuses) {
             $0.asRowConfigurations(with: selectedStatusesIds, selectionMode: selectionMode)
         }
@@ -75,7 +75,7 @@ private extension StatusSearchViewModel {
     
 }
 
-private extension Array where Element == Relation.Status.Option {
+private extension Array where Element == Property.Status.Option {
 
     func asRowConfigurations(with selectedIds: [String], selectionMode: LegacySearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { option in
@@ -99,7 +99,7 @@ private extension Array where Element == Relation.Status.Option {
 
 private extension LegacySearchViewModel.SelectionMode {
     
-    func asSelectionIndicatorViewModel(option: Relation.Status.Option, selectedIds: [String]) -> SelectionIndicatorView.Model? {
+    func asSelectionIndicatorViewModel(option: Property.Status.Option, selectedIds: [String]) -> SelectionIndicatorView.Model? {
         switch self {
         case .multipleItems:
             return SelectionIndicatorViewModelBuilder.buildModel(id: option.id, selectedIds: selectedIds)

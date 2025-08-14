@@ -5,32 +5,48 @@ import Services
 struct MessageVideoView: View {
     
     let url: URL?
+    let syncStatus: SyncStatus?
+    let syncError: SyncError?
     
-    // Prevent image creation for each view update
-    @State private var image: UIImage?
     @StateObject private var model = MessageLinkVideoViewModel()
     
-    init(url: URL?) {
+    init(url: URL?, syncStatus: SyncStatus? = nil, syncError: SyncError? = nil) {
         self.url = url
-        self._image = State(initialValue: nil)
+        self.syncStatus = syncStatus
+        self.syncError = syncError
     }
     
     var body: some View {
         GeometryReader { reader in
             ZStack {
-                if let image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
+                if let image = model.image {
+                    ZStack {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: reader.size.width, height: reader.size.height, alignment: .center)
+                            .clipped()
+                        MessageMediaUploadingStatus(
+                            syncStatus: syncStatus,
+                            syncError: syncError
+                        ) {
+                            MessageLoadingStateContainer {
+                                Image(asset: .Controls.play)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .background(.black.opacity(0.5))
+                        }
+                    }
+                } else if model.hasError {
+                    MessageAttachmentErrorIndicator()
+                } else {
+                    MessageAttachmentLoadingIndicator()
                 }
-                Color.black.opacity(0.2)
-                Image(asset: .X32.video)
-                    .foregroundStyle(Color.white)
             }
             .frame(width: reader.size.width, height: reader.size.height)
             .task(id: [url?.hashValue ?? 0, reader.size.width.hashValue].hashValue) {
                 guard let url, reader.size != .zero else { return }
-                image = await model.preview(for: url, size: reader.size)
+                await model.updatePreview(for: url, size: reader.size)
             }
         }
     }
@@ -42,13 +58,30 @@ private final class MessageLinkVideoViewModel: ObservableObject {
     @Injected(\.videoPreviewStorage)
     private var videoPreviewStorage: any VideoPreviewStorageProtocol
     
-    func preview(for url: URL, size: CGSize) async -> UIImage? {
-        try? await videoPreviewStorage.preview(url: url, size: size)
+    @Published var image: UIImage?
+    @Published var hasError: Bool = false
+    
+    func updatePreview(for url: URL, size: CGSize) async {
+        do {
+            image = try await videoPreviewStorage.preview(url: url, size: size)
+        } catch {
+            hasError = true
+        }
     }
 }
 
 extension MessageVideoView {
     init(details: MessageAttachmentDetails) {
-        self = MessageVideoView(url: ContentUrlBuilder.fileUrl(fileId: details.id))
+        self.init(
+            url: ContentUrlBuilder.fileUrl(fileId: details.id),
+            syncStatus: details.syncStatus,
+            syncError: details.syncError
+        )
     }
+}
+
+
+#Preview {
+    MessageVideoView(url: nil, syncStatus: .syncing, syncError: nil)
+        .frame(width: 100, height: 100)
 }

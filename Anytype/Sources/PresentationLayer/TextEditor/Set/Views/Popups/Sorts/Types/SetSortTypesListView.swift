@@ -45,7 +45,7 @@ struct SetSortTypesListView: View {
                 Spacer()
 
                 if item.isSelected {
-                    Image(asset: .X24.tick).foregroundColor(.Control.button)
+                    Image(asset: .X24.tick).foregroundColor(.Control.primary)
                 }
             }
             .frame(height: 52)

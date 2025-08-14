@@ -44,21 +44,17 @@ public enum Asset {
     static let teal = ColorAsset(name: "Light/teal")
     static let yellow = ColorAsset(name: "Light/yellow")
   }
-  public enum System {
-    static let amber100 = ColorAsset(name: "System/amber100")
-    static let amber125 = ColorAsset(name: "System/amber125")
-    static let amber25 = ColorAsset(name: "System/amber25")
-    static let amber50 = ColorAsset(name: "System/amber50")
-    static let amber80 = ColorAsset(name: "System/amber80")
-    static let blue = ColorAsset(name: "System/blue")
-    static let green = ColorAsset(name: "System/green")
-    static let grey = ColorAsset(name: "System/grey")
-    static let pink = ColorAsset(name: "System/pink")
-    static let purple = ColorAsset(name: "System/purple")
-    static let red = ColorAsset(name: "System/red")
-    static let sky = ColorAsset(name: "System/sky")
-    static let teal = ColorAsset(name: "System/teal")
-    static let yellow = ColorAsset(name: "System/yellow")
+  public enum Pure {
+    static let blue = ColorAsset(name: "Pure/blue")
+    static let green = ColorAsset(name: "Pure/green")
+    static let grey = ColorAsset(name: "Pure/grey")
+    static let orange = ColorAsset(name: "Pure/orange")
+    static let pink = ColorAsset(name: "Pure/pink")
+    static let purple = ColorAsset(name: "Pure/purple")
+    static let red = ColorAsset(name: "Pure/red")
+    static let sky = ColorAsset(name: "Pure/sky")
+    static let teal = ColorAsset(name: "Pure/teal")
+    static let yellow = ColorAsset(name: "Pure/yellow")
   }
   public enum VeryLight {
     static let blue = ColorAsset(name: "VeryLight/blue")
@@ -117,9 +113,11 @@ public enum Asset {
     static let yellowStart = ColorAsset(name: "CoverGradients/yellowStart")
   }
   public enum Gradients {
-    public enum Push {
-      static let violetEnd = ColorAsset(name: "Gradients/Push/violetEnd")
-      static let violetStart = ColorAsset(name: "Gradients/Push/violetStart")
+    public enum HeaderAlert {
+      static let redEnd = ColorAsset(name: "Gradients/HeaderAlert/redEnd")
+      static let redStart = ColorAsset(name: "Gradients/HeaderAlert/redStart")
+      static let violetEnd = ColorAsset(name: "Gradients/HeaderAlert/violetEnd")
+      static let violetStart = ColorAsset(name: "Gradients/HeaderAlert/violetStart")
     }
     public enum UpdateAlert {
       static let darkBlue = ColorAsset(name: "Gradients/UpdateAlert/darkBlue")
@@ -165,6 +163,7 @@ public enum Asset {
   // MARK: - DesignSystem
   public enum Background {
     public enum Chat {
+      static let bubbleFlash = ColorAsset(name: "Background/Chat/bubbleFlash")
       static let bubbleSomeones = ColorAsset(name: "Background/Chat/bubbleSomeones")
       static let bubbleYour = ColorAsset(name: "Background/Chat/bubbleYour")
       static let replySomeones = ColorAsset(name: "Background/Chat/replySomeones")
@@ -179,12 +178,16 @@ public enum Asset {
     static let widget = ColorAsset(name: "Background/widget")
   }
   public enum Control {
-    static let accent = ColorAsset(name: "Control/accent")
-    static let active = ColorAsset(name: "Control/active")
-    static let button = ColorAsset(name: "Control/button")
-    static let inactive = ColorAsset(name: "Control/inactive")
-    static let transparentActive = ColorAsset(name: "Control/transparentActive")
-    static let transparentInactive = ColorAsset(name: "Control/transparentInactive")
+    static let accent100 = ColorAsset(name: "Control/accent100")
+    static let accent125 = ColorAsset(name: "Control/accent125")
+    static let accent25 = ColorAsset(name: "Control/accent25")
+    static let accent50 = ColorAsset(name: "Control/accent50")
+    static let accent80 = ColorAsset(name: "Control/accent80")
+    static let primary = ColorAsset(name: "Control/primary")
+    static let secondary = ColorAsset(name: "Control/secondary")
+    static let tertiary = ColorAsset(name: "Control/tertiary")
+    static let transparentSecondary = ColorAsset(name: "Control/transparentSecondary")
+    static let transparentTertiary = ColorAsset(name: "Control/transparentTertiary")
     static let white = ColorAsset(name: "Control/white")
   }
   public enum Shape {

@@ -14,9 +14,9 @@ final class DateViewModel: ObservableObject {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     @Injected(\.relationListWithValueService)
-    private var relationListWithValueService: any RelationListWithValueServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    private var relationListWithValueService: any PropertyListWithValueServiceProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.dateRelatedObjectsSubscriptionService)
     private var dateRelatedObjectsSubscriptionService: any DateRelatedObjectsSubscriptionServiceProtocol
     @Injected(\.objectDateByTimestampService)
@@ -29,7 +29,7 @@ final class DateViewModel: ObservableObject {
     // MARK: - State
     
     private var objectsToLoad = 0
-    private var lastSelectedRelation: RelationDetails? = nil
+    private var lastSelectedRelation: PropertyDetails? = nil
     private var details = [ObjectDetails]()
     
     @Published var document: (any BaseDocumentProtocol)?
@@ -37,7 +37,7 @@ final class DateViewModel: ObservableObject {
     @Published var relativeTag = ""
     @Published var weekday = ""
     @Published var objects = [ObjectCellData]()
-    @Published var relationItems = [RelationItemData]()
+    @Published var relationItems = [PropertyItemData]()
     @Published var state = DateModuleState()
     @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     @Published var scrollToRelationId: String? = nil
@@ -94,7 +94,7 @@ final class DateViewModel: ObservableObject {
         output?.onSyncStatusTap()
     }
     
-    func onRelationTap(_ details: RelationDetails) {
+    func onRelationTap(_ details: PropertyDetails) {
         if state.selectedRelation != details {
             state.selectedRelation = details
             AnytypeAnalytics.instance().logSwitchRelationDate(key: details.analyticsKey)
@@ -218,18 +218,18 @@ final class DateViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func relationDetails(for relationsKeys: [String]?) -> [RelationDetails] {
+    private func relationDetails(for relationsKeys: [String]?) -> [PropertyDetails] {
         guard let relationsKeys else { return [] }
-        let relationDetails = relationsKeys.compactMap { [weak self] key -> RelationDetails? in
+        let relationDetails = relationsKeys.compactMap { [weak self] key -> PropertyDetails? in
             guard let self else { return nil }
-            return try? relationDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
+            return try? propertyDetailsStorage.relationsDetails(key: key, spaceId: spaceId)
         }
         return relationDetails.filter { details in
-            if details.key == BundledRelationKey.mentions.rawValue {
+            if details.key == BundledPropertyKey.mentions.rawValue {
                 return true
             }
-            if details.key == BundledRelationKey.links.rawValue ||
-                details.key == BundledRelationKey.backlinks.rawValue {
+            if details.key == BundledPropertyKey.links.rawValue ||
+                details.key == BundledPropertyKey.backlinks.rawValue {
                 return false
             }
             return !details.isHidden
@@ -285,28 +285,28 @@ final class DateViewModel: ObservableObject {
     }
     
     private func creatorFilter() -> DataviewFilter? {
-        guard state.selectedRelation?.key == BundledRelationKey.createdDate.rawValue else {
+        guard state.selectedRelation?.key == BundledPropertyKey.createdDate.rawValue else {
             return nil
         }
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = ObjectOrigin.builtin.rawValue.protobufValue
-        filter.relationKey = BundledRelationKey.origin.rawValue
+        filter.relationKey = BundledPropertyKey.origin.rawValue
         
         return filter
     }
     
     private func creationDateCompositFilter() -> DataviewFilter? {
-        guard state.selectedRelation?.key == BundledRelationKey.lastModifiedDate.rawValue else {
+        guard state.selectedRelation?.key == BundledPropertyKey.lastModifiedDate.rawValue else {
             return nil
         }
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = [
-            Constants.relationKey : BundledRelationKey.lastModifiedDate.rawValue.protobufValue,
+            Constants.relationKey : BundledPropertyKey.lastModifiedDate.rawValue.protobufValue,
             Constants.typeKey : Constants.typeValue.protobufValue
         ].protobufValue
-        filter.relationKey = BundledRelationKey.createdDate.rawValue
+        filter.relationKey = BundledPropertyKey.createdDate.rawValue
         
         return filter
     }
@@ -323,17 +323,17 @@ final class DateViewModel: ObservableObject {
     private func buildSort(from state: DateModuleState) -> DataviewSort? {
         guard let relationDetails = state.selectedRelation else { return nil }
         
-        let relationKey = relationDetails.format == .date ? relationDetails.key : BundledRelationKey.lastOpenedDate.rawValue
+        let relationKey = relationDetails.format == .date ? relationDetails.key : BundledPropertyKey.lastOpenedDate.rawValue
         return SearchHelper.sort(
             relationKey: relationKey,
             type: state.sortType
         )
     }
     
-    private func relationItemData(from details: RelationDetails) -> RelationItemData {
-        let isMention = details.key == BundledRelationKey.mentions.rawValue
+    private func relationItemData(from details: PropertyDetails) -> PropertyItemData {
+        let isMention = details.key == BundledPropertyKey.mentions.rawValue
         let icon: Icon? = isMention ? .asset(.X24.mention) : nil
-        return RelationItemData(
+        return PropertyItemData(
             id: details.id,
             icon: icon,
             title: details.name,

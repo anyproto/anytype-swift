@@ -10,7 +10,7 @@ protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
     ) async -> [MessageSectionData]
 }
 
-final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
+actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     
     private enum Constants {
         static let grouppingDateInterval: Int = 60 // seconds
@@ -101,6 +101,7 @@ final class ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && !isStream,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
+                showMessageSyncIndicator: isYourMessage,
                 message: message,
                 attachmentsDetails: fullMessage.attachments,
                 reply: fullMessage.reply

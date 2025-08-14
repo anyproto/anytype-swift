@@ -1,5 +1,6 @@
 import Foundation
 import SecureService
+import NotificationsCore
 // Automatically export Factory when import Servies
 @_exported import Factory
 
@@ -85,8 +86,8 @@ public extension Container {
         self { ProcessSubscriptionService() }.shared
     }
     
-    var relationsService: Factory<RelationsServiceProtocol> {
-        self { RelationsService() }.shared
+    var propertiesService: Factory<PropertiesServiceProtocol> {
+        self { PropertiesService() }.shared
     }
     
     var sceneLifecycleStateService: Factory<SceneLifecycleStateServiceProtocol> {
@@ -137,8 +138,8 @@ public extension Container {
         self { ChatService() }.shared
     }
     
-    var relationListWithValueService: Factory<RelationListWithValueServiceProtocol> {
-        self { RelationListWithValueService() }.shared
+    var relationListWithValueService: Factory<PropertyListWithValueServiceProtocol> {
+        self { PropertyListWithValueService() }.shared
     }
     
     var objectDateByTimestampService: Factory<ObjectDateByTimestampServiceProtocol> {
@@ -165,15 +166,15 @@ public extension Container {
         self { EncryptionKeyService() }.shared
     }
     
-    var cryptoService: Factory<CryptoServiceProtocol> {
-        self { CryptoService() }.shared
-    }
-    
-    var decryptionPushContentService: Factory<DecryptionPushContentServiceProtocol> {
-        self { DecryptionPushContentService() }.shared
-    }
-    
     var basicUserInfoStorage: Factory<BasicUserInfoStorageProtocol> {
         self { BasicUserInfoStorage() }.singleton
+    }
+    
+    var publishingService: Factory<PublishingServiceProtocol> {
+        self { PublishingService() }.shared
+    }
+    
+    var notificationsCenterService: Factory<NotificationsCenterServiceProtocol> {
+        self { NotificationsCenterService() }.shared
     }
 }

@@ -44,6 +44,7 @@ struct EditorSetView: View {
         .anytypeSheet(isPresented: $model.showCommonOpenError, onDismiss: { dismiss() }) {
             DocumentCommonOpenErrorView { dismiss() }
         }
+        .homeBottomPanelHidden(false)
     }
     
     private var content: some View {

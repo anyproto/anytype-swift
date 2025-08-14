@@ -5,19 +5,19 @@ json:
   - inputs: Dependencies/Middleware/json/relations.json
     outputs:
       - templatePath: Templates/relation-keys.stencil
-        output: Sources/Generated/BundledRelationKey.swift
+        output: Sources/Generated/BundledPropertyKey.swift
       - templatePath: Templates/relation-value-provider.stencil
-        output: Sources/Generated/BundledRelationsValueProvider.swift
+        output: Sources/Generated/BundledPropertiesValueProvider.swift
   - inputs: Dependencies/Middleware/json/systemRelations.json
     outputs:
       templatePath: Templates/relation-list-keys.stencil
-      output: Sources/Generated/BundledRelationKey+SystemKeys.swift
+      output: Sources/Generated/BundledPropertyKey+SystemKeys.swift
       params:
         varName: systemKeys
   - inputs: Dependencies/Middleware/json/internalRelations.json
     outputs:
       templatePath: ./Templates/relation-list-keys.stencil
-      output: Sources/Generated/BundledRelationKey+internalKeys.swift
+      output: Sources/Generated/BundledPropertyKey+internalKeys.swift
       params:
         varName: internalKeys
   - inputs: Dependencies/Middleware/json/systemTypes.json

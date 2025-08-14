@@ -167,6 +167,10 @@ extension Anytype_Rpc.Object {
 
           public var path: [String] = []
 
+          public var createDirectoryPages: Bool = false
+
+          public var includePropertiesAsBlock: Bool = false
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
@@ -843,6 +847,8 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
   public static let protoMessageName: String = Anytype_Rpc.Object.Import.Request.protoMessageName + ".MarkdownParams"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "path"),
+    2: .same(proto: "createDirectoryPages"),
+    3: .same(proto: "includePropertiesAsBlock"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -852,6 +858,8 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.path) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.createDirectoryPages) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.includePropertiesAsBlock) }()
       default: break
       }
     }
@@ -861,11 +869,19 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
     if !self.path.isEmpty {
       try visitor.visitRepeatedStringField(value: self.path, fieldNumber: 1)
     }
+    if self.createDirectoryPages != false {
+      try visitor.visitSingularBoolField(value: self.createDirectoryPages, fieldNumber: 2)
+    }
+    if self.includePropertiesAsBlock != false {
+      try visitor.visitSingularBoolField(value: self.includePropertiesAsBlock, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Import.Request.MarkdownParams, rhs: Anytype_Rpc.Object.Import.Request.MarkdownParams) -> Bool {
     if lhs.path != rhs.path {return false}
+    if lhs.createDirectoryPages != rhs.createDirectoryPages {return false}
+    if lhs.includePropertiesAsBlock != rhs.includePropertiesAsBlock {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

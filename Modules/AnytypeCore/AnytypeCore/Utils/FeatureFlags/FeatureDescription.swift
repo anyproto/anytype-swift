@@ -3,6 +3,24 @@ import Foundation
 public enum FeatureType: Equatable, Sendable {
     case debug
     case feature(author: String, releaseVersion: String)
+    
+    public var author: String? {
+        switch self {
+        case .debug:
+            return nil
+        case .feature(let author, _):
+            return author
+        }
+    }
+    
+    public var releaseVersion: String? {
+        switch self {
+        case .debug:
+            return nil
+        case .feature(_, let releaseVersion):
+            return releaseVersion
+        }
+    }
 }
 
 public struct FeatureDescription: Sendable {

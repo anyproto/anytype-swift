@@ -46,11 +46,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.pushNotificationsAlertHandler)
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
+    @Injected(\.chatInviteStateService)
+    private var chatInviteStateService: any ChatInviteStateServiceProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let chatMessageBuilder: any ChatMessageBuilderProtocol
+    private let chatObject: any BaseDocumentProtocol
     
     // MARK: - State
     
@@ -70,6 +73,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var replyToMessage: ChatInputReplyModel?
     @Published var editMessage: ChatMessage?
     @Published var sendMessageTaskInProgress: Bool = false
+    @Published var sendButtonIsLoading: Bool = false
     @Published var messageTextLimit: String?
     @Published var textLimitReached = false
     @Published var typesForCreateObject: [ObjectType] = []
@@ -88,15 +92,16 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
     @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
+    @Published var messageHiglightId: String = ""
     
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
     private var participants: [Participant] = []
-    private var inviteLinkShown = false
     private var firstUnreadMessageOrderId: String?
     private var bottomVisibleOrderId: String?
     private var bigDistanceToBottom: Bool = false
     private var forceHiddenActionPanel: Bool = true
+    private var showScreenLogged = false
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
@@ -117,19 +122,24 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         self.chatStorage = Container.shared.chatMessageStorage((spaceId, chatId))
         self.chatMessageBuilder = ChatMessageBuilder(spaceId: spaceId, chatId: chatId)
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
+        // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
+        self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
     func onTapAddPageToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pages)
         let data = buildObjectSearcData(type: .pages)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddListToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .lists)
         let data = buildObjectSearcData(type: .lists)
         output?.onLinkObjectSelected(data: data)
     }
     
     func onTapAddMediaToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo)
         let data = ChatPhotosPickerData(selectedItems: photosItems) { [weak self] result in
             self?.photosItems = result
             self?.photosItemsTask = UUID()
@@ -138,6 +148,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapAddFilesToMessage() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file)
         let data = ChatFilesPickerData(handler: { [weak self] result in
             self?.handleFilePicker(result: result)
         })
@@ -145,6 +156,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCamera() {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera)
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             self?.handleCameraMedia(media)
         })
@@ -176,22 +188,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             let chatState = await chatStorage.chatState
             let messages = await chatStorage.fullMessages
             
+            if !showScreenLogged {
+                AnytypeAnalytics.instance().logScreenChat(
+                    unreadMessageCount: chatState?.messages.counter,
+                    hasMention: chatState.map { $0.mentions.counter > 0 }
+                )
+                showScreenLogged = true
+            }
+            
             if updates.contains(.messages), let messages {
                 
                 let prevChatIsEmpty = self.messages.isEmpty
-                // After displaying a new message, we scroll to bottom and mark the messages as read.
-                // Without this logic, the button will appear for half a second while scrolling is in progress — which doesn’t look good.
-                if !bigDistanceToBottom {
-                    // Don't hide buttons if unread message or mention from past
-                    if let bottomVisibleOrderId, let chatState {
-                        let hideForMessage = chatState.messages.oldestOrderID.isNotEmpty ? bottomVisibleOrderId < chatState.messages.oldestOrderID : false
-                        let hideForMention = chatState.mentions.oldestOrderID.isNotEmpty ? bottomVisibleOrderId < chatState.mentions.oldestOrderID : false
-                        forceHiddenActionPanel = hideForMessage || hideForMention
-                    } else {
-                        forceHiddenActionPanel = true
-                    }
-                    updateActions()
-                }
                 
                 self.messages = messages
                 self.dataLoaded = true
@@ -221,6 +228,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func sendMessageTask() async throws {
         guard sendMessageTaskInProgress else { return }
+        let loadingTask = Task {
+            try await Task.sleep(seconds: 0.3)
+            try Task.checkCancellation()
+            sendButtonIsLoading = true
+        }
         mentionSearchState = .finish
         if let editMessage {
             try await chatActionService.updateMessage(
@@ -240,6 +252,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects: linkedObjects,
                 replyToMessageId: replyToMessage?.id
             )
+            let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
+            AnytypeAnalytics.instance().logSentMessage(type: type)
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
             clearInput()
@@ -247,6 +261,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             keyboardDismiss?()
             showSendLimitAlert = true
         }
+        loadingTask.cancel()
+        sendButtonIsLoading = false
         sendMessageTaskInProgress = false
     }
     
@@ -255,6 +271,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             linkedObjects.removeAll { $0.id == linkedObject.id }
             photosItems.removeAll { $0.hashValue == linkedObject.id }
         }
+        AnytypeAnalytics.instance().logDetachItemChat()
     }
     
     func scrollToTop() async {
@@ -278,12 +295,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func didSelectMention(_ mention: MentionObject) {
         guard case let .search(_, mentionRange) = mentionSearchState else { return }
         let newMessage = NSMutableAttributedString(attributedString: message)
-        let mentionString = NSAttributedString(string: mention.name, attributes: [
+        let mentionString = NSMutableAttributedString(string: mention.name, attributes: [
             .chatMention: mention
         ])
+        mentionString.append(NSAttributedString(string: " "))
         
         newMessage.replaceCharacters(in: mentionRange, with: mentionString)
         message = newMessage
+        AnytypeAnalytics.instance().logMention()
     }
     
     func didSelectObject(linkedObject: ChatLinkedObject) {
@@ -342,6 +361,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 self?.linkedObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
             }
             self?.linkPreviewTasks[link] = nil
+            AnytypeAnalytics.instance().logAttachItemChat(type: .object)
         }
         linkPreviewTasks[link] = task.cancellable()
     }
@@ -356,6 +376,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 
                 if let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) {
                     linkedObjects.append(.localBinaryFile(fileData))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .file)
                 }
             }
         }
@@ -418,6 +439,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 photosItems.removeAll { $0 == photosItem }
             }
         }
+        
+        if newItems.isNotEmpty {
+            AnytypeAnalytics.instance().logAttachItemChat(type: .photo)
+        }
     }
     
     func deleteMessage(message: MessageViewData) async throws {
@@ -428,9 +453,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
             bottomVisibleOrderId = toMessage.message.orderID
+            forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
             await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
-            forceHiddenActionPanel = false
-            updateActions()
         }
     }
     
@@ -449,10 +473,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapCreateObject(type: ObjectType) {
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, objectType: type)
         output?.didSelectCreateObject(type: type)
     }
     
     func onTapScrollToBottom() {
+        AnytypeAnalytics.instance().logClickScrollToBottom()
         if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
             firstUnreadMessageOrderId > bottomVisibleOrderId,
             bottomVisibleOrderId < chatState.messages.oldestOrderID {
@@ -473,9 +499,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapMention() {
         guard let chatState else { return }
+        AnytypeAnalytics.instance().logClickScrollToMention()
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            messageHiglightId = message.id
         }
     }
     
@@ -486,11 +514,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
+        AnytypeAnalytics.instance().logClickMessageMenuReaction()
         output?.didSelectAddReaction(messageId: messageId)
     }
     
-    func didTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) async throws {
-        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
+    func didTapOnReaction(data: MessageViewData, emoji: String) async throws {
+        let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
+        AnytypeAnalytics.instance().logToggleReaction(added: added)
     }
     
     func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
@@ -514,6 +544,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func didSelectReplyTo(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuReply()
         withAnimation {
             inputFocused = true
             replyToMessage = ChatInputReplyModel(
@@ -528,17 +559,21 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectReplyMessage(message: MessageViewData) {
         guard let reply = message.reply else { return }
+        AnytypeAnalytics.instance().logClickScrollToReply()
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.id)
             collectionViewScrollProxy.scrollTo(itemId: reply.id)
+            messageHiglightId = reply.id
         }
     }
     
     func didSelectDeleteMessage(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuDelete()
         deleteMessageConfirmation = message
     }
     
     func didSelectEditMessage(message messageToEdit: MessageViewData) async {
+        AnytypeAnalytics.instance().logClickMessageMenuEdit()
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
@@ -551,14 +586,13 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
-    func didSelectUnread(message: MessageViewData) {
-        Task {
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
-            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
-        }
+    func didSelectUnread(message: MessageViewData) async throws {
+        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
+        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
     }
 
     func didSelectCopyPlainText(message: MessageViewData) {
+        AnytypeAnalytics.instance().logClickMessageMenuCopy()
         UIPasteboard.general.string = NSAttributedString(message.messageString).string
     }
     
@@ -573,6 +607,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             }
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
                 linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first)))
+                AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 // Waiting pop transaction and open keyboard.
                 try await Task.sleep(seconds: 1.0)
                 inputFocused = true
@@ -613,7 +648,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             await handlePushNotificationsAlert()
-            await handleInviteLinkShow()
+            handleInviteLinkShow()
         }
     }
     
@@ -645,6 +680,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 
                 file.stopAccessingSecurityScopedResource()
             }
+            AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         case .failure:
             break
         }
@@ -665,6 +701,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 linkedObjects.append(.localBinaryFile(fileData))
             }
         }
+        AnytypeAnalytics.instance().logAttachItemChat(type: .camera)
     }
     
     private func clearInput() {
@@ -708,6 +745,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 guard let self else { return }
                 if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
                     linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details)))
+                    AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 } else {
                     showFileLimitAlert()
                 }
@@ -721,21 +759,17 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             url: linkPreview.url,
             title: linkPreview.title,
             description: linkPreview.description_p,
-            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .asset(.EmptyIcon.bookmark), 
+            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.emptyBookmarkIcon), 
             loading: false
         )
         linkedObjects[index] = .localBookmark(bookmark)
     }
     
-    private func handleInviteLinkShow() async {
-        guard !inviteLinkShown,
-              participantPermissions == .owner,
-              let createdDate = participantSpaceView?.spaceView.createdDate,
-              Date().timeIntervalSince(createdDate) < 5 else {
-            return
+    private func handleInviteLinkShow() {
+        if chatInviteStateService.shouldShowInvite(for: spaceId) {
+            output?.onInviteLinkSelected()
+            chatInviteStateService.clearInviteState(for: spaceId)
         }
-        output?.onInviteLinkSelected()
-        inviteLinkShown = true
     }
     
     private func handlePushNotificationsAlert() async {
@@ -752,7 +786,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 mentionsCounter: Int(chatState.mentions.counter)
             )
         } else {
-            actionModel = .hidden
+            actionModel = ChatActionPanelModel(
+                showScrollToBottom: bigDistanceToBottom,
+                srollToBottomCounter: 0,
+                showMentions: false,
+                mentionsCounter: 0
+            )
         }
     }
 }

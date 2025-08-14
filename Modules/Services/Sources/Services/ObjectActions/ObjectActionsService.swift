@@ -20,8 +20,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     ) async throws -> ObjectDetails {
         let details = Google_Protobuf_Struct(
             fields: [
-                BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.origin.rawValue: origin.rawValue.protobufValue
+                BundledPropertyKey.name.rawValue: name.protobufValue,
+                BundledPropertyKey.origin.rawValue: origin.rawValue.protobufValue
             ]
         )
         
@@ -43,7 +43,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             $0.templateID = templateId ?? ""
             $0.spaceID = spaceId
             $0.objectTypeUniqueKey = typeUniqueKey.value
-            $0.createTypeWidgetIfMissing = true
         }).invoke()
         
         return try response.details.toDetails()
@@ -229,8 +228,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     public func createSet(name: String, iconEmoji: Emoji?, setOfObjectType: String, spaceId: String) async throws -> ObjectDetails {
         let fields: [String: Google_Protobuf_Value] = [
-            BundledRelationKey.name.rawValue: name.protobufValue,
-            BundledRelationKey.iconEmoji.rawValue: iconEmoji?.value.protobufValue
+            BundledPropertyKey.name.rawValue: name.protobufValue,
+            BundledPropertyKey.iconEmoji.rawValue: iconEmoji?.value.protobufValue
         ].compactMapValues { $0 }
         
         let details = Google_Protobuf_Struct(fields: fields)

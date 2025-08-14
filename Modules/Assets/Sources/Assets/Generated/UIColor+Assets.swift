@@ -28,22 +28,18 @@ extension UIColor {
       public static let teal = UIColor(asset: Asset.Light.teal)
       public static let yellow = UIColor(asset: Asset.Light.yellow)
     }
-    // MARK: - System
-    public enum System {
-      public static let amber100 = UIColor(asset: Asset.System.amber100)
-      public static let amber125 = UIColor(asset: Asset.System.amber125)
-      public static let amber25 = UIColor(asset: Asset.System.amber25)
-      public static let amber50 = UIColor(asset: Asset.System.amber50)
-      public static let amber80 = UIColor(asset: Asset.System.amber80)
-      public static let blue = UIColor(asset: Asset.System.blue)
-      public static let green = UIColor(asset: Asset.System.green)
-      public static let grey = UIColor(asset: Asset.System.grey)
-      public static let pink = UIColor(asset: Asset.System.pink)
-      public static let purple = UIColor(asset: Asset.System.purple)
-      public static let red = UIColor(asset: Asset.System.red)
-      public static let sky = UIColor(asset: Asset.System.sky)
-      public static let teal = UIColor(asset: Asset.System.teal)
-      public static let yellow = UIColor(asset: Asset.System.yellow)
+    // MARK: - Pure
+    public enum Pure {
+      public static let blue = UIColor(asset: Asset.Pure.blue)
+      public static let green = UIColor(asset: Asset.Pure.green)
+      public static let grey = UIColor(asset: Asset.Pure.grey)
+      public static let orange = UIColor(asset: Asset.Pure.orange)
+      public static let pink = UIColor(asset: Asset.Pure.pink)
+      public static let purple = UIColor(asset: Asset.Pure.purple)
+      public static let red = UIColor(asset: Asset.Pure.red)
+      public static let sky = UIColor(asset: Asset.Pure.sky)
+      public static let teal = UIColor(asset: Asset.Pure.teal)
+      public static let yellow = UIColor(asset: Asset.Pure.yellow)
     }
     // MARK: - VeryLight
     public enum VeryLight {
@@ -108,10 +104,12 @@ extension UIColor {
     }
     // MARK: - Gradients
     public enum Gradients {
-      // MARK: - Push
-      public enum Push {
-        public static let violetEnd = UIColor(asset: Asset.Gradients.Push.violetEnd)
-        public static let violetStart = UIColor(asset: Asset.Gradients.Push.violetStart)
+      // MARK: - HeaderAlert
+      public enum HeaderAlert {
+        public static let redEnd = UIColor(asset: Asset.Gradients.HeaderAlert.redEnd)
+        public static let redStart = UIColor(asset: Asset.Gradients.HeaderAlert.redStart)
+        public static let violetEnd = UIColor(asset: Asset.Gradients.HeaderAlert.violetEnd)
+        public static let violetStart = UIColor(asset: Asset.Gradients.HeaderAlert.violetStart)
       }
       // MARK: - UpdateAlert
       public enum UpdateAlert {
@@ -164,6 +162,7 @@ extension UIColor {
     public enum Background {
       // MARK: - Chat
       public enum Chat {
+        public static let bubbleFlash = UIColor(asset: Asset.Background.Chat.bubbleFlash)
         public static let bubbleSomeones = UIColor(asset: Asset.Background.Chat.bubbleSomeones)
         public static let bubbleYour = UIColor(asset: Asset.Background.Chat.bubbleYour)
         public static let replySomeones = UIColor(asset: Asset.Background.Chat.replySomeones)
@@ -179,12 +178,16 @@ extension UIColor {
     }
     // MARK: - Control
     public enum Control {
-      public static let accent = UIColor(asset: Asset.Control.accent)
-      public static let active = UIColor(asset: Asset.Control.active)
-      public static let button = UIColor(asset: Asset.Control.button)
-      public static let inactive = UIColor(asset: Asset.Control.inactive)
-      public static let transparentActive = UIColor(asset: Asset.Control.transparentActive)
-      public static let transparentInactive = UIColor(asset: Asset.Control.transparentInactive)
+      public static let accent100 = UIColor(asset: Asset.Control.accent100)
+      public static let accent125 = UIColor(asset: Asset.Control.accent125)
+      public static let accent25 = UIColor(asset: Asset.Control.accent25)
+      public static let accent50 = UIColor(asset: Asset.Control.accent50)
+      public static let accent80 = UIColor(asset: Asset.Control.accent80)
+      public static let primary = UIColor(asset: Asset.Control.primary)
+      public static let secondary = UIColor(asset: Asset.Control.secondary)
+      public static let tertiary = UIColor(asset: Asset.Control.tertiary)
+      public static let transparentSecondary = UIColor(asset: Asset.Control.transparentSecondary)
+      public static let transparentTertiary = UIColor(asset: Asset.Control.transparentTertiary)
       public static let white = UIColor(asset: Asset.Control.white)
     }
     // MARK: - Shape

@@ -27,12 +27,14 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.paragraphStyle = paragraphStyle
         
-        message.foregroundColor = position.isRight ? Color.Text.white : Color.Text.primary
+        let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
+        message.foregroundColor = textColor.suColor
+        let underlineColor = textColor.withAlphaComponent(0.3)
+        message.uiKit.underlineColor = underlineColor
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
             guard let range = Range(nsRange, in: message) else {
-                anytypeAssertionFailure("Out of range", info: ["range": nsRange.description, "textLenght": content.text.count.description])
                 continue
             }
             
@@ -44,16 +46,16 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             case .italic:
                 message[range].font = message[range].font?.italic()
             case .bold:
-                message[range].font = message[range].font?.bold()
+                message[range].font = message[range].font?.weight(.semibold)
             case .underscored:
-                message[range].underlineStyle = .single
+                message[range].uiKit.underlineStyle = .single
             case .link:
-                message[range].underlineStyle = .single
+                message[range].uiKit.underlineStyle = .single
                 if let link = URL(string: mark.param) {
                     message[range].link = link
                 }
             case .object:
-                message[range].underlineStyle = .single
+                message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
                     message[range].link = linkToObject
                 }
@@ -62,7 +64,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             case .backgroundColor:
                 message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
             case .mention:
-                message[range].underlineStyle = .single
+                message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
                     message[range].link = linkToObject
                 }

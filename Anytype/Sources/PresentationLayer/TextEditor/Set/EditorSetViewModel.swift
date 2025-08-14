@@ -13,7 +13,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var titleString: String
     @Published var descriptionString: String
     @Published var loadingDocument = true
-    @Published var featuredRelations = [Relation]()
+    @Published var featuredRelations = [Property]()
     @Published var dismiss = false
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
@@ -57,7 +57,7 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.dataView.views.isEmpty
     }
     
-    var colums: [RelationDetails] {
+    var colums: [PropertyDetails] {
         setDocument.sortedRelations(for: setDocument.activeView.id)
             .filter { $0.option.isVisible }.map(\.relationDetails)
     }
@@ -76,7 +76,7 @@ final class EditorSetViewModel: ObservableObject {
     
     var showDescription: Bool {
         guard let details = setDocument.details else { return false }
-        let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
+        let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
         return isFeatured
     }
     
@@ -84,8 +84,14 @@ final class EditorSetViewModel: ObservableObject {
         guard let details = setDocument.details else { return false }
         
         let isSupportedLayout = details.recommendedLayoutValue.isEditorLayout
-        let isTemplate = details.isTemplate
+        let isTemplate = details.isTemplateType
         return isSupportedLayout && !isTemplate
+    }
+    
+    var showProperties: Bool {
+        guard let details = setDocument.details else { return false }
+        
+        return !details.isTemplateType
     }
     
     var hasTargetObjectId: Bool {
@@ -125,13 +131,13 @@ final class EditorSetViewModel: ObservableObject {
         return group.header(with: activeView.groupRelationKey, document: setDocument.document)
     }
     
-    func contextMenuItems(for relation: Relation) -> [RelationValueViewModel.MenuItem] {
-        guard relation.key == BundledRelationKey.type.rawValue else {
+    func contextMenuItems(for relation: Property) -> [PropertyValueViewModel.MenuItem] {
+        guard relation.key == BundledPropertyKey.type.rawValue else {
             return []
         }
         return .builder {
             if setDocument.setPermissions.canTurnSetIntoCollection {
-                RelationValueViewModel.MenuItem(
+                PropertyValueViewModel.MenuItem(
                     title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
                     action: { [weak self] in
                         self?.turnSetIntoCollection()
@@ -139,7 +145,7 @@ final class EditorSetViewModel: ObservableObject {
                 )
             }
             if setDocument.setPermissions.canChangeQuery {
-                RelationValueViewModel.MenuItem(
+                PropertyValueViewModel.MenuItem(
                     title: isEmptyQuery ? Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
                     action: { [weak self] in
                         self?.showSetOfTypeSelection()
@@ -189,8 +195,8 @@ final class EditorSetViewModel: ObservableObject {
     private var detailsService: any DetailsServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.textServiceHandler)
     private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
@@ -201,8 +207,8 @@ final class EditorSetViewModel: ObservableObject {
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
     private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
@@ -297,7 +303,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
 
-    func onRelationTap(relation: Relation) {
+    func onRelationTap(relation: Property) {
         if relation.hasSelectedObjectsRelationType {
             output?.showFailureToast(message: Loc.Set.SourceType.Cancel.Toast.title)
         } else {
@@ -320,14 +326,14 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func subscribeOnRelations() async {
-        for await relations in setDocument.document.parsedRelationsPublisherForType.values {
-            let conflictingKeys = (try? await relationsService
-                .getConflictRelationsForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
-            let conflictingRelations = relationDetailsStorage
+        for await properties in setDocument.document.parsedPropertiesPublisherForType.values {
+            let conflictingKeys = (try? await propertiesService
+                .getConflictPropertiesForType(typeId: setDocument.objectId, spaceId: setDocument.spaceId)) ?? []
+            let conflictingRelations = propertyDetailsStorage
                 .relationsDetails(ids: conflictingKeys, spaceId: setDocument.spaceId)
                 .filter { !$0.isHidden && !$0.isDeleted }
 
-            self.relationsCount = relations.installed.count + conflictingRelations.count
+            self.relationsCount = properties.installed.count + conflictingRelations.count
         }
     }
  
@@ -433,7 +439,7 @@ final class EditorSetViewModel: ObservableObject {
             descriptionString = details.description
 
             descriptionSubscription = $descriptionString.sink { [weak self] newValue in
-                self?.updateTextFieldData(newValue: newValue, blockId: BundledRelationKey.description.rawValue) {
+                self?.updateTextFieldData(newValue: newValue, blockId: BundledPropertyKey.description.rawValue) {
                     self?.titleString = $0
                 }
             }
@@ -707,12 +713,12 @@ extension EditorSetViewModel {
     }
 
     func showRelationValueEditingView(key: String) {
-        if key == BundledRelationKey.setOf.rawValue {
+        if key == BundledPropertyKey.setOf.rawValue {
             showSetOfTypeSelection()
             return
         }
         
-        let relation = setDocument.parsedRelations.installed.first { $0.key == key }
+        let relation = setDocument.parsedProperties.installed.first { $0.key == key }
         guard let relation = relation else { return }
         guard let objectDetails = setDocument.details else {
             anytypeAssertionFailure("Set document doesn't contains details")
@@ -724,7 +730,7 @@ extension EditorSetViewModel {
     
     func showRelationValueEditingView(
         objectId: String,
-        relation: Relation
+        relation: Property
     ) {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
         guard let objectDetails = detailsStorage.get(id: objectId) else {

@@ -47,7 +47,7 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Control.button
+                    backgroundColor: .Control.primary
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
@@ -85,7 +85,7 @@ public extension StandardButtonStyle {
         case .warningLarge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .System.red,
+                    textColor: .Pure.red,
                     borderColor: .Shape.primary
                 ),
                 higlighted: StandardButtonConfig.Style(
@@ -255,13 +255,13 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Control.transparentActive
+                    backgroundColor: .Control.transparentSecondary
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
                 ),
                 disabled: StandardButtonConfig.Style(
-                    backgroundColor: .Control.transparentInactive
+                    backgroundColor: .Control.transparentTertiary
                 ),
                 textFont: .caption1Medium,
                 height: 28,
@@ -273,7 +273,7 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Control.button
+                    backgroundColor: .Control.primary
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))

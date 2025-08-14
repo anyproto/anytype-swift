@@ -14,6 +14,11 @@ public extension UIFont {
         }
     }
     
+    var semibold: UIFont {
+        guard !isBold else { return self }
+        return applyWeight(.semibold)
+    }
+    
     var isBold: Bool {
         fontDescriptor.symbolicTraits.contains(.traitBold)
     }
@@ -103,6 +108,7 @@ public extension UIFont {
     static let uxBodyRegular = UIKitFontBuilder.uiKitFont(font: .uxBodyRegular)
     static let caption1Regular = UIKitFontBuilder.uiKitFont(font: .caption1Regular)
     static let caption1Medium = UIKitFontBuilder.uiKitFont(font: .caption1Medium)
+    static let caption1Semibold = UIKitFontBuilder.uiKitFont(font: .caption1Semibold)
     static let uxTitle1Semibold = UIKitFontBuilder.uiKitFont(font: .uxTitle1Semibold)
     static let uxTitle2Regular = UIKitFontBuilder.uiKitFont(font: .uxTitle2Regular)
     static let uxTitle2Medium = UIKitFontBuilder.uiKitFont(font: .uxTitle2Medium) 

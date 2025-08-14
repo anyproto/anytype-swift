@@ -9,8 +9,8 @@ protocol ObjectSettingsPrimitivesConflictManagerProtocol: Sendable {
 
 final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesConflictManagerProtocol {
     private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
-    private let relationDetailsStorage: any RelationDetailsStorageProtocol = Container.shared.relationDetailsStorage()
-    private let relationsService: any RelationsServiceProtocol = Container.shared.relationsService()
+    private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
+    private let propertiesService: any PropertiesServiceProtocol = Container.shared.propertiesService()
     
     func haveLayoutConflicts(details: ObjectDetails) -> Bool {
         guard !details.isObjectType else { return false }
@@ -24,11 +24,11 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
         
         let typeFeaturedRelationKeys = details.objectType.recommendedFeaturedRelationsDetails
             .map(\.key)
-            .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
-        let objectFeaturedRelationKeys = relationDetailsStorage
+            .filter { $0 != BundledPropertyKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+        let objectFeaturedRelationKeys = propertyDetailsStorage
             .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
             .map(\.key)
-            .filter { $0 != BundledRelationKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
+            .filter { $0 != BundledPropertyKey.description.rawValue } // Filter out description - currently we use object featured relation to store its visibility
             
         let featuredRelationsInObjectAndTypeAreDifferent = typeFeaturedRelationKeys != objectFeaturedRelationKeys
         
@@ -39,16 +39,16 @@ final class ObjectSettingsPrimitivesConflictManager: ObjectSettingsPrimitivesCon
     
     func resolveConflicts(details: ObjectDetails) async throws {
         // Remove legacy relations
-        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layout.rawValue)
-        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutAlign.rawValue)
-        try await relationsService.removeRelation(objectId: details.id, relationKey: BundledRelationKey.layoutWidth.rawValue)
+        try await propertiesService.removeProperty(objectId: details.id, propertyKey: BundledPropertyKey.layout.rawValue)
+        try await propertiesService.removeProperty(objectId: details.id, propertyKey: BundledPropertyKey.layoutAlign.rawValue)
+        try await propertiesService.removeProperty(objectId: details.id, propertyKey: BundledPropertyKey.layoutWidth.rawValue)
         
         // Remove all legacy relations except for description if present (description uses legacy mechanism to preserve its visibility)
-        let featuredRelationIds = relationDetailsStorage
+        let featuredRelationIds = propertyDetailsStorage
             .relationsDetails(keys: details.featuredRelations, spaceId: details.spaceId)
-                .filter { $0.key == BundledRelationKey.description.rawValue }
+                .filter { $0.key == BundledPropertyKey.description.rawValue }
                 .map(\.id)
-        try await relationsService.setFeaturedRelation(objectId: details.id, featuredRelationIds: featuredRelationIds)
+        try await propertiesService.setFeaturedProperty(objectId: details.id, featuredPropertyIds: featuredRelationIds)
     }
 }
 

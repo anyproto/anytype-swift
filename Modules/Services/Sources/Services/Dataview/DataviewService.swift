@@ -150,7 +150,7 @@ final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
 
-    public func addRelation(objectId: String, blockId: String, relationDetails: RelationDetails) async throws {
+    public func addRelation(objectId: String, blockId: String, relationDetails: PropertyDetails) async throws {
         try await ClientCommands.blockDataviewRelationAdd(.with {
             $0.contextID = objectId
             $0.blockID = blockId
@@ -184,7 +184,6 @@ final class DataviewService: DataviewServiceProtocol {
             $0.internalFlags = internalFlags
             $0.templateID = templateId
             $0.spaceID = spaceId
-            $0.createTypeWidgetIfMissing = true
             if let typeUniqueKey {
                 $0.objectTypeUniqueKey = typeUniqueKey.value
             }

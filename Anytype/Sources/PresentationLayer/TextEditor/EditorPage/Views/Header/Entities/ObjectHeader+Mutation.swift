@@ -36,15 +36,15 @@ extension ObjectHeader {
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader {
         switch self {
-        case .filled(let filledState, _):
+        case let .filled(filledState, showPublishingBanner, _):
             return .filled(state:
                 filledState.modifiedByIconUploadingEventWith(
                     image: image,
                     onIconTap: onIconTap
-                )
+                ), showPublishingBanner: showPublishingBanner
             )
             
-        case .empty:
+        case .empty(let data, let showPublishingBanner, _):
             return .filled(state:
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
@@ -55,7 +55,7 @@ extension ObjectHeader {
                         ),
                         onCoverTap: onCoverTap
                     )
-                )
+                ), showPublishingBanner: showPublishingBanner
             )
         }
     }
@@ -70,18 +70,18 @@ extension ObjectHeader {
         )
         
         switch self {
-        case .filled(let filledState, _):
+        case let .filled(filledState, showPublishingBanner, _):
             switch filledState {
             case .iconOnly(let objectHeaderIconState):
-                return .filled(state: .iconAndCover(icon: objectHeaderIconState.icon, cover: newCover))
+                return .filled(state: .iconAndCover(icon: objectHeaderIconState.icon, cover: newCover), showPublishingBanner: showPublishingBanner)
             case .coverOnly:
-                return .filled(state: .coverOnly(newCover))
+                return .filled(state: .coverOnly(newCover), showPublishingBanner: showPublishingBanner)
             case .iconAndCover(let objectHeaderIcon, _):
-                return .filled(state: .iconAndCover(icon: objectHeaderIcon, cover: newCover))
+                return .filled(state: .iconAndCover(icon: objectHeaderIcon, cover: newCover), showPublishingBanner: showPublishingBanner)
             }
             
-        case .empty:
-            return .filled(state: .coverOnly(newCover))
+        case .empty(let data, let showPublishingBanner, _):
+            return .filled(state: .coverOnly(newCover), showPublishingBanner: showPublishingBanner)
         }
     }
     

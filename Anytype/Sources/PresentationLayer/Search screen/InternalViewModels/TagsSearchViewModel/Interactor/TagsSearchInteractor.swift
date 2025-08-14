@@ -28,16 +28,16 @@ final class TagsSearchInteractor {
 
 extension TagsSearchInteractor {
     
-    func search(text: String) async throws -> [Relation.Tag.Option] {
+    func search(text: String) async throws -> [Property.Tag.Option] {
         try await searchService.searchRelationOptions(
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedTagIds,
             spaceId: spaceId
-        ).map { Relation.Tag.Option(option: $0) }
+        ).map { Property.Tag.Option(option: $0) }
     }
     
-    func isCreateButtonAvailable(searchText: String, tags: [Relation.Tag.Option]) -> Bool {
+    func isCreateButtonAvailable(searchText: String, tags: [Property.Tag.Option]) -> Bool {
         searchText.isNotEmpty && tags.isEmpty
     }
 }

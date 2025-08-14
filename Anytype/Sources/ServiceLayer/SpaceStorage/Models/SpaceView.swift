@@ -15,7 +15,10 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let readersLimit: Int?
     let writersLimit: Int?
     let chatId: String
+    let spaceOrder: String
     let uxType: SpaceUxType
+    let pushNotificationEncryptionKey: String
+    let pushNotificationMode: SpacePushNotificationsMode
 }
 
 extension SpaceView: DetailsModel {
@@ -32,25 +35,30 @@ extension SpaceView: DetailsModel {
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
         self.chatId = details.chatId
+        self.spaceOrder = details.spaceOrder
         self.uxType = details.spaceUxTypeValue ?? .data
+        self.pushNotificationEncryptionKey = details.spacePushNotificationEncryptionKey
+        self.pushNotificationMode = details.spacePushNotificationModeValue ?? .all
     }
     
-    static let subscriptionKeys: [BundledRelationKey] = .builder {
-        BundledRelationKey.id
-        BundledRelationKey.name
-        BundledRelationKey.description
-        BundledRelationKey.objectIconImageKeys
-        BundledRelationKey.targetSpaceId
-        BundledRelationKey.createdDate
-        BundledRelationKey.spaceAccessType
-        BundledRelationKey.spaceAccountStatus
-        BundledRelationKey.spaceLocalStatus
-        BundledRelationKey.readersLimit
-        BundledRelationKey.writersLimit
-        BundledRelationKey.sharedSpacesLimit
-        BundledRelationKey.chatId
-        BundledRelationKey.spaceOrder
-        BundledRelationKey.spaceUxType
+    static let subscriptionKeys: [BundledPropertyKey] = .builder {
+        BundledPropertyKey.id
+        BundledPropertyKey.name
+        BundledPropertyKey.description
+        BundledPropertyKey.objectIconImageKeys
+        BundledPropertyKey.targetSpaceId
+        BundledPropertyKey.createdDate
+        BundledPropertyKey.spaceAccessType
+        BundledPropertyKey.spaceAccountStatus
+        BundledPropertyKey.spaceLocalStatus
+        BundledPropertyKey.readersLimit
+        BundledPropertyKey.writersLimit
+        BundledPropertyKey.sharedSpacesLimit
+        BundledPropertyKey.chatId
+        BundledPropertyKey.spaceOrder
+        BundledPropertyKey.spaceUxType
+        BundledPropertyKey.spacePushNotificationEncryptionKey
+        BundledPropertyKey.spacePushNotificationMode
     }
 }
 
@@ -58,6 +66,10 @@ extension SpaceView {
     
     var title: String {
         name.withPlaceholder
+    }
+    
+    var isPinned: Bool {
+        spaceOrder.isNotEmpty
     }
     
     var isShared: Bool {
@@ -90,7 +102,11 @@ extension SpaceView {
     }
     
     var canAddChatWidget: Bool {
-        !initialScreenIsChat && isShared
+        !initialScreenIsChat && isShared && hasChat && FeatureFlags.createChatWidget
+    }
+    
+    var hasChat: Bool {
+        chatId.isNotEmpty
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {

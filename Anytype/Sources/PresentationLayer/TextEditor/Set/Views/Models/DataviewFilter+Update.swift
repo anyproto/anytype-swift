@@ -6,7 +6,7 @@ extension DataviewFilter {
         condition: DataviewFilter.Condition? = nil,
         value: SwiftProtobuf.Google_Protobuf_Value? = nil,
         quickOption: DataviewFilter.QuickOption? = nil,
-        format: RelationFormat? = nil
+        format: PropertyFormat? = nil
     ) -> DataviewFilter {
         DataviewFilter(
             relationKey: self.relationKey,

@@ -23,19 +23,19 @@ extension BundledDetails {
     
     var key: String {
         switch self {
-        case .name: BundledRelationKey.name.rawValue
-        case .pluralName: BundledRelationKey.pluralName.rawValue
-        case .iconEmoji: BundledRelationKey.iconEmoji.rawValue
-        case .iconObjectId: BundledRelationKey.iconImage.rawValue
-        case .iconName: BundledRelationKey.iconName.rawValue
-        case .iconOption: BundledRelationKey.iconOption.rawValue
-        case .coverId: BundledRelationKey.coverId.rawValue
-        case .coverType: BundledRelationKey.coverType.rawValue
-        case .done: BundledRelationKey.done.rawValue
-        case .description: BundledRelationKey.description.rawValue
-        case .recommendedLayout: BundledRelationKey.recommendedLayout.rawValue
-        case .lastUsedDate: BundledRelationKey.lastUsedDate.rawValue
-        case .autoWidgetDisabled: BundledRelationKey.autoWidgetDisabled.rawValue
+        case .name: BundledPropertyKey.name.rawValue
+        case .pluralName: BundledPropertyKey.pluralName.rawValue
+        case .iconEmoji: BundledPropertyKey.iconEmoji.rawValue
+        case .iconObjectId: BundledPropertyKey.iconImage.rawValue
+        case .iconName: BundledPropertyKey.iconName.rawValue
+        case .iconOption: BundledPropertyKey.iconOption.rawValue
+        case .coverId: BundledPropertyKey.coverId.rawValue
+        case .coverType: BundledPropertyKey.coverType.rawValue
+        case .done: BundledPropertyKey.done.rawValue
+        case .description: BundledPropertyKey.description.rawValue
+        case .recommendedLayout: BundledPropertyKey.recommendedLayout.rawValue
+        case .lastUsedDate: BundledPropertyKey.lastUsedDate.rawValue
+        case .autoWidgetDisabled: BundledPropertyKey.autoWidgetDisabled.rawValue
         }
     }
     

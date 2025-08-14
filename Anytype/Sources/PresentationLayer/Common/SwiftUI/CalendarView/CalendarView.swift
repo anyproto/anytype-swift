@@ -42,13 +42,13 @@ struct CalendarView: View {
     private var calendar: some View {
         DatePicker("", selection: $date, in: ClosedRange.anytypeDateRange, displayedComponents: .date)
             .datePickerStyle(.graphical)
-            .accentColor(Color.System.amber125)
+            .accentColor(Color.Control.accent125)
             .padding(.horizontal, 16)
             .newDivider(leadingPadding: 16)
     }
     
     private var quickOptions: some View {
-        ForEach(RelationCalendarQuickOption.allCases) { option in
+        ForEach(PropertyCalendarQuickOption.allCases) { option in
             quickOptionRow(option)
                 .padding(.horizontal, 16)
                 .if(!option.isLast, transform: {
@@ -57,7 +57,7 @@ struct CalendarView: View {
         }
     }
     
-    private func quickOptionRow(_ option: RelationCalendarQuickOption) -> some View {
+    private func quickOptionRow(_ option: PropertyCalendarQuickOption) -> some View {
         Button {
             date = option.date
         } label: {

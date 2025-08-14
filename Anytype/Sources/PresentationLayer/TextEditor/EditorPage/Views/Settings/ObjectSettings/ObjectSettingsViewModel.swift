@@ -16,6 +16,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
     func undoRedoAction(objectId: String)
     func relationsAction(document: some BaseDocumentProtocol)
     func showVersionHistory(document: some BaseDocumentProtocol)
+    func showPublising(document: some BaseDocumentProtocol)
     func openPageAction(screenData: ScreenData)
     func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
@@ -29,8 +30,8 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
     @Injected(\.openedDocumentProvider)
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
-    @Injected(\.relationsService)
-    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.propertiesService)
+    private var propertiesService: any PropertiesServiceProtocol
     @Injected(\.objectSettingsBuilder)
     private var settingsBuilder: any ObjectSettingsBuilderProtocol
     @Injected(\.objectSettingsConflictManager)
@@ -87,8 +88,8 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     func onTapDescription() async throws {
         guard let details = document.details else { return }
         
-        let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledRelationKey.description.rawValue })
-        try await relationsService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
+        let descriptionIsOn = details.featuredRelations.contains(where: { $0 == BundledPropertyKey.description.rawValue })
+        try await propertiesService.toggleDescription(objectId: document.objectId, isOn: !descriptionIsOn)
     }
     
     func onTapResolveConflict() {
@@ -99,6 +100,13 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         guard let details = document.details else { return }
         try await conflictManager.resolveConflicts(details: details)
         AnytypeAnalytics.instance().logResetToTypeDefault()
+    }
+    
+    func onTapPublishing() {
+        if let details = document.details {
+            AnytypeAnalytics.instance().logClickShareObject(objectType: details.objectType.analyticsType)
+        }
+        output?.showPublising(document: document)
     }
     
     // MARK: - ObjectActionsOutput

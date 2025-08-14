@@ -26,6 +26,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.publishingService)
+    private var publishingService: any PublishingServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var participantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.publishedUrlBuilder)
+    private var publishedUrlBuilder: any PublishedUrlBuilderProtocol
+    
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
@@ -36,6 +43,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private weak var output: (any EditorPageModuleOutput)?
     lazy var subscriptions = [AnyCancellable]()
     private var didScrollToInitialBlock = false
+    private var publishState: PublishState?
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -104,9 +112,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             guard let self else { return }
             let filtered = Set(blockIds).intersection(modelsHolder.blocksMapping.keys)
             
-            let items = blockBuilder.buildEditorItems(infos: Array(filtered))
+            // ignoring cache when reloading blocks
+            let items = blockBuilder.buildEditorItems(infos: Array(filtered), ignoreCache: true)
+            modelsHolder.updateItems(items)
             viewInput?.reconfigure(items: items)
         }.store(in: &subscriptions)
+        
+        // TODO: Use subscription when ready
+        Task {
+            publishState = try await publishingService.getStatus(spaceId: document.spaceId, objectId: document.objectId)
+            let isVisible = publishState.isNotNil
+            
+            headerModel.updatePublishingBannerVisibility(isVisible)
+            viewInput?.update(webBannerVisible: isVisible)
+        }
     }
     
     private func setupLoadingState() {
@@ -121,7 +140,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func handleUpdate(ids: [String]) {
-        let blocksViewModels = blockBuilder.buildEditorItems(infos: ids)
+        let blocksViewModels = blockBuilder.buildEditorItems(infos: ids, ignoreCache: false)
         
         let difference = modelsHolder.difference(between: blocksViewModels)
         if difference.insertions.isNotEmpty {
@@ -160,7 +179,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             for blockId in blockIds {
                 
                 if blockViewModel.blockId == blockId {
-                    guard let newViewModel = blockBuilder.build(blockId: blockId) else {
+                    guard let newViewModel = blockBuilder.build(blockId: blockId, ignoreCache: false) else {
                         continue
                     }
                     
@@ -209,7 +228,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     func tapOnEmptyPlace() {
-        actionHandler.createEmptyBlock(parentId: document.objectId, spaceId: document.spaceId)
+        actionHandler.createEmptyBlock(parentId: document.objectId)
     }
     
     private func handleTemplateSubscription(details: [ObjectDetails]) {
@@ -268,6 +287,26 @@ extension EditorPageViewModel {
             )
         )
     }
+    
+    func onPublishingBannerTap() {
+        if let details = document.details {
+            AnytypeAnalytics.instance().logClickShareObjectOpenPage(objectType: details.objectType.analyticsType, route: .notification)
+        }
+        
+        guard let publishState else {
+            anytypeAssertionFailure("Empty PublishState upon banner tap")
+            return
+        }
+        
+        guard let domain = participantStorage.participants.first?.publishingDomain else {
+            anytypeAssertionFailure("No participants found for account")
+            return
+        }
+        
+        guard let url = publishedUrlBuilder.buildPublishedUrl(domain: domain, customPath: publishState.uri) else { return }
+        
+        output?.openUrl(url)
+    }
 
     // MARK: - EditorBottomNavigationManagerOutput
 
@@ -286,7 +325,7 @@ extension EditorPageViewModel {
     }
     
     func didFinishEditing(blockId: String) {
-        if blockId == BundledRelationKey.description.rawValue {
+        if blockId == BundledPropertyKey.description.rawValue {
             AnytypeAnalytics.instance().logSetObjectDescription()
         }
     }

@@ -70,7 +70,7 @@ class CursorModeAccessoryView: UIView {
         button.setImage(image, for: .normal)
         // TODO: Refactoring with IOS-1317
         if image.isNotNil {
-            button.tintColor = .Control.active
+            button.tintColor = .Control.secondary
         }
         button.setTitle(title, for: .normal)
         button.setTitleColor(.Text.primary, for: .normal)

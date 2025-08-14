@@ -17,14 +17,14 @@ struct SpaceHubCoordinatorView: View {
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
         
-            .task { await model.setup() }
+            .taskWithMemoryScope { await model.setup() }
             
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             
             .sheet(item: $model.sharingSpaceId) {
-                ShareCoordinatorView(spaceId: $0.value)
+                ShareLegacyCoordinatorView(spaceId: $0.value)
             }
             .sheet(item: $model.showGalleryImport) { data in
                 GalleryInstallationCoordinatorView(data: data)
@@ -74,9 +74,18 @@ struct SpaceHubCoordinatorView: View {
                 SpaceCreateCoordinatorView(data: $0)
             }
             .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
-                SpaceCreateTypePickerView { type in
+                SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)
-                }
+                }, onSelectQrCodeScan: {
+                    model.onSelectQrCodeScan()
+                })
+            }
+            .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
+            .sheet(isPresented: $model.showSharingExtension) {
+                SharingExtensionCoordinatorView()
+            }
+            .sheet(isPresented: $model.showAppSettings) {
+                SettingsCoordinatorView()
             }
     }
     
@@ -95,21 +104,22 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            if FeatureFlags.spaceHubRedesign {
-                                NewSpaceHubView(output: model)
-                            } else {
-                                SpaceHubView(output: model)
-                            }
+                            SpaceHubView(output: model)
+                        }
+                        builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
+                            SpaceChatCoordinatorView(data: $0)
                         }
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {
-                            case .mainScreen(let info):
-                                SpaceSettingsCoordinatorView(workspaceInfo: info)
+                            case .settings(let spaceId):
+                                SpaceSettingsCoordinator(spaceId: spaceId)
                             case .typeLibrary(let spaceId):
                                 ObjectTypesLibraryView(spaceId: spaceId)
+                            case .propertiesLibrary(let spaceId):
+                                ObjectPropertiesLibraryView(spaceId: spaceId)
                             }
                         }
                      }

@@ -59,7 +59,7 @@ private struct HomeWidgetsInternalView: View {
     private var content: some View {
         ZStack {
             if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty || !FeatureFlags.binWidgetFromLibrary {
+                if model.widgetBlocks.isNotEmpty {
                     widgets
                 } else {
                     emptyState
@@ -82,9 +82,6 @@ private struct HomeWidgetsInternalView: View {
                         homeState: $model.homeState,
                         output: model.output
                     )
-                }
-                if !FeatureFlags.binWidgetFromLibrary {
-                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                 }
                 editButtons
                 AnytypeNavigationSpacer()

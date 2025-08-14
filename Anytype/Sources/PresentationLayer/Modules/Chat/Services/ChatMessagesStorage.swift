@@ -69,7 +69,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     }
     
     nonisolated var updateStream: AnyAsyncSequence<[ChatUpdate]> {
-        mergeFirstValue(syncStream, ChatUpdate.allCases)
+        syncStream.eraseToAnyAsyncSequence()
     }
     
     func updateVisibleRange(startMessageId: String, endMessageId: String) async {
@@ -270,8 +270,15 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
                 messages.chatUpdateMentionReadStatus(data)
             case let .chatStateUpdate(data):
                 guard data.subIds.contains(subId) else { break }
-                chatState = data.state
-                updates.insert(.state)
+                if (chatState?.order ?? -1) < data.state.order {
+                    chatState = data.state
+                    updates.insert(.state)
+                }
+            case let .chatUpdateMessageSyncStatus(data):
+                guard data.subIds.contains(subId) else { break }
+                if messages.chatUpdateMessageSyncStatus(data) {
+                    updates.insert(.messages)
+                }
             default:
                 break
             }
@@ -296,6 +303,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private func addNewMessages(messages newMessages: [ChatMessage]) async {
         messages.add(newMessages)
         
+        await loadReplies()
         await loadAttachments()
         await updateAttachmentSubscription()
     }
@@ -388,7 +396,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         await objectIdsSubscriptionService.startSubscription(
             spaceId: spaceId,
             objectIds: Array(attachmentIds),
-            additionalKeys: [.sizeInBytes, .source, .picture]
+            additionalKeys: [.sizeInBytes, .source, .picture, .syncStatus, .syncError]
         ) { [weak self] details in
             await self?.handleAttachmentSubscription(details: details)
         }

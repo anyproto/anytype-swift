@@ -22,7 +22,7 @@ public extension UIColor {
             collections: [
                 UIColor.Dark.collectionInfo,
                 UIColor.Light.collectionInfo,
-                UIColor.System.collectionInfo,
+                UIColor.Pure.collectionInfo,
                 UIColor.VeryLight.collectionInfo
             ]
         ), 
@@ -83,24 +83,20 @@ public extension UIColor.Light {
         ]
     )
 }
-public extension UIColor.System {
+public extension UIColor.Pure {
     static let collectionInfo = ColorCollectionInfo(
-        name: "System",
+        name: "Pure",
         colors: [
-            ColorInfo(name: "amber100", color: UIColor.System.amber100),
-            ColorInfo(name: "amber125", color: UIColor.System.amber125),
-            ColorInfo(name: "amber25", color: UIColor.System.amber25),
-            ColorInfo(name: "amber50", color: UIColor.System.amber50),
-            ColorInfo(name: "amber80", color: UIColor.System.amber80),
-            ColorInfo(name: "blue", color: UIColor.System.blue),
-            ColorInfo(name: "green", color: UIColor.System.green),
-            ColorInfo(name: "grey", color: UIColor.System.grey),
-            ColorInfo(name: "pink", color: UIColor.System.pink),
-            ColorInfo(name: "purple", color: UIColor.System.purple),
-            ColorInfo(name: "red", color: UIColor.System.red),
-            ColorInfo(name: "sky", color: UIColor.System.sky),
-            ColorInfo(name: "teal", color: UIColor.System.teal),
-            ColorInfo(name: "yellow", color: UIColor.System.yellow)
+            ColorInfo(name: "blue", color: UIColor.Pure.blue),
+            ColorInfo(name: "green", color: UIColor.Pure.green),
+            ColorInfo(name: "grey", color: UIColor.Pure.grey),
+            ColorInfo(name: "orange", color: UIColor.Pure.orange),
+            ColorInfo(name: "pink", color: UIColor.Pure.pink),
+            ColorInfo(name: "purple", color: UIColor.Pure.purple),
+            ColorInfo(name: "red", color: UIColor.Pure.red),
+            ColorInfo(name: "sky", color: UIColor.Pure.sky),
+            ColorInfo(name: "teal", color: UIColor.Pure.teal),
+            ColorInfo(name: "yellow", color: UIColor.Pure.yellow)
         ]
     )
 }
@@ -187,8 +183,10 @@ public extension UIColor.Gradients {
     static let collectionInfo = ColorCollectionInfo(
         name: "Gradients",
         colors: [
-            ColorInfo(name: "violetEnd", color: UIColor.Gradients.Push.violetEnd),
-            ColorInfo(name: "violetStart", color: UIColor.Gradients.Push.violetStart)
+            ColorInfo(name: "redEnd", color: UIColor.Gradients.HeaderAlert.redEnd),
+            ColorInfo(name: "redStart", color: UIColor.Gradients.HeaderAlert.redStart),
+            ColorInfo(name: "violetEnd", color: UIColor.Gradients.HeaderAlert.violetEnd),
+            ColorInfo(name: "violetStart", color: UIColor.Gradients.HeaderAlert.violetStart)
     ,
             ColorInfo(name: "darkBlue", color: UIColor.Gradients.UpdateAlert.darkBlue),
             ColorInfo(name: "green", color: UIColor.Gradients.UpdateAlert.green),
@@ -260,6 +258,7 @@ public extension UIColor.Background {
     static let collectionInfo = ColorCollectionInfo(
         name: "Background",
         colors: [
+            ColorInfo(name: "bubbleFlash", color: UIColor.Background.Chat.bubbleFlash),
             ColorInfo(name: "bubbleSomeones", color: UIColor.Background.Chat.bubbleSomeones),
             ColorInfo(name: "bubbleYour", color: UIColor.Background.Chat.bubbleYour),
             ColorInfo(name: "replySomeones", color: UIColor.Background.Chat.replySomeones),
@@ -279,12 +278,16 @@ public extension UIColor.Control {
     static let collectionInfo = ColorCollectionInfo(
         name: "Control",
         colors: [
-            ColorInfo(name: "accent", color: UIColor.Control.accent),
-            ColorInfo(name: "active", color: UIColor.Control.active),
-            ColorInfo(name: "button", color: UIColor.Control.button),
-            ColorInfo(name: "inactive", color: UIColor.Control.inactive),
-            ColorInfo(name: "transparentActive", color: UIColor.Control.transparentActive),
-            ColorInfo(name: "transparentInactive", color: UIColor.Control.transparentInactive),
+            ColorInfo(name: "accent100", color: UIColor.Control.accent100),
+            ColorInfo(name: "accent125", color: UIColor.Control.accent125),
+            ColorInfo(name: "accent25", color: UIColor.Control.accent25),
+            ColorInfo(name: "accent50", color: UIColor.Control.accent50),
+            ColorInfo(name: "accent80", color: UIColor.Control.accent80),
+            ColorInfo(name: "primary", color: UIColor.Control.primary),
+            ColorInfo(name: "secondary", color: UIColor.Control.secondary),
+            ColorInfo(name: "tertiary", color: UIColor.Control.tertiary),
+            ColorInfo(name: "transparentSecondary", color: UIColor.Control.transparentSecondary),
+            ColorInfo(name: "transparentTertiary", color: UIColor.Control.transparentTertiary),
             ColorInfo(name: "white", color: UIColor.Control.white)
         ]
     )

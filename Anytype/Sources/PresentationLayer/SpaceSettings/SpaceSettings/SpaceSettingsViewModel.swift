@@ -12,8 +12,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.accountManager)
@@ -31,6 +31,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
     private let openedDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
@@ -61,9 +63,12 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var defaultObjectType: ObjectType?
     @Published var showIconPickerSpaceId: StringIdentifiable?
     @Published var editingData: SettingsInfoEditingViewData?
+    @Published var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
+    @Published var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
     @Published var shareInviteLink: URL?
     @Published var qrInviteLink: URL?
     @Published private(set) var inviteLink: URL?
+    @Published var participantsCount: Int = 0
     
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
@@ -79,6 +84,11 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onInfoTap() {
         showInfoView.toggle()
+    }
+    
+    func onCopyTitleTap() {
+        UIPasteboard.general.string = spaceName
+        snackBarData = ToastBarData(Loc.copiedToClipboard(spaceName), type: .success)
     }
     
     func onWallpaperTap() {
@@ -119,6 +129,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     
+    func onNotificationsTap() {
+        output?.onNotificationsSelected()
+    }
+    
     func onInviteTap() {
         Task {
             try await generateInviteIfNeeded()
@@ -133,12 +147,25 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
+    func onCopyLinkTap() {
+        Task {
+            try await generateInviteIfNeeded()
+            guard let inviteLink else { return }
+            UIPasteboard.general.string = inviteLink.absoluteString
+            snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
+        }
+    }
+    
     func onChangeIconTap() {
         showIconPickerSpaceId = workspaceInfo.accountSpaceId.identifiable
     }
     
     func onObjectTypesTap() {
         output?.onObjectTypesSelected()
+    }
+    
+    func onPropertiesTap() {
+        output?.onPropertiesSelected()
     }
     
     func toggleCreateTypeWidgetState(isOn: Bool) {
@@ -150,7 +177,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
 
-    func onTitleTap() {
+    func onEditTap() {
         editingData = SettingsInfoEditingViewData(
             title: Loc.name,
             placeholder: Loc.untitled,
@@ -163,18 +190,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         )
     }
     
-    func onDescriptionTap() {
-        editingData = SettingsInfoEditingViewData(
-            title: Loc.description,
-            placeholder: Loc.addADescription,
-            initialValue: spaceDescription,
-            font: .previewTitle1Regular,
-            onSave: { [weak self] in
-                guard let self else { return }
-                saveDetails(name: spaceName, description: $0)
-            }
-        )
-    }
     
     func onBinTap() {
         output?.onBinSelected()
@@ -188,7 +203,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         async let participantTask: () = startParticipantTask()
         async let defaultTypeTask: () = startDefaultTypeTask()
         async let widgetsObjectTask: () = startWidgetsObjectTask()
-        (_,_,_, _, _) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask)
+        async let systemSettingsChangesTask: () = startSystemSettingsChangesTask()
+        (_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask)
     }
     
     private func startStorageTask() async {
@@ -199,6 +215,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
+            participantsCount = participants.count
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
             updateViewState()
@@ -221,6 +238,12 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func startWidgetsObjectTask() async {
         for await _ in widgetsObject.detailsPublisher.values {
             updateViewState()
+        }
+    }
+    
+    private func startSystemSettingsChangesTask() async {
+        for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
+            self.pushNotificationsSettingsStatus = status.asPushNotificationsSettingsStatus
         }
     }
     
@@ -262,6 +285,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         spaceName = spaceView.name
         spaceDescription = spaceView.description
+        
+        pushNotificationsSettingsMode = spaceView.pushNotificationMode.asNotificationsSettingsMode
         
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         

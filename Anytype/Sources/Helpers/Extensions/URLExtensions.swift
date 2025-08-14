@@ -11,9 +11,15 @@ import Foundation
 extension URL {
     
     var containsHttpProtocol: Bool {
-        guard let scheme = scheme else { return false }
+        guard let scheme = scheme?.lowercased() else { return false }
         
         return scheme.isEqual(Constants.https) || scheme.isEqual(Constants.http)
+    }
+    
+    var urlWithLowercaseScheme: URL? {
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+        components.scheme = scheme?.lowercased()
+        return components.url
     }
     
     func urlByAddingHttpIfSchemeIsEmpty() -> URL {
@@ -28,6 +34,10 @@ extension URL {
             return self
         }
         return urlBySettingScheme(Constants.https)
+    }
+    
+    var isEmail: Bool {
+        absoluteString.hasPrefix("mailto:")
     }
     
     private func urlBySettingScheme(_ scheme: String) -> URL {

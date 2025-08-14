@@ -20,20 +20,25 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
                 ObjectSetting.cover
             }
             
-            let isFeatured = details.featuredRelations.contains { $0 == BundledRelationKey.description.rawValue }
+            let isFeatured = details.featuredRelations.contains { $0 == BundledPropertyKey.description.rawValue }
             ObjectSetting.description(isVisible: isFeatured)
             
             if permissions.canShowRelations {
                 ObjectSetting.relations
             }
             
+            if conflictManager.haveLayoutConflicts(details: details) {
+                ObjectSetting.resolveConflict
+            }
+            
+            if FeatureFlags.webPublishing && permissions.canPublish {
+                ObjectSetting.webPublishing
+            }
+            
             if permissions.canShowVersionHistory {
                 ObjectSetting.history
             }
             
-            if conflictManager.haveLayoutConflicts(details: details) {
-                ObjectSetting.resolveConflict
-            }
         }
     }
 }

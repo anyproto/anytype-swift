@@ -19,7 +19,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
+            relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
         
@@ -34,7 +34,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
     
     func searchImages(spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.id,
+            relation: BundledPropertyKey.id,
             type: .desc
         )
         
@@ -47,7 +47,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
     
     func search(text: String, spaceId: String, limitObjectIds: [String]) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
+            relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
         let filters: [DataviewFilter] = .builder {
@@ -70,7 +70,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
     
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
+            relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
         let filters: [DataviewFilter] = .builder {
@@ -95,7 +95,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
         excludedObjectIds: [String],
         excludedLayouts: [DetailsLayout],
         spaceId: String,
-        sortRelationKey: BundledRelationKey?
+        sortRelationKey: BundledPropertyKey?
     ) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: sortRelationKey ?? .lastOpenedDate,
@@ -111,7 +111,7 @@ final class SearchService: SearchServiceProtocol, Sendable {
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 
-    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption] {
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [PropertyOption] {
         var filters = SearchFiltersBuilder.build(
             isArchived: false,
             layouts: [DetailsLayout.relationOption]
@@ -120,15 +120,15 @@ final class SearchService: SearchServiceProtocol, Sendable {
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
+            relation: BundledPropertyKey.name,
             type: .asc
         )
         
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: 0)
-        return details.map { RelationOption(details: $0) }
+        return details.map { PropertyOption(details: $0) }
     }
 
-    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [RelationOption] {
+    func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [PropertyOption] {
         var filters = SearchFiltersBuilder.build(
             isArchived: false,
             layouts: [DetailsLayout.relationOption]
@@ -136,12 +136,12 @@ final class SearchService: SearchServiceProtocol, Sendable {
         filters.append(SearchHelper.includeIdsFilter(optionIds))
 
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [], fullText: "")
-        return details.map { RelationOption(details: $0) }
+        return details.map { PropertyOption(details: $0) }
     }
     
-    func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {
+    func searchRelations(text: String, excludedIds: [String], spaceId: String) async throws -> [PropertyDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastUsedDate,
+            relation: BundledPropertyKey.lastUsedDate,
             type: .desc,
             includeTime: true
         )
@@ -149,17 +149,17 @@ final class SearchService: SearchServiceProtocol, Sendable {
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false, layouts: [DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)
-            SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
+            SearchHelper.excludedRelationKeys(BundledPropertyKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
-        return details.map { RelationDetails(details: $0) }
+        return details.map { PropertyDetails(details: $0) }
     }
     
-    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [RelationDetails] {
+    func searchLibraryRelations(text: String, excludedIds: [String]) async throws -> [PropertyDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.name,
+            relation: BundledPropertyKey.name,
             type: .asc
         )
         
@@ -167,23 +167,23 @@ final class SearchService: SearchServiceProtocol, Sendable {
             SearchFiltersBuilder.build(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.relation])
             SearchHelper.relationReadonlyValue(false)
-            SearchHelper.excludedRelationKeys(BundledRelationKey.internalKeys.map(\.rawValue))
+            SearchHelper.excludedRelationKeys(BundledPropertyKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         let details = try await searchMiddleService.search(spaceId: MarketplaceId.anytypeLibrary.rawValue, filters: filters, sorts: [sort], fullText: text)
-        return details.map { RelationDetails(details: $0) }
+        return details.map { PropertyDetails(details: $0) }
     }
     
     func searchArchiveObjectIds(spaceId: String) async throws -> [String] {
         let filters = SearchFiltersBuilder.build(isArchived: true)
-        let keys = [BundledRelationKey.id.rawValue]
+        let keys = [BundledPropertyKey.id.rawValue]
         let result = try await searchMiddleService.search(spaceId: spaceId, filters: filters, keys: keys)
         return result.map { $0.id }
     }
     
     func searchObjectsWithLayouts(text: String, layouts: [DetailsLayout], excludedIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
+            relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
         

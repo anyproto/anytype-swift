@@ -39,7 +39,7 @@ struct ObjectTypeIconPicker: View {
                     dismiss()
                 } label: {
                     AnytypeText(Loc.remove, style: .uxBodyRegular)
-                        .foregroundColor(.System.red)
+                        .foregroundColor(.Pure.red)
                 }
             } else {
                 EmptyView()

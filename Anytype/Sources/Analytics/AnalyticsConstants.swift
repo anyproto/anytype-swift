@@ -46,8 +46,11 @@ enum AnalyticsEventsPropertiesKey {
     static let middleTime = "middleTime"
     static let permissions = "permissions"
     static let spaceType = "spaceType"
+    static let uxType = "uxType"
     
     static let relationKey = "relationKey"
+    static let unreadMessageCount = "unreadMessageCount"
+    static let hasMention = "hasMention"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -68,6 +71,7 @@ enum AnalyticsEventsRouteKind: String {
     case search = "Search"
     case type = "Type"
     case link = "Link"
+    case slashMenu = "SlashMenu"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -306,6 +310,7 @@ enum ClickUpgradePlanTooltipType: String {
     case members = "members"
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
+    case publish = "publish"
 }
 
 enum ClickUpgradePlanTooltipRoute: String {
@@ -313,6 +318,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case spaceSharing = "ScreenSettingsSpaceShare"
     case confirmInvite = "ScreenInviteConfirm"
     case remoteStorage = "ScreenRemoteStorage"
+    case publish = "ScreenPublish"
 }
 
 enum ChangeObjectTypeRoute: String {
@@ -377,4 +383,56 @@ enum WidgetCreateType: String {
 
 enum ResetToTypeDefaultRoute: String {
     case object = "Object"
+}
+
+enum ChangeMessageNotificationStateRoute: String {
+    case spaceSettings = "ScreenSettingsSpaceIndex"
+    case vault = "Vault"
+}
+
+enum ChatAttachmentType: String {
+    case object = "Object"
+    case photo = "Photo"
+    case file = "File"
+    case camera = "Camera"
+    case pages = "Pages"
+    case lists = "Lists"
+}
+
+enum ScreenAllowPushType: String {
+    case initial = "Initial"
+    case subsequent = "Subsequent"
+    case settings = "Settings"
+}
+
+enum ClickAllowPushType: String {
+    case enableNotifications = "EnableNotifications"
+    case settings = "Settings"
+}
+
+enum SentMessageType: String {
+    case text = "Text"
+    case attachment = "Attachment"
+    case mixed = "Mixed"
+}
+
+enum UploadMediaRoute: String {
+    case camera = "Camera"
+    case scan = "Scan"
+    case filePicker = "FilePicker"
+}
+
+enum ScreenSlashMenuRoute: String {
+    case slash = "Slash"
+    case keyboardBar = "KeyboardBar"
+}
+
+enum UndoRedoResultType: String {
+    case `true` = "True"
+    case `false` = "False"
+}
+
+enum ShareObjectOpenPageRoute: String {
+    case menu = "Menu"
+    case notification = "Notification"
 }

@@ -10,7 +10,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
     func unsubscribeLastMessages(chatObjectId: String, subId: String) async throws
     func subscribeToMessagePreviews(subId: String) async throws -> ChatSubscribeToMessagePreviewsResponse
     func unsubscribeFromMessagePreviews() async throws
-    func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws
+    func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws -> Bool
     func deleteMessage(chatObjectId: String, messageId: String) async throws
     func readMessages(
         chatObjectId: String,
@@ -20,6 +20,7 @@ public protocol ChatServiceProtocol: AnyObject, Sendable {
         lastStateId: String
     ) async throws
     func unreadMessage(chatObjectId: String, afterOrderId: String, type: ChatUnreadReadType) async throws
+    func readAllMessages() async throws
 }
 
 public extension ChatServiceProtocol {
@@ -94,12 +95,13 @@ final class ChatService: ChatServiceProtocol {
         try await ClientCommands.chatUnsubscribeFromMessagePreviews().invoke()
     }
     
-    func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws {
-        try await ClientCommands.chatToggleMessageReaction(.with {
+    func toggleMessageReaction(chatObjectId: String, messageId: String, emoji: String) async throws -> Bool {
+        let result = try await ClientCommands.chatToggleMessageReaction(.with {
             $0.chatObjectID = chatObjectId
             $0.messageID = messageId
             $0.emoji = emoji
         }).invoke()
+        return result.added
     }
     
     func deleteMessage(chatObjectId: String, messageId: String) async throws {
@@ -131,5 +133,9 @@ final class ChatService: ChatServiceProtocol {
             $0.afterOrderID = afterOrderId
             $0.type = type
         }).invoke()
+    }
+    
+    func readAllMessages() async throws {
+        try await ClientCommands.chatReadAll().invoke()
     }
 }

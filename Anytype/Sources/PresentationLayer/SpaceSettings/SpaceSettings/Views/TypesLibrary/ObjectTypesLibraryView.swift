@@ -7,6 +7,12 @@ struct ObjectTypesLibraryView: View {
     @Environment(\.pageNavigation) private var pageNavigation
     
     var body: some View {
+        SpaceLoadingContainerView(spaceId: spaceId, showBackground: false) { _ in
+            content
+        }
+    }
+    
+    private var content: some View {
         ObjectTypeSearchView(title: Loc.objectTypes, spaceId: spaceId, settings: .library, style: .navbar) { type in
             pageNavigation.open(.editor(.type(EditorTypeObject(objectId: type.id, spaceId: type.spaceId))))
         }

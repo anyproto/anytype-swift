@@ -22,7 +22,7 @@ struct SetFilterRow: View {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.Background.highlightedMedium)
                 Image(asset: configuration.iconAsset)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
             }
             .frame(width: 48, height: 48)
             
@@ -65,11 +65,11 @@ struct SetFilterRow: View {
     }
     
     @ViewBuilder
-    private func relationValueView(for relation: Relation?) -> some View {
+    private func relationValueView(for relation: Property?) -> some View {
         if let relation = relation {
-            RelationValueView(
-                model: RelationValueViewModel(
-                    relation: RelationItemModel(relation: relation),
+            PropertyValueView(
+                model: PropertyValueViewModel(
+                    property: PropertyItemModel(property: relation),
                     style: .filter(hasValues: configuration.hasValues),
                     mode: .button(action: nil)
                 )

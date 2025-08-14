@@ -1,14 +1,14 @@
 import AnytypeCore
 
 public protocol ObjectIconBuilderProtocol {
-    func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon?
+    func objectIcon(relations: BundledPropertiesValueProvider) -> ObjectIcon?
     func profileIcon(iconImage: String, objectName: String) -> ObjectIcon?
 }
 
 public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     public init() { }
     
-    public func objectIcon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
+    public func objectIcon(relations: BundledPropertiesValueProvider) -> ObjectIcon? {
         guard !relations.isDeleted else {
             return .deleted
         }
@@ -41,7 +41,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     // MARK: - Private
     
-    private func icon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
+    private func icon(relations: BundledPropertiesValueProvider) -> ObjectIcon? {
         switch relations.resolvedLayoutValue {
         case .basic, .set, .collection, .image, .chat:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
@@ -54,7 +54,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .objectType:
             return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .tag, .chatDerived:
+                .audio, .video, .pdf, .date, .tag, .chatDerived, .notification, .missingObject, .devices:
             return nil
         }
     }
@@ -77,7 +77,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon {
         if iconImage.isNotEmpty {
-            return .space(.imageId(iconImage))
+            return .space(.imageId(iconImage, name: objectName, iconOption: iconOption ?? 1))
         }
         
         return .space(.name(name: objectName, iconOption: iconOption ?? 1))

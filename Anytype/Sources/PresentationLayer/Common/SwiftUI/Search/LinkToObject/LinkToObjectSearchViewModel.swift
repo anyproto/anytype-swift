@@ -93,7 +93,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
                     searchTitle: text,
                     iconImage: .asset(.webPage))
                 
-                let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
+                let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.linkTo)
                 newSearchData.append(webSection)
             }
             
@@ -113,7 +113,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
                     searchTitle: Loc.Editor.LinkToObject.pasteFromClipboard,
                     iconImage: .asset(.webPage))
                 
-                let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
+                let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.linkTo)
                 newSearchData.append(webSection)
             }
         }
@@ -138,7 +138,7 @@ final class LinkToObjectSearchViewModel: ObservableObject {
             
             copyLink = LinkToObjectSearchData(
                 searchKind: .copyLink(url),
-                searchTitle: Loc.Editor.LinkToObject.copyLink,
+                searchTitle: Loc.copyLink,
                 iconImage: .asset(.TextEditor.BlocksOption.copy)
             )
         } else if let blockId = data.currentLinkString {

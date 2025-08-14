@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .homeSpaceLevelChat)
     }
 
+    static var pinnedSpaces: Bool {
+        value(for: .pinnedSpaces)
+    }
+
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -38,28 +42,12 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
-    static var unreadOnHome: Bool {
-        value(for: .unreadOnHome)
-    }
-
     static var enableStreamSpaceType: Bool {
         value(for: .enableStreamSpaceType)
     }
 
-    static var enablePushMessages: Bool {
-        value(for: .enablePushMessages)
-    }
-
     static var aiToolInSet: Bool {
         value(for: .aiToolInSet)
-    }
-
-    static var disableColorfulSeedPhrase: Bool {
-        value(for: .disableColorfulSeedPhrase)
-    }
-
-    static var binWidgetFromLibrary: Bool {
-        value(for: .binWidgetFromLibrary)
     }
 
     static var anyAppBetaTip: Bool {
@@ -76,10 +64,6 @@ public extension FeatureFlags {
 
     static var spaceHubNewTitle: Bool {
         value(for: .spaceHubNewTitle)
-    }
-
-    static var spaceHubRedesign: Bool {
-        value(for: .spaceHubRedesign)
     }
 
     static var chatLayoutInsideSpace: Bool {
@@ -106,14 +90,6 @@ public extension FeatureFlags {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
-    static var plusButtonOnWidgets: Bool {
-        value(for: .plusButtonOnWidgets)
-    }
-
-    static var openWelcomeObject: Bool {
-        value(for: .openWelcomeObject)
-    }
-
     static var spaceLoadingForScreen: Bool {
         value(for: .spaceLoadingForScreen)
     }
@@ -122,16 +98,60 @@ public extension FeatureFlags {
         value(for: .binScreenEmptyAction)
     }
 
-    static var openFullscreenObjectsFromSetWidget: Bool {
-        value(for: .openFullscreenObjectsFromSetWidget)
+    static var showChatWidget: Bool {
+        value(for: .showChatWidget)
     }
 
-    static var chatWidget: Bool {
-        value(for: .chatWidget)
+    static var createChatWidget: Bool {
+        value(for: .createChatWidget)
     }
 
-    static var checkLoginInNotificationService: Bool {
-        value(for: .checkLoginInNotificationService)
+    static var muteSpacePossibility: Bool {
+        value(for: .muteSpacePossibility)
+    }
+
+    static var addNotificationsSettings: Bool {
+        value(for: .addNotificationsSettings)
+    }
+
+    static var chatLoadingIndicator: Bool {
+        value(for: .chatLoadingIndicator)
+    }
+
+    static var anytypeImageCacher: Bool {
+        value(for: .anytypeImageCacher)
+    }
+
+    static var joinSpaceViaQRCode: Bool {
+        value(for: .joinSpaceViaQRCode)
+    }
+
+    static var swipeToReply: Bool {
+        value(for: .swipeToReply)
+    }
+
+    static var supportSimpleEmbedBlocks: Bool {
+        value(for: .supportSimpleEmbedBlocks)
+    }
+
+    static var webPublishing: Bool {
+        value(for: .webPublishing)
+    }
+
+    static var keyboardMenuUndoRedo: Bool {
+        value(for: .keyboardMenuUndoRedo)
+    }
+
+    static var newSharingExtension: Bool {
+        value(for: .newSharingExtension)
+    }
+
+    static var mandatoryOnboardingEmailCollection: Bool {
+        value(for: .mandatoryOnboardingEmailCollection)
+    }
+
+    static var newSpaceMembersFlow: Bool {
+        value(for: .newSpaceMembersFlow)
     }
 
     static var rainbowViews: Bool {
@@ -205,33 +225,38 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .hideWebPayments,
         .homeSpaceLevelChat,
+        .pinnedSpaces,
         .openMediaFileInPreview,
         .newPlusMenu,
         .spaceUxTypes,
-        .unreadOnHome,
         .enableStreamSpaceType,
-        .enablePushMessages,
         .aiToolInSet,
-        .disableColorfulSeedPhrase,
-        .binWidgetFromLibrary,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
         .disableRestoreLastScreen,
         .spaceHubNewTitle,
-        .spaceHubRedesign,
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,
         .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
-        .plusButtonOnWidgets,
-        .openWelcomeObject,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .openFullscreenObjectsFromSetWidget,
-        .chatWidget,
-        .checkLoginInNotificationService,
+        .showChatWidget,
+        .createChatWidget,
+        .muteSpacePossibility,
+        .addNotificationsSettings,
+        .chatLoadingIndicator,
+        .anytypeImageCacher,
+        .joinSpaceViaQRCode,
+        .swipeToReply,
+        .supportSimpleEmbedBlocks,
+        .webPublishing,
+        .keyboardMenuUndoRedo,
+        .newSharingExtension,
+        .mandatoryOnboardingEmailCollection,
+        .newSpaceMembersFlow,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

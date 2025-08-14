@@ -26,7 +26,7 @@ extension Anytype_Rpc.Workspace {
 
         public var spaceID: String = String()
 
-        /// create space-level chat if not exists; temporary solution, should be removed after chats released for all users
+        /// deprecated, chat will be created automatically if space is shared
         public var withChat: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -34,28 +34,28 @@ extension Anytype_Rpc.Workspace {
         public init() {}
       }
 
-      public struct Response: @unchecked Sendable {
+      public struct Response: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
         public var error: Anytype_Rpc.Workspace.Open.Response.Error {
-          get {return _storage._error ?? Anytype_Rpc.Workspace.Open.Response.Error()}
-          set {_uniqueStorage()._error = newValue}
+          get {return _error ?? Anytype_Rpc.Workspace.Open.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {return _storage._error != nil}
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {_uniqueStorage()._error = nil}
+        public mutating func clearError() {self._error = nil}
 
         public var info: Anytype_Model_Account.Info {
-          get {return _storage._info ?? Anytype_Model_Account.Info()}
-          set {_uniqueStorage()._info = newValue}
+          get {return _info ?? Anytype_Model_Account.Info()}
+          set {_info = newValue}
         }
         /// Returns true if `info` has been explicitly set.
-        public var hasInfo: Bool {return _storage._info != nil}
+        public var hasInfo: Bool {return self._info != nil}
         /// Clears the value of `info`. Subsequent reads from it will return its default value.
-        public mutating func clearInfo() {_uniqueStorage()._info = nil}
+        public mutating func clearInfo() {self._info = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -117,7 +117,8 @@ extension Anytype_Rpc.Workspace {
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _error: Anytype_Rpc.Workspace.Open.Response.Error? = nil
+        fileprivate var _info: Anytype_Model_Account.Info? = nil
       }
 
       public init() {}
@@ -188,78 +189,36 @@ extension Anytype_Rpc.Workspace.Open.Response: SwiftProtobuf.Message, SwiftProto
     2: .same(proto: "info"),
   ]
 
-  fileprivate class _StorageClass {
-    var _error: Anytype_Rpc.Workspace.Open.Response.Error? = nil
-    var _info: Anytype_Model_Account.Info? = nil
-
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _error = source._error
-      _info = source._info
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._info) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._info) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._error {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._info {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._info {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Workspace.Open.Response, rhs: Anytype_Rpc.Workspace.Open.Response) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._error != rhs_storage._error {return false}
-        if _storage._info != rhs_storage._info {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._info != rhs._info {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

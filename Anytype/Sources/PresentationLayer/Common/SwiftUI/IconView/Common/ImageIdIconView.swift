@@ -1,33 +1,34 @@
 import Foundation
 import SwiftUI
-import CachedAsyncImage
 
 enum ImageIdIconSide {
     case width
-    case height
-    case minSide
+    case original
 }
 
-struct ImageIdIconView: View {
+struct ImageIdIconView<Placeholder: View>: View {
     
     let imageId: String
     let square: Bool
     let side: ImageIdIconSide
+    let placeholder: () -> Placeholder
     
-    init(imageId: String, square: Bool = true, side: ImageIdIconSide = .minSide) {
+    init(imageId: String, square: Bool = true, side: ImageIdIconSide = .width, @ViewBuilder placeholder: @escaping () -> Placeholder) {
         self.imageId = imageId
         self.square = square
         self.side = side
+        self.placeholder = placeholder
     }
     
     var body: some View {
         GeometryReader { reader in
-            CachedAsyncImage(
-                url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl
+            ToggleCachedAsyncImage(
+                url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl,
+                urlCache: .anytypeImages
             ) { image in
-                image.resizable().scaledToFill()
+                image.resizable().scaledToFill().clipped()
             } placeholder: {
-                LoadingPlaceholderIconView()
+                placeholder()
             }
             .if(square) {
                 let side = min(reader.size.width, reader.size.height)
@@ -42,10 +43,16 @@ struct ImageIdIconView: View {
         switch side {
         case .width:
             return .width(size.width)
-        case .height:
-            return .height(size.height)
-        case .minSide:
-            return .width(min(size.width, size.height))
+        case .original:
+            return .original
+        }
+    }
+}
+
+extension ImageIdIconView where Placeholder == LoadingPlaceholderIconView {
+    init(imageId: String, square: Bool = true, side: ImageIdIconSide = .width) {
+        self.init(imageId: imageId, square: square, side: side) {
+            LoadingPlaceholderIconView()
         }
     }
 }

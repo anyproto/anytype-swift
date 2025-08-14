@@ -12,11 +12,16 @@ struct EditorCoordinatorView: View {
     }
     
     var body: some View {
+        SpaceLoadingContainerView(spaceId: model.data.spaceId, showBackground: false) { _ in
+            content
+        }
+    }
+    
+    private var content: some View {
         mainView
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
-            .attachSpaceLoadingContainer(spaceId: model.data.spaceId)
     }
     
     @ViewBuilder

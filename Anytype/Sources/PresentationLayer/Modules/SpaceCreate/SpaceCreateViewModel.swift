@@ -24,6 +24,8 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     private var fileActionsService: any FileActionsServiceProtocol
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
+    @Injected(\.chatInviteStateService)
+    private var chatInviteStateService: any ChatInviteStateServiceProtocol
     
     // MARK: - State
     
@@ -68,17 +70,22 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId(fileDetails.id)])
             }
             
-            if FeatureFlags.openWelcomeObject {
-                if createResponse.startingObjectID.isNotEmpty {
-                    appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
-                } else {
-                    try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-                }
+            if uxType.isChat {
+                // Do not rethrow error to main flow
+                do {
+                    chatInviteStateService.setShouldShowInvite(for: spaceId)
+                    _ = try await workspaceService.makeSharable(spaceId: spaceId)
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId)
+                } catch {}
+            }
+            
+            if createResponse.startingObjectID.isNotEmpty {
+                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             } else {
                 try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
+            AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
             
             if createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)

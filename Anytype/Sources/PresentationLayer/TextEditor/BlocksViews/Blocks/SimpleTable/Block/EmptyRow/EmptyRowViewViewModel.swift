@@ -3,9 +3,8 @@ import Services
 import CoreGraphics
 
 struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
-    var hashable: AnyHashable {
-        "\(rowId) - \(columnId)"
-    }
+    var hashable: AnyHashable { blockId }
+    var blockId: String { "EmptyRowViewViewModel" + "\(rowId) - \(columnId)" }
 
     init(
         contextId: String,

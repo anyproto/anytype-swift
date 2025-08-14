@@ -2,6 +2,6 @@ import Services
 
 struct SetContentViewItem {
     let details: ObjectDetails
-    let relations: [Relation]
+    let relations: [Property]
     let coverType: ObjectHeaderCoverType?
 }

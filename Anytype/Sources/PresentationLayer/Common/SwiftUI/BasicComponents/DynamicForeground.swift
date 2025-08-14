@@ -36,11 +36,11 @@ private struct DynamicForegroundStyleiOS16: ViewModifier {
 
 extension View {
     func buttonDynamicForegroundStyle() -> some View {
-        dynamicForegroundStyle(color: .Control.active, disabledColor: .Control.inactive)
+        dynamicForegroundStyle(color: .Control.secondary, disabledColor: .Control.tertiary)
     }
     
     func navPanelDynamicForegroundStyle() -> some View {
-        dynamicForegroundStyle(color: .Control.transparentActive, disabledColor: .Control.transparentInactive)
+        dynamicForegroundStyle(color: .Control.transparentSecondary, disabledColor: .Control.transparentTertiary)
     }
     
     func dynamicForegroundStyle(color: Color, disabledColor: Color) -> some View {

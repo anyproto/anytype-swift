@@ -10,7 +10,7 @@ extension ListWidgetRowModel {
         self = ListWidgetRowModel(
             objectId: details.id,
             icon: details.objectIconImage,
-            title: details.title,
+            title: details.pluralTitle,
             description: details.subtitle,
             onTap: {
                 onTap(details.screenData())

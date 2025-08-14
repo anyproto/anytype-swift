@@ -78,12 +78,13 @@ extension Anytype_Event.Block {
           set {_uniqueStorage()._id = newValue}
         }
 
-        /// view id, client should double check this to make sure client doesn't switch the active view in the middle
+        /// view id, client should double check this to make sure client
         public var viewID: String {
           get {return _storage._viewID}
           set {_uniqueStorage()._viewID = newValue}
         }
 
+        /// doesn't switch the active view in the middle
         public var view: Anytype_Model_Block.Content.Dataview.View {
           get {return _storage._view ?? Anytype_Model_Block.Content.Dataview.View()}
           set {_uniqueStorage()._view = newValue}
@@ -176,7 +177,7 @@ extension Anytype_Event.Block {
           /// Id of template object set default for the view
           public var defaultTemplateID: String = String()
 
-          /// Default object type that is chosen for new object created within the view
+          /// Default object type that is chosen for new object created
           public var defaultObjectTypeID: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()

@@ -53,7 +53,7 @@ struct SetViewSettingsList: View {
         }
         .overlay(
             RoundedRectangle(cornerRadius: 10).stroke(
-                isFocused ? Color.System.amber50 : Color.Shape.primary,
+                isFocused ? Color.Control.accent50 : Color.Shape.primary,
                 lineWidth: isFocused ? 2 : 1
             )
         )

@@ -2,6 +2,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
@@ -21,7 +22,8 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     @Published var showFilesPicker = false
     @Published var showPhotosPicker = false
-    @Published var showPushNotificationsAlert = false
+    @Published var pushNotificationsAlertData: PushNotificationsAlertData?
+    @Published var showDisabledPushNotificationsAlert = false
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var participantsReactionData: MessageParticipantsReactionData?
     @Published var safariUrl: URL?
@@ -29,6 +31,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var newLinkedObject: EditorScreenData?
     @Published var inviteLinkData: SpaceShareData?
+    @Published var spaceShareData: SpaceShareData?
     
     private var filesPickerData: ChatFilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -96,11 +99,18 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     }
     
     func onInviteLinkSelected() {
-        inviteLinkData = SpaceShareData(spaceId: spaceId, route: .chat)
+        let data = SpaceShareData(spaceId: spaceId, route: .chat)
+        if FeatureFlags.newSpaceMembersFlow {
+            spaceShareData = data
+        } else {
+            inviteLinkData = data
+        }
     }
     
     func onPushNotificationsAlertSelected() {
-        showPushNotificationsAlert.toggle()
+        pushNotificationsAlertData = PushNotificationsAlertData(completion: { [weak self] granted in
+            self?.showDisabledPushNotificationsAlert = !granted
+        })
     }
     
     func didSelectCreateObject(type: ObjectType) {

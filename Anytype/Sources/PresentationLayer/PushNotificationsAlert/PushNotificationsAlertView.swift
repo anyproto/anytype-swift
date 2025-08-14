@@ -1,12 +1,13 @@
 import SwiftUI
+import DesignKit
 
 struct PushNotificationsAlertView: View {
     
     @StateObject private var model: PushNotificationsAlertViewModel
     @Environment(\.dismiss) var dismiss
     
-    init() {
-        _model = StateObject(wrappedValue: PushNotificationsAlertViewModel())
+    init(data: PushNotificationsAlertData) {
+        _model = StateObject(wrappedValue: PushNotificationsAlertViewModel(data: data))
     }
     
     var body: some View {
@@ -14,45 +15,33 @@ struct PushNotificationsAlertView: View {
             .onAppear {
                 model.onAppear()
             }
+            .task(item: model.requestAuthorizationId) { _ in
+                await model.requestAuthorization()
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
-            .background(Color.Background.secondary)
     }
     
     private var content: some View {
-        VStack(spacing: 0) {
-            header
-            
-            Spacer.fixedHeight(20)
-            
-            text
-            
-            Spacer.fixedHeight(20)
-
-            buttons
-            
-            Spacer.fixedHeight(16)
-        }
-    }
-    
-    private var header: some View {
-        ZStack {
-            LinearGradient(
-                gradient: Gradient(
-                    colors: [
-                        Color.Gradients.Push.violetStart,
-                        Color.Gradients.Push.violetEnd
-                    ]
+        GradientHeaderAlertView(
+            title: Loc.PushNotifications.RequestAlert.title,
+            message: Loc.PushNotifications.RequestAlert.description,
+            style: .violet,
+            headerContentView: { headerContent },
+            buttons: [
+                GradientHeaderAlertButton(
+                    title: Loc.PushNotifications.RequestAlert.primaryButton,
+                    style: .primaryLarge,
+                    action: { model.enablePushesTap() }
                 ),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            
-            headerContent
-            
-        }
-        .frame(height: 232)
+                GradientHeaderAlertButton(
+                    title: Loc.PushNotifications.RequestAlert.secondaryButton,
+                    style: .secondaryLarge,
+                    action: { model.laterTap() }
+                )
+            ]
+        )
     }
     
     private var headerContent: some View {
@@ -107,42 +96,5 @@ struct PushNotificationsAlertView: View {
             .fill(Color.PushNotifications.hiddenText)
             .frame(height: 8)
             .frame(maxWidth: .infinity)
-    }
-    
-    
-    private var text: some View {
-        VStack(spacing: 8) {
-            AnytypeText(Loc.PushNotifications.RequestAlert.title, style: .heading)
-                .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.center)
-            
-            Spacer.fixedHeight(8)
-            
-            AnytypeText(Loc.PushNotifications.RequestAlert.description, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.center)
-        }
-        .padding(.horizontal, 20)
-    }
-    
-    private var buttons: some View {
-        VStack(spacing: 8) {
-            StandardButton(
-                Loc.PushNotifications.RequestAlert.primaryButton,
-                style: .primaryLarge,
-                action: {
-                    model.enablePushesTap()
-                }
-            )
-            
-            StandardButton(
-                Loc.PushNotifications.RequestAlert.secondaryButton,
-                style: .secondaryLarge,
-                action: {
-                    model.laterTap()
-                }
-            )
-        }
-        .padding(.horizontal, 16)
     }
 }

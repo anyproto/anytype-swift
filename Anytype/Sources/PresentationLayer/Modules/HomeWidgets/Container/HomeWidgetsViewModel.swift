@@ -60,7 +60,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             
             newWidgetBlocks.removeAll { $0.source == .library(.chat) }
             
-            if FeatureFlags.chatWidget, showSpaceChat {
+            if FeatureFlags.showChatWidget, showSpaceChat {
                 newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
             }
             
@@ -108,10 +108,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func onSpaceSelected() {
         output?.onSpaceSelected()
-    }
-    
-    func submoduleOutput() -> (any CommonWidgetModuleOutput)? {
-        output
     }
     
     func onCreateWidgetFromEditMode() {

@@ -22,10 +22,13 @@ struct ObjectSettingsCoordinatorView: View {
                 BlockObjectSearchView(data: $0)
             }
             .sheet(item: $model.relationsListData) {
-                RelationsListCoordinatorView(document: $0.document, output: model)
+                PropertiesListCoordinatorView(document: $0.document, output: model)
             }
             .sheet(item: $model.versionHistoryData) {
                 VersionHistoryCoordinatorView(data: $0, output: model)
+            }
+            .sheet(item: $model.publishingData) {
+                PublishToWebCoordinator(data: $0)
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()

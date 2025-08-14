@@ -5,23 +5,23 @@ import Combine
 
 extension BaseDocumentProtocol {
     // without description, type and editable setOf if needed
-    var featuredRelationsForEditorPublisher: AnyPublisher<[Relation], Never> {
-        parsedRelationsPublisher
-            .map { [weak self] parsedRelations -> [Relation] in
+    var featuredRelationsForEditorPublisher: AnyPublisher<[Property], Never> {
+        parsedPropertiesPublisher
+            .map { [weak self] parsedProperties -> [Property] in
                 guard let self else { return [] }
                 
-                var enhancedRelations = parsedRelations.legacyFeaturedRelations.isNotEmpty ? parsedRelations.legacyFeaturedRelations : parsedRelations.featuredRelations
+                var enhancedRelations = parsedProperties.legacyFeaturedProperties.isNotEmpty ? parsedProperties.legacyFeaturedProperties : parsedProperties.featuredProperties
                 
                 enhancedRelations.reorder(
-                    by: [ BundledRelationKey.setOf.rawValue ]
+                    by: [ BundledPropertyKey.setOf.rawValue ]
                 ) { $0.key }
                 
                 // Do not show Description featured relation, we show it in dedicated block
-                enhancedRelations.removeAll { $0.key == BundledRelationKey.description.rawValue }
+                enhancedRelations.removeAll { $0.key == BundledPropertyKey.description.rawValue }
                 // Do not show empty (back)Links 
                 enhancedRelations.removeAll { $0.links.isNotNil && !$0.hasValue }
                 
-                let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
+                let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledPropertyKey.setOf.rawValue }
                 if permissions.canEditRelationValues,
                    let setOfIndex,
                    let editableRelation = enhancedRelations[setOfIndex].editableRelation
@@ -33,19 +33,19 @@ extension BaseDocumentProtocol {
             }.eraseToAnyPublisher()
     }
     
-    var featuredRelationsForEditor: [Relation] {
-        var enhancedRelations = parsedRelations.legacyFeaturedRelations.isNotEmpty ? parsedRelations.legacyFeaturedRelations : parsedRelations.featuredRelations
+    var featuredRelationsForEditor: [Property] {
+        var enhancedRelations = parsedProperties.legacyFeaturedProperties.isNotEmpty ? parsedProperties.legacyFeaturedProperties : parsedProperties.featuredProperties
         
         enhancedRelations.reorder(
-            by: [ BundledRelationKey.setOf.rawValue ]
+            by: [ BundledPropertyKey.setOf.rawValue ]
         ) { $0.key }
         
         enhancedRelations.removeAll { relation in
-            relation.key == BundledRelationKey.description.rawValue ||
+            relation.key == BundledPropertyKey.description.rawValue ||
             (relation.links.isNotNil && !relation.hasValue)
         }
         
-        let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
+        let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledPropertyKey.setOf.rawValue }
         if permissions.canEditRelationValues,
            let setOfIndex,
            let editableRelation = enhancedRelations[setOfIndex].editableRelation
@@ -63,9 +63,9 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    var layoutDetailsPublisher: AnyPublisher<[AnyHashable: RowInformation], Never> {
+    var blockLayoutDetailsPublisher: AnyPublisher<[String: BlockLayoutDetails], Never> {
         childrenPublisher
-            .map { layoutDetails(for: $0) }
+            .map { EditorCollectionFlowLayout.blockLayoutDetails(blockInfos: $0) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }

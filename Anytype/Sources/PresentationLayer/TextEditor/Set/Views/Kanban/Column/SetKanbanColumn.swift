@@ -81,16 +81,16 @@ struct SetKanbanColumn: View {
                 )
                 .foregroundColor(.Text.secondary)
             case let .status(options):
-                StatusRelationView(options: options, hint: "", style: .kanbanHeader)
+                StatusPropertyView(options: options, hint: "", style: .kanbanHeader)
             case let .tag(options):
-                TagRelationView(tags: options, hint: "", style: .kanbanHeader)
+                TagPropertyView(tags: options, hint: "", style: .kanbanHeader)
             case let .checkbox(title, isChecked):
                 HStack(spacing: 6) {
                     if isChecked {
                         Image(asset: .TextEditor.Text.checked)
                     } else {
                         Image(asset: .TextEditor.Text.unchecked)
-                            .foregroundColor(.Control.active)
+                            .foregroundColor(.Control.secondary)
                     }
                     let text = isChecked ?
                     Loc.Set.View.Kanban.Column.Title.checked(title) :
@@ -105,7 +105,7 @@ struct SetKanbanColumn: View {
             
             Spacer()
             
-            Image(asset: .X24.more).foregroundColor(.Control.active)
+            Image(asset: .X24.more).foregroundColor(.Control.secondary)
         }
         .padding(.horizontal, 10)
     }

@@ -33,6 +33,8 @@ extension Anytype_Event.Space {
 
         public var syncingObjectsCounter: Int64 = 0
 
+        public var notSyncedFilesCounter: Int64 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -69,6 +71,7 @@ extension Anytype_Event.Space.SyncStatus.Update: SwiftProtobuf.Message, SwiftPro
     3: .same(proto: "network"),
     4: .same(proto: "error"),
     5: .same(proto: "syncingObjectsCounter"),
+    6: .same(proto: "notSyncedFilesCounter"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -82,6 +85,7 @@ extension Anytype_Event.Space.SyncStatus.Update: SwiftProtobuf.Message, SwiftPro
       case 3: try { try decoder.decodeSingularEnumField(value: &self.network) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.error) }()
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.syncingObjectsCounter) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.notSyncedFilesCounter) }()
       default: break
       }
     }
@@ -103,6 +107,9 @@ extension Anytype_Event.Space.SyncStatus.Update: SwiftProtobuf.Message, SwiftPro
     if self.syncingObjectsCounter != 0 {
       try visitor.visitSingularInt64Field(value: self.syncingObjectsCounter, fieldNumber: 5)
     }
+    if self.notSyncedFilesCounter != 0 {
+      try visitor.visitSingularInt64Field(value: self.notSyncedFilesCounter, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -112,6 +119,7 @@ extension Anytype_Event.Space.SyncStatus.Update: SwiftProtobuf.Message, SwiftPro
     if lhs.network != rhs.network {return false}
     if lhs.error != rhs.error {return false}
     if lhs.syncingObjectsCounter != rhs.syncingObjectsCounter {return false}
+    if lhs.notSyncedFilesCounter != rhs.notSyncedFilesCounter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

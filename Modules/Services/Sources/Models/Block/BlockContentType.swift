@@ -17,6 +17,7 @@ public enum BlockContentType: Hashable {
     case tableRow
     case widget(BlockWidget.Layout)
     case chat
+    case embed
 }
 
 extension BlockContentType {

@@ -17,6 +17,7 @@ final class EditorNavigationBarHelper {
 
     private let settingsItem: UIEditorBarButtonItem
     private let syncStatusItem: EditorSyncStatusItem
+    private let webBannerItem: EditorWebBannerItem
     private let rightContanerForEditing: UIView
     private let backButton: UIView
     
@@ -41,17 +42,19 @@ final class EditorNavigationBarHelper {
         onSelectAllBarButtonItemTap: @escaping (Bool) -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
         onTemplatesButtonTap: @escaping () -> Void,
-        onSyncStatusTap: @escaping () -> Void
+        onSyncStatusTap: @escaping () -> Void,
+        onWebBannerTap: @escaping () -> Void
     ) {
         self.navigationBarView = navigationBarView
         self.navigationBarBackgroundView = navigationBarBackgroundView
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
         self.syncStatusItem = EditorSyncStatusItem(onTap: onSyncStatusTap)
+        self.webBannerItem = EditorWebBannerItem(onTap: onWebBannerTap)
 
         // Done button
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = Loc.done
-        buttonConfig.baseForegroundColor = .Control.accent
+        buttonConfig.baseForegroundColor = .Control.accent100
         self.doneButton = UIButton(configuration: buttonConfig)
         self.doneButton.addAction(
             UIAction(
@@ -78,7 +81,7 @@ final class EditorNavigationBarHelper {
         
         // Select all button
         var selectAllConfig = UIButton.Configuration.plain()
-        selectAllConfig.baseForegroundColor = .Control.active
+        selectAllConfig.baseForegroundColor = .Control.secondary
         self.selectAllButton = UIButton(configuration: selectAllConfig)
         self.selectAllButton.addAction(
             UIAction(
@@ -97,6 +100,8 @@ final class EditorNavigationBarHelper {
                 settingsItem
             )
         }
+        
+        navigationBarView.bannerView = webBannerItem
     }
     
     func setPageNavigationHiddenBackButton(_ hidden: Bool) {
@@ -174,6 +179,10 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     func updateSyncStatusData(_ statusData: SyncStatusData) {
         syncStatusItem.changeStatusData(statusData)
     }
+    
+    func updateWebBannerVisibility(_ isVisible: Bool) {
+        webBannerItem.setVisible(isVisible)
+    }
 
     func editorEditingStateDidChange(_ state: EditorEditingState) {
         currentEditorState = state
@@ -237,6 +246,7 @@ private extension EditorNavigationBarHelper {
         let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, opacity: opacity)
         settingsItem.changeState(state)
         syncStatusItem.changeItemState(state)
+        webBannerItem.changeItemState(state)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
@@ -289,7 +299,7 @@ private extension ObjectHeader {
     
     var hasCover: Bool {
         switch self {
-        case .filled(let filledState, _):
+        case .filled(let filledState, _, _):
             return filledState.hasCover
         case .empty:
             return false

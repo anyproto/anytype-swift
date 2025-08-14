@@ -11,8 +11,8 @@ protocol SearchWithMetaModelBuilderProtocol {
 @MainActor
 final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    @Injected(\.propertyDetailsStorage)
+    private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
     nonisolated init() { }
     
@@ -45,7 +45,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
     
     private func buildHighlightedTitle(from meta: [SearchMeta]) -> AttributedString? {
         let nameMeta = meta.first { item in
-            item.relationKey == BundledRelationKey.pluralName.rawValue
+            item.relationKey == BundledPropertyKey.pluralName.rawValue
         }
         
         guard let nameMeta else { return nil }
@@ -59,19 +59,19 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             if item.blockID.isNotEmpty {
                 return buildTextBlockHighlights(with: item)
             } else if item.relationKey.isNotEmpty {
-                return buildRelationData(with: item, spaceId: spaceId)
+                return buildPropertyData(with: item, spaceId: spaceId)
             } else {
                 return nil
             }
         }
     }
     
-    private func buildRelationData(with meta: SearchMeta, spaceId: String) -> HighlightsData? {
-        guard meta.relationKey != BundledRelationKey.name.rawValue && meta.relationKey != BundledRelationKey.pluralName.rawValue else {
+    private func buildPropertyData(with meta: SearchMeta, spaceId: String) -> HighlightsData? {
+        guard meta.relationKey != BundledPropertyKey.name.rawValue && meta.relationKey != BundledPropertyKey.pluralName.rawValue else {
             return nil
         }
         
-        guard let relationDetails = try? relationDetailsStorage.relationsDetails(key: meta.relationKey, spaceId: spaceId) else {
+        guard let relationDetails = try? propertyDetailsStorage.relationsDetails(key: meta.relationKey, spaceId: spaceId) else {
             return nil
         }
         
@@ -80,13 +80,13 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
             return textHighlightsData(with: relationDetails, meta: meta)
         case .status:
             guard let details = meta.relationDetails.asDetails else { return nil }
-            let option = RelationOption(details: details)
-            let relationStatusOption = Relation.Status.Option(option: option)
+            let option = PropertyOption(details: details)
+            let relationStatusOption = Property.Status.Option(option: option)
             return .status(name: relationDetails.name, option: relationStatusOption)
         case .tag:
             guard let details = meta.relationDetails.asDetails else { return nil }
-            let option = RelationOption(details: details)
-            let relationTagOption = Relation.Tag.Option(option: option)
+            let option = PropertyOption(details: details)
+            let relationTagOption = Property.Tag.Option(option: option)
             return .tag(name: relationDetails.name, option: relationTagOption)
         default:
             return nil
@@ -98,7 +98,7 @@ final class SearchWithMetaModelBuilder: SearchWithMetaModelBuilderProtocol {
         return .text(attributedString)
     }
     
-    private func textHighlightsData(with relationDetails: RelationDetails, meta: SearchMeta) -> HighlightsData? {
+    private func textHighlightsData(with relationDetails: PropertyDetails, meta: SearchMeta) -> HighlightsData? {
         guard let attributedString = attributedString(for: meta) else { return nil }
         let result = AttributedString(relationDetails.name + ":") + attributedString
         return .text(result)

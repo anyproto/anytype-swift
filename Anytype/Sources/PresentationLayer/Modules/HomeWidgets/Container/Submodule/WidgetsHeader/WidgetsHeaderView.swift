@@ -20,10 +20,10 @@ struct WidgetsHeaderView: View {
                         .lineLimit(1)
                     if model.sharedSpace {
                         AnytypeText(model.spaceMembers, style: .relation2Regular)
-                            .foregroundColor(.Control.transparentActive)
+                            .foregroundColor(.Control.transparentSecondary)
                     } else {
                         AnytypeText(model.spaceUxType, style: .relation2Regular)
-                            .foregroundColor(.Control.transparentActive)
+                            .foregroundColor(.Control.transparentSecondary)
                     }
                 }
                 Spacer()
@@ -31,8 +31,12 @@ struct WidgetsHeaderView: View {
         } rightView: {
             if model.canEdit {
                 Image(asset: .X24.spaceSettings)
-                    .foregroundStyle(Color.Control.transparentActive)
+                    .foregroundStyle(Color.Control.transparentSecondary)
             }
+        }
+        .background {
+            HomeBlurEffectView(direction: .topToBottom)
+                .ignoresSafeArea()
         }
         .fixTappableArea()
         .onTapGesture {

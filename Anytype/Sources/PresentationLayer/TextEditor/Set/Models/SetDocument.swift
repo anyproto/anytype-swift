@@ -38,18 +38,18 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         }
     }
     
-    var dataViewRelationsDetails: [RelationDetails] = []
+    var dataViewRelationsDetails: [PropertyDetails] = []
     
     var analyticsType: AnalyticsObjectType {
         details?.analyticsType ?? .object(typeId: "")
     }
     
-    var featuredRelationsForEditor: [Relation] {
+    var featuredRelationsForEditor: [Property] {
         document.featuredRelationsForEditor
     }
     
-    var parsedRelations: ParsedRelations {
-        document.parsedRelations
+    var parsedProperties: ParsedProperties {
+        document.parsedProperties
     }
     
     var permissions: ObjectPermissions {
@@ -74,7 +74,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     private var participantIsEditor = false
     private var subscriptions = [AnyCancellable]()
-    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let permissionsBuilder: any SetPermissionsBuilderProtocol
@@ -84,14 +84,14 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     init(
         document: some BaseDocumentProtocol,
         inlineParameters: EditorInlineSetObject?,
-        relationDetailsStorage: some RelationDetailsStorageProtocol,
+        propertyDetailsStorage: some PropertyDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
         accountParticipantsStorage: some AccountParticipantsStorageProtocol,
         permissionsBuilder: some SetPermissionsBuilderProtocol
     ) {
         self.document = document
         self.inlineParameters = inlineParameters
-        self.relationDetailsStorage = relationDetailsStorage
+        self.propertyDetailsStorage = propertyDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.permissionsBuilder = permissionsBuilder
@@ -101,7 +101,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         dataView.views.first { $0.id == id } ?? .empty
     }
     
-    func sortedRelations(for viewId: String) -> [SetRelation] {
+    func sortedRelations(for viewId: String) -> [SetProperty] {
         let view = view(by: viewId)
         return dataBuilder.sortedRelations(dataview: dataView, view: view, spaceId: spaceId)
     }
@@ -134,7 +134,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         (details?.filteredSetOf.isNotEmpty ?? false) || isCollection()
     }
     
-    func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails] {
+    func viewRelations(viewId: String, excludeRelations: [PropertyDetails]) -> [PropertyDetails] {
         let view = view(by: viewId)
         return dataBuilder.activeViewRelations(
             dataViewRelationsDetails: dataViewRelationsDetails,
@@ -167,7 +167,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     }
     
     func isSetByRelation() -> Bool {
-        let relation = parsedRelations.systemRelations.first { $0.key == BundledRelationKey.setOf.rawValue }
+        let relation = parsedProperties.systemProperties.first { $0.key == BundledPropertyKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {
             return true
         } else {
@@ -233,7 +233,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         }
         .store(in: &subscriptions)
         
-        relationDetailsStorage.relationsDetailsPublisher(spaceId: document.spaceId).sink { [weak self] _ in
+        propertyDetailsStorage.relationsDetailsPublisher(spaceId: document.spaceId).sink { [weak self] _ in
             self?.updateDataViewRelations()
             self?.triggerSync()
         }
@@ -265,17 +265,17 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     }
     
     private func updateDataViewRelations() {
-        let relationsDetails = relationDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId, includeDeleted: false)
+        let relationsDetails = propertyDetailsStorage.relationsDetails(keys: dataView.relationLinks.map(\.key), spaceId: spaceId, includeDeleted: false)
         dataViewRelationsDetails = enrichedByDoneRelationIfNeeded(relationsDetails: relationsDetails)
     }
     
-    private func enrichedByDoneRelationIfNeeded(relationsDetails: [RelationDetails]) -> [RelationDetails] {
+    private func enrichedByDoneRelationIfNeeded(relationsDetails: [PropertyDetails]) -> [PropertyDetails] {
         // force insert Done relation for dataView if needed
-        let containsDoneRelation = relationsDetails.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
-        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(bundledKey: BundledRelationKey.done, spaceId: spaceId)
-        if !containsDoneRelation, let doneRelationDetails {
+        let containsDoneRelation = relationsDetails.first { $0.key == BundledPropertyKey.done.rawValue }.isNotNil
+        let donePropertyDetails = try? propertyDetailsStorage.relationsDetails(bundledKey: BundledPropertyKey.done, spaceId: spaceId)
+        if !containsDoneRelation, let donePropertyDetails {
             var relationsDetails = relationsDetails
-            relationsDetails.append(doneRelationDetails)
+            relationsDetails.append(donePropertyDetails)
             return relationsDetails
         } else {
             return relationsDetails

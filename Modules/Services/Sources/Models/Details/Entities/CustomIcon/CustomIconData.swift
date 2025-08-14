@@ -49,5 +49,12 @@ public extension ObjectIcon {
     static var emptyTypeIcon: ObjectIcon {
         .customIcon(CustomIconData(placeholderIcon: .type))
     }
+    
+    static var emptyBookmarkIcon: ObjectIcon {
+        .customIcon(CustomIconData(placeholderIcon: .bookmark))
+    }
+    
+    static var emptyDateIcon: ObjectIcon {
+        .customIcon(CustomIconData(placeholderIcon: .calendar))
+    }
 }
-

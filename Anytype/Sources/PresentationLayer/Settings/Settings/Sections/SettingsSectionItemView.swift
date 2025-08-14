@@ -2,7 +2,7 @@ import SwiftUI
 
 extension SettingsSectionItemView {
     enum Decoration {
-        case arrow(text: String = "")
+        case arrow(text: String = "", needAttention: Bool = false)
         case button(text: String)
     }
 }
@@ -57,14 +57,19 @@ struct SettingsSectionItemView: View {
     var decorationView: some View {
         Group {
             switch decoration {
-            case .arrow(let text):
-                HStack(alignment: .center, spacing: 10) {
-                    AnytypeText(text, style: .bodyRegular)
-                        .dynamicForegroundStyle(color: .Text.secondary, disabledColor: .Text.tertiary)
-                        .lineLimit(1)
+            case .arrow(let text, let needAttention):
+                HStack(alignment: .center, spacing: 12) {
+                    if needAttention {
+                        Image(asset: .X18.redAttention)
+                    }
+                    if text.isNotEmpty {
+                        AnytypeText(text, style: .bodyRegular)
+                            .dynamicForegroundStyle(color: .Text.secondary, disabledColor: .Text.tertiary)
+                            .lineLimit(1)
+                    }
                     Image(asset: .RightAttribute.disclosure)
                         .renderingMode(.template)
-                        .dynamicForegroundStyle(color: .Control.active, disabledColor: .Control.inactive)
+                        .dynamicForegroundStyle(color: .Control.secondary, disabledColor: .Control.tertiary)
                 }
             case .button(let text):
                 AnytypeText(text, style: .caption1Medium)
@@ -72,7 +77,7 @@ struct SettingsSectionItemView: View {
                     .lineLimit(1)
                     .padding(.horizontal, 11)
                     .padding(.vertical, 5)
-                    .background(Color.Control.button)
+                    .background(Color.Control.primary)
                     .cornerRadius(6, style: .continuous)
             case .none:
                 EmptyView()

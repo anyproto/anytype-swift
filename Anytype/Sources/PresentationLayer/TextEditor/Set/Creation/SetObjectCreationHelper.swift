@@ -32,7 +32,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         } else if setDocument.isSetByRelation() {
             return try await createObjectForRelationSet(for: setDocument, setting: setting)
         } else {
-            return try await  createObjectForRegularSet(for: setDocument, setting: setting)
+            return try await createObjectForRegularSet(for: setDocument, setting: setting)
         }
     }
     
@@ -83,7 +83,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
         let objectTypeId = setDocument.details?.filteredSetOf.first ?? ""
-        let objectType = try? objectTypeProvider.objectType(id: objectTypeId)
+        let objectType = try objectTypeProvider.objectType(id: objectTypeId)
         let templateId = setting?.templateId ?? defaultTemplateId(for: objectType, setDocument: setDocument)
         return try await createObject(
             setDocument: setDocument,
@@ -96,7 +96,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol, Sendable {
     private func createObject(
         setDocument: some SetDocumentProtocol,
         type: ObjectType?,
-        relationsDetails: [RelationDetails],
+        relationsDetails: [PropertyDetails],
         templateId: String?
     ) async throws -> SetObjectCreationResult {
         let details = try await dataviewService.addRecord(

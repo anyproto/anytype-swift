@@ -116,6 +116,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(vc)
     }
     
+    func showCamera(onMediaTaken: @escaping (ImagePickerMediaType) -> Void) {
+        let vc = ImagePickerView(sourceType: .camera, onMediaTaken: onMediaTaken).ignoresSafeArea()
+        navigationContext.present(vc, modalPresentationStyle: .overFullScreen)
+    }
+    
+    func showDocumentScanner(completion: @escaping (Result<[UIImage], any Error>) -> Void) {
+        let vc = DocumentScannerView(completion: completion).ignoresSafeArea()
+        navigationContext.present(vc, modalPresentationStyle: .overFullScreen)
+    }
+    
     func saveFile(fileURL: URL, type: FileContentType) {
         fileCoordinator.downloadFileAt(fileURL, withType: type, spaceId: document.spaceId)
     }
@@ -171,7 +181,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + DetailsLayout.listLayouts
+        let excludedLayouts = DetailsLayout.fileAndMediaLayouts + DetailsLayout.listLayouts + [.participant, .objectType]
         let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
@@ -393,19 +403,19 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 extension EditorRouter {
     @MainActor
     func showRelationValueEditingView(key: String) {
-        let relation = document.parsedRelations.installed.first { $0.key == key }
+        let relation = document.parsedProperties.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
         output?.showRelationValueEditingView(document: document, relation: relation)
     }
 
     @MainActor
-    func showAddRelationInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
-        output?.showAddRelationInfoView(document: document, onSelect: onSelect)
+    func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void) {
+        output?.showAddPropertyInfoView(document: document, onSelect: onSelect)
     }
 }
 
-extension EditorRouter: RelationValueCoordinatorOutput {
+extension EditorRouter: PropertyValueCoordinatorOutput {
     func openObject(screenData: ScreenData) {
         navigationContext.dismissAllPresented()
         showEditorScreen(data: screenData)
@@ -443,11 +453,15 @@ extension EditorRouter {
     }
     
     func didTapUseTemplateAsDefault(templateId: String) {
-        guard let objectTypeId = document.details?.objectType.id else { return }
+        guard let details = document.details else { return }
+       
         Task { @MainActor in
-            try? await templateService.setTemplateAsDefaultForType(objectTypeId: objectTypeId, templateId: templateId)
+            try await templateService.setTemplateAsDefaultForType(
+                objectTypeId: details.type,
+                templateId: templateId
+            )
             navigationContext.dismissTopPresented(animated: true, completion: nil)
-            toastPresenter.show(message: Loc.Templates.Popup.default)
+            toastPresenter.show(message: templateId.isEmpty ? Loc.unsetAsDefault : Loc.Templates.Popup.default)
         }
     }
 }

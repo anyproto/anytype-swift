@@ -2,12 +2,14 @@
 import Services
 import Foundation
 import AnytypeCore
+import UIKit
+
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     var turnIntoStub = false
     var turnIntoNumberOfCalls = 0
     var turnIntoStyleFromLastCall: BlockText.Style?
-    func turnInto(_ style: BlockText.Style, blockId: String) {
+    func turnInto(_ style: BlockText.Style, blockId: String, route: AnalyticsEventsRouteKind?) async throws {
         if turnIntoStub {
             turnIntoNumberOfCalls += 1
             turnIntoStyleFromLastCall = style
@@ -20,20 +22,20 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func turnIntoObject(blockId: String) -> String? {
+    func turnIntoObject(blockId: String) async throws -> String? {
         assertionFailure()
         return nil
     }
     
-    func setTextColor(_ color: BlockColor, blockIds: [String]) {
+    func setTextColor(_ color: BlockColor, blockIds: [String], route: AnalyticsEventsRouteKind?) {
         assertionFailure()
     }
 
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String]) {
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String], route: AnalyticsEventsRouteKind?) {
         assertionFailure()
     }
     
-    func duplicate(blockId: String, spaceId: String) {
+    func duplicate(blockId: String) {
         assertionFailure()
     }
     
@@ -53,7 +55,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String]) {
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String], route: AnalyticsEventsRouteKind?) {
         assertionFailure()
     }
     
@@ -77,7 +79,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createEmptyBlock(parentId: String, spaceId: String) {
+    func createEmptyBlock(parentId: String) {
         assertionFailure()
     }
     
@@ -93,17 +95,17 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) async throws -> String {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?) async throws -> String {
         assertionFailure()
         return ""
     }
     
-    func toggleWholeBlockMarkup(_ attributedString: SafeNSAttributedString?, markup: MarkupType, info: BlockInformation) -> SafeNSAttributedString? {
+    func toggleWholeBlockMarkup(_ attributedString: SafeNSAttributedString?, markup: MarkupType, info: BlockInformation, route: AnalyticsEventsRouteKind?) async throws -> SafeNSAttributedString? {
         assertionFailure()
         return nil
     }
     
-    func upload(blockId: String, filePath: String) {
+    func upload(blockId: String, filePath: String) async throws {
         assertionFailure()
     }
     
@@ -128,7 +130,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         }
     }
     
-    func changeText(_ text: SafeNSAttributedString, blockId: String) {
+    func changeText(_ text: SafeNSAttributedString, blockId: String) async throws {
         assertionFailure()
     }
     
@@ -160,7 +162,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func uploadFileAt(localPath: String, blockId: String) {
+    func uploadFileAt(localPath: String, blockId: String, route: UploadMediaRoute) {
         assertionFailure()
     }
     
@@ -172,7 +174,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createAndFetchBookmark(targetID: String, position: BlockPosition, url: AnytypeURL) {
+    func createAndFetchBookmark(targetID: String, position: BlockPosition, url: AnytypeURL) async throws {
         assertionFailure()
     }
 
@@ -184,15 +186,15 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: SafeNSAttributedString?, spaceId: String) async throws -> String {
+    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: SafeNSAttributedString?) async throws -> String {
         fatalError()
     }
     
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String, route: UploadMediaRoute) {
         assertionFailure()
     }
     
-    func changeMarkup(blockIds: [String], markType: MarkupType) {
+    func changeMarkup(blockIds: [String], markType: MarkupType, route: AnalyticsEventsRouteKind?) {
         assertionFailure()
     }
     
@@ -202,6 +204,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     }
     
     func pasteContent() {
+        assertionFailure()
+    }
+    
+    func uploadImage(image: UIImage, type: String, blockId: String, route: UploadMediaRoute) {
         assertionFailure()
     }
     

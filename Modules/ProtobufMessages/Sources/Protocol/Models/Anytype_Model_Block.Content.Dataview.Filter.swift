@@ -201,6 +201,9 @@ extension Anytype_Model_Block.Content.Dataview {
           case nextMonth // = 9
           case numberOfDaysAgo // = 10
           case numberOfDaysNow // = 11
+          case lastYear // = 12
+          case currentYear // = 13
+          case nextYear // = 14
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -221,6 +224,9 @@ extension Anytype_Model_Block.Content.Dataview {
             case 9: self = .nextMonth
             case 10: self = .numberOfDaysAgo
             case 11: self = .numberOfDaysNow
+            case 12: self = .lastYear
+            case 13: self = .currentYear
+            case 14: self = .nextYear
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -239,6 +245,9 @@ extension Anytype_Model_Block.Content.Dataview {
             case .nextMonth: return 9
             case .numberOfDaysAgo: return 10
             case .numberOfDaysNow: return 11
+            case .lastYear: return 12
+            case .currentYear: return 13
+            case .nextYear: return 14
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -257,6 +266,9 @@ extension Anytype_Model_Block.Content.Dataview {
             .nextMonth,
             .numberOfDaysAgo,
             .numberOfDaysNow,
+            .lastYear,
+            .currentYear,
+            .nextYear,
           ]
 
         }
@@ -402,6 +414,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: SwiftProtobuf
     9: .same(proto: "NextMonth"),
     10: .same(proto: "NumberOfDaysAgo"),
     11: .same(proto: "NumberOfDaysNow"),
+    12: .same(proto: "LastYear"),
+    13: .same(proto: "CurrentYear"),
+    14: .same(proto: "NextYear"),
   ]
 }
 

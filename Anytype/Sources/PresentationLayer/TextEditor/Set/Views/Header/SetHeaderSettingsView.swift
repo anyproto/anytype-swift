@@ -37,7 +37,7 @@ struct SetHeaderSettingsView: View {
             model.onAITap()
         }) {
             Image(asset: .X24.ai)
-                .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
+                .foregroundColor(model.isActiveHeader ? .Control.secondary : .Control.tertiary)
         }
         .disabled(!model.isActiveHeader)
     }
@@ -48,7 +48,7 @@ struct SetHeaderSettingsView: View {
             model.onSettingsTap()
         }) {
             Image(asset: .X24.settings)
-                .foregroundColor(model.isActiveHeader ? .Control.active : .Control.inactive)
+                .foregroundColor(model.isActiveHeader ? .Control.secondary : .Control.tertiary)
         }
         .disabled(!model.isActiveHeader)
     }

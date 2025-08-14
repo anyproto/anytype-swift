@@ -8,6 +8,8 @@ protocol MediaBlockActionsProviderProtocol: AnyObject {
     func openVideoPicker(blockId: String)
     func openFilePicker(blockId: String)
     func openAudioPicker(blockId: String)
+    func openCamera(blockId: String)
+    func openDocumentScanner(blockId: String)
 }
 
 @MainActor
@@ -42,6 +44,44 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
         showFilePicker(blockId: blockId, types: [.audio])
     }
     
+    func openCamera(blockId: String) {
+        router.showCamera { [weak self] media in
+            guard let self else { return }
+            
+            switch media {
+            case let .image(image, type):
+                handler.uploadImage(image: image, type: type, blockId: blockId, route: .camera)
+            case .video(let url):
+                handler.uploadMediaFile(uploadingSource: .path(url.path()), type: .videos, blockId: blockId, route: .camera)
+            }
+        }
+    }
+    
+    func openDocumentScanner(blockId: String) {
+        router.showDocumentScanner { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let images):
+                Task {
+                    var currentBlockId = blockId
+                    for (index, image) in images.enumerated() {
+                        if index == 0 {
+                            // First image: upload to the provided block ID
+                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId, route: .scan)
+                        } else {
+                            // Subsequent images: create new block below the previous one
+                            currentBlockId = try await self.handler.addBlock(.file(.init(contentType: .image)), blockId: currentBlockId)
+                            self.handler.uploadImage(image: image, type: UTType.png.identifier, blockId: currentBlockId, route: .scan)
+                        }
+                    }
+                }
+            case .failure(let error):
+                self.router.showAlert(alertModel: AlertModel(title: Loc.documentScanFailed, message: error.localizedDescription, buttons: []))
+            }
+        }
+    }
+    
     // MARK: - Private
     
     private func showMediaPicker(type: MediaPickerContentType, blockId: String) {
@@ -51,7 +91,8 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
             self?.handler.uploadMediaFile(
                 uploadingSource: .itemProvider(itemProvider),
                 type: type,
-                blockId: blockId
+                blockId: blockId,
+                route: .filePicker
             )
         }
     }
@@ -59,7 +100,7 @@ final class MediaBlockActionsProvider: MediaBlockActionsProviderProtocol {
     private func showFilePicker(blockId: String, types: [UTType]) {
         let model = AnytypePicker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
-            self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
+            self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId, route: .filePicker)
         }.store(in: &subscriptions)
         
         router.showFilePicker(model: model)

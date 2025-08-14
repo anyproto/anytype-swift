@@ -96,7 +96,7 @@ struct TemplatePickerView: View {
             viewModel.onCloseButtonTap()
         } label: {
             Image(asset: .X24.close)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
     }
     
@@ -105,7 +105,7 @@ struct TemplatePickerView: View {
             viewModel.onSettingsButtonTap()
         } label: {
             Image(asset: .X24.more)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
     }
 }

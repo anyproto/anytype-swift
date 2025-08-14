@@ -15,11 +15,11 @@ extension WorkspaceSetDetails {
     
     var key: String {
         switch self {
-        case .name: BundledRelationKey.name.rawValue
-        case .description: BundledRelationKey.description.rawValue
-        case .iconObjectId: BundledRelationKey.iconImage.rawValue
-        case .iconOption: BundledRelationKey.iconOption.rawValue
-        case .spaceUxType: BundledRelationKey.spaceUxType.rawValue
+        case .name: BundledPropertyKey.name.rawValue
+        case .description: BundledPropertyKey.description.rawValue
+        case .iconObjectId: BundledPropertyKey.iconImage.rawValue
+        case .iconOption: BundledPropertyKey.iconOption.rawValue
+        case .spaceUxType: BundledPropertyKey.spaceUxType.rawValue
         }
     }
     

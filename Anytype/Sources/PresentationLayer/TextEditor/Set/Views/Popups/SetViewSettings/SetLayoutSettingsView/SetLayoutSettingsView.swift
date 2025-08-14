@@ -50,14 +50,14 @@ struct SetLayoutSettingsView: View {
                 configuration.name,
                 style: configuration.isSelected ? .caption2Medium : .caption2Regular
             )
-            .foregroundColor(configuration.isSelected ? .System.amber100 : .Text.secondary)
+            .foregroundColor(configuration.isSelected ? .Control.accent100 : .Text.secondary)
         }
         .frame(height: 96)
         .frame(maxWidth: .infinity)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(
-                    configuration.isSelected ? Color.System.amber50 : Color.Shape.primary,
+                    configuration.isSelected ? Color.Control.accent50 : Color.Shape.primary,
                     lineWidth: configuration.isSelected ? 2 : 0.5
                 )
         )
@@ -141,7 +141,7 @@ struct SetLayoutSettingsView: View {
                 .foregroundColor(.Text.secondary)
             Spacer.fixedWidth(6)
             Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
-                .foregroundColor(.Control.active)
+                .foregroundColor(.Control.secondary)
         }
     }
 }

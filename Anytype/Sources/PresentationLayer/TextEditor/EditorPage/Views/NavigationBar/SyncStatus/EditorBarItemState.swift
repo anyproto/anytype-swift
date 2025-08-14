@@ -15,10 +15,21 @@ struct EditorBarItemState: Equatable {
             if opacity < 0.7 {
                 return .Text.white
             } else {
-                return .Control.active.withAlphaComponent(opacity)
+                return .Control.secondary.withAlphaComponent(opacity)
             }
         }
-        return .Control.active
+        return .Control.secondary
+    }
+    
+    var buttonTextColor: UIColor {
+        if haveBackground {
+            if opacity < 0.7 {
+                return .Text.white
+            } else {
+                return .Text.primary.withAlphaComponent(opacity)
+            }
+        }
+        return .Text.primary
     }
     
     static let initial = EditorBarItemState(haveBackground: false, opacity: 0)

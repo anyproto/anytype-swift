@@ -28,7 +28,7 @@ struct MessageGridAttachmentsContainer: View {
                     case .video:
                         MessageVideoView(details: object)
                     default: // image and other types (for bugs)
-                        ImageIdIconView(imageId: object.id)
+                        MessageImageView(details: object)
                     }
                 }
                 .cornerRadius(4)

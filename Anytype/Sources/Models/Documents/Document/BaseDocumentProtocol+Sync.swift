@@ -52,10 +52,10 @@ extension BaseDocumentProtocol {
         subscribeForDetails(objectId: objectId)
     }
     
-    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
+    var parsedPropertiesPublisher: AnyPublisher<ParsedProperties, Never> {
         subscibeFor(update: [.relations])
             .compactMap { [weak self] _ in
-                self?.parsedRelations
+                self?.parsedProperties
             }
             .eraseToAnyPublisher()
     }
@@ -68,37 +68,37 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    var parsedRelationsPublisherForType: AnyPublisher<ParsedRelations, Never> {
+    var parsedPropertiesPublisherForType: AnyPublisher<ParsedProperties, Never> {
         subscibeFor(update: [.general, .details(id: objectId), .permissions]).compactMap { [weak self] _ in
             self?.buildParsedRelationsForType()
         }.eraseToAnyPublisher()
     }
     
     // Temporary design: Move to the dedicated TypeDocument later
-    private func buildParsedRelationsForType() -> ParsedRelations {
+    private func buildParsedRelationsForType() -> ParsedProperties {
         guard let details else { return .empty }
         
-        let relationDetailsStorage = Container.shared.relationDetailsStorage()
+        let propertyDetailsStorage = Container.shared.propertyDetailsStorage()
         
-        let recommendedRelations = relationDetailsStorage
+        let recommendedRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
-        let recommendedFeaturedRelations = relationDetailsStorage
+            .filter { $0.key != BundledPropertyKey.description.rawValue }
+        let recommendedFeaturedRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedFeaturedRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
-        let recommendedHiddenRelations = relationDetailsStorage
+            .filter { $0.key != BundledPropertyKey.description.rawValue }
+        let recommendedHiddenRelations = propertyDetailsStorage
             .relationsDetails(ids: details.recommendedHiddenRelations, spaceId: spaceId)
-            .filter { $0.key != BundledRelationKey.description.rawValue }
+            .filter { $0.key != BundledPropertyKey.description.rawValue }
         
         
-        return Container.shared.relationsBuilder().parsedRelations(
-            objectRelations: [],
-            objectFeaturedRelations: [],
-            recommendedRelations: recommendedRelations,
-            recommendedFeaturedRelations: recommendedFeaturedRelations,
-            recommendedHiddenRelations: recommendedHiddenRelations,
+        return Container.shared.propertiesBuilder().parsedProperties(
+            objectProperties: [],
+            objectFeaturedProperties: [],
+            recommendedProperties: recommendedRelations,
+            recommendedFeaturedProperties: recommendedFeaturedRelations,
+            recommendedHiddenProperties: recommendedHiddenRelations,
             objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
+            propertyValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
     }

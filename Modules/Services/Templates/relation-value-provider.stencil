@@ -48,7 +48,7 @@ public typealias ObjectId = String
   /// {{value["description"]}}
   {%- endif -%}
 {% endmacro %}
-public protocol BundledRelationsValueProvider {
+public protocol BundledPropertiesValueProvider {
 
     {% for file in files %}
       {% for value in file.document.data %}
@@ -59,7 +59,7 @@ public protocol BundledRelationsValueProvider {
     {% endfor %}
 } 
 
-public extension BundledRelationsValueProvider where Self: RelationValueProvider {
+public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
   {% for file in files %}
     {% for value in file.document.data %}
       {% set propertyName %}{{value["key"]|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}{% endset %}
@@ -68,7 +68,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     
     {% call typeDescription value %}
     var {{propertyName}}: {{propertyType}} {
-        return value(for: BundledRelationKey.{{propertyName}}.rawValue)
+        return value(for: BundledPropertyKey.{{propertyName}}.rawValue)
     }
     {% endfor %}
   {% endfor %}

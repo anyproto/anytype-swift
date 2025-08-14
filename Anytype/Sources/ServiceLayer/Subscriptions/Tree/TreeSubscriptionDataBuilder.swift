@@ -13,10 +13,10 @@ final class TreeSubscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol {
     // MARK: - TreeSubscriptionDataBuilderProtocol
     
     func build(spaceId: String, objectIds: [String]) -> SubscriptionData {
-        let keys: [BundledRelationKey] = .builder {
-            BundledRelationKey.objectListKeys
-            BundledRelationKey.links
-            BundledRelationKey.timestamp
+        let keys: [BundledPropertyKey] = .builder {
+            BundledPropertyKey.objectListKeys
+            BundledPropertyKey.links
+            BundledPropertyKey.timestamp
         }.uniqued()
         
         return .objects(

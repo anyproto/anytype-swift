@@ -62,27 +62,7 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     // MARK: - Private
     
     private func buildBlocksTree(information: [BlockInformation], rootId: String, container: any InfoContainerProtocol, layout: DetailsLayout?) {
-        
         information.forEach { container.add($0) }
-        let roots = information.filter { $0.id == rootId }
-
-        guard roots.count != 0 else {
-            anytypeAssertionFailure(
-                "Unknown situation. We can't have zero roots.",
-                info: ["layout": layout?.rawValue.description ?? "Unknown"]
-            )
-            return
-        }
-
-        if roots.count != 1 {
-            // this situation is not possible, but, let handle it.
-            anytypeAssertionFailure(
-                "We have several roots for our rootId. Not possible, but let us handle it."
-            )
-        }
-
-        let rootId = roots[0].id
-
         _ = IndentationBuilder.build(container: container, id: rootId)
     }
 }

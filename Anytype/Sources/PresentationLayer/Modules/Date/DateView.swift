@@ -27,6 +27,7 @@ struct DateView: View {
         .onDisappear {
             model.onDisappear()
         }
+        .homeBottomPanelHidden(false)
     }
     
     private var navigationBar: some View {
@@ -42,7 +43,7 @@ struct DateView: View {
                 .frame(width: 28, height: 28)
                 
                 Image(asset: .X24.calendar)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                     .onTapGesture {
                         model.onCalendarTap()
                     }
@@ -66,7 +67,7 @@ struct DateView: View {
             }
             HStack(alignment: .center) {
                 Image(asset: .X24.Arrow.left)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                     .onTapGesture {
                         model.onPrevDayTap()
                     }
@@ -81,7 +82,7 @@ struct DateView: View {
                 Spacer()
                 
                 Image(asset: .X24.Arrow.right)
-                    .foregroundColor(.Control.active)
+                    .foregroundColor(.Control.secondary)
                     .onTapGesture {
                         model.onNextDayTap()
                     }
@@ -144,7 +145,7 @@ struct DateView: View {
         }
     }
     
-    private func relationView(item: RelationItemData) -> some View {
+    private func relationView(item: PropertyItemData) -> some View {
         Button {
             model.onRelationTap(item.details)
         } label: {

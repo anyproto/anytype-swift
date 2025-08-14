@@ -80,6 +80,7 @@
 	<string>Photo Library access. Non-localized value</string>
 	<key>NSUserActivityTypes</key>
 	<array>
+		<string>INSendMessageIntent</string>
 		<string>ConfigurationIntent</string>
 	</array>
 	<key>OpenAIToken</key>
