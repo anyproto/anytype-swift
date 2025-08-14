@@ -100,7 +100,7 @@ struct SharingExtensionView: View {
     }
     
     private var withoutSpace: some View {
-        EmptyStateView(title: "You don't have any spaces yet", subtitle: "", style: .withImage, buttonData: nil)
+        EmptyStateView(title: Loc.thereAreNoSpacesYet, style: .withImage)
     }
 }
 
