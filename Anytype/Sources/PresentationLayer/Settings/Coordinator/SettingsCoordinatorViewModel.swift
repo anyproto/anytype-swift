@@ -4,7 +4,6 @@ import SwiftUI
 @MainActor
 final class SettingsCoordinatorViewModel: ObservableObject,
                                     SettingsModuleOutput,
-                                    SettingsAccountModuleOutput,
                                     AboutModuleOutput {
     
     @Injected(\.openedDocumentProvider)
@@ -16,7 +15,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showAppearance = false
     @Published var showPushNotificationsSettings = false
     @Published var showLogoutAlert = false
-    @Published var showSettingsAccount = false
     @Published var showKeychainPhraseForLogout = false
     @Published var showDeleteAccountAlert = false
     @Published var showAbout = false
@@ -50,7 +48,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onAccountDataSelected() {
-        showSettingsAccount = true
+        showKeychainPhraseForSettings = true
     }
     
     func onChangeIconSelected(objectId: String, spaceId: String) {
@@ -72,12 +70,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     func onLogoutConfirmTap() {
         applicationStateService.state = .initial
-    }
-    
-    // MARK: - SettingsAccountModuleOutput
-    
-    func onRecoveryPhraseSelected() {
-        showKeychainPhraseForSettings = true
     }
     
     func onLogoutSelected() {

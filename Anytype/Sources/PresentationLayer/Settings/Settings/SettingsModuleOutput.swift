@@ -11,4 +11,6 @@ protocol SettingsModuleOutput: AnyObject {
     func onChangeIconSelected(objectId: String, spaceId: String)
     func onSpacesSelected()
     func onMembershipSelected()
+    func onLogoutSelected()
+    func onDeleteAccountSelected()
 }

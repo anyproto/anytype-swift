@@ -85,6 +85,14 @@ final class SettingsViewModel: ObservableObject {
         output?.onMembershipSelected()
     }
     
+    func onLogoutTap() {
+        output?.onLogoutSelected()
+    }
+    
+    func onDeleteAccountTap() {
+        output?.onDeleteAccountSelected()
+    }
+    
     func startSubscriptions() async {
         async let membershipSub: () = membershipSubscriotion()
         async let profileSub: () = profileSubscription()

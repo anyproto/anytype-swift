@@ -9,21 +9,24 @@ extension SettingsSectionItemView {
 
 struct SettingsSectionItemView: View {
     let name: String
+    let textColor: Color
     let iconImage: Icon?
     let decoration: Decoration?
     let showDivider: Bool
     let onTap: () -> Void
         
-    init(name: String, imageAsset: ImageAsset, decoration: Decoration? = .arrow(), showDivider: Bool = true, onTap: @escaping () -> Void) {
+    init(name: String, textColor: Color = .Text.primary, imageAsset: ImageAsset, decoration: Decoration? = .arrow(), showDivider: Bool = true, onTap: @escaping () -> Void) {
         self.name = name
+        self.textColor = textColor
         self.iconImage = .asset(imageAsset)
         self.decoration = decoration
         self.showDivider = showDivider
         self.onTap = onTap
     }
     
-    init(name: String, iconImage: Icon? = nil, decoration: Decoration? = .arrow(), showDivider: Bool = true, onTap: @escaping () -> Void) {
+    init(name: String, textColor: Color = .Text.primary, iconImage: Icon? = nil, decoration: Decoration? = .arrow(), showDivider: Bool = true, onTap: @escaping () -> Void) {
         self.name = name
+        self.textColor = textColor
         self.iconImage = iconImage
         self.decoration = decoration
         self.showDivider = showDivider
@@ -42,8 +45,9 @@ struct SettingsSectionItemView: View {
                     Spacer.fixedWidth(iconSpacing)
                 }
                 HStack(alignment: .center, spacing: 0) {
-                    AnytypeText(name, style: .uxBodyRegular)
-                        .dynamicForegroundStyle(color: .Text.primary, disabledColor: .Text.tertiary)
+                    Text(name)
+                        .anytypeStyle(.uxBodyRegular)
+                        .dynamicForegroundStyle(color: textColor, disabledColor: .Text.tertiary)
                     Spacer()
                     decorationView
                 }
@@ -63,7 +67,8 @@ struct SettingsSectionItemView: View {
                         Image(asset: .X18.redAttention)
                     }
                     if text.isNotEmpty {
-                        AnytypeText(text, style: .bodyRegular)
+                        Text(text)
+                            .anytypeStyle(.bodyRegular)
                             .dynamicForegroundStyle(color: .Text.secondary, disabledColor: .Text.tertiary)
                             .lineLimit(1)
                     }
@@ -72,7 +77,8 @@ struct SettingsSectionItemView: View {
                         .dynamicForegroundStyle(color: .Control.secondary, disabledColor: .Control.tertiary)
                 }
             case .button(let text):
-                AnytypeText(text, style: .caption1Medium)
+                Text(text)
+                    .anytypeStyle(.caption1Medium)
                     .foregroundColor(.Text.inversion)
                     .lineLimit(1)
                     .padding(.horizontal, 11)

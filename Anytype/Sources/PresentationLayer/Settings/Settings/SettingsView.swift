@@ -12,10 +12,17 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.Settings.title)
-                .onTapGesture(count: 5) {
-                    model.showDebugMenu.toggle()
+            TitleView(title: Loc.Settings.title) {
+                Menu {
+                    Button(Loc.deleteVault) { model.onDeleteAccountTap() }
+                    Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
+                } label: {
+                    MoreIndicator()
                 }
+            }
+            .onTapGesture(count: 5) {
+                model.showDebugMenu.toggle()
+            }
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -85,6 +92,13 @@ struct SettingsView: View {
                         onTap: { model.onDebugMenuTap() }
                     )
                     #endif
+                    
+                    SettingsSectionItemView(
+                        name: Loc.logOut,
+                        textColor: .Pure.red,
+                        imageAsset: .Settings.logOut,
+                        onTap: { model.onLogoutTap() }
+                    )
                 }
             }
             .padding(.horizontal, 20)
