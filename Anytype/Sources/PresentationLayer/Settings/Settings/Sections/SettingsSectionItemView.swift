@@ -45,7 +45,8 @@ struct SettingsSectionItemView: View {
                     Spacer.fixedWidth(iconSpacing)
                 }
                 HStack(alignment: .center, spacing: 0) {
-                    AnytypeText(name, style: .uxBodyRegular)
+                    Text(name)
+                        .anytypeStyle(.uxBodyRegular)
                         .dynamicForegroundStyle(color: textColor, disabledColor: .Text.tertiary)
                     Spacer()
                     decorationView
@@ -66,7 +67,8 @@ struct SettingsSectionItemView: View {
                         Image(asset: .X18.redAttention)
                     }
                     if text.isNotEmpty {
-                        AnytypeText(text, style: .bodyRegular)
+                        Text(text)
+                            .anytypeStyle(.bodyRegular)
                             .dynamicForegroundStyle(color: .Text.secondary, disabledColor: .Text.tertiary)
                             .lineLimit(1)
                     }
@@ -75,7 +77,8 @@ struct SettingsSectionItemView: View {
                         .dynamicForegroundStyle(color: .Control.secondary, disabledColor: .Control.tertiary)
                 }
             case .button(let text):
-                AnytypeText(text, style: .caption1Medium)
+                Text(text)
+                    .anytypeStyle(.caption1Medium)
                     .foregroundColor(.Text.inversion)
                     .lineLimit(1)
                     .padding(.horizontal, 11)
