@@ -23,7 +23,9 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     private var showChatRow = true
     private let chatRowTitle = Loc.Sharing.sendToChat
     
-    @Published var title: String = ""
+    private var spaceView: SpaceView?
+    var title: String { spaceView?.title ?? "" }
+    
     @Published var searchText: String = ""
     @Published var rows: [SharingExtensionsShareRowData] = []
     @Published var selectedObjectIds: Set<String> = []
@@ -38,7 +40,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
         self.data = data
         self.output = output
-        self.title = workspacesStorage.spaceView(spaceId: data.spaceId)?.title ?? ""
+        self.spaceView = workspacesStorage.spaceView(spaceId: data.spaceId)
     }
     
     func search() async {
@@ -83,7 +85,13 @@ final class SharingExtensionShareToViewModel: ObservableObject {
         let content = try await contentManager.getSharedContent()
         let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
         
-        try await sharingExtensionActionService.saveObjects(spaceId: data.spaceId, content: content, linkToObjects: linkToDetails, chatId: nil, comment: comment)
+        try await sharingExtensionActionService.saveObjects(
+            spaceId: data.spaceId,
+            content: content,
+            linkToObjects: linkToDetails,
+            chatId: chatRowSelected ? spaceView?.chatId : nil,
+            comment: comment
+        )
         try await contentManager.clearSharedContent()
         
         if #available(iOS 16.4, *) {
