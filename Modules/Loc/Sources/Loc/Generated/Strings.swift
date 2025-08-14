@@ -504,6 +504,9 @@ public enum Loc {
   public static let yellow = Loc.tr("Localizable", "Yellow", fallback: "Yellow")
   public static let yellowBackground = Loc.tr("Localizable", "Yellow background", fallback: "Yellow background")
   public static let yesterday = Loc.tr("Localizable", "Yesterday", fallback: "Yesterday")
+  public static func youJoined(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "You joined", String(describing: p1), fallback: "You joined %@")
+  }
   public static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
   public enum AITool {
     public static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
