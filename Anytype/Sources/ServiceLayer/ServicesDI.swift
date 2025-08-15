@@ -395,8 +395,4 @@ extension Container {
     var sharingExtensionActionService: Factory<any SharingExtensionActionServiceProtocol> {
         self { SharingExtensionActionService() }.shared
     }
-    
-    var binSearchService: Factory<any BinSearchServiceProtocol> {
-        self { BinSearchService() }
-    }
 }

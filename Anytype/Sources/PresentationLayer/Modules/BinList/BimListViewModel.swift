@@ -6,8 +6,10 @@ import SwiftUI
 final class BinListViewModel: ObservableObject {
     
     private let spaceId: String
-    @Injected(\.binSearchService)
-    private var binSearchService: any BinSearchServiceProtocol
+    @Injected(\.binSubscriptionService)
+    private var binSubscriptionService: any BinSubscriptionServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
     
     private var details: [ObjectDetails] = []
     private var selectedIds: Set<String> = []
@@ -21,9 +23,15 @@ final class BinListViewModel: ObservableObject {
         self.spaceId = spaceId
     }
     
+    func startSubscription() async {
+        for await value in await binSubscriptionService.dataSequence {
+            details = value
+            updateRows()
+        }
+    }
+    
     func onSearch() async throws {
-        details = try await binSearchService.search(text: searchText, spaceId: spaceId)
-        updateRows()
+        await binSubscriptionService.startSubscription(spaceId: spaceId, objectLimit: nil, name: searchText)
     }
      
     func onTapRow(row: BinListRowModel) {
@@ -47,15 +55,10 @@ final class BinListViewModel: ObservableObject {
         viewEditMode = .inactive
     }
     
-    func onTapEmptyBin() {
-        binAlertData = BinConfirmationAlertData(ids: details.map { $0.id })
+    func onTapEmptyBin() async throws {
+        let binIds = try await searchService.searchArchiveObjectIds(spaceId: spaceId)
+        binAlertData = BinConfirmationAlertData(ids: binIds)
         UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    func confirmationDismissed() {
-        Task {
-            try await onSearch()
-        }
     }
     
     // MARK: - Private

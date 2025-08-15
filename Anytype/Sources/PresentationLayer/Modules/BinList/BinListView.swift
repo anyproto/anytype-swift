@@ -24,6 +24,9 @@ struct BinListView: View {
             }
             optionsView
         }
+        .task {
+            await model.startSubscription()
+        }
         .throwingTask(id: model.searchText) {
             try? await model.onSearch()
         }
@@ -35,46 +38,41 @@ struct BinListView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .animation(.default, value: model.viewEditMode)
-        .anytypeSheet(
-            item: $model.binAlertData,
-            onDismiss: {
-                model.confirmationDismissed()
-            },
-            content: { data in
-                BinConfirmationAlert(data: data)
-            }
-        )
+        .anytypeSheet(item: $model.binAlertData) { data in
+            BinConfirmationAlert(data: data)
+        }
     }
 
     @ViewBuilder
     private var editButton: some View {
-        if model.viewEditMode.isEditing {
-            Button {
-                model.onTapDone()
-            } label: {
-                AnytypeText("Done", style: .uxBodyRegular)
-                    .foregroundColor(.Control.secondary)
-            }
-        } else {
-            Menu {
-                Button("Select objects") {
-                    model.onTapSelecObjects()
+        if model.rows.isNotEmpty {
+            if model.viewEditMode.isEditing {
+                Button {
+                    model.onTapDone()
+                } label: {
+                    AnytypeText("Done", style: .uxBodyRegular)
+                        .foregroundColor(.Control.secondary)
                 }
-                
-                Button("Empty Bin", role: .destructive) {
-                    model.onTapEmptyBin()
+            } else {
+                Menu {
+                    Button("Select objects") {
+                        model.onTapSelecObjects()
+                    }
+                    
+                    AsyncButton("Empty Bin", role: .destructive) {
+                        try await model.onTapEmptyBin()
+                    }
+                    
+                } label: {
+                    AnytypeText("...", style: .uxBodyRegular)
+                        .foregroundColor(.Control.secondary)
                 }
-                
-            } label: {
-                AnytypeText("...", style: .uxBodyRegular)
-                    .foregroundColor(.Control.secondary)
             }
         }
     }
     
     @ViewBuilder
     private var content: some View {
-        EmptyView()
         PlainList {
             ForEach(model.rows) { row in
                 BinListRowView(
