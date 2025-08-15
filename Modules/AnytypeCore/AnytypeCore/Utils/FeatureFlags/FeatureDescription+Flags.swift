@@ -242,9 +242,9 @@ public extension FeatureDescription {
     
     static let newSharingExtension = FeatureDescription(
         title: "New Sharing Extension - IOS-4915",
-        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true,
+        debugValue: true
     )
     
     static let newSpaceMembersFlow = FeatureDescription(
