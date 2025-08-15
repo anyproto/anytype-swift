@@ -74,6 +74,15 @@ struct BinListView: View {
     
     @ViewBuilder
     private var content: some View {
+        if model.rows.isNotEmpty {
+            list
+        } else {
+            emptyView
+        }
+    }
+    
+    @ViewBuilder
+    private var list: some View {
         PlainList {
             ForEach(model.rows) { row in
                 BinListRowView(
@@ -108,5 +117,13 @@ struct BinListView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
         }
+    }
+    
+    private var emptyView: some View {
+        EmptyStateView(
+            title: Loc.EmptyView.Bin.title,
+            subtitle: Loc.EmptyView.Bin.subtitle,
+            style: .plain
+        )
     }
 }
