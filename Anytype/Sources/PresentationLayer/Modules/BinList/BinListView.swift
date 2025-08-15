@@ -5,8 +5,8 @@ struct BinListView: View {
     
     @StateObject private var model: BinListViewModel
     
-    init(spaceId: String) {
-        self._model = StateObject(wrappedValue: BinListViewModel(spaceId: spaceId))
+    init(spaceId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
+        self._model = StateObject(wrappedValue: BinListViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {

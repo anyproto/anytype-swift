@@ -6,6 +6,7 @@ import SwiftUI
 final class BinListViewModel: ObservableObject, OptionsItemProvider {
     
     private let spaceId: String
+    private weak var output: (any WidgetObjectListCommonModuleOutput)?
     @Injected(\.binSubscriptionService)
     private var binSubscriptionService: any BinSubscriptionServiceProtocol
     @Injected(\.searchService)
@@ -34,8 +35,9 @@ final class BinListViewModel: ObservableObject, OptionsItemProvider {
     var optionsPublisher: AnyPublisher<[SelectionOptionsItemViewModel], Never> { $options.eraseToAnyPublisher() }
     @Published var options = [SelectionOptionsItemViewModel]()
     
-    init(spaceId: String) {
+    init(spaceId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
         self.spaceId = spaceId
+        self.output = output
     }
     
     func startSubscriptions() async {
@@ -57,7 +59,8 @@ final class BinListViewModel: ObservableObject, OptionsItemProvider {
     }
      
     func onTapRow(row: BinListRowModel) {
-        // TODO: Output
+        guard let detail = details.first(where: { $0.id == row.objectId }) else { return }
+        output?.onObjectSelected(screenData: detail.screenData())
     }
     
     func onCheckboxTap(row: BinListRowModel) {
