@@ -5,13 +5,16 @@ import AnytypeCore
 import AsyncTools
 
 protocol BinSubscriptionServiceProtocol: AnyObject, Sendable {
+    
+    var dataSequence: AnyAsyncSequence<[ObjectDetails]> { get async }
+    
     func legacyStartSubscription(
         spaceId: String,
         objectLimit: Int?,
         update: @escaping @MainActor ([ObjectDetails]) -> Void
     )  async
     
-    func startSubscription(spaceId: String, objectLimit: Int?) async -> AnyAsyncSequence<[ObjectDetails]>
+    func startSubscription(spaceId: String, objectLimit: Int?, name: String?) async
     
     func stopSubscription() async
 }
@@ -28,6 +31,10 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
     private let subscriptionId = "Bin-\(UUID().uuidString)"
+    
+    var dataSequence: AnyAsyncSequence<[ObjectDetails]> {
+        return subscriptionStorage.statePublisher.map { $0.items }.values.eraseToAnyAsyncSequence()
+    }
     
     func legacyStartSubscription(
         spaceId: String,
@@ -61,7 +68,7 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
         }
     }
     
-    func startSubscription(spaceId: String, objectLimit: Int?) async -> AnyAsyncSequence<[ObjectDetails]> {
+    func startSubscription(spaceId: String, objectLimit: Int?, name: String?) async {
         let sort = SearchHelper.sort(
             relation: BundledPropertyKey.lastModifiedDate,
             type: .desc
@@ -69,6 +76,9 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters(isArchive: true)
+            if let name {
+                SearchHelper.name(name)
+            }
         }
         
         let searchData: SubscriptionData = .search(
@@ -84,8 +94,6 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: searchData)
-        
-        return subscriptionStorage.statePublisher.map { $0.items }.values.eraseToAnyAsyncSequence()
     }
     
     func stopSubscription() async {

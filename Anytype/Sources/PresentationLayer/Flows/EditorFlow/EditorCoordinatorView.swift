@@ -35,7 +35,7 @@ struct EditorCoordinatorView: View {
             WidgetObjectListRecentOpenView(spaceId: spaceId, output: model)
         case let .bin(spaceId):
             if FeatureFlags.binScreenEmptyAction {
-                BinListView(spaceId: spaceId)
+                BinListView(spaceId: spaceId, output: model)
             } else {
                 WidgetObjectListBinView(spaceId: spaceId, output: model)
             }

@@ -4,6 +4,7 @@ import Services
 struct ObjectPermissions: Equatable {
     var canChangeType: Bool = false
     var canDelete: Bool = false
+    var canRestore: Bool = false
     var canTemplateSetAsDefault: Bool = false
     var canArchive: Bool = false
     var canDuplicate: Bool = false
@@ -50,6 +51,7 @@ extension ObjectPermissions {
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplate
         self.canDelete = isArchive && participantCanEdit
+        self.canRestore = canDelete
         self.canTemplateSetAsDefault = isTemplate && canEdit
         self.canArchive = !objectRestrictions.contains(.delete) && participantCanEdit
         self.canDuplicate = !objectRestrictions.contains(.duplicate) && canApplyUneditableActions && !isObjectType
