@@ -51,16 +51,16 @@ struct BinListView: View {
                 Button {
                     model.onTapDone()
                 } label: {
-                    AnytypeText("Done", style: .uxBodyRegular)
+                    AnytypeText(Loc.done, style: .uxBodyRegular)
                         .foregroundColor(.Control.secondary)
                 }
             } else {
                 Menu {
-                    Button("Select objects") {
+                    Button(Loc.selectObjects) {
                         model.onTapSelecObjects()
                     }
                     
-                    AsyncButton("Empty Bin", role: .destructive) {
+                    AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
                         try await model.onTapEmptyBin()
                     }
                     
