@@ -4,7 +4,6 @@ import Loc
 struct BinListView: View {
     
     @StateObject private var model: BinListViewModel
-    @State private var searchText: String = ""
     
     init(spaceId: String) {
         self._model = StateObject(wrappedValue: BinListViewModel(spaceId: spaceId))
@@ -16,33 +15,72 @@ struct BinListView: View {
                 PageNavigationHeader(title: Loc.bin) {
                     editButton
                 }
-                SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
+                SearchBar(
+                    text: $model.searchText,
+                    focused: false,
+                    placeholder: Loc.search
+                )
                 content
             }
             optionsView
         }
-        .task {
-            await model.startSubscriptions()
+        .throwingTask(id: model.searchText) {
+            try? await model.onSearch()
         }
         .onAppear {
             AnytypeAnalytics.instance().logScreenBin()
         }
+        .environment(\.editMode, $model.viewEditMode)
         .ignoresSafeArea(.keyboard)
-        .onChange(of: searchText) { model.onSearch(text: $0) }
         .navigationBarTitle("")
         .navigationBarHidden(true)
     }
 
     @ViewBuilder
     private var editButton: some View {
-        EmptyView()
-        // TODO: implement
+        if model.viewEditMode.isEditing {
+            Button {
+                model.onTapDone()
+            } label: {
+                AnytypeText("Done", style: .uxBodyRegular)
+                    .foregroundColor(.Control.secondary)
+            }
+        } else {
+            Menu {
+                Button("Select objects") {
+                    model.onTapSelecObjects()
+                }
+                
+                Button("Empty Bin", role: .destructive) {
+                    model.onTapEmptyBin()
+                }
+                
+            } label: {
+                AnytypeText("...", style: .uxBodyRegular)
+                    .foregroundColor(.Control.secondary)
+            }
+        }
     }
     
     @ViewBuilder
     private var content: some View {
-        // TODO: implement
-        Spacer()
+        EmptyView()
+        PlainList {
+            ForEach(model.rows) { row in
+                BinListRowView(
+                    model: row,
+                    onTap: {
+                        model.onTapRow(row: row)
+                    },
+                    onCheckboxTap: {
+                        model.onCheckboxTap(row: row)
+                    }
+                )
+            }
+            AnytypeNavigationSpacer(minHeight: 130)
+        }
+        .scrollIndicators(.never)
+        .scrollDismissesKeyboard(.immediately)
     }
     
     @ViewBuilder
