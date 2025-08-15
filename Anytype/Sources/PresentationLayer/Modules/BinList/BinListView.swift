@@ -34,6 +34,7 @@ struct BinListView: View {
         .ignoresSafeArea(.keyboard)
         .navigationBarTitle("")
         .navigationBarHidden(true)
+        .animation(.default, value: model.viewEditMode)
     }
 
     @ViewBuilder
