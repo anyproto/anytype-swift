@@ -25,7 +25,7 @@ struct BinListView: View {
             optionsView
         }
         .task {
-            await model.startSubscription()
+            await model.startSubscriptions()
         }
         .throwingTask(id: model.searchText) {
             try? await model.onSearch()
@@ -38,6 +38,7 @@ struct BinListView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .animation(.default, value: model.viewEditMode)
+        .homeBottomPanelHidden(model.showOptionsView, animated: false)
         .anytypeSheet(item: $model.binAlertData) { data in
             BinConfirmationAlert(data: data)
         }
@@ -45,7 +46,7 @@ struct BinListView: View {
 
     @ViewBuilder
     private var editButton: some View {
-        if model.rows.isNotEmpty {
+        if model.rows.isNotEmpty && model.allowEdit {
             if model.viewEditMode.isEditing {
                 Button {
                     model.onTapDone()
@@ -82,6 +83,12 @@ struct BinListView: View {
                     },
                     onCheckboxTap: {
                         model.onCheckboxTap(row: row)
+                    },
+                    onDelete: {
+                        model.onDelete(row: row)
+                    },
+                    onRestore: {
+                        model.onRestore(row: row)
                     }
                 )
             }
@@ -93,7 +100,13 @@ struct BinListView: View {
     
     @ViewBuilder
     private var optionsView: some View {
-        EmptyView()
-        // TODO: implement
+        if model.showOptionsView {
+            SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: model))
+                .frame(height: 100)
+                .cornerRadius(16, style: .continuous)
+                .shadow(radius: 16)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+        }
     }
 }

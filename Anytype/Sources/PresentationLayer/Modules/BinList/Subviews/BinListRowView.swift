@@ -8,6 +8,8 @@ struct BinListRowModel: Identifiable {
     let description: String
     let subtitle: String
     let selected: Bool
+    let canDelete: Bool
+    let canRestore: Bool
     
     var id: String { objectId }
 }
@@ -17,6 +19,8 @@ struct BinListRowView: View {
     let model: BinListRowModel
     let onTap: () -> Void
     let onCheckboxTap: () -> Void
+    let onDelete: () -> Void
+    let onRestore: () -> Void
     
     @Environment(\.editMode) private var editMode
     
@@ -44,7 +48,12 @@ struct BinListRowView: View {
         }
         .newDivider(leadingPadding: 16, trailingPadding: 16)
         .contextMenu {
-            EmptyView()
+            Button(Loc.delete, role: .destructive) {
+                onDelete()
+            }
+            Button(Loc.restore) {
+                onRestore()
+            }
         }
     }
 }

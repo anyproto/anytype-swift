@@ -3,30 +3,52 @@ import Services
 import SwiftUI
 
 @MainActor
-final class BinListViewModel: ObservableObject {
+final class BinListViewModel: ObservableObject, OptionsItemProvider {
     
     private let spaceId: String
     @Injected(\.binSubscriptionService)
     private var binSubscriptionService: any BinSubscriptionServiceProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: any ObjectActionsServiceProtocol
     
     private var details: [ObjectDetails] = []
-    private var selectedIds: Set<String> = []
+    private var participant: Participant?
     
     @Published var rows: [BinListRowModel] = []
     @Published var searchText: String = ""
     @Published var viewEditMode: EditMode = .inactive
     @Published var binAlertData: BinConfirmationAlertData? = nil
+    @Published var selectedIds: Set<String> = []
+    @Published var canDelete: Bool = false
+    @Published var canRestore: Bool = false
+    
+    var allowEdit: Bool { canDelete || canRestore }
+    var showOptionsView: Bool { selectedIds.isNotEmpty && allowEdit }
+    
+    // MARK: - OptionsItemProvider
+    
+    var optionsPublisher: AnyPublisher<[SelectionOptionsItemViewModel], Never> { $options.eraseToAnyPublisher() }
+    @Published var options = [SelectionOptionsItemViewModel]()
     
     init(spaceId: String) {
         self.spaceId = spaceId
     }
     
+    func startSubscriptions() async {
+        async let binSub: () = subscribeOnBin()
+        async let participantSub: () = subscribeOnParticipant()
+        
+        _ = await (binSub, participantSub)
+    }
+    
     func startSubscription() async {
         for await value in await binSubscriptionService.dataSequence {
             details = value
-            updateRows()
+            updateView()
         }
     }
     
@@ -44,7 +66,7 @@ final class BinListViewModel: ObservableObject {
         } else {
             selectedIds.insert(row.objectId)
         }
-        updateRows()
+        updateView()
     }
     
     func onTapSelecObjects() {
@@ -57,22 +79,95 @@ final class BinListViewModel: ObservableObject {
     
     func onTapEmptyBin() async throws {
         let binIds = try await searchService.searchArchiveObjectIds(spaceId: spaceId)
-        binAlertData = BinConfirmationAlertData(ids: binIds)
-        UISelectionFeedbackGenerator().selectionChanged()
+        delete(objectIds: binIds)
+    }
+    
+    func onDelete(row: BinListRowModel) {
+        delete(objectIds: [row.objectId])
+    }
+    
+    func onRestore(row: BinListRowModel) {
+        restore(objectIds: [row.objectId])
     }
     
     // MARK: - Private
     
-    private func updateRows() {
+    private func subscribeOnBin() async {
+        for await value in await binSubscriptionService.dataSequence {
+            details = value
+            updateView()
+        }
+    }
+    
+    private func subscribeOnParticipant() async {
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+            self.participant = participant
+            updateView()
+        }
+    }
+    
+    private func updateView() {
         rows = details.map { detail in
-            BinListRowModel(
+            
+            let permissions = detail.permissions(participant: participant)
+            
+            return BinListRowModel(
                 objectId: detail.id,
                 icon: detail.objectIconImage,
                 title: detail.title,
                 description: detail.subtitle,
                 subtitle: detail.objectType.displayName,
-                selected: selectedIds.contains(detail.id)
+                selected: selectedIds.contains(detail.id),
+                canDelete: permissions.canDelete,
+                canRestore: permissions.canRestore
             )
         }
+        
+        canDelete = rows.contains { $0.canDelete }
+        canRestore = rows.contains { $0.canRestore }
+        
+        options = .builder {
+            if canDelete {
+                SelectionOptionsItemViewModel(
+                    id: "delete",
+                    title: Loc.delete,
+                    imageAsset: .X32.delete,
+                    action: { [weak self] in
+                        self?.deleteSelected()
+                    }
+                )
+            }
+            
+            if canRestore {
+                SelectionOptionsItemViewModel(
+                    id: "restore",
+                    title: Loc.restore,
+                    imageAsset: .X32.restore,
+                    action: { [weak self] in
+                        self?.restoreSelected()
+                    }
+                )
+            }
+            
+        }
+    }
+    
+    private func deleteSelected() {
+        delete(objectIds: Array(selectedIds))
+    }
+    
+    private func restoreSelected() {
+        restore(objectIds: Array(selectedIds))
+    }
+    
+    private func delete(objectIds: [String]) {
+        binAlertData = BinConfirmationAlertData(ids: objectIds)
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    private func restore(objectIds: [String]) {
+        AnytypeAnalytics.instance().logMoveToBin(false)
+        Task { try? await objectActionService.setArchive(objectIds: objectIds, false) }
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }
