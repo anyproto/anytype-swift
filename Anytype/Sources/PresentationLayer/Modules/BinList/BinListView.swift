@@ -74,10 +74,12 @@ struct BinListView: View {
     
     @ViewBuilder
     private var content: some View {
-        if model.rows.isNotEmpty {
-            list
-        } else {
+        if model.binIsEmpty {
             emptyView
+        } else if model.rows.isEmpty {
+            emptySearchView
+        } else {
+            list
         }
     }
     
@@ -123,6 +125,14 @@ struct BinListView: View {
         EmptyStateView(
             title: Loc.EmptyView.Bin.title,
             subtitle: Loc.EmptyView.Bin.subtitle,
+            style: .plain
+        )
+    }
+    
+    private var emptySearchView: some View {
+        EmptyStateView(
+            title: Loc.thereIsNoObjectNamed(model.searchText),
+            subtitle: Loc.createANewOneOrSearchForSomethingElse,
             style: .plain
         )
     }

@@ -29,6 +29,7 @@ final class BinListViewModel: ObservableObject, OptionsItemProvider {
     
     var allowEdit: Bool { canDelete || canRestore }
     var showOptionsView: Bool { selectedIds.isNotEmpty && allowEdit }
+    var binIsEmpty: Bool { details.isEmpty && searchText.isEmpty }
     
     // MARK: - OptionsItemProvider
     
