@@ -15,6 +15,7 @@ final class BinListViewModel: ObservableObject {
     @Published var rows: [BinListRowModel] = []
     @Published var searchText: String = ""
     @Published var viewEditMode: EditMode = .inactive
+    @Published var binAlertData: BinConfirmationAlertData? = nil
     
     init(spaceId: String) {
         self.spaceId = spaceId
@@ -47,8 +48,17 @@ final class BinListViewModel: ObservableObject {
     }
     
     func onTapEmptyBin() {
-        
+        binAlertData = BinConfirmationAlertData(ids: details.map { $0.id })
+        UISelectionFeedbackGenerator().selectionChanged()
     }
+    
+    func confirmationDismissed() {
+        Task {
+            try await onSearch()
+        }
+    }
+    
+    // MARK: - Private
     
     private func updateRows() {
         rows = details.map { detail in

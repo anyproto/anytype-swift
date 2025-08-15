@@ -27,7 +27,7 @@ final class BinSearchService: BinSearchServiceProtocol, Sendable {
             filters: filters,
             sorts: [sort],
             fullText: text,
-            limit: SearchDefaults.objectsLimit
+            limit: 1000
         )
     }
 }

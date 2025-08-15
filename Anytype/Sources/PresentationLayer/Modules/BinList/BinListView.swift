@@ -35,6 +35,15 @@ struct BinListView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .animation(.default, value: model.viewEditMode)
+        .anytypeSheet(
+            item: $model.binAlertData,
+            onDismiss: {
+                model.confirmationDismissed()
+            },
+            content: { data in
+                BinConfirmationAlert(data: data)
+            }
+        )
     }
 
     @ViewBuilder
