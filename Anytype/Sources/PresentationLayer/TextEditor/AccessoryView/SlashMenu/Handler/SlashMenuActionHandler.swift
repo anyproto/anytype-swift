@@ -114,7 +114,7 @@ final class SlashMenuActionHandler {
             case .linkTo:
                 textView?.shouldResignFirstResponder()
                 router.showLinkTo { [weak self] details in
-                    self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id)
+                    self?.actionHandler.addLink(targetDetails: details, blockId: blockInformation.id, route: .slashMenu)
                 }
             }
         }
@@ -127,7 +127,7 @@ final class SlashMenuActionHandler {
                 spaceId: document.spaceId
             )
             guard let details else { return }
-            actionHandler.addLink(targetDetails: details, blockId: blockId)
+            actionHandler.addLink(targetDetails: details, blockId: blockId, route: .slashMenu)
         }
     }
     
