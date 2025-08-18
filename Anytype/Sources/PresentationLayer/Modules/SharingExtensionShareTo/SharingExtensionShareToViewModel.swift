@@ -25,13 +25,13 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     
     private var spaceView: SpaceView?
     var title: String { spaceView?.title ?? "" }
+    var chatRowSelected: Bool { selectedObjectId == spaceView?.chatId }
     
     @Published var searchText: String = ""
     @Published var rows: [SharingExtensionsShareRowData] = []
-    @Published var selectedObjectIds: Set<String> = []
+    @Published var selectedObjectId: String?
     @Published var dismiss = false
     @Published var chatRow: SharingExtensionsChatRowData?
-    @Published var chatRowSelected = false
     @Published var sendInProgress = false
     
     @Published var comment: String = ""
@@ -73,16 +73,12 @@ final class SharingExtensionShareToViewModel: ObservableObject {
     }
     
     func onTapChat() {
-        chatRowSelected = !chatRowSelected
+        selectedObjectId = chatRowSelected ? nil : spaceView?.chatId
         updateRows()
     }
     
     func onTapCell(data: SharingExtensionsShareRowData) {
-        if selectedObjectIds.contains(data.objectId) {
-            selectedObjectIds.remove(data.objectId)
-        } else {
-            selectedObjectIds.insert(data.objectId)
-        }
+        selectedObjectId = (selectedObjectId == data.objectId) ? nil : data.objectId
         updateRows()
     }
     
@@ -91,7 +87,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
         defer { sendInProgress = false }
         
         let content = try await contentManager.getSharedContent()
-        let linkToDetails = details.filter { selectedObjectIds.contains($0.id) }
+        let linkToDetails = details.filter { selectedObjectId == $0.id }
         
         try await sharingExtensionActionService.saveObjects(
             spaceId: data.spaceId,
@@ -118,7 +114,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
                 icon: details.objectIconImage,
                 title: details.pluralTitle,
                 subtitle: details.description,
-                selected: selectedObjectIds.contains(details.id)
+                selected: selectedObjectId == details.id
             )
         }
         
