@@ -3,12 +3,8 @@ import Services
 
 
 struct PublishedSitesView: View {
-    @StateObject private var model: PublishedSitesViewModel
-    @Environment(\.pageNavigation) private var pageNavigation
-    
-    init() {
-        _model = StateObject(wrappedValue: PublishedSitesViewModel())
-    }
+    @StateObject private var model = PublishedSitesViewModel()
+    @Environment(\.objectOpener) private var objectOpener
     
     var body: some View {
         VStack(spacing: 0) {
@@ -20,9 +16,7 @@ struct PublishedSitesView: View {
         .safariSheet(url: $model.safariUrl)
         
         .task { await model.loadData() }
-        .onAppear {
-            model.pageNavigation = pageNavigation
-        }
+        .onAppear { model.output = objectOpener }
     }
     
     var content: some View {
@@ -154,8 +148,4 @@ struct PublishedSitesView: View {
             )
         )
     }
-}
-
-#Preview {
-    PublishedSitesView()
 }

@@ -20,10 +20,9 @@ final class PublishedSitesViewModel: ObservableObject {
     @Published var safariUrl: URL?
     @Published var toastBarData: ToastBarData?
     
-    var pageNavigation: PageNavigation?
     lazy var domain: DomainType? = { participantStorage.participants.first?.publishingDomain }()
     
-    init() { }
+    weak var output: (any ObjectOpenerProtocol)?
     
     func loadData() async {
         do {
@@ -43,9 +42,7 @@ final class PublishedSitesViewModel: ObservableObject {
     }
     
     func onOpenObjectTap(_ site: PublishState) {
-        pageNavigation?.open(.editor(.page(
-            EditorPageObject(objectId: site.objectId, spaceId: site.spaceId)
-        )))
+        output?.openObject(objectId: site.objectId, spaceId: site.spaceId)
     }
     
     func onViewInBrowserTap(_ site: PublishState) {

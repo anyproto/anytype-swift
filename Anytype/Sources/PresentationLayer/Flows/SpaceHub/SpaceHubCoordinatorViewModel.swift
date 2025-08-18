@@ -8,7 +8,7 @@ import AnytypeCore
 struct SpaceHubNavigationItem: Hashable { }
 
 @MainActor
-final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput {
+final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput, ObjectOpenerProtocol {
     @Published var showSpaceManager = false
     @Published var showObjectIsNotAvailableAlert = false
     @Published var profileData: ObjectInfo?
@@ -556,5 +556,14 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         AnytypeAnalytics.instance().logClickQuote()
         chatProvider.addAttachment(attachment, clearInput: true)
         popToFirstInSpace()
+    }
+    
+    // MARK: - ObjectOpenerProtocol
+    
+    func openObject(objectId: String, spaceId: String) {
+        showScreenSync(data: .editor(.page(EditorPageObject(
+            objectId: objectId,
+            spaceId: spaceId
+        ))))
     }
 }
