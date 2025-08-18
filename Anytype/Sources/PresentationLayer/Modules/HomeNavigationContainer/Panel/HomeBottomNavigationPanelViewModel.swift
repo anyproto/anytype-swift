@@ -16,7 +16,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     private enum Constants {
-        static let favoriteTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .collection, .task, .set]
+        static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .bookmark]
         
     }
     
@@ -51,7 +51,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var progress: Double? = nil
     @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
-    @Published var favoritesObjectTypes: [ObjectType] = []
+    @Published var pageObjectType: ObjectType?
+    @Published var bookmarkObjectType: ObjectType?
     @Published var otherObjectTypes: [ObjectType] = []
     
     init(
@@ -151,12 +152,13 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 && !type.isTemplateType
             }
             
-            favoritesObjectTypes = types
-                .filter { Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
-                .reordered(by: Constants.favoriteTypesUniqueKeys.map(\.value), transform: \.uniqueKey.value)
+            // priority object types
+            pageObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.page }
+            bookmarkObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.bookmark }
             
+            // other object types
             otherObjectTypes = types
-                .filter { !Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
+                .filter { !Constants.priorityTypesUniqueKeys.contains($0.uniqueKey) }
                 .sorted {
                     $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
                 }
