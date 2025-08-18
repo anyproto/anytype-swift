@@ -20,7 +20,7 @@ protocol BlockActionHandlerProtocol: AnyObject, Sendable {
     func delete(blockIds: [String])
     func moveToPage(blockIds: [String], pageId: String) async throws
     func createEmptyBlock(parentId: String)
-    func addLink(targetDetails: ObjectDetails, blockId: String)
+    func addLink(targetDetails: ObjectDetails, blockId: String, route: AnalyticsEventsRouteKind)
     func changeMarkup(blockIds: [String], markType: MarkupType, route: AnalyticsEventsRouteKind?)
     @discardableResult
     func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?) async throws -> String

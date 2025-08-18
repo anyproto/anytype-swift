@@ -957,13 +957,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind? = nil) {
+    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
         logEvent(
             "CreateLink",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
-                AnalyticsEventsPropertiesKey.route: route?.rawValue
+                AnalyticsEventsPropertiesKey.route: route.rawValue
             ].compactMapValues { $0 }
         )
     }
