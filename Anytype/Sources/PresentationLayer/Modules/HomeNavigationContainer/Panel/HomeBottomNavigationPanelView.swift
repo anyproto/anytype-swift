@@ -41,7 +41,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
-            if !FeatureFlags.newPlusMenu {
+            if !FeatureFlags.updatedHomePlusMenu {
                 if #available(iOS 17.0, *) {
                     HomeTipView()
                 }
@@ -80,17 +80,26 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         
         leftButton
         
-        if FeatureFlags.newPlusMenu {
+        if FeatureFlags.updatedHomePlusMenu {
             Menu {
-                ForEach(model.favoritesObjectTypes) { type in
+                if let type = model.pageObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Text(type.displayName)
+                        Label(Loc.newPage, systemImage: "doc.plaintext")
                     }
                 }
+                
+                if let type = model.bookmarkObjectType {
+                    Button {
+                        model.onTapCreateObject(type: type)
+                    } label: {
+                        Label(type.displayName, systemImage: "bookmark")
+                    }
+                }
+
                 Divider()
-                Menu("More") {
+                Menu(Loc.more) {
                     ForEach(model.otherObjectTypes) { type in
                         Button {
                             model.onTapCreateObject(type: type)

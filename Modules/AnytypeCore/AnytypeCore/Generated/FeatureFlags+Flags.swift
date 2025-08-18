@@ -34,10 +34,6 @@ public extension FeatureFlags {
         value(for: .openMediaFileInPreview)
     }
 
-    static var newPlusMenu: Bool {
-        value(for: .newPlusMenu)
-    }
-
     static var spaceUxTypes: Bool {
         value(for: .spaceUxTypes)
     }
@@ -158,6 +154,10 @@ public extension FeatureFlags {
         value(for: .mediaCarouselForWidgets)
     }
 
+    static var updatedHomePlusMenu: Bool {
+        value(for: .updatedHomePlusMenu)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -235,7 +235,6 @@ public extension FeatureFlags {
         .homeSpaceLevelChat,
         .pinnedSpaces,
         .openMediaFileInPreview,
-        .newPlusMenu,
         .spaceUxTypes,
         .enableStreamSpaceType,
         .aiToolInSet,
@@ -266,6 +265,7 @@ public extension FeatureFlags {
         .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
+        .updatedHomePlusMenu,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
