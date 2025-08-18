@@ -158,6 +158,10 @@ public extension FeatureFlags {
         value(for: .updatedHomePlusMenu)
     }
 
+    static var fixCollectionViewReuseCrashInEditor: Bool {
+        value(for: .fixCollectionViewReuseCrashInEditor)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -266,6 +270,7 @@ public extension FeatureFlags {
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
         .updatedHomePlusMenu,
+        .fixCollectionViewReuseCrashInEditor,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
