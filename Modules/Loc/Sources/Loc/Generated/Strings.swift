@@ -398,6 +398,7 @@ public enum Loc {
   public static let selectDate = Loc.tr("Localizable", "Select date", fallback: "Select date")
   public static let selectFile = Loc.tr("Localizable", "Select file", fallback: "Select file")
   public static let selectObject = Loc.tr("Localizable", "Select object", fallback: "Select object")
+  public static let selectObjects = Loc.tr("Localizable", "Select Objects", fallback: "Select Objects")
   public static let selectOption = Loc.tr("Localizable", "Select option", fallback: "Select option")
   public static let selectOptions = Loc.tr("Localizable", "Select options", fallback: "Select options")
   public static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select property format")

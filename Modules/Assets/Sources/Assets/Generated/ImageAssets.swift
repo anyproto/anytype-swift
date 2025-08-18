@@ -631,12 +631,6 @@ extension ImageAsset {
     public static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     public static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
   }
-  public enum PageBlock {
-    public enum Checkbox {
-      public static let empty = ImageAsset.bundle(name: "PageBlock/Checkbox/Empty")
-      public static let marked = ImageAsset.bundle(name: "PageBlock/Checkbox/Marked")
-    }
-  }
   public enum Preview {
     public static let card = ImageAsset.bundle(name: "Preview/Card")
     public static let inline = ImageAsset.bundle(name: "Preview/Inline")

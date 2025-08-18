@@ -310,6 +310,16 @@ public class SearchHelper {
         return filter
     }
     
+    public static func name(_ name: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .like
+        filter.value = name.protobufValue
+        
+        filter.relationKey = BundledPropertyKey.name.rawValue
+        
+        return filter
+    }
+    
     // MARK: - Private
 
     private static func templateTypeFilter(type: String) -> DataviewFilter {
