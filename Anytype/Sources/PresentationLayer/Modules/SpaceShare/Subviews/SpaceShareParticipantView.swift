@@ -82,6 +82,7 @@ struct SpaceShareParticipantView: View {
                     .foregroundColor(.Text.primary)
                 if participant.contextActions.isNotEmpty {
                     Image(asset: .X18.Disclosure.down)
+                        .foregroundStyle(Color.Text.primary)
                 }
             }
         case .pending(let message):
@@ -90,6 +91,7 @@ struct SpaceShareParticipantView: View {
                     .foregroundColor(.Text.secondary)
                 if participant.contextActions.isNotEmpty {
                     Image(asset: .X18.Disclosure.down)
+                        .foregroundStyle(Color.Text.secondary)
                 }
             }
         case .none:
@@ -105,7 +107,7 @@ struct SpaceShareParticipantView: View {
             AsyncButton {
                 try await action.action()
             } label: {
-                status.padding()
+                status
             }
         } else {
             Menu {
@@ -126,7 +128,7 @@ struct SpaceShareParticipantView: View {
                 }
                 
             } label: {
-                status.padding()
+                status
             }
         }
     }

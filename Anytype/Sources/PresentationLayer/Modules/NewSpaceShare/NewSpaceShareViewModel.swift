@@ -132,7 +132,7 @@ final class NewSpaceShareViewModel: ObservableObject {
         case .active:
             return .active(permission: participant.permission.title)
         case .joining:
-            return .pending(message: Loc.SpaceShare.joinRequest)
+            return .pending(message: Loc.setAccess)
         case .removing:
             return .pending(message: Loc.SpaceShare.leaveRequest)
         case .declined, .canceled, .removed, .UNRECOGNIZED:
