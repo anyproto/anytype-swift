@@ -4,8 +4,7 @@ import Cache
 final class MessageTextUIView: UIView {
     
     private struct CacheKey: Hashable {
-        let messageText: NSAttributedString?
-        let infoText: String?
+        let text: NSAttributedString?
         let targetSize: CGSize
     }
     
@@ -38,17 +37,9 @@ final class MessageTextUIView: UIView {
     
     // MARK: - Public properties
     
-    var messageText: NSAttributedString? {
+    var text: NSAttributedString? {
         didSet {
-            if messageText != oldValue {
-                setNeedsLayout()
-            }
-        }
-    }
-    
-    var infoText: String? {
-        didSet {
-            if infoText != oldValue {
+            if text != oldValue {
                 setNeedsLayout()
             }
         }
@@ -69,7 +60,7 @@ final class MessageTextUIView: UIView {
         super.layoutSubviews()
         let cacheValue = updateFramesIfNeeded(size: frame.size)
         
-        textLabel.attributedText = messageText
+        textLabel.attributedText = text
         textLabel.frame = cacheValue.textFrame
     }
     
@@ -110,7 +101,7 @@ final class MessageTextUIView: UIView {
             size: textSize
         )
         
-        let calculatedSize = CGSize(width: textFrame.width, height: textFrame.height + 4 * 2)
+        let calculatedSize = CGSize(width: textFrame.width, height: textFrame.height)
         
         let cacheValue = CacheValue(
             textFrame: textFrame,
