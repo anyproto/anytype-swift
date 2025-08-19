@@ -464,6 +464,7 @@ enum UndoRedoResultType: String {
 enum ShareObjectOpenPageRoute: String {
     case menu = "Menu"
     case notification = "Notification"
+    case mySites = "MySites"
 }
 
 enum MediaFileScreenRoute: String {

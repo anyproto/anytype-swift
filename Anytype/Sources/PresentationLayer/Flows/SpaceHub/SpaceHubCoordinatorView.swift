@@ -57,12 +57,15 @@ struct SpaceHubCoordinatorView: View {
             }
             .sheet(item: $model.showSpaceShareData) {
                 SpaceShareCoordinatorView(data: $0)
+                    .pageNavigation(model.pageNavigation)
             }
             .sheet(item: $model.showSpaceMembersData) {
                 SpaceMembersView(data: $0)
+                    .pageNavigation(model.pageNavigation)
             }
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
+                    .pageNavigation(model.pageNavigation)
             }
             .anytypeSheet(item: $model.spaceProfileData) {
                 SpaceProfileView(info: $0)
@@ -86,6 +89,7 @@ struct SpaceHubCoordinatorView: View {
             }
             .sheet(isPresented: $model.showAppSettings) {
                 SettingsCoordinatorView()
+                    .pageNavigation(model.pageNavigation)
             }
     }
     

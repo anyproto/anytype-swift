@@ -503,6 +503,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Video", p1, fallback: "Plural format key: Video")
   }
   public static let view = Loc.tr("Localizable", "View", fallback: "View")
+  public static let viewInBrowser = Loc.tr("Localizable", "View in Browser", fallback: "View in Browser")
   public static let views = Loc.tr("Localizable", "Views", fallback: "Views")
   public static let wallpaper = Loc.tr("Localizable", "Wallpaper", fallback: "Wallpaper")
   public static let webPages = Loc.tr("Localizable", "Web pages", fallback: "Web pages")
