@@ -46,8 +46,16 @@ final class ChatCollectionViewCoordinator<
             view.layer.zPosition = 1
         }
         
-        let itemRegistration = UICollectionView.CellRegistration<ChatContainerCell<Item, DataView>, Item> { [weak self] cell, indexPath, item in
-            cell.setItem(item, builder: self?.itemBuilder)
+        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Item> { cell, indexPath, item in
+//            cell.setItem(item, builder: self?.itemBuilder)
+            if let item = item as? MessageSectionItem {
+                switch item {
+                case .message(let data):
+                    cell.contentConfiguration = MessageConfiguration(model: data)
+                case .unread(let _):
+                    break
+                }
+            }
         }
         
     
