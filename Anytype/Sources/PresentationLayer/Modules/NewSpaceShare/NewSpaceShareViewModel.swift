@@ -43,6 +43,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
     @Published var canApproveRequests = false
+    @Published var canChangeInvite = false
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
@@ -93,6 +94,7 @@ final class NewSpaceShareViewModel: ObservableObject {
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
         canDeleteLink = participantSpaceView.permissions.canDeleteLink
         canApproveRequests = participantSpaceView.permissions.canApproveRequests
+        canChangeInvite = participantSpaceView.permissions.canEditPermissions && participantSpaceView.permissions.canDeleteLink
         
         updateUpgradeViewState()
         
