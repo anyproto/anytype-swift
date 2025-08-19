@@ -4,7 +4,7 @@ import Services
 
 struct PublishedSitesView: View {
     @StateObject private var model = PublishedSitesViewModel()
-    @Environment(\.objectOpener) private var objectOpener
+    @Environment(\.pageNavigation) private var pageNavigation
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +16,7 @@ struct PublishedSitesView: View {
         .safariSheet(url: $model.safariUrl)
         
         .task { await model.loadData() }
-        .onAppear { model.output = objectOpener }
+        .onAppear { model.pageNavigation = pageNavigation }
     }
     
     var content: some View {

@@ -22,7 +22,7 @@ final class PublishedSitesViewModel: ObservableObject {
     
     lazy var domain: DomainType? = { participantStorage.participants.first?.publishingDomain }()
     
-    weak var output: (any ObjectOpenerProtocol)?
+    var pageNavigation: PageNavigation?
     
     func loadData() async {
         do {
@@ -42,7 +42,9 @@ final class PublishedSitesViewModel: ObservableObject {
     }
     
     func onOpenObjectTap(_ site: PublishState) {
-        output?.openObject(objectId: site.objectId, spaceId: site.spaceId)
+        pageNavigation?.open(.editor(.page(
+            EditorPageObject(objectId: site.objectId, spaceId: site.spaceId)
+        )))
     }
     
     func onViewInBrowserTap(_ site: PublishState) {
