@@ -53,6 +53,7 @@ struct SpaceShareParticipantView: View {
                 AnytypeText(participant.globalName, style: .caption1Regular)
                     .foregroundColor(.Text.secondary)
                     .truncationMode(.tail)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             Spacer()
             if let action = participant.action, let title = action.title {
