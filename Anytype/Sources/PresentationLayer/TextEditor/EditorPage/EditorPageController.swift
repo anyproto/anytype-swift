@@ -561,7 +561,9 @@ private extension EditorPageController {
                     item: block
                 )
                 
-                cell.contentConfiguration = block.makeContentConfiguration(maxWidth: collectionView.frame.width)
+                if !FeatureFlags.fixCollectionViewReuseCrashInEditor {
+                    cell.contentConfiguration = block.makeContentConfiguration(maxWidth: collectionView.frame.width)
+                }
             case let .header(header):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: headerCellRegistration,

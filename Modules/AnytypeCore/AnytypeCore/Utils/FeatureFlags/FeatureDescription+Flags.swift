@@ -266,6 +266,12 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let fixCollectionViewReuseCrashInEditor = FeatureDescription(
+        title: "Attempt to fix collection view reuse crash in Editor",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
 
     // MARK: - Debug
     
