@@ -4,8 +4,10 @@ import SwiftUI
 struct NewInviteLinkView: View {
     
     @StateObject private var model: NewInviteLinkViewModel
+    let canChangeInvite: Bool
     
-    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
+    init(data: SpaceShareData, canChangeInvite: Bool, output: (any NewInviteLinkModuleOutput)?) {
+        self.canChangeInvite = canChangeInvite
         self._model = StateObject(wrappedValue: NewInviteLinkViewModel(data: data, output: output))
     }
     
@@ -69,11 +71,11 @@ struct NewInviteLinkView: View {
                 if model.isLoading {
                     CircleLoadingView()
                         .frame(width: 24, height: 24)
-                } else {
+                } else if canChangeInvite {
                     Image(asset: .RightAttribute.disclosure)
                 }
             }
-        }.disabled(model.isLoading)
+        }.disabled(model.isLoading || !canChangeInvite)
     }
     
     private var linkView: some View {

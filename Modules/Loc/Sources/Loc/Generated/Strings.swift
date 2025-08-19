@@ -410,6 +410,7 @@ public enum Loc {
   public static let selfHost = Loc.tr("Localizable", "Self Host", fallback: "Self Host")
   public static let send = Loc.tr("Localizable", "Send", fallback: "Send")
   public static let `set` = Loc.tr("Localizable", "Set", fallback: "Query")
+  public static let setAccess = Loc.tr("Localizable", "Set access", fallback: "Set access")
   public static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
   public static func setOf(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Set of", String(describing: p1), fallback: "Query of %@")

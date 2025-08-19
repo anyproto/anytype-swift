@@ -28,7 +28,7 @@ final class NewInviteLinkViewModel: ObservableObject {
     private var universalLinkParser: any UniversalLinkParserProtocol
     
     private let data: SpaceShareData
-    var spaceId: String { data.spaceId }
+    private var spaceId: String { data.spaceId }
     private weak var output: (any NewInviteLinkModuleOutput)?
     
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {

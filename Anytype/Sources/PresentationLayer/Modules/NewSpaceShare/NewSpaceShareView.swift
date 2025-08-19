@@ -49,7 +49,7 @@ struct NewSpaceShareView: View {
                 VStack(spacing: 0) {
                     
                     SectionHeaderView(title: Loc.SpaceShare.Invite.title)
-                    NewInviteLinkView(data: model.data, output: model.output)
+                    NewInviteLinkView(data: model.data, canChangeInvite: model.canChangeInvite, output: model.output)
                     
                     SectionHeaderView(title: Loc.SpaceShare.members)
                     if let reason = model.upgradeTooltipData { // TBD: check designs
