@@ -52,7 +52,7 @@ struct NewSpaceShareView: View {
                     NewInviteLinkView(data: model.data, output: model.output)
                     
                     SectionHeaderView(title: Loc.SpaceShare.members)
-                    if let reason = model.upgradeTooltipData { // TBD: check designs
+                    if let reason = model.upgradeTooltipData {
                         SpaceShareUpgradeView(reason: reason) {
                             model.onUpgradeTap(reason: reason, route: .spaceSettings)
                         }
