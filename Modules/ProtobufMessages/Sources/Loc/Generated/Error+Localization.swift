@@ -5959,29 +5959,6 @@ extension Anytype_Rpc.Object.SubscribeIds.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.Object.ToBookmark.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "Object.ToBookmark.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.Object.ToCollection.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
