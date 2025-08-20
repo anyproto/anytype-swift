@@ -274,7 +274,7 @@ public extension FeatureDescription {
     )
     
     static let vaultBackToRoots = FeatureDescription(
-        title: "Old design of vault cells",
+        title: "New old design of vault cells",
         type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
         defaultValue: false,
         debugValue: true

@@ -31,26 +31,13 @@ struct NewSpaceCardLabel: View {
         HStack(alignment: .center, spacing: 12) {
             IconView(icon: spaceData.spaceView.objectIconImage)
                 .frame(width: 64, height: 64)
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Text(spaceData.spaceView.name.withPlaceholder)
-                        .anytypeFontStyle(.bodySemibold)
-                        .lineLimit(1)
-                        .foregroundStyle(Color.Text.primary)
-                    if isMuted {
-                        Spacer.fixedWidth(8)
-                        Image(asset: .X18.muted).foregroundColor(.Control.secondary)
-                    }
-                    Spacer(minLength: 8)
-                    createdDate
+            
+            Group {
+                if spaceData.preview.lastMessage.isNotNil {
+                    mainContentWithMessage
+                } else {
+                    mainContentWithoutMessage
                 }
-                HStack {
-                    info
-                    Spacer()
-                    unreadCounters
-                    pin
-                }
-                Spacer(minLength: 1)
             }
             // Fixing the animation when the cell is moved and updated inside
             // Optimization - create a data model for SpaceCard and map to in in SpaceHubViewModel on background thread
@@ -58,7 +45,7 @@ struct NewSpaceCardLabel: View {
             .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 18)
+        .padding(.vertical, 16)
         // Optimization for fast sizeThatFits
         .frame(height: 96)
         
@@ -71,22 +58,56 @@ struct NewSpaceCardLabel: View {
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
+    private var mainContentWithMessage: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(spaceData.spaceView.name.withPlaceholder)
+                    .anytypeFontStyle(.bodySemibold)
+                    .lineLimit(1)
+                    .foregroundStyle(Color.Text.primary)
+                if isMuted {
+                    Spacer.fixedWidth(8)
+                    Image(asset: .X18.muted).foregroundColor(.Control.secondary)
+                }
+                Spacer(minLength: 8)
+                lastMessageDate
+            }
+            HStack {
+                info
+                Spacer()
+                unreadCounters
+                pin
+            }
+            Spacer(minLength: 1)
+        }
+    }
+    
+    private var mainContentWithoutMessage: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(spaceData.spaceView.name.withPlaceholder)
+                    .anytypeFontStyle(.bodySemibold)
+                    .lineLimit(1)
+                    .foregroundStyle(Color.Text.primary)
+                if isMuted {
+                    Spacer.fixedWidth(8)
+                    Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
+                }
+                Spacer()
+                pin
+            }
+        }
+    }
+
+    
     private var info: some View {
         Group {
             if let lastMessage = spaceData.preview.lastMessage {
                 lastMessagePreview(lastMessage)
-            } else if FeatureFlags.spaceUxTypes {
-                Text(spaceData.spaceView.uxType.name)
-                    .anytypeStyle(.uxTitle2Regular)
-                    .lineLimit(1)
-            } else {
-                Text(spaceData.spaceView.spaceAccessType?.name ?? "")
-                    .anytypeStyle(.uxTitle2Regular)
-                    .lineLimit(1)
+                    .foregroundStyle(Color.Text.secondary)
+                    .multilineTextAlignment(.leading)
             }
         }
-        .foregroundStyle(Color.Text.secondary)
-        .multilineTextAlignment(.leading)
     }
     
     @ViewBuilder
@@ -135,7 +156,7 @@ struct NewSpaceCardLabel: View {
     }
     
     @ViewBuilder
-    private var createdDate: some View {
+    private var lastMessageDate: some View {
         if let lastMessage = spaceData.preview.lastMessage {
             Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
                 .anytypeStyle(.relation2Regular)
@@ -161,7 +182,7 @@ struct NewSpaceCardLabel: View {
     private var pin: some View {
         if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
             Image(asset: .X24.pin)
-                .foregroundStyle(Color.Control.secondary)
+                .foregroundStyle(Color.Control.transparentSecondary)
                 .frame(width: 22, height: 22)
         }
     }
