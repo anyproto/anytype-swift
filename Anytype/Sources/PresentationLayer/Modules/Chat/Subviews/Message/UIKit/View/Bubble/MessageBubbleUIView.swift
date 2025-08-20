@@ -52,6 +52,7 @@ final class MessageBubbleUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius = 16
+        layer.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {

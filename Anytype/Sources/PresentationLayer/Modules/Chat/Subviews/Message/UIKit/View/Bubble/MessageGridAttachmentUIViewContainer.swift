@@ -29,6 +29,16 @@ final class MessageGridAttachmentUIViewContainer: UIView {
     
     // MARK: - Pulic
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layer.cornerRadius = 12
+        layer.masksToBounds = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return layout?.size ?? .zero
     }
@@ -58,6 +68,8 @@ final class MessageGridAttachmentUIViewContainer: UIView {
             case .video:
                 let videoView = cachedVideosForLayout.popLast() ?? {
                     let view = MessageVideoUIView()
+                    view.layer.cornerRadius = 4
+                    view.layer.masksToBounds = true
                     // Sync position with popLast operation
                     cachedVideos.insert(view, at: 0)
                     return view
@@ -69,6 +81,8 @@ final class MessageGridAttachmentUIViewContainer: UIView {
             default:
                 let imageView = cachedImagesForLayout.popLast() ?? {
                     let view = MessageImageUIView()
+                    view.layer.cornerRadius = 4
+                    view.layer.masksToBounds = true
                     // Sync position with popLast operation
                     cachedImages.insert(view, at: 0)
                     return view
