@@ -32,6 +32,8 @@ extension MembershipTier {
             "Starter"
         case 22:
             "Pioneer"
+        case 29:
+            "BuilderMonthly"
         default:
             name
         }
