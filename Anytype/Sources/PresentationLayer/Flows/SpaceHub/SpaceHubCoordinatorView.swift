@@ -93,16 +93,10 @@ struct SpaceHubCoordinatorView: View {
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
             }
-            .task(item: model.uploadPhotoItemsTaskId) { _ in
-                await model.uploadPhotoItems()
-            }
         
             // load from camera
             .cameraAccessFullScreenCover(item: $model.cameraData) {
                 SimpleCameraView(data: $0)
-            }
-            .task(item: model.imagePickerMediaType) { _ in
-                await model.uploadImagePickerItem()
             }
             
             // load files
@@ -112,9 +106,6 @@ struct SpaceHubCoordinatorView: View {
                 allowsMultipleSelection: true
             ) { result in
                 model.fileImporterFinished(result: result)
-            }
-            .task(item: model.uploadFilesTaskId) { _ in
-                await model.uploadFiles()
             }
     }
     

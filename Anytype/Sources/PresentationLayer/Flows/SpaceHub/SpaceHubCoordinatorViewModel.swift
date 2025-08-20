@@ -35,15 +35,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var showPhotosPicker = false
-    @Published var uploadPhotoItemsTaskId: String?
-    
     @Published var cameraData: SimpleCameraData?
-    @Published var imagePickerMediaType: ImagePickerMediaType?
-    
     @Published var showFilesPicker = false
-    @Published var uploadFilesTaskId: String?
-    private var filesUrls: [URL] = []
-    
     private var uploadSpaceId: String?
     
     @Published var currentSpaceId: String?
@@ -246,13 +239,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func photosPickerFinished() {
-        uploadPhotoItemsTaskId = UUID().uuidString
-    }
-    
-    func uploadPhotoItems() async {
         defer { photosItems = [] }
         guard let uploadSpaceId else { return }
-        await spaceFileUploadService.uploadPhotoItems(photosItems, spaceId: uploadSpaceId)
+        spaceFileUploadService.uploadPhotoItems(photosItems, spaceId: uploadSpaceId)
     }
     
     func onAddMediaSelected(spaceId: String) {
@@ -262,15 +251,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     func onCameraSelected(spaceId: String) {
         uploadSpaceId = spaceId
-        cameraData = SimpleCameraData(onMediaTaken: { [weak self] media in
-            self?.imagePickerMediaType = media
+        cameraData = SimpleCameraData(onMediaTaken: { [weak self] mediaType in
+            guard let self, let uploadSpaceId else { return }
+            spaceFileUploadService.uploadImagePickerMedia(type: mediaType, spaceId: uploadSpaceId)
         })
-    }
-    
-    func uploadImagePickerItem() async {
-        defer { imagePickerMediaType = nil }
-        guard let uploadSpaceId, let imagePickerMediaType else { return }
-        await spaceFileUploadService.uploadImagePickerMedia(type: imagePickerMediaType, spaceId: uploadSpaceId)
     }
     
     func onAddFilesSelected(spaceId: String) {
@@ -281,17 +265,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     func fileImporterFinished(result: Result<[URL], any Error>) {
         switch result {
         case .success(let files):
-            filesUrls = files
-            uploadFilesTaskId = UUID().uuidString
+            guard let uploadSpaceId else { return }
+            spaceFileUploadService.uploadFiles(files, spaceId: uploadSpaceId)
         case .failure:
             break
         }
-    }
-    
-    func uploadFiles() async {
-        defer { filesUrls = [] }
-        guard let uploadSpaceId else { return }
-        await spaceFileUploadService.uploadFiles(filesUrls, spaceId: uploadSpaceId)
     }
     
     // MARK: - Private
