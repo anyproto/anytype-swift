@@ -95,6 +95,13 @@ struct SpaceHubCoordinatorView: View {
             .task(item: model.uploadPhotoItemsTaskId) { _ in
                 await model.uploadPhotoItems()
             }
+        
+            .cameraAccessFullScreenCover(item: $model.cameraData) {
+                SimpleCameraView(data: $0)
+            }
+            .task(item: model.imagePickerMediaType) { _ in
+                await model.uploadImagePickerItem()
+            }
     }
     
     private var content: some View {  

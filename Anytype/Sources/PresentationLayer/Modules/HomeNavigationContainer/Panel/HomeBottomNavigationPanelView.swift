@@ -105,7 +105,16 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 }
 
                 Divider()
+                
                 Menu(Loc.more) {
+                    if FeatureFlags.loadAttachmentsOnHomePlusMenu {
+                        Button { model.onCameraSelected() } label: {
+                            Label(Loc.camera, systemImage: "camera")
+                        }
+                    }
+                    
+                    Divider()
+                    
                     ForEach(model.otherObjectTypes) { type in
                         Button {
                             model.onTapCreateObject(type: type)

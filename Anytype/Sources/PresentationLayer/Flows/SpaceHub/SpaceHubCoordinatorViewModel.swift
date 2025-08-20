@@ -36,6 +36,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var photosItems: [PhotosPickerItem] = []
     @Published var showPhotosPicker = false
     @Published var uploadPhotoItemsTaskId: String?
+    
+    @Published var cameraData: SimpleCameraData?
+    @Published var imagePickerMediaType: ImagePickerMediaType?
+    
     private var uploadSpaceId: String?
     
     @Published var currentSpaceId: String?
@@ -245,6 +249,24 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         defer { photosItems = [] }
         guard let uploadSpaceId else { return }
         await spaceFileUploadService.uploadPhotoItems(photosItems, spaceId: uploadSpaceId)
+    }
+    
+    func onAddMediaSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showPhotosPicker = true
+    }
+    
+    func onCameraSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        cameraData = SimpleCameraData(onMediaTaken: { [weak self] media in
+            self?.imagePickerMediaType = media
+        })
+    }
+    
+    func uploadImagePickerItem() async {
+        defer { imagePickerMediaType = nil }
+        guard let uploadSpaceId, let imagePickerMediaType else { return }
+        await spaceFileUploadService.uploadImagePickerMedia(type: imagePickerMediaType, spaceId: uploadSpaceId)
     }
     
     // MARK: - Private
@@ -568,11 +590,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onShareSelected() {
         guard let spaceInfo else { return }
         showSpaceShareData = SpaceShareData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
-    }
-    
-    func onAddMediaSelected(spaceId: String) {
-        uploadSpaceId = spaceId
-        showPhotosPicker = true
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {

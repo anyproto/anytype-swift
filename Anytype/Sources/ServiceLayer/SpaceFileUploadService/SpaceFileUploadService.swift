@@ -9,6 +9,8 @@ protocol SpaceFileUploadServiceProtocol: AnyObject, Sendable {
     var uploadStateStream: AnyAsyncSequence<UploadState> { get async }
     
     func uploadPhotoItems(_ items: [PhotosPickerItem], spaceId: String) async
+    func uploadImagePickerMedia(type: ImagePickerMediaType, spaceId: String) async
+    
     func cancelAllUploads() async
 }
 
@@ -50,6 +52,41 @@ actor SpaceFileUploadService: SpaceFileUploadServiceProtocol {
                     try await group.waitForAll()
                 }
 
+                // finished successfully
+                uploadStateStreamInternal.send(UploadState(spaceId: spaceId, isFinished: true, error: nil))
+            } catch {
+                // finished with error
+                uploadStateStreamInternal.send(UploadState(spaceId: spaceId, isFinished: true, error: error))
+            }
+
+            activeTasks.removeValue(forKey: ActiveTaskIdentifier(spaceId: spaceId, taskId: taskId))
+        }
+
+        activeTasks[ActiveTaskIdentifier(spaceId: spaceId, taskId: taskId)] = task
+    }
+    
+    func uploadImagePickerMedia(type: ImagePickerMediaType, spaceId: String) async {
+        let taskId = UUID()
+        
+        let task = Task {
+            do {
+                // notify about start
+                uploadStateStreamInternal.send(UploadState(spaceId: spaceId, isFinished: false, error: nil))
+                
+                let data: FileData
+                switch type {
+                case .image(let image, let type):
+                    data = try fileActionsService.createFileData(image: image, type: type)
+                case .video(let file):
+                    data = try fileActionsService.createFileData(fileUrl: file)
+                }
+
+                _ = try await self.fileActionsService.uploadFileObject(
+                    spaceId: spaceId,
+                    data: data,
+                    origin: .none
+                )
+                
                 // finished successfully
                 uploadStateStreamInternal.send(UploadState(spaceId: spaceId, isFinished: true, error: nil))
             } catch {

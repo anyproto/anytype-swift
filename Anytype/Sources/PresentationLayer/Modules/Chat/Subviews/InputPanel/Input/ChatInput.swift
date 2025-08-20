@@ -55,11 +55,11 @@ struct ChatInput: View {
             
             Menu {
                 Button { onTapCamera() } label: {
-                    Label(Loc.Chat.Actions.Menu.camera, systemImage: "camera")
+                    Label(Loc.camera, systemImage: "camera")
                 }
                 
                 Button { onTapAddFiles() } label: {
-                    Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
+                    Label(Loc.files, systemImage: "doc")
                 }
                 
                 Divider()

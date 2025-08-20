@@ -10,6 +10,7 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onMembersSelected()
     func onShareSelected()
     func onAddMediaSelected(spaceId: String)
+    func onCameraSelected(spaceId: String)
     func popToFirstInSpace()
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject)
 }

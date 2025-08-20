@@ -755,12 +755,6 @@ public enum Loc {
     public static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
     }
-    public enum Actions {
-      public enum Menu {
-        public static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Camera")
-        public static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Files")
-      }
-    }
     public enum AttachedObject {
       public static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
