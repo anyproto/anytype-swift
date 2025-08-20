@@ -45,6 +45,8 @@ struct MessageBigBookmarkCalculator {
         if let imageSize {
             imageFrame = CGRect(origin: .zero, size: imageSize)
             nextItemMaxY += (imageSize.height + textInsets.top)
+        } else {
+            nextItemMaxY += textInsets.top
         }
         
         if let hostSize {

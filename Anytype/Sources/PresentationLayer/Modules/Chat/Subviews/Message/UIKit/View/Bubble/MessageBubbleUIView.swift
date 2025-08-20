@@ -1,40 +1,39 @@
 import UIKit
 import Cache
 
+struct MessageBubbleViewData: Equatable {
+    let messageText: NSAttributedString
+    let linkedObjects: MessageLinkedObjectsLayout?
+    let position: MessageHorizontalPosition
+    let messageYourBackgroundColor: UIColor
+}
+
+extension MessageBubbleViewData {
+    init(data: MessageViewData) {
+        self.messageText = NSAttributedString(data.messageString)
+        self.linkedObjects = data.linkedObjects
+        self.position = data.position
+        // TODO: Fix it
+        self.messageYourBackgroundColor = .white
+    }
+}
+
 final class MessageBubbleUIView: UIView {
     
     // MARK: - Private properties
     
     private lazy var textView = MessageTextUIView()
     private lazy var gridAttachments = MessageGridAttachmentUIViewContainer()
+    private lazy var bigBookmarkView = MessageBigBookmarkUIView()
     
     // MARK: - Public properties
     
-    var messageText: NSAttributedString? {
-        didSet { textView.text = messageText }
-    }
-    
-    var linkedObjects: MessageLinkedObjectsLayout? {
+    var data: MessageBubbleViewData? {
         didSet {
-            switch linkedObjects {
-            case .list(let array):
-                break
-            case .grid(let objects):
-                gridAttachments.objects = objects
-            case .bookmark(let objectDetails):
-                break
-            case nil:
-                break
+            if data != oldValue {
+                updateView()
             }
         }
-    }
-    
-    var isRight: Bool = false {
-        didSet { updateBackgroundColor() }
-    }
-    
-    var messageYourBackgroundColor: UIColor = .white {
-        didSet { updateBackgroundColor() }
     }
     
     var layout: MessageBubbleLayout? {
@@ -42,6 +41,7 @@ final class MessageBubbleUIView: UIView {
             if layout != oldValue {
                 textView.layout = layout?.textLayout
                 gridAttachments.layout = layout?.gridAttachmentsLayout
+                bigBookmarkView.layout = layout?.bigBookmarkLayout
                 setNeedsLayout()
             }
         }
@@ -49,33 +49,13 @@ final class MessageBubbleUIView: UIView {
     
     // MARK: - Pulic
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layer.cornerRadius = 16
-        layer.masksToBounds = true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         guard let layout else { return }
         
-        if let textFrame = layout.textFrame {
-            textView.frame = textFrame
-            addSubview(textView)
-        } else {
-            textView.removeFromSuperview()
-        }
-        
-        if let gridAttachmentsFrame = layout.gridAttachmentsFrame {
-            gridAttachments.frame = gridAttachmentsFrame
-            addSubview(gridAttachments)
-        } else {
-            gridAttachments.removeFromSuperview()
-        }
+        textView.frame = layout.textFrame ?? .zero
+        gridAttachments.frame = layout.gridAttachmentsFrame ?? .zero
+        bigBookmarkView.frame = layout.bigBookmarkFrame ?? .zero
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -83,8 +63,35 @@ final class MessageBubbleUIView: UIView {
     }
     
     // MARK: - Private
-
-    private func updateBackgroundColor() {
-        backgroundColor = isRight ? messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+    
+    private func updateView() {
+        guard let data else { return }
+        
+        if data.messageText.string.isNotEmpty {
+            textView.text = data.messageText
+            addSubview(textView)
+        } else {
+            textView.removeFromSuperview()
+        }
+        
+        switch data.linkedObjects {
+        case .list(let array):
+            bigBookmarkView.removeFromSuperview()
+            gridAttachments.removeFromSuperview()
+        case .grid(let objects):
+            gridAttachments.objects = objects
+            addSubview(gridAttachments)
+            bigBookmarkView.removeFromSuperview()
+        case .bookmark(let objectDetails):
+            bigBookmarkView.data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
+            addSubview(bigBookmarkView)
+            gridAttachments.removeFromSuperview()
+        case nil:
+            break
+        }
+            
+        layer.cornerRadius = 16
+        layer.masksToBounds = true
+        backgroundColor = data.position.isRight ? data.messageYourBackgroundColor : .Background.Chat.bubbleSomeones
     }
 }

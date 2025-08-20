@@ -105,5 +105,8 @@ final class MessageBigBookmarkUIView: UIView {
         } else {
             descriptionLabel.removeFromSuperview()
         }
+        
+        backgroundColor = .Shape.transperentSecondary
+        layer.cornerRadius = 12
     }
 }

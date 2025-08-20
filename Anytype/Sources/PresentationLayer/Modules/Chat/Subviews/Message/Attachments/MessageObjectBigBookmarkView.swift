@@ -41,13 +41,13 @@ struct MessageObjectBigBookmarkView: View {
 //                            .foregroundStyle(position.isRight ? Color.Background.Chat.whiteTransparent : Color.Control.transparentSecondary)
 //                    }
 //                }
-                Spacer()
+//                Spacer()
             }
 //            .padding(.horizontal, 12)
 //            .padding(.vertical, 8)
         }
-        .background(Color.Shape.transperentSecondary)
-        .cornerRadius(12, style: .continuous)
+//        .background(Color.Shape.transperentSecondary)
+//        .cornerRadius(12, style: .continuous)
         .onTapGesture {
             onTapObject()
         }
