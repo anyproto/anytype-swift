@@ -3,6 +3,7 @@ import DeepLinks
 import Services
 import Combine
 import AnytypeCore
+import PhotosUI
 
 
 struct SpaceHubNavigationItem: Hashable { }
@@ -31,6 +32,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var showSpaceTypeForCreate = false
     @Published var shouldScanQrCode = false
     @Published var showAppSettings = false
+    
+    @Published var photosItems: [PhotosPickerItem] = []
+    @Published var showPhotosPicker = false
+    @Published var uploadPhotoItemsTaskId: String?
+    private var uploadSpaceId: String?
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -94,6 +100,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.spaceFileUploadService)
+    private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
         
     
     private var needSetup = true
@@ -227,6 +235,16 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     func onSelectAppSettings() {
         showAppSettings = true
+    }
+    
+    func photosPickerFinished() {
+        uploadPhotoItemsTaskId = UUID().uuidString
+    }
+    
+    func uploadPhotoItems() async {
+        defer { photosItems = [] }
+        guard let uploadSpaceId else { return }
+        await spaceFileUploadService.uploadPhotoItems(photosItems, spaceId: uploadSpaceId)
     }
     
     // MARK: - Private
@@ -550,6 +568,11 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onShareSelected() {
         guard let spaceInfo else { return }
         showSpaceShareData = SpaceShareData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
+    }
+    
+    func onAddMediaSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showPhotosPicker = true
     }
     
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {

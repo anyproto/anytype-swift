@@ -87,6 +87,14 @@ struct SpaceHubCoordinatorView: View {
             .sheet(isPresented: $model.showAppSettings) {
                 SettingsCoordinatorView()
             }
+        
+            .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
+            .onChange(of: model.photosItems) { _ in
+                model.photosPickerFinished()
+            }
+            .task(item: model.uploadPhotoItemsTaskId) { _ in
+                await model.uploadPhotoItems()
+            }
     }
     
     private var content: some View {  

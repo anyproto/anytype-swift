@@ -272,6 +272,13 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: true
     )
+    
+    static let loadAttachmentsOnHomePlusMenu = FeatureDescription(
+        title: "Possibility to load attachments on home + menu",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: false,
+        debugValue: false
+    )
 
     // MARK: - Debug
     

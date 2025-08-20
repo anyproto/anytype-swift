@@ -136,6 +136,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         }
     }
     
+    func onAddMediaSelected() {
+        output?.onAddMediaSelected(spaceId: info.accountSpaceId)
+    }
+    
     // MARK: - Private
     
     private func participantSubscription() async {

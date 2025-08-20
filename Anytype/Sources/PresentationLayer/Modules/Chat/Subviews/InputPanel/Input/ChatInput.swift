@@ -36,7 +36,7 @@ struct ChatInput: View {
     private var plusButton: some View {
         Menu {
             Button { onTapAddMedia() } label: {
-                Label(Loc.Chat.Actions.Menu.photos, systemImage: "photo")
+                Label(Loc.photos, systemImage: "photo")
             }
             
             if let objectType = mainObjectTypeToCreate() {

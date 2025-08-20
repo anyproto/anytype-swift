@@ -90,6 +90,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
                 }
                 
+                if FeatureFlags.loadAttachmentsOnHomePlusMenu {
+                    Button { model.onAddMediaSelected() } label: {
+                        Label(Loc.photos, systemImage: "photo")
+                    }
+                }
+                
                 if let type = model.bookmarkObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
