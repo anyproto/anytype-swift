@@ -66,7 +66,7 @@ struct SpaceHubView: View {
     
     private func scrollView(unread: [ParticipantSpaceViewDataWithPreview], spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
-            VStack(spacing: 0) {
+            VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
                 
                 if #available(iOS 17.0, *) {
@@ -188,6 +188,9 @@ struct SpaceHubView: View {
             }
         )
         .equatable()
+        .if(FeatureFlags.vaultBackToRoots) {
+            $0.padding(.horizontal, 16)
+        }
         .if(draggable) {
             $0.onDrop(
                 of: [.text],
