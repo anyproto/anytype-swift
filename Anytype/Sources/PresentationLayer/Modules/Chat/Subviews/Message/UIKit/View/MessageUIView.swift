@@ -58,8 +58,10 @@ final class MessageUIView: UIView, UIContentView {
     
         guard let layout else { return }
         
+        // TODO: Split setup data and layout
         if let bubbleFrame = layout.bubbleFrame {
             bubbleView.messageText = NSAttributedString(data.messageString)
+            bubbleView.linkedObjects = data.linkedObjects
             bubbleView.isRight = data.position.isRight
             bubbleView.frame = bubbleFrame
             bubbleView.isHidden = false

@@ -14,6 +14,21 @@ final class MessageBubbleUIView: UIView {
         didSet { textView.text = messageText }
     }
     
+    var linkedObjects: MessageLinkedObjectsLayout? {
+        didSet {
+            switch linkedObjects {
+            case .list(let array):
+                break
+            case .grid(let objects):
+                gridAttachments.objects = objects
+            case .bookmark(let objectDetails):
+                break
+            case nil:
+                break
+            }
+        }
+    }
+    
     var isRight: Bool = false {
         didSet { updateBackgroundColor() }
     }
@@ -26,6 +41,7 @@ final class MessageBubbleUIView: UIView {
         didSet {
             if layout != oldValue {
                 textView.layout = layout?.textLayout
+                gridAttachments.layout = layout?.gridAttachmentsLayout
                 setNeedsLayout()
             }
         }
@@ -51,6 +67,13 @@ final class MessageBubbleUIView: UIView {
             addSubview(textView)
         } else {
             textView.removeFromSuperview()
+        }
+        
+        if let gridAttachmentsFrame = layout.gridAttachmentsFrame {
+            gridAttachments.frame = gridAttachmentsFrame
+            addSubview(gridAttachments)
+        } else {
+            gridAttachments.removeFromSuperview()
         }
     }
     
