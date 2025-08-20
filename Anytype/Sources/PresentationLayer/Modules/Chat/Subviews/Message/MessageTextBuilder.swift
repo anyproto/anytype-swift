@@ -21,14 +21,14 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> AttributedString {
         var message = AttributedString(content.text)
         
-        message.font = AnytypeFontBuilder.font(anytypeFont: font)
-        message.kern = font.config.kern
+        message.uiKit.font = UIKitFontBuilder.uiKitFont(font: font)
+        message.uiKit.kern = font.config.kern
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
-        message.paragraphStyle = paragraphStyle
+        message.uiKit.paragraphStyle = paragraphStyle
         
         let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
-        message.foregroundColor = textColor.suColor
+        message.uiKit.foregroundColor = textColor
         let underlineColor = textColor.withAlphaComponent(0.3)
         message.uiKit.underlineColor = underlineColor
         
@@ -40,13 +40,13 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             
             switch mark.type {
             case .strikethrough:
-                message[range].strikethroughStyle = .single
+                message[range].uiKit.strikethroughStyle = .single
             case .keyboard:
-                message[range].font = AnytypeFontBuilder.font(anytypeFont: .codeBlock)
+                message[range].uiKit.font = UIFont.code
             case .italic:
-                message[range].font = message[range].font?.italic()
+                message[range].uiKit.font = message[range].uiKit.font?.italic
             case .bold:
-                message[range].font = message[range].font?.weight(.semibold)
+                message[range].uiKit.font = message[range].uiKit.font?.semibold
             case .underscored:
                 message[range].uiKit.underlineStyle = .single
             case .link:
@@ -60,9 +60,9 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
                     message[range].link = linkToObject
                 }
             case .textColor:
-                message[range].foregroundColor = MiddlewareColor(rawValue: mark.param).map { Color.Dark.color(from: $0) }
+                message[range].uiKit.foregroundColor = MiddlewareColor(rawValue: mark.param).map { UIColor.Dark.uiColor(from: $0) }
             case .backgroundColor:
-                message[range].backgroundColor = MiddlewareColor(rawValue: mark.param).map { Color.VeryLight.color(from: $0) }
+                message[range].uiKit.backgroundColor = MiddlewareColor(rawValue: mark.param).map { UIColor.VeryLight.uiColor(from: $0) }
             case .mention:
                 message[range].uiKit.underlineStyle = .single
                 if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {

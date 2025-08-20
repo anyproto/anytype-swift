@@ -10,14 +10,18 @@ struct MessageTextCalculator {
     
     static func calculateSize(targetSize: CGSize, message: NSAttributedString) -> MessageTextLayout {
         let drawingOptions: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-        let textBounds = message.boundingRect(
+        let boundingBox = message.boundingRect(
             with: CGSize(width: targetSize.width, height: .greatestFiniteMagnitude),
             options: drawingOptions,
             context: nil
         )
+        let size = CGSize(
+            width: ceil(boundingBox.width),
+            height: ceil(boundingBox.height)
+        )
         return MessageTextLayout(
-            size: textBounds.size,
-            textFrame: CGRect(origin: .zero, size: textBounds.size)
+            size: size,
+            textFrame: CGRect(origin: .zero, size: size)
         )
     }
     
