@@ -42,6 +42,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
     private let pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol = Container.shared.pushNotificationsPermissionService()
     private let spaceIconForNotificationsHandler: any SpaceIconForNotificationsHandlerProtocol = Container.shared.spaceIconForNotificationsHandler()
+    private let spaceFileUploadService: any SpaceFileUploadServiceProtocol = Container.shared.spaceFileUploadService()
         
     // MARK: - LoginStateServiceProtocol
     
@@ -71,6 +72,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         pushNotificationsPermissionService.unregisterForRemoteNotifications()
+        spaceFileUploadService.cancelAllUploads()
         await stopSubscriptions()
     }
     
