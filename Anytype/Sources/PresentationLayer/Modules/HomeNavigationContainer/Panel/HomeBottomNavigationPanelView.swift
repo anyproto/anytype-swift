@@ -111,6 +111,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         Button { model.onCameraSelected() } label: {
                             Label(Loc.camera, systemImage: "camera")
                         }
+                        Button { model.onAddFilesSelected() } label: {
+                            Label(Loc.files, systemImage: "doc")
+                        }
                     }
                     
                     Divider()

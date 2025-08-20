@@ -88,6 +88,7 @@ struct SpaceHubCoordinatorView: View {
                 SettingsCoordinatorView()
             }
         
+            // load photos
             .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
             .onChange(of: model.photosItems) { _ in
                 model.photosPickerFinished()
@@ -96,11 +97,24 @@ struct SpaceHubCoordinatorView: View {
                 await model.uploadPhotoItems()
             }
         
+            // load from camera
             .cameraAccessFullScreenCover(item: $model.cameraData) {
                 SimpleCameraView(data: $0)
             }
             .task(item: model.imagePickerMediaType) { _ in
                 await model.uploadImagePickerItem()
+            }
+            
+            // load files
+            .fileImporter(
+                isPresented: $model.showFilesPicker,
+                allowedContentTypes: [.data],
+                allowsMultipleSelection: true
+            ) { result in
+                model.fileImporterFinished(result: result)
+            }
+            .task(item: model.uploadFilesTaskId) { _ in
+                await model.uploadFiles()
             }
     }
     

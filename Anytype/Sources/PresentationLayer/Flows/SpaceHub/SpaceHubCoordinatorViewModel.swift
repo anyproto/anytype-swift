@@ -40,6 +40,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var cameraData: SimpleCameraData?
     @Published var imagePickerMediaType: ImagePickerMediaType?
     
+    @Published var showFilesPicker = false
+    @Published var uploadFilesTaskId: String?
+    private var filesUrls: [URL] = []
+    
     private var uploadSpaceId: String?
     
     @Published var currentSpaceId: String?
@@ -267,6 +271,27 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         defer { imagePickerMediaType = nil }
         guard let uploadSpaceId, let imagePickerMediaType else { return }
         await spaceFileUploadService.uploadImagePickerMedia(type: imagePickerMediaType, spaceId: uploadSpaceId)
+    }
+    
+    func onAddFilesSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showFilesPicker = true
+    }
+    
+    func fileImporterFinished(result: Result<[URL], any Error>) {
+        switch result {
+        case .success(let files):
+            filesUrls = files
+            uploadFilesTaskId = UUID().uuidString
+        case .failure:
+            break
+        }
+    }
+    
+    func uploadFiles() async {
+        defer { filesUrls = [] }
+        guard let uploadSpaceId else { return }
+        await spaceFileUploadService.uploadFiles(filesUrls, spaceId: uploadSpaceId)
     }
     
     // MARK: - Private

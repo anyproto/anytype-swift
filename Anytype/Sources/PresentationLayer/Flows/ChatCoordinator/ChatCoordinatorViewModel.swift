@@ -33,7 +33,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var inviteLinkData: SpaceShareData?
     @Published var spaceShareData: SpaceShareData?
     
-    private var filesPickerData: ChatFilesPickerData?
+    private var filesPickerData: FilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
     
     var pageNavigation: PageNavigation?
@@ -76,7 +76,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         showPhotosPicker = true
     }
     
-    func onFilePickerSelected(data: ChatFilesPickerData) {
+    func onFilePickerSelected(data: FilesPickerData) {
         showFilesPicker = true
         filesPickerData = data
     }

@@ -163,7 +163,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapAddFilesToMessage() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file)
-        let data = ChatFilesPickerData(handler: { [weak self] result in
+        let data = FilesPickerData(handler: { [weak self] result in
             self?.handleFilePicker(result: result)
         })
         output?.onFilePickerSelected(data: data)
