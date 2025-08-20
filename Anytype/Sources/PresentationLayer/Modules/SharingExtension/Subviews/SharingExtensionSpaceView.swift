@@ -29,7 +29,7 @@ struct SharingExtensionSpaceView: View {
 
 #Preview {
     SharingExtensionSpaceView(
-        icon: .object(.space(.name(name: "ABC", iconOption: 1))),
+        icon: .object(.space(.name(name: "ABC", iconOption: 1, circular: true))),
         title: "Long text long text long text long text long text long text",
         isSelected: true
     )
