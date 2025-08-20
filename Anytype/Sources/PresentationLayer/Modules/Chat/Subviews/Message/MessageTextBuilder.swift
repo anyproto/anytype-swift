@@ -27,7 +27,9 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.uiKit.paragraphStyle = paragraphStyle
         
-        let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
+        // Temporary
+//        let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
+        let textColor = UIColor.red
         message.uiKit.foregroundColor = textColor
         let underlineColor = textColor.withAlphaComponent(0.3)
         message.uiKit.underlineColor = underlineColor
@@ -51,23 +53,23 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
                 message[range].uiKit.underlineStyle = .single
             case .link:
                 message[range].uiKit.underlineStyle = .single
-                if let link = URL(string: mark.param) {
-                    message[range].link = link
-                }
+//                if let link = URL(string: mark.param) {
+//                    message[range].uiKit.link = link
+//                }
             case .object:
                 message[range].uiKit.underlineStyle = .single
-                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
-                    message[range].link = linkToObject
-                }
+//                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
+//                    message[range].uiKit.link = linkToObject
+//                }
             case .textColor:
                 message[range].uiKit.foregroundColor = MiddlewareColor(rawValue: mark.param).map { UIColor.Dark.uiColor(from: $0) }
             case .backgroundColor:
                 message[range].uiKit.backgroundColor = MiddlewareColor(rawValue: mark.param).map { UIColor.VeryLight.uiColor(from: $0) }
             case .mention:
                 message[range].uiKit.underlineStyle = .single
-                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
-                    message[range].link = linkToObject
-                }
+//                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
+//                    message[range].uiKit.link = linkToObject
+//                }
             case .emoji:
                 message.replaceSubrange(range, with: AttributedString(mark.param))
             case .UNRECOGNIZED(let int):
