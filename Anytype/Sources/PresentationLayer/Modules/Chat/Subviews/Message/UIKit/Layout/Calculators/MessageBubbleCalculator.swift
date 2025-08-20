@@ -13,7 +13,7 @@ struct MessageBubbleLayout: Equatable {
 
 struct MessageBubbleCalculator {
     
-    static func calculateSize(targetSize: CGSize, message: NSAttributedString, linkedObjects: MessageLinkedObjectsLayout?, position: MessageHorizontalPosition) -> MessageBubbleLayout {
+    static func calculateSize(targetSize: CGSize, data: MessageBubbleViewData) -> MessageBubbleLayout {
         
         let width = targetSize.width
         let attachmentsInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
@@ -25,7 +25,7 @@ struct MessageBubbleCalculator {
         var bigBookmarkFrame: CGRect?
         var topContainerSize: CGSize = .zero
         
-        switch linkedObjects {
+        switch data.linkedObjects {
         case .list, .none:
             break
         case .grid(let attachments):
@@ -50,7 +50,7 @@ struct MessageBubbleCalculator {
                 width: width - attachmentsInsets.left - attachmentsInsets.right,
                 height: .greatestFiniteMagnitude
             )
-            let data = MessageBigBookmarkViewData(details: objectDetails, position: position)
+            let data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
             let bookmarkCalculatedLayout = MessageBigBookmarkCalculator.calculateSize(targetSize: size, data: data)
             bigBookmarkLayout = bookmarkCalculatedLayout
             let bookmarkCalculatedFrame = CGRect(
@@ -63,7 +63,7 @@ struct MessageBubbleCalculator {
         }
         
         var bottomContainerSize: CGSize = .zero
-        switch linkedObjects {
+        switch data.linkedObjects {
         case .list(let array):
             // TODO: Implement
             break
@@ -75,12 +75,12 @@ struct MessageBubbleCalculator {
         var textLayout: MessageTextLayout?
         var textFrame: CGRect?
         var textContainerSize: CGSize = .zero
-        if !message.string.isEmpty {
+        if !data.messageText.string.isEmpty {
             let size = CGSize(
                 width: width - textInset.left - textInset.right,
                 height: .greatestFiniteMagnitude
             )
-            let textCalculatedLayout = MessageTextCalculator.calculateSize(targetSize: size, message: message)
+            let textCalculatedLayout = MessageTextCalculator.calculateSize(targetSize: size, message: data.messageText)
             textLayout = textCalculatedLayout
             let textCalculatedFrame = CGRect(
                 origin: CGPoint(x: textInset.left, y: textInset.top + topContainerSize.height),
