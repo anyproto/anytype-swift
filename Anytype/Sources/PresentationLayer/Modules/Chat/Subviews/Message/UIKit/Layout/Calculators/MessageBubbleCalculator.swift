@@ -19,11 +19,11 @@ struct MessageBubbleCalculator {
         
         var gridLayout: MessageGridAttachmentsContainerLayout?
         var gridFrame: CGRect?
-        var gridContainerSize: CGSize = .zero
+        var topContainerSize: CGSize = .zero
         
         switch linkedObjects {
-        case .list(let array):
-            break
+        case .list, .none:
+            topContainerSize = CGSize(width: 0, height: 4)
         case .grid(let attachments):
             if attachments.isNotEmpty {
                 let size = CGSize(
@@ -38,13 +38,20 @@ struct MessageBubbleCalculator {
                     size: gridCalculatedLayout.size
                 )
                 gridFrame = gridCalculatedFrame
-                gridContainerSize = gridCalculatedFrame.inset(by: gridInset.inverted).size
+                topContainerSize = gridCalculatedFrame.inset(by: gridInset.inverted).size
             }
         case .bookmark(let objectDetails):
+            // TODO: Implement
             break
-        case .none:
-            // Add 4
+        }
+        
+        var bottomContainerSize: CGSize = .zero
+        switch linkedObjects {
+        case .list(let array):
+            // TODO: Implement
             break
+        case .grid, .bookmark, .none:
+            bottomContainerSize = CGSize(width: 0, height: 4)
         }
         
         var textLayout: MessageTextLayout?
@@ -58,7 +65,7 @@ struct MessageBubbleCalculator {
             let textCalculatedLayout = MessageTextCalculator.calculateSize(targetSize: size, message: message)
             textLayout = textCalculatedLayout
             let textCalculatedFrame = CGRect(
-                origin: CGPoint(x: textInset.left, y: textInset.top + gridContainerSize.height),
+                origin: CGPoint(x: textInset.left, y: textInset.top + topContainerSize.height),
                 size: textCalculatedLayout.size
             )
             textFrame = textCalculatedFrame
@@ -66,8 +73,8 @@ struct MessageBubbleCalculator {
         }
         
         let bubleSize = CGSize(
-            width: max(gridContainerSize.width, textContainerSize.width),
-            height: gridContainerSize.height + textContainerSize.height
+            width: max(topContainerSize.width, textContainerSize.width, bottomContainerSize.width),
+            height: topContainerSize.height + textContainerSize.height + bottomContainerSize.height
         )
         
         return MessageBubbleLayout(
