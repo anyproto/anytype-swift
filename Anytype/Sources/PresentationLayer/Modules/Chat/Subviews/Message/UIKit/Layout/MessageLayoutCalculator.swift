@@ -56,7 +56,8 @@ final class MessageLayoutCalculator {
         let bubbleLayout = MessageBubbleCalculator.calculateSize(
             targetSize: CGSize(width: bubbleWidth, height: .greatestFiniteMagnitude),
             message: NSAttributedString(data.messageString),
-            linkedObjects: data.linkedObjects
+            linkedObjects: data.linkedObjects,
+            position: data.position
         )
         
         let bubbleSize = bubbleLayout.bubbleSize

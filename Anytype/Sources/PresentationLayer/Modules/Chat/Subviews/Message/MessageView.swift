@@ -135,7 +135,7 @@ struct MessageView: View {
                 MessageObjectBigBookmarkView(details: item, position: data.position) {
                     output?.didSelectAttachment(data: data, details: $0)
                 }
-                .padding(Constants.attachmentsPadding)
+//                .padding(Constants.attachmentsPadding)
             }
         } else {
             attachmentFreeSpacing

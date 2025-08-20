@@ -7,42 +7,59 @@ struct MessageBubbleLayout: Equatable {
     let textLayout: MessageTextLayout?
     let gridAttachmentsFrame: CGRect?
     let gridAttachmentsLayout: MessageGridAttachmentsContainerLayout?
+    let bigBookmarkFrame: CGRect?
+    let bigBookmarkLayout: MessageBigBookmarkLayout?
 }
 
 struct MessageBubbleCalculator {
     
-    static func calculateSize(targetSize: CGSize, message: NSAttributedString, linkedObjects: MessageLinkedObjectsLayout?) -> MessageBubbleLayout {
+    static func calculateSize(targetSize: CGSize, message: NSAttributedString, linkedObjects: MessageLinkedObjectsLayout?, position: MessageHorizontalPosition) -> MessageBubbleLayout {
         
         let width = targetSize.width
-        let gridInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        let textInset = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
+        let attachmentsInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        var textInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         
         var gridLayout: MessageGridAttachmentsContainerLayout?
         var gridFrame: CGRect?
+        var bigBookmarkLayout: MessageBigBookmarkLayout?
+        var bigBookmarkFrame: CGRect?
         var topContainerSize: CGSize = .zero
         
         switch linkedObjects {
         case .list, .none:
-            topContainerSize = CGSize(width: 0, height: 4)
+            break
         case .grid(let attachments):
             if attachments.isNotEmpty {
                 let size = CGSize(
-                    width: width - gridInset.left - gridInset.right,
+                    width: width - attachmentsInsets.left - attachmentsInsets.right,
                     height: .greatestFiniteMagnitude
                 )
                 
                 let gridCalculatedLayout = MessageGridAttachmentsCaluculator.calculateSize(targetSize: size, attachments: attachments)
                 gridLayout = gridCalculatedLayout
                 let gridCalculatedFrame = CGRect(
-                    origin: CGPointMake(gridInset.top, gridInset.left),
+                    origin: CGPointMake(attachmentsInsets.top, attachmentsInsets.left),
                     size: gridCalculatedLayout.size
                 )
                 gridFrame = gridCalculatedFrame
-                topContainerSize = gridCalculatedFrame.inset(by: gridInset.inverted).size
+                topContainerSize = gridCalculatedFrame.inset(by: attachmentsInsets.inverted).size
             }
+            textInset.top -= 4
         case .bookmark(let objectDetails):
-            // TODO: Implement
-            break
+            let size = CGSize(
+                width: width - attachmentsInsets.left - attachmentsInsets.right,
+                height: .greatestFiniteMagnitude
+            )
+            let data = MessageBigBookmarkViewData(details: objectDetails, position: position)
+            let bookmarkCalculatedLayout = MessageBigBookmarkCalculator.calculateSize(targetSize: size, data: data)
+            bigBookmarkLayout = bookmarkCalculatedLayout
+            let bookmarkCalculatedFrame = CGRect(
+                origin: CGPointMake(attachmentsInsets.top, attachmentsInsets.left),
+                size: bookmarkCalculatedLayout.size
+            )
+            bigBookmarkFrame = bookmarkCalculatedFrame
+            topContainerSize = bookmarkCalculatedFrame.inset(by: attachmentsInsets.inverted).size
+            textInset.top -= 4
         }
         
         var bottomContainerSize: CGSize = .zero
@@ -50,8 +67,9 @@ struct MessageBubbleCalculator {
         case .list(let array):
             // TODO: Implement
             break
+            textInset.bottom -= 4
         case .grid, .bookmark, .none:
-            bottomContainerSize = CGSize(width: 0, height: 4)
+            break
         }
         
         var textLayout: MessageTextLayout?
@@ -82,7 +100,9 @@ struct MessageBubbleCalculator {
             textFrame: textFrame,
             textLayout: textLayout,
             gridAttachmentsFrame: gridFrame,
-            gridAttachmentsLayout: gridLayout
+            gridAttachmentsLayout: gridLayout,
+            bigBookmarkFrame: bigBookmarkFrame,
+            bigBookmarkLayout: bigBookmarkLayout
         )
     }
 }
