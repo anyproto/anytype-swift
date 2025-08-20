@@ -10,16 +10,17 @@ struct MessageBookmarkView: View {
     let position: MessageHorizontalPosition
     
     var body: some View {
-        MessageCommonBookmarkView(
-            icon: icon,
-            title: title,
-            description: description,
-            style: position.isRight ? .messageYour : .messageOther
-        )
-        .frame(height: 64)
+//        MessageCommonBookmarkView(
+//            icon: icon,
+//            title: title,
+//            description: description,
+//            style: position.isRight ? .messageYour : .messageOther
+//        )
+//        .frame(height: 64)
+        EmptyView()
         .frame(minWidth: 231)
-        .background(Color.Shape.transperentSecondary)
-        .cornerRadius(12, style: .continuous)
+//        .background(Color.Shape.transperentSecondary)
+//        .cornerRadius(12, style: .continuous)
     }
 }
 

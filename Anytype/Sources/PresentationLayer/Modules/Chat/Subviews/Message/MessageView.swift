@@ -132,9 +132,10 @@ struct MessageView: View {
                 }
                 .padding(Constants.attachmentsPadding)
             case .bookmark(let item):
-                MessageObjectBigBookmarkView(details: item, position: data.position) {
-                    output?.didSelectAttachment(data: data, details: $0)
-                }
+                EmptyView()
+//                MessageObjectBigBookmarkView(details: item, position: data.position) {
+//                    output?.didSelectAttachment(data: data, details: $0)
+//                }
 //                .padding(Constants.attachmentsPadding)
             }
         } else {
@@ -147,10 +148,11 @@ struct MessageView: View {
         if let objects = data.linkedObjects {
             switch objects {
             case .list(let items):
-                MessageListAttachmentsViewContainer(objects: items, position: data.position) {
-                    output?.didSelectAttachment(data: data, details: $0)
-                }
-                .padding(Constants.attachmentsPadding)
+                EmptyView()
+//                MessageListAttachmentsViewContainer(objects: items, position: data.position) {
+//                    output?.didSelectAttachment(data: data, details: $0)
+//                }
+//                .padding(Constants.attachmentsPadding)
             case .grid, .bookmark:
                 attachmentFreeSpacing
             }

@@ -19,7 +19,29 @@ extension MessageAttachmentStyle {
         }
     }
     
+    var titleUiColor: UIColor {
+        switch self {
+        case .messageOther:
+            .Text.primary
+        case .messageYour:
+            .Text.white
+        case .chatInput:
+            .Text.primary
+        }
+    }
+    
     var descriptionColor: Color {
+        switch self {
+        case .messageOther:
+            .Control.transparentSecondary
+        case .messageYour:
+            .Background.Chat.whiteTransparent
+        case .chatInput:
+            .Text.secondary
+        }
+    }
+    
+    var descriptionUiColor: UIColor {
         switch self {
         case .messageOther:
             .Control.transparentSecondary

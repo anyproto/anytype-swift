@@ -14,7 +14,7 @@ extension MessageBubbleViewData {
         self.linkedObjects = data.linkedObjects
         self.position = data.position
         // TODO: Fix it
-        self.messageYourBackgroundColor = .black
+        self.messageYourBackgroundColor = .black.withAlphaComponent(0.5)
     }
 }
 
@@ -25,6 +25,7 @@ final class MessageBubbleUIView: UIView {
     private lazy var textView = MessageTextUIView()
     private lazy var gridAttachments = MessageGridAttachmentUIViewContainer()
     private lazy var bigBookmarkView = MessageBigBookmarkUIView()
+    private lazy var listAttachments = MessageListAttachmentsUIView()
     
     // MARK: - Public properties
     
@@ -42,6 +43,7 @@ final class MessageBubbleUIView: UIView {
                 textView.layout = layout?.textLayout
                 gridAttachments.layout = layout?.gridAttachmentsLayout
                 bigBookmarkView.layout = layout?.bigBookmarkLayout
+                listAttachments.layout = layout?.listAttachmentsLayout
                 setNeedsLayout()
             }
         }
@@ -56,6 +58,7 @@ final class MessageBubbleUIView: UIView {
         textView.frame = layout.textFrame ?? .zero
         gridAttachments.frame = layout.gridAttachmentsFrame ?? .zero
         bigBookmarkView.frame = layout.bigBookmarkFrame ?? .zero
+        listAttachments.frame = layout.listAttachmentsFrame ?? .zero
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -75,19 +78,25 @@ final class MessageBubbleUIView: UIView {
         }
         
         switch data.linkedObjects {
-        case .list(let array):
+        case .list(let items):
+            listAttachments.data = MessageListAttachmentsViewData(objects: items, position: data.position)
+            addSubview(listAttachments)
             bigBookmarkView.removeFromSuperview()
             gridAttachments.removeFromSuperview()
         case .grid(let objects):
             gridAttachments.objects = objects
             addSubview(gridAttachments)
             bigBookmarkView.removeFromSuperview()
+            listAttachments.removeFromSuperview()
         case .bookmark(let objectDetails):
             bigBookmarkView.data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
             addSubview(bigBookmarkView)
             gridAttachments.removeFromSuperview()
+            listAttachments.removeFromSuperview()
         case nil:
-            break
+            bigBookmarkView.removeFromSuperview()
+            gridAttachments.removeFromSuperview()
+            listAttachments.removeFromSuperview()
         }
             
         layer.cornerRadius = 16

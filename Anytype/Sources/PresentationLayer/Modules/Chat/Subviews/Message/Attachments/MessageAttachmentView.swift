@@ -13,19 +13,20 @@ struct MessageAttachmentView: View {
     let syncError: SyncError?
     
     var body: some View {
-        MessageCommonObjectView(
-            icon: icon,
-            title: title,
-            description: description,
-            style: position.isRight ? .messageYour : .messageOther,
-            size: size,
-            syncStatus: syncStatus,
-            syncError: syncError
-        )
-        .frame(height: 64)
+//        MessageCommonObjectView(
+//            icon: icon,
+//            title: title,
+//            description: description,
+//            style: position.isRight ? .messageYour : .messageOther,
+//            size: size,
+//            syncStatus: syncStatus,
+//            syncError: syncError
+//        )
+//        .frame(height: 64)
+        EmptyView()
         .frame(minWidth: 231)
-        .background(Color.Shape.transperentSecondary)
-        .cornerRadius(12, style: .continuous)
+//        .background(Color.Shape.transperentSecondary)
+//        .cornerRadius(12, style: .continuous)
     }
 }
 

@@ -9,6 +9,8 @@ struct MessageBubbleLayout: Equatable {
     let gridAttachmentsLayout: MessageGridAttachmentsContainerLayout?
     let bigBookmarkFrame: CGRect?
     let bigBookmarkLayout: MessageBigBookmarkLayout?
+    let listAttachmentsFrame: CGRect?
+    let listAttachmentsLayout: MessageListAttachmentsLayout?
 }
 
 struct MessageBubbleCalculator {
@@ -18,6 +20,11 @@ struct MessageBubbleCalculator {
         let width = targetSize.width
         let attachmentsInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         var textInset = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+        
+        let attachmentsSize = CGSize(
+            width: width - attachmentsInsets.left - attachmentsInsets.right,
+            height: .greatestFiniteMagnitude
+        )
         
         var gridLayout: MessageGridAttachmentsContainerLayout?
         var gridFrame: CGRect?
@@ -30,12 +37,7 @@ struct MessageBubbleCalculator {
             break
         case .grid(let attachments):
             if attachments.isNotEmpty {
-                let size = CGSize(
-                    width: width - attachmentsInsets.left - attachmentsInsets.right,
-                    height: .greatestFiniteMagnitude
-                )
-                
-                let gridCalculatedLayout = MessageGridAttachmentsCaluculator.calculateSize(targetSize: size, attachments: attachments)
+                let gridCalculatedLayout = MessageGridAttachmentsCaluculator.calculateSize(targetSize: attachmentsSize, attachments: attachments)
                 gridLayout = gridCalculatedLayout
                 let gridCalculatedFrame = CGRect(
                     origin: CGPointMake(attachmentsInsets.top, attachmentsInsets.left),
@@ -46,30 +48,16 @@ struct MessageBubbleCalculator {
             }
             textInset.top -= 4
         case .bookmark(let objectDetails):
-            let size = CGSize(
-                width: width - attachmentsInsets.left - attachmentsInsets.right,
-                height: .greatestFiniteMagnitude
-            )
             let data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
-            let bookmarkCalculatedLayout = MessageBigBookmarkCalculator.calculateSize(targetSize: size, data: data)
+            let bookmarkCalculatedLayout = MessageBigBookmarkCalculator.calculateSize(targetSize: attachmentsSize, data: data)
             bigBookmarkLayout = bookmarkCalculatedLayout
             let bookmarkCalculatedFrame = CGRect(
-                origin: CGPointMake(attachmentsInsets.top, attachmentsInsets.left),
+                origin: CGPoint(x: attachmentsInsets.left, y: attachmentsInsets.top),
                 size: bookmarkCalculatedLayout.size
             )
             bigBookmarkFrame = bookmarkCalculatedFrame
             topContainerSize = bookmarkCalculatedFrame.inset(by: attachmentsInsets.inverted).size
             textInset.top -= 4
-        }
-        
-        var bottomContainerSize: CGSize = .zero
-        switch data.linkedObjects {
-        case .list(let array):
-            // TODO: Implement
-            break
-            textInset.bottom -= 4
-        case .grid, .bookmark, .none:
-            break
         }
         
         var textLayout: MessageTextLayout?
@@ -90,6 +78,25 @@ struct MessageBubbleCalculator {
             textContainerSize = textCalculatedFrame.inset(by: textInset.inverted).size
         }
         
+        var bottomContainerSize: CGSize = .zero
+        var listLayout: MessageListAttachmentsLayout?
+        var listFrame: CGRect?
+        switch data.linkedObjects {
+        case .list(let items):
+            let data = MessageListAttachmentsViewData(objects: items, position: data.position)
+            let listCalculatedLayout = MessageListAttachmentsCalculator.calculateSize(targetSize: attachmentsSize, data: data)
+            listLayout = listCalculatedLayout
+            let listCalculatedFrame = CGRect(
+                origin: CGPoint(x: attachmentsInsets.left, y: attachmentsInsets.top + topContainerSize.height + textContainerSize.height),
+                size: listCalculatedLayout.size
+            )
+            listFrame = listCalculatedFrame
+            bottomContainerSize = listCalculatedFrame.inset(by: attachmentsInsets.inverted).size
+            textInset.bottom -= 4
+        case .grid, .bookmark, .none:
+            break
+        }
+        
         let bubleSize = CGSize(
             width: max(topContainerSize.width, textContainerSize.width, bottomContainerSize.width),
             height: topContainerSize.height + textContainerSize.height + bottomContainerSize.height
@@ -102,7 +109,9 @@ struct MessageBubbleCalculator {
             gridAttachmentsFrame: gridFrame,
             gridAttachmentsLayout: gridLayout,
             bigBookmarkFrame: bigBookmarkFrame,
-            bigBookmarkLayout: bigBookmarkLayout
+            bigBookmarkLayout: bigBookmarkLayout,
+            listAttachmentsFrame: listFrame,
+            listAttachmentsLayout: listLayout
         )
     }
 }
