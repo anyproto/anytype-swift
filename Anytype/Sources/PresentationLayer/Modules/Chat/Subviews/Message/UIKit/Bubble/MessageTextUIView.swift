@@ -3,24 +3,6 @@ import Cache
 
 final class MessageTextUIView: UIView {
     
-    private struct CacheKey: Hashable {
-        let text: NSAttributedString?
-        let targetSize: CGSize
-    }
-    
-    private struct CacheValue: Hashable {
-        let textFrame: CGRect
-        let size: CGSize
-    }
-    
-    @MainActor
-    private enum Cache {
-        static var cache: MemoryStorage<CacheKey, CacheValue> = {
-            let config = MemoryConfig(countLimit: 1000)
-            return MemoryStorage<CacheKey, CacheValue>(config: config)
-        }()
-    }
-    
     // MARK: - Private properties
     
     private lazy var textLabel: UILabel = {
@@ -38,8 +20,12 @@ final class MessageTextUIView: UIView {
     // MARK: - Public properties
     
     var text: NSAttributedString? {
+        didSet { textLabel.attributedText = text }
+    }
+    
+    var layout: MessageTextLayout? {
         didSet {
-            if text != oldValue {
+            if layout != oldValue {
                 setNeedsLayout()
             }
         }
@@ -58,63 +44,17 @@ final class MessageTextUIView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let cacheValue = updateFramesIfNeeded(size: frame.size)
-        
-        textLabel.attributedText = text
-        textLabel.frame = cacheValue.textFrame
+        guard let layout else { return }
+        textLabel.frame = layout.textFrame
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let cacheValue = updateFramesIfNeeded(size: size)
-        return cacheValue.size
+        return layout?.size ?? .zero
     }
     
     // MARK: - Private
     
     private func setupLayout() {
         addSubview(textLabel)
-    }
-    
-    private func updateFramesIfNeeded(size: CGSize) -> CacheValue {
-        let key = CacheKey(text: text, targetSize: size)
-        
-        let width = size.width
-        
-        if let cacheValue = try? Cache.cache.object(forKey: key) {
-            return cacheValue
-        }
-        
-        let textIsEmpty = text?.string.isEmpty ?? true
-        var textSize: CGSize = .zero
-        if !textIsEmpty {
-            textLabel.attributedText = text
-            textSize = textLabel.sizeThatFits(
-                CGSize(
-                    width: width,
-                    height: .greatestFiniteMagnitude
-                )
-            )
-        }
-        
-        let textFrame = CGRect(
-            origin: .zero,
-            size: textSize
-        )
-        
-        let calculatedSize = CGSize(width: textFrame.width, height: textFrame.height)
-        
-        let cacheValue = CacheValue(
-            textFrame: textFrame,
-            size: calculatedSize
-        )
-        
-        Cache.cache.setObject(cacheValue, forKey: key)
-        
-        if size != calculatedSize {
-            let key = CacheKey(text: text, targetSize: calculatedSize)
-            Cache.cache.setObject(cacheValue, forKey: key)
-        }
-        
-        return cacheValue
     }
 }
