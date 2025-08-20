@@ -1,6 +1,7 @@
 import UIKit
 import Cache
 import Services
+import Kingfisher
 
 struct MessageBigBookmarkViewData: Equatable {
     let host: NSAttributedString
@@ -40,6 +41,11 @@ final class MessageBigBookmarkUIView: UIView {
     private lazy var hostLabel: UILabel = UILabel()
     private lazy var titleLabel: UILabel = UILabel()
     private lazy var descriptionLabel: UILabel = UILabel()
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
     
     // MARK: - Public properties
     
@@ -47,6 +53,7 @@ final class MessageBigBookmarkUIView: UIView {
         didSet {
             if data != oldValue {
                 updateView()
+                updateImage()
             }
         }
     }
@@ -54,6 +61,7 @@ final class MessageBigBookmarkUIView: UIView {
     var layout: MessageBigBookmarkLayout? {
         didSet {
             if layout != oldValue {
+                updateImage()
                 setNeedsLayout()
             }
         }
@@ -68,6 +76,7 @@ final class MessageBigBookmarkUIView: UIView {
         hostLabel.frame = layout.hostFrame ?? .zero
         titleLabel.frame = layout.titleFrame ?? .zero
         descriptionLabel.frame = layout.descriptionFrame ?? .zero
+        imageView.frame = layout.imageFrame ?? .zero
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -106,7 +115,23 @@ final class MessageBigBookmarkUIView: UIView {
             descriptionLabel.removeFromSuperview()
         }
         
+        imageView.layer.cornerRadius = 2
+        imageView.layer.masksToBounds = true
+        
         backgroundColor = .Shape.transperentSecondary
         layer.cornerRadius = 12
+        layer.masksToBounds = true
+    }
+    
+    private func updateImage() {
+        if let layout, let data, data.pictureId.isNotEmpty, let width = layout.imageFrame?.width {
+            let url = ImageMetadata(id: data.pictureId, side: .width(width)).contentUrl
+            imageView.kf.setImage(with: url)
+            addSubview(imageView)
+        } else {
+            imageView.kf.cancelDownloadTask()
+            imageView.image = nil
+            imageView.removeFromSuperview()
+        }
     }
 }

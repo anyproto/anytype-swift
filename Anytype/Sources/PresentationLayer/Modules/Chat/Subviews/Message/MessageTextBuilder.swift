@@ -27,9 +27,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
         message.uiKit.paragraphStyle = paragraphStyle
         
-        // Temporary
-//        let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
-        let textColor = UIColor.red
+        let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
         message.uiKit.foregroundColor = textColor
         let underlineColor = textColor.withAlphaComponent(0.3)
         message.uiKit.underlineColor = underlineColor

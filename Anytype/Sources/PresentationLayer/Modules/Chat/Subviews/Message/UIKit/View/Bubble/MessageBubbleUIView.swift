@@ -14,7 +14,7 @@ extension MessageBubbleViewData {
         self.linkedObjects = data.linkedObjects
         self.position = data.position
         // TODO: Fix it
-        self.messageYourBackgroundColor = .white
+        self.messageYourBackgroundColor = .black
     }
 }
 

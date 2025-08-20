@@ -13,12 +13,12 @@ struct MessageObjectBigBookmarkView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            if pictureId.isNotEmpty {
-                ImageIdIconView(imageId: pictureId, square: false, side: .original)
+//            if pictureId.isNotEmpty {
+//                ImageIdIconView(imageId: pictureId, square: false, side: .original)
 //                    .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fit)
-                    .cornerRadius(2)
-            }
-            HStack(spacing: 0) {
+//                    .cornerRadius(2)
+//            }
+//            HStack(spacing: 0) {
 //                VStack(alignment: .leading, spacing: 2) {
 //                    if let host = source?.host(), host.isNotEmpty {
 //                        Text(host)
@@ -42,7 +42,7 @@ struct MessageObjectBigBookmarkView: View {
 //                    }
 //                }
 //                Spacer()
-            }
+//            }
 //            .padding(.horizontal, 12)
 //            .padding(.vertical, 8)
         }
