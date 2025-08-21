@@ -162,6 +162,10 @@ public extension FeatureFlags {
         value(for: .fixCollectionViewReuseCrashInEditor)
     }
 
+    static var vaultBackToRoots: Bool {
+        value(for: .vaultBackToRoots)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -271,6 +275,7 @@ public extension FeatureFlags {
         .mediaCarouselForWidgets,
         .updatedHomePlusMenu,
         .fixCollectionViewReuseCrashInEditor,
+        .vaultBackToRoots,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
