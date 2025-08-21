@@ -44,7 +44,7 @@ struct ObjectIconExample: View {
                             .foregroundColor(.Text.primary)
                         AnytypeText("Space char", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.name(name: "A", iconOption: 1)))) }
+                        demoBlock { IconView(icon: .object(.space(.name(name: "A", iconOption: 1, circular: true)))) }
                     }
                     
                     Group {

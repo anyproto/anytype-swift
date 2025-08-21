@@ -34,6 +34,6 @@ extension SpaceView {
 
 public extension ObjectIcon.Space {
     static var mock: ObjectIcon.Space {
-        .name(name: Loc.untitled, iconOption: 1)
+        .name(name: Loc.untitled, iconOption: 1, circular: true)
     }
 }

@@ -50,7 +50,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
         case .space, .spaceView:
-            return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName)
+            return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName, circular: relations.spaceUxTypeValue?.isChat ?? false)
         case .objectType:
             return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
@@ -75,12 +75,12 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         return iconImage.isNotEmpty ? .bookmark(iconImage) : nil
     }
     
-    private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String) -> ObjectIcon {
+    private func spaceIcon(iconImage: String, iconOption: Int?, objectName: String, circular: Bool) -> ObjectIcon {
         if iconImage.isNotEmpty {
-            return .space(.imageId(iconImage, name: objectName, iconOption: iconOption ?? 1))
+            return .space(.imageId(iconImage, name: objectName, iconOption: iconOption ?? 1, circular: circular))
         }
         
-        return .space(.name(name: objectName, iconOption: iconOption ?? 1))
+        return .space(.name(name: objectName, iconOption: iconOption ?? 1, circular: circular))
     }
     
     private func fileIcon(fileMimeType: String, name: String) -> ObjectIcon {

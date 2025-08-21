@@ -60,9 +60,9 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
     @ViewBuilder
     private func spaceIconView(spaceIcon: ObjectIcon.Space) -> some View {
         switch spaceIcon {
-        case let .name(_, iconOption):
+        case let .name(_, iconOption, _):
             IconColorStorage.iconColor(iconOption: iconOption)
-        case let .imageId(imageId, _, iconOption):
+        case let .imageId(imageId, _, iconOption, _):
             ToggleCachedAsyncImage(
                 url: ImageMetadata(id: imageId, side: .width(50)).contentUrl,
                 urlCache: .anytypeImages
@@ -75,7 +75,7 @@ private struct DashboardWallpaperBluerredIcon: View, Equatable {
             } placeholder: {
                 IconColorStorage.iconColor(iconOption: iconOption)
             }
-        case .localPath(let path):
+        case .localPath(let path, _):
             LocalIconView(contentsOfFile: path)
         }
     }
