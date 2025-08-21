@@ -84,12 +84,12 @@ final class AnytypePreviewController: QLPreviewController {
             MainActor.assumeIsolated {
                 let currentIndex = controller.currentPreviewItemIndex
                 guard let self, (0..<self.items.count).contains(currentIndex) else { return }
-                guard !self.previewItemIndexInitialOpen else {
-                    self.previewItemIndexInitialOpen = false
+                if currentIndex == self.initialPreviewItemIndex, self.previewItemIndexInitialOpen {
                     return
                 }
                 let item = self.items[currentIndex]
                 let type = item.fileDetails.fileContentType.analyticsValue
+                self.previewItemIndexInitialOpen = false
                 AnytypeAnalytics.instance().logSwipeMedia(type: type, route: self.route)
             }
         }
