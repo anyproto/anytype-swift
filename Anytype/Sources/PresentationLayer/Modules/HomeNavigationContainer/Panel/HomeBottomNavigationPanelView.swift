@@ -90,6 +90,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
                 }
                 
+                if FeatureFlags.loadAttachmentsOnHomePlusMenu {
+                    Button { model.onAddMediaSelected() } label: {
+                        Label(Loc.photos, systemImage: "photo")
+                    }
+                }
+                
                 if let type = model.bookmarkObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
@@ -99,7 +105,19 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 }
 
                 Divider()
+                
                 Menu(Loc.more) {
+                    if FeatureFlags.loadAttachmentsOnHomePlusMenu {
+                        Button { model.onCameraSelected() } label: {
+                            Label(Loc.camera, systemImage: "camera")
+                        }
+                        Button { model.onAddFilesSelected() } label: {
+                            Label(Loc.files, systemImage: "doc")
+                        }
+                    }
+                    
+                    Divider()
+                    
                     ForEach(model.otherObjectTypes) { type in
                         Button {
                             model.onTapCreateObject(type: type)

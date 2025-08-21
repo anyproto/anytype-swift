@@ -273,6 +273,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let loadAttachmentsOnHomePlusMenu = FeatureDescription(
+        title: "Possibility to load attachments on home + menu",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: false,
+        debugValue: true
+    )
+    
     static let vaultBackToRoots = FeatureDescription(
         title: "New old design of vault cells",
         type: .feature(author: "vova@anytype.io", releaseVersion: "13"),

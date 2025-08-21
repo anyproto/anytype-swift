@@ -9,7 +9,7 @@ protocol ChatModuleOutput: AnyObject {
     func didSelectLinkToObject(data: LinkToObjectSearchModuleData)
     func onObjectSelected(screenData: ScreenData)
     func onPhotosPickerSelected(data: ChatPhotosPickerData)
-    func onFilePickerSelected(data: ChatFilesPickerData)
+    func onFilePickerSelected(data: FilesPickerData)
     func onShowCameraSelected(data: SimpleCameraData)
     func onUrlSelected(url: URL)
     func onWidgetsSelected()

@@ -136,6 +136,18 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         }
     }
     
+    func onAddMediaSelected() {
+        output?.onAddMediaSelected(spaceId: info.accountSpaceId)
+    }
+    
+    func onCameraSelected() {
+        output?.onCameraSelected(spaceId: info.accountSpaceId)
+    }
+    
+    func onAddFilesSelected() {
+        output?.onAddFilesSelected(spaceId: info.accountSpaceId)
+    }
+    
     // MARK: - Private
     
     private func participantSubscription() async {

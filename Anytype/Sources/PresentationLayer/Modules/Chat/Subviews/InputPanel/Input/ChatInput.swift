@@ -36,7 +36,7 @@ struct ChatInput: View {
     private var plusButton: some View {
         Menu {
             Button { onTapAddMedia() } label: {
-                Label(Loc.Chat.Actions.Menu.photos, systemImage: "photo")
+                Label(Loc.photos, systemImage: "photo")
             }
             
             if let objectType = mainObjectTypeToCreate() {
@@ -55,11 +55,11 @@ struct ChatInput: View {
             
             Menu {
                 Button { onTapCamera() } label: {
-                    Label(Loc.Chat.Actions.Menu.camera, systemImage: "camera")
+                    Label(Loc.camera, systemImage: "camera")
                 }
                 
                 Button { onTapAddFiles() } label: {
-                    Label(Loc.Chat.Actions.Menu.files, systemImage: "doc")
+                    Label(Loc.files, systemImage: "doc")
                 }
                 
                 Divider()

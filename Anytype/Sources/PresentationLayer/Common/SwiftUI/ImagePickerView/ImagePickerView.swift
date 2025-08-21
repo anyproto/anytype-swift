@@ -1,7 +1,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-enum ImagePickerMediaType {
+enum ImagePickerMediaType: Equatable {
     case image(image: UIImage, type: String)
     case video(URL)
 }

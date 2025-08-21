@@ -395,4 +395,8 @@ extension Container {
     var sharingExtensionActionService: Factory<any SharingExtensionActionServiceProtocol> {
         self { SharingExtensionActionService() }.shared
     }
+    
+    var spaceFileUploadService: Factory<any SpaceFileUploadServiceProtocol> {
+        self { SpaceFileUploadService() }.singleton
+    }
 }

@@ -91,6 +91,26 @@ struct SpaceHubCoordinatorView: View {
                 SettingsCoordinatorView()
                     .pageNavigation(model.pageNavigation)
             }
+        
+            // load photos
+            .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
+            .onChange(of: model.photosItems) { _ in
+                model.photosPickerFinished()
+            }
+        
+            // load from camera
+            .cameraAccessFullScreenCover(item: $model.cameraData) {
+                SimpleCameraView(data: $0)
+            }
+            
+            // load files
+            .fileImporter(
+                isPresented: $model.showFilesPicker,
+                allowedContentTypes: [.data],
+                allowsMultipleSelection: true
+            ) { result in
+                model.fileImporterFinished(result: result)
+            }
     }
     
     private var content: some View {  

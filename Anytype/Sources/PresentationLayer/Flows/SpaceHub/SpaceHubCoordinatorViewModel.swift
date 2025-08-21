@@ -3,6 +3,7 @@ import DeepLinks
 import Services
 import Combine
 import AnytypeCore
+import PhotosUI
 
 
 struct SpaceHubNavigationItem: Hashable { }
@@ -31,6 +32,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var showSpaceTypeForCreate = false
     @Published var shouldScanQrCode = false
     @Published var showAppSettings = false
+    
+    @Published var photosItems: [PhotosPickerItem] = []
+    @Published var showPhotosPicker = false
+    @Published var cameraData: SimpleCameraData?
+    @Published var showFilesPicker = false
+    private var uploadSpaceId: String?
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -94,6 +101,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.spaceFileUploadService)
+    private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
         
     
     private var needSetup = true
@@ -227,6 +236,40 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     func onSelectAppSettings() {
         showAppSettings = true
+    }
+    
+    func photosPickerFinished() {
+        defer { photosItems = [] }
+        guard let uploadSpaceId else { return }
+        spaceFileUploadService.uploadPhotoItems(photosItems, spaceId: uploadSpaceId)
+    }
+    
+    func onAddMediaSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showPhotosPicker = true
+    }
+    
+    func onCameraSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        cameraData = SimpleCameraData(onMediaTaken: { [weak self] mediaType in
+            guard let self, let uploadSpaceId else { return }
+            spaceFileUploadService.uploadImagePickerMedia(type: mediaType, spaceId: uploadSpaceId)
+        })
+    }
+    
+    func onAddFilesSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showFilesPicker = true
+    }
+    
+    func fileImporterFinished(result: Result<[URL], any Error>) {
+        switch result {
+        case .success(let files):
+            guard let uploadSpaceId else { return }
+            spaceFileUploadService.uploadFiles(files, spaceId: uploadSpaceId)
+        case .failure:
+            break
+        }
     }
     
     // MARK: - Private

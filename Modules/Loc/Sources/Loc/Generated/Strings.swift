@@ -345,6 +345,7 @@ public enum Loc {
   }
   public static let personalization = Loc.tr("Localizable", "Personalization", fallback: "Personalization")
   public static let photo = Loc.tr("Localizable", "Photo", fallback: "Photo")
+  public static let photos = Loc.tr("Localizable", "Photos", fallback: "Photos")
   public static let picture = Loc.tr("Localizable", "Picture", fallback: "Picture")
   public static let pin = Loc.tr("Localizable", "Pin", fallback: "Pin")
   public static func pinLimitReached(_ p1: Int) -> String {
@@ -755,13 +756,6 @@ public enum Loc {
     public static let newMessages = Loc.tr("Localizable", "Chat.NewMessages", fallback: "New Messages")
     public static func replyTo(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Chat.ReplyTo", String(describing: p1), fallback: "Reply to %@")
-    }
-    public enum Actions {
-      public enum Menu {
-        public static let camera = Loc.tr("Localizable", "Chat.Actions.Menu.Camera", fallback: "Camera")
-        public static let files = Loc.tr("Localizable", "Chat.Actions.Menu.Files", fallback: "Files")
-        public static let photos = Loc.tr("Localizable", "Chat.Actions.Menu.Photos", fallback: "Photos")
-      }
     }
     public enum AttachedObject {
       public static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
