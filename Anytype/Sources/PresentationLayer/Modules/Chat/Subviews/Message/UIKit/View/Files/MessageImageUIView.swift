@@ -83,27 +83,33 @@ final class MessageImageUIView: UIView {
             side: .width(min(frame.width, frame.height))
         ).contentUrl
         
-        if imageURL != newUrl {
-            imageURL = newUrl
-            imageTask?.cancel()
-            imageView.image = nil
-                        
-            if let newUrl {
-                
-                errorIndicator.isHidden = true
-                loadingIndicator.isHidden = false
-                
-                imageTask = Task { [weak self, cache] in
-                    do {
-                        let image = try await cache.loadImage(from: newUrl)
-                        self?.errorIndicator.isHidden = true
-                        self?.loadingIndicator.isHidden = true
-                        guard !Task.isCancelled else { return }
-                        self?.imageView.image = image
-                    } catch {
-                        self?.errorIndicator.isHidden = false
-                        self?.loadingIndicator.isHidden = true
-                    }
+        guard imageURL != newUrl else { return }
+        
+        imageURL = newUrl
+        imageTask?.cancel()
+        imageTask = nil
+        imageView.image = nil
+        
+        guard let newUrl else { return }
+        
+        if let image = try? cache.cachedImage(from: newUrl) {
+            imageView.image = image
+            errorIndicator.isHidden = true
+            loadingIndicator.isHidden = true
+        } else {
+            errorIndicator.isHidden = true
+            loadingIndicator.isHidden = false
+            
+            imageTask = Task { [weak self, cache] in
+                do {
+                    let image = try await cache.loadImage(from: newUrl)
+                    self?.errorIndicator.isHidden = true
+                    self?.loadingIndicator.isHidden = true
+                    guard !Task.isCancelled else { return }
+                    self?.imageView.image = image
+                } catch {
+                    self?.errorIndicator.isHidden = false
+                    self?.loadingIndicator.isHidden = true
                 }
             }
         }
