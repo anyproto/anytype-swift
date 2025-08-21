@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct ServerConfigurationView: View {
 
@@ -16,23 +17,17 @@ struct ServerConfigurationView: View {
                 TitleView(title: Loc.Server.network)
                 
                 ScrollView {
-                    VStack(spacing: 0) {
-                        VStack(spacing: 0) {
-                            ForEach(0..<model.mainRows.count, id: \.self) { rowIndex in
-                                makeRow(row: model.mainRows[rowIndex])
-                            }
+                    LazyVStack(spacing: 0) {
+                        ForEach(0..<model.mainRows.count, id: \.self) { rowIndex in
+                            makeRow(row: model.mainRows[rowIndex])
                         }
-                        .cornerRadius(16, style: .continuous)
                         
                         if model.rows.isNotEmpty {
                             SectionHeaderView(title: Loc.Server.networks)
                             
-                            VStack(spacing: 0) {
-                                ForEach(0..<model.rows.count, id: \.self) { rowIndex in
-                                    makeRow(row: model.rows[rowIndex])
-                                }
+                            ForEach(0..<model.rows.count, id: \.self) { rowIndex in
+                                makeRow(row: model.rows[rowIndex])
                             }
-                            .cornerRadius(16, style: .continuous)
                         }
                     }
                 }
@@ -43,10 +38,9 @@ struct ServerConfigurationView: View {
                 }
                 .padding(16)
             }
-            .background(Color.Auth.modalBackground)
+            .background(Color.Background.secondary)
             .navigationBarHidden(true)
         }
-        .preferredColorScheme(.dark)
         .anytypeSheet(isPresented: $model.showLocalConfigurationAlert) {
             ServerLocalConfigurationAlert {
                 model.setup(config: .localOnly)
@@ -57,20 +51,18 @@ struct ServerConfigurationView: View {
     private func makeRow(row: ServerConfigurationRow) -> some View {
         HStack {
             AnytypeText(row.title, style: .bodyRegular)
-                .foregroundColor(.Auth.text)
+                .foregroundColor(.Text.primary)
             Spacer()
             if row.isSelected {
                 Image(asset: .X24.tick)
-                    .foregroundColor(.Auth.text)
+                    .foregroundColor(.Text.primary)
             }
         }
-        .padding(.horizontal, 20)
         .frame(height: 48)
-        .fixTappableArea()
         .newDivider()
+        .fixTappableArea()
         .onTapGesture {
             row.onTap()
         }
-        .background(Color.Auth.modalContent)
     }
 }

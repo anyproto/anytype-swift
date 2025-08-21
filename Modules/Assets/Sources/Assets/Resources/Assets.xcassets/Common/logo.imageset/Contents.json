@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "white_logo.pdf",
+      "filename" : "logo.svg",
       "idiom" : "universal"
     }
   ],
@@ -10,6 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true
+    "template-rendering-intent" : "template"
   }
 }

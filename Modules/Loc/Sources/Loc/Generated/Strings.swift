@@ -699,6 +699,12 @@ public enum Loc {
         }
       }
     }
+    public enum Primary {
+      public enum Greeting {
+        public static let pt1 = Loc.tr("Localizable", "Auth.Primary.Greeting.pt1", fallback: "Encrypted, local,")
+        public static let pt2 = Loc.tr("Localizable", "Auth.Primary.Greeting.pt2", fallback: "yours forever")
+      }
+    }
   }
   public enum BlockLink {
     public enum PreviewSettings {
@@ -1703,7 +1709,7 @@ public enum Loc {
     public static let addButton = Loc.tr("Localizable", "Server.AddButton", fallback: "Add Self-hosted Network")
     public static let anytype = Loc.tr("Localizable", "Server.Anytype", fallback: "Anytype")
     public static let localOnly = Loc.tr("Localizable", "Server.LocalOnly", fallback: "Local-only")
-    public static let network = Loc.tr("Localizable", "Server.Network", fallback: "Network")
+    public static let network = Loc.tr("Localizable", "Server.Network", fallback: "Select Network")
     public static let networks = Loc.tr("Localizable", "Server.Networks", fallback: "Networks")
     public enum LocalOnly {
       public enum Alert {

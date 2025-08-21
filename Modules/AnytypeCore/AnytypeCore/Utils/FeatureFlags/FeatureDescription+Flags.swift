@@ -286,6 +286,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let brandNewAuthFlow = FeatureDescription(
+        title: "New auth flow",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: false,
+        debugValue: false
+    )
 
     // MARK: - Debug
     

@@ -170,6 +170,10 @@ public extension FeatureFlags {
         value(for: .vaultBackToRoots)
     }
 
+    static var brandNewAuthFlow: Bool {
+        value(for: .brandNewAuthFlow)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -281,6 +285,7 @@ public extension FeatureFlags {
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
+        .brandNewAuthFlow,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

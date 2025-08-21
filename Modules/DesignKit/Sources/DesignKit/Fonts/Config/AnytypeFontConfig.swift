@@ -276,8 +276,21 @@ public extension AnytypeFont {
                 lineHeight: 48,
                 kern: -1.6
             )
+        case .riccioneTitle:
+            return AnytypeFontConfig(
+                font: FontFamily.RiccioneXlight.regular,
+                size: 44,
+                lineHeight: 44,
+                kern: -0.08
+            )
+        case .interTitle:
+            return AnytypeFontConfig(
+                font: FontFamily.Inter.regular,
+                size: 40,
+                lineHeight: 44,
+                kern: -2
+            )
         }
-        
     }
     
     /// Line spacing.
