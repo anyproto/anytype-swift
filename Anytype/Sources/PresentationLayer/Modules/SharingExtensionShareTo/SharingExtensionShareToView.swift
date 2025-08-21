@@ -42,6 +42,9 @@ struct SharingExtensionShareToView: View {
     
     private var list: some View {
         PlainList {
+            ListSectionHeaderView(title: Loc.Sharing.ObjectList.title)
+                .newDivider()
+                .padding(.horizontal, 16)
             if let chatRow = model.chatRow {
                 SharingExtensionsChatRow(data: chatRow)
                     .fixTappableArea()

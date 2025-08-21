@@ -1892,6 +1892,9 @@ public enum Loc {
         public static let title = Loc.tr("Localizable", "Sharing.Navigation.RightButton.Title", fallback: "Done")
       }
     }
+    public enum ObjectList {
+      public static let title = Loc.tr("Localizable", "Sharing.ObjectList.title", fallback: "Select destination")
+    }
     public enum Text {
       public static let noteObject = Loc.tr("Localizable", "Sharing.Text.NoteObject", fallback: "Note object")
       public static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Blocks")
