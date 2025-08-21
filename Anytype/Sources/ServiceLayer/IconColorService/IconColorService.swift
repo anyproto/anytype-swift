@@ -44,7 +44,7 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
         switch icon {
         case .space(let spaceIcon):
             switch spaceIcon {
-            case let .imageId(imageId, _, iconOption):
+            case let .imageId(imageId, _, iconOption, _):
                 do {
                     guard let url = ImageMetadata(id: imageId, side: .width(10)).contentUrl else {
                         throw CommonError.undefined
@@ -56,10 +56,10 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
                     let color = IconColorStorage.iconColor(iconOption: iconOption)
                     return optimizeColor(UIColor(color)).suColor
                 }
-            case .name(_, let iconOption):
+            case .name(_, let iconOption, _):
                 let color = IconColorStorage.iconColor(iconOption: iconOption)
                 return optimizeColor(UIColor(color)).suColor
-            case .localPath(let path):
+            case .localPath(let path, _):
                 guard let image = UIImage(contentsOfFile: path) else {
                     throw CommonError.undefined
                 }

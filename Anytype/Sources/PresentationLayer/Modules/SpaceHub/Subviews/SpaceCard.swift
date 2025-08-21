@@ -18,14 +18,24 @@ struct SpaceCard: View, @preconcurrency Equatable {
         Button {
             onTap()
         } label: {
-            SpaceCardLabel(
-                spaceData: spaceData,
-                wallpaper: wallpaper,
-                draggable: draggable,
-                draggedSpace: $draggedSpace
-            )
+            if !FeatureFlags.vaultBackToRoots {
+                SpaceCardLabel(
+                    spaceData: spaceData,
+                    wallpaper: wallpaper,
+                    draggable: draggable,
+                    draggedSpace: $draggedSpace
+                )
+            } else {
+                NewSpaceCardLabel(
+                    spaceData: spaceData,
+                    wallpaper: wallpaper,
+                    draggable: draggable,
+                    draggedSpace: $draggedSpace
+                )
+            }
         }
         .disabled(FeatureFlags.spaceLoadingForScreen ? false : spaceData.spaceView.isLoading)
+        .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         .contextMenu { menuItems }
     }
     

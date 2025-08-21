@@ -3,11 +3,8 @@ import Services
 
 
 struct PublishedSitesView: View {
-    @StateObject private var model: PublishedSitesViewModel
-    
-    init() {
-        _model = StateObject(wrappedValue: PublishedSitesViewModel())
-    }
+    @StateObject private var model = PublishedSitesViewModel()
+    @Environment(\.pageNavigation) private var pageNavigation
     
     var body: some View {
         VStack(spacing: 0) {
@@ -15,7 +12,11 @@ struct PublishedSitesView: View {
             TitleView(title: Loc.mySites)
             content
         }
+        .snackbar(toastBarData: $model.toastBarData)
+        .safariSheet(url: $model.safariUrl)
+        
         .task { await model.loadData() }
+        .onAppear { model.pageNavigation = pageNavigation }
     }
     
     var content: some View {
@@ -49,14 +50,83 @@ struct PublishedSitesView: View {
     
     private func siteRow(_ site: PublishState) -> some View {
         HStack(spacing: 12) {
-            IconView(icon: site.details.objectIconImage)
-                .frame(width: 48, height: 48)
-            Text(site.details.name)
-                .anytypeStyle(.uxTitle2Medium)
-            Spacer()
+            Button {
+                model.onOpenObjectTap(site)
+            } label: {
+                IconView(icon: site.details.objectIconImage)
+                    .frame(width: 48, height: 48)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(site.details.name)
+                        .anytypeStyle(.uxTitle2Medium)
+                        .lineLimit(1)
+                    HStack(alignment: .center, spacing: 6) {
+                        Text("\(model.formattedDate(site.date))")
+                            .anytypeStyle(.caption1Regular)
+                            .foregroundStyle(Color.Text.secondary)
+                            .lineLimit(1)
+                        
+                        Image(asset: .CustomIcons.ellipse)
+                            .resizable()
+                            .frame(width: 2, height: 2)
+                            .foregroundStyle(Color.Text.secondary)
+                        
+                        Text("\(model.formattedSize(site.size))")
+                            .anytypeStyle(.caption1Regular)
+                            .foregroundStyle(Color.Text.secondary)
+                            .lineLimit(1)
+                    }
+                }
+                Spacer()
+            }
+            
+            
+            Menu {
+                menuButtons(site)
+            } label: {
+                MoreIndicator()
+            }
+
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+    }
+    
+    private func menuButtons(_ site: PublishState) -> some View {
+        Group {
+            Button {
+                model.onOpenObjectTap(site)
+            } label: {
+                Text(Loc.openObject)
+                Spacer()
+                Image(systemName: "arrow.down.left.and.arrow.up.right")
+            }
+            
+            Button {
+                model.onViewInBrowserTap(site)
+            } label: {
+                Text(Loc.viewInBrowser)
+                Spacer()
+                Image(systemName: "globe")
+            }
+            
+            Button {
+                model.onCopyLinkTap(site)
+            } label: {
+                Text(Loc.copyLink)
+                Spacer()
+                Image(systemName: "document.on.document")
+            }
+            
+            Divider()
+            
+            AsyncButton(role: .destructive) {
+                try await model.onUnpublishTap(site)
+            } label: {
+                Text(Loc.unpublish)
+                Spacer()
+                Image(systemName: "xmark")
+            }
+        }
     }
     
     private var emptyView: some View {
@@ -78,8 +148,4 @@ struct PublishedSitesView: View {
             )
         )
     }
-}
-
-#Preview {
-    PublishedSitesView()
 }

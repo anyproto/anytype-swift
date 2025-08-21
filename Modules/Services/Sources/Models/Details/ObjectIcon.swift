@@ -64,15 +64,15 @@ public extension ObjectIcon {
 
 public extension ObjectIcon {
     enum Space: Hashable, Sendable, Codable {
-        case name(name: String, iconOption: Int)
-        case imageId(_ imageId: String, name: String, iconOption: Int)
-        case localPath(_ path: String)
+        case name(name: String, iconOption: Int, circular: Bool)
+        case imageId(_ imageId: String, name: String, iconOption: Int, circular: Bool)
+        case localPath(_ path: String, circular: Bool)
         
         var imageId: String? {
             switch self {
-            case .imageId(let imageId, _, _):
+            case .imageId(let imageId, _, _, _):
                 return imageId
-            case .name(_, _), .localPath(_):
+            case .name, .localPath:
                 return nil
             }
         }

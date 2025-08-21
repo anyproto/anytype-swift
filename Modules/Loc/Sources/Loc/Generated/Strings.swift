@@ -411,6 +411,7 @@ public enum Loc {
   public static let selfHost = Loc.tr("Localizable", "Self Host", fallback: "Self Host")
   public static let send = Loc.tr("Localizable", "Send", fallback: "Send")
   public static let `set` = Loc.tr("Localizable", "Set", fallback: "Query")
+  public static let setAccess = Loc.tr("Localizable", "Set access", fallback: "Set access")
   public static let setAsDefault = Loc.tr("Localizable", "Set as default", fallback: "Set as default")
   public static func setOf(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Set of", String(describing: p1), fallback: "Query of %@")
@@ -504,6 +505,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Video", p1, fallback: "Plural format key: Video")
   }
   public static let view = Loc.tr("Localizable", "View", fallback: "View")
+  public static let viewInBrowser = Loc.tr("Localizable", "View in Browser", fallback: "View in Browser")
   public static let views = Loc.tr("Localizable", "Views", fallback: "Views")
   public static let wallpaper = Loc.tr("Localizable", "Wallpaper", fallback: "Wallpaper")
   public static let webPages = Loc.tr("Localizable", "Web pages", fallback: "Web pages")

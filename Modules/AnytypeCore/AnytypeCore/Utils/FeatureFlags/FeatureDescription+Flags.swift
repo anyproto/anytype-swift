@@ -279,6 +279,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let vaultBackToRoots = FeatureDescription(
+        title: "New old design of vault cells",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Debug
     

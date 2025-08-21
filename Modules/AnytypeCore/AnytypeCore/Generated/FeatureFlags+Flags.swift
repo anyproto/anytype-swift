@@ -166,6 +166,10 @@ public extension FeatureFlags {
         value(for: .loadAttachmentsOnHomePlusMenu)
     }
 
+    static var vaultBackToRoots: Bool {
+        value(for: .vaultBackToRoots)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -276,6 +280,7 @@ public extension FeatureFlags {
         .updatedHomePlusMenu,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
+        .vaultBackToRoots,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
