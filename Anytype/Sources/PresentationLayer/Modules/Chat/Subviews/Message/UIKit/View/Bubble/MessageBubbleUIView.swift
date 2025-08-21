@@ -5,16 +5,23 @@ struct MessageBubbleViewData: Equatable {
     let messageText: NSAttributedString
     let linkedObjects: MessageLinkedObjectsLayout?
     let position: MessageHorizontalPosition
+//    let reactions: MessageReactionListData
     let messageYourBackgroundColor: UIColor
 }
 
 extension MessageBubbleViewData {
     init(data: MessageViewData) {
+        let color = UIColor.black.withAlphaComponent(0.5)
         self.messageText = NSAttributedString(data.messageString)
         self.linkedObjects = data.linkedObjects
         self.position = data.position
+//        self.reactions = MessageReactionListData(
+//            reactions: data.reactions.map { MessageReactionData(emoji: $0.emoji, content: $0.content, selected: $0.selected, position: $0.position, messageYourBackgroundColor: color) },
+//            canAddReaction: data.canAddReaction,
+//            position: data.position
+//        )
         // TODO: Fix it
-        self.messageYourBackgroundColor = .black.withAlphaComponent(0.5)
+        self.messageYourBackgroundColor = color
     }
 }
 
@@ -98,7 +105,7 @@ final class MessageBubbleUIView: UIView {
             gridAttachments.removeFromSuperview()
             listAttachments.removeFromSuperview()
         }
-            
+        
         layer.cornerRadius = 16
         layer.masksToBounds = true
         backgroundColor = data.position.isRight ? data.messageYourBackgroundColor : .Background.Chat.bubbleSomeones

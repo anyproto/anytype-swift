@@ -34,6 +34,7 @@ final class MessageLayoutCalculator {
         let iconSide: CGFloat = 32
         let spacingBetweenIconAndText: CGFloat = 6
         let spacingForOtherSize: CGFloat = 26
+        let verticalSpacing: CGFloat = 6
         
         let showIcon: Bool
         let iconSize: CGSize?
@@ -51,16 +52,44 @@ final class MessageLayoutCalculator {
         
         
         let iconWidth = iconSize.map { $0.width + spacingBetweenIconAndText } ?? 0
-        let bubbleWidth = size.width - iconWidth - spacingForOtherSize - containerInsets.left - containerInsets.right
-        
-        let bubbleLayout = MessageBubbleCalculator.calculateSize(
-            targetSize: CGSize(width: bubbleWidth, height: .greatestFiniteMagnitude),
-            data: MessageBubbleViewData(data: data)
+        let mainContentSize = CGSize(
+            width: size.width - iconWidth - spacingForOtherSize - containerInsets.left - containerInsets.right,
+            height: .greatestFiniteMagnitude
         )
         
-        let bubbleSize = bubbleLayout.bubbleSize
+        let bubbleLayout = MessageBubbleCalculator.calculateSize(targetSize: mainContentSize, data: MessageBubbleViewData(data: data))
+        let reactionsData = MessageReactionListData(data: data)
+        let reactionsLayout = MessageReactionsListCalculator.calculateSize(targetSize: mainContentSize, data: reactionsData)
+        
         var iconFrame: CGRect?
         var bubbleFrame: CGRect?
+        var reactionsFrame: CGRect?
+        
+        // Layout Main Vertical
+        var currentYForMainContent: CGFloat = 0
+        
+        if bubbleLayout.bubbleSize.isNotZero {
+            bubbleFrame = CGRect(
+                origin: .zero,
+                size: bubbleLayout.bubbleSize
+            )
+            currentYForMainContent += bubbleLayout.bubbleSize.height + verticalSpacing
+        }
+        
+        if reactionsData.showReactions {
+            reactionsFrame = CGRect(
+                origin: CGPoint(x: 0, y: currentYForMainContent),
+                size: reactionsLayout.size
+            )
+            currentYForMainContent += bubbleLayout.bubbleSize.height + verticalSpacing
+        }
+        
+        let yForImage = max(bubbleFrame?.maxY ?? 0, reactionsFrame?.maxY ?? 0)
+        
+        
+        
+        
+        let bubbleSize = bubbleLayout.bubbleSize
         
         let size = CGSize(
             width: iconWidth + bubbleSize.width + spacingForOtherSize + containerInsets.left + containerInsets.right,
@@ -89,6 +118,10 @@ final class MessageLayoutCalculator {
                 )
             }
             
+            if reactionsData.showReactions {
+                
+            }
+            
         } else {
             
             if let iconSize {
@@ -114,7 +147,8 @@ final class MessageLayoutCalculator {
             cellSize: size,
             iconFrame: showIcon ? iconFrame : nil,
             bubbleFrame: bubbleFrame,
-            bubbleLayout: bubbleLayout
+            bubbleLayout: bubbleLayout,
+            reactionsFrame: <#T##CGRect?#>
         )
     }
 }

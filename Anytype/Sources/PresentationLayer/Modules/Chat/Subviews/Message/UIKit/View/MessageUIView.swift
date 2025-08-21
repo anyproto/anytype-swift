@@ -7,6 +7,7 @@ final class MessageUIView: UIView, UIContentView {
     
     private lazy var iconView = IconViewUIKit()
     private lazy var bubbleView = MessageBubbleUIView()
+    private lazy var reactionsView = MessageReactionListUIView()
     
     private var data: MessageViewData {
         didSet {
@@ -62,26 +63,35 @@ final class MessageUIView: UIView, UIContentView {
         if let bubbleFrame = layout.bubbleFrame {
             bubbleView.data = MessageBubbleViewData(data: data)
             bubbleView.frame = bubbleFrame
-            bubbleView.isHidden = false
             bubbleView.layout = layout.bubbleLayout
+            addSubview(bubbleView)
         } else {
-            bubbleView.isHidden = true
+            bubbleView.removeFromSuperview()
         }
         
         if let iconFrame = layout.iconFrame {
             iconView.icon = data.authorIcon
             iconView.frame = iconFrame
-            iconView.isHidden = false
+            addSubview(iconView)
         } else {
-            iconView.isHidden = true
+            iconView.removeFromSuperview()
+        }
+        
+        if let reactionsFrame = layout.reactionsFrame {
+            reactionsView.frame = reactionsFrame
+            reactionsView.layout = layout.reactionsLayout
+            reactionsView.data = MessageReactionListData(data: data)
+            addSubview(reactionsView)
+        } else {
+            reactionsView.removeFromSuperview()
         }
     }
     
     // MARK: - Private
     
     private func setupView() {
-        addSubview(iconView)
-        addSubview(bubbleView)
+//        addSubview(iconView)
+//        addSubview(bubbleView)
     }
     
     private func updateLayoutIfNeeded(targetSize: CGSize) {
