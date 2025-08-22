@@ -36,6 +36,7 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     }
     
     private let messageLimitStorage = AtomicStorage(MessageLimitStorage())
+    private let currentDateProvider: any ChatMessageLimitsDateProviderProtocol = Container.shared.chatDateProvider()
     
     var textLimit: Int {
         ChatMessageGlobalLimits.textLimit
@@ -62,7 +63,7 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     
     func canSendMessage() -> Bool {
         messageLimitStorage.access { value in
-            if value.firstMessageSentDate.distance(to: Date()) > Constants.sendMessagesTimeLimitSec {
+            if value.firstMessageSentDate.distance(to: currentDateProvider.currentDate()) > Constants.sendMessagesTimeLimitSec {
                 return true
             }
             
@@ -76,9 +77,9 @@ final class ChatMessageLimits: ChatMessageLimitsProtocol, Sendable {
     
     func markSentMessage() {
         messageLimitStorage.access { value in
-            if value.firstMessageSentDate.distance(to: Date()) > Constants.sendMessagesTimeLimitSec {
+            if value.firstMessageSentDate.distance(to: currentDateProvider.currentDate()) > Constants.sendMessagesTimeLimitSec {
                 value.countMessagesSent = 1
-                value.firstMessageSentDate = Date()
+                value.firstMessageSentDate = currentDateProvider.currentDate()
             } else {
                 value.countMessagesSent += 1
             }
