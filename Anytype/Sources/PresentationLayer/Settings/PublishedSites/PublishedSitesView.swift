@@ -55,6 +55,7 @@ struct PublishedSitesView: View {
             } label: {
                 IconView(icon: site.details.objectIconImage)
                     .frame(width: 48, height: 48)
+                    .disabled(true)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(site.details.name)
                         .anytypeStyle(.uxTitle2Medium)
