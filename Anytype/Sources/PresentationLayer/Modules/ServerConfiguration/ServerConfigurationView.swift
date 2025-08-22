@@ -33,7 +33,10 @@ struct ServerConfigurationView: View {
                 }
                 .padding(.horizontal, 16)
                 
-                StandardButton(Loc.Server.addButton, style: .secondaryMedium) {
+                StandardButton(
+                    Loc.Server.addButton,
+                    style: FeatureFlags.brandNewAuthFlow ? .secondaryOvalLarge : .secondaryMedium)
+                {
                     model.onTapAddServer()
                 }
                 .padding(16)

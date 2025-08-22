@@ -86,7 +86,7 @@ struct PrimaryAuthView: View {
             StandardButton(
                 Loc.Auth.Button.join,
                 inProgress: model.inProgress,
-                style: .primaryLarge,
+                style: .primaryOvalLarge,
                 action: {
                     model.onJoinButtonTap()
                 }
@@ -94,7 +94,7 @@ struct PrimaryAuthView: View {
             
             StandardButton(
                 Loc.Auth.logIn,
-                style: .secondaryLarge,
+                style: .secondaryOvalLarge,
                 action: {
                     model.onLoginButtonTap()
                 }
