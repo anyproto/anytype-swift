@@ -65,8 +65,7 @@ struct PublishedSitesView: View {
                             .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                         
-                        Image(asset: .CustomIcons.ellipse)
-                            .resizable()
+                        Circle()
                             .frame(width: 2, height: 2)
                             .foregroundStyle(Color.Text.secondary)
                         
@@ -84,6 +83,7 @@ struct PublishedSitesView: View {
                 menuButtons(site)
             } label: {
                 MoreIndicator()
+                    .padding()
             }
 
         }
