@@ -159,6 +159,7 @@ public enum Loc {
   public static let emoji = Loc.tr("Localizable", "Emoji", fallback: "Emoji")
   public static let empty = Loc.tr("Localizable", "Empty", fallback: "Empty")
   public static let enabled = Loc.tr("Localizable", "Enabled", fallback: "Enabled")
+  public static let enter = Loc.tr("Localizable", "Enter", fallback: "Enter")
   public static let enterEmail = Loc.tr("Localizable", "Enter email", fallback: "Enter email")
   public static let enterNumber = Loc.tr("Localizable", "Enter number", fallback: "Enter number")
   public static let enterPhoneNumber = Loc.tr("Localizable", "Enter phone number", fallback: "Enter phone number")
@@ -218,6 +219,7 @@ public enum Loc {
   public static let joinSpace = Loc.tr("Localizable", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
+  public static let keychain = Loc.tr("Localizable", "Keychain", fallback: "Keychain")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   public static let learnMore = Loc.tr("Localizable", "Learn more", fallback: "Learn more")
   public static let leaveASpace = Loc.tr("Localizable", "Leave a space", fallback: "Leave a space")
@@ -679,6 +681,11 @@ public enum Loc {
         public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Add Your Name")
       }
     }
+    public enum Login {
+      public enum Or {
+        public static let title = Loc.tr("Localizable", "Auth.Login.Or.title", fallback: "or enter with")
+      }
+    }
     public enum LoginFlow {
       public static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or", fallback: "OR")
       public enum Enter {
@@ -690,7 +697,7 @@ public enum Loc {
         }
       }
       public enum Textfield {
-        public static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Type your key")
+        public static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Enter your key")
       }
       public enum Use {
         public enum Keychain {
