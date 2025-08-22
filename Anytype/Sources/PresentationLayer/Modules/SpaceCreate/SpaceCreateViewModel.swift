@@ -59,7 +59,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 iconOption: spaceIconOption,
                 accessType: spaceAccessType,
                 useCase: uxType.useCase,
-                withChat: FeatureFlags.homeSpaceLevelChat,
+                withChat: true,
                 uxType: uxType
             )
             

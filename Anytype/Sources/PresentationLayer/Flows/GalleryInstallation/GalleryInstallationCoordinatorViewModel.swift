@@ -46,7 +46,7 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                     iconOption: IconColorStorage.randomOption(),
                     accessType: .personal,
                     useCase: .none,
-                    withChat: FeatureFlags.homeSpaceLevelChat,
+                    withChat: true,
                     uxType: .data
                 )
                 AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: .data, route: .gallery)

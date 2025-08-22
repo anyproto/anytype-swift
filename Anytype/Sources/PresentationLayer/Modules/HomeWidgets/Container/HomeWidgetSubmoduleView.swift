@@ -46,11 +46,7 @@ struct HomeWidgetSubmoduleView: View {
         case (.bin, _):
             BinWidgetView(data: widgetData)
         case (.chat, _):
-            if FeatureFlags.showChatWidget {
-                SpaceChatWidgetView(data: widgetData)
-            } else {
-                EmptyView()
-            }
+            SpaceChatWidgetView(data: widgetData)
         case _:
             EmptyView()
         }

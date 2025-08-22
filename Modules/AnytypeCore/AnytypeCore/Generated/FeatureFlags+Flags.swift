@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideWebPayments)
     }
 
-    static var homeSpaceLevelChat: Bool {
-        value(for: .homeSpaceLevelChat)
-    }
-
     static var pinnedSpaces: Bool {
         value(for: .pinnedSpaces)
     }
@@ -76,10 +72,6 @@ public extension FeatureFlags {
 
     static var binScreenEmptyAction: Bool {
         value(for: .binScreenEmptyAction)
-    }
-
-    static var showChatWidget: Bool {
-        value(for: .showChatWidget)
     }
 
     static var createChatWidget: Bool {
@@ -228,7 +220,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideWebPayments,
-        .homeSpaceLevelChat,
         .pinnedSpaces,
         .openMediaFileInPreview,
         .spaceUxTypes,
@@ -242,7 +233,6 @@ public extension FeatureFlags {
         .doNotWaitCompletionInAnytypePreview,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .showChatWidget,
         .createChatWidget,
         .muteSpacePossibility,
         .addNotificationsSettings,

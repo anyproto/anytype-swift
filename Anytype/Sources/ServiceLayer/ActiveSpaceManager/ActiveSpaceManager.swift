@@ -59,7 +59,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
             defer { spaceIsLoading = false }
             if let spaceId {
                 do {
-                    let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: FeatureFlags.homeSpaceLevelChat)
+                    let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
                     workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
                     await objectTypeProvider.startSubscription(spaceId: spaceId)
                     await propertyDetailsStorage.startSubscription(spaceId: spaceId)
