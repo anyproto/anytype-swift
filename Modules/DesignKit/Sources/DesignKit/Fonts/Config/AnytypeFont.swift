@@ -56,4 +56,7 @@ public enum AnytypeFont: CaseIterable, Sendable {
     
     case riccioneBannerTitle
     case interBannerTitle
+    
+    case riccioneTitle
+    case interTitle
 }
