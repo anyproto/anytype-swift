@@ -55,7 +55,7 @@ struct SpaceHubNavBar: View {
                 Spacer.fixedWidth(18)
             }
             
-            AnytypeText(FeatureFlags.spaceHubNewTitle ? Loc.myChannels : Loc.mySpaces, style: .uxTitle1Semibold)
+            AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
             
             Spacer.fixedWidth(18)
         }

@@ -51,7 +51,7 @@ public extension FeatureDescription {
     
     static let spaceUxTypes = FeatureDescription(
         title: "Create chat space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
@@ -87,22 +87,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let disableRestoreLastScreen = FeatureDescription(
-        title: "Disable restore last opened screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let spaceHubNewTitle = FeatureDescription(
-        title: "New title for Space Hub",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
@@ -121,7 +105,7 @@ public extension FeatureDescription {
     
     static let joinStream = FeatureDescription(
         title: "Join to stream after login",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -137,7 +121,7 @@ public extension FeatureDescription {
     
     static let simpleSetForTypes = FeatureDescription(
         title: "Simple set for types",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -160,9 +144,8 @@ public extension FeatureDescription {
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
     )
     
     static let showChatWidget = FeatureDescription(
