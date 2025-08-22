@@ -33,6 +33,9 @@ final class PrimaryAuthViewModel: ObservableObject {
     @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
     
+    @Injected(\.applicationStateService)
+    private var applicationStateService: any ApplicationStateServiceProtocol
+    
     private var subscription: AnyCancellable?
     
     init(output: (any PrimaryAuthOutput)?) {
@@ -118,6 +121,9 @@ final class PrimaryAuthViewModel: ObservableObject {
     private func onSuccess() {
         inProgress = false
         output?.onJoinSelected(state: state)
+        
+        // temp hack to turn on brandNewAuthFlow toggle in debug
+        applicationStateService.state = .home
     }
     
     private func createAccountError(_ error: some Error) {
