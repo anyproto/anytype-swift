@@ -218,6 +218,7 @@ public enum Loc {
   public static let joinSpace = Loc.tr("Localizable", "Join Space", fallback: "Join Space")
   public static let joinSpaceButton = Loc.tr("Localizable", "Join Space Button", fallback: "Join Space Button")
   public static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
+  public static let launchBottomText = Loc.tr("Localizable", "LaunchBottomText", fallback: "encrypted, local, yours forever")
   public static let layout = Loc.tr("Localizable", "Layout", fallback: "Layout")
   public static let learnMore = Loc.tr("Localizable", "Learn more", fallback: "Learn more")
   public static let leaveASpace = Loc.tr("Localizable", "Leave a space", fallback: "Leave a space")
