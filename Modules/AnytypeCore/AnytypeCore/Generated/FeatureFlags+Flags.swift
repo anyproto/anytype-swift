@@ -54,10 +54,6 @@ public extension FeatureFlags {
         value(for: .guideUseCaseForDataSpace)
     }
 
-    static var disableRestoreLastScreen: Bool {
-        value(for: .disableRestoreLastScreen)
-    }
-
     static var spaceHubNewTitle: Bool {
         value(for: .spaceHubNewTitle)
     }
@@ -252,7 +248,6 @@ public extension FeatureFlags {
         .aiToolInSet,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
-        .disableRestoreLastScreen,
         .spaceHubNewTitle,
         .chatLayoutInsideSpace,
         .chatCounters,

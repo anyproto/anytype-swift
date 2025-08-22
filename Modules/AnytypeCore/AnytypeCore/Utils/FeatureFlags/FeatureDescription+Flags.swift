@@ -51,7 +51,7 @@ public extension FeatureDescription {
     
     static let spaceUxTypes = FeatureDescription(
         title: "Create chat space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true
     )
@@ -82,14 +82,6 @@ public extension FeatureDescription {
     static let guideUseCaseForDataSpace = FeatureDescription(
         title: "Guide usecase for data space",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11?"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let disableRestoreLastScreen = FeatureDescription(
-        title: "Disable restore last opened screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false

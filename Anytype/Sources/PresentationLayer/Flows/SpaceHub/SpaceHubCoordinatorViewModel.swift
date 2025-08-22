@@ -154,7 +154,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func setupInitialScreen() async {
-        guard !loginStateService.isFirstLaunchAfterRegistration, !FeatureFlags.disableRestoreLastScreen, appActionsStorage.action.isNil else { return }
+        guard !loginStateService.isFirstLaunchAfterRegistration, appActionsStorage.action.isNil else { return }
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
