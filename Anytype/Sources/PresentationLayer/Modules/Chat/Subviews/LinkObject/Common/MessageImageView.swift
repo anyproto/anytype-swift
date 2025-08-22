@@ -9,10 +9,7 @@ struct MessageImageView: View {
     
     var body: some View {
         GeometryReader { reader in
-            ToggleCachedAsyncImage(
-                url: ImageMetadata(id: imageId, side: .width(min(reader.size.width, reader.size.height))).contentUrl,
-                urlCache: .anytypeImages
-            ) { content in
+            CachedAsyncImage(url: ImageMetadata(id: imageId, side: .width(min(reader.size.width, reader.size.height))).contentUrl) { content in
                 switch content {
                 case .empty:
                     MessageAttachmentLoadingIndicator()

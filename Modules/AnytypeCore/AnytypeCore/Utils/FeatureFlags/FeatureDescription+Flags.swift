@@ -145,18 +145,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let chatLoadingIndicator = FeatureDescription(
-        title: "Sync Status for Chat - IOS-4762",
-        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
-        defaultValue: true
-    )
-    
-    static let anytypeImageCacher = FeatureDescription(
-        title: "Anytype - Custom image cacher",
-        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
-        defaultValue: true
-    )
-    
     static let joinSpaceViaQRCode = FeatureDescription(
         title: "Join Space via QR Code",
         type: .feature(author: "vova@anytype.io", releaseVersion: "12"),

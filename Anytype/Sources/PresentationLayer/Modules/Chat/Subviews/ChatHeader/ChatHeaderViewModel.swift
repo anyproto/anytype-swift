@@ -54,14 +54,12 @@ final class ChatHeaderViewModel: ObservableObject {
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
             title = spaceView.title
             icon = spaceView.objectIconImage
-            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat && spaceView.chatToggleEnable
+            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
             muted = FeatureFlags.muteSpacePossibility && !spaceView.pushNotificationMode.isUnmutedAll
         }
     }
     
     private func subscribeOnChatStatus() async {
-        guard FeatureFlags.chatLoadingIndicator else { return }
-        
         let loadingPublisher = chatObject.detailsPublisher
             .map {
                 switch $0.syncStatusValue {
@@ -96,8 +94,6 @@ final class ChatHeaderViewModel: ObservableObject {
     }
     
     private func subscribeOnSpaceStatus() async {
-        guard FeatureFlags.chatLoadingIndicator else { return }
-        
         for await spaceStatus in syncStatusStorage.statusPublisher(spaceId: spaceId).values {
             spaceLoading = spaceStatus.status == .error
         }
