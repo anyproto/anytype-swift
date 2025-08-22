@@ -172,9 +172,9 @@ struct NewSpaceCardLabel: View {
     @ViewBuilder
     private var pin: some View {
         if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
-            Image(asset: .X24.pin)
+            Image(asset: .X18.pin)
                 .foregroundStyle(Color.Control.transparentSecondary)
-                .frame(width: 22, height: 22)
+                .frame(width: 18, height: 18)
         }
     }
     
