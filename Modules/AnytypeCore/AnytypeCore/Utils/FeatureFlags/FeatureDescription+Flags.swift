@@ -94,14 +94,6 @@ public extension FeatureDescription {
         releaseAnyAppValue: false,
         debugValue: true
     )
-        
-    static let chatCounters = FeatureDescription(
-        title: "Counters",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: true,
-        releaseAnyAppValue: true,
-        debugValue: true
-    )
     
     static let joinStream = FeatureDescription(
         title: "Join to stream after login",
@@ -109,14 +101,6 @@ public extension FeatureDescription {
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
-    )
-    
-    static let countersOnSpaceHub = FeatureDescription(
-        title: "Counters on Space Hub",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: true,
-        releaseAnyAppValue: true,
-        debugValue: true
     )
     
     static let simpleSetForTypes = FeatureDescription(
