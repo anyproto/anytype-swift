@@ -33,8 +33,8 @@ struct NewSpaceCardLabel: View {
                 .frame(width: 64, height: 64)
             
             Group {
-                if spaceData.preview.lastMessage.isNotNil {
-                    mainContentWithMessage
+                if let message = spaceData.preview.lastMessage {
+                    mainContentWithMessage(message)
                 } else {
                     mainContentWithoutMessage
                 }
@@ -45,7 +45,7 @@ struct NewSpaceCardLabel: View {
             .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 16)
+        .padding(.vertical, 17)
         // Optimization for fast sizeThatFits
         .frame(height: 96)
         
@@ -58,7 +58,7 @@ struct NewSpaceCardLabel: View {
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
-    private var mainContentWithMessage: some View {
+    private func mainContentWithMessage(_ message: LastMessagePreview) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Text(spaceData.spaceView.name.withPlaceholder)
@@ -73,7 +73,7 @@ struct NewSpaceCardLabel: View {
                 lastMessageDate
             }
             HStack {
-                info
+                lastMessagePreview(message)
                 Spacer()
                 unreadCounters
                 pin
@@ -98,17 +98,6 @@ struct NewSpaceCardLabel: View {
             }
         }
     }
-
-    
-    private var info: some View {
-        Group {
-            if let lastMessage = spaceData.preview.lastMessage {
-                lastMessagePreview(lastMessage)
-                    .foregroundStyle(Color.Text.secondary)
-                    .multilineTextAlignment(.leading)
-            }
-        }
-    }
     
     @ViewBuilder
     func lastMessagePreview(_ message: LastMessagePreview) -> some View {
@@ -125,6 +114,8 @@ struct NewSpaceCardLabel: View {
                     .anytypeStyle(.uxTitle2Medium).lineLimit(1)
             }
         }
+        .foregroundStyle(Color.Control.transparentSecondary)
+        .multilineTextAlignment(.leading)
     }
     
     func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
