@@ -59,26 +59,30 @@ struct NewSpaceCardLabel: View {
     }
     
     private func mainContentWithMessage(_ message: LastMessagePreview) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text(spaceData.spaceView.name.withPlaceholder)
-                    .anytypeFontStyle(.bodySemibold)
-                    .lineLimit(1)
-                    .foregroundStyle(Color.Text.primary)
-                if isMuted {
-                    Spacer.fixedWidth(8)
-                    Image(asset: .X18.muted).foregroundColor(.Control.secondary)
+        HStack {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Text(spaceData.spaceView.name.withPlaceholder)
+                        .anytypeFontStyle(.bodySemibold)
+                        .lineLimit(1)
+                        .foregroundStyle(Color.Text.primary)
+                    if isMuted {
+                        Spacer.fixedWidth(8)
+                        Image(asset: .X18.muted).foregroundColor(.Control.secondary)
+                    }
                 }
-                Spacer(minLength: 8)
-                lastMessageDate
-            }
-            HStack {
                 lastMessagePreview(message)
-                Spacer()
-                unreadCounters
-                pin
+                Spacer(minLength: 1)
             }
-            Spacer(minLength: 1)
+            
+            Spacer(minLength: 8)
+            
+            VStack(alignment: .trailing, spacing: 0) {
+                lastMessageDate
+                Spacer.fixedHeight(2)
+                decoration
+                Spacer(minLength: 1)
+            }
         }
     }
     
@@ -155,6 +159,15 @@ struct NewSpaceCardLabel: View {
         }
     }
     
+    @ViewBuilder
+    private var decoration: some View {
+        if spaceData.preview.hasCounters {
+            unreadCounters
+        } else {
+            pin
+        }
+    }
+    
     private var unreadCounters: some View {
         HStack(spacing: 4) {
             if spaceData.preview.mentionCounter > 0 {
@@ -171,7 +184,7 @@ struct NewSpaceCardLabel: View {
     
     @ViewBuilder
     private var pin: some View {
-        if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
+        if FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
             Image(asset: .X18.pin)
                 .foregroundStyle(Color.Control.transparentSecondary)
                 .frame(width: 18, height: 18)
