@@ -55,24 +55,22 @@ struct PublishedSitesView: View {
             } label: {
                 IconView(icon: site.details.objectIconImage)
                     .frame(width: 48, height: 48)
+                    .disabled(true)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(site.details.name)
                         .anytypeStyle(.uxTitle2Medium)
                         .lineLimit(1)
                     HStack(alignment: .center, spacing: 6) {
-                        Text("\(model.formattedDate(site.date))")
-                            .anytypeStyle(.caption1Regular)
-                            .foregroundStyle(Color.Text.secondary)
+                        AnytypeText("\(model.formattedDate(site.date))", style: .caption1Regular)
+                            .foregroundColor(Color.Text.secondary)
                             .lineLimit(1)
                         
-                        Image(asset: .CustomIcons.ellipse)
-                            .resizable()
+                        Circle()
                             .frame(width: 2, height: 2)
                             .foregroundStyle(Color.Text.secondary)
                         
-                        Text("\(model.formattedSize(site.size))")
-                            .anytypeStyle(.caption1Regular)
-                            .foregroundStyle(Color.Text.secondary)
+                        AnytypeText("\(model.formattedSize(site.size))", style: .caption1Regular)
+                            .foregroundColor(Color.Text.secondary)
                             .lineLimit(1)
                     }
                 }
@@ -84,6 +82,7 @@ struct PublishedSitesView: View {
                 menuButtons(site)
             } label: {
                 MoreIndicator()
+                    .padding()
             }
 
         }
