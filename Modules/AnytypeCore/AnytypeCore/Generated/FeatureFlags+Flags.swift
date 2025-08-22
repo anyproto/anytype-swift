@@ -54,10 +54,6 @@ public extension FeatureFlags {
         value(for: .guideUseCaseForDataSpace)
     }
 
-    static var spaceHubNewTitle: Bool {
-        value(for: .spaceHubNewTitle)
-    }
-
     static var chatLayoutInsideSpace: Bool {
         value(for: .chatLayoutInsideSpace)
     }
@@ -248,7 +244,6 @@ public extension FeatureFlags {
         .aiToolInSet,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
-        .spaceHubNewTitle,
         .chatLayoutInsideSpace,
         .chatCounters,
         .joinStream,

@@ -87,14 +87,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let spaceHubNewTitle = FeatureDescription(
-        title: "New title for Space Hub",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
