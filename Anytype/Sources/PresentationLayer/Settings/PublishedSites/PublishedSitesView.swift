@@ -61,18 +61,16 @@ struct PublishedSitesView: View {
                         .anytypeStyle(.uxTitle2Medium)
                         .lineLimit(1)
                     HStack(alignment: .center, spacing: 6) {
-                        Text("\(model.formattedDate(site.date))")
-                            .anytypeStyle(.caption1Regular)
-                            .foregroundStyle(Color.Text.secondary)
+                        AnytypeText("\(model.formattedDate(site.date))", style: .caption1Regular)
+                            .foregroundColor(Color.Text.secondary)
                             .lineLimit(1)
                         
                         Circle()
                             .frame(width: 2, height: 2)
                             .foregroundStyle(Color.Text.secondary)
                         
-                        Text("\(model.formattedSize(site.size))")
-                            .anytypeStyle(.caption1Regular)
-                            .foregroundStyle(Color.Text.secondary)
+                        AnytypeText("\(model.formattedSize(site.size))", style: .caption1Regular)
+                            .foregroundColor(Color.Text.secondary)
                             .lineLimit(1)
                     }
                 }
