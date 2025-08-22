@@ -131,6 +131,7 @@ public protocol BundledPropertiesValueProvider {
     var spaceInvitePermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
+    var myParticipantStatus: Int? { get }
     var identityProfileLink: ObjectId { get }
     var profileOwnerIdentity: String { get }
     var targetSpaceId: String { get }
@@ -645,6 +646,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Participant status. Possible values: models.ParticipantStatus
     var participantStatus: Int? {
         return value(for: BundledPropertyKey.participantStatus.rawValue)
+    }
+    /// Current account status in space. Possible values: models.ParticipantStatus
+    var myParticipantStatus: Int? {
+        return value(for: BundledPropertyKey.myParticipantStatus.rawValue)
     }
     /// Link to the profile attached to Anytype Identity
     var identityProfileLink: ObjectId {

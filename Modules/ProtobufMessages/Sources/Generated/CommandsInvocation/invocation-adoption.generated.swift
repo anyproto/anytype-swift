@@ -1210,11 +1210,6 @@ extension Anytype_Rpc.Object.SubscribeIds.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Object.ToBookmark.Response: ResultWithError {}
-extension Anytype_Rpc.Object.ToBookmark.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.Object.ToCollection.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ToCollection.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
