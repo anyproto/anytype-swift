@@ -30,13 +30,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let homeSpaceLevelChat = FeatureDescription(
-        title: "Show Space-Level Chat",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11"),
-        releaseAnytypeValue: true,
-        releaseAnyAppValue: true
-    )
-    
     static let pinnedSpaces = FeatureDescription(
         title: "Pinned Spaces",
         type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
@@ -81,7 +74,7 @@ public extension FeatureDescription {
     
     static let guideUseCaseForDataSpace = FeatureDescription(
         title: "Guide usecase for data space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "11?"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -120,21 +113,15 @@ public extension FeatureDescription {
     
     static let spaceLoadingForScreen = FeatureDescription(
         title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "12"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        releaseAnytypeValue: true,
+        releaseAnyAppValue: true,
         debugValue: true
     )
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
         type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let showChatWidget = FeatureDescription(
-        title: "Show Chat Widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "11.1"),
         defaultValue: true
     )
     
