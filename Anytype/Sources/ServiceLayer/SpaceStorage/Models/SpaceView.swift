@@ -97,10 +97,6 @@ extension SpaceView {
         uxType == .chat || uxType == .stream
     }
     
-    var chatToggleEnable: Bool {
-        FeatureFlags.showHomeSpaceLevelChat(spaceId: targetSpaceId)
-    }
-    
     var canAddChatWidget: Bool {
         !initialScreenIsChat && isShared && hasChat && FeatureFlags.createChatWidget
     }
