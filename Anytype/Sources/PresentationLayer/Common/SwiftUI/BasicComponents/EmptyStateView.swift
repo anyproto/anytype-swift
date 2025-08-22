@@ -20,6 +20,7 @@ struct EmptyStateView: View {
             switch style {
             case .withImage:
                 Image(asset: .Dialog.coffee)
+                    .foregroundStyle(Color.Control.transparentTertiary)
                 Spacer.fixedHeight(12)
             case .error:
                 Image(asset: .Dialog.duck)
