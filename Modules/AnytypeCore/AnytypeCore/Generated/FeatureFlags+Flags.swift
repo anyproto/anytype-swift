@@ -58,16 +58,8 @@ public extension FeatureFlags {
         value(for: .chatLayoutInsideSpace)
     }
 
-    static var chatCounters: Bool {
-        value(for: .chatCounters)
-    }
-
     static var joinStream: Bool {
         value(for: .joinStream)
-    }
-
-    static var countersOnSpaceHub: Bool {
-        value(for: .countersOnSpaceHub)
     }
 
     static var simpleSetForTypes: Bool {
@@ -245,9 +237,7 @@ public extension FeatureFlags {
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
         .chatLayoutInsideSpace,
-        .chatCounters,
         .joinStream,
-        .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
         .spaceLoadingForScreen,
