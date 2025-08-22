@@ -21,16 +21,20 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> AttributedString {
         var message = AttributedString(content.text)
         
-        message.uiKit.font = UIKitFontBuilder.uiKitFont(font: font)
-        message.uiKit.kern = font.config.kern
+        var attributes = AttributeContainer()
+        
+        attributes.uiKit.font = UIKitFontBuilder.uiKitFont(font: font)
+        attributes.uiKit.kern = font.config.kern
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
-        message.uiKit.paragraphStyle = paragraphStyle
+        attributes.uiKit.paragraphStyle = paragraphStyle
         
         let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
-        message.uiKit.foregroundColor = textColor
+        attributes.uiKit.foregroundColor = textColor
         let underlineColor = textColor.withAlphaComponent(0.3)
-        message.uiKit.underlineColor = underlineColor
+        attributes.uiKit.underlineColor = underlineColor
+        
+        message.setAttributes(attributes)
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
@@ -69,7 +73,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
 //                    message[range].uiKit.link = linkToObject
 //                }
             case .emoji:
-                message.replaceSubrange(range, with: AttributedString(mark.param))
+                message.replaceSubrange(range, with: AttributedString(mark.param, attributes: attributes))
             case .UNRECOGNIZED(let int):
                 anytypeAssertionFailure("Undefined text attribute", info: ["value": int.description, "param": mark.param])
                 break

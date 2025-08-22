@@ -148,7 +148,8 @@ final class MessageLayoutCalculator {
             iconFrame: showIcon ? iconFrame : nil,
             bubbleFrame: bubbleFrame,
             bubbleLayout: bubbleLayout,
-            reactionsFrame: <#T##CGRect?#>
+            reactionsFrame: nil,
+            reactionsLayout: nil
         )
     }
 }
