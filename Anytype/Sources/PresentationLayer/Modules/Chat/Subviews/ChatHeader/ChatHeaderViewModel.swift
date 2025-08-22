@@ -60,8 +60,6 @@ final class ChatHeaderViewModel: ObservableObject {
     }
     
     private func subscribeOnChatStatus() async {
-        guard FeatureFlags.chatLoadingIndicator else { return }
-        
         let loadingPublisher = chatObject.detailsPublisher
             .map {
                 switch $0.syncStatusValue {
@@ -96,8 +94,6 @@ final class ChatHeaderViewModel: ObservableObject {
     }
     
     private func subscribeOnSpaceStatus() async {
-        guard FeatureFlags.chatLoadingIndicator else { return }
-        
         for await spaceStatus in syncStatusStorage.statusPublisher(spaceId: spaceId).values {
             spaceLoading = spaceStatus.status == .error
         }

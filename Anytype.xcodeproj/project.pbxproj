@@ -45,7 +45,6 @@
 		2E3058142D81DF7F00BF4F25 /* AnytypeNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E30580D2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
-		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D3B350E2BCE872E008456F8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B350D2BCE872E008456F8 /* StoreKit.framework */; };
 		3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
@@ -296,7 +295,6 @@
 				2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
-				2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */,
 				2A10D8502C53A6C90088BB46 /* WrappingHStack in Frameworks */,
 				74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */,
 				2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */,
@@ -493,7 +491,6 @@
 				2A41A6772B84E57B00EAE6E6 /* DeepLinks */,
 				2AC1262C2B90F65F003A4A8D /* Factory */,
 				2A30B2072BB44A0C00206806 /* QRCode */,
-				2EEE411D2C1080AD000AB88B /* CachedAsyncImage */,
 				3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */,
 				2A10D84F2C53A6C90088BB46 /* WrappingHStack */,
 				2ADB57852CB6B6FE00BFC386 /* Cache */,
@@ -672,7 +669,6 @@
 				2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */,
 				2A30B2062BB44A0C00206806 /* XCRemoteSwiftPackageReference "QRCode" */,
-				2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				2A10D84E2C53A5F00088BB46 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */,
@@ -2721,14 +2717,6 @@
 				version = 11.8.1;
 			};
 		};
-		2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
-			requirement = {
-				kind = exactVersion;
-				version = 2.1.1;
-			};
-		};
 		3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
@@ -2911,11 +2899,6 @@
 		2ED5E1532DAFE2A700B59485 /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnytypeCore;
-		};
-		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
 		};
 		3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

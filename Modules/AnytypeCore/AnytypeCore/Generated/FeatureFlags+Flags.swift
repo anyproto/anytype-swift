@@ -86,14 +86,6 @@ public extension FeatureFlags {
         value(for: .addNotificationsSettings)
     }
 
-    static var chatLoadingIndicator: Bool {
-        value(for: .chatLoadingIndicator)
-    }
-
-    static var anytypeImageCacher: Bool {
-        value(for: .anytypeImageCacher)
-    }
-
     static var joinSpaceViaQRCode: Bool {
         value(for: .joinSpaceViaQRCode)
     }
@@ -236,8 +228,6 @@ public extension FeatureFlags {
         .createChatWidget,
         .muteSpacePossibility,
         .addNotificationsSettings,
-        .chatLoadingIndicator,
-        .anytypeImageCacher,
         .joinSpaceViaQRCode,
         .swipeToReply,
         .supportSimpleEmbedBlocks,
