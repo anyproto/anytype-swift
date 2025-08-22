@@ -257,7 +257,6 @@ public enum Loc {
   public static let moveTo = Loc.tr("Localizable", "Move to", fallback: "Move to")
   public static let moveToBin = Loc.tr("Localizable", "Move To Bin", fallback: "Move To Bin")
   public static let mute = Loc.tr("Localizable", "Mute", fallback: "Mute")
-  public static let myChannels = Loc.tr("Localizable", "My Channels", fallback: "My Channels")
   public static let myFirstSpace = Loc.tr("Localizable", "My First Space", fallback: "My First Space")
   public static let myProperties = Loc.tr("Localizable", "My Properties", fallback: "My Properties")
   public static let mySites = Loc.tr("Localizable", "My Sites", fallback: "My Sites")

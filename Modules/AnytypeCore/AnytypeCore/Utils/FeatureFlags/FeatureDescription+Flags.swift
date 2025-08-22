@@ -105,7 +105,7 @@ public extension FeatureDescription {
     
     static let joinStream = FeatureDescription(
         title: "Join to stream after login",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -121,7 +121,7 @@ public extension FeatureDescription {
     
     static let simpleSetForTypes = FeatureDescription(
         title: "Simple set for types",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
@@ -144,9 +144,8 @@ public extension FeatureDescription {
     
     static let binScreenEmptyAction = FeatureDescription(
         title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
     )
     
     static let showChatWidget = FeatureDescription(
