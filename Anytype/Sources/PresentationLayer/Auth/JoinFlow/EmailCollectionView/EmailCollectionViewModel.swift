@@ -16,12 +16,12 @@ final class EmailCollectionViewModel: ObservableObject {
     // MARK: - DI
     
     private let state: JoinFlowState
-    private weak var output: (any JoinFlowStepOutput)?
+    private weak var output: (any JoinBaseOutput)?
 
     @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
     
-    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
+    init(state: JoinFlowState, output: (any JoinBaseOutput)?) {
         self.state = state
         self.inputText = state.email
         self.output = output

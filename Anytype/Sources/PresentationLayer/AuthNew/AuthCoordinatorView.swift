@@ -3,7 +3,6 @@ import SwiftUI
 struct AuthCoordinatorView: View {
     
     @StateObject private var model: AuthCoordinatorViewModel
-    @Environment(\.pageNavigation) private var pageNavigation
     
     init() {
         self._model = StateObject(wrappedValue: AuthCoordinatorViewModel())
@@ -26,6 +25,11 @@ struct AuthCoordinatorView: View {
             }
             .navigationDestination(isPresented: $model.showLogin) {
                 LoginCoordinatorView()
+            }
+            .navigationDestination(isPresented: $model.showJoinFlow) {
+                if let state = model.joinState {
+                    JoinCoordinatorView(state: state)
+                }
             }
     }
 }
