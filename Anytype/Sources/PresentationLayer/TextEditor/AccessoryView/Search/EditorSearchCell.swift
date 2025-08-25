@@ -29,7 +29,7 @@ final class EditorSearchCell: UIView, UIContentView {
 
     private func setup() {
         addSubview(container) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         }
         
         icon.widthAnchor.constraint(equalToConstant: 40).isActive = true
