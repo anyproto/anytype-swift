@@ -37,7 +37,7 @@ struct EmailCollectionView: View {
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundColor(FeatureFlags.brandNewAuthFlow ? .Text.secondary : .Text.primary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
@@ -60,13 +60,13 @@ struct EmailCollectionView: View {
                 
                 AutofocusedTextField(
                     placeholder: Loc.Auth.JoinFlow.Email.placeholder,
-                    font: .authInput,
+                    font: .previewTitle1Regular,
                     text: $model.inputText
                 )
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .textContentType(.emailAddress)
-                .foregroundColor(.Auth.inputText)
+                .foregroundColor(.Text.primary)
                 .accentColor(.Text.tertiary)
             }
             .padding(.horizontal, 20)            
@@ -81,7 +81,7 @@ struct EmailCollectionView: View {
             StandardButton(
                 Loc.continue,
                 inProgress: model.inProgress,
-                style: .primaryLarge,
+                style: FeatureFlags.brandNewAuthFlow ? .primaryOvalLarge : .primaryLarge,
                 action: {
                     model.onNextAction()
                 }
@@ -91,7 +91,7 @@ struct EmailCollectionView: View {
             if FeatureFlags.skipOnboardingEmailCollection {
                 StandardButton(
                     Loc.skip,
-                    style: .secondaryLarge,
+                    style: FeatureFlags.brandNewAuthFlow ? .secondaryOvalLarge : .secondaryLarge,
                     action: {
                         model.onSkipAction()
                     }
