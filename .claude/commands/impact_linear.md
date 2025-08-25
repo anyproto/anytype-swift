@@ -1,56 +1,35 @@
 USE EXTENDED THINKING
 
-# Linear Context Gathering for iOS Release (Enhanced for Changelog)
+# Linear Context Gathering for iOS Release (View-Based Approach)
 
 ## Purpose
-This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, with emphasis on capturing all links and relationships.
+This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, using a pre-configured Linear view to simplify project discovery.
 
 ## Process
 
 ### Step 1: Get Release Information
 Ask the user:
 - "What is the release task id"
-- Example responses: "IOS-4626",
+- "What is the Linear view URL/name for the release projects?"
+- Example responses: 
+  - Release ID: "IOS-4626"
+  - View: "Release 12 iOS Projects" or direct view URL
 
-### Step 2: Use Linear MCP for Release Initiative
-1. Search in Linear for the release project
-2. Get the main release issue details including:
-   - Full Linear URL for the release
-   - Project name and URL
-   - Release version number
+### Step 2: Get Projects from Linear View (SYSTEMATIC APPROACH)
+1. **Look at the Linear view screenshot/URL provided**
+2. **List every single project name visible in the view systematically**
+3. **Use `mcp__linear__get_project` for each project name to get full details**
+4. **Capture project descriptions, status, priority, and completion % for each**
+5. **Capture the Linear URL for each project/epic in the view**
+6. **Count total projects to validate completeness** - ensure no projects are missed
 
-### Step 3: Comprehensive Epic Discovery
-**CRITICAL**: Use ALL of these search approaches to ensure complete coverage:
-
-#### A. Direct Parent-Child Relationships
-1. List all issues with parentId of the main release task
-2. List all issues with parentId of any discovered epics (recursive search)
-3. **Capture the Linear URL for each epic and issue**
-
-#### B. Project-Based Search
-1. Get all issues in the Release project filtered by iOS team
-2. Search for issues with "Release 12" AND "iOS" in title
-3. Search for issues with "[epic]" AND "Release 12" AND "iOS" in title or description
-4. **Record project URLs and relationships**
-
-#### C. Pattern-Based Search
-1. Search for all issues containing "Release 12 | iOS" in title
-2. Search for all issues containing "[epic] Release 12" in title
-3. Search for all issues with labels or tags related to the release
-
-#### D. Team-Based Comprehensive Search
-1. List ALL iOS team issues in the Release project (not just direct children)
-2. Filter by date range around release creation date
-3. Look for issues with release version numbers (e.g., "0.39.0")
-
-### Step 4: Detailed Information Gathering with Links
-For EACH discovered epic/issue:
+### Step 3: Detailed Information Gathering with Links
+For EACH project/epic from the view:
 
 #### A. Basic Information with URLs
 - Issue ID and Title
 - **Full Linear URL** (e.g., https://linear.app/company/issue/IOS-1234)
-- **Parent Project URL** and name
-- **Parent Epic URL** (if applicable)
+- **Parent Project URL** and name (if applicable)
 - Description and acceptance criteria
 - Status (To Do, In Progress, Done, etc.)
 - Priority (Urgent, High, Medium, Low)
@@ -73,7 +52,7 @@ For EACH discovered epic/issue:
 - New functionality vs. improvements
 - Platform-specific implementations
 - Integration points with other features
-- **Related epics/stories URLs** (even if not direct parent-child)
+- **Related epics/stories URLs** (even if not in the view)
 
 #### D. Risk Assessment with References
 - Implementation complexity
@@ -83,20 +62,20 @@ For EACH discovered epic/issue:
 - Testing coverage needs (with test plan links if available)
 
 #### E. Sub-task Analysis with Full Hierarchy
-For each epic, recursively find and analyze ALL sub-tasks:
+For each project/epic, find and analyze ALL sub-tasks:
 - Use parentId search to find direct children
 - **Capture full parent-child URL relationships**
-- Search for issues mentioning the epic ID in title/description
 - Look for related implementation tasks
 - **Create a URL hierarchy map**
 
-### Step 5: Cross-Platform Context with Links
+### Step 4: Cross-Platform Context with Links
 - Find related Desktop/Web releases (with Linear URLs)
 - Identify shared middleware dependencies (with issue links)
 - Note platform-specific variations
 - **Link to cross-platform coordination issues**
 
-### Step 6: Create Comprehensive Context Summary with Full References
+### Step 5: Create Comprehensive Context Summary with Full References
+**CRITICAL: Always save the analysis as a file immediately after completion**
 
 ## Output Format
 
@@ -106,14 +85,14 @@ For each epic, recursively find and analyze ALL sub-tasks:
 ## Release Overview
 - **Release**: [Name] ([ID])
 - **Linear URL**: [Full URL to release issue]
-- **Project**: [Project Name] ([Project URL])
+- **View Used**: [View Name/URL]
 - **Version**: [X.Y.Z]
 - **Status**: [Status]
 - **Timeline**: [Start] - [End]
 - **Description**: [Release description]
 
-## Epic Summary
-**Total Epics**: [Count]
+## Project Summary from View
+**Total Projects**: [Count from view]
 **Status Breakdown**:
 - Done: [Count]  
 - In Progress: [Count]
@@ -121,25 +100,25 @@ For each epic, recursively find and analyze ALL sub-tasks:
 - Code Review: [Count]
 - Backlog: [Count]
 
-## Project Structure & Links
+## Projects & Links
 
-### Release Hierarchy
+### Project Hierarchy
 ```
 Release [NUMBER] - [URL]
-├── Project: [Name] - [URL]
-├── Epic: [Name] ([ID]) - [URL]
-│   ├── Story: [Name] ([ID]) - [URL]
-│   └── Story: [Name] ([ID]) - [URL]
-└── Epic: [Name] ([ID]) - [URL]
-    └── Story: [Name] ([ID]) - [URL]
+├── Project: [Name] ([ID]) - [URL]
+│   ├── Task: [Name] ([ID]) - [URL]
+│   └── Task: [Name] ([ID]) - [URL]
+├── Project: [Name] ([ID]) - [URL]
+│   └── Task: [Name] ([ID]) - [URL]
+└── Project: [Name] ([ID]) - [URL]
+    └── Task: [Name] ([ID]) - [URL]
 ```
 
 ## Major Feature Categories
 
 ### [Category 1: e.g., Chat & Communication]
-1. **[Epic Name]** ([Epic ID])
+1. **[Project/Epic Name]** ([ID])
    - **Linear URL**: [Full URL]
-   - **Project**: [Project Name] ([Project URL])
    - **Status**: [Status]
    - **Priority**: [Priority]  
    - **Description**: [Brief description]
@@ -229,7 +208,7 @@ Release [NUMBER] - [URL]
   - Team Responsible: [Team] - [Team Linear URL]
 
 ## Release Readiness Assessment
-- **Epic Completion**: [X/Y] ([Z%])
+- **Project Completion**: [X/Y] ([Z%])
 - **Critical Path Items**: 
   - [Item 1] - [URL]
   - [Item 2] - [URL]
@@ -241,18 +220,18 @@ Release [NUMBER] - [URL]
 - **Documentation Status**: [Assessment]
   - Docs: [URL]
 
-## Complete Issue List with URLs
+## Complete Project List with URLs
 ### Done
-- [ID]: [Title] - [URL] - Epic: [Epic ID]
-- [ID]: [Title] - [URL] - Epic: [Epic ID]
+- [ID]: [Title] - [URL] - Category: [Category]
+- [ID]: [Title] - [URL] - Category: [Category]
 
 ### In Progress
-- [ID]: [Title] - [URL] - Epic: [Epic ID]
-- [ID]: [Title] - [URL] - Epic: [Epic ID]
+- [ID]: [Title] - [URL] - Category: [Category]
+- [ID]: [Title] - [URL] - Category: [Category]
 
 ### Pending
-- [ID]: [Title] - [URL] - Epic: [Epic ID]
-- [ID]: [Title] - [URL] - Epic: [Epic ID]
+- [ID]: [Title] - [URL] - Category: [Category]
+- [ID]: [Title] - [URL] - Category: [Category]
 
 ## Recommendations
 1. **[Recommendation 1]** - Related: [URL]
@@ -261,27 +240,36 @@ Release [NUMBER] - [URL]
 ```
 
 ## Critical Success Factors
-1. **Comprehensive Search**: Must use ALL search approaches to avoid missing epics
+1. **View Validation**: Ensure all projects from the Linear view are captured
 2. **URL Capture**: Record full Linear URLs for every issue, project, and relationship
 3. **Relationship Mapping**: Document all parent-child and related issue connections
 4. **External Links**: Capture all GitHub, documentation, and design URLs
-5. **Recursive Discovery**: Follow parent-child relationships completely
-6. **Cross-Reference Validation**: Verify epic counts against Linear UI
-7. **Technical Deep Dive**: Don't just list features, understand implementation impact
-8. **Risk-First Analysis**: Lead with what could go wrong, not just what's planned
+5. **Sub-task Discovery**: For each project, find all child tasks
+6. **Technical Deep Dive**: Don't just list features, understand implementation impact
+7. **Risk-First Analysis**: Lead with what could go wrong, not just what's planned
 
 ## Usage Instructions
-1. Start by asking for the release ID
-2. **Execute ALL search approaches** - don't skip any
-3. **Capture full URLs for everything** - issues, projects, PRs, docs
+1. Start by asking for:
+   - The release ID
+   - The Linear view URL or name containing all release projects
+2. **SYSTEMATIC PROJECT EXTRACTION:**
+   - Look at the Linear view screenshot/URL provided
+   - List every single project name visible in the view
+   - Use `mcp__linear__get_project` for each project name
+   - Get full project descriptions, status, priority, completion %
+3. For each project in the view:
+   - Gather comprehensive details from project description
+   - Find all sub-tasks using parentId search
+   - Capture all URLs and relationships
+   - Document technical dependencies
 4. Create hierarchy maps showing relationships
-5. Cross-reference results with Linear UI to verify completeness
-6. Include all external references (GitHub, Figma, docs)
-7. Save as: `linear_context_release_[NUMBER].md`
+5. Include all external references (GitHub, Figma, docs)
+6. **MANDATORY:** Save as: `linear_context_release_[NUMBER].md` - do not skip this step
 
 ## URL Formats to Capture
 - Linear Issues: `https://linear.app/[workspace]/issue/[ID]`
 - Linear Projects: `https://linear.app/[workspace]/project/[ID]`
+- Linear Views: `https://linear.app/[workspace]/view/[ID]`
 - GitHub PRs: `https://github.com/[org]/[repo]/pull/[number]`
 - GitHub Issues: `https://github.com/[org]/[repo]/issues/[number]`
 - Figma: `https://www.figma.com/file/[ID]/[name]`
@@ -289,14 +277,16 @@ Release [NUMBER] - [URL]
 
 ## Validation Checklist
 Before finalizing analysis:
-- [ ] Epic count matches Linear UI display
-- [ ] All major feature categories identified
+- [ ] **Project count matches Linear view display exactly**
+- [ ] **All projects from view analyzed using mcp__linear__get_project**
+- [ ] **Every project has description, status, priority, completion %**
 - [ ] **Every issue has a Linear URL**
 - [ ] **All parent-child relationships have URLs**
 - [ ] **External links captured (GitHub, Figma, docs)**
-- [ ] **Project URLs included**
 - [ ] Technical dependencies mapped
 - [ ] Risk assessment completed
 - [ ] Testing recommendations provided
 - [ ] Cross-platform impacts noted with links
 - [ ] Complete hierarchy visualization included
+- [ ] **File artifact created as linear_context_release_[NUMBER].md**
+
