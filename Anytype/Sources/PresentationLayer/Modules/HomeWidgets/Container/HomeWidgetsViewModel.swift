@@ -60,7 +60,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             
             newWidgetBlocks.removeAll { $0.source == .library(.chat) }
             
-            if showSpaceChat {
+            if showSpaceChat && FeatureFlags.chatInDataSpace {
                 newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
             }
             

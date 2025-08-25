@@ -5,7 +5,7 @@ extension AnytypeWidgetId {
     static var availableWidgets: [AnytypeWidgetId] {
         var widgets: [AnytypeWidgetId] = AnytypeWidgetId.allCases
         
-        if !FeatureFlags.createChatWidget {
+        if !FeatureFlags.chatInDataSpace {
             widgets.removeAll { $0 == .chat }
         }
         
