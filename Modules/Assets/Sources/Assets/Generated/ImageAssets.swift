@@ -699,6 +699,7 @@ extension ImageAsset {
     public static let help = ImageAsset.bundle(name: "x18/Help")
     public static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
     public static let list = ImageAsset.bundle(name: "x18/List")
+    public static let lockWithTick = ImageAsset.bundle(name: "x18/Lock with tick")
     public static let lock = ImageAsset.bundle(name: "x18/Lock")
     public static let muted = ImageAsset.bundle(name: "x18/Muted")
     public static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")

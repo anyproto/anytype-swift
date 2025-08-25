@@ -28,7 +28,7 @@ struct LaunchView: View {
                 .ignoresSafeArea()
             
             HStack(spacing: 8) {
-                IconView(asset: .X18.lock)
+                IconView(asset: .X18.lockWithTick)
                 Text(Loc.launchBottomText)
                     .anytypeStyle(.previewTitle2Medium)
                     .foregroundStyle(Color.Text.secondary)
