@@ -245,7 +245,7 @@ public extension FeatureDescription {
         title: "New auth flow",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
 
     // MARK: - Debug
