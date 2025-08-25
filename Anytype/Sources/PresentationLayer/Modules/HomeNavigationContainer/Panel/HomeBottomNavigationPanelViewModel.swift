@@ -43,6 +43,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var chatLinkData: ChatLinkObject?
     private var isWidgetsScreen: Bool = false
+    private var currentData: AnyHashable?
     private var participantSpaceView: ParticipantSpaceViewData?
     
     // MARK: - Public properties
@@ -95,6 +96,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func updateVisibleScreen(data: AnyHashable) {
         chatLinkData = (data as? EditorScreenData)?.chatLink
         isWidgetsScreen = (data as? HomeWidgetData) != nil
+        currentData = data
         updateState()
     }
     
@@ -116,6 +118,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onTapCreateObject(type: ObjectType) {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
         Task { @MainActor in
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -137,14 +140,17 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onAddMediaSelected() {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(type: .photo, route: clickAddMenuAnalyticsRoute())
         output?.onAddMediaSelected(spaceId: info.accountSpaceId)
     }
     
     func onCameraSelected() {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(type: .camera, route: clickAddMenuAnalyticsRoute())
         output?.onCameraSelected(spaceId: info.accountSpaceId)
     }
     
     func onAddFilesSelected() {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(type: .file, route: clickAddMenuAnalyticsRoute())
         output?.onAddFilesSelected(spaceId: info.accountSpaceId)
     }
     
@@ -253,5 +259,16 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func clickAddMenuAnalyticsRoute() -> ClickNavBarAddMenuRoute? {
+        // Read before sending the event. This way we can keep track of which screens don't have a route.
+        if let provider = currentData as? any HomeClinkNavBarAddMenuRouteProvider {
+            return provider.clickNavBarAddMenuRoute
+        }
+        if let currentData {
+            anytypeAssertionFailure("Home data without ClinkNavBarAddMenuRoute", info: ["type": "\(currentData)"])
+        }
+        return nil
     }
 }

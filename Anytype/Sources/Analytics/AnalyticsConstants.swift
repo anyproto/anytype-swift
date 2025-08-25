@@ -472,3 +472,20 @@ enum MediaFileScreenRoute: String {
     case chat = "Chat"
 }
 
+enum ClickNavBarAddMenuRoute: String {
+    case screenObject = "ScreenObject"
+    case screenWidget = "ScreenWidget"
+    case screenFavorites = "ScreenFavorites"
+    case screenRecentEdit = "ScreenRecentEdit"
+    case screenRecentOpen = "ScreenRecentOpen"
+    case screenBin = "ScreenBin"
+    case screenDate = "ScreenDate"
+    case screenType = "ScreenType"
+    case screenAllObjects = "ScreenAllObjects"
+}
+
+enum ClickNavBarAddMenuType: String {
+    case camera = "Camera"
+    case file = "File"
+    case photo = "Photo"
+}

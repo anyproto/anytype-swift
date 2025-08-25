@@ -1737,4 +1737,18 @@ extension AnytypeAnalytics {
     func logUnpinSpace() {
         logEvent("UnpinSpace")
     }
+    
+    func logClickNavBarAddMenu(type: ClickNavBarAddMenuType, route: ClickNavBarAddMenuRoute?) {
+        logEvent("ClickNavBarAddMenu", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue,
+            AnalyticsEventsPropertiesKey.type: type.rawValue
+        ].compactMapValues { $0 })
+    }
+    
+    func logClickNavBarAddMenu(objectType: AnalyticsObjectType, route: ClickNavBarAddMenuRoute?) {
+        logEvent("ClickNavBarAddMenu", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue,
+            AnalyticsEventsPropertiesKey.type: objectType.analyticsId
+        ].compactMapValues { $0 })
+    }
 }
