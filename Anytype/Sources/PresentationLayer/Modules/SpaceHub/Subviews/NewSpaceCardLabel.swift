@@ -45,9 +45,9 @@ struct NewSpaceCardLabel: View {
             .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 17)
+        .padding(.vertical, 16)
         // Optimization for fast sizeThatFits
-        .frame(height: 96)
+        .frame(height: 98)
         
         .cornerRadius(20, style: .continuous)
         .background(DashboardWallpaper(
@@ -62,10 +62,9 @@ struct NewSpaceCardLabel: View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(spaceData.spaceView.name.withPlaceholder)
-                        .anytypeFontStyle(.bodySemibold)
-                        .lineLimit(1)
-                        .foregroundStyle(Color.Text.primary)
+                    AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
+                    .lineLimit(1)
+                    .foregroundColor(Color.Text.primary)
                     if isMuted {
                         Spacer.fixedWidth(8)
                         Image(asset: .X18.muted).foregroundColor(.Control.secondary)
@@ -89,10 +88,9 @@ struct NewSpaceCardLabel: View {
     private var mainContentWithoutMessage: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text(spaceData.spaceView.name.withPlaceholder)
-                    .anytypeFontStyle(.bodySemibold)
+                AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
                     .lineLimit(1)
-                    .foregroundStyle(Color.Text.primary)
+                    .foregroundColor(Color.Text.primary)
                 if isMuted {
                     Spacer.fixedWidth(8)
                     Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
@@ -114,11 +112,11 @@ struct NewSpaceCardLabel: View {
                 // Show attachements and 1 line of text
                 messageWithAttachements(message)
             } else {
-                Text(message.creator?.title ?? Loc.Chat.newMessages)
-                    .anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .uxTitle2Medium)
+                    .lineLimit(1)
             }
         }
-        .foregroundStyle(Color.Control.transparentSecondary)
+        .foregroundColor(Color.Control.transparentSecondary)
         .multilineTextAlignment(.leading)
     }
     
@@ -137,7 +135,7 @@ struct NewSpaceCardLabel: View {
     func messageWithAttachements(_ message: LastMessagePreview) -> some View {
         HStack(spacing: 2) {
             if let creator = message.creator {
-                Text(creator.title + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                AnytypeText(creator.title + ":", style: .uxTitle2Medium).lineLimit(1)
                 Spacer.fixedWidth(4)
             }
             
@@ -146,16 +144,15 @@ struct NewSpaceCardLabel: View {
             }
             
             Spacer.fixedWidth(4)
-            Text(message.localizedAttachmentsText).anytypeStyle(.uxTitle2Regular).lineLimit(1)
+            AnytypeText(message.localizedAttachmentsText, style: .uxTitle2Regular).lineLimit(1)
         }
     }
     
     @ViewBuilder
     private var lastMessageDate: some View {
         if let lastMessage = spaceData.preview.lastMessage {
-            Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
-                .anytypeStyle(.relation2Regular)
-                .foregroundStyle(Color.Control.transparentSecondary)
+            AnytypeText(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true), style: .relation2Regular)
+                .foregroundColor(Color.Control.transparentSecondary)
         }
     }
     
@@ -186,7 +183,7 @@ struct NewSpaceCardLabel: View {
     private var pin: some View {
         if FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
             Image(asset: .X18.pin)
-                .foregroundStyle(Color.Control.transparentSecondary)
+                .foregroundColor(Color.Control.transparentSecondary)
                 .frame(width: 18, height: 18)
         }
     }
