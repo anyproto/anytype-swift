@@ -19,10 +19,14 @@ public struct AnytypeURL: Hashable, Sendable {
         guard string.isNotEmpty else { return nil }
         
         let removingPercent = string.removingPercentEncoding ?? string
-        let encodedString = removingPercent.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
-        guard let encodedString = encodedString,
-              let url = URL(string: encodedString) else { return nil }
+        // URLComponents adds the correct percent encoding. Different parts of the URL need different encoding.
+        // For example invite link https://a/b#c
+        // #c - is a fragment. # should not be encoded.
+        
+        guard let components = URLComponents(string: removingPercent),
+                let url = components.url,
+                let string = components.string else { return nil }
         
         self.sourceString = string
         self.sourceURL = url
