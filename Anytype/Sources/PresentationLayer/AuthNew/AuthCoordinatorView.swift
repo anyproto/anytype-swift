@@ -10,6 +10,12 @@ struct AuthCoordinatorView: View {
     }
     
     var body: some View {
+        NavigationStack {
+            content
+        }
+    }
+    
+    private var content: some View {
         PrimaryAuthView(output: model)
             .sheet(isPresented: $model.showSettings) {
                 ServerConfigurationCoordinatorView()
@@ -17,6 +23,9 @@ struct AuthCoordinatorView: View {
             }
             .sheet(isPresented: $model.showDebugMenu) {
                 DebugMenuView()
+            }
+            .navigationDestination(isPresented: $model.showLogin) {
+                LoginCoordinatorView()
             }
     }
 }

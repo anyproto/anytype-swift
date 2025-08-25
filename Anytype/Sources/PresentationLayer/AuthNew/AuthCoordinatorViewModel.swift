@@ -6,6 +6,7 @@ final class AuthCoordinatorViewModel: ObservableObject, PrimaryAuthOutput {
     
     @Published var showDebugMenu = false
     @Published var showSettings = false
+    @Published var showLogin = false
     
     // MARK: - PrimaryAuthOutput
     
@@ -14,7 +15,7 @@ final class AuthCoordinatorViewModel: ObservableObject, PrimaryAuthOutput {
     }
     
     func onLoginSelected() {
-        // TODO
+        showLogin = true
     }
     
     func onSettingsSelected() {
