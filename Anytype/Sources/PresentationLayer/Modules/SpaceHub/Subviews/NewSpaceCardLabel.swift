@@ -33,8 +33,8 @@ struct NewSpaceCardLabel: View {
                 .frame(width: 64, height: 64)
             
             Group {
-                if spaceData.preview.lastMessage.isNotNil {
-                    mainContentWithMessage
+                if let message = spaceData.preview.lastMessage {
+                    mainContentWithMessage(message)
                 } else {
                     mainContentWithoutMessage
                 }
@@ -47,7 +47,7 @@ struct NewSpaceCardLabel: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
         // Optimization for fast sizeThatFits
-        .frame(height: 96)
+        .frame(height: 98)
         
         .cornerRadius(20, style: .continuous)
         .background(DashboardWallpaper(
@@ -58,54 +58,45 @@ struct NewSpaceCardLabel: View {
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
-    private var mainContentWithMessage: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Text(spaceData.spaceView.name.withPlaceholder)
-                    .anytypeFontStyle(.bodySemibold)
+    private func mainContentWithMessage(_ message: LastMessagePreview) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
                     .lineLimit(1)
-                    .foregroundStyle(Color.Text.primary)
-                if isMuted {
-                    Spacer.fixedWidth(8)
-                    Image(asset: .X18.muted).foregroundColor(.Control.secondary)
+                    .foregroundColor(Color.Text.primary)
+                    if isMuted {
+                        Spacer.fixedWidth(8)
+                        Image(asset: .X18.muted).foregroundColor(.Control.secondary)
+                    }
                 }
-                Spacer(minLength: 8)
+                lastMessagePreview(message)
+                Spacer(minLength: 1)
+            }
+            
+            Spacer(minLength: 8)
+            
+            VStack(alignment: .trailing, spacing: 0) {
                 lastMessageDate
+                Spacer.fixedHeight(2)
+                decoration
+                Spacer(minLength: 1)
             }
-            HStack {
-                info
-                Spacer()
-                unreadCounters
-                pin
-            }
-            Spacer(minLength: 1)
         }
     }
     
     private var mainContentWithoutMessage: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text(spaceData.spaceView.name.withPlaceholder)
-                    .anytypeFontStyle(.bodySemibold)
+                AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
                     .lineLimit(1)
-                    .foregroundStyle(Color.Text.primary)
+                    .foregroundColor(Color.Text.primary)
                 if isMuted {
                     Spacer.fixedWidth(8)
                     Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
                 }
                 Spacer()
                 pin
-            }
-        }
-    }
-
-    
-    private var info: some View {
-        Group {
-            if let lastMessage = spaceData.preview.lastMessage {
-                lastMessagePreview(lastMessage)
-                    .foregroundStyle(Color.Text.secondary)
-                    .multilineTextAlignment(.leading)
             }
         }
     }
@@ -121,10 +112,12 @@ struct NewSpaceCardLabel: View {
                 // Show attachements and 1 line of text
                 messageWithAttachements(message)
             } else {
-                Text(message.creator?.title ?? Loc.Chat.newMessages)
-                    .anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .uxTitle2Medium)
+                    .lineLimit(1)
             }
         }
+        .foregroundColor(Color.Control.transparentSecondary)
+        .multilineTextAlignment(.leading)
     }
     
     func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
@@ -142,7 +135,7 @@ struct NewSpaceCardLabel: View {
     func messageWithAttachements(_ message: LastMessagePreview) -> some View {
         HStack(spacing: 2) {
             if let creator = message.creator {
-                Text(creator.title + ":").anytypeStyle(.uxTitle2Medium).lineLimit(1)
+                AnytypeText(creator.title + ":", style: .uxTitle2Medium).lineLimit(1)
                 Spacer.fixedWidth(4)
             }
             
@@ -151,16 +144,24 @@ struct NewSpaceCardLabel: View {
             }
             
             Spacer.fixedWidth(4)
-            Text(message.localizedAttachmentsText).anytypeStyle(.uxTitle2Regular).lineLimit(1)
+            AnytypeText(message.localizedAttachmentsText, style: .uxTitle2Regular).lineLimit(1)
         }
     }
     
     @ViewBuilder
     private var lastMessageDate: some View {
         if let lastMessage = spaceData.preview.lastMessage {
-            Text(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true))
-                .anytypeStyle(.relation2Regular)
-                .foregroundStyle(Color.Control.transparentSecondary)
+            AnytypeText(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true), style: .relation2Regular)
+                .foregroundColor(Color.Control.transparentSecondary)
+        }
+    }
+    
+    @ViewBuilder
+    private var decoration: some View {
+        if spaceData.preview.hasCounters {
+            unreadCounters
+        } else {
+            pin
         }
     }
     
@@ -180,10 +181,10 @@ struct NewSpaceCardLabel: View {
     
     @ViewBuilder
     private var pin: some View {
-        if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
-            Image(asset: .X24.pin)
-                .foregroundStyle(Color.Control.transparentSecondary)
-                .frame(width: 22, height: 22)
+        if FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
+            Image(asset: .X18.pin)
+                .foregroundColor(Color.Control.transparentSecondary)
+                .frame(width: 18, height: 18)
         }
     }
     
