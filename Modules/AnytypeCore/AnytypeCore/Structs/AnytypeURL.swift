@@ -25,8 +25,7 @@ public struct AnytypeURL: Hashable, Sendable {
         // #c - is a fragment. # should not be encoded.
         
         guard let components = URLComponents(string: removingPercent),
-                let url = components.url,
-                let string = components.string else { return nil }
+                let url = components.url else { return nil }
         
         self.sourceString = string
         self.sourceURL = url
