@@ -750,6 +750,7 @@ extension ImageAsset {
       public static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
     }
     public static let folder = ImageAsset.bundle(name: "x24/Folder")
+    public static let keychain = ImageAsset.bundle(name: "x24/Keychain")
     public static let lock = ImageAsset.bundle(name: "x24/Lock")
     public static let member = ImageAsset.bundle(name: "x24/Member")
     public static let mention = ImageAsset.bundle(name: "x24/Mention")
@@ -768,6 +769,7 @@ extension ImageAsset {
     public static let plus = ImageAsset.bundle(name: "x24/Plus")
     public static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
     public static let properties = ImageAsset.bundle(name: "x24/Properties")
+    public static let qrCode = ImageAsset.bundle(name: "x24/QRCode")
     public static let reaction = ImageAsset.bundle(name: "x24/Reaction")
     public static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     public static let replace = ImageAsset.bundle(name: "x24/Replace")

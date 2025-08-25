@@ -12,6 +12,6 @@ final class LoginFlowCoordinator: LoginFlowCoordinatorProtocol, LoginFlowOutput 
     // MARK: - LoginFlowCoordinatorProtocol
     
     func startFlow() -> AnyView {
-        LoginView(output: self).eraseToAnyView()
+        LoginDepricatedView(output: self).eraseToAnyView()
     }
 }

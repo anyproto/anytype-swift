@@ -125,9 +125,9 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let createChatWidget = FeatureDescription(
-        title: "Create Chat Widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+    static let chatInDataSpace = FeatureDescription(
+        title: "Chat in data space",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
         debugValue: true
@@ -233,7 +233,7 @@ public extension FeatureDescription {
         title: "New auth flow",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
 
     // MARK: - Debug

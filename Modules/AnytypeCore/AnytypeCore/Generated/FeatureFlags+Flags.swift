@@ -74,8 +74,8 @@ public extension FeatureFlags {
         value(for: .binScreenEmptyAction)
     }
 
-    static var createChatWidget: Bool {
-        value(for: .createChatWidget)
+    static var chatInDataSpace: Bool {
+        value(for: .chatInDataSpace)
     }
 
     static var muteSpacePossibility: Bool {
@@ -229,7 +229,7 @@ public extension FeatureFlags {
         .doNotWaitCompletionInAnytypePreview,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .createChatWidget,
+        .chatInDataSpace,
         .muteSpacePossibility,
         .addNotificationsSettings,
         .joinSpaceViaQRCode,
