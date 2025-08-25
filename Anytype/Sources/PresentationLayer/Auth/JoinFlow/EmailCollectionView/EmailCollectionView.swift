@@ -5,7 +5,7 @@ struct EmailCollectionView: View {
     
     @StateObject private var model: EmailCollectionViewModel
     
-    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
+    init(state: JoinFlowState, output: (any JoinBaseOutput)?) {
         _model = StateObject(wrappedValue: EmailCollectionViewModel(state: state, output: output))
     }
     

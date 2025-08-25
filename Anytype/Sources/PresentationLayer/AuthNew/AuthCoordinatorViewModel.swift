@@ -7,11 +7,15 @@ final class AuthCoordinatorViewModel: ObservableObject, PrimaryAuthOutput {
     @Published var showDebugMenu = false
     @Published var showSettings = false
     @Published var showLogin = false
+    @Published var showJoinFlow = false
+    
+    var joinState: JoinFlowState?
     
     // MARK: - PrimaryAuthOutput
     
     func onJoinSelected(state: JoinFlowState) {
-        // TODO
+        joinState = state
+        showJoinFlow = true
     }
     
     func onLoginSelected() {
