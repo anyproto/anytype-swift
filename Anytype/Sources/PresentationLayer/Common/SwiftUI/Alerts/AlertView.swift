@@ -26,7 +26,7 @@ struct AlertView<Presenting>: View where Presenting: View {
             
             StandardButton(
                 Loc.ok,
-                style: .primaryLarge,
+                style: .secondaryOvalLarge,
                 action: {
                     isShowing.toggle()
                     onButtonTap()
@@ -35,8 +35,9 @@ struct AlertView<Presenting>: View where Presenting: View {
         }
         .padding(32)
         .frame(maxWidth: 300)
-        .background(Color.BackgroundCustom.black)
+        .background(Color.Background.secondary)
         .cornerRadius(8)
+        .shadow(color: .black.opacity(0.15), radius: 12)
         .transition(.slide)
         .setZeroOpacity(!isShowing)
     }
