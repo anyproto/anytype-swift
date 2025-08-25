@@ -12,6 +12,8 @@ struct LaunchView: View {
                 .onTapGesture(count: 10) {
                     showPrivateDebugMenu.toggle()
                 }
+                .ignoresSafeArea()
+            
             LaunchCircle()
                 .onTapGesture(count: 5) {
                     showPublicDebugMenu.toggle()
@@ -22,7 +24,21 @@ struct LaunchView: View {
                 .sheet(isPresented: $showPublicDebugMenu) {
                     PublicDebugMenuView()
                 }
+                .zStackPosition(.center)
+                .ignoresSafeArea()
+            
+            HStack(spacing: 8) {
+                IconView(asset: .X18.lockWithTick)
+                Text(Loc.launchBottomText)
+                    .anytypeStyle(.previewTitle2Medium)
+                    .foregroundStyle(Color.Text.secondary)
+            }
+            .zStackPosition(.bottom)
+            .padding(.bottom, 26)
         }
-        .ignoresSafeArea()
     }
+}
+
+#Preview {
+    LaunchView()
 }
