@@ -192,6 +192,8 @@ enum ScreenOnboardingStep: String {
     case phrase = "Phrase"
     case soul = "Soul"
     case email = "Email"
+    case persona = "Persona"
+    case useCase = "UseCase"
 }
 
 enum ClickOnboardingButton: String {
