@@ -8,7 +8,7 @@ struct LaunchView: View {
 
     var body: some View {
         ZStack {
-            Color.black
+            Color.Background.primary
                 .onTapGesture(count: 10) {
                     showPrivateDebugMenu.toggle()
                 }
