@@ -26,7 +26,7 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     init(state: JoinFlowState) {
         self.state = state
         
-        if shouldSkipEmailStep() {
+        if step == .email, shouldSkipEmailStep() {
             onNext(with: step)
         }
     }
@@ -59,7 +59,7 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
             return
         }
         
-        if nextStep == .email && shouldSkipEmailStep() {
+        if nextStep == .email, shouldSkipEmailStep() {
             onNext(with: nextStep)
             return
         }
