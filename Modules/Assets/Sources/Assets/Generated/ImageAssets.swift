@@ -1013,6 +1013,31 @@ extension ImageAsset {
   public enum Secure {
     public static let screenTop = ImageAsset.bundle(name: "Secure/ScreenTop")
   }
+  public enum SelectionOption {
+    public static let other = ImageAsset.bundle(name: "SelectionOption/Other")
+    public enum Persona {
+      public static let artist = ImageAsset.bundle(name: "SelectionOption/Persona/Artist")
+      public static let consultunt = ImageAsset.bundle(name: "SelectionOption/Persona/Consultunt")
+      public static let designer = ImageAsset.bundle(name: "SelectionOption/Persona/Designer")
+      public static let developer = ImageAsset.bundle(name: "SelectionOption/Persona/Developer")
+      public static let entrepreneur = ImageAsset.bundle(name: "SelectionOption/Persona/Entrepreneur")
+      public static let it = ImageAsset.bundle(name: "SelectionOption/Persona/IT")
+      public static let manager = ImageAsset.bundle(name: "SelectionOption/Persona/Manager")
+      public static let marketer = ImageAsset.bundle(name: "SelectionOption/Persona/Marketer")
+      public static let scientist = ImageAsset.bundle(name: "SelectionOption/Persona/Scientist")
+      public static let student = ImageAsset.bundle(name: "SelectionOption/Persona/Student")
+      public static let writer = ImageAsset.bundle(name: "SelectionOption/Persona/Writer")
+    }
+    public enum UseCase {
+      public static let habitTracking = ImageAsset.bundle(name: "SelectionOption/UseCase/HabitTracking")
+      public static let knowledge = ImageAsset.bundle(name: "SelectionOption/UseCase/Knowledge")
+      public static let lifePlanning = ImageAsset.bundle(name: "SelectionOption/UseCase/LifePlanning")
+      public static let messaging = ImageAsset.bundle(name: "SelectionOption/UseCase/Messaging")
+      public static let notes = ImageAsset.bundle(name: "SelectionOption/UseCase/Notes")
+      public static let projects = ImageAsset.bundle(name: "SelectionOption/UseCase/Projects")
+      public static let teamWork = ImageAsset.bundle(name: "SelectionOption/UseCase/TeamWork")
+    }
+  }
   public static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   public static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
   public enum SettingsOld {
