@@ -110,7 +110,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         let vc = UIHostingController(
             rootView: MediaPickerView(
                 contentType: contentType,
-                onSelect: onSelect
+                onSelect: { [weak self] in
+                    onSelect($0)
+                    self?.navigationContext.dismissTopPresented()
+                }
             )
         )
         navigationContext.present(vc)
