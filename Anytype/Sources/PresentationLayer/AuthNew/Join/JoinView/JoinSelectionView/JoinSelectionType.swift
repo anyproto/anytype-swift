@@ -21,12 +21,7 @@ enum JoinSelectionType {
     }
     
     var isMultiSelection: Bool {
-        switch self {
-        case .persona:
-            return false
-        case .useCase:
-            return true
-        }
+        return false
     }
     
     var oprions: [InfoSelectionOption] {
