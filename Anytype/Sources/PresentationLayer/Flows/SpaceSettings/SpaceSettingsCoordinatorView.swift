@@ -47,6 +47,8 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
                 }
             }
             .sheet(item: $model.showSpaceShareData) {
+                model.onSpaceShareDismissed()
+            } content: {
                 SpaceShareCoordinatorView(data: $0)
             }
             .sheet(item: $model.spaceNotificationsSettingsModuleData) {
