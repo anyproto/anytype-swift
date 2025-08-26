@@ -122,8 +122,8 @@ struct SpaceSettingsView: View {
         }
     }
     
-    @ViewBuilder
     private var sharing: some View {
+        Group {
         if model.inviteLink.isNotNil {
             Spacer.fixedHeight(24)
             
@@ -149,6 +149,7 @@ struct SpaceSettingsView: View {
             
             Spacer.fixedHeight(16)
         }
+        }.animation(.default, value: model.inviteLink)
     }
     
     private func inviteLinkActionView(asset: ImageAsset, title: String) -> some View {
