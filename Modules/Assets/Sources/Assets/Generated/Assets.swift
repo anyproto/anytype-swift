@@ -137,9 +137,6 @@ public enum Asset {
     static let orange = ColorAsset(name: "Gradients/orange")
     static let white = ColorAsset(name: "Gradients/white")
   }
-  public enum Launch {
-    static let circle = ColorAsset(name: "Launch/circle")
-  }
   public enum ModalScreen {
     static let background = ColorAsset(name: "ModalScreen/background")
     static let backgroundWithBlur = ColorAsset(name: "ModalScreen/backgroundWithBlur")

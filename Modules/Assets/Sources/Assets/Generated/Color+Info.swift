@@ -34,7 +34,6 @@ public extension UIColor {
                 UIColor.BackgroundCustom.collectionInfo,
                 UIColor.CoverGradients.collectionInfo,
                 UIColor.Gradients.collectionInfo,
-                UIColor.Launch.collectionInfo,
                 UIColor.ModalScreen.collectionInfo,
                 UIColor.PushNotifications.collectionInfo,
                 UIColor.Shadow.collectionInfo,
@@ -204,14 +203,6 @@ public extension UIColor.Gradients {
             ColorInfo(name: "green", color: UIColor.Gradients.green),
             ColorInfo(name: "orange", color: UIColor.Gradients.orange),
             ColorInfo(name: "white", color: UIColor.Gradients.white)
-        ]
-    )
-}
-public extension UIColor.Launch {
-    static let collectionInfo = ColorCollectionInfo(
-        name: "Launch",
-        colors: [
-            ColorInfo(name: "circle", color: UIColor.Launch.circle)
         ]
     )
 }
