@@ -8,7 +8,7 @@ struct LaunchView: View {
 
     var body: some View {
         ZStack {
-            Color.black
+            Color.Background.primary
                 .onTapGesture(count: 10) {
                     showPrivateDebugMenu.toggle()
                 }
@@ -29,7 +29,8 @@ struct LaunchView: View {
             
             HStack(spacing: 8) {
                 IconView(asset: .X18.lockWithTick)
-                Text(Loc.launchBottomText)
+                // Do not localize
+                Text("encrypted, local, yours forever")
                     .anytypeStyle(.previewTitle2Medium)
                     .foregroundStyle(Color.Text.secondary)
             }

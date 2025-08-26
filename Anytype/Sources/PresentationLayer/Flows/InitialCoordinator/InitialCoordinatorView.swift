@@ -7,7 +7,7 @@ struct InitialCoordinatorView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            Color.Background.primary
                 .ignoresSafeArea()
             
             if model.showSaveBackupAlert {
