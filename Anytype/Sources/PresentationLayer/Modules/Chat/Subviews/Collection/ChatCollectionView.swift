@@ -82,6 +82,10 @@ struct ChatCollectionView<
         actionView.view.backgroundColor = .clear
         actionView.sizingOptions = [.intrinsicContentSize]
         
+        if #available(iOS 16.4, *) {
+            actionView.safeAreaRegions = SafeAreaRegions()
+        }
+        
         let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView, actionView: actionView)
         container.contentInset = UIEdgeInsets(top: PageNavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
         return container
