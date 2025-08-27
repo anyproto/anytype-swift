@@ -5,6 +5,7 @@ import AudioToolbox
 struct PrimaryAuthView: View {
     
     @StateObject private var model: PrimaryAuthViewModel
+    @Environment(\.authCircleCenterVerticalOffset) private var circleOffset
     
     init(output: (any PrimaryAuthOutput)?) {
         _model = StateObject(wrappedValue: PrimaryAuthViewModel(output: output))
@@ -61,7 +62,9 @@ struct PrimaryAuthView: View {
             AudioServicesPlaySystemSound(1109)
             model.onDebugMenuTap()
         }
-            
+        .readFrame { frame in
+            circleOffset.wrappedValue = frame.minY + frame.height * 0.5
+        }
     }
     
     private var header: some View {

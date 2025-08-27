@@ -66,6 +66,7 @@
 		74A696EC2E0EEB70007F32CA /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 74A696EB2E0EEB70007F32CA /* Loc */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
 		74D79ED52D784FBF00658D0A /* AsyncTools in Frameworks */ = {isa = PBXBuildFile; productRef = 74D79ED42D784FBF00658D0A /* AsyncTools */; };
+		74D9D0F42E5F31F500CA09E7 /* AssetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */; };
 		74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = 74EB806B2D79D3EA003F8D84 /* Assets */; };
 		74FC7F722D9EE65100FDD16F /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 74FC7F712D9EE65100FDD16F /* Loc */; };
 		862D559A2A8F78330018103F /* AnytypeShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -194,6 +195,7 @@
 		3D372A332CB56EB900762DA9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D3B350D2BCE872E008456F8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetConstants.swift; sourceTree = "<group>"; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D7255F2A94EDB0008DF702 /* Anytype.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anytype.entitlements; sourceTree = "<group>"; };
 		C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -402,6 +404,7 @@
 		038FB5C422D8F284002B90B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */,
 				3D6977812CAE9ED0003F5A91 /* Video */,
 				0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */,
 				0339382422EF571600589108 /* Strings */,
@@ -776,6 +779,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74D9D0F42E5F31F500CA09E7 /* AssetConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
