@@ -5,10 +5,9 @@ struct GalleryWidgetView: View {
     
     let rows: [GalleryWidgetRowModel]?
     let onShowAllObjects: () -> Void
-    let onCreateTap: (() -> Void)?
     
     var body: some View {
-        WidgetContainerWithEmptyState(showEmpty: (rows?.isEmpty ?? false), onCreateTap: onCreateTap) {
+        WidgetContainerWithEmptyState(showEmpty: (rows?.isEmpty ?? false)) {
             content
         }
     }

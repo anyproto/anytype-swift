@@ -45,8 +45,7 @@ struct TreeWidgetView: View {
     
     var content: some View {
         WidgetContainerWithEmptyState(
-            showEmpty: (model.rows?.isEmpty ?? false),
-            onCreateTap: createTap
+            showEmpty: (model.rows?.isEmpty ?? false)
         ) {
             if let rows = model.rows {
                 VStack(spacing: 0) {
