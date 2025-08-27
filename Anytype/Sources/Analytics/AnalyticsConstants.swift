@@ -196,6 +196,11 @@ enum ScreenOnboardingStep: String {
     case useCase = "UseCase"
 }
 
+enum ClickOnboardingStep: String {
+    case persona = "Persona"
+    case useCase = "UseCase"
+}
+
 enum ClickOnboardingButton: String {
     case showAndCopy = "ShowAndCopy"
     case checkLater = "CheckLater"
