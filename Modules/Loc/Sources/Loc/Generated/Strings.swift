@@ -675,10 +675,41 @@ public enum Loc {
           }
         }
       }
+      public enum PersonaInfo {
+        public static let description = Loc.tr("Localizable", "Auth.JoinFlow.PersonaInfo.description", fallback: "Select one role or background that best fits you")
+        public static let title = Loc.tr("Localizable", "Auth.JoinFlow.PersonaInfo.title", fallback: "Tell Us About Yourself")
+      }
+      public enum SelectionOption {
+        public enum Persona {
+          public static let artist = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.artist", fallback: "Artist / Content Creator")
+          public static let consultant = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.consultant", fallback: "Consultant")
+          public static let designer = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.designer", fallback: "Designer")
+          public static let developer = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.developer", fallback: "Software Developer")
+          public static let entrepreneur = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.entrepreneur", fallback: "Founder / Entrepreneur")
+          public static let manager = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.manager", fallback: "Manager / IT Professional")
+          public static let marketer = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.marketer", fallback: "Marketer")
+          public static let researcher = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.researcher", fallback: "Researcher / Academic")
+          public static let student = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.student", fallback: "Student")
+          public static let writer = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.Persona.writer", fallback: "Writer / Journalist")
+        }
+        public enum UseCase {
+          public static let habitTracking = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.habitTracking", fallback: "Habit tracking")
+          public static let knowledge = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.knowledge", fallback: "Personal knowledge base / PKM")
+          public static let lifePlanning = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.lifePlanning", fallback: "Life planning")
+          public static let messaging = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.messaging", fallback: "Messaging & group chats")
+          public static let notes = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.notes", fallback: "Personal note-taking")
+          public static let projects = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.projects", fallback: "Projects & tasks management")
+          public static let teamWork = Loc.tr("Localizable", "Auth.JoinFlow.SelectionOption.UseCase.teamWork", fallback: "Team work & shared docs")
+        }
+      }
       public enum Soul {
         public static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Done")
         public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of these names.")
         public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Add Your Name")
+      }
+      public enum UseCaseInfo {
+        public static let description = Loc.tr("Localizable", "Auth.JoinFlow.UseCaseInfo.description", fallback: "Pick one use case that fits you best")
+        public static let title = Loc.tr("Localizable", "Auth.JoinFlow.UseCaseInfo.title", fallback: "What do you want to use Anytype for?")
       }
     }
     public enum Login {
