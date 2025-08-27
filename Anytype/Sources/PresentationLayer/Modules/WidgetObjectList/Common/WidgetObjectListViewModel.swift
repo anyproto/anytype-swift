@@ -115,9 +115,9 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - WidgetObjectListMenuOutput
     
-    func setFavorite(objectIds: [String], _ isFavorite: Bool) {
-        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
-        Task { try? await objectActionService.setFavorite(objectIds: objectIds, isFavorite) }
+    func setPin(objectIds: [String], _ isPinned: Bool) {
+        AnytypeAnalytics.instance().logAddToFavorites(isPinned)
+        Task { try? await objectActionService.setPin(objectIds: objectIds, isPinned) }
         UISelectionFeedbackGenerator().selectionChanged()
     }
     

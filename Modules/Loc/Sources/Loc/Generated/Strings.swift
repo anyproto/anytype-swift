@@ -22,7 +22,7 @@ public enum Loc {
   public static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
   public static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
   public static let addProperty = Loc.tr("Localizable", "Add property", fallback: "Add property")
-  public static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Favorite")
+  public static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Pinned")
   public static func agreementDisclamer(_ p1: Any, _ p2: Any) -> String {
     return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
   }
@@ -175,8 +175,6 @@ public enum Loc {
   public static let existingProperties = Loc.tr("Localizable", "Existing properties", fallback: "Existing properties")
   public static let export = Loc.tr("Localizable", "Export", fallback: "Export")
   public static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
-  public static let favorite = Loc.tr("Localizable", "Favorite", fallback: "Favorite")
-  public static let favorites = Loc.tr("Localizable", "Favorites", fallback: "Favorites")
   public static let featuredRelations = Loc.tr("Localizable", "Featured relations", fallback: "Featured properties")
   public static let fields = Loc.tr("Localizable", "Fields", fallback: "Properties")
   public static func file(_ p1: Int) -> String {
@@ -379,7 +377,7 @@ public enum Loc {
     return Loc.tr("Localizable", "Relation", p1, fallback: "Plural format key: Relation")
   }
   public static let remove = Loc.tr("Localizable", "Remove", fallback: "Remove")
-  public static let removeFromFavorite = Loc.tr("Localizable", "Remove From Favorite", fallback: "Remove From Favorite")
+  public static let removeFromFavorite = Loc.tr("Localizable", "Remove From Favorite", fallback: "Remove From Pinned")
   public static let removePhoto = Loc.tr("Localizable", "Remove photo", fallback: "Remove photo")
   public static let removingCache = Loc.tr("Localizable", "Removing cache", fallback: "Removing cache")
   public static let resend = Loc.tr("Localizable", "Resend", fallback: "Resend")
@@ -473,7 +471,6 @@ public enum Loc {
   public static let undo = Loc.tr("Localizable", "Undo", fallback: "Undo")
   public static let undoTyping = Loc.tr("Localizable", "Undo typing", fallback: "Undo typing")
   public static let undoRedo = Loc.tr("Localizable", "Undo/Redo", fallback: "Undo/Redo")
-  public static let unfavorite = Loc.tr("Localizable", "Unfavorite", fallback: "Unfavorite")
   public static let unknown = Loc.tr("Localizable", "Unknown", fallback: "Unknown")
   public static let unknownError = Loc.tr("Localizable", "Unknown error", fallback: "Unknown error")
   public static let unlimited = Loc.tr("Localizable", "unlimited", fallback: "Unlimited")

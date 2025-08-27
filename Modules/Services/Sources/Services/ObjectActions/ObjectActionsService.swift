@@ -61,10 +61,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }).invoke()
     }
     
-    public func setFavorite(objectIds: [String], _ isFavorite: Bool) async throws {
+    public func setPin(objectIds: [String], _ isPinned: Bool) async throws {
         try await ClientCommands.objectListSetIsFavorite(.with {
             $0.objectIds = objectIds
-            $0.isFavorite = isFavorite
+            $0.isFavorite = isPinned
         }).invoke()
     }
 
