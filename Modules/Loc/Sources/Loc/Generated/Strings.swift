@@ -621,7 +621,7 @@ public enum Loc {
   }
   public enum Auth {
     public static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    public static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I already have the key")
+    public static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I already have a key")
     public static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     public enum Button {
       public static let join = Loc.tr("Localizable", "Auth.Button.Join", fallback: "I am new here")
