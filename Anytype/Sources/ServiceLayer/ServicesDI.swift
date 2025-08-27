@@ -84,8 +84,8 @@ extension Container {
         self { ObjectTypeProvider.shared }
     }
     
-    var favoriteSubscriptionService: Factory<any FavoriteSubscriptionServiceProtocol> {
-        self { FavoriteSubscriptionService() }
+    var pinnedSubscriptionService: Factory<any PinnedSubscriptionServiceProtocol> {
+        self { PinnedSubscriptionService() }
     }
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {

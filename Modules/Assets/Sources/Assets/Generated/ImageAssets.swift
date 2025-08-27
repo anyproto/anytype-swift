@@ -746,10 +746,6 @@ extension ImageAsset {
     public static let email = ImageAsset.bundle(name: "x24/Email")
     public static let embed = ImageAsset.bundle(name: "x24/Embed")
     public static let empty = ImageAsset.bundle(name: "x24/Empty")
-    public enum Favorite {
-      public static let favorite = ImageAsset.bundle(name: "x24/Favorite/Favorite")
-      public static let unfavorite = ImageAsset.bundle(name: "x24/Favorite/Unfavorite")
-    }
     public static let folder = ImageAsset.bundle(name: "x24/Folder")
     public static let keychain = ImageAsset.bundle(name: "x24/Keychain")
     public static let lock = ImageAsset.bundle(name: "x24/Lock")

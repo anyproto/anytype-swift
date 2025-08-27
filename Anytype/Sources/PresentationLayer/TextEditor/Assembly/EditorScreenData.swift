@@ -4,7 +4,7 @@ import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable, Equatable, Identifiable {
     // Anytype widget screens
-    case favorites(homeObjectId: String, spaceId: String)
+    case pinned(homeObjectId: String, spaceId: String)
     case recentEdit(spaceId: String)
     case recentOpen(spaceId: String)
     case bin(spaceId: String)

@@ -16,7 +16,7 @@ public protocol ObjectActionsServiceProtocol: Sendable {
     
     func delete(objectIds: [String]) async throws
     func setArchive(objectIds: [String], _ isArchived: Bool) async throws
-    func setFavorite(objectIds: [String], _ isFavorite: Bool) async throws
+    func setPin(objectIds: [String], _ isPinned: Bool) async throws
 
     func setLocked(_ isLocked: Bool, objectId: String) async throws
     func updateLayout(contextID: String, value: Int) async throws

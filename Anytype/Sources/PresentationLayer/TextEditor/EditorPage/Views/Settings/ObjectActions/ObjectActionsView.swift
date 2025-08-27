@@ -18,8 +18,8 @@ struct ObjectActionsView: View {
                         switch setting {
                         case .archive:
                             try await viewModel.changeArchiveState()
-                        case .favorite:
-                            try await viewModel.changeFavoriteSate()
+                        case .pin:
+                            try await viewModel.changePinState()
                         case .locked:
                             try await viewModel.changeLockState()
                         case .undoRedo:

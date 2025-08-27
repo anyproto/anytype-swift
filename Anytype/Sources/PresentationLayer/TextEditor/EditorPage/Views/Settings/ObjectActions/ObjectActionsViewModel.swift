@@ -74,10 +74,10 @@ final class ObjectActionsViewModel: ObservableObject {
         }
     }
 
-    func changeFavoriteSate() async throws {
+    func changePinState() async throws {
         guard let details = document.details else { return }
         AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
-        try await service.setFavorite(objectIds: [objectId], !details.isFavorite)
+        try await service.setPin(objectIds: [objectId], !details.isFavorite)
     }
 
     func changeLockState() async throws {
