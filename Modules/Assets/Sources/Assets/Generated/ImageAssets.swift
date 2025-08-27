@@ -631,6 +631,8 @@ extension ImageAsset {
     public static let icon = ImageAsset.bundle(name: "ObjectSettings/Icon")
     public static let layout = ImageAsset.bundle(name: "ObjectSettings/Layout")
   }
+  public static let empty = ImageAsset.bundle(name: "Empty")
+  public static let marked = ImageAsset.bundle(name: "Marked")
   public enum Preview {
     public static let card = ImageAsset.bundle(name: "Preview/Card")
     public static let inline = ImageAsset.bundle(name: "Preview/Inline")
@@ -652,6 +654,8 @@ extension ImageAsset {
     public static let membership = ImageAsset.bundle(name: "Settings/Membership")
     public static let mySites = ImageAsset.bundle(name: "Settings/MySites")
     public static let notifications = ImageAsset.bundle(name: "Settings/Notifications")
+    public static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
+    public static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
     public static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
   }
   public enum System {
@@ -761,6 +765,7 @@ extension ImageAsset {
     public static let openToEdit = ImageAsset.bundle(name: "x24/Open to Edit")
     public static let `open` = ImageAsset.bundle(name: "x24/Open")
     public static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
+    public static let pin = ImageAsset.bundle(name: "x24/Pin")
     public static let plusRounded = ImageAsset.bundle(name: "x24/Plus Rounded")
     public static let plus = ImageAsset.bundle(name: "x24/Plus")
     public static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
