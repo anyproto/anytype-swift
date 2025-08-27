@@ -25,26 +25,42 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     
     init(state: JoinFlowState) {
         self.state = state
+        
+        if step == .email, shouldSkipEmailStep() {
+            onNext(with: step)
+        }
     }
     
     func onBackButtonTap() {
-        if step.previous.isNil {
-            dismiss.toggle()
-        } else {
-            onBack()
-        }
+        onBack()
     }
     
     // MARK: - JoinBaseOutput
     
     func onNext() {
-        guard let nextStep = step.next else {
+        onNext(with: step)
+    }
+    
+    func onBack() {
+        onBack(with: step)
+    }
+    
+    func onError(_ error: some Error) {
+        errorText = error.localizedDescription
+    }
+    
+    func disableBackAction(_ disable: Bool) {
+        disableBackAction = disable
+    }
+    
+    private func onNext(with currentStep: JoinStep) {
+        guard let nextStep = currentStep.next else {
             finishFlow()
             return
         }
         
-        if nextStep == .email && shouldSkipEmailStep() {
-            finishFlow()
+        if nextStep == .email, shouldSkipEmailStep() {
+            onNext(with: nextStep)
             return
         }
         
@@ -55,8 +71,16 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
         }
     }
     
-    func onBack() {
-        guard let previousStep = step.previous else { return }
+    private func onBack(with currentStep: JoinStep) {
+        guard let previousStep = currentStep.previous else {
+            dismiss.toggle()
+            return
+        }
+        
+        if previousStep == .email && shouldSkipEmailStep() {
+            onBack(with: previousStep)
+            return
+        }
         
         UIApplication.shared.hideKeyboard()
         forward = false
@@ -64,14 +88,6 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
         withAnimation {
             step = previousStep
         }
-    }
-    
-    func onError(_ error: some Error) {
-        errorText = error.localizedDescription
-    }
-    
-    func disableBackAction(_ disable: Bool) {
-        disableBackAction = disable
     }
     
     private func finishFlow() {
