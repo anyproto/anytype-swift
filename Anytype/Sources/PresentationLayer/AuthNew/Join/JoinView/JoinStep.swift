@@ -1,5 +1,7 @@
 enum JoinStep: Int, CaseIterable {
     case email = 1
+    case personaInfo
+    case useCaseInfo
     
     var next: JoinStep? {
         let nextStepNumber = rawValue + 1

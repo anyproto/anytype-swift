@@ -65,6 +65,10 @@ struct JoinView: View {
         switch model.step {
         case .email:
             EmailCollectionView(state: model.state, output: model)
+        case .personaInfo:
+            JoinSelectionView(type: .persona, state: model.state, output: model)
+        case .useCaseInfo:
+            JoinSelectionView(type: .useCase, state: model.state, output: model)
         }
     }
 }

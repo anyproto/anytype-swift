@@ -384,9 +384,6 @@ extension Container {
         self { PushNotificationsSystemSettingsBroadcaster() }.singleton
     }
     
-    var chatInviteStateService: Factory<any ChatInviteStateServiceProtocol> {
-        self { ChatInviteStateService() }.singleton
-    }
     
     var spaceIconForNotificationsHandler: Factory<any SpaceIconForNotificationsHandlerProtocol> {
         self { SpaceIconForNotificationsHandler() }.singleton
