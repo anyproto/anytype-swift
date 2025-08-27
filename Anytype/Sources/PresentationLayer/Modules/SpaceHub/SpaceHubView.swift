@@ -25,10 +25,8 @@ struct SpaceHubView: View {
     @ViewBuilder
     private var content: some View {
         Group {
-            if let spaces = model.filteredSpaces, let unreadSpaces = model.filteredUnreadSpaces, spaces.isNotEmpty || unreadSpaces.isNotEmpty {
-                scrollView(unread: unreadSpaces, spaces: spaces)
-            } else if model.searchText.isNotEmpty {
-                searchEmptyStateView
+            if let spaces = model.filteredSpaces, let unreadSpaces = model.filteredUnreadSpaces {
+                spacesView(spaces: spaces, unreadSpaces: unreadSpaces)
             } else if model.spaces.isNotNil {
                 emptyStateView
             } else {
@@ -41,8 +39,23 @@ struct SpaceHubView: View {
         .animation(.default, value: model.spaces)
     }
     
-    private func scrollView(unread: [ParticipantSpaceViewDataWithPreview], spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+    private func spacesView(spaces: [ParticipantSpaceViewDataWithPreview], unreadSpaces: [ParticipantSpaceViewDataWithPreview], ) -> some View {
         NavigationStack {
+            Group {
+                if spaces.isNotEmpty || unreadSpaces.isNotEmpty {
+                    scrollView(spaces: spaces, unreadSpaces: unreadSpaces)
+                } else {
+                    searchEmptyStateView
+                }
+            }
+            .navigationTitle(Loc.mySpaces)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { toolbarItems }
+            .searchable(text: $model.searchText)
+        }.tint(Color.Text.secondary)
+    }
+    
+    private func scrollView(spaces: [ParticipantSpaceViewDataWithPreview], unreadSpaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         ScrollView {
             VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
@@ -54,17 +67,17 @@ struct SpaceHubView: View {
                     }
                 }
                 
-                if unread.isNotEmpty {
+                if unreadSpaces.isNotEmpty {
                     if spaces.isNotEmpty {
                         SectionHeaderView(title: Loc.unread).padding(.horizontal, 20)
                     }
-                    ForEach(unread) {
+                    ForEach(unreadSpaces) {
                         spaceCard($0, draggable: false)
                     }
                 }
                 
                 if spaces.isNotEmpty {
-                    if unread.isNotEmpty {
+                    if unreadSpaces.isNotEmpty {
                         SectionHeaderView(title: Loc.all).padding(.horizontal, 20)
                     }
                     ForEach(spaces) {
@@ -74,11 +87,6 @@ struct SpaceHubView: View {
                 
                 Spacer.fixedHeight(40)
             }
-            }
-            .navigationTitle(Loc.mySpaces)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { toolbarItems }
-            .searchable(text: $model.searchText)
         }
     }
     
