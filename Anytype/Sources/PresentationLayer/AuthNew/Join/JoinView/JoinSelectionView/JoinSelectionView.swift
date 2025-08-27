@@ -43,7 +43,7 @@ struct JoinSelectionView: View {
             
             StandardButton(
                 Loc.skip,
-                style: .secondaryOvalLarge,
+                style: .linkLarge,
                 action: {
                     model.onSkipAction()
                 }
