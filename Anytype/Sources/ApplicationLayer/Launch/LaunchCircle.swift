@@ -8,7 +8,7 @@ struct LaunchCircle: View {
         static let middleSide: CGFloat = 48
         static let minSide: CGFloat = 16
         // Сolor is stored in the assets of the main target. Then it is available in LaunchScreen.storyboard
-        static let color = Color("LaunchColors/circle")
+        static let color = Color.launchColorsCircle
     }
     
     @State private var side: CGFloat = Constants.minSide

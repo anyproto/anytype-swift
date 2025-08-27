@@ -109,7 +109,9 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onMembersTap() {
-        output?.onSpaceShareSelected()
+        output?.onSpaceShareSelected() { [weak self] in
+            Task { try await self?.updateInviteIfNeeded() }
+        }
     }
     
     func onAppear() {
@@ -132,21 +134,21 @@ final class SpaceSettingsViewModel: ObservableObject {
     func onShareTap() {
         AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .spaceSettings)
         Task {
-            try await generateInviteIfNeeded()
+            try await updateInviteIfNeeded()
             shareInviteLink = inviteLink
         }
     }
     
     func onQRCodeTap() {
         Task {
-            try await generateInviteIfNeeded()
+            try await updateInviteIfNeeded()
             qrInviteLink = inviteLink
         }
     }
     
     func onCopyLinkTap() {
         Task {
-            try await generateInviteIfNeeded()
+            try await updateInviteIfNeeded()
             guard let inviteLink else { return }
             AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .spaceSettings)
             UIPasteboard.general.string = inviteLink.absoluteString
@@ -289,7 +291,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         
-        Task { try await generateInviteIfNeeded() }
+        Task { try await updateInviteIfNeeded() }
     }
     
     private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> SpaceSettingsShareSection {
@@ -315,16 +317,24 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    private func generateInviteIfNeeded() async throws {
+    private func updateInviteIfNeeded() async throws {
         guard let participantSpaceView else { return }
-        guard shareSection.isSharingAvailable && inviteLink.isNil else { return }
+        guard shareSection.isSharingAvailable else { return }
         
         if participantSpaceView.spaceView.uxType.isStream {
-            let invite = try await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
+            if let invite {
+                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            } else {
+                inviteLink = nil
+            }
         } else {
-            let invite = try await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+            if let invite {
+                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            } else {
+                inviteLink = nil
+            }
         }
     }
 }

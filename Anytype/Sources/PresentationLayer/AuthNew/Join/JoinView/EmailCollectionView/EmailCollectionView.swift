@@ -91,7 +91,7 @@ struct EmailCollectionView: View {
             if FeatureFlags.skipOnboardingEmailCollection {
                 StandardButton(
                     Loc.skip,
-                    style: FeatureFlags.brandNewAuthFlow ? .secondaryOvalLarge : .secondaryLarge,
+                    style: FeatureFlags.brandNewAuthFlow ? .linkLarge : .secondaryLarge,
                     action: {
                         model.onSkipAction()
                     }

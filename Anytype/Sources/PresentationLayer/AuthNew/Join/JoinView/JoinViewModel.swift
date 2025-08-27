@@ -25,45 +25,24 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     
     init(state: JoinFlowState) {
         self.state = state
+        
+        if step == .email, shouldSkipEmailStep() {
+            onNext(with: step)
+        }
     }
     
     func onBackButtonTap() {
-        if step.previous.isNil {
-            dismiss.toggle()
-        } else {
-            onBack()
-        }
+        onBack()
     }
     
     // MARK: - JoinBaseOutput
     
     func onNext() {
-        guard let nextStep = step.next else {
-            finishFlow()
-            return
-        }
-        
-        if nextStep == .email && shouldSkipEmailStep() {
-            finishFlow()
-            return
-        }
-        
-        forward = true
-        
-        withAnimation {
-            step = nextStep
-        }
+        onNext(with: step)
     }
     
     func onBack() {
-        guard let previousStep = step.previous else { return }
-        
-        UIApplication.shared.hideKeyboard()
-        forward = false
-        
-        withAnimation {
-            step = previousStep
-        }
+        onBack(with: step)
     }
     
     func onError(_ error: some Error) {
@@ -74,11 +53,59 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
         disableBackAction = disable
     }
     
+    private func onNext(with currentStep: JoinStep) {
+        guard let nextStep = currentStep.next else {
+            finishFlow()
+            return
+        }
+        
+        if nextStep == .email, shouldSkipEmailStep() {
+            onNext(with: nextStep)
+            return
+        }
+        
+        forward = true
+        
+        withAnimation {
+            step = nextStep
+        }
+    }
+    
+    private func onBack(with currentStep: JoinStep) {
+        guard let previousStep = currentStep.previous else {
+            dismiss.toggle()
+            return
+        }
+        
+        if previousStep == .email && shouldSkipEmailStep() {
+            onBack(with: previousStep)
+            return
+        }
+        
+        UIApplication.shared.hideKeyboard()
+        forward = false
+        
+        withAnimation {
+            step = previousStep
+        }
+    }
+    
     private func finishFlow() {
         applicationStateService.state = .home
+        sendSelectedOptions()
         AnytypeAnalytics.instance().logAccountOpen(
             analyticsId: accountManager.account.info.analyticsId
         )
+    }
+    
+    private func sendSelectedOptions() {
+        for option in state.personaOptions {
+            AnytypeAnalytics.instance().logClickOnboarding(step: .persona, type: option.analyticsValue)
+        }
+        
+        for option in state.useCaseOptions {
+            AnytypeAnalytics.instance().logClickOnboarding(step: .useCase, type: option.analyticsValue)
+        }
     }
     
     private func shouldSkipEmailStep() -> Bool {

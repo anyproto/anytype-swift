@@ -124,7 +124,7 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         
         let batches = attachments.chunked(into: 20)
         
-        for (index, batch) in batches.enumerated() {
+        for (index, _) in batches.enumerated() {
             var chatMessageContent = ChatMessageContent()
             chatMessageContent.text = (index == 0 && onlyImages) ? comment : ""
             

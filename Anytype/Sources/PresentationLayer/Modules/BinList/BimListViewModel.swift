@@ -79,6 +79,8 @@ final class BinListViewModel: ObservableObject, OptionsItemProvider {
     
     func onTapDone() {
         viewEditMode = .inactive
+        selectedIds.removeAll()
+        updateView()
     }
     
     func onTapEmptyBin() async throws {

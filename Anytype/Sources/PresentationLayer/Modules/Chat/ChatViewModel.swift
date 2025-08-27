@@ -47,8 +47,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.pushNotificationsAlertHandler)
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
-    @Injected(\.chatInviteStateService)
-    private var chatInviteStateService: any ChatInviteStateServiceProtocol
     @Injected(\.notificationsCenterService)
     private var notificationsCenterService: any NotificationsCenterServiceProtocol
     
@@ -664,7 +662,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             await handlePushNotificationsAlert()
-            handleInviteLinkShow()
         }
     }
     
@@ -764,12 +761,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         linkedObjects[index] = .localBookmark(bookmark)
     }
     
-    private func handleInviteLinkShow() {
-        if chatInviteStateService.shouldShowInvite(for: spaceId) {
-            output?.onInviteLinkSelected()
-            chatInviteStateService.clearInviteState(for: spaceId)
-        }
-    }
     
     private func handlePushNotificationsAlert() async {
         guard await pushNotificationsAlertHandler.shouldShowAlert() else { return }

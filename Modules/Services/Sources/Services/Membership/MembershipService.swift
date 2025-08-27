@@ -49,7 +49,7 @@ final class MembershipService: MembershipServiceProtocol {
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier] {
         return try await ClientCommands.membershipGetTiers(.with {
-            $0.locale = Locale.current.languageCode ?? "en"
+            $0.locale = Locale.current.language.languageCode?.identifier ?? "en"
             $0.noCache = noCache
         })
         .invoke(ignoreLogErrors: .canNotConnect).tiers

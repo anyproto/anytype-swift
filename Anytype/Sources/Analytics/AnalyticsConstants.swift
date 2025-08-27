@@ -192,6 +192,13 @@ enum ScreenOnboardingStep: String {
     case phrase = "Phrase"
     case soul = "Soul"
     case email = "Email"
+    case persona = "Persona"
+    case useCase = "UseCase"
+}
+
+enum ClickOnboardingStep: String {
+    case persona = "Persona"
+    case useCase = "UseCase"
 }
 
 enum ClickOnboardingButton: String {
@@ -472,3 +479,20 @@ enum MediaFileScreenRoute: String {
     case chat = "Chat"
 }
 
+enum ClickNavBarAddMenuRoute: String {
+    case screenObject = "ScreenObject"
+    case screenWidget = "ScreenWidget"
+    case screenFavorites = "ScreenFavorites"
+    case screenRecentEdit = "ScreenRecentEdit"
+    case screenRecentOpen = "ScreenRecentOpen"
+    case screenBin = "ScreenBin"
+    case screenDate = "ScreenDate"
+    case screenType = "ScreenType"
+    case screenAllObjects = "ScreenAllObjects"
+}
+
+enum ClickNavBarAddMenuType: String {
+    case camera = "Camera"
+    case file = "File"
+    case photo = "Photo"
+}

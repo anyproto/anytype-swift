@@ -26,4 +26,5 @@ public enum StandardButtonStyle {
     
     case primaryOvalLarge
     case secondaryOvalLarge
+    case linkLarge
 }

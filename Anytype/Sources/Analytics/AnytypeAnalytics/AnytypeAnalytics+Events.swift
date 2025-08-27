@@ -847,6 +847,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickOnboarding(step: ClickOnboardingStep, type: String) {
+        logEvent(
+            "ClickOnboarding",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.step: step.rawValue,
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
     func logScreenOnboardingEnterEmail() {
         logEvent("ScreenOnboardingEnterEmail")
     }
@@ -1736,5 +1746,19 @@ extension AnytypeAnalytics {
     
     func logUnpinSpace() {
         logEvent("UnpinSpace")
+    }
+    
+    func logClickNavBarAddMenu(type: ClickNavBarAddMenuType, route: ClickNavBarAddMenuRoute?) {
+        logEvent("ClickNavBarAddMenu", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue,
+            AnalyticsEventsPropertiesKey.type: type.rawValue
+        ].compactMapValues { $0 })
+    }
+    
+    func logClickNavBarAddMenu(objectType: AnalyticsObjectType, route: ClickNavBarAddMenuRoute?) {
+        logEvent("ClickNavBarAddMenu", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue,
+            AnalyticsEventsPropertiesKey.type: objectType.analyticsId
+        ].compactMapValues { $0 })
     }
 }
