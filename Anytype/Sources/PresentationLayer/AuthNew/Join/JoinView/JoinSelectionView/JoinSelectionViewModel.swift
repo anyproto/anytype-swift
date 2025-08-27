@@ -36,16 +36,15 @@ final class JoinSelectionViewModel: ObservableObject {
     }
     
     func onSelectionChanged(_ option: InfoSelectionOption) {
-        guard type.isMultiSelection else{
-            selectedOptions = [option]
-            appendOptionsToState(option)
-            return
-        }
         if selectedOptions.contains(option) {
             selectedOptions.removeAll { $0.id == option.id }
             removeOptionsFromState(option)
         } else {
-            selectedOptions.append(option)
+            if type.isMultiSelection {
+                selectedOptions.append(option)
+            } else {
+                selectedOptions = [option]
+            }
             appendOptionsToState(option)
         }
     }
@@ -53,15 +52,7 @@ final class JoinSelectionViewModel: ObservableObject {
     func onNextAction() {
         guard selectedOptions.isNotEmpty else {
             return
-        }
-        
-//        switch type {
-//        case .persona:
-//            AnytypeAnalytics.instance().logScreenOnboarding(step: .persona) // will be updated
-//        case .useCase:
-//            AnytypeAnalytics.instance().logScreenOnboarding(step: .useCase) // will be updated
-//        }
-        
+        }        
         onSuccess()
     }
     

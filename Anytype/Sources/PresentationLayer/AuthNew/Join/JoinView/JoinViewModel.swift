@@ -92,9 +92,20 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     
     private func finishFlow() {
         applicationStateService.state = .home
+        sendSelectedOptions()
         AnytypeAnalytics.instance().logAccountOpen(
             analyticsId: accountManager.account.info.analyticsId
         )
+    }
+    
+    private func sendSelectedOptions() {
+        for option in state.personaOptions {
+            AnytypeAnalytics.instance().logClickOnboarding(step: .persona, type: option.analyticsValue)
+        }
+        
+        for option in state.useCaseOptions {
+            AnytypeAnalytics.instance().logClickOnboarding(step: .useCase, type: option.analyticsValue)
+        }
     }
     
     private func shouldSkipEmailStep() -> Bool {

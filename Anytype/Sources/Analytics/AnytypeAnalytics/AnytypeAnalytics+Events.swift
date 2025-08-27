@@ -847,6 +847,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickOnboarding(step: ClickOnboardingStep, type: String) {
+        logEvent(
+            "ClickOnboarding",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.step: step.rawValue,
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
     func logScreenOnboardingEnterEmail() {
         logEvent("ScreenOnboardingEnterEmail")
     }
