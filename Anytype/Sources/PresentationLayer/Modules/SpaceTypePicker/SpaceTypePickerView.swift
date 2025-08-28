@@ -44,17 +44,15 @@ struct SpaceCreateTypePickerView: View {
                     }
                 )
             }
-            if FeatureFlags.joinSpaceViaQRCode {
-                SpaceTypePickerRow(
-                    icon: .X32.qrCodeJoin,
-                    title: Loc.Qr.Join.title,
-                    subtitle: "",
-                    onTap: {
-                        dismiss()
-                        onSelectQrCodeScan()
-                    }
-                )
-            }
+            SpaceTypePickerRow(
+                icon: .X32.qrCodeJoin,
+                title: Loc.Qr.Join.title,
+                subtitle: "",
+                onTap: {
+                    dismiss()
+                    onSelectQrCodeScan()
+                }
+            )
         }
         .padding(.bottom, 16)
         .background(Color.Background.secondary)

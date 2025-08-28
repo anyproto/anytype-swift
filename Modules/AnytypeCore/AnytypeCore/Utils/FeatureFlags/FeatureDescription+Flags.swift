@@ -145,11 +145,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let joinSpaceViaQRCode = FeatureDescription(
-        title: "Join Space via QR Code",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
-        defaultValue: true
-    )
     
     static let swipeToReply = FeatureDescription(
         title: "Swipe to reply in chats",

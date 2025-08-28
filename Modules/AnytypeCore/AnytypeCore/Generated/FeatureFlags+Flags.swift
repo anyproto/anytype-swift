@@ -86,10 +86,6 @@ public extension FeatureFlags {
         value(for: .addNotificationsSettings)
     }
 
-    static var joinSpaceViaQRCode: Bool {
-        value(for: .joinSpaceViaQRCode)
-    }
-
     static var swipeToReply: Bool {
         value(for: .swipeToReply)
     }
@@ -232,7 +228,6 @@ public extension FeatureFlags {
         .chatInDataSpace,
         .muteSpacePossibility,
         .addNotificationsSettings,
-        .joinSpaceViaQRCode,
         .swipeToReply,
         .supportSimpleEmbedBlocks,
         .webPublishing,
