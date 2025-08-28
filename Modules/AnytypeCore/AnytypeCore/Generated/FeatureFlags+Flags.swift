@@ -86,20 +86,12 @@ public extension FeatureFlags {
         value(for: .addNotificationsSettings)
     }
 
-    static var joinSpaceViaQRCode: Bool {
-        value(for: .joinSpaceViaQRCode)
-    }
-
     static var swipeToReply: Bool {
         value(for: .swipeToReply)
     }
 
     static var supportSimpleEmbedBlocks: Bool {
         value(for: .supportSimpleEmbedBlocks)
-    }
-
-    static var webPublishing: Bool {
-        value(for: .webPublishing)
     }
 
     static var keyboardMenuUndoRedo: Bool {
@@ -232,10 +224,8 @@ public extension FeatureFlags {
         .chatInDataSpace,
         .muteSpacePossibility,
         .addNotificationsSettings,
-        .joinSpaceViaQRCode,
         .swipeToReply,
         .supportSimpleEmbedBlocks,
-        .webPublishing,
         .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,

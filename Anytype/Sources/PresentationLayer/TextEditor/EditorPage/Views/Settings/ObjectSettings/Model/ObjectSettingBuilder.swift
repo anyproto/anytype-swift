@@ -31,7 +31,7 @@ final class ObjectSettingsBuilder: ObjectSettingsBuilderProtocol {
                 ObjectSetting.resolveConflict
             }
             
-            if FeatureFlags.webPublishing && permissions.canPublish {
+            if permissions.canPublish {
                 ObjectSetting.webPublishing
             }
             
