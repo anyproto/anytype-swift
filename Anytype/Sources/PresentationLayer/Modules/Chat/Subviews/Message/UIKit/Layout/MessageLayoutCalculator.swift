@@ -22,7 +22,7 @@ final class MessageLayoutCalculator {
         
         let layout = makeRootLayout(size: targetSize, data: data)
         
-        cache.setObject(layout, forKey: data.hashValue)
+//        cache.setObject(layout, forKey: data.hashValue)
         
         return layout
     }
@@ -66,91 +66,42 @@ final class MessageLayoutCalculator {
         var reactionsFrame: CGRect?
         var calculatedSize: CGSize?
         
-        HStackCauculator(alignment: .bottom, spacing: 6, frameWriter: { calculatedSize = $0.size }) {
-            if let iconSize {
-                AnyViewCalculator(size: iconSize, frameWriter: { iconFrame = $0 })
+        let authorIcon: (any ViewCalculator)?
+        switch data.authorIconMode {
+        case .show:
+            authorIcon = AnyViewCalculator(size: CGSize(width: iconSide, height: iconSide), frameWriter: { iconFrame = $0 }).layoutPriority(1)
+        case .empty:
+            authorIcon = AnyViewCalculator(size: CGSize(width: iconSide, height: iconSide), frameWriter: { _ in }).layoutPriority(1)
+        case .hidden:
+            authorIcon = nil
+        }
+        
+        let bubbleSpacing = AnyViewCalculator(size: CGSize(width: 32, height: 0), frameWriter: { _ in }).layoutPriority(1)
+        
+        let hStack = HStackCauculator(alignment: .bottom, spacing: 6, frameWriter: { calculatedSize = $0.size }) {
+            if data.position.isLeft {
+                authorIcon
+            } else {
+                bubbleSpacing
             }
             AnyViewCalculator(size: bubbleLayout.bubbleSize, frameWriter: { bubbleFrame = $0 })
+            if data.position.isRight {
+                authorIcon
+            } else {
+                bubbleSpacing
+            }
         }
-        .calculate()
         
-//        // Layout Main Vertical
-//        var currentYForMainContent: CGFloat = 0
-//        
-//        if bubbleLayout.bubbleSize.isNotZero {
-//            bubbleFrame = CGRect(
-//                origin: .zero,
-//                size: bubbleLayout.bubbleSize
-//            )
-//            currentYForMainContent += bubbleLayout.bubbleSize.height + verticalSpacing
-//        }
-//        
-//        if reactionsData.showReactions {
-//            reactionsFrame = CGRect(
-//                origin: CGPoint(x: 0, y: currentYForMainContent),
-//                size: reactionsLayout.size
-//            )
-//            currentYForMainContent += bubbleLayout.bubbleSize.height + verticalSpacing
-//        }
-//        
-//        let yForImage = max(bubbleFrame?.maxY ?? 0, reactionsFrame?.maxY ?? 0)
-//        
-//        
-//        
-//        
-//        let bubbleSize = bubbleLayout.bubbleSize
-//        
-//        let calculatedSize = CGSize(
-//            width: iconWidth + bubbleSize.width + spacingForOtherSize + containerInsets.left + containerInsets.right,
-//            height: bubbleSize.height + containerInsets.top + containerInsets.bottom
-//        )
-//        
-//        var freeContentFrame = CGRect(origin: .zero, size: size)
-//        freeContentFrame = freeContentFrame.inset(by: containerInsets)
-//        
-//        if data.position.isRight {
-//            if let iconSize {
-//                iconFrame = CGRect(
-//                    origin: CGPoint(x: freeContentFrame.maxX - iconSize.width, y: freeContentFrame.maxY - iconSize.height),
-//                    size: iconSize
-//                )
-//            }
-//            
-//            if let iconFrame {
-//                freeContentFrame = freeContentFrame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: iconFrame.width + spacingBetweenIconAndText))
-//            }
-//            
-//            if bubbleSize.isNotZero {
-//                bubbleFrame = CGRect(
-//                    origin: CGPoint(x: freeContentFrame.maxX - bubbleSize.width, y: freeContentFrame.maxY - bubbleSize.height),
-//                    size: bubbleSize
-//                )
-//            }
-//            
-//            if reactionsData.showReactions {
-//                
-//            }
-//            
-//        } else {
-//            
-//            if let iconSize {
-//                iconFrame = CGRect(
-//                    origin: CGPoint(x: freeContentFrame.minX, y: freeContentFrame.maxY - iconSize.height),
-//                    size: iconSize
-//                )
-//            }
-//            
-//            if let iconFrame {
-//                freeContentFrame = freeContentFrame.inset(by: UIEdgeInsets(top: 0, left: iconFrame.width + spacingBetweenIconAndText, bottom: 0, right: 0))
-//            }
-//            
-//            if bubbleSize.isNotZero {
-//                bubbleFrame = CGRect(
-//                    origin: CGPoint(x: freeContentFrame.minX, y: freeContentFrame.minY),
-//                    size: bubbleSize
-//                )
-//            }
-//        }
+        var hStackFrame = CGRect(origin: .zero, size: hStack.sizeThatFits(size))
+        
+        // Pin to right
+        if data.position.isRight {
+            hStackFrame = hStackFrame.offsetBy(dx: size.width - hStackFrame.width, dy: 0)
+        }
+        
+        hStack.setFrame(hStackFrame)
+        
+        calculatedSize = CGSize(width: size.width, height: hStackFrame.height)
         
         return MessageLayout(
             cellSize: calculatedSize ?? .zero,
