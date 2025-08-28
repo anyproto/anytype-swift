@@ -46,26 +46,22 @@ struct MigrationView: View {
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
-            AnytypeText(Loc.Migration.Initial.subtitle1, style: .calloutRegular)
-                .foregroundColor(.Text.secondary)
-                .multilineTextAlignment(.center)
-            Spacer.fixedHeight(8)
-            AnytypeText(Loc.Migration.Initial.subtitle2, style: .calloutRegular)
+            AnytypeText(Loc.Migration.Initial.subtitle, style: .bodyRegular)
                 .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer()
             
             StandardButton(
                 Loc.Migration.Initial.startUpdate,
-                style: .primaryLarge,
+                style: .primaryOvalLarge,
                 action: {
                     model.startUpdate()
                 }
             )
-            Spacer.fixedHeight(20)
+            Spacer.fixedHeight(8)
             StandardButton(
                 Loc.Migration.Initial.readMore,
-                style: .secondaryLarge,
+                style: .secondaryOvalLarge,
                 action: {
                     model.readMore()
                 }
@@ -106,13 +102,13 @@ struct MigrationView: View {
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(8)
-            AnytypeText(message, style: .uxCalloutRegular)
+            AnytypeText(message, style: .calloutRegular)
                 .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
             Spacer()
             StandardButton(
                 Loc.tryAgain,
-                style: .primaryLarge,
+                style: .primaryOvalLarge,
                 action: {
                     model.tryAgainTapped()
                 }

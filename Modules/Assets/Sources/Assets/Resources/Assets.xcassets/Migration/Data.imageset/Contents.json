@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Data.pdf",
+      "filename" : "Data.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DataDark.svg",
       "idiom" : "universal"
     }
   ],

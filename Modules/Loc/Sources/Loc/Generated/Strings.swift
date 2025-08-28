@@ -1422,8 +1422,7 @@ public enum Loc {
     public enum Initial {
       public static let readMore = Loc.tr("Localizable", "Migration.Initial.readMore", fallback: "Read More")
       public static let startUpdate = Loc.tr("Localizable", "Migration.Initial.startUpdate", fallback: "Start Update")
-      public static let subtitle1 = Loc.tr("Localizable", "Migration.Initial.subtitle1", fallback: "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience.")
-      public static let subtitle2 = Loc.tr("Localizable", "Migration.Initial.subtitle2", fallback: "It might take a little while, but don't worry, your data is safe.")
+      public static let subtitle = Loc.tr("Localizable", "Migration.Initial.subtitle", fallback: "We're laying the groundwork for our new chats. Including counters, notifications and other features needed for smooth chat experience. It might take a little while, but don't worry, your data is safe.")
       public static let title = Loc.tr("Localizable", "Migration.Initial.title", fallback: "New Version Update")
     }
     public enum Progress {
