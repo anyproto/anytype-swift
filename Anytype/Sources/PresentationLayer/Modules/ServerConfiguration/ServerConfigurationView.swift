@@ -25,8 +25,10 @@ struct ServerConfigurationView: View {
                         if model.rows.isNotEmpty {
                             SectionHeaderView(title: Loc.Server.networks)
                             
-                            ForEach(0..<model.rows.count, id: \.self) { rowIndex in
-                                makeRow(row: model.rows[rowIndex])
+                            VStack(spacing: 0) {
+                                ForEach(0..<model.rows.count, id: \.self) { rowIndex in
+                                    makeRow(row: model.rows[rowIndex])
+                                }
                             }
                         }
                     }
