@@ -7,7 +7,7 @@ enum HStackCauculatorAlignment {
     case bottom
 }
 
-class HStackCauculator: ViewCalculator {
+final class HStackCauculator: ViewCalculator {
     
     let alignment: HStackCauculatorAlignment
     let spacing: CGFloat

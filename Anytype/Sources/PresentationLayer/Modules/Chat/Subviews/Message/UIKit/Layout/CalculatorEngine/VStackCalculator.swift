@@ -7,7 +7,7 @@ enum VStackCauculatorAlignment {
     case right
 }
 
-class VStackCalculator: ViewCalculator {
+final class VStackCalculator: ViewCalculator {
     
     let alignment: VStackCauculatorAlignment
     let spacing: CGFloat
