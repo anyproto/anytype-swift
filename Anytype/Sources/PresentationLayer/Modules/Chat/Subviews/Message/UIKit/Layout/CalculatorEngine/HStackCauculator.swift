@@ -40,7 +40,7 @@ class HStackCauculator: ViewCalculator {
         if views.isEmpty {
             size = .zero
         } else {
-            var targetSize = CGSize.zero
+            var targetSize = targetSize
             
             self.viewSizes = [CGSize](repeating: .zero, count: views.count)
             
