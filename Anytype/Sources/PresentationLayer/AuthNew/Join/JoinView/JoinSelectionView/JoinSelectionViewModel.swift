@@ -18,9 +18,9 @@ final class JoinSelectionViewModel: ObservableObject {
         
         switch type {
         case .persona:
-            self.selectedOptions = state.personaOptions
+            self.selectedOptions = state.selectedPersonaOptions
         case .useCase:
-            self.selectedOptions = state.useCaseOptions
+            self.selectedOptions = state.selectedUseCaseOptions
         }
         
         self.output = output
@@ -60,6 +60,13 @@ final class JoinSelectionViewModel: ObservableObject {
         onSuccess()
     }
     
+    func options() -> [InfoSelectionOption] {
+        switch type {
+        case .persona: return state.personaOptions
+        case .useCase: return state.usecaseOptions
+        }
+    }
+    
     private func onSuccess() {
         output?.onNext()
     }
@@ -68,15 +75,15 @@ final class JoinSelectionViewModel: ObservableObject {
         switch type {
         case .persona:
             if type.isMultiSelection {
-                state.personaOptions.append(option)
+                state.selectedPersonaOptions.append(option)
             } else {
-                state.personaOptions = [option]
+                state.selectedPersonaOptions = [option]
             }
         case .useCase:
             if type.isMultiSelection {
-                state.useCaseOptions.append(option)
+                state.selectedUseCaseOptions.append(option)
             } else {
-                state.useCaseOptions = [option]
+                state.selectedUseCaseOptions = [option]
             }
         }
     }
@@ -84,9 +91,9 @@ final class JoinSelectionViewModel: ObservableObject {
     private func removeOptionsFromState(_ option: InfoSelectionOption) {
         switch type {
         case .persona:
-            state.personaOptions.removeAll { $0.id == option.id }
+            state.selectedPersonaOptions.removeAll { $0.id == option.id }
         case .useCase:
-            state.useCaseOptions.removeAll { $0.id == option.id }
+            state.selectedUseCaseOptions.removeAll { $0.id == option.id }
         }
     }
 }

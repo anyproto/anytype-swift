@@ -99,11 +99,11 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     }
     
     private func sendSelectedOptions() {
-        for option in state.personaOptions {
+        for option in state.selectedPersonaOptions {
             AnytypeAnalytics.instance().logClickOnboarding(step: .persona, type: option.analyticsValue)
         }
         
-        for option in state.useCaseOptions {
+        for option in state.selectedUseCaseOptions {
             AnytypeAnalytics.instance().logClickOnboarding(step: .useCase, type: option.analyticsValue)
         }
     }
