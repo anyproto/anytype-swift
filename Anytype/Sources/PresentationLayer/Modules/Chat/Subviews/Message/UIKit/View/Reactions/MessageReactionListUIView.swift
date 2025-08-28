@@ -104,7 +104,7 @@ final class MessageReactionListUIView: UIView {
             let subview = cachedForLayout.popLast() ?? {
                 let view = MessageReactionUIView()
                 // Sync position with popLast operation
-                cachedForLayout.insert(view, at: 0)
+                cache.insert(view, at: 0)
                 return view
             }()
             
@@ -116,6 +116,7 @@ final class MessageReactionListUIView: UIView {
         cachedForLayout.forEach { $0.removeFromSuperview() }
         
         if data.canAddReaction {
+            addReactionView.backgroundColor = .red
             addSubview(addReactionView)
         } else {
             addReactionView.removeFromSuperview()

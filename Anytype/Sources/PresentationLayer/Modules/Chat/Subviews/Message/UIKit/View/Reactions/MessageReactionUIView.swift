@@ -120,7 +120,7 @@ final class MessageReactionUIView: UIView {
         
         
         backgroundColor = data.selected ? data.messageYourBackgroundColor : UIColor.Background.Chat.bubbleSomeones
-        layer.cornerRadius = 20
+        layer.cornerRadius = MessageReactionLayout.height * 0.5
         layer.masksToBounds = true
     }
 }

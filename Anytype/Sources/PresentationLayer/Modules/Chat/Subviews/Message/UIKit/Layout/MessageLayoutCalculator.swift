@@ -22,7 +22,7 @@ final class MessageLayoutCalculator {
         
         let layout = makeRootLayout(size: targetSize, data: data)
         
-//        cache.setObject(layout, forKey: data.hashValue)
+        cache.setObject(layout, forKey: data.hashValue)
         
         return layout
     }
@@ -32,10 +32,6 @@ final class MessageLayoutCalculator {
     private func makeRootLayout(size: CGSize, data: MessageViewData) -> MessageLayout {
         let containerInsets = UIEdgeInsets(top: 0, left: 14, bottom: data.nextSpacing.height, right: 14)
         let iconSide: CGFloat = 32
-//        let spacingBetweenIconAndText: CGFloat = 6
-//        let spacingForOtherSize: CGFloat = 26
-//        let verticalSpacing: CGFloat = 6
-        
         
         // Icon
         
@@ -66,23 +62,32 @@ final class MessageLayoutCalculator {
         }
 
         // Reactions
-//        let reactionsData = MessageReactionListData(data: data)
-//        let reactionsLayout = MessageReactionsListCalculator.calculateSize(targetSize: mainContentSize, data: reactionsData)
         
-        
-//        let bubbleLayout = MessageBubbleCalculator.calculateSize(targetSize: mainContentSize, data: MessageBubbleViewData(data: data))
-        
-//        var iconFrame: CGRect?
-//        var bubbleFrame: CGRect?
+        let reactionsData = MessageReactionListData(data: data)
         var reactionsFrame: CGRect?
-
+        var reactionsLayout: MessageReactionListLayout?
+        let reactionsCalculator = reactionsData.showReactions
+            ? AnyViewCalculator { targetSize in
+                let layout = MessageReactionsListCalculator.calculateSize(targetSize: targetSize, data: reactionsData)
+                reactionsLayout = layout
+                return layout.size
+            } frameWriter: {
+                reactionsFrame = $0
+            }
+            : nil
+        
+        // Final
+        
         let hStack = HStackCauculator(alignment: .bottom, spacing: 6, frameWriter: { _ in }) {
             if data.position.isLeft {
                 authorIcon
             } else {
                 bubbleSpacing
             }
-            bubbleCalculator
+            VStackCalculator(alignment: data.position.isLeft ? .left : .right, spacing: 4) {
+                bubbleCalculator
+                reactionsCalculator
+            }
             if data.position.isRight {
                 authorIcon
             } else {
@@ -98,7 +103,6 @@ final class MessageLayoutCalculator {
             hStackFrame = hStackFrame.offsetBy(dx: size.width - hStackFrame.width, dy: 0)
         }
         
-//        hStackFrame = hStackFrame.inset(by: containerInsets)
         hStack.setFrame(hStackFrame)
         
         let calculatedSize = CGSize(width: size.width, height: hStackFrame.height)
@@ -108,8 +112,8 @@ final class MessageLayoutCalculator {
             iconFrame: iconFrame,
             bubbleFrame: bubbleFrame,
             bubbleLayout: bubbleLayout,
-            reactionsFrame: nil,
-            reactionsLayout: nil
+            reactionsFrame: reactionsFrame,
+            reactionsLayout: reactionsLayout
         )
     }
 }
