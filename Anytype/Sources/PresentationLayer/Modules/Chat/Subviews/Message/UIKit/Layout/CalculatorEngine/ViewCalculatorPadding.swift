@@ -26,7 +26,7 @@ extension ViewCalculator {
         ViewCalculatorPaddingBox(insets: insets, box: self)
     }
     
-    func padding(horizontal: CGFloat, vertical: CGFloat) -> some ViewCalculator {
+    func padding(horizontal: CGFloat = 0, vertical: CGFloat = 0) -> some ViewCalculator {
         let insets = UIEdgeInsets(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
         return padding(insets)
     }
