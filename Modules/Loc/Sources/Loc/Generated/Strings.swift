@@ -279,7 +279,6 @@ public enum Loc {
   public static func noTypeFoundText(_ p1: Any) -> String {
     return Loc.tr("Localizable", "No type found text", String(describing: p1), fallback: "No type “%@” found. Change your request or create new type.")
   }
-  public static let nodeIsNotConnected = Loc.tr("Localizable", "Node is not connected", fallback: "Node is not connected")
   public static let nonExistentObject = Loc.tr("Localizable", "Non-existent object", fallback: "Non-existent object")
   public static let `none` = Loc.tr("Localizable", "None", fallback: "None")
   public static let note = Loc.tr("Localizable", "Note", fallback: "Note")
@@ -314,7 +313,6 @@ public enum Loc {
   public static let openSettings = Loc.tr("Localizable", "OpenSettings", fallback: "Open Settings")
   public static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   public static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other properties")
-  public static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting", fallback: "P2P Connecting...")
   public static let p2PConnection = Loc.tr("Localizable", "P2P Connection", fallback: "P2P Connection")
   public static let pages = Loc.tr("Localizable", "Pages", fallback: "Pages")
   public static func paidBy(_ p1: Any) -> String {
@@ -379,7 +377,6 @@ public enum Loc {
   public static let remove = Loc.tr("Localizable", "Remove", fallback: "Remove")
   public static let removeFromFavorite = Loc.tr("Localizable", "Remove From Favorite", fallback: "Remove From Pinned")
   public static let removePhoto = Loc.tr("Localizable", "Remove photo", fallback: "Remove photo")
-  public static let removingCache = Loc.tr("Localizable", "Removing cache", fallback: "Removing cache")
   public static let resend = Loc.tr("Localizable", "Resend", fallback: "Resend")
   public static func resendIn(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Resend in", String(describing: p1), fallback: "Resend in %@ sec")
@@ -416,7 +413,6 @@ public enum Loc {
     return Loc.tr("Localizable", "Set of", String(describing: p1), fallback: "Query of %@")
   }
   public static let sets = Loc.tr("Localizable", "Sets", fallback: "Queries")
-  public static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait", fallback: "Setting up encrypted storage\nPlease wait")
   public static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
   public static let share = Loc.tr("Localizable", "Share", fallback: "Share")
   public static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
@@ -457,7 +453,6 @@ public enum Loc {
     return Loc.tr("Localizable", "There is no type named", String(describing: p1), fallback: "There is no type named %@")
   }
   public static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably", fallback: "These objects will be deleted irrevocably. You can’t undo this action.")
-  public static let thisObjectDoesnTExist = Loc.tr("Localizable", "This object doesn't exist", fallback: "This object doesn't exist")
   public static let toBin = Loc.tr("Localizable", "To Bin", fallback: "To Bin")
   public static let today = Loc.tr("Localizable", "Today", fallback: "Today")
   public static let tomorrow = Loc.tr("Localizable", "Tomorrow", fallback: "Tomorrow")
