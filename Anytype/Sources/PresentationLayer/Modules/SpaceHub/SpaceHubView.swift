@@ -25,8 +25,8 @@ struct SpaceHubView: View {
     @ViewBuilder
     private var content: some View {
         Group {
-            if let spaces = model.filteredSpaces, let unreadSpaces = model.filteredUnreadSpaces {
-                spacesView(spaces: spaces, unreadSpaces: unreadSpaces)
+            if let spaces = model.filteredSpaces {
+                spacesView(spaces: spaces)
             } else if model.spaces.isNotNil {
                 emptyStateView
             } else {
@@ -39,11 +39,11 @@ struct SpaceHubView: View {
         .animation(.default, value: model.spaces)
     }
     
-    private func spacesView(spaces: [ParticipantSpaceViewDataWithPreview], unreadSpaces: [ParticipantSpaceViewDataWithPreview], ) -> some View {
+    private func spacesView(spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         NavigationStack {
             Group {
-                if spaces.isNotEmpty || unreadSpaces.isNotEmpty {
-                    scrollView(spaces: spaces, unreadSpaces: unreadSpaces)
+                if spaces.isNotEmpty {
+                    scrollView(spaces: spaces)
                 } else {
                     searchEmptyStateView
                 }
@@ -55,7 +55,7 @@ struct SpaceHubView: View {
         }.tint(Color.Text.secondary)
     }
     
-    private func scrollView(spaces: [ParticipantSpaceViewDataWithPreview], unreadSpaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+    private func scrollView(spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         ScrollView {
             VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
@@ -67,22 +67,8 @@ struct SpaceHubView: View {
                     }
                 }
                 
-                if unreadSpaces.isNotEmpty {
-                    if spaces.isNotEmpty {
-                        SectionHeaderView(title: Loc.unread).padding(.horizontal, 20)
-                    }
-                    ForEach(unreadSpaces) {
-                        spaceCard($0, draggable: false)
-                    }
-                }
-                
-                if spaces.isNotEmpty {
-                    if unreadSpaces.isNotEmpty {
-                        SectionHeaderView(title: Loc.all).padding(.horizontal, 20)
-                    }
-                    ForEach(spaces) {
-                        spaceCard($0, draggable: true)
-                    }
+                ForEach(spaces) {
+                    spaceCard($0)
                 }
                 
                 Spacer.fixedHeight(40)
@@ -186,11 +172,10 @@ struct SpaceHubView: View {
             .padding([.top, .trailing], 1)
     }
     
-    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview, draggable: Bool) -> some View {
+    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
         SpaceCard(
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
-            draggable: draggable,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
@@ -215,7 +200,7 @@ struct SpaceHubView: View {
         .if(FeatureFlags.vaultBackToRoots) {
             $0.padding(.horizontal, 16)
         }
-        .if(draggable) {
+        .if(space.spaceView.isPinned) {
             $0.onDrop(
                 of: [.text],
                 delegate:  SpaceHubDropDelegate(

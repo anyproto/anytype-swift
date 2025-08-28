@@ -5,7 +5,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
-    let draggable: Bool
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
@@ -22,14 +21,12 @@ struct SpaceCard: View, @preconcurrency Equatable {
                 SpaceCardLabel(
                     spaceData: spaceData,
                     wallpaper: wallpaper,
-                    draggable: draggable,
                     draggedSpace: $draggedSpace
                 )
             } else {
                 NewSpaceCardLabel(
                     spaceData: spaceData,
                     wallpaper: wallpaper,
-                    draggable: draggable,
                     draggedSpace: $draggedSpace
                 )
             }
@@ -46,12 +43,10 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Divider()
         }
         
-        if FeatureFlags.pinnedSpaces {
-            if spaceData.spaceView.isPinned {
-                unpinButton
-            } else {
-                pinButton
-            }
+        if spaceData.spaceView.isPinned {
+            unpinButton
+        } else {
+            pinButton
         }
         
         if FeatureFlags.muteSpacePossibility, spaceData.spaceView.isShared {

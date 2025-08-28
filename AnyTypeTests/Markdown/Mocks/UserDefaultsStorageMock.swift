@@ -5,15 +5,6 @@ import Combine
 
 
 final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
-    private var spacesOrder = [String]()
-    func saveSpacesOrder(accountId: String, spaces: [String]) {
-        spacesOrder = spaces
-    }
-    
-    func getSpacesOrder(accountId: String) -> [String] {
-        return spacesOrder
-    }
-    
     // Unused
     var showUnstableMiddlewareError: Bool { get { fatalError() } set { fatalError() } }
     var usersId: String { get { fatalError() } set { fatalError() } }

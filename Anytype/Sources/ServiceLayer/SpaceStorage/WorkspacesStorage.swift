@@ -16,8 +16,6 @@ protocol WorkspacesStorageProtocol: AnyObject, Sendable {
     
     func canCreateNewSpace() -> Bool
     
-    // TODO: Remove with SpacePin toggle
-    func move(space: SpaceView, after: SpaceView) async
 }
 
 extension WorkspacesStorageProtocol {
@@ -47,7 +45,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private let subscriptionStorage: any SubscriptionStorageProtocol
     private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
-    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
     
     // MARK: - State
 
@@ -71,11 +68,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
             
-            var spaces = data.items.map { SpaceView(details: $0) }
-            if !FeatureFlags.pinnedSpaces {
-                spaces = customOrderBuilder.updateSpacesList(spaces: spaces)
-            }
-            
+            let spaces = data.items.map { SpaceView(details: $0) }
             allWorkspacesStorage.value = spaces
         }
     }
@@ -92,9 +85,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         return allWorkspacesStorage.value.first(where: { $0.targetSpaceId == spaceId })
     }
     
-    func move(space: SpaceView, after: SpaceView) {
-        allWorkspacesStorage.value = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
-    }
     
     func workspaceInfo(spaceId: String) -> AccountInfo? {
         workspacesInfo[spaceId]
