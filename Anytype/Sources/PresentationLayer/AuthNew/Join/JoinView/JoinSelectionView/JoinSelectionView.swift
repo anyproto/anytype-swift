@@ -14,7 +14,7 @@ struct JoinSelectionView: View {
             InfoSelectionView(
                 title: model.type.title,
                 description: model.type.description,
-                options: model.type.oprions,
+                options: model.options(),
                 selectedOptions: model.selectedOptions,
                 onSelect: { option in
                     model.onSelectionChanged(option)
