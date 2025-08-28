@@ -159,7 +159,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     public func makeSharable(spaceId: String) async throws {
         try await ClientCommands.spaceMakeShareable(.with {
             $0.spaceID = spaceId
-        }).invoke()
+        }).invoke(ignoreLogErrors: .limitReached)
     }
     
     public func getCurrentInvite(spaceId: String) async throws -> SpaceInvite {
