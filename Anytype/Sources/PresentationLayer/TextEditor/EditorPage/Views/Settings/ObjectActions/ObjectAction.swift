@@ -4,7 +4,7 @@ import AnytypeCore
 enum ObjectAction: Hashable, Identifiable {
     case undoRedo
     case archive(isArchived: Bool)
-    case favorite(isFavorite: Bool)
+    case pin(isPinned: Bool)
     case locked(isLocked: Bool)
     case duplicate
     case linkItself
@@ -22,7 +22,7 @@ enum ObjectAction: Hashable, Identifiable {
             }
             
             if permissions.canFavorite {
-                ObjectAction.favorite(isFavorite: details.isFavorite)
+                ObjectAction.pin(isPinned: details.isFavorite)
             }
             
             if permissions.canCreateWidget {
@@ -70,8 +70,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "undoredo"
         case .archive:
             return "archive"
-        case .favorite:
-            return "favorite"
+        case .pin:
+            return "pin"
         case .locked:
             return "locked"
         case .duplicate:

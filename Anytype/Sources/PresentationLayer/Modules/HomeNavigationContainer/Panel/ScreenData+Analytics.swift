@@ -7,7 +7,7 @@ protocol HomeClinkNavBarAddMenuRouteProvider {
 extension EditorScreenData: HomeClinkNavBarAddMenuRouteProvider {
     var clickNavBarAddMenuRoute: ClickNavBarAddMenuRoute {
         switch self {
-        case .favorites:
+        case .pinned:
             return .screenFavorites
         case .recentEdit:
             return .screenRecentEdit

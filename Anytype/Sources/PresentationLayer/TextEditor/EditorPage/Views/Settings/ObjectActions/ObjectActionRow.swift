@@ -53,8 +53,8 @@ private extension ObjectAction {
             return Loc.undoRedo
         case let .archive(isArchived):
             return isArchived ? Loc.restore : Loc.toBin
-        case let .favorite(isFavorite):
-            return isFavorite ? Loc.unfavorite : Loc.favorite
+        case let .pin(isPinned):
+            return isPinned ? Loc.unpin : Loc.pin
         case let .locked(isLocked):
             return isLocked ? Loc.unlock : Loc.lock
         case .duplicate:
@@ -80,8 +80,8 @@ private extension ObjectAction {
             return .X32.undoRedo
         case let .archive(isArchived):
             return isArchived ? .X32.restore : .X32.delete
-        case let .favorite(isFavorite):
-            return isFavorite ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
+        case let .pin(isPinned):
+            return isPinned ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case let .locked(isLocked):
             return isLocked ? .X32.Lock.unlock : .X32.Lock.lock
         case .duplicate:

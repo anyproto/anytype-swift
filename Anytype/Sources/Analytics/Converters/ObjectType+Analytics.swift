@@ -17,8 +17,8 @@ extension AnytypeWidgetId {
         switch self {
         case .allObjects:
             return .allObjects
-        case .favorite:
-            return .favorites
+        case .pinned:
+            return .pinned
         case .recent:
             return .recent
         case .recentOpen:

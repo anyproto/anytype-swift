@@ -103,7 +103,7 @@ enum AnalyticsEventsMigrationType: String {
 
 enum AnalyticsWidgetSource {
     case allObjects
-    case favorites
+    case pinned
     case recent
     case recentOpen
     case bin
@@ -114,8 +114,8 @@ enum AnalyticsWidgetSource {
         switch self {
         case .allObjects:
             return "AllObjects"
-        case .favorites:
-            return "Favorites"
+        case .pinned:
+            return "Pinned"
         case .recent:
             return "Recent"
         case .recentOpen:

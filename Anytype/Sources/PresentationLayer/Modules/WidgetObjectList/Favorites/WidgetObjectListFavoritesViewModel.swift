@@ -6,20 +6,20 @@ import Combine
 final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewModelProtocol {
     
     private enum Constants {
-        static let sectionId = "Favorite"
+        static let sectionId = "Pinned"
     }
     
     // MARK: - DI
     
-    @Injected(\.favoriteSubscriptionService)
-    private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
+    @Injected(\.pinnedSubscriptionService)
+    private var pinnedSubscriptionService: any PinnedSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     
     // MARK: - State
     
-    let title = Loc.favorites
+    let title = Loc.pinned
     let emptyStateData = WidgetObjectListEmptyStateData(
         title: Loc.EmptyView.Default.title,
         subtitle: Loc.EmptyView.Default.subtitle
@@ -31,25 +31,25 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     private let homeDocument: any BaseDocumentProtocol
     
-    private var details: [FavoriteBlockDetails] = [] {
+    private var details: [PinnedBlockDetails] = [] {
         didSet { rowDetails = [WidgetObjectListDetailsData(id: Constants.sectionId, details: details.map(\.details))] }
     }
     
     init(homeObjectId: String, spaceId: String) {
         self.homeDocument = documentService.document(objectId: homeObjectId, spaceId: spaceId)
-        self.editorScreenData = .favorites(homeObjectId: homeObjectId, spaceId: spaceId)
+        self.editorScreenData = .pinned(homeObjectId: homeObjectId, spaceId: spaceId)
     }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
-        favoriteSubscriptionService.startSubscription(homeDocument: homeDocument, objectLimit: nil, update: { [weak self] details in
+        pinnedSubscriptionService.startSubscription(homeDocument: homeDocument, objectLimit: nil, update: { [weak self] details in
             self?.details = details
         })
     }
     
     func onDisappear() {
-        favoriteSubscriptionService.stopSubscription()
+        pinnedSubscriptionService.stopSubscription()
     }
     
     func onMove(from: IndexSet, to: Int) {
