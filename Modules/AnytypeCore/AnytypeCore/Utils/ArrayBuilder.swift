@@ -13,6 +13,8 @@ public struct ArrayBuilder<Element> {
     // If/Else
     public static func buildEither(first: [Element]) -> [Element] { first }
     public static func buildEither(second: [Element]) -> [Element] { second }
+    // For
+    public static func buildArray(_ components: [[Element]]) -> [Element] { components.flatMap { $0 } }
     // Just ifs
     public static func buildIf(_ element: [Element]?) -> [Element] { element ?? [] }
     // fatalError()

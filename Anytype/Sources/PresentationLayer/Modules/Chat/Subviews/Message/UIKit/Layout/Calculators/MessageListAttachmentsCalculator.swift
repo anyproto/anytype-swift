@@ -4,23 +4,29 @@ struct MessageListAttachmentsCalculator {
     
     static func calculateSize(targetSize: CGSize, data: MessageListAttachmentsViewData) -> MessageListAttachmentsLayout {
         
-        var currentY: CGFloat = 0
         var frames: [CGRect] = []
+        var size: CGSize?
         
-        for object in data.objects {
-            switch object.resolvedLayoutValue {
-            case .bookmark:
-                let frame = CGRect(x: 0, y: currentY, width: targetSize.width, height: MessageBookmarkLayout.height)
-                frames.append(frame)
-                currentY += frame.height + 4
-            default:
-                let frame = CGRect(x: 0, y: currentY, width: targetSize.width, height: MessageObjectLayout.height)
-                frames.append(frame)
-                currentY += frame.height + 4
+        VStackCalculator(spacing: 4, frameWriter: { size = $0.size }) {
+            for object in data.objects {
+                switch object.resolvedLayoutValue {
+                case .bookmark:
+                    AnyViewCalculator { targetSize in
+                        CGSize(width: targetSize.width, height: MessageBookmarkLayout.height)
+                    } frameWriter: { frame in
+                        frames.append(frame)
+                    }
+                default:
+                    AnyViewCalculator { targetSize in
+                        CGSize(width: targetSize.width, height: MessageObjectLayout.height)
+                    } frameWriter: { frame in
+                        frames.append(frame)
+                    }
+                }
             }
         }
+        .calculate(targetSize)
         
-        let size = CGSize(width: targetSize.width, height: frames.last?.maxY ?? 0)
-        return MessageListAttachmentsLayout(size: size, objectFrames: frames)
+        return MessageListAttachmentsLayout(size: size ?? .zero, objectFrames: frames)
     }
 }
