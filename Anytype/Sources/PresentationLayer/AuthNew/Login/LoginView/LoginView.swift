@@ -14,10 +14,15 @@ struct LoginView: View {
     var body: some View {
         content
             .toolbar(.hidden)
+            .fixTappableArea()
+            .customBackSwipe {
+                guard !model.backButtonDisabled else { return }
+                dismiss()
+            }
+        
             .onAppear {
                 model.onAppear()
             }
-        
             .task(item: model.walletRecoveryTaskId) { _ in
                 await model.walletRecovery()
             }

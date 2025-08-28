@@ -13,6 +13,11 @@ struct JoinView: View {
         GeometryReader { geo in
             content(height: geo.size.height)
                 .toolbar(.hidden)
+                .fixTappableArea()
+                .customBackSwipe {
+                    guard !model.backButtonDisabled else { return }
+                    model.onBack()
+                }
         }
         .ifLet(model.errorText) { view, errorText in
             view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
@@ -57,7 +62,7 @@ struct JoinView: View {
             Image(asset: .X24.back)
                 .foregroundColor(.Control.secondary)
         }
-        .disabled(model.disableBackAction)
+        .disabled(model.backButtonDisabled)
     }
     
     @ViewBuilder
