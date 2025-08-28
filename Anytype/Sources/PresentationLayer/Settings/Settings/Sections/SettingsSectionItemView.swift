@@ -77,8 +77,7 @@ struct SettingsSectionItemView: View {
                         .dynamicForegroundStyle(color: .Control.secondary, disabledColor: .Control.tertiary)
                 }
             case .button(let text):
-                Text(text)
-                    .anytypeStyle(.caption1Medium)
+                AnytypeText(text, style: .caption1Medium)
                     .foregroundColor(.Text.inversion)
                     .lineLimit(1)
                     .padding(.horizontal, 11)
