@@ -19,7 +19,7 @@ struct ViewCalculatorLayoutPriorityBox<T: ViewCalculator>: ViewCalculator {
 }
 
 extension ViewCalculator {
-    func layoutPriority(_ priority: Float) -> ViewCalculatorLayoutPriorityBox<Self> {
+    func layoutPriority(_ priority: Float) -> some ViewCalculator {
         ViewCalculatorLayoutPriorityBox(priority: priority, box: self)
     }
 }

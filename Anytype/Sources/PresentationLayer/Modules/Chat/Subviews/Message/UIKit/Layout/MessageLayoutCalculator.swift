@@ -94,7 +94,7 @@ final class MessageLayoutCalculator {
                 bubbleSpacing
             }
         }
-            .insets(containerInsets)
+        .padding(containerInsets)
         
         var hStackFrame = CGRect(origin: .zero, size: hStack.sizeThatFits(size))
         

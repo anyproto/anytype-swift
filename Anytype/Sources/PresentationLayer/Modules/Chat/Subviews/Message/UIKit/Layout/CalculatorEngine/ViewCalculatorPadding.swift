@@ -22,8 +22,13 @@ struct ViewCalculatorPaddingBox<T: ViewCalculator>: ViewCalculator {
 }
 
 extension ViewCalculator {
-    func insets(_ insets: UIEdgeInsets) -> ViewCalculatorPaddingBox<Self> {
+    func padding(_ insets: UIEdgeInsets) -> some ViewCalculator {
         ViewCalculatorPaddingBox(insets: insets, box: self)
+    }
+    
+    func padding(horizontal: CGFloat, vertical: CGFloat) -> some ViewCalculator {
+        let insets = UIEdgeInsets(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
+        return padding(insets)
     }
 }
 
