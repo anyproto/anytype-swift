@@ -28,13 +28,9 @@ struct ObjectSettingsView: View {
         VStack(spacing: 0) {
             DragIndicator()
             
-            if FeatureFlags.webPublishing {
-                VStack(spacing: 0) {
-                    layoutSection
-                    objectSection
-                }
-            } else {
-                settingsList
+            VStack(spacing: 0) {
+                layoutSection
+                objectSection
             }
 
             ObjectActionsView(
@@ -46,16 +42,6 @@ struct ObjectSettingsView: View {
         .task {
             await viewModel.startDocumentTask()
         }
-    }
-    
-    private var settingsList: some View {
-        VStack(spacing: 0) {
-            ForEach(viewModel.settings.indices, id: \.self) { index in
-                mainSetting(index: index)
-            }
-        }
-        .padding(.horizontal, Constants.edgeInset)
-        .divider(spacing: Constants.dividerSpacing)
     }
     
     private var layoutSection: some View {
@@ -120,11 +106,6 @@ struct ObjectSettingsView: View {
         }
     }
     
-    private func mainSetting(index: Int) -> some View {
-        ObjectSettingRow(setting: viewModel.settings[index], showDivider: index != viewModel.settings.count - 1) {
-            try await handleSetting(viewModel.settings[index])
-        }
-    }
 
     private enum Constants {
         static let edgeInset: CGFloat = 16

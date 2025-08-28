@@ -145,7 +145,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    
     static let swipeToReply = FeatureDescription(
         title: "Swipe to reply in chats",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
@@ -158,11 +157,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let webPublishing = FeatureDescription(
-        title: "Web Publishing",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "12"),
-        defaultValue: true
-    )
     
     static let keyboardMenuUndoRedo = FeatureDescription(
         title: "Place undo/redo on keyboard menu in Editor",

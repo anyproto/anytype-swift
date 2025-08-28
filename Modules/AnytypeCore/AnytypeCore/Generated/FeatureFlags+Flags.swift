@@ -94,10 +94,6 @@ public extension FeatureFlags {
         value(for: .supportSimpleEmbedBlocks)
     }
 
-    static var webPublishing: Bool {
-        value(for: .webPublishing)
-    }
-
     static var keyboardMenuUndoRedo: Bool {
         value(for: .keyboardMenuUndoRedo)
     }
@@ -230,7 +226,6 @@ public extension FeatureFlags {
         .addNotificationsSettings,
         .swipeToReply,
         .supportSimpleEmbedBlocks,
-        .webPublishing,
         .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,
