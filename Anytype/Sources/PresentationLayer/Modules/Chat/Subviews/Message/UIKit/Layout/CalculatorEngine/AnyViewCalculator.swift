@@ -3,21 +3,17 @@ import Foundation
 struct AnyViewCalculator: ViewCalculator {
     
     let sizeProvider: (_ size: CGSize) -> CGSize
-    let frameWriter: (_ rect: CGRect) -> Void
     
     func sizeThatFits(_ size: CGSize) -> CGSize {
         sizeProvider(size)
     }
     
-    func setFrame(_ frame: CGRect) {
-        frameWriter(frame)
-    }
+    func setFrame(_ frame: CGRect) {}
 }
 
 extension AnyViewCalculator {
-    init(size: CGSize, frameWriter: @escaping (_ rect: CGRect) -> Void) {
+    init(size: CGSize) {
         self.sizeProvider = { _ in size }
-        self.frameWriter = frameWriter
     }
 }
 

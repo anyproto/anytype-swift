@@ -19,38 +19,34 @@ struct MessageBigBookmarkCalculator {
         var descriptionFrame: CGRect?
         var size: CGSize?
         
-        VStackCalculator(alignment: .left, frameWriter: { size = $0.size }) {
+        VStackCalculator(alignment: .left) {
             if data.pictureId.isNotEmpty {
                 AnyViewCalculator { targetSize in
                     CGSize(width: targetSize.width, height: targetSize.width * 0.5)
-                } frameWriter: {
-                    imageFrame = $0
                 }
+                .readFrame { imageFrame = $0 }
             }
             HStackCauculator {
                 VStackCalculator(alignment: .left, spacing: 2) {
                     if data.host.string.isNotEmpty {
                         AnyViewCalculator { targetSize in
                             data.host.sizeForLabel(width: targetSize.width, maxLines: data.hostLineLimit)
-                        } frameWriter: {
-                            hostFrame = $0
                         }
+                        .readFrame { hostFrame = $0 }
                     }
                     
                     if data.title.string.isNotEmpty {
                         AnyViewCalculator { targetSize in
                             data.title.sizeForLabel(width: targetSize.width, maxLines: data.titleLineLimit)
-                        } frameWriter: {
-                            titleFrame = $0
                         }
+                        .readFrame { titleFrame = $0 }
                     }
                     
                     if data.description.string.isNotEmpty {
                         AnyViewCalculator { targetSize in
                             data.description.sizeForLabel(width: targetSize.width, maxLines: data.descriptionLineLimit)
-                        } frameWriter: {
-                            descriptionFrame = $0
                         }
+                        .readFrame { descriptionFrame = $0 }
                     }
                 }
                 .padding(horizontal: 12, vertical: 8)
@@ -58,6 +54,7 @@ struct MessageBigBookmarkCalculator {
                 HorizontalSpacerCalculator()
             }
         }
+        .readFrame { size = $0.size }
         .calculate(targetSize)
         
         return MessageBigBookmarkLayout(

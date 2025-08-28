@@ -11,7 +11,6 @@ class HStackCauculator: ViewCalculator {
     
     let alignment: HStackCauculatorAlignment
     let spacing: CGFloat
-    let frameWriter: (CGRect) -> Void
     let views: [any ViewCalculator]
     
     private var size: CGSize?
@@ -20,13 +19,11 @@ class HStackCauculator: ViewCalculator {
     init(
         alignment: HStackCauculatorAlignment = .center,
         spacing: CGFloat = 0,
-        frameWriter: @escaping (CGRect) -> Void = { _ in },
         @ArrayBuilder<ViewCalculator> viewBuilder: () -> [any ViewCalculator]
     ) {
         
         self.alignment = alignment
         self.spacing = spacing
-        self.frameWriter = frameWriter
         self.views = viewBuilder()
     }
     
@@ -63,7 +60,6 @@ class HStackCauculator: ViewCalculator {
     }
     
     func setFrame(_ frame: CGRect) {
-        frameWriter(frame)
         var freeFrame = frame
         for (index, view) in views.enumerated() {
             let viewSize = viewSizes[index]

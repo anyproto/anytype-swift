@@ -10,30 +10,28 @@ struct MessageReactionCalculator {
         var countFrame: CGRect?
         var iconFrame: CGRect?
         
-        HStackCauculator(spacing: 4, frameWriter: { size = $0.size }) {
+        HStackCauculator(spacing: 4) {
             AnyViewCalculator { targetSize in
                 return data.emojiAttributedString.sizeForLabel(width: targetSize.width)
-            } frameWriter: {
-                emojiFrame = $0
             }
+            .readFrame { emojiFrame = $0 }
             
             switch data.content {
             case .count(let int):
                 AnyViewCalculator { targetSize in
                     return data.countAttributedString?.sizeForLabel(width: targetSize.width) ?? .zero
-                } frameWriter: {
-                    countFrame = $0
                 }
+                .readFrame { countFrame = $0 }
             case .icon(let icon):
                 AnyViewCalculator { _ in
                     return MessageReactionLayout.iconSize
-                } frameWriter: {
-                    iconFrame = $0
                 }
+                .readFrame { iconFrame = $0 }
             }
         }
         .frame(height: MessageReactionLayout.height)
         .padding(horizontal: 8)
+        .readFrame { size = $0.size }
         .calculate(targetSize)
         
         return MessageReactionLayout(

@@ -22,7 +22,7 @@ final class MessageLayoutCalculator {
         
         let layout = makeRootLayout(size: targetSize, data: data)
         
-        cache.setObject(layout, forKey: data.hashValue)
+//        cache.setObject(layout, forKey: data.hashValue)
         
         return layout
     }
@@ -39,15 +39,17 @@ final class MessageLayoutCalculator {
         let authorIcon: (any ViewCalculator)?
         switch data.authorIconMode {
         case .show:
-            authorIcon = AnyViewCalculator(size: CGSize(width: iconSide, height: iconSide), frameWriter: { iconFrame = $0 }).layoutPriority(1)
+            authorIcon = AnyViewCalculator(size: CGSize(width: iconSide, height: iconSide))
+                .layoutPriority(1)
+                .readFrame { iconFrame = $0 }
         case .empty:
-            authorIcon = AnyViewCalculator(size: CGSize(width: iconSide, height: iconSide), frameWriter: { _ in }).layoutPriority(1)
+            authorIcon = AnyViewCalculator(size: CGSize(width: iconSide, height: iconSide)).layoutPriority(1)
         case .hidden:
             authorIcon = nil
         }
         
         // Spacing icon for other size
-        let bubbleSpacing = AnyViewCalculator(size: CGSize(width: 26, height: 0), frameWriter: { _ in }).layoutPriority(1)
+        let bubbleSpacing = AnyViewCalculator(size: CGSize(width: 26, height: 0)).layoutPriority(1)
         
         // Bubble
         
@@ -57,10 +59,9 @@ final class MessageLayoutCalculator {
             let layout = MessageBubbleCalculator.calculateSize(targetSize: targetSize, data: MessageBubbleViewData(data: data))
             bubbleLayout = layout
             return layout.bubbleSize
-        } frameWriter: {
-            bubbleFrame = $0
         }
-
+        .readFrame { bubbleFrame = $0 }
+        
         // Reactions
         
         let reactionsData = MessageReactionListData(data: data)
@@ -71,14 +72,13 @@ final class MessageLayoutCalculator {
                 let layout = MessageReactionsListCalculator.calculateSize(targetSize: targetSize, data: reactionsData)
                 reactionsLayout = layout
                 return layout.size
-            } frameWriter: {
-                reactionsFrame = $0
             }
+            .readFrame { reactionsFrame = $0 }
             : nil
         
         // Final
         
-        let hStack = HStackCauculator(alignment: .bottom, spacing: 6, frameWriter: { _ in }) {
+        let hStack = HStackCauculator(alignment: .bottom, spacing: 6) {
             if data.position.isLeft {
                 authorIcon
             } else {
