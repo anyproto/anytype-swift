@@ -7,21 +7,13 @@ import Loc
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
-    @Published var unreadSpaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var searchText: String = ""
     
     var allSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        guard let unreadSpaces, let spaces else { return nil }
-        return unreadSpaces + spaces
+        return spaces
     }
     
-    var filteredUnreadSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        guard !searchText.isEmpty, let unreadSpaces else { return unreadSpaces }
-        return unreadSpaces.filter { space in
-            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
-        }
-    }
     
     var filteredSpaces: [ParticipantSpaceViewDataWithPreview]? {
         guard !searchText.isEmpty, let spaces else { return spaces }
@@ -155,17 +147,7 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            if FeatureFlags.pinnedSpaces {
-                self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-                self.unreadSpaces = []
-            } else {
-                self.unreadSpaces = spaces
-                    .filter { $0.preview.unreadCounter > 0 }
-                    .sorted {
-                        ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
-                    }
-                self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
-            }
+            self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
             createSpaceAvailable = workspacesStorage.canCreateNewSpace()
             if FeatureFlags.spaceLoadingForScreen {
                 showLoading = spaces.contains { $0.spaceView.isLoading }

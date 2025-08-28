@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideWebPayments)
     }
 
-    static var pinnedSpaces: Bool {
-        value(for: .pinnedSpaces)
-    }
-
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -208,7 +204,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideWebPayments,
-        .pinnedSpaces,
         .openMediaFileInPreview,
         .spaceUxTypes,
         .enableStreamSpaceType,
