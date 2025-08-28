@@ -86,10 +86,6 @@ public extension FeatureFlags {
         value(for: .swipeToReply)
     }
 
-    static var supportSimpleEmbedBlocks: Bool {
-        value(for: .supportSimpleEmbedBlocks)
-    }
-
     static var keyboardMenuUndoRedo: Bool {
         value(for: .keyboardMenuUndoRedo)
     }
@@ -220,7 +216,6 @@ public extension FeatureFlags {
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
-        .supportSimpleEmbedBlocks,
         .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,

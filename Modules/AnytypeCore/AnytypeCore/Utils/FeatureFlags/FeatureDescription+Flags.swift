@@ -46,7 +46,7 @@ public extension FeatureDescription {
     
     static let enableStreamSpaceType = FeatureDescription(
         title: "Create stream space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         defaultValue: false,
         debugValue: false
     )
@@ -142,16 +142,9 @@ public extension FeatureDescription {
     
     static let swipeToReply = FeatureDescription(
         title: "Swipe to reply in chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: true
     )
-    
-    static let supportSimpleEmbedBlocks = FeatureDescription(
-        title: "Support simple embed blocks",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
-        defaultValue: true
-    )
-    
     
     static let keyboardMenuUndoRedo = FeatureDescription(
         title: "Place undo/redo on keyboard menu in Editor",
