@@ -5,12 +5,14 @@ import UIKit
 
 final class ChatCollectionViewCoordinator<
     DataView: View,
-    HeaderView: View>: NSObject, UICollectionViewDelegate {
+    HeaderView: View>: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     typealias Section = MessageSectionData
     typealias Item = MessageSectionItem
     
-    private let distanceForLoadNextPage: CGFloat = 300
+    private let calculator = MessageLayoutCalculator()
+    
+    private let distanceForLoadNextPage: CGFloat = 2000
     private let visibleRangeThreshold: CGFloat = 10
     private let bigDistanceFromTheBottomThreshold: CGFloat = 30
     private var canCallScrollToTop = false
@@ -23,6 +25,7 @@ final class ChatCollectionViewCoordinator<
     private var oldIsBigDistance = false
     private var dismissWorkItems: [DispatchWorkItem] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
+    private var layoutWorkItem: DispatchWorkItem?
     // From iOS 17.4 replace to collectionView.isScrollAnimating
     private var isProgrammaticAnimatedScroll = false
     
@@ -48,7 +51,8 @@ final class ChatCollectionViewCoordinator<
         }
         
         let bubbleCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, MessageViewData> { cell, indexPath, item in
-            cell.contentConfiguration = MessageConfiguration(model: item)
+            let layout = self.calculator.makeLayout(width: collectionView.bounds.width, data: item)
+            cell.contentConfiguration = MessageConfiguration(model: item, layout: layout)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
         
@@ -84,69 +88,26 @@ final class ChatCollectionViewCoordinator<
     // MARK: Update
     
     func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
-        guard let dataSource, self.sections != sections else {
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: false)
-            return
-        }
-        
-        var newSnapshot = NSDiffableDataSourceSnapshot<Section.ID, Item>()
-        
-        for section in sections {
-            newSnapshot.appendSections([section.id])
-            newSnapshot.appendItems(section.items, toSection: section.id)
-        }
-        
-        var oldVisibleCellAttributes: UICollectionViewLayoutAttributes?
-        var visibleItem: Item?
-        
-        for visibleIndexPath in collectionView.indexPathsForVisibleItems {
-            if let attributes = collectionView.layoutAttributesForItem(at: visibleIndexPath),
-               let item = dataSource.itemIdentifier(for: visibleIndexPath),
-               newSnapshot.indexOfItem(item) != nil {
-                visibleItem = item
-                oldVisibleCellAttributes = attributes
-                break
-            }
-        }
-        
-        let oldContentSize = collectionView.contentSize
-        let oldContentOffset = collectionView.contentOffset
-        let oldIsNearBottom = (collectionView.bottomOffset.y - collectionView.contentOffset.y) < bigDistanceFromTheBottomThreshold
-        
-        self.sections = sections
-        
-        CATransaction.begin()
-        
-        dataSourceApplyTransaction = true
-        dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
-            guard let self else { return }
-            
-            // Safe offset for visible cells
-            if collectionView.contentSize.height != oldContentSize.height, // If the height has changed
-                oldContentSize.height != 0, // If is not first update
-                let oldVisibleCellAttributes, // If the old state contains a visible cell that will be used to calculate the difference
-                let visibleItem,
-                // If the new state contains the same cell
-                let visibleIndexPath = dataSource.indexPath(for: visibleItem),
-                let visibleCellAttributes = collectionView.layoutAttributesForItem(at: visibleIndexPath)
-            {
-                let diffY = visibleCellAttributes.frame.minY - oldVisibleCellAttributes.frame.minY
-                
-                let offsetY = oldContentOffset.y + diffY
-                if collectionView.contentOffset.y != offsetY {
-                    collectionView.contentOffset.y = offsetY
+        let width = collectionView.frame.width
+        var workItem: DispatchWorkItem?
+        workItem = DispatchWorkItem { [weak self, calculator] in
+            let items = sections.flatMap { $0.items }
+            for item in items {
+                if let messageData = item.messageData {
+                    calculator.prepareLayout(width: width, data: messageData)
+                }
+                if workItem?.isCancelled ?? true {
+                    return
                 }
             }
-            
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
-            canCallScrollToTop = true
-            canCallScrollToBottom = true
-            dataSourceApplyTransaction = false
-            CATransaction.commit()
-            
-            if !isProgrammaticAnimatedScroll {
-                updateStateAfterTransaction(collectionView: collectionView)
+            DispatchQueue.main.async {
+                self?.updateData(collectionView: collectionView, sections: sections, scrollProxy: scrollProxy)
             }
+        }
+        layoutWorkItem?.cancel()
+        layoutWorkItem = workItem
+        if let workItem {
+            DispatchQueue.global(qos: .userInteractive).async(execute: workItem)
         }
     }
     
@@ -208,6 +169,20 @@ final class ChatCollectionViewCoordinator<
         isProgrammaticAnimatedScroll = false
         if let collectionView = scrollView as? UICollectionView {
             updateStateAfterTransaction(collectionView: collectionView)
+        }
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let item = sections[safe: indexPath.section]?.items[safe: indexPath.row]
+        guard let item else { return .zero }
+        switch item {
+        case .message(let data):
+            let layout = calculator.makeLayout(width: collectionView.bounds.width, data: data)
+            return layout.cellSize
+        case .unread(let message):
+            return CGSize(width: collectionView.bounds.width, height: 50)
         }
     }
     
@@ -359,5 +334,73 @@ final class ChatCollectionViewCoordinator<
         updateVisibleRangeIfNeeded(collectionView: collectionView)
         updateDistanceFromTheBottom(collectionView: collectionView)
         updateHeaders(collectionView: collectionView, animated: false)
+    }
+    
+    private func updateData(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
+        
+        guard let dataSource, self.sections != sections else {
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: false)
+            return
+        }
+        
+        var newSnapshot = NSDiffableDataSourceSnapshot<Section.ID, Item>()
+        
+        for section in sections {
+            newSnapshot.appendSections([section.id])
+            newSnapshot.appendItems(section.items, toSection: section.id)
+        }
+        
+        var oldVisibleCellAttributes: UICollectionViewLayoutAttributes?
+        var visibleItem: Item?
+        
+        for visibleIndexPath in collectionView.indexPathsForVisibleItems {
+            if let attributes = collectionView.layoutAttributesForItem(at: visibleIndexPath),
+               let item = dataSource.itemIdentifier(for: visibleIndexPath),
+               newSnapshot.indexOfItem(item) != nil {
+                visibleItem = item
+                oldVisibleCellAttributes = attributes
+                break
+            }
+        }
+        
+        let oldContentSize = collectionView.contentSize
+        let oldContentOffset = collectionView.contentOffset
+        let oldIsNearBottom = (collectionView.bottomOffset.y - collectionView.contentOffset.y) < bigDistanceFromTheBottomThreshold
+        
+        self.sections = sections
+        
+        CATransaction.begin()
+        
+        dataSourceApplyTransaction = true
+        dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
+            guard let self else { return }
+            
+            // Safe offset for visible cells
+            if collectionView.contentSize.height != oldContentSize.height, // If the height has changed
+                oldContentSize.height != 0, // If is not first update
+                let oldVisibleCellAttributes, // If the old state contains a visible cell that will be used to calculate the difference
+                let visibleItem,
+                // If the new state contains the same cell
+                let visibleIndexPath = dataSource.indexPath(for: visibleItem),
+                let visibleCellAttributes = collectionView.layoutAttributesForItem(at: visibleIndexPath)
+            {
+                let diffY = visibleCellAttributes.frame.minY - oldVisibleCellAttributes.frame.minY
+                
+                let offsetY = oldContentOffset.y + diffY
+                if collectionView.contentOffset.y != offsetY {
+                    collectionView.contentOffset.y = offsetY
+                }
+            }
+            
+            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
+            canCallScrollToTop = true
+            canCallScrollToBottom = true
+            dataSourceApplyTransaction = false
+            CATransaction.commit()
+            
+            if !isProgrammaticAnimatedScroll {
+                updateStateAfterTransaction(collectionView: collectionView)
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ import Cache
 import UIKit
 import os
 
-final class MessageLayoutCalculator {
+final class MessageLayoutCalculator: @unchecked Sendable {
     
     private let lock = OSAllocatedUnfairLock()
     private let cache: MemoryStorage<Int, MessageLayout> = {
@@ -11,7 +11,7 @@ final class MessageLayoutCalculator {
         return MemoryStorage<Int, MessageLayout>(config: config)
     }()
     
-    func makeLayout(targetSize: CGSize, data: MessageViewData) -> MessageLayout {
+    func makeLayout(width: CGFloat, data: MessageViewData) -> MessageLayout {
         
         lock.lock()
         defer { lock.unlock() }
@@ -20,16 +20,21 @@ final class MessageLayoutCalculator {
             return cacheValue
         }
         
-        let layout = makeRootLayout(size: targetSize, data: data)
+        let layout = makeRootLayout(width: width, data: data)
         
-//        cache.setObject(layout, forKey: data.hashValue)
+        cache.setObject(layout, forKey: data.hashValue)
         
         return layout
     }
     
+    func prepareLayout(width: CGFloat, data: MessageViewData) {
+        _ = makeLayout(width: width, data: data)
+    }
+    
     // MARK: - Private
     
-    private func makeRootLayout(size: CGSize, data: MessageViewData) -> MessageLayout {
+    private func makeRootLayout(width: CGFloat, data: MessageViewData) -> MessageLayout {
+        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
         let containerInsets = UIEdgeInsets(top: 0, left: 14, bottom: data.nextSpacing.height, right: 14)
         let iconSide: CGFloat = 32
         

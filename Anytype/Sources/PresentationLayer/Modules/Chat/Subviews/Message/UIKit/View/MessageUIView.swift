@@ -3,8 +3,6 @@ import Cache
 
 final class MessageUIView: UIView, UIContentView {
     
-    private static let calculator = MessageLayoutCalculator()
-    
     private lazy var iconView = IconViewUIKit()
     private lazy var bubbleView = MessageBubbleUIView()
     private lazy var reactionsView = MessageReactionListUIView()
@@ -13,25 +11,30 @@ final class MessageUIView: UIView, UIContentView {
     private var data: MessageViewData {
         didSet {
             if data != oldValue {
-                layout = nil
                 setNeedsLayout()
             }
         }
     }
-    private var layout: MessageLayout?
+    private var layout: MessageLayout {
+        didSet {
+            if layout != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
     
     var configuration: any UIContentConfiguration {
         didSet {
             guard let configuration = configuration as? MessageConfiguration else { return }
-            if data != configuration.model {
-                data = configuration.model
-            }
+            data = configuration.model
+            layout = configuration.layout
         }
     }
     
     init(configuration: MessageConfiguration) {
         self.configuration = configuration
         self.data = configuration.model
+        self.layout = configuration.layout
         super.init(frame:.zero)
         setupView()
     }
@@ -40,25 +43,25 @@ final class MessageUIView: UIView, UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        updateLayoutIfNeeded(targetSize: size)
-        return layout?.cellSize ?? .zero
-    }
-    
-    override func systemLayoutSizeFitting(
-        _ targetSize: CGSize,
-        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
-        verticalFittingPriority: UILayoutPriority
-    ) -> CGSize {
-        updateLayoutIfNeeded(targetSize: targetSize)
-        return layout?.cellSize ?? .zero
-    }
-    
+//    override func sizeThatFits(_ size: CGSize) -> CGSize {
+//        updateLayoutIfNeeded(targetSize: size)
+//        return layout?.cellSize ?? .zero
+//    }
+//    
+//    override func systemLayoutSizeFitting(
+//        _ targetSize: CGSize,
+//        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
+//        verticalFittingPriority: UILayoutPriority
+//    ) -> CGSize {
+//        updateLayoutIfNeeded(targetSize: targetSize)
+//        return layout?.cellSize ?? .zero
+//    }
+//    
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateLayoutIfNeeded(targetSize: bounds.size)
+//        updateLayoutIfNeeded(targetSize: bounds.size)
     
-        guard let layout else { return }
+//        guard let layout else { return }
         
         // TODO: Split setup data and layout
         if let bubbleFrame = layout.bubbleFrame {
@@ -104,9 +107,9 @@ final class MessageUIView: UIView, UIContentView {
 //        addSubview(bubbleView)
     }
     
-    private func updateLayoutIfNeeded(targetSize: CGSize) {
-        guard layout == nil else { return }
-        
-        layout = Self.calculator.makeLayout(targetSize: targetSize, data: data)
-    }
+//    private func updateLayoutIfNeeded(targetSize: CGSize) {
+//        guard layout == nil else { return }
+//        
+//        layout = Self.calculator.makeLayout(targetSize: targetSize, data: data)
+//    }
 }

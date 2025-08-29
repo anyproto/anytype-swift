@@ -3,6 +3,7 @@ import UIKit
 struct MessageConfiguration: UIContentConfiguration {
     
     let model: MessageViewData
+    let layout: MessageLayout
     
     func makeContentView() -> any UIView & UIContentView {
         MessageUIView(configuration: self)
