@@ -8,6 +8,7 @@ final class MessageUIView: UIView, UIContentView {
     private lazy var iconView = IconViewUIKit()
     private lazy var bubbleView = MessageBubbleUIView()
     private lazy var reactionsView = MessageReactionListUIView()
+    private lazy var replyView = MessageReplyUIView()
     
     private var data: MessageViewData {
         didSet {
@@ -84,6 +85,15 @@ final class MessageUIView: UIView, UIContentView {
             addSubview(reactionsView)
         } else {
             reactionsView.removeFromSuperview()
+        }
+        
+        if let replyFrame = layout.replyFrame, let reply = data.replyModel {
+            replyView.frame = replyFrame
+            replyView.layout = layout.replyLayout
+            replyView.data = MessageReplyViewData(model: reply)
+            addSubview(replyView)
+        } else {
+            replyView.removeFromSuperview()
         }
     }
     

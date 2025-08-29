@@ -76,6 +76,12 @@ final class MessageLayoutCalculator {
             .readFrame { reactionsFrame = $0 }
             : nil
         
+        // Reply
+        
+        var replyFrame: CGRect?
+        var replyLayout: MessageReplyLayout?
+        let replyData = data.replyModel.map { MessageReplyViewData(model: $0) }
+        
         // Final
         
         let hStack = HStackCauculator(alignment: .bottom, spacing: 6) {
@@ -85,6 +91,16 @@ final class MessageLayoutCalculator {
                 bubbleSpacing
             }
             VStackCalculator(alignment: data.position.isLeft ? .left : .right, spacing: 4) {
+                
+                if let replyData {
+                    AnyViewCalculator { targetSize in
+                        let layout = MessageReplyCalculator.calculateSize(targetSize: targetSize, data: replyData)
+                        replyLayout = layout
+                        return layout.size
+                    }
+                    .readFrame { replyFrame = $0 }
+                }
+                
                 bubbleCalculator
                 reactionsCalculator
             }
@@ -113,7 +129,9 @@ final class MessageLayoutCalculator {
             bubbleFrame: bubbleFrame,
             bubbleLayout: bubbleLayout,
             reactionsFrame: reactionsFrame,
-            reactionsLayout: reactionsLayout
+            reactionsLayout: reactionsLayout,
+            replyFrame: replyFrame,
+            replyLayout: replyLayout
         )
     }
 }

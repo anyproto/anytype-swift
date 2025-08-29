@@ -7,4 +7,6 @@ struct MessageLayout: Equatable {
     let bubbleLayout: MessageBubbleLayout?
     let reactionsFrame: CGRect?
     let reactionsLayout: MessageReactionListLayout?
+    let replyFrame: CGRect?
+    let replyLayout: MessageReplyLayout?
 }
