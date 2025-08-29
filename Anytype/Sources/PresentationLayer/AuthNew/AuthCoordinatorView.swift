@@ -29,7 +29,6 @@ struct AuthCoordinatorView: View {
             }
             .sheet(isPresented: $model.showSettings) {
                 ServerConfigurationCoordinatorView()
-                    .mediumPresentationDetents()
             }
             .sheet(isPresented: $model.showDebugMenu) {
                 DebugMenuView()
