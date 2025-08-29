@@ -5,7 +5,9 @@ struct MessageReplyCalculator {
     
     static func calculateSize(targetSize: CGSize, data: MessageReplyViewData) -> MessageReplyLayout {
         
-        var size: CGSize?
+        var size: CGSize = .zero
+        var lineFrame: CGRect?
+        var backgroundFrame: CGRect?
         var authorFrame: CGRect?
         var iconFrame: CGRect?
         var descriptionFrame: CGRect?
@@ -33,13 +35,21 @@ struct MessageReplyCalculator {
                 }
                 .readFrame { descriptionFrame = $0 }
             }
+            .padding(8)
+            .readFrame { backgroundFrame = $0 }
         }
-        .padding(UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 8))
+        .padding(left: 8) // Padding for vertical line
         .readFrame { size = $0.size }
         .calculate(targetSize)
         
+        if let backgroundFrame {
+            lineFrame = CGRect(x: 0, y: backgroundFrame.minY, width: 4, height: backgroundFrame.height)
+        }
+        
         return MessageReplyLayout(
-            size: size ?? .zero,
+            size: size,
+            lineFrame: lineFrame,
+            backgroundFrame: backgroundFrame,
             authorFrame: authorFrame,
             iconFrame: iconFrame,
             descriptionFrame: descriptionFrame

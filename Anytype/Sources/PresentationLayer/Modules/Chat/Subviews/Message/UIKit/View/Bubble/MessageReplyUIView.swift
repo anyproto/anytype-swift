@@ -4,6 +4,8 @@ import Services
 
 struct MessageReplyLayout: Equatable {
     let size: CGSize
+    let lineFrame: CGRect?
+    let backgroundFrame: CGRect?
     let authorFrame: CGRect?
     let iconFrame: CGRect?
     let descriptionFrame: CGRect?
@@ -73,6 +75,16 @@ final class MessageReplyUIView: UIView {
         view.backgroundColor = .Shape.transperentPrimary
         view.layer.cornerRadius = 2
         return view
+    }()
+    
+    private let backgroundContainer = UIView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Public properties
@@ -108,12 +120,21 @@ final class MessageReplyUIView: UIView {
         descriptionLabel.attributedText = data.description
         descriptionLabel.numberOfLines = data.attachmentIcon.isNotNil ? 1 : 3
         
-        backgroundColor = data.messageBackgorundColor
+        backgroundContainer.backgroundColor = data.isYour
+            ? data.messageYourBackgroundColor.withAlphaComponent(0.5)
+            : .Background.Chat.replySomeones
+        backgroundContainer.layer.cornerRadius = 16
+        backgroundContainer.layer.masksToBounds = true
+        lineView.backgroundColor = .Shape.transperentPrimary
+        lineView.layer.cornerRadius = 2
+        lineView.layer.masksToBounds = true
     }
     
     private func updateLayout() {
+        lineView.addTo(parent: self, frame: layout?.lineFrame)
         authorLabel.addTo(parent: self, frame: layout?.authorFrame)
         iconView.addTo(parent: self, frame: layout?.iconFrame)
         descriptionLabel.addTo(parent: self, frame: layout?.descriptionFrame)
+        backgroundContainer.addTo(parent: self, frame: layout?.backgroundFrame)
     }
 }
