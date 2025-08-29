@@ -175,8 +175,8 @@ struct ChatView: View {
             bottomPanel: bottomPanel,
             emptyView: emptyView,
             showEmptyState: model.showEmptyState
-        ) {
-            cell(data: $0)
+        ) { _ in
+            ChatMessageUnreadView()
         } headerBuilder: {
             ChatMessageHeaderView(text: $0)
         } actionView: {
@@ -194,15 +194,5 @@ struct ChatView: View {
         }
         .messageYourBackgroundColor(model.messageYourBackgroundColor)
         .messageFlashId($model.messageHiglightId)
-    }
-    
-    @ViewBuilder
-    private func cell(data: MessageSectionItem) -> some View {
-        switch data {
-        case .message(let data):
-            MessageView(data: data, output: model)
-        case .unread:
-            ChatMessageUnreadView()
-        }
     }
 }

@@ -4,20 +4,21 @@ import Combine
 import UIKit
 
 struct ChatCollectionView<
-    Item: Hashable & Identifiable & Sendable,
-    Section: Hashable & Identifiable & ChatCollectionSection & Sendable,
     ItemView: View,
     HeaderView: View,
     BottomPanel: View,
     ActionView: View,
-    EmptyView: View>: UIViewControllerRepresentable where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
+    EmptyView: View>: UIViewControllerRepresentable {
+    
+    typealias Section = MessageSectionData
+    typealias Item = MessageSectionItem
     
     let items: [Section]
     let scrollProxy: ChatCollectionScrollProxy
     let bottomPanel: BottomPanel
     let emptyView: EmptyView
     let showEmptyState: Bool
-    let itemBuilder: (Item) -> ItemView
+    let unreadBuilder: (String) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
     @ViewBuilder
     let actionView: ActionView
@@ -96,7 +97,7 @@ struct ChatCollectionView<
         container.emptyView.rootView = emptyView
         container.emptyView.view.isHidden = !showEmptyState
         container.actionView.rootView = actionView
-        context.coordinator.itemBuilder = itemBuilder
+        context.coordinator.unreadBuilder = unreadBuilder
         context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToTop = scrollToTop
         context.coordinator.scrollToBottom = scrollToBottom
@@ -106,7 +107,7 @@ struct ChatCollectionView<
         context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
     }
     
-    func makeCoordinator() -> ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView> {
-        ChatCollectionViewCoordinator<Section, Item, ItemView, HeaderView>()
+    func makeCoordinator() -> ChatCollectionViewCoordinator<ItemView, HeaderView> {
+        ChatCollectionViewCoordinator<ItemView, HeaderView>()
     }
 }

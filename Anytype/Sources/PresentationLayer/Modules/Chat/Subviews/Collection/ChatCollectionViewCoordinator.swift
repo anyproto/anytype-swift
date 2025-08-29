@@ -4,10 +4,11 @@ import Combine
 import UIKit
 
 final class ChatCollectionViewCoordinator<
-    Section: Hashable & ChatCollectionSection & Identifiable & Sendable,
-    Item: Hashable & Identifiable & Sendable,
     DataView: View,
-    HeaderView: View>: NSObject, UICollectionViewDelegate where Item.ID == String, Section.Item == Item, Section.ID: Sendable {
+    HeaderView: View>: NSObject, UICollectionViewDelegate {
+    
+    typealias Section = MessageSectionData
+    typealias Item = MessageSectionItem
     
     private let distanceForLoadNextPage: CGFloat = 300
     private let visibleRangeThreshold: CGFloat = 10
@@ -29,7 +30,7 @@ final class ChatCollectionViewCoordinator<
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
     var lastScrollProxy: ChatCollectionScrollProxy?
-    var itemBuilder: ((Item) -> DataView)?
+    var unreadBuilder: ((String) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
     var handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?
@@ -46,23 +47,23 @@ final class ChatCollectionViewCoordinator<
             view.layer.zPosition = 1
         }
         
-        let itemRegistration = UICollectionView.CellRegistration<UICollectionViewCell, Item> { cell, indexPath, item in
-//            cell.setItem(item, builder: self?.itemBuilder)
-            if let item = item as? MessageSectionItem {
-                switch item {
-                case .message(let data):
-                    cell.contentConfiguration = MessageConfiguration(model: data)
-                case .unread(let _):
-                    break
-                }
-            }
+        let bubbleCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, MessageViewData> { cell, indexPath, item in
+            cell.contentConfiguration = MessageConfiguration(model: item)
+            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
         
-    
-        let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: itemRegistration, for: indexPath, item: item)
+        let unreadeCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, String> { cell, indexPath, item in
+//            cell.contentConfiguration = MessageConfiguration(model: item)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
-            return cell
+        }
+        
+        let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
+            switch item {
+            case .message(let data):
+                return collectionView.dequeueConfiguredReusableCell(using: bubbleCellRegistration, for: indexPath, item: data)
+            case .unread(let message):
+                return collectionView.dequeueConfiguredReusableCell(using: unreadeCellRegistration, for: indexPath, item: message)
+            }
         }
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView in
