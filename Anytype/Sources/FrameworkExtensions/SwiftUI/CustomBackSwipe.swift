@@ -3,10 +3,10 @@ import SwiftUI
 
 extension View {
     func customBackSwipe( _ actionEnded: @escaping () -> Void) -> some View {
-        highPriorityGesture(
+        simultaneousGesture(
             DragGesture()
                 .onEnded { value in
-                    if value.startLocation.x < 50, value.translation.width > 70 {
+                    if value.startLocation.x < 50, value.translation.width > 50 {
                         actionEnded()
                     }
                 }

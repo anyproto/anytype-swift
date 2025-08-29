@@ -11,7 +11,7 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
         }
     }
     @Published var showError: Bool = false
-    @Published var disableBackAction: Bool = false
+    @Published var backButtonDisabled: Bool = false
     @Published var dismiss = false
     
     let state: JoinFlowState
@@ -50,7 +50,7 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     }
     
     func disableBackAction(_ disable: Bool) {
-        disableBackAction = disable
+        backButtonDisabled = disable
     }
     
     private func onNext(with currentStep: JoinStep) {
