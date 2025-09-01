@@ -352,6 +352,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Participant status. Possible values: models.ParticipantStatus
     case participantStatus = "participantStatus"
 
+    /// Current account status in space. Possible values: models.ParticipantStatus
+    case myParticipantStatus = "myParticipantStatus"
+
     /// Link to the profile attached to Anytype Identity
     case identityProfileLink = "identityProfileLink"
 

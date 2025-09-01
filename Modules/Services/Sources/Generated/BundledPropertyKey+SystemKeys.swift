@@ -57,6 +57,7 @@ public extension BundledPropertyKey {
         .oldAnytypeID,
         .spaceDashboardId,
         .recommendedRelations,
+        .myParticipantStatus,
         .iconOption,
         .widthInPixels,
         .heightInPixels,
