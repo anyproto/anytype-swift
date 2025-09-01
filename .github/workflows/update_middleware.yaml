@@ -53,7 +53,7 @@ jobs:
       - name: Setup tools
         run: make setup-env
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
       
       - name: Update Middleware Version
         run: make set-middle-version v=${{ inputs.middle_version }}
@@ -84,7 +84,7 @@ jobs:
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
 
       - name: Run unit tests
         run: bundle exec fastlane tests skip_notify:true
@@ -99,5 +99,5 @@ jobs:
           PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
           gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
         
