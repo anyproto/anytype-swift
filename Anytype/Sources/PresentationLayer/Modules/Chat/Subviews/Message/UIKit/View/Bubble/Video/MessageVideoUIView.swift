@@ -14,6 +14,7 @@ final class MessageVideoUIView: UIView {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    private var imageURL: URL?
     private var imageTask: Task<Void, Never>?
     
     private let uploadingStatusView = MessageMediaUploadingStatusUIView()
@@ -28,20 +29,12 @@ final class MessageVideoUIView: UIView {
     
     // MARK: - Public properties
     
-    var url: URL? {
+    var data: MessageVideoViewData? {
         didSet {
-            if url != oldValue {
-                updatePreviewIfNeeded()
+            if data != oldValue {
+                updateData()
             }
         }
-    }
-    
-    var syncStatus: SyncStatus? {
-        didSet { uploadingStatusView.syncStatus = syncStatus }
-    }
-    
-    var syncError: SyncError? {
-        didSet { uploadingStatusView.syncError = syncError }
     }
     
     // MARK: - Public
@@ -86,22 +79,40 @@ final class MessageVideoUIView: UIView {
         uploadingStatusView.syncedView = syncedView
     }
     
+    private func updateData() {
+        uploadingStatusView.syncStatus = data?.syncStatus
+        uploadingStatusView.syncError = data?.syncError
+        updatePreviewIfNeeded()
+    }
+    
     private func updatePreviewIfNeeded() {
+        let newUrl = data?.url
+        
+        guard imageURL != newUrl else { return }
+        
+        imageURL = newUrl
         
         imageTask?.cancel()
         imageView.image = nil
         uploadingStatusView.isHidden = true
         
+        guard let newUrl else { return }
+        
         let size = imageView.frame.size
         
-        if let url {
+        if let image = try? videoPreviewStorage.cache(url: newUrl, size: size) {
+            imageView.image = image
+            errorIndicator.isHidden = true
+            loadingIndicator.isHidden = true
+            uploadingStatusView.isHidden = false
+        } else {
             
             errorIndicator.isHidden = true
             loadingIndicator.isHidden = false
             
             imageTask = Task { [weak self, videoPreviewStorage] in
                 do {
-                    let image = try await videoPreviewStorage.preview(url: url, size: size)
+                    let image = try await videoPreviewStorage.preview(url: newUrl, size: size)
                     self?.errorIndicator.isHidden = true
                     self?.loadingIndicator.isHidden = true
                     guard !Task.isCancelled else { return }
@@ -113,13 +124,5 @@ final class MessageVideoUIView: UIView {
                 }
             }
         }
-    }
-}
-
-extension MessageVideoUIView {
-    func setDetails(_ details: MessageAttachmentDetails) {
-        url = ContentUrlBuilder.fileUrl(fileId: details.id)
-        syncStatus = details.syncStatus
-        syncError = details.syncError
     }
 }

@@ -4,6 +4,7 @@ import UIKit
 import AVKit
 
 protocol VideoPreviewStorageProtocol: Sendable {
+    nonisolated func cache(url: URL, size: CGSize) throws-> UIImage
     func preview(url: URL, size: CGSize) async throws -> UIImage
 }
 
@@ -27,6 +28,12 @@ actor VideoPreviewStorage: VideoPreviewStorageProtocol {
           fileManager: FileManager.default,
           transformer: TransformerFactory.forImage()
         )
+    }
+    
+    nonisolated func cache(url: URL, size: CGSize) throws-> UIImage {
+        guard let storage else { throw CommonError.undefined }
+        let key = StorageKey(url: url, size: size)
+        return try storage.object(forKey: key)
     }
     
     func preview(url: URL, size: CGSize) async throws -> UIImage {
