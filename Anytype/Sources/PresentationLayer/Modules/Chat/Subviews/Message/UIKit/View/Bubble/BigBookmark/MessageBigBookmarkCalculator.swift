@@ -1,14 +1,6 @@
 import Foundation
 import UIKit
 
-struct MessageBigBookmarkLayout: Equatable {
-    let size: CGSize
-    let imageFrame: CGRect?
-    let hostFrame: CGRect?
-    let titleFrame: CGRect?
-    let descriptionFrame: CGRect?
-}
-
 struct MessageBigBookmarkCalculator {
     
     static func calculateSize(targetSize: CGSize, data: MessageBigBookmarkViewData) -> MessageBigBookmarkLayout {

@@ -56,6 +56,12 @@ final class MessageBubbleUIView: UIView {
         }
     }
     
+    weak var output: (any MessageModuleOutput)? {
+        didSet {
+            bigBookmarkView.output = output
+        }
+    }
+    
     // MARK: - Pulic
     
     override func layoutSubviews() {

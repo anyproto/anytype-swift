@@ -15,4 +15,8 @@ protocol MessageModuleOutput: AnyObject {
     func didSelectEditMessage(message: MessageViewData) async
     func didSelectAuthor(authorId: String)
     func didSelectUnread(message: MessageViewData) async throws
+    
+    // New methods
+    
+    func didSelectAttachment(messageId: String, objectId: String)
 }
