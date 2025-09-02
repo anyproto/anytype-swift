@@ -75,7 +75,7 @@ final class MessageGridAttachmentUIViewContainer: UIView {
                     return view
                 }()
                 
-                videoView.setDetails(object)
+                videoView.data = MessageVideoViewData(details: object)
                 views.append(videoView)
                 addSubview(videoView)
             default:
@@ -87,7 +87,8 @@ final class MessageGridAttachmentUIViewContainer: UIView {
                     cachedImages.insert(view, at: 0)
                     return view
                 }()
-                imageView.setDetails(object)
+                
+                imageView.data = MessageImageViewData(details: object)
                 views.append(imageView)
                 addSubview(imageView)
             }
