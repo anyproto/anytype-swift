@@ -5,7 +5,6 @@ struct MessageBubbleViewData: Equatable {
     let messageText: NSAttributedString
     let linkedObjects: MessageLinkedObjectsLayout?
     let position: MessageHorizontalPosition
-//    let reactions: MessageReactionListData
     let messageYourBackgroundColor: UIColor
 }
 
@@ -15,11 +14,6 @@ extension MessageBubbleViewData {
         self.messageText = NSAttributedString(data.messageString)
         self.linkedObjects = data.linkedObjects
         self.position = data.position
-//        self.reactions = MessageReactionListData(
-//            reactions: data.reactions.map { MessageReactionData(emoji: $0.emoji, content: $0.content, selected: $0.selected, position: $0.position, messageYourBackgroundColor: color) },
-//            canAddReaction: data.canAddReaction,
-//            position: data.position
-//        )
         // TODO: Fix it
         self.messageYourBackgroundColor = color
     }
@@ -47,11 +41,7 @@ final class MessageBubbleUIView: UIView {
     var layout: MessageBubbleLayout? {
         didSet {
             if layout != oldValue {
-                textView.layout = layout?.textLayout
-                gridAttachments.layout = layout?.gridAttachmentsLayout
-                bigBookmarkView.layout = layout?.bigBookmarkLayout
-                listAttachments.layout = layout?.listAttachmentsLayout
-                setNeedsLayout()
+                updateLayout()
             }
         }
     }
@@ -85,37 +75,33 @@ final class MessageBubbleUIView: UIView {
     private func updateView() {
         guard let data else { return }
         
-        if data.messageText.string.isNotEmpty {
-            textView.text = data.messageText
-            addSubview(textView)
-        } else {
-            textView.removeFromSuperview()
-        }
+        textView.text = data.messageText
         
         switch data.linkedObjects {
         case .list(let items):
             listAttachments.data = MessageListAttachmentsViewData(objects: items, position: data.position)
-            addSubview(listAttachments)
-            bigBookmarkView.removeFromSuperview()
-            gridAttachments.removeFromSuperview()
         case .grid(let objects):
             gridAttachments.objects = objects
-            addSubview(gridAttachments)
-            bigBookmarkView.removeFromSuperview()
-            listAttachments.removeFromSuperview()
         case .bookmark(let objectDetails):
             bigBookmarkView.data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
-            addSubview(bigBookmarkView)
-            gridAttachments.removeFromSuperview()
-            listAttachments.removeFromSuperview()
         case nil:
-            bigBookmarkView.removeFromSuperview()
-            gridAttachments.removeFromSuperview()
-            listAttachments.removeFromSuperview()
+            break
         }
         
         layer.cornerRadius = 16
         layer.masksToBounds = true
         backgroundColor = data.position.isRight ? data.messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+    }
+    
+    private func updateLayout() {
+        textView.layout = layout?.textLayout
+        gridAttachments.layout = layout?.gridAttachmentsLayout
+        bigBookmarkView.layout = layout?.bigBookmarkLayout
+        listAttachments.layout = layout?.listAttachmentsLayout
+        
+        textView.addTo(parent: self, frame: layout?.textFrame)
+        gridAttachments.addTo(parent: self, frame: layout?.gridAttachmentsFrame)
+        bigBookmarkView.addTo(parent: self, frame: layout?.bigBookmarkFrame)
+        listAttachments.addTo(parent: self, frame: layout?.listAttachmentsFrame)
     }
 }

@@ -246,13 +246,6 @@
 			);
 			target = 862D558F2A8F78330018103F /* AnytypeShareExtension */;
 		};
-		745862442E672474003EB0CF /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				PresentationLayer/Modules/Chat/Subviews/Message/UIKit/View/Bubble/Bookmark/MessageBookmarkLayout.swift,
-			);
-			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -262,7 +255,7 @@
 		3D6977812CAE9ED0003F5A91 /* Video */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Video; sourceTree = "<group>"; };
 		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
 		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeShareExtension; sourceTree = "<group>"; };
-		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (745862442E672474003EB0CF /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
+		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
 		7424EFB92D79C71B00E51377 /* Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Modules; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
