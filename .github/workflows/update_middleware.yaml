@@ -25,10 +25,38 @@ permissions:
   pull-requests: write
 
 jobs:
-  main:
+  check-version:
+    name: Check current middleware version
+    runs-on: macos-15
+    outputs:
+      same: ${{ steps.chk.outputs.same }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Read Libraryfile and compare
+        id: chk
+        shell: bash
+        run: |
+          set -a
+          source Libraryfile || true
+          set +a
+          CURR="${MIDDLE_VERSION:-}"
+          echo "Current version: ${CURR}"
+          echo "Target version: ${{ inputs.middle_version }}"
+          if [ "$CURR" = "${{ inputs.middle_version }}" ]; then
+            echo "same=true" >> "$GITHUB_OUTPUT"
+            echo "Version already up-to-date. Workflow will finish successfully without updates."
+          else
+            echo "same=false" >> "$GITHUB_OUTPUT"
+            echo "Version differs. Proceeding with update…"
+          fi
+
+  update:
     name: Update middleware version
     runs-on: macos-15
-
+    needs: check-version
+    if: ${{ needs.check-version.outputs.same != 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
