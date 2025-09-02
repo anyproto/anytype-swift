@@ -8,7 +8,23 @@
 # Requirements: curl, jq
 # Auth: needs read:packages scope for the org
 
-set -euo pipefail
+BASEDIR=$(dirname $0)
+
+. ${BASEDIR}/common.sh --source-only
+
+if [ "$CI" = true ] ; then
+    if [[  -z "$MIDDLEWARE_TOKEN" ]]; then
+        printf "MIDDLEWARE_TOKEN is not set\n"
+        exit 1
+    fi
+    token=${MIDDLEWARE_TOKEN}
+else
+    has_token=$(has-keychain-environment-variable MIDDLEWARE_TOKEN)
+    if [ ${has_token} == 0 ] ; then
+        set-keychain-environment-variable MIDDLEWARE_TOKEN
+    fi
+    token=$(keychain-environment-variable MIDDLEWARE_TOKEN)
+fi
 
 ORG="anyproto"
 PACKAGE_NAME="io.anyproto.anytype-heart-ios"
@@ -20,17 +36,11 @@ if ! command -v jq >/dev/null 2>&1; then
   exit 1
 fi
 
-# Token must be provided via env (CI friendly)
-if [[ -z "${MIDDLEWARE_TOKEN:-}" ]]; then
-  echo "MIDDLEWARE_TOKEN is not set." >&2
-  exit 1
-fi
-
 # GitHub API GET that prints body then HTTP code on a new line
 gh_get() {
   local url="$1"
   curl -sS \
-    -H "Authorization: token ${MIDDLEWARE_TOKEN}" \
+    -H "Authorization: token ${token}" \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     -w "\n%{http_code}\n" \
