@@ -2,9 +2,10 @@ import Services
 import Combine
 import UIKit
 import AnytypeCore
+import Factory
 
 
-final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
+final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearchDelegate {
     private let document: any BaseDocumentProtocol
     var info: BlockInformation
     
@@ -34,6 +35,9 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let cursorManager: EditorCursorManager
     private let accessoryViewStateManager: any AccessoryViewStateManager
     private let responderScrollViewHelper: ResponderScrollViewHelper
+    
+    @Injected(\.linkToSearchHelper)
+    private var linkToSearchHelper: any LinkToSearchHelperProtocol
     
     weak var viewModel: TextBlockViewModel?
     
@@ -332,59 +336,40 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 extension SimpleTablesTextBlockActionHandler: AccessoryViewOutput {
     @MainActor
     func showLinkToSearch(range: NSRange, text: NSAttributedString) {
-        let urlLink = text.linkState(range: range)
-        let objectIdLink = text.linkToObjectState(range: range)
-        let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
-    
-        let data = LinkToObjectSearchModuleData(
-            spaceId: document.spaceId,
-            currentLinkUrl: text.linkState(range: range),
-            currentLinkString: text.linkToObjectState(range: range),
-            route: .link,
-            setLinkToObject: { [weak self] linkBlockId in
-                guard let self = self else { return }
-                AnytypeAnalytics.instance().logChangeTextStyle(markupType: MarkupType.linkToObject(linkBlockId), objectType: .custom)
-                let newText = markupChanger.setMarkup(.linkToObject(linkBlockId), range: range, attributedString: text, contentType: info.content.type)
-                Task { @MainActor in
-                    self.resetSubject.send(newText)
-                    try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
-                }
-            },
-            setLinkToUrl: { [weak self] url in
-                guard let self = self else { return }
-                let newText = markupChanger.setMarkup(
-                    .link(url),
-                    range: range,
-                    attributedString: text,
-                    contentType: info.content.type
-                )
-                
-                Task { @MainActor in
-                    self.resetSubject.send(newText)
-                    try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
-                }
-            },
-            removeLink: { [weak self] in
-                guard let self = self else { return }
-                switch eitherLink {
-                case .right:
-                    let newText = markupChanger.removeMarkup(.linkToObject(nil), range: range, contentType: info.content.type, attributedString: text)
-                    Task { @MainActor in
-                        self.resetSubject.send(newText)
-                        try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
-                    }
-                case .left:
-                    let newText = markupChanger.removeMarkup(.link(nil), range: range, contentType: info.content.type, attributedString: text)
-                    Task { @MainActor in
-                        self.resetSubject.send(newText)
-                        try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
-                    }
-                case .none:
-                    break
-                }
-            },
-            willShowNextScreen: nil
+        linkToSearchHelper.showLinkToSearch(
+            range: range,
+            text: text,
+            delegate: self,
+            document: document,
+            markupChanger: markupChanger,
+            info: info
         )
+    }
+    
+    // MARK: - LinkToSearchDelegate
+    
+    func updateTextForLinkToObject(newText: NSAttributedString, range: NSRange, originalText: NSAttributedString) {
+        Task { @MainActor in
+            self.resetSubject.send(newText)
+            try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+        }
+    }
+    
+    func updateTextForLinkToUrl(newText: NSAttributedString, range: NSRange, originalText: NSAttributedString) {
+        Task { @MainActor in
+            self.resetSubject.send(newText)
+            try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+        }
+    }
+    
+    func removeLink(markup: MarkupType, newText: NSAttributedString, range: NSRange, originalText: NSAttributedString) {
+        Task { @MainActor in
+            self.resetSubject.send(newText)
+            try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+        }
+    }
+    
+    func openLinkToObject(data: LinkToObjectSearchModuleData) {
         openLinkToObject(data)
     }
     
