@@ -39,10 +39,11 @@ gh_get() {
 
 per_page=100
 page=1
+max_pages=50
 latest_name=""
 latest_date=""
 
-while : ; do
+while [ $page -le $max_pages ] ; do
   url="${BASE_URL}?per_page=${per_page}&page=${page}"
   resp="$(gh_get "${url}")" || true
   http_code="$(printf '%s' "${resp}" | tail -n1)"
