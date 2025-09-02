@@ -115,6 +115,20 @@ public extension AnytypeFont {
                 lineHeight: 20,
                 kern: -0.41
             )
+        case .chatPreviewMedium:
+            return AnytypeFontConfig(
+                font: FontFamily.Inter.medium,
+                size: 15,
+                lineHeight: 18,
+                kern: -0.24
+            )
+        case .chatPreviewRegular:
+            return AnytypeFontConfig(
+                font: FontFamily.Inter.regular,
+                size: 15,
+                lineHeight: 18,
+                kern: -0.24
+            )
         case .contentTitleSemibold:
             return AnytypeFontConfig(
                 font: FontFamily.Inter.semiBold,

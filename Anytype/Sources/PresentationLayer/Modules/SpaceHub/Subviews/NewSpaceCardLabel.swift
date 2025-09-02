@@ -58,29 +58,28 @@ struct NewSpaceCardLabel: View {
     }
     
     private func mainContentWithMessage(_ message: LastMessagePreview) -> some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
-                    .lineLimit(1)
-                    .foregroundColor(Color.Text.primary)
-                    if isMuted {
-                        Spacer.fixedWidth(8)
-                        Image(asset: .X18.muted).foregroundColor(.Control.secondary)
-                    }
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
+                .lineLimit(1)
+                .foregroundColor(Color.Text.primary)
+                if isMuted {
+                    Spacer.fixedWidth(8)
+                    Image(asset: .X18.muted).foregroundColor(.Control.secondary)
                 }
-                lastMessagePreview(message)
-                Spacer(minLength: 1)
-            }
-            
-            Spacer(minLength: 8)
-            
-            VStack(alignment: .trailing, spacing: 0) {
+                
+                Spacer(minLength: 0)
+                
                 lastMessageDate
-                Spacer.fixedHeight(2)
-                decoration
-                Spacer(minLength: 1)
             }
+            
+            HStack(alignment: .top) {
+                lastMessagePreview(message)
+                Spacer()
+                decoration
+            }
+            
+            Spacer(minLength: 0)
         }
     }
     
@@ -111,30 +110,35 @@ struct NewSpaceCardLabel: View {
                 // Show attachements and 1 line of text
                 messageWithAttachements(message)
             } else {
-                AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .uxTitle2Medium)
+                AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .chatPreviewMedium)
+                    .foregroundColor(.Control.transparentSecondary)
                     .lineLimit(1)
             }
         }
-        .foregroundColor(Color.Control.transparentSecondary)
         .multilineTextAlignment(.leading)
     }
     
     func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
         Group {
             if let creator = message.creator {
-                Text(creator.title + ": ").anytypeFontStyle(.uxTitle2Medium) +
-                Text(message.text).anytypeFontStyle(.uxTitle2Regular)
+                Text(creator.title + ": ").anytypeFontStyle(.chatPreviewMedium) +
+                Text(message.text).anytypeFontStyle(.chatPreviewRegular)
             } else {
-                Text(message.text).anytypeFontStyle(.uxTitle2Regular)
+                Text(message.text).anytypeFontStyle(.chatPreviewRegular)
             }
-        }.lineLimit(2).anytypeLineHeightStyle(.uxTitle2Regular)
+        }
+        .foregroundColor(.Control.transparentSecondary)
+        .lineLimit(2)
+        .anytypeLineHeightStyle(.chatPreviewRegular)
     }
     
     @ViewBuilder
     func messageWithAttachements(_ message: LastMessagePreview) -> some View {
-        HStack(spacing: 2) {
+        HStack(spacing: 0) {
             if let creator = message.creator {
-                AnytypeText(creator.title + ":", style: .uxTitle2Medium).lineLimit(1)
+                AnytypeText(creator.title + ":", style: .chatPreviewMedium)
+                    .foregroundColor(.Control.transparentSecondary)
+                    .lineLimit(1)
                 Spacer.fixedWidth(4)
             }
             
@@ -143,7 +147,9 @@ struct NewSpaceCardLabel: View {
             }
             
             Spacer.fixedWidth(4)
-            AnytypeText(message.localizedAttachmentsText, style: .uxTitle2Regular).lineLimit(1)
+            AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
+                .foregroundColor(.Control.transparentSecondary)
+                .lineLimit(1)
         }
     }
     
