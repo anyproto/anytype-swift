@@ -31,5 +31,4 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
     func spaceView(spaceViewId: String) -> SpaceView? { return nil }
     func workspaceInfo(spaceId: String) -> AccountInfo? { return nil }
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {}
-    func canCreateNewSpace() -> Bool { true }
 }

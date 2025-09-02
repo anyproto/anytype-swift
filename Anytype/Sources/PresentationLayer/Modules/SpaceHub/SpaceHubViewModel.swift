@@ -24,7 +24,6 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var createSpaceAvailable = false
     @Published var notificationsDenied = false
     @Published var spaceMuteData: SpaceMuteData?
     @Published var toastBarData: ToastBarData?
@@ -33,11 +32,7 @@ final class SpaceHubViewModel: ObservableObject {
     
     private weak var output: (any SpaceHubModuleOutput)?
     
-    var showPlusInNavbar: Bool {
-        guard let allSpaces else { return false }
-        return allSpaces.count > 6 && createSpaceAvailable
-    }
-    
+
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.activeSpaceManager)
@@ -148,7 +143,6 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-            createSpaceAvailable = workspacesStorage.canCreateNewSpace()
             if FeatureFlags.spaceLoadingForScreen {
                 showLoading = spaces.contains { $0.spaceView.isLoading }
             }
