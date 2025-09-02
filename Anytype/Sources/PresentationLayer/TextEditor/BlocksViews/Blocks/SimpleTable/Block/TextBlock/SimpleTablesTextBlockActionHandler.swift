@@ -8,12 +8,14 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let document: any BaseDocumentProtocol
     var info: BlockInformation
     
-    let showObject: (String) -> Void
-    let openURL: (URL) -> Void
+    private let showObject: (String) -> Void
+    private let openURL: (URL) -> Void
     private let onShowStyleMenu: (BlockInformation) -> Void
     private let onEnterSelectionMode: (BlockInformation) -> Void
     private let onSelectUndoRedo: () -> Void
-    let showTextIconPicker: () -> Void
+    private let showTextIconPicker: () -> Void
+    private let openLinkToObject: @MainActor (LinkToObjectSearchModuleData) -> Void
+    
     let resetSubject = PassthroughSubject<NSAttributedString?, Never>()
     let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     
@@ -28,7 +30,6 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let markdownListener: any MarkdownListener
 
     private let onKeyboardAction: (CustomTextView.KeyboardAction) -> Void
-//    private let collectionController: EditorCollectionReloadable
     
     private let cursorManager: EditorCursorManager
     private let accessoryViewStateManager: any AccessoryViewStateManager
@@ -48,7 +49,6 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         actionHandler: some BlockActionHandlerProtocol,
         pasteboardService: some PasteboardBlockDocumentServiceProtocol,
         markdownListener: some MarkdownListener,
-        //        collectionController: EditorCollectionReloadable,
         cursorManager: EditorCursorManager,
         accessoryViewStateManager: some AccessoryViewStateManager,
         markupChanger: some BlockMarkupChangerProtocol,
@@ -61,7 +61,8 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         showTextIconPicker: @escaping () -> Void,
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
-        onKeyboardAction: @escaping (CustomTextView.KeyboardAction) -> Void
+        onKeyboardAction: @escaping (CustomTextView.KeyboardAction) -> Void,
+        openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void
     ) {
         self.document = document
         self.info = info
@@ -82,6 +83,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.markupChanger = markupChanger
         self.onKeyboardAction = onKeyboardAction
         self.responderScrollViewHelper = responderScrollViewHelper
+        self.openLinkToObject = openLinkToObject
     }
     
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
@@ -330,7 +332,60 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 extension SimpleTablesTextBlockActionHandler: AccessoryViewOutput {
     @MainActor
     func showLinkToSearch(range: NSRange, text: NSAttributedString) {
-        return
+        let urlLink = text.linkState(range: range)
+        let objectIdLink = text.linkToObjectState(range: range)
+        let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
+    
+        let data = LinkToObjectSearchModuleData(
+            spaceId: document.spaceId,
+            currentLinkUrl: text.linkState(range: range),
+            currentLinkString: text.linkToObjectState(range: range),
+            route: .link,
+            setLinkToObject: { [weak self] linkBlockId in
+                guard let self = self else { return }
+                AnytypeAnalytics.instance().logChangeTextStyle(markupType: MarkupType.linkToObject(linkBlockId), objectType: .custom)
+                let newText = markupChanger.setMarkup(.linkToObject(linkBlockId), range: range, attributedString: text, contentType: info.content.type)
+                Task { @MainActor in
+                    self.resetSubject.send(newText)
+                    try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+                }
+            },
+            setLinkToUrl: { [weak self] url in
+                guard let self = self else { return }
+                let newText = markupChanger.setMarkup(
+                    .link(url),
+                    range: range,
+                    attributedString: text,
+                    contentType: info.content.type
+                )
+                
+                Task { @MainActor in
+                    self.resetSubject.send(newText)
+                    try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+                }
+            },
+            removeLink: { [weak self] in
+                guard let self = self else { return }
+                switch eitherLink {
+                case .right:
+                    let newText = markupChanger.removeMarkup(.linkToObject(nil), range: range, contentType: info.content.type, attributedString: text)
+                    Task { @MainActor in
+                        self.resetSubject.send(newText)
+                        try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+                    }
+                case .left:
+                    let newText = markupChanger.removeMarkup(.link(nil), range: range, contentType: info.content.type, attributedString: text)
+                    Task { @MainActor in
+                        self.resetSubject.send(newText)
+                        try await self.actionHandler.changeText(newText.sendable(), blockId: self.info.id)
+                    }
+                case .none:
+                    break
+                }
+            },
+            willShowNextScreen: nil
+        )
+        openLinkToObject(data)
     }
     
     func setNewText(attributedString: SafeNSAttributedString) async throws {

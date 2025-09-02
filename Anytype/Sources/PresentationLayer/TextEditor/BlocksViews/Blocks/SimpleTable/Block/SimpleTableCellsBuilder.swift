@@ -153,6 +153,9 @@ final class SimpleTableCellsBuilder {
             },
             onKeyboardAction: { [weak self] action in
                 self?.handleKeyboardAction(table: table, block: information, action: action)
+            },
+            openLinkToObject: { [weak moduleOutput] data in
+                moduleOutput?.showLinkToObject(data: data)
             }
         )
         
