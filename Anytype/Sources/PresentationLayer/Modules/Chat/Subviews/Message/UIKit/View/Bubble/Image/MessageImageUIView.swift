@@ -28,16 +28,12 @@ final class MessageImageUIView: UIView {
     
     // MARK: - Public properties
     
-    var imageId: String? {
-        didSet { updateImageContentIfNeeded() }
-    }
-    
-    var syncStatus: SyncStatus? {
-        didSet { uploadingStatusView.syncStatus = syncStatus }
-    }
-    
-    var syncError: SyncError? {
-        didSet { uploadingStatusView.syncError = syncError }
+    var data: MessageImageViewData? {
+        didSet {
+            if oldValue != data {
+                updateData()
+            }
+        }
     }
     
     // MARK: - Public
@@ -75,8 +71,14 @@ final class MessageImageUIView: UIView {
         imageTask = nil
     }
     
+    private func updateData() {
+        uploadingStatusView.syncStatus = data?.syncStatus
+        uploadingStatusView.syncError = data?.syncError
+        updateImageContentIfNeeded()
+    }
+    
     private func updateImageContentIfNeeded() {
-        guard let imageId else { return }
+        guard let imageId = data?.imageId else { return }
         
         let newUrl = ImageMetadata(
             id: imageId,
@@ -113,13 +115,5 @@ final class MessageImageUIView: UIView {
                 }
             }
         }
-    }
-}
-
-extension MessageImageUIView {
-    func setDetails(_ details: MessageAttachmentDetails) {
-        imageId = details.id
-        syncStatus = details.syncStatus
-        syncError = details.syncError
     }
 }
