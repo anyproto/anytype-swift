@@ -1,16 +1,7 @@
 import UIKit
 import AnytypeCore
 
-struct MessageListAttachmentsViewData: Equatable {
-    let objects: [MessageAttachmentDetails]
-    let position: MessageHorizontalPosition
-}
-
-struct MessageListAttachmentsLayout: Equatable {
-    let size: CGSize
-    let objectFrames: [CGRect]
-}
-
+// TODO: Add placeholder state for details.downloadingState
 final class MessageListAttachmentsUIView: UIView {
     
     // MARK: - Private properties
@@ -32,7 +23,7 @@ final class MessageListAttachmentsUIView: UIView {
     var layout: MessageListAttachmentsLayout? {
         didSet {
             if layout != oldValue {
-                setNeedsLayout()
+                updateLayout()
             }
         }
     }
@@ -43,8 +34,9 @@ final class MessageListAttachmentsUIView: UIView {
         return layout?.size ?? .zero
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    // MARK: - Private
+    
+    private func updateLayout() {
         
         guard let layout else { return }
         
@@ -53,8 +45,6 @@ final class MessageListAttachmentsUIView: UIView {
             subview?.frame = frame
         }
     }
-    
-    // MARK: - Private
     
     private func updateView() {
         guard let data else {

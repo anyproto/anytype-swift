@@ -1,11 +1,6 @@
 import Foundation
 import UIKit
 
-struct MessageGridAttachmentsContainerLayout: Equatable {
-    let size: CGSize
-    let objectFrames: [CGRect]
-}
-
 struct MessageGridAttachmentsCaluculator {
     
     private enum Constants {
