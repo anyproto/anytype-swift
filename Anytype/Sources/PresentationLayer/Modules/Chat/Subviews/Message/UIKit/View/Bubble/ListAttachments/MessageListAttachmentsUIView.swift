@@ -28,6 +28,13 @@ final class MessageListAttachmentsUIView: UIView {
         }
     }
     
+    weak var output: (any MessageModuleOutput)? {
+        didSet {
+            cachedBookmarks.forEach { $0.output = output }
+            cachedAttachments.forEach { $0.output = output }
+        }
+    }
+    
     // MARK: - Pulic
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -68,6 +75,7 @@ final class MessageListAttachmentsUIView: UIView {
                     view.backgroundColor = .Shape.transperentSecondary
                     view.layer.cornerRadius = 12
                     view.layer.masksToBounds = true
+                    view.output = output
                     // Sync position with popLast operation
                     cachedBookmarks.insert(view, at: 0)
                     return view
@@ -82,6 +90,7 @@ final class MessageListAttachmentsUIView: UIView {
                     view.backgroundColor = .Shape.transperentSecondary
                     view.layer.cornerRadius = 12
                     view.layer.masksToBounds = true
+                    view.output = output
                     // Sync position with popLast operation
                     cachedAttachments.insert(view, at: 0)
                     return view

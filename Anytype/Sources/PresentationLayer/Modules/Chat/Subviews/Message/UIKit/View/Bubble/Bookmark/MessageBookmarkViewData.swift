@@ -1,6 +1,8 @@
 import Foundation
 
 struct MessageBookmarkViewData: Equatable {
+    let messageId: String
+    let objectId: String
     let icon: Icon
     let title: String
     let description: String
@@ -8,7 +10,9 @@ struct MessageBookmarkViewData: Equatable {
 }
 
 extension MessageBookmarkViewData {
-    init(details: MessageAttachmentDetails, position: MessageHorizontalPosition) {
+    init(messageId: String, details: MessageAttachmentDetails, position: MessageHorizontalPosition) {
+        self.messageId = messageId
+        self.objectId = details.id
         self.icon = details.objectIconImage
         self.title = details.source ?? details.title
         self.description = details.title

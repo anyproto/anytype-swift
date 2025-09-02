@@ -59,6 +59,8 @@ final class MessageBubbleUIView: UIView {
     weak var output: (any MessageModuleOutput)? {
         didSet {
             bigBookmarkView.output = output
+            gridAttachments.output = output
+            listAttachments.output = output
         }
     }
     

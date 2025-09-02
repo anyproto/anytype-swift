@@ -2,14 +2,16 @@ import Foundation
 import Services
 
 struct MessageVideoViewData: Equatable {
-    let url: URL?
+    let messageId: String
+    let objectId: String
     let syncStatus: SyncStatus?
     let syncError: SyncError?
 }
 
 extension MessageVideoViewData {
-    init(details: MessageAttachmentDetails) {
-        self.url = ContentUrlBuilder.fileUrl(fileId: details.id)
+    init(messageId: String, details: MessageAttachmentDetails) {
+        self.messageId = messageId
+        self.objectId = details.id
         self.syncStatus = details.syncStatus
         self.syncError = details.syncError
     }

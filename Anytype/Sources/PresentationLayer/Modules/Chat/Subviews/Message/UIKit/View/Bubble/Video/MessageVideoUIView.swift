@@ -37,6 +37,8 @@ final class MessageVideoUIView: UIView {
         }
     }
     
+    weak var output: (any MessageModuleOutput)?
+    
     // MARK: - Public
     
     override init(frame: CGRect) {
@@ -77,6 +79,11 @@ final class MessageVideoUIView: UIView {
         ).view
         syncedView.backgroundColor = .clear
         uploadingStatusView.syncedView = syncedView
+        
+        addTapGesture { [weak self] _ in
+            guard let self, let data else { return }
+            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+        }
     }
     
     private func updateData() {
@@ -86,7 +93,7 @@ final class MessageVideoUIView: UIView {
     }
     
     private func updatePreviewIfNeeded() {
-        let newUrl = data?.url
+        let newUrl = data.flatMap { ContentUrlBuilder.fileUrl(fileId: $0.objectId) }
         
         guard imageURL != newUrl else { return }
         

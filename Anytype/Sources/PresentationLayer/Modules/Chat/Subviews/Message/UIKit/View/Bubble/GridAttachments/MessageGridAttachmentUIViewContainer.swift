@@ -27,6 +27,13 @@ final class MessageGridAttachmentUIViewContainer: UIView {
         }
     }
     
+    weak var output: (any MessageModuleOutput)? {
+        didSet {
+            cachedImages.forEach { $0.output = output }
+            cachedVideos.forEach { $0.output = output }
+        }
+    }
+    
     // MARK: - Pulic
     
     override init(frame: CGRect) {
@@ -70,6 +77,7 @@ final class MessageGridAttachmentUIViewContainer: UIView {
                     let view = MessageVideoUIView()
                     view.layer.cornerRadius = 4
                     view.layer.masksToBounds = true
+                    view.output = output
                     // Sync position with popLast operation
                     cachedVideos.insert(view, at: 0)
                     return view
@@ -83,6 +91,7 @@ final class MessageGridAttachmentUIViewContainer: UIView {
                     let view = MessageImageUIView()
                     view.layer.cornerRadius = 4
                     view.layer.masksToBounds = true
+                    view.output = output
                     // Sync position with popLast operation
                     cachedImages.insert(view, at: 0)
                     return view

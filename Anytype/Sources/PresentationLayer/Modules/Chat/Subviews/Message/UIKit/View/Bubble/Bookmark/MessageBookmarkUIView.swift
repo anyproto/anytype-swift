@@ -27,6 +27,11 @@ final class MessageBookmarkUIView: UIView {
         addSubview(iconView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
+        
+        addTapGesture { [weak self] _ in
+            guard let self, let data else { return }
+            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +47,10 @@ final class MessageBookmarkUIView: UIView {
             }
         }
     }
+    
+    weak var output: (any MessageModuleOutput)?
+    
+    // MARK: - Public
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: MessageBookmarkLayout.height)
