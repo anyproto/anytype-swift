@@ -1,11 +1,6 @@
 import Foundation
 import UIKit
 
-struct MessageTextLayout: Equatable {
-    let size: CGSize
-    let textFrame: CGRect
-}
-
 struct MessageTextCalculator {
     
     static func calculateSize(targetSize: CGSize, message: NSAttributedString) -> MessageTextLayout {
