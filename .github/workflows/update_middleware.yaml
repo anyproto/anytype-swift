@@ -11,6 +11,14 @@ on:
         description: "Task name (e.g. IOS-123)"
         required: false
         type: string
+  workflow_call:
+    inputs:
+      middle_version:
+        required: true
+        type: string
+      task_name:
+        required: false
+        type: string
 
 permissions:
   contents: write
