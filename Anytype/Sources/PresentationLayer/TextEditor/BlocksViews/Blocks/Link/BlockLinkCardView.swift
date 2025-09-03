@@ -44,7 +44,7 @@ final class BlockLinkCardView: UIView, BlockContentView {
         titleLabel.setText(configuration.state.title)
 
         smallIconView.icon = configuration.state.icon
-        smallIconView.isHidden = configuration.state.iconSize == .medium
+        smallIconView.isHidden = configuration.state.iconSize != .small
         
         descriptionLabel.isHidden = configuration.state.description.isEmpty
         descriptionLabel.setText(configuration.state.description)
