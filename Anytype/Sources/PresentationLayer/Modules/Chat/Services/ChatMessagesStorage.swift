@@ -14,7 +14,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func attachments(message: ChatMessage) async -> [ObjectDetails]
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
-    func message(id: String) async -> ChatMessage?
+    func message(id: String) async throws -> ChatMessage
     func updateVisibleRange(startMessageId: String, endMessageId: String) async
     func markAsReadAll() async throws -> ChatMessage
     var updateStream: AnyAsyncSequence<[ChatUpdate]> { get }
@@ -203,8 +203,11 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         return messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
     }
     
-    func message(id: String) async -> ChatMessage? {
-        return messages.message(id: id)
+    func message(id: String) async throws -> ChatMessage {
+        if let message = messages.message(id: id) {
+            return message
+        }
+        throw CommonError.undefined
     }
     
     func markAsReadAll() async throws -> ChatMessage {

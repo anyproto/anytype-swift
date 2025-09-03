@@ -144,22 +144,6 @@ struct MessageView: View {
     
     @ViewBuilder
     private var reactions: some View {
-        if data.reactions.isNotEmpty {
-            MessageReactionList(
-                rows: data.reactions,
-                canAddReaction: data.canAddReaction,
-                position: data.position,
-                onTapRow: { reaction in
-                    try await output?.didTapOnReaction(data: data, emoji: reaction.emoji)
-                },
-                onLongTapRow: { reaction in
-                    output?.didLongTapOnReaction(data: data, reaction: reaction)
-                },
-                onTapAdd: {
-                    output?.didSelectAddReaction(messageId: data.message.id)
-                }
-            )
-        }
     }
     
     @ViewBuilder

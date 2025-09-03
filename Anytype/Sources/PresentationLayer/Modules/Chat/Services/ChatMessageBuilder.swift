@@ -108,7 +108,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
 //                reply: fullMessage.reply
 //            )
             let canAddReaction = canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? "")
-            let messageModel = MesageUIViewData(
+            let messageModel = MessageUIViewData(
                 id: fullMessage.message.id,
                 orderId: fullMessage.message.orderID,
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),

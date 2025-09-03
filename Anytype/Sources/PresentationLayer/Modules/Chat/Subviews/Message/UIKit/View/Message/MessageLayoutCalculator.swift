@@ -11,7 +11,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         return MemoryStorage<Int, MessageLayout>(config: config)
     }()
     
-    func makeLayout(width: CGFloat, data: MesageUIViewData) -> MessageLayout {
+    func makeLayout(width: CGFloat, data: MessageUIViewData) -> MessageLayout {
         
         lock.lock()
         defer { lock.unlock() }
@@ -27,13 +27,13 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         return layout
     }
     
-    func prepareLayout(width: CGFloat, data: MesageUIViewData) {
+    func prepareLayout(width: CGFloat, data: MessageUIViewData) {
         _ = makeLayout(width: width, data: data)
     }
     
     // MARK: - Private
     
-    private func makeRootLayout(width: CGFloat, data: MesageUIViewData) -> MessageLayout {
+    private func makeRootLayout(width: CGFloat, data: MessageUIViewData) -> MessageLayout {
         let size = CGSize(width: width, height: .greatestFiniteMagnitude)
         let containerInsets = UIEdgeInsets(top: 0, left: 14, bottom: data.nextSpacing.height, right: 14)
         let iconSide: CGFloat = 32

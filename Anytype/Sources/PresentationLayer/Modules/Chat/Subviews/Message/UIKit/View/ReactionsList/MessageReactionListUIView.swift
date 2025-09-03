@@ -29,6 +29,10 @@ final class MessageReactionListUIView: UIView {
         }
     }
     
+    var onTapReaction: ((_ emoji: String) -> Void)?
+    var onLongTapReaction: ((_ reaction: MessageReactionData) -> Void)?
+    var onTapAddReaction: ((_ reactions: MessageReactionListData) -> Void)?
+    
     // MARK: - Pulic
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -66,6 +70,12 @@ final class MessageReactionListUIView: UIView {
         for reaction in reactions {
             let subview = cachedForLayout.popLast() ?? {
                 let view = MessageReactionUIView()
+                view.onTapReaction = { [weak self] emoji in
+                    self?.onTapReaction?(emoji)
+                }
+                view.onLongTapReaction = { [weak self] data in
+                    self?.onLongTapReaction?(data)
+                }
                 // Sync position with popLast operation
                 cache.insert(view, at: 0)
                 return view
@@ -80,6 +90,10 @@ final class MessageReactionListUIView: UIView {
         
         if data.canAddReaction {
             addReactionView.backgroundColor = .red
+            addReactionView.addTapGesture { [weak self] _ in
+                guard let self, let data = self.data else { return }
+                onTapAddReaction?(data)
+            }
             addSubview(addReactionView)
         } else {
             addReactionView.removeFromSuperview()

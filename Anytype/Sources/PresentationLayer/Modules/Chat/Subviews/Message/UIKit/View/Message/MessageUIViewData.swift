@@ -2,7 +2,7 @@ import Foundation
 import StoredHashMacro
 
 @StoredHash
-struct MesageUIViewData: Equatable, Hashable {
+struct MessageUIViewData: Equatable, Hashable {
     let id: String
     let orderId: String
     let authorIcon: Icon

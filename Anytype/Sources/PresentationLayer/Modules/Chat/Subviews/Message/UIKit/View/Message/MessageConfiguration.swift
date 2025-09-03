@@ -2,8 +2,9 @@ import UIKit
 
 struct MessageConfiguration: UIContentConfiguration {
     
-    let model: MesageUIViewData
+    let data: MessageUIViewData
     let layout: MessageLayout
+    weak var output: MessageModuleOutput?
     
     func makeContentView() -> any UIView & UIContentView {
         MessageUIView(configuration: self)

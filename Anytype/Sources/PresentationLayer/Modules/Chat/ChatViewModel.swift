@@ -525,25 +525,30 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     // MARK: - MessageModuleOutput
     
-    func didSelectAddReaction(messageId: String) {
+    func didSelectAddReaction(data: MessageUIViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuReaction()
-        output?.didSelectAddReaction(messageId: messageId)
+        output?.didSelectAddReaction(messageId: data.id)
     }
     
-    func didTapOnReaction(data: MessageViewData, emoji: String) async throws {
-        let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
-        AnytypeAnalytics.instance().logToggleReaction(added: added)
+    func didTapOnReaction(data: MessageUIViewData, emoji: String) {
+        Task {
+            let added = try await chatService.toggleMessageReaction(chatObjectId: chatId, messageId: data.id, emoji: emoji)
+            AnytypeAnalytics.instance().logToggleReaction(added: added)
+        }
     }
     
-    func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
-        let participantsIds = data.message.reactions.reactions[reaction.emoji]?.ids ?? []
-        output?.didLongTapOnReaction(
-            data: MessageParticipantsReactionData(
-                spaceId: data.spaceId,
-                emoji: reaction.emoji,
-                participantsIds: participantsIds
+    func didLongTapOnReaction(data: MessageUIViewData, reaction: MessageReactionData) {
+        Task {
+            let message = try await chatStorage.message(id: data.id)
+            let participantsIds = message.reactions.reactions[reaction.emoji]?.ids ?? []
+            output?.didLongTapOnReaction(
+                data: MessageParticipantsReactionData(
+                    spaceId: spaceId,
+                    emoji: reaction.emoji,
+                    participantsIds: participantsIds
+                )
             )
-        )
+        }
     }
     
     func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails) {

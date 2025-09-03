@@ -174,7 +174,8 @@ struct ChatView: View {
             scrollProxy: model.collectionViewScrollProxy,
             bottomPanel: bottomPanel,
             emptyView: emptyView,
-            showEmptyState: model.showEmptyState
+            showEmptyState: model.showEmptyState,
+            output: model
         ) { _ in
             ChatMessageUnreadView()
         } headerBuilder: {

@@ -36,6 +36,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         }
     }
     
+    var onTapAddReaction: ((_ reactions: MessageBubbleViewData) -> Void)?
+    
     // MARK: - Pulic
     
     override init(frame: CGRect) {
@@ -74,9 +76,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
                     UIAction(
                         title: Loc.Message.Action.addReaction,
                         image: UIImage(systemName: "face.smiling")
-                    ) { _ in
-                        // TODO: Add action
-    //                    output?.didSelectAddReaction(messageId: data.message.id)
+                    ) { [weak self] _ in
+                        self?.onTapAddReaction?(data)
                     }
                 ])
             }

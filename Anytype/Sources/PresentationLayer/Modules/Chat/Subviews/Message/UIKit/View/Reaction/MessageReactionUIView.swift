@@ -37,11 +37,22 @@ final class MessageReactionUIView: UIView {
         }
     }
     
+    var onTapReaction: ((_ emoji: String) -> Void)?
+    var onLongTapReaction: ((_ reaction: MessageReactionData) -> Void)?
+    
     // MARK: - Pulic
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(emojiLabel)
+        
+        addTapGesture { [weak self] _ in
+            guard let self, let data else { return }
+            onTapReaction?(data.emoji)
+        }
+        
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        addGestureRecognizer(longTap)
     }
     
     required init?(coder: NSCoder) {
@@ -84,5 +95,12 @@ final class MessageReactionUIView: UIView {
         backgroundColor = data.selected ? data.messageYourBackgroundColor : UIColor.Background.Chat.bubbleSomeones
         layer.cornerRadius = MessageReactionLayout.height * 0.5
         layer.masksToBounds = true
+    }
+    
+    
+    @objc
+    private func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        guard let data else { return }
+        onLongTapReaction?(data)
     }
 }

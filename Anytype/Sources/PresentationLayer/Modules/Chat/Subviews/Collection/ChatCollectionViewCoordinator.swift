@@ -38,6 +38,7 @@ final class ChatCollectionViewCoordinator<
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
     var handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?
     var onTapCollectionBackground: (() -> Void)?
+    weak var output: (any MessageModuleOutput)?
     
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
@@ -50,9 +51,10 @@ final class ChatCollectionViewCoordinator<
             view.layer.zPosition = 1
         }
         
-        let bubbleCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, MesageUIViewData> { cell, indexPath, item in
-            let layout = self.calculator.makeLayout(width: collectionView.bounds.width, data: item)
-            cell.contentConfiguration = MessageConfiguration(model: item, layout: layout)
+        let bubbleCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, MessageUIViewData> { [weak self] cell, indexPath, item in
+            guard let self else { return }
+            let layout = calculator.makeLayout(width: collectionView.bounds.width, data: item)
+            cell.contentConfiguration = MessageConfiguration(data: item, layout: layout, output: output)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
         

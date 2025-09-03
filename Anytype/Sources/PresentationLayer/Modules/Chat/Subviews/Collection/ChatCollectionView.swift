@@ -18,6 +18,7 @@ struct ChatCollectionView<
     let bottomPanel: BottomPanel
     let emptyView: EmptyView
     let showEmptyState: Bool
+    let output: (any MessageModuleOutput)?
     let unreadBuilder: (String) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
     @ViewBuilder
@@ -102,6 +103,7 @@ struct ChatCollectionView<
         container.emptyView.rootView = emptyView
         container.emptyView.view.isHidden = !showEmptyState
         container.actionView.rootView = actionView
+        context.coordinator.output = output
         context.coordinator.unreadBuilder = unreadBuilder
         context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToTop = scrollToTop
