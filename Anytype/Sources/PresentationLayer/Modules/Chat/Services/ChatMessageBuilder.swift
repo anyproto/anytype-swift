@@ -181,7 +181,11 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         position: MessageHorizontalPosition,
         messageYourBackgroundColor: UIColor,
         canAddReaction: Bool
-    ) -> MessageReactionListData {
+    ) -> MessageReactionListData? {
+        if fullMessage.message.reactions.reactions.isEmpty {
+            return nil
+        }
+        
         let reactions = fullMessage.message.reactions.reactions.map { (key, value) -> MessageReactionData in
             
             let content: MessageReactionModelContent
@@ -201,7 +205,6 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 messageYourBackgroundColor: messageYourBackgroundColor
             )
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
-        
         
         return MessageReactionListData(
             reactions: reactions,

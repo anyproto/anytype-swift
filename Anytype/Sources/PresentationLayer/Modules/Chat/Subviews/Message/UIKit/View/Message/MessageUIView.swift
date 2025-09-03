@@ -37,6 +37,8 @@ final class MessageUIView: UIView, UIContentView {
         self.data = configuration.model
         self.layout = configuration.layout
         super.init(frame:.zero)
+        updateData()
+        updateLayout()
     }
     
     required init?(coder: NSCoder) {

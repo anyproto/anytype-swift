@@ -30,6 +30,9 @@ struct ChatCollectionView<
     
     func makeUIViewController(context: Context) -> ChatCollectionViewContainer<BottomPanel, EmptyView, ActionView> {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = .zero
 //        layout.delegate = context.coordinator
 //        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
 //            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)

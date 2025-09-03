@@ -77,6 +77,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
                     reactionsLayout = layout
                     return layout.size
                 }
+                .readFrame { reactionsFrame = $0 }
             }
             
         // Reply
@@ -113,6 +114,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
             }
         }
         .padding(containerInsets)
+        .padding(bottom: data.nextSpacing.height)
         
         var hStackFrame = CGRect(origin: .zero, size: hStack.sizeThatFits(size))
         
