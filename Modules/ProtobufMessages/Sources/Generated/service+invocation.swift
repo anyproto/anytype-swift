@@ -1154,6 +1154,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func relationOptionSetOrder(
+        _ request: Anytype_Rpc.Relation.Option.SetOrder.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Relation.Option.SetOrder.Request, Anytype_Rpc.Relation.Option.SetOrder.Response> {
+        return Invocation(messageName: "RelationOptionSetOrder", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceRelationOptionSetOrder(requestData) ?? Data()
+            return try Anytype_Rpc.Relation.Option.SetOrder.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func relationListWithValue(
         _ request: Anytype_Rpc.Relation.ListWithValue.Request = .init()
     ) -> Invocation<Anytype_Rpc.Relation.ListWithValue.Request, Anytype_Rpc.Relation.ListWithValue.Response> {
@@ -1371,6 +1381,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileDownload(requestData) ?? Data()
             return try Anytype_Rpc.File.Download.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func fileDiscardPreload(
+        _ request: Anytype_Rpc.File.DiscardPreload.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.DiscardPreload.Request, Anytype_Rpc.File.DiscardPreload.Response> {
+        return Invocation(messageName: "FileDiscardPreload", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileDiscardPreload(requestData) ?? Data()
+            return try Anytype_Rpc.File.DiscardPreload.Response(serializedBytes: responseData)
         }
     }
 

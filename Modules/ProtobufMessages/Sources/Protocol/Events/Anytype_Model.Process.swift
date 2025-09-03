@@ -73,6 +73,14 @@ extension Anytype_Model {
       set {message = .migration(newValue)}
     }
 
+    public var preloadFile: Anytype_Model.Process.PreloadFile {
+      get {
+        if case .preloadFile(let v)? = message {return v}
+        return Anytype_Model.Process.PreloadFile()
+      }
+      set {message = .preloadFile(newValue)}
+    }
+
     public var error: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -95,6 +103,7 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     8: .same(proto: "export"),
     9: .same(proto: "saveFile"),
     10: .same(proto: "migration"),
+    12: .same(proto: "preloadFile"),
     11: .same(proto: "error"),
   ]
 
@@ -174,6 +183,19 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         }
       }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.error) }()
+      case 12: try {
+        var v: Anytype_Model.Process.PreloadFile?
+        var hadOneofValue = false
+        if let current = self.message {
+          hadOneofValue = true
+          if case .preloadFile(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.message = .preloadFile(v)
+        }
+      }()
       default: break
       }
     }
@@ -217,11 +239,14 @@ extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .migration(let v)? = self.message else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
     }()
-    case nil: break
+    default: break
     }
     if !self.error.isEmpty {
       try visitor.visitSingularStringField(value: self.error, fieldNumber: 11)
     }
+    try { if case .preloadFile(let v)? = self.message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 

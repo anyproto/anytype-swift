@@ -53,6 +53,7 @@ extension Anytype_Rpc.LinkPreview {
           case null // = 0
           case unknownError // = 1
           case badInput // = 2
+          case privateLink // = 3
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -64,6 +65,7 @@ extension Anytype_Rpc.LinkPreview {
             case 0: self = .null
             case 1: self = .unknownError
             case 2: self = .badInput
+            case 3: self = .privateLink
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -73,6 +75,7 @@ extension Anytype_Rpc.LinkPreview {
             case .null: return 0
             case .unknownError: return 1
             case .badInput: return 2
+            case .privateLink: return 3
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -82,6 +85,7 @@ extension Anytype_Rpc.LinkPreview {
             .null,
             .unknownError,
             .badInput,
+            .privateLink,
           ]
 
         }
@@ -181,6 +185,7 @@ extension Anytype_Rpc.LinkPreview.Response.Error.Code: SwiftProtobuf._ProtoNameP
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "PRIVATE_LINK"),
   ]
 }
 

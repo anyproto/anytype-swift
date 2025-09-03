@@ -3661,6 +3661,29 @@ extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.File.DiscardPreload.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "File.DiscardPreload.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.File.Download.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -4079,6 +4102,8 @@ extension Anytype_Rpc.LinkPreview.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "LinkPreview.badInput")
+            case .privateLink:
+                return LocHelper.tr(table: "LocalizableError", key: "LinkPreview.privateLink")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -6677,6 +6702,29 @@ extension Anytype_Rpc.Relation.ListWithValue.Response.Error: LocalizedError {
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "Relation.ListWithValue.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Relation.Option.SetOrder.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "Relation.Option.SetOrder.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
