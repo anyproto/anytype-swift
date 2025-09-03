@@ -39,6 +39,16 @@ extension BundledPropertiesValueProvider {
         return .object(.defaultObjectIcon)
     }
     
+    var objectAlignValue: LayoutAlignment {
+        if isObjectType {
+            layoutAlignValue
+        } else if isTemplate, let targetObjectTypeValue = targetObjectTypeValue {
+            targetObjectTypeValue.layoutAlign
+        } else {
+            objectType.layoutAlign
+        }
+    }
+    
     var objectType: ObjectType {
         let parsedType = try? ObjectTypeProvider.shared.objectType(id: type)
         return parsedType ?? ObjectTypeProvider.shared.deletedObjectType(id: type)

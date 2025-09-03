@@ -20,11 +20,11 @@ struct SetFullHeader: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             cover
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: model.headerAlignment, spacing: 8) {
                 titleView
                 headerBlocks
             }
-            .padding([.leading], 20)
+            .padding([.horizontal], 20)
         }
         .readSize { width = $0.width }
     }

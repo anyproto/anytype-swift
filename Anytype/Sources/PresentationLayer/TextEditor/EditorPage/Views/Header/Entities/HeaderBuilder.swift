@@ -9,7 +9,7 @@ enum HeaderBuilder {
         onIconTap: @escaping () -> Void,
         onCoverTap: @escaping () -> Void
     ) -> ObjectHeader {
-        let layoutAlign = details.layoutAlignValue
+        let layoutAlign = details.objectAlignValue
         
         if details.resolvedLayoutValue.isNote {
             return .empty(usecase: presentationUsecase, showPublishingBanner: showPublishingBanner, onTap: {})
