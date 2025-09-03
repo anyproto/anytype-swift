@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import SwiftUI
 
 public extension LayoutAlignment {
     var analyticsValue: String {
@@ -17,3 +18,17 @@ public extension LayoutAlignment {
         }
     }
 }
+
+extension LayoutAlignment {
+    var horizontalAlignment: HorizontalAlignment {
+        switch self {
+        case .left, .justify, .UNRECOGNIZED:
+            return .leading
+        case .center:
+            return .center
+        case .right:
+            return .trailing
+        }
+    }
+}
+
