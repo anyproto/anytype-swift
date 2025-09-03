@@ -551,27 +551,25 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
-    func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails) {
-        guard let details = data.attachmentsDetails.first(where: { $0.id == details.id }) else { return }
-        didSelectAttachment(attachment: details, attachments: data.attachmentsDetails)
-    }
-    
-    func didSelectAttachment(data: MessageViewData, details: ObjectDetails) {
-        didSelectAttachment(attachment: details, attachments: [])
+    func didSelectAttachment(data: MessageUIViewData, objectId: String) {
+        Task {
+            let attachments = try await chatStorage.attachments(messageId: data.id)
+            guard let details = attachments.first(where: { $0.id == objectId }) else { return }
+            didSelectAttachment(attachment: details, attachments: attachments)
+        }
     }
     
     func didSelectReplyTo(data: MessageUIViewData) {
         Task {
-            let message = try await chatStorage.message(id: data.id)
-            let attachments = await chatStorage.attachments(message: message)
+            let attachments = await chatStorage.attachments(messageId: data.id)
             AnytypeAnalytics.instance().logClickMessageMenuReply()
             withAnimation {
                 inputFocused = true
                 replyToMessage = ChatInputReplyModel(
-                    id: message.id,
+                    id: data.id,
                     title: Loc.Chat.replyTo(data.authorName),
                     // Without style. Request from designers.
-                    description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message),
+                    description: data.bubble.messageText.string,
                     icon: attachments.first?.objectIconImage
                 )
             }
@@ -598,7 +596,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         clearInput()
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
-        let attachments = await chatStorage.attachments(message: messageToEdit.message)
+        let attachments = await chatStorage.attachments(messageId: messageToEdit.message.id)
         let messageAttachments = attachments.map { MessageAttachmentDetails(messageId: "message.id", details: $0, style: .chatInput) }.sorted { $0.id > $1.id }
         linkedObjects = messageAttachments.map { .uploadedObject($0) }
     }

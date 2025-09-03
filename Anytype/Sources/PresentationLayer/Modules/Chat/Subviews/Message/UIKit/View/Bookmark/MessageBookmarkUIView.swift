@@ -26,7 +26,7 @@ final class MessageBookmarkUIView: UIView {
         
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.id)
+            onTap?(data)
         }
     }
     
@@ -44,7 +44,7 @@ final class MessageBookmarkUIView: UIView {
         }
     }
     
-    weak var output: (any MessageModuleOutput)?
+    var onTap: ((_ data: MessageAttachmentDetails) -> Void)?
     
     // MARK: - Public
     

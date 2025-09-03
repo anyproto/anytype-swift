@@ -37,7 +37,7 @@ final class MessageVideoUIView: UIView {
         }
     }
     
-    weak var output: (any MessageModuleOutput)?
+    var onTap: ((_ data: MessageVideoViewData) -> Void)?
     
     // MARK: - Public
     
@@ -82,7 +82,7 @@ final class MessageVideoUIView: UIView {
         
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+            onTap?(data)
         }
     }
     

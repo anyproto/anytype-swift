@@ -11,7 +11,7 @@ protocol ChatMessagesStorageProtocol: AnyObject, Sendable {
     func loadPrevPage() async throws
     func loadPagesTo(messageId: String) async throws
     func loadPagesTo(orderId: String) async throws -> ChatMessage
-    func attachments(message: ChatMessage) async -> [ObjectDetails]
+    func attachments(messageId: String) async -> [ObjectDetails]
     func attachments(ids: [String]) async -> [ObjectDetails]
     func reply(message: ChatMessage) async -> ChatMessage?
     func message(id: String) async throws -> ChatMessage
@@ -189,21 +189,22 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         return replyMessage
     }
     
-    func attachments(message: ChatMessage) async -> [ObjectDetails] {
+    func attachments(messageId: String) -> [ObjectDetails] {
+        guard let message = try? message(id: messageId) else { return [] }
         let ids = message.attachments.map(\.target)
-        return await attachments(ids: ids)
+        return attachments(ids: ids)
     }
     
-    func attachments(ids: [String]) async -> [ObjectDetails] {
+    func attachments(ids: [String]) -> [ObjectDetails] {
         attachments.details(ids: ids)
     }
     
-    func reply(message: ChatMessage) async -> ChatMessage? {
+    func reply(message: ChatMessage) -> ChatMessage? {
         guard message.replyToMessageID.isNotEmpty else { return nil }
         return messages.message(id: message.replyToMessageID) ?? replies[message.replyToMessageID]
     }
     
-    func message(id: String) async throws -> ChatMessage {
+    func message(id: String) throws -> ChatMessage {
         if let message = messages.message(id: id) {
             return message
         }

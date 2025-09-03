@@ -28,12 +28,7 @@ final class MessageListAttachmentsUIView: UIView {
         }
     }
     
-    weak var output: (any MessageModuleOutput)? {
-        didSet {
-            cachedBookmarks.forEach { $0.output = output }
-            cachedAttachments.forEach { $0.output = output }
-        }
-    }
+    var onTapAttachment: ((_ objectId: String) -> Void)?
     
     // MARK: - Pulic
     
@@ -75,7 +70,9 @@ final class MessageListAttachmentsUIView: UIView {
                     view.backgroundColor = .Shape.transperentSecondary
                     view.layer.cornerRadius = 12
                     view.layer.masksToBounds = true
-                    view.output = output
+                    view.onTap = { [weak self] data in
+                        self?.onTapAttachment?(data.id)
+                    }
                     // Sync position with popLast operation
                     cachedBookmarks.insert(view, at: 0)
                     return view
@@ -90,7 +87,9 @@ final class MessageListAttachmentsUIView: UIView {
                     view.backgroundColor = .Shape.transperentSecondary
                     view.layer.cornerRadius = 12
                     view.layer.masksToBounds = true
-                    view.output = output
+                    view.onTap = { [weak self] data in
+                        self?.onTapAttachment?(data.id)
+                    }
                     // Sync position with popLast operation
                     cachedAttachments.insert(view, at: 0)
                     return view

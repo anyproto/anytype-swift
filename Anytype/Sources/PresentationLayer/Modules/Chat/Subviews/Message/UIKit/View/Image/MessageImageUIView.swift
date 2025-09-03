@@ -36,7 +36,7 @@ final class MessageImageUIView: UIView {
         }
     }
     
-    weak var output: (any MessageModuleOutput)?
+    var onTap: ((_ data: MessageImageViewData) -> Void)?
     
     // MARK: - Public
     
@@ -60,7 +60,7 @@ final class MessageImageUIView: UIView {
         
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+            onTap?(data)
         }
     }
     

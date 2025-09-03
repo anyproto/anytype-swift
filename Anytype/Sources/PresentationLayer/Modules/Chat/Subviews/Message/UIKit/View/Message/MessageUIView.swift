@@ -87,6 +87,11 @@ final class MessageUIView: UIView, UIContentView {
             messageConfiguration.output?.didSelectReplyTo(data: messageConfiguration.data)
         }
         
+        bubbleView.onTapAttachment = { [weak self] _, objectId in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectAttachment(data: messageConfiguration.data, objectId: objectId)
+        }
+        
         replyView.onTap = { [weak self] _ in
             guard let self else { return }
             messageConfiguration.output?.didSelectReplyMessage(data: messageConfiguration.data)

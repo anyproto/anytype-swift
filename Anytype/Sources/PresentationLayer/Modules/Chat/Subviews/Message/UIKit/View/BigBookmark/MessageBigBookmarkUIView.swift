@@ -36,7 +36,7 @@ final class MessageBigBookmarkUIView: UIView {
         }
     }
     
-    weak var output: (any MessageModuleOutput)?
+    var onTap: ((_ data: MessageBigBookmarkViewData) -> Void)?
     
     // MARK: - Pulic
     
@@ -44,7 +44,7 @@ final class MessageBigBookmarkUIView: UIView {
         super.init(frame: frame)
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+            onTap?(data)
         }
     }
     

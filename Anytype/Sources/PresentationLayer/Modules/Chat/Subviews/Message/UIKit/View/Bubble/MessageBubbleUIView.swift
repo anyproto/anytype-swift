@@ -28,16 +28,9 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         }
     }
     
-    weak var output: (any MessageModuleOutput)? {
-        didSet {
-            bigBookmarkView.output = output
-            gridAttachments.output = output
-            listAttachments.output = output
-        }
-    }
-    
     var onTapAddReaction: ((_ data: MessageBubbleViewData) -> Void)?
     var onTapReplyTo: ((_ data: MessageBubbleViewData) -> Void)?
+    var onTapAttachment: ((_ data: MessageBubbleViewData, _ objectId: String) -> Void)?
     
     // MARK: - Pulic
     
@@ -45,6 +38,7 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         super.init(frame: frame)
         let interaction = UIContextMenuInteraction(delegate: self)
         addInteraction(interaction)
+        setupActions()
     }
     
     required init?(coder: NSCoder) {
@@ -172,5 +166,23 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         gridAttachments.addTo(parent: self, frame: layout?.gridAttachmentsFrame)
         bigBookmarkView.addTo(parent: self, frame: layout?.bigBookmarkFrame)
         listAttachments.addTo(parent: self, frame: layout?.listAttachmentsFrame)
+    }
+    
+    private func setupActions() {
+        
+        gridAttachments.onTapAttachment = { [weak self] objectId in
+            guard let self, let data else { return }
+            onTapAttachment?(data, objectId)
+        }
+        
+        bigBookmarkView.onTap = { [weak self] bookmark in
+            guard let self, let data else { return }
+            onTapAttachment?(data, bookmark.objectId)
+        }
+        
+        listAttachments.onTapAttachment = { [weak self] objectId in
+            guard let self, let data else { return }
+            onTapAttachment?(data, objectId)
+        }
     }
 }
