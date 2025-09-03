@@ -11,7 +11,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         return MemoryStorage<Int, MessageLayout>(config: config)
     }()
     
-    func makeLayout(width: CGFloat, data: MessageViewData) -> MessageLayout {
+    func makeLayout(width: CGFloat, data: MesageUIViewData) -> MessageLayout {
         
         lock.lock()
         defer { lock.unlock() }
@@ -27,13 +27,13 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         return layout
     }
     
-    func prepareLayout(width: CGFloat, data: MessageViewData) {
+    func prepareLayout(width: CGFloat, data: MesageUIViewData) {
         _ = makeLayout(width: width, data: data)
     }
     
     // MARK: - Private
     
-    private func makeRootLayout(width: CGFloat, data: MessageViewData) -> MessageLayout {
+    private func makeRootLayout(width: CGFloat, data: MesageUIViewData) -> MessageLayout {
         let size = CGSize(width: width, height: .greatestFiniteMagnitude)
         let containerInsets = UIEdgeInsets(top: 0, left: 14, bottom: data.nextSpacing.height, right: 14)
         let iconSide: CGFloat = 32
@@ -61,7 +61,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         var bubbleFrame: CGRect?
         var bubbleLayout: MessageBubbleLayout?
         let bubbleCalculator = AnyViewCalculator { targetSize in
-            let layout = MessageBubbleCalculator.calculateSize(targetSize: targetSize, data: MessageBubbleViewData(data: data))
+            let layout = MessageBubbleCalculator.calculateSize(targetSize: targetSize, data: data.bubble)
             bubbleLayout = layout
             return layout.bubbleSize
         }
@@ -69,23 +69,20 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         
         // Reactions
         
-        let reactionsData = MessageReactionListData(data: data)
         var reactionsFrame: CGRect?
         var reactionsLayout: MessageReactionListLayout?
-        let reactionsCalculator = reactionsData.showReactions
-            ? AnyViewCalculator { targetSize in
-                let layout = MessageReactionsListCalculator.calculateSize(targetSize: targetSize, data: reactionsData)
-                reactionsLayout = layout
-                return layout.size
+        let reactionsCalculator = data.reactions.map { reactions in
+                AnyViewCalculator { targetSize in
+                    let layout = MessageReactionsListCalculator.calculateSize(targetSize: targetSize, data: reactions)
+                    reactionsLayout = layout
+                    return layout.size
+                }
             }
-            .readFrame { reactionsFrame = $0 }
-            : nil
-        
+            
         // Reply
         
         var replyFrame: CGRect?
         var replyLayout: MessageReplyLayout?
-        let replyData = data.replyModel.map { MessageReplyViewData(model: $0) }
         
         // Final
         
@@ -97,7 +94,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
             }
             VStackCalculator(alignment: data.position.isLeft ? .left : .right, spacing: 4) {
                 
-                if let replyData {
+                if let replyData = data.reply {
                     AnyViewCalculator { targetSize in
                         let layout = MessageReplyCalculator.calculateSize(targetSize: targetSize, data: replyData)
                         replyLayout = layout

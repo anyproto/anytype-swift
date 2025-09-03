@@ -35,8 +35,7 @@ struct MessageBubbleCalculator {
                 topContainerSize = gridCalculatedFrame.inset(by: attachmentsInsets.inverted).size
             }
             textInset.top -= 4
-        case .bookmark(let objectDetails):
-            let data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
+        case .bookmark(let data):
             let bookmarkCalculatedLayout = MessageBigBookmarkCalculator.calculateSize(targetSize: attachmentsSize, data: data)
             bigBookmarkLayout = bookmarkCalculatedLayout
             let bookmarkCalculatedFrame = CGRect(
@@ -70,8 +69,7 @@ struct MessageBubbleCalculator {
         var listLayout: MessageListAttachmentsLayout?
         var listFrame: CGRect?
         switch data.linkedObjects {
-        case .list(let items):
-            let data = MessageListAttachmentsViewData(objects: items, position: data.position)
+        case .list(let data):
             let listCalculatedLayout = MessageListAttachmentsCalculator.calculateSize(targetSize: attachmentsSize, data: data)
             listLayout = listCalculatedLayout
             let listCalculatedFrame = CGRect(

@@ -1,13 +1,10 @@
 import Foundation
+import UIKit
 
-struct MessageReactionListData: Equatable {
+struct MessageReactionListData: Equatable, Hashable {
     let reactions: [MessageReactionData]
     let canAddReaction: Bool
     let position: MessageHorizontalPosition
-    
-    var showReactions: Bool {
-        reactions.isNotEmpty
-    }
 }
 
 extension MessageReactionListData {

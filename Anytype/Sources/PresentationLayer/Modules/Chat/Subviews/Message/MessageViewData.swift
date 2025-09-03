@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 import StoredHashMacro
 
-@StoredHash
+//@StoredHash
 struct MessageViewData: Identifiable, Equatable, Hashable {
     let spaceId: String
     let chatId: String
@@ -12,7 +12,7 @@ struct MessageViewData: Identifiable, Equatable, Hashable {
     let authorId: String?
     let createDate: String
     let messageString: AttributedString
-    let replyModel: MessageReplyModel?
+//    let replyModel: MessageReplyViewData?
     let position: MessageHorizontalPosition
     let linkedObjects: MessageLinkedObjectsLayout?
     let reactions: [MessageReactionModel]

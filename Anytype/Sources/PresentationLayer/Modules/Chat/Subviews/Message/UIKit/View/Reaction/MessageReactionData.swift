@@ -1,6 +1,7 @@
 import Foundation
+import UIKit
 
-struct MessageReactionData: Equatable {
+struct MessageReactionData: Equatable, Hashable {
     let emoji: String
     let content: MessageReactionModelContent
     let selected: Bool

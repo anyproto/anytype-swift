@@ -26,7 +26,7 @@ final class MessageObjectUIView: UIView {
         addSubview(descriptionLabel)
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.id)
         }
     }
     
@@ -36,7 +36,7 @@ final class MessageObjectUIView: UIView {
     
     // MARK: - Public properties
     
-    var data: MessageObjectViewData? {
+    var data: MessageAttachmentDetails? {
         didSet {
             if data != oldValue {
                 updateView()
@@ -79,10 +79,11 @@ final class MessageObjectUIView: UIView {
     private func updateView() {
         guard let data else { return }
         
-        iconView.icon = data.icon
+        iconView.icon = data.objectIconImage
         titleLabel.text = data.title
         titleLabel.textColor = data.style.titleUiColor
-        if let size = data.size {
+        // TODO: move to model
+        if let sizeInBytes = data.sizeInBytes, let size = sizeInBytes > 0 ? ByteCountFormatter.fileFormatter.string(fromByteCount: Int64(sizeInBytes)) : nil {
             descriptionLabel.text = "\(data.description) • \(size)"
         } else {
             descriptionLabel.text = data.description

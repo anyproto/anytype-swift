@@ -60,7 +60,7 @@ final class MessageImageUIView: UIView {
         
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
         }
     }
     
@@ -85,7 +85,7 @@ final class MessageImageUIView: UIView {
     }
     
     private func updateImageContentIfNeeded() {
-        guard let imageId = data?.imageId else { return }
+        guard let imageId = data?.objectId else { return }
         
         let newUrl = ImageMetadata(
             id: imageId,

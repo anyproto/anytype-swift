@@ -2,6 +2,7 @@ import SwiftUI
 import Services
 
 struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
+    let messageId: String
     let id: String
     let title: String
     let description: String
@@ -12,12 +13,14 @@ struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let syncStatus: SyncStatus?
     let syncError: SyncError?
     let downloadingState: Bool
+    let style: MessageAttachmentStyle
 }
 
 extension MessageAttachmentDetails {
-    init(details: ObjectDetails) {
+    init(messageId: String, details: ObjectDetails, style: MessageAttachmentStyle) {
         let source = details.source?.url.host() ?? details.source?.absoluteString
         self = MessageAttachmentDetails(
+            messageId: messageId,
             id: details.id,
             title: details.title,
             description: details.objectType.displayName,
@@ -27,12 +30,14 @@ extension MessageAttachmentDetails {
             source: source,
             syncStatus: details.syncStatusValue,
             syncError: details.syncErrorValue,
-            downloadingState: false
+            downloadingState: false,
+            style: style
         )
     }
     
-    static func placeholder(tagetId: String) -> Self {
+    static func placeholder(messageId: String, tagetId: String, style: MessageAttachmentStyle) -> Self {
         MessageAttachmentDetails(
+            messageId: messageId,
             id: tagetId,
             title: "Placeholder",
             description: "Placeholder",
@@ -42,7 +47,8 @@ extension MessageAttachmentDetails {
             source: nil,
             syncStatus: nil,
             syncError: nil,
-            downloadingState: true
+            downloadingState: true,
+            style: style
         )
     }
 }

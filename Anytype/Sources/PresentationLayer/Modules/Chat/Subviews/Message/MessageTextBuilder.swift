@@ -4,12 +4,12 @@ import AnytypeCore
 import DeepLinks
 
 protocol MessageTextBuilderProtocol: Sendable {
-    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> AttributedString
+    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> NSAttributedString
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String
 }
 
 extension MessageTextBuilderProtocol {
-    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition) -> AttributedString {
+    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition) -> NSAttributedString {
         makeMessage(content: content, spaceId: spaceId, position: position, font: .chatText)
     }
 }
@@ -18,7 +18,7 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     
     private let deepLinkParser: any DeepLinkParserProtocol = Container.shared.deepLinkParser()
     
-    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> AttributedString {
+    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> NSAttributedString {
         var message = AttributedString(content.text)
         
         var attributes = AttributeContainer()
@@ -80,11 +80,11 @@ struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
             }
         }
         
-        return message.trimmingCharacters(in: .whitespacesAndNewlines)
+        return NSAttributedString(message.trimmingCharacters(in: .whitespacesAndNewlines))
     }
     
     func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {
-        NSAttributedString(makeMessage(content: content, spaceId: "", position: .right)).string
+        makeMessage(content: content, spaceId: "", position: .right).string
     }
     
     private func createLinkToObject(_ objectId: String, spaceId: String) -> URL? {

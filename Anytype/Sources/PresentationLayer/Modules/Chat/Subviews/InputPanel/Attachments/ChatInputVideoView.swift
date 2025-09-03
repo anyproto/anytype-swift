@@ -12,10 +12,11 @@ struct ChatInputVideoView: View {
     }
     
     var body: some View {
-        MessageVideoView(url: url)
-            .frame(width: 72, height: 72)
-            .messageLinkStyle()
-            .messageLinkRemoveButton(onTapRemove: onTapRemove)
+        EmptyView()
+//        MessageVideoView(url: url)
+//            .frame(width: 72, height: 72)
+//            .messageLinkStyle()
+//            .messageLinkRemoveButton(onTapRemove: onTapRemove)
     }
 }
 

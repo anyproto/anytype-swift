@@ -36,6 +36,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         firstUnreadMessageOrderId: String?,
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
+        let backgroundColor: UIColor = .black.withAlphaComponent(0.5)
         
         let isStream = workspaceStorage.spaceView(spaceId: spaceId)?.uxType.isStream ?? false
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
@@ -72,39 +73,69 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let isUnread = message.orderID == firstUnreadMessageOrderId
             let nextIsUnread = nextMessage?.orderID == firstUnreadMessageOrderId
             
-            let messageModel = MessageViewData(
-                spaceId: spaceId,
-                chatId: chatId,
-                authorName: authorParticipant?.title ?? "",
+//            let messageModel = MessageViewData(
+//                spaceId: spaceId,
+//                chatId: chatId,
+//                authorName: authorParticipant?.title ?? "",
+//                authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
+//                authorId: authorParticipant?.id,
+//                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
+//                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+//                replyModel: mapReply(
+//                    fullMessage: fullMessage,
+//                    participants: participants,
+//                    yourProfileIdentity: yourProfileIdentity
+//                )
+//                ,
+//                position: position,
+//                linkedObjects: mapAttachments(fullMessage: fullMessage),
+//                reactions: mapReactions(
+//                    fullMessage: fullMessage,
+//                    participants: participants,
+//                    yourProfileIdentity: yourProfileIdentity,
+//                    position: position
+//                ),
+//                canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+//                canReply: canEdit,
+//                nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
+//                authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
+//                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && !isStream,
+//                canDelete: isYourMessage && canEdit,
+//                canEdit: isYourMessage && canEdit,
+//                showMessageSyncIndicator: isYourMessage,
+//                message: message,
+//                attachmentsDetails: fullMessage.attachments,
+//                reply: fullMessage.reply
+//            )
+            
+            let messageModel = MesageUIViewData(
+                id: fullMessage.message.id,
+                orderId: fullMessage.message.orderID,
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
-                authorId: authorParticipant?.id,
-                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
-                replyModel: mapReply(
+                authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
+                bubble: MessageBubbleViewData(
+                    messageId: fullMessage.message.id,
+                    messageText: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+                    linkedObjects: mapAttachments(fullMessage: fullMessage, position: position),
+                    position: position,
+                    messageYourBackgroundColor: backgroundColor
+                ),
+                reply: mapReply(
                     fullMessage: fullMessage,
                     participants: participants,
-                    yourProfileIdentity: yourProfileIdentity
-                )
-                ,
-                position: position,
-                linkedObjects: mapAttachments(fullMessage: fullMessage),
+                    yourProfileIdentity: yourProfileIdentity,
+                    messageYourBackgroundColor: backgroundColor
+                ),
                 reactions: mapReactions(
                     fullMessage: fullMessage,
                     participants: participants,
                     yourProfileIdentity: yourProfileIdentity,
-                    position: position
+                    position: position,
+                    messageYourBackgroundColor: backgroundColor,
+                    canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 ),
-                canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
-                canReply: canEdit,
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
-                authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
-                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && !isStream,
-                canDelete: isYourMessage && canEdit,
-                canEdit: isYourMessage && canEdit,
-                showMessageSyncIndicator: isYourMessage,
-                message: message,
-                attachmentsDetails: fullMessage.attachments,
-                reply: fullMessage.reply
+                position: position
             )
             
             let unreadItem: MessageSectionItem? = isUnread ? .unread("\(message.id)-unread") : nil
@@ -147,9 +178,11 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         fullMessage: FullChatMessage,
         participants: [Participant],
         yourProfileIdentity: String?,
-        position: MessageHorizontalPosition
-    ) -> [MessageReactionModel] {
-        fullMessage.message.reactions.reactions.map { (key, value) -> MessageReactionModel in
+        position: MessageHorizontalPosition,
+        messageYourBackgroundColor: UIColor,
+        canAddReaction: Bool
+    ) -> MessageReactionListData {
+        let reactions = fullMessage.message.reactions.reactions.map { (key, value) -> MessageReactionData in
             
             let content: MessageReactionModelContent
             
@@ -160,16 +193,24 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 content = .count(value.ids.count)
             }
             
-            return MessageReactionModel(
+            return MessageReactionData(
                 emoji: key,
                 content: content,
                 selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false,
-                position: position
+                position: position,
+                messageYourBackgroundColor: messageYourBackgroundColor
             )
         }.sorted { $0.content.sortWeight > $1.content.sortWeight }.sorted { $0.emoji < $1.emoji }
+        
+        
+        return MessageReactionListData(
+            reactions: reactions,
+            canAddReaction: canAddReaction,
+            position: position
+        )
     }
     
-    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], yourProfileIdentity: String?) -> MessageReplyModel? {
+    private func mapReply(fullMessage: FullChatMessage, participants: [Participant], yourProfileIdentity: String?, messageYourBackgroundColor: UIColor) -> MessageReplyViewData? {
         if let replyChat = fullMessage.reply {
             let replyAuthor = participants.first { $0.identity == fullMessage.reply?.creator }
             let replyAttachment = fullMessage.replyAttachments.first
@@ -193,17 +234,19 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 description = Loc.Chat.Reply.attachments(fullMessage.replyAttachments.count)
             }
             
-            return MessageReplyModel(
+            return MessageReplyViewData(
+                messageId: fullMessage.message.id,
                 author: replyAuthor?.title ?? "",
                 description: description,
                 attachmentIcon: replyAttachment?.objectIconImage,
-                isYour: replyAuthor?.identity == yourProfileIdentity
+                isYour: replyAuthor?.identity == yourProfileIdentity,
+                messageYourBackgroundColor: messageYourBackgroundColor
             )
         }
         return nil
     }
     
-    private func mapAttachments(fullMessage: FullChatMessage) -> MessageLinkedObjectsLayout? {
+    private func mapAttachments(fullMessage: FullChatMessage, position: MessageHorizontalPosition) -> MessageBubbleAttachments? {
         let chatMessage = fullMessage.message
         
         guard chatMessage.attachments.isNotEmpty else {
@@ -211,17 +254,24 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         }
         
         if fullMessage.attachments.count == 1,
-           let attachment = fullMessage.attachments.first,
-           attachment.resolvedLayoutValue.isBookmark {
-            return .bookmark(attachment)
+            let attachment = fullMessage.attachments.first,
+            attachment.resolvedLayoutValue.isBookmark {
+            let bookmark = MessageBigBookmarkViewData(
+                messageId: fullMessage.message.id,
+                details: attachment,
+                position: position
+            )
+            return .bookmark(bookmark)
         }
         
-        var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }
+        let style: MessageAttachmentStyle = position.isRight ? .messageYour : .messageOther
+        
+        var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(messageId: fullMessage.message.id, details: $0, style: style) }
         
         // Add empty objects
         for attachment in fullMessage.message.attachments {
             if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
-                attachmentsDetails.append(MessageAttachmentDetails.placeholder(tagetId: attachment.target))
+                attachmentsDetails.append(MessageAttachmentDetails.placeholder(messageId: fullMessage.message.id, tagetId: attachment.target, style: style))
             }
         }
         
@@ -230,7 +280,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.resolvedLayoutValue != .image && $0.resolvedLayoutValue != .video }
         
         if containsNotOnlyMediaFiles {
-            return .list(linkedObjectsDetails)
+            return .list(MessageListAttachmentsViewData(messageId: fullMessage.message.id, objects: linkedObjectsDetails, position: position))
         } else {
             return .grid(linkedObjectsDetails)
         }

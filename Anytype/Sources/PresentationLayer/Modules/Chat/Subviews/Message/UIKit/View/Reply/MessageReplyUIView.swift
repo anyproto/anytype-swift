@@ -32,6 +32,10 @@ final class MessageReplyUIView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addTapGesture { [weak self] _ in
+            guard let self, let data else { return }
+//            output?.didSelectReplyMessage(messageId: data.messageId)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +59,8 @@ final class MessageReplyUIView: UIView {
             }
         }
     }
+    
+    weak var output: (any MessageModuleOutput)?
     
     // MARK: - Pulic
     

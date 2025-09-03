@@ -81,7 +81,7 @@ final class MessageListAttachmentsUIView: UIView {
                     return view
                 }()
                 
-                subview.data = MessageBookmarkViewData(details: object, position: data.position)
+                subview.data = object
                 views.append(subview)
                 addSubview(subview)
             default:
@@ -96,7 +96,7 @@ final class MessageListAttachmentsUIView: UIView {
                     return view
                 }()
                 
-                subview.data = MessageObjectViewData(details: object, position: data.position)
+                subview.data = object
                 views.append(subview)
                 addSubview(subview)
             }

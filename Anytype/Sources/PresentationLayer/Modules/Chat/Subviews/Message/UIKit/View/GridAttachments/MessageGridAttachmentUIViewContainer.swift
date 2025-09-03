@@ -83,7 +83,7 @@ final class MessageGridAttachmentUIViewContainer: UIView {
                     return view
                 }()
                 
-                videoView.data = MessageVideoViewData(details: object)
+                videoView.data = MessageVideoViewData(messageId: "", details: object)
                 views.append(videoView)
                 addSubview(videoView)
             default:
@@ -97,7 +97,7 @@ final class MessageGridAttachmentUIViewContainer: UIView {
                     return view
                 }()
                 
-                imageView.data = MessageImageViewData(details: object)
+                imageView.data = MessageImageViewData(messageId: "", details: object)
                 views.append(imageView)
                 addSubview(imageView)
             }

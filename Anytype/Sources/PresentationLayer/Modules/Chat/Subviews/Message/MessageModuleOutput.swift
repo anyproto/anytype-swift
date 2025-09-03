@@ -18,5 +18,6 @@ protocol MessageModuleOutput: AnyObject {
     
     // New methods
     
-    func didSelectAttachment(messageId: String, objectId: String)
+//    func didSelectAttachment(messageId: String, objectId: String)
+//    func didSelectReplyMessage(messageId: String)
 }

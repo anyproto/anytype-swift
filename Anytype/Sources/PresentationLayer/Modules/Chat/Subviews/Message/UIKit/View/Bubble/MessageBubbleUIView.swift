@@ -60,12 +60,12 @@ final class MessageBubbleUIView: UIView {
         textView.text = data.messageText
         
         switch data.linkedObjects {
-        case .list(let items):
-            listAttachments.data = MessageListAttachmentsViewData(objects: items, position: data.position)
+        case .list(let data):
+            listAttachments.data = data
         case .grid(let objects):
             gridAttachments.objects = objects
-        case .bookmark(let objectDetails):
-            bigBookmarkView.data = MessageBigBookmarkViewData(details: objectDetails, position: data.position)
+        case .bookmark(let data):
+            bigBookmarkView.data = data
         case nil:
             break
         }

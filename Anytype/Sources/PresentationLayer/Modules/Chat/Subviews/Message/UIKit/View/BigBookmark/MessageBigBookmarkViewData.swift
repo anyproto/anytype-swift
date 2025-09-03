@@ -1,7 +1,7 @@
 import UIKit
 import Services
 
-struct MessageBigBookmarkViewData: Equatable {
+struct MessageBigBookmarkViewData: Equatable, Hashable {
     let messageId: String
     let objectId: String
     let host: NSAttributedString

@@ -50,7 +50,7 @@ final class ChatCollectionViewCoordinator<
             view.layer.zPosition = 1
         }
         
-        let bubbleCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, MessageViewData> { cell, indexPath, item in
+        let bubbleCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, MesageUIViewData> { cell, indexPath, item in
             let layout = self.calculator.makeLayout(width: collectionView.bounds.width, data: item)
             cell.contentConfiguration = MessageConfiguration(model: item, layout: layout)
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()

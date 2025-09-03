@@ -1,19 +1,9 @@
 import UIKit
 
-struct MessageBubbleViewData: Equatable {
+struct MessageBubbleViewData: Equatable, Hashable {
+    let messageId: String
     let messageText: NSAttributedString
-    let linkedObjects: MessageLinkedObjectsLayout?
+    let linkedObjects: MessageBubbleAttachments?
     let position: MessageHorizontalPosition
     let messageYourBackgroundColor: UIColor
-}
-
-extension MessageBubbleViewData {
-    init(data: MessageViewData) {
-        let color = UIColor.black.withAlphaComponent(0.5)
-        self.messageText = NSAttributedString(data.messageString)
-        self.linkedObjects = data.linkedObjects
-        self.position = data.position
-        // TODO: Fix it
-        self.messageYourBackgroundColor = color
-    }
 }

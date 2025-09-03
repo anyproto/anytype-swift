@@ -1,7 +1,7 @@
 import Foundation
 
 enum MessageSectionItem: Equatable, Hashable, Identifiable {
-    case message(_ data: MessageViewData)
+    case message(_ data: MesageUIViewData)
     case unread(_ id: String)
     
     var id: String {
@@ -15,7 +15,7 @@ enum MessageSectionItem: Equatable, Hashable, Identifiable {
 }
 
 extension MessageSectionItem {
-    var messageData: MessageViewData? {
+    var messageData: MesageUIViewData? {
         switch self {
         case .message(let data):
             return data

@@ -67,12 +67,6 @@ struct MessageView: View {
     
     @ViewBuilder
     private var reply: some View {
-        if let reply = data.replyModel {
-            MessageReplyView(model: reply)
-                .onTapGesture {
-                    output?.didSelectReplyMessage(message: data)
-                }
-        }
     }
     
     @ViewBuilder
@@ -122,43 +116,10 @@ struct MessageView: View {
     
     @ViewBuilder
     private var linkedObjectsForTop: some View {
-        if let objects = data.linkedObjects {
-            switch objects {
-            case .list:
-                attachmentFreeSpacing
-            case .grid(let items):
-                MessageGridAttachmentsContainer(objects: items, spacing: 4) {
-                    output?.didSelectAttachment(data: data, details: $0)
-                }
-                .padding(Constants.attachmentsPadding)
-            case .bookmark(let item):
-                EmptyView()
-//                MessageObjectBigBookmarkView(details: item, position: data.position) {
-//                    output?.didSelectAttachment(data: data, details: $0)
-//                }
-//                .padding(Constants.attachmentsPadding)
-            }
-        } else {
-            attachmentFreeSpacing
-        }
     }
     
     @ViewBuilder
     private var linkedObjectsForBottom: some View {
-        if let objects = data.linkedObjects {
-            switch objects {
-            case .list(let items):
-                EmptyView()
-//                MessageListAttachmentsViewContainer(objects: items, position: data.position) {
-//                    output?.didSelectAttachment(data: data, details: $0)
-//                }
-//                .padding(Constants.attachmentsPadding)
-            case .grid, .bookmark:
-                attachmentFreeSpacing
-            }
-        } else {
-            attachmentFreeSpacing
-        }
     }
     
     @ViewBuilder

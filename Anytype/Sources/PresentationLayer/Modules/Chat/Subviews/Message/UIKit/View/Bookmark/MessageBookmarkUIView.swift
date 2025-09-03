@@ -1,10 +1,6 @@
 import Foundation
 import UIKit
 
-struct MessageBookmarkLayout {
-    static let height: CGFloat = 64
-}
-
 final class MessageBookmarkUIView: UIView {
     
     private lazy var iconView = IconViewUIKit()
@@ -30,7 +26,7 @@ final class MessageBookmarkUIView: UIView {
         
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.id)
         }
     }
     
@@ -40,7 +36,7 @@ final class MessageBookmarkUIView: UIView {
     
     // MARK: - Public properties
     
-    var data: MessageBookmarkViewData? {
+    var data: MessageAttachmentDetails? {
         didSet {
             if data != oldValue {
                 updateView()
@@ -81,7 +77,7 @@ final class MessageBookmarkUIView: UIView {
     private func updateView() {
         guard let data else { return }
         
-        iconView.icon = data.icon
+        iconView.icon = data.objectIconImage
         titleLabel.text = data.title
         titleLabel.textColor = data.style.titleUiColor
         descriptionLabel.text = data.description

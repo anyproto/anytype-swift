@@ -44,7 +44,7 @@ final class MessageBigBookmarkUIView: UIView {
         super.init(frame: frame)
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
+//            output?.didSelectAttachment(messageId: data.messageId, objectId: data.objectId)
         }
     }
     
