@@ -1,7 +1,7 @@
 import UIKit
 import Cache
 
-final class MessageBubbleUIView: UIView {
+final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
     
     // MARK: - Private properties
     
@@ -38,6 +38,16 @@ final class MessageBubbleUIView: UIView {
     
     // MARK: - Pulic
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        let interaction = UIContextMenuInteraction(delegate: self)
+        addInteraction(interaction)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         guard let layout else { return }
@@ -50,6 +60,82 @@ final class MessageBubbleUIView: UIView {
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return layout?.bubbleSize ?? .zero
+    }
+    
+    // MARK: - UIContextMenuInteractionDelegate
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                    configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        guard let data else { return nil }
+
+        let actions: [UIMenuElement] = .builder {
+            if data.canAddReaction {
+                UIMenu(title: "", options: .displayInline, children: [
+                    UIAction(
+                        title: Loc.Message.Action.addReaction,
+                        image: UIImage(systemName: "face.smiling")
+                    ) { _ in
+                        // TODO: Add action
+    //                    output?.didSelectAddReaction(messageId: data.message.id)
+                    }
+                ])
+            }
+            
+            #if DEBUG || RELEASE_NIGHTLY
+            UIAction(
+                title: Loc.Message.Action.unread,
+            ) { _ in
+                // TODO: Add action
+//                try await output?.didSelectUnread(message: data)
+            }
+            #endif
+            
+            if data.canReply {
+                UIAction(
+                    title: Loc.Message.Action.reply,
+                    image: UIImage(systemName: "arrowshape.turn.up.left")
+                ) { _ in
+                    // TODO: Add action
+                    //                output?.didSelectReplyTo(message: data)
+                }
+            }
+            
+            if data.messageText.string.isNotEmpty {
+                UIAction(
+                    title: Loc.Message.Action.copyPlainText,
+                    image: UIImage(systemName: "doc.on.doc")
+                ) { _ in
+                    // TODO: Add action
+//                    output?.didSelectCopyPlainText(message: data)
+                }
+            }
+            
+            if data.canEdit {
+                UIAction(
+                    title: Loc.edit,
+                    image: UIImage(systemName: "pencil")
+                ) { _ in
+                    // TODO: Add action
+//                    await output?.didSelectEditMessage(message: data)
+                }
+            }
+            
+            if data.canDelete {
+                UIAction(
+                    title: Loc.delete,
+                    image: UIImage(systemName: "trash"),
+                    attributes: .destructive
+                ) { _ in
+                    // TODO: Add action
+//                     output?.didSelectDeleteMessage(message: data)
+                }
+            }
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil) { _ in
+            return UIMenu(title: "", children: actions)
+        }
     }
     
     // MARK: - Private

@@ -6,4 +6,10 @@ struct MessageBubbleViewData: Equatable, Hashable {
     let linkedObjects: MessageBubbleAttachments?
     let position: MessageHorizontalPosition
     let messageYourBackgroundColor: UIColor
+    
+    // Actions
+    let canAddReaction: Bool
+    let canReply: Bool
+    let canEdit: Bool
+    let canDelete: Bool
 }

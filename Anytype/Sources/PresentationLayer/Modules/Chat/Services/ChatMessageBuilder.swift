@@ -107,7 +107,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
 //                attachmentsDetails: fullMessage.attachments,
 //                reply: fullMessage.reply
 //            )
-            
+            let canAddReaction = canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? "")
             let messageModel = MesageUIViewData(
                 id: fullMessage.message.id,
                 orderId: fullMessage.message.orderID,
@@ -118,7 +118,11 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     messageText: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
                     linkedObjects: mapAttachments(fullMessage: fullMessage, position: position),
                     position: position,
-                    messageYourBackgroundColor: backgroundColor
+                    messageYourBackgroundColor: backgroundColor,
+                    canAddReaction: canAddReaction,
+                    canReply: canEdit,
+                    canEdit: isYourMessage && canEdit,
+                    canDelete: isYourMessage && canEdit
                 ),
                 reply: mapReply(
                     fullMessage: fullMessage,
@@ -132,7 +136,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     yourProfileIdentity: yourProfileIdentity,
                     position: position,
                     messageYourBackgroundColor: backgroundColor,
-                    canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
+                    canAddReaction: canAddReaction,
                 ),
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
                 position: position

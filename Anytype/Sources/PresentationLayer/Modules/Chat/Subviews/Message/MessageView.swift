@@ -164,115 +164,22 @@ struct MessageView: View {
     
     @ViewBuilder
     private var leadingView: some View {
-        if data.position.isRight {
-            horizontalBubbleSpacing
-        } else {
-            authorIcon
-        }
     }
     
     @ViewBuilder
     private var trailingView: some View {
-        if data.position.isRight {
-            authorIcon
-        } else {
-            horizontalBubbleSpacing
-        }
     }
     
     @ViewBuilder
     private var authorIcon: some View {
-        switch data.authorIconMode {
-        case .show:
-            Button {
-                if let authorId = data.authorId {
-                    output?.didSelectAuthor(authorId: authorId)
-                }
-            } label: {
-                IconView(icon: data.authorIcon)
-                    .frame(width: 32, height: 32)
-            }
-        case .empty:
-            Spacer.fixedWidth(32)
-        case .hidden:
-            EmptyView()
-        }
     }
     
+    @ViewBuilder
     private var horizontalBubbleSpacing: some View {
-        Spacer(minLength: 26)
     }
     
     @ViewBuilder
     private var contextMenu: some View {
-        if data.canAddReaction {
-            if #available(iOS 16.4, *) {
-                ControlGroup {
-                    ForEach(Constants.emoji, id:\.self) { emoji in
-                        AsyncButton {
-                            try await output?.didTapOnReaction(data: data, emoji: emoji)
-                        } label: {
-                            Text(emoji)
-                        }
-                    }
-                    Button {
-                        output?.didSelectAddReaction(messageId: data.message.id)
-                    } label: {
-                        Image(asset: .Reactions.selectEmoji)
-                    }
-                }
-                .controlGroupStyle(.compactMenu)
-            } else {
-                
-                Button {
-                    output?.didSelectAddReaction(messageId: data.message.id)
-                } label: {
-                    Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
-                }
-            }
-        }
-        
-        Divider()
-        
-        #if DEBUG || RELEASE_NIGHTLY
-        AsyncButton {
-            try await output?.didSelectUnread(message: data)
-        } label: {
-            Text(Loc.Message.Action.unread)
-        }
-        #endif
-        
-        if data.canReply {
-            Button {
-                output?.didSelectReplyTo(message: data)
-            } label: {
-                Label(Loc.Message.Action.reply, systemImage: "arrowshape.turn.up.left")
-            }
-        }
-        
-        if !data.messageString.isEmpty {   
-            Button {
-                output?.didSelectCopyPlainText(message: data)
-            } label: {
-                Label(Loc.Message.Action.copyPlainText, systemImage: "doc.on.doc")
-            }
-        }
-        
-        if data.canEdit {
-            AsyncButton {
-                await output?.didSelectEditMessage(message: data)
-            } label: {
-                Label(Loc.edit, systemImage: "pencil")
-            }
-        }
-        
-        if data.canDelete {
-            Button(role: .destructive) {
-                output?.didSelectDeleteMessage(message: data)
-            } label: {
-                Label(Loc.delete, systemImage: "trash")
-            }
-        }
     }
     
     private var messageBackgorundColor: Color {
