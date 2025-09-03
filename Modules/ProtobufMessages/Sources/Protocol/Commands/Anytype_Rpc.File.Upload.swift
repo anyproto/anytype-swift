@@ -51,6 +51,12 @@ extension Anytype_Rpc.File {
 
         public var imageKind: Anytype_Model_ImageKind = .basic
 
+        /// if true, only async preload the file without creating object
+        public var preloadOnly: Bool = false
+
+        /// if set, reuse already preloaded file with this id. May block if async preload operation is not finished yet
+        public var preloadFileID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -82,6 +88,9 @@ extension Anytype_Rpc.File {
         public var hasDetails: Bool {return self._details != nil}
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
         public mutating func clearDetails() {self._details = nil}
+
+        /// returned when preloadOnly is true, can be passed back in subsequent requests
+        public var preloadFileID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -178,6 +187,8 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     7: .same(proto: "details"),
     8: .same(proto: "origin"),
     9: .same(proto: "imageKind"),
+    10: .same(proto: "preloadOnly"),
+    11: .same(proto: "preloadFileId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -195,6 +206,8 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 7: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.origin) }()
       case 9: try { try decoder.decodeSingularEnumField(value: &self.imageKind) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.preloadOnly) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.preloadFileID) }()
       default: break
       }
     }
@@ -232,6 +245,12 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if self.imageKind != .basic {
       try visitor.visitSingularEnumField(value: self.imageKind, fieldNumber: 9)
     }
+    if self.preloadOnly != false {
+      try visitor.visitSingularBoolField(value: self.preloadOnly, fieldNumber: 10)
+    }
+    if !self.preloadFileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.preloadFileID, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -245,6 +264,8 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs._details != rhs._details {return false}
     if lhs.origin != rhs.origin {return false}
     if lhs.imageKind != rhs.imageKind {return false}
+    if lhs.preloadOnly != rhs.preloadOnly {return false}
+    if lhs.preloadFileID != rhs.preloadFileID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -256,6 +277,7 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
     1: .same(proto: "error"),
     2: .same(proto: "objectId"),
     3: .same(proto: "details"),
+    4: .same(proto: "preloadFileId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -267,6 +289,7 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.preloadFileID) }()
       default: break
       }
     }
@@ -286,6 +309,9 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
+    if !self.preloadFileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.preloadFileID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -293,6 +319,7 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
     if lhs._error != rhs._error {return false}
     if lhs.objectID != rhs.objectID {return false}
     if lhs._details != rhs._details {return false}
+    if lhs.preloadFileID != rhs.preloadFileID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

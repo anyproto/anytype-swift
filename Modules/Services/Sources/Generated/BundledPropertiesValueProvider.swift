@@ -131,6 +131,7 @@ public protocol BundledPropertiesValueProvider {
     var spaceInvitePermissions: Int? { get }
     var identity: String { get }
     var participantStatus: Int? { get }
+    var myParticipantStatus: Int? { get }
     var identityProfileLink: ObjectId { get }
     var profileOwnerIdentity: String { get }
     var targetSpaceId: String { get }
@@ -158,6 +159,7 @@ public protocol BundledPropertiesValueProvider {
     var fileVariantOptions: [String] { get }
     var fileSourceChecksum: String { get }
     var spaceOrder: String { get }
+    var orderId: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var recommendedHiddenRelations: [ObjectId] { get }
@@ -646,6 +648,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var participantStatus: Int? {
         return value(for: BundledPropertyKey.participantStatus.rawValue)
     }
+    /// Current account status in space. Possible values: models.ParticipantStatus
+    var myParticipantStatus: Int? {
+        return value(for: BundledPropertyKey.myParticipantStatus.rawValue)
+    }
     /// Link to the profile attached to Anytype Identity
     var identityProfileLink: ObjectId {
         return value(for: BundledPropertyKey.identityProfileLink.rawValue)
@@ -744,6 +750,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Space order
     var spaceOrder: String {
         return value(for: BundledPropertyKey.spaceOrder.rawValue)
+    }
+    /// Lexicographic id for object ordering
+    var orderId: String {
+        return value(for: BundledPropertyKey.orderId.rawValue)
     }
     /// Choose icon for the type among custom Anytype icons
     var iconName: String {

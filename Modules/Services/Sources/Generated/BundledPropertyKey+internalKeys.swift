@@ -21,6 +21,7 @@ public extension BundledPropertyKey {
         .restrictions,
         .syncDate,
         .syncStatus,
+        .myParticipantStatus,
         .syncError,
     ]
 }
