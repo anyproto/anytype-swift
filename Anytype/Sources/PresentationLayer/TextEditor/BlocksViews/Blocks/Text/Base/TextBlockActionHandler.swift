@@ -2,6 +2,7 @@ import Combine
 import UIKit
 import Services
 import AnytypeCore
+import Factory
 
 struct TextBlockURLInputParameters {
     let textView: UITextView
@@ -10,7 +11,7 @@ struct TextBlockURLInputParameters {
 }
 
 @MainActor
-final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
+final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearchDelegate {
     private let document: any BaseDocumentProtocol
     var info: BlockInformation
 
@@ -40,6 +41,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     
     private let cursorManager: EditorCursorManager
     private let accessoryViewStateManager: any AccessoryViewStateManager
+    
+    @Injected(\.linkToSearchHelper)
+    private var linkToSearchHelper: any LinkToSearchHelperProtocol
     
     weak var viewModel: TextBlockViewModel?
     
@@ -445,47 +449,31 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
 extension TextBlockActionHandler: AccessoryViewOutput {
     @MainActor
     func showLinkToSearch(range: NSRange, text: NSAttributedString) {
-        let urlLink = text.linkState(range: range)
-        let objectIdLink = text.linkToObjectState(range: range)
-        let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
-    
-        let data = LinkToObjectSearchModuleData(
-            spaceId: document.spaceId,
-            currentLinkUrl: text.linkState(range: range),
-            currentLinkString: text.linkToObjectState(range: range),
-            route: .link,
-            setLinkToObject: { [weak self] linkBlockId in
-                guard let self = self else { return }
-                AnytypeAnalytics.instance().logChangeTextStyle(markupType: MarkupType.linkToObject(linkBlockId), objectType: .custom)
-                let newText = markupChanger.setMarkup(.linkToObject(linkBlockId), range: range, attributedString: text, contentType: info.content.type)
-                setNewTextSync(attributedString: newText)
-            },
-            setLinkToUrl: { [weak self] url in
-                guard let self = self else { return }
-                let newText = markupChanger.setMarkup(
-                    .link(url),
-                    range: range,
-                    attributedString: text,
-                    contentType: info.content.type
-                )
-                
-                setNewTextSync(attributedString: newText)
-            },
-            removeLink: { [weak self] in
-                guard let self = self else { return }
-                switch eitherLink {
-                case .right:
-                    let newText = markupChanger.removeMarkup(.linkToObject(nil), range: range, contentType: info.content.type, attributedString: text)
-                    setNewTextSync(attributedString: newText)
-                case .left:
-                    let newText = markupChanger.removeMarkup(.link(nil), range: range, contentType: info.content.type, attributedString: text)
-                    setNewTextSync(attributedString: newText)
-                case .none:
-                    break
-                }
-            },
-            willShowNextScreen: nil
+        linkToSearchHelper.showLinkToSearch(
+            range: range,
+            text: text,
+            delegate: self,
+            document: document,
+            markupChanger: markupChanger,
+            info: info
         )
+    }
+    
+    // MARK: - LinkToSearchDelegate
+    
+    func updateTextForLinkToObject(newText: NSAttributedString, range: NSRange, originalText: NSAttributedString) {
+        setNewTextSync(attributedString: newText)
+    }
+    
+    func updateTextForLinkToUrl(newText: NSAttributedString, range: NSRange, originalText: NSAttributedString) {
+        setNewTextSync(attributedString: newText)
+    }
+    
+    func removeLink(markup: MarkupType, newText: NSAttributedString, range: NSRange, originalText: NSAttributedString) {
+        setNewTextSync(attributedString: newText)
+    }
+    
+    func openLinkToObject(data: LinkToObjectSearchModuleData) {
         openLinkToObject(data)
     }
     
