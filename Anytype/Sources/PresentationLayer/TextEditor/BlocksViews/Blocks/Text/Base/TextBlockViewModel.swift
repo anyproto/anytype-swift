@@ -118,7 +118,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
                 bottom: anytypeText.verticalSpacing,
                 right: 0
             ),
-            alignment: info.horizontalAlignment.asNSTextAlignment,
+            alignment: blockAlignment(blockText: content, info: info).asNSTextAlignment,
             isCheckable: isCheckable,
             isToggled: info.isToggled,
             isChecked: content.checked,
@@ -134,6 +134,14 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         )
 
         return contentConfiguration
+    }
+    
+    private func blockAlignment(blockText: BlockText, info: BlockInformation) -> LayoutAlignment {
+        if blockText.contentType == .title, let details = document.details {
+            return details.objectAlignValue // we use alignment from type for title
+        } else {
+            return info.horizontalAlignment
+        }
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> any UIContentConfiguration {

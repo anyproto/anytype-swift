@@ -154,15 +154,3 @@ struct TemplatePreview_Previews: PreviewProvider {
     }
 }
 
-extension LayoutAlignment {
-    var horizontalAlignment: HorizontalAlignment {
-        switch self {
-        case .left, .justify, .UNRECOGNIZED:
-            return .leading
-        case .center:
-            return .center
-        case .right:
-            return .trailing
-        }
-    }
-}

@@ -49,6 +49,8 @@ public extension BundledPropertyKey {
             BundledPropertyKey.id
             BundledPropertyKey.layoutAlign
             BundledPropertyKey.spaceId
+            BundledPropertyKey.targetObjectType
+            BundledPropertyKey.type
         }.uniqued()
     }
     

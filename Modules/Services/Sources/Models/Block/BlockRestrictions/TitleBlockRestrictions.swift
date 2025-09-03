@@ -9,6 +9,6 @@ struct TitleBlockRestrictions: BlockRestrictions {
     let canApplyMention = true
     let canApplyEmoji = true
     let canDeleteOrDuplicate = false
-    let availableAlignments = LayoutAlignment.allCases
+    let availableAlignments: [LayoutAlignment] = []
     let turnIntoStyles: [BlockContentType] = []
 }

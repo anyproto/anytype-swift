@@ -117,6 +117,10 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.details?.filteredSetOf.isEmpty ?? true
     }
     
+    var headerAlignment: HorizontalAlignment {
+        setDocument.details?.objectAlignValue.horizontalAlignment ?? .leading
+    }
+    
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
         guard let groupOrder = setDocument.dataView.groupOrders.first(where: { [weak self] in $0.viewID == self?.activeView.id }),
             let viewGroup = groupOrder.viewGroups.first(where: { $0.groupID == groupId }),
