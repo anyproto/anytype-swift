@@ -11,15 +11,15 @@ final class ChatDeleteMessageAlertModel: ObservableObject {
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
     
-    private let message: MessageViewData
+    private let data: ChatDeleteMessageAlertData
     
-    init(message: MessageViewData) {
-        self.message = message
+    init(data: ChatDeleteMessageAlertData) {
+        self.data = data
     }
     
     func onTapDelete() async throws {
         AnytypeAnalytics.instance().logDeleteMessage()
-        try await chatService.deleteMessage(chatObjectId: message.chatId, messageId: message.message.id)
+        try await chatService.deleteMessage(chatObjectId: data.chatId, messageId: data.messageId)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
 }

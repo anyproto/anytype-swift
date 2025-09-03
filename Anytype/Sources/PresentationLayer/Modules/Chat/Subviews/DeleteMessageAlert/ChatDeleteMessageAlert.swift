@@ -2,13 +2,20 @@ import Foundation
 import SwiftUI
 import Services
 
+struct ChatDeleteMessageAlertData: Identifiable, Hashable {
+    let chatId: String
+    let messageId: String
+    
+    var id: Int { hashValue }
+}
+
 struct ChatDeleteMessageAlert: View {
     
     @StateObject private var model: ChatDeleteMessageAlertModel
     @Environment(\.dismiss) private var dismiss
     
-    init(message: MessageViewData) {
-        self._model = StateObject(wrappedValue: ChatDeleteMessageAlertModel(message: message))
+    init(data: ChatDeleteMessageAlertData) {
+        self._model = StateObject(wrappedValue: ChatDeleteMessageAlertModel(data: data))
     }
     
     var body: some View {

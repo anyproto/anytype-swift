@@ -64,37 +64,57 @@ final class MessageUIView: UIView, UIContentView {
     private func setupOutput() {
         reactionsView.onTapReaction = { [weak self] emoji in
             guard let self else { return }
-            messageConfiguration.output?.didTapOnReaction(data: messageConfiguration.data, emoji: emoji)
+            messageConfiguration.output?.didTapOnReaction(message: messageConfiguration.data, emoji: emoji)
         }
         
         reactionsView.onLongTapReaction = { [weak self] reaction in
             guard let self else { return }
-            messageConfiguration.output?.didLongTapOnReaction(data: messageConfiguration.data, reaction: reaction)
+            messageConfiguration.output?.didLongTapOnReaction(message: messageConfiguration.data, reaction: reaction)
         }
         
         reactionsView.onTapAddReaction = { [weak self] _ in
             guard let self else { return }
-            messageConfiguration.output?.didSelectAddReaction(data: messageConfiguration.data)
+            messageConfiguration.output?.didSelectAddReaction(message: messageConfiguration.data)
         }
         
         bubbleView.onTapAddReaction = { [weak self] _ in
             guard let self else { return }
-            messageConfiguration.output?.didSelectAddReaction(data: messageConfiguration.data)
+            messageConfiguration.output?.didSelectAddReaction(message: messageConfiguration.data)
         }
         
         bubbleView.onTapReplyTo = { [weak self] _ in
             guard let self else { return }
-            messageConfiguration.output?.didSelectReplyTo(data: messageConfiguration.data)
+            messageConfiguration.output?.didSelectReplyTo(message: messageConfiguration.data)
+        }
+        
+        bubbleView.onTapDelete = { [weak self] _ in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectDelete(message: messageConfiguration.data)
+        }
+        
+        bubbleView.onTapCopyPlainText = { [weak self] _ in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectCopyPlainText(message: messageConfiguration.data)
+        }
+        
+        bubbleView.onTapEditMessage = { [weak self] _ in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectEdit(message: messageConfiguration.data)
+        }
+        
+        bubbleView.onTapUnread = { [weak self] _ in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectUnread(message: messageConfiguration.data)
         }
         
         bubbleView.onTapAttachment = { [weak self] _, objectId in
             guard let self else { return }
-            messageConfiguration.output?.didSelectAttachment(data: messageConfiguration.data, objectId: objectId)
+            messageConfiguration.output?.didSelectAttachment(message: messageConfiguration.data, objectId: objectId)
         }
         
         replyView.onTap = { [weak self] _ in
             guard let self else { return }
-            messageConfiguration.output?.didSelectReplyMessage(data: messageConfiguration.data)
+            messageConfiguration.output?.didSelectReply(message: messageConfiguration.data)
         }
     }
 }

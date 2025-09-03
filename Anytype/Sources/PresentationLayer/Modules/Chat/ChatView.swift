@@ -47,7 +47,7 @@ struct ChatView: View {
             await model.updatePickerItems()
         }
         .anytypeSheet(item: $model.deleteMessageConfirmation) {
-            ChatDeleteMessageAlert(message: $0)
+            ChatDeleteMessageAlert(data: $0)
         }
         .anytypeSheet(isPresented: $model.showSendLimitAlert) {
             ChatSendLimitAlert()

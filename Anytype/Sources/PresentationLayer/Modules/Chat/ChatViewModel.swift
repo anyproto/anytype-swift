@@ -112,7 +112,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
 
     // Alerts
     
-    @Published var deleteMessageConfirmation: MessageViewData?
+    @Published var deleteMessageConfirmation: ChatDeleteMessageAlertData?
     @Published var showSendLimitAlert = false
     @Published var toastBarData: ToastBarData?
     
@@ -525,21 +525,21 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     // MARK: - MessageModuleOutput
     
-    func didSelectAddReaction(data: MessageUIViewData) {
+    func didSelectAddReaction(message: MessageUIViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuReaction()
-        output?.didSelectAddReaction(messageId: data.id)
+        output?.didSelectAddReaction(messageId: message.id)
     }
     
-    func didTapOnReaction(data: MessageUIViewData, emoji: String) {
+    func didTapOnReaction(message: MessageUIViewData, emoji: String) {
         Task {
-            let added = try await chatService.toggleMessageReaction(chatObjectId: chatId, messageId: data.id, emoji: emoji)
+            let added = try await chatService.toggleMessageReaction(chatObjectId: chatId, messageId: message.id, emoji: emoji)
             AnytypeAnalytics.instance().logToggleReaction(added: added)
         }
     }
     
-    func didLongTapOnReaction(data: MessageUIViewData, reaction: MessageReactionData) {
+    func didLongTapOnReaction(message: MessageUIViewData, reaction: MessageReactionData) {
         Task {
-            let message = try await chatStorage.message(id: data.id)
+            let message = try await chatStorage.message(id: message.id)
             let participantsIds = message.reactions.reactions[reaction.emoji]?.ids ?? []
             output?.didLongTapOnReaction(
                 data: MessageParticipantsReactionData(
@@ -551,33 +551,33 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
-    func didSelectAttachment(data: MessageUIViewData, objectId: String) {
+    func didSelectAttachment(message: MessageUIViewData, objectId: String) {
         Task {
-            let attachments = try await chatStorage.attachments(messageId: data.id)
+            let attachments = try await chatStorage.attachments(messageId: message.id)
             guard let details = attachments.first(where: { $0.id == objectId }) else { return }
             didSelectAttachment(attachment: details, attachments: attachments)
         }
     }
     
-    func didSelectReplyTo(data: MessageUIViewData) {
+    func didSelectReplyTo(message: MessageUIViewData) {
         Task {
-            let attachments = await chatStorage.attachments(messageId: data.id)
+            let attachments = await chatStorage.attachments(messageId: message.id)
             AnytypeAnalytics.instance().logClickMessageMenuReply()
             withAnimation {
                 inputFocused = true
                 replyToMessage = ChatInputReplyModel(
-                    id: data.id,
-                    title: Loc.Chat.replyTo(data.authorName),
+                    id: message.id,
+                    title: Loc.Chat.replyTo(message.authorName),
                     // Without style. Request from designers.
-                    description: data.bubble.messageText.string,
+                    description: message.bubble.messageText.string,
                     icon: attachments.first?.objectIconImage
                 )
             }
         }
     }
     
-    func didSelectReplyMessage(data: MessageUIViewData) {
-        guard let reply = data.reply else { return }
+    func didSelectReply(message: MessageUIViewData) {
+        guard let reply = message.reply else { return }
         AnytypeAnalytics.instance().logClickScrollToReply()
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.replyMessageId)
@@ -586,33 +586,38 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
-    func didSelectDeleteMessage(message: MessageViewData) {
+    func didSelectDelete(message: MessageUIViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuDelete()
-        deleteMessageConfirmation = message
+        deleteMessageConfirmation = ChatDeleteMessageAlertData(chatId: chatId, messageId: message.id)
     }
     
-    func didSelectEditMessage(message messageToEdit: MessageViewData) async {
-        AnytypeAnalytics.instance().logClickMessageMenuEdit()
-        clearInput()
-        editMessage = messageToEdit.message
-        message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
-        let attachments = await chatStorage.attachments(messageId: messageToEdit.message.id)
-        let messageAttachments = attachments.map { MessageAttachmentDetails(messageId: "message.id", details: $0, style: .chatInput) }.sorted { $0.id > $1.id }
-        linkedObjects = messageAttachments.map { .uploadedObject($0) }
+    func didSelectEdit(message messageToEdit: MessageUIViewData) {
+        Task {
+            let messageData = try await chatStorage.message(id: messageToEdit.id)
+            AnytypeAnalytics.instance().logClickMessageMenuEdit()
+            clearInput()
+            editMessage = messageData
+            message = await chatInputConverter.convert(content: messageData.message, spaceId: spaceId).value
+            let attachments = await chatStorage.attachments(messageId: messageData.id)
+            let messageAttachments = attachments.map { MessageAttachmentDetails(messageId: "message.id", details: $0, style: .chatInput) }.sorted { $0.id > $1.id }
+            linkedObjects = messageAttachments.map { .uploadedObject($0) }
+        }
     }
     
     func didSelectAuthor(authorId: String) {
         output?.onObjectSelected(screenData: .alert(.spaceMember(ObjectInfo(objectId: authorId, spaceId: spaceId))))
     }
     
-    func didSelectUnread(message: MessageViewData) async throws {
-        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .messages)
-        try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.message.orderID, type: .mentions)
+    func didSelectUnread(message: MessageUIViewData) {
+        Task {
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.orderId, type: .messages)
+            try await chatService.unreadMessage(chatObjectId: chatId, afterOrderId: message.orderId, type: .mentions)
+        }
     }
 
-    func didSelectCopyPlainText(message: MessageViewData) {
+    func didSelectCopyPlainText(message: MessageUIViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuCopy()
-        UIPasteboard.general.string = NSAttributedString(message.messageString).string
+        UIPasteboard.general.string = message.bubble.messageText.string
     }
     
     // MARK: - ChatActionProviderHandler

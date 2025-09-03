@@ -30,6 +30,10 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
     
     var onTapAddReaction: ((_ data: MessageBubbleViewData) -> Void)?
     var onTapReplyTo: ((_ data: MessageBubbleViewData) -> Void)?
+    var onTapDelete: ((_ data: MessageBubbleViewData) -> Void)?
+    var onTapCopyPlainText: ((_ data: MessageBubbleViewData) -> Void)?
+    var onTapEditMessage: ((_ data: MessageBubbleViewData) -> Void)?
+    var onTapUnread: ((_ data: MessageBubbleViewData) -> Void)?
     var onTapAttachment: ((_ data: MessageBubbleViewData, _ objectId: String) -> Void)?
     
     // MARK: - Pulic
@@ -80,9 +84,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
             #if DEBUG || RELEASE_NIGHTLY
             UIAction(
                 title: Loc.Message.Action.unread,
-            ) { _ in
-                // TODO: Add action
-//                try await output?.didSelectUnread(message: data)
+            ) { [weak self] _ in
+                self?.onTapUnread?(data)
             }
             #endif
             
@@ -99,9 +102,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
                 UIAction(
                     title: Loc.Message.Action.copyPlainText,
                     image: UIImage(systemName: "doc.on.doc")
-                ) { _ in
-                    // TODO: Add action
-//                    output?.didSelectCopyPlainText(message: data)
+                ) { [weak self] _ in
+                    self?.onTapCopyPlainText?(data)
                 }
             }
             
@@ -109,9 +111,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
                 UIAction(
                     title: Loc.edit,
                     image: UIImage(systemName: "pencil")
-                ) { _ in
-                    // TODO: Add action
-//                    await output?.didSelectEditMessage(message: data)
+                ) { [weak self] _ in
+                    self?.onTapEditMessage?(data)
                 }
             }
             
@@ -120,9 +121,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
                     title: Loc.delete,
                     image: UIImage(systemName: "trash"),
                     attributes: .destructive
-                ) { _ in
-                    // TODO: Add action
-//                     output?.didSelectDeleteMessage(message: data)
+                ) { [weak self] _ in
+                    self?.onTapDelete?(data)
                 }
             }
         }
