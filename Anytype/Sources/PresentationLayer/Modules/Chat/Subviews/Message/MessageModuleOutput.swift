@@ -8,8 +8,8 @@ protocol MessageModuleOutput: AnyObject {
     func didLongTapOnReaction(data: MessageUIViewData, reaction: MessageReactionData)
     func didSelectAttachment(data: MessageViewData, details: MessageAttachmentDetails)
     func didSelectAttachment(data: MessageViewData, details: ObjectDetails)
-    func didSelectReplyTo(message: MessageViewData)
-    func didSelectReplyMessage(message: MessageViewData)
+    func didSelectReplyTo(data: MessageUIViewData)
+    func didSelectReplyMessage(data: MessageUIViewData)
     func didSelectDeleteMessage(message: MessageViewData)
     func didSelectCopyPlainText(message: MessageViewData)
     func didSelectEditMessage(message: MessageViewData) async

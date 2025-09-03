@@ -111,6 +111,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let messageModel = MessageUIViewData(
                 id: fullMessage.message.id,
                 orderId: fullMessage.message.orderID,
+                authorName: authorParticipant?.title ?? "",
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 bubble: MessageBubbleViewData(
@@ -242,7 +243,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             }
             
             return MessageReplyViewData(
-                messageId: fullMessage.message.id,
+                replyMessageId: replyChat.id,
                 author: replyAuthor?.title ?? "",
                 description: description,
                 attachmentIcon: replyAttachment?.objectIconImage,

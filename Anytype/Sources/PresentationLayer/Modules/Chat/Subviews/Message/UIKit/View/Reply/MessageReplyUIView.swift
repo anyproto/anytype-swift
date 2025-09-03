@@ -30,11 +30,13 @@ final class MessageReplyUIView: UIView {
     
     private let backgroundContainer = UIView()
     
+    var onTap: ((_ data: MessageReplyViewData) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addTapGesture { [weak self] _ in
             guard let self, let data else { return }
-//            output?.didSelectReplyMessage(messageId: data.messageId)
+            onTap?(data)
         }
     }
     
@@ -59,8 +61,6 @@ final class MessageReplyUIView: UIView {
             }
         }
     }
-    
-    weak var output: (any MessageModuleOutput)?
     
     // MARK: - Pulic
     

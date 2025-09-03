@@ -35,7 +35,7 @@ struct MessageView: View {
                 alignedСontent
             },
             action: {
-                output?.didSelectReplyTo(message: data)
+//                output?.didSelectReplyTo(data: data)
             }
         )
         .id(data.id)

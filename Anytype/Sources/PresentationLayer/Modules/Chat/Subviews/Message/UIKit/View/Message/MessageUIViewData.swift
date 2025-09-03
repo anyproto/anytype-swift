@@ -5,6 +5,7 @@ import StoredHashMacro
 struct MessageUIViewData: Equatable, Hashable {
     let id: String
     let orderId: String
+    let authorName: String
     let authorIcon: Icon
     let authorIconMode: MessageAuthorIconMode
     let bubble: MessageBubbleViewData

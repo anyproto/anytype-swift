@@ -560,27 +560,31 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         didSelectAttachment(attachment: details, attachments: [])
     }
     
-    func didSelectReplyTo(message: MessageViewData) {
-        AnytypeAnalytics.instance().logClickMessageMenuReply()
-        withAnimation {
-            inputFocused = true
-            replyToMessage = ChatInputReplyModel(
-                id: message.message.id,
-                title: Loc.Chat.replyTo(message.authorName),
-                // Without style. Request from designers.
-                description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message.message),
-                icon: message.attachmentsDetails.first?.objectIconImage
-            )
+    func didSelectReplyTo(data: MessageUIViewData) {
+        Task {
+            let message = try await chatStorage.message(id: data.id)
+            let attachments = await chatStorage.attachments(message: message)
+            AnytypeAnalytics.instance().logClickMessageMenuReply()
+            withAnimation {
+                inputFocused = true
+                replyToMessage = ChatInputReplyModel(
+                    id: message.id,
+                    title: Loc.Chat.replyTo(data.authorName),
+                    // Without style. Request from designers.
+                    description: messageTextBuilder.makeMessaeWithoutStyle(content: message.message),
+                    icon: attachments.first?.objectIconImage
+                )
+            }
         }
     }
     
-    func didSelectReplyMessage(message: MessageViewData) {
-        guard let reply = message.reply else { return }
+    func didSelectReplyMessage(data: MessageUIViewData) {
+        guard let reply = data.reply else { return }
         AnytypeAnalytics.instance().logClickScrollToReply()
         Task {
-            try await chatStorage.loadPagesTo(messageId: reply.id)
-            collectionViewScrollProxy.scrollTo(itemId: reply.id)
-            messageHiglightId = reply.id
+            try await chatStorage.loadPagesTo(messageId: reply.replyMessageId)
+            collectionViewScrollProxy.scrollTo(itemId: reply.replyMessageId)
+            messageHiglightId = reply.replyMessageId
         }
     }
     

@@ -36,7 +36,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         }
     }
     
-    var onTapAddReaction: ((_ reactions: MessageBubbleViewData) -> Void)?
+    var onTapAddReaction: ((_ data: MessageBubbleViewData) -> Void)?
+    var onTapReplyTo: ((_ data: MessageBubbleViewData) -> Void)?
     
     // MARK: - Pulic
     
@@ -95,9 +96,8 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
                 UIAction(
                     title: Loc.Message.Action.reply,
                     image: UIImage(systemName: "arrowshape.turn.up.left")
-                ) { _ in
-                    // TODO: Add action
-                    //                output?.didSelectReplyTo(message: data)
+                ) { [weak self] _ in
+                    self?.onTapReplyTo?(data)
                 }
             }
             

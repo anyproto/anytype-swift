@@ -1,7 +1,7 @@
 import UIKit
 
 struct MessageReplyViewData: Equatable, Hashable {
-    let messageId: String
+    let replyMessageId: String
     let author: NSAttributedString
     let description: NSAttributedString
     let attachmentIcon: Icon?
@@ -9,14 +9,14 @@ struct MessageReplyViewData: Equatable, Hashable {
     let messageYourBackgroundColor: UIColor
     
     init(
-        messageId: String,
+        replyMessageId: String,
         author: String,
         description: String,
         attachmentIcon: Icon?,
         isYour: Bool,
         messageYourBackgroundColor: UIColor
     ) {
-        self.messageId = messageId
+        self.replyMessageId = replyMessageId
         self.author = NSAttributedString(
             string: author.isNotEmpty ? author : " ", // Safe height if participant is not loaded
             attributes: [.font: UIFont.caption1Medium]

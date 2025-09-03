@@ -81,5 +81,15 @@ final class MessageUIView: UIView, UIContentView {
             guard let self else { return }
             messageConfiguration.output?.didSelectAddReaction(data: messageConfiguration.data)
         }
+        
+        bubbleView.onTapReplyTo = { [weak self] _ in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectReplyTo(data: messageConfiguration.data)
+        }
+        
+        replyView.onTap = { [weak self] _ in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectReplyMessage(data: messageConfiguration.data)
+        }
     }
 }
