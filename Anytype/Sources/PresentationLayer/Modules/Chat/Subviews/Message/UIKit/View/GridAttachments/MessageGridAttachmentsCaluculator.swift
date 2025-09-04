@@ -14,7 +14,7 @@ struct MessageGridAttachmentsCaluculator {
         let width = targetSize.width
         
         var height: CGFloat = 0
-        let rowsCountByLine = MessageAttachmentsGridLayoutBuilder.makeGridRows(countItems: attachments.count)
+        let rowsCountByLine = makeGridRows(countItems: attachments.count)
         
         for (index, rowItems) in rowsCountByLine.enumerated() {
             let rowHeight = (width - (rowItems - 1) * Constants.spacing) / CGFloat(rowItems)
@@ -45,5 +45,30 @@ struct MessageGridAttachmentsCaluculator {
             size: calculatedSize,
             objectFrames: frames
         )
+    }
+    
+    private static func makeGridRows(countItems: Int) -> [Int] {
+        
+        var items = countItems
+        var result = [Int]()
+        
+        while items > 0 {
+            let newItems2 = items - 2
+            let newItems3 = items - 3
+            
+            if newItems3 >= 2 || newItems3 == 0 {
+                result.append(3)
+                items = newItems3
+            } else if newItems2 > 1 || newItems2 == 0 {
+                result.append(2)
+                items = newItems2
+            } else { // items == 1
+                result.append(1)
+                items = 0
+            }
+            
+        }
+        
+        return result.reversed()
     }
 }

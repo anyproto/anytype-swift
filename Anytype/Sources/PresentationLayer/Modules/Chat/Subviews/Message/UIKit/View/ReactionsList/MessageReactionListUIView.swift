@@ -8,14 +8,24 @@ final class MessageReactionListUIView: UIView {
     private var cache = [MessageReactionUIView]()
     private var views = [MessageReactionUIView]()
     
-    private lazy var addReactionView = UIView()
+    private lazy var addReactionView = {
+        let view = UIImageView()
+        view.image = UIImage(asset: .X24.reaction)
+        view.tintColor = .Control.primary
+        view.backgroundColor = .Shape.transperentSecondary
+        view.addTapGesture { [weak self] _ in
+            guard let self, let data = self.data else { return }
+            onTapAddReaction?(data)
+        }
+        return view
+    }()
     
     // MARK: - Public properties
     
     var data: MessageReactionListData? {
         didSet {
             if data != oldValue {
-                updateView()
+                updateData()
             }
         }
     }
@@ -23,7 +33,7 @@ final class MessageReactionListUIView: UIView {
     var layout: MessageReactionListLayout? {
         didSet {
             if layout != oldValue {
-                updateLayoutForReactions()
+                updateLayout()
                 setNeedsLayout()
             }
         }
@@ -39,22 +49,9 @@ final class MessageReactionListUIView: UIView {
         return layout?.size ?? .zero
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        guard let layout else { return }
-        
-        for (index, frame) in layout.reactionFrames.enumerated() {
-            let subview = views[safe: index]
-            subview?.frame = frame
-        }
-        
-        addReactionView.frame = layout.addReactionFrame ?? .zero
-    }
-    
     // MARK: - Private
     
-    private func updateView() {
+    private func updateData() {
         guard let data else {
             views.forEach { $0.removeFromSuperview() }
             views.removeAll()
@@ -88,26 +85,28 @@ final class MessageReactionListUIView: UIView {
         
         cachedForLayout.forEach { $0.removeFromSuperview() }
         
-        if data.canAddReaction {
-            addReactionView.backgroundColor = .red
-            addReactionView.addTapGesture { [weak self] _ in
-                guard let self, let data = self.data else { return }
-                onTapAddReaction?(data)
-            }
-            addSubview(addReactionView)
-        } else {
-            addReactionView.removeFromSuperview()
-        }
-        
-        updateLayoutForReactions()
+        updateLayout()
     }
     
-    private func updateLayoutForReactions() {
+    private func updateLayout() {
         guard let layout, layout.reactionLayouts.count == views.count else { return }
         
         for (index, layout) in layout.reactionLayouts.enumerated() {
             let subview = views[safe: index]
             subview?.layout = layout
+        }
+        
+        for (index, frame) in layout.reactionFrames.enumerated() {
+            let subview = views[safe: index]
+            subview?.frame = frame
+        }
+        
+        if let addReactionFrame = layout.addReactionFrame {
+            addSubview(addReactionView)
+            addReactionView.frame = addReactionFrame
+            addReactionView.layer.cornerRadius = addReactionFrame.width * 0.5
+        } else {
+            addReactionView.removeFromSuperview()
         }
     }
 }

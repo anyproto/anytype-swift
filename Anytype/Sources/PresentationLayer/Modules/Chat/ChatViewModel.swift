@@ -457,10 +457,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         }
     }
     
-    func deleteMessage(message: MessageViewData) async throws {
-        try await chatService.deleteMessage(chatObjectId: chatId, messageId: message.message.id)
-    }
-    
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
         guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
@@ -553,7 +549,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func didSelectAttachment(message: MessageUIViewData, objectId: String) {
         Task {
-            let attachments = try await chatStorage.attachments(messageId: message.id)
+            let attachments = await chatStorage.attachments(messageId: message.id)
             guard let details = attachments.first(where: { $0.id == objectId }) else { return }
             didSelectAttachment(attachment: details, attachments: attachments)
         }
