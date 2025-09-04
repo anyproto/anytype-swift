@@ -18,6 +18,9 @@ struct ChatCollectionView<
     let bottomPanel: BottomPanel
     let emptyView: EmptyView
     let showEmptyState: Bool
+    @Binding
+    var interactionProvider: (any ChatCollectionInteractionProviderProtocol)?
+    // Dynamic update doesn't support
     let output: (any MessageModuleOutput)?
     let unreadBuilder: (String) -> ItemView
     let headerBuilder: (Section.Header) -> HeaderView
@@ -83,7 +86,6 @@ struct ChatCollectionView<
         container.emptyView.rootView = emptyView
         container.emptyView.view.isHidden = !showEmptyState
         container.actionView.rootView = actionView
-        context.coordinator.output = output
         context.coordinator.unreadBuilder = unreadBuilder
         context.coordinator.headerBuilder = headerBuilder
         context.coordinator.scrollToTop = scrollToTop
@@ -95,6 +97,10 @@ struct ChatCollectionView<
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<ItemView, HeaderView> {
-        ChatCollectionViewCoordinator<ItemView, HeaderView>()
+        let coordinator = ChatCollectionViewCoordinator<ItemView, HeaderView>(output: output)
+        DispatchQueue.main.async {
+            interactionProvider = coordinator.interactionProvider
+        }
+        return coordinator
     }
 }

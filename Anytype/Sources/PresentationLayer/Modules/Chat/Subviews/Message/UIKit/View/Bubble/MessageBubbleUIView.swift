@@ -63,6 +63,17 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         return layout?.bubbleSize ?? .zero
     }
     
+    func flashBackground() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.backgroundColor = .Background.Chat.bubbleFlash
+        } completion: { [weak self] _ in
+            UIView.animate(withDuration: 0.3, delay: 0.2) {
+                guard let self else { return }
+                self.backgroundColor = self.makeBackground()
+            }
+        }
+    }
+    
     // MARK: - UIContextMenuInteractionDelegate
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
@@ -153,7 +164,7 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
         
         layer.cornerRadius = 16
         layer.masksToBounds = true
-        backgroundColor = data.position.isRight ? data.messageYourBackgroundColor : .Background.Chat.bubbleSomeones
+        backgroundColor = makeBackground()
     }
     
     private func updateLayout() {
@@ -184,5 +195,10 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
             guard let self, let data else { return }
             onTapAttachment?(data, objectId)
         }
+    }
+    
+    private func makeBackground() -> UIColor {
+        guard let data else { return .Background.Chat.bubbleSomeones }
+        return data.position.isRight ? data.messageYourBackgroundColor : .Background.Chat.bubbleSomeones
     }
 }

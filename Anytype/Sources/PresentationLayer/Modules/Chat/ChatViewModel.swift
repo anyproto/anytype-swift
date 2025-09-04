@@ -92,7 +92,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mesageBlocks: [MessageSectionData] = []
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
-    @Published var messageHiglightId: String = ""
+    @Published var interactionProvider: (any ChatCollectionInteractionProviderProtocol)?
     
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
@@ -511,7 +511,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
-            messageHiglightId = message.id
+            interactionProvider?.flashMessage(messageId: message.id)
         }
     }
     
@@ -578,7 +578,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.replyMessageId)
             collectionViewScrollProxy.scrollTo(itemId: reply.replyMessageId)
-            messageHiglightId = reply.replyMessageId
+            interactionProvider?.flashMessage(messageId: reply.replyMessageId)
         }
     }
     

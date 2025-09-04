@@ -25,6 +25,7 @@ final class ChatCollectionViewCoordinator<
     private var oldIsBigDistance = false
     private var dismissWorkItems: [DispatchWorkItem] = []
     private var dataSource: UICollectionViewDiffableDataSource<Section.ID, Item>?
+    private weak var collectionView: UICollectionView?
     private var layoutWorkItem: DispatchWorkItem?
     // From iOS 17.4 replace to collectionView.isScrollAnimating
     private var isProgrammaticAnimatedScroll = false
@@ -38,7 +39,23 @@ final class ChatCollectionViewCoordinator<
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
     var handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?
     var onTapCollectionBackground: (() -> Void)?
-    weak var output: (any MessageModuleOutput)?
+    
+    private weak var output: (any MessageModuleOutput)?
+    
+    lazy var interactionProvider = {
+        ChatCollectionInteractionProvider(
+            flashMessageProvider: { [weak self] messageId in
+                self?.flashMessage(messageId: messageId)
+            },
+            scrollToProvider: { [weak self] messageId in
+                // Implement
+            }
+        )
+    }()
+    
+    init(output: (any MessageModuleOutput)?) {
+        self.output = output
+    }
     
     func setupDataSource(collectionView: UICollectionView) {
         let sectionRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewCell>(elementKind: UICollectionView.elementKindSectionHeader)
@@ -78,6 +95,7 @@ final class ChatCollectionViewCoordinator<
             return cell
         }
         
+        self.collectionView = collectionView
         self.dataSource = dataSource
     }
     
@@ -404,5 +422,19 @@ final class ChatCollectionViewCoordinator<
                 updateStateAfterTransaction(collectionView: collectionView)
             }
         }
+    }
+    
+    private func flashMessage(messageId: String) {
+        guard let dataSource else { return }
+        let snapshot = dataSource.snapshot()
+
+        guard let item = snapshot.itemIdentifiers.first(where: { $0.id == messageId }),
+           let indexPath = dataSource.indexPath(for: item),
+           let cell = collectionView?.cellForItem(at: indexPath),
+            let contentView = cell.contentView as? MessageUIView else {
+            return
+        }
+        
+        contentView.flashBackground()
     }
 }

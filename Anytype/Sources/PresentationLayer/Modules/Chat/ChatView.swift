@@ -175,6 +175,7 @@ struct ChatView: View {
             bottomPanel: bottomPanel,
             emptyView: emptyView,
             showEmptyState: model.showEmptyState,
+            interactionProvider: $model.interactionProvider,
             output: model
         ) { _ in
             ChatMessageUnreadView()

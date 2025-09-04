@@ -47,6 +47,10 @@ final class MessageUIView: UIView, UIContentView {
         containerView.frame = bounds
     }
     
+    func flashBackground() {
+        bubbleView.flashBackground()
+    }
+    
     // MARK: - Private
     
     private func updateData() {
