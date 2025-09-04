@@ -20,7 +20,7 @@ public struct StoredHashMacro: MemberMacro {
         }
         
         let members = structDecl.memberBlock.members
-        let varDeclarations = members.compactMap { $0.decl.as(VariableDeclSyntax.self) }
+        let varDeclarations = members.compactMap { $0.decl.as(VariableDeclSyntax.self) }.filter { !$0.isStatic && !($0.isLet && $0.hasInitializer) }
         
         // Create private property for storing hash
         let hashProperty = "private var _lastHash: Int = 0"

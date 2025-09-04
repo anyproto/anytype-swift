@@ -22,6 +22,8 @@ final class StoredHashTests: XCTestCase {
                     didSet { updateHash() }
                 }
                 let constantValue: Int
+                let constantValueV2 = 2
+                static let staticConstantValue = 2
             }
             """,
             expandedSource: """
@@ -31,7 +33,9 @@ final class StoredHashTests: XCTestCase {
                     didSet { updateHash() }
                 }
                 let constantValue: Int
-
+                let constantValueV2 = 2
+                static let staticConstantValue = 2
+            
                 private var _lastHash: Int = 0
 
                 private func computeHash() -> Int {
