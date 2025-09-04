@@ -1155,7 +1155,7 @@ public enum Loc {
     }
   }
   public enum FileStorage {
-    public static let cleanUpFiles = Loc.tr("Localizable", "FileStorage.CleanUpFiles", fallback: "Clean up files files")
+    public static let cleanUpFiles = Loc.tr("Localizable", "FileStorage.CleanUpFiles", fallback: "Clean up files")
     public static let limitError = Loc.tr("Localizable", "FileStorage.LimitError", fallback: "You exceeded file limit upload")
     public static let offloadTitle = Loc.tr("Localizable", "FileStorage.OffloadTitle", fallback: "Offload files")
     public static let title = Loc.tr("Localizable", "FileStorage.Title", fallback: "File storage")
@@ -1182,6 +1182,7 @@ public enum Loc {
       public static func instruction(_ p1: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Instruction", String(describing: p1), fallback: "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.")
       }
+      public static let localOnlyInstruction = Loc.tr("Localizable", "FileStorage.Space.LocalOnlyInstruction", fallback: "Remote storage is not available in local-only mode. Your files are stored locally on your device.")
       public static let title = Loc.tr("Localizable", "FileStorage.Space.Title", fallback: "Remote storage")
       public static func used(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Used", String(describing: p1), String(describing: p2), fallback: "%@ of %@ used")
