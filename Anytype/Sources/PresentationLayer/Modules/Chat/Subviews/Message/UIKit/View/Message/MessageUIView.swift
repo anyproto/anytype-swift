@@ -8,6 +8,8 @@ final class MessageUIView: UIView, UIContentView {
     private lazy var reactionsView = MessageReactionListUIView()
     private lazy var replyView = MessageReplyUIView()
     
+    private let containerView = MessageSwipeView()
+    
     private var messageConfiguration: MessageConfiguration {
         didSet {
             if messageConfiguration.data != oldValue.data {
@@ -30,6 +32,7 @@ final class MessageUIView: UIView, UIContentView {
         self.configuration = configuration
         self.messageConfiguration = configuration
         super.init(frame:.zero)
+        addSubview(containerView)
         setupOutput()
         updateData()
         updateLayout()
@@ -37,6 +40,11 @@ final class MessageUIView: UIView, UIContentView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        containerView.frame = bounds
     }
     
     // MARK: - Private
@@ -55,13 +63,19 @@ final class MessageUIView: UIView, UIContentView {
         reactionsView.layout = layout.reactionsLayout
         replyView.layout = layout.replyLayout
         
-        iconView.addTo(parent: self, frame: layout.iconFrame)
-        bubbleView.addTo(parent: self, frame: layout.bubbleFrame)
-        reactionsView.addTo(parent: self, frame: layout.reactionsFrame)
-        replyView.addTo(parent: self, frame: layout.replyFrame)
+        iconView.addTo(parent: containerView.contentView, frame: layout.iconFrame)
+        bubbleView.addTo(parent: containerView.contentView, frame: layout.bubbleFrame)
+        reactionsView.addTo(parent: containerView.contentView, frame: layout.reactionsFrame)
+        replyView.addTo(parent: containerView.contentView, frame: layout.replyFrame)
     }
     
     private func setupOutput() {
+        
+        containerView.onReply = { [weak self] in
+            guard let self else { return }
+            messageConfiguration.output?.didSelectReplyTo(message: messageConfiguration.data)
+        }
+        
         reactionsView.onTapReaction = { [weak self] emoji in
             guard let self else { return }
             messageConfiguration.output?.didTapOnReaction(message: messageConfiguration.data, emoji: emoji)
