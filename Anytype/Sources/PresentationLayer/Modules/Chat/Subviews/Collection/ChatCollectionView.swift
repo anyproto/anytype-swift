@@ -34,27 +34,7 @@ struct ChatCollectionView<
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         layout.sectionInset = .zero
-//        layout.delegate = context.coordinator
-//        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-//            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-//            configuration.showsSeparators = false
-//            
-//            let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
-//            section.interGroupSpacing = 0
-//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-//            section.decorationItems = [] // Delete section background
-//            
-//            let header = NSCollectionLayoutBoundarySupplementaryItem(
-//                layoutSize: .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50)),
-//                elementKind: UICollectionView.elementKindSectionHeader,
-//                alignment: .top
-//            )
-//            header.pinToVisibleBounds = true
-//            
-//            section.boundarySupplementaryItems = [header]
-//            
-//            return section
-//        }
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.allowsSelection = false

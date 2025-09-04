@@ -115,7 +115,6 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 bubble: MessageBubbleViewData(
-                    messageId: fullMessage.message.id,
                     messageText: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
                     linkedObjects: mapAttachments(fullMessage: fullMessage, position: position),
                     position: position,
@@ -265,7 +264,6 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let attachment = fullMessage.attachments.first,
             attachment.resolvedLayoutValue.isBookmark {
             let bookmark = MessageBigBookmarkViewData(
-                messageId: fullMessage.message.id,
                 details: attachment,
                 position: position
             )
@@ -274,12 +272,12 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         
         let style: MessageAttachmentStyle = position.isRight ? .messageYour : .messageOther
         
-        var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(messageId: fullMessage.message.id, details: $0, style: style) }
+        var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0, style: style) }
         
         // Add empty objects
         for attachment in fullMessage.message.attachments {
             if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
-                attachmentsDetails.append(MessageAttachmentDetails.placeholder(messageId: fullMessage.message.id, tagetId: attachment.target, style: style))
+                attachmentsDetails.append(MessageAttachmentDetails.placeholder(tagetId: attachment.target, style: style))
             }
         }
         
@@ -288,7 +286,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.resolvedLayoutValue != .image && $0.resolvedLayoutValue != .video }
         
         if containsNotOnlyMediaFiles {
-            return .list(MessageListAttachmentsViewData(messageId: fullMessage.message.id, objects: linkedObjectsDetails, position: position))
+            return .list(MessageListAttachmentsViewData(objects: linkedObjectsDetails, position: position))
         } else {
             return .grid(linkedObjectsDetails)
         }

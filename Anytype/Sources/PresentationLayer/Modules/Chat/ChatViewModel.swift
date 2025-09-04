@@ -140,7 +140,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             onSelect: { [weak self] details in
                 guard let self else { return }
                 if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {
-                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(messageId: "", details: details, style: .chatInput)))
+                    linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: details, style: .chatInput)))
                     AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 } else {
                     showFileLimitAlert()
@@ -595,7 +595,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             editMessage = messageData
             message = await chatInputConverter.convert(content: messageData.message, spaceId: spaceId).value
             let attachments = await chatStorage.attachments(messageId: messageData.id)
-            let messageAttachments = attachments.map { MessageAttachmentDetails(messageId: "message.id", details: $0, style: .chatInput) }.sorted { $0.id > $1.id }
+            let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0, style: .chatInput) }.sorted { $0.id > $1.id }
             linkedObjects = messageAttachments.map { .uploadedObject($0) }
         }
     }
@@ -626,7 +626,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 clearInput()
             }
             if chatMessageLimits.oneAttachmentCanBeAdded(current: linkedObjects.count) {   
-                linkedObjects.append(.uploadedObject(MessageAttachmentDetails(messageId: "", details: first, style: .chatInput)))
+                linkedObjects.append(.uploadedObject(MessageAttachmentDetails(details: first, style: .chatInput)))
                 AnytypeAnalytics.instance().logAttachItemChat(type: .object)
                 // Waiting pop transaction and open keyboard.
                 try await Task.sleep(seconds: 1.0)
