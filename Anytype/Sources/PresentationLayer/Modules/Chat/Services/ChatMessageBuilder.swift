@@ -6,6 +6,7 @@ protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
         messages: [FullChatMessage],
         participants: [Participant],
         firstUnreadMessageOrderId: String?,
+        messageYourBackgroundColor: Color,
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData]
 }
@@ -34,9 +35,10 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         messages: [FullChatMessage],
         participants: [Participant],
         firstUnreadMessageOrderId: String?,
+        messageYourBackgroundColor: Color,
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
-        let backgroundColor: UIColor = .black.withAlphaComponent(0.5)
+        let messageYourBackgroundColor = UIColor(messageYourBackgroundColor)
         
         let isStream = workspaceStorage.spaceView(spaceId: spaceId)?.uxType.isStream ?? false
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
@@ -73,40 +75,6 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             let isUnread = message.orderID == firstUnreadMessageOrderId
             let nextIsUnread = nextMessage?.orderID == firstUnreadMessageOrderId
             
-//            let messageModel = MessageViewData(
-//                spaceId: spaceId,
-//                chatId: chatId,
-//                authorName: authorParticipant?.title ?? "",
-//                authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
-//                authorId: authorParticipant?.id,
-//                createDate: message.createdAtDate.formatted(date: .omitted, time: .shortened),
-//                messageString: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
-//                replyModel: mapReply(
-//                    fullMessage: fullMessage,
-//                    participants: participants,
-//                    yourProfileIdentity: yourProfileIdentity
-//                )
-//                ,
-//                position: position,
-//                linkedObjects: mapAttachments(fullMessage: fullMessage),
-//                reactions: mapReactions(
-//                    fullMessage: fullMessage,
-//                    participants: participants,
-//                    yourProfileIdentity: yourProfileIdentity,
-//                    position: position
-//                ),
-//                canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
-//                canReply: canEdit,
-//                nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
-//                authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
-//                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && !isStream,
-//                canDelete: isYourMessage && canEdit,
-//                canEdit: isYourMessage && canEdit,
-//                showMessageSyncIndicator: isYourMessage,
-//                message: message,
-//                attachmentsDetails: fullMessage.attachments,
-//                reply: fullMessage.reply
-//            )
             let canAddReaction = canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? "")
             let messageModel = MessageUIViewData(
                 id: fullMessage.message.id,
@@ -118,7 +86,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     messageText: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
                     linkedObjects: mapAttachments(fullMessage: fullMessage, position: position),
                     position: position,
-                    messageYourBackgroundColor: backgroundColor,
+                    messageYourBackgroundColor: messageYourBackgroundColor,
                     canAddReaction: canAddReaction,
                     canReply: canEdit,
                     canEdit: isYourMessage && canEdit,
@@ -128,14 +96,14 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     fullMessage: fullMessage,
                     participants: participants,
                     yourProfileIdentity: yourProfileIdentity,
-                    messageYourBackgroundColor: backgroundColor
+                    messageYourBackgroundColor: messageYourBackgroundColor
                 ),
                 reactions: mapReactions(
                     fullMessage: fullMessage,
                     participants: participants,
                     yourProfileIdentity: yourProfileIdentity,
                     position: position,
-                    messageYourBackgroundColor: backgroundColor,
+                    messageYourBackgroundColor: messageYourBackgroundColor,
                     canAddReaction: canAddReaction,
                 ),
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),

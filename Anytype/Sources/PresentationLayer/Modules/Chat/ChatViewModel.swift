@@ -92,7 +92,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mesageBlocks: [MessageSectionData] = []
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
-    @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     @Published var messageHiglightId: String = ""
     
     private var messages: [FullChatMessage] = []
@@ -103,6 +102,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var bigDistanceToBottom: Bool = false
     private var forceHiddenActionPanel: Bool = true
     private var showScreenLogged = false
+    private var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
     
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     var conversationType: ConversationType {
@@ -678,6 +678,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             messages: messages,
             participants: participants,
             firstUnreadMessageOrderId: firstUnreadMessageOrderId,
+            messageYourBackgroundColor: messageYourBackgroundColor,
             limits: chatMessageLimits
         )
         guard newMessageBlocks != mesageBlocks else { return }

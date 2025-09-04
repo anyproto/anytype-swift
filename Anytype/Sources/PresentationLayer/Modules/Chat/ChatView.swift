@@ -193,7 +193,6 @@ struct ChatView: View {
         } onTapCollectionBackground: {
             model.onTapDismissKeyboard()
         }
-//        .messageYourBackgroundColor(model.messageYourBackgroundColor)
 //        .messageFlashId($model.messageHiglightId)
     }
 }

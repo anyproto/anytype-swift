@@ -16,8 +16,8 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
     func color(spaceId: String) -> AsyncStream<Color> {
         AsyncStream { continuation in
             let task = Task {
-                for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
-                    if let color = try? await color(icon: spaceView.objectIconImage) {
+                for await icon in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map({ $0.objectIconImage }).removeDuplicates().values {
+                    if let color = try? await color(icon: icon) {
                         continuation.yield(color)
                     }
                 }

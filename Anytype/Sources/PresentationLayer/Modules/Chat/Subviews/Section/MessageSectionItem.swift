@@ -1,6 +1,6 @@
 import Foundation
 
-enum MessageSectionItem: Equatable, Hashable, Identifiable {
+enum MessageSectionItem: Equatable, Hashable, Identifiable, @unchecked Sendable {
     case message(_ data: MessageUIViewData)
     case unread(_ id: String)
     

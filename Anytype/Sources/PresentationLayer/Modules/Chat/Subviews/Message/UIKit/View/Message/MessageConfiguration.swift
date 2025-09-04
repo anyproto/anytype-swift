@@ -4,7 +4,7 @@ struct MessageConfiguration: UIContentConfiguration {
     
     let data: MessageUIViewData
     let layout: MessageLayout
-    weak var output: MessageModuleOutput?
+    weak var output: (any MessageModuleOutput)?
     
     func makeContentView() -> any UIView & UIContentView {
         MessageUIView(configuration: self)
