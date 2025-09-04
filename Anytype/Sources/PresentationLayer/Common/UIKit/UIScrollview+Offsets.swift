@@ -18,4 +18,18 @@ extension UIScrollView {
     var visibleHeight: CGFloat {
         bounds.height - adjustedContentInset.top - adjustedContentInset.bottom
     }
+    
+    func setContentOffset(_ contentOffset: CGPoint, animated: Bool, completion: (() -> Void)? = nil) {
+        if animated {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                completion?()
+            }
+            setContentOffset(contentOffset, animated: animated)
+            CATransaction.commit()
+        } else {
+            setContentOffset(contentOffset, animated: animated)
+            completion?()
+        }
+    }
 }

@@ -91,8 +91,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mentionSearchState = ChatTextMention.finish
     @Published var mesageBlocks: [MessageSectionData] = []
     @Published var mentionObjectsModels: [MentionObjectModel] = []
-    @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
-    @Published var interactionProvider: (any ChatCollectionInteractionProviderProtocol)?
+    @Published var collectionViewProxy = ChatCollectionProxy()
+//    @Published var interactionProvider: (any ChatCollectionInteractionProviderProtocol)?
     
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
@@ -220,9 +220,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 await updateMessages()
                 if prevChatIsEmpty {
                     if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
-                        collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
+                        collectionViewProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
                     } else if let message = messages.last {
-                        collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
+                        collectionViewProxy.scrollTo(itemId: message.message.id, position: .bottom, animated: false)
                     }
                 }
             }
@@ -266,7 +266,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             )
             let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
             AnytypeAnalytics.instance().logSentMessage(type: type)
-            collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
+            collectionViewProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
             clearInput()
         } else {
@@ -493,14 +493,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             // Scroll to unread messages if user above on it
             Task {
                 let message = try await chatStorage.loadPagesTo(orderId: chatState.messages.oldestOrderID)
-                collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+                collectionViewProxy.scrollTo(itemId: message.id, position: .center, animated: true)
             }
         } else {
             // Scroll to bottom if unser inside unread section
             Task {
                 let lastMessage = try await chatStorage.markAsReadAll()
                 try await chatStorage.loadPagesTo(messageId: lastMessage.id)
-                collectionViewScrollProxy.scrollTo(itemId: lastMessage.id, position: .bottom, animated: true)
+                collectionViewProxy.scrollTo(itemId: lastMessage.id, position: .bottom, animated: true)
             }
         }
     }
@@ -510,8 +510,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         AnytypeAnalytics.instance().logClickScrollToMention()
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
-            collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
-            interactionProvider?.flashMessage(messageId: message.id)
+            collectionViewProxy.scrollTo(itemId: message.id, position: .center, animated: true)
+            collectionViewProxy.flashMessage(messageId: message.id)
         }
     }
     
@@ -577,8 +577,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         AnytypeAnalytics.instance().logClickScrollToReply()
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.replyMessageId)
-            collectionViewScrollProxy.scrollTo(itemId: reply.replyMessageId)
-            interactionProvider?.flashMessage(messageId: reply.replyMessageId)
+            collectionViewProxy.scrollTo(itemId: reply.replyMessageId)
+            collectionViewProxy.flashMessage(messageId: reply.replyMessageId)
         }
     }
     

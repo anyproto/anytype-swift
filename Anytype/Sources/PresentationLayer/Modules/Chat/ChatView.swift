@@ -171,11 +171,10 @@ struct ChatView: View {
     private var mainView: some View {
         ChatCollectionView(
             items: model.mesageBlocks,
-            scrollProxy: model.collectionViewScrollProxy,
+            proxy: model.collectionViewProxy,
             bottomPanel: bottomPanel,
             emptyView: emptyView,
             showEmptyState: model.showEmptyState,
-            interactionProvider: $model.interactionProvider,
             output: model
         ) { _ in
             ChatMessageUnreadView()

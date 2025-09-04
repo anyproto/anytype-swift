@@ -14,12 +14,10 @@ struct ChatCollectionView<
     typealias Item = MessageSectionItem
     
     let items: [Section]
-    let scrollProxy: ChatCollectionScrollProxy
+    let proxy: ChatCollectionProxy
     let bottomPanel: BottomPanel
     let emptyView: EmptyView
     let showEmptyState: Bool
-    @Binding
-    var interactionProvider: (any ChatCollectionInteractionProviderProtocol)?
     // Dynamic update doesn't support
     let output: (any MessageModuleOutput)?
     let unreadBuilder: (String) -> ItemView
@@ -93,14 +91,10 @@ struct ChatCollectionView<
         context.coordinator.handleVisibleRange = handleVisibleRange
         context.coordinator.handleBigDistanceToTheBottom = handleBigDistanceToTheBottom
         context.coordinator.onTapCollectionBackground = onTapCollectionBackground
-        context.coordinator.updateState(collectionView: container.collectionView, sections: items, scrollProxy: scrollProxy)
+        context.coordinator.updateState(collectionView: container.collectionView, sections: items, proxy: proxy)
     }
     
     func makeCoordinator() -> ChatCollectionViewCoordinator<ItemView, HeaderView> {
-        let coordinator = ChatCollectionViewCoordinator<ItemView, HeaderView>(output: output)
-        DispatchQueue.main.async {
-            interactionProvider = coordinator.interactionProvider
-        }
-        return coordinator
+        return ChatCollectionViewCoordinator<ItemView, HeaderView>(output: output)
     }
 }

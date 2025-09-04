@@ -25,4 +25,18 @@ extension UICollectionView {
             self.selectItem(at: IndexPath(item: $0, section: section), animated: true, scrollPosition: [])
         }
     }
+    
+    func scrollToItem(at indexPath: IndexPath, at scrollPosition: UICollectionView.ScrollPosition, animated: Bool, completion: (() -> Void)? = nil) {
+        if animated {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                completion?()
+            }
+            scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+            CATransaction.commit()
+        } else {
+            scrollToItem(at: indexPath, at: scrollPosition, animated: animated)
+            completion?()
+        }
+    }
 }

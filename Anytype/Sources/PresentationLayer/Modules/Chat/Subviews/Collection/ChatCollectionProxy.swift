@@ -22,12 +22,18 @@ enum ChatCollectionScrollOperation: Equatable {
     case scrollTo(_ itemId: String, _ position: ChatCollectionScrollPosition, _ animated: Bool)
 }
 
-struct ChatCollectionScrollProxy: Equatable {
+struct ChatCollectionProxy: Equatable {
     private(set) var operationId = UUID()
     private(set) var scrollOperation: ChatCollectionScrollOperation?
+    private(set) var flashMessageId: String?
     
     mutating func scrollTo(itemId: String, position: ChatCollectionScrollPosition = .center, animated: Bool = true) {
         operationId = UUID()
         scrollOperation = .scrollTo(itemId, position, animated)
+    }
+    
+    mutating func flashMessage(messageId: String) {
+        operationId = UUID()
+        flashMessageId = messageId
     }
 }

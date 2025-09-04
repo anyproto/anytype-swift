@@ -33,7 +33,7 @@ final class ChatCollectionViewCoordinator<
     var scrollToTop: (() async -> Void)?
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
-    var lastScrollProxy: ChatCollectionScrollProxy?
+    var lastProxy: ChatCollectionProxy?
     var unreadBuilder: ((String) -> DataView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
@@ -41,17 +41,6 @@ final class ChatCollectionViewCoordinator<
     var onTapCollectionBackground: (() -> Void)?
     
     private weak var output: (any MessageModuleOutput)?
-    
-    lazy var interactionProvider = {
-        ChatCollectionInteractionProvider(
-            flashMessageProvider: { [weak self] messageId in
-                self?.flashMessage(messageId: messageId)
-            },
-            scrollToProvider: { [weak self] messageId in
-                // Implement
-            }
-        )
-    }()
     
     init(output: (any MessageModuleOutput)?) {
         self.output = output
@@ -107,7 +96,7 @@ final class ChatCollectionViewCoordinator<
     
     // MARK: Update
     
-    func updateState(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
+    func updateState(collectionView: UICollectionView, sections: [Section], proxy: ChatCollectionProxy) {
         let width = collectionView.frame.width
         var workItem: DispatchWorkItem?
         workItem = DispatchWorkItem { [weak self, calculator] in
@@ -121,7 +110,7 @@ final class ChatCollectionViewCoordinator<
                 }
             }
             DispatchQueue.main.async {
-                self?.updateData(collectionView: collectionView, sections: sections, scrollProxy: scrollProxy)
+                self?.updateData(collectionView: collectionView, sections: sections, proxy: proxy)
             }
         }
         layoutWorkItem?.cancel()
@@ -250,45 +239,60 @@ final class ChatCollectionViewCoordinator<
         handleBigDistanceToTheBottom(value)
     }
     
-    private func appyScrollProxy(collectionView: UICollectionView, scrollProxy: ChatCollectionScrollProxy, fallbackScrollToBottom: Bool) {
-        guard lastScrollProxy != scrollProxy else {
+    private func appyProxy(collectionView: UICollectionView, proxy: ChatCollectionProxy, fallbackScrollToBottom: Bool) {
+        guard lastProxy != proxy else {
             if fallbackScrollToBottom {
-                scrollToBottom(collectionView: collectionView)
+                scrollToBottom(collectionView: collectionView, completion: nil)
             }
             return
         }
         
-        switch scrollProxy.scrollOperation {
+        let scrollCompletion = { [weak self] in
+            if let messageId = proxy.flashMessageId {
+                self?.flashMessage(messageId: messageId)
+            }
+        }
+        
+        switch proxy.scrollOperation {
         case .scrollTo(let itemId, let position, let animated):
-            if scrollTo(collectionView: collectionView, itemId: itemId, position: position.collectionViewPosition, animated: animated) {
-                lastScrollProxy = scrollProxy
+            if scrollTo(collectionView: collectionView, itemId: itemId, position: position.collectionViewPosition, animated: animated, completion: scrollCompletion) {
+                lastProxy = proxy
             }
         case .none:
             if fallbackScrollToBottom {
-                scrollToBottom(collectionView: collectionView)
+                scrollToBottom(collectionView: collectionView, completion: scrollCompletion)
             }
-            lastScrollProxy = scrollProxy
+            lastProxy = proxy
         }
+        
+        
     }
     
-    private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition, animated: Bool) -> Bool {
-        guard let dataSource else { return false }
+    private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition, animated: Bool, completion: @escaping () -> Void) -> Bool {
+        guard let dataSource else {
+            completion()
+            return false
+        }
         
         let currentSnapshot = dataSource.snapshot()
         
         if let item = currentSnapshot.itemIdentifiers.first(where: { $0.id == itemId }),
            let indexPath = dataSource.indexPath(for: item) {
             isProgrammaticAnimatedScroll = animated
-            collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
+            collectionView.scrollToItem(at: indexPath, at: position, animated: animated, completion: completion)
             return true
         }
+        
+        completion()
         return false
     }
     
-    private func scrollToBottom(collectionView: UICollectionView) {
+    private func scrollToBottom(collectionView: UICollectionView, completion: (() -> Void)?) {
         if collectionView.bottomOffset != collectionView.contentOffset {
             isProgrammaticAnimatedScroll = true
-            collectionView.setContentOffset(collectionView.bottomOffset, animated: true)
+            collectionView.setContentOffset(collectionView.bottomOffset, animated: true, completion: completion)
+        } else {
+            completion?()
         }
     }
     
@@ -356,10 +360,10 @@ final class ChatCollectionViewCoordinator<
         updateHeaders(collectionView: collectionView, animated: false)
     }
     
-    private func updateData(collectionView: UICollectionView, sections: [Section], scrollProxy: ChatCollectionScrollProxy) {
+    private func updateData(collectionView: UICollectionView, sections: [Section], proxy: ChatCollectionProxy) {
         
         guard let dataSource, self.sections != sections else {
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: false)
+            appyProxy(collectionView: collectionView, proxy: proxy, fallbackScrollToBottom: false)
             return
         }
         
@@ -389,8 +393,6 @@ final class ChatCollectionViewCoordinator<
         
         self.sections = sections
         
-        CATransaction.begin()
-        
         dataSourceApplyTransaction = true
         dataSource.apply(newSnapshot, animatingDifferences: false) { [weak self] in
             guard let self else { return }
@@ -412,11 +414,10 @@ final class ChatCollectionViewCoordinator<
                 }
             }
             
-            appyScrollProxy(collectionView: collectionView, scrollProxy: scrollProxy, fallbackScrollToBottom: oldIsNearBottom)
+            appyProxy(collectionView: collectionView, proxy: proxy, fallbackScrollToBottom: oldIsNearBottom)
             canCallScrollToTop = true
             canCallScrollToBottom = true
             dataSourceApplyTransaction = false
-            CATransaction.commit()
             
             if !isProgrammaticAnimatedScroll {
                 updateStateAfterTransaction(collectionView: collectionView)
