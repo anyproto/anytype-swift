@@ -64,9 +64,12 @@ final class ChatCollectionViewCoordinator<
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
         
-        let unreadeCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, String> { cell, indexPath, item in
-//            cell.contentConfiguration = MessageConfiguration(model: item)
-            cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
+        let unreadeCellRegistration = UICollectionView.CellRegistration<UICollectionViewCell, String> { [weak self] cell, indexPath, item in
+            cell.contentConfiguration = UIHostingConfiguration {
+                self?.unreadBuilder?(item)
+            }
+            .margins(.all, 0)
+            .minSize(height: 0)
         }
         
         let dataSource = UICollectionViewDiffableDataSource<Section.ID, Item>(collectionView: collectionView) { (collectionView, indexPath, item) -> UICollectionViewCell in
@@ -190,9 +193,17 @@ final class ChatCollectionViewCoordinator<
         case .message(let data):
             let layout = calculator.makeLayout(width: collectionView.bounds.width, data: data)
             return layout.cellSize
-        case .unread(let message):
-            return CGSize(width: collectionView.bounds.width, height: 50)
+        case .unread:
+            // TODO: Provide from view
+            return CGSize(width: collectionView.bounds.width, height: ChatMessageUnreadView.height)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        // TODO: Read height from view
+        return CGSize(width: collectionView.bounds.width, height: 50)
     }
     
     // MARK: - Private
@@ -264,8 +275,6 @@ final class ChatCollectionViewCoordinator<
             }
             lastProxy = proxy
         }
-        
-        
     }
     
     private func scrollTo(collectionView: UICollectionView, itemId: String, position: UICollectionView.ScrollPosition, animated: Bool, completion: @escaping () -> Void) -> Bool {

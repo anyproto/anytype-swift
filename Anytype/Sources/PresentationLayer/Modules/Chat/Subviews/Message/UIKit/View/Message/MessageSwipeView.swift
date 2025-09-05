@@ -56,6 +56,7 @@ final class MessageSwipeView: UIView, UIGestureRecognizerDelegate {
         let progress = (-offsetX / minReplyWidth).clamped(to: 0...1)
         replyImage.frame = imageFrame.offsetBy(dx: -100 * progress, dy: 0)
         replyImage.layer.opacity = Float(progress)
+        // TODO: Fix singular matrix.
         let transform = CGAffineTransform(scaleX: progress, y: progress)
         replyImage.layer.setAffineTransform(transform)
     }
