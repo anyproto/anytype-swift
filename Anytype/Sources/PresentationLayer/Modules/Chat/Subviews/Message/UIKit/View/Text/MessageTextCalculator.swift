@@ -3,13 +3,18 @@ import UIKit
 
 struct MessageTextCalculator {
     
-    static func calculateSize(targetSize: CGSize, message: NSAttributedString) -> MessageTextLayout {
+    static func calculateSize(targetSize: CGSize, data: MessageTextViewData) -> MessageTextLayout {
         
-        let size = message.sizeForLabel(width: targetSize.width, maxLines: 0)
+        var infoFrame: CGRect = .zero
+        var syncIconFrame: CGRect? = .zero
+        
+        let size = data.message.sizeForLabel(width: targetSize.width, maxLines: 0)
         
         return MessageTextLayout(
             size: size,
-            textFrame: CGRect(origin: .zero, size: size)
+            textFrame: CGRect(origin: .zero, size: size),
+            infoFrame: infoFrame,
+            syncIconFrame: syncIconFrame
         )
     }
     

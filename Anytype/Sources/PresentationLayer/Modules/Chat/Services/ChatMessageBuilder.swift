@@ -83,7 +83,11 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 authorIcon: authorParticipant?.icon.map { .object($0) } ?? Icon.object(.profile(.placeholder)),
                 authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
                 bubble: MessageBubbleViewData(
-                    messageText: messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position),
+                    messageData: makeMessageText(
+                        fullMessage: fullMessage,
+                        isYourMessage: isYourMessage,
+                        position: position
+                    ),
                     linkedObjects: mapAttachments(fullMessage: fullMessage, position: position),
                     position: position,
                     messageYourBackgroundColor: messageYourBackgroundColor,
@@ -144,6 +148,30 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         let calendar = Calendar.current
         let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
         return calendar.date(from: dateComponents) ?? date
+    }
+    
+    private func makeMessageText(
+        fullMessage: FullChatMessage,
+        isYourMessage: Bool,
+        position: MessageHorizontalPosition
+    ) -> MessageTextViewData? {
+        let message = fullMessage.message
+        
+        guard message.message.text.isNotEmpty else {
+            return nil
+        }
+        
+        let text = messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position)
+        
+        let edited = message.modifiedAtDate != nil
+        let editText = edited ? Loc.Message.edited + " " : ""
+        let createDate = message.createdAtDate.formatted(date: .omitted, time: .shortened)
+        
+        return MessageTextViewData(
+            message: text,
+            infoText: editText + createDate,
+            synced: isYourMessage ? message.synced : nil
+        )
     }
     
     private func mapReactions(

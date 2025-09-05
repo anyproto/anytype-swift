@@ -13,40 +13,29 @@ final class MessageTextUIView: UIView {
     
     private lazy var infoLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = MessageTextViewData.infoLineLimit
         return label
     }()
     
     // MARK: - Public properties
     
-    var text: NSAttributedString? {
-        didSet { textLabel.attributedText = text }
+    var data: MessageTextViewData? {
+        didSet {
+            if data != oldValue {
+                updateData()
+            }
+        }
     }
     
     var layout: MessageTextLayout? {
         didSet {
             if layout != oldValue {
-                setNeedsLayout()
+                updateLayout()
             }
         }
     }
     
     // MARK: - Pulic
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard let layout else { return }
-        textLabel.frame = layout.textFrame
-    }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return layout?.size ?? .zero
@@ -54,7 +43,13 @@ final class MessageTextUIView: UIView {
     
     // MARK: - Private
     
-    private func setupLayout() {
-        addSubview(textLabel)
+    private func updateData() {
+        textLabel.attributedText = data?.message
+        infoLabel.attributedText = data?.infoText
+    }
+    
+    private func updateLayout() {
+        textLabel.addTo(parent: self, frame: layout?.textFrame)
+        infoLabel.addTo(parent: self, frame: layout?.infoFrame)
     }
 }

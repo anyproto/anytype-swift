@@ -3,7 +3,7 @@ import StoredHashMacro
 
 @StoredHash
 struct MessageBubbleViewData: Equatable, Hashable {
-    let messageText: NSAttributedString
+    let messageData: MessageTextViewData?
     let linkedObjects: MessageBubbleAttachments?
     let position: MessageHorizontalPosition
     let messageYourBackgroundColor: UIColor

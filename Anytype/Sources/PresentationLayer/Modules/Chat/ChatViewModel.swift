@@ -565,7 +565,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                     id: message.id,
                     title: Loc.Chat.replyTo(message.authorName.string),
                     // Without style. Request from designers.
-                    description: message.bubble.messageText.string,
+                    description: message.bubble.messageData?.message.string ?? "",
                     icon: attachments.first?.objectIconImage
                 )
             }
@@ -613,7 +613,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
 
     func didSelectCopyPlainText(message: MessageUIViewData) {
         AnytypeAnalytics.instance().logClickMessageMenuCopy()
-        UIPasteboard.general.string = message.bubble.messageText.string
+        UIPasteboard.general.string = message.bubble.messageData?.message.string
     }
     
     // MARK: - ChatActionProviderHandler

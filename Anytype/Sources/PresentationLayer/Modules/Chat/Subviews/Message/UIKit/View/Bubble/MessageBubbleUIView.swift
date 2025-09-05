@@ -109,7 +109,7 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
                 }
             }
             
-            if data.messageText.string.isNotEmpty {
+            if data.messageData != nil {
                 UIAction(
                     title: Loc.Message.Action.copyPlainText,
                     image: UIImage(systemName: "doc.on.doc")
@@ -149,7 +149,7 @@ final class MessageBubbleUIView: UIView, UIContextMenuInteractionDelegate {
     private func updateView() {
         guard let data else { return }
         
-        textView.text = data.messageText
+        textView.data = data.messageData
         
         switch data.linkedObjects {
         case .list(let data):

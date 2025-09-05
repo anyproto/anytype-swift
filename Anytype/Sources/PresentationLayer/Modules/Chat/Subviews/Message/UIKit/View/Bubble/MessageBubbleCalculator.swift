@@ -50,12 +50,12 @@ struct MessageBubbleCalculator {
         var textLayout: MessageTextLayout?
         var textFrame: CGRect?
         var textContainerSize: CGSize = .zero
-        if !data.messageText.string.isEmpty {
+        if let messageData = data.messageData {
             let size = CGSize(
                 width: width - textInset.left - textInset.right,
                 height: .greatestFiniteMagnitude
             )
-            let textCalculatedLayout = MessageTextCalculator.calculateSize(targetSize: size, message: data.messageText)
+            let textCalculatedLayout = MessageTextCalculator.calculateSize(targetSize: size, data: messageData)
             textLayout = textCalculatedLayout
             let textCalculatedFrame = CGRect(
                 origin: CGPoint(x: textInset.left, y: textInset.top + topContainerSize.height),
