@@ -17,6 +17,8 @@ final class MessageTextUIView: UIView {
         return label
     }()
     
+    private lazy var syncIcon = UIImageView()
+    
     // MARK: - Public properties
     
     var data: MessageTextViewData? {
@@ -44,12 +46,22 @@ final class MessageTextUIView: UIView {
     // MARK: - Private
     
     private func updateData() {
-        textLabel.attributedText = data?.message
-        infoLabel.attributedText = data?.infoText
+        guard let data else { return }
+        let infoColor: UIColor = data.position.isRight ? .Background.Chat.whiteTransparent : .Control.transparentSecondary
+        textLabel.attributedText = data.message
+        infoLabel.attributedText = data.infoText
+        infoLabel.textColor = infoColor
+        if let synced = data.synced {
+            syncIcon.image = UIImage(asset: synced ? .MessageStatus.synced : .MessageStatus.loading)
+            syncIcon.tintColor = infoColor
+        } else {
+            syncIcon.image = nil
+        }
     }
     
     private func updateLayout() {
         textLabel.addTo(parent: self, frame: layout?.textFrame)
         infoLabel.addTo(parent: self, frame: layout?.infoFrame)
+        syncIcon.addTo(parent: self, frame: layout?.syncIconFrame)
     }
 }

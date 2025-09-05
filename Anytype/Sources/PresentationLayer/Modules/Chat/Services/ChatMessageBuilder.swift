@@ -170,7 +170,8 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         return MessageTextViewData(
             message: text,
             infoText: editText + createDate,
-            synced: isYourMessage ? message.synced : nil
+            synced: isYourMessage ? message.synced : nil,
+            position: position
         )
     }
     

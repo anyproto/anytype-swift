@@ -7,6 +7,7 @@ struct MessageTextViewData: Equatable, Hashable {
     let message: NSAttributedString
     let infoText: NSAttributedString
     let synced: Bool?
+    let position: MessageHorizontalPosition
     
     static let infoLineLimit = 1
 }
@@ -15,7 +16,8 @@ extension MessageTextViewData {
     init(
         message: NSAttributedString,
         infoText: String,
-        synced: Bool?
+        synced: Bool?,
+        position: MessageHorizontalPosition
     ) {
         self.init(
             message: message,
@@ -23,7 +25,8 @@ extension MessageTextViewData {
                 string: infoText,
                 attributes: [.font: UIFont.caption2Regular]
             ),
-            synced: synced
+            synced: synced,
+            position: position
         )
     }
 }
