@@ -3,7 +3,7 @@ import UIKit
 
 struct MessageBigBookmarkCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageBigBookmarkViewData) -> MessageBigBookmarkLayout {
+    func calculateSize(targetSize: CGSize, data: MessageBigBookmarkViewData) -> MessageBigBookmarkLayout {
         
         var imageFrame: CGRect?
         var hostFrame: CGRect?

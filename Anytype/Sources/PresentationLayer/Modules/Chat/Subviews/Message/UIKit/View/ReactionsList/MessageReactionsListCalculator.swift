@@ -2,7 +2,9 @@ import Foundation
 
 struct MessageReactionsListCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageReactionListData) -> MessageReactionListLayout {
+    let reactionCalculator = MessageReactionCalculator()
+    
+    func calculateSize(targetSize: CGSize, data: MessageReactionListData) -> MessageReactionListLayout {
         
         let horizontalSpacing: CGFloat = 8
         let verticalSpacing: CGFloat = 8
@@ -16,7 +18,7 @@ struct MessageReactionsListCalculator {
         var reactionLayouts = [MessageReactionLayout]()
         
         for reaction in data.reactions {
-            let layout = MessageReactionCalculator.calculateSize(targetSize: targetSize, data: reaction)
+            let layout = reactionCalculator.calculateSize(targetSize: targetSize, data: reaction)
             
             if (currentX + layout.size.width) > targetSize.width {
                 currentY += (layout.size.height + verticalSpacing)

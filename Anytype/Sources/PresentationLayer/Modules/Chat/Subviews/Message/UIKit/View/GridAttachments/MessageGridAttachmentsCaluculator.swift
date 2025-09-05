@@ -7,7 +7,7 @@ struct MessageGridAttachmentsCaluculator {
         static let spacing: CGFloat = 4
     }
     
-    static func calculateSize(targetSize: CGSize, attachments: [MessageAttachmentDetails]) -> MessageGridAttachmentsContainerLayout {
+    func calculateSize(targetSize: CGSize, attachments: [MessageAttachmentDetails]) -> MessageGridAttachmentsContainerLayout {
         
         var frames: [CGRect] = []
         
@@ -47,7 +47,7 @@ struct MessageGridAttachmentsCaluculator {
         )
     }
     
-    private static func makeGridRows(countItems: Int) -> [Int] {
+    private func makeGridRows(countItems: Int) -> [Int] {
         
         var items = countItems
         var result = [Int]()

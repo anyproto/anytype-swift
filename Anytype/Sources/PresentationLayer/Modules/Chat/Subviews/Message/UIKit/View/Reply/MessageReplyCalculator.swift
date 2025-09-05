@@ -3,7 +3,7 @@ import UIKit
 
 struct MessageReplyCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageReplyViewData) -> MessageReplyLayout {
+    func calculateSize(targetSize: CGSize, data: MessageReplyViewData) -> MessageReplyLayout {
         
         var size: CGSize = .zero
         var lineFrame: CGRect?

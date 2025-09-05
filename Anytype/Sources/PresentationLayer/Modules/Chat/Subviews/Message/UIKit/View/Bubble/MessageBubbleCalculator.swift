@@ -8,7 +8,12 @@ struct MessageBubbleCalculator {
         static let messageHorizontalPadding: CGFloat = 12
     }
     
-    static func calculateSize(targetSize: CGSize, data: MessageBubbleViewData) -> MessageBubbleLayout {
+    private let gridAttachmentsCaluculator = MessageGridAttachmentsCaluculator()
+    private let textCalculator = MessageTextCalculator()
+    private let listAttachmentsCalculator = MessageListAttachmentsCalculator()
+    private let bigBookmarkCalculator = MessageBigBookmarkCalculator()
+    
+    func calculateSize(targetSize: CGSize, data: MessageBubbleViewData) -> MessageBubbleLayout {
         
         var gridLayout: MessageGridAttachmentsContainerLayout?
         var gridFrame: CGRect?
@@ -34,7 +39,7 @@ struct MessageBubbleCalculator {
                 }
             case .grid(let attachments):
                 AnyViewCalculator { targetSize in
-                    let layout = MessageGridAttachmentsCaluculator.calculateSize(targetSize: targetSize, attachments: attachments)
+                    let layout = gridAttachmentsCaluculator.calculateSize(targetSize: targetSize, attachments: attachments)
                     gridLayout = layout
                     return layout.size
                 }
@@ -42,7 +47,7 @@ struct MessageBubbleCalculator {
                 .padding(Constants.attachmentsPadding)
             case .bookmark(let data):
                 AnyViewCalculator { targetSize in
-                    let layout = MessageBigBookmarkCalculator.calculateSize(targetSize: targetSize, data: data)
+                    let layout = bigBookmarkCalculator.calculateSize(targetSize: targetSize, data: data)
                     bigBookmarkLayout = layout
                     return layout.size
                 }
@@ -54,7 +59,7 @@ struct MessageBubbleCalculator {
             
             if let messageData = data.messageData {
                 AnyViewCalculator { targetSize in
-                    let layout = MessageTextCalculator.calculateSize(targetSize: targetSize, data: messageData, useTargetSizeForInfo: data.linkedObjects.isNotNil)
+                    let layout = textCalculator.calculateSize(targetSize: targetSize, data: messageData, useTargetSizeForInfo: data.linkedObjects.isNotNil)
                     textLayout = layout
                     return layout.size
                 }
@@ -67,7 +72,7 @@ struct MessageBubbleCalculator {
             switch data.linkedObjects {
             case .list(let data):
                 AnyViewCalculator { targetSize in
-                    let layout = MessageListAttachmentsCalculator.calculateSize(targetSize: targetSize, data: data)
+                    let layout = listAttachmentsCalculator.calculateSize(targetSize: targetSize, data: data)
                     listLayout = layout
                     return layout.size
                 }

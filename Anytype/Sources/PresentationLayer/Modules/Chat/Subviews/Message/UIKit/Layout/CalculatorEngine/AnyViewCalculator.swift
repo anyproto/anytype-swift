@@ -4,6 +4,10 @@ struct AnyViewCalculator: ViewCalculator {
     
     let sizeProvider: (_ size: CGSize) -> CGSize
     
+    init(@_implicitSelfCapture sizeProvider: @escaping (_: CGSize) -> CGSize) {
+        self.sizeProvider = sizeProvider
+    }
+    
     func sizeThatFits(_ size: CGSize) -> CGSize {
         sizeProvider(size)
     }

@@ -3,7 +3,7 @@ import UIKit
 
 struct MessageTextCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageTextViewData, useTargetSizeForInfo: Bool) -> MessageTextLayout {
+    func calculateSize(targetSize: CGSize, data: MessageTextViewData, useTargetSizeForInfo: Bool) -> MessageTextLayout {
         
         let syncIconSize = CGSize(width: 12, height: 12)
         

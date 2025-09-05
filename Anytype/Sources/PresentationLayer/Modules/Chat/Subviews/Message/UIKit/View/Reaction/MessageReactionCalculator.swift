@@ -3,7 +3,7 @@ import UIKit
 
 struct MessageReactionCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageReactionData) -> MessageReactionLayout {
+    func calculateSize(targetSize: CGSize, data: MessageReactionData) -> MessageReactionLayout {
         
         var size: CGSize?
         var emojiFrame: CGRect?

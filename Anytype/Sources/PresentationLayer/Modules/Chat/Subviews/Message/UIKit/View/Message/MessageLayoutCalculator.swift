@@ -11,6 +11,10 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         return MemoryStorage<Int, MessageLayout>(config: config)
     }()
     
+    private let bubbleCalculator = MessageBubbleCalculator()
+    private let reactionsListCalculator = MessageReactionsListCalculator()
+    private let replyCalculator = MessageReplyCalculator()
+    
     func makeLayout(width: CGFloat, data: MessageUIViewData) -> MessageLayout {
         
         lock.lock()
@@ -60,8 +64,8 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         
         var bubbleFrame: CGRect?
         var bubbleLayout: MessageBubbleLayout?
-        let bubbleCalculator = AnyViewCalculator { targetSize in
-            let layout = MessageBubbleCalculator.calculateSize(targetSize: targetSize, data: data.bubble)
+        let bubbleViewCalculator = AnyViewCalculator { targetSize in
+            let layout = bubbleCalculator.calculateSize(targetSize: targetSize, data: data.bubble)
             bubbleLayout = layout
             return layout.bubbleSize
         }
@@ -71,9 +75,9 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         
         var reactionsFrame: CGRect?
         var reactionsLayout: MessageReactionListLayout?
-        let reactionsCalculator = data.reactions.map { reactions in
+        let reactionsViewCalculator = data.reactions.map { reactions in
                 AnyViewCalculator { targetSize in
-                    let layout = MessageReactionsListCalculator.calculateSize(targetSize: targetSize, data: reactions)
+                    let layout = reactionsListCalculator.calculateSize(targetSize: targetSize, data: reactions)
                     reactionsLayout = layout
                     return layout.size
                 }
@@ -101,7 +105,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
                 
                 if let replyData = data.reply {
                     AnyViewCalculator { targetSize in
-                        let layout = MessageReplyCalculator.calculateSize(targetSize: targetSize, data: replyData)
+                        let layout = replyCalculator.calculateSize(targetSize: targetSize, data: replyData)
                         replyLayout = layout
                         return layout.size
                     }
@@ -114,8 +118,8 @@ final class MessageLayoutCalculator: @unchecked Sendable {
                 .readFrame { authorNameFrame = $0 }
                 .padding(horizontal: 12)
                 
-                bubbleCalculator
-                reactionsCalculator
+                bubbleViewCalculator
+                reactionsViewCalculator
             }
             if data.position.isRight {
                 authorIcon

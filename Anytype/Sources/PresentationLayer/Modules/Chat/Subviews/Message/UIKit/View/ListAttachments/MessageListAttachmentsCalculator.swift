@@ -2,7 +2,7 @@ import Foundation
 
 struct MessageListAttachmentsCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageListAttachmentsViewData) -> MessageListAttachmentsLayout {
+    func calculateSize(targetSize: CGSize, data: MessageListAttachmentsViewData) -> MessageListAttachmentsLayout {
         
         var frames: [CGRect] = []
         var size: CGSize?
