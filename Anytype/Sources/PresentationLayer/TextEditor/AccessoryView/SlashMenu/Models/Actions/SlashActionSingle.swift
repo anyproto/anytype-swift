@@ -16,9 +16,9 @@ enum SlashActionSingle: CaseIterable {
     var iconAsset: ImageAsset {
         switch self {
         case .camera:
-            return .X40.camera
+            return .X24.camera
         case .linkTo:
-            return .X40.linkToExistingObject
+            return .X24.linkToExistingObject
         }
     }
     
