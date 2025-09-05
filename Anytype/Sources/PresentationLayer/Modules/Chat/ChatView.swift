@@ -193,6 +193,5 @@ struct ChatView: View {
         } onTapCollectionBackground: {
             model.onTapDismissKeyboard()
         }
-//        .messageFlashId($model.messageHiglightId)
     }
 }
