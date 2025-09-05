@@ -3,7 +3,7 @@ import UIKit
 
 struct MessageTextCalculator {
     
-    static func calculateSize(targetSize: CGSize, data: MessageTextViewData) -> MessageTextLayout {
+    static func calculateSize(targetSize: CGSize, data: MessageTextViewData, useTargetSizeForInfo: Bool) -> MessageTextLayout {
         
         let syncIconSize = CGSize(width: 12, height: 12)
         
@@ -19,7 +19,7 @@ struct MessageTextCalculator {
         let infoSize = data.infoText.sizeForLabel(width: targetSize.width, maxLines: MessageTextViewData.infoLineLimit)
         
         let infoFrame = CGRect(
-            origin: CGPoint(x: size.width - infoSize.width, y: size.height - infoSize.height),
+            origin: CGPoint(x: (useTargetSizeForInfo ? targetSize.width : size.width) - infoSize.width, y: size.height - infoSize.height),
             size: infoSize
         )
         
