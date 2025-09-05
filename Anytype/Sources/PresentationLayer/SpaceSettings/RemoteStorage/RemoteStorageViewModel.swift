@@ -16,6 +16,8 @@ final class RemoteStorageViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @Injected(\.serverConfigurationStorage)
+    private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     
     private let spaceId: String
     private weak var output: (any RemoteStorageModuleOutput)?
@@ -26,6 +28,7 @@ final class RemoteStorageViewModel: ObservableObject {
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
     
     private var nodeUsage: NodeUsageInfo?
+    private var isLocalOnlyMode: Bool = false
     
     @Published var spaceInstruction: String = ""
     @Published var spaceUsed: String = ""
@@ -37,10 +40,10 @@ final class RemoteStorageViewModel: ObservableObject {
     init(spaceId: String, output: (any RemoteStorageModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
+        
         setupPlaceholderState()
-        Task {
-            await setupSubscription()
-        }
+        checkLocalOnlyMode()
+        Task { await setupSubscription() }
     }
         
     func onTapManageFiles() {
@@ -57,7 +60,22 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     // MARK: - Private
+    private func checkLocalOnlyMode() {
+        isLocalOnlyMode = serverConfigurationStorage.currentConfiguration().isLocalOnly
+        if isLocalOnlyMode {
+            setupLocalOnlyState()
+        }
+    }
+    
+    private func setupLocalOnlyState() {
+        spaceInstruction = Loc.FileStorage.Space.localOnlyInstruction
+        contentLoaded = true
+        showGetMoreSpaceButton = false
+    }
+    
     private func setupSubscription() async {
+        guard !isLocalOnlyMode else { return }
+        
         fileLimitsStorage.nodeUsage
             .receiveOnMain()
             .sink { [weak self] nodeUsage in
