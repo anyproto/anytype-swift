@@ -38,7 +38,6 @@ final class MessageLayoutCalculator: @unchecked Sendable {
     // MARK: - Private
     
     private func makeRootLayout(width: CGFloat, data: MessageUIViewData) -> MessageLayout {
-        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
         let containerInsets = UIEdgeInsets(top: 0, left: 14, bottom: data.nextSpacing.height, right: 14)
         let iconSide: CGFloat = 32
         
@@ -129,16 +128,17 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         }
         .padding(containerInsets)
         
-        var hStackFrame = CGRect(origin: .zero, size: hStack.sizeThatFits(size))
+        let targetSize = CGSize(width: UIDevice.isPad ? 350 : width, height: .greatestFiniteMagnitude)
+        var hStackFrame = CGRect(origin: .zero, size: hStack.sizeThatFits(targetSize))
         
         // Pin to right
         if data.position.isRight {
-            hStackFrame = hStackFrame.offsetBy(dx: size.width - hStackFrame.width, dy: 0)
+            hStackFrame = hStackFrame.offsetBy(dx: width - hStackFrame.width, dy: 0)
         }
         
         hStack.setFrame(hStackFrame)
         
-        let calculatedSize = CGSize(width: size.width, height: hStackFrame.height)
+        let calculatedSize = CGSize(width: width, height: hStackFrame.height)
         
         return MessageLayout(
             cellSize: calculatedSize,
