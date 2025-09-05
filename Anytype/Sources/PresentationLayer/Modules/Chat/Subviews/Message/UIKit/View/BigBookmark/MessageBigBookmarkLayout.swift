@@ -1,6 +1,8 @@
 import Foundation
+import StoredHashMacro
 
-struct MessageBigBookmarkLayout: Equatable {
+@StoredHash
+struct MessageBigBookmarkLayout: Equatable, Hashable {
     let size: CGSize
     let imageFrame: CGRect?
     let hostFrame: CGRect?

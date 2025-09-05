@@ -1,5 +1,7 @@
 import UIKit
+import StoredHashMacro
 
+@StoredHash
 struct MessageReplyViewData: Equatable, Hashable {
     let replyMessageId: String
     let author: NSAttributedString

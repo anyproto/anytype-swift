@@ -1,6 +1,8 @@
 import UIKit
 import Services
+import StoredHashMacro
 
+@StoredHash
 struct MessageBigBookmarkViewData: Equatable, Hashable {
     let objectId: String
     let host: NSAttributedString

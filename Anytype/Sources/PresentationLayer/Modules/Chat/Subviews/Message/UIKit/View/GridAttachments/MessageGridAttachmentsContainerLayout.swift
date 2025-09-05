@@ -1,6 +1,8 @@
 import Foundation
+import StoredHashMacro
 
-struct MessageGridAttachmentsContainerLayout: Equatable {
+@StoredHash
+struct MessageGridAttachmentsContainerLayout: Equatable, Hashable {
     let size: CGSize
     let objectFrames: [CGRect]
 }

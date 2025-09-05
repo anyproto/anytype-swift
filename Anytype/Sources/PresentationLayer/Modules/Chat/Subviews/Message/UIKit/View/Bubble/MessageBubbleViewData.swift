@@ -1,5 +1,7 @@
 import UIKit
+import StoredHashMacro
 
+@StoredHash
 struct MessageBubbleViewData: Equatable, Hashable {
     let messageText: NSAttributedString
     let linkedObjects: MessageBubbleAttachments?

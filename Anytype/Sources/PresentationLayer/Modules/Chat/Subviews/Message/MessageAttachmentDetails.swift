@@ -1,6 +1,8 @@
 import SwiftUI
 import Services
+import StoredHashMacro
 
+@StoredHash
 struct MessageAttachmentDetails: Equatable, Identifiable, Hashable {
     let id: String
     let title: String

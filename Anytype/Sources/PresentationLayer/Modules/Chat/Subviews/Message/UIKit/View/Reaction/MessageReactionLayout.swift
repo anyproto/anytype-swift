@@ -1,6 +1,8 @@
 import Foundation
+import StoredHashMacro
 
-struct MessageReactionLayout: Equatable {
+@StoredHash
+struct MessageReactionLayout: Equatable, Hashable {
     let size: CGSize
     let emojiFrame: CGRect
     let countFrame: CGRect?

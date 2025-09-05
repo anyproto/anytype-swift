@@ -1,6 +1,8 @@
 import Foundation
+import StoredHashMacro
 
-struct MessageBubbleLayout: Equatable {
+@StoredHash
+struct MessageBubbleLayout: Equatable, Hashable {
     let bubbleSize: CGSize
     let textFrame: CGRect?
     let textLayout: MessageTextLayout?

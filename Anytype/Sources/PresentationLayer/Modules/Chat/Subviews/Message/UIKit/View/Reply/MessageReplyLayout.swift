@@ -1,6 +1,8 @@
 import UIKit
+import StoredHashMacro
 
-struct MessageReplyLayout: Equatable {
+@StoredHash
+struct MessageReplyLayout: Equatable, Hashable {
     let size: CGSize
     let lineFrame: CGRect?
     let backgroundFrame: CGRect?
