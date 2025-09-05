@@ -5,6 +5,7 @@ import StoredHashMacro
 struct MessageLayout: Equatable, Hashable {
     let cellSize: CGSize
     let iconFrame: CGRect?
+    let authorNameFrame: CGRect?
     let bubbleFrame: CGRect?
     let bubbleLayout: MessageBubbleLayout?
     let reactionsFrame: CGRect?

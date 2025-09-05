@@ -22,6 +22,7 @@ final class StoredHashTests: XCTestCase {
                     didSet { updateHash() }
                 }
                 let constantValue: Int
+                var id: String { value1 }
                 let constantValueV2 = 2
                 static let staticConstantValue = 2
             }
@@ -33,12 +34,13 @@ final class StoredHashTests: XCTestCase {
                     didSet { updateHash() }
                 }
                 let constantValue: Int
+                var id: String { value1 }
                 let constantValueV2 = 2
                 static let staticConstantValue = 2
             
-                private var _lastHash: Int = 0
+                private var _lastHash: Int
 
-                private func computeHash() -> Int {
+                private static func computeHash(value1: Int, value2: String, constantValue: Int) -> Int {
                     var hasher = Hasher()
                     hasher.combine(value1)
                     hasher.combine(value2)
@@ -47,7 +49,7 @@ final class StoredHashTests: XCTestCase {
                 }
 
                 private mutating func updateHash() {
-                    _lastHash = computeHash()
+                    _lastHash = Self.computeHash(value1: value1, value2: value2, constantValue: constantValue)
                 }
 
                 public func hash(into hasher: inout Hasher) {
@@ -62,7 +64,7 @@ final class StoredHashTests: XCTestCase {
                     self.value1 = value1
                     self.value2 = value2
                     self.constantValue = constantValue
-                    self._lastHash = computeHash()
+                    self._lastHash = Self.computeHash(value1: value1, value2: value2, constantValue: constantValue)
                 }
             }
             """,

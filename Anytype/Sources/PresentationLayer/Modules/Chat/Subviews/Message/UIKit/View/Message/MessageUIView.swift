@@ -7,6 +7,12 @@ final class MessageUIView: UIView, UIContentView {
     private lazy var bubbleView = MessageBubbleUIView()
     private lazy var reactionsView = MessageReactionListUIView()
     private lazy var replyView = MessageReplyUIView()
+    private lazy var authorLabel = {
+        let label = UILabel()
+        label.numberOfLines = MessageUIViewData.authorLineLimit
+        label.textColor = .Text.primary
+        return label
+    }()
     
     private let containerView = MessageSwipeView()
     
@@ -57,6 +63,7 @@ final class MessageUIView: UIView, UIContentView {
         let data = messageConfiguration.data
         bubbleView.data = data.bubble
         iconView.icon = data.authorIcon
+        authorLabel.attributedText = data.authorName
         replyView.data = data.reply
         reactionsView.data = data.reactions
     }
@@ -68,6 +75,7 @@ final class MessageUIView: UIView, UIContentView {
         replyView.layout = layout.replyLayout
         
         iconView.addTo(parent: containerView.contentView, frame: layout.iconFrame)
+        authorLabel.addTo(parent: containerView.contentView, frame: layout.authorNameFrame)
         bubbleView.addTo(parent: containerView.contentView, frame: layout.bubbleFrame)
         reactionsView.addTo(parent: containerView.contentView, frame: layout.reactionsFrame)
         replyView.addTo(parent: containerView.contentView, frame: layout.replyFrame)

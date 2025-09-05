@@ -20,14 +20,53 @@ public struct StoredHashMacro: MemberMacro {
         }
         
         let members = structDecl.memberBlock.members
-        let varDeclarations = members.compactMap { $0.decl.as(VariableDeclSyntax.self) }.filter { !$0.isStatic && !($0.isLet && $0.hasInitializer) }
+        let varDeclarations = members.compactMap { $0.decl.as(VariableDeclSyntax.self) }.filter { !$0.isStatic && !($0.isLet && $0.hasInitializer) && !$0.hasComputedBindings }
+        
+        // Create public init method that calculates hash at the end
+        let storedProperties = varDeclarations.filter { varDecl in
+            guard let binding = varDecl.bindings.first else { return false }
+            
+            // If no accessor block, it's a stored property
+            guard let accessorBlock = binding.accessorBlock else { return true }
+            
+            // Check if it's a computed property (has get/set accessors)
+            switch accessorBlock.accessors {
+            case .accessors(let accessorList):
+                for accessor in accessorList {
+                    if accessor.accessorSpecifier.tokenKind == .keyword(.get) ||
+                       accessor.accessorSpecifier.tokenKind == .keyword(.set) {
+                        return false // It's a computed property, exclude it
+                    }
+                }
+                return true // Has observers like didSet/willSet
+            case .getter:
+                return false // It's a computed property with getter expression
+            }
+        }
+        
+        let methodParameters = storedProperties.compactMap { varDecl in
+            guard let binding = varDecl.bindings.first,
+                  let pattern = binding.pattern.as(IdentifierPatternSyntax.self),
+                  let typeAnnotation = binding.typeAnnotation else {
+                return nil
+            }
+            return "\(pattern.identifier.text): \(typeAnnotation.type.description.trimmingCharacters(in: .whitespaces))"
+        }.joined(separator: ", ")
+        
+        let hashArguments = storedProperties.compactMap { varDecl in
+            guard let binding = varDecl.bindings.first,
+                  let pattern = binding.pattern.as(IdentifierPatternSyntax.self) else {
+                return nil
+            }
+            return "\(pattern.identifier.text): \(pattern.identifier.text)"
+        }.joined(separator: ", ")
         
         // Create private property for storing hash
-        let hashProperty = "private var _lastHash: Int = 0"
+        let hashProperty = "private var _lastHash: Int"
         
         // Create method for computing hash
         let hashMethod = """
-        private func computeHash() -> Int {
+        private static func computeHash(\(methodParameters)) -> Int {
             var hasher = Hasher()
             \(varDeclarations.map { "hasher.combine(\($0.bindings.first?.pattern.description ?? ""))" }.joined(separator: "\n    "))
             return hasher.finalize()
@@ -37,7 +76,7 @@ public struct StoredHashMacro: MemberMacro {
         // Create method for updating hash
         let updateHashMethod = """
         private mutating func updateHash() {
-            _lastHash = computeHash()
+            _lastHash = Self.computeHash(\(hashArguments))
         }
         """
         
@@ -55,37 +94,6 @@ public struct StoredHashMacro: MemberMacro {
         }
         """
         
-        // Create public init method that calculates hash at the end
-        let storedProperties = varDeclarations.filter { varDecl in
-            guard let binding = varDecl.bindings.first else { return false }
-            
-            // If no accessor block, it's a stored property
-            guard let accessorBlock = binding.accessorBlock else { return true }
-            
-            // Check if it's a computed property (has get/set accessors)
-            switch accessorBlock.accessors {
-            case .accessors(let accessorList):
-                for accessor in accessorList {
-                    if accessor.accessorSpecifier.tokenKind == .keyword(.get) || 
-                       accessor.accessorSpecifier.tokenKind == .keyword(.set) {
-                        return false // It's a computed property, exclude it
-                    }
-                }
-                return true // Has observers like didSet/willSet
-            case .getter:
-                return false // It's a computed property with getter expression
-            }
-        }
-        
-        let initParameters = storedProperties.compactMap { varDecl in
-            guard let binding = varDecl.bindings.first,
-                  let pattern = binding.pattern.as(IdentifierPatternSyntax.self),
-                  let typeAnnotation = binding.typeAnnotation else {
-                return nil
-            }
-            return "\(pattern.identifier.text): \(typeAnnotation.type.description.trimmingCharacters(in: .whitespaces))"
-        }.joined(separator: ", ")
-        
         let initAssignments = storedProperties.compactMap { varDecl in
             guard let binding = varDecl.bindings.first,
                   let pattern = binding.pattern.as(IdentifierPatternSyntax.self) else {
@@ -95,9 +103,9 @@ public struct StoredHashMacro: MemberMacro {
         }.joined(separator: "\n    ")
         
         let initMethod = """
-        public init(\(initParameters)) {
+        public init(\(methodParameters)) {
             \(initAssignments)
-            self._lastHash = computeHash()
+            self._lastHash = Self.computeHash(\(hashArguments))
         }
         """
         

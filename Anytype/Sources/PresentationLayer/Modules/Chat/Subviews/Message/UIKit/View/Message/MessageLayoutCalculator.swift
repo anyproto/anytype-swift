@@ -79,7 +79,11 @@ final class MessageLayoutCalculator: @unchecked Sendable {
                 }
                 .readFrame { reactionsFrame = $0 }
             }
-            
+        
+        // Author Name
+        
+        var authorNameFrame: CGRect? = nil
+        
         // Reply
         
         var replyFrame: CGRect?
@@ -103,6 +107,12 @@ final class MessageLayoutCalculator: @unchecked Sendable {
                     }
                     .readFrame { replyFrame = $0 }
                 }
+                
+                AnyViewCalculator { targetSize in
+                    return data.authorName.sizeForLabel(width: targetSize.width, maxLines: MessageUIViewData.authorLineLimit)
+                }
+                .readFrame { authorNameFrame = $0 }
+                .padding(horizontal: 12)
                 
                 bubbleCalculator
                 reactionsCalculator
@@ -130,6 +140,7 @@ final class MessageLayoutCalculator: @unchecked Sendable {
         return MessageLayout(
             cellSize: calculatedSize,
             iconFrame: iconFrame,
+            authorNameFrame: authorNameFrame,
             bubbleFrame: bubbleFrame,
             bubbleLayout: bubbleLayout,
             reactionsFrame: reactionsFrame,

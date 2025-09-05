@@ -18,20 +18,22 @@ struct MessageBigBookmarkViewData: Equatable, Hashable {
 
 extension MessageBigBookmarkViewData {
     init(details: ObjectDetails, position: MessageHorizontalPosition) {
-        self.objectId = details.id
-        self.host = NSAttributedString(
-            string: details.source?.url.host() ?? "",
-            attributes: [.font: UIFont.relation3Regular]
+        self.init(
+            objectId: details.id,
+            host: NSAttributedString(
+                string: details.source?.url.host() ?? "",
+                attributes: [.font: UIFont.relation3Regular]
+            ),
+            title: NSAttributedString(
+                string: details.name,
+                attributes: [.font: UIFont.previewTitle2Medium]
+            ),
+            description: NSAttributedString(
+                string: details.name,
+                attributes: [.font: UIFont.relation3Regular]
+            ),
+            pictureId: details.picture,
+            position: position
         )
-        self.title = NSAttributedString(
-            string: details.name,
-            attributes: [.font: UIFont.previewTitle2Medium]
-        )
-        self.description = NSAttributedString(
-            string: details.name,
-            attributes: [.font: UIFont.relation3Regular]
-        )
-        self.pictureId = details.picture
-        self.position = position
     }
 }

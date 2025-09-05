@@ -563,7 +563,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 inputFocused = true
                 replyToMessage = ChatInputReplyModel(
                     id: message.id,
-                    title: Loc.Chat.replyTo(message.authorName),
+                    title: Loc.Chat.replyTo(message.authorName.string),
                     // Without style. Request from designers.
                     description: message.bubble.messageText.string,
                     icon: attachments.first?.objectIconImage
