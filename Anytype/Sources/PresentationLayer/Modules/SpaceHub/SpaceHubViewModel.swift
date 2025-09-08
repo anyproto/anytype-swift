@@ -10,13 +10,10 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var searchText: String = ""
     
-    var allSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        return spaces
-    }
-    
-    
-    var filteredSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        guard !searchText.isEmpty, let spaces else { return spaces }
+    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] {
+        guard let spaces else { return [] }
+        guard !searchText.isEmpty else { return spaces }
+        
         return spaces.filter { space in
             space.spaceView.name.localizedCaseInsensitiveContains(searchText)
         }
