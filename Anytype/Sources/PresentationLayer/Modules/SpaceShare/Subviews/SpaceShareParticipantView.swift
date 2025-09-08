@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import DesignKit
+
 
 struct SpaceShareParticipantViewModel: Identifiable {
     let id: String
@@ -40,7 +42,7 @@ struct SpaceShareParticipantView: View {
                 .frame(width: 48, height: 48)
                 .overlay(alignment: .topTrailing) {
                     if case .pending = participant.status  {
-                        attentionDotView
+                        AttentionDotView()
                             .padding(.trailing, 2)
                             .padding(.top, 2)
                     }
@@ -131,18 +133,6 @@ struct SpaceShareParticipantView: View {
             } label: {
                 status
             }
-        }
-    }
-    
-    private var attentionDotView: some View {
-        ZStack(alignment: .center) {
-            Circle()
-                .fill(Color.Control.accent100)
-                .frame(width: 8, height: 8)
-
-            Circle()
-                .strokeBorder(Color.Background.primary, lineWidth: 2)
-                .frame(width: 10, height: 10)
         }
     }
 }
