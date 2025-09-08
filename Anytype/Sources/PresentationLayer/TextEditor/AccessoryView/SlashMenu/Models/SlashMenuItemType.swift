@@ -38,17 +38,17 @@ enum SlashMenuItemType: Sendable {
     var iconName: Icon {
         switch self {
         case .style:
-            return .asset(.X40.style)
+            return .asset(.X24.style)
         case .media:
-            return .asset(.X40.media)
+            return .asset(.X24.media)
         case .objects:
-            return .asset(.X40.objects)
+            return .asset(.X24.objects)
         case .relations:
-            return .asset(.X40.properties)
+            return .asset(.X24.properties)
         case .other:
-            return .asset(.X40.other)
+            return .asset(.X24.other)
         case .actions:
-            return .asset(.X40.actions)
+            return .asset(.X24.actions)
         case .color:
             let image = UIImage.circleImage(
                 size: .init(width: 22, height: 22),
