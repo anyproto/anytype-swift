@@ -105,6 +105,17 @@ extension NSAttributedString {
     func sendable() -> SafeNSAttributedString {
         SafeSendable(value: self.copy() as? NSAttributedString ?? NSAttributedString())
     }
+    
+    func trimmingCharacters(in characterSet: CharacterSet) -> NSAttributedString {
+        let trimmedString = string.trimmingCharacters(in: characterSet)
+
+        guard let rangeOfTrimmed = string.range(of: trimmedString) else {
+            return self
+        }
+
+        let nsRange = NSRange(rangeOfTrimmed, in: string)
+        return attributedSubstring(from: nsRange)
+    }
 }
 
 extension Int {

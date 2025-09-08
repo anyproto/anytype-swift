@@ -144,7 +144,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         
         let message = LastMessagePreview(
             creator: creator,
-            text: messageTextBuilder.makeMessaeWithoutStyle(content: message.message),
+            text: messageTextBuilder.makeMessaeWithoutStyle(content: message.message, font: .chatText),
             createdAt: message.createdAtDate,
             modifiedAt: message.modifiedAtDate,
             attachments: attachments

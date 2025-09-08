@@ -7,7 +7,8 @@ protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
         participants: [Participant],
         firstUnreadMessageOrderId: String?,
         messageYourBackgroundColor: Color,
-        limits: any ChatMessageLimitsProtocol
+        limits: any ChatMessageLimitsProtocol,
+        linkHandler: @Sendable @MainActor @escaping (URL) -> Void
     ) async -> [MessageSectionData]
 }
 
@@ -36,7 +37,8 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         participants: [Participant],
         firstUnreadMessageOrderId: String?,
         messageYourBackgroundColor: Color,
-        limits: any ChatMessageLimitsProtocol
+        limits: any ChatMessageLimitsProtocol,
+        linkHandler: @Sendable @MainActor @escaping (URL) -> Void
     ) async -> [MessageSectionData] {
         let messageYourBackgroundColor = UIColor(messageYourBackgroundColor)
         
@@ -86,7 +88,8 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                     messageData: makeMessageText(
                         fullMessage: fullMessage,
                         isYourMessage: isYourMessage,
-                        position: position
+                        position: position,
+                        linkHandler: linkHandler
                     ),
                     linkedObjects: mapAttachments(fullMessage: fullMessage, position: position),
                     position: position,
@@ -153,7 +156,8 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
     private func makeMessageText(
         fullMessage: FullChatMessage,
         isYourMessage: Bool,
-        position: MessageHorizontalPosition
+        position: MessageHorizontalPosition,
+        linkHandler: @Sendable @MainActor @escaping (URL) -> Void
     ) -> MessageTextViewData? {
         let message = fullMessage.message
         
@@ -161,7 +165,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return nil
         }
         
-        let text = messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position)
+        let text = messageTextBuilder.makeMessage(content: message.message, spaceId: spaceId, position: position, font: .chatText, linkHandler: linkHandler)
         
         let edited = message.modifiedAtDate != nil
         let editText = edited ? Loc.Message.edited + " " : ""
@@ -226,7 +230,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             if replyChat.message.text.isNotEmpty {
                 // Without style. Request from designers.
                 description = messageTextBuilder
-                    .makeMessaeWithoutStyle(content: replyChat.message)
+                    .makeMessaeWithoutStyle(content: replyChat.message, font: .chatText)
                     .replacingOccurrences(of: "\n+", with: "\n", options: .regularExpression)
             } else if fullMessage.replyAttachments.count == 1 {
                 description = replyAttachment?.title ?? ""

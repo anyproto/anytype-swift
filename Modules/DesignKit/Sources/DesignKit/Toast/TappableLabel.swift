@@ -4,7 +4,7 @@ public extension NSAttributedString.Key {
     static let tapHandler = NSAttributedString.Key("TapHandler")
 }
 
-final class TappableLabel: UILabel {
+public final class TappableLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -26,7 +26,7 @@ final class TappableLabel: UILabel {
     }
     
     @objc
-    func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+    private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
         guard let characterIndex = gesture.characterIndexTappedInLabel(self) else {
             return
         }

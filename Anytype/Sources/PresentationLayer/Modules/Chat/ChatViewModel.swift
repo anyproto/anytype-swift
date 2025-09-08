@@ -62,6 +62,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     @Published var dataLoaded = false
     @Published var canEdit = false
+    @Published var openUrlData: URL?
     var keyboardDismiss: KeyboardDismiss?
     
     // Input Message
@@ -679,7 +680,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             participants: participants,
             firstUnreadMessageOrderId: firstUnreadMessageOrderId,
             messageYourBackgroundColor: messageYourBackgroundColor,
-            limits: chatMessageLimits
+            limits: chatMessageLimits,
+            linkHandler: { [weak self] url in
+                self?.openUrlData = url
+            }
         )
         guard newMessageBlocks != mesageBlocks else { return }
         mesageBlocks = newMessageBlocks

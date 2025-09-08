@@ -52,6 +52,7 @@ struct ChatView: View {
         .anytypeSheet(isPresented: $model.showSendLimitAlert) {
             ChatSendLimitAlert()
         }
+        .openUrl(url: $model.openUrlData)
         .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
     }

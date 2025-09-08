@@ -4,87 +4,106 @@ import AnytypeCore
 import DeepLinks
 
 protocol MessageTextBuilderProtocol: Sendable {
-    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> NSAttributedString
-    func makeMessaeWithoutStyle(content: ChatMessageContent) -> String
-}
-
-extension MessageTextBuilderProtocol {
-    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition) -> NSAttributedString {
-        makeMessage(content: content, spaceId: spaceId, position: position, font: .chatText)
-    }
+    func makeMessage(
+        content: ChatMessageContent,
+        spaceId: String,
+        position: MessageHorizontalPosition,
+        font: AnytypeFont,
+        linkHandler: (@Sendable @MainActor (URL) -> Void)?
+    ) -> NSAttributedString
+    func makeMessaeWithoutStyle(content: ChatMessageContent, font: AnytypeFont) -> String
 }
 
 struct MessageTextBuilder: MessageTextBuilderProtocol, Sendable {
     
     private let deepLinkParser: any DeepLinkParserProtocol = Container.shared.deepLinkParser()
     
-    func makeMessage(content: ChatMessageContent, spaceId: String, position: MessageHorizontalPosition, font: AnytypeFont) -> NSAttributedString {
-        var message = AttributedString(content.text)
-        
-        var attributes = AttributeContainer()
-        
-        attributes.uiKit.font = UIKitFontBuilder.uiKitFont(font: font)
-        attributes.uiKit.kern = font.config.kern
+    func makeMessage(
+        content: ChatMessageContent,
+        spaceId: String,
+        position: MessageHorizontalPosition,
+        font: AnytypeFont,
+        linkHandler: (@Sendable @MainActor (URL) -> Void)?
+    ) -> NSAttributedString {
+    
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = font.lineHeightMultiple
-        attributes.uiKit.paragraphStyle = paragraphStyle
         
         let textColor = position.isRight ? UIColor.Text.white : UIColor.Text.primary
-        attributes.uiKit.foregroundColor = textColor
         let underlineColor = textColor.withAlphaComponent(0.3)
-        attributes.uiKit.underlineColor = underlineColor
-        
-        message.setAttributes(attributes)
+        let uiFont = UIKitFontBuilder.uiKitFont(font: font)
+        let attributes: [NSAttributedString.Key : Any] = [
+            .font: uiFont,
+            .kern: font.config.kern,
+            .paragraphStyle: paragraphStyle,
+            .foregroundColor: textColor,
+            .underlineColor: underlineColor
+        ]
+        let message = NSMutableAttributedString(string: content.text, attributes: attributes)
         
         for mark in content.marks.reversed() {
             let nsRange = NSRange(mark.range)
-            guard let range = Range(nsRange, in: message) else {
-                continue
-            }
             
             switch mark.type {
             case .strikethrough:
-                message[range].uiKit.strikethroughStyle = .single
+                message.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
             case .keyboard:
-                message[range].uiKit.font = UIFont.code
+                message.addAttribute(.font, value: UIFont.code, range: nsRange)
             case .italic:
-                message[range].uiKit.font = message[range].uiKit.font?.italic
+                message.addAttribute(.font, value: uiFont.italic, range: nsRange)
             case .bold:
-                message[range].uiKit.font = message[range].uiKit.font?.semibold
+                message.addAttribute(.font, value: uiFont.semibold, range: nsRange)
             case .underscored:
-                message[range].uiKit.underlineStyle = .single
+                message.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
             case .link:
-                message[range].uiKit.underlineStyle = .single
-//                if let link = URL(string: mark.param) {
-//                    message[range].uiKit.link = link
-//                }
+                message.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
+                if let linkHandler, let link = URL(string: mark.param) {
+                    message.addAttribute(.tapHandler, value: {
+                        MainActor.assumeIsolated {
+                            linkHandler(link)
+                        }
+                    }, range: nsRange)
+                }
             case .object:
-                message[range].uiKit.underlineStyle = .single
-//                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
-//                    message[range].uiKit.link = linkToObject
-//                }
+                message.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
+                if let linkHandler, let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
+                    message.addAttribute(.tapHandler, value: {
+                        MainActor.assumeIsolated {
+                            linkHandler(linkToObject)
+                        }
+                    }, range: nsRange)
+                }
             case .textColor:
-                message[range].uiKit.foregroundColor = MiddlewareColor(rawValue: mark.param).map { UIColor.Dark.uiColor(from: $0) }
+                if let color = MiddlewareColor(rawValue: mark.param).map({ UIColor.Dark.uiColor(from: $0) }) {
+                    message.addAttribute(.foregroundColor, value: color, range: nsRange)
+                }
             case .backgroundColor:
-                message[range].uiKit.backgroundColor = MiddlewareColor(rawValue: mark.param).map { UIColor.VeryLight.uiColor(from: $0) }
+                if let color = MiddlewareColor(rawValue: mark.param).map({ UIColor.VeryLight.uiColor(from: $0) }) {
+                    message.addAttribute(.backgroundColor, value: color, range: nsRange)
+                }
             case .mention:
-                message[range].uiKit.underlineStyle = .single
-//                if let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
-//                    message[range].uiKit.link = linkToObject
-//                }
+                message.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: nsRange)
+                if let linkHandler, let linkToObject = createLinkToObject(mark.param, spaceId: spaceId) {
+                    message.addAttribute(.tapHandler, value: {
+                        MainActor.assumeIsolated {
+                            linkHandler(linkToObject)
+                        }
+                    }, range: nsRange)
+                }
             case .emoji:
-                message.replaceSubrange(range, with: AttributedString(mark.param, attributes: attributes))
+                let substring = NSAttributedString(string: mark.param, attributes: attributes)
+                message.replaceCharacters(in: nsRange, with: substring)
             case .UNRECOGNIZED(let int):
                 anytypeAssertionFailure("Undefined text attribute", info: ["value": int.description, "param": mark.param])
                 break
             }
         }
         
-        return NSAttributedString(message.trimmingCharacters(in: .whitespacesAndNewlines))
+        return message.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    func makeMessaeWithoutStyle(content: ChatMessageContent) -> String {
-        makeMessage(content: content, spaceId: "", position: .right).string
+    func makeMessaeWithoutStyle(content: ChatMessageContent, font: AnytypeFont) -> String {
+        makeMessage(content: content, spaceId: "", position: .right, font: font, linkHandler: nil).string
     }
     
     private func createLinkToObject(_ objectId: String, spaceId: String) -> URL? {

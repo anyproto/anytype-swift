@@ -1,12 +1,13 @@
 import UIKit
 import Cache
+import DesignKit
 
 final class MessageTextUIView: UIView {
     
     // MARK: - Private properties
     
-    private lazy var textLabel: UILabel = {
-        let label = UILabel()
+    private lazy var textLabel: TappableLabel = {
+        let label = TappableLabel()
         label.numberOfLines = 0
         return label
     }()

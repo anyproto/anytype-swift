@@ -43,6 +43,7 @@ struct ChatCollectionView<
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceVertical = true
         
         if #available(iOS 16.4, *) {
             collectionView.keyboardDismissMode = .interactive
