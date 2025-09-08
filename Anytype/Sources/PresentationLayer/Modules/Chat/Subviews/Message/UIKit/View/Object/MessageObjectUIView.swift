@@ -81,13 +81,13 @@ final class MessageObjectUIView: UIView {
         
         iconView.icon = data.objectIconImage
         titleLabel.text = data.title
-        titleLabel.textColor = data.style.titleUiColor
+        titleLabel.textColor = data.style.titleColor
         // TODO: move to model
         if let sizeInBytes = data.sizeInBytes, let size = sizeInBytes > 0 ? ByteCountFormatter.fileFormatter.string(fromByteCount: Int64(sizeInBytes)) : nil {
             descriptionLabel.text = "\(data.description) • \(size)"
         } else {
             descriptionLabel.text = data.description
         }
-        descriptionLabel.textColor = data.style.descriptionUiColor
+        descriptionLabel.textColor = data.style.descriptionColor
     }
 }

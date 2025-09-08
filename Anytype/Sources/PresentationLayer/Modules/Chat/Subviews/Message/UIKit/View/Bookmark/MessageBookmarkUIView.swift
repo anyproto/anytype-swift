@@ -79,8 +79,8 @@ final class MessageBookmarkUIView: UIView {
         
         iconView.icon = data.objectIconImage
         titleLabel.text = data.title
-        titleLabel.textColor = data.style.titleUiColor
+        titleLabel.textColor = data.style.titleColor
         descriptionLabel.text = data.description
-        descriptionLabel.textColor = data.style.descriptionUiColor
+        descriptionLabel.textColor = data.style.descriptionColor
     }
 }
