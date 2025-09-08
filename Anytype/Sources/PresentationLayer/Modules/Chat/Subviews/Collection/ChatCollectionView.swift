@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 struct ChatCollectionView<
-    ItemView: View,
+    UnreadView: View,
     HeaderView: View,
     BottomPanel: View,
     ActionView: View,
@@ -20,7 +20,7 @@ struct ChatCollectionView<
     let showEmptyState: Bool
     // Dynamic update doesn't support
     let output: (any MessageModuleOutput)?
-    let unreadBuilder: (String) -> ItemView
+    let unreadBuilder: (String) -> UnreadView
     let headerBuilder: (Section.Header) -> HeaderView
     @ViewBuilder
     let actionView: ActionView
@@ -96,7 +96,7 @@ struct ChatCollectionView<
         context.coordinator.updateState(collectionView: container.collectionView, sections: items, proxy: proxy)
     }
     
-    func makeCoordinator() -> ChatCollectionViewCoordinator<ItemView, HeaderView> {
-        return ChatCollectionViewCoordinator<ItemView, HeaderView>(output: output)
+    func makeCoordinator() -> ChatCollectionViewCoordinator<UnreadView, HeaderView> {
+        return ChatCollectionViewCoordinator<UnreadView, HeaderView>(output: output)
     }
 }

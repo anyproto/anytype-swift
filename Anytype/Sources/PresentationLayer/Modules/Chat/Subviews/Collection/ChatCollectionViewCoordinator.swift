@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 final class ChatCollectionViewCoordinator<
-    DataView: View,
+    UnreadView: View,
     HeaderView: View>: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     typealias Section = MessageSectionData
@@ -34,7 +34,7 @@ final class ChatCollectionViewCoordinator<
     var scrollToBottom: (() async -> Void)?
     var decelerating = false
     var lastProxy: ChatCollectionProxy?
-    var unreadBuilder: ((String) -> DataView)?
+    var unreadBuilder: ((String) -> UnreadView)?
     var headerBuilder: ((Section.Header) -> HeaderView)?
     var handleVisibleRange: ((_ from: Item, _ to: Item) -> Void)?
     var handleBigDistanceToTheBottom: ((_ isBigDistance: Bool) -> Void)?

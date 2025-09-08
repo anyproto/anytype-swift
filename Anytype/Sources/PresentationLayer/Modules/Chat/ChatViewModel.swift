@@ -93,7 +93,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     @Published var mesageBlocks: [MessageSectionData] = []
     @Published var mentionObjectsModels: [MentionObjectModel] = []
     @Published var collectionViewProxy = ChatCollectionProxy()
-//    @Published var interactionProvider: (any ChatCollectionInteractionProviderProtocol)?
     
     private var messages: [FullChatMessage] = []
     private var chatState: ChatState?
