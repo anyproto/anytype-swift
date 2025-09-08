@@ -1,8 +1,11 @@
 import SwiftUI
 import AnytypeCore
+import DesignKit
+
 
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
+    @StateObject var spaceCreationTip = SpaceCreationTipWrapper()
     
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
@@ -113,15 +116,20 @@ struct SpaceHubView: View {
         
         ToolbarItem(placement: .topBarTrailing) {
             Button {
+                spaceCreationTip.invalidate()
                 model.onTapCreateSpace()
             }
             label: {
                 Image(asset: .X32.addFilled)
                     .foregroundStyle(Color.Control.secondary)
                     .frame(width: 32, height: 32)
+                    .overlay(alignment: .bottomLeading) {
+                        if spaceCreationTip.shouldDisplay {
+                            AttentionDotView()
+                        }
+                    }
                     .padding(.vertical, 6)
             }
-            
         }
     }
     
@@ -147,22 +155,6 @@ struct SpaceHubView: View {
             style: .withImage,
             buttonData: nil
         )
-    }
-    
-    private var plusButton: some View {
-        Button {
-            model.onTapCreateSpace()
-        } label: {
-            HStack(alignment: .center) {
-                Spacer()
-                Image(asset: .X32.plus)
-                Spacer()
-            }
-            .padding(.vertical, 32)
-            .background(Color.Shape.tertiary)
-            .cornerRadius(20, style: .continuous)
-            .padding(.horizontal, 8)
-        }
     }
     
     private var attentionDotView: some View {
