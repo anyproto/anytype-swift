@@ -33,4 +33,11 @@ extension ObjectTypeProviderProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func objectTypePublisher(typeId: String) -> AnyPublisher<ObjectType, Never> {
+        syncPublisher
+            .compactMap { [weak self] in try? self?.objectType(id: typeId) }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }

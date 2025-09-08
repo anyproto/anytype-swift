@@ -22,6 +22,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -30,6 +32,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let showSpaceChat: Bool
     
     @Published var widgetBlocks: [BlockWidgetInfo] = []
+    @Published var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
@@ -46,39 +49,12 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.showSpaceChat = workspaceStorage.spaceView(spaceId: info.accountSpaceId).map { !$0.initialScreenIsChat } ?? false
     }
     
-    func startWidgetObjectTask() async {
-        for await _ in widgetObject.syncPublisher.values {
-            dataLoaded = true
-            
-            let blocks = widgetObject.children.filter(\.isWidget)
-            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            
-            var newWidgetBlocks = blocks
-                .compactMap { widgetObject.widgetInfo(block: $0) }
-            
-            let chatWidgets = newWidgetBlocks.filter { $0.source == .library(.chat) }
-            
-            newWidgetBlocks.removeAll { $0.source == .library(.chat) }
-            
-            if showSpaceChat && FeatureFlags.chatInDataSpace {
-                newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
-            }
-            
-            guard widgetBlocks != newWidgetBlocks else { continue }
-            
-            widgetBlocks = newWidgetBlocks
-            
-            // Reset panel for empty state
-            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
-                homeState = .readwrite
-            }
-        }
-    }
-    
-    func startParticipantTask() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            homeState = canEdit ? .readwrite : .readonly
-        }
+    func startSubscriptions() async {
+        async let widgetObjectSub: () = startWidgetObjectTask()
+        async let participantTask: () = startParticipantTask()
+        async let objectTypesTask: () = startObjectTypesTask()
+        
+        (_, _, _) = await (widgetObjectSub, participantTask, objectTypesTask)
     }
     
     func onAppear() {
@@ -118,5 +94,49 @@ final class HomeWidgetsViewModel: ObservableObject {
     func onCreateWidgetFromMainMode() {
         AnytypeAnalytics.instance().logClickAddWidget(context: .main)
         output?.onCreateWidgetSelected(context: .main)
+    }
+    
+    // MARK: - Private
+    
+    private func startWidgetObjectTask() async {
+        for await _ in widgetObject.syncPublisher.values {
+            dataLoaded = true
+            
+            let blocks = widgetObject.children.filter(\.isWidget)
+            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
+            
+            var newWidgetBlocks = blocks
+                .compactMap { widgetObject.widgetInfo(block: $0) }
+            
+            let chatWidgets = newWidgetBlocks.filter { $0.source == .library(.chat) }
+            
+            newWidgetBlocks.removeAll { $0.source == .library(.chat) }
+            
+            if showSpaceChat && FeatureFlags.chatInDataSpace {
+                newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
+            }
+            
+            guard widgetBlocks != newWidgetBlocks else { continue }
+            
+            widgetBlocks = newWidgetBlocks
+            
+            // Reset panel for empty state
+            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
+                homeState = .readwrite
+            }
+        }
+    }
+    
+    private func startParticipantTask() async {
+        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
+            homeState = canEdit ? .readwrite : .readonly
+        }
+    }
+    
+    private func startObjectTypesTask() async {
+        guard FeatureFlags.homeObjectTypeWidgets else { return }
+        for await objectTypes in objectTypeProvider.objectTypesPublisher(spaceId: spaceId).values {
+            objectTypeWidgets = objectTypes.map { ObjectTypeWidgetInfo(objectTypeId: $0.id) }
+        }
     }
 }

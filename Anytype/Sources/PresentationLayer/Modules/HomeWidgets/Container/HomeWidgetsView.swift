@@ -33,10 +33,7 @@ private struct HomeWidgetsInternalView: View {
             }
         }
         .task {
-            await model.startWidgetObjectTask()
-        }
-        .task {
-            await model.startParticipantTask()
+            await model.startSubscriptions()
         }
         .onAppear {
             model.onAppear()
@@ -74,20 +71,34 @@ private struct HomeWidgetsInternalView: View {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTipView()
                 }
-                ForEach(model.widgetBlocks) { widgetInfo in
-                    HomeWidgetSubmoduleView(
-                        widgetInfo: widgetInfo,
-                        widgetObject: model.widgetObject,
-                        workspaceInfo: model.info,
-                        homeState: $model.homeState,
-                        output: model.output
-                    )
+                blockWidgets
+                if FeatureFlags.homeObjectTypeWidgets {
+                    objectTypeWidgets
+                } else {
+                    editButtons
                 }
-                editButtons
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
+        }
+    }
+    
+    private var blockWidgets: some View {
+        ForEach(model.widgetBlocks) { widgetInfo in
+            HomeWidgetSubmoduleView(
+                widgetInfo: widgetInfo,
+                widgetObject: model.widgetObject,
+                workspaceInfo: model.info,
+                homeState: $model.homeState,
+                output: model.output
+            )
+        }
+    }
+    
+    private var objectTypeWidgets: some View {
+        ForEach(model.objectTypeWidgets) { info in
+            ObjectTypeWidgetView(info: info)
         }
     }
     
