@@ -18,9 +18,35 @@ private struct ObjectTypeWidgetInternalView: View {
     }
     
     var body: some View {
-        Text(model.typeName)
-            .task {
-                await model.startSubscription()
+        WidgetSwipeActionView(
+            isEnable: model.canCreateObject,
+            showTitle: model.isExpanded,
+            action: {
+                if #available(iOS 17.0, *) {
+                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
+                }
+                model.onCreateObject()
             }
+        ) {
+            LinkWidgetViewContainer(
+                isExpanded: $model.isExpanded,
+                homeState: .constant(.readwrite),
+                header: {
+                    LinkWidgetDefaultHeader(title: model.typeName, icon: nil, onTap: {
+                        model.onHeaderTap()
+                    })
+                },
+                content: {
+                    content
+                }
+            )
+        }
+        .task {
+            await model.startSubscription()
+        }
+    }
+    
+    private var content: some View {
+        EmptyView()
     }
 }

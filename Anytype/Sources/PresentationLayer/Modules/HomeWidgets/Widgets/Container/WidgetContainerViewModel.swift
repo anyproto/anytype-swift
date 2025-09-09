@@ -43,7 +43,7 @@ final class WidgetContainerViewModel: ObservableObject {
         
         blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         
-        isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
+        isExpanded = blockWidgetExpandedService.isExpanded(id: widgetBlockId)
     }
     
     // MARK: - Actions
@@ -73,6 +73,6 @@ final class WidgetContainerViewModel: ObservableObject {
                 AnytypeAnalytics.instance().logCloseSidebarGroupToggle(source: info.source.analyticsSource)
             }
         }
-        blockWidgetExpandedService.setState(widgetBlockId: widgetBlockId, isExpanded: isExpanded)
+        blockWidgetExpandedService.setState(id: widgetBlockId, isExpanded: isExpanded)
     }
 }
