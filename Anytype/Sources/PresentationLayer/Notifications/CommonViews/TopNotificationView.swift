@@ -50,7 +50,7 @@ struct TopNotificationButton: Equatable {
 }
 
 #Preview("Single Line") {
-    TopNotificationView(title: "One **line**", icon: .asset(.X40.audio), buttons: [
+    TopNotificationView(title: "One **line**", icon: .asset(.X24.audio), buttons: [
         TopNotificationButton(title: "Button 1", action: {})
     ])
 }
