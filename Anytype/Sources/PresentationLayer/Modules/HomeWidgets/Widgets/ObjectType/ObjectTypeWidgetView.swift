@@ -42,11 +42,22 @@ private struct ObjectTypeWidgetInternalView: View {
             )
         }
         .task {
-            await model.startSubscription()
+            await model.startSubscriptions()
         }
     }
     
+    @ViewBuilder
     private var content: some View {
-        EmptyView()
+        switch model.rows {
+        case .compactList(let rows):
+            ListWidgetContentView(style: .compactList, rows: rows)
+        case .gallery(let rows):
+            GalleryWidgetView(rows: rows, onShowAllObjects: {
+                model.onShowAllTap()
+            })
+        case .none:
+            EmptyView()
+        }
+
     }
 }
