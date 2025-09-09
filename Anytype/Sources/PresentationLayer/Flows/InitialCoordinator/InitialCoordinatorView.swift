@@ -50,11 +50,10 @@ struct InitialCoordinatorView: View {
         VStack {
             Spacer()
             AnytypeText("🚨", style: .uxTitle1Semibold)
-                .foregroundColor(.Text.white)
             AnytypeText("Previous run finished with crash", style: .uxTitle1Semibold)
-                .foregroundColor(.Text.white)
+                .foregroundColor(.Text.primary)
             AnytypeText("You can copy and send your data (documents, files, etc.) to developers. If your data contains private information, do not send it to anyone.", style: .uxTitle2Medium)
-                .foregroundColor(.Text.white)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer()
             StandardButton("Export full directory 🤐", style: .primaryLarge) {
