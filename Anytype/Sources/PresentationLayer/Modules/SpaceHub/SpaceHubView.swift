@@ -28,10 +28,8 @@ struct SpaceHubView: View {
     @ViewBuilder
     private var content: some View {
         Group {
-            if let spaces = model.filteredSpaces {
-                spacesView(spaces: spaces)
-            } else if model.spaces.isNotNil {
-                emptyStateView
+            if let spaces = model.spaces {
+                spacesView(spaces)
             } else {
                 EmptyView() // Do not show empty state view if we do not receive data yet
             }
@@ -42,11 +40,13 @@ struct SpaceHubView: View {
         .animation(.default, value: model.spaces)
     }
     
-    private func spacesView(spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+    private func spacesView(_ spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
         NavigationStack {
             Group {
-                if spaces.isNotEmpty {
-                    scrollView(spaces: spaces)
+                if spaces.isEmpty {
+                    emptyStateView
+                } else if model.filteredSpaces.isNotEmpty {
+                    scrollView
                 } else {
                     searchEmptyStateView
                 }
@@ -58,7 +58,7 @@ struct SpaceHubView: View {
         }.tint(Color.Text.secondary)
     }
     
-    private func scrollView(spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+    private var scrollView: some View {
         ScrollView {
             VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
@@ -70,7 +70,7 @@ struct SpaceHubView: View {
                     }
                 }
                 
-                ForEach(spaces) {
+                ForEach(model.filteredSpaces) {
                     spaceCard($0)
                 }
                 

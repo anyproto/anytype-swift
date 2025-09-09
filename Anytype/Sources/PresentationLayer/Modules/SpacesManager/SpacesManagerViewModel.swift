@@ -16,7 +16,10 @@ final class SpacesManagerViewModel: ObservableObject {
     @Published var spaceForStopSharingAlert: SpaceView?
     @Published var spaceForLeaveAlert: SpaceView?
     @Published var spaceViewForDelete: SpaceView?
+    @Published var spaceCreateData: SpaceCreateData?
     @Published var exportSpaceUrl: URL?
+    @Published var showSpaceTypeForCreate = false
+    @Published var shouldScanQrCode = false
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceList()
@@ -51,6 +54,18 @@ final class SpacesManagerViewModel: ObservableObject {
     
     func onStopSharing(row: ParticipantSpaceViewData) {
         spaceForStopSharingAlert = row.spaceView
+    }
+    
+    func onTapCreateSpace() {
+        showSpaceTypeForCreate.toggle()
+    }
+    
+    func onSelectQrCodeScan() {
+        shouldScanQrCode = true
+    }
+    
+    func onSpaceTypeSelected(_ type: SpaceUxType) {
+            spaceCreateData = SpaceCreateData(spaceUxType: type)
     }
 }
 
