@@ -14,7 +14,9 @@ struct SettingsView: View {
             DragIndicator()
             TitleView(title: Loc.Settings.title) {
                 Menu {
-                    Button(Loc.deleteVault) { model.onDeleteAccountTap() }
+                    if model.canDeleteVault {
+                        Button(Loc.deleteVault) { model.onDeleteAccountTap() }
+                    }
                     Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
                 } label: {
                     MoreIndicator()
