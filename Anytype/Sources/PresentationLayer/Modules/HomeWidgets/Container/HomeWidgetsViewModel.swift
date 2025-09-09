@@ -135,8 +135,18 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private func startObjectTypesTask() async {
         guard FeatureFlags.homeObjectTypeWidgets else { return }
-        for await objectTypes in objectTypeProvider.objectTypesPublisher(spaceId: spaceId).values {
-            objectTypeWidgets = objectTypes.map { ObjectTypeWidgetInfo(objectTypeId: $0.id) }
+        let spaceId = spaceId
+        
+        let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
+            .values
+            .map { objects in
+                let objects = objects.filter { $0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false }
+                return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
+            }
+            .removeDuplicates()
+        
+        for await objectTypes in stream {
+            objectTypeWidgets = objectTypes
         }
     }
 }

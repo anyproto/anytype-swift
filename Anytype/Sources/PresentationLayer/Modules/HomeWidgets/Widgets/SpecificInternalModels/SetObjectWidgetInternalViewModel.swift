@@ -25,10 +25,10 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.setContentViewDataBuilder)
-    private var setContentViewDataBuilder: any SetContentViewDataBuilderProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.setObjectWidgetOrderHelper)
+    private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
@@ -135,6 +135,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                 rows = .compactList(rows: listRows, id: activeViewId ?? "")
             case .view:
                 if isSetByImageType() {
+                    // Delete with FeatureFlags.homeObjectTypeWidgets
                     let galleryRows = rowDetails?.map { details in
                         GalleryWidgetRowModel(
                             objectId: details.id,
@@ -231,14 +232,6 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         updateHeader(dataviewState: dataviewState)
     }
     
-    private func sortedRowDetails(_ details: [ObjectDetails]?) -> [ObjectDetails]? {
-        guard let objectOrderIds = setDocument?.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
-                objectOrderIds.isNotEmpty else {
-            return details
-        }
-        return details?.reorderedStable(by: objectOrderIds, transform: { $0.id })
-    }
-    
     private func updateSetDocument(objectId: String, spaceId: String) async {
         guard objectId != setDocument?.objectId, spaceId != setDocument?.spaceId else {
             try? await setDocument?.update()
@@ -277,17 +270,12 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateRowDetails(details: [ObjectDetails]) {
         guard let setDocument else { return }
-        let sortedDetails = sortedRowDetails(details) ?? details
-        let rowDetails = setContentViewDataBuilder.itemData(
-            sortedDetails,
-            dataView: setDocument.dataView,
-            activeView: setDocument.activeView,
-            viewRelationValueIsLocked: false, 
-            canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
-            storage: subscriptionStorage.detailsStorage,
-            spaceId: setDocument.spaceId,
-            onItemTap: { [weak self] in
-                self?.handleTapOnObject(details: $0, allDetails: sortedDetails)
+        let rowDetails = setObjectWidgetOrderHelper.reorder(
+            setDocument: setDocument,
+            subscriptionStorage: subscriptionStorage,
+            details: details,
+            onItemTap: { [weak self] details, sortedDetails in
+                self?.handleTapOnObject(details: details, allDetails: sortedDetails)
             }
         )
         updateRows(rowDetails: rowDetails)

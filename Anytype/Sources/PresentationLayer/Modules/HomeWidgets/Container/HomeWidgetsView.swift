@@ -73,6 +73,7 @@ private struct HomeWidgetsInternalView: View {
                 }
                 blockWidgets
                 if FeatureFlags.homeObjectTypeWidgets {
+                    Text("Object Type Widgets") // Temporary
                     objectTypeWidgets
                 } else {
                     editButtons
