@@ -121,7 +121,7 @@ struct ObjectTypeSearchView: View {
                     title: Loc.nothingFound,
                     subtitle: Loc.noTypeFoundText(viewModel.searchText),
                     style: .plain,
-                    buttonData: viewModel.participantCanEdit ? EmptyStateView.ButtonData(
+                    buttonData: (viewModel.participantCanEdit && viewModel.settings.showPlusButton) ? EmptyStateView.ButtonData(
                         title: Loc.createType,
                         action: { viewModel.createType(name: viewModel.searchText) }
                     ) : nil
