@@ -2,9 +2,9 @@ import Foundation
 import AnytypeCore
 
 protocol BlockWidgetExpandedServiceProtocol: AnyObject, Sendable {
-    func isExpanded(widgetBlockId: String) -> Bool
-    func setState(widgetBlockId: String, isExpanded: Bool)
-    func deleteState(widgetBlockId: String)
+    func isExpanded(id: String) -> Bool
+    func setState(id: String, isExpanded: Bool)
+    func deleteState(id: String)
     func clearData()
 }
 
@@ -18,20 +18,20 @@ final class BlockWidgetExpandedService: BlockWidgetExpandedServiceProtocol, Send
     
     // MARK: - BlockWidgetExpandedServiceProtocol
     
-    func isExpanded(widgetBlockId: String) -> Bool {
-        return !collapsedIds.contains(widgetBlockId)
+    func isExpanded(id: String) -> Bool {
+        return !collapsedIds.contains(id)
     }
     
-    func setState(widgetBlockId: String, isExpanded: Bool) {
+    func setState(id: String, isExpanded: Bool) {
         if isExpanded {
-            collapsedIds.remove(widgetBlockId)
+            collapsedIds.remove(id)
         } else {
-            collapsedIds.insert(widgetBlockId)
+            collapsedIds.insert(id)
         }
     }
     
-    func deleteState(widgetBlockId: String) {
-        collapsedIds.remove(widgetBlockId)
+    func deleteState(id: String) {
+        collapsedIds.remove(id)
     }
     
     func clearData() {

@@ -36,7 +36,7 @@ final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol
             guard let widgetInfo = widgetObject.widgetInfo(block: block),
                   widgetInfo.source == .library(.recent) else { return }
             
-            expandedService.setState(widgetBlockId: block.id, isExpanded: false)
+            expandedService.setState(id: block.id, isExpanded: false)
         }
         stateInstalled = true
     }

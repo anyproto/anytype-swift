@@ -126,6 +126,10 @@ public extension FeatureFlags {
         value(for: .brandNewAuthFlow)
     }
 
+    static var homeObjectTypeWidgets: Bool {
+        value(for: .homeObjectTypeWidgets)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -226,6 +230,7 @@ public extension FeatureFlags {
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .brandNewAuthFlow,
+        .homeObjectTypeWidgets,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

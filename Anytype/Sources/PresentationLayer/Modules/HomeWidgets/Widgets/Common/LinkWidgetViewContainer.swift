@@ -159,12 +159,14 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     private var contextMenuItems: some View {
         if homeState.isReadWrite {
             menu()
-            Divider()
-            Button(Loc.Widgets.Actions.editWidgets) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    AnytypeAnalytics.instance().logEditWidget()
-                    homeState = .editWidgets
-                    UISelectionFeedbackGenerator().selectionChanged()
+            if !FeatureFlags.homeObjectTypeWidgets {
+                Divider()
+                Button(Loc.Widgets.Actions.editWidgets) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        AnytypeAnalytics.instance().logEditWidget()
+                        homeState = .editWidgets
+                        UISelectionFeedbackGenerator().selectionChanged()
+                    }
                 }
             }
         }
