@@ -64,8 +64,8 @@ struct NewSpaceCardLabel: View {
                 .lineLimit(1)
                 .foregroundColor(Color.Text.primary)
                 if isMuted {
-                    Spacer.fixedWidth(8)
-                    Image(asset: .X18.muted).foregroundColor(.Control.secondary)
+                    Spacer.fixedWidth(4)
+                    Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
                 }
                 
                 Spacer(minLength: 0)
