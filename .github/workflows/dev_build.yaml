@@ -39,6 +39,9 @@ jobs:
         with:
           xcode-version: '26.0-beta'
 
+      - name: Install Xcode platforms
+        run: xcodebuild -downloadPlatform iOS
+
       - name: Download Middleware
         run: make setup-middle-ci
         env:
