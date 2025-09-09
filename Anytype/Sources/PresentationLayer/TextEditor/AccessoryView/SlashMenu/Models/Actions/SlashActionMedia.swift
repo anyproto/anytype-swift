@@ -31,19 +31,19 @@ enum SlashActionMedia: CaseIterable {
     var iconAsset: ImageAsset {
         switch self {
         case .file:
-            .X40.attachment
+            .X24.attachment
         case .image:
-            .X40.picture
+            .X24.picture
         case .video:
-            .X40.video
+            .X24.video
         case .scanDocuments:
-            .X40.scanDocuments
+            .X24.scanDocuments
         case .audio:
-            .X40.audio
+            .X24.audio
         case .bookmark:
-            .X40.bookmark
+            .X24.bookmark
         case .codeSnippet:
-            .X40.codeSnippet
+            .X24.codeSnippet
         }
     }
     
