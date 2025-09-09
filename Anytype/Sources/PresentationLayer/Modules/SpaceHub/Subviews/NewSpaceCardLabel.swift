@@ -111,7 +111,7 @@ struct NewSpaceCardLabel: View {
                 messageWithAttachements(message)
             } else {
                 AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .chatPreviewMedium)
-                    .foregroundColor(.Control.transparentSecondary)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
             }
         }
@@ -127,7 +127,7 @@ struct NewSpaceCardLabel: View {
                 Text(message.text).anytypeFontStyle(.chatPreviewRegular)
             }
         }
-        .foregroundColor(.Control.transparentSecondary)
+        .foregroundColor(.Text.primary)
         .lineLimit(2)
         .anytypeLineHeightStyle(.chatPreviewRegular)
     }
@@ -137,7 +137,7 @@ struct NewSpaceCardLabel: View {
         HStack(spacing: 0) {
             if let creator = message.creator {
                 AnytypeText(creator.title + ":", style: .chatPreviewMedium)
-                    .foregroundColor(.Control.transparentSecondary)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                 Spacer.fixedWidth(4)
             }
@@ -148,7 +148,7 @@ struct NewSpaceCardLabel: View {
             
             Spacer.fixedWidth(4)
             AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
-                .foregroundColor(.Control.transparentSecondary)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
         }
     }
@@ -157,7 +157,7 @@ struct NewSpaceCardLabel: View {
     private var lastMessageDate: some View {
         if let lastMessage = spaceData.preview.lastMessage {
             AnytypeText(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true), style: .relation2Regular)
-                .foregroundColor(Color.Control.transparentSecondary)
+                .foregroundColor(.Text.primary)
         }
     }
     
