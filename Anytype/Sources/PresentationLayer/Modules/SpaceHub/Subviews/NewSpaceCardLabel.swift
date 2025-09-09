@@ -6,7 +6,7 @@ struct NewSpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
-    private let dateFormatter = HistoryDateFormatter()
+    private let dateFormatter = ChatPreviewDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
     @Namespace private var namespace
