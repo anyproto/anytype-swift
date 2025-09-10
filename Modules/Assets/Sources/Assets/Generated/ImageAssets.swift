@@ -10,8 +10,7 @@
 extension ImageAsset {
   public enum AppIconsPreview {
     public static let appIcon = ImageAsset.bundle(name: "AppIconsPreview/AppIcon")
-    public static let appIconClassic = ImageAsset.bundle(name: "AppIconsPreview/AppIconClassic")
-    public static let appIconOldSchool = ImageAsset.bundle(name: "AppIconsPreview/AppIconOldSchool")
+    public static let appIconEgg = ImageAsset.bundle(name: "AppIconsPreview/AppIconEgg")
     public static let appIconSmile = ImageAsset.bundle(name: "AppIconsPreview/AppIconSmile")
   }
   public static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
