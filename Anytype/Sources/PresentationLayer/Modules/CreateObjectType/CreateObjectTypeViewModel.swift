@@ -22,6 +22,8 @@ final class CreateObjectTypeViewModel: ObservableObject {
             let type = try await typesService.createType(name: info.singularName, pluralName: info.pluralName, icon: info.icon, color: info.color, spaceId: data.spaceId)
             
             AnytypeAnalytics.instance().logCreateObjectType(spaceId: data.spaceId)
+            
+            completion?(type)
         }
     }
 }
