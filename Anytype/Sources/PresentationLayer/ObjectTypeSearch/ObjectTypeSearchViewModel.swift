@@ -12,7 +12,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
     @Published var showPasteButton = false
-    @Published var newTypeInfo: ObjectTypeInfo?
+    @Published var newTypeInfo: CreateObjectTypeData?
     @Published var toastData: ToastBarData?
     @Published var participantCanEdit = false
     
@@ -164,17 +164,11 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func createType(name: String) {
-        newTypeInfo = ObjectTypeInfo(singularName: name, pluralName: name, icon: nil, color: nil, mode: .create)
+        newTypeInfo = CreateObjectTypeData(spaceId: spaceId, name: name)
     }
 
-    func onCreateTypeSubmit(info: ObjectTypeInfo) {
-        Task {
-            let type = try await typesService.createType(name: info.singularName, pluralName: info.pluralName, icon: info.icon, color: info.color, spaceId: spaceId)
-            
-            AnytypeAnalytics.instance().logCreateObjectType(spaceId: spaceId)
-            
-            onSelect(.objectType(type: type))
-        }
+    func onCreateTypeSubmit(type: ObjectType) {
+        onSelect(.objectType(type: type))
     }
     
     func deleteType(_ type: ObjectType) {

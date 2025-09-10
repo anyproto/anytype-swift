@@ -97,7 +97,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onCreateObjectType() {
-        
+        output?.onCreateObjectType()
     }
     
     // MARK: - Private

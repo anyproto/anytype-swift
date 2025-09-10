@@ -12,6 +12,7 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
     
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
+    @Published var createTypeData: CreateObjectTypeData?
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -39,6 +40,10 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
             position: .end,
             context: context
         )
+    }
+    
+    func onCreateObjectType() {
+        createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "")
     }
     
     func onObjectSelected(screenData: ScreenData) {
