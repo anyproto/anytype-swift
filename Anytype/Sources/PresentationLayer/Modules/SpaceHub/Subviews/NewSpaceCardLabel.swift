@@ -159,7 +159,7 @@ struct NewSpaceCardLabel: View {
     private var lastMessageDate: some View {
         if let lastMessage = spaceData.preview.lastMessage {
             AnytypeText(dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true), style: .relation2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundColor(.Control.transparentSecondary)
         }
     }
     
