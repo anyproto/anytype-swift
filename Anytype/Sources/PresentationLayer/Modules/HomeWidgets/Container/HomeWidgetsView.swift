@@ -67,13 +67,9 @@ private struct HomeWidgetsInternalView: View {
     
     private var widgets: some View {
         ScrollView {
-            VStack(spacing: 12) {
-                if #available(iOS 17.0, *) {
-                    WidgetSwipeTipView()
-                }
+            VStack(spacing: 0) {
                 blockWidgets
                 if FeatureFlags.homeObjectTypeWidgets {
-                    Text("Object Type Widgets") // Temporary
                     objectTypeWidgets
                 } else {
                     editButtons
@@ -85,21 +81,36 @@ private struct HomeWidgetsInternalView: View {
         }
     }
     
+    @ViewBuilder
     private var blockWidgets: some View {
-        ForEach(model.widgetBlocks) { widgetInfo in
-            HomeWidgetSubmoduleView(
-                widgetInfo: widgetInfo,
-                widgetObject: model.widgetObject,
-                workspaceInfo: model.info,
-                homeState: $model.homeState,
-                output: model.output
-            )
+        if FeatureFlags.homeObjectTypeWidgets {
+            HomeWidgetsGroupView(title: Loc.pinned)
+        }
+        VStack(spacing: 12) {
+            if #available(iOS 17.0, *) {
+                WidgetSwipeTipView()
+            }
+            ForEach(model.widgetBlocks) { widgetInfo in
+                HomeWidgetSubmoduleView(
+                    widgetInfo: widgetInfo,
+                    widgetObject: model.widgetObject,
+                    workspaceInfo: model.info,
+                    homeState: $model.homeState,
+                    output: model.output
+                )
+            }
         }
     }
     
+    @ViewBuilder
     private var objectTypeWidgets: some View {
-        ForEach(model.objectTypeWidgets) { info in
-            ObjectTypeWidgetView(info: info)
+        HomeWidgetsGroupView(title: Loc.objectTypes) {
+            model.onCreateObjectType()
+        }
+        VStack(spacing: 12) {
+            ForEach(model.objectTypeWidgets) { info in
+                ObjectTypeWidgetView(info: info)
+            }
         }
     }
     
