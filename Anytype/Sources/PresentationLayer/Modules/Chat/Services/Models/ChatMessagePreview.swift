@@ -17,7 +17,7 @@ struct LastMessagePreview: Hashable {
         self.createdAt = createdAt
         self.modifiedAt = modifiedAt
         self.attachments = attachments
-        self.localizedAttachmentsText = AttachmentsTextInfoBuilder
+        self.localizedAttachmentsText = text.isNotEmpty ? text : AttachmentsTextInfoBuilder
             .localizedAttachmentsText(attachments: attachments)
     }
 }

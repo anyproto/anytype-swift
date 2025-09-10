@@ -102,13 +102,10 @@ struct NewSpaceCardLabel: View {
     @ViewBuilder
     func lastMessagePreview(_ message: LastMessagePreview) -> some View {
         Group {
-            if message.text.isNotEmpty {
-                // Do not show attachements due to SwiftUI limitations:
-                // Can not fit attachements in between two lines of text with proper multiline behaviour
-                messageWithoutAttachements(message)
-            } else if message.attachments.isNotEmpty {
-                // Show attachements and 1 line of text
+            if message.attachments.isNotEmpty {
                 messageWithAttachements(message)
+            } else if message.text.isNotEmpty {
+                messageWithoutAttachements(message)
             } else {
                 AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .chatPreviewMedium)
                     .foregroundColor(.Text.primary)
@@ -121,35 +118,40 @@ struct NewSpaceCardLabel: View {
     func messageWithoutAttachements(_ message: LastMessagePreview) -> some View {
         Group {
             if let creator = message.creator {
-                Text(creator.title + ": ").anytypeFontStyle(.chatPreviewMedium) +
-                Text(message.text).anytypeFontStyle(.chatPreviewRegular)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(creator.title + ": ").anytypeFontStyle(.chatPreviewMedium)
+                    Text(message.text).anytypeFontStyle(.chatPreviewRegular)
+                }
+                .lineLimit(1)
             } else {
                 Text(message.text).anytypeFontStyle(.chatPreviewRegular)
+                    .lineLimit(2)
             }
         }
         .foregroundColor(.Text.primary)
-        .lineLimit(2)
         .anytypeLineHeightStyle(.chatPreviewRegular)
     }
     
     @ViewBuilder
     func messageWithAttachements(_ message: LastMessagePreview) -> some View {
-        HStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 2) {
+            
             if let creator = message.creator {
-                AnytypeText(creator.title + ":", style: .chatPreviewMedium)
+                AnytypeText(creator.title, style: .chatPreviewMedium)
                     .foregroundColor(.Text.primary)
                     .lineLimit(1)
+            }
+            
+            HStack(spacing: 2) {
+                ForEach(message.attachments.prefix(3)) {
+                    IconView(icon: $0.objectIconImage).frame(width: 18, height: 18)
+                }
+                
                 Spacer.fixedWidth(4)
+                AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
+                    .foregroundColor(.Text.primary)
+                    .lineLimit(1)
             }
-            
-            ForEach(message.attachments.prefix(3)) {
-                IconView(icon: $0.objectIconImage).frame(width: 18, height: 18)
-            }
-            
-            Spacer.fixedWidth(4)
-            AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
-                .foregroundColor(.Text.primary)
-                .lineLimit(1)
         }
     }
     
