@@ -171,6 +171,8 @@ extension Anytype_Rpc.Object {
 
           public var includePropertiesAsBlock: Bool = false
 
+          public var noCollection: Bool = false
+
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
@@ -849,6 +851,7 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
     1: .same(proto: "path"),
     2: .same(proto: "createDirectoryPages"),
     3: .same(proto: "includePropertiesAsBlock"),
+    4: .same(proto: "noCollection"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -860,6 +863,7 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.path) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.createDirectoryPages) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.includePropertiesAsBlock) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.noCollection) }()
       default: break
       }
     }
@@ -875,6 +879,9 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
     if self.includePropertiesAsBlock != false {
       try visitor.visitSingularBoolField(value: self.includePropertiesAsBlock, fieldNumber: 3)
     }
+    if self.noCollection != false {
+      try visitor.visitSingularBoolField(value: self.noCollection, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -882,6 +889,7 @@ extension Anytype_Rpc.Object.Import.Request.MarkdownParams: SwiftProtobuf.Messag
     if lhs.path != rhs.path {return false}
     if lhs.createDirectoryPages != rhs.createDirectoryPages {return false}
     if lhs.includePropertiesAsBlock != rhs.includePropertiesAsBlock {return false}
+    if lhs.noCollection != rhs.noCollection {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -32,6 +32,8 @@ extension Anytype_Rpc.Object {
 
         public var isNewSpace: Bool = false
 
+        public var isAi: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -154,6 +156,7 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
     2: .same(proto: "url"),
     3: .same(proto: "title"),
     4: .same(proto: "isNewSpace"),
+    5: .same(proto: "isAi"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -166,6 +169,7 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
       case 2: try { try decoder.decodeSingularStringField(value: &self.url) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.title) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.isNewSpace) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.isAi) }()
       default: break
       }
     }
@@ -184,6 +188,9 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
     if self.isNewSpace != false {
       try visitor.visitSingularBoolField(value: self.isNewSpace, fieldNumber: 4)
     }
+    if self.isAi != false {
+      try visitor.visitSingularBoolField(value: self.isAi, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -192,6 +199,7 @@ extension Anytype_Rpc.Object.ImportExperience.Request: SwiftProtobuf.Message, Sw
     if lhs.url != rhs.url {return false}
     if lhs.title != rhs.title {return false}
     if lhs.isNewSpace != rhs.isNewSpace {return false}
+    if lhs.isAi != rhs.isAi {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
