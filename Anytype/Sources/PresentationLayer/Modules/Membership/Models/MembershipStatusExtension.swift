@@ -55,7 +55,7 @@ extension MembershipStatus {
         switch tier.type {
         case .legacyExplorer, .starter:
             return .button(text: Loc.join)
-        case .explorer, .builder, .coCreator, .anyTeam, .custom:
+        case .explorer, .builder, .coCreator, .anyTeam, .custom, .seatBasedTier:
             return .arrow (text: tier.name)
         }
     }

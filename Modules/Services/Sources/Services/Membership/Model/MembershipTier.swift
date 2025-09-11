@@ -9,6 +9,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
     case coCreator
     case anyTeam
     
+    case seatBasedTier
+    
     case custom(id: UInt32)
     
     static let starterId: UInt32 = 21
@@ -16,6 +18,7 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
     static let builderId: UInt32 = 4
     static let coCreatorId: UInt32 = 5
     static let anyTeamId: UInt32 = 7
+    static let seatBasedId: UInt32 = 1000
     static let legacyExplorerId: UInt32 = 1
     
     public var id: UInt32 {
@@ -34,6 +37,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
             id
         case .legacyExplorer:
             Self.legacyExplorerId
+        case .seatBasedTier:
+            Self.seatBasedId
         }
     }
     
@@ -53,6 +58,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
             self = .anyTeam
         case Self.legacyExplorerId:
             self = .legacyExplorer
+        case Self.seatBasedId:
+            self = .seatBasedTier
         default:
             self = .custom(id: intId)
         }
