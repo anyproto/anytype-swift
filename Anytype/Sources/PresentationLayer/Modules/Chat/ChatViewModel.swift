@@ -133,10 +133,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func setupAttachmentHandler() {
-        attachmentHandler.showFileLimitAlert = { [weak self] in
-            self?.showFileLimitAlert()
-        }
-        
         // Subscribe to attachment handler publishers
         attachmentHandler.linkedObjectsPublisher
             .assign(to: &$linkedObjects)
@@ -159,7 +155,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             spaceId: spaceId,
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
             onSelect: { [weak self] details in
-                self?.attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
+                guard let self else { return }
+                do {
+                    try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: details))
+                } catch {
+                    handleAttachmentError(error)
+                }
             }
         )
         output?.onLinkObjectSelected(data: data)
@@ -168,7 +169,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func onTapAddMediaToMessage() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo)
         let data = ChatPhotosPickerData(selectedItems: []) { [weak self] result in
-            self?.attachmentHandler.setPhotosItems(result)
+            guard let self else { return }
+            do {
+                try attachmentHandler.setPhotosItems(result)
+            } catch {
+                handleAttachmentError(error)
+            }
         }
         output?.onPhotosPickerSelected(data: data)
     }
@@ -176,7 +182,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func onTapAddFilesToMessage() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file)
         let data = FilesPickerData(handler: { [weak self] result in
-            self?.attachmentHandler.handleFilePicker(result: result)
+            guard let self else { return }
+            do {
+                try attachmentHandler.handleFilePicker(result: result)
+            } catch {
+                handleAttachmentError(error)
+            }
         })
         output?.onFilePickerSelected(data: data)
     }
@@ -184,7 +195,12 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func onTapCamera() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera)
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
-            self?.attachmentHandler.handleCameraMedia(media)
+            guard let self else { return }
+            do {
+                try attachmentHandler.handleCameraMedia(media)
+            } catch {
+                handleAttachmentError(error)
+            }
         })
         output?.onShowCameraSelected(data: data)
     }
@@ -376,7 +392,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onPasteAttachmentsFromBuffer(items: [NSItemProvider]) {
         Task {
-            await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
+            do {
+                try await attachmentHandler.handlePasteAttachmentsFromBuffer(items: items)
+            } catch {
+                handleAttachmentError(error)
+            }
         }
     }
     
@@ -391,7 +411,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func updatePickerItems() async {
-        await attachmentHandler.updatePickerItems()
+        do {
+            try await attachmentHandler.updatePickerItems()
+        } catch {
+            handleAttachmentError(error)
+        }
     }
     
     func deleteMessage(message: MessageViewData) async throws {
@@ -419,6 +443,23 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func configureProvider(_ provider: Binding<ChatActionProvider>) {
         provider.wrappedValue.handler = self
+    }
+    
+    private func handleAttachmentError(_ error: any Error) {
+        let errorString: String
+        
+        if let attachmentError = error as? AttachmentError {
+            switch attachmentError {
+            case .fileLimitExceeded:
+                errorString = Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit)
+            case .fileCreationFailed, .invalidFile:
+                errorString = Loc.Chat.attachmentsError
+            }
+        } else {
+            errorString = error.localizedDescription
+        }
+        
+        toastBarData = ToastBarData(errorString, type: .failure)
     }
     
     func onTapCreateObject(type: ObjectType) {
@@ -555,10 +596,14 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 clearInput()
             }
             if attachmentHandler.canAddOneAttachment() {
-                attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: first))
-                // Waiting pop transaction and open keyboard.
-                try await Task.sleep(seconds: 1.0)
-                inputFocused = true
+                do {
+                    try attachmentHandler.addUploadedObject(MessageAttachmentDetails(details: first))
+                    // Waiting pop transaction and open keyboard.
+                    try await Task.sleep(seconds: 1.0)
+                    inputFocused = true
+                } catch {
+                    handleAttachmentError(error)
+                }
             }
         }
     }
@@ -638,10 +683,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
         }
-    }
-    
-    private func showFileLimitAlert() {
-        toastBarData = ToastBarData(Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit), type: .failure)
     }
     
     private func handlePushNotificationsAlert() async {
