@@ -157,8 +157,38 @@ final class SpaceHubViewModel: ObservableObject {
         case (false, false):
             let lhsMessageDate = lhs.preview.lastMessage?.createdAt
             let rhsMessageDate = rhs.preview.lastMessage?.createdAt
+            let lhsJoinDate = lhs.spaceView.joinDate
+            let rhsJoinDate = rhs.spaceView.joinDate
             
-            switch (lhsMessageDate, rhsMessageDate) {
+            // Determine effective date for lhs (use joinDate if no message, or more recent of the two)
+            let lhsEffectiveDate: Date? = {
+                switch (lhsMessageDate, lhsJoinDate) {
+                case let (messageDate?, joinDate?):
+                    return max(messageDate, joinDate)
+                case (let messageDate?, nil):
+                    return messageDate
+                case (nil, let joinDate?):
+                    return joinDate
+                case (nil, nil):
+                    return nil
+                }
+            }()
+            
+            // Determine effective date for rhs (use joinDate if no message, or more recent of the two)
+            let rhsEffectiveDate: Date? = {
+                switch (rhsMessageDate, rhsJoinDate) {
+                case let (messageDate?, joinDate?):
+                    return max(messageDate, joinDate)
+                case (let messageDate?, nil):
+                    return messageDate
+                case (nil, let joinDate?):
+                    return joinDate
+                case (nil, nil):
+                    return nil
+                }
+            }()
+            
+            switch (lhsEffectiveDate, rhsEffectiveDate) {
             case let (date1?, date2?):
                 return date1 > date2
             case (_?, nil):
