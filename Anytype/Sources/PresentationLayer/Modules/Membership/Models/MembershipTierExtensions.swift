@@ -53,8 +53,16 @@ extension MembershipTier {
         switch self.type {
         case .starter, .legacyExplorer:
             Loc.Membership.Success.curiosity
-        case .builder, .coCreator, .custom, .anyTeam, .explorer:
+        case .builder, .coCreator, .custom, .anyTeam, .explorer, .seatBasedTier:
             Loc.Membership.Success.support
         }
+    }
+    
+    var isAnyTeam: Bool {
+        if case .anyTeam = self.type {
+            return true
+        }
+        
+        return false
     }
 }

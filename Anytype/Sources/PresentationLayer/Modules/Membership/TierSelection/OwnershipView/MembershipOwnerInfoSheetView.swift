@@ -42,25 +42,26 @@ struct MembershipOwnerInfoSheetView: View {
             AnytypeText(Loc.validUntil, style: .relation2Regular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(4)
-            switch model.membership.tier?.type {
-            case .starter, .builder, .coCreator, .custom, .explorer, .legacyExplorer:
-                switch model.membership.dateEnds {
-                case .never:
-                    AnytypeText(Loc.forever, style: .title)
-                        .foregroundColor(.Text.primary)
-                case .date:
+            if let tier = model.membership.tier {
+                if !tier.isAnyTeam {
+                    switch model.membership.dateEnds {
+                    case .never:
+                        AnytypeText(Loc.forever, style: .title)
+                            .foregroundColor(.Text.primary)
+                    case .date:
+                        AnytypeText(model.membership.formattedDateEnds, style: .title)
+                            .foregroundColor(.Text.primary)
+                    }
+                    paymentText
+                } else {
                     AnytypeText(model.membership.formattedDateEnds, style: .title)
                         .foregroundColor(.Text.primary)
+                    Spacer.fixedHeight(23)
+                    AnytypeText(Loc.paidBy("your faith and love"), style: .relation2Regular)
+                        .foregroundColor(.Text.secondary)
+                    Spacer.fixedHeight(15)
                 }
-                paymentText
-            case .anyTeam:
-                AnytypeText(model.membership.formattedDateEnds, style: .title)
-                    .foregroundColor(.Text.primary)
-                Spacer.fixedHeight(23)
-                AnytypeText(Loc.paidBy("your faith and love"), style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
-                Spacer.fixedHeight(15)
-            case .none:
+            } else {
                 EmptyView()
             }
         }
