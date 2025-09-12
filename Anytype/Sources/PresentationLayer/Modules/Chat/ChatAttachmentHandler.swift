@@ -59,7 +59,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     // MARK: - Private State
     
     private var photosItems: [PhotosPickerItem] = []
-    private var linkPreviewTasks: [URL: AnyCancellable] = [:]
     
     // MARK: - Dependencies
     
@@ -100,8 +99,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         state.clearAllLinkedObjects()
         photosItems = []
         state.updatePhotosItemsTask()
-        linkPreviewTasks.values.forEach { $0.cancel() }
-        linkPreviewTasks.removeAll()
+        state.cancelAllLinkPreviewTasks()
     }
     
     func canAddOneAttachment() -> Bool {
@@ -276,10 +274,10 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 currentObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
                 self.state.setLinkedObjects(currentObjects)
             }
-            self?.linkPreviewTasks[link] = nil
+            self?.state.removeLinkPreviewTask(for: link)
             AnytypeAnalytics.instance().logAttachItemChat(type: .object)
         }
-        linkPreviewTasks[link] = task.cancellable()
+        state.addLinkPreviewTask(for: link, task: task.cancellable())
     }
     
     // MARK: - Private Methods
