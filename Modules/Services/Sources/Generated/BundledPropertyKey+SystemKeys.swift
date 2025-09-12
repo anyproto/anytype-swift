@@ -23,7 +23,6 @@ public extension BundledPropertyKey {
         .lastOpenedDate,
         .featuredRelations,
         .isFavorite,
-        .workspaceId,
         .spaceId,
         .links,
         .internalFlags,

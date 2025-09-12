@@ -6410,6 +6410,29 @@ extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error: Localize
     }
 }
 
+extension Anytype_Rpc.ObjectType.SetOrder.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "ObjectType.SetOrder.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Process.Cancel.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

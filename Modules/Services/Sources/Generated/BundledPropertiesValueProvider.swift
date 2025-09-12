@@ -65,7 +65,6 @@ public protocol BundledPropertiesValueProvider {
     var exposure: String { get }
     var targetObjectType: ObjectId { get }
     var isFavorite: Bool { get }
-    var workspaceId: ObjectId { get }
     var spaceId: ObjectId { get }
     var audioGenre: String { get }
     var name: String { get }
@@ -394,10 +393,6 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Adds the object to the home dashboard
     var isFavorite: Bool {
         return value(for: BundledPropertyKey.isFavorite.rawValue)
-    }
-    /// Space object belongs to
-    var workspaceId: ObjectId {
-        return value(for: BundledPropertyKey.workspaceId.rawValue)
     }
     /// Space belongs to
     var spaceId: ObjectId {
