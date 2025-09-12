@@ -16,7 +16,16 @@ extension WidgetSource {
         case .library(let library):
             return library.rawValue
         }
-    }    
+    }
+    
+    var isLibrary: Bool {
+        switch self {
+        case .object:
+            return false
+        case .library:
+            return true
+        }
+    }
 }
 
 extension WidgetSource {

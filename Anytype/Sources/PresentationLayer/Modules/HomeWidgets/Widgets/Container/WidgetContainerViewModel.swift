@@ -46,8 +46,15 @@ final class WidgetContainerViewModel: ObservableObject {
         blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         isExpanded = blockWidgetExpandedService.isExpanded(id: widgetBlockId)
         
-        let numberOfWidgetLayouts = widgetObject.widgetInfo(blockId: widgetBlockId)?.source.availableWidgetLayout.count ?? 0
-        self.menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
+        let source = widgetObject.widgetInfo(blockId: widgetBlockId)?.source
+        
+        let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
+        let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
+        if FeatureFlags.homeObjectTypeWidgets {
+            self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems
+        } else {
+            self.menuItems = menuItems
+        }
     }
     
     // MARK: - Actions

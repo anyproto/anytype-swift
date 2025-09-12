@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct BinWidgetView: View {
     
@@ -49,14 +50,16 @@ private struct BinWidgetSubmoduleInternalView: View {
     
     @ViewBuilder
     private var menu: some View {
-        WidgetCommonActionsMenuView(
-            items: [.addBelow, .remove],
-            widgetBlockId: model.widgetBlockId,
-            widgetObject: model.widgetObject,
-            homeState: homeState,
-            output: model.output
-        )
-        Divider()
+        if !FeatureFlags.homeObjectTypeWidgets {
+            WidgetCommonActionsMenuView(
+                items: [.addBelow, .remove],
+                widgetBlockId: model.widgetBlockId,
+                widgetObject: model.widgetObject,
+                homeState: homeState,
+                output: model.output
+            )
+            Divider()
+        }
         AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
             try await model.onEmptyBinTap()
         }
