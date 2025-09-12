@@ -64,10 +64,15 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     @Injected(\.chatAttachmentValidator)
     private var validator: ChatAttachmentValidator
-    @Injected(\.fileActionsService)
-    private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.bookmarkService)
-    private var bookmarkService: any BookmarkServiceProtocol
+    
+    // MARK: - Processors
+    
+    private let fileProcessor = FileAttachmentProcessor()
+    private let cameraProcessor = CameraMediaProcessor()
+    private let photosProcessor = PhotosPickerProcessor()
+    private let pasteProcessor = PasteBufferProcessor()
+    private let linkProcessor = LinkPreviewProcessor()
+    private let uploadedProcessor = UploadedObjectProcessor()
     
     
     // MARK: - Init
@@ -83,7 +88,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         guard validation.canAdd else {
             throw AttachmentError.fileLimitExceeded
         }
-        state.addLinkedObject(.uploadedObject(details))
+        let linkedObject = try uploadedProcessor.process(details, spaceId: spaceId)
+        state.addLinkedObject(linkedObject)
         AnytypeAnalytics.instance().logAttachItemChat(type: .object)
     }
     
@@ -123,15 +129,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 guard validation.canAdd else {
                     throw AttachmentError.fileLimitExceeded
                 }
-                let gotAccess = file.startAccessingSecurityScopedResource()
-                guard gotAccess else { throw AttachmentError.invalidFile }
-                
-                guard let fileData = try? fileActionsService.createFileData(fileUrl: file) else {
-                    file.stopAccessingSecurityScopedResource()
-                    throw AttachmentError.fileCreationFailed
-                }
-                state.addLinkedObject(.localBinaryFile(fileData))
-                file.stopAccessingSecurityScopedResource()
+                let linkedObject = try fileProcessor.process(file, spaceId: spaceId)
+                state.addLinkedObject(linkedObject)
             }
             AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         case .failure:
@@ -144,18 +143,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         guard validation.canAdd else {
             throw AttachmentError.fileLimitExceeded
         }
-        switch media {
-        case .image(let image, let type):
-            guard let fileData = try? fileActionsService.createFileData(image: image, type: type) else {
-                throw AttachmentError.fileCreationFailed
-            }
-            state.addLinkedObject(.localBinaryFile(fileData))
-        case .video(let file):
-            guard let fileData = try? fileActionsService.createFileData(fileUrl: file) else {
-                throw AttachmentError.fileCreationFailed
-            }
-            state.addLinkedObject(.localBinaryFile(fileData))
-        }
+        let linkedObject = try cameraProcessor.process(media, spaceId: spaceId)
+        state.addLinkedObject(linkedObject)
         AnytypeAnalytics.instance().logAttachItemChat(type: .camera)
     }
     
@@ -166,10 +155,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 throw AttachmentError.fileLimitExceeded
             }
             
-            guard let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) else {
-                throw AttachmentError.fileCreationFailed
-            }
-            state.addLinkedObject(.localBinaryFile(fileData))
+            let linkedObject = try await pasteProcessor.process(item, spaceId: spaceId)
+            state.addLinkedObject(linkedObject)
             AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         }
     }
@@ -238,10 +225,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     private func processPhotosData(_ items: [PhotosPickerItem]) async {
         for photosItem in items {
             do {
-                let data = try await fileActionsService.createFileData(photoItem: photosItem)
-                let linkedObject = ChatLinkedObject.localPhotosFile(
-                    ChatLocalPhotosFile(data: data, photosPickerItemHash: photosItem.hashValue)
-                )
+                let linkedObject = try await photosProcessor.process(photosItem, spaceId: spaceId)
                 let currentObjects = state.linkedObjects
                 if let index = currentObjects.firstIndex(where: { $0.id == photosItem.hashValue }) {
                     state.updateLinkedObject(at: index, with: linkedObject)
@@ -263,10 +247,13 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         let contains = state.linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
         state.addLinkedObject(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
-        let task = Task { [bookmarkService, weak self] in
+        let task = Task { [weak self] in
             do {
-                let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
-                self?.updateLocalBookmark(linkPreview: linkPreview)
+                guard let self = self else { return }
+                let linkedObject = try await self.linkProcessor.process(link, spaceId: self.spaceId)
+                if let index = self.state.linkedObjects.firstIndex(where: { $0.localBookmark?.url == link.absoluteString }) {
+                    self.state.updateLinkedObject(at: index, with: linkedObject)
+                }
             } catch {
                 guard let self = self else { return }
                 var currentObjects = self.state.linkedObjects
@@ -279,17 +266,4 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         state.addLinkPreviewTask(for: link, task: task.cancellable())
     }
     
-    // MARK: - Private Methods
-    
-    private func updateLocalBookmark(linkPreview: LinkPreview) {
-        guard let index = state.linkedObjects.firstIndex(where: { $0.localBookmark?.url == linkPreview.url }) else { return }
-        let bookmark = ChatLocalBookmark(
-            url: linkPreview.url,
-            title: linkPreview.title,
-            description: linkPreview.description_p,
-            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.emptyBookmarkIcon), 
-            loading: false
-        )
-        state.updateLinkedObject(at: index, with: .localBookmark(bookmark))
-    }
 }
