@@ -1,15 +1,18 @@
 import Foundation
+import _PhotosUI_SwiftUI
 import Services
 import PhotosUI
 import UIKit
 import Factory
 import AnytypeCore
 
+@MainActor
 protocol AttachmentProcessor {
     associatedtype Input
     func process(_ input: Input, spaceId: String) throws -> ChatLinkedObject
 }
 
+@MainActor
 protocol AsyncAttachmentProcessor {
     associatedtype Input
     func process(_ input: Input, spaceId: String) async throws -> ChatLinkedObject

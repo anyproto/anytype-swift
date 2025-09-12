@@ -77,7 +77,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     // MARK: - Init
     
-    nonisolated init(spaceId: String) {
+    init(spaceId: String) {
         self.spaceId = spaceId
     }
     

@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import Services
 import PhotosUI
+import _PhotosUI_SwiftUI
+
 
 @MainActor
 final class ChatAttachmentState {
