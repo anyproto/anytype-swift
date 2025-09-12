@@ -787,6 +787,7 @@ public enum Loc {
     }
   }
   public enum Chat {
+    public static let attachmentsError = Loc.tr("Localizable", "Chat.attachmentsError", fallback: "Failed to process attachment. Try again.")
     public static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
     public static let newMessages = Loc.tr("Localizable", "Chat.NewMessages", fallback: "New Messages")
     public static func replyTo(_ p1: Any) -> String {
