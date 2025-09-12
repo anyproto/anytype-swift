@@ -36,6 +36,9 @@ private struct ObjectTypeWidgetInternalView: View {
                         model.onHeaderTap()
                     })
                 },
+                menu: {
+                    menu
+                },
                 content: {
                     content
                 }
@@ -59,5 +62,17 @@ private struct ObjectTypeWidgetInternalView: View {
             EmptyView()
         }
 
+    }
+    
+    @ViewBuilder
+    private var menu: some View {
+        if model.canCreateObject {
+            Button {
+                model.onCreateObject()
+            } label: {
+                Text(Loc.new)
+                Image(systemName: "square.and.pencil")
+            }
+        }
     }
 }
