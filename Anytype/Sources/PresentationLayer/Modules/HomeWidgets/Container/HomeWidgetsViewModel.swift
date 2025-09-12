@@ -120,6 +120,10 @@ final class HomeWidgetsViewModel: ObservableObject {
                 newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
             }
             
+            if FeatureFlags.homeObjectTypeWidgets {
+                newWidgetBlocks.removeAll { $0.source == .library(.allObjects) }
+            }
+            
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
