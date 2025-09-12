@@ -18,6 +18,7 @@ extension SpaceView {
             objectIconImage: .object(.space(.mock)),
             targetSpaceId: id,
             createdDate: .yesterday,
+            joinDate: .distantPast,
             accountStatus: accountStatus,
             localStatus: localStatus,
             spaceAccessType: .allCases.randomElement(),

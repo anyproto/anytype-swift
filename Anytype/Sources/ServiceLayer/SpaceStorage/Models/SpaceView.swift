@@ -9,6 +9,7 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let objectIconImage: Icon
     let targetSpaceId: String
     let createdDate: Date?
+    let joinDate: Date?
     let accountStatus: SpaceStatus?
     let localStatus: SpaceStatus?
     let spaceAccessType: SpaceAccessType?
@@ -29,6 +30,7 @@ extension SpaceView: DetailsModel {
         self.objectIconImage = details.objectIconImage
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
+        self.joinDate = details.spaceJoinDate
         self.accountStatus = details.spaceAccountStatusValue
         self.localStatus = details.spaceLocalStatusValue
         self.spaceAccessType = details.spaceAccessTypeValue
@@ -48,6 +50,7 @@ extension SpaceView: DetailsModel {
         BundledPropertyKey.objectIconImageKeys
         BundledPropertyKey.targetSpaceId
         BundledPropertyKey.createdDate
+        BundledPropertyKey.spaceJoinDate
         BundledPropertyKey.spaceAccessType
         BundledPropertyKey.spaceAccountStatus
         BundledPropertyKey.spaceLocalStatus
