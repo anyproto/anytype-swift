@@ -50,7 +50,11 @@ final class WidgetContainerViewModel: ObservableObject {
         
         let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
-        self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems
+        if FeatureFlags.homeObjectTypeWidgets {
+            self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems
+        } else {
+            self.menuItems = menuItems
+        }
     }
     
     // MARK: - Actions
