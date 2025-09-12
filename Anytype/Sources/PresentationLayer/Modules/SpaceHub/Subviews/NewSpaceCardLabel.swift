@@ -72,7 +72,10 @@ struct NewSpaceCardLabel: View {
                     
                 Spacer(minLength: 0)
                 
-                lastMessageDate
+                VStack(spacing: 0) {
+                    lastMessageDate
+                    Spacer.fixedHeight(1)
+                }
             }
             
             HStack(alignment: .top) {
