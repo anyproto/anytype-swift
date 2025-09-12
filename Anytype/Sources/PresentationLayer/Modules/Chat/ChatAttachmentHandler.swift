@@ -91,10 +91,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     }
     
     func removeLinkedObject(_ linkedObject: ChatLinkedObject) {
-        withAnimation {
-            state.removeLinkedObject(with: linkedObject.id)
-            photosItems.removeAll { $0.hashValue == linkedObject.id }
-        }
+        state.removeLinkedObject(with: linkedObject.id)
+        photosItems.removeAll { $0.hashValue == linkedObject.id }
         AnytypeAnalytics.instance().logDetachItemChat()
     }
     

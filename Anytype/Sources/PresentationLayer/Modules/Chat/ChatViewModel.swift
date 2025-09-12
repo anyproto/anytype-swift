@@ -309,7 +309,9 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     func onTapRemoveLinkedObject(linkedObject: ChatLinkedObject) {
-        attachmentHandler.removeLinkedObject(linkedObject)
+        withAnimation {
+            attachmentHandler.removeLinkedObject(linkedObject)
+        }
     }
     
     func scrollToTop() async {
