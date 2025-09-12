@@ -10,7 +10,6 @@ struct WidgetContainerView<Content: View>: View {
     let name: String
     let icon: ImageAsset?
     let dragId: String?
-    let menuItems: [WidgetMenuItem]
     let onCreateObjectTap: (() -> Void)?
     let onHeaderTap: () -> Void
     let content: Content
@@ -32,8 +31,6 @@ struct WidgetContainerView<Content: View>: View {
         self.name = name
         self.icon = icon
         self.dragId = dragId
-        let numberOfWidgetLayouts = widgetObject.widgetInfo(blockId: widgetBlockId)?.source.availableWidgetLayout.count ?? 0
-        self.menuItems = numberOfWidgetLayouts > 1 ? menuItems : menuItems.filter { $0 != .changeType }
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
         self.content = content()
@@ -41,6 +38,7 @@ struct WidgetContainerView<Content: View>: View {
             wrappedValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
+                expectedMenuItems: menuItems,
                 output: output
             )
         )
@@ -61,7 +59,7 @@ struct WidgetContainerView<Content: View>: View {
                 isExpanded: $model.isExpanded,
                 dragId: dragId,
                 homeState: $model.homeState,
-                allowMenuContent: menuItems.isNotEmpty,
+                allowMenuContent: model.menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
                 removeAction: removeAction(),
                 createObjectAction: onCreateObjectTap,
@@ -84,18 +82,32 @@ struct WidgetContainerView<Content: View>: View {
     
     @ViewBuilder
     private var menuItemsView: some View {
+        createObjectMenuButton
         WidgetCommonActionsMenuView(
-            items: menuItems,
+            items: model.menuItems,
             widgetBlockId: model.widgetBlockId,
             widgetObject: model.widgetObject,
             homeState: model.homeState,
             output: model.output
         )
     }
+    
+    @ViewBuilder
+    private var createObjectMenuButton: some View {
+        if FeatureFlags.homeObjectTypeWidgets, let onCreateObjectTap {
+            Button {
+                onCreateObjectTap()
+            } label: {
+                Text(Loc.new)
+                Image(systemName: "square.and.pencil")
+            }
+            Divider()
+        }
+    }
             
     private func removeAction() -> (() -> Void)? {
         
-        guard menuItems.contains(.remove) else { return nil }
+        guard model.menuItems.contains(.remove) else { return nil }
         
         return {
             model.onDeleteWidgetTap()
