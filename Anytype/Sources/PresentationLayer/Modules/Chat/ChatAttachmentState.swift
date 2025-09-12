@@ -1,6 +1,9 @@
 import Foundation
 import Combine
 import Services
+import PhotosUI
+import _PhotosUI_SwiftUI
+
 
 @MainActor
 final class ChatAttachmentState {
@@ -10,6 +13,8 @@ final class ChatAttachmentState {
     private let linkedObjectsSubject = CurrentValueSubject<[ChatLinkedObject], Never>([])
     private let attachmentsDownloadingSubject = CurrentValueSubject<Bool, Never>(false)
     private let photosItemsTaskSubject = CurrentValueSubject<UUID, Never>(UUID())
+    private var linkPreviewTasks: [URL: AnyCancellable] = [:]
+    private var photosItems: [PhotosPickerItem] = []
     
     var linkedObjectsPublisher: AnyPublisher<[ChatLinkedObject], Never> {
         linkedObjectsSubject.eraseToAnyPublisher()
@@ -60,5 +65,38 @@ final class ChatAttachmentState {
     
     func updatePhotosItemsTask() {
         photosItemsTaskSubject.send(UUID())
+    }
+    
+    func addLinkPreviewTask(for url: URL, task: AnyCancellable) {
+        linkPreviewTasks[url] = task
+    }
+    
+    func removeLinkPreviewTask(for url: URL) {
+        linkPreviewTasks[url] = nil
+    }
+    
+    func cancelAllLinkPreviewTasks() {
+        linkPreviewTasks.values.forEach { $0.cancel() }
+        linkPreviewTasks.removeAll()
+    }
+    
+    func hasLinkPreviewTask(for url: URL) -> Bool {
+        return linkPreviewTasks[url] != nil
+    }
+    
+    func setPhotosItems(_ items: [PhotosPickerItem]) {
+        photosItems = items
+    }
+    
+    func getPhotosItems() -> [PhotosPickerItem] {
+        return photosItems
+    }
+    
+    func removePhotosItems(where predicate: (PhotosPickerItem) -> Bool) {
+        photosItems.removeAll(where: predicate)
+    }
+    
+    func clearPhotosItems() {
+        photosItems = []
     }
 }

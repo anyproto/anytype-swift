@@ -35,6 +35,17 @@ enum AttachmentError: Error {
     case fileLimitExceeded
     case fileCreationFailed
     case invalidFile
+    
+    func localizedError(attachmentsLimit: Int) -> String {
+        switch self {
+        case .fileLimitExceeded:
+            Loc.Chat.AttachmentsError.limitExceeded(attachmentsLimit)
+        case .fileCreationFailed:
+            Loc.Chat.AttachmentsError.fileCreationFailed
+        case .invalidFile:
+            Loc.Chat.AttachmentsError.invalidFile
+        }
+    }
 }
 
 @MainActor
@@ -58,24 +69,26 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     // MARK: - Private State
     
-    private var photosItems: [PhotosPickerItem] = []
-    private var linkPreviewTasks: [URL: AnyCancellable] = [:]
-    
     // MARK: - Dependencies
     
     private let spaceId: String
     
     @Injected(\.chatAttachmentValidator)
     private var validator: ChatAttachmentValidator
-    @Injected(\.fileActionsService)
-    private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.bookmarkService)
-    private var bookmarkService: any BookmarkServiceProtocol
+    
+    // MARK: - Processors
+    
+    private let fileProcessor = FileAttachmentProcessor()
+    private let cameraProcessor = CameraMediaProcessor()
+    private let photosProcessor = PhotosPickerProcessor()
+    private let pasteProcessor = PasteBufferProcessor()
+    private let linkProcessor = LinkPreviewProcessor()
+    private let uploadedProcessor = UploadedObjectProcessor()
     
     
     // MARK: - Init
     
-    nonisolated init(spaceId: String) {
+    init(spaceId: String) {
         self.spaceId = spaceId
     }
     
@@ -86,22 +99,22 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         guard validation.canAdd else {
             throw AttachmentError.fileLimitExceeded
         }
-        state.addLinkedObject(.uploadedObject(details))
+        let linkedObject = try uploadedProcessor.process(details, spaceId: spaceId)
+        state.addLinkedObject(linkedObject)
         AnytypeAnalytics.instance().logAttachItemChat(type: .object)
     }
     
     func removeLinkedObject(_ linkedObject: ChatLinkedObject) {
         state.removeLinkedObject(with: linkedObject.id)
-        photosItems.removeAll { $0.hashValue == linkedObject.id }
+        state.removePhotosItems { $0.hashValue == linkedObject.id }
         AnytypeAnalytics.instance().logDetachItemChat()
     }
     
     func clearAll() {
         state.clearAllLinkedObjects()
-        photosItems = []
+        state.clearPhotosItems()
         state.updatePhotosItemsTask()
-        linkPreviewTasks.values.forEach { $0.cancel() }
-        linkPreviewTasks.removeAll()
+        state.cancelAllLinkPreviewTasks()
     }
     
     func canAddOneAttachment() -> Bool {
@@ -109,7 +122,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     }
     
     func setPhotosItems(_ items: [PhotosPickerItem]) throws {
-        photosItems = items
+        state.setPhotosItems(items)
         state.updatePhotosItemsTask()
     }
     
@@ -127,15 +140,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 guard validation.canAdd else {
                     throw AttachmentError.fileLimitExceeded
                 }
-                let gotAccess = file.startAccessingSecurityScopedResource()
-                guard gotAccess else { throw AttachmentError.invalidFile }
-                
-                guard let fileData = try? fileActionsService.createFileData(fileUrl: file) else {
-                    file.stopAccessingSecurityScopedResource()
-                    throw AttachmentError.fileCreationFailed
-                }
-                state.addLinkedObject(.localBinaryFile(fileData))
-                file.stopAccessingSecurityScopedResource()
+                let linkedObject = try fileProcessor.process(file, spaceId: spaceId)
+                state.addLinkedObject(linkedObject)
             }
             AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         case .failure:
@@ -148,18 +154,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         guard validation.canAdd else {
             throw AttachmentError.fileLimitExceeded
         }
-        switch media {
-        case .image(let image, let type):
-            guard let fileData = try? fileActionsService.createFileData(image: image, type: type) else {
-                throw AttachmentError.fileCreationFailed
-            }
-            state.addLinkedObject(.localBinaryFile(fileData))
-        case .video(let file):
-            guard let fileData = try? fileActionsService.createFileData(fileUrl: file) else {
-                throw AttachmentError.fileCreationFailed
-            }
-            state.addLinkedObject(.localBinaryFile(fileData))
-        }
+        let linkedObject = try cameraProcessor.process(media, spaceId: spaceId)
+        state.addLinkedObject(linkedObject)
         AnytypeAnalytics.instance().logAttachItemChat(type: .camera)
     }
     
@@ -170,10 +166,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 throw AttachmentError.fileLimitExceeded
             }
             
-            guard let fileData = try? await fileActionsService.createFileData(source: .itemProvider(item)) else {
-                throw AttachmentError.fileCreationFailed
-            }
-            state.addLinkedObject(.localBinaryFile(fileData))
+            let linkedObject = try await pasteProcessor.process(item, spaceId: spaceId)
+            state.addLinkedObject(linkedObject)
             AnytypeAnalytics.instance().logAttachItemChat(type: .file)
         }
     }
@@ -202,6 +196,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     // MARK: - Private Helper Methods
     
     private func processPhotosPickerItems() -> ProcessedPhotosItems {
+        let photosItems = state.getPhotosItems()
         let newItemsIds = Set(photosItems.map(\.hashValue))
         let linkedIds = Set(state.linkedObjects.compactMap(\.localPhotosFile?.photosPickerItemHash))
         let removeIds = linkedIds.subtracting(newItemsIds)
@@ -223,7 +218,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         
         let deletedIds = newItems[validation.remainingCount..<newItems.count]
         newItems.removeLast(newItems.count - validation.remainingCount)
-        photosItems.removeAll { deletedIds.contains($0) }
+        state.removePhotosItems { deletedIds.contains($0) }
         return true
     }
     
@@ -241,10 +236,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     private func processPhotosData(_ items: [PhotosPickerItem]) async {
         for photosItem in items {
             do {
-                let data = try await fileActionsService.createFileData(photoItem: photosItem)
-                let linkedObject = ChatLinkedObject.localPhotosFile(
-                    ChatLocalPhotosFile(data: data, photosPickerItemHash: photosItem.hashValue)
-                )
+                let linkedObject = try await photosProcessor.process(photosItem, spaceId: spaceId)
                 let currentObjects = state.linkedObjects
                 if let index = currentObjects.firstIndex(where: { $0.id == photosItem.hashValue }) {
                     state.updateLinkedObject(at: index, with: linkedObject)
@@ -254,7 +246,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 }
             } catch {
                 state.removeLinkedObject(with: photosItem.hashValue)
-                photosItems.removeAll { $0 == photosItem }
+                state.removePhotosItems { $0 == photosItem }
             }
         }
     }
@@ -266,33 +258,23 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         let contains = state.linkedObjects.contains { $0.localBookmark?.url == link.absoluteString }
         guard !contains else { return }
         state.addLinkedObject(.localBookmark(ChatLocalBookmark.placeholder(url: link)))
-        let task = Task { [bookmarkService, weak self] in
+        let task = Task { [weak self] in
             do {
-                let linkPreview = try await bookmarkService.fetchLinkPreview(url: AnytypeURL(url: link))
-                self?.updateLocalBookmark(linkPreview: linkPreview)
+                guard let self = self else { return }
+                let linkedObject = try await self.linkProcessor.process(link, spaceId: self.spaceId)
+                if let index = self.state.linkedObjects.firstIndex(where: { $0.localBookmark?.url == link.absoluteString }) {
+                    self.state.updateLinkedObject(at: index, with: linkedObject)
+                }
             } catch {
                 guard let self = self else { return }
                 var currentObjects = self.state.linkedObjects
                 currentObjects.removeAll { $0.localBookmark?.url == link.absoluteString }
                 self.state.setLinkedObjects(currentObjects)
             }
-            self?.linkPreviewTasks[link] = nil
+            self?.state.removeLinkPreviewTask(for: link)
             AnytypeAnalytics.instance().logAttachItemChat(type: .object)
         }
-        linkPreviewTasks[link] = task.cancellable()
+        state.addLinkPreviewTask(for: link, task: task.cancellable())
     }
     
-    // MARK: - Private Methods
-    
-    private func updateLocalBookmark(linkPreview: LinkPreview) {
-        guard let index = state.linkedObjects.firstIndex(where: { $0.localBookmark?.url == linkPreview.url }) else { return }
-        let bookmark = ChatLocalBookmark(
-            url: linkPreview.url,
-            title: linkPreview.title,
-            description: linkPreview.description_p,
-            icon: URL(string: linkPreview.faviconURL).map { .url($0) } ?? .object(.emptyBookmarkIcon), 
-            loading: false
-        )
-        state.updateLinkedObject(at: index, with: .localBookmark(bookmark))
-    }
 }

@@ -787,7 +787,6 @@ public enum Loc {
     }
   }
   public enum Chat {
-    public static let attachmentsError = Loc.tr("Localizable", "Chat.attachmentsError", fallback: "Failed to process attachment. Try again.")
     public static let editMessage = Loc.tr("Localizable", "Chat.EditMessage", fallback: "Edit Message")
     public static let newMessages = Loc.tr("Localizable", "Chat.NewMessages", fallback: "New Messages")
     public static func replyTo(_ p1: Any) -> String {
@@ -796,9 +795,11 @@ public enum Loc {
     public enum AttachedObject {
       public static let attach = Loc.tr("Localizable", "Chat.AttachedObject.Attach", fallback: "Attach")
     }
-    public enum AttachmentsLimit {
-      public static func alert(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Chat.AttachmentsLimit.Alert", p1, fallback: "Plural format key: Chat.AttachmentsLimit.Alert")
+    public enum AttachmentsError {
+      public static let fileCreationFailed = Loc.tr("Localizable", "Chat.AttachmentsError.fileCreationFailed", fallback: "Failed to create file. Try again.")
+      public static let invalidFile = Loc.tr("Localizable", "Chat.AttachmentsError.invalidFile", fallback: "Invalid file. Try again")
+      public static func limitExceeded(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Chat.AttachmentsError.LimitExceeded", p1, fallback: "Plural format key: Chat.AttachmentsError.LimitExceeded")
       }
     }
     public enum CreateObject {

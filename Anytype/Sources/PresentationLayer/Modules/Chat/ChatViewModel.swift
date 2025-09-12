@@ -451,12 +451,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         let errorString: String
         
         if let attachmentError = error as? AttachmentError {
-            switch attachmentError {
-            case .fileLimitExceeded:
-                errorString = Loc.Chat.AttachmentsLimit.alert(chatMessageLimits.attachmentsLimit)
-            case .fileCreationFailed, .invalidFile:
-                errorString = Loc.Chat.attachmentsError
-            }
+            errorString = attachmentError.localizedError(attachmentsLimit: chatMessageLimits.attachmentsLimit)
         } else {
             errorString = error.localizedDescription
         }
