@@ -31,10 +31,12 @@ final class WidgetContainerViewModel: ObservableObject {
     }
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var toastData: ToastBarData?
+    let menuItems: [WidgetMenuItem]
     
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
+        expectedMenuItems: [WidgetMenuItem],
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
@@ -42,8 +44,10 @@ final class WidgetContainerViewModel: ObservableObject {
         self.output = output
         
         blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
-        
         isExpanded = blockWidgetExpandedService.isExpanded(id: widgetBlockId)
+        
+        let numberOfWidgetLayouts = widgetObject.widgetInfo(blockId: widgetBlockId)?.source.availableWidgetLayout.count ?? 0
+        self.menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
     }
     
     // MARK: - Actions
