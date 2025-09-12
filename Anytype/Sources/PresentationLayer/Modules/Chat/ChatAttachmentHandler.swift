@@ -35,6 +35,17 @@ enum AttachmentError: Error {
     case fileLimitExceeded
     case fileCreationFailed
     case invalidFile
+    
+    func localizedError(attachmentsLimit: Int) -> String {
+        switch self {
+        case .fileLimitExceeded:
+            Loc.Chat.AttachmentsError.limitExceeded(attachmentsLimit)
+        case .fileCreationFailed:
+            Loc.Chat.AttachmentsError.fileCreationFailed
+        case .invalidFile:
+            Loc.Chat.AttachmentsError.invalidFile
+        }
+    }
 }
 
 @MainActor
