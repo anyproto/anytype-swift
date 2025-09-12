@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 enum WidgetMenuItem: String {
     case addBelow
@@ -27,12 +28,14 @@ struct WidgetCommonActionsMenuView: View {
     private func menuItemToView(item: WidgetMenuItem) -> some View {
         switch item {
         case .addBelow:
-            Button(Loc.Widgets.Actions.addBelow) {
-                model.provider.onAddBelowTap(
-                    widgetBlockId: widgetBlockId,
-                    homeState: homeState,
-                    output: output
-                )
+            if !FeatureFlags.homeObjectTypeWidgets {
+                Button(Loc.Widgets.Actions.addBelow) {
+                    model.provider.onAddBelowTap(
+                        widgetBlockId: widgetBlockId,
+                        homeState: homeState,
+                        output: output
+                    )
+                }
             }
         case .changeType:
             Button(Loc.Widgets.Actions.changeWidgetType) {
