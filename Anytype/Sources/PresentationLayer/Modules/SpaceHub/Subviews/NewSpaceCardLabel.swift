@@ -59,15 +59,17 @@ struct NewSpaceCardLabel: View {
     
     private func mainContentWithMessage(_ message: LastMessagePreview) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
-                .lineLimit(1)
-                .foregroundColor(Color.Text.primary)
-                if isMuted {
-                    Spacer.fixedWidth(4)
-                    Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
+            HStack(alignment: .bottom) {
+                HStack(alignment: .center) {
+                    AnytypeText(spaceData.spaceView.name.withPlaceholder, style: .bodySemibold)
+                        .lineLimit(1)
+                        .foregroundColor(Color.Text.primary)
+                    if isMuted {
+                        Spacer.fixedWidth(4)
+                        Image(asset: .X18.muted).foregroundColor(.Control.transparentSecondary)
+                    }
                 }
-                
+                    
                 Spacer(minLength: 0)
                 
                 lastMessageDate
@@ -119,7 +121,7 @@ struct NewSpaceCardLabel: View {
         Group {
             if let creator = message.creator {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(creator.title + ": ").anytypeFontStyle(.chatPreviewMedium)
+                    Text(creator.title).anytypeFontStyle(.chatPreviewMedium)
                     Text(message.text).anytypeFontStyle(.chatPreviewRegular)
                 }
                 .lineLimit(1)
@@ -147,7 +149,7 @@ struct NewSpaceCardLabel: View {
                     IconView(icon: $0.objectIconImage).frame(width: 18, height: 18)
                 }
                 
-                Spacer.fixedWidth(4)
+                Spacer.fixedWidth(6)
                 AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
                     .foregroundColor(.Text.primary)
                     .lineLimit(1)
