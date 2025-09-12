@@ -165,9 +165,6 @@ public enum BundledPropertyKey: String, Sendable {
     /// Adds the object to the home dashboard
     case isFavorite = "isFavorite"
 
-    /// Space object belongs to
-    case workspaceId = "workspaceId"
-
     /// Space belongs to
     case spaceId = "spaceId"
 

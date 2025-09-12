@@ -1294,6 +1294,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectTypeSetOrder(
+        _ request: Anytype_Rpc.ObjectType.SetOrder.Request = .init()
+    ) -> Invocation<Anytype_Rpc.ObjectType.SetOrder.Request, Anytype_Rpc.ObjectType.SetOrder.Response> {
+        return Invocation(messageName: "ObjectTypeSetOrder", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectTypeSetOrder(requestData) ?? Data()
+            return try Anytype_Rpc.ObjectType.SetOrder.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func historyShowVersion(
         _ request: Anytype_Rpc.History.ShowVersion.Request = .init()
     ) -> Invocation<Anytype_Rpc.History.ShowVersion.Request, Anytype_Rpc.History.ShowVersion.Response> {

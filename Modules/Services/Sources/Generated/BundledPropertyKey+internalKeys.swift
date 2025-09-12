@@ -15,13 +15,11 @@ public extension BundledPropertyKey {
         .lastOpenedDate,
         .isFavorite,
         .isArchived,
-        .workspaceId,
         .spaceId,
         .internalFlags,
         .restrictions,
         .syncDate,
         .syncStatus,
-        .myParticipantStatus,
         .syncError,
     ]
 }
