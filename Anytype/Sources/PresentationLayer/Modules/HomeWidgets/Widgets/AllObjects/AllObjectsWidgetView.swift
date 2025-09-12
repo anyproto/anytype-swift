@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct AllObjectsWidgetView: View {
     
@@ -27,7 +28,9 @@ struct AllObjectsWidgetView: View {
                 })
             },
             menu: {
-                menu
+                if !FeatureFlags.homeObjectTypeWidgets {
+                    menu
+                }
             },
             content: { EmptyView() }
         )

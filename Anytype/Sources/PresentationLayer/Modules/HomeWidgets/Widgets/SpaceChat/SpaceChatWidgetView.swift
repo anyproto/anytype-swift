@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct SpaceChatWidgetView: View {
     
@@ -41,13 +42,15 @@ struct SpaceChatWidgetView: View {
                 )
             },
             menu: {
-                WidgetCommonActionsMenuView(
-                    items: [.remove],
-                    widgetBlockId: model.widgetBlockId,
-                    widgetObject: model.widgetObject,
-                    homeState: homeState,
-                    output: model.output
-                )
+                if !FeatureFlags.homeObjectTypeWidgets {
+                    WidgetCommonActionsMenuView(
+                        items: [.remove],
+                        widgetBlockId: model.widgetBlockId,
+                        widgetObject: model.widgetObject,
+                        homeState: homeState,
+                        output: model.output
+                    )
+                }
             },
             content: { EmptyView() }
         )
