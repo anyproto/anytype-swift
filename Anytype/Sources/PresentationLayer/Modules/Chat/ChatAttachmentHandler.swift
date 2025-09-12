@@ -58,8 +58,6 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     // MARK: - Private State
     
-    private var photosItems: [PhotosPickerItem] = []
-    
     // MARK: - Dependencies
     
     private let spaceId: String
@@ -91,13 +89,13 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     func removeLinkedObject(_ linkedObject: ChatLinkedObject) {
         state.removeLinkedObject(with: linkedObject.id)
-        photosItems.removeAll { $0.hashValue == linkedObject.id }
+        state.removePhotosItems { $0.hashValue == linkedObject.id }
         AnytypeAnalytics.instance().logDetachItemChat()
     }
     
     func clearAll() {
         state.clearAllLinkedObjects()
-        photosItems = []
+        state.clearPhotosItems()
         state.updatePhotosItemsTask()
         state.cancelAllLinkPreviewTasks()
     }
@@ -107,7 +105,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     }
     
     func setPhotosItems(_ items: [PhotosPickerItem]) throws {
-        photosItems = items
+        state.setPhotosItems(items)
         state.updatePhotosItemsTask()
     }
     
@@ -200,6 +198,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     // MARK: - Private Helper Methods
     
     private func processPhotosPickerItems() -> ProcessedPhotosItems {
+        let photosItems = state.getPhotosItems()
         let newItemsIds = Set(photosItems.map(\.hashValue))
         let linkedIds = Set(state.linkedObjects.compactMap(\.localPhotosFile?.photosPickerItemHash))
         let removeIds = linkedIds.subtracting(newItemsIds)
@@ -221,7 +220,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         
         let deletedIds = newItems[validation.remainingCount..<newItems.count]
         newItems.removeLast(newItems.count - validation.remainingCount)
-        photosItems.removeAll { deletedIds.contains($0) }
+        state.removePhotosItems { deletedIds.contains($0) }
         return true
     }
     
@@ -252,7 +251,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
                 }
             } catch {
                 state.removeLinkedObject(with: photosItem.hashValue)
-                photosItems.removeAll { $0 == photosItem }
+                state.removePhotosItems { $0 == photosItem }
             }
         }
     }
