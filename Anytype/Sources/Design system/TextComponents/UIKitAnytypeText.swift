@@ -21,13 +21,10 @@ final class UIKitAnytypeText: Hashable {
         let newAttrString = NSMutableAttributedString(attributedString: attributedString)
         textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
                 
-        let paragraphStyle = attributedString.length > 0
-        ? (attributedString.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
-        : NSMutableParagraphStyle()
+        let paragraphStyle = TextDirection.paragraphStyle(for: attributedString.string)
         
         paragraphStyle.lineSpacing = style.lineSpacing
         paragraphStyle.lineBreakMode = lineBreakModel
-        paragraphStyle.alignment = .left
         
         let range = NSMakeRange(0, newAttrString.length)
         newAttrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
