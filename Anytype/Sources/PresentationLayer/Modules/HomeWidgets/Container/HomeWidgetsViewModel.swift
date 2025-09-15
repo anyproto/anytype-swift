@@ -163,7 +163,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
             .values
             .map { objects in
-                let objects = objects.filter { $0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false }
+                let objects = objects.sorted { $0.orderId < $1.orderId }.filter { $0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false }
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()

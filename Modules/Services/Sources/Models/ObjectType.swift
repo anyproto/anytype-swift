@@ -30,6 +30,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     
     public let lastUsedDate: Date?
     
+    public let orderId: String
+    
     public init(
         id: String,
         name: String,
@@ -52,7 +54,8 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         recommendedFeaturedRelations: [ObjectId],
         recommendedHiddenRelations: [ObjectId],
         recommendedLayout: DetailsLayout?,
-        lastUsedDate: Date?
+        lastUsedDate: Date?,
+        orderId: String
     ) {
         self.id = id
         self.name = name
@@ -76,6 +79,7 @@ public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
         self.recommendedHiddenRelations = recommendedHiddenRelations
         self.recommendedLayout = recommendedLayout
         self.lastUsedDate = lastUsedDate
+        self.orderId = orderId
     }
 }
 
@@ -104,7 +108,8 @@ extension ObjectType: DetailsModel {
             recommendedFeaturedRelations: details.recommendedFeaturedRelations,
             recommendedHiddenRelations: details.recommendedHiddenRelations,
             recommendedLayout: details.recommendedLayoutValue,
-            lastUsedDate: details.lastUsedDate
+            lastUsedDate: details.lastUsedDate,
+            orderId: details.orderId
         )
     }
     
@@ -135,7 +140,8 @@ extension ObjectType: DetailsModel {
             BundledPropertyKey.layoutAlign,
             BundledPropertyKey.layoutWidth,
             BundledPropertyKey.type,
-            BundledPropertyKey.lastUsedDate
+            BundledPropertyKey.lastUsedDate,
+            BundledPropertyKey.orderId
         ]
     }
     
