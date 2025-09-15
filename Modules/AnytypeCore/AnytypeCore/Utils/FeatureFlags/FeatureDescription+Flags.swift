@@ -216,8 +216,8 @@ public extension FeatureDescription {
     static let homeObjectTypeWidgets = FeatureDescription(
         title: "Home object type widget",
         type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: true,
+        debugValue: true
     )
     
     // MARK: - Debug
