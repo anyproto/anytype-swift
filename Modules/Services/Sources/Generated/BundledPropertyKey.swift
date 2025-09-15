@@ -473,4 +473,13 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Space join date
     case spaceJoinDate = "spaceJoinDate"
+
+    /// Widget layout
+    case widgetLayout = "widgetLayout"
+
+    /// Widget limit
+    case widgetLimit = "widgetLimit"
+
+    /// Widget view ID
+    case widgetViewId = "widgetViewId"
 }
