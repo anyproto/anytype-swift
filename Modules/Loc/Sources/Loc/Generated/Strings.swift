@@ -2223,11 +2223,11 @@ public enum Loc {
     }
     public enum UxType {
       public enum Chat {
-        public static let description = Loc.tr("Localizable", "Spaces.UxType.Chat.Description", fallback: "For real-time conversations")
+        public static let description = Loc.tr("Localizable", "Spaces.UxType.Chat.Description", fallback: "Group chat with content organization")
         public static let title = Loc.tr("Localizable", "Spaces.UxType.Chat.Title", fallback: "Chat")
       }
       public enum Space {
-        public static let description = Loc.tr("Localizable", "Spaces.UxType.Space.Description", fallback: "For organized content and data")
+        public static let description = Loc.tr("Localizable", "Spaces.UxType.Space.Description", fallback: "Hub for advanced data management")
         public static let title = Loc.tr("Localizable", "Spaces.UxType.Space.Title", fallback: "Space")
       }
       public enum Stream {
