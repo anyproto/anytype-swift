@@ -1,5 +1,6 @@
 enum JoinStep: Int, CaseIterable {
-    case email = 1
+    case key = 1
+    case email
     case personaInfo
     case useCaseInfo
     
@@ -20,6 +21,6 @@ enum JoinStep: Int, CaseIterable {
     }
     
     static var firstStep: JoinStep {
-        JoinStep.allCases.first ?? .email
+        JoinStep.allCases.first ?? .key
     }
 }
