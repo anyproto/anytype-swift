@@ -29,7 +29,8 @@ extension ObjectType {
         recommendedFeaturedRelations: [],
         recommendedHiddenRelations: [],
         recommendedLayout: nil,
-        lastUsedDate: .distantPast
+        lastUsedDate: .distantPast,
+        orderId: ""
     )
     
     var setIsTemplatesAvailable: Bool {

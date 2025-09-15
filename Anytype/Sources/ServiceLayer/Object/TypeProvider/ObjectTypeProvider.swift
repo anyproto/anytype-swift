@@ -120,7 +120,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol, @unchecked Sendable 
             recommendedFeaturedRelations: [],
             recommendedHiddenRelations: [],
             recommendedLayout: nil,
-            lastUsedDate: .distantPast
+            lastUsedDate: .distantPast,
+            orderId: ""
         )
     }
     

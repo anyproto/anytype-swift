@@ -15,7 +15,8 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @StateObject private var model: HomeWidgetsViewModel
-    @State var dndState = DragState()
+    @State var widgetsDndState = DragState()
+    @State var typesDndState = DragState()
     
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
@@ -46,11 +47,6 @@ private struct HomeWidgetsInternalView: View {
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .homeBottomPanelHidden(model.homeState.isEditWidgets)
-        .anytypeVerticalDrop(data: model.widgetBlocks, state: $dndState) { from, to in
-            model.dropUpdate(from: from, to: to)
-        } dropFinish: { from, to in
-            model.dropFinish(from: from, to: to)
-        }
     }
     
     private var content: some View {
@@ -100,6 +96,11 @@ private struct HomeWidgetsInternalView: View {
                 )
             }
         }
+        .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+            model.widgetsDropUpdate(from: from, to: to)
+        } dropFinish: { from, to in
+            model.widgetsDropFinish(from: from, to: to)
+        }
     }
     
     @ViewBuilder
@@ -111,6 +112,11 @@ private struct HomeWidgetsInternalView: View {
             ForEach(model.objectTypeWidgets) { info in
                 ObjectTypeWidgetView(info: info, output: model.output)
             }
+        }
+        .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
+            model.typesDropUpdate(from: from, to: to)
+        } dropFinish: { from, to in
+            model.typesDropFinish(from: from, to: to)
         }
     }
     

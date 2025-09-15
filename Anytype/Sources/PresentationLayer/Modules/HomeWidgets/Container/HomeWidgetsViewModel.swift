@@ -24,6 +24,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.objectTypeService)
+    private var objectTypeService: any ObjectTypeServiceProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -66,11 +68,11 @@ final class HomeWidgetsViewModel: ObservableObject {
         homeState = .editWidgets
     }
     
-    func dropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
+    func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
         widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
     
-    func dropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
+    func widgetsDropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
         AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
         Task {
             try? await objectActionService.move(
@@ -79,6 +81,17 @@ final class HomeWidgetsViewModel: ObservableObject {
                 dropPositionblockId: to.data.id,
                 position: to.index > from.index ? .bottom : .top
             )
+        }
+    }
+    
+    func typesDropUpdate(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
+        objectTypeWidgets.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
+    }
+    
+    func typesDropFinish(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
+        Task {
+            let typeIds = objectTypeWidgets.map { $0.objectTypeId }
+            try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
         }
     }
     
@@ -148,7 +161,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
             .values
             .map { objects in
-                let objects = objects.filter { $0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false }
+                let objects = objects.sorted { $0.orderId < $1.orderId }.filter { $0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false }
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()

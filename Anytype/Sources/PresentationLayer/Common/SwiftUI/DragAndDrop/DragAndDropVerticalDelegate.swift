@@ -10,6 +10,10 @@ struct DragAndDropVerticalDelegate<Data>: DropDelegate where Data: Identifiable<
     let dropUpdate: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
     let dropFinish: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
     
+    func validateDrop(info: DropInfo) -> Bool {
+        return dragState.dragInitiateId.isNotNil
+    }
+    
     func dropEntered(info: DropInfo) {
         dragState.dragInProgress = true
         UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
