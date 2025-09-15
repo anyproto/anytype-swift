@@ -3,6 +3,7 @@ import SharedContentManager
 import Services
 import AnytypeCore
 import Factory
+import Collections
 
 protocol SharingExtensionActionServiceProtocol: AnyObject, Sendable {
     func saveObjects(
@@ -99,7 +100,9 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
     ) async throws {
         
         var fullMessage: String = content.title ?? ""
-        var attachments: [ChatMessageAttachment] = []
+        // OrderedSet for remove duplicates
+        // User can select two images from gallery, but there are the same. Middleware will make a one object
+        var attachments = OrderedSet<ChatMessageAttachment>()
         var countOfImages: Int = 0
         
         for savedContentItem in savedContent {
@@ -122,15 +125,15 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
         
         let onlyImages = countOfImages == attachments.count && (content.title?.isEmpty ?? true)
         
-        let batches = attachments.chunked(into: 20)
+        let batches = Array(attachments).chunked(into: 10)
         
-        for (index, _) in batches.enumerated() {
+        for (index, batch) in batches.enumerated() {
             var chatMessageContent = ChatMessageContent()
             chatMessageContent.text = (index == 0 && onlyImages) ? comment : ""
             
             var chatMessage = ChatMessage()
             chatMessage.message = chatMessageContent
-            chatMessage.attachments = attachments
+            chatMessage.attachments = batch
             
             _ = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
         }
