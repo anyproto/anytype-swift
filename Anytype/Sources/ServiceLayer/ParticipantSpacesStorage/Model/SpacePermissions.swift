@@ -37,7 +37,9 @@ extension SpacePermissions {
         canEdit = participantCanEdit
         canLeave = !isOwner && spaceView.isActive && !isLocalMode
         
-        if isOwner {
+        if spaceView.localStatus == .loading {
+            canBeDeleted = true
+        } else if isOwner {
             canBeDeleted = spaceAccessType.isDeletable
         } else {
             canBeDeleted = spaceView.accountStatus == .spaceRemoving

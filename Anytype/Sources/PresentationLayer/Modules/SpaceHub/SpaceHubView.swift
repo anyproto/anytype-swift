@@ -23,6 +23,9 @@ struct SpaceHubView: View {
             }
             .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.toastBarData)
+            .anytypeSheet(item: $model.spaceToDelete) { spaceId in
+                SpaceDeleteAlert(spaceId: spaceId.value)
+            }
     }
     
     @ViewBuilder
@@ -186,6 +189,9 @@ struct SpaceHubView: View {
             },
             onTapSettings: {
                 model.openSpaceSettings(spaceId: space.spaceView.targetSpaceId)
+            },
+            onTapDelete: {
+                model.onDeleteSpace(spaceId: space.spaceView.targetSpaceId)
             }
         )
         .equatable()
