@@ -31,6 +31,7 @@ private struct ObjectTypeWidgetInternalView: View {
         ) {
             LinkWidgetViewContainer(
                 isExpanded: $model.isExpanded,
+                dragId: model.typeId,
                 homeState: .constant(.readwrite),
                 header: {
                     LinkWidgetDefaultHeader(title: model.typeName, icon: nil, onTap: {

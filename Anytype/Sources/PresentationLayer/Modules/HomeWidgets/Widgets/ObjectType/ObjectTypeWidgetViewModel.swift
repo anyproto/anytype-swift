@@ -21,6 +21,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     private let subscriptionId = "ObjectTypeWidget-\(UUID().uuidString)"
     private var isImageType: Bool = false
     
+    var typeId: String { info.objectTypeId }
     @Published var typeIcon: Icon?
     @Published var typeName: String = ""
     @Published var isExpanded: Bool {
