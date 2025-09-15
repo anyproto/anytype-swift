@@ -68,6 +68,8 @@ struct JoinView: View {
     @ViewBuilder
     private var innerContent: some View {
         switch model.step {
+        case .key:
+            KeyPhraseView(state: model.state, output: model)
         case .email:
             EmailCollectionView(state: model.state, output: model)
         case .personaInfo:

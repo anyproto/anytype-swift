@@ -18,7 +18,7 @@ struct KeyPhraseMoreInfoView: View {
             Spacer.fixedHeight(26)
             
             AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.title, style: .heading)
-                .foregroundColor(.Auth.inputText)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(32)
@@ -47,7 +47,7 @@ struct KeyPhraseMoreInfoView: View {
             }
             .frame(width: 56, height: 56)
             AnytypeText(description, style: .bodyRegular, enableMarkdown: true)
-                .foregroundColor(.Auth.inputText)
+                .foregroundColor(.Text.secondary)
         }
     }
     
@@ -70,7 +70,7 @@ struct KeyPhraseMoreInfoView: View {
             Spacer.fixedHeight(12)
             
             AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.Instruction.title, style: .subheading)
-                .foregroundColor(.Auth.inputText)
+                .foregroundColor(.Text.primary)
             
             Spacer.fixedHeight(12)
             
@@ -91,9 +91,9 @@ struct KeyPhraseMoreInfoView: View {
     private func instructionRow(description: String) -> some View {
         HStack(alignment: .top, spacing: 12) {
             AnytypeText("•", style: .bodyRegular)
-                .foregroundColor(.Auth.inputText)
+                .foregroundColor(.Text.secondary)
             AnytypeText(description, style: .uxCalloutRegular)
-                .foregroundColor(.Auth.inputText)
+                .foregroundColor(.Text.secondary)
         }
     }
 }

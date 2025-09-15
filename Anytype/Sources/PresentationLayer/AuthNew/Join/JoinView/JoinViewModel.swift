@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-final class JoinViewModel: ObservableObject, JoinBaseOutput {
+final class JoinViewModel: ObservableObject, JoinBaseOutput, JoinFlowStepOutput {
     
     @Published var step: JoinStep = JoinStep.firstStep
     @Published var forward = true
@@ -51,6 +51,10 @@ final class JoinViewModel: ObservableObject, JoinBaseOutput {
     
     func disableBackAction(_ disable: Bool) {
         backButtonDisabled = disable
+    }
+    
+    func keyPhraseMoreInfo() -> AnyView? {
+        KeyPhraseMoreInfoView().eraseToAnyView()
     }
     
     private func onNext(with currentStep: JoinStep) {
