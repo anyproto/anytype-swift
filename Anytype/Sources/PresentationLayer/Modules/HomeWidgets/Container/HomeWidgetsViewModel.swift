@@ -24,6 +24,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.objectTypeService)
+    private var objectTypeService: any ObjectTypeServiceProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -87,14 +89,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func typesDropFinish(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-//        Task {
-//            try? await objectActionService.move(
-//                dashboadId: widgetObject.objectId,
-//                blockId: from.data.id,
-//                dropPositionblockId: to.data.id,
-//                position: to.index > from.index ? .bottom : .top
-//            )
-//        }
+        Task {
+            let typeIds = objectTypeWidgets.map { $0.objectTypeId }
+            try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
+        }
     }
     
     func onSpaceSelected() {
