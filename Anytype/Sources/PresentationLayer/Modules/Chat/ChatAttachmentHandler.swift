@@ -12,12 +12,13 @@ protocol ChatAttachmentHandlerProtocol: ObservableObject {
     var linkedObjectsPublisher: AnyPublisher<[ChatLinkedObject], Never> { get }
     var attachmentsDownloadingPublisher: AnyPublisher<Bool, Never> { get }
     var photosItemsTaskPublisher: AnyPublisher<UUID, Never> { get }
-    
+
     func addUploadedObject(_ details: MessageAttachmentDetails) throws
     func removeLinkedObject(_ linkedObject: ChatLinkedObject)
     func clearAll()
     func canAddOneAttachment() -> Bool
     func setPhotosItems(_ items: [PhotosPickerItem]) throws
+    func getPhotosItems() -> [PhotosPickerItem]
     func handleFilePicker(result: Result<[URL], any Error>) throws
     func handleCameraMedia(_ media: ImagePickerMediaType) throws
     func handlePasteAttachmentsFromBuffer(items: [NSItemProvider]) async throws
@@ -128,6 +129,10 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     func setLinkedObjects(_ objects: [ChatLinkedObject]) {
         state.setLinkedObjects(objects)
+    }
+
+    func getPhotosItems() -> [PhotosPickerItem] {
+        return state.getPhotosItems()
     }
     
     // MARK: - File Operations

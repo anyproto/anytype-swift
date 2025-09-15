@@ -168,7 +168,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     func onTapAddMediaToMessage() {
         AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo)
-        let data = ChatPhotosPickerData(selectedItems: []) { [weak self] result in
+        let currentPhotosItems = attachmentHandler.getPhotosItems()
+        let data = ChatPhotosPickerData(selectedItems: currentPhotosItems) { [weak self] result in
             guard let self else { return }
             do {
                 try attachmentHandler.setPhotosItems(result)
