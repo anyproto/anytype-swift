@@ -12,6 +12,8 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setObjectWidgetOrderHelper)
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let info: ObjectTypeWidgetInfo
     private let setDocument: any SetDocumentProtocol
@@ -47,14 +49,30 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     }
     
     func onCreateObject() {
+        Task {
+            let type = try objectTypeProvider.objectType(id: info.objectTypeId)
+            
+            let details = try await objectActionsService.createObject(
+                name: "",
+                typeUniqueKey: type.uniqueKey,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: true,
+                spaceId: type.spaceId,
+                origin: .none,
+                templateId: type.defaultTemplateId
+            )
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .homeScreen)
+            // TODO: Open object
+        }
     }
     
     func onHeaderTap() {
-        
+        // TODO: Open object
     }
     
     func onShowAllTap() {
-        
+        // TODO: Open object
     }
     
     // MARK: - Private
@@ -69,6 +87,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
             typeIcon = .object(type.icon)
             typeName = type.name
             isImageType = type.isImageLayout
+            canCreateObject = type.recommendedLayout?.isSupportedForCreation ?? false
         }
     }
     

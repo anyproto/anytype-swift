@@ -35,6 +35,7 @@ public extension DetailsLayout {
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForCreationInSets: Bool { Self.supportedForCreationInSets.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
+    var isSupportedForCreation: Bool { Self.supportedForCreation.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
     
