@@ -12,6 +12,7 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTapPin: () async throws -> Void
     let onTapUnpin: () async throws -> Void
     let onTapSettings: () -> Void
+    let onTapDelete: () -> Void
     
     var body: some View {
         Button {
@@ -53,7 +54,11 @@ struct SpaceCard: View, @preconcurrency Equatable {
             muteButton
         }
         
-        settingsButton
+        if spaceData.spaceView.isLoading {
+            deleteButton
+        } else {
+            settingsButton
+        }
     }
     
     private var copyButton: some View {
@@ -104,6 +109,16 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Text(Loc.SpaceSettings.title)
             Spacer()
             Image(systemName: "gearshape")
+        }
+    }
+    
+    private var deleteButton: some View {
+        Button(role: .destructive) {
+            onTapDelete()
+        } label: {
+            Text(Loc.SpaceSettings.deleteButton)
+            Spacer()
+            Image(systemName: "trash")
         }
     }
     

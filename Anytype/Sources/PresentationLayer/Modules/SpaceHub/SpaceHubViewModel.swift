@@ -26,6 +26,7 @@ final class SpaceHubViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData?
     @Published var showLoading = false
     @Published var profileIcon: Icon?
+    @Published var spaceToDelete: StringIdentifiable?
     
     private weak var output: (any SpaceHubModuleOutput)?
     
@@ -113,6 +114,10 @@ final class SpaceHubViewModel: ObservableObject {
     
     func openSpaceSettings(spaceId: String) {
         output?.onOpenSpaceSettings(spaceId: spaceId)
+    }
+    
+    func onDeleteSpace(spaceId: String) {
+        spaceToDelete = spaceId.identifiable
     }
     
     func startSubscriptions() async {
