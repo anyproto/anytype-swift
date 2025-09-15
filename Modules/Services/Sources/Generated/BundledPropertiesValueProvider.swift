@@ -175,6 +175,9 @@ public protocol BundledPropertiesValueProvider {
     var spacePushNotificationKey: String { get }
     var spacePushNotificationEncryptionKey: String { get }
     var spaceJoinDate: Date? { get }
+    var widgetLayout: Int? { get }
+    var widgetLimit: Int? { get }
+    var widgetViewId: String { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -812,5 +815,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Space join date
     var spaceJoinDate: Date? {
         return value(for: BundledPropertyKey.spaceJoinDate.rawValue)
+    }
+    /// Widget layout
+    var widgetLayout: Int? {
+        return value(for: BundledPropertyKey.widgetLayout.rawValue)
+    }
+    /// Widget limit
+    var widgetLimit: Int? {
+        return value(for: BundledPropertyKey.widgetLimit.rawValue)
+    }
+    /// Widget view ID
+    var widgetViewId: String {
+        return value(for: BundledPropertyKey.widgetViewId.rawValue)
     }
 }
