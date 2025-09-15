@@ -21,12 +21,18 @@ struct ImageCharIconView: View {
     ].sorted(by: { $0.side > $1.side }) // Order by DESC side for simple search
     
     let text: String
+    let textColor: Color
+    
+    init(text: String, textColor: Color = .Control.secondary) {
+        self.text = text
+        self.textColor = textColor
+    }
     
     var body: some View {
         GeometryReader { reader in
             ZStack(alignment: .center) {
                 Text(text.prefix(1).uppercased())
-                    .foregroundColor(Color.Text.white)
+                    .foregroundColor(textColor)
                     .font(font(size: reader.size))
             }
             .frame(width: reader.size.width, height: reader.size.height)
