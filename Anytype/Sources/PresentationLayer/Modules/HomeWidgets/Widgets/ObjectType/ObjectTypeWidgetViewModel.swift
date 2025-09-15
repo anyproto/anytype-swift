@@ -16,6 +16,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let info: ObjectTypeWidgetInfo
+    private weak var output: (any CommonWidgetModuleOutput)?
     private let setDocument: any SetDocumentProtocol
     private let subscriptionId = "ObjectTypeWidget-\(UUID().uuidString)"
     private var isImageType: Bool = false
@@ -28,8 +29,9 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     @Published var canCreateObject: Bool = false
     @Published var rows: ObjectTypeWidgetRowType?
     
-    init(info: ObjectTypeWidgetInfo) {
+    init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
         self.info = info
+        self.output = output
         blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         isExpanded = blockWidgetExpandedService.isExpanded(id: info.objectTypeId)
         setDocument = Container.shared.openedDocumentProvider().setDocument(
@@ -63,16 +65,16 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
                 templateId: type.defaultTemplateId
             )
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .homeScreen)
-            // TODO: Open object
+            output?.onObjectSelected(screenData: details.screenData())
         }
     }
     
     func onHeaderTap() {
-        // TODO: Open object
+        output?.onObjectSelected(screenData: .editor(.type(EditorTypeObject(objectId: info.objectTypeId, spaceId: info.spaceId))))
     }
     
     func onShowAllTap() {
-        // TODO: Open object
+        output?.onObjectSelected(screenData: .editor(.type(EditorTypeObject(objectId: info.objectTypeId, spaceId: info.spaceId))))
     }
     
     // MARK: - Private
@@ -125,7 +127,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     }
     
     private func handleTapOnObject(details: ObjectDetails) {
-        
+        output?.onObjectSelected(screenData: details.screenData())
     }
     
     private func updateRows(rowDetails: [SetContentViewItemConfiguration]) {

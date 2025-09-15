@@ -109,7 +109,7 @@ private struct HomeWidgetsInternalView: View {
         }
         VStack(spacing: 12) {
             ForEach(model.objectTypeWidgets) { info in
-                ObjectTypeWidgetView(info: info)
+                ObjectTypeWidgetView(info: info, output: model.output)
             }
         }
     }

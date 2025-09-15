@@ -2,9 +2,10 @@ import SwiftUI
 
 struct ObjectTypeWidgetView: View {
     let info: ObjectTypeWidgetInfo
+    let output: (any CommonWidgetModuleOutput)?
     
     var body: some View {
-        ObjectTypeWidgetInternalView(info: info)
+        ObjectTypeWidgetInternalView(info: info, output: output)
             .id(info.hashValue)
     }
 }
@@ -13,8 +14,8 @@ private struct ObjectTypeWidgetInternalView: View {
     
     @StateObject private var model: ObjectTypeWidgetViewModel
     
-    init(info: ObjectTypeWidgetInfo) {
-        self._model = StateObject(wrappedValue: ObjectTypeWidgetViewModel(info: info))
+    init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
+        self._model = StateObject(wrappedValue: ObjectTypeWidgetViewModel(info: info, output: output))
     }
     
     var body: some View {
