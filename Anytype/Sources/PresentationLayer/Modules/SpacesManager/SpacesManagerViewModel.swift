@@ -27,7 +27,11 @@ final class SpacesManagerViewModel: ObservableObject {
     
     func startWorkspacesTask() async {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
-            let participantSpaces = participantSpaces.filter { $0.spaceView.localStatus == .unknown || $0.spaceView.localStatus == .ok }
+            let participantSpaces = participantSpaces.filter {
+                $0.spaceView.localStatus == .unknown ||
+                $0.spaceView.localStatus == .ok ||
+                $0.spaceView.localStatus == .loading
+            }
             withAnimation(self.participantSpaces.isEmpty ? nil : .default) {
                 self.participantSpaces = participantSpaces.sorted { $0.sortingWeight > $1.sortingWeight }
             }
