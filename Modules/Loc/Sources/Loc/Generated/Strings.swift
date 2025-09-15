@@ -134,6 +134,7 @@ public enum Loc {
   public static let delete = Loc.tr("Localizable", "Delete", fallback: "Delete")
   public static let deleteVault = Loc.tr("Localizable", "Delete vault", fallback: "Delete vault")
   public static let deleted = Loc.tr("Localizable", "Deleted", fallback: "Deleted")
+  public static let deleteObjectType = Loc.tr("Localizable", "DeleteObjectType", fallback: "Delete Object Type")
   public static let deletionError = Loc.tr("Localizable", "Deletion error", fallback: "Deletion error")
   public static let description = Loc.tr("Localizable", "Description", fallback: "Description")
   public static let deselect = Loc.tr("Localizable", "Deselect", fallback: "Deselect")
@@ -1450,6 +1451,10 @@ public enum Loc {
     public static let myTypes = Loc.tr("Localizable", "ObjectType.MyTypes", fallback: "My Types")
     public static let search = Loc.tr("Localizable", "ObjectType.Search", fallback: "Search for Type")
     public static let searchOrInstall = Loc.tr("Localizable", "ObjectType.SearchOrInstall", fallback: "Search or install a new type")
+  }
+  public enum ObjectTypeDeleteAlert {
+    public static let message = Loc.tr("Localizable", "ObjectTypeDeleteAlert.message", fallback: "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it.")
+    public static let title = Loc.tr("Localizable", "ObjectTypeDeleteAlert.title", fallback: "Delete Object Type?")
   }
   public enum ParticipantRemoveNotification {
     public static func text(_ p1: Any) -> String {

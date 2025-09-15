@@ -14,6 +14,8 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
     private let info: ObjectTypeWidgetInfo
     private weak var output: (any CommonWidgetModuleOutput)?
@@ -22,13 +24,20 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     private var isImageType: Bool = false
     
     var typeId: String { info.objectTypeId }
+    var canCreateObject: Bool { typeCanBeCreated && canEdit}
+    var canDeleteType: Bool { typeIsDeletable && canEdit}
+    
     @Published var typeIcon: Icon?
     @Published var typeName: String = ""
     @Published var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
-    @Published var canCreateObject: Bool = false
     @Published var rows: ObjectTypeWidgetRowType?
+    @Published var deleteAlert: ObjectTypeDeleteConfirmationAlertData?
+    
+    @Published private var typeIsDeletable: Bool = false
+    @Published private var typeCanBeCreated: Bool = false
+    @Published private var canEdit: Bool = false
     
     init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
         self.info = info
@@ -47,8 +56,9 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     func startSubscriptions() async {
         async let typeSub: () = startTypeSubscription()
         async let objectsSub: () = startObjectsSubscription()
+        async let participantSub: () = startParticipantSubscription()
         
-        (_, _) = await (typeSub, objectsSub)
+        (_, _, _) = await (typeSub, objectsSub, participantSub)
     }
     
     func onCreateObject() {
@@ -78,6 +88,10 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
         output?.onObjectSelected(screenData: .editor(.type(EditorTypeObject(objectId: info.objectTypeId, spaceId: info.spaceId))))
     }
     
+    func onDelete() {
+        deleteAlert = ObjectTypeDeleteConfirmationAlertData(typeId: info.objectTypeId)
+    }
+    
     // MARK: - Private
     
     private func expandedDidChange() {
@@ -90,7 +104,8 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
             typeIcon = .object(type.icon)
             typeName = type.name
             isImageType = type.isImageLayout
-            canCreateObject = type.recommendedLayout?.isSupportedForCreation ?? false
+            typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation ?? false
+            typeIsDeletable = type.isDeletable
         }
     }
     
@@ -125,6 +140,12 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
             }
             
         } catch {}
+    }
+    
+    private func startParticipantSubscription() async {
+        for await canEdit in accountParticipantsStorage.canEditPublisher(spaceId: info.spaceId).values {
+            self.canEdit = canEdit
+        }
     }
     
     private func handleTapOnObject(details: ObjectDetails) {

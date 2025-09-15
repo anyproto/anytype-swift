@@ -49,6 +49,9 @@ private struct ObjectTypeWidgetInternalView: View {
         .task {
             await model.startSubscriptions()
         }
+        .anytypeSheet(item: $model.deleteAlert) {
+            ObjectTypeDeleteConfirmationAlert(data: $0)
+        }
     }
     
     @ViewBuilder
@@ -74,6 +77,16 @@ private struct ObjectTypeWidgetInternalView: View {
             } label: {
                 Text(Loc.new)
                 Image(systemName: "square.and.pencil")
+            }
+            Divider()
+        }
+        
+        if model.canDeleteType {
+            Button(role: .destructive) {
+                model.onDelete()
+            } label: {
+                Text(Loc.deleteObjectType)
+                Image(systemName: "trash")
             }
         }
     }
