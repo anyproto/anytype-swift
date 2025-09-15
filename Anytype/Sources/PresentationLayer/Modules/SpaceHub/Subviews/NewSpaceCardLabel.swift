@@ -29,7 +29,7 @@ struct NewSpaceCardLabel: View {
     private var content: some View {
         HStack(alignment: .center, spacing: 12) {
             IconView(icon: spaceData.spaceView.objectIconImage)
-                .frame(width: 64, height: 64)
+                .frame(width: 56, height: 56)
             
             Group {
                 if let message = spaceData.preview.lastMessage {
@@ -44,7 +44,7 @@ struct NewSpaceCardLabel: View {
             .matchedGeometryEffect(id: "content", in: namespace, properties: .position, anchor: .topLeading)
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 16)
+        .padding(.vertical, 17)
         // Optimization for fast sizeThatFits
         .frame(height: 98)
         
