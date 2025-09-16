@@ -67,8 +67,6 @@ private struct HomeWidgetsInternalView: View {
                 blockWidgets
                 if FeatureFlags.homeObjectTypeWidgets {
                     objectTypeWidgets
-                } else {
-                    editButtons
                 }
                 AnytypeNavigationSpacer()
             }
@@ -94,6 +92,9 @@ private struct HomeWidgetsInternalView: View {
                     homeState: $model.homeState,
                     output: model.output
                 )
+            }
+            if !FeatureFlags.homeObjectTypeWidgets {
+                editButtons
             }
         }
         .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
