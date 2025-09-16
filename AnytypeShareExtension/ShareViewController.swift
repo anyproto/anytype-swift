@@ -7,8 +7,9 @@ import SharedContentManager
 import DeepLinks
 import AnytypeCore
 import AppTarget
+import LayoutKit
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIViewController {
 
     private let sharedContentManager = SharingDI.shared.sharedContentManager()
     #if DEBUG || RELEASE_NIGHTLY
@@ -21,6 +22,22 @@ class ShareViewController: SLComposeServiceViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let sub = UIView()
+        sub.layer.cornerRadius = 16
+        sub.backgroundColor = .white
+        view.addSubview(sub) {
+            $0.width.equal(to: 100)
+            $0.height.equal(to: 100)
+            $0.center(in: view)
+        }
+        
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.color = .black
+        activity.startAnimating()
+        sub.addSubview(activity) {
+            $0.center(in: sub)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

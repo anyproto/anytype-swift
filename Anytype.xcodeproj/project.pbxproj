@@ -56,6 +56,7 @@
 		538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4F284F9F88000D3CCC /* DequeModule */; };
 		538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD51284F9F88000D3CCC /* OrderedCollections */; };
 		7411879B2D9ADD200006EA41 /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 7411879A2D9ADD200006EA41 /* Loc */; };
+		74183DD12E797AAD006805CC /* LayoutKit in Frameworks */ = {isa = PBXBuildFile; productRef = 74183DD02E797AAD006805CC /* LayoutKit */; };
 		7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC22D3916FF00E18A0C /* AppTarget */; };
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
@@ -330,6 +331,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74183DD12E797AAD006805CC /* LayoutKit in Frameworks */,
 				3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */,
 				7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */,
 				2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */,
@@ -580,6 +582,7 @@
 				2A41A6792B84E59B00EAE6E6 /* DeepLinks */,
 				2A6C3ED52C008DAF00B8D57C /* AnytypeCore */,
 				7434DAC42D3920BE00E18A0C /* AppTarget */,
+				74183DD02E797AAD006805CC /* LayoutKit */,
 			);
 			productName = AnytypeShareExtension;
 			productReference = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */;
@@ -2936,6 +2939,10 @@
 		7411879A2D9ADD200006EA41 /* Loc */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Loc;
+		};
+		74183DD02E797AAD006805CC /* LayoutKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LayoutKit;
 		};
 		7434DAC22D3916FF00E18A0C /* AppTarget */ = {
 			isa = XCSwiftPackageProductDependency;
