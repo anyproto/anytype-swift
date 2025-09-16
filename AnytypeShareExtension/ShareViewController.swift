@@ -23,21 +23,14 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let sub = UIView()
-        sub.layer.cornerRadius = 16
-        sub.backgroundColor = .white
-        view.addSubview(sub) {
-            $0.width.equal(to: 100)
-            $0.height.equal(to: 100)
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.color = .label
+        activity.startAnimating()
+        view.addSubview(activity) {
             $0.center(in: view)
         }
         
-        let activity = UIActivityIndicatorView(style: .large)
-        activity.color = .black
-        activity.startAnimating()
-        sub.addSubview(activity) {
-            $0.center(in: sub)
-        }
+        view.backgroundColor = .systemBackground
     }
     
     override func viewDidAppear(_ animated: Bool) {
