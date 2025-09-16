@@ -14,7 +14,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     
     private let data: SpaceRequestAlertData
     private let onMembershipUpgradeTap: (MembershipUpgradeReason) -> ()
-    private let onReject: (() async throws -> Void)?
+    private let onReject: (() -> Void)?
     
     let title: String
     let icon: ObjectIcon?
@@ -31,7 +31,7 @@ final class SpaceRequestAlertModel: ObservableObject {
         }
     }
     
-    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> (), onReject: (() async throws -> Void)?) {
+    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> (), onReject: (() -> Void)?) {
         self.data = data
         self.onMembershipUpgradeTap = onMembershipUpgradeTap
         self.onReject = onReject
@@ -81,7 +81,7 @@ final class SpaceRequestAlertModel: ObservableObject {
             spaceId: data.spaceId,
             identity: data.participantIdentity
         )
-        try await onReject?()
+        onReject?()
     }
     
     func onMembershipUpgrade(reason: MembershipUpgradeReason) {

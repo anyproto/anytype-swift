@@ -27,7 +27,6 @@ final class NewSpaceShareViewModel: ObservableObject {
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
-    private var callMakePrivate = false
     
     let data: SpaceShareData
     weak var output: (any NewInviteLinkModuleOutput)?
@@ -49,6 +48,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
     @Published var notifyUpdateLinkView = UUID()
+    @Published var showStopSharingAnEmptySpaceAlert = false
     
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
@@ -82,8 +82,10 @@ final class NewSpaceShareViewModel: ObservableObject {
         membershipUpgradeReason = reason
     }
     
-    func onReject() async throws {
-        try await makePrivateIfPossible()
+    func onReject() {
+        Task {
+            try await makePrivateIfPossible()
+        }
     }
     
     // MARK: - Private
@@ -260,10 +262,12 @@ final class NewSpaceShareViewModel: ObservableObject {
     }
     
     private func makePrivateIfPossible() async throws {
+        // Waiting middleware participant events
         try await Task.sleep(seconds: 0.5)
         guard participants.count == 1 else { return }
         try await workspaceService.stopSharing(spaceId: spaceId)
         notifyUpdateLinkView = UUID()
+        showStopSharingAnEmptySpaceAlert.toggle()
     }
 }
 
