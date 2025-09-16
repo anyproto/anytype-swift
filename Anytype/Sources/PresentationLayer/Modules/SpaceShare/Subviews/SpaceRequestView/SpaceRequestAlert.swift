@@ -18,10 +18,11 @@ struct SpaceRequestAlert: View {
     @StateObject private var model: SpaceRequestAlertModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> ()) {
+    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> (), onReject: (() async throws -> Void)? = nil) {
         _model = StateObject(wrappedValue: SpaceRequestAlertModel(
             data: data,
-            onMembershipUpgradeTap: onMembershipUpgradeTap
+            onMembershipUpgradeTap: onMembershipUpgradeTap,
+            onReject: onReject
         ))
     }
     
