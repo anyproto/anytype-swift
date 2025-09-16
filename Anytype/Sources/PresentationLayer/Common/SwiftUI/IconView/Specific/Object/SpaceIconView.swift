@@ -35,7 +35,10 @@ struct SpaceIconView: View {
     }
     
     private func nameIcon(name: String, iconOption: Int) -> some View {
-        ImageCharIconView(text: name.withPlaceholder)
-            .background(IconColorStorage.iconColor(iconOption: iconOption).gradient)
+        ImageCharIconView(
+            text: name.withPlaceholder,
+            textColor: IconColorStorage.iconTextColor(iconOption: iconOption)
+        ) 
+        .background(IconColorStorage.iconBackgroundColor(iconOption: iconOption).gradient)
     }
 }

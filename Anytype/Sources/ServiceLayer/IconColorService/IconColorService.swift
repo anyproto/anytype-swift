@@ -53,11 +53,11 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
                     let color = try image.averageColor()
                     return optimizeColor(color).suColor
                 } catch {
-                    let color = IconColorStorage.iconColor(iconOption: iconOption)
+                    let color = IconColorStorage.iconBackgroundColor(iconOption: iconOption)
                     return optimizeColor(UIColor(color)).suColor
                 }
             case .name(_, let iconOption, _):
-                let color = IconColorStorage.iconColor(iconOption: iconOption)
+                let color = IconColorStorage.iconBackgroundColor(iconOption: iconOption)
                 return optimizeColor(UIColor(color)).suColor
             case .localPath(let path, _):
                 guard let image = UIImage(contentsOfFile: path) else {
