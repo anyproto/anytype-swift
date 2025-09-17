@@ -131,7 +131,7 @@ struct SpaceShareParticipantView: View {
                 }
                 
             } label: {
-                status
+                status.padding([.vertical, .leading])
             }
         }
     }
