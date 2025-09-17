@@ -93,7 +93,9 @@ private struct HomeWidgetsInternalView: View {
                     output: model.output
                 )
             }
-            if !FeatureFlags.homeObjectTypeWidgets {
+            if FeatureFlags.homeObjectTypeWidgets {
+                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
+            } else {
                 editButtons
             }
         }
