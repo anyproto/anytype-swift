@@ -932,6 +932,12 @@ extension ImageAsset {
     }
     public static let bigGhost = ImageAsset.bundle(name: "TextEditor/bigGhost")
   }
+  public enum ChatCreationTip {
+    public static let step1 = ImageAsset.bundle(name: "ChatCreationTip/Step1")
+    public static let step2 = ImageAsset.bundle(name: "ChatCreationTip/Step2")
+    public static let step3 = ImageAsset.bundle(name: "ChatCreationTip/Step3")
+    public static let step4 = ImageAsset.bundle(name: "ChatCreationTip/Step4")
+  }
   public enum SharingTip {
     public static let step1 = ImageAsset.bundle(name: "SharingTip/step1")
     public static let step2 = ImageAsset.bundle(name: "SharingTip/step2")

@@ -26,6 +26,7 @@ struct SpaceHubView: View {
             .anytypeSheet(item: $model.spaceToDelete) { spaceId in
                 SpaceDeleteAlert(spaceId: spaceId.value)
             }
+            .handleChatCreationTip()
     }
     
     @ViewBuilder

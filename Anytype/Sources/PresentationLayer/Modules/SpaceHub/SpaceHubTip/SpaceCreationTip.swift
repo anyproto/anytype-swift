@@ -4,7 +4,7 @@ import Combine
 import SwiftUI
 
 @available(iOS 17.0, *)
-private struct SpaceCreationTipImpl: Tip {
+struct SpaceCreationTip: Tip {
     var title: Text {
         Text(verbatim: "Create Chats")
     }
@@ -25,7 +25,7 @@ class SpaceCreationTipWrapper: ObservableObject {
     private func startUpdating() {
         if #available(iOS 17.0, *) {
             Task { @MainActor in
-                for await shouldDisplayValue in SpaceCreationTipImpl().shouldDisplayUpdates {
+                for await shouldDisplayValue in SpaceCreationTip().shouldDisplayUpdates {
                     shouldDisplay = shouldDisplayValue
                 }
             }
@@ -34,7 +34,7 @@ class SpaceCreationTipWrapper: ObservableObject {
     
     func invalidate() {
         if #available(iOS 17.0, *) {
-            SpaceCreationTipImpl().invalidate(reason: .actionPerformed)
+            SpaceCreationTip().invalidate(reason: .actionPerformed)
         }
     }
 }
