@@ -33,7 +33,7 @@ private struct BinWidgetSubmoduleInternalView: View {
                 model.onDeleteWidgetTap()
             },
             header: {
-                LinkWidgetDefaultHeader(title: Loc.bin, icon: .X24.bin, onTap: {
+                LinkWidgetDefaultHeader(title: Loc.bin, icon: .asset(.X24.bin), onTap: {
                     model.onHeaderTap()
                 })
             },

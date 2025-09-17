@@ -5,6 +5,14 @@ import Services
 struct IconView: View {
     
     let icon: Icon?
+    let assetColor: Color
+    let asseetDisabledColor: Color
+        
+    init(icon: Icon?, assetColor: Color = .Control.secondary, asseetDisabledColor: Color = .Control.tertiary) {
+        self.icon = icon
+        self.assetColor = assetColor
+        self.asseetDisabledColor = asseetDisabledColor
+    }
     
     var body: some View {
         switch icon {
@@ -12,10 +20,10 @@ struct IconView: View {
             ObjectIconView(icon: objectIcon)
         case .asset(let imageAsset):
             Image(asset: imageAsset)
-                .buttonDynamicForegroundStyle()
+                .dynamicForegroundStyle(color: assetColor, disabledColor: asseetDisabledColor)
         case .image(let uIImage):
             Image(uiImage: uIImage)
-                .buttonDynamicForegroundStyle()
+                .dynamicForegroundStyle(color: assetColor, disabledColor: asseetDisabledColor)
         case .url(let url):
             ImageUrlIconView(url: url)
         case nil:

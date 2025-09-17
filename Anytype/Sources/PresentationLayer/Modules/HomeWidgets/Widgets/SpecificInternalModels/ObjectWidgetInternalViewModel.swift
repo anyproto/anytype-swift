@@ -26,9 +26,11 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     private var linkedObjectDetails: ObjectDetails?
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = ""
+    @Published private var icon: Icon?
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var iconPublisher: AnyPublisher<Icon?, Never> { $icon.eraseToAnyPublisher() }
     @Published var allowCreateObject = true
     
     init(data: WidgetSubmoduleData) {
@@ -42,6 +44,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func startBlockSubscription() async {
         for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
             name = details.title
+            icon = details.objectIconImage
             allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
             
             linkedObjectDetails = details

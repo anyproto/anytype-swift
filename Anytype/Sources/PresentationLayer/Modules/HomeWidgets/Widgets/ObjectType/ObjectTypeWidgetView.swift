@@ -34,7 +34,7 @@ private struct ObjectTypeWidgetInternalView: View {
                 dragId: model.typeId,
                 homeState: .constant(.readwrite),
                 header: {
-                    LinkWidgetDefaultHeader(title: model.typeName, icon: nil, onTap: {
+                    LinkWidgetDefaultHeader(title: model.typeName, icon: model.typeIcon, onTap: {
                         model.onHeaderTap()
                     })
                 },

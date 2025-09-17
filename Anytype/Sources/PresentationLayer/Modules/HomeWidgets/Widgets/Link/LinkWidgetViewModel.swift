@@ -19,6 +19,7 @@ final class LinkWidgetViewModel: ObservableObject {
     private var linkedObjectDetails: ObjectDetails?
     
     @Published private(set) var name = ""
+    @Published private(set) var icon: Icon?
     var dragId: String? { widgetBlockId }
     
     init(data: WidgetSubmoduleData) {
@@ -47,6 +48,7 @@ final class LinkWidgetViewModel: ObservableObject {
             .sink { [weak self] details in
                 self?.linkedObjectDetails = details
                 self?.name = details.pluralTitle
+                self?.icon = details.objectIconImage
             }
             .store(in: &subscriptions)
     }

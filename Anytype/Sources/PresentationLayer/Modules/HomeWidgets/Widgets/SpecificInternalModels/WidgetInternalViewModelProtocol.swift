@@ -6,6 +6,7 @@ import Services
 protocol WidgetInternalViewModelProtocol: AnyObject {
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { get }
     var namePublisher: AnyPublisher<String, Never> { get }
+    var iconPublisher: AnyPublisher<Icon?, Never> { get }
     var allowCreateObject: Bool { get }
     
     func startHeaderSubscription()
@@ -17,5 +18,6 @@ protocol WidgetInternalViewModelProtocol: AnyObject {
 
 extension WidgetInternalViewModelProtocol {
     var allowCreateObject: Bool { false }
+    var iconPublisher: AnyPublisher<Icon?, Never> { Just(nil).eraseToAnyPublisher() }
     func onCreateObjectTap() {}
 }
