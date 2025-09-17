@@ -25,6 +25,7 @@ final class ListWidgetViewModel: ObservableObject {
     // MARK: - WidgetContainerContentViewModelProtocol
     
     @Published private(set) var name: String = ""
+    @Published private(set) var icon: Icon?
     var dragId: String? { widgetBlockId }
     
     @Published private(set) var headerItems: [ViewWidgetTabsItemModel]?
@@ -79,6 +80,10 @@ final class ListWidgetViewModel: ObservableObject {
         internalModel.namePublisher
             .receiveOnMain()
             .assign(to: &$name)
+        
+        internalModel.iconPublisher
+            .receiveOnMain()
+            .assign(to: &$icon)
         
         internalModel.detailsPublisher
             .receiveOnMain()

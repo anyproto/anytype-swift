@@ -28,6 +28,7 @@ struct LinkWidgetInternalView: View {
             widgetObject: data.widgetObject,
             homeState: data.homeState,
             name: model.name,
+            icon: model.icon,
             dragId: model.dragId,
             onCreateObjectTap: nil,
             onHeaderTap: {

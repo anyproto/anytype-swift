@@ -8,7 +8,7 @@ struct WidgetContainerView<Content: View>: View {
     @Binding private var homeState: HomeWidgetsState
     
     let name: String
-    let icon: ImageAsset?
+    let icon: Icon?
     let dragId: String?
     let onCreateObjectTap: (() -> Void)?
     let onHeaderTap: () -> Void
@@ -19,7 +19,7 @@ struct WidgetContainerView<Content: View>: View {
         widgetObject: some BaseDocumentProtocol,
         homeState: Binding<HomeWidgetsState>,
         name: String,
-        icon: ImageAsset? = nil,
+        icon: Icon? = nil,
         dragId: String?,
         menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove],
         onCreateObjectTap: (() -> Void)?,

@@ -23,7 +23,7 @@ struct AllObjectsWidgetView: View {
                 model.onDeleteWidgetTap()
             },
             header: {
-                LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .X24.allObjects, onTap: {
+                LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .asset(.X24.allObjects), onTap: {
                     model.onHeaderTap()
                 })
             },

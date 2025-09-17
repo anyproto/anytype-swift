@@ -25,7 +25,7 @@ struct SpaceChatWidgetView: View {
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,
-                    icon: .X24.chat,
+                    icon: .asset(.X24.chat),
                     rightAccessory: {
                         HStack(spacing: 4) {
                             if model.hasMentions {

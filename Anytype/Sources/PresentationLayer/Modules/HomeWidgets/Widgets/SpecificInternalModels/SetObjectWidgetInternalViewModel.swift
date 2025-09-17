@@ -39,6 +39,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     var dragId: String? { widgetBlockId }
     
     @Published var name: String = ""
+    @Published var icon: Icon?
     @Published var headerItems: [ViewWidgetTabsItemModel]?
     @Published var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
     @Published var allowCreateObject = true
@@ -256,6 +257,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         
         guard let details = setDocument.details else { return }
         name = details.pluralTitle
+        icon = details.objectIconImage
     }
     
     
