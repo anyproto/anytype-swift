@@ -134,7 +134,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             }
             
             if FeatureFlags.homeObjectTypeWidgets {
-                newWidgetBlocks.removeAll { $0.source == .library(.allObjects) }
+                newWidgetBlocks.removeAll { $0.source == .library(.allObjects) || $0.source == .library(.bin) }
             }
             
             guard widgetBlocks != newWidgetBlocks else { continue }
