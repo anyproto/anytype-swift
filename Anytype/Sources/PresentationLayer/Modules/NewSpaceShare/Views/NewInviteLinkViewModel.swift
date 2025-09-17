@@ -41,6 +41,10 @@ final class NewInviteLinkViewModel: ObservableObject {
         showInitialLoading = false
     }
     
+    func updateLink() {
+        Task { await updateView() }
+    }
+    
     func onInviteLinkTypeSelected(_ invite: SpaceRichIviteType) {
         invitePickerItem = nil
         guard inviteType != invite else { return }

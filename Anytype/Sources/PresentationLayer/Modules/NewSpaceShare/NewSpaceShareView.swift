@@ -22,6 +22,8 @@ struct NewSpaceShareView: View {
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
                 SpaceRequestAlert(data: alertModel) { reason in
                     model.onUpgradeTap(reason: reason, route: .confirmInvite)
+                } onReject: {
+                    model.onReject()
                 }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
@@ -36,6 +38,9 @@ struct NewSpaceShareView: View {
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)
             }
+            .anytypeSheet(isPresented: $model.showStopSharingAnEmptySpaceAlert) {
+                StopSharingAnEmptySpaceAlert()
+            }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()
     }
@@ -49,7 +54,7 @@ struct NewSpaceShareView: View {
                 VStack(spacing: 0) {
                     
                     SectionHeaderView(title: Loc.SpaceShare.Invite.title)
-                    NewInviteLinkView(data: model.data, canChangeInvite: model.canChangeInvite, output: model.output)
+                    NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, output: model.output)
                     
                     SectionHeaderView(title: Loc.SpaceShare.members)
                     if let reason = model.upgradeTooltipData {

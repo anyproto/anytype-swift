@@ -47,6 +47,8 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
+    @Published var notifyUpdateLinkView = UUID()
+    @Published var showStopSharingAnEmptySpaceAlert = false
     
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
@@ -78,6 +80,12 @@ final class NewSpaceShareViewModel: ObservableObject {
     func onUpgradeTap(reason: MembershipUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
         AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: reason.analyticsType, route: route)
         membershipUpgradeReason = reason
+    }
+    
+    func onReject() {
+        Task {
+            try await makePrivateIfPossible()
+        }
     }
     
     // MARK: - Private
@@ -244,12 +252,22 @@ final class NewSpaceShareViewModel: ObservableObject {
             onConfirm: { [weak self] in
                 AnytypeAnalytics.instance().logRemoveSpaceMember()
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+                try await self?.makePrivateIfPossible()
             }
         )
     }
     
     private func showParticipantInfo(_ participant: Participant) {
         participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
+    }
+    
+    private func makePrivateIfPossible() async throws {
+        // Waiting middleware participant events
+        try await Task.sleep(seconds: 0.5)
+        guard participants.count == 1 else { return }
+        try await workspaceService.stopSharing(spaceId: spaceId)
+        notifyUpdateLinkView = UUID()
+        showStopSharingAnEmptySpaceAlert.toggle()
     }
 }
 

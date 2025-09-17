@@ -2196,6 +2196,10 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "SpaceShare.StopSharing.Title", fallback: "Stop sharing the space")
       public static let toast = Loc.tr("Localizable", "SpaceShare.StopSharing.Toast", fallback: "The space is no longer shared")
     }
+    public enum StopSharingEmptySpace {
+      public static let message = Loc.tr("Localizable", "SpaceShare.StopSharingEmptySpace.Message", fallback: "You’ve removed the last member, so this space is now private and only accessible to you.")
+      public static let title = Loc.tr("Localizable", "SpaceShare.StopSharingEmptySpace.Title", fallback: "The space is now private")
+    }
     public enum Tip {
       public static let title = Loc.tr("Localizable", "SpaceShare.Tip.Title", fallback: "Collaborate on spaces")
       public enum Steps {

@@ -4,10 +4,12 @@ import SwiftUI
 struct NewInviteLinkView: View {
     
     @StateObject private var model: NewInviteLinkViewModel
+    @Binding private var notifyUpdateLinkView: UUID
     let canChangeInvite: Bool
     
-    init(data: SpaceShareData, canChangeInvite: Bool, output: (any NewInviteLinkModuleOutput)?) {
+    init(data: SpaceShareData, notifyUpdateLinkView: Binding<UUID>, canChangeInvite: Bool, output: (any NewInviteLinkModuleOutput)?) {
         self.canChangeInvite = canChangeInvite
+        self._notifyUpdateLinkView = notifyUpdateLinkView
         self._model = StateObject(wrappedValue: NewInviteLinkViewModel(data: data, output: output))
     }
     
@@ -37,6 +39,9 @@ struct NewInviteLinkView: View {
             SpaceInviteChangeAlert {
                 model.onInviteChangeConfirmed(invite)
             }
+        }
+        .onChange(of: notifyUpdateLinkView) { _ in
+            model.updateLink()
         }
         .snackbar(toastBarData: $model.toastBarData)
     }
