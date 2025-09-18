@@ -38,17 +38,8 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
                 bodyContent
             }
         )
-        .task {
-            await model.startPermissionsPublisher()
-        }
-        .task {
-            await model.startInfoPublisher()
-        }
-        .task {
-            await model.startTargetDetailsPublisher()
-        }
-        .task {
-            await model.onAppear()
+        .task(priority: .high) {
+            await model.startSubscriptions()
         }
     }
     

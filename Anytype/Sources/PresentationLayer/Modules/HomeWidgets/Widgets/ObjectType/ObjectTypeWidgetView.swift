@@ -46,7 +46,7 @@ private struct ObjectTypeWidgetInternalView: View {
                 }
             )
         }
-        .task {
+        .task(priority: .low) {
             await model.startSubscriptions()
         }
         .anytypeSheet(item: $model.deleteAlert) {

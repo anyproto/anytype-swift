@@ -39,7 +39,7 @@ struct TreeWidgetView: View {
                 content
             }
         )
-        .task {
+        .task(priority: .high) {
             await model.startTreeSubscription()
         }
     }
