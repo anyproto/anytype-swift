@@ -117,8 +117,10 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTapDelete()
         } label: {
             Text(Loc.SpaceSettings.deleteButton)
+                .tint(.red)
             Spacer()
             Image(systemName: "trash")
+                .tint(.red)
         }
     }
     
