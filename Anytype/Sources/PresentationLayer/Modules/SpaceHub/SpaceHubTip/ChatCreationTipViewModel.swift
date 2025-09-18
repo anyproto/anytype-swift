@@ -12,7 +12,7 @@ final class ChatCreationTipViewModel: ObservableObject {
     init() {}
     
     func tapClose() {
-        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .chatCreation, type: .close)
+        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .chats, type: .close)
         dismiss.toggle()
     }
     

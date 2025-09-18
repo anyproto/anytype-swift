@@ -236,7 +236,7 @@ enum OnboardingTooltip: String {
     case swipeInWidgets = "ObjectCreationWidget"
     case returnToWidgets = "ReturnToWidgets"
     case space = "Space"
-    case chatCreation = "ChatCreation"
+    case chats = "Chats"
 }
 
 enum ClickDeleteSpaceRoute: String {
