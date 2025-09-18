@@ -47,7 +47,7 @@ final class SharingExtensionViewModel: ObservableObject {
     
     func onTapSpace(_ space: SpaceView) {
         if space.uxType.isChat {
-            selectedSpace = space
+            selectedSpace = space == selectedSpace ? nil : space
         } else {
             selectedSpace = nil
             output?.onSelectDataSpace(spaceId: space.targetSpaceId)

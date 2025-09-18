@@ -23,15 +23,16 @@ struct SharingExtensionsShareRow: View {
                 Text(data.title)
                     .anytypeStyle(.uxTitle2Medium)
                     .foregroundStyle(Color.Text.primary)
+                    .lineLimit(1)
                 
                 if let subtitle = data.subtitle, !subtitle.isEmpty {
                     Text(subtitle)
                         .anytypeFontStyle(.caption1Regular)
                         .foregroundStyle(Color.Text.secondary)
+                        .lineLimit(1)
                 }
             }
-            
-            Spacer()
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             AnytypeCircleCheckbox(checked: data.selected)
         }

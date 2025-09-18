@@ -125,7 +125,7 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
-        debugValue: true
+        debugValue: false
     )
     
     static let muteSpacePossibility = FeatureDescription(
