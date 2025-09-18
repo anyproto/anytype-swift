@@ -136,6 +136,10 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: chatId)
         var preview = previewsBySpace[key] ?? ChatMessagePreview(spaceId: spaceId, chatId: chatId)
         
+        if let lastMessage = preview.lastMessage, lastMessage.orderId > message.orderID {
+            return
+        }
+        
         let attachmentsIds = message.attachments.map(\.target)
         let attachments = attachmentsIds.compactMap { id in dependencies.first { $0.id == id } }
         
@@ -147,7 +151,8 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
             text: messageTextBuilder.makeMessaeWithoutStyle(content: message.message),
             createdAt: message.createdAtDate,
             modifiedAt: message.modifiedAtDate,
-            attachments: attachments
+            attachments: attachments,
+            orderId: message.orderID
         )
         
         preview.lastMessage = message
