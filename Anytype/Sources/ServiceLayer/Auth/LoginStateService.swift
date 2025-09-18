@@ -26,7 +26,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     private let objectTypeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
     private let middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol = Container.shared.middlewareConfigurationProvider()
-    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol = Container.shared.blockWidgetExpandedService()
+    private let expandedService: any ExpandedServiceProtocol = Container.shared.expandedService()
     private let membershipStatusStorage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
     private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
     private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
@@ -69,7 +69,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     func cleanStateAfterLogout() async {
         userDefaults.cleanStateAfterLogout()
         basicUserInfoStorage.cleanUserIdAfterLogout()
-        blockWidgetExpandedService.clearData()
+        expandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         pushNotificationsPermissionService.unregisterForRemoteNotifications()
         spaceFileUploadService.cancelAllUploads()

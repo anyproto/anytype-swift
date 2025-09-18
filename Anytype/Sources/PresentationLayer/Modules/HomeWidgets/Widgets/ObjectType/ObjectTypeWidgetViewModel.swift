@@ -6,7 +6,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
+    private let expandedService: any ExpandedServiceProtocol
     private let subscriptionStorage: any SubscriptionStorageProtocol
     @Injected(\.setSubscriptionDataBuilder)
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
@@ -42,14 +42,14 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
         self.info = info
         self.output = output
-        blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
-        isExpanded = blockWidgetExpandedService.isExpanded(id: info.objectTypeId)
+        expandedService = Container.shared.expandedService()
+        isExpanded = expandedService.isExpanded(id: info.objectTypeId, defaultValue: false)
         setDocument = Container.shared.openedDocumentProvider().setDocument(
             objectId: info.objectTypeId,
             spaceId: info.spaceId,
             mode: .preview
         )
-        let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
+        let storageProvider = Container.shared.subscriptionStorageProvider()
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
     }
     
@@ -96,7 +96,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     
     private func expandedDidChange() {
         UISelectionFeedbackGenerator().selectionChanged()
-        blockWidgetExpandedService.setState(id: info.objectTypeId, isExpanded: isExpanded)
+        expandedService.setState(id: info.objectTypeId, isExpanded: isExpanded)
     }
     
     private func startTypeSubscription() async {
