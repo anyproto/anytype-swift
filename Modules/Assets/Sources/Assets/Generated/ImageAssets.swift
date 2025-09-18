@@ -13,8 +13,12 @@ extension ImageAsset {
     public static let appIconEgg = ImageAsset.bundle(name: "AppIconsPreview/AppIconEgg")
     public static let appIconSmile = ImageAsset.bundle(name: "AppIconsPreview/AppIconSmile")
   }
-  public static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
-  public static let greetings = ImageAsset.bundle(name: "greetings")
+  public enum Auth {
+    public static let joinFlowIcon1 = ImageAsset.bundle(name: "Auth/JoinFlowIcon1")
+    public static let joinFlowIcon2 = ImageAsset.bundle(name: "Auth/JoinFlowIcon2")
+    public static let joinFlowIcon3 = ImageAsset.bundle(name: "Auth/JoinFlowIcon3")
+    public static let greetings = ImageAsset.bundle(name: "Auth/greetings")
+  }
   public static let arrowDown = ImageAsset.bundle(name: "arrowDown")
   public static let arrowForward = ImageAsset.bundle(name: "arrowForward")
   public static let backArrow = ImageAsset.bundle(name: "backArrow")
