@@ -14,7 +14,7 @@ final class WidgetContainerViewModel: ObservableObject {
     let widgetObject: any BaseDocumentProtocol
     weak var output: (any CommonWidgetModuleOutput)?
     
-    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
+    private let expandedService: any ExpandedServiceProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
@@ -43,8 +43,8 @@ final class WidgetContainerViewModel: ObservableObject {
         self.widgetObject = widgetObject
         self.output = output
         
-        blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
-        isExpanded = blockWidgetExpandedService.isExpanded(id: widgetBlockId)
+        expandedService = Container.shared.expandedService()
+        isExpanded = expandedService.isExpanded(id: widgetBlockId, defaultValue: true)
         
         let source = widgetObject.widgetInfo(blockId: widgetBlockId)?.source
         
@@ -84,6 +84,6 @@ final class WidgetContainerViewModel: ObservableObject {
                 AnytypeAnalytics.instance().logCloseSidebarGroupToggle(source: info.source.analyticsSource)
             }
         }
-        blockWidgetExpandedService.setState(id: widgetBlockId, isExpanded: isExpanded)
+        expandedService.setState(id: widgetBlockId, isExpanded: isExpanded)
     }
 }

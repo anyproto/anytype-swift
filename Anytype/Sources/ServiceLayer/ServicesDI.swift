@@ -164,13 +164,13 @@ extension Container {
         self { DocumentsProvider() }.singleton
     }
     
-    var blockWidgetExpandedService: Factory<any BlockWidgetExpandedServiceProtocol> {
-        self { BlockWidgetExpandedService() }.shared
+    var expandedService: Factory<any ExpandedServiceProtocol> {
+        self { ExpandedService() }.shared
     }
     
-    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
-        self { ObjectTypeWidgetExpandedService() }.shared
-    }
+//    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
+//        self { ObjectTypeWidgetExpandedService() }.shared
+//    }
     
     var applicationStateService: Factory<any ApplicationStateServiceProtocol> {
         self { ApplicationStateService() }.singleton
