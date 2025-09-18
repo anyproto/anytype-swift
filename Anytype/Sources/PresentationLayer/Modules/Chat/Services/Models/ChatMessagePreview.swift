@@ -11,7 +11,9 @@ struct LastMessagePreview: Hashable {
     let attachments: [ObjectDetails]
     let localizedAttachmentsText: String
     
-    init(creator: Participant?, text: String, createdAt: Date, modifiedAt: Date?, attachments: [ObjectDetails]) {
+    let orderId: String
+    
+    init(creator: Participant?, text: String, createdAt: Date, modifiedAt: Date?, attachments: [ObjectDetails], orderId: String) {
         self.creator = creator
         self.text = text
         self.createdAt = createdAt
@@ -19,6 +21,7 @@ struct LastMessagePreview: Hashable {
         self.attachments = attachments
         self.localizedAttachmentsText = text.isNotEmpty ? text : AttachmentsTextInfoBuilder
             .localizedAttachmentsText(attachments: attachments)
+        self.orderId = orderId
     }
 }
 
