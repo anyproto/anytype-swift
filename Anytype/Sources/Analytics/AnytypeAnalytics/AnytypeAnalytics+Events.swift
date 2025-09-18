@@ -940,10 +940,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logOnboardingTooltip(tooltip: OnboardingTooltip) {
+    func logOnboardingTooltip(tooltip: OnboardingTooltip, step: Int? = nil) {
         logEvent(
             "OnboardingTooltip",
-            withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
+            withEventProperties: .builder {
+                [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
+                if let step { [AnalyticsEventsPropertiesKey.step: step] }
+            }
         )
     }
     

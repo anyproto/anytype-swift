@@ -4,35 +4,8 @@ import SwiftUI
 struct ChatCreationTipView: View {
     @StateObject private var viewModel = ChatCreationTipViewModel()
     @Environment(\.dismiss) private var dismiss
-    @State private var currentPage: Int = 0
-
-    private var pageContent: PageContent {
-        switch currentPage {
-        case 0:
-            return PageContent(
-                title: Loc.ChatTip.Step1.title,
-                description: Loc.ChatTip.Step1.description
-            )
-        case 1:
-            return PageContent(
-                title: Loc.ChatTip.Step2.title,
-                description: Loc.ChatTip.Step2.description
-            )
-        case 2:
-            return PageContent(
-                title: Loc.ChatTip.Step3.title,
-                description: Loc.ChatTip.Step3.description
-            )
-        case 3:
-            return PageContent(
-                title: Loc.ChatTip.Step4.title,
-                description: Loc.ChatTip.Step4.description
-            )
-        default:
-            return PageContent(title: "", description: "")
-        }
-    }
-
+    @State private var currentPage: Int = 1
+    
     var body: some View {
         ZStack {
             Color.Background.secondary
@@ -42,13 +15,16 @@ struct ChatCreationTipView: View {
             content
         }
         .onAppear {
-            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chatCreation)
+            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chats, step: currentPage)
         }
         .onDisappear() {
             viewModel.onDisappear()
         }
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
+        }
+        .onChange(of: currentPage) {
+            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chats, step: $0)
         }
     }
     
@@ -73,10 +49,10 @@ struct ChatCreationTipView: View {
             pageIndicator
             Spacer.fixedHeight(16)
             StandardButton(
-                currentPage == 3 ? Loc.letsTryIt : Loc.next,
+                currentPage == 4 ? Loc.letsTryIt : Loc.next,
                 style: .secondaryLarge,
                 action: {
-                    if currentPage < 3 {
+                    if currentPage < 4 {
                         currentPage += 1
                     } else {
                         viewModel.tapClose()
@@ -90,6 +66,34 @@ struct ChatCreationTipView: View {
             Spacer.fixedHeight(20)
         }
     }
+    
+    private var pageContent: PageContent {
+        switch currentPage {
+        case 1:
+            return PageContent(
+                title: Loc.ChatTip.Step1.title,
+                description: Loc.ChatTip.Step1.description
+            )
+        case 2:
+            return PageContent(
+                title: Loc.ChatTip.Step2.title,
+                description: Loc.ChatTip.Step2.description
+            )
+        case 3:
+            return PageContent(
+                title: Loc.ChatTip.Step3.title,
+                description: Loc.ChatTip.Step3.description
+            )
+        case 4:
+            return PageContent(
+                title: Loc.ChatTip.Step4.title,
+                description: Loc.ChatTip.Step4.description
+            )
+        default:
+            return PageContent(title: "", description: "")
+        }
+    }
+
     
     @ViewBuilder
     var gradient: some View {
@@ -108,7 +112,7 @@ struct ChatCreationTipView: View {
     @ViewBuilder
     var pageIndicator: some View {
         HStack(spacing: 8) {
-            ForEach(0..<4, id: \.self) { index in
+            ForEach(1..<5, id: \.self) { index in
                 Circle()
                     .fill(index == currentPage ? Color.Additional.Indicator.selected : Color.Additional.Indicator.unselected)
                     .frame(width: 6, height: 6)
@@ -119,10 +123,10 @@ struct ChatCreationTipView: View {
     @ViewBuilder
     var carouselImages: some View {
         TabView(selection: $currentPage) {
-            image(with: ImageAsset.ChatCreationTip.step1, tag: 0)
-            image(with: ImageAsset.ChatCreationTip.step2, tag: 1)
-            image(with: ImageAsset.ChatCreationTip.step3, tag: 2)
-            image(with: ImageAsset.ChatCreationTip.step4, tag: 3)
+            image(with: ImageAsset.ChatCreationTip.step1, tag: 1)
+            image(with: ImageAsset.ChatCreationTip.step2, tag: 2)
+            image(with: ImageAsset.ChatCreationTip.step3, tag: 3)
+            image(with: ImageAsset.ChatCreationTip.step4, tag: 4)
         }
         .animation(.default, value: currentPage)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
