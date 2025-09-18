@@ -168,6 +168,10 @@ extension Container {
         self { BlockWidgetExpandedService() }.shared
     }
     
+    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
+        self { ObjectTypeWidgetExpandedService() }.shared
+    }
+    
     var applicationStateService: Factory<any ApplicationStateServiceProtocol> {
         self { ApplicationStateService() }.singleton
     }
