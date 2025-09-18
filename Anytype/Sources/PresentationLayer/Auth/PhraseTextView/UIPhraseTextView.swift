@@ -61,7 +61,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         autocapitalizationType = .none
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
-        font = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Medium.uiKitFont : AnytypeFont.authInput.uiKitFont
+        font = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Regular.uiKitFont : AnytypeFont.authInput.uiKitFont
         tintColor = FeatureFlags.brandNewAuthFlow ? UIColor.Control.accent100 : UIColor.Auth.inputText
         textContainer.lineFragmentPadding = 0.0
         backgroundColor = FeatureFlags.brandNewAuthFlow ? UIColor.Shape.transperentSecondary :  UIColor.Shape.transperentSecondary.withAlphaComponent(0.14)
@@ -110,7 +110,7 @@ extension UIPhraseTextView {
     private func configureAttributedString(from text: String, hidden: Bool) -> NSAttributedString {
         
         let foregroundColor = FeatureFlags.brandNewAuthFlow ? UIColor.Text.primary : UIColor.Control.white
-        let anytypeFont: AnytypeFont = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Medium : AnytypeFont.authInput
+        let anytypeFont: AnytypeFont = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Regular : AnytypeFont.authInput
         let style = NSMutableParagraphStyle()
         style.lineSpacing = anytypeFont.config.lineHeight
         let attributes = [

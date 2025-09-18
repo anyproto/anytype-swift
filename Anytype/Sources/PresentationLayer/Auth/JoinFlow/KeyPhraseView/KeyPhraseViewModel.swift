@@ -46,10 +46,8 @@ final class KeyPhraseViewModel: ObservableObject {
     }
     
     func onPhraseTap() {
-        keyShown.toggle()
-        if keyShown {
-            copy()
-        }
+        keyShown = true
+        copy()
     }
     
     func keyPhraseMoreInfo() -> AnyView? {
