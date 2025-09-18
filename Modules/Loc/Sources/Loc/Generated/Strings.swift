@@ -649,24 +649,18 @@ public enum Loc {
           }
         }
         public enum ReadMore {
-          public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Title", fallback: "What is the Key?")
-          public enum Instruction {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Title", fallback: "How to save my key?")
-            public enum Option1 {
-              public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title", fallback: "The easiest way to store your key is to save it in your password manager.")
-            }
-            public enum Option2 {
-              public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title", fallback: "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.")
-            }
-          }
+          public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Title", fallback: "How the Key works?")
           public enum Option1 {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.")
+            public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.description", fallback: "Your key is represented by a recovery phrase — 12 random words that generate your vault on this device.")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.title", fallback: "It’s your login and password")
           }
           public enum Option2 {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**")
+            public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.description", fallback: "Anyone who knows these words can access your vault. Right now, you are the only person in the world who knows them.")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.title", fallback: "Whoever has the key, has access")
           }
           public enum Option3 {
-            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!")
+            public static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.description", fallback: "All computational resources on Earth are not enough to break in. If you lose your key, it cannot be recovered. Store it somewhere safe — in a password manager or written down on paper.")
+            public static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.title", fallback: "Only you responsible for it")
           }
         }
       }

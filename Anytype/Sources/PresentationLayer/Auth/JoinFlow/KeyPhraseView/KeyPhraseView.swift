@@ -12,8 +12,11 @@ struct KeyPhraseView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            Spacer()
             content
             Spacer()
+        }
+        .overlay(alignment: .bottom) {
             buttons
         }
         .snackbar(toastBarData: $model.snackBar)
@@ -76,7 +79,7 @@ struct KeyPhraseView: View {
                 hideWords: !model.keyShown
             )
             .disabled(true)
-            .blur(radius: model.keyShown ? 0 : 5)
+            .blur(radius: model.keyShown ? 0 : 12)
             .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
@@ -92,7 +95,7 @@ struct KeyPhraseView: View {
             .colorScheme(.light)
             
             if !model.keyShown {
-                Spacer.fixedHeight(13)
+                Spacer.fixedHeight(8)
                 StandardButton(
                     Loc.Auth.JoinFlow.Key.Button.Later.title,
                     style: .linkLarge,

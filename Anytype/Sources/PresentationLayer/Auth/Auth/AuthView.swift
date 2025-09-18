@@ -44,7 +44,7 @@ struct AuthView: View {
     
     @ViewBuilder
     private var greetings: some View {
-        Image(asset: .greetings)
+        Image(asset: .Auth.greetings)
             .onTapGesture(count: 10) {
                 AudioServicesPlaySystemSound(1109)
                 model.showDebugMenu.toggle()
