@@ -55,33 +55,12 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
     }
     
-    // MARK: - Subscriptions
-    
-    func startPermissionsPublisher() async {
-        for await permissions in widgetObject.permissionsPublisher.values {
-            canEditBlocks = permissions.canEditBlocks
-        }
-    }
-    
-    func startInfoPublisher() async {
-        for await newWidgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
-            widgetInfo = newWidgetInfo
-            if activeViewId.isNil || canEditBlocks {
-                activeViewId = widgetInfo?.block.viewID
-                await updateBodyState()
-            }
-        }
-    }
-    
-    func startTargetDetailsPublisher() async {
-        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
-            await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
-        }
-    }
-    
-    func onAppear() async {
-        guard let setDocument else { return }
-        await updateSetDocument(objectId: setDocument.objectId, spaceId: setDocument.spaceId)
+    func startSubscriptions() async {
+        async let permissionsTask: () = startPermissionsPublisher()
+        async let startInfoTask: () = startInfoPublisher()
+        async let targetDetailsTask: () = startTargetDetailsPublisher()
+        
+        _ = await (permissionsTask, startInfoTask, targetDetailsTask)
     }
     
     // MARK: - Actions
@@ -119,6 +98,30 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             createType: info.widgetCreateType
         )
         output?.onObjectSelected(screenData: screenData)
+    }
+
+    // MARK: - Subscriptions
+    
+    private func startPermissionsPublisher() async {
+        for await permissions in widgetObject.permissionsPublisher.values {
+            canEditBlocks = permissions.canEditBlocks
+        }
+    }
+    
+    private func startInfoPublisher() async {
+        for await newWidgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
+            widgetInfo = newWidgetInfo
+            if activeViewId.isNil || canEditBlocks {
+                activeViewId = widgetInfo?.block.viewID
+                await updateBodyState()
+            }
+        }
+    }
+    
+    private func startTargetDetailsPublisher() async {
+        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
+            await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
+        }
     }
     
     // MARK: - Private for view updates
