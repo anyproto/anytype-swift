@@ -16,7 +16,6 @@ public enum BundledDetails: Sendable {
     case description(String)
     case recommendedLayout(Int)
     case lastUsedDate(Date)
-    case autoWidgetDisabled(Bool)
 }
 
 extension BundledDetails {
@@ -35,7 +34,6 @@ extension BundledDetails {
         case .description: BundledPropertyKey.description.rawValue
         case .recommendedLayout: BundledPropertyKey.recommendedLayout.rawValue
         case .lastUsedDate: BundledPropertyKey.lastUsedDate.rawValue
-        case .autoWidgetDisabled: BundledPropertyKey.autoWidgetDisabled.rawValue
         }
     }
     
@@ -53,7 +51,6 @@ extension BundledDetails {
         case .description(let string): string.protobufValue
         case .recommendedLayout(let layout): layout.protobufValue
         case .lastUsedDate(let date): date.protobufValue
-        case .autoWidgetDisabled(let value): value.protobufValue
         }
     }
     

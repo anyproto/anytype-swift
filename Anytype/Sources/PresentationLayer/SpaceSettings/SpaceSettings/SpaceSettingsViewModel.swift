@@ -56,7 +56,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
-    @Published var isCreateTypeWidget: Bool? = nil
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
@@ -167,15 +166,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     func onPropertiesTap() {
         output?.onPropertiesSelected()
     }
-    
-    func toggleCreateTypeWidgetState(isOn: Bool) {
-        Task {
-            AnytypeAnalytics.instance().logAutoCreateTypeWidgetToggle(value: isOn)
-            try await objectActionsService.updateBundledDetails(contextID: workspaceInfo.widgetsId, details: [
-                .autoWidgetDisabled(!isOn)
-            ])
-        }
-    }
 
     func onEditTap() {
         editingData = SettingsInfoEditingViewData(
@@ -274,11 +264,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
-        if participantSpaceView.isOwner, let widgetsDetails = widgetsObject.details {
-            isCreateTypeWidget = !widgetsDetails.autoWidgetDisabled
-        } else {
-            isCreateTypeWidget = nil
-        }
         
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
