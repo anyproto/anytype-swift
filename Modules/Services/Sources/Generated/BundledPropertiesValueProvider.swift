@@ -165,8 +165,6 @@ public protocol BundledPropertiesValueProvider {
     var recommendedFileRelations: [ObjectId] { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
-    var autoWidgetTargets: [ObjectId] { get }
-    var autoWidgetDisabled: Bool { get }
     var pluralName: String { get }
     var headerRelationsLayout: Int? { get }
     var apiObjectKey: String { get }
@@ -776,13 +774,6 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
         return value(for: BundledPropertyKey.defaultTypeId.rawValue)
-    }
-    /// Automatically generated widget. Used to avoid creating widget if was removed by user
-    var autoWidgetTargets: [ObjectId] {
-        return value(for: BundledPropertyKey.autoWidgetTargets.rawValue)
-    }
-    var autoWidgetDisabled: Bool {
-        return value(for: BundledPropertyKey.autoWidgetDisabled.rawValue)
     }
     /// Name of Object type in plural form
     var pluralName: String {

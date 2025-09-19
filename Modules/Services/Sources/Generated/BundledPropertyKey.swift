@@ -445,11 +445,6 @@ public enum BundledPropertyKey: String, Sendable {
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
 
-    /// Automatically generated widget. Used to avoid creating widget if was removed by user
-    case autoWidgetTargets = "autoWidgetTargets"
-
-    case autoWidgetDisabled = "autoWidgetDisabled"
-
     /// Name of Object type in plural form
     case pluralName = "pluralName"
 
