@@ -72,7 +72,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 // Do not rethrow error to main flow
                 do {
                     _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId)
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
                 } catch {}
             }
             
