@@ -78,48 +78,56 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private var blockWidgets: some View {
         if FeatureFlags.homeObjectTypeWidgets {
-            HomeWidgetsGroupView(title: Loc.pinned)
-        }
-        VStack(spacing: 12) {
-            if #available(iOS 17.0, *) {
-                WidgetSwipeTipView()
-            }
-            ForEach(model.widgetBlocks) { widgetInfo in
-                HomeWidgetSubmoduleView(
-                    widgetInfo: widgetInfo,
-                    widgetObject: model.widgetObject,
-                    workspaceInfo: model.info,
-                    homeState: $model.homeState,
-                    output: model.output
-                )
-            }
-            if FeatureFlags.homeObjectTypeWidgets {
-                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-            } else {
-                editButtons
+            HomeWidgetsGroupView(title: Loc.pinned) {
+                model.onTapPinnedHeader()
             }
         }
-        .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
-            model.widgetsDropUpdate(from: from, to: to)
-        } dropFinish: { from, to in
-            model.widgetsDropFinish(from: from, to: to)
+        if model.pinnedSectionIsExpanded {
+            VStack(spacing: 12) {
+                if #available(iOS 17.0, *) {
+                    WidgetSwipeTipView()
+                }
+                ForEach(model.widgetBlocks) { widgetInfo in
+                    HomeWidgetSubmoduleView(
+                        widgetInfo: widgetInfo,
+                        widgetObject: model.widgetObject,
+                        workspaceInfo: model.info,
+                        homeState: $model.homeState,
+                        output: model.output
+                    )
+                }
+                if FeatureFlags.homeObjectTypeWidgets {
+                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
+                } else {
+                    editButtons
+                }
+            }
+            .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+                model.widgetsDropUpdate(from: from, to: to)
+            } dropFinish: { from, to in
+                model.widgetsDropFinish(from: from, to: to)
+            }
         }
     }
     
     @ViewBuilder
     private var objectTypeWidgets: some View {
         HomeWidgetsGroupView(title: Loc.objectTypes) {
+            model.onTapObjectTypeHeader()
+        } onCreate: {
             model.onCreateObjectType()
         }
-        VStack(spacing: 12) {
-            ForEach(model.objectTypeWidgets) { info in
-                ObjectTypeWidgetView(info: info, output: model.output)
+        if model.objectTypeSectionIsExpanded {
+            VStack(spacing: 12) {
+                ForEach(model.objectTypeWidgets) { info in
+                    ObjectTypeWidgetView(info: info, output: model.output)
+                }
             }
-        }
-        .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
-            model.typesDropUpdate(from: from, to: to)
-        } dropFinish: { from, to in
-            model.typesDropFinish(from: from, to: to)
+            .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
+                model.typesDropUpdate(from: from, to: to)
+            } dropFinish: { from, to in
+                model.typesDropFinish(from: from, to: to)
+            }
         }
     }
     
