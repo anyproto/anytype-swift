@@ -39,6 +39,6 @@ struct SpaceIconView: View {
             text: name.withPlaceholder,
             textColor: IconColorStorage.iconTextColor(iconOption: iconOption)
         ) 
-        .background(IconColorStorage.iconBackgroundColor(iconOption: iconOption).gradient)
+        .background(IconColorStorage.iconBackgroundColor(iconOption: iconOption))
     }
 }
