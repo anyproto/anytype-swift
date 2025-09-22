@@ -6,22 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var setKanbanView: Bool {
-        value(for: .setKanbanView)
-    }
-
-    static var fullInlineSetImpl: Bool {
-        value(for: .fullInlineSetImpl)
-    }
-
-    static var dndOnCollectionsAndSets: Bool {
-        value(for: .dndOnCollectionsAndSets)
-    }
-
-    static var hideWebPayments: Bool {
-        value(for: .hideWebPayments)
-    }
-
     static var openMediaFileInPreview: Bool {
         value(for: .openMediaFileInPreview)
     }
@@ -30,48 +14,12 @@ public extension FeatureFlags {
         value(for: .spaceUxTypes)
     }
 
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
-    }
-
-    static var aiToolInSet: Bool {
-        value(for: .aiToolInSet)
-    }
-
-    static var anyAppBetaTip: Bool {
-        value(for: .anyAppBetaTip)
-    }
-
-    static var guideUseCaseForDataSpace: Bool {
-        value(for: .guideUseCaseForDataSpace)
-    }
-
-    static var chatLayoutInsideSpace: Bool {
-        value(for: .chatLayoutInsideSpace)
-    }
-
-    static var joinStream: Bool {
-        value(for: .joinStream)
-    }
-
-    static var simpleSetForTypes: Bool {
-        value(for: .simpleSetForTypes)
-    }
-
-    static var doNotWaitCompletionInAnytypePreview: Bool {
-        value(for: .doNotWaitCompletionInAnytypePreview)
-    }
-
     static var spaceLoadingForScreen: Bool {
         value(for: .spaceLoadingForScreen)
     }
 
     static var binScreenEmptyAction: Bool {
         value(for: .binScreenEmptyAction)
-    }
-
-    static var chatInDataSpace: Bool {
-        value(for: .chatInDataSpace)
     }
 
     static var muteSpacePossibility: Bool {
@@ -128,6 +76,58 @@ public extension FeatureFlags {
 
     static var homeObjectTypeWidgets: Bool {
         value(for: .homeObjectTypeWidgets)
+    }
+
+    static var setKanbanView: Bool {
+        value(for: .setKanbanView)
+    }
+
+    static var fullInlineSetImpl: Bool {
+        value(for: .fullInlineSetImpl)
+    }
+
+    static var dndOnCollectionsAndSets: Bool {
+        value(for: .dndOnCollectionsAndSets)
+    }
+
+    static var hideWebPayments: Bool {
+        value(for: .hideWebPayments)
+    }
+
+    static var enableStreamSpaceType: Bool {
+        value(for: .enableStreamSpaceType)
+    }
+
+    static var aiToolInSet: Bool {
+        value(for: .aiToolInSet)
+    }
+
+    static var anyAppBetaTip: Bool {
+        value(for: .anyAppBetaTip)
+    }
+
+    static var guideUseCaseForDataSpace: Bool {
+        value(for: .guideUseCaseForDataSpace)
+    }
+
+    static var chatLayoutInsideSpace: Bool {
+        value(for: .chatLayoutInsideSpace)
+    }
+
+    static var joinStream: Bool {
+        value(for: .joinStream)
+    }
+
+    static var simpleSetForTypes: Bool {
+        value(for: .simpleSetForTypes)
+    }
+
+    static var doNotWaitCompletionInAnytypePreview: Bool {
+        value(for: .doNotWaitCompletionInAnytypePreview)
+    }
+
+    static var chatInDataSpace: Bool {
+        value(for: .chatInDataSpace)
     }
 
     static var rainbowViews: Bool {
@@ -200,23 +200,10 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .setKanbanView,
-        .fullInlineSetImpl,
-        .dndOnCollectionsAndSets,
-        .hideWebPayments,
         .openMediaFileInPreview,
         .spaceUxTypes,
-        .enableStreamSpaceType,
-        .aiToolInSet,
-        .anyAppBetaTip,
-        .guideUseCaseForDataSpace,
-        .chatLayoutInsideSpace,
-        .joinStream,
-        .simpleSetForTypes,
-        .doNotWaitCompletionInAnytypePreview,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .chatInDataSpace,
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
@@ -231,6 +218,19 @@ public extension FeatureFlags {
         .vaultBackToRoots,
         .brandNewAuthFlow,
         .homeObjectTypeWidgets,
+        .setKanbanView,
+        .fullInlineSetImpl,
+        .dndOnCollectionsAndSets,
+        .hideWebPayments,
+        .enableStreamSpaceType,
+        .aiToolInSet,
+        .anyAppBetaTip,
+        .guideUseCaseForDataSpace,
+        .chatLayoutInsideSpace,
+        .joinStream,
+        .simpleSetForTypes,
+        .doNotWaitCompletionInAnytypePreview,
+        .chatInDataSpace,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
