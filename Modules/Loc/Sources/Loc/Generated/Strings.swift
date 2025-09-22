@@ -2501,9 +2501,6 @@ public enum Loc {
         public static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
       }
     }
-    public enum List {
-      public static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "No widgets yet")
-    }
     public enum Source {
       public static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "System")
       public static let objects = Loc.tr("Localizable", "Widgets.Source.Objects", fallback: "Your objects")

@@ -43,7 +43,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
-    @Published var dataLoaded: Bool = false
+    @Published var widgetsDataLoaded: Bool = false
+    @Published var objectTypesDataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
     @Published var pinnedSectionIsExpanded: Bool = false
     @Published var objectTypeSectionIsExpanded: Bool = false
@@ -142,7 +143,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
-            dataLoaded = true
+            widgetsDataLoaded = true
             
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
@@ -194,6 +195,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             .removeDuplicates()
         
         for await objectTypes in stream {
+            objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
         }
     }
