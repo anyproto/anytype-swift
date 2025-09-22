@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .swipeToReply)
     }
 
-    static var keyboardMenuUndoRedo: Bool {
-        value(for: .keyboardMenuUndoRedo)
-    }
-
     static var newSharingExtension: Bool {
         value(for: .newSharingExtension)
     }
@@ -202,7 +198,6 @@ public extension FeatureFlags {
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
-        .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
