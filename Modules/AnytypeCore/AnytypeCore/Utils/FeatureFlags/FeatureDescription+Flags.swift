@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let openMediaFileInPreview = FeatureDescription(
-        title: "Open all media files in preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
     static let spaceUxTypes = FeatureDescription(
         title: "Create chat space",
         type: .feature(author: "m@anytype.io", releaseVersion: "13"),

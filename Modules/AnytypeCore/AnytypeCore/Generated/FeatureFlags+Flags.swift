@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var openMediaFileInPreview: Bool {
-        value(for: .openMediaFileInPreview)
-    }
-
     static var spaceUxTypes: Bool {
         value(for: .spaceUxTypes)
     }
@@ -200,7 +196,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .openMediaFileInPreview,
         .spaceUxTypes,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,

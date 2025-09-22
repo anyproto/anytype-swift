@@ -73,7 +73,7 @@ extension BundledPropertiesValueProvider {
         case .participant:
             return .participant
         case .image, .video, .audio, .file, .pdf:
-            return FeatureFlags.openMediaFileInPreview ? .mediaFile : .page
+            return .mediaFile
         case .bookmark:
             return .bookmark
         case .chat, .chatDerived:
