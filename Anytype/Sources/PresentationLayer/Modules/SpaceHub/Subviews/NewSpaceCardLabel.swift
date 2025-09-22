@@ -74,7 +74,7 @@ struct NewSpaceCardLabel: View {
                 
                 VStack(spacing: 0) {
                     lastMessageDate
-                    Spacer.fixedHeight(1)
+                    Spacer.fixedHeight(2)
                 }
             }
             
@@ -152,7 +152,7 @@ struct NewSpaceCardLabel: View {
                     IconView(icon: $0.objectIconImage).frame(width: 18, height: 18)
                 }
                 
-                Spacer.fixedWidth(6)
+                Spacer.fixedWidth(2)
                 AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
                     .foregroundColor(.Text.primary)
                     .lineLimit(1)
