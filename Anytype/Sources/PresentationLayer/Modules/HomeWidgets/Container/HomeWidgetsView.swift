@@ -51,12 +51,8 @@ private struct HomeWidgetsInternalView: View {
     
     private var content: some View {
         ZStack {
-            if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty {
-                    widgets
-                } else {
-                    emptyState
-                }
+            if model.widgetsDataLoaded && model.objectTypesDataLoaded {
+                widgets
             }
         }
     }
@@ -128,19 +124,6 @@ private struct HomeWidgetsInternalView: View {
             } dropFinish: { from, to in
                 model.typesDropFinish(from: from, to: to)
             }
-        }
-    }
-    
-    private var emptyState: some View {
-        VStack(spacing: 12) {
-            Spacer()
-            Text(Loc.Widgets.List.empty)
-                .anytypeStyle(.bodyRegular)
-            StandardButton(Loc.Widgets.Actions.addWidget, style: .transparentXSmall) {
-                model.onCreateWidgetFromMainMode()
-            }
-            AnytypeNavigationSpacer()
-            Spacer()
         }
     }
     
