@@ -1051,7 +1051,6 @@
 				);
 				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev";
@@ -1095,7 +1094,6 @@
 				);
 				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app";
@@ -1265,7 +1263,6 @@
 				);
 				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev";
@@ -1679,7 +1676,6 @@
 				);
 				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app";
@@ -1964,7 +1960,6 @@
 				);
 				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
 				PRODUCT_NAME = Any;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.any.app";
@@ -2247,7 +2242,6 @@
 				);
 				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
 				PRODUCT_NAME = Any;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.any.app";
