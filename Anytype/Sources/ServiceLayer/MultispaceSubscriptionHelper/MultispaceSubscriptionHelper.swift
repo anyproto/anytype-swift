@@ -7,7 +7,7 @@ protocol MultispaceSubscriptionDataBuilderProtocol: AnyObject, Sendable {
     func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData
 }
 
-final class MultispaceSubscriptionHelper<Value: DetailsModel>: Sendable {
+final class MultispaceSubscriptionHelper<Value: DetailsModel & Sendable>: Sendable {
 
     // MARK: - DI
     
