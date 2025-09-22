@@ -3,6 +3,7 @@ import Combine
 import UIKit
 import AnytypeCore
 
+@MainActor
 final class SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     let info: BlockInformation
