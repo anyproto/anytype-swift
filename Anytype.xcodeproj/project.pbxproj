@@ -740,6 +740,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		2E63D9C42D5A302D008A733A /* Google services setup */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
