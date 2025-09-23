@@ -201,6 +201,8 @@ extension UIColor {
       public static let primary = UIColor(asset: Asset.Text.primary)
       public static let secondary = UIColor(asset: Asset.Text.secondary)
       public static let tertiary = UIColor(asset: Asset.Text.tertiary)
+      public static let transparentSecondary = UIColor(asset: Asset.Text.transparentSecondary)
+      public static let transparentTertiary = UIColor(asset: Asset.Text.transparentTertiary)
       public static let white = UIColor(asset: Asset.Text.white)
     }
 }
