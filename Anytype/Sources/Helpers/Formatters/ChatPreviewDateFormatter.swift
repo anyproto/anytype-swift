@@ -28,7 +28,7 @@ final class ChatPreviewDateFormatter: Sendable {
         case 1:
             return Loc.yesterday
         case 2...7:
-            dateFormatter.setLocalizedDateFormatFromTemplate("EEEE")
+            dateFormatter.setLocalizedDateFormatFromTemplate("EEE")
             return dateFormatter.string(from: initialDate)
         default:
             if currentDate(initialDate, isEqualToYears: Date()) {

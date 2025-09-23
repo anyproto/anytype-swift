@@ -70,7 +70,7 @@ struct NewSpaceCardLabel: View {
                     }
                 }
                     
-                Spacer(minLength: 0)
+                Spacer(minLength: 8)
                 
                 VStack(spacing: 0) {
                     lastMessageDate
@@ -113,7 +113,7 @@ struct NewSpaceCardLabel: View {
                 messageWithoutAttachements(message)
             } else {
                 AnytypeText(message.creator?.title ?? Loc.Chat.newMessages, style: .chatPreviewMedium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
@@ -133,7 +133,7 @@ struct NewSpaceCardLabel: View {
                     .lineLimit(2)
             }
         }
-        .foregroundColor(.Text.primary)
+        .foregroundColor(.Text.transparentSecondary)
         .anytypeLineHeightStyle(.chatPreviewRegular)
     }
     
@@ -143,7 +143,7 @@ struct NewSpaceCardLabel: View {
             
             if let creator = message.creator {
                 AnytypeText(creator.title, style: .chatPreviewMedium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
             
@@ -154,7 +154,7 @@ struct NewSpaceCardLabel: View {
                 
                 Spacer.fixedWidth(2)
                 AnytypeText(message.localizedAttachmentsText, style: .chatPreviewRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
