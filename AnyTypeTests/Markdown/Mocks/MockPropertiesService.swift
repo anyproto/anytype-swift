@@ -3,7 +3,7 @@ import Services
 import ProtobufMessages
 import SwiftProtobuf
 
-class MockPropertiesService: PropertiesServiceProtocol {
+class MockPropertiesService: PropertiesServiceProtocol, @unchecked Sendable {
     // Last call data storage
     var lastUpdateProperty: (objectId: String, propertyKey: String, value: Google_Protobuf_Value)?
     var lastUpdatePropertyOption: (id: String, text: String, color: String?)?
