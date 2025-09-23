@@ -142,7 +142,7 @@ final class NewSpaceShareViewModel: ObservableObject {
         case .active:
             return .active(permission: participant.permission.title)
         case .joining:
-            return .pending(message: Loc.setAccess)
+            return .pending(message: canApproveRequests ? Loc.setAccess : Loc.pending)
         case .removing:
             return .pending(message: Loc.SpaceShare.leaveRequest)
         case .declined, .canceled, .removed, .UNRECOGNIZED:
@@ -189,7 +189,7 @@ final class NewSpaceShareViewModel: ObservableObject {
                     }
                 )]
         case .joining:
-            return [SpaceShareParticipantViewModel.ContextAction(
+            return canApproveRequests ? [SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Action.viewRequest,
                 isSelected: false,
                 destructive: false,
@@ -197,7 +197,7 @@ final class NewSpaceShareViewModel: ObservableObject {
                 action: { [weak self] in
                     self?.showRequestAlert(participant: participant)
                 }
-            )]
+            )] : []
         case .removing:
             return [
                 SpaceShareParticipantViewModel.ContextAction(
