@@ -16,8 +16,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     private enum Constants {
-        static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .bookmark]
-        
+        static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .note, .task]
+
     }
     
     // MARK: - Private properties
@@ -53,7 +53,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
     @Published var pageObjectType: ObjectType?
-    @Published var bookmarkObjectType: ObjectType?
+    @Published var noteObjectType: ObjectType?
+    @Published var taskObjectType: ObjectType?
     @Published var otherObjectTypes: [ObjectType] = []
     
     init(
@@ -172,11 +173,16 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             
             // priority object types
             pageObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.page }
-            bookmarkObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.bookmark }
-            
-            // other object types
+            noteObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.note }
+            taskObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.task }
+
+            // other object types (excluding Image and File types as per requirements)
             otherObjectTypes = types
-                .filter { !Constants.priorityTypesUniqueKeys.contains($0.uniqueKey) }
+                .filter {
+                    !Constants.priorityTypesUniqueKeys.contains($0.uniqueKey) &&
+                    $0.uniqueKey != .image &&
+                    $0.uniqueKey != .file
+                }
                 .sorted {
                     $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
                 }

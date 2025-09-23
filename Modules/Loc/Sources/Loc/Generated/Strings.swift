@@ -317,6 +317,7 @@ public enum Loc {
   public static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   public static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other properties")
   public static let p2PConnection = Loc.tr("Localizable", "P2P Connection", fallback: "P2P Connection")
+  public static let page = Loc.tr("Localizable", "Page", fallback: "Page")
   public static let pages = Loc.tr("Localizable", "Pages", fallback: "Pages")
   public static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1), fallback: "Paid by %@")
