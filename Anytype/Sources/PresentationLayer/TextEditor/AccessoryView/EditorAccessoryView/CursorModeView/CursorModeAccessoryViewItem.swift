@@ -5,13 +5,10 @@ extension CursorModeAccessoryView {
         case slash
         case style
         case actions
-        case mention
         case undoRedo
         
         var image: UIImage? {
             switch self {
-            case .mention:
-                return UIImage(asset: .X32.mention)
             case .slash:
                 return UIImage(asset: .X32.slashMenu)
             case .style:
@@ -25,8 +22,6 @@ extension CursorModeAccessoryView {
 
         var action: CursorModeAccessoryViewAction {
             switch self {
-            case .mention:
-                return .mention
             case .slash:
                 return .slashMenu
             case .style:
