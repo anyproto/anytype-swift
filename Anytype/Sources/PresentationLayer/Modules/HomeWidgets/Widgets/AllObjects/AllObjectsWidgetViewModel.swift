@@ -25,7 +25,8 @@ final class AllObjectsWidgetViewModel: ObservableObject {
         widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
             widgetObject: data.widgetObject,
             widgetBlockId: data.widgetBlockId,
-            homeState: data.homeState.wrappedValue
+            homeState: data.homeState.wrappedValue,
+            output: data.output
         )
     }
 }

@@ -51,7 +51,7 @@ final class WidgetContainerViewModel: ObservableObject {
         let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
         let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
         if FeatureFlags.homeObjectTypeWidgets {
-            self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems
+            self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems.filter { $0 != .removeSystemWidget }
         } else {
             self.menuItems = menuItems
         }
@@ -63,7 +63,8 @@ final class WidgetContainerViewModel: ObservableObject {
         widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
             widgetObject: widgetObject,
             widgetBlockId: widgetBlockId,
-            homeState: homeState
+            homeState: homeState,
+            output: output
         )
     }
     
