@@ -70,8 +70,31 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
     var spaceSharingInfo: SpaceSharingInfo? {
         guard let sharedSpacesLimit = profileStorage.profile.sharedSpacesLimit else { return nil }
-        let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
-        return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
+
+        let ownedActiveSharedSpaces = allParticipantSpaces.filter {
+            $0.spaceView.isActive &&
+            $0.spaceView.isShared &&
+            $0.isOwner
+        }
+
+        let sharedDataSpacesCount = ownedActiveSharedSpaces.filter {
+            $0.spaceView.uxType == .data
+        }.count
+
+        let sharedChatSpacesCount = ownedActiveSharedSpaces.filter {
+            $0.spaceView.uxType == .chat
+        }.count
+
+        let sharedStreamSpacesCount = ownedActiveSharedSpaces.filter {
+            $0.spaceView.uxType == .stream
+        }.count
+
+        return SpaceSharingInfo(
+            sharedSpacesLimit: sharedSpacesLimit,
+            sharedDataSpacesCount: sharedDataSpacesCount,
+            sharedChatSpacesCount: sharedChatSpacesCount,
+            sharedStreamSpacesCount: sharedStreamSpacesCount
+        )
     }
     
     func startSubscription() async {
