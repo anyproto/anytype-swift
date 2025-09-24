@@ -48,6 +48,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var wallpaper: SpaceWallpaperType = .default
     @Published var pinnedSectionIsExpanded: Bool = false
     @Published var objectTypeSectionIsExpanded: Bool = false
+    @Published var canCreateObjectType: Bool = false
     
     var spaceId: String { info.accountSpaceId }
     
@@ -177,6 +178,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             homeState = canEdit ? .readwrite : .readonly
+            canCreateObjectType = canEdit
         }
     }
     
