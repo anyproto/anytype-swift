@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import UIKit
+import AnytypeCore
 
 @MainActor
 protocol WidgetActionsViewCommonMenuProviderProtocol: AnyObject {
@@ -40,7 +41,7 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
     ) {
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         
-        if info.source.isLibrary {
+        if FeatureFlags.homeObjectTypeWidgets, info.source.isLibrary {
             let data = DeleteSystemWidgetConfirmationData(onConfirm: { [weak self] in
                 self?.deleteWidget(widgetObject: widgetObject, info: info, homeState: homeState)
             })
