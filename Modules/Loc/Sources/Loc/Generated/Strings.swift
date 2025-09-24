@@ -2507,6 +2507,12 @@ public enum Loc {
       public static let objects = Loc.tr("Localizable", "Widgets.Source.Objects", fallback: "Your objects")
       public static let suggested = Loc.tr("Localizable", "Widgets.Source.Suggested", fallback: "Suggested")
     }
+    public enum System {
+      public enum DeleteAlert {
+        public static let message = Loc.tr("Localizable", "Widgets.System.DeleteAlert.message", fallback: "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored.")
+        public static let title = Loc.tr("Localizable", "Widgets.System.DeleteAlert.title", fallback: "This Widget Cannot Be Restored")
+      }
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

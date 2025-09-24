@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: Icon? = nil,
         dragId: String?,
-        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove],
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,

@@ -42,15 +42,13 @@ struct SpaceChatWidgetView: View {
                 )
             },
             menu: {
-                if !FeatureFlags.homeObjectTypeWidgets {
-                    WidgetCommonActionsMenuView(
-                        items: [.remove],
-                        widgetBlockId: model.widgetBlockId,
-                        widgetObject: model.widgetObject,
-                        homeState: homeState,
-                        output: model.output
-                    )
-                }
+                WidgetCommonActionsMenuView(
+                    items: [.remove],
+                    widgetBlockId: model.widgetBlockId,
+                    widgetObject: model.widgetObject,
+                    homeState: homeState,
+                    output: model.output
+                )
             },
             content: { EmptyView() }
         )
