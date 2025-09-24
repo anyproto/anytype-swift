@@ -10,8 +10,6 @@ struct ChatCreationTipView: View {
         ZStack {
             Color.Background.secondary
                 .ignoresSafeArea()
-            gradient
-                .ignoresSafeArea()
             content
         }
         .onAppear {
@@ -40,7 +38,7 @@ struct ChatCreationTipView: View {
                 .animation(.easeInOut(duration: 0.3), value: currentPage)
             Spacer.fixedHeight(9)
             AnytypeText(pageContent.description, style: .uxBodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
                 .lineLimit(3, reservesSpace: true)
                 .padding(.horizontal, 24)
@@ -95,20 +93,6 @@ struct ChatCreationTipView: View {
     }
 
     
-    @ViewBuilder
-    var gradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .Gradients.white,
-                    .Gradients.green
-                ]
-            ),
-            startPoint: .init(x: 0.8, y: 0.8),
-            endPoint: .bottomTrailing
-        )
-    }
-
     @ViewBuilder
     var pageIndicator: some View {
         HStack(spacing: 8) {
