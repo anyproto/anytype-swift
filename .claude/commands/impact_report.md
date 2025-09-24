@@ -340,15 +340,46 @@ git checkout [commit_hash]
 - Top changed components: [List]
 ```
 
+## Output 3: Team Celebration Slack Message
+
+Generate a concise, morale-boosting message for team communication (Slack, etc.)
+
+**Requirements:**
+- Keep under 15 lines total
+- Use emojis for visual appeal
+- No markdown (plain text for Slack compatibility)
+- Focus on wow-factor numbers and achievements
+- Celebratory tone
+
+**Template Structure:**
+```
+Insane Numbers of Release [NUMBER] :exploding_head:
+[X] files changed - We basically rewrote half the iOS app
+[X] commits merged - That's more than 1 commit every day for a YEAR
+[Key achievement 1] from ZERO to HERO in one release
+[Key achievement 2] - [Impressive user-facing description]
+
+*P.S. - [X] Linear projects delivered simultaneously. We're basically wizards now.*
+```
+
+**Content Guidelines:**
+- Lead with biggest numbers (files changed, commits, etc.)
+- Include 2-3 most impressive achievements
+- Use transformation language ("ZERO to HERO", "basically rewrote")
+- End with team pride line about coordination/wizardry
+- Keep technical jargon minimal
+
 ## Usage Instructions
 1. Load both context files from Parts 1 & 2
 2. Cross-reference Linear stories with Git changes
 3. Calculate impact scores for each change
 4. Generate comprehensive testing recommendations
 5. Create detailed changelog with full context for writers
-6. Save outputs:
+6. Create team celebration message
+7. Save outputs:
    - `impact_analysis_release_[NUMBER].md`
    - `comprehensive_changelog_[NUMBER].md`
+   - `team_celebration_release_[NUMBER].txt`
 
 ## Tips for Creating Writer-Friendly Changelog
 - Always provide the "why" behind each change
