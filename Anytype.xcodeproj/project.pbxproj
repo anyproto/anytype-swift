@@ -47,6 +47,7 @@
 		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D3B350E2BCE872E008456F8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B350D2BCE872E008456F8 /* StoreKit.framework */; };
+		3D9852D12E82EFAC007E2979 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3D9852D02E82EFAC007E2979 /* AppIcon.icon */; };
 		3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
 		3DC133F22CAFE5DD000FF065 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2AC1262C2B90F65F003A4A8D /* Factory */; };
 		3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
@@ -195,6 +196,7 @@
 		3D372A2D2CB56E1A00762DA9 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D372A332CB56EB900762DA9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D3B350D2BCE872E008456F8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3D9852D02E82EFAC007E2979 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetConstants.swift; sourceTree = "<group>"; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -411,6 +413,7 @@
 				0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */,
 				0339382422EF571600589108 /* Strings */,
 				3D6977912CAE9EEC003F5A91 /* Preview Content */,
+				3D9852D02E82EFAC007E2979 /* AppIcon.icon */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 			files = (
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0522D8EDAD005C552B /* SystemAssets.xcassets in Resources */,
+				3D9852D12E82EFAC007E2979 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
