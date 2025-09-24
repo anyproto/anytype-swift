@@ -2,7 +2,8 @@ import Services
 import UIKit
 import AnytypeCore
 
-struct VideoBlockViewModel: BlockViewModelProtocol {    
+@MainActor
+struct VideoBlockViewModel: BlockViewModelProtocol {
     let className = "VideoBlockViewModel"
     nonisolated var info: BlockInformation { informantionProvider.info }
     let informantionProvider: BlockModelInfomationProvider
