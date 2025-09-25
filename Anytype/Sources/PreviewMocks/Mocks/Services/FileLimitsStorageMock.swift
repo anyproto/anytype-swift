@@ -2,7 +2,7 @@ import Services
 import Foundation
 import Combine
 
-final class FileLimitsStorageMock:  FileLimitsStorageProtocol {
+final class FileLimitsStorageMock: FileLimitsStorageProtocol, @unchecked Sendable {
     nonisolated static let shared = FileLimitsStorageMock()
     
     nonisolated init() {}

@@ -3,13 +3,13 @@ import ProtobufMessages
 import Combine
 import Services
 
-@MainActor
+
 protocol FileLimitsStorageProtocol: AnyObject {
     var nodeUsage: AnyPublisher<NodeUsageInfo, Never> { get }
 }
 
-@MainActor
-final class FileLimitsStorage: FileLimitsStorageProtocol {
+
+final class FileLimitsStorage: FileLimitsStorageProtocol, @unchecked Sendable {
     
     // MARK: - DI
     
