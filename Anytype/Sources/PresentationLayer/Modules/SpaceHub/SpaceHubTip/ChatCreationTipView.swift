@@ -10,8 +10,6 @@ struct ChatCreationTipView: View {
         ZStack {
             Color.Background.secondary
                 .ignoresSafeArea()
-            gradient
-                .ignoresSafeArea()
             content
         }
         .onAppear {
@@ -30,21 +28,10 @@ struct ChatCreationTipView: View {
     
     @ViewBuilder
     var content: some View {
-        VStack {
+        VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(48)
             carouselImages
-            Spacer.fixedHeight(40)
-            AnytypeText(pageContent.title, style: .heading)
-                .foregroundColor(.Text.primary)
-                .animation(.easeInOut(duration: 0.3), value: currentPage)
-            Spacer.fixedHeight(9)
-            AnytypeText(pageContent.description, style: .uxBodyRegular)
-                .foregroundColor(.Text.secondary)
-                .multilineTextAlignment(.center)
-                .lineLimit(3, reservesSpace: true)
-                .padding(.horizontal, 24)
-                .animation(.easeInOut(duration: 0.3), value: currentPage)
             Spacer.fixedHeight(34)
             pageIndicator
             Spacer.fixedHeight(16)
@@ -67,8 +54,8 @@ struct ChatCreationTipView: View {
         }
     }
     
-    private var pageContent: PageContent {
-        switch currentPage {
+    private func contentForPage(_ page: Int) -> PageContent {
+        switch page {
         case 1:
             return PageContent(
                 title: Loc.ChatTip.Step1.title,
@@ -96,20 +83,6 @@ struct ChatCreationTipView: View {
 
     
     @ViewBuilder
-    var gradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .Gradients.white,
-                    .Gradients.green
-                ]
-            ),
-            startPoint: .init(x: 0.8, y: 0.8),
-            endPoint: .bottomTrailing
-        )
-    }
-
-    @ViewBuilder
     var pageIndicator: some View {
         HStack(spacing: 8) {
             ForEach(1..<5, id: \.self) { index in
@@ -123,24 +96,34 @@ struct ChatCreationTipView: View {
     @ViewBuilder
     var carouselImages: some View {
         TabView(selection: $currentPage) {
-            image(with: ImageAsset.ChatCreationTip.step1, tag: 1)
-            image(with: ImageAsset.ChatCreationTip.step2, tag: 2)
-            image(with: ImageAsset.ChatCreationTip.step3, tag: 3)
-            image(with: ImageAsset.ChatCreationTip.step4, tag: 4)
+            pageContent(with: ImageAsset.ChatCreationTip.step1, page: 1)
+            pageContent(with: ImageAsset.ChatCreationTip.step2, page: 2)
+            pageContent(with: ImageAsset.ChatCreationTip.step3, page: 3)
+            pageContent(with: ImageAsset.ChatCreationTip.step4, page: 4)
         }
         .animation(.default, value: currentPage)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
     
     @ViewBuilder
-    func image(with image: ImageAsset, tag: Int) -> some View {
-        VStack {
+    func pageContent(with image: ImageAsset, page: Int) -> some View {
+        VStack(spacing: 0) {
             Image(asset: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            Spacer.fixedHeight(36)
+                .padding(.horizontal, 20)
+            Spacer.fixedHeight(40)
+            AnytypeText(contentForPage(page).title, style: .heading)
+                .foregroundColor(.Text.primary)
+                .multilineTextAlignment(.center)
+            Spacer.fixedHeight(9)
+            AnytypeText(contentForPage(page).description, style: .uxBodyRegular)
+                .foregroundColor(.Text.primary)
+                .multilineTextAlignment(.center)
+                .lineLimit(3, reservesSpace: true)
+                .padding(.horizontal, 24)
         }
-        .tag(tag)
+        .tag(page)
     }
 }
 
