@@ -129,11 +129,11 @@ private struct HomeWidgetsInternalView: View {
     
     @ViewBuilder
     private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.objectTypes) {
+        HomeWidgetsGroupView(title: Loc.objectTypes, onTap: {
             model.onTapObjectTypeHeader()
-        } onCreate: {
+        }, onCreate: model.canCreateObjectType ? {
             model.onCreateObjectType()
-        }
+        } : nil)
         if model.objectTypeSectionIsExpanded {
             VStack(spacing: 12) {
                 ForEach(model.objectTypeWidgets) { info in

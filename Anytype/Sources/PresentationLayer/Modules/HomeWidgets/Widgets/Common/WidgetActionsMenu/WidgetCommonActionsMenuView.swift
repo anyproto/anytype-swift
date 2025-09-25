@@ -6,6 +6,7 @@ enum WidgetMenuItem: String {
     case addBelow
     case changeType
     case remove
+    case removeSystemWidget // Temporary action for split unpin and delete system widget. Delete after migration
 }
 
 struct WidgetCommonActionsMenuView: View {
@@ -68,7 +69,8 @@ struct WidgetCommonActionsMenuView: View {
                         model.provider.onDeleteWidgetTap(
                             widgetObject: widgetObject,
                             widgetBlockId: widgetBlockId,
-                            homeState: homeState
+                            homeState: homeState,
+                            output: output
                         )
                     }
                 } label: {
@@ -85,10 +87,29 @@ struct WidgetCommonActionsMenuView: View {
                         model.provider.onDeleteWidgetTap(
                             widgetObject: widgetObject,
                             widgetBlockId: widgetBlockId,
-                            homeState: homeState
+                            homeState: homeState,
+                            output: output
                         )
                     }
                 }
+            }
+        case .removeSystemWidget:
+            Button(role: .destructive) {
+                // Fix animation glitch.
+                // We should to finalize context menu transition to list and then delete object
+                // If we find how customize context menu transition, this 🩼 can be deleted
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    model.provider.onDeleteWidgetTap(
+                        widgetObject: widgetObject,
+                        widgetBlockId: widgetBlockId,
+                        homeState: homeState,
+                        output: output
+                    )
+                }
+            } label: {
+                Text(Loc.Widgets.Actions.removeWidget)
+                Image(systemName: "trash")
+                
             }
         }
     }
