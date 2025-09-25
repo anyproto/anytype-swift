@@ -3,6 +3,7 @@ import Services
 import Combine
 import AnytypeCore
 
+@MainActor
 final class BlockFileViewModel: BlockViewModelProtocol {
     let className = "BlockFileViewModel"
     nonisolated var info: BlockInformation { informationProvider.info }
