@@ -62,7 +62,7 @@ struct WidgetContainerView<Content: View>: View {
                 allowMenuContent: model.menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
                 removeAction: removeAction(),
-                createObjectAction: onCreateObjectTap,
+                createObjectAction: model.homeState.isReadWrite ? onCreateObjectTap : nil,
                 header: {
                     LinkWidgetDefaultHeader(title: name, icon: icon, onTap: {
                         onHeaderTap()
