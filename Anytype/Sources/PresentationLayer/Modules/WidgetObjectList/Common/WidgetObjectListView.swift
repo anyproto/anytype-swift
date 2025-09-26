@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 // TODO: Make common module without model
 struct WidgetObjectListView: View {
@@ -86,8 +87,13 @@ struct WidgetObjectListView: View {
         if model.contentIsNotEmpty, model.canEdit {
             switch model.editMode {
             case .normal:
-                EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                // TODO: Delete "normal" mode logic inside module. Bin screen moved to separate BinListView.
+                if FeatureFlags.homeObjectTypeWidgets {
+                    EmptyView()
+                } else {
+                    EditButton()
+                        .foregroundColor(Color.Control.secondary)
+                }
             case .editOnly:
                 Button {
                     model.onSelectAll()
