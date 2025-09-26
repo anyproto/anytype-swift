@@ -11,7 +11,7 @@ public struct AnytypeCircleCheckbox: View {
     
     public init(
         checked: Binding<Bool>,
-        backgroundCheckedColor: Color = .Control.primary,
+        backgroundCheckedColor: Color = .Control.accent100,
         foregroundCheckedColor: Color = .Control.white,
         foregroundUncheckedColor: Color = .Control.tertiary,
         interactive: Bool = true
@@ -56,12 +56,6 @@ public extension AnytypeCircleCheckbox {
 }
 
 public extension AnytypeCircleCheckbox {
-    func blueStyle() -> some View {
-        var view = self
-        view.backgroundCheckedColor = .Control.accent100
-        return view
-    }
-    
     func lightBlueStyle() -> some View {
         var view = self
         view.backgroundCheckedColor = .Pure.sky
@@ -73,9 +67,6 @@ public extension AnytypeCircleCheckbox {
     AnytypeCircleCheckbox(checked: .constant(true))
     
     AnytypeCircleCheckbox(checked: .constant(false))
-    
-    AnytypeCircleCheckbox(checked: .constant(true))
-        .blueStyle()
     
     AnytypeCircleCheckbox(checked: .constant(true))
         .lightBlueStyle()
