@@ -106,14 +106,9 @@ final class HomeWidgetsViewModel: ObservableObject {
         typesDropTask?.cancel()
         typesDropTask = Task {
             // Middleware notify state with delay and we ome time show old state. Making fewer requests
-            do {
-                try await Task.sleep(seconds: 2)
-                let typeIds = objectTypeWidgets.map { $0.objectTypeId }
-                print("update types order \(objectTypeWidgets.map { $0.objectTypeId.suffix(6) })")
-                try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
-            } catch {
-                print("task error \(error)")
-            }
+            try await Task.sleep(seconds: 2)
+            let typeIds = objectTypeWidgets.map { $0.objectTypeId }
+            try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
         }
     }
     
@@ -200,18 +195,13 @@ final class HomeWidgetsViewModel: ObservableObject {
             .map { objects in
                 let objects = objects
                     .filter { ($0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                print("update types \(objects.map { "\($0.name) + \($0.id.suffix(6))" })")
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
         
         for await objectTypes in stream {
             objectTypesDataLoaded = true
-            // We can change types in local palce for DnD
-//            if objectTypeWidgets != objectTypes {
-                objectTypeWidgets = objectTypes
-//                print("types updated")
-//            }
+            objectTypeWidgets = objectTypes
         }
     }
 }
