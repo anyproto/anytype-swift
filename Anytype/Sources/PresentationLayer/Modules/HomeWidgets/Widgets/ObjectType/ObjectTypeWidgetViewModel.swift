@@ -102,7 +102,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     private func startTypeSubscription() async {
         for await type in objectTypeProvider.objectTypePublisher(typeId: info.objectTypeId).values {
             typeIcon = .object(type.icon)
-            typeName = type.name
+            typeName = type.pluralDisplayName
             isImageType = type.isImageLayout
             typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation ?? false
             typeIsDeletable = type.isDeletable
