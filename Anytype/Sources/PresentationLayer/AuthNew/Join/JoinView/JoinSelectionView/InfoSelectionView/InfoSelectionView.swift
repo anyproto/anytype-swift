@@ -69,7 +69,6 @@ struct InfoSelectionView: View {
         .if(isSelected) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeCircleCheckbox(checked: .constant(true))
-                    .blueStyle()
                     .padding([.top, .trailing], -8)
             }
         }
