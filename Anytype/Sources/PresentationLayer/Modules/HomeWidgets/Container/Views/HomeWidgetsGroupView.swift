@@ -3,18 +3,25 @@ import SwiftUI
 struct HomeWidgetsGroupView: View {
     
     let title: String
+    let onTap: () -> Void
     let onCreate: (() -> Void)?
     
-    init(title: String, onCreate: (() -> Void)? = nil) {
+    init(title: String, onTap: @escaping () -> Void, onCreate: (() -> Void)? = nil) {
         self.title = title
+        self.onTap = onTap
         self.onCreate = onCreate
     }
     
     var body: some View {
         HStack {
-            Text(title)
-                .anytypeStyle(.caption1Medium)
-            Spacer()
+            Button {
+                onTap()
+            } label: {
+                Text(title)
+                    .anytypeStyle(.caption1Medium)
+                Spacer()
+            }
+            
             if let onCreate {
                 Button {
                     onCreate()

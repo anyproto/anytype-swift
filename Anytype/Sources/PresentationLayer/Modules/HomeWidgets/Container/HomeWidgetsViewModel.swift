@@ -7,6 +7,11 @@ import SwiftUI
 @MainActor
 final class HomeWidgetsViewModel: ObservableObject {
 
+    private enum Constants {
+        static let pinnedSectionId = "HomePinnedSection"
+        static let objectTypeSectionId = "HomeObjectTypeSection"
+    }
+    
     // MARK: - DI
     
     let info: AccountInfo
@@ -26,6 +31,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectTypeService)
     private var objectTypeService: any ObjectTypeServiceProtocol
+    @Injected(\.expandedService)
+    private var expandedService: any ExpandedServiceProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -36,8 +43,12 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
-    @Published var dataLoaded: Bool = false
+    @Published var widgetsDataLoaded: Bool = false
+    @Published var objectTypesDataLoaded: Bool = false
     @Published var wallpaper: SpaceWallpaperType = .default
+    @Published var pinnedSectionIsExpanded: Bool = false
+    @Published var objectTypeSectionIsExpanded: Bool = false
+    @Published var canCreateObjectType: Bool = false
     
     var spaceId: String { info.accountSpaceId }
     
@@ -49,6 +60,8 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
         self.showSpaceChat = workspaceStorage.spaceView(spaceId: info.accountSpaceId).map { !$0.initialScreenIsChat } ?? false
+        self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
+        self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
     }
     
     func startSubscriptions() async {
@@ -113,11 +126,25 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onCreateObjectType()
     }
     
+    func onTapPinnedHeader() {
+        withAnimation {
+            pinnedSectionIsExpanded = !pinnedSectionIsExpanded
+        }
+        expandedService.setState(id: Constants.pinnedSectionId, isExpanded: pinnedSectionIsExpanded)
+    }
+    
+    func onTapObjectTypeHeader() {
+        withAnimation {
+            objectTypeSectionIsExpanded = !objectTypeSectionIsExpanded
+        }
+        expandedService.setState(id: Constants.objectTypeSectionId, isExpanded: objectTypeSectionIsExpanded)
+    }
+    
     // MARK: - Private
     
     private func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
-            dataLoaded = true
+            widgetsDataLoaded = true
             
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
@@ -151,6 +178,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             homeState = canEdit ? .readwrite : .readonly
+            canCreateObjectType = canEdit
         }
     }
     
@@ -169,6 +197,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             .removeDuplicates()
         
         for await objectTypes in stream {
+            objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
         }
     }

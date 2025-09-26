@@ -122,8 +122,10 @@ final class DebugMenuViewModel: ObservableObject {
     
     func getFirebaseNotificationToken() {
         Messaging.messaging().token { [weak self] token, error in
-            guard let self, let token else { return }
-            pushToken = token.identifiable
+            Task { @MainActor  [weak self] in
+                guard let self, let token else { return }
+                pushToken = token.identifiable
+            }
         }
     }
     

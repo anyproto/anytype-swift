@@ -2,7 +2,6 @@ import UIKit
 import Services
 import AnytypeCore
 
-@MainActor
 protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
     BlockInformationProvider,
@@ -31,6 +30,7 @@ protocol ContentConfigurationProvider: BlockFocusing {
 }
 
 extension ContentConfigurationProvider {
+    @MainActor
     func makeSpreadsheetConfiguration() -> any UIContentConfiguration {
         anytypeAssertionFailure(
             "This content configuration doesn't support spreadsheet"
@@ -51,6 +51,7 @@ protocol BlockFocusing {
 }
 
 extension BlockFocusing {
+    @MainActor
     func set(focus: BlockFocusPosition) { }
 }
 

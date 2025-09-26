@@ -4,6 +4,104 @@ import Foundation
 
 public extension FeatureDescription {
     
+    static let spaceUxTypes = FeatureDescription(
+        title: "Create chat space",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let spaceLoadingForScreen = FeatureDescription(
+        title: "Space Loading State Inside Screen",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let binScreenEmptyAction = FeatureDescription(
+        title: "Bin screen - empty action",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let muteSpacePossibility = FeatureDescription(
+        title: "Mute space possibility",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let addNotificationsSettings = FeatureDescription(
+        title: "Add notifications settings",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let swipeToReply = FeatureDescription(
+        title: "Swipe to reply in chats",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let newSharingExtension = FeatureDescription(
+        title: "New Sharing Extension - IOS-4915",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let newSpaceMembersFlow = FeatureDescription(
+        title: "New Space Members Flow",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let removeMessagesFromNotificationsCenter = FeatureDescription(
+        title: "Remove messages from NotificationsCenter",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let mediaCarouselForWidgets = FeatureDescription(
+        title: "Media carousel for widgets",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let updatedHomePlusMenu = FeatureDescription(
+        title: "Updated home plus menu",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true,
+    )
+    
+    static let fixCollectionViewReuseCrashInEditor = FeatureDescription(
+        title: "Attempt to fix collection view reuse crash in Editor",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let loadAttachmentsOnHomePlusMenu = FeatureDescription(
+        title: "Possibility to load attachments on home + menu",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let vaultBackToRoots = FeatureDescription(
+        title: "New old design of vault cells",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    static let brandNewAuthFlow = FeatureDescription(
+        title: "New auth flow",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+
+    static let homeObjectTypeWidgets = FeatureDescription(
+        title: "Home object type widget",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+        defaultValue: true
+    )
+    
+    // MARK: - Experemental
+    
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
@@ -28,20 +126,6 @@ public extension FeatureDescription {
         title: "Hide web based payments for memebership tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
         defaultValue: true
-    )
-    
-    
-    static let openMediaFileInPreview = FeatureDescription(
-        title: "Open all media files in preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "10"),
-        defaultValue: true
-    )
-    
-    static let spaceUxTypes = FeatureDescription(
-        title: "Create chat space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true
     )
     
     static let enableStreamSpaceType = FeatureDescription(
@@ -106,118 +190,12 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let spaceLoadingForScreen = FeatureDescription(
-        title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        releaseAnytypeValue: true,
-        releaseAnyAppValue: true,
-        debugValue: true
-    )
-    
-    static let binScreenEmptyAction = FeatureDescription(
-        title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
     static let chatInDataSpace = FeatureDescription(
         title: "Chat in data space",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
         debugValue: false
-    )
-    
-    static let muteSpacePossibility = FeatureDescription(
-        title: "Mute space possibility",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false
-    )
-    
-    static let addNotificationsSettings = FeatureDescription(
-        title: "Add notifications settings",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false
-    )
-    
-    static let swipeToReply = FeatureDescription(
-        title: "Swipe to reply in chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let keyboardMenuUndoRedo = FeatureDescription(
-        title: "Place undo/redo on keyboard menu in Editor",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "12"),
-        defaultValue: true
-    )
-    
-    static let newSharingExtension = FeatureDescription(
-        title: "New Sharing Extension - IOS-4915",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true,
-        debugValue: true
-    )
-    
-    static let newSpaceMembersFlow = FeatureDescription(
-        title: "New Space Members Flow",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
-    static let removeMessagesFromNotificationsCenter = FeatureDescription(
-        title: "Remove messages from NotificationsCenter",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
-    static let mediaCarouselForWidgets = FeatureDescription(
-        title: "Media carousel for widgets",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let updatedHomePlusMenu = FeatureDescription(
-        title: "Updated home plus menu",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
-    static let fixCollectionViewReuseCrashInEditor = FeatureDescription(
-        title: "Attempt to fix collection view reuse crash in Editor",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let loadAttachmentsOnHomePlusMenu = FeatureDescription(
-        title: "Possibility to load attachments on home + menu",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
-    static let vaultBackToRoots = FeatureDescription(
-        title: "New old design of vault cells",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
-    static let brandNewAuthFlow = FeatureDescription(
-        title: "New auth flow",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: false,
-        debugValue: true
-    )
-
-    static let homeObjectTypeWidgets = FeatureDescription(
-        title: "Home object type widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true,
-        debugValue: true
     )
     
     // MARK: - Debug
@@ -299,13 +277,6 @@ public extension FeatureDescription {
     
     static let showGlobalSearchScore = FeatureDescription(
         title: "Show global search score",
-        type: .debug,
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let versionHistoryPaginationTest = FeatureDescription(
-        title: "Version history pagination test - 15",
         type: .debug,
         defaultValue: false,
         debugValue: false

@@ -5,7 +5,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 
-enum FileUploadingSource {
+enum FileUploadingSource: @unchecked Sendable {
     case path(String)
     case itemProvider(NSItemProvider)
 }

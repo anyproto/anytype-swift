@@ -3,6 +3,7 @@ import UIKit
 import AVFoundation
 import AnytypeCore
 
+@MainActor
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 

@@ -86,38 +86,44 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Label(Loc.newPage, systemImage: "doc.plaintext")
+                        Label(Loc.page, systemImage: "text.document")
                     }
                 }
-                
-                if FeatureFlags.loadAttachmentsOnHomePlusMenu {
-                    Button { model.onAddMediaSelected() } label: {
-                        Label(Loc.photos, systemImage: "photo")
-                    }
-                }
-                
-                if let type = model.bookmarkObjectType {
+
+                if let type = model.noteObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Label(type.displayName, systemImage: "bookmark")
+                        Label(Loc.note, systemImage: "doc.plaintext")
+                    }
+                }
+
+                if let type = model.taskObjectType {
+                    Button {
+                        model.onTapCreateObject(type: type)
+                    } label: {
+                        Label(Loc.task, systemImage: "checkmark.square")
                     }
                 }
 
                 Divider()
-                
+
                 Menu(Loc.more) {
+                    Button { model.onAddMediaSelected() } label: {
+                        Label(Loc.photos, systemImage: "photo")
+                    }
+
                     if FeatureFlags.loadAttachmentsOnHomePlusMenu {
                         Button { model.onCameraSelected() } label: {
                             Label(Loc.camera, systemImage: "camera")
                         }
                         Button { model.onAddFilesSelected() } label: {
-                            Label(Loc.files, systemImage: "doc")
+                            Label(Loc.files, systemImage: "document")
                         }
                     }
-                    
+
                     Divider()
-                    
+
                     ForEach(model.otherObjectTypes) { type in
                         Button {
                             model.onTapCreateObject(type: type)

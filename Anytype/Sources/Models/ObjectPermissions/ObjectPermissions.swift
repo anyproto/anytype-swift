@@ -66,7 +66,6 @@ extension ObjectPermissions {
                                 && !isTemplate
                                 && details.resolvedLayoutValue != .participant
                                 && canApplyUneditableActions
-                                && !isObjectType
         
         self.canFavorite = canApplyUneditableActions && !isTemplate && !isObjectType
         self.canLinkItself = canApplyUneditableActions && !isTemplate && !isObjectType

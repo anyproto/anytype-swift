@@ -317,6 +317,7 @@ public enum Loc {
   public static let other = Loc.tr("Localizable", "Other", fallback: "Other")
   public static let otherRelations = Loc.tr("Localizable", "Other relations", fallback: "Other properties")
   public static let p2PConnection = Loc.tr("Localizable", "P2P Connection", fallback: "P2P Connection")
+  public static let page = Loc.tr("Localizable", "Page", fallback: "Page")
   public static let pages = Loc.tr("Localizable", "Pages", fallback: "Pages")
   public static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1), fallback: "Paid by %@")
@@ -1004,7 +1005,6 @@ public enum Loc {
           }
           public enum Selected {
             public static let allIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.AllIn", fallback: "Has all of")
-            public static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.Equal", fallback: "Is exactly")
             public static let `in` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.In", fallback: "Has any of")
             public static let notIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.NotIn", fallback: "Has none of")
           }
@@ -2502,13 +2502,16 @@ public enum Loc {
         public static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name", fallback: "Recently opened")
       }
     }
-    public enum List {
-      public static let empty = Loc.tr("Localizable", "Widgets.List.Empty", fallback: "No widgets yet")
-    }
     public enum Source {
       public static let library = Loc.tr("Localizable", "Widgets.Source.Library", fallback: "System")
       public static let objects = Loc.tr("Localizable", "Widgets.Source.Objects", fallback: "Your objects")
       public static let suggested = Loc.tr("Localizable", "Widgets.Source.Suggested", fallback: "Suggested")
+    }
+    public enum System {
+      public enum DeleteAlert {
+        public static let message = Loc.tr("Localizable", "Widgets.System.DeleteAlert.message", fallback: "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored.")
+        public static let title = Loc.tr("Localizable", "Widgets.System.DeleteAlert.title", fallback: "This Widget Cannot Be Restored")
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import Combine
 
-struct AsyncSequencePublisher<Upstream: AsyncSequence>: Publisher {
+struct AsyncSequencePublisher<Upstream: AsyncSequence>: Publisher where Upstream: Sendable {
 
     typealias Output = Upstream.Element
     typealias Failure = Error
@@ -13,6 +13,7 @@ struct AsyncSequencePublisher<Upstream: AsyncSequence>: Publisher {
 
     func receive<S>(subscriber: S) where
         S: Subscriber,
+        S: Sendable,
         S.Input == Output,
         S.Failure == Failure
     {
@@ -21,8 +22,8 @@ struct AsyncSequencePublisher<Upstream: AsyncSequence>: Publisher {
     }
 }
 
-private final class AsyncSequenceSubscription<Upstream: AsyncSequence, S: Subscriber>: Subscription,
-    @unchecked Sendable where S.Input == Upstream.Element, S.Failure == Error
+private final class AsyncSequenceSubscription<Upstream: AsyncSequence, S: Subscriber & Sendable>: Subscription,
+    @unchecked Sendable where S.Input == Upstream.Element, S.Failure == Error, Upstream: Sendable
 {
     private let sequence: Upstream
     private var subscriber: S?
@@ -54,7 +55,7 @@ private final class AsyncSequenceSubscription<Upstream: AsyncSequence, S: Subscr
     }
 }
 
-extension AsyncSequence {
+extension AsyncSequence where Self: Sendable {
     public func publisher() -> some Publisher<Element, Error> {
         AsyncSequencePublisher(self)
     }

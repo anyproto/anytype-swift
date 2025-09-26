@@ -19,7 +19,7 @@ struct SharingExtensionsShareRow: View {
             IconView(icon: data.icon)
                 .frame(width: 48, height: 48)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(data.title)
                     .anytypeStyle(.uxTitle2Medium)
                     .foregroundStyle(Color.Text.primary)

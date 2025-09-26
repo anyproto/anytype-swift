@@ -102,17 +102,14 @@ final class ObjectActionsViewModel: ObservableObject {
                     return
                 }
                 
-                guard let first = widgetObject.children.first else {
-                    anytypeAssertionFailure("First children not found")
-                    return
-                }
+                let first = widgetObject.children.first
                 
                 try await blockWidgetService.createWidgetBlock(
                     contextId: widgetObject.objectId,
                     sourceId: details.id,
                     layout: layout,
                     limit: layout.limits.first ?? 0,
-                    position: .above(widgetId: first.id)
+                    position: first.map { .above(widgetId: $0.id) } ?? .end
                 )
             }
             dismiss.toggle()

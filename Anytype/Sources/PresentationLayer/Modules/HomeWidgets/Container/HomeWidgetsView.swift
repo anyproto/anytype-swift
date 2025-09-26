@@ -51,12 +51,8 @@ private struct HomeWidgetsInternalView: View {
     
     private var content: some View {
         ZStack {
-            if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty {
-                    widgets
-                } else {
-                    emptyState
-                }
+            if model.widgetsDataLoaded && model.objectTypesDataLoaded {
+                widgets
             }
         }
     }
@@ -64,9 +60,11 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
-                blockWidgets
                 if FeatureFlags.homeObjectTypeWidgets {
+                    blockWidgets
                     objectTypeWidgets
+                } else {
+                    oldBlockWidgets
                 }
                 AnytypeNavigationSpacer()
             }
@@ -76,10 +74,7 @@ private struct HomeWidgetsInternalView: View {
     }
     
     @ViewBuilder
-    private var blockWidgets: some View {
-        if FeatureFlags.homeObjectTypeWidgets {
-            HomeWidgetsGroupView(title: Loc.pinned)
-        }
+    private var oldBlockWidgets: some View {
         VStack(spacing: 12) {
             if #available(iOS 17.0, *) {
                 WidgetSwipeTipView()
@@ -93,11 +88,7 @@ private struct HomeWidgetsInternalView: View {
                     output: model.output
                 )
             }
-            if FeatureFlags.homeObjectTypeWidgets {
-                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
-            } else {
-                editButtons
-            }
+            editButtons
         }
         .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
             model.widgetsDropUpdate(from: from, to: to)
@@ -107,32 +98,54 @@ private struct HomeWidgetsInternalView: View {
     }
     
     @ViewBuilder
-    private var objectTypeWidgets: some View {
-        HomeWidgetsGroupView(title: Loc.objectTypes) {
-            model.onCreateObjectType()
-        }
-        VStack(spacing: 12) {
-            ForEach(model.objectTypeWidgets) { info in
-                ObjectTypeWidgetView(info: info, output: model.output)
+    private var blockWidgets: some View {
+        if model.widgetBlocks.isNotEmpty {
+            HomeWidgetsGroupView(title: Loc.pinned) {
+                model.onTapPinnedHeader()
             }
-        }
-        .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
-            model.typesDropUpdate(from: from, to: to)
-        } dropFinish: { from, to in
-            model.typesDropFinish(from: from, to: to)
+            if model.pinnedSectionIsExpanded {
+                VStack(spacing: 12) {
+                    if #available(iOS 17.0, *) {
+                        WidgetSwipeTipView()
+                    }
+                    ForEach(model.widgetBlocks) { widgetInfo in
+                        HomeWidgetSubmoduleView(
+                            widgetInfo: widgetInfo,
+                            widgetObject: model.widgetObject,
+                            workspaceInfo: model.info,
+                            homeState: $model.homeState,
+                            output: model.output
+                        )
+                    }
+                }
+                .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+                    model.widgetsDropUpdate(from: from, to: to)
+                } dropFinish: { from, to in
+                    model.widgetsDropFinish(from: from, to: to)
+                }
         }
     }
+    }
     
-    private var emptyState: some View {
-        VStack(spacing: 12) {
-            Spacer()
-            Text(Loc.Widgets.List.empty)
-                .anytypeStyle(.bodyRegular)
-            StandardButton(Loc.Widgets.Actions.addWidget, style: .transparentXSmall) {
-                model.onCreateWidgetFromMainMode()
+    @ViewBuilder
+    private var objectTypeWidgets: some View {
+        HomeWidgetsGroupView(title: Loc.objectTypes, onTap: {
+            model.onTapObjectTypeHeader()
+        }, onCreate: model.canCreateObjectType ? {
+            model.onCreateObjectType()
+        } : nil)
+        if model.objectTypeSectionIsExpanded {
+            VStack(spacing: 12) {
+                ForEach(model.objectTypeWidgets) { info in
+                    ObjectTypeWidgetView(info: info, output: model.output)
+                }
+                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
             }
-            AnytypeNavigationSpacer()
-            Spacer()
+            .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
+                model.typesDropUpdate(from: from, to: to)
+            } dropFinish: { from, to in
+                model.typesDropFinish(from: from, to: to)
+            }
         }
     }
     

@@ -12,7 +12,7 @@ struct KeyPhraseView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
+            Spacer.fixedHeight(32)
             content
             Spacer()
         }
