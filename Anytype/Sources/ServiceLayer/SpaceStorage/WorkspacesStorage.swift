@@ -32,6 +32,10 @@ extension WorkspacesStorageProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func spaceIsChat(spaceId: String) -> Bool {
+        spaceView(spaceId: spaceId)?.uxType.isChat ?? false
+    }
 }
 
 final class WorkspacesStorage: WorkspacesStorageProtocol {

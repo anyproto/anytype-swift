@@ -30,7 +30,7 @@ struct SetSubscriptionData: Hashable {
         // Sorts
         var sorts = view.sorts
         if objectOrderIds.isNotEmpty {
-            sorts.append(SearchHelper.customSort(ids: objectOrderIds))
+            sorts.append(SearchHelper.customSort(relationKey: BundledPropertyKey.id.rawValue, values: objectOrderIds))
         }
         let setSorts = document.sorts(for: view.id)
         sorts = sorts.map { sort in

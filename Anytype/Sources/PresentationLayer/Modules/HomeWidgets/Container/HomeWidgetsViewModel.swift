@@ -35,6 +35,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var expandedService: any ExpandedServiceProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
+    private var typesDropTask: Task<Void, Error>?
     
     // MARK: - State
     
@@ -102,7 +103,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func typesDropFinish(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-        Task {
+        typesDropTask?.cancel()
+        typesDropTask = Task {
+            // Middleware notify state with delay and we ome time show old state. Making fewer requests
+            try await Task.sleep(seconds: 2)
             let typeIds = objectTypeWidgets.map { $0.objectTypeId }
             try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
         }
@@ -191,7 +195,6 @@ final class HomeWidgetsViewModel: ObservableObject {
             .map { objects in
                 let objects = objects
                     .filter { ($0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                    .sorted { $0.orderId < $1.orderId }
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
