@@ -82,10 +82,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var hideWebPayments: Bool {
-        value(for: .hideWebPayments)
-    }
-
     static var enableStreamSpaceType: Bool {
         value(for: .enableStreamSpaceType)
     }
@@ -207,7 +203,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .hideWebPayments,
         .enableStreamSpaceType,
         .aiToolInSet,
         .anyAppBetaTip,

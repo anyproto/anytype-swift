@@ -122,11 +122,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let hideWebPayments = FeatureDescription(
-        title: "Hide web based payments for memebership tier",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
-        defaultValue: true
-    )
     
     static let enableStreamSpaceType = FeatureDescription(
         title: "Create stream space",
