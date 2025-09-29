@@ -82,10 +82,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
-    }
-
     static var aiToolInSet: Bool {
         value(for: .aiToolInSet)
     }
@@ -203,7 +199,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .enableStreamSpaceType,
         .aiToolInSet,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,

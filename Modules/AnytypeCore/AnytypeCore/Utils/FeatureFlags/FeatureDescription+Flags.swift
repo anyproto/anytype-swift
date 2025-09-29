@@ -123,12 +123,6 @@ public extension FeatureDescription {
     )
     
     
-    static let enableStreamSpaceType = FeatureDescription(
-        title: "Create stream space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        defaultValue: false,
-        debugValue: false
-    )
     
     static let aiToolInSet = FeatureDescription(
         title: "Add AI tool in Set / Collection",
