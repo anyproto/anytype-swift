@@ -135,9 +135,9 @@ final class ChatAttachmentState {
             guard let self = self else { return }
             
             if let preloadFileId = try? await fileActionsService.preloadFileObject(spaceId: spaceId, data: data, origin: .none) {
-                await MainActor.run { self.updatePreloadFileId(for: linkedObject.id, preloadFileId: preloadFileId) }
+                self.updatePreloadFileId(for: linkedObject.id, preloadFileId: preloadFileId)
             }
-            await MainActor.run { self.removePreloadTask(objectId: linkedObject.id) }
+            self.removePreloadTask(objectId: linkedObject.id)
         }
 
         addPreloadTask(objectId: linkedObject.id, task: task)
