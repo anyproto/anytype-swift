@@ -36,20 +36,24 @@ struct ObjectTypeTemplatePickerView: View {
                         .foregroundColor(Color.Text.secondary)
                     
                     Spacer()
-                    
-                    Button(action: {
-                        model.onAddTemplateTap()
-                    }, label: {
-                        IconView(asset: .X24.plus).frame(width: 24, height: 24)
-                    })
+
+                    if model.canEdit {
+                        Button(action: {
+                            model.onAddTemplateTap()
+                        }, label: {
+                            IconView(asset: .X24.plus).frame(width: 24, height: 24)
+                        })
+                    }
                 }
                 
                 HStack {
-                    Button {
-                        model.onEditTap()
-                    } label: {
-                        AnytypeText(model.isEditing ? Loc.done : Loc.edit, style: .previewTitle1Regular)
-                            .foregroundColor(Color.Text.secondary)
+                    if model.canEdit {
+                        Button {
+                            model.onEditTap()
+                        } label: {
+                            AnytypeText(model.isEditing ? Loc.done : Loc.edit, style: .previewTitle1Regular)
+                                .foregroundColor(Color.Text.secondary)
+                        }
                     }
                     Spacer()
                 }
