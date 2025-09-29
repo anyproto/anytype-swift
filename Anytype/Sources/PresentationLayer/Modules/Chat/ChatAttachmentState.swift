@@ -96,23 +96,10 @@ final class ChatAttachmentState {
         storeLinkedObject(linkedObject)
         startPreload(linkedObject: linkedObject)
     }
-    
-    private func storeLinkedObject(_ object: ChatLinkedObject) {
-        var current = linkedObjectsSubject.value
-        current.append(object)
-        linkedObjectsSubject.send(current)
-    }
 
     func updateLinkedObject(at index: Int, with linkedObject: ChatLinkedObject) {
         updateLinkedObjectStorage(at: index, with: linkedObject)
         startPreload(linkedObject: linkedObject)
-    }
-    
-    private func updateLinkedObjectStorage(at index: Int, with object: ChatLinkedObject) {
-        var current = linkedObjectsSubject.value
-        guard index < current.count else { return }
-        current[index] = object
-        linkedObjectsSubject.send(current)
     }
 
     func removeLinkedObject(with id: Int) {
@@ -121,7 +108,20 @@ final class ChatAttachmentState {
         }
         removeLinkedObjectFromStorage(with: id)
     }
-    
+
+    private func storeLinkedObject(_ object: ChatLinkedObject) {
+        var current = linkedObjectsSubject.value
+        current.append(object)
+        linkedObjectsSubject.send(current)
+    }
+
+    private func updateLinkedObjectStorage(at index: Int, with object: ChatLinkedObject) {
+        var current = linkedObjectsSubject.value
+        guard index < current.count else { return }
+        current[index] = object
+        linkedObjectsSubject.send(current)
+    }
+
     private func removeLinkedObjectFromStorage(with id: Int) {
         var current = linkedObjectsSubject.value
         current.removeAll { $0.id == id }
