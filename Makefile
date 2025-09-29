@@ -13,15 +13,10 @@ change-github-token:
 	./Scripts/change-token.sh
 
 generate-middle: setup-tools
-	rm -rf Modules/ProtobufMessages/Sources/Protocol/*
-	$(FILE_SPLITTER) --path ./Dependencies/Middleware/protobuf/commands.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Commands --other-name CommandsOther.swift
-	$(FILE_SPLITTER) --path ./Dependencies/Middleware/protobuf/events.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Events --other-name EventsOther.swift
-	$(FILE_SPLITTER) --path ./Dependencies/Middleware/protobuf/models.pb.swift --output-dir ./Modules/ProtobufMessages/Sources/Protocol/Models --other-name ModelsOther.swift --max-depth 4
-	cp -r Dependencies/Middleware/protobuf/localstore.pb.swift Modules/ProtobufMessages/Sources/Protocol
+	./Modules/ProtobufMessages/Scripts/generate.sh
 	./build/sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./build/swiftgen --config ./Modules/Services/swiftgen.yml
-	./Modules/ProtobufMessages/Scripts/generate.sh
 
 generate:
 	# We also have code generation in XCode Build phases for main target and widgets
@@ -44,6 +39,7 @@ setup-middle-local: build-middle-local install-middle-local
 
 setup-env:
 	./Scripts/install-sourcery.sh
+	./Scripts/install-swiftprotobuf.sh
 	brew install ubi
 	ubi --project "mgolovko/SwiftGen" --tag "6.6.4-alpha.0" --matching "swiftgen-6.6.4-alpha.0-macos.zip" --exe swiftgen --in ./build
 
