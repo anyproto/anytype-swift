@@ -10,6 +10,10 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     @Published var templatesCount = 0
     @Published var toastBarData: ToastBarData?
     @Published var isEditing = false
+
+    var canEdit: Bool {
+        document.permissions.canEditDetails
+    }
     
     private var output: (any EditorSetModuleOutput)?
     private let document: any BaseDocumentProtocol
