@@ -117,7 +117,7 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         let fileDetails: FileDetails
 
         if let preloadFileId = preloadFileId {
-            fileDetails = try await fileActionsService.uploadPreloadedFileObject(fileId: preloadFileId, spaceId: spaceId, origin: .none)
+            fileDetails = try await fileActionsService.uploadPreloadedFileObject(fileId: preloadFileId, spaceId: spaceId, data: data, origin: .none)
         } else {
             fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
         }

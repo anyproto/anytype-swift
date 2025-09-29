@@ -168,7 +168,13 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         return try await fileService.preloadFileObject(path: data.path, spaceId: spaceId, origin: origin)
     }
 
-    func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails {
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
+        defer {
+            if data.isTemporary {
+                try? FileManager.default.removeItem(atPath: data.path)
+            }
+        }
+        
         return try await fileService.uploadPreloadedFileObject(fileId: fileId, spaceId: spaceId, origin: origin)
     }
 

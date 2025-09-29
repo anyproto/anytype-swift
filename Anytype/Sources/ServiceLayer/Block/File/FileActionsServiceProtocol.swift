@@ -27,7 +27,7 @@ protocol FileActionsServiceProtocol: Sendable {
     func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws
     func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails
     func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> String
-    func uploadPreloadedFileObject(fileId: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails
     func discardPreloadFile(fileId: String, spaceId: String) async throws
 
     func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws
