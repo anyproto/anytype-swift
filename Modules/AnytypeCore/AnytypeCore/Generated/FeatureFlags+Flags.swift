@@ -90,10 +90,6 @@ public extension FeatureFlags {
         value(for: .anyAppBetaTip)
     }
 
-    static var guideUseCaseForDataSpace: Bool {
-        value(for: .guideUseCaseForDataSpace)
-    }
-
     static var chatLayoutInsideSpace: Bool {
         value(for: .chatLayoutInsideSpace)
     }
@@ -201,7 +197,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .aiToolInSet,
         .anyAppBetaTip,
-        .guideUseCaseForDataSpace,
         .chatLayoutInsideSpace,
         .joinStream,
         .simpleSetForTypes,

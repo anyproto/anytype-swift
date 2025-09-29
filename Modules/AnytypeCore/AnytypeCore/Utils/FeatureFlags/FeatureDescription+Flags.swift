@@ -140,14 +140,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let guideUseCaseForDataSpace = FeatureDescription(
-        title: "Guide usecase for data space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
     static let chatLayoutInsideSpace = FeatureDescription(
         title: "Chat Layout Inside Space",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
