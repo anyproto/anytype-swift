@@ -76,11 +76,11 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
                 chatMessage.attachments.append(attachment)
             case .localPhotosFile(let chatLocalFile):
                 guard let data = chatLocalFile.data else { continue }
-                if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
+                if let attachment = try? await uploadFile(spaceId: spaceId, data: data.data, preloadFileId: chatLocalFile.data?.preloadFileId) {
                     chatMessage.attachments.append(attachment)
                 }
-            case .localBinaryFile(let data):
-                if let attachment = try? await uploadFile(spaceId: spaceId, data: data) {
+            case .localBinaryFile(let binaryFile):
+                if let attachment = try? await uploadFile(spaceId: spaceId, data: binaryFile.data, preloadFileId: binaryFile.preloadFileId) {
                     chatMessage.attachments.append(attachment)
                 }
             case .localBookmark(let data):
@@ -113,8 +113,15 @@ final class ChatActionService: ChatActionServiceProtocol, Sendable {
         return chatMessage
     }
     
-    private func uploadFile(spaceId: String, data: FileData) async throws -> ChatMessageAttachment {
-        let fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+    private func uploadFile(spaceId: String, data: FileData, preloadFileId: String?) async throws -> ChatMessageAttachment {
+        let fileDetails: FileDetails
+
+        if let preloadFileId = preloadFileId {
+            fileDetails = try await fileActionsService.uploadPreloadedFileObject(fileId: preloadFileId, spaceId: spaceId, data: data, origin: .none)
+        } else {
+            fileDetails = try await fileActionsService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
+        }
+
         var attachment = ChatMessageAttachment()
         attachment.target = fileDetails.id
         return attachment
