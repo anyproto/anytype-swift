@@ -118,8 +118,10 @@ struct ObjectTypeInfoView: View {
         switch model.mode {
         case .create:
             StandardButton(Loc.create, style: .primaryLarge) { model.onSaveTap() }
+                .disabled(!model.isCreateButtonEnabled)
         case .edit:
             StandardButton(Loc.save, style: .primaryLarge) { model.onSaveTap() }
+                .disabled(!model.isCreateButtonEnabled)
         case .preview:
             EmptyView()
         }

@@ -15,7 +15,8 @@ final class ObjectTypeInfoViewModel: ObservableObject {
         return ObjectIcon.customIcon(CustomIconData(icon: icon, customColor: color ?? .default))
     }
     var isRemoveIconButtonAvailable: Bool { icon.isNotNil }
-    
+    var isCreateButtonEnabled: Bool { !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+
     var dismiss: DismissAction?
     
     let mode: ObjectTypeInfoViewMode
