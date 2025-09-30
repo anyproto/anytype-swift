@@ -34,7 +34,7 @@ struct FramedTextField: View {
                     .foregroundColor(.Text.secondary)
             }
 
-            HStack(alignment: .center, spacing: 10) {
+            HStack(alignment: .center, spacing: 8) {
                 leadingView?()
 
                 if shouldFocus {
@@ -59,8 +59,15 @@ struct FramedTextField: View {
             }
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .border(16, color: .Shape.transperentSecondary, lineWidth: 1)
+        .padding(.vertical, 14)
+        .background(
+            RoundedRectangle(cornerRadius: 26)
+                .fill(Color.Shape.transperentSecondary)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 26)
+                .stroke(Color.Shape.transperentSecondary, lineWidth: 1)
+        )
     }
 }
 
