@@ -118,10 +118,6 @@ public extension FeatureFlags {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
-    static var chatInDataSpace: Bool {
-        value(for: .chatInDataSpace)
-    }
-
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -220,7 +216,6 @@ public extension FeatureFlags {
         .joinStream,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
-        .chatInDataSpace,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
