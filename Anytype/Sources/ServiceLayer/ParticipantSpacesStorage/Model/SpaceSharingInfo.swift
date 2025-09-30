@@ -1,11 +1,8 @@
 struct SpaceSharingInfo {
     let sharedSpacesLimit: Int
-
-    let sharedDataSpacesCount: Int
-    let sharedChatSpacesCount: Int
-    let sharedStreamSpacesCount: Int
+    let sharedSpacesCount: Int
 
     var limitsAllowSharing: Bool {
-        sharedDataSpacesCount < sharedSpacesLimit
+        sharedSpacesCount < sharedSpacesLimit
     }
 }
