@@ -190,14 +190,6 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let chatInDataSpace = FeatureDescription(
-        title: "Chat in data space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
-        debugValue: false
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

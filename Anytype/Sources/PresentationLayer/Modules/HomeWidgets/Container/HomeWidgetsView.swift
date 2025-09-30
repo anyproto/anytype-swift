@@ -61,6 +61,7 @@ private struct HomeWidgetsInternalView: View {
         ScrollView {
             VStack(spacing: 0) {
                 if FeatureFlags.homeObjectTypeWidgets {
+                    topWidgets
                     blockWidgets
                     objectTypeWidgets
                 } else {
@@ -70,6 +71,13 @@ private struct HomeWidgetsInternalView: View {
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
+        }
+    }
+    
+    @ViewBuilder
+    private var topWidgets: some View {
+        if let data = model.chatWidgetData {
+            SpaceChatWidgetView(data: data)
         }
     }
     

@@ -46,7 +46,7 @@ struct HomeWidgetSubmoduleView: View {
         case (.bin, _):
             BinWidgetView(data: widgetData)
         case (.chat, _):
-            SpaceChatWidgetView(data: widgetData)
+            SpaceChatLegacyWidgetView(data: widgetData)
         case _:
             EmptyView()
         }
