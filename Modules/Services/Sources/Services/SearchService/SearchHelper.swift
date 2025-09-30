@@ -26,10 +26,11 @@ public class SearchHelper {
         return sort
     }
     
-    public static func customSort(ids: [String]) -> DataviewSort {
+    public static func customSort(relationKey: String, values: [String]) -> DataviewSort {
         var sort = DataviewSort()
         sort.type = .custom
-        sort.customOrder = ids.map { $0.protobufValue }
+        sort.relationKey = relationKey
+        sort.customOrder = values.map { $0.protobufValue }
         
         return sort
     }

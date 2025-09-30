@@ -183,9 +183,6 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                     $0.uniqueKey != .image &&
                     $0.uniqueKey != .file
                 }
-                .sorted {
-                    $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
-                }
         }
     }
     

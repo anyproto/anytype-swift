@@ -86,7 +86,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Label(Loc.page, systemImage: "text.document")
+                        Label(Loc.page, systemImage: "doc.text")
                     }
                 }
 
@@ -118,7 +118,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                             Label(Loc.camera, systemImage: "camera")
                         }
                         Button { model.onAddFilesSelected() } label: {
-                            Label(Loc.files, systemImage: "document")
+                            Label(Loc.files, systemImage: "doc")
                         }
                     }
 

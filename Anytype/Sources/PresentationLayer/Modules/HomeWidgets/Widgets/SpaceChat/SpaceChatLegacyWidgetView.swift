@@ -2,22 +2,26 @@ import Foundation
 import SwiftUI
 import AnytypeCore
 
-struct SpaceChatWidgetView: View {
+struct SpaceChatLegacyWidgetView: View {
     
-    @StateObject private var model: SpaceChatWidgetViewModel
+    @StateObject private var model: SpaceChatLegacyWidgetViewModel
+    @Binding var homeState: HomeWidgetsState
     
-    init(data: SpaceChatWidgetData) {
-        self._model = StateObject(wrappedValue: SpaceChatWidgetViewModel(data: data))
+    init(data: WidgetSubmoduleData) {
+        self._homeState = data.homeState
+        self._model = StateObject(wrappedValue: SpaceChatLegacyWidgetViewModel(data: data))
     }
     
     var body: some View {
         LinkWidgetViewContainer(
             isExpanded: .constant(false),
             dragId: nil,
-            homeState: .constant(.readwrite),
-            allowMenuContent: false,
+            homeState: $homeState,
+            allowMenuContent: true,
             allowContent: false,
-            removeAction: nil,
+            removeAction: {
+                model.onDeleteWidgetTap()
+            },
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,
@@ -35,6 +39,15 @@ struct SpaceChatWidgetView: View {
                     onTap: {
                         model.onHeaderTap()
                     }
+                )
+            },
+            menu: {
+                WidgetCommonActionsMenuView(
+                    items: [.remove],
+                    widgetBlockId: model.widgetBlockId,
+                    widgetObject: model.widgetObject,
+                    homeState: homeState,
+                    output: model.output
                 )
             },
             content: { EmptyView() }
