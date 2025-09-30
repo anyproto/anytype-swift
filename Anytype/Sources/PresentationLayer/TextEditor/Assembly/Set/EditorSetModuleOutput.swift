@@ -31,8 +31,6 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     // TODO: Open toast inside module
     func showFailureToast(message: String)
 
-    func showAITool(objectIds: [String])
-
     // Object type methods
     func onObjectTypeLayoutTap(_ data: LayoutPickerData)
     func onObjectTypePropertiesTap(document: some SetDocumentProtocol)
