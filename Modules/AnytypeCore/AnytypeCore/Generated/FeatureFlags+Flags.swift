@@ -82,10 +82,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var aiToolInSet: Bool {
-        value(for: .aiToolInSet)
-    }
-
     static var anyAppBetaTip: Bool {
         value(for: .anyAppBetaTip)
     }
@@ -195,7 +191,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .aiToolInSet,
         .anyAppBetaTip,
         .chatLayoutInsideSpace,
         .joinStream,
