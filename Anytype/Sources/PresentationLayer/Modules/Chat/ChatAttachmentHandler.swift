@@ -15,7 +15,7 @@ protocol ChatAttachmentHandlerProtocol: ObservableObject {
 
     func addUploadedObject(_ details: MessageAttachmentDetails) throws
     func removeLinkedObject(_ linkedObject: ChatLinkedObject)
-    func clearAll()
+    func clearState()
     func canAddOneAttachment() -> Bool
     func setPhotosItems(_ items: [PhotosPickerItem]) throws
     func getPhotosItems() -> [PhotosPickerItem]
@@ -54,7 +54,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     // MARK: - State
     
-    private let state = ChatAttachmentState()
+    private let state: ChatAttachmentState
     
     var linkedObjectsPublisher: AnyPublisher<[ChatLinkedObject], Never> {
         state.linkedObjectsPublisher
@@ -91,6 +91,7 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
     
     init(spaceId: String) {
         self.spaceId = spaceId
+        self.state = ChatAttachmentState(spaceId: spaceId)
     }
     
     // MARK: - Public Methods
@@ -111,11 +112,8 @@ final class ChatAttachmentHandler: ChatAttachmentHandlerProtocol {
         AnytypeAnalytics.instance().logDetachItemChat()
     }
     
-    func clearAll() {
-        state.clearAllLinkedObjects()
-        state.clearPhotosItems()
-        state.updatePhotosItemsTask()
-        state.cancelAllLinkPreviewTasks()
+    func clearState() {
+        state.clearState()
     }
     
     func canAddOneAttachment() -> Bool {

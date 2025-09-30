@@ -82,24 +82,8 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var hideWebPayments: Bool {
-        value(for: .hideWebPayments)
-    }
-
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
-    }
-
-    static var aiToolInSet: Bool {
-        value(for: .aiToolInSet)
-    }
-
     static var anyAppBetaTip: Bool {
         value(for: .anyAppBetaTip)
-    }
-
-    static var guideUseCaseForDataSpace: Bool {
-        value(for: .guideUseCaseForDataSpace)
     }
 
     static var chatLayoutInsideSpace: Bool {
@@ -166,10 +150,6 @@ public extension FeatureFlags {
         value(for: .showGlobalSearchScore)
     }
 
-    static var versionHistoryPaginationTest: Bool {
-        value(for: .versionHistoryPaginationTest)
-    }
-
     static var networkHTTPSRequestsLogger: Bool {
         value(for: .networkHTTPSRequestsLogger)
     }
@@ -207,11 +187,7 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .hideWebPayments,
-        .enableStreamSpaceType,
-        .aiToolInSet,
         .anyAppBetaTip,
-        .guideUseCaseForDataSpace,
         .chatLayoutInsideSpace,
         .joinStream,
         .simpleSetForTypes,
@@ -228,7 +204,6 @@ public extension FeatureFlags {
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,
-        .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,

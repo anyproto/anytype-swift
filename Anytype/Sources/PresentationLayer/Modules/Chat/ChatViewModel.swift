@@ -655,7 +655,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func clearInput() {
         message = NSAttributedString()
-        attachmentHandler.clearAll()
+        attachmentHandler.clearState()
         replyToMessage = nil
         editMessage = nil
     }

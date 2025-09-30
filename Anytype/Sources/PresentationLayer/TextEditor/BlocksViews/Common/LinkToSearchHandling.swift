@@ -5,6 +5,7 @@ import Services
 import Factory
 
 
+@MainActor
 protocol LinkToSearchDelegate: AnyObject {
     func updateTextForLinkToObject(newText: NSAttributedString, range: NSRange, originalText: NSAttributedString)
     func updateTextForLinkToUrl(newText: NSAttributedString, range: NSRange, originalText: NSAttributedString)
@@ -12,11 +13,12 @@ protocol LinkToSearchDelegate: AnyObject {
     func openLinkToObject(data: LinkToObjectSearchModuleData)
 }
 
+@MainActor
 protocol LinkToSearchHelperProtocol {
     func showLinkToSearch(
         range: NSRange,
         text: NSAttributedString,
-        delegate: LinkToSearchDelegate,
+        delegate: any LinkToSearchDelegate,
         document: any BaseDocumentProtocol,
         markupChanger: any BlockMarkupChangerProtocol,
         info: BlockInformation
@@ -29,7 +31,7 @@ final class LinkToSearchHelper: LinkToSearchHelperProtocol {
     func showLinkToSearch(
         range: NSRange,
         text: NSAttributedString,
-        delegate: LinkToSearchDelegate,
+        delegate: any LinkToSearchDelegate,
         document: any BaseDocumentProtocol,
         markupChanger: any BlockMarkupChangerProtocol,
         info: BlockInformation

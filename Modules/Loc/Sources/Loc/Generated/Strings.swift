@@ -514,11 +514,6 @@ public enum Loc {
     return Loc.tr("Localizable", "You joined", String(describing: p1), fallback: "You joined %@")
   }
   public static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
-  public enum AITool {
-    public static let button = Loc.tr("Localizable", "AITool.button", fallback: "Generate")
-    public static let placeholder = Loc.tr("Localizable", "AITool.placeholder", fallback: "For example, Summarise")
-    public static let title = Loc.tr("Localizable", "AITool.title", fallback: "Ask AI")
-  }
   public enum About {
     public static func analyticsId(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")
@@ -573,7 +568,7 @@ public enum Loc {
   }
   public enum Alert {
     public enum CameraPermissions {
-      public static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Anytype and set Camera to ON")
+      public static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Generate")
       public static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
   }
