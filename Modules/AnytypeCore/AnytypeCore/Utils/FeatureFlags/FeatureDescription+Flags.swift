@@ -123,12 +123,6 @@ public extension FeatureDescription {
     )
     
     
-    static let enableStreamSpaceType = FeatureDescription(
-        title: "Create stream space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        defaultValue: false,
-        debugValue: false
-    )
     
     static let aiToolInSet = FeatureDescription(
         title: "Add AI tool in Set / Collection",
@@ -141,14 +135,6 @@ public extension FeatureDescription {
     static let anyAppBetaTip = FeatureDescription(
         title: "Show any app beta alert",
         type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let guideUseCaseForDataSpace = FeatureDescription(
-        title: "Guide usecase for data space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: true,
         debugValue: false
