@@ -110,7 +110,6 @@ extension SpaceView {
     
     func canAddWriters(participants: [Participant]) -> Bool {
         guard canAddReaders(participants: participants) else { return false }
-        guard uxType != .chat else { return true }
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
     }
@@ -127,7 +126,6 @@ extension SpaceView {
     
     func canChangeReaderToWriter(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
-        guard uxType != .chat else { return true }
         return writersLimit > activeWriters(participants: participants)
     }
     
