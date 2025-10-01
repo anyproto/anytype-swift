@@ -78,6 +78,7 @@ public enum Loc {
   public static let changeIcon = Loc.tr("Localizable", "Change icon", fallback: "Change icon")
   public static let changeType = Loc.tr("Localizable", "Change type", fallback: "Change type")
   public static let changeWallpaper = Loc.tr("Localizable", "Change wallpaper", fallback: "Change wallpaper")
+  public static let channelType = Loc.tr("Localizable", "ChannelType", fallback: "Channel Type")
   public static let chat = Loc.tr("Localizable", "Chat", fallback: "Chat")
   public static let chooseDefaultObjectType = Loc.tr("Localizable", "Choose default object type", fallback: "Choose default object type")
   public static let chooseLayoutType = Loc.tr("Localizable", "Choose layout type", fallback: "Choose layout type")
@@ -2246,10 +2247,12 @@ public enum Loc {
     }
     public enum UxType {
       public enum Chat {
+        public static let changeDescription = Loc.tr("Localizable", "Spaces.UxType.Chat.ChangeDescription", fallback: "Group chat with shared data. Best for small groups or a single ongoing conversation.")
         public static let description = Loc.tr("Localizable", "Spaces.UxType.Chat.Description", fallback: "Group chat with content organization")
         public static let title = Loc.tr("Localizable", "Spaces.UxType.Chat.Title", fallback: "Chat")
       }
       public enum Space {
+        public static let changeDescription = Loc.tr("Localizable", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")
         public static let description = Loc.tr("Localizable", "Spaces.UxType.Space.Description", fallback: "Hub for advanced data management")
         public static let title = Loc.tr("Localizable", "Spaces.UxType.Space.Title", fallback: "Space")
       }

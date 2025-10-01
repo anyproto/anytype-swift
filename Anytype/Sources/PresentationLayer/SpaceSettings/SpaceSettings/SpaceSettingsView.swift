@@ -199,7 +199,7 @@ struct SpaceSettingsView: View {
                 }
                 if let data = model.uxTypeSettingsData {
                     RoundedButton(
-                        "Channel Type",
+                        Loc.channelType,
                         icon: data.icon,
                         decoration: .caption(data.typaName)) {
                             model.onUxTypeTap()

@@ -12,13 +12,13 @@ struct SpaceTypeChangeView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: "Channel Type")
+            ModalNavigationHeader(title: Loc.channelType)
             ScrollView {
                 VStack(spacing: 0) {
                     SpaceTypeChangeRow(
                         icon: .X24.chat,
-                        title: "Chat",
-                        subtitle: "Group chat with shared data. Best for small groups or a single ongoing conversation.",
+                        title: Loc.Spaces.UxType.Chat.title,
+                        subtitle: Loc.Spaces.UxType.Chat.changeDescription,
                         isSelected: model.chatIsSelected
                     ) {
                         try await model.onTapChat()
@@ -26,8 +26,8 @@ struct SpaceTypeChangeView: View {
                     
                     SpaceTypeChangeRow(
                         icon: .X24.space,
-                        title: "Space",
-                        subtitle: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.",
+                        title: Loc.Spaces.UxType.Space.title,
+                        subtitle: Loc.Spaces.UxType.Space.changeDescription,
                         isSelected: model.dataIsSelected
                     ) {
                         try await model.onTapData()
