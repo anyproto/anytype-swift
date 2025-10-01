@@ -938,6 +938,11 @@ public enum Loc {
       public static let upload = Loc.tr("Localizable", "Content.Video.Upload", fallback: "Upload a video")
     }
   }
+  public enum ConvertChannelTypeAlert {
+    public static let confirm = Loc.tr("Localizable", "ConvertChannelTypeAlert.confirm", fallback: "Yes, convert")
+    public static let message = Loc.tr("Localizable", "ConvertChannelTypeAlert.message", fallback: "Switching between Space and Chat will significantly change the experience.")
+    public static let title = Loc.tr("Localizable", "ConvertChannelTypeAlert.title", fallback: "Convert Channel Type?")
+  }
   public enum DataviewType {
     public static let calendar = Loc.tr("Localizable", "DataviewType.calendar", fallback: "Calendar")
     public static let gallery = Loc.tr("Localizable", "DataviewType.gallery", fallback: "Gallery")

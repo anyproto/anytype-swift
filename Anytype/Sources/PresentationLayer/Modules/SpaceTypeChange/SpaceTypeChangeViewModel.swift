@@ -11,10 +11,12 @@ final class SpaceTypeChangeViewModel: ObservableObject {
     private var workspaceService: any WorkspaceServiceProtocol
     
     private let data: SpaceTypeChangeData
+    private var expectedSpaceType: SpaceUxType?
     
     @Published var chatIsSelected: Bool = false
     @Published var dataIsSelected: Bool = false
-    
+    @Published var showAlert: Bool = false
+
     init(data: SpaceTypeChangeData) {
         self.data = data
     }
@@ -28,11 +30,18 @@ final class SpaceTypeChangeViewModel: ObservableObject {
     
     func onTapChat() async throws {
         guard !chatIsSelected else { return }
-        try await workspaceService.workspaceSetDetails(spaceId: data.spaceId, details: [.spaceUxType(.chat)])
+        expectedSpaceType = .chat
+        showAlert = true
     }
     
     func onTapData() async throws {
         guard !dataIsSelected else { return }
-        try await workspaceService.workspaceSetDetails(spaceId: data.spaceId, details: [.spaceUxType(.data)])
+        expectedSpaceType = .data
+        showAlert = true
+    }
+    
+    func onChange() async throws {
+        guard let expectedSpaceType else { return }
+        try await workspaceService.workspaceSetDetails(spaceId: data.spaceId, details: [.spaceUxType(expectedSpaceType)])
     }
 }

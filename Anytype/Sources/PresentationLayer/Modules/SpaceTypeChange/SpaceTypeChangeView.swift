@@ -4,6 +4,7 @@ import SwiftUI
 struct SpaceTypeChangeView: View {
     
     @StateObject private var model: SpaceTypeChangeViewModel
+    @Environment(\.dismiss) private var dismiss
     
     init(data: SpaceTypeChangeData) {
         self._model = StateObject(wrappedValue: SpaceTypeChangeViewModel(data: data))
@@ -37,6 +38,12 @@ struct SpaceTypeChangeView: View {
         }
         .task {
             await model.startSubscriptions()
+        }
+        .anytypeSheet(isPresented: $model.showAlert) {
+            SpaceTypeChangeConfirmationAlert() {
+                try await model.onChange()
+                dismiss()
+            }
         }
     }
 }
