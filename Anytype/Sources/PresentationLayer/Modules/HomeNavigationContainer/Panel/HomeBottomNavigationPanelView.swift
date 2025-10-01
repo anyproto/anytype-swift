@@ -48,18 +48,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
         }
         .padding(.vertical, 10)
-        .if(FeatureFlags.homeTestSwipeGeature) { view in
-            view.gesture(
-                DragGesture(minimumDistance: 100)
-                    .onEnded { value in
-                        if value.translation.width > 150 {
-                            model.onTapBackward()
-                        } else if value.translation.width < -150 {
-                            model.onTapForward()
-                        }
-                    }
-            )
-        }
         .task {
             await model.startSubscriptions()
         }

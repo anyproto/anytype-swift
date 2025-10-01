@@ -103,7 +103,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.spaceFileUploadService)
     private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
-        
+    @Injected(\.spaceHubPathUXTypeHelper)
+    private var spaceHubPathUXTypeHelper: any SpaceHubPathUXTypeHelperProtocol
     
     private var needSetup = true
     
@@ -223,22 +224,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     func startSpaceSubscription() async {
         guard let spaceId = currentSpaceId else { return }
         for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
-            switch spaceView.uxType {
-            case .chat:
-                // Expected: SpaceHubNavigationItem, SpaceChatCoordinatorData
-                let chatItem = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-                navigationPath.remove(chatItem)
-                navigationPath.insert(chatItem, at: 1)
-            case .data:
-                // Expected: SpaceHubNavigationItem, HomeWidgetData
-                let chatItem = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-                let homeItem = HomeWidgetData(spaceId: spaceView.targetSpaceId)
-                navigationPath.remove(chatItem)
-                navigationPath.remove(homeItem)
-                navigationPath.insert(homeItem, at: 1)
-            default:
-                break
-            }
+            navigationPath = await spaceHubPathUXTypeHelper.updateNaivgationPathForUxType(spaceView: spaceView, path: navigationPath)
         }
     }
     
@@ -588,11 +574,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func popToFirstInSpace() {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
-    }
-
-    func onForwardSelected() {
-        guard !pathChanging else { return }
-        navigationPath.pushFromHistory()
     }
 
     func onBackwardSelected() {

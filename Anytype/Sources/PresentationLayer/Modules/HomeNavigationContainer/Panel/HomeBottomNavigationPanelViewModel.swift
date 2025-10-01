@@ -66,10 +66,6 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         setupDataSubscription()
     }
     
-    func onTapForward() {
-        output?.onForwardSelected()
-    }
-    
     func onTapBackward() {
         AnytypeAnalytics.instance().logHistoryBack()
         output?.onBackwardSelected()
