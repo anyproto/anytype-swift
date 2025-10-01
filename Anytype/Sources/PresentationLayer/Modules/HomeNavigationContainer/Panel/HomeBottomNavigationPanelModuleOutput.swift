@@ -4,7 +4,6 @@ import Foundation
 protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onSearchSelected()
     func onCreateObjectSelected(screenData: ScreenData)
-    func onBackwardSelected()
     func onPickTypeForNewObjectSelected()
     func onMembersSelected()
     func onShareSelected()

@@ -575,11 +575,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
     }
-
-    func onBackwardSelected() {
-        guard !pathChanging else { return }
-        navigationPath.pop()
-    }
     
     func onPickTypeForNewObjectSelected() {
         guard let spaceInfo else { return }
