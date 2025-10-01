@@ -17,6 +17,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: SpaceShareData?
     @Published var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
+    @Published var spaceTypeChangeData: SpaceTypeChangeData?
     @Published var showFiles = false
     
     var pageNavigation: PageNavigation?
@@ -74,6 +75,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onBinSelected() {
         pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
+    }
+    
+    func onSpaceUxTypeSelected() {
+        spaceTypeChangeData = SpaceTypeChangeData(spaceId: spaceId)
     }
     
     // MARK: - RemoteStorageModuleOutput

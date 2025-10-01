@@ -657,6 +657,7 @@ extension ImageAsset {
     public static let select = ImageAsset.bundle(name: "x24/Select")
     public static let settings = ImageAsset.bundle(name: "x24/Settings")
     public static let spaceSettings = ImageAsset.bundle(name: "x24/Space settings")
+    public static let space = ImageAsset.bundle(name: "x24/Space")
     public static let storage = ImageAsset.bundle(name: "x24/Storage")
     public static let style = ImageAsset.bundle(name: "x24/Style")
     public static let text = ImageAsset.bundle(name: "x24/Text")

@@ -31,11 +31,12 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
     
     func updateUIViewController(_ controller: UINavigationController, context: Context) {
         let builder = context.coordinator.builder
-        let currentViewControllers = context.coordinator.currentViewControllers
+        var freeViewControllers = context.coordinator.currentViewControllers
         var viewControllers = [UIHostingController<AnytypeNavigationViewBridge>]()
         
         path.enumerated().forEach { index, pathItem in
-            if let vc = currentViewControllers[safe: index], vc.rootView.data.hashValue == pathItem.hashValue {
+            if let index = freeViewControllers.firstIndex(where: { $0.rootView.data == pathItem }) {
+                let vc = freeViewControllers.remove(at: index)
                 viewControllers.append(vc)
             } else {
                 let view = builder
@@ -49,10 +50,16 @@ struct AnytypeNavigationViewRepresentable: UIViewControllerRepresentable {
         if viewControllers.isEmpty {
             return
         }
+        
+        let currentViewControllers = context.coordinator.currentViewControllers
         if currentViewControllers != viewControllers {
             context.coordinator.currentViewControllers = viewControllers
             context.coordinator.numberOfTransactions += 1
-            controller.setViewControllers(viewControllers, animated: currentViewControllers.isNotEmpty)
+            if currentViewControllers.last == viewControllers.last {
+                controller.setViewControllers(viewControllers, animated: false)
+            } else {
+                controller.setViewControllers(viewControllers, animated: currentViewControllers.isNotEmpty)
+            }
         }
     }
     
