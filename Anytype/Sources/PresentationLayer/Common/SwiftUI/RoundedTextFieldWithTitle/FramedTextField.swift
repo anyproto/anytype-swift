@@ -1,13 +1,13 @@
 import SwiftUI
 import AnytypeCore
 
-struct FramedTextField: View {
+struct FramedTextField<LeadingView: View>: View {
 
     private let title: String?
     private let placeholder: String
     private let axis: Axis
     private let shouldFocus: Bool
-    private let leadingView: (() -> AnyView)?
+    private let leadingView: () -> LeadingView
 
     @Binding private var text: String
 
@@ -17,7 +17,7 @@ struct FramedTextField: View {
         axis: Axis = .horizontal,
         shouldFocus: Bool = true,
         text: Binding<String>,
-        leadingView: (() -> AnyView)? = nil
+        leadingView: @escaping () -> LeadingView = { EmptyView() }
     ) {
         self.title = title
         self.placeholder = placeholder
@@ -35,7 +35,7 @@ struct FramedTextField: View {
             }
 
             HStack(alignment: .center, spacing: 8) {
-                leadingView?()
+                leadingView()
 
                 if shouldFocus {
                     AutofocusedTextField(
@@ -89,10 +89,8 @@ struct FramedTextField: View {
             placeholder: "eg. Project",
             text: .constant(""),
             leadingView: {
-                AnyView(
-                    IconView(icon: .object(.emoji(Emoji("🍆")!)))
-                        .frame(width: 32, height: 32)
-                )
+                IconView(icon: .object(.emoji(Emoji("🍆")!)))
+                    .frame(width: 32, height: 32)
             }
         )
     }

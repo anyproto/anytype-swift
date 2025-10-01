@@ -74,14 +74,12 @@ struct ObjectTypeInfoView: View {
             placeholder: Loc.egProject,
             text: $model.name,
             leadingView: {
-                AnyView(
-                    Button {
-                        model.onIconTap()
-                    } label: {
-                        IconView(icon: .object(model.objectIcon))
-                            .frame(width: 32, height: 32)
-                    }
-                )
+                Button {
+                    model.onIconTap()
+                } label: {
+                    IconView(icon: .object(model.objectIcon))
+                        .frame(width: 32, height: 32)
+                }
             }
         )
     }
