@@ -34,12 +34,13 @@ extension Anytype_Rpc.Object {
           public typealias RawValue = Int
           case none // = 0
           case getStarted // = 1
-          case empty // = 2
+          case dataSpace // = 2
 
           /// only the guide without other tables
           case guideOnly // = 3
           case getStartedMobile // = 4
-          case emptyMobile // = 5
+          case chatSpace // = 5
+          case dataSpaceMobile // = 6
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -50,10 +51,11 @@ extension Anytype_Rpc.Object {
             switch rawValue {
             case 0: self = .none
             case 1: self = .getStarted
-            case 2: self = .empty
+            case 2: self = .dataSpace
             case 3: self = .guideOnly
             case 4: self = .getStartedMobile
-            case 5: self = .emptyMobile
+            case 5: self = .chatSpace
+            case 6: self = .dataSpaceMobile
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -62,10 +64,11 @@ extension Anytype_Rpc.Object {
             switch self {
             case .none: return 0
             case .getStarted: return 1
-            case .empty: return 2
+            case .dataSpace: return 2
             case .guideOnly: return 3
             case .getStartedMobile: return 4
-            case .emptyMobile: return 5
+            case .chatSpace: return 5
+            case .dataSpaceMobile: return 6
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -74,10 +77,11 @@ extension Anytype_Rpc.Object {
           public static let allCases: [Anytype_Rpc.Object.ImportUseCase.Request.UseCase] = [
             .none,
             .getStarted,
-            .empty,
+            .dataSpace,
             .guideOnly,
             .getStartedMobile,
-            .emptyMobile,
+            .chatSpace,
+            .dataSpaceMobile,
           ]
 
         }
@@ -235,10 +239,11 @@ extension Anytype_Rpc.Object.ImportUseCase.Request.UseCase: SwiftProtobuf._Proto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NONE"),
     1: .same(proto: "GET_STARTED"),
-    2: .same(proto: "EMPTY"),
+    2: .same(proto: "DATA_SPACE"),
     3: .same(proto: "GUIDE_ONLY"),
     4: .same(proto: "GET_STARTED_MOBILE"),
-    5: .same(proto: "EMPTY_MOBILE"),
+    5: .same(proto: "CHAT_SPACE"),
+    6: .same(proto: "DATA_SPACE_MOBILE"),
   ]
 }
 
