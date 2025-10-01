@@ -61,6 +61,18 @@ struct HomePath: Equatable {
         path.contains(where: { $0 == item })
     }
     
+    func index(_ item: AnyHashable) -> Int? {
+        path.firstIndex(where: { $0 == item })
+    }
+    
+    mutating func insert(_ item: AnyHashable, at index: Int) {
+        path.insert(item, at: index)
+    }
+    
+    mutating func remove(_ item: AnyHashable) {
+        path.removeAll { $0 == item }
+    }
+    
     func hasForwardPath() -> Bool {
         return forwardPath.isNotEmpty
     }

@@ -187,15 +187,24 @@ struct SpaceSettingsView: View {
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
-            if FeatureFlags.muteSpacePossibility {
-                Spacer.fixedHeight(8)
-                RoundedButton(
-                    Loc.notifications,
-                    icon: pushNotificationsSettingIcon(),
-                    decoration: .caption(pushNotificationsSettingCaption())) {
-                        model.onNotificationsTap()
-                    }
+            VStack(spacing: 8) {
+                RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                if FeatureFlags.muteSpacePossibility {
+                    RoundedButton(
+                        Loc.notifications,
+                        icon: pushNotificationsSettingIcon(),
+                        decoration: .caption(pushNotificationsSettingCaption())) {
+                            model.onNotificationsTap()
+                        }
+                }
+                if let data = model.uxTypeSettingsData {
+                    RoundedButton(
+                        "Channel Type",
+                        icon: data.icon,
+                        decoration: .caption(data.typaName)) {
+                            model.onUxTypeTap()
+                        }
+                }
             }
         }
     }

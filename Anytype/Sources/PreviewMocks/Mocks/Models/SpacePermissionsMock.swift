@@ -12,7 +12,8 @@ extension SpacePermissions {
             canCancelJoinRequest: Bool.random(),
             canDeleteLink: Bool.random(),
             canEditPermissions: Bool.random(),
-            canApproveRequests: Bool.random()
+            canApproveRequests: Bool.random(),
+            canChangeUxType: Bool.random()
         )
     }
 }

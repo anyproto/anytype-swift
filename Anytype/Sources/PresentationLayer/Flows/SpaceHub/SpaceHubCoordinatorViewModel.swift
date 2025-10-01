@@ -220,6 +220,28 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         shouldScanQrCode = true
     }
     
+    func startSpaceSubscription() async {
+        guard let spaceId = currentSpaceId else { return }
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
+            switch spaceView.uxType {
+            case .chat:
+                // Expected: SpaceHubNavigationItem, SpaceChatCoordinatorData
+                let chatItem = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
+                navigationPath.remove(chatItem)
+                navigationPath.insert(chatItem, at: 1)
+            case .data:
+                // Expected: SpaceHubNavigationItem, HomeWidgetData
+                let chatItem = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
+                let homeItem = HomeWidgetData(spaceId: spaceView.targetSpaceId)
+                navigationPath.remove(chatItem)
+                navigationPath.remove(homeItem)
+                navigationPath.insert(homeItem, at: 1)
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - SpaceHubModuleOutput
     
     func onSelectCreateObject() {
