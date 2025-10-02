@@ -76,6 +76,10 @@ final class SettingsViewModel: ObservableObject {
         output?.onMySitesSelected()
     }
     
+    func onExterimentapTap() {
+        output?.onExperimentalSelected()
+    }
+    
     func onAboutTap() {
         output?.onAboutSelected()
     }

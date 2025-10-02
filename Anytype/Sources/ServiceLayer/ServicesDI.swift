@@ -400,7 +400,7 @@ extension Container {
         self { SpaceFileUploadService() }.singleton
     }
     
-    var experementalFeaturesStorage: Factory<any ExperementalFeaturesStorageProtocol> {
-        self { ExperementalFeaturesStorage() }.shared
+    var experimentalFeaturesStorage: Factory<any ExperimentalFeaturesStorageProtocol> {
+        self { ExperimentalFeaturesStorage() }.shared
     }
 }
