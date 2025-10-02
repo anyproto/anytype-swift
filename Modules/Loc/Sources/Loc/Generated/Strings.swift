@@ -1166,8 +1166,8 @@ public enum Loc {
   }
   public enum Experimental {
     public enum NewObjectCreationMenu {
-      public static let subtitle = Loc.tr("Localizable", "Experimental.NewObjectCreationMenu.subtitle", fallback: "New Object Creation Menu")
-      public static let title = Loc.tr("Localizable", "Experimental.NewObjectCreationMenu.title", fallback: "Always pick object type when creating")
+      public static let subtitle = Loc.tr("Localizable", "Experimental.NewObjectCreationMenu.subtitle", fallback: "Always pick object type when creating")
+      public static let title = Loc.tr("Localizable", "Experimental.NewObjectCreationMenu.title", fallback: "New Object Creation Menu")
     }
   }
   public enum Fields {

@@ -11,7 +11,7 @@ struct ExperimentalFeatureRow: View {
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 4) {
                     if title.isNotEmpty {
-                        AnytypeText(title, style: .caption1Regular)
+                        AnytypeText(title, style: .previewTitle1Regular)
                             .foregroundColor(.Text.primary)
                     }
                     if subtitle.isNotEmpty {
