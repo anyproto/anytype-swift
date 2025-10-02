@@ -80,7 +80,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
             let objectTypes = try await typesService.searchObjectTypes(
                 text: searchText,
                 includePins: !settings.showPins,
-                includeLists: true,
+                includeLists: false,
                 includeBookmarks: true,
                 includeFiles: settings.showFiles,
                 includeChat: settings.showChat,

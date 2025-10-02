@@ -134,10 +134,6 @@ public extension FeatureFlags {
         value(for: .sharingExtensionShowContentTypes)
     }
 
-    static var homeTestSwipeGeature: Bool {
-        value(for: .homeTestSwipeGeature)
-    }
-
     static var membershipTestTiers: Bool {
         value(for: .membershipTestTiers)
     }
@@ -200,7 +196,6 @@ public extension FeatureFlags {
         .resetTips,
         .showAllTips,
         .sharingExtensionShowContentTypes,
-        .homeTestSwipeGeature,
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,

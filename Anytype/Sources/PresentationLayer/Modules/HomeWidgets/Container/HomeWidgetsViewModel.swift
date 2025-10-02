@@ -69,7 +69,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
         
-        (_, _, _) = await (widgetObjectSub, participantTask, objectTypesTask)
+        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask)
     }
     
     func onAppear() {
@@ -154,8 +154,6 @@ final class HomeWidgetsViewModel: ObservableObject {
             
             var newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
-            
-            let chatWidgets = newWidgetBlocks.filter { $0.source == .library(.chat) }
             
             newWidgetBlocks.removeAll { $0.source == .library(.chat) }
             

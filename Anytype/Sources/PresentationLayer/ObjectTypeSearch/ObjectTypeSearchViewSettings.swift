@@ -23,7 +23,7 @@ extension ObjectTypeSearchViewSettings {
     
     static let queryInSet = ObjectTypeSearchViewSettings(
         showPins: false,
-        showLists: false,
+        showLists: true,
         showFiles: true,
         showChat: false,
         showTemplates: true,

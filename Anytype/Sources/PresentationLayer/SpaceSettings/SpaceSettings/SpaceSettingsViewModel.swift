@@ -56,6 +56,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
+    @Published var uxTypeSettingsData: SpaceUxTypeSettingsData?
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
@@ -185,6 +186,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onBinSelected()
     }
     
+    func onUxTypeTap() {
+        output?.onSpaceUxTypeSelected()
+    }
+    
     // MARK: - Subscriptions
     
     func startSubscriptions() async {
@@ -263,6 +268,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
+        
+        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
         
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
