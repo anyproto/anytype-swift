@@ -41,7 +41,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
-            if !FeatureFlags.updatedHomePlusMenu {
+            if !model.newObjectPlusMenu {
                 if #available(iOS 17.0, *) {
                     HomeTipView()
                 }
@@ -68,7 +68,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         
         leftButton
         
-        if FeatureFlags.updatedHomePlusMenu {
+        if model.newObjectPlusMenu {
             Menu {
                 if let type = model.pageObjectType {
                     Button {

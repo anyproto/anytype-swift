@@ -35,6 +35,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.experimentalFeaturesStorage)
+    private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
     
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
@@ -56,6 +58,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var noteObjectType: ObjectType?
     @Published var taskObjectType: ObjectType?
     @Published var otherObjectTypes: [ObjectType] = []
+    @Published var newObjectPlusMenu: Bool = false
     
     init(
         info: AccountInfo,
@@ -81,8 +84,9 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func startSubscriptions() async {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
+        async let featuresSub: () = featuresSubscription()
         
-        (_, _) = await (participantSub, typesSub)
+        _ = await (participantSub, typesSub, featuresSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
@@ -174,6 +178,12 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                     $0.uniqueKey != .image &&
                     $0.uniqueKey != .file
                 }
+        }
+    }
+    
+    private func featuresSubscription() async {
+        for await newObjectCreationMenu in experimentalFeaturesStorage.newObjectCreationMenuSequence {
+            newObjectPlusMenu = newObjectCreationMenu
         }
     }
     

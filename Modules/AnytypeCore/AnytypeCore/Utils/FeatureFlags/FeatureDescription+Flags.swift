@@ -64,12 +64,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let updatedHomePlusMenu = FeatureDescription(
-        title: "Updated home plus menu",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true,
-    )
-    
     static let fixCollectionViewReuseCrashInEditor = FeatureDescription(
         title: "Attempt to fix collection view reuse crash in Editor",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
