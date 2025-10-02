@@ -6,7 +6,6 @@ import StoreKit
 
 struct MembershipTierSelectionView: View {
     @StateObject private var model: MembershipTierSelectionViewModel
-    @State private var safariUrl: URL?
 
     
     init(
@@ -26,7 +25,6 @@ struct MembershipTierSelectionView: View {
     
     var body: some View {
         content
-        .safariSheet(url: $safariUrl)
         .task {
             await model.onAppear()
         }
@@ -73,29 +71,13 @@ struct MembershipTierSelectionView: View {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let url):
-                    if FeatureFlags.hideWebPayments {
-                        notAvaliableOnAppStore
-                    } else {
-                        moreInfoButton(url: url)
-                    }
+                    notAvaliableOnAppStore
                 }
             }
         }
     }
     
-    func moreInfoButton(url: URL) -> some View {
-        VStack {
-            StandardButton(Loc.moreInfo, style: .primaryLarge) {
-                AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
-                safariUrl = url
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 34)
-        }
-        .background(Color.Background.primary)
-        .cornerRadius(16, corners: .top)
-    }
-    
+
     var notAvaliableOnAppStore: some View {
         VStack {
             AnytypeText(Loc.Membership.unavailable, style: .uxTitle2Regular)
@@ -107,7 +89,7 @@ struct MembershipTierSelectionView: View {
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
     }
-    
+
     // To mimic sheet overlay style
     var sheetBackground: some View {
         LinearGradient(

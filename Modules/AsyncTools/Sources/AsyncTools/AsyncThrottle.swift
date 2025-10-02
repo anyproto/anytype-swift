@@ -1,6 +1,6 @@
 import Foundation
 
-extension AsyncSequence {
+extension AsyncSequence where Self: Sendable {
     // Temporary fix. Issue https://github.com/apple/swift-async-algorithms/issues/266
     public func throttle(milliseconds: Int, latest: Bool = true) -> AnyAsyncSequence<Element> {
         self

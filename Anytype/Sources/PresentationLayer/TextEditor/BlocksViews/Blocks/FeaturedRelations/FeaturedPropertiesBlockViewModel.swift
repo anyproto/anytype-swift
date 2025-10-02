@@ -3,6 +3,7 @@ import Services
 import Combine
 import SwiftUI
 
+@MainActor
 final class FeaturedPropertiesBlockViewModel: BlockViewModelProtocol {
     let infoProvider: BlockModelInfomationProvider
     nonisolated var info: BlockInformation { infoProvider.info }

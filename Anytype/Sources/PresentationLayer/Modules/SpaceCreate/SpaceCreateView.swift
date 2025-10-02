@@ -20,15 +20,14 @@ struct SpaceCreateView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     iconSection
-                    
-                    RoundedTextFieldWithTitle(
+
+                    FramedTextField(
                         title: FeatureFlags.spaceUxTypes ? Loc.name : Loc.Settings.spaceName,
                         placeholder: Loc.untitled,
                         axis: .vertical,
                         text: $model.spaceName
                     )
-                    .focused(.constant(true))
-                    
+
                     if !FeatureFlags.spaceUxTypes {
                         SectionHeaderView(title: Loc.typeLabel)
                         SpaceTypeView(name: model.spaceAccessType.name)

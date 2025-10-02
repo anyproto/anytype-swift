@@ -6,8 +6,9 @@ extension Container {
         self { SetObjectCreationCoordinator() }
     }
     
+    @MainActor
     var legacyTemplatesCoordinator: Factory<any TemplatesCoordinatorProtocol> {
-        self { TemplatesCoordinator() }
+        self { @MainActor in TemplatesCoordinator() }
     }
     
     var legacySetObjectCreationSettingsCoordinator: Factory<any SetObjectCreationSettingsCoordinatorProtocol> {

@@ -70,36 +70,27 @@ struct ObjectTypeInfoView: View {
     }
 
     private var nameInput: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Button {
-                model.onIconTap()
-            } label: {
-                IconView(icon: .object(model.objectIcon))
-                    .frame(width: 32, height: 32)
+        FramedTextField(
+            placeholder: Loc.egProject,
+            text: $model.name,
+            leadingView: {
+                Button {
+                    model.onIconTap()
+                } label: {
+                    IconView(icon: .object(model.objectIcon))
+                        .frame(width: 32, height: 32)
+                }
             }
-            Spacer.fixedWidth(10)
-            AutofocusedTextField(placeholder: Loc.egProject, font: .heading, text: $model.name)
-                .autocorrectionDisabled()
-            Spacer()
-            Spacer.fixedWidth(8)
-        }
-        .padding(.vertical, 20)
-        .padding(.horizontal, 16)
-        .border(16, color: .Shape.primary, lineWidth: 0.5)
+        )
     }
     
     private var pluralNameInput: some View {
-        HStack(alignment: .center, spacing: 0) {
-            VStack(alignment: .leading, spacing: 4) {
-                AnytypeText(Loc.typePluralName, style: .caption1Regular).foregroundColor(.Text.secondary)
-                AnytypeTextField(placeholder: Loc.egProjects, font: .previewTitle1Regular, text: $model.pluralName)
-                    .autocorrectionDisabled()
-            }
-            Spacer()
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .border(16, color: .Shape.primary, lineWidth: 0.5)
+        FramedTextField(
+            title: Loc.typePluralName,
+            placeholder: Loc.egProjects,
+            shouldFocus: false,
+            text: $model.pluralName
+        )
     }
     
     private var title: some View {
