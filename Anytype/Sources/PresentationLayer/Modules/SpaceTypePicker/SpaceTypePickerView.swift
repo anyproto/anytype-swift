@@ -33,17 +33,6 @@ struct SpaceCreateTypePickerView: View {
                     AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()
                 }
             )
-            if FeatureFlags.enableStreamSpaceType {
-                SpaceTypePickerRow(
-                    icon: .Channel.stream,
-                    title: Loc.Spaces.UxType.Stream.title,
-                    subtitle: Loc.Spaces.UxType.Stream.description,
-                    onTap: {
-                        dismiss()
-                        onSelectSpaceType(.stream)
-                    }
-                )
-            }
             SpaceTypePickerRow(
                 icon: .X32.qrCodeJoin,
                 title: Loc.Qr.Join.title,

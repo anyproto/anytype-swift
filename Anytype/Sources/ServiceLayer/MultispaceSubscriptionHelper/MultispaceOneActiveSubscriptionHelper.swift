@@ -9,7 +9,7 @@ protocol MultispaceSearchDataBuilderProtocol: AnyObject, Sendable {
 
 typealias MultispaceOneActiveSubscriptionDataBuilder = MultispaceSubscriptionDataBuilderProtocol & MultispaceSearchDataBuilderProtocol
 
-actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
+actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel & Sendable>: Sendable {
 
     // MARK: - DI
     
@@ -62,7 +62,7 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         return data[spaceId].isNotNil
     }
     
-    private func updateSubscription(spaceId: String, update: @escaping (@Sendable () -> Void)) async {
+    private func updateSubscription(spaceId: String, update: @escaping @Sendable () -> Void) async {
         guard activeSpaceId != spaceId else { return }
         
         try? await activeSubscriptionStorage?.stopSubscription()
@@ -80,7 +80,7 @@ actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel>: Sendable {
         }
     }
     
-    private func updateStorage(subscriptionState: SubscriptionStorageState, spaceId: String, update: (() -> Void)) {
+    private func updateStorage(subscriptionState: SubscriptionStorageState, spaceId: String, update: @escaping @Sendable () -> Void) {
         data[spaceId] = subscriptionState.items.compactMap { try? Value(details: $0) }
         update()
     }

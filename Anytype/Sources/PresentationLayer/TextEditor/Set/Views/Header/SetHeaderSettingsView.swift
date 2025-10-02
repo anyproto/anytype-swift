@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
@@ -10,10 +9,6 @@ struct SetHeaderSettingsView: View {
             HStack(alignment: .center, spacing: 0) {
                 viewButton
                 Spacer()
-                if FeatureFlags.aiToolInSet {
-                    aiButton
-                    Spacer.fixedWidth(16)
-                }
                 settingButton
                 
                 if !model.isActiveHeader || model.isActiveCreateButton {
@@ -30,18 +25,7 @@ struct SetHeaderSettingsView: View {
             }
         }
     }
-    
-    private var aiButton: some View {
-        Button(action: {
-            UISelectionFeedbackGenerator().selectionChanged()
-            model.onAITap()
-        }) {
-            Image(asset: .X24.ai)
-                .foregroundColor(model.isActiveHeader ? .Control.secondary : .Control.tertiary)
-        }
-        .disabled(!model.isActiveHeader)
-    }
-    
+
     private var settingButton: some View {
         Button(action: {
             UISelectionFeedbackGenerator().selectionChanged()
@@ -104,7 +88,6 @@ struct SetHeaderSettings_Previews: PreviewProvider {
             model: SetHeaderSettingsViewModel(
                 setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
                 onViewTap: {},
-                onAITap: {},
                 onSettingsTap: {},
                 onCreateTap:{},
                 onSecondaryCreateTap: {}

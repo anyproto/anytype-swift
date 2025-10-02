@@ -173,7 +173,6 @@ final class SpaceSettingsViewModel: ObservableObject {
             title: Loc.name,
             placeholder: Loc.untitled,
             initialValue: spaceName,
-            font: .bodySemibold,
             usecase: .spaceName,
             onSave: { [weak self] in
                 guard let self else { return }
