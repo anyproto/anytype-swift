@@ -25,7 +25,7 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     
     var typeId: String { info.objectTypeId }
     var canCreateObject: Bool { typeCanBeCreated && canEdit}
-    var canDeleteType: Bool { typeIsDeletable && canEdit}
+    var canDeleteType: Bool { typeIsDeletable && canEdit }
     
     @Published var typeIcon: Icon?
     @Published var typeName: String = ""
@@ -34,10 +34,10 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     }
     @Published var rows: ObjectTypeWidgetRowType?
     @Published var deleteAlert: ObjectTypeDeleteConfirmationAlertData?
+    @Published var canEdit: Bool = false
     
     @Published private var typeIsDeletable: Bool = false
     @Published private var typeCanBeCreated: Bool = false
-    @Published private var canEdit: Bool = false
     
     init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
         self.info = info

@@ -32,7 +32,7 @@ private struct ObjectTypeWidgetInternalView: View {
             LinkWidgetViewContainer(
                 isExpanded: $model.isExpanded,
                 dragId: model.typeId,
-                homeState: .constant(.readwrite),
+                homeState: model.canEdit ? .constant(.readwrite) : .constant(.readonly),
                 createObjectAction: model.canCreateObject ? {
                     model.onCreateObject()
                 } : nil,
