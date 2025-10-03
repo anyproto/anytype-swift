@@ -626,6 +626,7 @@ extension ImageAsset {
     public static let date = ImageAsset.bundle(name: "x24/Date")
     public static let edit = ImageAsset.bundle(name: "x24/Edit")
     public static let email = ImageAsset.bundle(name: "x24/Email")
+    public static let experimentalFeatures = ImageAsset.bundle(name: "x24/Experimental Features")
     public static let imageFromCamera = ImageAsset.bundle(name: "x24/Image from Camera")
     public static let keychain = ImageAsset.bundle(name: "x24/Keychain")
     public static let linkToExistingObject = ImageAsset.bundle(name: "x24/Link to Existing Object")
