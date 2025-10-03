@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .mediaCarouselForWidgets)
     }
 
-    static var updatedHomePlusMenu: Bool {
-        value(for: .updatedHomePlusMenu)
-    }
-
     static var fixCollectionViewReuseCrashInEditor: Bool {
         value(for: .fixCollectionViewReuseCrashInEditor)
     }
@@ -174,7 +170,6 @@ public extension FeatureFlags {
         .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
-        .updatedHomePlusMenu,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,

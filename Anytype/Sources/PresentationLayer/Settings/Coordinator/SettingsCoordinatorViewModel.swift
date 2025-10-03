@@ -23,6 +23,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showSpaceManager = false
     @Published var showMembership = false
     @Published var showMySites = false
+    @Published var showExperimentalFeatures = false
     @Published var showKeychainPhraseForSettings = false
     @Published var objectIconPickerData: ObjectIconPickerData?
     
@@ -46,6 +47,10 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     func onMySitesSelected() {
         showMySites = true
+    }
+    
+    func onExperimentalSelected() {
+        showExperimentalFeatures = true
     }
     
     func onAboutSelected() {

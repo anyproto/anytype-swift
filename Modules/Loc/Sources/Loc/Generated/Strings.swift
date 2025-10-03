@@ -176,6 +176,7 @@ public enum Loc {
   public static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   public static let exactDay = Loc.tr("Localizable", "Exact day", fallback: "Exact day")
   public static let existingProperties = Loc.tr("Localizable", "Existing properties", fallback: "Existing properties")
+  public static let experimentalFeatures = Loc.tr("Localizable", "Experimental Features", fallback: "Experimental Features")
   public static let export = Loc.tr("Localizable", "Export", fallback: "Export")
   public static let failedToSyncTryingAgain = Loc.tr("Localizable", "Failed to sync, trying again...", fallback: "Failed to sync, trying again...")
   public static let featuredRelations = Loc.tr("Localizable", "Featured relations", fallback: "Featured properties")
@@ -239,8 +240,8 @@ public enum Loc {
   public static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait", fallback: "Loading, please wait")
   public static let localOnly = Loc.tr("Localizable", "Local Only", fallback: "Local Only")
   public static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
-  public static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
-  public static let loginKey = Loc.tr("Localizable", "Login key", fallback: "Login key")
+  public static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log Out")
+  public static let loginKey = Loc.tr("Localizable", "Login key", fallback: "Login Key")
   public static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("Localizable", "Manage payment", fallback: "Manage payment")
   public static let media = Loc.tr("Localizable", "Media", fallback: "Media")
@@ -1158,6 +1159,12 @@ public enum Loc {
   public enum ErrorOccurred {
     public static let pleaseTryAgain = Loc.tr("Localizable", "Error occurred. Please try again", fallback: "Error occurred. Please try again")
   }
+  public enum Experimental {
+    public enum NewObjectCreationMenu {
+      public static let subtitle = Loc.tr("Localizable", "Experimental.NewObjectCreationMenu.subtitle", fallback: "Always pick object type when creating")
+      public static let title = Loc.tr("Localizable", "Experimental.NewObjectCreationMenu.title", fallback: "New Object Creation Menu")
+    }
+  }
   public enum Fields {
     public static let addToType = Loc.tr("Localizable", "Fields.addToType", fallback: "Add to the current type")
     public static func created(_ p1: Any) -> String {
@@ -1190,7 +1197,7 @@ public enum Loc {
     }
     public enum Local {
       public static let instruction = Loc.tr("Localizable", "FileStorage.Local.Instruction", fallback: "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.")
-      public static let title = Loc.tr("Localizable", "FileStorage.Local.Title", fallback: "Local storage")
+      public static let title = Loc.tr("Localizable", "FileStorage.Local.Title", fallback: "Local Storage")
       public static func used(_ p1: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Local.Used", String(describing: p1), fallback: "%@ used")
       }

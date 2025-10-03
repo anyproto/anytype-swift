@@ -388,7 +388,6 @@ extension Container {
         self { PushNotificationsSystemSettingsBroadcaster() }.singleton
     }
     
-    
     var spaceIconForNotificationsHandler: Factory<any SpaceIconForNotificationsHandlerProtocol> {
         self { SpaceIconForNotificationsHandler() }.singleton
     }
@@ -399,5 +398,9 @@ extension Container {
     
     var spaceFileUploadService: Factory<any SpaceFileUploadServiceProtocol> {
         self { SpaceFileUploadService() }.singleton
+    }
+    
+    var experimentalFeaturesStorage: Factory<any ExperimentalFeaturesStorageProtocol> {
+        self { ExperimentalFeaturesStorage() }.shared
     }
 }
