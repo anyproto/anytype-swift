@@ -104,6 +104,10 @@ extension SpaceView {
         !initialScreenIsChat && isShared && hasChat
     }
     
+    var canShowChatWidget: Bool {
+        !initialScreenIsChat && hasChat
+    }
+    
     var hasChat: Bool {
         chatId.isNotEmpty
     }
