@@ -302,7 +302,11 @@ final class SpaceSettingsViewModel: ObservableObject {
                     return .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
                 }
             case .shared:
-                return .ownerOrEditor(joiningCount: joiningCount)
+                if participantSpaceView.isOwner {
+                    return .owner(joiningCount: joiningCount)
+                } else {
+                    return .editor
+                }
             }
         } else {
             return .viewer
