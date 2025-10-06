@@ -814,7 +814,7 @@ public enum Loc {
       public static let title = Loc.tr("Localizable", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     public enum Empty {
-      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "This chat is empty.")
+      public static let title = Loc.tr("Localizable", "Chat.Empty.Title", fallback: "You just created a chat")
       public enum Button {
         public static let title = Loc.tr("Localizable", "Chat.Empty.Button.title", fallback: "Invite members")
       }
