@@ -32,6 +32,7 @@ struct FramedTextField<LeadingView: View>: View {
             if let title {
                 AnytypeText(title, style: .uxCalloutRegular)
                     .foregroundColor(.Text.secondary)
+                    .accessibilityLabel("Title")
             }
 
             HStack(alignment: .center, spacing: 8) {
@@ -68,6 +69,7 @@ struct FramedTextField<LeadingView: View>: View {
             RoundedRectangle(cornerRadius: 26)
                 .stroke(Color.Shape.transperentSecondary, lineWidth: 1)
         )
+        .accessibilityLabel("TextFieldContainer")
     }
 }
 

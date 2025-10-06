@@ -21,6 +21,7 @@ struct PageNavigationBackButton: View {
         .if(pageNavigationHiddenBackButton) {
             $0.hidden()
         }
+        .accessibilityLabel("NavigationBack")
     }
 }
 
