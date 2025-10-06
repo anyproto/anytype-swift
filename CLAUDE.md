@@ -218,6 +218,12 @@ Modules/                # Swift packages
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
 
+### Release Branch Workflow
+- **Branches from release**: When creating a branch from a release branch (e.g., `release/0.42.0`):
+  - Target the **release branch** in your PR, not `develop`
+  - Always add the **"Release"** label to the PR
+  - Example: `gh pr create --base release/0.42.0 --label "Release" --title "..." --body "..."`
+
 ### ❌ FORBIDDEN Git Practices
 
 **NEVER do this:**
