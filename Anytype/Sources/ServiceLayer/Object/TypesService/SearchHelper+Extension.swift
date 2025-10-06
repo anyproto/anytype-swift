@@ -33,7 +33,7 @@ extension SearchHelper {
                 ObjectTypeUniqueKey.audio.value
             ])
         
-        let orderIdSort = SearchHelper.sort(relation: .orderId, type: .asc)
+        let orderIdSort = SearchHelper.sort(relation: .orderId, type: .asc, emptyPlacement: .start)
         
         return [orderIdSort, customSort, nameSort]
     }
