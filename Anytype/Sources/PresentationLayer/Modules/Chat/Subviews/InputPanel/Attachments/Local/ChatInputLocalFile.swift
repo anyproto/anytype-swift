@@ -3,7 +3,7 @@ import UIKit
 
 struct ChatInputLocalFile: View {
     
-    let fileData: FileData
+    let fileData: ChatLocalBinaryFile
     let onTapObject: () -> Void
     let onTapRemove: () -> Void
     
@@ -16,15 +16,15 @@ struct ChatInputLocalFile: View {
     
     @ViewBuilder
     private var content: some View {
-        switch fileData.chatViewType {
+        switch fileData.data.chatViewType {
         case .image:
-            ChatInputLocalImageView(contentsOfFile: fileData.path, onTapRemove: onTapRemove)
-                .id(fileData.path)
+            ChatInputLocalImageView(contentsOfFile: fileData.data.path, onTapRemove: onTapRemove)
+                .id(fileData.data.path)
         case .file:
-            ChatInputLocalBinaryFileView(path: fileData.path, type: fileData.type, sizeInBytes: fileData.sizeInBytes, onTapRemove: onTapRemove)
+            ChatInputLocalBinaryFileView(path: fileData.data.path, type: fileData.data.type, sizeInBytes: fileData.data.sizeInBytes, onTapRemove: onTapRemove)
         case .video:
-            ChatInputVideoView(url: URL(fileURLWithPath: fileData.path), onTapRemove: onTapRemove)
-                .id(fileData.path)
+            ChatInputVideoView(url: URL(fileURLWithPath: fileData.data.path), onTapRemove: onTapRemove)
+                .id(fileData.data.path)
         }
     }
 }

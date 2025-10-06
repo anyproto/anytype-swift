@@ -87,12 +87,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
-        let screenData: ScreenData
-        if details.editorViewType == .type && FeatureFlags.simpleSetForTypes {
-            screenData = .editor(.simpleSet(EditorSimpleSetObject(objectId: details.id, spaceId: details.spaceId)))
-        } else {
-            screenData = ScreenData(details: details, activeViewId: activeViewId)
-        }
+        let screenData = ScreenData(details: details, activeViewId: activeViewId)
         AnytypeAnalytics.instance().logClickWidgetTitle(
             source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")),
             createType: info.widgetCreateType

@@ -2,7 +2,7 @@
 import Services
 import ProtobufMessages
 
-final class BlockServiceMock: BlockServiceProtocol {
+final class BlockServiceMock: BlockServiceProtocol, @unchecked Sendable {
     var replaceStub = false
     var replaceNumberOfCalls = 0
     var replaceBlockIds: [String]?
