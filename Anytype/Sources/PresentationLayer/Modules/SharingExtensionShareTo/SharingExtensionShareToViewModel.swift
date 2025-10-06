@@ -97,11 +97,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
             comment: comment
         )
         try await contentManager.clearSharedContent()
-        
-        if #available(iOS 16.4, *) {
-        } else {
-            dismiss.toggle()
-        }
+
         output?.shareToFinished()
     }
     

@@ -124,9 +124,7 @@ struct MembershipDebugView: View {
         VStack(alignment: .center) {
             AnytypeText("\(transaction.productID)", style: .bodyRegular)
             AnytypeText("\(transaction.ownershipType.rawValue)", style: .bodyRegular)
-            if #available(iOS 17.0, *) {
-                AnytypeText("Transaction reason: \(transaction.reason.rawValue)", style: .bodyRegular)
-            }
+            AnytypeText("Transaction reason: \(transaction.reason.rawValue)", style: .bodyRegular)
             AnytypeText("Purchase date: \(transaction.purchaseDate.description)", style: .caption1Medium)
             if let expirationDate = transaction.expirationDate {
                 AnytypeText("Expires: \(expirationDate.description)", style: .caption1Medium)

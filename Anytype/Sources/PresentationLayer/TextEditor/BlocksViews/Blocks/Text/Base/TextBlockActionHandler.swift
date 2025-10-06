@@ -318,9 +318,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            if #available(iOS 17.0, *) {
-                                SharingTip.didCopyText = true
-                            }
+                            SharingTip.didCopyText = true
                         }
                     }
                 }
@@ -352,10 +350,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol, LinkToSearch
                 let range = NSRange(location: pasteResult.caretPosition, length: 0)
                 textView.setFocus(.at(range))
             }
-            
-            if #available(iOS 17.0, *) {
-                SharingTip.didCopyText = true
-            }
+
+            SharingTip.didCopyText = true
         }
         return false
     }

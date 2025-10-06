@@ -42,9 +42,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .cornerRadius(16, style: .continuous)
         .overlay {
             if !model.newObjectPlusMenu {
-                if #available(iOS 17.0, *) {
-                    HomeTipView()
-                }
+                HomeTipView()
             }
         }
         .padding(.vertical, 10)

@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 import TipKit
 
-@available(iOS 17.0, *)
 struct TipCustomViewPresentationModifier<TipType: Tip, Screen: View>: ViewModifier {
     
     let tip: TipType

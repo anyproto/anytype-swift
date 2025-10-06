@@ -1,7 +1,6 @@
 import AnytypeCore
 import Foundation
 
-@available(iOS 17.0, *)
 final class SharingTipViewModel: ObservableObject {
     
     let sharingTip = SharingTip()

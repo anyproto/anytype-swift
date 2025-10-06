@@ -66,14 +66,12 @@ struct SpaceHubView: View {
         ScrollView {
             VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
-                
-                if #available(iOS 17.0, *) {
-                    if FeatureFlags.anyAppBetaTip {
-                        HomeAnyAppWidgetTipView()
-                            .padding(.horizontal, 8)
-                    }
+
+                if FeatureFlags.anyAppBetaTip {
+                    HomeAnyAppWidgetTipView()
+                        .padding(.horizontal, 8)
                 }
-                
+
                 ForEach(model.filteredSpaces) {
                     spaceCard($0)
                 }

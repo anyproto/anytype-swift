@@ -1,16 +1,12 @@
 import SwiftUI
 
 struct FitPresentationDetentsViewModifier: ViewModifier {
-    
+
     @State private var height: CGFloat = 100
 
      func body(content: Content) -> some View {
-         if #available(iOS 16.4, *) {
-            bodyDetents(content: content)
-                 .presentationCornerRadius(16)
-         } else {
-             bodyDetents(content: content)
-         }
+        bodyDetents(content: content)
+             .presentationCornerRadius(16)
      }
 
      private func bodyDetents(content: Content) -> some View {
@@ -32,20 +28,14 @@ extension View {
 }
 
 struct MediumPresentationDetentsViewModifier: ViewModifier {
-    
+
     func body(content: Content) -> some View {
-         if #available(iOS 16.4, *) {
-             bodyDetents(content: content)
-                 .presentationDetents([.medium, .large])
-                 .presentationDragIndicator(.hidden)
-                 .presentationCornerRadius(16)
-         } else {
-             bodyDetents(content: content)
-                 .presentationDetents([.medium, .large])
-                 .presentationDragIndicator(.hidden)
-         }
+        bodyDetents(content: content)
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.hidden)
+            .presentationCornerRadius(16)
      }
-    
+
     private func bodyDetents(content: Content) -> some View {
         VStack(spacing: 0) {
             content
