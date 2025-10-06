@@ -9,7 +9,8 @@ enum PrivateSpaceSettingsShareSection {
 enum SpaceSettingsShareSection {
     case personal
     case `private`(state: PrivateSpaceSettingsShareSection)
-    case ownerOrEditor(joiningCount: Int)
+    case owner(joiningCount: Int)
+    case editor
     case viewer
 }
 
@@ -18,7 +19,7 @@ extension SpaceSettingsShareSection {
         switch self {
         case .personal, .private, .viewer:
             false
-        case .ownerOrEditor:
+        case .editor, .owner:
             true
         }
     }

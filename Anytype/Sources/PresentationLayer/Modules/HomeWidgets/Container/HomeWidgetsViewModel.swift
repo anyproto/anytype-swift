@@ -199,7 +199,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     private func startSpaceViewTask() async {
-        for await showChat in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map(\.canAddChatWidget).removeDuplicates().values {
+        for await showChat in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map(\.canShowChatWidget).removeDuplicates().values {
             chatWidgetData = showChat ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
         }
     }

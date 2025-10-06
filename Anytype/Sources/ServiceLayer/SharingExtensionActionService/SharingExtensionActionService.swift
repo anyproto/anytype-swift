@@ -86,7 +86,11 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
             }
         } else {
             for linkToObject in linkToObjects {
-                try await createBlocks(object: linkToObject, contentItems: savedContent)
+                if linkToObject.isCollection {
+                    try await linkToCollection(object: linkToObject, contentItems: savedContent)
+                } else {
+                    try await createBlocks(object: linkToObject, contentItems: savedContent)
+                }
             }
         }
     }
@@ -231,6 +235,14 @@ actor SharingExtensionActionService: SharingExtensionActionServiceProtocol {
             route: .sharingExtension
         )
         return details
+    }
+    
+    private func linkToCollection(object: ObjectDetails, contentItems: [SharedSavedContentItem]) async throws {
+        let linkIds = contentItems.compactMap { $0.objectId }
+        try await objectActionsService.addObjectsToCollection(
+            contextId: object.id,
+            objectIds: linkIds
+        )
     }
     
     private func createBlocks(object: ObjectDetails, contentItems: [SharedSavedContentItem]) async throws {

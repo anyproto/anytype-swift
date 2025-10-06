@@ -14,7 +14,7 @@ public extension DetailsLayout {
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
     static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + [.set, .collection]
-    static let supportedForSharingExtension: [DetailsLayout] = listLayouts + editorLayouts
+    static let supportedForSharingExtension: [DetailsLayout] = [.collection] + editorLayouts
     
     static let widgetTypeLayouts = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
     
