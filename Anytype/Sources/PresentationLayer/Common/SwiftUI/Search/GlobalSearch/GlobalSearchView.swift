@@ -56,7 +56,7 @@ struct GlobalSearchView: View {
         )
         .padding(.leading, -8)
         .padding(.trailing, 16)
-        .menuActionDisableDismissBehavior()
+        .menuActionDismissBehavior(.disabled)
     }
     
     private var sections: some View {

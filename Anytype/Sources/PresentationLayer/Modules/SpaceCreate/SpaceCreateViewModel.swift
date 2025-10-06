@@ -87,8 +87,6 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             if createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             }
-            
-            dismissForLegacyOS()
         }
     }
     

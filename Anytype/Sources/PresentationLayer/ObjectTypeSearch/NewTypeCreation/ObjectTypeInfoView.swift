@@ -38,10 +38,9 @@ struct ObjectTypeInfoView: View {
     var body: some View {
         content
             .onAppear { model.dismiss = dismiss }
-            .onChangeIfiOS17(of: model.name) { oldValue, newValue in
+            .onChange(of: model.name) { oldValue, newValue in
                 model.onNameChange(old: oldValue, new: newValue)
             }
-        
             .sheet(isPresented: $model.showIconPicker) {
                 ObjectTypeIconPicker(isRemoveButtonAvailable: model.isRemoveIconButtonAvailable, onIconSelect: { icon, color in
                     model.onIconSelect(icon: icon, color: color)
