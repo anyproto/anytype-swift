@@ -139,15 +139,7 @@ public extension FeatureDescription {
         releaseAnyAppValue: true,
         debugValue: false
     )
-    
-    static let simpleSetForTypes = FeatureDescription(
-        title: "Simple set for types",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
+
     static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
         title: "Do not wait completion in Anytype Preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),

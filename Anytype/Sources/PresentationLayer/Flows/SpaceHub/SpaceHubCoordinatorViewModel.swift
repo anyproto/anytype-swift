@@ -312,7 +312,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
             guard let details = document.details else { return }
-            guard details.isSupportedForOpening || data.isSimpleSet else {
+            guard details.isSupportedForOpening else {
                 toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .neutral)
                 return
             }
