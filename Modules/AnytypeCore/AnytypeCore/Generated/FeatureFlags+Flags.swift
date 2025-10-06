@@ -90,10 +90,6 @@ public extension FeatureFlags {
         value(for: .joinStream)
     }
 
-    static var simpleSetForTypes: Bool {
-        value(for: .simpleSetForTypes)
-    }
-
     static var doNotWaitCompletionInAnytypePreview: Bool {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
@@ -181,7 +177,6 @@ public extension FeatureFlags {
         .anyAppBetaTip,
         .chatLayoutInsideSpace,
         .joinStream,
-        .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,

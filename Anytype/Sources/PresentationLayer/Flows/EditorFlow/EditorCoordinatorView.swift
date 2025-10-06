@@ -47,8 +47,6 @@ struct EditorCoordinatorView: View {
             AllObjectsCoordinatorView(spaceId: spaceId, output: model)
         case let .date(data):
             DateCoordinatorView(data: data)
-        case let .simpleSet(data):
-            SimpleSetCoordinatorView(data: data)
         case let .type(data):
             let list = EditorListObject(objectId: data.objectId, spaceId: data.spaceId)
             EditorSetCoordinatorView(data: list, showHeader: true)

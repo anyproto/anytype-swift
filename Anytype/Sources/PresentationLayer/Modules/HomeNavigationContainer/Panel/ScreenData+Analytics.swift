@@ -15,7 +15,7 @@ extension EditorScreenData: HomeClinkNavBarAddMenuRouteProvider {
             return .screenRecentOpen
         case .bin:
             return .screenBin
-        case .page, .list, .simpleSet:
+        case .page, .list:
             return .screenObject
         case .date:
             return .screenDate
