@@ -172,173 +172,117 @@ git checkout [commit_hash]
 ```
 ```
 
-## Output 2: Comprehensive Changelog for Writers
+## Output 2: Clean Changelog for Product Communication
 
 ```markdown
-# iOS Release [NUMBER] - Comprehensive Changelog
+# iOS Release [NUMBER] - What's New
 
-## Release Overview
-- **Version**: [X.Y.Z]
-- **Release Date**: [TARGET DATE]
-- **Linear Initiative**: [Name] ([ID])
-- **Theme**: [Main theme or focus of this release]
-- **Total Features**: [COUNT]
-- **Total Improvements**: [COUNT]
-- **Total Bug Fixes**: [COUNT]
+**Version**: [X.Y.Z]  
+**Theme**: [One-line description of the release focus]
 
-## Linear Projects & Features Matrix
+## 🆕 New Features
 
-### [Linear Project Name 1] ([PROJECT_ID])
-**Project Description**: [From Linear]
-**Status**: [Completed/Partial]
-**Stories Included**: [COUNT]
+### 💬 Chat & Collaboration
 
-#### Features Delivered:
-1. **[Feature Name]** ([LINEAR_STORY_ID])
-   - **User Story**: [Original user story from Linear]
-   - **Technical Implementation**: [How it was built]
-   - **User-Facing Impact**: [What users will experience]
-   - **Business Value**: [Why this matters]
+#### [Chat-related Feature Name] ([LINEAR_ID])
+**What it does**: [Simple, user-focused explanation in 1-2 sentences]
 
-2. **[Feature Name]** ([LINEAR_STORY_ID])
-   [Continue structure]
+**How to use it**: [Brief steps or where to find it]
 
-### [Linear Project Name 2] ([PROJECT_ID])
-[Continue structure]
+**Why we built it**: [User benefit or problem it solves]
 
-## Detailed Change Categories
+### 📱 Mobile Experience
 
-### 🆕 NEW FEATURES
+#### [Mobile Feature Name] ([LINEAR_ID])
+[Continue same simple structure]
 
-#### [Feature Category 1]
+### [Other category if needed]
 
-##### [Feature Name] 
-- **Linear Reference**: Project [PROJECT_ID], Story [STORY_ID]
-- **Description for Writers**: 
-  - What it does: [Detailed explanation]
-  - How users access it: [Entry points, menu locations]
-  - Key benefits: [User value propositions]
-- **Technical Context**:
-  - Components added: [List]
-  - Integration points: [APIs, services]
-  - Data flow: [Brief explanation]
-- **Visual/UX Changes**:
-  - New screens: [List with purpose]
-  - New UI elements: [Buttons, controls, etc.]
-  - User journey: [Step-by-step flow]
-- **Related Features**: [Other features this connects with]
-- **Limitations**: [Any constraints writers should know]
+#### [Feature Name] ([LINEAR_ID])
+[Continue same simple structure]
 
-##### [Feature Name 2]
-[Continue structure]
+## 💫 Improvements
 
-### 🔄 IMPROVEMENTS & ENHANCEMENTS
+### 💬 Chat & Collaboration
 
-#### [Improvement Category 1]
+#### [Chat Improvement Name] ([LINEAR_ID])
+**What changed**: [Brief before/after comparison]
 
-##### [Improvement Name]
-- **Linear Reference**: Story [STORY_ID]
-- **Previous Behavior**: [How it worked before]
-- **New Behavior**: [How it works now]
-- **Reason for Change**: [User feedback, performance, etc.]
-- **Technical Changes**: 
-  - Code refactored: [Areas]
-  - Performance gains: [Metrics if available]
-- **User Impact**: [What users will notice]
+**Why we improved it**: [User feedback or benefit]
 
-### 🐛 BUG FIXES
+### 📱 Mobile Experience
 
-#### [Bug Category 1]
+#### [Mobile Improvement Name] ([LINEAR_ID])
+[Continue same structure]
 
-##### [Bug Description]
-- **Linear Reference**: Bug [BUG_ID]
-- **Issue**: [What was broken]
-- **User Impact**: [How it affected users]
-- **Root Cause**: [Technical explanation]
-- **Solution**: [How it was fixed]
-- **Verification**: [How to confirm it's fixed]
+### 🏠 Space Management
 
-### 🏗️ TECHNICAL FOUNDATION
+#### [Space Improvement Name] ([LINEAR_ID])
+[Continue same structure]
 
-#### Architecture Changes
-- **What Changed**: [Description]
-- **Why It Matters**: [Future benefits, performance, etc.]
-- **User Impact**: [Immediate or future benefits]
+## 🐛 Bug Fixes
 
-#### API Updates
-- **New Endpoints**: 
-  - [Endpoint]: [Purpose and data handled]
-- **Modified Endpoints**:
-  - [Endpoint]: [Changes and reasons]
+### General Fixes
+- **[Bug area]** ([LINEAR_ID]): [What was broken] → [Now it works properly]
+- **[Bug area 2]** ([LINEAR_ID]): [What was broken] → [Now it works properly]
+- **[Bug area 3]** ([LINEAR_ID]): [What was broken] → [Now it works properly]
 
-#### Data Model Changes
-- **New Models**: [Purpose and relationships]
-- **Modified Models**: [Changes and migration notes]
+## 📱 Compatibility
+- **iOS Support**: [Minimum version required]
+- **What's needed**: [Any special requirements in simple terms]
 
-### 📊 METRICS & PERFORMANCE
+---
 
-#### Performance Improvements
-- **Area**: [Feature/Screen]
-  - Previous: [Metric]
-  - Current: [Metric]
-  - User Benefit: [Faster loading, smoother experience]
-
-#### Size & Efficiency
-- **App Size Change**: [+/- MB]
-- **Memory Usage**: [Improvements]
-- **Battery Impact**: [Changes]
-
-## DEPENDENCIES & REQUIREMENTS
-
-### iOS Version Support
-- **Minimum iOS**: [Version]
-- **Optimal iOS**: [Version]
-- **New iOS Features Used**: [List]
-
-### Device Compatibility
-- **Newly Supported**: [Devices]
-- **Enhanced Support**: [Devices with special features]
-- **Known Limitations**: [Device-specific issues]
-
-### Third-Party Services
-- **New Integrations**: [Service and purpose]
-- **Updated SDKs**: [Version changes]
-
-## WRITER'S GUIDE
-
-### Key Messages for This Release
-1. **Primary Theme**: [Main story to tell]
-2. **Secondary Themes**: [Supporting narratives]
-3. **User Benefits to Highlight**: [Top 3-5]
-
-### Feature Groupings for Storytelling
-- **Productivity Features**: [List]
-- **User Experience Improvements**: [List]
-- **Performance & Reliability**: [List]
-
-### Technical Terms Glossary
-- **[Term]**: [User-friendly explanation]
-- **[Term]**: [User-friendly explanation]
-
-### Screenshots & Assets Needed
-1. **[Feature]**: [What to capture]
-2. **[Feature]**: [Key screens or flows]
-
-### Competitive Advantages
-- **[Feature]**: [How it compares to competitors]
-- **[Improvement]**: [Market differentiation]
-
-## APPENDIX: Raw Change List
-
-### Complete Commit Summary
-[Organized list of all commits with Linear references]
-
-### File Change Statistics
-- Total files changed: [COUNT]
-- Lines added: [COUNT]
-- Lines removed: [COUNT]
-- Top changed components: [List]
+*Questions? Contact [support channel]*
 ```
+
+## Instructions for Clean Changelog Generation
+
+When creating the changelog from Linear and Git data:
+
+1. **Focus on USER VALUE, not technical details**
+   - NO component names, file names, or implementation details
+   - NO technical jargon unless absolutely necessary
+   - NO repetition of the same information
+
+2. **Include LINEAR IDs for reference**
+   - Add Linear story/bug IDs in parentheses after feature names
+   - Use format: (IOS-XXXX) or (PROJECT-NAME) as appropriate
+   - Keep them subtle - they're for reference, not the main focus
+
+3. **Group by THEMES when logical**
+   - Use emoji + category headers to group related features/improvements
+   - Common categories:
+     - 💬 Chat & Collaboration
+     - 📱 Mobile Experience  
+     - 🏠 Space Management
+     - 🔐 Security & Privacy
+     - ⚡ Performance
+   - If a major new feature has related improvements, group them together
+   - Don't force grouping if items don't naturally fit
+
+4. **Keep it CONCISE**
+   - Each feature/improvement gets 3-5 lines maximum
+   - Bug fixes are one-liners
+   - No lengthy explanations
+
+5. **Structure Requirements**:
+   - **New Features**: Only truly NEW functionality (not improvements to existing features)
+   - **Improvements**: Changes to existing features that users will notice
+   - **Bug Fixes**: Simple list of what was broken and now works
+
+6. **Language Guidelines**:
+   - Write as if explaining to a non-technical friend
+   - Use active voice ("You can now..." instead of "Users are able to...")
+   - Focus on benefits, not features ("Share files instantly" not "File sharing system implemented")
+
+7. **What to EXCLUDE**:
+   - Technical architecture changes (unless they directly impact users)
+   - Internal improvements that users won't notice
+   - Feature flags and configuration changes
+   - Code statistics and commit counts
+   - API details
+   - Performance metrics (unless dramatic and user-facing)
 
 ## Output 3: Team Celebration Slack Message
 
@@ -374,19 +318,19 @@ Insane Numbers of Release [NUMBER] :exploding_head:
 2. Cross-reference Linear stories with Git changes
 3. Calculate impact scores for each change
 4. Generate comprehensive testing recommendations
-5. Create detailed changelog with full context for writers
+5. Create clean changelog focused on user value (not technical details)
 6. Create team celebration message
 7. Save outputs:
    - `impact_analysis_release_[NUMBER].md`
-   - `comprehensive_changelog_[NUMBER].md`
+   - `clean_changelog_release_[NUMBER].md`
    - `team_celebration_release_[NUMBER].txt`
 
-## Tips for Creating Writer-Friendly Changelog
-- Always provide the "why" behind each change
-- Connect technical changes to user benefits
-- Include Linear project context to show feature relationships
-- Explain technical terms in user-friendly language
-- Highlight business value and competitive advantages
-- Group related changes for better storytelling
-- Include enough detail for writers to craft compelling narratives
-- Note any limitations or known issues transparently
+## Tips for Creating Clean Changelog
+- Focus on WHAT users can do, not HOW it was built
+- Use simple, everyday language - no technical jargon
+- Keep descriptions brief (3-5 lines per feature maximum)
+- Group similar changes together to avoid repetition
+- Lead with the user benefit, not the feature name
+- For bugs, just say what was broken and that it now works
+- Skip any technical details unless they directly affect users
+- Write as if explaining to a friend who uses the app
