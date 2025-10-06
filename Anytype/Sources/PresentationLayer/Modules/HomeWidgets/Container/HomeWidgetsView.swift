@@ -17,6 +17,7 @@ private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
+    @State var homeObjectTypeWidgets = FeatureFlags.homeObjectTypeWidgets
     
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
@@ -60,7 +61,7 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
-                if FeatureFlags.homeObjectTypeWidgets {
+                if homeObjectTypeWidgets {
                     topWidgets
                     blockWidgets
                     objectTypeWidgets
@@ -162,5 +163,12 @@ private struct HomeWidgetsInternalView: View {
                 model.onEditButtonTap()
             }
         }
+    }
+}
+
+extension View {
+    func showGraph() -> some View {
+        print(Mirror(reflecting: self))
+        return self
     }
 }

@@ -2,19 +2,20 @@ import SwiftUI
 import Services
 
 @MainActor
-final class ObjectTypeWidgetViewModel: ObservableObject {
+@Observable
+final class ObjectTypeWidgetViewModel {
     
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     private let expandedService: any ExpandedServiceProtocol
     private let subscriptionStorage: any SubscriptionStorageProtocol
-    @Injected(\.setSubscriptionDataBuilder)
+    @Injected(\.setSubscriptionDataBuilder) @ObservationIgnored
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
-    @Injected(\.setObjectWidgetOrderHelper)
+    @Injected(\.setObjectWidgetOrderHelper) @ObservationIgnored
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.accountParticipantsStorage)
+    @Injected(\.accountParticipantsStorage) @ObservationIgnored
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
     private let info: ObjectTypeWidgetInfo
@@ -27,17 +28,17 @@ final class ObjectTypeWidgetViewModel: ObservableObject {
     var canCreateObject: Bool { typeCanBeCreated && canEdit}
     var canDeleteType: Bool { typeIsDeletable && canEdit }
     
-    @Published var typeIcon: Icon?
-    @Published var typeName: String = ""
-    @Published var isExpanded: Bool {
+    var typeIcon: Icon?
+    var typeName: String = ""
+    var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
-    @Published var rows: ObjectTypeWidgetRowType?
-    @Published var deleteAlert: ObjectTypeDeleteConfirmationAlertData?
-    @Published var canEdit: Bool = false
+    var rows: ObjectTypeWidgetRowType?
+    var deleteAlert: ObjectTypeDeleteConfirmationAlertData?
+    var canEdit: Bool = false
     
-    @Published private var typeIsDeletable: Bool = false
-    @Published private var typeCanBeCreated: Bool = false
+    var typeIsDeletable: Bool = false
+    var typeCanBeCreated: Bool = false
     
     init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
         self.info = info

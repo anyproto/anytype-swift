@@ -6,28 +6,29 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-final class SetObjectWidgetInternalViewModel: ObservableObject {
+@Observable
+final class SetObjectWidgetInternalViewModel {
     
     // MARK: - DI
     
     private let widgetBlockId: String
     private let style: SetObjecWidgetStyle
     private let widgetObject: any BaseDocumentProtocol
-    @Injected(\.setSubscriptionDataBuilder)
+    @Injected(\.setSubscriptionDataBuilder) @ObservationIgnored
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: any SubscriptionStorageProtocol
     private weak var output: (any CommonWidgetModuleOutput)?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
-    @Injected(\.documentsProvider)
+    @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.blockWidgetService)
+    @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.setObjectWidgetOrderHelper)
+    @Injected(\.setObjectWidgetOrderHelper) @ObservationIgnored
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     
     // MARK: - State
@@ -38,12 +39,12 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     var dragId: String? { widgetBlockId }
     
-    @Published var name: String = ""
-    @Published var icon: Icon?
-    @Published var headerItems: [ViewWidgetTabsItemModel]?
-    @Published var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
-    @Published var allowCreateObject = true
-    @Published var showUnsupportedBanner = false
+    var name: String = ""
+    var icon: Icon?
+    var headerItems: [ViewWidgetTabsItemModel]?
+    var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
+    var allowCreateObject = true
+    var showUnsupportedBanner = false
     
     init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId

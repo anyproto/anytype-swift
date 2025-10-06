@@ -12,10 +12,10 @@ struct ObjectTypeWidgetView: View {
 
 private struct ObjectTypeWidgetInternalView: View {
     
-    @StateObject private var model: ObjectTypeWidgetViewModel
+    @State private var model: ObjectTypeWidgetViewModel
     
     init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
-        self._model = StateObject(wrappedValue: ObjectTypeWidgetViewModel(info: info, output: output))
+        self._model = State(wrappedValue: ObjectTypeWidgetViewModel(info: info, output: output))
     }
     
     var body: some View {
