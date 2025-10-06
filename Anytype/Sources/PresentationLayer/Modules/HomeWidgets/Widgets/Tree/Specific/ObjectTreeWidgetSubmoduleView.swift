@@ -32,5 +32,8 @@ private struct ObjectTreeWidgetSubmoduleInternalView: View {
         .task(priority: .high) {
             await model.startTreeSubscription()
         }
+        .task {
+            await model.startInfoSubscription()
+        }
     }
 }
