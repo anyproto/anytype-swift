@@ -15,6 +15,7 @@ struct SpaceTypeChangeRow: View {
         } label: {
             HStack(spacing: 12) {
                 Image(asset: icon)
+                    .foregroundStyle(Color.Control.primary)
                     .frame(width: 48, height: 48)
                     .background {
                         Circle().foregroundStyle(Color.Shape.transperentSecondary)
