@@ -13,6 +13,6 @@ struct AllObjectsSortMenu: View {
                 Text(sort.relation.title)
             }
         )
-        .menuActionDisableDismissBehavior()
+        .menuActionDismissBehavior(.disabled)
     }
 }

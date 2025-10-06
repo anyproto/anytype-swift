@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct ChatCreationTipView: View {
     @StateObject private var viewModel = ChatCreationTipViewModel()
     @Environment(\.dismiss) private var dismiss
@@ -128,19 +127,8 @@ struct ChatCreationTipView: View {
 }
 
 
-// Fix Xcode warning
-struct ChatCreationTipPreviewView: View {
-    var body: some View {
-        if #available(iOS 17.0, *) {
-            ChatCreationTipView()
-        } else {
-            EmptyView()
-        }
-    }
-}
-
 #Preview {
-    ChatCreationTipPreviewView()
+    ChatCreationTipView()
 }
 
 private struct PageContent {

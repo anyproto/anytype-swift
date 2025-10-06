@@ -36,7 +36,7 @@ struct CalendarView: View {
             }
             .readSize { height = $0.height }
         }
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var calendar: some View {

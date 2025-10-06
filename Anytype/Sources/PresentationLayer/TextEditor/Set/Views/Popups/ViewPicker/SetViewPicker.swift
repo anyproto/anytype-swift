@@ -69,7 +69,7 @@ struct SetViewPicker: View {
                 addButton
             }
         }
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
         .background(Color.Background.secondary)
     }
     

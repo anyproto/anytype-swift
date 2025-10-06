@@ -49,7 +49,7 @@ struct InfoSelectionView: View {
             Spacer.fixedHeight(8)
         }
         .scrollIndicators(.never)
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private func optionRow(_ option: InfoSelectionOption, isSelected: Bool) -> some View {

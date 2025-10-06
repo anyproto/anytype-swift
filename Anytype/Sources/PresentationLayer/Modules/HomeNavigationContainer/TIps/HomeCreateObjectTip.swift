@@ -1,24 +1,23 @@
 import Foundation
 import TipKit
 
-@available(iOS 17.0, *)
 struct HomeCreateObjectTip: Tip {
-    
+
     @Parameter
     static var objectTypeChanged: Bool = false
-    
+
     var title: Text {
         Text(verbatim: Loc.LongTapCreateTip.title)
     }
-    
+
     var message: Text? {
         Text(verbatim: Loc.LongTapCreateTip.message)
     }
-    
+
     var options: [any TipOption] {
         Tip.MaxDisplayCount(1)
     }
-    
+
     var rules: [Rule] {
         [
             #Rule(Self.$objectTypeChanged) {
@@ -28,7 +27,6 @@ struct HomeCreateObjectTip: Tip {
     }
 }
 
-@available(iOS 17.0, *)
 struct HomeTipView: View {
     
     @State private var size: CGSize = .zero

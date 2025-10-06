@@ -42,7 +42,7 @@ struct SetViewSettingsList: View {
             .padding(.horizontal, 20)
             .padding(.top, 1)
         }
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var viewName: some View {

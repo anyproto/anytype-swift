@@ -84,9 +84,7 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private var oldBlockWidgets: some View {
         VStack(spacing: 12) {
-            if #available(iOS 17.0, *) {
-                WidgetSwipeTipView()
-            }
+            WidgetSwipeTipView()
             ForEach(model.widgetBlocks) { widgetInfo in
                 HomeWidgetSubmoduleView(
                     widgetInfo: widgetInfo,
@@ -113,9 +111,7 @@ private struct HomeWidgetsInternalView: View {
             }
             if model.pinnedSectionIsExpanded {
                 VStack(spacing: 12) {
-                    if #available(iOS 17.0, *) {
-                        WidgetSwipeTipView()
-                    }
+                    WidgetSwipeTipView()
                     ForEach(model.widgetBlocks) { widgetInfo in
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,

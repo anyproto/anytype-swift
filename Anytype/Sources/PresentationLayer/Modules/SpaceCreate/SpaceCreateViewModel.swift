@@ -87,8 +87,6 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             if createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             }
-            
-            dismissForLegacyOS()
         }
     }
     
@@ -117,12 +115,4 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     }
     
     // MARK: - Private
-    
-    @available(iOS, deprecated: 17)
-    private func dismissForLegacyOS() {
-        if #available(iOS 17, *) {
-        } else {
-            dismiss.toggle()
-        }
-    }
 }

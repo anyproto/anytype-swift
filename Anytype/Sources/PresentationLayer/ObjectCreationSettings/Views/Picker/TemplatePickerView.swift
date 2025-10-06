@@ -30,17 +30,9 @@ struct TemplatePickerView: View {
             .padding([.horizontal], 16)
             
             Spacer.fixedHeight(6)
-            
-            if #available(iOS 16.4, *) {
-                contentView
-            } else {
-                if viewModel.items.isNotEmpty {
-                    contentView
-                } else {
-                    Spacer()
-                }
-            }
-            
+
+            contentView
+
             if viewModel.showApplyButton {
                 applyButton
             }

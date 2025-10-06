@@ -81,9 +81,7 @@ final class AppVersionTracker: AppVersionTrackerProtocol {
         
         // Do not show tip for new users
         if isFirstAppLaunch {
-            if #available(iOS 17.0, *) {
-                ChatCreationTip().invalidate(reason: .displayCountExceeded)
-            }
+            ChatCreationTip().invalidate(reason: .displayCountExceeded)
         }
     }
 }
