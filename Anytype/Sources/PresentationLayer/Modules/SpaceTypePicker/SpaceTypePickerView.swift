@@ -43,6 +43,7 @@ struct SpaceCreateTypePickerView: View {
                 }
             )
         }
+        .fitPresentationDetents()
         .onAppear {
             AnytypeAnalytics.instance().logScreenVaultCreateMenu()
         }

@@ -86,7 +86,6 @@ struct SpaceHubCoordinatorView: View {
                 }, onSelectQrCodeScan: {
                     model.onSelectQrCodeScan()
                 })
-                .fitPresentationDetents()
                 .navigationZoomTransition(sourceID: "SpaceCreateTypePickerView", in: namespace)
             }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
