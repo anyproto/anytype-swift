@@ -12,7 +12,7 @@ struct ObjectIconPicker: View {
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
-            case .basic, .set, .collection, .file, .image, .chat:
+            case .basic, .set, .collection, .file, .image, .chatDerived:
                 ObjectBasicIconPicker(
                     isRemoveButtonAvailable: viewModel.isRemoveButtonAvailable,
                     mediaPickerContentType: viewModel.mediaPickerContentType,
@@ -49,7 +49,7 @@ struct ObjectIconPicker: View {
                 EmptyView()
             case .todo, .note, .bookmark, .UNRECOGNIZED, .relation, .relationOption,
                     .dashboard, .relationOptionsList, .audio, .video, .pdf, .date, .space,
-                    .spaceView, .tag, .chatDerived, .notification, .missingObject, .devices:
+                    .spaceView, .tag, .chatDeprecated, .notification, .missingObject, .devices:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")

@@ -82,8 +82,8 @@ public extension FeatureFlags {
         value(for: .anyAppBetaTip)
     }
 
-    static var chatLayoutInsideSpace: Bool {
-        value(for: .chatLayoutInsideSpace)
+    static var multichats: Bool {
+        value(for: .multichats)
     }
 
     static var doNotWaitCompletionInAnytypePreview: Bool {
@@ -171,7 +171,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .anyAppBetaTip,
-        .chatLayoutInsideSpace,
+        .multichats,
         .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,

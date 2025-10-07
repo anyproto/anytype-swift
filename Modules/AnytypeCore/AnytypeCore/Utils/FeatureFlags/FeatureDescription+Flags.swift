@@ -124,8 +124,8 @@ public extension FeatureDescription {
         debugValue: false
     )
     
-    static let chatLayoutInsideSpace = FeatureDescription(
-        title: "Chat Layout Inside Space",
+    static let multichats = FeatureDescription(
+        title: "Multichats",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         releaseAnytypeValue: false,
         releaseAnyAppValue: false,
