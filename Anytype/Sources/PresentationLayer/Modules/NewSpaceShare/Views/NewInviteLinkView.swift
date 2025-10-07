@@ -40,7 +40,7 @@ struct NewInviteLinkView: View {
                 model.onInviteChangeConfirmed(invite)
             }
         }
-        .onChange(of: notifyUpdateLinkView) { _ in
+        .onChange(of: notifyUpdateLinkView) {
             model.updateLink()
         }
         .snackbar(toastBarData: $model.toastBarData)

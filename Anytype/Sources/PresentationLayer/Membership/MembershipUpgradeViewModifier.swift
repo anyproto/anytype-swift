@@ -59,7 +59,7 @@ struct MembershipUpgradeViewModifier: ViewModifier {
             .onAppear {
                 model.updateState(reason: reason)
             }
-            .onChange(of: reason) { reason in
+            .onChange(of: reason) { _, reason in
                 model.updateState(reason: reason)
             }
     }
