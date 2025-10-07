@@ -5,7 +5,6 @@ import DesignKit
 
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
-    @StateObject var spaceCreationTip = SpaceCreationTipWrapper()
     
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
@@ -27,6 +26,7 @@ struct SpaceHubView: View {
                 SpaceDeleteAlert(spaceId: spaceId.value)
             }
             .handleChatCreationTip()
+            .accessibilityLabel("SpaceHub")
     }
     
     @ViewBuilder
@@ -117,20 +117,8 @@ struct SpaceHubView: View {
         }
         
         ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                spaceCreationTip.invalidate()
+            SpaceHubNewSpaceButton {
                 model.onTapCreateSpace()
-            }
-            label: {
-                Image(asset: .X32.addFilled)
-                    .foregroundStyle(Color.Control.secondary)
-                    .frame(width: 32, height: 32)
-                    .overlay(alignment: .bottomLeading) {
-                        if spaceCreationTip.shouldDisplay {
-                            AttentionDotView()
-                        }
-                    }
-                    .padding(.vertical, 6)
             }
         }
     }

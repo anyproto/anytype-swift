@@ -27,6 +27,7 @@ struct SpaceCreateView: View {
                         axis: .vertical,
                         text: $model.spaceName
                     )
+                    .accessibilityLabel("SpaceNameTextField")
 
                     if !FeatureFlags.spaceUxTypes {
                         SectionHeaderView(title: Loc.typeLabel)
