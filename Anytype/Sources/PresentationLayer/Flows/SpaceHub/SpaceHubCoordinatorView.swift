@@ -9,6 +9,8 @@ struct SpaceHubCoordinatorView: View {
     
     @StateObject private var model = SpaceHubCoordinatorViewModel()
     
+    @Namespace private var namespace
+    
     var body: some View {
         content
             .onAppear {
@@ -78,12 +80,13 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
             }
-            .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
+            .sheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)
                 }, onSelectQrCodeScan: {
                     model.onSelectQrCodeScan()
                 })
+                .navigationZoomTransition(sourceID: "SpaceCreateTypePickerView", in: namespace)
             }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
             .sheet(isPresented: $model.showSharingExtension) {
@@ -130,7 +133,7 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(output: model)
+                            SpaceHubView(output: model, namespace: namespace)
                         }
                         builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
                             SpaceChatCoordinatorView(data: $0)

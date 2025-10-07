@@ -43,8 +43,7 @@ struct SpaceCreateTypePickerView: View {
                 }
             )
         }
-        .padding(.bottom, 16)
-        .background(Color.Background.secondary)
+        .fitPresentationDetents()
         .onAppear {
             AnytypeAnalytics.instance().logScreenVaultCreateMenu()
         }
