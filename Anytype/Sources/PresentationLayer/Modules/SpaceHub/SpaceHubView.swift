@@ -9,8 +9,11 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
-    init(output: (any SpaceHubModuleOutput)?) {
+    private var namespace: Namespace.ID
+    
+    init(output: (any SpaceHubModuleOutput)?, namespace: Namespace.ID) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
+        self.namespace = namespace
     }
     
     var body: some View {
@@ -174,6 +177,7 @@ struct SpaceHubView: View {
         ToolbarItem(placement: .bottomBar) {
             Button { model.onTapCreateSpace() } label: { Label("", systemImage: "plus") }
         }
+        .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)         
     }
     
     
@@ -254,5 +258,6 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView(output: nil)
+    @Previewable @Namespace var namespace
+    SpaceHubView(output: nil, namespace: namespace)
 }
