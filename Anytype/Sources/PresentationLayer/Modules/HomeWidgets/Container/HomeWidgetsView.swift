@@ -15,7 +15,8 @@ struct HomeWidgetsView: View {
 
 private struct HomeWidgetsInternalView: View {
     @StateObject private var model: HomeWidgetsViewModel
-    @State var dndState = DragState()
+    @State var widgetsDndState = DragState()
+    @State var typesDndState = DragState()
     
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
@@ -33,10 +34,7 @@ private struct HomeWidgetsInternalView: View {
             }
         }
         .task {
-            await model.startWidgetObjectTask()
-        }
-        .task {
-            await model.startParticipantTask()
+            await model.startSubscriptions()
         }
         .onAppear {
             model.onAppear()
@@ -49,41 +47,26 @@ private struct HomeWidgetsInternalView: View {
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .homeBottomPanelHidden(model.homeState.isEditWidgets)
-        .anytypeVerticalDrop(data: model.widgetBlocks, state: $dndState) { from, to in
-            model.dropUpdate(from: from, to: to)
-        } dropFinish: { from, to in
-            model.dropFinish(from: from, to: to)
-        }
     }
     
     private var content: some View {
         ZStack {
-            if model.dataLoaded {
-                if model.widgetBlocks.isNotEmpty {
-                    widgets
-                } else {
-                    emptyState
-                }
+            if model.widgetsDataLoaded && model.objectTypesDataLoaded {
+                widgets
             }
         }
     }
     
     private var widgets: some View {
         ScrollView {
-            VStack(spacing: 12) {
-                if #available(iOS 17.0, *) {
-                    WidgetSwipeTipView()
+            VStack(spacing: 0) {
+                if FeatureFlags.homeObjectTypeWidgets {
+                    topWidgets
+                    blockWidgets
+                    objectTypeWidgets
+                } else {
+                    oldBlockWidgets
                 }
-                ForEach(model.widgetBlocks) { widgetInfo in
-                    HomeWidgetSubmoduleView(
-                        widgetInfo: widgetInfo,
-                        widgetObject: model.widgetObject,
-                        workspaceInfo: model.info,
-                        homeState: $model.homeState,
-                        output: model.output
-                    )
-                }
-                editButtons
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
@@ -91,16 +74,86 @@ private struct HomeWidgetsInternalView: View {
         }
     }
     
-    private var emptyState: some View {
+    @ViewBuilder
+    private var topWidgets: some View {
+        if let data = model.chatWidgetData {
+            SpaceChatWidgetView(data: data)
+        }
+    }
+    
+    @ViewBuilder
+    private var oldBlockWidgets: some View {
         VStack(spacing: 12) {
-            Spacer()
-            Text(Loc.Widgets.List.empty)
-                .anytypeStyle(.bodyRegular)
-            StandardButton(Loc.Widgets.Actions.addWidget, style: .transparentXSmall) {
-                model.onCreateWidgetFromMainMode()
+            if #available(iOS 17.0, *) {
+                WidgetSwipeTipView()
             }
-            AnytypeNavigationSpacer()
-            Spacer()
+            ForEach(model.widgetBlocks) { widgetInfo in
+                HomeWidgetSubmoduleView(
+                    widgetInfo: widgetInfo,
+                    widgetObject: model.widgetObject,
+                    workspaceInfo: model.info,
+                    homeState: $model.homeState,
+                    output: model.output
+                )
+            }
+            editButtons
+        }
+        .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+            model.widgetsDropUpdate(from: from, to: to)
+        } dropFinish: { from, to in
+            model.widgetsDropFinish(from: from, to: to)
+        }
+    }
+    
+    @ViewBuilder
+    private var blockWidgets: some View {
+        if model.widgetBlocks.isNotEmpty {
+            HomeWidgetsGroupView(title: Loc.pinned) {
+                model.onTapPinnedHeader()
+            }
+            if model.pinnedSectionIsExpanded {
+                VStack(spacing: 12) {
+                    if #available(iOS 17.0, *) {
+                        WidgetSwipeTipView()
+                    }
+                    ForEach(model.widgetBlocks) { widgetInfo in
+                        HomeWidgetSubmoduleView(
+                            widgetInfo: widgetInfo,
+                            widgetObject: model.widgetObject,
+                            workspaceInfo: model.info,
+                            homeState: $model.homeState,
+                            output: model.output
+                        )
+                    }
+                }
+                .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
+                    model.widgetsDropUpdate(from: from, to: to)
+                } dropFinish: { from, to in
+                    model.widgetsDropFinish(from: from, to: to)
+                }
+        }
+    }
+    }
+    
+    @ViewBuilder
+    private var objectTypeWidgets: some View {
+        HomeWidgetsGroupView(title: Loc.objectTypes, onTap: {
+            model.onTapObjectTypeHeader()
+        }, onCreate: model.canCreateObjectType ? {
+            model.onCreateObjectType()
+        } : nil)
+        if model.objectTypeSectionIsExpanded {
+            VStack(spacing: 12) {
+                ForEach(model.objectTypeWidgets) { info in
+                    ObjectTypeWidgetView(info: info, output: model.output)
+                }
+                BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.output)
+            }
+            .anytypeVerticalDrop(data: model.objectTypeWidgets, state: $typesDndState) { from, to in
+                model.typesDropUpdate(from: from, to: to)
+            } dropFinish: { from, to in
+                model.typesDropFinish(from: from, to: to)
+            }
         }
     }
     

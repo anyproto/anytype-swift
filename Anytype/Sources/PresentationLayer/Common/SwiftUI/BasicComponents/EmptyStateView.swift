@@ -6,7 +6,7 @@ struct EmptyStateView: View {
     let style: Style
     let buttonData: ButtonData?
     
-    init(title: String, subtitle: String, style: Style, buttonData: ButtonData? = nil) {
+    init(title: String, subtitle: String = "", style: Style, buttonData: ButtonData? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.style = style
@@ -20,6 +20,7 @@ struct EmptyStateView: View {
             switch style {
             case .withImage:
                 Image(asset: .Dialog.coffee)
+                    .foregroundStyle(Color.Control.primary)
                 Spacer.fixedHeight(12)
             case .error:
                 Image(asset: .Dialog.duck)
@@ -31,13 +32,15 @@ struct EmptyStateView: View {
             AnytypeText(title, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxBodyRegular, enableMarkdown: true)
-                .foregroundColor(.Text.secondary)
-                .multilineTextAlignment(.center)
+            if subtitle.isNotEmpty {
+                AnytypeText(subtitle, style: .uxBodyRegular, enableMarkdown: true)
+                    .foregroundColor(.Text.secondary)
+                    .multilineTextAlignment(.center)
+            }
             Spacer.fixedHeight(12)
             if let buttonData {
-                StandardButton(buttonData.title, style: .secondarySmall) {
-                    buttonData.action()
+                AsyncStandardButton(buttonData.title, style: .secondarySmall) {
+                    try await buttonData.action()
                 }
             }
             Spacer.fixedHeight(48)
@@ -50,7 +53,7 @@ struct EmptyStateView: View {
 extension EmptyStateView {
     struct ButtonData {
         let title: String
-        let action: () -> ()
+        let action: () async throws -> ()
     }
     
     enum Style {

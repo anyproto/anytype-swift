@@ -14,10 +14,13 @@ public extension DetailsLayout {
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
     static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + [.set, .collection]
+    static let supportedForSharingExtension: [DetailsLayout] = [.collection] + editorLayouts
+    
+    static let widgetTypeLayouts = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
     
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + [.objectType]
 
-    private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
+    private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
 }
@@ -32,6 +35,7 @@ public extension DetailsLayout {
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForCreationInSets: Bool { Self.supportedForCreationInSets.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
+    var isSupportedForCreation: Bool { Self.supportedForCreation.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
     

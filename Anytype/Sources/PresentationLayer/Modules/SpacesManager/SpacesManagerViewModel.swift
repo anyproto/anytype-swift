@@ -16,7 +16,10 @@ final class SpacesManagerViewModel: ObservableObject {
     @Published var spaceForStopSharingAlert: SpaceView?
     @Published var spaceForLeaveAlert: SpaceView?
     @Published var spaceViewForDelete: SpaceView?
+    @Published var spaceCreateData: SpaceCreateData?
     @Published var exportSpaceUrl: URL?
+    @Published var showSpaceTypeForCreate = false
+    @Published var shouldScanQrCode = false
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceList()
@@ -24,7 +27,11 @@ final class SpacesManagerViewModel: ObservableObject {
     
     func startWorkspacesTask() async {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
-            let participantSpaces = participantSpaces.filter { $0.spaceView.localStatus == .unknown || $0.spaceView.localStatus == .ok }
+            let participantSpaces = participantSpaces.filter {
+                $0.spaceView.localStatus == .unknown ||
+                $0.spaceView.localStatus == .ok ||
+                $0.spaceView.localStatus == .loading
+            }
             withAnimation(self.participantSpaces.isEmpty ? nil : .default) {
                 self.participantSpaces = participantSpaces.sorted { $0.sortingWeight > $1.sortingWeight }
             }
@@ -51,6 +58,18 @@ final class SpacesManagerViewModel: ObservableObject {
     
     func onStopSharing(row: ParticipantSpaceViewData) {
         spaceForStopSharingAlert = row.spaceView
+    }
+    
+    func onTapCreateSpace() {
+        showSpaceTypeForCreate.toggle()
+    }
+    
+    func onSelectQrCodeScan() {
+        shouldScanQrCode = true
+    }
+    
+    func onSpaceTypeSelected(_ type: SpaceUxType) {
+            spaceCreateData = SpaceCreateData(spaceUxType: type)
     }
 }
 

@@ -26,11 +26,14 @@ private struct ObjectTreeWidgetSubmoduleInternalView: View {
             data: data,
             internalModel: model
         )
-        .task {
+        .task(priority: .high) {
             await model.startBlockSubscription()
         }
-        .task {
+        .task(priority: .high) {
             await model.startTreeSubscription()
+        }
+        .task {
+            await model.startInfoSubscription()
         }
     }
 }

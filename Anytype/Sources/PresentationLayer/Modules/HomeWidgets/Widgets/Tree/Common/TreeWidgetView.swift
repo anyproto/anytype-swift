@@ -28,6 +28,7 @@ struct TreeWidgetView: View {
             widgetObject: data.widgetObject,
             homeState: data.homeState,
             name: model.name,
+            icon: model.icon,
             dragId: model.dragId,
             onCreateObjectTap: createTap,
             onHeaderTap: {
@@ -38,15 +39,14 @@ struct TreeWidgetView: View {
                 content
             }
         )
-        .task {
+        .task(priority: .high) {
             await model.startTreeSubscription()
         }
     }
     
     var content: some View {
         WidgetContainerWithEmptyState(
-            showEmpty: (model.rows?.isEmpty ?? false),
-            onCreateTap: createTap
+            showEmpty: (model.rows?.isEmpty ?? false)
         ) {
             if let rows = model.rows {
                 VStack(spacing: 0) {

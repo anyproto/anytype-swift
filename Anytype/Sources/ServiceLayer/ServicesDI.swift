@@ -84,8 +84,8 @@ extension Container {
         self { ObjectTypeProvider.shared }
     }
     
-    var favoriteSubscriptionService: Factory<any FavoriteSubscriptionServiceProtocol> {
-        self { FavoriteSubscriptionService() }
+    var pinnedSubscriptionService: Factory<any PinnedSubscriptionServiceProtocol> {
+        self { PinnedSubscriptionService() }
     }
     
     var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
@@ -100,7 +100,7 @@ extension Container {
         self { TreeSubscriptionDataBuilder() }
     }
     
-    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+    var objectTypeSubscriptionDataBuilder: Factory<any MultispaceOneActiveSubscriptionDataBuilder> {
         self { ObjectTypeSubscriptionDataBuilder() }
     }
     
@@ -152,7 +152,7 @@ extension Container {
         self { PropertyDetailsStorage() }.singleton
     }
     
-    var propertySubscriptionDataBuilder: Factory<any MultispaceSubscriptionDataBuilderProtocol> {
+    var propertySubscriptionDataBuilder: Factory<any MultispaceOneActiveSubscriptionDataBuilder> {
         self { PropertySubscriptionDataBuilder() }
     }
     
@@ -164,9 +164,13 @@ extension Container {
         self { DocumentsProvider() }.singleton
     }
     
-    var blockWidgetExpandedService: Factory<any BlockWidgetExpandedServiceProtocol> {
-        self { BlockWidgetExpandedService() }.shared
+    var expandedService: Factory<any ExpandedServiceProtocol> {
+        self { ExpandedService() }.shared
     }
+    
+//    var objectTypeWidgetExpandedService: Factory<any ObjectTypeWidgetExpandedServiceProtocol> {
+//        self { ObjectTypeWidgetExpandedService() }.shared
+//    }
     
     var applicationStateService: Factory<any ApplicationStateServiceProtocol> {
         self { ApplicationStateService() }.singleton
@@ -384,11 +388,19 @@ extension Container {
         self { PushNotificationsSystemSettingsBroadcaster() }.singleton
     }
     
-    var chatInviteStateService: Factory<any ChatInviteStateServiceProtocol> {
-        self { ChatInviteStateService() }.singleton
-    }
-    
     var spaceIconForNotificationsHandler: Factory<any SpaceIconForNotificationsHandlerProtocol> {
         self { SpaceIconForNotificationsHandler() }.singleton
+    }
+    
+    var sharingExtensionActionService: Factory<any SharingExtensionActionServiceProtocol> {
+        self { SharingExtensionActionService() }.shared
+    }
+    
+    var spaceFileUploadService: Factory<any SpaceFileUploadServiceProtocol> {
+        self { SpaceFileUploadService() }.singleton
+    }
+    
+    var experimentalFeaturesStorage: Factory<any ExperimentalFeaturesStorageProtocol> {
+        self { ExperimentalFeaturesStorage() }.shared
     }
 }

@@ -69,12 +69,14 @@ final class SpaceProfileViewModel: ObservableObject {
         qrInviteLink = inviteLink
     }
     
-    func onInviteTap() {
+    func onShareTap() {
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .spaceProfile)
         shareInviteLink = inviteLink
     }
     
     func onCopyLinkTap() {
         guard let inviteLink else { return }
+        AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .spaceProfile)
         UIPasteboard.general.string = inviteLink.absoluteString
         snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
     }

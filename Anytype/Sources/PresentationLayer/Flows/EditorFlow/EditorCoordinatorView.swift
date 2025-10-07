@@ -27,7 +27,7 @@ struct EditorCoordinatorView: View {
     @ViewBuilder
     private var mainView: some View {
         switch model.data {
-        case let .favorites(homeObjectId, spaceId):
+        case let .pinned(homeObjectId, spaceId):
             WidgetObjectListFavoritesView(homeObjectId: homeObjectId, spaceId: spaceId, output: model)
         case let .recentEdit(spaceId):
             WidgetObjectListRecentEditView(spaceId: spaceId, output: model)
@@ -35,7 +35,7 @@ struct EditorCoordinatorView: View {
             WidgetObjectListRecentOpenView(spaceId: spaceId, output: model)
         case let .bin(spaceId):
             if FeatureFlags.binScreenEmptyAction {
-                BinListView(spaceId: spaceId)
+                BinListView(spaceId: spaceId, output: model)
             } else {
                 WidgetObjectListBinView(spaceId: spaceId, output: model)
             }

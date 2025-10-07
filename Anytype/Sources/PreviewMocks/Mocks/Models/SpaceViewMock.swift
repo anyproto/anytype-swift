@@ -6,27 +6,6 @@ extension SpaceView {
         mock(id: "\(id)")
     }
     
-    static func mock(id: String) -> SpaceView {
-        SpaceView(
-            id: id,
-            name: "Name \(id)",
-            description: "Desciption \(id)",
-            objectIconImage: .object(.space(.mock)),
-            targetSpaceId: "Target\(id)",
-            createdDate: .yesterday,
-            accountStatus: .ok,
-            localStatus: .ok,
-            spaceAccessType: .private,
-            readersLimit: nil,
-            writersLimit: nil,
-            chatId: "",
-            spaceOrder: "",
-            uxType: .data,
-            pushNotificationEncryptionKey: "",
-            pushNotificationMode: .all
-        )
-    }
-    
     static func mock(
         id: String = UUID().uuidString,
         accountStatus: SpaceStatus? = .allCases.randomElement(),
@@ -37,8 +16,9 @@ extension SpaceView {
             name: "Name \(id)",
             description: "Desciption \(id)",
             objectIconImage: .object(.space(.mock)),
-            targetSpaceId: "Target\(id)",
+            targetSpaceId: id,
             createdDate: .yesterday,
+            joinDate: .distantPast,
             accountStatus: accountStatus,
             localStatus: localStatus,
             spaceAccessType: .allCases.randomElement(),
@@ -55,6 +35,6 @@ extension SpaceView {
 
 public extension ObjectIcon.Space {
     static var mock: ObjectIcon.Space {
-        .name(name: Loc.untitled, iconOption: 1)
+        .name(name: Loc.untitled, iconOption: 1, circular: true)
     }
 }

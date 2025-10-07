@@ -14,6 +14,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     
     private let data: SpaceRequestAlertData
     private let onMembershipUpgradeTap: (MembershipUpgradeReason) -> ()
+    private let onReject: (() -> Void)?
     
     let title: String
     let icon: ObjectIcon?
@@ -30,9 +31,10 @@ final class SpaceRequestAlertModel: ObservableObject {
         }
     }
     
-    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> ()) {
+    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> (), onReject: (() -> Void)?) {
         self.data = data
         self.onMembershipUpgradeTap = onMembershipUpgradeTap
+        self.onReject = onReject
         title = Loc.SpaceShare.ViewRequest.title(
             data.participantName.withPlaceholder,
             data.spaceName.withPlaceholder
@@ -79,6 +81,7 @@ final class SpaceRequestAlertModel: ObservableObject {
             spaceId: data.spaceId,
             identity: data.participantIdentity
         )
+        onReject?()
     }
     
     func onMembershipUpgrade(reason: MembershipUpgradeReason) {

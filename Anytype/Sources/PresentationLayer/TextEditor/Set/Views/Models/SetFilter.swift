@@ -89,7 +89,6 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .none: Loc.EditSet.Popup.Filter.Condition.General.none,
             .in: Loc.EditSet.Popup.Filter.Condition.Selected.in,
             .allIn: Loc.EditSet.Popup.Filter.Condition.Selected.allIn,
-            .equal: Loc.EditSet.Popup.Filter.Condition.Selected.equal,
             .notIn: Loc.EditSet.Popup.Filter.Condition.Selected.notIn,
             .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
             .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty

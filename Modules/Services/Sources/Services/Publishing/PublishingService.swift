@@ -6,6 +6,7 @@ public protocol PublishingServiceProtocol: Sendable {
     @discardableResult
     func create(spaceId: String, objectId: String, uri: String, joinSpace: Bool) async throws -> String
     func remove(spaceId: String, objectId: String) async throws
+    func list() async throws -> [PublishState]
     func list(spaceId: String) async throws -> [PublishState]
     func resolveUri(uri: String) async throws -> PublishState
     func getStatus(spaceId: String, objectId: String) async throws -> PublishState?
@@ -33,9 +34,18 @@ public final class PublishingService: PublishingServiceProtocol {
         }).invoke(ignoreLogErrors: .badInput, .noSuchObject, .noSuchSpace)
     }
     
+    public func list() async throws -> [PublishState] {
+        try await listSites(spaceId: nil)
+    }
     public func list(spaceId: String) async throws -> [PublishState] {
-        let response = try await ClientCommands.publishingList(.with {
-            $0.spaceID = spaceId
+        try await  listSites(spaceId: spaceId)
+    }
+    
+    private func listSites(spaceId: String?) async throws -> [PublishState] {
+        let response = try await ClientCommands.publishingList(.with { populator in
+            if let spaceId {
+                populator.spaceID = spaceId
+            }
         }).invoke(ignoreLogErrors: .badInput, .noSuchSpace)
         
         return response.publishes.map { PublishState(from: $0) }

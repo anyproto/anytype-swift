@@ -18,8 +18,8 @@ struct ObjectActionsView: View {
                         switch setting {
                         case .archive:
                             try await viewModel.changeArchiveState()
-                        case .favorite:
-                            try await viewModel.changeFavoriteSate()
+                        case let .pin(pinned):
+                            try await viewModel.changePinState(pinned)
                         case .locked:
                             try await viewModel.changeLockState()
                         case .undoRedo:
@@ -48,7 +48,7 @@ struct ObjectActionsView: View {
             dismiss()
         }
         .task {
-            await viewModel.startDocumentTask()
+            await viewModel.startSubscriptions()
         }
     }
 }

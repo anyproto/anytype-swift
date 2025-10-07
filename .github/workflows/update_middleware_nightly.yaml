@@ -1,0 +1,71 @@
+name: Update middleware nightly
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekdays 03:00 UTC (adjust as needed)
+    - cron: "0 3 * * 1-5"
+
+# Parent must grant write permissions so the child can push commits/PRs
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  resolve_version:
+    name: Resolve latest nightly
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get latest nightly version
+        id: get
+        shell: bash
+        env:
+          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
+        run: |
+          # Ensure script is executable and print version only
+          chmod +x Scripts/get-latest-nightly.sh
+          VERSION="$(Scripts/get-latest-nightly.sh)"
+          if [ -z "${VERSION}" ]; then
+            echo "Nightly version is empty" >&2
+            exit 1
+          fi
+          echo "Resolved nightly version: ${VERSION}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+  call-child:
+    name: Run child update_middleware.yaml
+    needs: resolve_version
+    # Reusable workflow in the same repo
+    uses: ./.github/workflows/update_middleware.yaml
+    with:
+      middle_version: ${{ needs.resolve_version.outputs.version }}
+      task_name: ""   # optional: set if you want task prefix in branch/commit
+    # Inherit all repo secrets (SERVICE_USER_GITHUB_TOKEN, MIDDLEWARE_TOKEN, etc.)
+    secrets: inherit
+    # Ensure child receives sufficient permissions for writes/PRs
+    permissions:
+      contents: write
+      pull-requests: write
+
+  slack-on-failure:
+    name: Slack notify (child failed)
+    needs: [resolve_version, call-child]
+    runs-on: ubuntu-latest
+    # run even if a dependency failed, but only notify when child actually failed or был отменён
+    if: ${{ always() && (needs.call-child.result == 'failure' || needs.call-child.result == 'cancelled') }}
+    steps:
+      - name: Send GitHub Action data to a Slack workflow
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook: ${{ secrets.SLACK_URL_BUILD_TESTS }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": ":x: *Update middleware nightly* failed.\n*Version:* ${{ needs.resolve_version.outputs.version }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }

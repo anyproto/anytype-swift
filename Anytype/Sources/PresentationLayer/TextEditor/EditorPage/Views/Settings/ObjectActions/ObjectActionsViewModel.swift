@@ -16,6 +16,14 @@ final class ObjectActionsViewModel: ObservableObject {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
     
+    private lazy var widgetObject: (any BaseDocumentProtocol)? = {
+        guard let info = workspaceStorage.workspaceInfo(spaceId: spaceId) else {
+            anytypeAssertionFailure("info not found")
+            return nil
+        }
+        return openDocumentsProvider.document(objectId: info.widgetsId, spaceId: spaceId)
+    }()
+    
     @Injected(\.objectActionsService)
     private var service: any ObjectActionsServiceProtocol
     @Injected(\.blockService)
@@ -47,19 +55,11 @@ final class ObjectActionsViewModel: ObservableObject {
         self.output = output
     }
     
-    func startDocumentTask() async {
-        for await _ in document.syncPublisher.receiveOnMain().values {
-            guard let details = document.details else {
-                objectActions = []
-                return
-            }
-
-            objectActions = ObjectAction.buildActions(
-                details: details,
-                isLocked: document.isLocked,
-                permissions: document.permissions
-            )
-        }
+    func startSubscriptions() async {
+        async let documentSub: () = startDocumentSubscription()
+        async let widgetSub: () = startWidgetObjectSubscription()
+        
+        _ = await (documentSub, widgetSub)
     }
 
     func changeArchiveState() async throws {
@@ -74,10 +74,50 @@ final class ObjectActionsViewModel: ObservableObject {
         }
     }
 
-    func changeFavoriteSate() async throws {
-        guard let details = document.details else { return }
-        AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
-        try await service.setFavorite(objectIds: [objectId], !details.isFavorite)
+    func changePinState(_ pinned: Bool) async throws {
+        if FeatureFlags.homeObjectTypeWidgets {
+            
+            guard let widgetObject else {
+                anytypeAssertionFailure("Widget object not found")
+                return
+            }
+            
+            guard let details = document.details else {
+                anytypeAssertionFailure("Details object not found")
+                return
+            }
+            
+            if pinned {
+                
+                guard let widgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: details.id) else {
+                    anytypeAssertionFailure("Block not found")
+                    return
+                }
+                
+                try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId)
+                
+            } else {
+                guard let layout = details.availableWidgetLayout.first else {
+                    anytypeAssertionFailure("Default layout not found")
+                    return
+                }
+                
+                let first = widgetObject.children.first
+                
+                try await blockWidgetService.createWidgetBlock(
+                    contextId: widgetObject.objectId,
+                    sourceId: details.id,
+                    layout: layout,
+                    limit: layout.limits.first ?? 0,
+                    position: first.map { .above(widgetId: $0.id) } ?? .end
+                )
+            }
+            dismiss.toggle()
+        } else {
+            guard let details = document.details else { return }
+            AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
+            try await service.setPin(objectIds: [objectId], !details.isFavorite)
+        }
     }
 
     func changeLockState() async throws {
@@ -185,6 +225,19 @@ final class ObjectActionsViewModel: ObservableObject {
     
     // MARK: - Private
     
+    private func startDocumentSubscription() async {
+        for await _ in document.syncPublisher.values {
+            updateActions()
+        }
+    }
+    
+    private func startWidgetObjectSubscription() async {
+        guard let widgetObject else { return }
+        for await _ in widgetObject.syncPublisher.values {
+            updateActions()
+        }
+    }
+    
     private func onObjectSelection(objectId: String, spaceId: String, currentObjectId: String) {
         Task { @MainActor in
             let targetDocument = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
@@ -212,5 +265,19 @@ final class ObjectActionsViewModel: ObservableObject {
                 AnytypeAnalytics.instance().logLinkToObject(type: .object, spaceId: details.spaceId)
             }
         }
+    }
+    
+    private func updateActions() {
+        guard let details = document.details else {
+            objectActions = []
+            return
+        }
+        
+        objectActions = ObjectAction.buildActions(
+            details: details,
+            isLocked: document.isLocked,
+            isPinnedToWidgets: widgetObject?.widgetBlockIdFor(targetObjectId: objectId).isNotNil ?? false,
+            permissions: document.permissions
+        )
     }
 }

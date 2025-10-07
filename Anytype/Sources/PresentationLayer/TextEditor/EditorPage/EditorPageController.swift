@@ -172,13 +172,13 @@ final class EditorPageController: UIViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionBegan(motion, with: event)
 
-        if motion == .motionShake {
+        if motion == .motionShake && UIAccessibility.isShakeToUndoEnabled {
             shakeGestureStartDate = Date()
         }
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
+        if motion == .motionShake && UIAccessibility.isShakeToUndoEnabled {
             if let startDate = shakeGestureStartDate {
                 defer { shakeGestureStartDate = nil }
                 let timeInterval = Date().timeIntervalSince(startDate)
@@ -561,7 +561,9 @@ private extension EditorPageController {
                     item: block
                 )
                 
-                cell.contentConfiguration = block.makeContentConfiguration(maxWidth: collectionView.frame.width)
+                if !FeatureFlags.fixCollectionViewReuseCrashInEditor {
+                    cell.contentConfiguration = block.makeContentConfiguration(maxWidth: collectionView.frame.width)
+                }
             case let .header(header):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: headerCellRegistration,

@@ -1,13 +1,15 @@
 import Foundation
 import Services
 import UIKit
+import AnytypeCore
 
 @MainActor
 protocol WidgetActionsViewCommonMenuProviderProtocol: AnyObject {
     func onDeleteWidgetTap(
         widgetObject: any BaseDocumentProtocol,
         widgetBlockId: String,
-        homeState: HomeWidgetsState
+        homeState: HomeWidgetsState,
+        output: (any CommonWidgetModuleOutput)?
     )
     
     func onChangeTypeTap(
@@ -34,23 +36,19 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
     func onDeleteWidgetTap(
         widgetObject: any BaseDocumentProtocol,
         widgetBlockId: String,
-        homeState: HomeWidgetsState
+        homeState: HomeWidgetsState,
+        output: (any CommonWidgetModuleOutput)?
     ) {
-        if let info = widgetObject.widgetInfo(blockId: widgetBlockId) {
-            AnytypeAnalytics.instance().logDeleteWidget(
-                source: info.source.analyticsSource,
-                context: homeState.analyticsWidgetContext,
-                createType: info.widgetCreateType
-            )
-        }
+        guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         
-        Task {
-            try? await blockWidgetService.removeWidgetBlock(
-                contextId: widgetObject.objectId,
-                widgetBlockId: widgetBlockId
-            )
+        if FeatureFlags.homeObjectTypeWidgets, info.source.isLibrary {
+            let data = DeleteSystemWidgetConfirmationData(onConfirm: { [weak self] in
+                self?.deleteWidget(widgetObject: widgetObject, info: info, homeState: homeState)
+            })
+            output?.showDeleteSystemWidgetAlert(data: data)
+        } else {
+            deleteWidget(widgetObject: widgetObject, info: info, homeState: homeState)
         }
-        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     func onChangeTypeTap(
@@ -69,6 +67,27 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
     ) {
         AnytypeAnalytics.instance().logClickAddWidget(context: homeState.analyticsWidgetContext)
         output?.onAddBelowWidget(widgetId: widgetBlockId, context: homeState.analyticsWidgetContext)
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    private func deleteWidget(
+        widgetObject: any BaseDocumentProtocol,
+        info: BlockWidgetInfo,
+        homeState: HomeWidgetsState
+    ) {
+        AnytypeAnalytics.instance().logDeleteWidget(
+            source: info.source.analyticsSource,
+            context: homeState.analyticsWidgetContext,
+            createType: info.widgetCreateType
+        )
+        
+        Task {
+            try? await blockWidgetService.removeWidgetBlock(
+                contextId: widgetObject.objectId,
+                widgetBlockId: info.id
+            )
+        }
+        
         UISelectionFeedbackGenerator().selectionChanged()
     }
 }

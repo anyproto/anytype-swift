@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct BinWidgetView: View {
     
@@ -32,7 +33,7 @@ private struct BinWidgetSubmoduleInternalView: View {
                 model.onDeleteWidgetTap()
             },
             header: {
-                LinkWidgetDefaultHeader(title: Loc.bin, icon: .X24.bin, onTap: {
+                LinkWidgetDefaultHeader(title: Loc.bin, icon: .asset(.X24.bin), onTap: {
                     model.onHeaderTap()
                 })
             },
@@ -49,13 +50,23 @@ private struct BinWidgetSubmoduleInternalView: View {
     
     @ViewBuilder
     private var menu: some View {
-        WidgetCommonActionsMenuView(
-            items: [.addBelow, .remove],
-            widgetBlockId: model.widgetBlockId,
-            widgetObject: model.widgetObject,
-            homeState: homeState,
-            output: model.output
-        )
+        if FeatureFlags.homeObjectTypeWidgets {
+            WidgetCommonActionsMenuView(
+                items: [.removeSystemWidget],
+                widgetBlockId: model.widgetBlockId,
+                widgetObject: model.widgetObject,
+                homeState: homeState,
+                output: model.output
+            )
+        } else {
+            WidgetCommonActionsMenuView(
+                items: [.addBelow, .remove],
+                widgetBlockId: model.widgetBlockId,
+                widgetObject: model.widgetObject,
+                homeState: homeState,
+                output: model.output
+            )
+        }
         Divider()
         AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
             try await model.onEmptyBinTap()

@@ -12,9 +12,7 @@ struct SharingExtensionSpaceView: View {
                 .frame(width: 80, height: 80)
                 .overlay(alignment: .bottomTrailing) {
                     if isSelected {
-                        Circle()
-                            .foregroundStyle(Color.Control.accent100)
-                            .frame(width: 24, height: 24)
+                        AnytypeCircleCheckbox(checked: true)
                             .offset(x: 6, y: 6)
                     }
                 }
@@ -30,7 +28,7 @@ struct SharingExtensionSpaceView: View {
 
 #Preview {
     SharingExtensionSpaceView(
-        icon: .object(.space(.name(name: "ABC", iconOption: 1))),
+        icon: .object(.space(.name(name: "ABC", iconOption: 1, circular: true))),
         title: "Long text long text long text long text long text long text",
         isSelected: true
     )

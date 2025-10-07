@@ -18,6 +18,7 @@ extension Anytype_Model.Process {
       case export(Anytype_Model.Process.Export)
       case saveFile(Anytype_Model.Process.SaveFile)
       case migration(Anytype_Model.Process.Migration)
+      case preloadFile(Anytype_Model.Process.PreloadFile)
 
     }}
 

@@ -7,6 +7,10 @@ extension ObjectType {
         name.isNotEmpty ? name : Loc.untitled
     }
     
+    var pluralDisplayName: String {
+        pluralName.isNotEmpty ? pluralName : displayName
+    }
+    
     public static let emptyType: ObjectType = ObjectType(
         id: "",
         name: "",
@@ -29,7 +33,8 @@ extension ObjectType {
         recommendedFeaturedRelations: [],
         recommendedHiddenRelations: [],
         recommendedLayout: nil,
-        lastUsedDate: .distantPast
+        lastUsedDate: .distantPast,
+        orderId: ""
     )
     
     var setIsTemplatesAvailable: Bool {
@@ -48,7 +53,7 @@ extension ObjectType {
         
         guard let recommendedLayout else { return false }
         
-        return recommendedLayout.isEditorLayout || recommendedLayout.isSet
+        return recommendedLayout.isEditorLayout || recommendedLayout.isList
     }
     
     // Properties

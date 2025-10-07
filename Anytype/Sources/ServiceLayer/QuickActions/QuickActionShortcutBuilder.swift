@@ -5,7 +5,7 @@ import AnytypeCore
 
 @MainActor
 protocol QuickActionShortcutBuilderProtocol {
-    func buildShortcutItems(spaceId: String) -> [UIApplicationShortcutItem]
+    func buildShortcutItems(spaceId: String) async -> [UIApplicationShortcutItem]
     func buildAction(shortcutItem: UIApplicationShortcutItem) -> QuickAction?
 }
 
@@ -21,8 +21,10 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
     // MARK: - QuickActionShortcutBuilderProtocol
     
-    func buildShortcutItems(spaceId: String) -> [UIApplicationShortcutItem] {
+    func buildShortcutItems(spaceId: String) async -> [UIApplicationShortcutItem] {
         guard spaceId.isNotEmpty else { return [] } // Unauthorized user
+        
+        await objectTypeProvider.prepareData(spaceId: spaceId)
         
         guard let types = try? typesService.getPinnedTypes(spaceId: spaceId), types.isNotEmpty else {
             return [buildCreateDefaultObjectShortcutItem(spaceId: spaceId)].compactMap { $0 }

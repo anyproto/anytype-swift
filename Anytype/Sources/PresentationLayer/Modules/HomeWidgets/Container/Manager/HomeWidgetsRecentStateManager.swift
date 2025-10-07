@@ -13,8 +13,8 @@ final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol
     // MARK: - DI
     @Injected(\.loginStateService)
     private var loginStateService: any LoginStateServiceProtocol
-    @Injected(\.blockWidgetExpandedService)
-    private var expandedService: any BlockWidgetExpandedServiceProtocol
+    @Injected(\.expandedService)
+    private var expandedService: any ExpandedServiceProtocol
     
     // MARK: - State
     
@@ -36,7 +36,7 @@ final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol
             guard let widgetInfo = widgetObject.widgetInfo(block: block),
                   widgetInfo.source == .library(.recent) else { return }
             
-            expandedService.setState(widgetBlockId: block.id, isExpanded: false)
+            expandedService.setState(id: block.id, isExpanded: false)
         }
         stateInstalled = true
     }

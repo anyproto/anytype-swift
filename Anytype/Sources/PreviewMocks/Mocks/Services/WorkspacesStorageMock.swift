@@ -9,14 +9,16 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
     
     var spaceView: SpaceView?
     func spaceView(spaceId: String) -> SpaceView? {
-        print(spaceView as Any)
-        print(spaceView?.objectIconImage as Any)
-        return spaceView
+        if let spaceView {
+            return spaceView
+        } else {
+            return allWorkspaces.first { $0.targetSpaceId == spaceId }
+        }
     }
     
     nonisolated private init() {
-        for _ in 0 ..< 50 {
-            self.allWorkspaces.append(SpaceView.mock())
+        for id in 0 ..< 50 {
+            self.allWorkspaces.append(SpaceView.mock(id: "\(id)"))
         }
     }
     
@@ -29,6 +31,4 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol, @unchecked Sendabl
     func spaceView(spaceViewId: String) -> SpaceView? { return nil }
     func workspaceInfo(spaceId: String) -> AccountInfo? { return nil }
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {}
-    func canCreateNewSpace() -> Bool { true }
-    func move(space: SpaceView, after: SpaceView) async { }
 }

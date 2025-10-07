@@ -25,7 +25,7 @@ final class DisabledPushNotificationsBannerViewModel: ObservableObject {
     }
     
     func requestAuthorization() async {
-        _ = await pushNotificationsPermissionService.requestAuthorization()
+        _ = await pushNotificationsPermissionService.requestAuthorizationAndRegisterIfNeeded()
     }
     
     func openSettings() {

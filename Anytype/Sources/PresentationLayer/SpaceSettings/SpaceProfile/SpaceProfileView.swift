@@ -26,7 +26,7 @@ struct SpaceProfileView: View {
                 SpaceSettingsInfoView(info: model.settingsInfo)
             }
             .anytypeSheet(item: $model.qrInviteLink) {
-                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace, route: .spaceProfile)
             }
             .snackbar(toastBarData: $model.snackBarData)
     }
@@ -84,7 +84,7 @@ struct SpaceProfileView: View {
             
             HStack(spacing: 24) {
                 Button {
-                    model.onInviteTap()
+                    model.onShareTap()
                 } label: {
                     inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }

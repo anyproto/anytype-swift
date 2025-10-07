@@ -1,13 +1,12 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct SpaceChatWidgetView: View {
     
     @StateObject private var model: SpaceChatWidgetViewModel
-    @Binding var homeState: HomeWidgetsState
     
-    init(data: WidgetSubmoduleData) {
-        self._homeState = data.homeState
+    init(data: SpaceChatWidgetData) {
         self._model = StateObject(wrappedValue: SpaceChatWidgetViewModel(data: data))
     }
     
@@ -15,16 +14,14 @@ struct SpaceChatWidgetView: View {
         LinkWidgetViewContainer(
             isExpanded: .constant(false),
             dragId: nil,
-            homeState: $homeState,
-            allowMenuContent: true,
+            homeState: .constant(.readwrite),
+            allowMenuContent: false,
             allowContent: false,
-            removeAction: {
-                model.onDeleteWidgetTap()
-            },
+            removeAction: nil,
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,
-                    icon: .X24.chat,
+                    icon: .asset(.X24.chat),
                     rightAccessory: {
                         HStack(spacing: 4) {
                             if model.hasMentions {
@@ -38,15 +35,6 @@ struct SpaceChatWidgetView: View {
                     onTap: {
                         model.onHeaderTap()
                     }
-                )
-            },
-            menu: {
-                WidgetCommonActionsMenuView(
-                    items: [.remove],
-                    widgetBlockId: model.widgetBlockId,
-                    widgetObject: model.widgetObject,
-                    homeState: homeState,
-                    output: model.output
                 )
             },
             content: { EmptyView() }

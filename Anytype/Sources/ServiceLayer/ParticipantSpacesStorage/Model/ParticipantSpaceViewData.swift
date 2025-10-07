@@ -43,4 +43,8 @@ extension ParticipantSpaceViewData {
     var isOwner: Bool {
         participant?.isOwner ?? false
     }
+    
+    var canChangeUxType: Bool {
+        permissions.canChangeUxType
+    }
 }

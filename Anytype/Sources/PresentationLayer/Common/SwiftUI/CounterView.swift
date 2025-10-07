@@ -34,7 +34,7 @@ struct CounterView: View {
     private var fillColor: Color {
         switch style {
         case .default: return Color.Control.transparentSecondary
-        case .muted: return Color.Control.tertiary
+        case .muted: return Color.Control.transparentTertiary
         case .highlighted: return Color.Control.accent100
         }
     }

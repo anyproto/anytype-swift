@@ -16,8 +16,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     private enum Constants {
-        static let favoriteTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .collection, .task, .set]
-        
+        static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .note, .task]
+
     }
     
     // MARK: - Private properties
@@ -35,6 +35,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.experimentalFeaturesStorage)
+    private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
     
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
@@ -43,6 +45,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var chatLinkData: ChatLinkObject?
     private var isWidgetsScreen: Bool = false
+    private var currentData: AnyHashable?
     private var participantSpaceView: ParticipantSpaceViewData?
     
     // MARK: - Public properties
@@ -51,8 +54,11 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var progress: Double? = nil
     @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
-    @Published var favoritesObjectTypes: [ObjectType] = []
+    @Published var pageObjectType: ObjectType?
+    @Published var noteObjectType: ObjectType?
+    @Published var taskObjectType: ObjectType?
     @Published var otherObjectTypes: [ObjectType] = []
+    @Published var newObjectPlusMenu: Bool = false
     
     init(
         info: AccountInfo,
@@ -61,15 +67,6 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         self.info = info
         self.output = output
         setupDataSubscription()
-    }
-    
-    func onTapForward() {
-        output?.onForwardSelected()
-    }
-    
-    func onTapBackward() {
-        AnytypeAnalytics.instance().logHistoryBack()
-        output?.onBackwardSelected()
     }
     
     func onTapNewObject() {
@@ -87,13 +84,15 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func startSubscriptions() async {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
+        async let featuresSub: () = featuresSubscription()
         
-        (_, _) = await (participantSub, typesSub)
+        _ = await (participantSub, typesSub, featuresSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
         chatLinkData = (data as? EditorScreenData)?.chatLink
         isWidgetsScreen = (data as? HomeWidgetData) != nil
+        currentData = data
         updateState()
     }
     
@@ -115,6 +114,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onTapCreateObject(type: ObjectType) {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
         Task { @MainActor in
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -135,6 +135,21 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         }
     }
     
+    func onAddMediaSelected() {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(type: .photo, route: clickAddMenuAnalyticsRoute())
+        output?.onAddMediaSelected(spaceId: info.accountSpaceId)
+    }
+    
+    func onCameraSelected() {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(type: .camera, route: clickAddMenuAnalyticsRoute())
+        output?.onCameraSelected(spaceId: info.accountSpaceId)
+    }
+    
+    func onAddFilesSelected() {
+        AnytypeAnalytics.instance().logClickNavBarAddMenu(type: .file, route: clickAddMenuAnalyticsRoute())
+        output?.onAddFilesSelected(spaceId: info.accountSpaceId)
+    }
+    
     // MARK: - Private
     
     private func participantSubscription() async {
@@ -151,22 +166,31 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 && !type.isTemplateType
             }
             
-            favoritesObjectTypes = types
-                .filter { Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
-                .reordered(by: Constants.favoriteTypesUniqueKeys.map(\.value), transform: \.uniqueKey.value)
-            
+            // priority object types
+            pageObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.page }
+            noteObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.note }
+            taskObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.task }
+
+            // other object types (excluding Image and File types as per requirements)
             otherObjectTypes = types
-                .filter { !Constants.favoriteTypesUniqueKeys.contains($0.uniqueKey) }
-                .sorted {
-                    $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
+                .filter {
+                    !Constants.priorityTypesUniqueKeys.contains($0.uniqueKey) &&
+                    $0.uniqueKey != .image &&
+                    $0.uniqueKey != .file
                 }
+        }
+    }
+    
+    private func featuresSubscription() async {
+        for await newObjectCreationMenu in experimentalFeaturesStorage.newObjectCreationMenuSequence {
+            newObjectPlusMenu = newObjectCreationMenu
         }
     }
     
     private func updateState() {
         guard let participantSpaceView else { return }
         
-        let canLinkToChat = chatLinkData.isNotNil && participantSpaceView.spaceView.initialScreenIsChat && participantSpaceView.spaceView.chatToggleEnable
+        let canLinkToChat = chatLinkData.isNotNil && participantSpaceView.spaceView.initialScreenIsChat
         
         if canLinkToChat {
             leftButtonMode = .chat(participantSpaceView.permissions.canEdit)
@@ -239,5 +263,16 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func clickAddMenuAnalyticsRoute() -> ClickNavBarAddMenuRoute? {
+        // Read before sending the event. This way we can keep track of which screens don't have a route.
+        if let provider = currentData as? any HomeClinkNavBarAddMenuRouteProvider {
+            return provider.clickNavBarAddMenuRoute
+        }
+        if let currentData {
+            anytypeAssertionFailure("Home data without ClinkNavBarAddMenuRoute", info: ["type": "\(currentData)"])
+        }
+        return nil
     }
 }

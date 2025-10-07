@@ -35,4 +35,19 @@ extension BaseDocumentProtocol {
         
         return nil
     }
+    
+    func widgetBlockIdFor(targetObjectId: String) -> String? {
+        for block in children {
+            guard case .widget = block.content,
+                  let contentId = block.childrenIds.first,
+                  let contentInfo = infoContainer.get(id: contentId),
+                  case let .link(link) = contentInfo.content else { continue }
+            
+            if link.targetBlockID == targetObjectId {
+                return block.id
+            }
+        }
+        
+        return nil
+    }
 }

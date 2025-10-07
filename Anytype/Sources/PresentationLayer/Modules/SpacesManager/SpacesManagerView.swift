@@ -6,6 +6,59 @@ struct SpacesManagerView: View {
     @StateObject private var model = SpacesManagerViewModel()
     
     var body: some View {
+        content
+            .task {
+                await model.startWorkspacesTask()
+            }
+            .onAppear {
+                model.onAppear()
+            }
+            .background(Color.Background.primary)
+            .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
+                SpaceCancelRequestAlert(spaceId: space.targetSpaceId)
+            }
+            .anytypeSheet(item: $model.spaceForStopSharingAlert) { space in
+                StopSharingAlert(spaceId: space.targetSpaceId)
+            }
+            .anytypeSheet(item: $model.spaceForLeaveAlert) { space in
+                SpaceLeaveAlert(spaceId: space.targetSpaceId)
+            }
+            .anytypeSheet(item: $model.spaceViewForDelete) { space in
+                SpaceDeleteAlert(spaceId: space.targetSpaceId)
+            }
+            .sheet(item: $model.exportSpaceUrl) { link in
+                ActivityView(activityItems: [link])
+            }
+            .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
+                SpaceCreateTypePickerView(onSelectSpaceType: { type in
+                    model.onSpaceTypeSelected(type)
+                }, onSelectQrCodeScan: {
+                    model.onSelectQrCodeScan()
+                })
+            }
+            .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
+            .sheet(item: $model.spaceCreateData) {
+                SpaceCreateCoordinatorView(data: $0)
+            }
+    }
+    
+    @ViewBuilder
+    private var content: some View {
+        if model.participantSpaces.isNotEmpty {
+            spaces
+        } else {
+            EmptyStateView(
+                title: Loc.thereAreNoSpacesYet,
+                subtitle: "",
+                style: .withImage,
+                buttonData: EmptyStateView.ButtonData(title: Loc.createSpace) {
+                    model.onTapCreateSpace()
+                }
+            )
+        }
+    }
+    
+    private var spaces: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.Spaces.title)
@@ -28,28 +81,6 @@ struct SpacesManagerView: View {
                 }
                 .padding(.horizontal, 10)
             }
-        }
-        .task {
-            await model.startWorkspacesTask()
-        }
-        .onAppear {
-            model.onAppear()
-        }
-        .background(Color.Background.primary)
-        .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
-            SpaceCancelRequestAlert(spaceId: space.targetSpaceId)
-        }
-        .anytypeSheet(item: $model.spaceForStopSharingAlert) { space in
-            StopSharingAlert(spaceId: space.targetSpaceId)
-        }
-        .anytypeSheet(item: $model.spaceForLeaveAlert) { space in
-            SpaceLeaveAlert(spaceId: space.targetSpaceId)
-        }
-        .anytypeSheet(item: $model.spaceViewForDelete) { space in
-            SpaceDeleteAlert(spaceId: space.targetSpaceId)
-        }
-        .sheet(item: $model.exportSpaceUrl) { link in
-            ActivityView(activityItems: [link])
         }
     }
 }

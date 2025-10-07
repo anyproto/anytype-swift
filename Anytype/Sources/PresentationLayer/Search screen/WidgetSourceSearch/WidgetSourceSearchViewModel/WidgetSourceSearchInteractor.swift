@@ -98,10 +98,10 @@ private extension AnytypeWidgetId {
                 description: nil,
                 icon: .asset(.SystemWidgets.allObjects)
             )
-        case .favorite:
+        case .pinned:
             return WidgetAnytypeLibrarySource(
-                type: .favorite,
-                name: Loc.favorite,
+                type: .pinned,
+                name: Loc.pinned,
                 description: nil,
                 icon: .asset(.SystemWidgets.favorites)
             )

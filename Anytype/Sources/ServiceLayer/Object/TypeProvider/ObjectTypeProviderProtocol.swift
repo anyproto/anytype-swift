@@ -17,7 +17,9 @@ protocol ObjectTypeProviderProtocol: AnyObject, Sendable {
     func deletedObjectType(id: String) -> ObjectType
     
     func startSubscription(spaceId: String) async
-    func stopSubscription(cleanCache: Bool) async
+    func stopSubscription() async
+    
+    func prepareData(spaceId: String) async
 }
 
 extension ObjectTypeProviderProtocol {
@@ -28,6 +30,13 @@ extension ObjectTypeProviderProtocol {
     func objectTypesPublisher(spaceId: String) -> AnyPublisher<[ObjectType], Never> {
         syncPublisher
             .compactMap { [weak self] in self?.objectTypes(spaceId: spaceId) }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+    
+    func objectTypePublisher(typeId: String) -> AnyPublisher<ObjectType, Never> {
+        syncPublisher
+            .compactMap { [weak self] in try? self?.objectType(id: typeId) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }

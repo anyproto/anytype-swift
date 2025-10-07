@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct GradientIconsExamples: View {
     
-    private let allColors = IconColorStorage.allColors
+    private let allColors = IconColorStorage.allBackgroundColors
     
     var body: some View {
         VStack(spacing: 0) {
@@ -29,7 +29,7 @@ struct GradientIconsExamples: View {
                             .foregroundColor(.Text.primary)
                         HStack(spacing: 0) {
                             Spacer()
-                            IconView(icon: .object(.space(.name(name: "Design system", iconOption: index + 1))))
+                            IconView(icon: .object(.space(.name(name: "Design system", iconOption: index + 1, circular: false))))
                                 .frame(width: 96, height: 96)
                             Spacer()
                         }

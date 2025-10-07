@@ -14,7 +14,7 @@ final class WidgetContainerViewModel: ObservableObject {
     let widgetObject: any BaseDocumentProtocol
     weak var output: (any CommonWidgetModuleOutput)?
     
-    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
+    private let expandedService: any ExpandedServiceProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
@@ -31,19 +31,30 @@ final class WidgetContainerViewModel: ObservableObject {
     }
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var toastData: ToastBarData?
+    let menuItems: [WidgetMenuItem]
     
     init(
         widgetBlockId: String,
         widgetObject: some BaseDocumentProtocol,
+        expectedMenuItems: [WidgetMenuItem],
         output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.output = output
         
-        blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
+        expandedService = Container.shared.expandedService()
+        isExpanded = expandedService.isExpanded(id: widgetBlockId, defaultValue: true)
         
-        isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
+        let source = widgetObject.widgetInfo(blockId: widgetBlockId)?.source
+        
+        let numberOfWidgetLayouts = source?.availableWidgetLayout.count ?? 0
+        let menuItems = numberOfWidgetLayouts > 1 ? expectedMenuItems : expectedMenuItems.filter { $0 != .changeType }
+        if FeatureFlags.homeObjectTypeWidgets {
+            self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems.filter { $0 != .removeSystemWidget }
+        } else {
+            self.menuItems = menuItems
+        }
     }
     
     // MARK: - Actions
@@ -52,7 +63,8 @@ final class WidgetContainerViewModel: ObservableObject {
         widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
             widgetObject: widgetObject,
             widgetBlockId: widgetBlockId,
-            homeState: homeState
+            homeState: homeState,
+            output: output
         )
     }
     
@@ -73,6 +85,6 @@ final class WidgetContainerViewModel: ObservableObject {
                 AnytypeAnalytics.instance().logCloseSidebarGroupToggle(source: info.source.analyticsSource)
             }
         }
-        blockWidgetExpandedService.setState(widgetBlockId: widgetBlockId, isExpanded: isExpanded)
+        expandedService.setState(id: widgetBlockId, isExpanded: isExpanded)
     }
 }

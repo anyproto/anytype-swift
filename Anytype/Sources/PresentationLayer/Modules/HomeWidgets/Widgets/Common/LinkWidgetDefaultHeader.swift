@@ -3,13 +3,13 @@ import SwiftUI
 struct LinkWidgetDefaultHeader<RightView: View>: View {
     
     let title: String
-    let icon: ImageAsset?
+    let icon: Icon?
     let rightAccessory: RightView
     let onTap: (() -> Void)
     
     init(
         title: String,
-        icon: ImageAsset?,
+        icon: Icon?,
         @ViewBuilder rightAccessory: () -> RightView = { EmptyView() },
         onTap: @escaping () -> Void
     ) {
@@ -23,8 +23,7 @@ struct LinkWidgetDefaultHeader<RightView: View>: View {
         HStack(spacing: 0) {
             if let icon {
                 Spacer.fixedWidth(14)
-                Image(asset: icon)
-                    .foregroundColor(.Text.primary)
+                IconView(icon: icon, assetColor: .Text.primary)
                     .frame(width: 20, height: 20)
                 Spacer.fixedWidth(8)
             } else {

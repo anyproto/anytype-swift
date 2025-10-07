@@ -47,13 +47,15 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
                 }
             }
             .sheet(item: $model.showSpaceShareData) {
+                model.onSpaceShareDismissed()
+            } content: {
                 SpaceShareCoordinatorView(data: $0)
-            }
-            .sheet(item: $model.showSpaceMembersData) { data in
-                SpaceMembersView(data: data)
             }
             .sheet(item: $model.spaceNotificationsSettingsModuleData) {
                 SpaceNotificationsSettingsView(data: $0)
+            }
+            .sheet(item: $model.spaceTypeChangeData) {
+                SpaceTypeChangeView(data: $0)
             }
     }
 }

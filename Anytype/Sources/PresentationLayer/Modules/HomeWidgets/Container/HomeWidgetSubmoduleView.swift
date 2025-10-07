@@ -25,12 +25,12 @@ struct HomeWidgetSubmoduleView: View {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.allObjects, _):
             AllObjectsWidgetView(data: widgetData)
-        case (.favorite, .tree):
-            FavoriteTreeWidgetsubmoduleView(data: widgetData)
-        case (.favorite, .list):
-            FavoriteListWidgetSubmoduleView(data: widgetData)
-        case (.favorite, .compactList):
-            FavoriteCompactListWidgetSubmoduleView(data: widgetData)
+        case (.pinned, .tree):
+            PinnedTreeWidgetsubmoduleView(data: widgetData)
+        case (.pinned, .list):
+            PinnedListWidgetSubmoduleView(data: widgetData)
+        case (.pinned, .compactList):
+            PinnedCompactListWidgetSubmoduleView(data: widgetData)
         case (.recent, .tree):
             RecentEditTreeWidgetSubmoduleView(data: widgetData)
         case (.recent, .list):
@@ -46,11 +46,7 @@ struct HomeWidgetSubmoduleView: View {
         case (.bin, _):
             BinWidgetView(data: widgetData)
         case (.chat, _):
-            if FeatureFlags.showChatWidget {
-                SpaceChatWidgetView(data: widgetData)
-            } else {
-                EmptyView()
-            }
+            SpaceChatLegacyWidgetView(data: widgetData)
         case _:
             EmptyView()
         }

@@ -42,8 +42,8 @@ extension Legacy_ObjectTypeSearchInteractor {
             includeBookmarks: showBookmark,
             includeFiles: showFiles,
             includeChat: false,
-            includeTemplates: false,
-            incudeNotForCreation: false,
+            includeTemplates: true,
+            incudeNotForCreation: true,
             spaceId: spaceId
         )
     }

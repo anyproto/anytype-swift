@@ -130,10 +130,6 @@ extension Color {
       public static let orange = Color(asset: Asset.Gradients.orange)
       public static let white = Color(asset: Asset.Gradients.white)
     }
-    // MARK: - Launch
-    public enum Launch {
-      public static let circle = Color(asset: Asset.Launch.circle)
-    }
     // MARK: - ModalScreen
     public enum ModalScreen {
       public static let background = Color(asset: Asset.ModalScreen.background)
@@ -205,6 +201,8 @@ extension Color {
       public static let primary = Color(asset: Asset.Text.primary)
       public static let secondary = Color(asset: Asset.Text.secondary)
       public static let tertiary = Color(asset: Asset.Text.tertiary)
+      public static let transparentSecondary = Color(asset: Asset.Text.transparentSecondary)
+      public static let transparentTertiary = Color(asset: Asset.Text.transparentTertiary)
       public static let white = Color(asset: Asset.Text.white)
     }
 }

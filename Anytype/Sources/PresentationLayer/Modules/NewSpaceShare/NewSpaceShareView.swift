@@ -6,7 +6,7 @@ struct NewSpaceShareView: View {
     
     @StateObject private var model: NewSpaceShareViewModel
     
-    init(data: SpaceShareData, output: (any NewSpaceShareModuleOutput)?) {
+    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self._model = StateObject(wrappedValue: NewSpaceShareViewModel(data: data, output: output))
     }
     
@@ -22,6 +22,8 @@ struct NewSpaceShareView: View {
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
                 SpaceRequestAlert(data: alertModel) { reason in
                     model.onUpgradeTap(reason: reason, route: .confirmInvite)
+                } onReject: {
+                    model.onReject()
                 }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
@@ -36,6 +38,9 @@ struct NewSpaceShareView: View {
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)
             }
+            .anytypeSheet(isPresented: $model.showStopSharingAnEmptySpaceAlert) {
+                StopSharingAnEmptySpaceAlert()
+            }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()
     }
@@ -43,47 +48,28 @@ struct NewSpaceShareView: View {
     private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.SpaceShare.title) {
-                rightNavigationButton
-            }
+            TitleView(title: Loc.SpaceShare.members)
             
-            ZStack(alignment: .bottom) {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        SectionHeaderView(title: Loc.SpaceShare.members)
-                        if let reason = model.upgradeTooltipData {
-                            SpaceShareUpgradeView(reason: reason) {
-                                model.onUpgradeTap(reason: reason, route: .spaceSettings)
-                            }
-                        }
-                        ForEach(model.rows) { participant in
-                            SpaceShareParticipantView(participant: participant)
+            ScrollView {
+                VStack(spacing: 0) {
+                    
+                    SectionHeaderView(title: Loc.SpaceShare.Invite.title)
+                    NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, output: model.output)
+                    
+                    SectionHeaderView(title: Loc.SpaceShare.members)
+                    if let reason = model.upgradeTooltipData {
+                        SpaceShareUpgradeView(reason: reason) {
+                            model.onUpgradeTap(reason: reason, route: .spaceSettings)
                         }
                     }
-                    .padding(.horizontal, 16)
+                    ForEach(model.rows) { participant in
+                        SpaceShareParticipantView(participant: participant)
+                    }
                 }
-                .safeAreaInset(edge: .bottom) {
-                    NewInviteLinkView(data: model.data, output: model.output)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 36)
-                }
+                .padding(.horizontal, 16)
             }
         }
+        .background(Color.Background.primary)
         .animation(.default, value: model.upgradeTooltipData)
-    }
-    
-    private var rightNavigationButton: some View {
-        Menu {
-            Button(Loc.moreInfo) {
-                model.onMoreInfoTap()
-            }
-            Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
-                model.onStopSharing()
-            }
-            .disabled(!model.canStopShare)
-        } label: {
-            IconView(icon: .asset(.X24.more))
-                .frame(width: 24, height: 24)
-        }
     }
 }

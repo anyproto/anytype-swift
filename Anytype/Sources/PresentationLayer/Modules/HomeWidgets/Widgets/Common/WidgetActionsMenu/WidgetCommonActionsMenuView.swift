@@ -1,10 +1,12 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 enum WidgetMenuItem: String {
     case addBelow
     case changeType
     case remove
+    case removeSystemWidget // Temporary action for split unpin and delete system widget. Delete after migration
 }
 
 struct WidgetCommonActionsMenuView: View {
@@ -27,23 +29,72 @@ struct WidgetCommonActionsMenuView: View {
     private func menuItemToView(item: WidgetMenuItem) -> some View {
         switch item {
         case .addBelow:
-            Button(Loc.Widgets.Actions.addBelow) {
-                model.provider.onAddBelowTap(
-                    widgetBlockId: widgetBlockId,
-                    homeState: homeState,
-                    output: output
-                )
+            if !FeatureFlags.homeObjectTypeWidgets {
+                Button(Loc.Widgets.Actions.addBelow) {
+                    model.provider.onAddBelowTap(
+                        widgetBlockId: widgetBlockId,
+                        homeState: homeState,
+                        output: output
+                    )
+                }
             }
         case .changeType:
-            Button(Loc.Widgets.Actions.changeWidgetType) {
-                model.provider.onChangeTypeTap(
-                    widgetBlockId: widgetBlockId,
-                    homeState: homeState,
-                    output: output
-                )
+            if FeatureFlags.homeObjectTypeWidgets {
+                Button {
+                    model.provider.onChangeTypeTap(
+                        widgetBlockId: widgetBlockId,
+                        homeState: homeState,
+                        output: output
+                    )
+                } label: {
+                    Text(Loc.Widgets.Actions.changeWidgetType)
+                    Image(systemName: "arrow.2.squarepath")
+                }
+            } else {
+                Button(Loc.Widgets.Actions.changeWidgetType) {
+                    model.provider.onChangeTypeTap(
+                        widgetBlockId: widgetBlockId,
+                        homeState: homeState,
+                        output: output
+                    )
+                }
             }
         case .remove:
-            Button(Loc.Widgets.Actions.removeWidget, role: .destructive) {
+            if FeatureFlags.homeObjectTypeWidgets {
+                Button {
+                    // Fix animation glitch.
+                    // We should to finalize context menu transition to list and then delete object
+                    // If we find how customize context menu transition, this 🩼 can be deleted
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        model.provider.onDeleteWidgetTap(
+                            widgetObject: widgetObject,
+                            widgetBlockId: widgetBlockId,
+                            homeState: homeState,
+                            output: output
+                        )
+                    }
+                } label: {
+                    Text(Loc.unpin)
+                    Image(systemName: "pin.slash")
+                    
+                }
+            } else {
+                Button(Loc.Widgets.Actions.removeWidget, role: .destructive) {
+                    // Fix animation glitch.
+                    // We should to finalize context menu transition to list and then delete object
+                    // If we find how customize context menu transition, this 🩼 can be deleted
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        model.provider.onDeleteWidgetTap(
+                            widgetObject: widgetObject,
+                            widgetBlockId: widgetBlockId,
+                            homeState: homeState,
+                            output: output
+                        )
+                    }
+                }
+            }
+        case .removeSystemWidget:
+            Button(role: .destructive) {
                 // Fix animation glitch.
                 // We should to finalize context menu transition to list and then delete object
                 // If we find how customize context menu transition, this 🩼 can be deleted
@@ -51,9 +102,14 @@ struct WidgetCommonActionsMenuView: View {
                     model.provider.onDeleteWidgetTap(
                         widgetObject: widgetObject,
                         widgetBlockId: widgetBlockId,
-                        homeState: homeState
+                        homeState: homeState,
+                        output: output
                     )
                 }
+            } label: {
+                Text(Loc.Widgets.Actions.removeWidget)
+                Image(systemName: "trash")
+                
             }
         }
     }

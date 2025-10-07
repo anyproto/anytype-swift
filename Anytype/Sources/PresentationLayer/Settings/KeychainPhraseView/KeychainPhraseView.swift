@@ -12,8 +12,7 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(24)
-            AnytypeText(Loc.backUpYourKey, style: .heading)
-                .foregroundColor(.Text.primary)
+            TitleView(title: Loc.loginKey)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Keychain.Key.description, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)

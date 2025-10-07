@@ -46,8 +46,8 @@ struct ObjectTypeSearchView: View {
         
         .snackbar(toastBarData: $viewModel.toastData)
         .anytypeSheet(item: $viewModel.newTypeInfo) {
-            ObjectTypeInfoView(info: $0) { info in
-                viewModel.onCreateTypeSubmit(info: info)
+            CreateObjectTypeView(data: $0) { type in
+                viewModel.onCreateTypeSubmit(type: type)
             }
         }
         
@@ -121,7 +121,7 @@ struct ObjectTypeSearchView: View {
                     title: Loc.nothingFound,
                     subtitle: Loc.noTypeFoundText(viewModel.searchText),
                     style: .plain,
-                    buttonData: viewModel.participantCanEdit ? EmptyStateView.ButtonData(
+                    buttonData: (viewModel.participantCanEdit && viewModel.settings.showPlusButton) ? EmptyStateView.ButtonData(
                         title: Loc.createType,
                         action: { viewModel.createType(name: viewModel.searchText) }
                     ) : nil

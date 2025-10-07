@@ -761,6 +761,11 @@ extension Anytype_Rpc.Device.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.File.DiscardPreload.Response: ResultWithError {}
+extension Anytype_Rpc.File.DiscardPreload.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.File.Download.Response: ResultWithError {}
 extension Anytype_Rpc.File.Download.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1300,6 +1305,11 @@ extension Anytype_Rpc.ObjectType.ResolveLayoutConflicts.Response.Error: Response
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.ObjectType.SetOrder.Response: ResultWithError {}
+extension Anytype_Rpc.ObjectType.SetOrder.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Process.Cancel.Response: ResultWithError {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1357,6 +1367,11 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Relation.ListWithValue.Response: ResultWithError {}
 extension Anytype_Rpc.Relation.ListWithValue.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Relation.Option.SetOrder.Response: ResultWithError {}
+extension Anytype_Rpc.Relation.Option.SetOrder.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

@@ -34,7 +34,6 @@ public extension UIColor {
                 UIColor.BackgroundCustom.collectionInfo,
                 UIColor.CoverGradients.collectionInfo,
                 UIColor.Gradients.collectionInfo,
-                UIColor.Launch.collectionInfo,
                 UIColor.ModalScreen.collectionInfo,
                 UIColor.PushNotifications.collectionInfo,
                 UIColor.Shadow.collectionInfo,
@@ -207,14 +206,6 @@ public extension UIColor.Gradients {
         ]
     )
 }
-public extension UIColor.Launch {
-    static let collectionInfo = ColorCollectionInfo(
-        name: "Launch",
-        colors: [
-            ColorInfo(name: "circle", color: UIColor.Launch.circle)
-        ]
-    )
-}
 public extension UIColor.ModalScreen {
     static let collectionInfo = ColorCollectionInfo(
         name: "ModalScreen",
@@ -313,6 +304,8 @@ public extension UIColor.Text {
             ColorInfo(name: "primary", color: UIColor.Text.primary),
             ColorInfo(name: "secondary", color: UIColor.Text.secondary),
             ColorInfo(name: "tertiary", color: UIColor.Text.tertiary),
+            ColorInfo(name: "transparentSecondary", color: UIColor.Text.transparentSecondary),
+            ColorInfo(name: "transparentTertiary", color: UIColor.Text.transparentTertiary),
             ColorInfo(name: "white", color: UIColor.Text.white)
         ]
     )

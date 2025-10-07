@@ -8,10 +8,12 @@ struct LaunchView: View {
 
     var body: some View {
         ZStack {
-            Color.black
+            Color.Background.primary
                 .onTapGesture(count: 10) {
                     showPrivateDebugMenu.toggle()
                 }
+                .ignoresSafeArea()
+            
             LaunchCircle()
                 .onTapGesture(count: 5) {
                     showPublicDebugMenu.toggle()
@@ -22,7 +24,22 @@ struct LaunchView: View {
                 .sheet(isPresented: $showPublicDebugMenu) {
                     PublicDebugMenuView()
                 }
+                .zStackPosition(.center)
+                .ignoresSafeArea()
+            
+            HStack(spacing: 8) {
+                IconView(asset: .X18.lockWithTick)
+                // Do not localize
+                Text("encrypted, local, yours forever")
+                    .anytypeStyle(.previewTitle2Medium)
+                    .foregroundStyle(Color.Text.secondary)
+            }
+            .zStackPosition(.bottom)
+            .padding(.bottom, 26)
         }
-        .ignoresSafeArea()
     }
+}
+
+#Preview {
+    LaunchView()
 }

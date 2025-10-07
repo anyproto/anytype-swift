@@ -22,10 +22,7 @@ struct ImageIdIconView<Placeholder: View>: View {
     
     var body: some View {
         GeometryReader { reader in
-            ToggleCachedAsyncImage(
-                url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl,
-                urlCache: .anytypeImages
-            ) { image in
+            CachedAsyncImage(url: ImageMetadata(id: imageId, side: side(size: reader.size)).contentUrl) { image in
                 image.resizable().scaledToFill().clipped()
             } placeholder: {
                 placeholder()

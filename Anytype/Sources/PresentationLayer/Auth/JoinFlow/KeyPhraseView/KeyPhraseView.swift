@@ -12,8 +12,11 @@ struct KeyPhraseView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            Spacer.fixedHeight(32)
             content
             Spacer()
+        }
+        .overlay(alignment: .bottom) {
             buttons
         }
         .snackbar(toastBarData: $model.snackBar)
@@ -35,9 +38,9 @@ struct KeyPhraseView: View {
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Key.description,
-                style: .bodyRegular
+                style: .uxCalloutRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundColor(.Text.secondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
@@ -55,9 +58,9 @@ struct KeyPhraseView: View {
     private var readMore: some View {
         HStack(spacing: 6) {
             Image(systemName: "plus.circle.fill")
-                .foregroundColor(.Auth.body)
+                .foregroundColor(.Text.secondary)
             AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .button1Medium)
-                .foregroundColor(.Auth.body)
+                .foregroundColor(.Text.secondary)
         }
         .fixTappableArea()
         .onTapGesture {
@@ -76,7 +79,7 @@ struct KeyPhraseView: View {
                 hideWords: !model.keyShown
             )
             .disabled(true)
-            .blur(radius: model.keyShown ? 0 : 5)
+            .blur(radius: model.keyShown ? 0 : 12)
             .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
@@ -84,7 +87,7 @@ struct KeyPhraseView: View {
     private var buttons: some View {
         VStack(spacing: 0) {
             StandardButton(model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title,
-                style: .primaryLarge,
+                style: .primaryOvalLarge,
                 action: {
                     model.onPrimaryButtonTap()
                 }
@@ -92,10 +95,10 @@ struct KeyPhraseView: View {
             .colorScheme(.light)
             
             if !model.keyShown {
-                Spacer.fixedHeight(13)
+                Spacer.fixedHeight(8)
                 StandardButton(
                     Loc.Auth.JoinFlow.Key.Button.Later.title,
-                    style: .secondaryLarge,
+                    style: .linkLarge,
                     action: {
                         model.onSecondaryButtonTap()
                     }

@@ -25,7 +25,7 @@ struct MentionBadge: View {
     
     private var fillColor: Color {
         switch style {
-        case .muted: return Color.Control.tertiary
+        case .muted: return Color.Control.transparentTertiary
         case .highlighted: return Color.Control.accent100
         }
     }

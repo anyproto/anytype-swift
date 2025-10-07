@@ -7,6 +7,8 @@ struct LaunchCircle: View {
         static let maxSide: CGFloat = 128
         static let middleSide: CGFloat = 48
         static let minSide: CGFloat = 16
+        // Сolor is stored in the assets of the main target. Then it is available in LaunchScreen.storyboard
+        static let color = Color.launchColorsCircle
     }
     
     @State private var side: CGFloat = Constants.minSide
@@ -15,7 +17,7 @@ struct LaunchCircle: View {
         Circle()
             .fill(
                 RadialGradient(
-                    gradient: Gradient(colors: [Color.Launch.circle.opacity(opacity), Color.Launch.circle]),
+                    gradient: Gradient(colors: [Constants.color.opacity(opacity), Constants.color]),
                     center: .center,
                     startRadius: side * 0,
                     endRadius: side * 0.5

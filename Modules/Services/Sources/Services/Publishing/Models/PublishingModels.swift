@@ -8,9 +8,10 @@ public struct PublishState: Sendable, Equatable, Hashable {
     public let uri: String
     public let status: PublishStatus
     public let version: String
-    public let timestamp: Date
+    public let date: Date
     public let size: Int64
     public let joinSpace: Bool
+    public let details: ObjectDetails
     
     init(from protobuf: Anytype_Rpc.Publishing.PublishState) {
         self.spaceId = protobuf.spaceID
@@ -18,9 +19,10 @@ public struct PublishState: Sendable, Equatable, Hashable {
         self.uri = protobuf.uri
         self.status = PublishStatus(from: protobuf.status)
         self.version = protobuf.version
-        self.timestamp = Date(timeIntervalSince1970: TimeInterval(protobuf.timestamp))
+        self.date = Date(timeIntervalSince1970: TimeInterval(protobuf.timestamp))
         self.size = protobuf.size
         self.joinSpace = protobuf.joinSpace
+        self.details = (try? protobuf.details.toDetails()) ?? ObjectDetails(id: protobuf.objectID)
     }
 }
 

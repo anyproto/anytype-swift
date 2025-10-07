@@ -37,7 +37,7 @@ struct SpaceSettingsView: View {
                 SettingsInfoEditingView($0)
             }
             .anytypeSheet(item: $model.qrInviteLink) {
-                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace, route: .settingsSpace)
             }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
@@ -122,14 +122,14 @@ struct SpaceSettingsView: View {
         }
     }
     
-    @ViewBuilder
     private var sharing: some View {
+        Group {
         if model.inviteLink.isNotNil {
             Spacer.fixedHeight(24)
             
             HStack(spacing: 24) {
                 Button {
-                    model.onInviteTap()
+                    model.onShareTap()
                 } label: {
                     inviteLinkActionView(asset: .X32.shareLink, title: Loc.SpaceShare.Share.link)
                 }
@@ -149,6 +149,7 @@ struct SpaceSettingsView: View {
             
             Spacer.fixedHeight(16)
         }
+        }.animation(.default, value: model.inviteLink)
     }
     
     private func inviteLinkActionView(asset: ImageAsset, title: String) -> some View {
@@ -176,8 +177,10 @@ struct SpaceSettingsView: View {
             EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
-        case .ownerOrEditor(let joiningCount):
-            collaborationSection(memberDecoration: joiningCount > 0 ? .caption("\(joiningCount)") : .chervon)
+        case .owner(let joiningCount):
+            collaborationSection(memberDecoration: joiningCount > 0 ? .badge(joiningCount) : .chervon)
+        case .editor:
+            collaborationSection(memberDecoration: .chervon)
         case .viewer:
             collaborationSection()
         }
@@ -186,15 +189,24 @@ struct SpaceSettingsView: View {
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onShareTap() }
-            if FeatureFlags.muteSpacePossibility {
-                Spacer.fixedHeight(8)
-                RoundedButton(
-                    Loc.notifications,
-                    icon: pushNotificationsSettingIcon(),
-                    decoration: .caption(pushNotificationsSettingCaption())) {
-                        model.onNotificationsTap()
-                    }
+            VStack(spacing: 8) {
+                RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                if FeatureFlags.muteSpacePossibility {
+                    RoundedButton(
+                        Loc.notifications,
+                        icon: pushNotificationsSettingIcon(),
+                        decoration: .caption(pushNotificationsSettingCaption())) {
+                            model.onNotificationsTap()
+                        }
+                }
+                if let data = model.uxTypeSettingsData {
+                    RoundedButton(
+                        Loc.channelType,
+                        icon: data.icon,
+                        decoration: .caption(data.typaName)) {
+                            model.onUxTypeTap()
+                        }
+                }
             }
         }
     }
@@ -206,7 +218,7 @@ struct SpaceSettingsView: View {
                 EmptyView()
             case .shareable:
                 SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onShareTap() }
+                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
             case .reachedSharesLimit(let limit):
                 SectionHeaderView(title: Loc.collaboration)
                 VStack(alignment: .leading, spacing: 0) {
@@ -240,13 +252,6 @@ struct SpaceSettingsView: View {
         ) { model.onDefaultObjectTypeTap() }
         Spacer.fixedHeight(8)
         RoundedButton(Loc.wallpaper, decoration: .chervon) { model.onWallpaperTap() }
-        if let isCreateTypeWidget = model.isCreateTypeWidget {
-            Spacer.fixedHeight(8)
-            RoundedButtonView(Loc.Settings.autoCreateTypeWidgets, decoration: .toggle(isOn: isCreateTypeWidget, onToggle: { isOn in
-                UISelectionFeedbackGenerator().selectionChanged()
-                model.toggleCreateTypeWidgetState(isOn: isOn)
-            }))
-        }
     }
     
     @ViewBuilder

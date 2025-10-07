@@ -18,7 +18,9 @@ struct SpaceHubCoordinatorView: View {
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
         
             .taskWithMemoryScope { await model.setup() }
-            
+            .task(id: model.currentSpaceId) {
+                await model.startSpaceSubscription()
+            }
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
@@ -57,12 +59,15 @@ struct SpaceHubCoordinatorView: View {
             }
             .sheet(item: $model.showSpaceShareData) {
                 SpaceShareCoordinatorView(data: $0)
+                    .pageNavigation(model.pageNavigation)
             }
             .sheet(item: $model.showSpaceMembersData) {
                 SpaceMembersView(data: $0)
+                    .pageNavigation(model.pageNavigation)
             }
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
+                    .pageNavigation(model.pageNavigation)
             }
             .anytypeSheet(item: $model.spaceProfileData) {
                 SpaceProfileView(info: $0)
@@ -86,6 +91,27 @@ struct SpaceHubCoordinatorView: View {
             }
             .sheet(isPresented: $model.showAppSettings) {
                 SettingsCoordinatorView()
+                    .pageNavigation(model.pageNavigation)
+            }
+        
+            // load photos
+            .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
+            .onChange(of: model.photosItems) { _ in
+                model.photosPickerFinished()
+            }
+        
+            // load from camera
+            .cameraAccessFullScreenCover(item: $model.cameraData) {
+                SimpleCameraView(data: $0)
+            }
+            
+            // load files
+            .fileImporter(
+                isPresented: $model.showFilesPicker,
+                allowedContentTypes: [.data],
+                allowsMultipleSelection: true
+            ) { result in
+                model.fileImporterFinished(result: result)
             }
     }
     

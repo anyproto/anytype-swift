@@ -24,8 +24,6 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     private var fileActionsService: any FileActionsServiceProtocol
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
-    @Injected(\.chatInviteStateService)
-    private var chatInviteStateService: any ChatInviteStateServiceProtocol
     
     // MARK: - State
     
@@ -43,7 +41,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
         self.data = data
         self.output = output
         self.spaceIconOption = IconColorStorage.randomOption()
-        self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption)))
+        self.spaceIcon = .object(.space(.name(name: "", iconOption: spaceIconOption, circular: data.spaceUxType.isChat)))
     }
     
     func onTapCreate() {
@@ -59,7 +57,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 iconOption: spaceIconOption,
                 accessType: spaceAccessType,
                 useCase: uxType.useCase,
-                withChat: FeatureFlags.homeSpaceLevelChat,
+                withChat: true,
                 uxType: uxType
             )
             
@@ -73,9 +71,8 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             if uxType.isChat {
                 // Do not rethrow error to main flow
                 do {
-                    chatInviteStateService.setShouldShowInvite(for: spaceId)
                     _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId)
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
                 } catch {}
             }
             
@@ -101,7 +98,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     
     func updateNameIconIfNeeded(_ name: String) {
         guard fileData.isNil else { return }
-        spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption)))
+        spaceIcon = .object(.space(.name(name: name, iconOption: spaceIconOption, circular: data.spaceUxType.isChat)))
     }
     
     func onIconTapped() {
@@ -113,9 +110,9 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     func localFileDataDidChanged(_ data: FileData?) {
         fileData = data
         if let path = fileData?.path {
-            spaceIcon = .object(.space(.localPath(path)))
+            spaceIcon = .object(.space(.localPath(path, circular: self.data.spaceUxType.isChat)))
         } else {
-            spaceIcon = .object(.space(.name(name: spaceName, iconOption: spaceIconOption)))
+            spaceIcon = .object(.space(.name(name: spaceName, iconOption: spaceIconOption, circular: self.data.spaceUxType.isChat)))
         }
     }
     

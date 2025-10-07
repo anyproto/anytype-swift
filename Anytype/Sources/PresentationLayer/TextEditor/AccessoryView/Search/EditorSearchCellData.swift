@@ -3,4 +3,5 @@ struct EditorSearchCellData: Hashable {
     let subtitle: String
     let icon: Icon?
     let expandedIcon: Bool
+    let showDecoration: Bool
 }

@@ -37,6 +37,7 @@ final class TreeWidgetViewModel: ObservableObject {
     // MARK: - WidgetContainerContentViewModelProtocol
     
     @Published private(set) var name: String = ""
+    @Published private(set) var icon: Icon?
     var dragId: String? { widgetBlockId }
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
@@ -103,6 +104,10 @@ final class TreeWidgetViewModel: ObservableObject {
         internalModel.namePublisher
             .receiveOnMain()
             .assign(to: &$name)
+        
+        internalModel.iconPublisher
+            .receiveOnMain()
+            .assign(to: &$icon)
         
         internalModel.detailsPublisher
             .receiveOnMain()

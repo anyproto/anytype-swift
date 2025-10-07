@@ -201,13 +201,13 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     @MainActor
     func open() async throws {
         try await document.open()
-        await setup()
+        setup()
     }
     
     @MainActor
     func update() async throws {
         try await document.update()
-        await setup()
+        setup()
     }
     
     @MainActor
@@ -222,7 +222,8 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     
     // MARK: - Private
     
-    private func setup() async {
+    private func setup() {
+        guard subscriptions.isEmpty else { return }
         document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()
         }

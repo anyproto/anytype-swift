@@ -1,13 +1,14 @@
 import SwiftUI
 import AnytypeCore
+import DesignKit
+
 
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
+    @StateObject var spaceCreationTip = SpaceCreationTipWrapper()
     
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
-    
-    @State private var offset: CGPoint?
     
     init(output: (any SpaceHubModuleOutput)?) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
@@ -22,29 +23,17 @@ struct SpaceHubView: View {
             }
             .homeBottomPanelHidden(true)
             .snackbar(toastBarData: $model.toastBarData)
-    }
-    
-    var content: some View {
-        ZStack {
-            mainContent
-            
-            VStack(spacing: 0) {
-                navBar
-                Spacer()
+            .anytypeSheet(item: $model.spaceToDelete) { spaceId in
+                SpaceDeleteAlert(spaceId: spaceId.value)
             }
-        }
+            .handleChatCreationTip()
     }
     
-    private var mainContent: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(108) // navbar
-            
-            if let spaces = model.filteredSpaces, let unreadSpaces = model.filteredUnreadSpaces, spaces.isNotEmpty || unreadSpaces.isNotEmpty {
-                scrollView(unread: unreadSpaces, spaces: spaces)
-            } else if model.searchText.isNotEmpty {
-                searchEmptyStateView
-            } else if model.spaces.isNotNil {
-                emptyStateView
+    @ViewBuilder
+    private var content: some View {
+        Group {
+            if let spaces = model.spaces {
+                spacesView(spaces)
             } else {
                 EmptyView() // Do not show empty state view if we do not receive data yet
             }
@@ -55,18 +44,27 @@ struct SpaceHubView: View {
         .animation(.default, value: model.spaces)
     }
     
-    private var searchBar: some View {
-        SearchBar(
-            text: $model.searchText,
-            focused: false,
-            placeholder: Loc.search,
-            shouldShowDivider: false
-        ).frame(height: 60)
+    private func spacesView(_ spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
+        NavigationStack {
+            Group {
+                if spaces.isEmpty {
+                    emptyStateView
+                } else if model.filteredSpaces.isNotEmpty {
+                    scrollView
+                } else {
+                    searchEmptyStateView
+                }
+            }
+            .navigationTitle(Loc.mySpaces)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { toolbarItems }
+            .searchable(text: $model.searchText)
+        }.tint(Color.Text.secondary)
     }
     
-    private func scrollView(unread: [ParticipantSpaceViewDataWithPreview], spaces: [ParticipantSpaceViewDataWithPreview]) -> some View {
-        OffsetAwareScrollView(showsIndicators: false, offsetChanged: { offset = $0}) {
-            VStack(spacing: 0) {
+    private var scrollView: some View {
+        ScrollView {
+            VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
                 
                 if #available(iOS 17.0, *) {
@@ -76,25 +74,65 @@ struct SpaceHubView: View {
                     }
                 }
                 
-                if unread.isNotEmpty {
-                    if spaces.isNotEmpty {
-                        SectionHeaderView(title: Loc.unread).padding(.horizontal, 20)
-                    }
-                    ForEach(unread) {
-                        spaceCard($0, draggable: false)
-                    }
-                }
-                
-                if spaces.isNotEmpty {
-                    if unread.isNotEmpty {
-                        SectionHeaderView(title: Loc.all).padding(.horizontal, 20)
-                    }
-                    ForEach(spaces) {
-                        spaceCard($0, draggable: true)
-                    }
+                ForEach(model.filteredSpaces) {
+                    spaceCard($0)
                 }
                 
                 Spacer.fixedHeight(40)
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            HStack(spacing: 6) {
+                if model.showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                } else {
+                    Spacer.fixedWidth(18)
+                }
+                
+                AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
+                
+                Spacer.fixedWidth(18)
+            }
+        }
+        
+        
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                model.onTapSettings()
+            } label: {
+                IconView(icon: model.profileIcon)
+                    .foregroundStyle(Color.Control.secondary)
+                    .frame(width: 28, height: 28)
+                    .overlay(alignment: .topTrailing) {
+                        if model.notificationsDenied {
+                            attentionDotView
+                        }
+                    }
+                    .padding(.vertical, 8)
+            }
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                spaceCreationTip.invalidate()
+                model.onTapCreateSpace()
+            }
+            label: {
+                Image(asset: .X32.addFilled)
+                    .foregroundStyle(Color.Control.secondary)
+                    .frame(width: 32, height: 32)
+                    .overlay(alignment: .bottomLeading) {
+                        if spaceCreationTip.shouldDisplay {
+                            AttentionDotView()
+                        }
+                    }
+                    .padding(.vertical, 6)
             }
         }
     }
@@ -123,50 +161,17 @@ struct SpaceHubView: View {
         )
     }
     
-    private var plusButton: some View {
-        Button {
-            model.onTapCreateSpace()
-        } label: {
-            HStack(alignment: .center) {
-                Spacer()
-                Image(asset: .X32.plus)
-                Spacer()
-            }
-            .padding(.vertical, 32)
-            .background(Color.Shape.tertiary)
-            .cornerRadius(20, style: .continuous)
-            .padding(.horizontal, 8)
-        }
+    private var attentionDotView: some View {
+        Circle()
+            .fill(Color.Pure.red)
+            .frame(width: 6, height: 6)
+            .padding([.top, .trailing], 1)
     }
     
-    private var navBar: some View {
-        VStack(spacing: 4) {
-            navBarContent
-            searchBar
-        }
-        .frame(height: 108)
-        .background(applyBlur ? AnyShapeStyle(Material.ultraThinMaterial) : AnyShapeStyle(Color.Background.primary))
-    }
-    
-    private var navBarContent: some View {
-        SpaceHubNavBar(
-            profileIcon: model.profileIcon,
-            notificationsDenied: model.notificationsDenied,
-            showLoading: model.showLoading,
-            onTapSettings: {
-                model.onTapSettings()
-            },
-            onTapCreateSpace: {
-                model.onTapCreateSpace()
-            }
-        )
-    }
-    
-    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview, draggable: Bool) -> some View {
+    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
         SpaceCard(
             spaceData: space,
             wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
-            draggable: draggable,
             draggedSpace: $draggedSpace,
             onTap: {
                 model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
@@ -185,10 +190,16 @@ struct SpaceHubView: View {
             },
             onTapSettings: {
                 model.openSpaceSettings(spaceId: space.spaceView.targetSpaceId)
+            },
+            onTapDelete: {
+                model.onDeleteSpace(spaceId: space.spaceView.targetSpaceId)
             }
         )
         .equatable()
-        .if(draggable) {
+        .if(FeatureFlags.vaultBackToRoots) {
+            $0.padding(.horizontal, 16)
+        }
+        .if(space.spaceView.isPinned) {
             $0.onDrop(
                 of: [.text],
                 delegate:  SpaceHubDropDelegate(
@@ -199,10 +210,6 @@ struct SpaceHubView: View {
                 )
             )
         }
-    }
-    
-    private var applyBlur: Bool {
-        offset.isNotNil && offset!.y < 0
     }
 }
 

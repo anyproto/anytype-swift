@@ -24,11 +24,14 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     // MARK: - State
     
     private var linkedObjectDetails: ObjectDetails?
+    private var limit: Int = 0
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = ""
+    @Published private var icon: Icon?
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
+    var iconPublisher: AnyPublisher<Icon?, Never> { $icon.eraseToAnyPublisher() }
     @Published var allowCreateObject = true
     
     init(data: WidgetSubmoduleData) {
@@ -42,6 +45,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func startBlockSubscription() async {
         for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
             name = details.title
+            icon = details.objectIconImage
             allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
             
             linkedObjectDetails = details
@@ -55,11 +59,19 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
             self.details = details.sorted { a, b in
                 return links.firstIndex(of: a.id) ?? 0 < links.firstIndex(of: b.id) ?? 0
             }
+            limitDetails()
         }
     }
     
     func startContentSubscription() async {
         await updateLinksSubscriptions()
+    }
+    
+    func startInfoSubscription() async {
+        for await widgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
+            limit = widgetInfo.fixedLimit
+            limitDetails()
+        }
     }
     
     func screenData() -> ScreenData? {
@@ -97,5 +109,10 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     private func updateLinksSubscriptions() async {
         guard let linkedObjectDetails else { return }
         await _ = subscriptionManager.startOrUpdateSubscription(spaceId: widgetObject.spaceId, objectIds: linkedObjectDetails.links)
+    }
+    
+    private func limitDetails() {
+        guard let details else { return }
+        self.details = Array(details.prefix(limit))
     }
 }

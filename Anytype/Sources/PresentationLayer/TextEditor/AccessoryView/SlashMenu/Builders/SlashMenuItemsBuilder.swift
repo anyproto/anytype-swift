@@ -8,6 +8,8 @@ struct SlashMenuItemsBuilder: Sendable {
         let searchObjectsMenuItem = try? await searchObjectsMenuItem(spaceId: spaceId)
         
         return [
+            cameraMenuItem,
+            linkMenuItem,
             styleMenuItem(restrictions: resrictions),
             mediaMenuItem,
             searchObjectsMenuItem,
@@ -40,12 +42,20 @@ struct SlashMenuItemsBuilder: Sendable {
         if children.isEmpty {
             return nil
         }
-        return SlashMenuItem(type: .style, children: children)
+        return .multi(type: .style, children: children)
     }
     
     private var mediaMenuItem: SlashMenuItem? {
         let children: [SlashAction] = SlashActionMedia.allCases.map { .media($0) }
-        return SlashMenuItem(type: .media, children: children)
+        return .multi(type: .media, children: children)
+    }
+    
+    private var cameraMenuItem: SlashMenuItem {
+        return .single(action: .single(.camera))
+    }
+    
+    private var linkMenuItem: SlashMenuItem {
+        return .single(action: .single(.linkTo))
     }
     
     private var otherMenuItem: SlashMenuItem {
@@ -54,12 +64,12 @@ struct SlashMenuItemsBuilder: Sendable {
         
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
         
-        return SlashMenuItem(type: .other, children: children)
+        return .multi(type: .other, children: children)
     }
     
     private var actionsMenuItem: SlashMenuItem {
         let children: [SlashAction] = BlockAction.allCases.map { .actions($0) }
-        return SlashMenuItem(type: .actions, children: children)
+        return .multi(type: .actions, children: children)
     }
     
     private func searchObjectsMenuItem(spaceId: String) async throws -> SlashMenuItem? {
@@ -77,13 +87,12 @@ struct SlashMenuItemsBuilder: Sendable {
             return nil
         }
 
-        let linkTo = SlashActionObject.linkTo
         let date = SlashActionObject.date
         let objectTypes = searchTypes.map(SlashActionObject.objectType)
 
-        return SlashMenuItem(
+        return .multi(
             type: .objects,
-            children: ([linkTo, date] + objectTypes).map(SlashAction.objects)
+            children: ([date] + objectTypes).map(SlashAction.objects)
         )
     }
     
@@ -92,7 +101,7 @@ struct SlashMenuItemsBuilder: Sendable {
             SlashAction.relations(.relation($0))
         }
         let childrens = [SlashAction.relations(.newRealtion)] + relations
-        return SlashMenuItem(type: .relations, children: childrens)
+        return .multi(type: .relations, children: childrens)
     }
     
     private func alignmentMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
@@ -103,20 +112,20 @@ struct SlashMenuItemsBuilder: Sendable {
         if children.isEmpty {
             return nil
         }
-        return SlashMenuItem(type: .alignment, children: children)
+        return .multi(type: .alignment, children: children)
     }
     
     private func blockColorMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
         if !restrictions.canApplyBlockColor {
             return nil
         }
-        return SlashMenuItem(type: .color, children: BlockColor.allCases.map { .color($0) })
+        return .multi(type: .color, children: BlockColor.allCases.map { .color($0) })
     }
     
     private func backgroundColorMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }
-        return SlashMenuItem(type: .background, children: BlockBackgroundColor.allCases.map { .background($0) })
+        return .multi(type: .background, children: BlockBackgroundColor.allCases.map { .background($0) })
     }
 }

@@ -56,7 +56,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
-    @Published var isCreateTypeWidget: Bool? = nil
+    @Published var uxTypeSettingsData: SpaceUxTypeSettingsData?
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
@@ -108,8 +108,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         showSpaceDeleteAlert.toggle()
     }
     
-    func onShareTap() {
-        output?.onSpaceShareSelected()
+    func onMembersTap() {
+        output?.onSpaceShareSelected() { [weak self] in
+            Task { try await self?.updateInviteIfNeeded() }
+        }
     }
     
     func onAppear() {
@@ -118,10 +120,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onLeaveTap() {
         showSpaceLeaveAlert.toggle()
-    }
-    
-    func onMembersTap() {
-        output?.onSpaceMembersSelected()
     }
     
     func onMembershipUpgradeTap() {
@@ -133,24 +131,26 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onNotificationsSelected()
     }
     
-    func onInviteTap() {
+    func onShareTap() {
+        AnytypeAnalytics.instance().logClickShareSpaceShareLink(route: .spaceSettings)
         Task {
-            try await generateInviteIfNeeded()
+            try await updateInviteIfNeeded()
             shareInviteLink = inviteLink
         }
     }
     
     func onQRCodeTap() {
         Task {
-            try await generateInviteIfNeeded()
+            try await updateInviteIfNeeded()
             qrInviteLink = inviteLink
         }
     }
     
     func onCopyLinkTap() {
         Task {
-            try await generateInviteIfNeeded()
+            try await updateInviteIfNeeded()
             guard let inviteLink else { return }
+            AnytypeAnalytics.instance().logClickShareSpaceCopyLink(route: .spaceSettings)
             UIPasteboard.general.string = inviteLink.absoluteString
             snackBarData = ToastBarData(Loc.copiedToClipboard(Loc.link), type: .success)
         }
@@ -167,15 +167,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     func onPropertiesTap() {
         output?.onPropertiesSelected()
     }
-    
-    func toggleCreateTypeWidgetState(isOn: Bool) {
-        Task {
-            AnytypeAnalytics.instance().logAutoCreateTypeWidgetToggle(value: isOn)
-            try await objectActionsService.updateBundledDetails(contextID: workspaceInfo.widgetsId, details: [
-                .autoWidgetDisabled(!isOn)
-            ])
-        }
-    }
 
     func onEditTap() {
         editingData = SettingsInfoEditingViewData(
@@ -183,6 +174,7 @@ final class SpaceSettingsViewModel: ObservableObject {
             placeholder: Loc.untitled,
             initialValue: spaceName,
             font: .bodySemibold,
+            usecase: .spaceName,
             onSave: { [weak self] in
                 guard let self else { return }
                 saveDetails(name: $0, description: spaceDescription)
@@ -193,6 +185,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onBinTap() {
         output?.onBinSelected()
+    }
+    
+    func onUxTypeTap() {
+        output?.onSpaceUxTypeSelected()
     }
     
     // MARK: - Subscriptions
@@ -215,7 +211,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
-            participantsCount = participants.count
+            participantsCount = participants.filter { $0.status == .active }.count
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
             updateViewState()
@@ -273,11 +269,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
-        if participantSpaceView.isOwner, let widgetsDetails = widgetsObject.details {
-            isCreateTypeWidget = !widgetsDetails.autoWidgetDisabled
-        } else {
-            isCreateTypeWidget = nil
-        }
+        
+        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
         
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
@@ -290,7 +283,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
         
-        Task { try await generateInviteIfNeeded() }
+        Task { try await updateInviteIfNeeded() }
     }
     
     private func buildShareSection(participantSpaceView: ParticipantSpaceViewData) -> SpaceSettingsShareSection {
@@ -309,23 +302,35 @@ final class SpaceSettingsViewModel: ObservableObject {
                     return .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
                 }
             case .shared:
-                return .ownerOrEditor(joiningCount: joiningCount)
+                if participantSpaceView.isOwner {
+                    return .owner(joiningCount: joiningCount)
+                } else {
+                    return .editor
+                }
             }
         } else {
             return .viewer
         }
     }
     
-    private func generateInviteIfNeeded() async throws {
+    private func updateInviteIfNeeded() async throws {
         guard let participantSpaceView else { return }
-        guard shareSection.isSharingAvailable && inviteLink.isNil else { return }
+        guard shareSection.isSharingAvailable else { return }
         
         if participantSpaceView.spaceView.uxType.isStream {
-            let invite = try await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)
+            if let invite {
+                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            } else {
+                inviteLink = nil
+            }
         } else {
-            let invite = try await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            let invite = try? await workspaceService.getCurrentInvite(spaceId: workspaceInfo.accountSpaceId)
+            if let invite {
+                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            } else {
+                inviteLink = nil
+            }
         }
     }
 }

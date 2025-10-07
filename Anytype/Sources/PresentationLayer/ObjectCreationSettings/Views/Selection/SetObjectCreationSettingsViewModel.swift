@@ -310,7 +310,7 @@ extension TemplatePreviewModel {
             )
             ),
             context: context,
-            alignment: objectDetails.layoutAlignValue,
+            alignment: objectDetails.objectAlignValue,
             decoration: decoration
         )
     }

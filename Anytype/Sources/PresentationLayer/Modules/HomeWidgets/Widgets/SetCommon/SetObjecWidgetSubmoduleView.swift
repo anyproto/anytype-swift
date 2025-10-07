@@ -27,6 +27,7 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
             widgetObject: data.widgetObject,
             homeState: data.homeState,
             name: model.name,
+            icon: model.icon,
             dragId: model.dragId,
             onCreateObjectTap: createTap,
             onHeaderTap: {
@@ -37,17 +38,8 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
                 bodyContent
             }
         )
-        .task {
-            await model.startPermissionsPublisher()
-        }
-        .task {
-            await model.startInfoPublisher()
-        }
-        .task {
-            await model.startTargetDetailsPublisher()
-        }
-        .task {
-            await model.onAppear()
+        .task(priority: .high) {
+            await model.startSubscriptions()
         }
     }
     
@@ -68,18 +60,17 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
     private var rows: some View {
         switch model.rows {
         case .list(let rows, let id):
-            ListWidgetContentView(style: .list, rows: rows, onCreateTap: createTap)
+            ListWidgetContentView(style: .list, rows: rows)
                 .id(id)
         case .compactList(let rows, let id):
-            ListWidgetContentView(style: .compactList, rows: rows, onCreateTap: createTap)
+            ListWidgetContentView(style: .compactList, rows: rows)
                 .id(id)
         case .gallery(let rows, let id):
             GalleryWidgetView(
                 rows: rows,
                 onShowAllObjects: {
                     model.onOpenObjectTap()
-                },
-                onCreateTap: createTap
+                }
             )
             .id(id)
         }

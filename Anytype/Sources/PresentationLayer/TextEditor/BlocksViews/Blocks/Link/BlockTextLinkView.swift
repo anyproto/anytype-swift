@@ -29,7 +29,7 @@ final class BlockTextLinkView: UIView, BlockContentView {
         titleLabel.setText(configuration.state.title)
         
         objectIcon.icon = configuration.state.archived ? .asset(.ghost) : configuration.state.icon
-        objectIcon.isHidden = objectIcon.icon.isNil
+        objectIcon.isHidden = objectIcon.icon.isNil || configuration.state.iconSize == .none
         
         descriptionLabel.isHidden = configuration.state.description.isEmpty
         descriptionLabel.setText(configuration.state.attributedDescription)

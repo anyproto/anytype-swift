@@ -16,7 +16,16 @@ extension WidgetSource {
         case .library(let library):
             return library.rawValue
         }
-    }    
+    }
+    
+    var isLibrary: Bool {
+        switch self {
+        case .object:
+            return false
+        case .library:
+            return true
+        }
+    }
 }
 
 extension WidgetSource {
@@ -26,7 +35,7 @@ extension WidgetSource {
             return objectDetails.availableWidgetLayout
         case .library(let library):
             switch library {
-            case .favorite, .recent, .recentOpen:
+            case .pinned, .recent, .recentOpen:
                 return [.compactList, .list, .tree]
             case .allObjects, .bin, .chat:
                 return [.link]

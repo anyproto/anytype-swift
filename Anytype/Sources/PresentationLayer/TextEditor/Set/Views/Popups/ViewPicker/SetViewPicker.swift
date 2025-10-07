@@ -76,8 +76,8 @@ struct SetViewPicker: View {
     private var addButton: some View {
         Group {
             if editMode == .inactive && viewModel.canEditViews {
-                Button {
-                    viewModel.addButtonTapped()
+                AsyncButton {
+                    try await viewModel.createView()
                 } label: {
                     IconView(icon: .asset(.X32.plus)).frame(width: 32, height: 32)
                 }

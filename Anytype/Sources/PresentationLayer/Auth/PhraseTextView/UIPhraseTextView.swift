@@ -10,11 +10,13 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
         label.text = Loc.Auth.LoginFlow.Textfield.placeholder
-        label.textColor = UIColor.Text.primary
+        label.textColor = FeatureFlags.brandNewAuthFlow ? UIColor.Text.tertiary : UIColor.Text.primary
         label.font = self.font
         label.textAlignment = self.textAlignment
         label.numberOfLines = 0
-        label.layer.opacity = 0.3
+        if !FeatureFlags.brandNewAuthFlow {
+            label.layer.opacity = 0.3
+        }
         return label
     }()
 
@@ -59,11 +61,10 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         autocapitalizationType = .none
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
-        font = AnytypeFont.authInput.uiKitFont
-        textColor = UIColor.Auth.inputText
-        tintColor = UIColor.Auth.inputText
+        font = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Regular.uiKitFont : AnytypeFont.authInput.uiKitFont
+        tintColor = FeatureFlags.brandNewAuthFlow ? UIColor.Control.accent100 : UIColor.Auth.inputText
         textContainer.lineFragmentPadding = 0.0
-        backgroundColor = UIColor.Shape.transperentSecondary.withAlphaComponent(0.14)
+        backgroundColor = FeatureFlags.brandNewAuthFlow ? UIColor.Shape.transperentSecondary :  UIColor.Shape.transperentSecondary.withAlphaComponent(0.14)
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         textContentType = .password
@@ -108,13 +109,15 @@ extension UIPhraseTextView {
     
     private func configureAttributedString(from text: String, hidden: Bool) -> NSAttributedString {
         
+        let foregroundColor = FeatureFlags.brandNewAuthFlow ? UIColor.Text.primary : UIColor.Control.white
+        let anytypeFont: AnytypeFont = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Regular : AnytypeFont.authInput
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = AnytypeFont.authInput.config.lineHeight
+        style.lineSpacing = anytypeFont.config.lineHeight
         let attributes = [
             NSAttributedString.Key.paragraphStyle : style,
-            NSAttributedString.Key.font: AnytypeFont.authInput.uiKitFont,
-            NSAttributedString.Key.foregroundColor: UIColor.Control.white,
-            NSAttributedString.Key.backgroundColor: hidden ? UIColor.Control.white : UIColor.clear
+            NSAttributedString.Key.font: anytypeFont.uiKitFont,
+            NSAttributedString.Key.foregroundColor: foregroundColor,
+            NSAttributedString.Key.backgroundColor: hidden ? foregroundColor : UIColor.clear
         ]
         
         let words = text.components(separatedBy: " ")

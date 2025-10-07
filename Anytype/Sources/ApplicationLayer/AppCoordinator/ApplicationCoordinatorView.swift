@@ -33,7 +33,6 @@ struct ApplicationCoordinatorView: View {
             model.setDismissAllPresented(dismissAllPresented: $0)
         }
         .snackbar(toastBarData: $model.toastBarData)
-        .handleAutoWidgetAdded()
         // migration
         .fullScreenCover(item: $model.migrationData) {
             MigrationCoordinatorView(data: $0)
@@ -45,19 +44,31 @@ struct ApplicationCoordinatorView: View {
         switch model.applicationState {
         case .initial:
             InitialCoordinatorView()
-                .overrideDefaultInterfaceStyle(.dark)
+                .if(!FeatureFlags.brandNewAuthFlow) {
+                    $0.overrideDefaultInterfaceStyle(.dark)
+                }
         case .auth:
-            model.authView()
-                .overrideDefaultInterfaceStyle(.dark)
+            if FeatureFlags.brandNewAuthFlow {
+                AuthCoordinatorView()
+            } else {
+                model.authView()
+                    .overrideDefaultInterfaceStyle(.dark)
+            }
         case .login:
             LaunchView()
-                .overrideDefaultInterfaceStyle(.dark)
+                .if(!FeatureFlags.brandNewAuthFlow) {
+                    $0.overrideDefaultInterfaceStyle(.dark)
+                }
         case .home:
             SpaceHubCoordinatorView()
-                .overrideDefaultInterfaceStyle(nil)
+                .if(!FeatureFlags.brandNewAuthFlow) {
+                    $0.overrideDefaultInterfaceStyle(nil)
+                }
         case .delete:
             model.deleteAccount()?
-                .overrideDefaultInterfaceStyle(nil)
+                .if(!FeatureFlags.brandNewAuthFlow) {
+                    $0.overrideDefaultInterfaceStyle(nil)
+                }
         }
     }
 }

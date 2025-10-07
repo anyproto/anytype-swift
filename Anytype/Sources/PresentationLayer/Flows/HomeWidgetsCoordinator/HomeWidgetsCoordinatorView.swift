@@ -38,5 +38,11 @@ private struct HomeWidgetsCoordinatorInternalView: View {
                     model.onFinishCreateSource(screenData: $0)
                 }
             }
+            .anytypeSheet(item: $model.createTypeData) {
+                CreateObjectTypeView(data: $0)
+            }
+            .anytypeSheet(item: $model.deleteSystemWidgetConfirmationData) {
+                DeleteSystemWidgetConfirmation(data: $0)
+            }
     }
 }

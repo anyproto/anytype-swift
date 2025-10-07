@@ -103,7 +103,7 @@ enum AnalyticsEventsMigrationType: String {
 
 enum AnalyticsWidgetSource {
     case allObjects
-    case favorites
+    case pinned
     case recent
     case recentOpen
     case bin
@@ -114,8 +114,8 @@ enum AnalyticsWidgetSource {
         switch self {
         case .allObjects:
             return "AllObjects"
-        case .favorites:
-            return "Favorites"
+        case .pinned:
+            return "Pinned"
         case .recent:
             return "Recent"
         case .recentOpen:
@@ -192,6 +192,13 @@ enum ScreenOnboardingStep: String {
     case phrase = "Phrase"
     case soul = "Soul"
     case email = "Email"
+    case persona = "Persona"
+    case useCase = "UseCase"
+}
+
+enum ClickOnboardingStep: String {
+    case persona = "Persona"
+    case useCase = "UseCase"
 }
 
 enum ClickOnboardingButton: String {
@@ -229,6 +236,7 @@ enum OnboardingTooltip: String {
     case swipeInWidgets = "ObjectCreationWidget"
     case returnToWidgets = "ReturnToWidgets"
     case space = "Space"
+    case chats = "Chats"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -298,6 +306,30 @@ enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
 }
 
+enum ScreenQrRoute: String {
+    case inviteLink = "InviteLink"
+    case settingsSpace = "SettingsSpace"
+    case spaceProfile = "SpaceProfile"
+}
+
+enum ClickShareSpaceCopyLinkRoute: String {
+    case button = "Button"
+    case menu = "Menu"
+    case spaceProfile = "SpaceProfile"
+    case spaceSettings = "SpaceSettings"
+}
+
+enum ScreenInviteRequestType: String {
+    case approval = "Approval"
+    case withoutApproval = "WithoutApproval"
+}
+
+enum ClickShareSpaceNewLinkType: String {
+    case editor = "Editor"
+    case viewer = "Viewer"
+    case manual = "Manual"
+}
+
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"
@@ -311,6 +343,12 @@ enum ClickUpgradePlanTooltipType: String {
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
     case publish = "publish"
+}
+
+enum ClickShareSpaceShareLinkRoute: String {
+    case spaceSettings = "SpaceSettings"
+    case spaceProfile = "SpaceProfile"
+    case membersScreen = "MembersScreen"
 }
 
 enum ClickUpgradePlanTooltipRoute: String {
@@ -395,8 +433,7 @@ enum ChatAttachmentType: String {
     case photo = "Photo"
     case file = "File"
     case camera = "Camera"
-    case pages = "Pages"
-    case lists = "Lists"
+    case pagesLists = "PagesLists"
 }
 
 enum ScreenAllowPushType: String {
@@ -435,4 +472,28 @@ enum UndoRedoResultType: String {
 enum ShareObjectOpenPageRoute: String {
     case menu = "Menu"
     case notification = "Notification"
+    case mySites = "MySites"
+}
+
+enum MediaFileScreenRoute: String {
+    case widget = "Widget"
+    case chat = "Chat"
+}
+
+enum ClickNavBarAddMenuRoute: String {
+    case screenObject = "ScreenObject"
+    case screenWidget = "ScreenWidget"
+    case screenFavorites = "ScreenFavorites"
+    case screenRecentEdit = "ScreenRecentEdit"
+    case screenRecentOpen = "ScreenRecentOpen"
+    case screenBin = "ScreenBin"
+    case screenDate = "ScreenDate"
+    case screenType = "ScreenType"
+    case screenAllObjects = "ScreenAllObjects"
+}
+
+enum ClickNavBarAddMenuType: String {
+    case camera = "Camera"
+    case file = "File"
+    case photo = "Photo"
 }

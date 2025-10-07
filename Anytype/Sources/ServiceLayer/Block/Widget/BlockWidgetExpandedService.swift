@@ -1,40 +1,27 @@
 import Foundation
 import AnytypeCore
 
-protocol BlockWidgetExpandedServiceProtocol: AnyObject, Sendable {
-    func isExpanded(widgetBlockId: String) -> Bool
-    func setState(widgetBlockId: String, isExpanded: Bool)
-    func deleteState(widgetBlockId: String)
+protocol ExpandedServiceProtocol: AnyObject, Sendable {
+    func isExpanded(id: String, defaultValue: Bool) -> Bool
+    func setState(id: String, isExpanded: Bool)
     func clearData()
 }
 
-final class BlockWidgetExpandedService: BlockWidgetExpandedServiceProtocol, Sendable {
+final class ExpandedService: ExpandedServiceProtocol, Sendable {
     
-    private let collapsedIdsStorage = UserDefaultStorage(key: "widgetCollapsedIds", defaultValue: Set<String>())
-    private var collapsedIds: Set<String> {
-        get { collapsedIdsStorage.value }
-        set { collapsedIdsStorage.value = newValue }
-    }
+    private let expandedStorage = UserDefaultStorage(key: "expandedIds", defaultValue: Dictionary<String, Bool>())
     
     // MARK: - BlockWidgetExpandedServiceProtocol
     
-    func isExpanded(widgetBlockId: String) -> Bool {
-        return !collapsedIds.contains(widgetBlockId)
+    func isExpanded(id: String, defaultValue: Bool) -> Bool {
+        return expandedStorage.value[id] ?? defaultValue
     }
     
-    func setState(widgetBlockId: String, isExpanded: Bool) {
-        if isExpanded {
-            collapsedIds.remove(widgetBlockId)
-        } else {
-            collapsedIds.insert(widgetBlockId)
-        }
-    }
-    
-    func deleteState(widgetBlockId: String) {
-        collapsedIds.remove(widgetBlockId)
+    func setState(id: String, isExpanded: Bool) {
+        expandedStorage.value[id] = isExpanded
     }
     
     func clearData() {
-        collapsedIds.removeAll()
+        expandedStorage.value.removeAll()
     }
 }

@@ -19,4 +19,4 @@ struct ObjectSort: Equatable, Hashable, Codable {
     }
 }
 
-extension DataviewSort.TypeEnum: Codable {}
+extension DataviewSort.TypeEnum: @retroactive Codable {}

@@ -6,7 +6,6 @@ struct SpaceCardLabel: View {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
-    let draggable: Bool
     private let dateFormatter = HistoryDateFormatter()
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     
@@ -51,7 +50,7 @@ struct SpaceCardLabel: View {
         .if(spaceData.spaceView.isLoading && !FeatureFlags.spaceLoadingForScreen) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
-        .if((!FeatureFlags.pinnedSpaces && draggable) || spaceData.spaceView.isPinned) {
+        .if(spaceData.spaceView.isPinned) {
             $0.onDrag {
                 draggedSpace = spaceData
                 return NSItemProvider()
@@ -149,10 +148,10 @@ struct SpaceCardLabel: View {
     
     @ViewBuilder
     private var pin: some View {
-        if !spaceData.preview.hasCounters && FeatureFlags.pinnedSpaces && spaceData.spaceView.isPinned {
-            Image(asset: .X24.pin)
+        if !spaceData.preview.hasCounters && spaceData.spaceView.isPinned {
+            Image(asset: .X18.pin)
                 .foregroundStyle(Color.Control.secondary)
-                .frame(width: 22, height: 22)
+                .frame(width: 18, height: 18)
         }
     }
     

@@ -16,8 +16,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showRemoteStorage = false
     @Published var showWallpaperPicker = false
     @Published var showSpaceShareData: SpaceShareData?
-    @Published var showSpaceMembersData: SpaceMembersData?
     @Published var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
+    @Published var spaceTypeChangeData: SpaceTypeChangeData?
     @Published var showFiles = false
     
     var pageNavigation: PageNavigation?
@@ -25,6 +25,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     let workspaceInfo: AccountInfo
     var spaceId: String { workspaceInfo.accountSpaceId }
+    
+    private var spaceShareCompletion: (() -> Void)?
     
     init(workspaceInfo: AccountInfo) {
         self.workspaceInfo = workspaceInfo
@@ -44,12 +46,14 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         showRemoteStorage.toggle()
     }
     
-    func onSpaceShareSelected() {
+    func onSpaceShareSelected(_ completion: @escaping () -> Void) {
+        spaceShareCompletion = completion
         showSpaceShareData = SpaceShareData(spaceId: spaceId, route: .settings)
     }
     
-    func onSpaceMembersSelected() {
-        showSpaceMembersData = SpaceMembersData(spaceId: spaceId, route: .settings)
+    func onSpaceShareDismissed() {
+        spaceShareCompletion?()
+        spaceShareCompletion = nil
     }
     
     func onNotificationsSelected() {
@@ -71,6 +75,10 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func onBinSelected() {
         pageNavigation?.open(.editor(.bin(spaceId: spaceId)))
+    }
+    
+    func onSpaceUxTypeSelected() {
+        spaceTypeChangeData = SpaceTypeChangeData(spaceId: spaceId)
     }
     
     // MARK: - RemoteStorageModuleOutput

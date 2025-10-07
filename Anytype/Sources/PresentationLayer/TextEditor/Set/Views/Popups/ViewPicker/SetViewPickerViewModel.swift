@@ -27,10 +27,6 @@ final class SetViewPickerViewModel: ObservableObject {
         self.setup()
     }
     
-    func addButtonTapped() {
-        createView()
-    }
-    
     func move(from: IndexSet, to: Int) {
         from.forEach { viewFromIndex in
             guard viewFromIndex != to, viewFromIndex < setDocument.dataView.views.count else { return }
@@ -118,27 +114,32 @@ final class SetViewPickerViewModel: ObservableObject {
         output?.onEditButtonTap(dataView: activeView)
     }
     
-    private func createView() {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            let newView = setDocument.activeView.updated(
-                name: "",
-                type: .table,
-                sorts: [],
-                filters: []
-            )
-            let source = setDocument.details?.filteredSetOf ?? []
-            let viewId = try await dataviewService.createView(
-                objectId: setDocument.objectId,
-                blockId: setDocument.blockId,
-                view: newView,
-                source: source
-            )
-            output?.onAddButtonTap(with: viewId)
-            AnytypeAnalytics.instance().logAddView(
-                type: DataviewViewType.table.analyticStringValue,
-                objectType: setDocument.analyticsType
-            )
+    func createView() async throws {
+        guard let details = setDocument.details else { return }
+        
+        var type = DataviewViewType.list
+        if details.isObjectType {
+            let listObjectTypesKeys = [ObjectTypeUniqueKey.task, ObjectTypeUniqueKey.template, ObjectTypeUniqueKey.project]
+            type = listObjectTypesKeys.contains(ObjectType(details: details).uniqueKey) ? .list : .table
         }
+        
+        let newView = setDocument.activeView.updated(
+            name: "",
+            type: type,
+            sorts: [],
+            filters: []
+        )
+        let source = setDocument.details?.filteredSetOf ?? []
+        let viewId = try await dataviewService.createView(
+            objectId: setDocument.objectId,
+            blockId: setDocument.blockId,
+            view: newView,
+            source: source
+        )
+        output?.onAddButtonTap(with: viewId)
+        AnytypeAnalytics.instance().logAddView(
+            type: DataviewViewType.table.analyticStringValue,
+            objectType: setDocument.analyticsType
+        )
     }
 }

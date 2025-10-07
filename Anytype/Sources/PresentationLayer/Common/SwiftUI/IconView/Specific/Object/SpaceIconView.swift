@@ -8,22 +8,37 @@ struct SpaceIconView: View {
     
     var body: some View {
         switch icon {
-        case let .name(name, iconOption):
+        case let .name(name, iconOption, circular):
             nameIcon(name: name, iconOption: iconOption)
-                .objectIconCornerRadius()
-        case let .imageId(imageId, name, iconOption):
+                .if(circular, if: {
+                    $0.circleOverCornerRadius()
+                }, else: {
+                    $0.objectIconCornerRadius()
+                })
+        case let .imageId(imageId, name, iconOption, circular):
             ImageIdIconView(imageId: imageId) {
                 nameIcon(name: name, iconOption: iconOption)
             }
-            .objectIconCornerRadius()
-        case .localPath(let path):
+            .if(circular, if: {
+                $0.circleOverCornerRadius()
+            }, else: {
+                $0.objectIconCornerRadius()
+            })
+        case let .localPath(path, circular):
             LocalIconView(contentsOfFile: path)
-                .objectIconCornerRadius()
+                .if(circular, if: {
+                    $0.circleOverCornerRadius()
+                }, else: {
+                    $0.objectIconCornerRadius()
+                })
         }
     }
     
     private func nameIcon(name: String, iconOption: Int) -> some View {
-        ImageCharIconView(text: name.withPlaceholder)
-            .background(IconColorStorage.iconColor(iconOption: iconOption).gradient)
+        ImageCharIconView(
+            text: name.withPlaceholder,
+            textColor: IconColorStorage.iconTextColor(iconOption: iconOption)
+        ) 
+        .background(IconColorStorage.iconBackgroundColor(iconOption: iconOption))
     }
 }

@@ -23,6 +23,8 @@ public enum AnytypeFont: CaseIterable, Sendable {
 
     case codeBlock
     case chatText
+    case chatPreviewMedium
+    case chatPreviewRegular
     
     case contentTitleSemibold
 
@@ -56,4 +58,7 @@ public enum AnytypeFont: CaseIterable, Sendable {
     
     case riccioneBannerTitle
     case interBannerTitle
+    
+    case riccioneTitle
+    case interTitle
 }

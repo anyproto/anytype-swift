@@ -24,9 +24,9 @@ struct SpaceCreateData: Equatable, Identifiable, Hashable {
 extension SpaceUxType {
     var useCase: UseCase {
         switch self {
-        case .chat: return .none
-        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .emptyMobile
-        default: return .empty
+        case .chat, .stream: return .chatSpace
+        case .data: return FeatureFlags.guideUseCaseForDataSpace ? .guideOnly : .dataSpaceMobile
+        default: return .none
         }
     }
 }

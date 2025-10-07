@@ -7,24 +7,13 @@ import Loc
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject {
-    @Published var unreadSpaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
     @Published var searchText: String = ""
     
-    var allSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        guard let unreadSpaces, let spaces else { return nil }
-        return unreadSpaces + spaces
-    }
-    
-    var filteredUnreadSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        guard !searchText.isEmpty, let unreadSpaces else { return unreadSpaces }
-        return unreadSpaces.filter { space in
-            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
-        }
-    }
-    
-    var filteredSpaces: [ParticipantSpaceViewDataWithPreview]? {
-        guard !searchText.isEmpty, let spaces else { return spaces }
+    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] {
+        guard let spaces else { return [] }
+        guard !searchText.isEmpty else { return spaces }
+        
         return spaces.filter { space in
             space.spaceView.name.localizedCaseInsensitiveContains(searchText)
         }
@@ -32,20 +21,16 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var createSpaceAvailable = false
     @Published var notificationsDenied = false
     @Published var spaceMuteData: SpaceMuteData?
     @Published var toastBarData: ToastBarData?
     @Published var showLoading = false
     @Published var profileIcon: Icon?
+    @Published var spaceToDelete: StringIdentifiable?
     
     private weak var output: (any SpaceHubModuleOutput)?
     
-    var showPlusInNavbar: Bool {
-        guard let allSpaces else { return false }
-        return allSpaces.count > 6 && createSpaceAvailable
-    }
-    
+
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.activeSpaceManager)
@@ -119,14 +104,20 @@ final class SpaceHubViewModel: ObservableObject {
         newOrder.insert(spaceView.id, at: 0)
         
         try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
+        AnytypeAnalytics.instance().logPinSpace()
     }
     
     func unpin(spaceView: SpaceView) async throws {
         try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
+        AnytypeAnalytics.instance().logUnpinSpace()
     }
     
     func openSpaceSettings(spaceId: String) {
         output?.onOpenSpaceSettings(spaceId: spaceId)
+    }
+    
+    func onDeleteSpace(spaceId: String) {
+        spaceToDelete = spaceId.identifiable
     }
     
     func startSubscriptions() async {
@@ -153,18 +144,7 @@ final class SpaceHubViewModel: ObservableObject {
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
-            if FeatureFlags.pinnedSpaces {
-                self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-                self.unreadSpaces = []
-            } else {
-                self.unreadSpaces = spaces
-                    .filter { $0.preview.unreadCounter > 0 }
-                    .sorted {
-                        ($0.preview.lastMessage?.createdAt ?? Date.distantPast) > ($1.preview.lastMessage?.createdAt ?? Date.distantPast)
-                    }
-                self.spaces = spaces.filter { $0.preview.unreadCounter == 0 }
-            }
-            createSpaceAvailable = workspacesStorage.canCreateNewSpace()
+            self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
             if FeatureFlags.spaceLoadingForScreen {
                 showLoading = spaces.contains { $0.spaceView.isLoading }
             }
@@ -182,8 +162,38 @@ final class SpaceHubViewModel: ObservableObject {
         case (false, false):
             let lhsMessageDate = lhs.preview.lastMessage?.createdAt
             let rhsMessageDate = rhs.preview.lastMessage?.createdAt
+            let lhsJoinDate = lhs.spaceView.joinDate
+            let rhsJoinDate = rhs.spaceView.joinDate
             
-            switch (lhsMessageDate, rhsMessageDate) {
+            // Determine effective date for lhs (use joinDate if no message, or more recent of the two)
+            let lhsEffectiveDate: Date? = {
+                switch (lhsMessageDate, lhsJoinDate) {
+                case let (messageDate?, joinDate?):
+                    return max(messageDate, joinDate)
+                case (let messageDate?, nil):
+                    return messageDate
+                case (nil, let joinDate?):
+                    return joinDate
+                case (nil, nil):
+                    return nil
+                }
+            }()
+            
+            // Determine effective date for rhs (use joinDate if no message, or more recent of the two)
+            let rhsEffectiveDate: Date? = {
+                switch (rhsMessageDate, rhsJoinDate) {
+                case let (messageDate?, joinDate?):
+                    return max(messageDate, joinDate)
+                case (let messageDate?, nil):
+                    return messageDate
+                case (nil, let joinDate?):
+                    return joinDate
+                case (nil, nil):
+                    return nil
+                }
+            }()
+            
+            switch (lhsEffectiveDate, rhsEffectiveDate) {
             case let (date1?, date2?):
                 return date1 > date2
             case (_?, nil):

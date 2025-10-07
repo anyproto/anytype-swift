@@ -165,9 +165,6 @@ public enum BundledPropertyKey: String, Sendable {
     /// Adds the object to the home dashboard
     case isFavorite = "isFavorite"
 
-    /// Space object belongs to
-    case workspaceId = "workspaceId"
-
     /// Space belongs to
     case spaceId = "spaceId"
 
@@ -427,6 +424,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Space order
     case spaceOrder = "spaceOrder"
 
+    /// Lexicographic id for object ordering
+    case orderId = "orderId"
+
     /// Choose icon for the type among custom Anytype icons
     case iconName = "iconName"
 
@@ -444,11 +444,6 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Default object type id that will be set to new sets/collections
     case defaultTypeId = "defaultTypeId"
-
-    /// Automatically generated widget. Used to avoid creating widget if was removed by user
-    case autoWidgetTargets = "autoWidgetTargets"
-
-    case autoWidgetDisabled = "autoWidgetDisabled"
 
     /// Name of Object type in plural form
     case pluralName = "pluralName"
@@ -473,4 +468,13 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Space join date
     case spaceJoinDate = "spaceJoinDate"
+
+    /// Widget layout
+    case widgetLayout = "widgetLayout"
+
+    /// Widget limit
+    case widgetLimit = "widgetLimit"
+
+    /// Widget view ID
+    case widgetViewId = "widgetViewId"
 }

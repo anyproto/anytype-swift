@@ -2,6 +2,12 @@
 import UIKit
 import SwiftUI
 
+struct QrCodeScannerData: Identifiable {
+    var entropy: Binding<String>
+    var error: Binding<String?>
+    
+    let id = UUID()
+}
 
 // MARK: - SwiftUI adapter
 

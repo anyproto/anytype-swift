@@ -8,11 +8,12 @@ private struct UpdateShortcutsModifier: ViewModifier {
     @Environment(\.scenePhase) var scenePhase
     
     func body(content: Content) -> some View {
-        content.onChange(of: scenePhase) { new in
-            if new == .background {
-                model.updateShortcuts(spaceId: spaceId)
+        content
+            .task(id: scenePhase) {
+                if scenePhase == .background {
+                    await model.updateShortcuts(spaceId: spaceId)
+                }
             }
-        }
     }
 }
 
@@ -22,9 +23,9 @@ private final class UpdateShortcutsModifierObject: ObservableObject {
     @Injected(\.quickActionShortcutBuilder)
     private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     
-    func updateShortcuts(spaceId: String?) {
+    func updateShortcuts(spaceId: String?) async {
         if let spaceId {
-            UIApplication.shared.shortcutItems = quickActionShortcutBuilder.buildShortcutItems(spaceId: spaceId)
+            UIApplication.shared.shortcutItems = await quickActionShortcutBuilder.buildShortcutItems(spaceId: spaceId)
         } else {
             UIApplication.shared.shortcutItems = []
         }

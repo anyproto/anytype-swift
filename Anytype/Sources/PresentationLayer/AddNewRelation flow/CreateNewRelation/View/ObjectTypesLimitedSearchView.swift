@@ -29,8 +29,8 @@ struct ObjectTypesLimitedSearchView: View {
                     interactor: Legacy_ObjectTypeSearchInteractor(
                         spaceId: data.spaceId,
                         showBookmark: true,
-                        showSetAndCollection: false,
-                        showFiles: false
+                        showSetAndCollection: true,
+                        showFiles: true
                     ),
                     onSelect: { ids in
                         dismiss()

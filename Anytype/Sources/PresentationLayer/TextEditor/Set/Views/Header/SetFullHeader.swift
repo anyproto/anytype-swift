@@ -20,24 +20,23 @@ struct SetFullHeader: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             cover
-            VStack(alignment: .leading, spacing: 8) {
-                titleView
+            VStack(alignment: model.headerAlignment, spacing: 8) {
+                titleView.padding(.horizontal, 20)
                 headerBlocks
             }
-            .padding([.leading], 20)
         }
         .readSize { width = $0.width }
     }
     
     @ViewBuilder
     private var headerBlocks: some View {
-        description
+        description.padding(.horizontal, 20)
         
         if model.details?.isObjectType ?? false {
             Spacer.fixedHeight(10)
             typeButtons
         } else {
-            featuredRelationsView
+            featuredRelationsView.padding(.horizontal, 20)
         }
     }
     
@@ -83,38 +82,43 @@ struct SetFullHeader: View {
     }
     
     private var typeButtons: some View {
-        HStack(spacing: 8) {
-            
-            if (model.details?.recommendedLayoutValue.isEditorLayout ?? false) && model.setDocument.document.permissions.canEditDetails {
-                StandardButton(
-                    .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
-                    style: .secondarySmall
-                ) {
-                    model.onObjectTypeLayoutTap()
-                }.minimumScaleFactor(0.5)
+        ScrollView(.horizontal) {
+            HStack(spacing: 8) {
+                
+                Spacer.fixedWidth(20)
+                
+                if (model.details?.recommendedLayoutValue.isEditorLayout ?? false) && model.setDocument.document.permissions.canEditDetails {
+                    StandardButton(
+                        .textWithBadge(text: Loc.layout, badge: (model.details?.recommendedLayoutValue?.title ?? "")),
+                        style: .secondarySmall
+                    ) {
+                        model.onObjectTypeLayoutTap()
+                    }.minimumScaleFactor(0.5)
+                }
+                
+                if model.showProperties {
+                    StandardButton(
+                        .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
+                        style: .secondarySmall
+                    ) {
+                        model.onObjectTypePropertiesTap()
+                    }.minimumScaleFactor(0.5)
+                }
+                
+                if model.showObjectTypeTemplates {
+                    StandardButton(
+                        .textWithBadge(text: Loc.templates, badge: "\(model.templatesCount)"),
+                        style: .secondarySmall
+                    ) {
+                        model.onObjectTypeTemplatesTap()
+                    }.minimumScaleFactor(0.5)
+                }
+                
+                
+                Spacer()
             }
-
-            if model.showProperties {
-                StandardButton(
-                    .textWithBadge(text: Loc.fields, badge: "\(model.relationsCount)"),
-                    style: .secondarySmall
-                ) {
-                    model.onObjectTypePropertiesTap()
-                }.minimumScaleFactor(0.5)
-            }
-            
-            if model.showObjectTypeTemplates {
-                StandardButton(
-                    .textWithBadge(text: Loc.templates, badge: "\(model.templatesCount)"),
-                    style: .secondarySmall
-                ) {
-                    model.onObjectTypeTemplatesTap()
-                }.minimumScaleFactor(0.5)
-            }
-
-            
-            Spacer()
         }
+        .scrollIndicators(.never)
     }
 }
 

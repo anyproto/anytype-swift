@@ -16,6 +16,15 @@ struct ControlsExample: View {
                         
                         makeLargeButtonVariants(title: "Destructive Large - Light", style: .warningLarge).colorScheme(.light)
                         makeLargeButtonVariants(title: "Destructive Large - Dark", style: .warningLarge).colorScheme(.dark)
+                        
+                        makeLargeButtonVariants(title: "Primary Oval Large - Light", style: .primaryOvalLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Primary Oval Large - Dark", style: .primaryOvalLarge).colorScheme(.dark)
+                        
+                        makeLargeButtonVariants(title: "Secondary Oval Large - Light", style: .secondaryOvalLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Secondary Oval Large - Dark", style: .secondaryOvalLarge).colorScheme(.dark)
+                        
+                        makeLargeButtonVariants(title: "Link Large - Light", style: .linkLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Link Large - Dark", style: .linkLarge).colorScheme(.dark)
                     }
                     
                     Group {

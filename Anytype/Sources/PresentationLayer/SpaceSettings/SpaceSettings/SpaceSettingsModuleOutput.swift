@@ -8,8 +8,8 @@ protocol SpaceSettingsModuleOutput: AnyObject {
     func onPropertiesSelected()
 
     func onRemoteStorageSelected()
-    func onSpaceShareSelected()
-    func onSpaceMembersSelected()
+    func onSpaceShareSelected(_ completion: @escaping () -> Void)
     func onNotificationsSelected()
     func onBinSelected()
+    func onSpaceUxTypeSelected()
 }

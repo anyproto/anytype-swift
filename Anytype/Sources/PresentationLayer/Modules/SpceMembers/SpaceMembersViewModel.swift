@@ -13,16 +13,20 @@ final class SpaceMembersViewModel: ObservableObject {
     @Published var participantInfo: ObjectInfo?
     
     // MARK: - DI
-    
+
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
     
     private let data: SpaceMembersData
     
     // MARK: - State
-    
+
     @Published var rows: [SpaceShareParticipantViewModel] = []
+    private var isOwner = false
+    private var participants: [Participant] = []
     
     init(data: SpaceMembersData) {
         self.data = data
@@ -30,7 +34,15 @@ final class SpaceMembersViewModel: ObservableObject {
     
     func startParticipantTask() async {
         for await participants in participantsSubscription.withoutRemovingParticipantsPublisher.values {
-            updateParticipant(items: participants)
+            self.participants = participants
+            updateParticipant()
+        }
+    }
+
+    func startSpacePermissionsTask() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: data.spaceId).values {
+            isOwner = participantSpaceView.isOwner
+            updateParticipant()
         }
     }
     
@@ -38,13 +50,21 @@ final class SpaceMembersViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsSpaceMembers(route: data.route)
     }
     
-    private func updateParticipant(items: [Participant]) {
-        rows = items.map { participant in
+    private func updateParticipant() {
+        let filteredParticipants = participants.filter { participant in
+            if participant.status == .joining {
+                return isOwner
+            }
+            return true
+        }
+
+        rows = filteredParticipants.map { participant in
             let isYou = accountManager.account.info.profileObjectID == participant.identityProfileLink
             return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
                 name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
+                globalName: participant.displayGlobalName,
                 status: .active(permission: participant.permission.title),
                 action: SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
                     self?.showParticipantInfo(participant)

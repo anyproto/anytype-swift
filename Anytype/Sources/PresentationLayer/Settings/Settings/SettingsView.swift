@@ -12,10 +12,19 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.Settings.title)
-                .onTapGesture(count: 5) {
-                    model.showDebugMenu.toggle()
+            TitleView(title: Loc.Settings.title) {
+                Menu {
+                    if model.canDeleteVault {
+                        Button(Loc.deleteVault) { model.onDeleteAccountTap() }
+                    }
+                    Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
+                } label: {
+                    MoreIndicator()
                 }
+            }
+            .onTapGesture(count: 5) {
+                model.showDebugMenu.toggle()
+            }
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -24,7 +33,7 @@ struct SettingsView: View {
                         model.onChangeIconTap()
                     })
                     
-                    SectionHeaderView(title: Loc.settings)
+                    SectionHeaderView(title: Loc.application)
                     
                     SettingsSectionItemView(
                         name: Loc.appearance,
@@ -42,19 +51,7 @@ struct SettingsView: View {
                     }
                     
                     SettingsSectionItemView(
-                        name: Loc.Spaces.title,
-                        imageAsset: .Settings.spaces,
-                        onTap: { model.onSpacesTap() }
-                    )
-                    
-                    SettingsSectionItemView(
-                        name: Loc.FileStorage.Local.title,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onFileStorageTap() }
-                    )
-                    
-                    SettingsSectionItemView(
-                        name: Loc.Settings.vaultAndAccess,
+                        name: Loc.loginKey,
                         imageAsset: .Settings.keychainPhrase,
                         onTap: { model.onAccountDataTap() }
                     )
@@ -67,6 +64,34 @@ struct SettingsView: View {
                             onTap: { model.onMembershipTap() }
                         )
                     }
+                    
+                    SectionHeaderView(title: Loc.Settings.dataManagement)
+                    
+                    SettingsSectionItemView(
+                        name: Loc.Spaces.title,
+                        imageAsset: .Settings.spaces,
+                        onTap: { model.onSpacesTap() }
+                    )
+                    
+                    SettingsSectionItemView(
+                        name: Loc.FileStorage.Local.title,
+                        imageAsset: .Settings.fileStorage,
+                        onTap: { model.onFileStorageTap() }
+                    )
+                    
+                    SettingsSectionItemView(
+                        name: Loc.mySites,
+                        imageAsset: .Settings.mySites,
+                        onTap: { model.onMySitesTap() }
+                    )
+                    
+                    SectionHeaderView(title: Loc.misc)
+                    
+                    SettingsSectionItemView(
+                        name: Loc.experimentalFeatures,
+                        imageAsset: .X24.experimentalFeatures,
+                        onTap: { model.onExterimentapTap() }
+                    )
                     
                     SettingsSectionItemView(
                         name: Loc.about,
@@ -81,6 +106,13 @@ struct SettingsView: View {
                         onTap: { model.onDebugMenuTap() }
                     )
                     #endif
+                    
+                    SettingsSectionItemView(
+                        name: Loc.logOut,
+                        textColor: .Pure.red,
+                        imageAsset: .Settings.logOut,
+                        onTap: { model.onLogoutTap() }
+                    )
                 }
             }
             .padding(.horizontal, 20)

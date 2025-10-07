@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct AllObjectsWidgetView: View {
     
@@ -22,7 +23,7 @@ struct AllObjectsWidgetView: View {
                 model.onDeleteWidgetTap()
             },
             header: {
-                LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .X24.allObjects, onTap: {
+                LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .asset(.X24.allObjects), onTap: {
                     model.onHeaderTap()
                 })
             },
@@ -35,12 +36,22 @@ struct AllObjectsWidgetView: View {
     }
     
     private var menu: some View {
-        WidgetCommonActionsMenuView(
-            items: [.addBelow, .remove],
-            widgetBlockId: model.data.widgetBlockId,
-            widgetObject: model.data.widgetObject,
-            homeState: homeState,
-            output: model.data.output
-        )
+        if FeatureFlags.homeObjectTypeWidgets {
+            WidgetCommonActionsMenuView(
+                items: [.removeSystemWidget],
+                widgetBlockId: model.data.widgetBlockId,
+                widgetObject: model.data.widgetObject,
+                homeState: homeState,
+                output: model.data.output
+            )
+        } else {
+            WidgetCommonActionsMenuView(
+                items: [.addBelow, .remove],
+                widgetBlockId: model.data.widgetBlockId,
+                widgetObject: model.data.widgetObject,
+                homeState: homeState,
+                output: model.data.output
+            )
+        }
     }
 }

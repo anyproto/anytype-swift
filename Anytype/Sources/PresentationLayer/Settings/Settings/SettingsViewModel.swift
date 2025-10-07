@@ -29,8 +29,8 @@ final class SettingsViewModel: ObservableObject {
     private var profileDataLoaded: Bool = false
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
     
-    private let allowMembership: Bool
-    var canShowMemberhip: Bool { allowMembership }
+    let canShowMemberhip: Bool
+    let canDeleteVault: Bool
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
@@ -42,7 +42,10 @@ final class SettingsViewModel: ObservableObject {
         self.output = output
         
         accountManager = Container.shared.accountManager.resolve()
-        allowMembership = accountManager.account.allowMembership
+        canShowMemberhip = accountManager.account.allowMembership
+        
+        let configurationStorage = Container.shared.serverConfigurationStorage.resolve()
+        canDeleteVault = !configurationStorage.currentConfiguration().isLocalOnly
     }
     
     func onAppear() {
@@ -69,6 +72,14 @@ final class SettingsViewModel: ObservableObject {
         output?.onFileStorageSelected()
     }
     
+    func onMySitesTap() {
+        output?.onMySitesSelected()
+    }
+    
+    func onExterimentapTap() {
+        output?.onExperimentalSelected()
+    }
+    
     func onAboutTap() {
         output?.onAboutSelected()
     }
@@ -83,6 +94,14 @@ final class SettingsViewModel: ObservableObject {
     
     func onMembershipTap() {
         output?.onMembershipSelected()
+    }
+    
+    func onLogoutTap() {
+        output?.onLogoutSelected()
+    }
+    
+    func onDeleteAccountTap() {
+        output?.onDeleteAccountSelected()
     }
     
     func startSubscriptions() async {

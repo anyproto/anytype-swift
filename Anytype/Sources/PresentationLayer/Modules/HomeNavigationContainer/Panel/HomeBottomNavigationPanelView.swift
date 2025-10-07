@@ -41,25 +41,13 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
-            if !FeatureFlags.newPlusMenu {
+            if !model.newObjectPlusMenu {
                 if #available(iOS 17.0, *) {
                     HomeTipView()
                 }
             }
         }
         .padding(.vertical, 10)
-        .if(FeatureFlags.homeTestSwipeGeature) { view in
-            view.gesture(
-                DragGesture(minimumDistance: 100)
-                    .onEnded { value in
-                        if value.translation.width > 150 {
-                            model.onTapBackward()
-                        } else if value.translation.width < -150 {
-                            model.onTapForward()
-                        }
-                    }
-            )
-        }
         .task {
             await model.startSubscriptions()
         }
@@ -80,17 +68,50 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         
         leftButton
         
-        if FeatureFlags.newPlusMenu {
+        if model.newObjectPlusMenu {
             Menu {
-                ForEach(model.favoritesObjectTypes) { type in
+                if let type = model.pageObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Text(type.displayName)
+                        Label(Loc.page, systemImage: "doc.text")
                     }
                 }
+
+                if let type = model.noteObjectType {
+                    Button {
+                        model.onTapCreateObject(type: type)
+                    } label: {
+                        Label(Loc.note, systemImage: "doc.plaintext")
+                    }
+                }
+
+                if let type = model.taskObjectType {
+                    Button {
+                        model.onTapCreateObject(type: type)
+                    } label: {
+                        Label(Loc.task, systemImage: "checkmark.square")
+                    }
+                }
+
                 Divider()
-                Menu("More") {
+
+                Menu(Loc.more) {
+                    Button { model.onAddMediaSelected() } label: {
+                        Label(Loc.photos, systemImage: "photo")
+                    }
+
+                    if FeatureFlags.loadAttachmentsOnHomePlusMenu {
+                        Button { model.onCameraSelected() } label: {
+                            Label(Loc.camera, systemImage: "camera")
+                        }
+                        Button { model.onAddFilesSelected() } label: {
+                            Label(Loc.files, systemImage: "doc")
+                        }
+                    }
+
+                    Divider()
+
                     ForEach(model.otherObjectTypes) { type in
                         Button {
                             model.onTapCreateObject(type: type)

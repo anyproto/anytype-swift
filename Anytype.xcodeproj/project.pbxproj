@@ -13,7 +13,6 @@
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
 		1259300526F3A5C500B115CD /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300426F3A5C500B115CD /* Highlightr */; };
 		1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300D26F3A6AE00B115CD /* Kingfisher */; };
-		1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */; };
 		2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A01A4F82A1FB507002042FB /* DeviceKit */; };
 		2A10D8502C53A6C90088BB46 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2A10D84F2C53A6C90088BB46 /* WrappingHStack */; };
 		2A1254A02CB440DD0081C151 /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -46,9 +45,9 @@
 		2E3058142D81DF7F00BF4F25 /* AnytypeNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E30580D2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2E63D9B72D56520C008A733A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2E63D9B62D56520C008A733A /* FirebaseMessaging */; };
 		2ED5E1542DAFE2A700B59485 /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2ED5E1532DAFE2A700B59485 /* AnytypeCore */; };
-		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
 		3D3B350E2BCE872E008456F8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B350D2BCE872E008456F8 /* StoreKit.framework */; };
+		3D9852D12E82EFAC007E2979 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 3D9852D02E82EFAC007E2979 /* AppIcon.icon */; };
 		3DC133F12CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; };
 		3DC133F22CAFE5DD000FF065 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 2AC1262C2B90F65F003A4A8D /* Factory */; };
 		3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
@@ -58,6 +57,7 @@
 		538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD4F284F9F88000D3CCC /* DequeModule */; };
 		538ABD52284F9F88000D3CCC /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 538ABD51284F9F88000D3CCC /* OrderedCollections */; };
 		7411879B2D9ADD200006EA41 /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 7411879A2D9ADD200006EA41 /* Loc */; };
+		74183DD12E797AAD006805CC /* LayoutKit in Frameworks */ = {isa = PBXBuildFile; productRef = 74183DD02E797AAD006805CC /* LayoutKit */; };
 		7434DAC32D3916FF00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC22D3916FF00E18A0C /* AppTarget */; };
 		7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC42D3920BE00E18A0C /* AppTarget */; };
 		7434DAC72D39212E00E18A0C /* AppTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 7434DAC62D39212E00E18A0C /* AppTarget */; };
@@ -68,6 +68,7 @@
 		74A696EC2E0EEB70007F32CA /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 74A696EB2E0EEB70007F32CA /* Loc */; };
 		74B35D262D5B39C500AC9879 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 74B35D252D5B39C500AC9879 /* AsyncAlgorithms */; };
 		74D79ED52D784FBF00658D0A /* AsyncTools in Frameworks */ = {isa = PBXBuildFile; productRef = 74D79ED42D784FBF00658D0A /* AsyncTools */; };
+		74D9D0F42E5F31F500CA09E7 /* AssetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */; };
 		74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */ = {isa = PBXBuildFile; productRef = 74EB806B2D79D3EA003F8D84 /* Assets */; };
 		74FC7F722D9EE65100FDD16F /* Loc in Frameworks */ = {isa = PBXBuildFile; productRef = 74FC7F712D9EE65100FDD16F /* Loc */; };
 		862D559A2A8F78330018103F /* AnytypeShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -195,7 +196,9 @@
 		3D372A2D2CB56E1A00762DA9 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D372A332CB56EB900762DA9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D3B350D2BCE872E008456F8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3D9852D02E82EFAC007E2979 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetConstants.swift; sourceTree = "<group>"; };
 		862D55902A8F78330018103F /* AnytypeShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D7255F2A94EDB0008DF702 /* Anytype.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anytype.entitlements; sourceTree = "<group>"; };
 		C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AnytypeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,8 +300,6 @@
 				2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
-				2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */,
-				1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */,
 				2A10D8502C53A6C90088BB46 /* WrappingHStack in Frameworks */,
 				74EB806C2D79D3EA003F8D84 /* Assets in Frameworks */,
 				2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */,
@@ -332,6 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74183DD12E797AAD006805CC /* LayoutKit in Frameworks */,
 				3DC133F32CAFE5DD000FF065 /* SharedContentManager in Frameworks */,
 				7434DAC52D3920BE00E18A0C /* AppTarget in Frameworks */,
 				2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */,
@@ -406,10 +408,12 @@
 		038FB5C422D8F284002B90B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				74D9D0F32E5F31ED00CA09E7 /* AssetConstants.swift */,
 				3D6977812CAE9ED0003F5A91 /* Video */,
 				0303ED0422D8EDAD005C552B /* SystemAssets.xcassets */,
 				0339382422EF571600589108 /* Strings */,
 				3D6977912CAE9EEC003F5A91 /* Preview Content */,
+				3D9852D02E82EFAC007E2979 /* AppIcon.icon */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -477,7 +481,6 @@
 				5333421B262E249100238121 /* FloatingPanel */,
 				1259300426F3A5C500B115CD /* Highlightr */,
 				1259300D26F3A6AE00B115CD /* Kingfisher */,
-				1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */,
 				538ABD4D284F9F88000D3CCC /* Collections */,
 				538ABD4F284F9F88000D3CCC /* DequeModule */,
 				538ABD51284F9F88000D3CCC /* OrderedCollections */,
@@ -496,7 +499,6 @@
 				2A41A6772B84E57B00EAE6E6 /* DeepLinks */,
 				2AC1262C2B90F65F003A4A8D /* Factory */,
 				2A30B2072BB44A0C00206806 /* QRCode */,
-				2EEE411D2C1080AD000AB88B /* CachedAsyncImage */,
 				3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */,
 				2A10D84F2C53A6C90088BB46 /* WrappingHStack */,
 				2ADB57852CB6B6FE00BFC386 /* Cache */,
@@ -583,6 +585,7 @@
 				2A41A6792B84E59B00EAE6E6 /* DeepLinks */,
 				2A6C3ED52C008DAF00B8D57C /* AnytypeCore */,
 				7434DAC42D3920BE00E18A0C /* AppTarget */,
+				74183DD02E797AAD006805CC /* LayoutKit */,
 			);
 			productName = AnytypeShareExtension;
 			productReference = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */;
@@ -666,7 +669,6 @@
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				1259300326F3A5C500B115CD /* XCRemoteSwiftPackageReference "Highlightr" */,
 				1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */,
 				538ABD4C284F9F88000D3CCC /* XCRemoteSwiftPackageReference "swift-collections" */,
 				2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				C9BFBA8C28A133320003D9E6 /* XCRemoteSwiftPackageReference "ShimmerSwift" */,
@@ -676,7 +678,6 @@
 				2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */,
 				2A30B2062BB44A0C00206806 /* XCRemoteSwiftPackageReference "QRCode" */,
-				2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				2A10D84E2C53A5F00088BB46 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2ADB57842CB6B6FE00BFC386 /* XCRemoteSwiftPackageReference "Cache" */,
@@ -705,6 +706,7 @@
 			files = (
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0522D8EDAD005C552B /* SystemAssets.xcassets in Resources */,
+				3D9852D12E82EFAC007E2979 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74D9D0F42E5F31F500CA09E7 /* AssetConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1048,7 +1051,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1093,7 +1096,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1122,7 +1125,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1148,7 +1151,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1265,7 +1268,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -1294,7 +1297,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1334,7 +1337,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1409,7 +1412,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1486,7 +1489,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1563,7 +1566,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1684,7 +1687,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -1712,7 +1715,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1745,7 +1748,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.homewidget";
@@ -1777,7 +1780,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1852,7 +1855,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1973,7 +1976,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -2001,7 +2004,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2034,7 +2037,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.any.app.homewidget";
@@ -2066,7 +2069,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2141,7 +2144,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2260,7 +2263,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app;
@@ -2289,7 +2292,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2322,7 +2325,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.any.app.homewidget";
@@ -2353,7 +2356,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.any.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2384,7 +2387,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.AnytypeShareExtension";
@@ -2414,7 +2417,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2445,7 +2448,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2477,7 +2480,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.homewidget";
@@ -2509,7 +2512,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.homewidget";
@@ -2541,7 +2544,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.39.2;
+				MARKETING_VERSION = 0.40.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev.homewidget";
@@ -2653,14 +2656,6 @@
 				version = 8.2.0;
 			};
 		};
-		1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lucasbrown/swiftui-visual-effects";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
-			};
-		};
 		2A01A4F72A1FB4B7002042FB /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devicekit/DeviceKit";
@@ -2733,14 +2728,6 @@
 				version = 11.8.1;
 			};
 		};
-		2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
-			requirement = {
-				kind = exactVersion;
-				version = 2.1.1;
-			};
-		};
 		3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
@@ -2809,11 +2796,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1259300C26F3A6AE00B115CD /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		1259301026F3A6EC00B115CD /* SwiftUIVisualEffects */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1259300F26F3A6EC00B115CD /* XCRemoteSwiftPackageReference "swiftui-visual-effects" */;
-			productName = SwiftUIVisualEffects;
 		};
 		2A01A4F82A1FB507002042FB /* DeviceKit */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -2929,11 +2911,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = AnytypeCore;
 		};
-		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
-		};
 		3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ConfettiSwiftUI;
@@ -2966,6 +2943,10 @@
 		7411879A2D9ADD200006EA41 /* Loc */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Loc;
+		};
+		74183DD02E797AAD006805CC /* LayoutKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LayoutKit;
 		};
 		7434DAC22D3916FF00E18A0C /* AppTarget */ = {
 			isa = XCSwiftPackageProductDependency;

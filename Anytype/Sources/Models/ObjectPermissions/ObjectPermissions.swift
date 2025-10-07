@@ -4,6 +4,7 @@ import Services
 struct ObjectPermissions: Equatable {
     var canChangeType: Bool = false
     var canDelete: Bool = false
+    var canRestore: Bool = false
     var canTemplateSetAsDefault: Bool = false
     var canArchive: Bool = false
     var canDuplicate: Bool = false
@@ -42,14 +43,15 @@ extension ObjectPermissions {
         let isTemplate = details.isTemplate
         let isObjectType = details.isObjectType
         
-        let caEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
-        let canEdit = caEditRelations && !details.resolvedLayoutValue.isFileOrMedia
+        let canEditRelations = !isLocked && !isArchive && participantCanEdit && !isVersionMode
+        let canEdit = canEditRelations && !details.resolvedLayoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
         let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant && !isObjectType
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplate
         self.canDelete = isArchive && participantCanEdit
+        self.canRestore = canDelete
         self.canTemplateSetAsDefault = isTemplate && canEdit
         self.canArchive = !objectRestrictions.contains(.delete) && participantCanEdit
         self.canDuplicate = !objectRestrictions.contains(.duplicate) && canApplyUneditableActions && !isObjectType
@@ -64,7 +66,6 @@ extension ObjectPermissions {
                                 && !isTemplate
                                 && details.resolvedLayoutValue != .participant
                                 && canApplyUneditableActions
-                                && !isObjectType
         
         self.canFavorite = canApplyUneditableActions && !isTemplate && !isObjectType
         self.canLinkItself = canApplyUneditableActions && !isTemplate && !isObjectType
@@ -72,8 +73,8 @@ extension ObjectPermissions {
         self.canChangeIcon = details.resolvedLayoutValue.haveIcon && canEdit
         self.canChangeCover = details.resolvedLayoutValue.haveCover && canEdit && !isObjectType
         self.canChangeLayout = details.resolvedLayoutValue.isEditorLayout && canEdit // && !objectRestrictions.contains(.layoutChange)
-        self.canEditDetails = !objectRestrictions.contains(.details)
-        self.canEditRelationValues = caEditRelations && canEditDetails
+        self.canEditDetails = !objectRestrictions.contains(.details) && participantCanEdit
+        self.canEditRelationValues = canEditRelations && canEditDetails
         self.canEditPropertiesList = canEditRelationValues && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplate && !isObjectType
         self.canPublish = canShare && specificTypes && !isArchive

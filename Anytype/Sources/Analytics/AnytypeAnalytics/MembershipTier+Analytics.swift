@@ -32,6 +32,22 @@ extension MembershipTier {
             "Starter"
         case 22:
             "Pioneer"
+        case 29:
+            "BuilderMonthly"
+        case 31:
+            "Free"
+        case 40:
+            "Plus"
+        case 41:
+            "PlusMonthly"
+        case 42:
+            "Pro"
+        case 43:
+            "ProMonthly"
+        case 44:
+            "Ultra"
+        case 45:
+            "UltraMonthly"
         default:
             name
         }

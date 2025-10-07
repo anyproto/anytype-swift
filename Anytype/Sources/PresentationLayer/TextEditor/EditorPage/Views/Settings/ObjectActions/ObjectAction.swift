@@ -4,7 +4,7 @@ import AnytypeCore
 enum ObjectAction: Hashable, Identifiable {
     case undoRedo
     case archive(isArchived: Bool)
-    case favorite(isFavorite: Bool)
+    case pin(isPinned: Bool)
     case locked(isLocked: Bool)
     case duplicate
     case linkItself
@@ -15,17 +15,23 @@ enum ObjectAction: Hashable, Identifiable {
     case copyLink
 
     // When adding to case
-    static func buildActions(details: ObjectDetails, isLocked: Bool, permissions: ObjectPermissions) -> [Self] {
+    static func buildActions(details: ObjectDetails, isLocked: Bool, isPinnedToWidgets: Bool, permissions: ObjectPermissions) -> [Self] {
         .builder {
             if permissions.canArchive {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
             
-            if permissions.canFavorite {
-                ObjectAction.favorite(isFavorite: details.isFavorite)
+            if FeatureFlags.homeObjectTypeWidgets {
+                if permissions.canCreateWidget {
+                    ObjectAction.pin(isPinned: isPinnedToWidgets)
+                }
+            } else {
+                if permissions.canFavorite {
+                    ObjectAction.pin(isPinned: details.isFavorite)
+                }
             }
             
-            if permissions.canCreateWidget {
+            if !FeatureFlags.homeObjectTypeWidgets, permissions.canCreateWidget {
                 ObjectAction.createWidget
             }
             
@@ -70,8 +76,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "undoredo"
         case .archive:
             return "archive"
-        case .favorite:
-            return "favorite"
+        case .pin:
+            return "pin"
         case .locked:
             return "locked"
         case .duplicate:

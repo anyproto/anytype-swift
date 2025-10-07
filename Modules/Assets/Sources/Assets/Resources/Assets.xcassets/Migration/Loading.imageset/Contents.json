@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Loading.pdf",
+      "filename" : "Loading.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "LoadingDark.svg",
       "idiom" : "universal"
     }
   ],

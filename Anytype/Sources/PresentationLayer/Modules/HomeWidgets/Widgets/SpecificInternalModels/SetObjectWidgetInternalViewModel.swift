@@ -25,10 +25,10 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.setContentViewDataBuilder)
-    private var setContentViewDataBuilder: any SetContentViewDataBuilderProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.setObjectWidgetOrderHelper)
+    private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
@@ -39,6 +39,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     var dragId: String? { widgetBlockId }
     
     @Published var name: String = ""
+    @Published var icon: Icon?
     @Published var headerItems: [ViewWidgetTabsItemModel]?
     @Published var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
     @Published var allowCreateObject = true
@@ -54,33 +55,12 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
     }
     
-    // MARK: - Subscriptions
-    
-    func startPermissionsPublisher() async {
-        for await permissions in widgetObject.permissionsPublisher.values {
-            canEditBlocks = permissions.canEditBlocks
-        }
-    }
-    
-    func startInfoPublisher() async {
-        for await newWidgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
-            widgetInfo = newWidgetInfo
-            if activeViewId.isNil || canEditBlocks {
-                activeViewId = widgetInfo?.block.viewID
-                await updateBodyState()
-            }
-        }
-    }
-    
-    func startTargetDetailsPublisher() async {
-        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
-            await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
-        }
-    }
-    
-    func onAppear() async {
-        guard let setDocument else { return }
-        await updateSetDocument(objectId: setDocument.objectId, spaceId: setDocument.spaceId)
+    func startSubscriptions() async {
+        async let permissionsTask: () = startPermissionsPublisher()
+        async let startInfoTask: () = startInfoPublisher()
+        async let targetDetailsTask: () = startTargetDetailsPublisher()
+        
+        _ = await (permissionsTask, startInfoTask, targetDetailsTask)
     }
     
     // MARK: - Actions
@@ -119,6 +99,30 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         )
         output?.onObjectSelected(screenData: screenData)
     }
+
+    // MARK: - Subscriptions
+    
+    private func startPermissionsPublisher() async {
+        for await permissions in widgetObject.permissionsPublisher.values {
+            canEditBlocks = permissions.canEditBlocks
+        }
+    }
+    
+    private func startInfoPublisher() async {
+        for await newWidgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
+            widgetInfo = newWidgetInfo
+            if activeViewId.isNil || canEditBlocks {
+                activeViewId = widgetInfo?.block.viewID
+                await updateBodyState()
+            }
+        }
+    }
+    
+    private func startTargetDetailsPublisher() async {
+        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
+            await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
+        }
+    }
     
     // MARK: - Private for view updates
     
@@ -135,6 +139,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                 rows = .compactList(rows: listRows, id: activeViewId ?? "")
             case .view:
                 if isSetByImageType() {
+                    // Delete with FeatureFlags.homeObjectTypeWidgets
                     let galleryRows = rowDetails?.map { details in
                         GalleryWidgetRowModel(
                             objectId: details.id,
@@ -231,14 +236,6 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         updateHeader(dataviewState: dataviewState)
     }
     
-    private func sortedRowDetails(_ details: [ObjectDetails]?) -> [ObjectDetails]? {
-        guard let objectOrderIds = setDocument?.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
-                objectOrderIds.isNotEmpty else {
-            return details
-        }
-        return details?.reorderedStable(by: objectOrderIds, transform: { $0.id })
-    }
-    
     private func updateSetDocument(objectId: String, spaceId: String) async {
         guard objectId != setDocument?.objectId, spaceId != setDocument?.spaceId else {
             try? await setDocument?.update()
@@ -263,6 +260,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         
         guard let details = setDocument.details else { return }
         name = details.pluralTitle
+        icon = details.objectIconImage
     }
     
     
@@ -277,25 +275,27 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateRowDetails(details: [ObjectDetails]) {
         guard let setDocument else { return }
-        let sortedDetails = sortedRowDetails(details) ?? details
-        let rowDetails = setContentViewDataBuilder.itemData(
-            sortedDetails,
-            dataView: setDocument.dataView,
-            activeView: setDocument.activeView,
-            viewRelationValueIsLocked: false, 
-            canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
-            storage: subscriptionStorage.detailsStorage,
-            spaceId: setDocument.spaceId,
-            onItemTap: { [weak self] in
-                self?.handleTapOnObject(details: $0)
+        let rowDetails = setObjectWidgetOrderHelper.reorder(
+            setDocument: setDocument,
+            subscriptionStorage: subscriptionStorage,
+            details: details,
+            onItemTap: { [weak self] details, sortedDetails in
+                self?.handleTapOnObject(details: details, allDetails: sortedDetails)
             }
         )
         updateRows(rowDetails: rowDetails)
     }
     
-    private func handleTapOnObject(details: ObjectDetails) {
+    private func handleTapOnObject(details: ObjectDetails, allDetails: [ObjectDetails]) {
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
-        output?.onObjectSelected(screenData: details.screenData())
+        let isAllMediaFiles = allDetails.allSatisfy { $0.editorViewType.isMediaFile }
+        if FeatureFlags.mediaCarouselForWidgets, isAllMediaFiles {
+            output?.onObjectSelected(screenData: .preview(
+                MediaFileScreenData(selectedItem: details, allItems: allDetails, route: .widget)
+            ))
+        } else {
+            output?.onObjectSelected(screenData: details.screenData())
+        }
     }
 }

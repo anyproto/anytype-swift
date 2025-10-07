@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 protocol WidgetObjectListMenuBuilderProtocol: AnyObject {
     func buildOptionsMenu(
@@ -75,17 +76,18 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         let allIds = details.map(\.id)
         
         return .builder {
-            
-            if allowOptions.contains(.favorite), isUndavoriteIds.isNotEmpty {
-                Action(optionTitle: Loc.favorite, optionImage: .X32.Favorite.favorite, menuTitle: Loc.addToFavorite, negative: false, action: { [weak output] in
-                    output?.setFavorite(objectIds: isUndavoriteIds, true)
-                })
-            }
-            
-            if allowOptions.contains(.unfavorite), isFavoriteIds.isNotEmpty {
-                Action(optionTitle: Loc.unfavorite, optionImage: .X32.Favorite.unfavorite, menuTitle: Loc.removeFromFavorite, negative: false, action: { [weak output] in
-                    output?.setFavorite(objectIds: isFavoriteIds, false)
-                })
+            if !FeatureFlags.homeObjectTypeWidgets {
+                if allowOptions.contains(.pin), isUndavoriteIds.isNotEmpty {
+                    Action(optionTitle: Loc.pin, optionImage: .X32.Favorite.favorite, menuTitle: Loc.addToFavorite, negative: false, action: { [weak output] in
+                        output?.setPin(objectIds: isUndavoriteIds, true)
+                    })
+                }
+                
+                if allowOptions.contains(.unpin), isFavoriteIds.isNotEmpty {
+                    Action(optionTitle: Loc.unpin, optionImage: .X32.Favorite.unfavorite, menuTitle: Loc.removeFromFavorite, negative: false, action: { [weak output] in
+                        output?.setPin(objectIds: isFavoriteIds, false)
+                    })
+                }
             }
             
             if allowOptions.contains(.moveToBin), notArchivedIds.isNotEmpty {

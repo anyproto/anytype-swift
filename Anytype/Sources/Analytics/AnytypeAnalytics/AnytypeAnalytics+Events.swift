@@ -847,6 +847,16 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickOnboarding(step: ClickOnboardingStep, type: String) {
+        logEvent(
+            "ClickOnboarding",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.step: step.rawValue,
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
     func logScreenOnboardingEnterEmail() {
         logEvent("ScreenOnboardingEnterEmail")
     }
@@ -930,10 +940,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logOnboardingTooltip(tooltip: OnboardingTooltip) {
+    func logOnboardingTooltip(tooltip: OnboardingTooltip, step: Int? = nil) {
         logEvent(
             "OnboardingTooltip",
-            withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
+            withEventProperties: .builder {
+                [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
+                if let step { [AnalyticsEventsPropertiesKey.step: step] }
+            }
         )
     }
     
@@ -957,13 +970,13 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind? = nil) {
+    func logCreateLink(spaceId: String, objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
         logEvent(
             "CreateLink",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
-                AnalyticsEventsPropertiesKey.route: route?.rawValue
+                AnalyticsEventsPropertiesKey.route: route.rawValue
             ].compactMapValues { $0 }
         )
     }
@@ -1069,8 +1082,8 @@ extension AnytypeAnalytics {
         logEvent("ScreenSettingsSpaceShare", withEventProperties: [AnalyticsEventsPropertiesKey.route:  route.rawValue])
     }
     
-    func logClickShareSpaceCopyLink() {
-        logEvent("ClickShareSpaceCopyLink")
+    func logClickShareSpaceCopyLink(route: ClickShareSpaceCopyLinkRoute) {
+        logEvent("ClickShareSpaceCopyLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
     func logScreenStopShare() {
@@ -1128,8 +1141,24 @@ extension AnytypeAnalytics {
         logEvent("RemoveSpaceMember")
     }
     
-    func logScreenInviteRequest() {
-        logEvent("ScreenInviteRequest")
+    func logScreenInviteRequest(type: ScreenInviteRequestType) {
+        logEvent("ScreenInviteRequest", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logScreenSpaceLinkTypePicker() {
+        logEvent("ScreenSpaceLinkTypePicker")
+    }
+    
+    func logClickJoinSpaceWithoutApproval() {
+        logEvent("ClickJoinSpaceWithoutApproval")
+    }
+    
+    func logClickShareSpaceShareLink(route: ClickShareSpaceShareLinkRoute) {
+        logEvent("ClickShareSpaceShareLink", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+    }
+    
+    func logClickShareSpaceNewLink(type: ClickShareSpaceNewLinkType) {
+        logEvent("ClickShareSpaceNewLink", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logScreenRequestSent() {
@@ -1152,8 +1181,11 @@ extension AnytypeAnalytics {
         logEvent("ApproveLeaveRequest")
     }
     
-    func logScreenQr(type: ScreenQrAnalyticsType) {
-        logEvent("ScreenQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logScreenQr(type: ScreenQrAnalyticsType, route: ScreenQrRoute) {
+        logEvent("ScreenQr", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ])
     }
     
     func logClickQr() {
@@ -1690,5 +1722,46 @@ extension AnytypeAnalytics {
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
         )
+    }
+    
+    func logScreenMedia(type: String) {
+        logEvent(
+            "ScreenMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type
+            ]
+        )
+    }
+    
+    func logSwipeMedia(type: String, route: MediaFileScreenRoute?) {
+        logEvent(
+            "SwipeMedia",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
+    }
+    
+    func logPinSpace() {
+        logEvent("PinSpace")
+    }
+    
+    func logUnpinSpace() {
+        logEvent("UnpinSpace")
+    }
+    
+    func logClickNavBarAddMenu(type: ClickNavBarAddMenuType, route: ClickNavBarAddMenuRoute?) {
+        logEvent("ClickNavBarAddMenu", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue,
+            AnalyticsEventsPropertiesKey.type: type.rawValue
+        ].compactMapValues { $0 })
+    }
+    
+    func logClickNavBarAddMenu(objectType: AnalyticsObjectType, route: ClickNavBarAddMenuRoute?) {
+        logEvent("ClickNavBarAddMenu", withEventProperties: [
+            AnalyticsEventsPropertiesKey.route: route?.rawValue,
+            AnalyticsEventsPropertiesKey.type: objectType.analyticsId
+        ].compactMapValues { $0 })
     }
 }

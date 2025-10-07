@@ -5,7 +5,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
     
     let spaceData: ParticipantSpaceViewDataWithPreview
     let wallpaper: SpaceWallpaperType
-    let draggable: Bool
     @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
     let onTap: () -> Void
     let onTapCopy: () -> Void
@@ -13,20 +12,29 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTapPin: () async throws -> Void
     let onTapUnpin: () async throws -> Void
     let onTapSettings: () -> Void
+    let onTapDelete: () -> Void
     
     var body: some View {
         Button {
             onTap()
         } label: {
-            SpaceCardLabel(
-                spaceData: spaceData,
-                wallpaper: wallpaper,
-                draggable: draggable,
-                draggedSpace: $draggedSpace
-            )
+            if !FeatureFlags.vaultBackToRoots {
+                SpaceCardLabel(
+                    spaceData: spaceData,
+                    wallpaper: wallpaper,
+                    draggedSpace: $draggedSpace
+                )
+            } else {
+                NewSpaceCardLabel(
+                    spaceData: spaceData,
+                    wallpaper: wallpaper,
+                    draggedSpace: $draggedSpace
+                )
+            }
         }
         .disabled(FeatureFlags.spaceLoadingForScreen ? false : spaceData.spaceView.isLoading)
-        .contextMenu { menuItems }
+        .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .contextMenu { menuItems.tint(Color.Text.primary) }
     }
     
     @ViewBuilder
@@ -36,19 +44,21 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Divider()
         }
         
-        if FeatureFlags.pinnedSpaces {
-            if spaceData.spaceView.isPinned {
-                unpinButton
-            } else {
-                pinButton
-            }
+        if spaceData.spaceView.isPinned {
+            unpinButton
+        } else {
+            pinButton
         }
         
         if FeatureFlags.muteSpacePossibility, spaceData.spaceView.isShared {
             muteButton
         }
         
-        settingsButton
+        if spaceData.spaceView.isLoading {
+            deleteButton
+        } else {
+            settingsButton
+        }
     }
     
     private var copyButton: some View {
@@ -99,6 +109,18 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Text(Loc.SpaceSettings.title)
             Spacer()
             Image(systemName: "gearshape")
+        }
+    }
+    
+    private var deleteButton: some View {
+        Button(role: .destructive) {
+            onTapDelete()
+        } label: {
+            Text(Loc.SpaceSettings.deleteButton)
+                .tint(.red)
+            Spacer()
+            Image(systemName: "trash")
+                .tint(.red)
         }
     }
     

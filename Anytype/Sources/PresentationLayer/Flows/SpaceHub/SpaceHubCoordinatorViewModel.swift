@@ -3,6 +3,7 @@ import DeepLinks
 import Services
 import Combine
 import AnytypeCore
+import PhotosUI
 
 
 struct SpaceHubNavigationItem: Hashable { }
@@ -31,6 +32,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var showSpaceTypeForCreate = false
     @Published var shouldScanQrCode = false
     @Published var showAppSettings = false
+    
+    @Published var photosItems: [PhotosPickerItem] = []
+    @Published var showPhotosPicker = false
+    @Published var cameraData: SimpleCameraData?
+    @Published var showFilesPicker = false
+    private var uploadSpaceId: String?
     
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
@@ -94,7 +101,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
-        
+    @Injected(\.spaceFileUploadService)
+    private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
+    @Injected(\.spaceHubPathUXTypeHelper)
+    private var spaceHubPathUXTypeHelper: any SpaceHubPathUXTypeHelperProtocol
     
     private var needSetup = true
     
@@ -145,7 +155,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     }
     
     func setupInitialScreen() async {
-        guard !loginStateService.isFirstLaunchAfterRegistration, !FeatureFlags.disableRestoreLastScreen, appActionsStorage.action.isNil else { return }
+        guard !loginStateService.isFirstLaunchAfterRegistration, appActionsStorage.action.isNil else { return }
         
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
@@ -211,6 +221,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         shouldScanQrCode = true
     }
     
+    func startSpaceSubscription() async {
+        guard let spaceId = currentSpaceId else { return }
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
+            navigationPath = await spaceHubPathUXTypeHelper.updateNaivgationPathForUxType(spaceView: spaceView, path: navigationPath)
+        }
+    }
+    
     // MARK: - SpaceHubModuleOutput
     
     func onSelectCreateObject() {
@@ -227,6 +244,40 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     func onSelectAppSettings() {
         showAppSettings = true
+    }
+    
+    func photosPickerFinished() {
+        defer { photosItems = [] }
+        guard let uploadSpaceId else { return }
+        spaceFileUploadService.uploadPhotoItems(photosItems, spaceId: uploadSpaceId)
+    }
+    
+    func onAddMediaSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showPhotosPicker = true
+    }
+    
+    func onCameraSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        cameraData = SimpleCameraData(onMediaTaken: { [weak self] mediaType in
+            guard let self, let uploadSpaceId else { return }
+            spaceFileUploadService.uploadImagePickerMedia(type: mediaType, spaceId: uploadSpaceId)
+        })
+    }
+    
+    func onAddFilesSelected(spaceId: String) {
+        uploadSpaceId = spaceId
+        showFilesPicker = true
+    }
+    
+    func fileImporterFinished(result: Result<[URL], any Error>) {
+        switch result {
+        case .success(let files):
+            guard let uploadSpaceId else { return }
+            spaceFileUploadService.uploadFiles(files, spaceId: uploadSpaceId)
+        case .failure:
+            break
+        }
     }
     
     // MARK: - Private
@@ -246,7 +297,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     private func openSpaceWithIntialScreen(spaceId: String) async throws {
         let spaceView = try await setActiveSpace(spaceId: spaceId)
-        if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
+        if spaceView.initialScreenIsChat {
             let chatData = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
             try await showScreen(data: .spaceChat(chatData))
         } else {
@@ -322,10 +373,16 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         let previewController = AnytypePreviewController(
             with: data.items,
             initialPreviewItemIndex: data.startAtIndex,
-            sourceView: data.sourceView
+            sourceView: data.sourceView,
+            route: data.route
         )
         navigationContext.present(previewController) { [weak previewController] in
             previewController?.didFinishTransition = true
+        }
+        if (0..<data.items.count).contains(data.startAtIndex) {
+            let item = data.items[data.startAtIndex]
+            let type = item.fileDetails.fileContentType.analyticsValue
+            AnytypeAnalytics.instance().logScreenMedia(type: type)
         }
     }
     
@@ -370,7 +427,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private func initialHomePath(spaceView: SpaceView) -> [AnyHashable] {
         .builder {
             SpaceHubNavigationItem()
-            if spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
+            if spaceView.initialScreenIsChat {
                 SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
             } else {
                 HomeWidgetData(spaceId: spaceView.targetSpaceId)
@@ -438,7 +495,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     
     private func handleOpenObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
-        if spaceView.chatId == objectId, spaceView.initialScreenIsChat, spaceView.chatToggleEnable {
+        if spaceView.chatId == objectId, spaceView.initialScreenIsChat {
             try await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: spaceId)))
         } else {
             let document = documentsProvider.document(objectId: objectId, spaceId: spaceId, mode: .preview)
@@ -517,16 +574,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func popToFirstInSpace() {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
-    }
-
-    func onForwardSelected() {
-        guard !pathChanging else { return }
-        navigationPath.pushFromHistory()
-    }
-
-    func onBackwardSelected() {
-        guard !pathChanging else { return }
-        navigationPath.pop()
     }
     
     func onPickTypeForNewObjectSelected() {

@@ -65,7 +65,6 @@ public protocol BundledPropertiesValueProvider {
     var exposure: String { get }
     var targetObjectType: ObjectId { get }
     var isFavorite: Bool { get }
-    var workspaceId: ObjectId { get }
     var spaceId: ObjectId { get }
     var audioGenre: String { get }
     var name: String { get }
@@ -159,14 +158,13 @@ public protocol BundledPropertiesValueProvider {
     var fileVariantOptions: [String] { get }
     var fileSourceChecksum: String { get }
     var spaceOrder: String { get }
+    var orderId: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var recommendedHiddenRelations: [ObjectId] { get }
     var recommendedFileRelations: [ObjectId] { get }
     var defaultViewType: Int? { get }
     var defaultTypeId: ObjectId { get }
-    var autoWidgetTargets: [ObjectId] { get }
-    var autoWidgetDisabled: Bool { get }
     var pluralName: String { get }
     var headerRelationsLayout: Int? { get }
     var apiObjectKey: String { get }
@@ -175,6 +173,9 @@ public protocol BundledPropertiesValueProvider {
     var spacePushNotificationKey: String { get }
     var spacePushNotificationEncryptionKey: String { get }
     var spaceJoinDate: Date? { get }
+    var widgetLayout: Int? { get }
+    var widgetLimit: Int? { get }
+    var widgetViewId: String { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -393,10 +394,6 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Adds the object to the home dashboard
     var isFavorite: Bool {
         return value(for: BundledPropertyKey.isFavorite.rawValue)
-    }
-    /// Space object belongs to
-    var workspaceId: ObjectId {
-        return value(for: BundledPropertyKey.workspaceId.rawValue)
     }
     /// Space belongs to
     var spaceId: ObjectId {
@@ -750,6 +747,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var spaceOrder: String {
         return value(for: BundledPropertyKey.spaceOrder.rawValue)
     }
+    /// Lexicographic id for object ordering
+    var orderId: String {
+        return value(for: BundledPropertyKey.orderId.rawValue)
+    }
     /// Choose icon for the type among custom Anytype icons
     var iconName: String {
         return value(for: BundledPropertyKey.iconName.rawValue)
@@ -773,13 +774,6 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Default object type id that will be set to new sets/collections
     var defaultTypeId: ObjectId {
         return value(for: BundledPropertyKey.defaultTypeId.rawValue)
-    }
-    /// Automatically generated widget. Used to avoid creating widget if was removed by user
-    var autoWidgetTargets: [ObjectId] {
-        return value(for: BundledPropertyKey.autoWidgetTargets.rawValue)
-    }
-    var autoWidgetDisabled: Bool {
-        return value(for: BundledPropertyKey.autoWidgetDisabled.rawValue)
     }
     /// Name of Object type in plural form
     var pluralName: String {
@@ -812,5 +806,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Space join date
     var spaceJoinDate: Date? {
         return value(for: BundledPropertyKey.spaceJoinDate.rawValue)
+    }
+    /// Widget layout
+    var widgetLayout: Int? {
+        return value(for: BundledPropertyKey.widgetLayout.rawValue)
+    }
+    /// Widget limit
+    var widgetLimit: Int? {
+        return value(for: BundledPropertyKey.widgetLimit.rawValue)
+    }
+    /// Widget view ID
+    var widgetViewId: String {
+        return value(for: BundledPropertyKey.widgetViewId.rawValue)
     }
 }

@@ -10,6 +10,10 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
     @Published var templatesCount = 0
     @Published var toastBarData: ToastBarData?
     @Published var isEditing = false
+
+    var canEdit: Bool {
+        document.permissions.canEditDetails
+    }
     
     private var output: (any EditorSetModuleOutput)?
     private let document: any BaseDocumentProtocol
@@ -149,7 +153,7 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
             AnytypeAnalytics.instance().logMoveToBin(true)
         case .duplicate:
             AnytypeAnalytics.instance().logTemplateDuplicate(objectType: objectType, route: .type)
-        case .toggleIsDefault(let isDefault):
+        case .toggleIsDefault:
             AnytypeAnalytics.instance().logChangeDefaultTemplate(objectType: objectType, route: .type)
         }
     }

@@ -6,6 +6,66 @@
 public extension FeatureFlags {
 
     // Static value reader
+    static var spaceUxTypes: Bool {
+        value(for: .spaceUxTypes)
+    }
+
+    static var spaceLoadingForScreen: Bool {
+        value(for: .spaceLoadingForScreen)
+    }
+
+    static var binScreenEmptyAction: Bool {
+        value(for: .binScreenEmptyAction)
+    }
+
+    static var muteSpacePossibility: Bool {
+        value(for: .muteSpacePossibility)
+    }
+
+    static var addNotificationsSettings: Bool {
+        value(for: .addNotificationsSettings)
+    }
+
+    static var swipeToReply: Bool {
+        value(for: .swipeToReply)
+    }
+
+    static var newSharingExtension: Bool {
+        value(for: .newSharingExtension)
+    }
+
+    static var newSpaceMembersFlow: Bool {
+        value(for: .newSpaceMembersFlow)
+    }
+
+    static var removeMessagesFromNotificationsCenter: Bool {
+        value(for: .removeMessagesFromNotificationsCenter)
+    }
+
+    static var mediaCarouselForWidgets: Bool {
+        value(for: .mediaCarouselForWidgets)
+    }
+
+    static var fixCollectionViewReuseCrashInEditor: Bool {
+        value(for: .fixCollectionViewReuseCrashInEditor)
+    }
+
+    static var loadAttachmentsOnHomePlusMenu: Bool {
+        value(for: .loadAttachmentsOnHomePlusMenu)
+    }
+
+    static var vaultBackToRoots: Bool {
+        value(for: .vaultBackToRoots)
+    }
+
+    static var brandNewAuthFlow: Bool {
+        value(for: .brandNewAuthFlow)
+    }
+
+    static var homeObjectTypeWidgets: Bool {
+        value(for: .homeObjectTypeWidgets)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -20,26 +80,6 @@ public extension FeatureFlags {
 
     static var hideWebPayments: Bool {
         value(for: .hideWebPayments)
-    }
-
-    static var homeSpaceLevelChat: Bool {
-        value(for: .homeSpaceLevelChat)
-    }
-
-    static var pinnedSpaces: Bool {
-        value(for: .pinnedSpaces)
-    }
-
-    static var openMediaFileInPreview: Bool {
-        value(for: .openMediaFileInPreview)
-    }
-
-    static var newPlusMenu: Bool {
-        value(for: .newPlusMenu)
-    }
-
-    static var spaceUxTypes: Bool {
-        value(for: .spaceUxTypes)
     }
 
     static var enableStreamSpaceType: Bool {
@@ -58,28 +98,12 @@ public extension FeatureFlags {
         value(for: .guideUseCaseForDataSpace)
     }
 
-    static var disableRestoreLastScreen: Bool {
-        value(for: .disableRestoreLastScreen)
-    }
-
-    static var spaceHubNewTitle: Bool {
-        value(for: .spaceHubNewTitle)
-    }
-
     static var chatLayoutInsideSpace: Bool {
         value(for: .chatLayoutInsideSpace)
     }
 
-    static var chatCounters: Bool {
-        value(for: .chatCounters)
-    }
-
     static var joinStream: Bool {
         value(for: .joinStream)
-    }
-
-    static var countersOnSpaceHub: Bool {
-        value(for: .countersOnSpaceHub)
     }
 
     static var simpleSetForTypes: Bool {
@@ -88,70 +112,6 @@ public extension FeatureFlags {
 
     static var doNotWaitCompletionInAnytypePreview: Bool {
         value(for: .doNotWaitCompletionInAnytypePreview)
-    }
-
-    static var spaceLoadingForScreen: Bool {
-        value(for: .spaceLoadingForScreen)
-    }
-
-    static var binScreenEmptyAction: Bool {
-        value(for: .binScreenEmptyAction)
-    }
-
-    static var showChatWidget: Bool {
-        value(for: .showChatWidget)
-    }
-
-    static var createChatWidget: Bool {
-        value(for: .createChatWidget)
-    }
-
-    static var muteSpacePossibility: Bool {
-        value(for: .muteSpacePossibility)
-    }
-
-    static var addNotificationsSettings: Bool {
-        value(for: .addNotificationsSettings)
-    }
-
-    static var chatLoadingIndicator: Bool {
-        value(for: .chatLoadingIndicator)
-    }
-
-    static var anytypeImageCacher: Bool {
-        value(for: .anytypeImageCacher)
-    }
-
-    static var joinSpaceViaQRCode: Bool {
-        value(for: .joinSpaceViaQRCode)
-    }
-
-    static var swipeToReply: Bool {
-        value(for: .swipeToReply)
-    }
-
-    static var supportSimpleEmbedBlocks: Bool {
-        value(for: .supportSimpleEmbedBlocks)
-    }
-
-    static var webPublishing: Bool {
-        value(for: .webPublishing)
-    }
-
-    static var keyboardMenuUndoRedo: Bool {
-        value(for: .keyboardMenuUndoRedo)
-    }
-
-    static var newSharingExtension: Bool {
-        value(for: .newSharingExtension)
-    }
-
-    static var mandatoryOnboardingEmailCollection: Bool {
-        value(for: .mandatoryOnboardingEmailCollection)
-    }
-
-    static var newSpaceMembersFlow: Bool {
-        value(for: .newSpaceMembersFlow)
     }
 
     static var rainbowViews: Bool {
@@ -186,10 +146,6 @@ public extension FeatureFlags {
         value(for: .sharingExtensionShowContentTypes)
     }
 
-    static var homeTestSwipeGeature: Bool {
-        value(for: .homeTestSwipeGeature)
-    }
-
     static var membershipTestTiers: Bool {
         value(for: .membershipTestTiers)
     }
@@ -218,45 +174,39 @@ public extension FeatureFlags {
         value(for: .showPushMessagesInForeground)
     }
 
+    static var skipOnboardingEmailCollection: Bool {
+        value(for: .skipOnboardingEmailCollection)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
+        .spaceUxTypes,
+        .spaceLoadingForScreen,
+        .binScreenEmptyAction,
+        .muteSpacePossibility,
+        .addNotificationsSettings,
+        .swipeToReply,
+        .newSharingExtension,
+        .newSpaceMembersFlow,
+        .removeMessagesFromNotificationsCenter,
+        .mediaCarouselForWidgets,
+        .fixCollectionViewReuseCrashInEditor,
+        .loadAttachmentsOnHomePlusMenu,
+        .vaultBackToRoots,
+        .brandNewAuthFlow,
+        .homeObjectTypeWidgets,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideWebPayments,
-        .homeSpaceLevelChat,
-        .pinnedSpaces,
-        .openMediaFileInPreview,
-        .newPlusMenu,
-        .spaceUxTypes,
         .enableStreamSpaceType,
         .aiToolInSet,
         .anyAppBetaTip,
         .guideUseCaseForDataSpace,
-        .disableRestoreLastScreen,
-        .spaceHubNewTitle,
         .chatLayoutInsideSpace,
-        .chatCounters,
         .joinStream,
-        .countersOnSpaceHub,
         .simpleSetForTypes,
         .doNotWaitCompletionInAnytypePreview,
-        .spaceLoadingForScreen,
-        .binScreenEmptyAction,
-        .showChatWidget,
-        .createChatWidget,
-        .muteSpacePossibility,
-        .addNotificationsSettings,
-        .chatLoadingIndicator,
-        .anytypeImageCacher,
-        .joinSpaceViaQRCode,
-        .swipeToReply,
-        .supportSimpleEmbedBlocks,
-        .webPublishing,
-        .keyboardMenuUndoRedo,
-        .newSharingExtension,
-        .mandatoryOnboardingEmailCollection,
-        .newSpaceMembersFlow,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -265,13 +215,13 @@ public extension FeatureFlags {
         .resetTips,
         .showAllTips,
         .sharingExtensionShowContentTypes,
-        .homeTestSwipeGeature,
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,
         .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
-        .showPushMessagesInForeground
+        .showPushMessagesInForeground,
+        .skipOnboardingEmailCollection
     ]
 }
