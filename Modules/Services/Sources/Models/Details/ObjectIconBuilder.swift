@@ -43,7 +43,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func icon(relations: BundledPropertiesValueProvider) -> ObjectIcon? {
         switch relations.resolvedLayoutValue {
-        case .basic, .set, .collection, .image, .chat:
+        case .basic, .set, .collection, .image, .chatDerived:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .profile, .participant:
             return profileIcon(iconImage: relations.iconImage, objectName: relations.objectName)
@@ -54,7 +54,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .objectType:
             return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .tag, .chatDerived, .notification, .missingObject, .devices:
+                .audio, .video, .pdf, .date, .tag, .chatDeprecated, .notification, .missingObject, .devices:
             return nil
         }
     }
