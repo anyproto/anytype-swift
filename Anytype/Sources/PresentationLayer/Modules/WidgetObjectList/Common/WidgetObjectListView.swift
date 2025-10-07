@@ -31,8 +31,8 @@ struct WidgetObjectListView: View {
         .task {
             await model.startParticipantTask()
         }
-        .onChange(of: searchText) { model.didAskToSearch(text: $0) }
-        .onChange(of: model.viewEditMode) { _ in model.onSwitchEditMode() }
+        .onChange(of: searchText) { model.didAskToSearch(text: $1) }
+        .onChange(of: model.viewEditMode) { model.onSwitchEditMode() }
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .environment(\.editMode, $model.viewEditMode)

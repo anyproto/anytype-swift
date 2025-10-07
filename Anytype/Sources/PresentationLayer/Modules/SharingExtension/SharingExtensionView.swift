@@ -29,11 +29,11 @@ struct SharingExtensionView: View {
         .task {
             await model.onAppear()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
         .disabled(model.sendInProgress)
-        .onChange(of: model.searchText) { _ in
+        .onChange(of: model.searchText) {
             model.search()
         }
     }

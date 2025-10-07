@@ -49,7 +49,7 @@ struct MembershipTierSelectionCarousel: View {
         .onAppear {
             logScreenMembership()
         }
-        .onChange(of: selection) { _ in
+        .onChange(of: selection) {
             logScreenMembership()
         }
     }

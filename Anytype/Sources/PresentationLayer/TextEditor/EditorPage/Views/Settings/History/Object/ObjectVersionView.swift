@@ -24,7 +24,7 @@ struct ObjectVersionView: View {
         .task {
             await model.setupObject()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

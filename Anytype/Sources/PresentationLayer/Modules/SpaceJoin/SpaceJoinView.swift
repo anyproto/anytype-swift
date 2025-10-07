@@ -30,7 +30,7 @@ struct SpaceJoinView: View {
         .task {
             await model.onAppear()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
         .onDisappear {

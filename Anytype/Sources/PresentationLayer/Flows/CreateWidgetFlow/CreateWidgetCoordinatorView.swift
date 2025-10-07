@@ -14,7 +14,7 @@ struct CreateWidgetCoordinatorView: View {
         WidgetSourceSearchView(data: model.widgetSourceSearchData) {
             model.onSelectSource(source: $0, openObject: $1)
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             presentationMode.dismiss()
         }
     }

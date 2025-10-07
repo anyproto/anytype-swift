@@ -21,7 +21,7 @@ struct SpaceSettingsView: View {
             .task {
                 await model.startSubscriptions()
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
         

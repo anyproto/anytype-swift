@@ -28,7 +28,7 @@ struct MembershipTierView: View {
             .task {
                 model.updateState()
             }
-            .onChange(of: model.userMembership) { _ in 
+            .onChange(of: model.userMembership) {
                 model.updateState()
             }
     }

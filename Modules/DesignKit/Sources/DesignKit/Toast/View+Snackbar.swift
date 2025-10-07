@@ -18,7 +18,7 @@ private struct ToastModififer: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: toastBarData) { newValue in
+            .onChange(of: toastBarData) { _, newValue in
                 guard let newValue else { return }
                 switch newValue.type {
                 case .success:

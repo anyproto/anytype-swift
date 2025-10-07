@@ -50,7 +50,7 @@ struct FeatureFlagView: View {
             }
         }
         .onChange(of: isOn) {
-            model.onChange($0)
+            model.onChange($1)
         }
         .padding()
         .newDivider()

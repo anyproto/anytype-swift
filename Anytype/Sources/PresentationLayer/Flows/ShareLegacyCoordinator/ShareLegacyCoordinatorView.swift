@@ -22,7 +22,7 @@ struct ShareLegacyCoordinatorView: View {
             // Delete with FeatureFlags.newSharingExtension
             SpaceSearchView(data: $0)
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

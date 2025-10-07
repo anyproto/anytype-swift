@@ -33,7 +33,7 @@ struct SecureAlertView: View {
         .task(item: model.proceedTaskId) { _ in
             await model.proceed()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

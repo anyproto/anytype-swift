@@ -44,7 +44,7 @@ struct ObjectActionsView: View {
             }.padding(.horizontal, 16)
         }
         .snackbar(toastBarData: $viewModel.toastData)
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
         .task {

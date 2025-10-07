@@ -25,8 +25,8 @@ struct GlobalSearchView: View {
         .task(id: model.state) {
             await model.search()
         }
-        .onChange(of: model.dismiss) { _ in dismiss() }
-        .onChange(of: model.state.searchText) { _ in model.onSearchTextChanged() }
+        .onChange(of: model.dismiss) { dismiss() }
+        .onChange(of: model.state.searchText) { model.onSearchTextChanged() }
     }
     
     private var header: some View {

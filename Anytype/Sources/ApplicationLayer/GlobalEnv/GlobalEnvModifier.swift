@@ -16,7 +16,7 @@ private struct GlobalEnvModifier: ViewModifier {
             .setPresentedDismissEnv(window: windowHolder.window)
             .setAppInterfaceStyleEnv(window: windowHolder.window)
             // Legacy :(
-            .onChange(of: windowHolder) { newValue in
+            .onChange(of: windowHolder) { _, newValue in
                 viewControllerProvider.setSceneWindow(newValue.window)
                 newValue.window?.overrideUserInterfaceStyle = userDefaults.userInterfaceStyle
             }

@@ -70,7 +70,7 @@ struct ShareLegacyOptionsView: View {
             }
         }
         .disabled(model.saveInProgress)
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
         .navigationTitle(Loc.Sharing.Navigation.title)

@@ -70,7 +70,7 @@ struct MembershipTierSelectionView: View {
                 switch availablitiy {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
-                case .external(let url):
+                case .external:
                     notAvaliableOnAppStore
                 }
             }

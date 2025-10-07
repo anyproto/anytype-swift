@@ -15,7 +15,7 @@ struct SpaceHubCoordinatorView: View {
                 model.keyboardDismiss = keyboardDismiss
                 model.dismissAllPresented = dismissAllPresented
             }
-            .onChange(of: model.navigationPath) { _ in model.onPathChange() }
+            .onChange(of: model.navigationPath) { model.onPathChange() }
         
             .taskWithMemoryScope { await model.setup() }
             .task(id: model.currentSpaceId) {
@@ -96,7 +96,7 @@ struct SpaceHubCoordinatorView: View {
         
             // load photos
             .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
-            .onChange(of: model.photosItems) { _ in
+            .onChange(of: model.photosItems) {
                 model.photosPickerFinished()
             }
         

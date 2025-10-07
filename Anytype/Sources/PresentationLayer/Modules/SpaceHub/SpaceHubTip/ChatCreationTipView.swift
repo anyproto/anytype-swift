@@ -17,11 +17,11 @@ struct ChatCreationTipView: View {
         .onDisappear() {
             viewModel.onDisappear()
         }
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
         .onChange(of: currentPage) {
-            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chats, step: $0)
+            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chats, step: $1)
         }
     }
     
