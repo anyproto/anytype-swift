@@ -8,21 +8,14 @@ final class ObjectTypeWidgetViewModel {
     @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     private let expandedService: any ExpandedServiceProtocol
-    private let subscriptionStorage: any SubscriptionStorageProtocol
-    @Injected(\.setSubscriptionDataBuilder) @ObservationIgnored
-    private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
-    @Injected(\.setObjectWidgetOrderHelper) @ObservationIgnored
-    private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.accountParticipantsStorage) @ObservationIgnored
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let rowsBuilder: ObjectTypeRowsBuilder
     
     private let info: ObjectTypeWidgetInfo
     private weak var output: (any CommonWidgetModuleOutput)?
-    private let setDocument: any SetDocumentProtocol
-    private let subscriptionId = "ObjectTypeWidget-\(UUID().uuidString)"
-    private var isImageType: Bool = false
     
     var typeId: String { info.objectTypeId }
     var canCreateObject: Bool { typeCanBeCreated && canEdit}
@@ -45,21 +38,20 @@ final class ObjectTypeWidgetViewModel {
         self.output = output
         expandedService = Container.shared.expandedService()
         isExpanded = expandedService.isExpanded(id: info.objectTypeId, defaultValue: false)
-        setDocument = Container.shared.openedDocumentProvider().setDocument(
-            objectId: info.objectTypeId,
-            spaceId: info.spaceId,
-            mode: .preview
-        )
-        let storageProvider = Container.shared.subscriptionStorageProvider()
-        self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
+        rowsBuilder = ObjectTypeRowsBuilder(info: info)
     }
     
-    func startSubscriptions() async {
+    func startMainSubscriptions() async {
         async let typeSub: () = startTypeSubscription()
-        async let objectsSub: () = startObjectsSubscription()
         async let participantSub: () = startParticipantSubscription()
+        async let rowsSub: () = startRowsSubscription()
         
-        (_, _, _) = await (typeSub, objectsSub, participantSub)
+        _ = await (typeSub, participantSub, rowsSub)
+    }
+    
+    func startSubscriptionsForExpandedState() async {
+        guard isExpanded else { return }
+        await rowsBuilder.startSubscriptions()
     }
     
     func onCreateObject() {
@@ -104,43 +96,9 @@ final class ObjectTypeWidgetViewModel {
         for await type in objectTypeProvider.objectTypePublisher(typeId: info.objectTypeId).values {
             typeIcon = .object(type.icon)
             typeName = type.pluralDisplayName
-            isImageType = type.isImageLayout
             typeCanBeCreated = type.recommendedLayout?.isSupportedForCreation ?? false
             typeIsDeletable = type.isDeletable
         }
-    }
-    
-    private func startObjectsSubscription() async {
-        do {
-            try await setDocument.open()
-            
-            let subscriptionData = setSubscriptionDataBuilder.set(
-                SetSubscriptionData(
-                    identifier: subscriptionId,
-                    document: setDocument,
-                    groupFilter: nil,
-                    currentPage: 0,
-                    numberOfRowsPerPage: 6,
-                    collectionId: nil,
-                    objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId)
-                )
-            )
-            
-            try await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData)
-            
-            for await state in subscriptionStorage.statePublisher.values {
-                let rowDetails = setObjectWidgetOrderHelper.reorder(
-                    setDocument: setDocument,
-                    subscriptionStorage: subscriptionStorage,
-                    details: state.items,
-                    onItemTap: { [weak self] details, _ in
-                        self?.handleTapOnObject(details: details)
-                    }
-                )
-                updateRows(rowDetails: rowDetails)
-            }
-            
-        } catch {}
     }
     
     private func startParticipantSubscription() async {
@@ -153,27 +111,9 @@ final class ObjectTypeWidgetViewModel {
         output?.onObjectSelected(screenData: details.screenData())
     }
     
-    private func updateRows(rowDetails: [SetContentViewItemConfiguration]) {
-        if isImageType {
-            let galleryRows = rowDetails.map { details in
-                GalleryWidgetRowModel(
-                    objectId: details.id,
-                    title: nil,
-                    icon: nil,
-                    cover: .cover(.imageId(details.id)),
-                    onTap: details.onItemTap
-                )
-            }
-            rows = .gallery(rows: galleryRows)
-        } else {
-            switch setDocument.activeView.type {
-            case .table, .list, .kanban, .calendar, .graph:
-                let listRows = rowDetails.map { ListWidgetRowModel(details: $0) }
-                rows = .compactList(rows: listRows)
-            case .gallery:
-                let galleryRows = rowDetails.map { GalleryWidgetRowModel(details: $0) }
-                rows = .gallery(rows: galleryRows)
-            }
+    private func startRowsSubscription() async {
+        for await newRows in rowsBuilder.rowsSequence {
+            rows = newRows
         }
     }
 }

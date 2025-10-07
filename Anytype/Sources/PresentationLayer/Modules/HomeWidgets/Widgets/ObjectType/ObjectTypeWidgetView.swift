@@ -48,7 +48,10 @@ private struct ObjectTypeWidgetInternalView: View {
             )
         }
         .task(priority: .low) {
-            await model.startSubscriptions()
+            await model.startMainSubscriptions()
+        }
+        .task(id: model.isExpanded, priority: .low) {
+            await model.startSubscriptionsForExpandedState()
         }
         .anytypeSheet(item: $model.deleteAlert) {
             ObjectTypeDeleteConfirmationAlert(data: $0)
