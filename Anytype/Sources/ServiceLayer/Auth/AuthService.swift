@@ -15,8 +15,6 @@ actor AuthService: AuthServiceProtocol, Sendable {
     private let authMiddleService: any AuthMiddleServiceProtocol = Container.shared.authMiddleService()
     private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
 
-    private let joinStreamUrl = FeatureFlags.joinStream ? Bundle.main.object(forInfoDictionaryKey: "JoinStreamURL") as? String ?? "" : ""
-    
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath
     }()
@@ -40,7 +38,7 @@ actor AuthService: AuthServiceProtocol, Sendable {
             imagePath: imagePath,
             iconOption: iconOption,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
-            joinStreamUrl: joinStreamUrl,
+            joinStreamUrl: "",
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
 
@@ -78,7 +76,7 @@ actor AuthService: AuthServiceProtocol, Sendable {
             id: id,
             rootPath: rootPath,
             networkMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode,
-            joinStreamUrl: joinStreamUrl,
+            joinStreamUrl: "",
             configPath: serverConfigurationStorage.currentConfigurationPath()?.path ?? ""
         )
         

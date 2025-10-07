@@ -131,14 +131,6 @@ public extension FeatureDescription {
         releaseAnyAppValue: false,
         debugValue: true
     )
-    
-    static let joinStream = FeatureDescription(
-        title: "Join to stream after login",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
 
     static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
         title: "Do not wait completion in Anytype Preview",

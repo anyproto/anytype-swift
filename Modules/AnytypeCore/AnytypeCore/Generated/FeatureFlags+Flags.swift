@@ -86,10 +86,6 @@ public extension FeatureFlags {
         value(for: .chatLayoutInsideSpace)
     }
 
-    static var joinStream: Bool {
-        value(for: .joinStream)
-    }
-
     static var doNotWaitCompletionInAnytypePreview: Bool {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
@@ -176,7 +172,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .anyAppBetaTip,
         .chatLayoutInsideSpace,
-        .joinStream,
         .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
