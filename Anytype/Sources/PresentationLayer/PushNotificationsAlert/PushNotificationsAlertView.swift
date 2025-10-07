@@ -18,7 +18,7 @@ struct PushNotificationsAlertView: View {
             .task(item: model.requestAuthorizationId) { _ in
                 await model.requestAuthorization()
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
     }

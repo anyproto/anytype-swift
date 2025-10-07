@@ -18,7 +18,7 @@ struct EditorSetCoordinatorView: View {
                 model.pageNavigation = pageNavigation
                 model.dismissAllPresented = dismissAllPresented
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
             .sheet(item: $model.setQueryData) { data in

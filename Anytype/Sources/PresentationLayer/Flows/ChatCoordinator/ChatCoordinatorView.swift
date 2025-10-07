@@ -66,7 +66,7 @@ struct ChatCoordinatorView: View {
             .sheet(item: $model.spaceShareData) { data in
                 SpaceShareCoordinatorView(data: data)
             }
-            .onChange(of: model.photosItems) { _ in
+            .onChange(of: model.photosItems) {
                 model.photosPickerFinished()
             }
     }

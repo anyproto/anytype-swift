@@ -50,12 +50,12 @@ struct SpaceCreateView: View {
         .onAppear {
             model.onAppear()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
         .background(Color.Background.primary)
         .onChange(of: model.spaceName) {
-            model.updateNameIconIfNeeded($0)
+            model.updateNameIconIfNeeded($1)
         }
     }
     

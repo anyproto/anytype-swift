@@ -144,7 +144,7 @@ struct ChatView: View {
         .throwingTask(id: model.sendMessageTaskInProgress) {
             try await model.sendMessageTask()
         }
-        .onChange(of: model.message) { _ in
+        .onChange(of: model.message) {
             model.messageDidChanged()
         }
     }

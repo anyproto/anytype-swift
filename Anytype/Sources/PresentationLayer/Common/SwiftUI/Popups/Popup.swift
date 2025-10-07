@@ -324,10 +324,10 @@ public struct Popup<Item: Equatable, PopupContent: View>: ViewModifier {
             .onAppear {
                 appearAction(sheetPresented: sheetPresented)
             }
-            .valueChanged(value: isPresented) { isPresented in
+            .onChange(of: isPresented) { _, isPresented in
                 appearAction(sheetPresented: isPresented)
             }
-            .valueChanged(value: item) { item in
+            .onChange(of: item) { _, item in
                 appearAction(sheetPresented: item != nil)
             }
     }
@@ -460,15 +460,6 @@ private final class ClassReference<T> {
 
     init(_ value: T) {
         self.value = value
-    }
-}
-
-
-extension View {
-
-    @ViewBuilder
-    fileprivate func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {
-        self.onChange(of: value, perform: onChange)
     }
 }
 

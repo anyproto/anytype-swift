@@ -20,7 +20,7 @@ struct ExperimentalFeaturesView: View {
                 .padding(.horizontal, 16)
             }
         }
-        .onChange(of: model.newObjectCreationMenu) { _ in
+        .onChange(of: model.newObjectCreationMenu) {
             model.onUpdateNewObjectCreationMenu()
         }
     }

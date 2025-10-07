@@ -15,7 +15,7 @@ private struct CameraAccessFullScreenCoverModifier<Target: View, Item: Identifia
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: item?.id) { _ in
+            .onChange(of: item?.id) {
                 model.isPresentedUpdated(item)
             }
             .cameraPermissionAlert(isPresented: $model.openPermissionAlert)

@@ -43,7 +43,7 @@ struct LoginView: View {
                 view.alertView(isShowing: $model.showError, errorText: errorText)
             }
             .fitIPadToReadableContentGuide()
-            .onChange(of: model.dismiss) { _ in dismiss() }
+            .onChange(of: model.dismiss) { dismiss() }
     }
     
     private var header: some View {

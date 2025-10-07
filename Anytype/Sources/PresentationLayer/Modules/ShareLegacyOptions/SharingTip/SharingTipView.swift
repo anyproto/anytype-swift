@@ -20,7 +20,7 @@ struct SharingTipView: View {
         .onDisappear() {
             viewModel.onDisappear()
         }
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
     }

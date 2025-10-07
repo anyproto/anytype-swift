@@ -54,7 +54,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 model.updateVisibleScreen(data: last)
             }
         }
-        .onChange(of: homePath) { homePath in
+        .onChange(of: homePath) { _, homePath in
             if let last = homePath.lastPathElement {
                 model.updateVisibleScreen(data: last)
             }
