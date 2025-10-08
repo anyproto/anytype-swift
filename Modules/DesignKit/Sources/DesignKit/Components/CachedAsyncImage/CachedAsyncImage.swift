@@ -48,6 +48,7 @@ private final class CachedAsyncImageModel {
     var state: AsyncImagePhase = .empty
     
     private let cache: CachedAsyncImageCache
+    @ObservationIgnored
     private var currentURL: URL?
     
     init(url: URL?, cache: CachedAsyncImageCache) {
