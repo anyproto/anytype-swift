@@ -12,7 +12,7 @@ final class ObjectTypeWidgetViewModel {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.accountParticipantsStorage) @ObservationIgnored
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    private let rowsBuilder: ObjectTypeRowsBuilder
+    private let rowsBuilder: any ObjectTypeRowsBuilderProtocol
     
     private let info: ObjectTypeWidgetInfo
     private weak var output: (any CommonWidgetModuleOutput)?
@@ -38,7 +38,7 @@ final class ObjectTypeWidgetViewModel {
         self.output = output
         expandedService = Container.shared.expandedService()
         isExpanded = expandedService.isExpanded(id: info.objectTypeId, defaultValue: false)
-        rowsBuilder = ObjectTypeRowsBuilder(info: info)
+        rowsBuilder = Container.shared.objectTypeRowBuilder(info)
     }
     
     func startMainSubscriptions() async {
@@ -112,6 +112,10 @@ final class ObjectTypeWidgetViewModel {
     }
     
     private func startRowsSubscription() async {
+        await rowsBuilder.setTapHandle { [weak self] details in
+            self?.handleTapOnObject(details: details)
+        }
+        
         for await newRows in rowsBuilder.rowsSequence {
             rows = newRows
         }

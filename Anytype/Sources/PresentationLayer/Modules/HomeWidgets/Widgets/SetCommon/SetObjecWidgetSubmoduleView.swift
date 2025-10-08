@@ -38,7 +38,7 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
                 bodyContent
             }
         )
-        .task {
+        .task(priority: .high) {
             await model.startSubscriptions()
         }
     }

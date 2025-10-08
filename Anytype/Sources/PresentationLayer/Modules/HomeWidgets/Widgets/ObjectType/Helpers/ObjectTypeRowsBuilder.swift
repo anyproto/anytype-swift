@@ -1,8 +1,16 @@
 import Foundation
 import AsyncAlgorithms
 import AsyncTools
+import Factory
+import Services
 
-actor ObjectTypeRowsBuilder {
+protocol ObjectTypeRowsBuilderProtocol: AnyObject, Sendable {
+    func startSubscriptions() async
+    func setTapHandle(onTap: @escaping @MainActor (_ details: ObjectDetails) -> Void) async
+    var rowsSequence: AnyAsyncSequence<ObjectTypeWidgetRowType> { get }
+}
+
+actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
     
     private let info: ObjectTypeWidgetInfo
     
@@ -25,6 +33,7 @@ actor ObjectTypeRowsBuilder {
     private var isImageType: Bool = false
     
     private let rowsChannel = AsyncChannel<ObjectTypeWidgetRowType>()
+    private var onTap: (@MainActor (_ details: ObjectDetails) -> Void)?
     
     nonisolated var rowsSequence: AnyAsyncSequence<ObjectTypeWidgetRowType> {
         rowsChannel.eraseToAnyAsyncSequence()
@@ -40,6 +49,10 @@ actor ObjectTypeRowsBuilder {
         self.info = info
     }
     
+    func setTapHandle(onTap: @escaping @MainActor (_ details: ObjectDetails) -> Void) {
+        self.onTap = onTap
+    }
+    
     func startSubscriptions() async {
         async let typeSub: () = startTypeSubscription()
         async let objectSub: () = startObjectsSubscription()
@@ -52,6 +65,8 @@ actor ObjectTypeRowsBuilder {
             isImageType = type.isImageLayout
         }
     }
+    
+    // MARK: - Private
     
     private func startObjectsSubscription() async {
         do {
@@ -77,7 +92,10 @@ actor ObjectTypeRowsBuilder {
                     subscriptionStorage: subscriptionStorage,
                     details: state.items,
                     onItemTap: { [weak self] details, _ in
-//                        self?.handleTapOnObject(details: details)
+                        Task {
+                            let onTap = await self?.onTap
+                            onTap?(details)
+                        }
                     }
                 )
                 await updateRows(rowDetails: rowDetails)
@@ -111,5 +129,11 @@ actor ObjectTypeRowsBuilder {
         }
         
         await rowsChannel.send(rows)
+    }
+}
+
+extension Container {
+    var objectTypeRowBuilder:  ParameterFactory<ObjectTypeWidgetInfo, any ObjectTypeRowsBuilderProtocol> {
+        self { ObjectTypeRowsBuilder(info: $0) }
     }
 }

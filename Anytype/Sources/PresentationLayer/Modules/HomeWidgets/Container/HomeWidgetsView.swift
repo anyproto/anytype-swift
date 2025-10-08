@@ -165,10 +165,3 @@ private struct HomeWidgetsInternalView: View {
         }
     }
 }
-
-extension View {
-    func showGraph() -> some View {
-        print(Mirror(reflecting: self))
-        return self
-    }
-}
