@@ -35,7 +35,9 @@ final class HomeWidgetsViewModel {
     @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
     
+    @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
+    @ObservationIgnored
     private var typesDropTask: Task<Void, any Error>?
     
     // MARK: - State

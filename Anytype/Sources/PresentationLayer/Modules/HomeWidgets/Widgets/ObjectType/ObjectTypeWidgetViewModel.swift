@@ -15,6 +15,7 @@ final class ObjectTypeWidgetViewModel {
     private let rowsBuilder: any ObjectTypeRowsBuilderProtocol
     
     private let info: ObjectTypeWidgetInfo
+    @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
     
     var typeId: String { info.objectTypeId }

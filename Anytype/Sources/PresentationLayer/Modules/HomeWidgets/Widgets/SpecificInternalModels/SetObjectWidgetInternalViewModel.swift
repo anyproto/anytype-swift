@@ -17,6 +17,7 @@ final class SetObjectWidgetInternalViewModel {
     @Injected(\.setSubscriptionDataBuilder) @ObservationIgnored
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: any SubscriptionStorageProtocol
+    @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
@@ -32,9 +33,13 @@ final class SetObjectWidgetInternalViewModel {
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     
     // MARK: - State
+    @ObservationIgnored
     private var widgetInfo: BlockWidgetInfo?
+    @ObservationIgnored
     private var setDocument: (any SetDocumentProtocol)?
+    @ObservationIgnored
     private var activeViewId: String?
+    @ObservationIgnored
     private var canEditBlocks = true
     
     var dragId: String? { widgetBlockId }
