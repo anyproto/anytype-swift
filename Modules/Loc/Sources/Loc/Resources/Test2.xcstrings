@@ -2,7 +2,15 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Test2Key" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "test2"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
