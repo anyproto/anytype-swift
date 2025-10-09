@@ -2524,6 +2524,8 @@ public enum Loc {
       }
     }
   }
+  public static let test1Key = Loc.tr("Test1", "Test1Key", fallback: "test1")
+  public static let test2Key = Loc.tr("Test2", "Test2Key", fallback: "test2")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
