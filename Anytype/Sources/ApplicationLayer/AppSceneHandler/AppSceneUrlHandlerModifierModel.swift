@@ -28,7 +28,7 @@ final class AppSceneUrlHandlerModifierModel: ObservableObject {
             return true
         }
         
-        if urlWithScheme.host() == AppLinks.storeHost {
+        if urlWithScheme.host == AppLinks.storeHost {
             return false
         }
         

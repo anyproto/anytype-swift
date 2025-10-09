@@ -82,7 +82,7 @@ struct SettingsAppearanceView: View {
             AnytypeText(Loc.applicationIcon, style: .caption1Medium)
                 .foregroundColor(.Text.secondary).padding(.bottom, 6)
             HStack {
-                ForEach(AppIcon.allCases, id: \.self) { icon in
+                ForEach(AppIcon.avaliableIcons, id: \.self) { icon in
                     appIcon(icon)
                 }
             }
