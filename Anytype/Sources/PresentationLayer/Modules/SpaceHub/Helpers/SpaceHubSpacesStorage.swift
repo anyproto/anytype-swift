@@ -32,9 +32,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                     if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
                         let participantSpace = spaces[spaceIndex]
                         
-                        let showUnread = participantSpace.spaceView.initialScreenIsChat
-                        
-                        if showUnread, participantSpace.spaceView.chatId == preview.chatId {
+                        if participantSpace.spaceView.chatId == preview.chatId {
                             spaces[spaceIndex] = spaces[spaceIndex].updated(preview: preview)
                         }
                     }

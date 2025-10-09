@@ -53,5 +53,9 @@ struct SettingsCoordinatorView: View {
             .sheet(isPresented: $model.showMySites) {
                 PublishedSitesView()
             }
+            .sheet(isPresented: $model.showExperimentalFeatures) {
+                ExperimentalFeaturesView()
+            }
+
     }
 }

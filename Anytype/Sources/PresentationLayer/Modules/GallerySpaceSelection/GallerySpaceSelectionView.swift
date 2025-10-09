@@ -20,7 +20,7 @@ struct GallerySpaceSelectionView: View {
                 .padding(.horizontal, 20)
             }
         }
-        .presentationCornerRadiusLegacy(16)
+        .presentationCornerRadius(16)
         .presentationDetents([.height(250), .large])
         .presentationDragIndicator(.hidden)
     }

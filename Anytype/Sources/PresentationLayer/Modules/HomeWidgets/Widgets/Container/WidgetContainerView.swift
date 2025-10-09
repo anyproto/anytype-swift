@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: Icon? = nil,
         dragId: String?,
-        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove],
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
@@ -49,9 +49,7 @@ struct WidgetContainerView<Content: View>: View {
             isEnable: onCreateObjectTap != nil && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
-                if #available(iOS 17.0, *) {
-                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
-                }
+                WidgetSwipeTip().invalidate(reason: .actionPerformed)
                 onCreateObjectTap?()
             }
         ) {
@@ -62,7 +60,7 @@ struct WidgetContainerView<Content: View>: View {
                 allowMenuContent: model.menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
                 removeAction: removeAction(),
-                createObjectAction: onCreateObjectTap,
+                createObjectAction: model.homeState.isReadWrite ? onCreateObjectTap : nil,
                 header: {
                     LinkWidgetDefaultHeader(title: name, icon: icon, onTap: {
                         onHeaderTap()

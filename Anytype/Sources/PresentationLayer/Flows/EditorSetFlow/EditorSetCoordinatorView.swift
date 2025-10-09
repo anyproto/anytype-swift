@@ -18,7 +18,7 @@ struct EditorSetCoordinatorView: View {
                 model.pageNavigation = pageNavigation
                 model.dismissAllPresented = dismissAllPresented
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
             .sheet(item: $model.setQueryData) { data in
@@ -51,9 +51,6 @@ struct EditorSetCoordinatorView: View {
             }
             .anytypeSheet(item: $model.setObjectCreationData) {
                 SetObjectCreationSettingsView(data: $0, output: model)
-            }
-            .sheet(item: $model.aiToolData) {
-                AIToolView(data: $0)
             }
             .sheet(item: $model.layoutPickerData) {
                 ObjectLayoutPicker(mode: .type, objectId: $0.objectId, spaceId: $0.spaceId, analyticsType: $0.analyticsType)

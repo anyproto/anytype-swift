@@ -103,7 +103,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.spaceFileUploadService)
     private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
-        
+    @Injected(\.spaceHubPathUXTypeHelper)
+    private var spaceHubPathUXTypeHelper: any SpaceHubPathUXTypeHelperProtocol
     
     private var needSetup = true
     
@@ -220,6 +221,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         shouldScanQrCode = true
     }
     
+    func startSpaceSubscription() async {
+        guard let spaceId = currentSpaceId else { return }
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
+            navigationPath = await spaceHubPathUXTypeHelper.updateNaivgationPathForUxType(spaceView: spaceView, path: navigationPath)
+        }
+    }
+    
     // MARK: - SpaceHubModuleOutput
     
     func onSelectCreateObject() {
@@ -304,7 +312,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
             let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
             try await document.open()
             guard let details = document.details else { return }
-            guard details.isSupportedForOpening || data.isSimpleSet else {
+            guard details.isSupportedForOpening else {
                 toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .neutral)
                 return
             }
@@ -566,16 +574,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func popToFirstInSpace() {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
-    }
-
-    func onForwardSelected() {
-        guard !pathChanging else { return }
-        navigationPath.pushFromHistory()
-    }
-
-    func onBackwardSelected() {
-        guard !pathChanging else { return }
-        navigationPath.pop()
     }
     
     func onPickTypeForNewObjectSelected() {

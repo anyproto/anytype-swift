@@ -2,7 +2,7 @@ import Services
 import Combine
 import XCTest
 
-final class InfoContainerMock: InfoContainerProtocol {
+final class InfoContainerMock: InfoContainerProtocol, @unchecked Sendable {
     func recursiveChildren(of id: String) -> [BlockInformation] {
         []
     }

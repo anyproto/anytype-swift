@@ -276,7 +276,7 @@ struct DebugMenuView: View {
             placeholder: "Pages",
             inputText: $rowsPerPageInSet
         )
-        .onChange(of: rowsPerPageInSet) { count in
+        .onChange(of: rowsPerPageInSet) { _, count in
             guard let count = Int(count) else { return }
             model.userDefaults.rowsPerPageInSet = count
         }
@@ -290,7 +290,7 @@ struct DebugMenuView: View {
             inputText: $currentVersion
         )
         .onChange(of: currentVersion) {
-            model.userDefaults.currentVersionOverride = $0
+            model.userDefaults.currentVersionOverride = $1
         }
     }
     

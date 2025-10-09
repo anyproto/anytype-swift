@@ -10,6 +10,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
     private let actionsService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
     private let pinsStorage: any TypesPinStorageProtocol = Container.shared.typesPinsStorage()
     private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
+    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
     
     func createType(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?, spaceId: String) async throws -> ObjectType {
         var fields: [String: Google_Protobuf_Value] = [
@@ -55,11 +56,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
     ) async throws -> [ObjectDetails] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
         
-        let sort = SearchHelper.sort(
-            relation: BundledPropertyKey.lastUsedDate,
-            type: .desc,
-            includeTime: true
-        )
+        let sort = SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId))
                 
         var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
         
@@ -72,7 +69,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         }
         
         if !includeChat {
-            layouts.removeAll(where: { $0 == .chat })
+            layouts.removeAll(where: { $0 == .chatDerived })
         }
         
         let filters: [DataviewFilter] = .builder {
@@ -88,7 +85,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
             }
         }
         
-        let result = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
+        let result = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: sort, fullText: text)
 
         return result
     }
@@ -100,11 +97,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
     ) async throws -> [ObjectType] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
         
-        let sort = SearchHelper.sort(
-            relation: BundledPropertyKey.lastUsedDate,
-            type: .desc,
-            includeTime: true
-        )
+        let sort = SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId))
         
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false)
@@ -113,17 +106,14 @@ final class TypesService: TypesServiceProtocol, Sendable {
             SearchHelper.excludedIdsFilter(excludedTypeIds)
         }
         
-        return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: sort, fullText: text)
             .map { ObjectType(details: $0) }
     }
     
     func searchLibraryObjectTypes(text: String, includeInstalledTypes: Bool, spaceId: String) async throws -> [ObjectDetails] {
         let excludedIds = includeInstalledTypes ? [] : typeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
         
-        let sort = SearchHelper.sort(
-            relation: BundledPropertyKey.name,
-            type: .asc
-        )
+        let sort = SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId))
         
         let filters = Array.builder {
             SearchHelper.layoutFilter([DetailsLayout.objectType])
@@ -131,7 +121,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         
-        return try await searchMiddleService.search(spaceId: MarketplaceId.anytypeLibrary.rawValue, filters: filters, sorts: [sort], fullText: text)
+        return try await searchMiddleService.search(spaceId: MarketplaceId.anytypeLibrary.rawValue, filters: filters, sorts: sort, fullText: text)
     }
     
     func searchPinnedTypes(text: String, spaceId: String) async throws -> [ObjectType] {

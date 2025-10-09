@@ -12,6 +12,7 @@ struct SpacePermissions: Equatable, Hashable {
     let canDeleteLink: Bool
     let canEditPermissions: Bool
     let canApproveRequests: Bool
+    let canChangeUxType: Bool
 }
 
 extension SpacePermissions {
@@ -50,5 +51,6 @@ extension SpacePermissions {
         canDeleteLink = isOwner && !isLocalMode && !spaceView.uxType.isStream // we don't have revoke method for stream guest link now
         canEditPermissions = isOwner && !isLocalMode
         canApproveRequests = isOwner
+        canChangeUxType = isOwner
     }
 }

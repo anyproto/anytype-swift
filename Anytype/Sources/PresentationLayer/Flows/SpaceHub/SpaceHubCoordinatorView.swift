@@ -9,16 +9,20 @@ struct SpaceHubCoordinatorView: View {
     
     @StateObject private var model = SpaceHubCoordinatorViewModel()
     
+    @Namespace private var namespace
+    
     var body: some View {
         content
             .onAppear {
                 model.keyboardDismiss = keyboardDismiss
                 model.dismissAllPresented = dismissAllPresented
             }
-            .onChange(of: model.navigationPath) { _ in model.onPathChange() }
+            .onChange(of: model.navigationPath) { model.onPathChange() }
         
             .taskWithMemoryScope { await model.setup() }
-            
+            .task(id: model.currentSpaceId) {
+                await model.startSpaceSubscription()
+            }
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
@@ -76,12 +80,13 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.spaceCreateData) {
                 SpaceCreateCoordinatorView(data: $0)
             }
-            .anytypeSheet(isPresented: $model.showSpaceTypeForCreate) {
+            .sheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)
                 }, onSelectQrCodeScan: {
                     model.onSelectQrCodeScan()
                 })
+                .navigationZoomTransition(sourceID: "SpaceCreateTypePickerView", in: namespace)
             }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
             .sheet(isPresented: $model.showSharingExtension) {
@@ -94,7 +99,7 @@ struct SpaceHubCoordinatorView: View {
         
             // load photos
             .photosPicker(isPresented: $model.showPhotosPicker, selection: $model.photosItems)
-            .onChange(of: model.photosItems) { _ in
+            .onChange(of: model.photosItems) {
                 model.photosPickerFinished()
             }
         
@@ -128,7 +133,7 @@ struct SpaceHubCoordinatorView: View {
                             EditorCoordinatorView(data: data)
                         }
                         builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
-                            SpaceHubView(output: model)
+                            SpaceHubView(output: model, namespace: namespace)
                         }
                         builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
                             SpaceChatCoordinatorView(data: $0)

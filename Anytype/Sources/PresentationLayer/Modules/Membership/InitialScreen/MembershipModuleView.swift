@@ -6,9 +6,7 @@ import AnytypeCore
 
 
 struct MembershipModuleView: View {
-    @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
-    @Injected(\.mailUrlBuilder) private var mailUrlBuilder: any MailUrlBuilderProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -93,34 +91,10 @@ struct MembershipModuleView: View {
             }
             
             Spacer.fixedHeight(32)
-            if !FeatureFlags.hideWebPayments {
-                contactUs
-                Spacer.fixedHeight(24)
-            }
             restorePurchases
         }
     }
     
-    @MainActor
-    private var contactUs: some View {
-        Button {
-            guard let mailUrl = mailUrlBuilder.membershipUpgrateUrl() else { return }
-            openURL(mailUrl)
-        } label: {
-            Group {
-                AnytypeText(
-                    "\(Loc.Membership.Legal.wouldYouLike) ",
-                    style: .caption1Regular
-                ).foregroundColor(.Text.primary) +
-                AnytypeText(
-                    Loc.Membership.Legal.letUsKnow,
-                    style: .caption1Regular
-                ).foregroundColor(.Text.primary).underline()
-            }
-            .multilineTextAlignment(.leading)
-            .padding(.horizontal, 20)
-        }
-    }
     
     private var restorePurchases: some View {
         AsyncButton {

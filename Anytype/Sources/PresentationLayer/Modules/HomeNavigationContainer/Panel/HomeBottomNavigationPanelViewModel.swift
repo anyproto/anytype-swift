@@ -16,8 +16,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     private enum Constants {
-        static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .bookmark]
-        
+        static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .note, .task]
+
     }
     
     // MARK: - Private properties
@@ -35,6 +35,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.experimentalFeaturesStorage)
+    private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
     
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
@@ -53,8 +55,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var leftButtonMode: LeftButtonMode?
     @Published var canCreateObject: Bool = false
     @Published var pageObjectType: ObjectType?
-    @Published var bookmarkObjectType: ObjectType?
+    @Published var noteObjectType: ObjectType?
+    @Published var taskObjectType: ObjectType?
     @Published var otherObjectTypes: [ObjectType] = []
+    @Published var newObjectPlusMenu: Bool = false
     
     init(
         info: AccountInfo,
@@ -63,15 +67,6 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         self.info = info
         self.output = output
         setupDataSubscription()
-    }
-    
-    func onTapForward() {
-        output?.onForwardSelected()
-    }
-    
-    func onTapBackward() {
-        AnytypeAnalytics.instance().logHistoryBack()
-        output?.onBackwardSelected()
     }
     
     func onTapNewObject() {
@@ -89,8 +84,9 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     func startSubscriptions() async {
         async let participantSub: () = participantSubscription()
         async let typesSub: () = typesSubscription()
+        async let featuresSub: () = featuresSubscription()
         
-        (_, _) = await (participantSub, typesSub)
+        _ = await (participantSub, typesSub, featuresSub)
     }
     
     func updateVisibleScreen(data: AnyHashable) {
@@ -172,14 +168,22 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
             
             // priority object types
             pageObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.page }
-            bookmarkObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.bookmark }
-            
-            // other object types
+            noteObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.note }
+            taskObjectType = types.first { $0.uniqueKey == ObjectTypeUniqueKey.task }
+
+            // other object types (excluding Image and File types as per requirements)
             otherObjectTypes = types
-                .filter { !Constants.priorityTypesUniqueKeys.contains($0.uniqueKey) }
-                .sorted {
-                    $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
+                .filter {
+                    !Constants.priorityTypesUniqueKeys.contains($0.uniqueKey) &&
+                    $0.uniqueKey != .image &&
+                    $0.uniqueKey != .file
                 }
+        }
+    }
+    
+    private func featuresSubscription() async {
+        for await newObjectCreationMenu in experimentalFeaturesStorage.newObjectCreationMenuSequence {
+            newObjectPlusMenu = newObjectCreationMenu
         }
     }
     

@@ -6,44 +6,50 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-final class SetObjectWidgetInternalViewModel: ObservableObject {
+@Observable
+final class SetObjectWidgetInternalViewModel {
     
     // MARK: - DI
     
     private let widgetBlockId: String
     private let style: SetObjecWidgetStyle
     private let widgetObject: any BaseDocumentProtocol
-    @Injected(\.setSubscriptionDataBuilder)
+    @Injected(\.setSubscriptionDataBuilder) @ObservationIgnored
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: any SubscriptionStorageProtocol
+    @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
-    @Injected(\.documentsProvider)
+    @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.blockWidgetService)
+    @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.setObjectWidgetOrderHelper)
+    @Injected(\.setObjectWidgetOrderHelper) @ObservationIgnored
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     
     // MARK: - State
+    @ObservationIgnored
     private var widgetInfo: BlockWidgetInfo?
+    @ObservationIgnored
     private var setDocument: (any SetDocumentProtocol)?
+    @ObservationIgnored
     private var activeViewId: String?
+    @ObservationIgnored
     private var canEditBlocks = true
     
     var dragId: String? { widgetBlockId }
     
-    @Published var name: String = ""
-    @Published var icon: Icon?
-    @Published var headerItems: [ViewWidgetTabsItemModel]?
-    @Published var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
-    @Published var allowCreateObject = true
-    @Published var showUnsupportedBanner = false
+    var name: String = ""
+    var icon: Icon?
+    var headerItems: [ViewWidgetTabsItemModel]?
+    var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
+    var allowCreateObject = true
+    var showUnsupportedBanner = false
     
     init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId
@@ -87,12 +93,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
-        let screenData: ScreenData
-        if details.editorViewType == .type && FeatureFlags.simpleSetForTypes {
-            screenData = .editor(.simpleSet(EditorSimpleSetObject(objectId: details.id, spaceId: details.spaceId)))
-        } else {
-            screenData = ScreenData(details: details, activeViewId: activeViewId)
-        }
+        let screenData = ScreenData(details: details, activeViewId: activeViewId)
         AnytypeAnalytics.instance().logClickWidgetTitle(
             source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")),
             createType: info.widgetCreateType

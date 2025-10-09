@@ -56,6 +56,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
+    @Published var uxTypeSettingsData: SpaceUxTypeSettingsData?
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
@@ -172,7 +173,6 @@ final class SpaceSettingsViewModel: ObservableObject {
             title: Loc.name,
             placeholder: Loc.untitled,
             initialValue: spaceName,
-            font: .bodySemibold,
             usecase: .spaceName,
             onSave: { [weak self] in
                 guard let self else { return }
@@ -184,6 +184,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     func onBinTap() {
         output?.onBinSelected()
+    }
+    
+    func onUxTypeTap() {
+        output?.onSpaceUxTypeSelected()
     }
     
     // MARK: - Subscriptions
@@ -265,6 +269,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
         
+        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
+        
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
         }
@@ -295,7 +301,11 @@ final class SpaceSettingsViewModel: ObservableObject {
                     return .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
                 }
             case .shared:
-                return .ownerOrEditor(joiningCount: joiningCount)
+                if participantSpaceView.isOwner {
+                    return .owner(joiningCount: joiningCount)
+                } else {
+                    return .editor
+                }
             }
         } else {
             return .viewer

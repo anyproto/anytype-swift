@@ -2,13 +2,9 @@ import Foundation
 import AnytypeCore
 import SwiftUI
 
-struct HomePath: Equatable {
+struct HomePath: Equatable, @unchecked Sendable {
     
-    private(set) var forwardPath: [AnyHashable] = []
-    
-    fileprivate(set) var path: [AnyHashable] {
-        didSet { didChangePath(newPath: path, oldPath: oldValue) }
-    }
+    fileprivate(set) var path: [AnyHashable]
     
     init(initialPath: [AnyHashable] = []) {
         path = initialPath
@@ -46,11 +42,6 @@ struct HomePath: Equatable {
         path[path.count-1] = item
     }
     
-    mutating func pushFromHistory() {
-        guard let item = forwardPath.last else { return }
-        path.append(item)
-    }
-    
     mutating func popTo(_ item: AnyHashable) {
         if let index = path.firstIndex(where: { $0 == item }) {
             path = Array(path[...index])
@@ -61,8 +52,16 @@ struct HomePath: Equatable {
         path.contains(where: { $0 == item })
     }
     
-    func hasForwardPath() -> Bool {
-        return forwardPath.isNotEmpty
+    func index(_ item: AnyHashable) -> Int? {
+        path.firstIndex(where: { $0 == item })
+    }
+    
+    mutating func insert(_ item: AnyHashable, at index: Int) {
+        path.insert(item, at: index)
+    }
+    
+    mutating func remove(_ item: AnyHashable) {
+        path.removeAll { $0 == item }
     }
     
     mutating func openOnce(_ item: AnyHashable) {
@@ -75,27 +74,6 @@ struct HomePath: Equatable {
     
     var lastPathElement: AnyHashable? {
         path.last
-    }
-    
-    // MARK: - Private
-    
-    private mutating func didChangePath(newPath: [AnyHashable], oldPath: [AnyHashable]) {
-        
-        if oldPath.count > newPath.count {
-            // Pop
-            let oldSubPath = oldPath[newPath.count...].reversed()
-            forwardPath.append(contentsOf: oldSubPath)
-        } else if oldPath.count < newPath.count {
-            // Push
-            let newSubPath = newPath[oldPath.count...].reversed()
-            guard forwardPath.count >= newSubPath.count, newSubPath.count > 0 else { return }
-            let currentForwardSubpath = forwardPath.suffix(newSubPath.count)
-            if Array(newSubPath) != Array(currentForwardSubpath) {
-                forwardPath.removeAll()
-            } else {
-                forwardPath.removeLast(newSubPath.count)
-            }
-        }
     }
 }
 

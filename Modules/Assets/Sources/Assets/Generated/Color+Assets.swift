@@ -201,6 +201,8 @@ extension Color {
       public static let primary = Color(asset: Asset.Text.primary)
       public static let secondary = Color(asset: Asset.Text.secondary)
       public static let tertiary = Color(asset: Asset.Text.tertiary)
+      public static let transparentSecondary = Color(asset: Asset.Text.transparentSecondary)
+      public static let transparentTertiary = Color(asset: Asset.Text.transparentTertiary)
       public static let white = Color(asset: Asset.Text.white)
     }
 }

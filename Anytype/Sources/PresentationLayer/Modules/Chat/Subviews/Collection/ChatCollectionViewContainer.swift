@@ -142,9 +142,7 @@ final class ChatCollectionViewContainer<BottomPanel: View, EmptyView: View, Acti
     }
     
     private func updateKeyboardOffset() {
-        if #available(iOS 17.0, *) {
-            view.keyboardLayoutGuide.keyboardDismissPadding = bottomPanel.view.frame.height
-        }
+        view.keyboardLayoutGuide.keyboardDismissPadding = bottomPanel.view.frame.height
     }
     
     private func contentOffsetIsNearBottom() -> Bool {

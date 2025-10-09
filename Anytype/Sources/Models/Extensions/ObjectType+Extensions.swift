@@ -7,6 +7,10 @@ extension ObjectType {
         name.isNotEmpty ? name : Loc.untitled
     }
     
+    var pluralDisplayName: String {
+        pluralName.isNotEmpty ? pluralName : displayName
+    }
+    
     public static let emptyType: ObjectType = ObjectType(
         id: "",
         name: "",

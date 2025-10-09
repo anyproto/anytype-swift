@@ -17,7 +17,7 @@ struct SetSortsListView: View {
                     .navigationTitle(Loc.EditSet.Popup.Sorts.NavigationView.title)
                     .navigationBarTitleDisplayMode(.inline)
                     .environment(\.editMode, $editMode)
-                    .onChange(of: viewModel.rows) { newValue in
+                    .onChange(of: viewModel.rows) { _, newValue in
                         if editMode == .active && viewModel.rows.count == 0 {
                             editMode = .inactive
                         }

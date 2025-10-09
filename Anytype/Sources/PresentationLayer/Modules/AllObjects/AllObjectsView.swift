@@ -31,10 +31,10 @@ struct AllObjectsView: View {
         .onDisappear() {
             model.onDisappear()
         }
-        .onChange(of: model.state.sort) { newValue in
+        .onChange(of: model.state.sort) { _, newValue in
             model.onChangeSort()
         }
-        .onChange(of: model.state.mode) { newValue in
+        .onChange(of: model.state.mode) { _, newValue in
             model.onChangeMode()
         }
     }

@@ -8,19 +8,19 @@ public extension DetailsLayout {
     static let fileLayouts: [DetailsLayout] = [ .file, .pdf ]
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
-    static let chatLayouts: [DetailsLayout] = FeatureFlags.chatLayoutInsideSpace ? [.chat] : []
+    static let chatLayouts: [DetailsLayout] = FeatureFlags.multichats ? [.chatDerived] : []
     
     static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .date, .objectType] + chatLayouts
     static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
     
-    static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + [.set, .collection]
-    static let supportedForSharingExtension: [DetailsLayout] = listLayouts + editorLayouts
+    static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + listLayouts + chatLayouts
+    static let supportedForSharingExtension: [DetailsLayout] = [.collection] + editorLayouts
     
     static let widgetTypeLayouts = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
     
     private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + [.objectType]
 
-    private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark]
+    private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
 }

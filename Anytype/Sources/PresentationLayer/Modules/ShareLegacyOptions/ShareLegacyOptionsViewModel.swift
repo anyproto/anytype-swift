@@ -47,9 +47,7 @@ final class ShareLegacyOptionsViewModel: ObservableObject {
         Task {
             await setupData()
         }
-        if #available(iOS 17.0, *) {
-            SharingTip().invalidate(reason: .actionPerformed)
-        }
+        SharingTip().invalidate(reason: .actionPerformed)
     }
     
     func onTapSaveAsContainer() {

@@ -12,10 +12,10 @@ struct ObjectTypeWidgetView: View {
 
 private struct ObjectTypeWidgetInternalView: View {
     
-    @StateObject private var model: ObjectTypeWidgetViewModel
+    @State private var model: ObjectTypeWidgetViewModel
     
     init(info: ObjectTypeWidgetInfo, output: (any CommonWidgetModuleOutput)?) {
-        self._model = StateObject(wrappedValue: ObjectTypeWidgetViewModel(info: info, output: output))
+        self._model = State(wrappedValue: ObjectTypeWidgetViewModel(info: info, output: output))
     }
     
     var body: some View {
@@ -23,16 +23,17 @@ private struct ObjectTypeWidgetInternalView: View {
             isEnable: model.canCreateObject,
             showTitle: model.isExpanded,
             action: {
-                if #available(iOS 17.0, *) {
-                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
-                }
+                WidgetSwipeTip().invalidate(reason: .actionPerformed)
                 model.onCreateObject()
             }
         ) {
             LinkWidgetViewContainer(
                 isExpanded: $model.isExpanded,
                 dragId: model.typeId,
-                homeState: .constant(.readwrite),
+                homeState: model.canEdit ? .constant(.readwrite) : .constant(.readonly),
+                createObjectAction: model.canCreateObject ? {
+                    model.onCreateObject()
+                } : nil,
                 header: {
                     LinkWidgetDefaultHeader(title: model.typeName, icon: model.typeIcon, onTap: {
                         model.onHeaderTap()
@@ -47,7 +48,10 @@ private struct ObjectTypeWidgetInternalView: View {
             )
         }
         .task(priority: .low) {
-            await model.startSubscriptions()
+            await model.startMainSubscriptions()
+        }
+        .task(id: model.isExpanded, priority: .low) {
+            await model.startSubscriptionsForExpandedState()
         }
         .anytypeSheet(item: $model.deleteAlert) {
             ObjectTypeDeleteConfirmationAlert(data: $0)

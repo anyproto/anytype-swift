@@ -28,9 +28,7 @@ struct AllObjectsWidgetView: View {
                 })
             },
             menu: {
-                if !FeatureFlags.homeObjectTypeWidgets {
-                    menu
-                }
+                menu
             },
             content: { EmptyView() }
         )
@@ -38,12 +36,22 @@ struct AllObjectsWidgetView: View {
     }
     
     private var menu: some View {
-        WidgetCommonActionsMenuView(
-            items: [.addBelow, .remove],
-            widgetBlockId: model.data.widgetBlockId,
-            widgetObject: model.data.widgetObject,
-            homeState: homeState,
-            output: model.data.output
-        )
+        if FeatureFlags.homeObjectTypeWidgets {
+            WidgetCommonActionsMenuView(
+                items: [.removeSystemWidget],
+                widgetBlockId: model.data.widgetBlockId,
+                widgetObject: model.data.widgetObject,
+                homeState: homeState,
+                output: model.data.output
+            )
+        } else {
+            WidgetCommonActionsMenuView(
+                items: [.addBelow, .remove],
+                widgetBlockId: model.data.widgetBlockId,
+                widgetObject: model.data.widgetObject,
+                homeState: homeState,
+                output: model.data.output
+            )
+        }
     }
 }

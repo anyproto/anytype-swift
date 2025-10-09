@@ -88,6 +88,12 @@ struct SettingsView: View {
                     SectionHeaderView(title: Loc.misc)
                     
                     SettingsSectionItemView(
+                        name: Loc.experimentalFeatures,
+                        imageAsset: .X24.experimentalFeatures,
+                        onTap: { model.onExterimentapTap() }
+                    )
+                    
+                    SettingsSectionItemView(
                         name: Loc.about,
                         imageAsset: .Settings.about,
                         onTap: { model.onAboutTap() }

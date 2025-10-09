@@ -38,7 +38,7 @@ struct ObjectsSortMenu<Label> : View where Label : View {
                     .foregroundColor(.Control.primary)
             }
         }
-        .onChange(of: sortRelation) { newValue in
+        .onChange(of: sortRelation) { _, newValue in
             sort = ObjectSort(relation: newValue)
             sortType = sort.type
         }
@@ -51,7 +51,7 @@ struct ObjectsSortMenu<Label> : View where Label : View {
                     .foregroundColor(.Control.primary)
             }
         }
-        .onChange(of: sortType) { newValue in
+        .onChange(of: sortType) { _, newValue in
             sort = ObjectSort(relation: sort.relation, type: newValue)
         }
     }

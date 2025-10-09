@@ -33,7 +33,7 @@ struct EmailVerificationView: View {
         .animation(.default, value: model.error)
         .animation(.default, value: model.loading)
         
-        .onChange(of: model.text) { _ in
+        .onChange(of: model.text) {
             model.onTextChange()
         }
         .onReceive(timer) { time in

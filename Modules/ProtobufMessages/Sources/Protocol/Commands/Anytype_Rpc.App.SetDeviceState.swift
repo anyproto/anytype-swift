@@ -30,7 +30,11 @@ extension Anytype_Rpc.App {
 
         public enum DeviceState: SwiftProtobuf.Enum, Swift.CaseIterable {
           public typealias RawValue = Int
+
+          /// went to background on mobile, hibernated on desktop
           case background // = 0
+
+          /// went to foreground on mobile, woke from hibernation on desktop
           case foreground // = 1
           case UNRECOGNIZED(Int)
 

@@ -14,7 +14,7 @@ struct DisabledPushNotificationsAlertView: View {
             .onAppear {
                 model.onAppear()
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
             .background(Color.Background.secondary)

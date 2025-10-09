@@ -78,5 +78,10 @@ final class AppVersionTracker: AppVersionTrackerProtocol {
         isFirstAppLaunch = installedAtDateIsNil
         prevLaunchedAppVersion = currentLaunchedAppVersion
         currentLaunchedAppVersion = currentVersion()
+        
+        // Do not show tip for new users
+        if isFirstAppLaunch {
+            ChatCreationTip().invalidate(reason: .displayCountExceeded)
+        }
     }
 }

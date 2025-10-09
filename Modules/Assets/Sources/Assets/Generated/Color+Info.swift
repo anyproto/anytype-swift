@@ -304,6 +304,8 @@ public extension UIColor.Text {
             ColorInfo(name: "primary", color: UIColor.Text.primary),
             ColorInfo(name: "secondary", color: UIColor.Text.secondary),
             ColorInfo(name: "tertiary", color: UIColor.Text.tertiary),
+            ColorInfo(name: "transparentSecondary", color: UIColor.Text.transparentSecondary),
+            ColorInfo(name: "transparentTertiary", color: UIColor.Text.transparentTertiary),
             ColorInfo(name: "white", color: UIColor.Text.white)
         ]
     )

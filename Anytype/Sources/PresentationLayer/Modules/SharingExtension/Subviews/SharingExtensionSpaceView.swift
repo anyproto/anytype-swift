@@ -13,7 +13,6 @@ struct SharingExtensionSpaceView: View {
                 .overlay(alignment: .bottomTrailing) {
                     if isSelected {
                         AnytypeCircleCheckbox(checked: true)
-                            .blueStyle()
                             .offset(x: 6, y: 6)
                     }
                 }

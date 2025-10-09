@@ -39,6 +39,18 @@ struct ChatInput: View {
                 Label(Loc.photos, systemImage: "photo")
             }
             
+            Button { onTapCamera() } label: {
+                Label(Loc.camera, systemImage: "camera")
+            }
+            
+            Button { onTapAddFiles() } label: {
+                Label(Loc.files, systemImage: "doc")
+            }
+            
+            Button { onTapAddObject() } label: {
+                Label(Loc.attachObject, systemImage: "link")
+            }
+            
             if let objectType = mainObjectTypeToCreate() {
                 Button {
                     onTapCreateObject(objectType)
@@ -47,23 +59,9 @@ struct ChatInput: View {
                 }
             }
             
-            Button { onTapAddObject() } label: {
-                Label(Loc.attachObject, systemImage: "link")
-            }
-            
             Divider()
             
             Menu {
-                Button { onTapCamera() } label: {
-                    Label(Loc.camera, systemImage: "camera")
-                }
-                
-                Button { onTapAddFiles() } label: {
-                    Label(Loc.files, systemImage: "doc")
-                }
-                
-                Divider()
-                
                 ForEach(moreObjectTypesToCreate()) { type in
                     Button {
                         onTapCreateObject(type)

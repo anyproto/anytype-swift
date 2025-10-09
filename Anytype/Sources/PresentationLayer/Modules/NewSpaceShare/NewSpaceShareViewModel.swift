@@ -105,8 +105,10 @@ final class NewSpaceShareViewModel: ObservableObject {
         canChangeInvite = participantSpaceView.permissions.canEditPermissions && participantSpaceView.permissions.canDeleteLink
         
         updateUpgradeViewState()
-        
-        rows = participants.map { participant in
+
+        let filteredParticipants = participantSpaceView.permissions.canEditPermissions ? participants : participants.filter { $0.status == .active }
+
+        rows = filteredParticipants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
             return SpaceShareParticipantViewModel(
                 id: participant.id,
@@ -142,7 +144,7 @@ final class NewSpaceShareViewModel: ObservableObject {
         case .active:
             return .active(permission: participant.permission.title)
         case .joining:
-            return .pending(message: Loc.setAccess)
+            return .pending(message: canApproveRequests ? Loc.setAccess : Loc.pending)
         case .removing:
             return .pending(message: Loc.SpaceShare.leaveRequest)
         case .declined, .canceled, .removed, .UNRECOGNIZED:
@@ -157,6 +159,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     }
     
     private func participantContextActions(_ participant: Participant) -> [SpaceShareParticipantViewModel.ContextAction] {
+        guard let participantSpaceView, participantSpaceView.permissions.canEditPermissions else { return [] }
         guard participant.permission != .owner else { return [] }
         switch participant.status {
         case .active:
@@ -189,7 +192,7 @@ final class NewSpaceShareViewModel: ObservableObject {
                     }
                 )]
         case .joining:
-            return [SpaceShareParticipantViewModel.ContextAction(
+            return canApproveRequests ? [SpaceShareParticipantViewModel.ContextAction(
                 title: Loc.SpaceShare.Action.viewRequest,
                 isSelected: false,
                 destructive: false,
@@ -197,9 +200,9 @@ final class NewSpaceShareViewModel: ObservableObject {
                 action: { [weak self] in
                     self?.showRequestAlert(participant: participant)
                 }
-            )]
+            )] : []
         case .removing:
-            return [
+            return canApproveRequests ? [
                 SpaceShareParticipantViewModel.ContextAction(
                     title: Loc.SpaceShare.Action.approve,
                     isSelected: false,
@@ -210,7 +213,7 @@ final class NewSpaceShareViewModel: ObservableObject {
                         try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                         self?.toastBarData = ToastBarData(Loc.SpaceShare.Approve.toast(participant.title))
                     }
-                )]
+                )] : []
         case .removed, .declined, .canceled, .UNRECOGNIZED(_):
             return []
         }

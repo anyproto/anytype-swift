@@ -16,7 +16,7 @@ struct MigrationView: View {
             .task(item: model.startFlowId) { _ in
                 await model.startFlow()
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
             .padding(.horizontal, 20)

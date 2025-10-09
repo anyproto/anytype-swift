@@ -1,7 +1,6 @@
 import Foundation
 import TipKit
 
-@available(iOS 17.0, *)
 struct SharingTip: Tip {
     @Parameter
     static var didCopyText: Bool = false

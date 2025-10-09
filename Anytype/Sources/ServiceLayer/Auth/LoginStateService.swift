@@ -48,21 +48,21 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
-        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
-        
+        WidgetSwipeTip.isFirstSession = false
+
         await startSubscriptions()
     }
-    
+
     func setupStateAfterAuth() async {
         isFirstLaunchAfterAuthorizationStorage.value = true
-        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
+        WidgetSwipeTip.isFirstSession = false
     }
     
     func setupStateAfterRegistration(account: AccountData) async {
         isFirstLaunchAfterRegistrationStorage.value = true
-        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = true }
+        WidgetSwipeTip.isFirstSession = true
         middlewareConfigurationProvider.setupConfiguration(account: account)
-        
+
         await startSubscriptions()
     }
     

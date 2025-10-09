@@ -16,7 +16,6 @@ final class HomePathTests: XCTestCase {
         path.push("4")
         
         XCTAssertEqual(path.path, ["1", "2", "3", "4"])
-        XCTAssertEqual(path.forwardPath, [])
     }
 
     func testPushMany() {
@@ -25,7 +24,6 @@ final class HomePathTests: XCTestCase {
         path.push("6")
         
         XCTAssertEqual(path.path, ["1", "2", "3", "4", "5", "6"])
-        XCTAssertEqual(path.forwardPath, [])
     }
     
     func testPushSameOne() {
@@ -34,7 +32,6 @@ final class HomePathTests: XCTestCase {
         path.push("4")
         
         XCTAssertEqual(path.path, ["1", "2", "3", "4"])
-        XCTAssertEqual(path.forwardPath, [])
     }
     
     func testPushSameMuptiple() {
@@ -50,7 +47,6 @@ final class HomePathTests: XCTestCase {
         path.push("5")
         
         XCTAssertEqual(path.path, ["1", "2", "3", "4", "5"])
-        XCTAssertEqual(path.forwardPath, ["6"])
     }
     
     func testPopOne() {
@@ -61,7 +57,6 @@ final class HomePathTests: XCTestCase {
         path.pop()
         
         XCTAssertEqual(path.path, ["1", "2", "3", "4", "5"])
-        XCTAssertEqual(path.forwardPath, ["6"])
     }
 
     func testPopMany() {
@@ -75,7 +70,6 @@ final class HomePathTests: XCTestCase {
         path.pop()
         
         XCTAssertEqual(path.path, ["1", "2"])
-        XCTAssertEqual(path.forwardPath, ["6", "5", "4", "3"])
     }
     
     func testPopToRootOne() {
@@ -84,7 +78,6 @@ final class HomePathTests: XCTestCase {
         path.popToRoot()
         
         XCTAssertEqual(path.path, ["1"])
-        XCTAssertEqual(path.forwardPath, ["4", "3", "2"])
     }
     
     func testPopToRootMany() {
@@ -95,7 +88,6 @@ final class HomePathTests: XCTestCase {
         path.popToRoot()
         
         XCTAssertEqual(path.path, ["1"])
-        XCTAssertEqual(path.forwardPath, ["4", "3", "2"])
     }
     
     
@@ -103,7 +95,6 @@ final class HomePathTests: XCTestCase {
         path.replaceLast("4")
         
         XCTAssertEqual(path.path, ["1", "2", "4"])
-        XCTAssertEqual(path.forwardPath, [])
     }
     
     func testReplaceLastMany() {
@@ -112,64 +103,5 @@ final class HomePathTests: XCTestCase {
         path.replaceLast("6")
         
         XCTAssertEqual(path.path, ["1", "2", "6"])
-        XCTAssertEqual(path.forwardPath, [])
-    }
-    
-    func testPushFromHistoryEmpty() {
-        path.pushFromHistory()
-        
-        XCTAssertEqual(path.path, ["1", "2", "3"])
-        XCTAssertEqual(path.forwardPath, [])
-    }
-    
-    func testPushFromHistoryOneToOne() {
-        
-        path.pop()
-        
-        path.pushFromHistory()
-        
-        XCTAssertEqual(path.path, ["1", "2", "3"])
-        XCTAssertEqual(path.forwardPath, [])
-    }
-    
-    func testPushFromHistoryManyToOne() {
-        
-        path.pop()
-        path.pop()
-        
-        path.pushFromHistory()
-        
-        XCTAssertEqual(path.path, ["1", "2"])
-        XCTAssertEqual(path.forwardPath, ["3"])
-    }
-    
-    func testPushFromHistoryManyToMany() {
-        
-        path.pop()
-        path.pop()
-        
-        path.pushFromHistory()
-        path.pushFromHistory()
-        
-        XCTAssertEqual(path.path, ["1", "2", "3"])
-        XCTAssertEqual(path.forwardPath, [])
-    }
-    
-    func testPushFromHistoryManyToManyHistory() {
-        
-        path.push("4")
-        path.push("5")
-        path.push("6")
-        
-        path.pop()
-        path.pop()
-        path.pop()
-        path.pop()
-        
-        path.pushFromHistory()
-        path.pushFromHistory()
-        
-        XCTAssertEqual(path.path, ["1", "2", "3", "4"])
-        XCTAssertEqual(path.forwardPath, ["6", "5"])
     }
 }

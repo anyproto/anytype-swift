@@ -21,7 +21,7 @@ struct SpaceSettingsView: View {
             .task {
                 await model.startSubscriptions()
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
         
@@ -177,8 +177,10 @@ struct SpaceSettingsView: View {
             EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
-        case .ownerOrEditor(let joiningCount):
+        case .owner(let joiningCount):
             collaborationSection(memberDecoration: joiningCount > 0 ? .badge(joiningCount) : .chervon)
+        case .editor:
+            collaborationSection(memberDecoration: .chervon)
         case .viewer:
             collaborationSection()
         }
@@ -187,15 +189,24 @@ struct SpaceSettingsView: View {
     private func collaborationSection(memberDecoration: RoundedButtonDecoration? = nil) -> some View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
-            RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
-            if FeatureFlags.muteSpacePossibility {
-                Spacer.fixedHeight(8)
-                RoundedButton(
-                    Loc.notifications,
-                    icon: pushNotificationsSettingIcon(),
-                    decoration: .caption(pushNotificationsSettingCaption())) {
-                        model.onNotificationsTap()
-                    }
+            VStack(spacing: 8) {
+                RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                if FeatureFlags.muteSpacePossibility {
+                    RoundedButton(
+                        Loc.notifications,
+                        icon: pushNotificationsSettingIcon(),
+                        decoration: .caption(pushNotificationsSettingCaption())) {
+                            model.onNotificationsTap()
+                        }
+                }
+                if let data = model.uxTypeSettingsData {
+                    RoundedButton(
+                        Loc.channelType,
+                        icon: data.icon,
+                        decoration: .caption(data.typaName)) {
+                            model.onUxTypeTap()
+                        }
+                }
             }
         }
     }

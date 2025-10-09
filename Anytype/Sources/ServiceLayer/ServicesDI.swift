@@ -339,11 +339,7 @@ extension Container {
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
     }
-    
-    var simpleSetSubscriptionService: Factory<any SimpleSetSubscriptionServiceProtocol> {
-        self { SimpleSetSubscriptionService() }
-    }
-    
+
     var iconColorService: Factory<any IconColorServiceProtocol> {
         self { IconColorService() }.shared
     }
@@ -388,7 +384,6 @@ extension Container {
         self { PushNotificationsSystemSettingsBroadcaster() }.singleton
     }
     
-    
     var spaceIconForNotificationsHandler: Factory<any SpaceIconForNotificationsHandlerProtocol> {
         self { SpaceIconForNotificationsHandler() }.singleton
     }
@@ -399,5 +394,9 @@ extension Container {
     
     var spaceFileUploadService: Factory<any SpaceFileUploadServiceProtocol> {
         self { SpaceFileUploadService() }.singleton
+    }
+    
+    var experimentalFeaturesStorage: Factory<any ExperimentalFeaturesStorageProtocol> {
+        self { ExperimentalFeaturesStorage() }.shared
     }
 }

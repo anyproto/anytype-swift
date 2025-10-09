@@ -41,25 +41,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .background(.ultraThinMaterial)
         .cornerRadius(16, style: .continuous)
         .overlay {
-            if !FeatureFlags.updatedHomePlusMenu {
-                if #available(iOS 17.0, *) {
-                    HomeTipView()
-                }
+            if !model.newObjectPlusMenu {
+                HomeTipView()
             }
         }
         .padding(.vertical, 10)
-        .if(FeatureFlags.homeTestSwipeGeature) { view in
-            view.gesture(
-                DragGesture(minimumDistance: 100)
-                    .onEnded { value in
-                        if value.translation.width > 150 {
-                            model.onTapBackward()
-                        } else if value.translation.width < -150 {
-                            model.onTapForward()
-                        }
-                    }
-            )
-        }
         .task {
             await model.startSubscriptions()
         }
@@ -68,7 +54,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 model.updateVisibleScreen(data: last)
             }
         }
-        .onChange(of: homePath) { homePath in
+        .onChange(of: homePath) { _, homePath in
             if let last = homePath.lastPathElement {
                 model.updateVisibleScreen(data: last)
             }
@@ -80,33 +66,39 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         
         leftButton
         
-        if FeatureFlags.updatedHomePlusMenu {
+        if model.newObjectPlusMenu {
             Menu {
                 if let type = model.pageObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Label(Loc.newPage, systemImage: "doc.plaintext")
+                        Label(Loc.page, systemImage: "doc.text")
                     }
                 }
-                
-                if FeatureFlags.loadAttachmentsOnHomePlusMenu {
-                    Button { model.onAddMediaSelected() } label: {
-                        Label(Loc.photos, systemImage: "photo")
-                    }
-                }
-                
-                if let type = model.bookmarkObjectType {
+
+                if let type = model.noteObjectType {
                     Button {
                         model.onTapCreateObject(type: type)
                     } label: {
-                        Label(type.displayName, systemImage: "bookmark")
+                        Label(Loc.note, systemImage: "doc.plaintext")
+                    }
+                }
+
+                if let type = model.taskObjectType {
+                    Button {
+                        model.onTapCreateObject(type: type)
+                    } label: {
+                        Label(Loc.task, systemImage: "checkmark.square")
                     }
                 }
 
                 Divider()
-                
+
                 Menu(Loc.more) {
+                    Button { model.onAddMediaSelected() } label: {
+                        Label(Loc.photos, systemImage: "photo")
+                    }
+
                     if FeatureFlags.loadAttachmentsOnHomePlusMenu {
                         Button { model.onCameraSelected() } label: {
                             Label(Loc.camera, systemImage: "camera")
@@ -115,9 +107,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                             Label(Loc.files, systemImage: "doc")
                         }
                     }
-                    
+
                     Divider()
-                    
+
                     ForEach(model.otherObjectTypes) { type in
                         Button {
                             model.onTapCreateObject(type: type)

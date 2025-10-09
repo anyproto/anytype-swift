@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 // TODO: Make common module without model
 struct WidgetObjectListView: View {
@@ -30,8 +31,8 @@ struct WidgetObjectListView: View {
         .task {
             await model.startParticipantTask()
         }
-        .onChange(of: searchText) { model.didAskToSearch(text: $0) }
-        .onChange(of: model.viewEditMode) { _ in model.onSwitchEditMode() }
+        .onChange(of: searchText) { model.didAskToSearch(text: $1) }
+        .onChange(of: model.viewEditMode) { model.onSwitchEditMode() }
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .environment(\.editMode, $model.viewEditMode)
@@ -86,8 +87,13 @@ struct WidgetObjectListView: View {
         if model.contentIsNotEmpty, model.canEdit {
             switch model.editMode {
             case .normal:
-                EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                // TODO: Delete "normal" mode logic inside module. Bin screen moved to separate BinListView.
+                if FeatureFlags.homeObjectTypeWidgets {
+                    EmptyView()
+                } else {
+                    EditButton()
+                        .foregroundColor(Color.Control.secondary)
+                }
             case .editOnly:
                 Button {
                     model.onSelectAll()

@@ -5,7 +5,8 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class HomeWidgetsViewModel: ObservableObject {
+@Observable
+final class HomeWidgetsViewModel {
 
     private enum Constants {
         static let pinnedSectionId = "HomePinnedSection"
@@ -17,36 +18,40 @@ final class HomeWidgetsViewModel: ObservableObject {
     let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
     
-    @Injected(\.blockWidgetService)
+    @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
-    @Injected(\.accountParticipantsStorage)
+    @Injected(\.accountParticipantsStorage) @ObservationIgnored
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.homeWidgetsRecentStateManager)
+    @Injected(\.homeWidgetsRecentStateManager) @ObservationIgnored
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectTypeService)
+    @Injected(\.objectTypeService) @ObservationIgnored
     private var objectTypeService: any ObjectTypeServiceProtocol
-    @Injected(\.expandedService)
+    @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
     
+    @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
+    @ObservationIgnored
+    private var typesDropTask: Task<Void, any Error>?
     
     // MARK: - State
     
-    private let showSpaceChat: Bool
-    
-    @Published var widgetBlocks: [BlockWidgetInfo] = []
-    @Published var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
-    @Published var homeState: HomeWidgetsState = .readonly
-    @Published var dataLoaded: Bool = false
-    @Published var wallpaper: SpaceWallpaperType = .default
-    @Published var pinnedSectionIsExpanded: Bool = false
-    @Published var objectTypeSectionIsExpanded: Bool = false
+    var widgetBlocks: [BlockWidgetInfo] = []
+    var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
+    var homeState: HomeWidgetsState = .readonly
+    var widgetsDataLoaded: Bool = false
+    var objectTypesDataLoaded: Bool = false
+    var wallpaper: SpaceWallpaperType = .default
+    var pinnedSectionIsExpanded: Bool = false
+    var objectTypeSectionIsExpanded: Bool = false
+    var canCreateObjectType: Bool = false
+    var chatWidgetData: SpaceChatWidgetData?
     
     var spaceId: String { info.accountSpaceId }
     
@@ -57,7 +62,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.info = info
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
-        self.showSpaceChat = workspaceStorage.spaceView(spaceId: info.accountSpaceId).map { !$0.initialScreenIsChat } ?? false
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
     }
@@ -66,8 +70,9 @@ final class HomeWidgetsViewModel: ObservableObject {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
+        async let spaceViewTask: () = startSpaceViewTask()
         
-        (_, _, _) = await (widgetObjectSub, participantTask, objectTypesTask)
+        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask)
     }
     
     func onAppear() {
@@ -100,7 +105,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func typesDropFinish(from: DropDataElement<ObjectTypeWidgetInfo>, to: DropDataElement<ObjectTypeWidgetInfo>) {
-        Task {
+        typesDropTask?.cancel()
+        typesDropTask = Task {
+            // Middleware notify state with delay and we ome time show old state. Making fewer requests
+            try await Task.sleep(seconds: 2)
             let typeIds = objectTypeWidgets.map { $0.objectTypeId }
             try await objectTypeService.setOrder(spaceId: spaceId, typeIds: typeIds)
         }
@@ -142,7 +150,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
-            dataLoaded = true
+            widgetsDataLoaded = true
             
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
@@ -150,13 +158,7 @@ final class HomeWidgetsViewModel: ObservableObject {
             var newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
-            let chatWidgets = newWidgetBlocks.filter { $0.source == .library(.chat) }
-            
             newWidgetBlocks.removeAll { $0.source == .library(.chat) }
-            
-            if showSpaceChat && FeatureFlags.chatInDataSpace {
-                newWidgetBlocks.insert(contentsOf: chatWidgets, at: 0)
-            }
             
             if FeatureFlags.homeObjectTypeWidgets {
                 newWidgetBlocks.removeAll { $0.source == .library(.allObjects) || $0.source == .library(.bin) }
@@ -176,6 +178,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     private func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             homeState = canEdit ? .readwrite : .readonly
+            canCreateObjectType = canEdit
         }
     }
     
@@ -188,13 +191,19 @@ final class HomeWidgetsViewModel: ObservableObject {
             .map { objects in
                 let objects = objects
                     .filter { ($0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false) && !$0.isTemplateType }
-                    .sorted { $0.orderId < $1.orderId }
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
         
         for await objectTypes in stream {
+            objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
+        }
+    }
+    
+    private func startSpaceViewTask() async {
+        for await showChat in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map(\.canShowChatWidget).removeDuplicates().values {
+            chatWidgetData = showChat ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
         }
     }
 }

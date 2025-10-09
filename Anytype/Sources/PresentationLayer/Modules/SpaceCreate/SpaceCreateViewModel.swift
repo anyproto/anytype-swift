@@ -72,7 +72,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 // Do not rethrow error to main flow
                 do {
                     _ = try await workspaceService.makeSharable(spaceId: spaceId)
-                    _ = try await workspaceService.generateInvite(spaceId: spaceId)
+                    _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
                 } catch {}
             }
             
@@ -87,8 +87,6 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             if createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             }
-            
-            dismissForLegacyOS()
         }
     }
     
@@ -117,12 +115,4 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     }
     
     // MARK: - Private
-    
-    @available(iOS, deprecated: 17)
-    private func dismissForLegacyOS() {
-        if #available(iOS 17, *) {
-        } else {
-            dismiss.toggle()
-        }
-    }
 }

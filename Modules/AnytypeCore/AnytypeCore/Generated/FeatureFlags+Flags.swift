@@ -6,60 +6,8 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var setKanbanView: Bool {
-        value(for: .setKanbanView)
-    }
-
-    static var fullInlineSetImpl: Bool {
-        value(for: .fullInlineSetImpl)
-    }
-
-    static var dndOnCollectionsAndSets: Bool {
-        value(for: .dndOnCollectionsAndSets)
-    }
-
-    static var hideWebPayments: Bool {
-        value(for: .hideWebPayments)
-    }
-
-    static var openMediaFileInPreview: Bool {
-        value(for: .openMediaFileInPreview)
-    }
-
     static var spaceUxTypes: Bool {
         value(for: .spaceUxTypes)
-    }
-
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
-    }
-
-    static var aiToolInSet: Bool {
-        value(for: .aiToolInSet)
-    }
-
-    static var anyAppBetaTip: Bool {
-        value(for: .anyAppBetaTip)
-    }
-
-    static var guideUseCaseForDataSpace: Bool {
-        value(for: .guideUseCaseForDataSpace)
-    }
-
-    static var chatLayoutInsideSpace: Bool {
-        value(for: .chatLayoutInsideSpace)
-    }
-
-    static var joinStream: Bool {
-        value(for: .joinStream)
-    }
-
-    static var simpleSetForTypes: Bool {
-        value(for: .simpleSetForTypes)
-    }
-
-    static var doNotWaitCompletionInAnytypePreview: Bool {
-        value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
     static var spaceLoadingForScreen: Bool {
@@ -68,10 +16,6 @@ public extension FeatureFlags {
 
     static var binScreenEmptyAction: Bool {
         value(for: .binScreenEmptyAction)
-    }
-
-    static var chatInDataSpace: Bool {
-        value(for: .chatInDataSpace)
     }
 
     static var muteSpacePossibility: Bool {
@@ -84,10 +28,6 @@ public extension FeatureFlags {
 
     static var swipeToReply: Bool {
         value(for: .swipeToReply)
-    }
-
-    static var keyboardMenuUndoRedo: Bool {
-        value(for: .keyboardMenuUndoRedo)
     }
 
     static var newSharingExtension: Bool {
@@ -104,10 +44,6 @@ public extension FeatureFlags {
 
     static var mediaCarouselForWidgets: Bool {
         value(for: .mediaCarouselForWidgets)
-    }
-
-    static var updatedHomePlusMenu: Bool {
-        value(for: .updatedHomePlusMenu)
     }
 
     static var fixCollectionViewReuseCrashInEditor: Bool {
@@ -128,6 +64,30 @@ public extension FeatureFlags {
 
     static var homeObjectTypeWidgets: Bool {
         value(for: .homeObjectTypeWidgets)
+    }
+
+    static var setKanbanView: Bool {
+        value(for: .setKanbanView)
+    }
+
+    static var fullInlineSetImpl: Bool {
+        value(for: .fullInlineSetImpl)
+    }
+
+    static var dndOnCollectionsAndSets: Bool {
+        value(for: .dndOnCollectionsAndSets)
+    }
+
+    static var anyAppBetaTip: Bool {
+        value(for: .anyAppBetaTip)
+    }
+
+    static var multichats: Bool {
+        value(for: .multichats)
+    }
+
+    static var doNotWaitCompletionInAnytypePreview: Bool {
+        value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
     static var rainbowViews: Bool {
@@ -162,10 +122,6 @@ public extension FeatureFlags {
         value(for: .sharingExtensionShowContentTypes)
     }
 
-    static var homeTestSwipeGeature: Bool {
-        value(for: .homeTestSwipeGeature)
-    }
-
     static var membershipTestTiers: Bool {
         value(for: .membershipTestTiers)
     }
@@ -176,10 +132,6 @@ public extension FeatureFlags {
 
     static var showGlobalSearchScore: Bool {
         value(for: .showGlobalSearchScore)
-    }
-
-    static var versionHistoryPaginationTest: Bool {
-        value(for: .versionHistoryPaginationTest)
     }
 
     static var networkHTTPSRequestsLogger: Bool {
@@ -200,37 +152,27 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .setKanbanView,
-        .fullInlineSetImpl,
-        .dndOnCollectionsAndSets,
-        .hideWebPayments,
-        .openMediaFileInPreview,
         .spaceUxTypes,
-        .enableStreamSpaceType,
-        .aiToolInSet,
-        .anyAppBetaTip,
-        .guideUseCaseForDataSpace,
-        .chatLayoutInsideSpace,
-        .joinStream,
-        .simpleSetForTypes,
-        .doNotWaitCompletionInAnytypePreview,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
-        .chatInDataSpace,
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
-        .keyboardMenuUndoRedo,
         .newSharingExtension,
         .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
-        .updatedHomePlusMenu,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .brandNewAuthFlow,
         .homeObjectTypeWidgets,
+        .setKanbanView,
+        .fullInlineSetImpl,
+        .dndOnCollectionsAndSets,
+        .anyAppBetaTip,
+        .multichats,
+        .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -239,11 +181,9 @@ public extension FeatureFlags {
         .resetTips,
         .showAllTips,
         .sharingExtensionShowContentTypes,
-        .homeTestSwipeGeature,
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,
-        .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,

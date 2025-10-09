@@ -623,11 +623,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func subscribeOnTypes() async {
         for await types in objectTypeProvider.objectTypesPublisher(spaceId: spaceId).values {
-            let objectTypesCreateInChat = types.filter(\.canCreateInChat)
-            let sortedObjectTypesByDate = objectTypesCreateInChat.sorted {
-                $0.lastUsedDate ?? .distantPast > $1.lastUsedDate ?? .distantPast
-            }
-            self.typesForCreateObject = sortedObjectTypesByDate
+            self.typesForCreateObject = types.filter(\.canCreateInChat)
         }
     }
     
@@ -659,7 +655,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func clearInput() {
         message = NSAttributedString()
-        attachmentHandler.clearAll()
+        attachmentHandler.clearState()
         replyToMessage = nil
         editMessage = nil
     }
@@ -673,7 +669,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     }
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
-        if FeatureFlags.openMediaFileInPreview, attachment.resolvedLayoutValue.isFileOrMedia {
+        if attachment.resolvedLayoutValue.isFileOrMedia {
             let reorderedAttachments = attachments.sorted { $0.id > $1.id }
             output?.onObjectSelected(screenData: .preview(
                 MediaFileScreenData(selectedItem: attachment, allItems: reorderedAttachments, route: .chat)
