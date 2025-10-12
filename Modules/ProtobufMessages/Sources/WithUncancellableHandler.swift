@@ -1,32 +1,64 @@
 import Foundation
+import os
 
-func withUncancellableHandler<T>(operation: @escaping @Sendable () async throws -> T) async rethrows -> T {
-    let cancelClosure = ClosureStorage()
-    
+public func withUncancellableHandler<T: Sendable>(
+    operation: @escaping @Sendable () async throws -> T
+) async throws -> T {
+    let box = ResumeBox<T>()
+
     return try await withTaskCancellationHandler {
-        try await withCheckedThrowingContinuation { continuation in
-            let task = Task {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<T, Error>) in
+
+            box.setContinuation(cont)
+
+            let task = Task<Void, Never> {
                 do {
-                    let result = try await operation()
-                    if !Task.isCancelled {
-                        continuation.resume(returning: result)
-                    }
+                    let value = try await operation()
+                    box.resume(returning: value)
                 } catch {
-                    if !Task.isCancelled {
-                        continuation.resume(throwing: error)
-                    }
+                    box.resume(throwing: error)
                 }
             }
-            cancelClosure.closure = {
-                task.cancel()
-                continuation.resume(throwing: CancellationError())
-            }
+            box.setTask(task)
         }
     } onCancel: {
-        cancelClosure.closure?()
+        box.cancelAndFail()
     }
 }
 
-private final class ClosureStorage: @unchecked Sendable {
-    var closure: (() -> Void)?
+private final class ResumeBox<T: Sendable>: @unchecked Sendable {
+    private let lock = OSAllocatedUnfairLock()
+    private var cont: CheckedContinuation<T, Error>?
+    private var task: Task<Void, Never>?
+
+    func setContinuation(_ c: CheckedContinuation<T, Error>) {
+        lock.withLock { cont = c }
+    }
+
+    func setTask(_ t: Task<Void, Never>) {
+        lock.withLock { task = t }
+    }
+
+    func resume(returning value: T) {
+        lock.withLock {
+            guard let c = cont else { return }
+            cont = nil
+            c.resume(returning: value)
+        }
+    }
+
+    func resume(throwing error: Error) {
+        lock.withLock {
+            guard let c = cont else { return }
+            cont = nil
+            c.resume(throwing: error)
+        }
+    }
+
+    func cancelAndFail() {
+        lock.withLock {
+            task?.cancel()
+        }
+        resume(throwing: CancellationError())
+    }
 }
