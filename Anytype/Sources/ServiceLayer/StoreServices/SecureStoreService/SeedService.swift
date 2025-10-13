@@ -13,7 +13,7 @@ final class SeedService: SeedServiceProtocol {
     func obtainSeed() throws -> String {
         do {
             return try keychainStore.retreiveItem(queryable: query())
-        } catch {
+        } catch let KeychainError.keychainError(status) where status == errSecItemNotFound {
             return try migrateFromOldAccessibility()
         }
     }
