@@ -66,10 +66,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var anyAppBetaTip: Bool {
-        value(for: .anyAppBetaTip)
-    }
-
     static var multichats: Bool {
         value(for: .multichats)
     }
@@ -155,7 +151,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .anyAppBetaTip,
         .multichats,
         .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
