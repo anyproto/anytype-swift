@@ -70,11 +70,6 @@ struct SpaceHubView: View {
             VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
 
-                if FeatureFlags.anyAppBetaTip {
-                    HomeAnyAppWidgetTipView()
-                        .padding(.horizontal, 8)
-                }
-
                 ForEach(model.filteredSpaces) {
                     spaceCard($0)
                 }
