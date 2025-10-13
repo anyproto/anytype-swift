@@ -38,24 +38,34 @@ final class MembershipService: MembershipServiceProtocol {
     private let builder: any MembershipModelBuilderProtocol = Container.shared.membershipModelBuilder()
     
     public func getMembership(noCache: Bool) async throws -> MembershipStatus {
-        let status = try await ClientCommands.membershipGetStatus(.with {
+        let membership = try await ClientCommands.membershipGetStatus(.with {
             $0.noCache = noCache
         }).invoke(ignoreLogErrors: .canNotConnect).data
         
-        let tiers = try await getTiers(noCache: noCache)
+        let tiers = try await getTiers(noCache: noCache, currentMembership: membership)
         
-        return try builder.buildMembershipStatus(membership: status, allTiers: tiers)
+        return try builder.buildMembershipStatus(membership: membership, allTiers: tiers)
     }
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier] {
+        let membership = try await ClientCommands.membershipGetStatus(.with {
+            $0.noCache = noCache
+        }).invoke(ignoreLogErrors: .canNotConnect).data
+        
+        return try await getTiers(noCache: noCache, currentMembership: membership)
+    }
+    
+    private func getTiers(noCache: Bool, currentMembership: Anytype_Model_Membership) async throws -> [MembershipTier] {
         return try await ClientCommands.membershipGetTiers(.with {
             $0.locale = Locale.current.language.languageCode?.identifier ?? "en"
             $0.noCache = noCache
         })
         .invoke(ignoreLogErrors: .canNotConnect).tiers
         .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
+        .filter { $0.iosProductID.isNotEmpty || $0.id == currentMembership.tier }
         .asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
     }
+
     
     public func getVerificationEmailSubscribeToNewsletter(email: String) async throws {
         try await ClientCommands.membershipGetVerificationEmail(.with {
