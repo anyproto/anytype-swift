@@ -27,12 +27,17 @@ final class SegmentInfoBuilder {
             .filter { $0.targetSpaceId != spaceId }
         
         if otherSpaces.isNotEmpty {
-            segmentInfo.otherUsages = otherSpaces.map { spaceView in
-                let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
-                return  Double(spaceBytesUsage) / Double(bytesLimit)
-            }
-            
             let otherUsageBytes = nodeUsage.spaces.filter { $0.spaceID != spaceId }.reduce(Int64(0), { $0 + $1.bytesUsage })
+
+            if otherSpaces.count > 10 {
+                segmentInfo.otherUsages = [Double(otherUsageBytes) / Double(bytesLimit)]
+            } else {
+                segmentInfo.otherUsages = otherSpaces.map { spaceView in
+                    let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceView.targetSpaceId })?.bytesUsage ?? 0
+                    return Double(spaceBytesUsage) / Double(bytesLimit)
+                }
+            }
+
             segmentInfo.otherLegend = Loc.FileStorage.LimitLegend.other(byteCountFormatter.string(fromByteCount: otherUsageBytes))
         }
         
