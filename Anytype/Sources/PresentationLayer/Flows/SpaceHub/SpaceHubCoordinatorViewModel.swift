@@ -398,12 +398,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         
         currentSpaceId = spaceId
         
-        if FeatureFlags.spaceLoadingForScreen {
-            // This is not required. But it help to load space as fast as possible
-            Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
-        } else {
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-        }
+        // This is not required. But it help to load space as fast as possible
+        Task { try await activeSpaceManager.setActiveSpace(spaceId: spaceId) }
         
         return spaceView
     }

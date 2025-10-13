@@ -46,8 +46,6 @@ struct SpaceCardLabel: View {
         // Optimization for fast sizeThatFits
         .frame(height: 80)
         .background(Color.Background.primary)
-        // Delete this line with FeatureFlags.spaceLoadingForScreen
-        .if(spaceData.spaceView.isLoading && !FeatureFlags.spaceLoadingForScreen) { $0.redacted(reason: .placeholder) }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         
         .if(spaceData.spaceView.isPinned) {
