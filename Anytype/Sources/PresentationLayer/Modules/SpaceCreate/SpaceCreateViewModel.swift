@@ -75,7 +75,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 } catch {}
             }
             
-            if createResponse.startingObjectID.isNotEmpty {
+            if !FeatureFlags.turnOffAutomaticWidgetOpening, createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             } else {
                 try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
@@ -83,7 +83,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
             
-            if createResponse.startingObjectID.isNotEmpty {
+            if !FeatureFlags.turnOffAutomaticWidgetOpening, createResponse.startingObjectID.isNotEmpty {
                 appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
             }
         }

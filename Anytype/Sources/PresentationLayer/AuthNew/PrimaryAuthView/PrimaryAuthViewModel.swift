@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import Services
+import AnytypeCore
 
 @MainActor
 final class PrimaryAuthViewModel: ObservableObject {
@@ -106,7 +107,7 @@ final class PrimaryAuthViewModel: ObservableObject {
     private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
         guard spaceId.isNotEmpty else { return }
         let startingObjectId = try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
-        if let startingObjectId, startingObjectId.isNotEmpty, appActionStorage.action.isNil {
+        if !FeatureFlags.turnOffAutomaticWidgetOpening, let startingObjectId, startingObjectId.isNotEmpty, appActionStorage.action.isNil {
             appActionStorage.action = .openObject(objectId: startingObjectId, spaceId: spaceId)
         }
         try? await workspaceService.workspaceSetDetails(
