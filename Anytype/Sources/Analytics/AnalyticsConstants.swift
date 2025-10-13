@@ -489,7 +489,6 @@ enum ClickNavBarAddMenuRoute: String {
     case screenBin = "ScreenBin"
     case screenDate = "ScreenDate"
     case screenType = "ScreenType"
-    case screenAllObjects = "ScreenAllObjects"
 }
 
 enum ClickNavBarAddMenuType: String {
