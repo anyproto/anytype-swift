@@ -27,9 +27,6 @@ struct SpaceHubCoordinatorView: View {
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             
-            .sheet(item: $model.sharingSpaceId) {
-                ShareLegacyCoordinatorView(spaceId: $0.value)
-            }
             .sheet(item: $model.showGalleryImport) { data in
                 GalleryInstallationCoordinatorView(data: data)
             }

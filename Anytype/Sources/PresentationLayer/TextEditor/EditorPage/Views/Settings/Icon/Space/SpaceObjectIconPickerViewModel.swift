@@ -27,7 +27,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     
     func startSpaceTask() async {
         for await space in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
-            isRemoveEnabled = space.iconImage?.imageId.isNotNil ?? false
+            isRemoveEnabled = space.objectIconImage.imageId.isNotNil ?? false
         }
     }
     

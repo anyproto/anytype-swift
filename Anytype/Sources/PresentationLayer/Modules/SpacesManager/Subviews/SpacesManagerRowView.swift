@@ -24,7 +24,7 @@ struct SpacesManagerRowView: View {
     
     private var spaceInfo: some View {
         HStack(spacing: 12) {
-            IconView(icon: model.spaceView.iconImage)
+            IconView(icon: model.spaceView.objectIconImage)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.spaceView.title, style: .uxTitle2Semibold)

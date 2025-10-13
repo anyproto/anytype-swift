@@ -1921,39 +1921,14 @@ public enum Loc {
     public static let updated = Loc.tr("Localizable", "Settings.Updated", fallback: "Space information updated")
   }
   public enum Sharing {
-    public static let addTo = Loc.tr("Localizable", "Sharing.AddTo", fallback: "Add to")
     public static let inputPlaceholder = Loc.tr("Localizable", "Sharing.InputPlaceholder", fallback: "Add a comment...")
-    public static let linkTo = Loc.tr("Localizable", "Sharing.LinkTo", fallback: "Link to")
-    public static let saveAs = Loc.tr("Localizable", "Sharing.SaveAs", fallback: "SAVE AS")
-    public static let selectSpace = Loc.tr("Localizable", "Sharing.SelectSpace", fallback: "Space")
     public static let sendToChat = Loc.tr("Localizable", "Sharing.SendToChat", fallback: "Send to chat")
     public static let title = Loc.tr("Localizable", "Sharing.Title", fallback: "Select Space")
-    public enum `Any` {
-      public static let block = Loc.tr("Localizable", "Sharing.Any.Block", fallback: "Blocks")
-    }
-    public enum File {
-      public static func block(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.File.Block", p1, fallback: "Plural format key: Sharing.File.Block")
-      }
-      public static func newObject(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.File.NewObject", p1, fallback: "Plural format key: Sharing.File.NewObject")
-      }
-    }
     public enum Navigation {
       public static let title = Loc.tr("Localizable", "Sharing.Navigation.title", fallback: "Add to Anytype")
-      public enum LeftButton {
-        public static let title = Loc.tr("Localizable", "Sharing.Navigation.LeftButton.Title", fallback: "Cancel")
-      }
-      public enum RightButton {
-        public static let title = Loc.tr("Localizable", "Sharing.Navigation.RightButton.Title", fallback: "Done")
-      }
     }
     public enum ObjectList {
       public static let title = Loc.tr("Localizable", "Sharing.ObjectList.title", fallback: "Select destination")
-    }
-    public enum Text {
-      public static let noteObject = Loc.tr("Localizable", "Sharing.Text.NoteObject", fallback: "Note object")
-      public static let textBlock = Loc.tr("Localizable", "Sharing.Text.TextBlock", fallback: "Blocks")
     }
     public enum Tip {
       public static let title = Loc.tr("Localizable", "Sharing.Tip.Title", fallback: "Share Extension")
@@ -1964,14 +1939,6 @@ public enum Loc {
         public static let _1 = Loc.tr("Localizable", "Sharing.Tip.Steps.1", fallback: "Tap the iOS sharing button")
         public static let _2 = Loc.tr("Localizable", "Sharing.Tip.Steps.2", fallback: "Scroll past the app and tap More")
         public static let _3 = Loc.tr("Localizable", "Sharing.Tip.Steps.3", fallback: "Tap Edit to find “Anytype” and tap")
-      }
-    }
-    public enum Url {
-      public static func block(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.URL.Block", p1, fallback: "Plural format key: Sharing.URL.Block")
-      }
-      public static func newObject(_ p1: Int) -> String {
-        return Loc.tr("Localizable", "Sharing.URL.NewObject", p1, fallback: "Plural format key: Sharing.URL.NewObject")
       }
     }
   }
@@ -2246,9 +2213,6 @@ public enum Loc {
     }
     public enum Info {
       public static let network = Loc.tr("Localizable", "Spaces.Info.Network", fallback: "Network:")
-    }
-    public enum Search {
-      public static let title = Loc.tr("Localizable", "Spaces.Search.Title", fallback: "Search spaces")
     }
     public enum UxType {
       public enum Chat {
