@@ -91,7 +91,7 @@ struct WidgetContainerView<Content: View>: View {
     
     @ViewBuilder
     private var createObjectMenuButton: some View {
-        if FeatureFlags.homeObjectTypeWidgets, let onCreateObjectTap {
+        if let onCreateObjectTap {
             Button {
                 onCreateObjectTap()
             } label: {

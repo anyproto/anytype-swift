@@ -143,11 +143,7 @@ final class HomeWidgetsViewModel {
             var newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
-            newWidgetBlocks.removeAll { $0.source == .library(.chat) }
-            
-            if FeatureFlags.homeObjectTypeWidgets {
-                newWidgetBlocks.removeAll { $0.source == .library(.allObjects) || $0.source == .library(.bin) }
-            }
+            newWidgetBlocks.removeAll { $0.source == .library(.chat) || $0.source == .library(.allObjects) || $0.source == .library(.bin) }
             
             guard widgetBlocks != newWidgetBlocks else { continue }
             
@@ -163,7 +159,6 @@ final class HomeWidgetsViewModel {
     }
     
     private func startObjectTypesTask() async {
-        guard FeatureFlags.homeObjectTypeWidgets else { return }
         let spaceId = spaceId
         
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)

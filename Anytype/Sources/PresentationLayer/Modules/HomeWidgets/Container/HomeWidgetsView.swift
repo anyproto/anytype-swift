@@ -17,7 +17,6 @@ private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
-    @State var homeObjectTypeWidgets = FeatureFlags.homeObjectTypeWidgets
     
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
