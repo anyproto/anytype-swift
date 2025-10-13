@@ -46,10 +46,6 @@ public extension FeatureFlags {
         value(for: .brandNewAuthFlow)
     }
 
-    static var homeObjectTypeWidgets: Bool {
-        value(for: .homeObjectTypeWidgets)
-    }
-
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -146,7 +142,6 @@ public extension FeatureFlags {
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .brandNewAuthFlow,
-        .homeObjectTypeWidgets,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
