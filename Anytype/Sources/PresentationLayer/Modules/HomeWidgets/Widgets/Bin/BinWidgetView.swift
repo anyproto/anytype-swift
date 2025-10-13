@@ -29,9 +29,6 @@ private struct BinWidgetSubmoduleInternalView: View {
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            removeAction: {
-                model.onDeleteWidgetTap()
-            },
             header: {
                 LinkWidgetDefaultHeader(title: Loc.bin, icon: .asset(.X24.bin), onTap: {
                     model.onHeaderTap()

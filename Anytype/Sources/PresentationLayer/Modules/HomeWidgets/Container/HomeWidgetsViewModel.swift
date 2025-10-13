@@ -79,11 +79,6 @@ final class HomeWidgetsViewModel {
         AnytypeAnalytics.instance().logScreenWidget()
     }
     
-    func onEditButtonTap() {
-        AnytypeAnalytics.instance().logEditWidget()
-        homeState = .editWidgets
-    }
-    
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
         widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
@@ -116,16 +111,6 @@ final class HomeWidgetsViewModel {
     
     func onSpaceSelected() {
         output?.onSpaceSelected()
-    }
-    
-    func onCreateWidgetFromEditMode() {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .editor)
-        output?.onCreateWidgetSelected(context: .editor)
-    }
-    
-    func onCreateWidgetFromMainMode() {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .main)
-        output?.onCreateWidgetSelected(context: .main)
     }
     
     func onCreateObjectType() {
@@ -167,11 +152,6 @@ final class HomeWidgetsViewModel {
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
-            
-            // Reset panel for empty state
-            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
-                homeState = .readwrite
-            }
         }
     }
     

@@ -10,8 +10,6 @@ final class BinWidgetViewModel: ObservableObject {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    @Injected(\.widgetActionsViewCommonMenuProvider)
-    private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
     
     let data: WidgetSubmoduleData
     
@@ -43,14 +41,5 @@ final class BinWidgetViewModel: ObservableObject {
         }
         binAlertData = BinConfirmationAlertData(ids: binIds)
         UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    func onDeleteWidgetTap() {
-        widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
-            widgetObject: data.widgetObject,
-            widgetBlockId: data.widgetBlockId,
-            homeState: data.homeState.wrappedValue,
-            output: data.output
-        )
     }
 }

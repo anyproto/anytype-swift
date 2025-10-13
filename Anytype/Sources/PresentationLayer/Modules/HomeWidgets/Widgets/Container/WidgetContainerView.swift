@@ -59,7 +59,6 @@ struct WidgetContainerView<Content: View>: View {
                 homeState: $model.homeState,
                 allowMenuContent: model.menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
-                removeAction: removeAction(),
                 createObjectAction: model.homeState.isReadWrite ? onCreateObjectTap : nil,
                 header: {
                     LinkWidgetDefaultHeader(title: name, icon: icon, onTap: {
@@ -100,15 +99,6 @@ struct WidgetContainerView<Content: View>: View {
                 Image(systemName: "square.and.pencil")
             }
             Divider()
-        }
-    }
-            
-    private func removeAction() -> (() -> Void)? {
-        
-        guard model.menuItems.contains(.remove) else { return nil }
-        
-        return {
-            model.onDeleteWidgetTap()
         }
     }
 }

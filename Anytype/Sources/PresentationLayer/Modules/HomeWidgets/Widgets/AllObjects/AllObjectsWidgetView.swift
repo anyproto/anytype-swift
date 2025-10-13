@@ -19,9 +19,6 @@ struct AllObjectsWidgetView: View {
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            removeAction: {
-                model.onDeleteWidgetTap()
-            },
             header: {
                 LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .asset(.X24.allObjects), onTap: {
                     model.onHeaderTap()

@@ -28,7 +28,7 @@ private struct BinLinkWidgetViewInternal: View {
     }
     
     var body: some View {
-        if homeState.isReadWrite || homeState.isEditWidgets {
+        if homeState.isReadWrite {
             content
         }
     }
@@ -40,7 +40,6 @@ private struct BinLinkWidgetViewInternal: View {
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            removeAction: nil,
             header: {
                 LinkWidgetDefaultHeader(title: Loc.bin, icon: .asset(.X24.bin), onTap: {
                     model.onHeaderTap()

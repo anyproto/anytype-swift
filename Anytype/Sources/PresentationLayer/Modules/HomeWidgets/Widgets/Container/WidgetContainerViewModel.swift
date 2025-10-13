@@ -53,23 +53,6 @@ final class WidgetContainerViewModel: ObservableObject {
         self.menuItems = (source?.isLibrary ?? false) ? menuItems.filter { $0 != .remove } : menuItems.filter { $0 != .removeSystemWidget }
     }
     
-    // MARK: - Actions
-    
-    func onDeleteWidgetTap() {
-        widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
-            widgetObject: widgetObject,
-            widgetBlockId: widgetBlockId,
-            homeState: homeState,
-            output: output
-        )
-    }
-    
-    func onEditTap() {
-        AnytypeAnalytics.instance().logEditWidget()
-        homeState = .editWidgets
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
     // MARK: - Private
     
     private func expandedDidChange() {

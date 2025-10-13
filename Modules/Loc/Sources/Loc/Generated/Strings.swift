@@ -560,9 +560,6 @@ public enum Loc {
     public static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     public static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
     public static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
-    public enum CreateWidget {
-      public static let title = Loc.tr("Localizable", "Actions.CreateWidget.Title", fallback: "To widgets")
-    }
   }
   public enum Alert {
     public enum CameraPermissions {
@@ -2421,12 +2418,10 @@ public enum Loc {
     }
     public static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
     public enum Actions {
-      public static let addWidget = Loc.tr("Localizable", "Widgets.Actions.AddWidget", fallback: "Add Widget")
       public static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: Widgets.Actions.BinConfirm")
       }
       public static let changeWidgetType = Loc.tr("Localizable", "Widgets.Actions.ChangeWidgetType", fallback: "Change Widget Type")
-      public static let editWidgets = Loc.tr("Localizable", "Widgets.Actions.EditWidgets", fallback: "Edit Widgets")
       public static let emptyBin = Loc.tr("Localizable", "Widgets.Actions.EmptyBin", fallback: "Empty Bin")
       public static let newObject = Loc.tr("Localizable", "Widgets.Actions.NewObject", fallback: "New Object")
       public static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget", fallback: "Remove Widget")
