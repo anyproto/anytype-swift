@@ -2416,7 +2416,6 @@ public enum Loc {
     public static func autoAddedAlert(_ p1: Any) -> String {
       return Loc.tr("Localizable", "Widgets.AutoAddedAlert", String(describing: p1), fallback: "Widget %@ was added")
     }
-    public static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
     public enum Actions {
       public static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: Widgets.Actions.BinConfirm")
