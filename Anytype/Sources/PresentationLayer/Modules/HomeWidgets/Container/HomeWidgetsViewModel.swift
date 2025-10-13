@@ -143,8 +143,6 @@ final class HomeWidgetsViewModel {
             var newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
-            newWidgetBlocks.removeAll { $0.source == .library(.chat) || $0.source == .library(.allObjects) || $0.source == .library(.bin) }
-            
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks

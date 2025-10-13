@@ -102,7 +102,6 @@ enum AnalyticsEventsMigrationType: String {
 }
 
 enum AnalyticsWidgetSource {
-    case allObjects
     case pinned
     case recent
     case recentOpen
@@ -112,8 +111,6 @@ enum AnalyticsWidgetSource {
     
     var analyticsId: String {
         switch self {
-        case .allObjects:
-            return "AllObjects"
         case .pinned:
             return "Pinned"
         case .recent:
@@ -489,7 +486,6 @@ enum ClickNavBarAddMenuRoute: String {
     case screenBin = "ScreenBin"
     case screenDate = "ScreenDate"
     case screenType = "ScreenType"
-    case screenAllObjects = "ScreenAllObjects"
 }
 
 enum ClickNavBarAddMenuType: String {
