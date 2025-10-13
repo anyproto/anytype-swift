@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let spaceUxTypes = FeatureDescription(
-        title: "Create chat space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
     static let spaceLoadingForScreen = FeatureDescription(
         title: "Space Loading State Inside Screen",
         type: .feature(author: "m@anytype.io", releaseVersion: "13"),
