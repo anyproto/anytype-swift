@@ -11,7 +11,6 @@ enum ObjectAction: Hashable, Identifiable {
     case makeAsTemplate
     case templateToggleDefaultState(isDefault: Bool)
     case delete
-    case createWidget
     case copyLink
 
     // When adding to case
@@ -21,18 +20,8 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.archive(isArchived: details.isArchived)
             }
             
-            if FeatureFlags.homeObjectTypeWidgets {
-                if permissions.canCreateWidget {
-                    ObjectAction.pin(isPinned: isPinnedToWidgets)
-                }
-            } else {
-                if permissions.canFavorite {
-                    ObjectAction.pin(isPinned: details.isFavorite)
-                }
-            }
-            
-            if !FeatureFlags.homeObjectTypeWidgets, permissions.canCreateWidget {
-                ObjectAction.createWidget
+            if permissions.canCreateWidget {
+                ObjectAction.pin(isPinned: isPinnedToWidgets)
             }
             
             if permissions.canDuplicate {
@@ -90,8 +79,6 @@ enum ObjectAction: Hashable, Identifiable {
             return "templateToggleDefaultState"
         case .delete:
             return "delete"
-        case .createWidget:
-            return "createWidget"
         case .copyLink:
             return "copyLink"
         }

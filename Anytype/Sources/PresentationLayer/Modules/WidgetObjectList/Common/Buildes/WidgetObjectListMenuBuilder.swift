@@ -69,26 +69,11 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         
         let permissions = details.map { $0.permissions(participant: participant) }
         
-        let isFavoriteIds = details.enumerated().filter { $1.isFavorite && permissions[$0].canFavorite }.map { $1.id }
-        let isUndavoriteIds = details.enumerated().filter { !$1.isFavorite && permissions[$0].canFavorite }.map { $1.id }
         let notArchivedIds = details.enumerated().filter { !$1.isArchived && permissions[$0].canArchive }.map { $1.id }
         let isArchivedIds = details.enumerated().filter { $1.isArchived && permissions[$0].canArchive }.map { $1.id }
         let allIds = details.map(\.id)
         
         return .builder {
-            if !FeatureFlags.homeObjectTypeWidgets {
-                if allowOptions.contains(.pin), isUndavoriteIds.isNotEmpty {
-                    Action(optionTitle: Loc.pin, optionImage: .X32.Favorite.favorite, menuTitle: Loc.addToFavorite, negative: false, action: { [weak output] in
-                        output?.setPin(objectIds: isUndavoriteIds, true)
-                    })
-                }
-                
-                if allowOptions.contains(.unpin), isFavoriteIds.isNotEmpty {
-                    Action(optionTitle: Loc.unpin, optionImage: .X32.Favorite.unfavorite, menuTitle: Loc.removeFromFavorite, negative: false, action: { [weak output] in
-                        output?.setPin(objectIds: isFavoriteIds, false)
-                    })
-                }
-            }
             
             if allowOptions.contains(.moveToBin), notArchivedIds.isNotEmpty {
                 Action(optionTitle: Loc.moveToBin, optionImage: .X32.delete, menuTitle: Loc.moveToBin, negative: true, action: { [weak output] in

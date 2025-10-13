@@ -5,9 +5,6 @@ import Services
 @MainActor
 final class AllObjectsWidgetViewModel: ObservableObject {
     
-    @Injected(\.widgetActionsViewCommonMenuProvider)
-    private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
-    
     let data: WidgetSubmoduleData
     var dragId: String { data.widgetBlockId }
     
@@ -19,14 +16,5 @@ final class AllObjectsWidgetViewModel: ObservableObject {
         guard let info = data.widgetObject.widgetInfo(blockId: data.widgetBlockId) else { return }
         AnytypeAnalytics.instance().logClickWidgetTitle(source: .allObjects, createType: info.widgetCreateType)
         data.output?.onObjectSelected(screenData: .editor(.allObjects(spaceId: data.workspaceInfo.accountSpaceId)))
-    }
-    
-    func onDeleteWidgetTap() {
-        widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
-            widgetObject: data.widgetObject,
-            widgetBlockId: data.widgetBlockId,
-            homeState: data.homeState.wrappedValue,
-            output: data.output
-        )
     }
 }

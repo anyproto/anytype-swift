@@ -17,7 +17,6 @@ struct SpaceChatWidgetView: View {
             homeState: .constant(.readwrite),
             allowMenuContent: false,
             allowContent: false,
-            removeAction: nil,
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,

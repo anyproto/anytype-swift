@@ -19,9 +19,6 @@ struct SpaceChatLegacyWidgetView: View {
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            removeAction: {
-                model.onDeleteWidgetTap()
-            },
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,

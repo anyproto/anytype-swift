@@ -19,9 +19,6 @@ struct AllObjectsWidgetView: View {
             homeState: $homeState,
             allowMenuContent: true,
             allowContent: false,
-            removeAction: {
-                model.onDeleteWidgetTap()
-            },
             header: {
                 LinkWidgetDefaultHeader(title: Loc.allObjects, icon: .asset(.X24.allObjects), onTap: {
                     model.onHeaderTap()
@@ -36,22 +33,12 @@ struct AllObjectsWidgetView: View {
     }
     
     private var menu: some View {
-        if FeatureFlags.homeObjectTypeWidgets {
-            WidgetCommonActionsMenuView(
-                items: [.removeSystemWidget],
-                widgetBlockId: model.data.widgetBlockId,
-                widgetObject: model.data.widgetObject,
-                homeState: homeState,
-                output: model.data.output
-            )
-        } else {
-            WidgetCommonActionsMenuView(
-                items: [.addBelow, .remove],
-                widgetBlockId: model.data.widgetBlockId,
-                widgetObject: model.data.widgetObject,
-                homeState: homeState,
-                output: model.data.output
-            )
-        }
+        WidgetCommonActionsMenuView(
+            items: [.removeSystemWidget],
+            widgetBlockId: model.data.widgetBlockId,
+            widgetObject: model.data.widgetObject,
+            homeState: homeState,
+            output: model.data.output
+        )
     }
 }

@@ -87,13 +87,7 @@ struct WidgetObjectListView: View {
         if model.contentIsNotEmpty, model.canEdit {
             switch model.editMode {
             case .normal:
-                // TODO: Delete "normal" mode logic inside module. Bin screen moved to separate BinListView.
-                if FeatureFlags.homeObjectTypeWidgets {
-                    EmptyView()
-                } else {
-                    EditButton()
-                        .foregroundColor(Color.Control.secondary)
-                }
+                EmptyView()
             case .editOnly:
                 Button {
                     model.onSelectAll()

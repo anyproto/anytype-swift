@@ -10,8 +10,6 @@ final class SpaceChatLegacyWidgetViewModel: ObservableObject {
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
-    @Injected(\.widgetActionsViewCommonMenuProvider)
-    private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
     
     private let data: WidgetSubmoduleData
     
@@ -49,14 +47,5 @@ final class SpaceChatLegacyWidgetViewModel: ObservableObject {
             messageCount = counters.unreadCounter
             hasMentions = counters.mentionCounter > 0
         }
-    }
-    
-    func onDeleteWidgetTap() {
-        widgetActionsViewCommonMenuProvider.onDeleteWidgetTap(
-            widgetObject: data.widgetObject,
-            widgetBlockId: data.widgetBlockId,
-            homeState: data.homeState.wrappedValue,
-            output: data.output
-        )
     }
 }

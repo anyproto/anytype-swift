@@ -13,7 +13,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var pageNavigation: PageNavigation?
     
     var showChangeTypeData: WidgetTypeChangeData?
-    var showCreateWidgetData: CreateWidgetCoordinatorModel?
     var createTypeData: CreateObjectTypeData?
     var deleteSystemWidgetConfirmationData: DeleteSystemWidgetConfirmationData?
     
@@ -24,25 +23,10 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         self.spaceInfo = info
     }
     
-    func onFinishCreateSource(screenData: ScreenData?) {
-        if let screenData {
-            pageNavigation?.open(screenData)
-        }
-    }
-    
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
         pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceInfo.accountSpaceId)))
-    }
-    
-    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .end,
-            context: context
-        )
     }
     
     func onCreateObjectType() {
@@ -62,15 +46,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
             onFinish: { [weak self] in
                 self?.showChangeTypeData = nil
             }
-        )
-    }
-    
-    func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .below(widgetId: widgetId),
-            context: context
         )
     }
     
