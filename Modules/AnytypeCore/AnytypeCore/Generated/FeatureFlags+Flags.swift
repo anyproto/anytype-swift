@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var spaceUxTypes: Bool {
-        value(for: .spaceUxTypes)
-    }
-
     static var spaceLoadingForScreen: Bool {
         value(for: .spaceLoadingForScreen)
     }
@@ -152,7 +148,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .spaceUxTypes,
         .spaceLoadingForScreen,
         .binScreenEmptyAction,
         .muteSpacePossibility,

@@ -16,23 +16,18 @@ struct SpaceCreateView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: FeatureFlags.spaceUxTypes ? model.data.title : Loc.SpaceCreate.Space.title)
+            TitleView(title: model.data.title)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     iconSection
 
                     FramedTextField(
-                        title: FeatureFlags.spaceUxTypes ? Loc.name : Loc.Settings.spaceName,
+                        title: Loc.name,
                         placeholder: Loc.untitled,
                         axis: .vertical,
                         text: $model.spaceName
                     )
                     .accessibilityLabel("SpaceNameTextField")
-
-                    if !FeatureFlags.spaceUxTypes {
-                        SectionHeaderView(title: Loc.typeLabel)
-                        SpaceTypeView(name: model.spaceAccessType.name)
-                    }
                 }
             }
             .safeAreaInset(edge: .bottom) {

@@ -64,12 +64,8 @@ struct SpaceCardLabel: View {
         Group {
             if let lastMessage = spaceData.preview.lastMessage {
                 lastMessagePreview(lastMessage)
-            } else if FeatureFlags.spaceUxTypes {
-                Text(spaceData.spaceView.uxType.name)
-                    .anytypeStyle(.uxTitle2Regular)
-                    .lineLimit(1)
             } else {
-                Text(spaceData.spaceView.spaceAccessType?.name ?? "")
+                Text(spaceData.spaceView.uxType.name)
                     .anytypeStyle(.uxTitle2Regular)
                     .lineLimit(1)
             }

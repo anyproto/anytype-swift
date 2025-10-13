@@ -11,18 +11,16 @@ struct SpaceCreateTypePickerView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            if FeatureFlags.spaceUxTypes {
-                SpaceTypePickerRow(
-                    icon: .Channel.chat,
-                    title: Loc.Spaces.UxType.Chat.title,
-                    subtitle: Loc.Spaces.UxType.Chat.description,
-                    onTap: {
-                        dismiss()
-                        onSelectSpaceType(.chat)
-                        AnytypeAnalytics.instance().logClickVaultCreateMenuChat()
-                    }
-                )
-            }
+            SpaceTypePickerRow(
+                icon: .Channel.chat,
+                title: Loc.Spaces.UxType.Chat.title,
+                subtitle: Loc.Spaces.UxType.Chat.description,
+                onTap: {
+                    dismiss()
+                    onSelectSpaceType(.chat)
+                    AnytypeAnalytics.instance().logClickVaultCreateMenuChat()
+                }
+            )
             SpaceTypePickerRow(
                 icon: .Channel.space,
                 title: Loc.Spaces.UxType.Space.title,

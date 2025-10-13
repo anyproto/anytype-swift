@@ -29,7 +29,6 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
     
     @Published var spaceName = ""
     @Published var spaceIcon: Icon
-    @Published var spaceAccessType: SpaceAccessType = .private
     @Published var createLoadingState = false
     @Published var dismiss: Bool = false
     
@@ -55,7 +54,7 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
             let createResponse = try await workspaceService.createSpace(
                 name: spaceName,
                 iconOption: spaceIconOption,
-                accessType: spaceAccessType,
+                accessType: .private,
                 useCase: uxType.useCase,
                 withChat: true,
                 uxType: uxType
