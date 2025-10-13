@@ -23,6 +23,7 @@ public struct AnytypeTextField: View {
                 }
                 .font(AnytypeFontBuilder.font(anytypeFont: font))
                 .kerning(font.config.kern)
+                .accessibilityLabel("TextField")
         }
     }
 }

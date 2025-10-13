@@ -34,7 +34,7 @@ struct SharingExtensionShareToView: View {
         .task(id: model.searchText) {
             await model.search()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
         .disabled(model.sendInProgress)

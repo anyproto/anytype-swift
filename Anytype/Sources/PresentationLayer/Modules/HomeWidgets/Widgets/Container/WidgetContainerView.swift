@@ -49,9 +49,7 @@ struct WidgetContainerView<Content: View>: View {
             isEnable: onCreateObjectTap != nil && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
-                if #available(iOS 17.0, *) {
-                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
-                }
+                WidgetSwipeTip().invalidate(reason: .actionPerformed)
                 onCreateObjectTap?()
             }
         ) {

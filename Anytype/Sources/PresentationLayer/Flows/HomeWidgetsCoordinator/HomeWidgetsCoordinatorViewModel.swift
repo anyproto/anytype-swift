@@ -5,17 +5,19 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModuleOutput, SetObjectCreationCoordinatorOutput {
+@Observable
+final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectCreationCoordinatorOutput {
     
     let spaceInfo: AccountInfo
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
     
-    @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
-    @Published var createTypeData: CreateObjectTypeData?
-    @Published var deleteSystemWidgetConfirmationData: DeleteSystemWidgetConfirmationData?
+    var showChangeTypeData: WidgetTypeChangeData?
+    var showCreateWidgetData: CreateWidgetCoordinatorModel?
+    var createTypeData: CreateObjectTypeData?
+    var deleteSystemWidgetConfirmationData: DeleteSystemWidgetConfirmationData?
     
-    @Injected(\.legacySetObjectCreationCoordinator)
+    @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     
     init(info: AccountInfo) {

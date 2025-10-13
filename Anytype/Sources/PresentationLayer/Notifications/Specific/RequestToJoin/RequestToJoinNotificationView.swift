@@ -22,7 +22,7 @@ struct RequestToJoinNotificationView: View {
                 try await model.onTapViewRequest()
             }
         ])
-        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.dismiss) { dismiss() }
         .snackbar(toastBarData: $model.toast)
     }
 }

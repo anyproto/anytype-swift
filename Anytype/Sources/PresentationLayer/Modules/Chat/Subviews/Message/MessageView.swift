@@ -243,30 +243,21 @@ struct MessageView: View {
     @ViewBuilder
     private var contextMenu: some View {
         if data.canAddReaction {
-            if #available(iOS 16.4, *) {
-                ControlGroup {
-                    ForEach(Constants.emoji, id:\.self) { emoji in
-                        AsyncButton {
-                            try await output?.didTapOnReaction(data: data, emoji: emoji)
-                        } label: {
-                            Text(emoji)
-                        }
-                    }
-                    Button {
-                        output?.didSelectAddReaction(messageId: data.message.id)
+            ControlGroup {
+                ForEach(Constants.emoji, id:\.self) { emoji in
+                    AsyncButton {
+                        try await output?.didTapOnReaction(data: data, emoji: emoji)
                     } label: {
-                        Image(asset: .Reactions.selectEmoji)
+                        Text(emoji)
                     }
                 }
-                .controlGroupStyle(.compactMenu)
-            } else {
-                
                 Button {
                     output?.didSelectAddReaction(messageId: data.message.id)
                 } label: {
-                    Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+                    Image(asset: .Reactions.selectEmoji)
                 }
             }
+            .controlGroupStyle(.compactMenu)
         }
         
         Divider()

@@ -17,12 +17,12 @@ private struct TwoWayBindingModifier<T>: ViewModifier where T: Equatable {
             .onAppear {
                 modelState = viewState
             }
-            .onChange(of: modelState) { newModelState in
+            .onChange(of: modelState) { _, newModelState in
                 if viewState != newModelState {
                     viewState = newModelState
                 }
             }
-            .onChange(of: viewState) { newViewState in
+            .onChange(of: viewState) { _, newViewState in
                 if modelState != newViewState {
                     modelState = newViewState
                 }

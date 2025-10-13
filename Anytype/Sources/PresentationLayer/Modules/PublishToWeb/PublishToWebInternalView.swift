@@ -13,7 +13,7 @@ struct PublishToWebInternalView: View {
     
     var body: some View {
         content
-            .onChange(of: model.showJoinSpaceButton) { showJoin in
+            .onChange(of: model.showJoinSpaceButton) { _, showJoin in
                 model.updatePreviewForJoinButton(showJoin)
             }
             .snackbar(toastBarData: $model.toastBarData)

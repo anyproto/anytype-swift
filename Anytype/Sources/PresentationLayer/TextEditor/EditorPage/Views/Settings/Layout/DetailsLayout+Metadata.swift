@@ -15,7 +15,7 @@ extension DetailsLayout {
             return .Layout.note
         case .set, .collection, .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
-                .video, .date, .spaceView, .tag, .chat, .chatDerived, .notification,
+                .video, .date, .spaceView, .tag, .chatDeprecated, .chatDerived, .notification,
                 .missingObject, .devices:
             return .noImage
         }
@@ -37,7 +37,7 @@ extension DetailsLayout {
             return Loc.collection
         case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
-                .video, .date, .spaceView, .tag, .chat, .chatDerived, .notification,
+                .video, .date, .spaceView, .tag, .chatDeprecated, .chatDerived, .notification,
                 .missingObject, .devices:
             return ""
         }
@@ -57,7 +57,7 @@ extension DetailsLayout {
             return Loc.collectionOfObjects
         case .bookmark, .space, .file, .image, .objectType, .UNRECOGNIZED, .relation,
                 .relationOption, .dashboard, .relationOptionsList, .pdf, .audio,
-                .video, .date, .spaceView, .tag, .chat, .chatDerived, .notification,
+                .video, .date, .spaceView, .tag, .chatDeprecated, .chatDerived, .notification,
                 .missingObject, .devices:
             return ""
         }

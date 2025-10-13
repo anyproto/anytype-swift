@@ -22,7 +22,7 @@ struct ChatInputLocalImageView: View {
                     .scaledToFill()
             }
         }
-        .onChange(of: contentsOfFile) { newValue in
+        .onChange(of: contentsOfFile) { _, newValue in
             image = UIImage(contentsOfFile: contentsOfFile)
         }
         .frame(width: 72, height: 72)

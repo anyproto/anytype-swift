@@ -20,7 +20,7 @@ struct ObjectPropertyListCoordinatorView: View {
         }, content: { data in
             model.deletionAlertView(data: data)
         })
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

@@ -30,7 +30,7 @@ struct ObjectSettingsCoordinatorView: View {
             .sheet(item: $model.publishingData) {
                 PublishToWebCoordinator(data: $0)
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
     }

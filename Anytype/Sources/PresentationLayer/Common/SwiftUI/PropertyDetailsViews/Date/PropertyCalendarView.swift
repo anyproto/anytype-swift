@@ -24,7 +24,7 @@ struct PropertyCalendarView: View {
             openCurrentDateView
         }
         .background(Color.Background.secondary)
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
     }

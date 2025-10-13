@@ -21,7 +21,7 @@ struct ObjectSearchWithMetaView: View {
         .task(id: model.searchText) {
             await model.search()
         }
-        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.dismiss) { dismiss() }
     }
     
     private var searchBar: some View {

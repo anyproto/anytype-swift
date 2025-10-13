@@ -40,10 +40,10 @@ struct CodeLanguageListView: View {
                 }
             }
         }
-        .onChange(of: searchText) { text in
+        .onChange(of: searchText) { _, text in
             model.onChangeSearch(text: text)
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

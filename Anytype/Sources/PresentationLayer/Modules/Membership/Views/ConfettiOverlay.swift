@@ -14,7 +14,7 @@ struct ConfettiOverlay: View {
         EmptyView()
             .confettiCannon(counter: $counter, num: 200, rainHeight: confettiHeight, radius: confettiHeight)
             .onAppear { updateState() }
-            .onChange(of: fireConfetti) { _ in updateState() }
+            .onChange(of: fireConfetti) { updateState() }
     }
     
     private func updateState() {

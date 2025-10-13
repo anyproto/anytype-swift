@@ -21,7 +21,7 @@ struct SpaceNotificationsSettingsView: View {
             await model.startSubscriptions()
         }
         .background(Color.Background.secondary)
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

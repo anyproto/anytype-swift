@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct SharingTipView: View {
     @StateObject private var viewModel = SharingTipViewModel()
     @Environment(\.dismiss) private var dismiss
@@ -21,7 +20,7 @@ struct SharingTipView: View {
         .onDisappear() {
             viewModel.onDisappear()
         }
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
     }
@@ -155,18 +154,7 @@ private enum SharingTipStep: Int {
     }
 }
 
-// Fix Xcode warning
-struct SharingTipPreviewView: View {
-    var body: some View {
-        if #available(iOS 17.0, *) {
-            SharingTipView()
-        } else {
-            EmptyView()
-        }
-    }
-}
-
 #Preview {
-    SharingTipPreviewView()
+    SharingTipView()
 }
 

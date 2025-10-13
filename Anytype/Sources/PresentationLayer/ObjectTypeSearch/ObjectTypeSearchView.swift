@@ -51,7 +51,7 @@ struct ObjectTypeSearchView: View {
             }
         }
         
-        .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
+        .onChange(of: viewModel.searchText) { viewModel.search(text: $1) }
         .task {
             viewModel.onAppear()
         }

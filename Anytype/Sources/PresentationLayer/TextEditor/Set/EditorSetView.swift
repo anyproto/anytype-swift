@@ -34,7 +34,7 @@ struct EditorSetView: View {
         .onDisappear {
             model.onDisappear()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
         .anytypeStatusBar(style: .default)

@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct ChatCreationTipView: View {
     @StateObject private var viewModel = ChatCreationTipViewModel()
     @Environment(\.dismiss) private var dismiss
@@ -18,11 +17,11 @@ struct ChatCreationTipView: View {
         .onDisappear() {
             viewModel.onDisappear()
         }
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
         .onChange(of: currentPage) {
-            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chats, step: $0)
+            AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .chats, step: $1)
         }
     }
     
@@ -128,19 +127,8 @@ struct ChatCreationTipView: View {
 }
 
 
-// Fix Xcode warning
-struct ChatCreationTipPreviewView: View {
-    var body: some View {
-        if #available(iOS 17.0, *) {
-            ChatCreationTipView()
-        } else {
-            EmptyView()
-        }
-    }
-}
-
 #Preview {
-    ChatCreationTipPreviewView()
+    ChatCreationTipView()
 }
 
 private struct PageContent {

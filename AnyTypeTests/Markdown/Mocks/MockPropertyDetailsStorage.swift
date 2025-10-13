@@ -4,7 +4,7 @@ import Combine
 import Services
 
 
-final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol {
+final class MockPropertyDetailsStorage: PropertyDetailsStorageProtocol, @unchecked Sendable {
     // Publisher for sync events
     private let syncSubject = PassthroughSubject<Void, Never>()
     var syncPublisher: AnyPublisher<Void, Never> {

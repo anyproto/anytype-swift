@@ -1,5 +1,5 @@
 import Foundation
-import UserNotifications
+@preconcurrency import UserNotifications
 
 public protocol NotificationsCenterServiceProtocol: AnyObject, Sendable {
     func removeDeliveredNotifications(chatId: String)

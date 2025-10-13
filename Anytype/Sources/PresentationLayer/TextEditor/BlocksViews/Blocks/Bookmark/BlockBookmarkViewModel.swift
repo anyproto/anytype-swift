@@ -4,6 +4,7 @@ import UIKit
 import AnytypeCore
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
+@MainActor
 final class BlockBookmarkViewModel: BlockViewModelProtocol {
     
     let className = "BlockBookmarkViewModel"

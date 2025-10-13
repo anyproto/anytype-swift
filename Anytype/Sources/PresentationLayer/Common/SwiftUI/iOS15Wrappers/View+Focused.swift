@@ -13,7 +13,7 @@ struct FocusedModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .focused($focusedField)
-            .onChange(of: focused) { newValue in
+            .onChange(of: focused) { _, newValue in
                 focusedField = newValue
             }
             .onAppear {

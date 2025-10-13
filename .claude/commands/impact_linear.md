@@ -74,7 +74,41 @@ For each project/epic, find and analyze ALL sub-tasks:
 - Note platform-specific variations
 - **Link to cross-platform coordination issues**
 
-### Step 5: Create Comprehensive Context Summary with Full References
+### Step 5: Extract Linear Issue IDs for Changelog
+**CRITICAL**: For changelog generation, we need Linear ISSUE IDs (IOS-XXXX format), not project hash IDs.
+
+### ID Format Distinction
+1. **Project IDs** (hash format like `9f4625be498e`):
+   - Used internally by Linear for project URLs
+   - Good for reference and URLs
+   - **DO NOT use these in changelogs**
+
+2. **Issue IDs** (format like `IOS-4913`, `IOS-5149`):
+   - Human-readable task/story identifiers
+   - Found in git commit messages
+   - Found in sub-tasks of projects
+   - **USE THESE in changelogs and impact reports**
+
+### How to Extract Issue IDs
+For each project in the view:
+1. **Check sub-tasks** - Each sub-task has an issue ID (IOS-XXXX)
+2. **Look at project description** - Often lists related issue IDs
+3. **Review linked PRs** - GitHub PRs reference issue IDs
+4. **Note implementation issues** - Main work is done in issue tasks, not project containers
+
+### Issue ID Mapping Example
+```
+Project: "Chat (Public Release)" (9f4625be498e)
+└── Associated Issue IDs:
+    ├── IOS-4913: Chat system implementation
+    ├── IOS-4915: Sharing extension with chat support
+    ├── IOS-5033: Chat space creation
+    └── IOS-5200: Remove chat editor limits
+```
+
+**For changelog**: Use "Chat Spaces (IOS-4913)" NOT "Chat Spaces (9f4625be498e)"
+
+## Step 6: Create Comprehensive Context Summary with Full References
 **CRITICAL: Always save the analysis as a file immediately after completion**
 
 ## Output Format
@@ -117,22 +151,23 @@ Release [NUMBER] - [URL]
 ## Major Feature Categories
 
 ### [Category 1: e.g., Chat & Communication]
-1. **[Project/Epic Name]** ([ID])
+1. **[Project/Epic Name]** (Project ID: [project-hash-id])
    - **Linear URL**: [Full URL]
    - **Status**: [Status]
-   - **Priority**: [Priority]  
+   - **Priority**: [Priority]
    - **Description**: [Brief description]
+   - **Implementation Issue IDs**: [IOS-XXXX, IOS-YYYY] (for changelog use)
    - **Key Features**:
-     - [Feature 1] ([Sub-task ID]) - [Status] - [URL]
-     - [Feature 2] ([Sub-task ID]) - [Status] - [URL]
+     - [Feature 1] (IOS-XXXX) - [Status] - [URL]
+     - [Feature 2] (IOS-YYYY) - [Status] - [URL]
    - **Related Links**:
-     - PR: [GitHub PR URL]
+     - PR: [GitHub PR URL] (mentions IOS-XXXX)
      - Design: [Figma URL]
      - Docs: [Documentation URL]
    - **Technical Notes**: [Implementation details]
    - **Risk Level**: [High/Medium/Low]
    - **Testing Focus**: [Specific areas]
-   - **Related Issues**: 
+   - **Related Issues**:
      - Blocks: [Issue ID] - [URL]
      - Related to: [Issue ID] - [URL]
 

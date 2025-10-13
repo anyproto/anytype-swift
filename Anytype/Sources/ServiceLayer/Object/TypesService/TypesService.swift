@@ -69,7 +69,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         }
         
         if !includeChat {
-            layouts.removeAll(where: { $0 == .chat })
+            layouts.removeAll(where: { $0 == .chatDerived })
         }
         
         let filters: [DataviewFilter] = .builder {

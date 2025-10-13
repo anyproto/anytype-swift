@@ -14,12 +14,13 @@ struct HomeWidgetsView: View {
 }
 
 private struct HomeWidgetsInternalView: View {
-    @StateObject private var model: HomeWidgetsViewModel
+    @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
+    @State var homeObjectTypeWidgets = FeatureFlags.homeObjectTypeWidgets
     
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
-        self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+        self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
     }
     
     var body: some View {
@@ -60,7 +61,7 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
-                if FeatureFlags.homeObjectTypeWidgets {
+                if homeObjectTypeWidgets {
                     topWidgets
                     blockWidgets
                     objectTypeWidgets
@@ -84,9 +85,7 @@ private struct HomeWidgetsInternalView: View {
     @ViewBuilder
     private var oldBlockWidgets: some View {
         VStack(spacing: 12) {
-            if #available(iOS 17.0, *) {
-                WidgetSwipeTipView()
-            }
+            WidgetSwipeTipView()
             ForEach(model.widgetBlocks) { widgetInfo in
                 HomeWidgetSubmoduleView(
                     widgetInfo: widgetInfo,
@@ -113,9 +112,7 @@ private struct HomeWidgetsInternalView: View {
             }
             if model.pinnedSectionIsExpanded {
                 VStack(spacing: 12) {
-                    if #available(iOS 17.0, *) {
-                        WidgetSwipeTipView()
-                    }
+                    WidgetSwipeTipView()
                     ForEach(model.widgetBlocks) { widgetInfo in
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,

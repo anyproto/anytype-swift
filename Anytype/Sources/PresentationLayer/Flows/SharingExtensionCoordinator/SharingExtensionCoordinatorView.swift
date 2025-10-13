@@ -10,7 +10,7 @@ struct SharingExtensionCoordinatorView: View {
             .sheet(item: $model.showShareTo) {
                 SharingExtensionShareToView(data: $0, output: model)
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
     }
