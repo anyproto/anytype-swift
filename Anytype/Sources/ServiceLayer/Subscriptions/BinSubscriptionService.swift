@@ -8,12 +8,6 @@ protocol BinSubscriptionServiceProtocol: AnyObject, Sendable {
     
     var dataSequence: AnyAsyncSequence<[ObjectDetails]> { get async }
     
-    func legacyStartSubscription(
-        spaceId: String,
-        objectLimit: Int?,
-        update: @escaping @MainActor ([ObjectDetails]) -> Void
-    )  async
-    
     func startSubscription(spaceId: String, objectLimit: Int?, name: String?) async
     
     func stopSubscription() async
@@ -34,38 +28,6 @@ actor BinSubscriptionService: BinSubscriptionServiceProtocol {
     
     var dataSequence: AnyAsyncSequence<[ObjectDetails]> {
         return subscriptionStorage.statePublisher.map { $0.items }.values.eraseToAnyAsyncSequence()
-    }
-    
-    func legacyStartSubscription(
-        spaceId: String,
-        objectLimit: Int?,
-        update: @escaping @MainActor ([ObjectDetails]) -> Void
-    ) async {
-        
-        let sort = SearchHelper.sort(
-            relation: BundledPropertyKey.lastModifiedDate,
-            type: .desc
-        )
-        
-        let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters(isArchive: true)
-        }
-        
-        let searchData: SubscriptionData = .search(
-            SubscriptionData.Search(
-                identifier: subscriptionId,
-                spaceId: spaceId,
-                sorts: [sort],
-                filters: filters,
-                limit: objectLimit ?? Constants.limit,
-                offset: 0,
-                keys: BundledPropertyKey.objectListKeys.map { $0.rawValue }
-            )
-        )
-        
-        try? await subscriptionStorage.startOrUpdateSubscription(data: searchData) { data in
-            await update(data.items)
-        }
     }
     
     func startSubscription(spaceId: String, objectLimit: Int?, name: String?) async {

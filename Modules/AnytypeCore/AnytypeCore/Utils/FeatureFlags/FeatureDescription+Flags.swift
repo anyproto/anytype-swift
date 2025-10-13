@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let binScreenEmptyAction = FeatureDescription(
-        title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
     static let muteSpacePossibility = FeatureDescription(
         title: "Mute space possibility",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
