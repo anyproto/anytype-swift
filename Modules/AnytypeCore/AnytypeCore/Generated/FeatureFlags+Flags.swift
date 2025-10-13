@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var binScreenEmptyAction: Bool {
-        value(for: .binScreenEmptyAction)
-    }
-
     static var muteSpacePossibility: Bool {
         value(for: .muteSpacePossibility)
     }
@@ -144,7 +140,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .binScreenEmptyAction,
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
