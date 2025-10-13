@@ -115,12 +115,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - WidgetObjectListMenuOutput
     
-    func setPin(objectIds: [String], _ isPinned: Bool) {
-        AnytypeAnalytics.instance().logAddToFavorites(isPinned)
-        Task { try? await objectActionService.setPin(objectIds: objectIds, isPinned) }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
     func setArchive(objectIds: [String], _ isArchived: Bool) {
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
         Task { try? await objectActionService.setArchive(objectIds: objectIds, isArchived) }

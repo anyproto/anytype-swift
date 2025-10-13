@@ -65,15 +65,6 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
         )
     }
     
-    func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .below(widgetId: widgetId),
-            context: context
-        )
-    }
-    
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
         setObjectCreationCoordinator.startCreateObject(
             setDocument: setDocument,

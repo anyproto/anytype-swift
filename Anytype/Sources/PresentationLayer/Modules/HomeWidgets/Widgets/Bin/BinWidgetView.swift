@@ -50,23 +50,13 @@ private struct BinWidgetSubmoduleInternalView: View {
     
     @ViewBuilder
     private var menu: some View {
-        if FeatureFlags.homeObjectTypeWidgets {
-            WidgetCommonActionsMenuView(
-                items: [.removeSystemWidget],
-                widgetBlockId: model.widgetBlockId,
-                widgetObject: model.widgetObject,
-                homeState: homeState,
-                output: model.output
-            )
-        } else {
-            WidgetCommonActionsMenuView(
-                items: [.addBelow, .remove],
-                widgetBlockId: model.widgetBlockId,
-                widgetObject: model.widgetObject,
-                homeState: homeState,
-                output: model.output
-            )
-        }
+        WidgetCommonActionsMenuView(
+            items: [.removeSystemWidget],
+            widgetBlockId: model.widgetBlockId,
+            widgetObject: model.widgetObject,
+            homeState: homeState,
+            output: model.output
+        )
         Divider()
         AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
             try await model.onEmptyBinTap()

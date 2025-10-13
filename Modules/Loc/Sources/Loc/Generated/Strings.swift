@@ -22,7 +22,6 @@ public enum Loc {
   public static let addLink = Loc.tr("Localizable", "Add link", fallback: "Add link")
   public static let addPhone = Loc.tr("Localizable", "Add phone", fallback: "Add phone")
   public static let addProperty = Loc.tr("Localizable", "Add property", fallback: "Add property")
-  public static let addToFavorite = Loc.tr("Localizable", "Add To Favorite", fallback: "Add To Pinned")
   public static func agreementDisclamer(_ p1: Any, _ p2: Any) -> String {
     return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
   }
@@ -381,7 +380,6 @@ public enum Loc {
     return Loc.tr("Localizable", "Relation", p1, fallback: "Plural format key: Relation")
   }
   public static let remove = Loc.tr("Localizable", "Remove", fallback: "Remove")
-  public static let removeFromFavorite = Loc.tr("Localizable", "Remove From Favorite", fallback: "Remove From Pinned")
   public static let removePhoto = Loc.tr("Localizable", "Remove photo", fallback: "Remove photo")
   public static let resend = Loc.tr("Localizable", "Resend", fallback: "Resend")
   public static func resendIn(_ p1: Any) -> String {
@@ -563,13 +561,12 @@ public enum Loc {
     public static let makeAsTemplate = Loc.tr("Localizable", "Actions.MakeAsTemplate", fallback: "Make template")
     public static let templateMakeDefault = Loc.tr("Localizable", "Actions.TemplateMakeDefault", fallback: "Make default")
     public enum CreateWidget {
-      public static let success = Loc.tr("Localizable", "Actions.CreateWidget.Success", fallback: "New widget was created")
       public static let title = Loc.tr("Localizable", "Actions.CreateWidget.Title", fallback: "To widgets")
     }
   }
   public enum Alert {
     public enum CameraPermissions {
-      public static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Generate")
+      public static let goToSettings = Loc.tr("Localizable", "Alert.CameraPermissions.GoToSettings", fallback: "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Anytype and set Camera to ON")
       public static let settings = Loc.tr("Localizable", "Alert.CameraPermissions.Settings", fallback: "Settings")
     }
   }
@@ -2424,7 +2421,6 @@ public enum Loc {
     }
     public static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch", fallback: "Widget source")
     public enum Actions {
-      public static let addBelow = Loc.tr("Localizable", "Widgets.Actions.AddBelow", fallback: "Add Below")
       public static let addWidget = Loc.tr("Localizable", "Widgets.Actions.AddWidget", fallback: "Add Widget")
       public static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: Widgets.Actions.BinConfirm")

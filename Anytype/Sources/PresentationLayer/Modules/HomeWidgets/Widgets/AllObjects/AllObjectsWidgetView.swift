@@ -46,7 +46,7 @@ struct AllObjectsWidgetView: View {
             )
         } else {
             WidgetCommonActionsMenuView(
-                items: [.addBelow, .remove],
+                items: [.remove],
                 widgetBlockId: model.data.widgetBlockId,
                 widgetObject: model.data.widgetObject,
                 homeState: homeState,
