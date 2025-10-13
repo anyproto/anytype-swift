@@ -216,7 +216,6 @@ public enum Loc {
   public static let addLink = Loc.tr("UI", "Add link", fallback: "Add link")
   public static let addPhone = Loc.tr("UI", "Add phone", fallback: "Add phone")
   public static let addProperty = Loc.tr("UI", "Add property", fallback: "Add property")
-  public static let addToFavorite = Loc.tr("UI", "Add To Favorite", fallback: "Add To Pinned")
   public static let alignCenter = Loc.tr("UI", "Align center", fallback: "Align center")
   public static let alignJustify = Loc.tr("UI", "Align justify", fallback: "Align justify")
   public static let alignLeft = Loc.tr("UI", "Align left", fallback: "Align left")
@@ -557,7 +556,6 @@ public enum Loc {
     return Loc.tr("UI", "Relation", p1, fallback: "Plural format key: Relation")
   }
   public static let remove = Loc.tr("UI", "Remove", fallback: "Remove")
-  public static let removeFromFavorite = Loc.tr("UI", "Remove From Favorite", fallback: "Remove From Pinned")
   public static let removePhoto = Loc.tr("UI", "Remove photo", fallback: "Remove photo")
   public static let resend = Loc.tr("UI", "Resend", fallback: "Resend")
   public static func resendIn(_ p1: Any) -> String {
@@ -736,10 +734,6 @@ public enum Loc {
     public static let linkItself = Loc.tr("UI", "Actions.LinkItself", fallback: "Link to")
     public static let makeAsTemplate = Loc.tr("UI", "Actions.MakeAsTemplate", fallback: "Make template")
     public static let templateMakeDefault = Loc.tr("UI", "Actions.TemplateMakeDefault", fallback: "Make default")
-    public enum CreateWidget {
-      public static let success = Loc.tr("UI", "Actions.CreateWidget.Success", fallback: "New widget was created")
-      public static let title = Loc.tr("UI", "Actions.CreateWidget.Title", fallback: "To widgets")
-    }
   }
   public enum Alert {
     public enum CameraPermissions {
@@ -1323,15 +1317,11 @@ public enum Loc {
     public static func autoAddedAlert(_ p1: Any) -> String {
       return Loc.tr("UI", "Widgets.AutoAddedAlert", String(describing: p1), fallback: "Widget %@ was added")
     }
-    public static let sourceSearch = Loc.tr("UI", "Widgets.SourceSearch", fallback: "Widget source")
     public enum Actions {
-      public static let addBelow = Loc.tr("UI", "Widgets.Actions.AddBelow", fallback: "Add Below")
-      public static let addWidget = Loc.tr("UI", "Widgets.Actions.AddWidget", fallback: "Add Widget")
       public static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("UI", "Widgets.Actions.BinConfirm", p1, fallback: "Plural format key: Widgets.Actions.BinConfirm")
       }
       public static let changeWidgetType = Loc.tr("UI", "Widgets.Actions.ChangeWidgetType", fallback: "Change Widget Type")
-      public static let editWidgets = Loc.tr("UI", "Widgets.Actions.EditWidgets", fallback: "Edit Widgets")
       public static let emptyBin = Loc.tr("UI", "Widgets.Actions.EmptyBin", fallback: "Empty Bin")
       public static let newObject = Loc.tr("UI", "Widgets.Actions.NewObject", fallback: "New Object")
       public static let removeWidget = Loc.tr("UI", "Widgets.Actions.RemoveWidget", fallback: "Remove Widget")
