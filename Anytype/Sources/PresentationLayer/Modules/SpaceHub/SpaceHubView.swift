@@ -68,6 +68,11 @@ struct SpaceHubView: View {
                 HomeUpdateSubmoduleView().padding(8)
                 
                 if #available(iOS 17.0, *) {
+                } else {
+                    UpdateAppBanner()
+                }
+                
+                if #available(iOS 17.0, *) {
                     if FeatureFlags.anyAppBetaTip {
                         HomeAnyAppWidgetTipView()
                             .padding(.horizontal, 8)

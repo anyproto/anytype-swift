@@ -6,7 +6,7 @@ enum AppIcon: CaseIterable {
     case standart
     case eggo
     
-    var avaliableIcons: [AppIcon] {
+    static var avaliableIcons: [AppIcon] {
         #if DEBUG || RELEASE_NIGHTLY
         [.smile, .standart, .eggo]
         #else
