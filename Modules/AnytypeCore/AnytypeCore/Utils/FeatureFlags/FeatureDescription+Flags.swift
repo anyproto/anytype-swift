@@ -92,19 +92,10 @@ public extension FeatureDescription {
         defaultValue: false
     )
 
-    static let anyAppBetaTip = FeatureDescription(
-        title: "Show any app beta alert",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
     static let multichats = FeatureDescription(
         title: "Multichats",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        defaultValue: false,
         debugValue: true
     )
 
