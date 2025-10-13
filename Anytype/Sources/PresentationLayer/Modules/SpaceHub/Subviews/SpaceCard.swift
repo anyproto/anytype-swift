@@ -32,7 +32,6 @@ struct SpaceCard: View, @preconcurrency Equatable {
                 )
             }
         }
-        .disabled(FeatureFlags.spaceLoadingForScreen ? false : spaceData.spaceView.isLoading)
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         .contextMenu { menuItems.tint(Color.Text.primary) }
     }

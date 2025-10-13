@@ -33,8 +33,6 @@ final class SpaceHubViewModel: ObservableObject {
 
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.activeSpaceManager)
-    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.spaceOrderService)
@@ -65,15 +63,8 @@ final class SpaceHubViewModel: ObservableObject {
     }
     
     func onSpaceTap(spaceId: String) {
-        if FeatureFlags.spaceLoadingForScreen {
-            output?.onSelectSpace(spaceId: spaceId)
-            UISelectionFeedbackGenerator().selectionChanged()
-        } else {
-            Task {
-                try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-                UISelectionFeedbackGenerator().selectionChanged()
-            }
-        }
+        output?.onSelectSpace(spaceId: spaceId)
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     
@@ -145,9 +136,7 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-            if FeatureFlags.spaceLoadingForScreen {
-                showLoading = spaces.contains { $0.spaceView.isLoading }
-            }
+            showLoading = spaces.contains { $0.spaceView.isLoading }
         }
     }
     

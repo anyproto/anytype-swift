@@ -107,19 +107,11 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     // MARK: - Private
     
     private func handleSpaces(workspaces: [SpaceView]) async {
-        if FeatureFlags.spaceLoadingForScreen {
-            guard let activeSpaceId,
-                  let currentView = workspaces.first(where: { $0.targetSpaceId == activeSpaceId }),
-                  (currentView.isLoading && spaceIsLoading) || currentView.isActive else {
-                _ = try? await setActiveSpace(spaceId: nil)
-                return
-            }
-        } else {
-            let spaceIds = workspaces.map(\.targetSpaceId)
-            guard let activeSpaceId, spaceIds.contains(activeSpaceId) else {
-                _ = try? await setActiveSpace(spaceId: nil)
-                return
-            }
+        guard let activeSpaceId,
+              let currentView = workspaces.first(where: { $0.targetSpaceId == activeSpaceId }),
+              (currentView.isLoading && spaceIsLoading) || currentView.isActive else {
+            _ = try? await setActiveSpace(spaceId: nil)
+            return
         }
     }
     
