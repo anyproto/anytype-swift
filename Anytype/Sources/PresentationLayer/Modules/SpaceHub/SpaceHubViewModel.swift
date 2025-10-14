@@ -23,7 +23,6 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var notificationsDenied = false
     @Published var spaceMuteData: SpaceMuteData?
-    @Published var toastBarData: ToastBarData?
     @Published var showLoading = false
     @Published var profileIcon: Icon?
     @Published var spaceToDelete: StringIdentifiable?

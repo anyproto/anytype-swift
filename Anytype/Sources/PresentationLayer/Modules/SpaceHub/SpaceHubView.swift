@@ -24,7 +24,6 @@ struct SpaceHubView: View {
                 await model.pushNotificationSetSpaceMode(data: data)
             }
             .homeBottomPanelHidden(true)
-            .snackbar(toastBarData: $model.toastBarData)
             .anytypeSheet(item: $model.spaceToDelete) { spaceId in
                 SpaceDeleteAlert(spaceId: spaceId.value)
             }
