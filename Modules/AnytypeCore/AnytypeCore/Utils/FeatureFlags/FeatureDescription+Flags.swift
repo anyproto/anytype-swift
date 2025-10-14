@@ -22,12 +22,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let newSharingExtension = FeatureDescription(
-        title: "New Sharing Extension - IOS-4915",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
     static let newSpaceMembersFlow = FeatureDescription(
         title: "New Space Members Flow",
         type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
@@ -70,11 +64,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
-    static let homeObjectTypeWidgets = FeatureDescription(
-        title: "Home object type widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
     
     static let turnOffAutomaticWidgetOpening = FeatureDescription(
         title: "Turn off automatic object opening - IOS-5309",

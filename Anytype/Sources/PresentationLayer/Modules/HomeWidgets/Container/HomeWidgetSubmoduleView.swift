@@ -23,8 +23,6 @@ struct HomeWidgetSubmoduleView: View {
     @ViewBuilder
     private func viewForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId) -> some View {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
-        case (.allObjects, _):
-            AllObjectsWidgetView(data: widgetData)
         case (.pinned, .tree):
             PinnedTreeWidgetsubmoduleView(data: widgetData)
         case (.pinned, .list):
@@ -43,10 +41,6 @@ struct HomeWidgetSubmoduleView: View {
             RecentOpenListWidgetSubmoduleView(data: widgetData)
         case (.recentOpen, .compactList):
             RecentOpenCompactListWidgetSubmoduleView(data: widgetData)
-        case (.bin, _):
-            BinWidgetView(data: widgetData)
-        case (.chat, _):
-            SpaceChatLegacyWidgetView(data: widgetData)
         case _:
             EmptyView()
         }

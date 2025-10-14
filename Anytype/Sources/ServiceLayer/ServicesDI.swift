@@ -304,14 +304,6 @@ extension Container {
         self { UserDefaultsStorage() }.singleton
     }
     
-    var allObjectsSubscriptionService: Factory<any AllObjectsSubscriptionServiceProtocol> {
-        self { AllObjectsSubscriptionService() }
-    }
-    
-    var allObjectsStateStorageService: Factory<any AllObjectsStateStorageServiceProtocol> {
-        self { AllObjectsStateStorageService() }.shared
-    }
-    
     var chatActionService: Factory<any ChatActionServiceProtocol> {
         self { ChatActionService() }
     }

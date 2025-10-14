@@ -75,49 +75,42 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changePinState(_ pinned: Bool) async throws {
-        if FeatureFlags.homeObjectTypeWidgets {
-            
-            guard let widgetObject else {
-                anytypeAssertionFailure("Widget object not found")
-                return
-            }
-            
-            guard let details = document.details else {
-                anytypeAssertionFailure("Details object not found")
-                return
-            }
-            
-            if pinned {
-                
-                guard let widgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: details.id) else {
-                    anytypeAssertionFailure("Block not found")
-                    return
-                }
-                
-                try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId)
-                
-            } else {
-                guard let layout = details.availableWidgetLayout.first else {
-                    anytypeAssertionFailure("Default layout not found")
-                    return
-                }
-                
-                let first = widgetObject.children.first
-                
-                try await blockWidgetService.createWidgetBlock(
-                    contextId: widgetObject.objectId,
-                    sourceId: details.id,
-                    layout: layout,
-                    limit: layout.limits.first ?? 0,
-                    position: first.map { .above(widgetId: $0.id) } ?? .end
-                )
-            }
-            dismiss.toggle()
-        } else {
-            guard let details = document.details else { return }
-            AnytypeAnalytics.instance().logAddToFavorites(!details.isFavorite)
-            try await service.setPin(objectIds: [objectId], !details.isFavorite)
+        guard let widgetObject else {
+            anytypeAssertionFailure("Widget object not found")
+            return
         }
+        
+        guard let details = document.details else {
+            anytypeAssertionFailure("Details object not found")
+            return
+        }
+        
+        if pinned {
+            
+            guard let widgetBlockId = widgetObject.widgetBlockIdFor(targetObjectId: details.id) else {
+                anytypeAssertionFailure("Block not found")
+                return
+            }
+            
+            try await blockWidgetService.removeWidgetBlock(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId)
+            
+        } else {
+            guard let layout = details.availableWidgetLayout.first else {
+                anytypeAssertionFailure("Default layout not found")
+                return
+            }
+            
+            let first = widgetObject.children.first
+            
+            try await blockWidgetService.createWidgetBlock(
+                contextId: widgetObject.objectId,
+                sourceId: details.id,
+                layout: layout,
+                limit: layout.limits.first ?? 0,
+                position: first.map { .above(widgetId: $0.id) } ?? .end
+            )
+        }
+        dismiss.toggle()
     }
 
     func changeLockState() async throws {
@@ -171,41 +164,6 @@ final class ObjectActionsViewModel: ObservableObject {
         try await service.delete(objectIds: [details.id])
         dismiss.toggle()
         output?.closeEditorAction()
-    }
-    
-    func createWidget() async throws {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .object)
-        guard let details = document.details else { return }
-        
-        guard let info = workspaceStorage.workspaceInfo(spaceId: details.spaceId) else {
-            anytypeAssertionFailure("Info not found")
-            return
-        }
-        
-        guard info.accountSpaceId == details.spaceId else {
-            anytypeAssertionFailure("Spaces are not equals")
-            return
-        }
-        guard let layout = details.availableWidgetLayout.first else {
-            anytypeAssertionFailure("Default layout not found")
-            return
-        }
-        let widgetObject = documentsProvider.document(objectId: info.widgetsId, spaceId: spaceId, mode: .preview)
-        try await widgetObject.open()
-        guard let first = widgetObject.children.first else {
-            anytypeAssertionFailure("First children not found")
-            return
-        }
-        try await blockWidgetService.createWidgetBlock(
-            contextId: info.widgetsId,
-            sourceId: details.id,
-            layout: layout,
-            limit: layout.limits.first ?? 0,
-            position: .above(widgetId: first.id)
-        )
-        AnytypeAnalytics.instance().logAddWidget(context: .object, createType: .manual)
-        toastData = ToastBarData(Loc.Actions.CreateWidget.success, type: .success)
-        dismiss.toggle()
     }
     
     func copyLinkAction() async throws {

@@ -140,7 +140,6 @@ final class SetObjectWidgetInternalViewModel {
                 rows = .compactList(rows: listRows, id: activeViewId ?? "")
             case .view:
                 if isSetByImageType() {
-                    // Delete with FeatureFlags.homeObjectTypeWidgets
                     let galleryRows = rowDetails?.map { details in
                         GalleryWidgetRowModel(
                             objectId: details.id,

@@ -33,11 +33,6 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
             }
-            .sheet(item: $model.showCreateWidgetData) {
-                CreateWidgetCoordinatorView(data: $0) {
-                    model.onFinishCreateSource(screenData: $0)
-                }
-            }
             .anytypeSheet(item: $model.createTypeData) {
                 CreateObjectTypeView(data: $0)
             }

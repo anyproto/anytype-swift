@@ -21,8 +21,6 @@ extension EditorScreenData: HomeClinkNavBarAddMenuRouteProvider {
             return .screenDate
         case .type:
             return .screenType
-        case .allObjects:
-            return .screenAllObjects
         }
     }
 }

@@ -79,11 +79,6 @@ final class HomeWidgetsViewModel {
         AnytypeAnalytics.instance().logScreenWidget()
     }
     
-    func onEditButtonTap() {
-        AnytypeAnalytics.instance().logEditWidget()
-        homeState = .editWidgets
-    }
-    
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
         widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
@@ -118,16 +113,6 @@ final class HomeWidgetsViewModel {
         output?.onSpaceSelected()
     }
     
-    func onCreateWidgetFromEditMode() {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .editor)
-        output?.onCreateWidgetSelected(context: .editor)
-    }
-    
-    func onCreateWidgetFromMainMode() {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .main)
-        output?.onCreateWidgetSelected(context: .main)
-    }
-    
     func onCreateObjectType() {
         output?.onCreateObjectType()
     }
@@ -158,20 +143,9 @@ final class HomeWidgetsViewModel {
             var newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
-            newWidgetBlocks.removeAll { $0.source == .library(.chat) }
-            
-            if FeatureFlags.homeObjectTypeWidgets {
-                newWidgetBlocks.removeAll { $0.source == .library(.allObjects) || $0.source == .library(.bin) }
-            }
-            
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
-            
-            // Reset panel for empty state
-            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
-                homeState = .readwrite
-            }
         }
     }
     
@@ -183,7 +157,6 @@ final class HomeWidgetsViewModel {
     }
     
     private func startObjectTypesTask() async {
-        guard FeatureFlags.homeObjectTypeWidgets else { return }
         let spaceId = spaceId
         
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)

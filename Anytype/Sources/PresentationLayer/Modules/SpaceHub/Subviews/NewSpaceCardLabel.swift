@@ -49,7 +49,7 @@ struct NewSpaceCardLabel: View {
         .background(DashboardWallpaper(
             mode: .spaceHub,
             wallpaper: wallpaper,
-            spaceIcon: spaceData.spaceView.iconImage
+            spaceIcon: spaceData.spaceView.objectIconImage
         ))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }

@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .swipeToReply)
     }
 
-    static var newSharingExtension: Bool {
-        value(for: .newSharingExtension)
-    }
-
     static var newSpaceMembersFlow: Bool {
         value(for: .newSpaceMembersFlow)
     }
@@ -48,10 +44,6 @@ public extension FeatureFlags {
 
     static var brandNewAuthFlow: Bool {
         value(for: .brandNewAuthFlow)
-    }
-
-    static var homeObjectTypeWidgets: Bool {
-        value(for: .homeObjectTypeWidgets)
     }
 
     static var turnOffAutomaticWidgetOpening: Bool {
@@ -143,7 +135,6 @@ public extension FeatureFlags {
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
-        .newSharingExtension,
         .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
@@ -151,7 +142,6 @@ public extension FeatureFlags {
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .brandNewAuthFlow,
-        .homeObjectTypeWidgets,
         .turnOffAutomaticWidgetOpening,
         .setKanbanView,
         .fullInlineSetImpl,
