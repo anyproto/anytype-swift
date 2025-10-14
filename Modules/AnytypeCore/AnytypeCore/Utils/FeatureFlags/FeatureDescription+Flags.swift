@@ -64,6 +64,11 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    static let showAllButtonInWidgets = FeatureDescription(
+        title: "See all as the last point in the widget - IOS-4945",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
+        defaultValue: true
+    )
     
     // MARK: - Experemental
     

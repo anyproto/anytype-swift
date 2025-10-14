@@ -116,7 +116,7 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
                     onTap: details.onItemTap
                 )
             }
-            rows = .gallery(rows: galleryRows)
+            rows = .gallery(rows: galleryRows, availableMoreObjects: availableMoreObjects)
         } else {
             switch setDocument.activeView.type {
             case .table, .list, .kanban, .calendar, .graph:
@@ -124,7 +124,7 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
                 rows = .compactList(rows: listRows, availableMoreObjects: availableMoreObjects)
             case .gallery:
                 let galleryRows = rowDetails.map { GalleryWidgetRowModel(details: $0) }
-                rows = .gallery(rows: galleryRows)
+                rows = .gallery(rows: galleryRows, availableMoreObjects: availableMoreObjects)
             }
         }
         

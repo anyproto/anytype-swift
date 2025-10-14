@@ -72,6 +72,7 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
         case .gallery(let rows, let id):
             GalleryWidgetView(
                 rows: rows,
+                showAllObjects: model.availableMoreObjects,
                 onShowAllObjects: {
                     model.onOpenObjectTap()
                 }

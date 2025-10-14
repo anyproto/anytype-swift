@@ -65,10 +65,10 @@ private struct ObjectTypeWidgetInternalView: View {
             ListWidgetContentView(style: .compactList, rows: rows, showAllObjects: availableMoreObjects) {
                 model.onShowAllTap()
             }
-        case .gallery(let rows):
-            GalleryWidgetView(rows: rows, onShowAllObjects: {
+        case .gallery(let rows, let availableMoreObjects):
+            GalleryWidgetView(rows: rows, showAllObjects: availableMoreObjects) {
                 model.onShowAllTap()
-            })
+            }
         case .none:
             EmptyView()
         }
