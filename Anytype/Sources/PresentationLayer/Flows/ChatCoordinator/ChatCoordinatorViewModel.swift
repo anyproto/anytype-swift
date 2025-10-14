@@ -32,6 +32,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var newLinkedObject: EditorScreenData?
     @Published var inviteLinkData: SpaceShareData?
     @Published var spaceShareData: SpaceShareData?
+    @Published var qrCodeInviteLink: URL?
     
     private var filesPickerData: FilesPickerData?
     private var photosPickerData: ChatPhotosPickerData?
@@ -105,6 +106,10 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
         } else {
             inviteLinkData = data
         }
+    }
+
+    func onShowQrCodeSelected(url: URL) {
+        qrCodeInviteLink = url
     }
     
     func onPushNotificationsAlertSelected() {

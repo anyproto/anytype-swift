@@ -153,10 +153,16 @@ struct ChatView: View {
         ConversationEmptyStateView(
             conversationType: model.conversationType,
             participantPermissions: model.participantPermissions,
-            action: {
+            addMembersAction: {
                 model.onTapInviteLink()
-            }
+            },
+            qrCodeAction: model.qrCodeInviteUrl != nil ? {
+                model.onTapShowQrCode()
+            } : nil
         )
+        .task {
+            await model.updateInviteState()
+        }
     }
     
     private var actionView: some View {

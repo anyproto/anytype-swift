@@ -307,6 +307,7 @@ enum ScreenQrRoute: String {
     case inviteLink = "InviteLink"
     case settingsSpace = "SettingsSpace"
     case spaceProfile = "SpaceProfile"
+    case chat = "Chat"
 }
 
 enum ClickShareSpaceCopyLinkRoute: String {
