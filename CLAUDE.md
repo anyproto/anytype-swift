@@ -65,7 +65,15 @@ make setup-middle    # Initial setup
    - Block subtitles: `[feature]BlockSubtitle`
    - Common words: `camera`, `photo`, `picture`, `video(1)`
 
-3. **Only if key doesn't exist**, add to `Modules/Loc/Sources/Loc/Resources/Localizable.xcstrings`:
+3. **Choosing the Right File**:
+   Localization is split into 3 files - select based on your feature:
+   - **Auth.xcstrings** (86 keys): Authentication, login/join flows, keychain, vault, onboarding, migration
+   - **Workspace.xcstrings** (493 keys): Spaces, objects, relations, collections, sets, types, templates, collaboration
+   - **UI.xcstrings** (667 keys): Settings, widgets, alerts, common UI elements, general app strings
+
+   **⚠️ CRITICAL**: Keys must be unique across ALL three files. Duplicate keys will break code generation.
+
+4. **Only if key doesn't exist**, add to the appropriate file in `Modules/Loc/Sources/Loc/Resources/`:
    ```json
    "Your localization key" : {
      "extractionState" : "manual",
@@ -80,7 +88,7 @@ make setup-middle    # Initial setup
    }
    ```
 
-4. **Generate and use**:
+5. **Generate and use**:
    ```bash
    make generate
    ```
@@ -92,7 +100,7 @@ make setup-middle    # Initial setup
 ### Key Patterns
 - **Naming**: Use short, descriptive keys → `"No properties yet"` ✅, `"No properties yet. Add some to this type."` ❌
 - **Hierarchical**: Use dots for organization → `"QR.join.title"` creates `Loc.Qr.Join.title`
-- **Generated file**: 160,000+ lines, use `rg` for searching
+- **Generated file**: All 3 localization files (Auth, Workspace, UI) generate into a single `Strings.swift` file (~5,000 lines). Use `rg` for searching
 - **Always import**: `import Loc` when using localization
 
 ## 🎨 Design System & Common UI Components
