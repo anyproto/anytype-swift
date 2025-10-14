@@ -70,6 +70,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let turnOffAutomaticWidgetOpening = FeatureDescription(
+        title: "Turn off automatic object opening - IOS-5309",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
+        defaultValue: true
+    )
+    
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
