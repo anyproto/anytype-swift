@@ -53,6 +53,11 @@ struct TreeWidgetView: View {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
+                    if model.availableMore {
+                        WidgetSeeAllRow {
+                            model.onSeeAllTap()
+                        }
+                    }
                     Spacer.fixedHeight(8)
                 }
             }
