@@ -1423,13 +1423,12 @@ public enum Loc {
     public enum Empty {
       public static let title = Loc.tr("Workspace", "Chat.Empty.Title", fallback: "You just created a chat")
       public enum Button {
-        public static let title = Loc.tr("Workspace", "Chat.Empty.Button.title", fallback: "Invite members")
+        public static let addMembers = Loc.tr("Workspace", "Chat.Empty.Button.AddMembers", fallback: "Add members")
       }
-      public enum Editor {
-        public static let description = Loc.tr("Workspace", "Chat.Empty.Editor.Description", fallback: "Write the first message to spark it up!")
-      }
-      public enum Owner {
-        public static let description = Loc.tr("Workspace", "Chat.Empty.Owner.Description", fallback: "Invite people and start the conversation!")
+      public enum Feature {
+        public static let availableOffline = Loc.tr("Workspace", "Chat.Empty.Feature.AvailableOffline", fallback: "Messages, docs & files available offline")
+        public static let privateEncrypted = Loc.tr("Workspace", "Chat.Empty.Feature.PrivateEncrypted", fallback: "Fully private and encrypted")
+        public static let yoursForever = Loc.tr("Workspace", "Chat.Empty.Feature.YoursForever", fallback: "Yours forever")
       }
     }
     public enum FileSyncError {
