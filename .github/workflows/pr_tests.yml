@@ -11,7 +11,7 @@ on:
 jobs:
   unit-tests:
     name: Run Unit Tests
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - name: Checkout
