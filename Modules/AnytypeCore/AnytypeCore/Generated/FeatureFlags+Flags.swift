@@ -46,6 +46,10 @@ public extension FeatureFlags {
         value(for: .brandNewAuthFlow)
     }
 
+    static var turnOffAutomaticWidgetOpening: Bool {
+        value(for: .turnOffAutomaticWidgetOpening)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -138,6 +142,7 @@ public extension FeatureFlags {
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .brandNewAuthFlow,
+        .turnOffAutomaticWidgetOpening,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
