@@ -1,11 +1,13 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct TreeWidgetView: View {
     
     let data: WidgetSubmoduleData
     
     @StateObject private var model: TreeWidgetViewModel
+    @State private var showAllButtonInWidgets = FeatureFlags.showAllButtonInWidgets
     
     init(
         data: WidgetSubmoduleData,
@@ -53,7 +55,7 @@ struct TreeWidgetView: View {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
-                    if model.availableMore {
+                    if showAllButtonInWidgets, model.availableMore {
                         WidgetSeeAllRow {
                             model.onSeeAllTap()
                         }

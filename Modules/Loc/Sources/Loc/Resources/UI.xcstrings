@@ -72040,6 +72040,17 @@
         }
       }
     },
+    "SeeAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See all"
+          }
+        }
+      }
+    },
     "Select all" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -572,6 +572,7 @@ public enum Loc {
   public static let search = Loc.tr("UI", "Search", fallback: "Search...")
   public static let searchForLanguage = Loc.tr("UI", "Search for language", fallback: "Search for language")
   public static let searchOrCreateNew = Loc.tr("UI", "Search or create new", fallback: "Search or create new")
+  public static let seeAll = Loc.tr("UI", "SeeAll", fallback: "See all")
   public static let selectAll = Loc.tr("UI", "Select all", fallback: "Select all")
   public static let selectDate = Loc.tr("UI", "Select date", fallback: "Select date")
   public static let selectFile = Loc.tr("UI", "Select file", fallback: "Select file")
