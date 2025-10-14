@@ -61,12 +61,14 @@ private struct ObjectTypeWidgetInternalView: View {
     @ViewBuilder
     private var content: some View {
         switch model.rows {
-        case .compactList(let rows):
-            ListWidgetContentView(style: .compactList, rows: rows)
-        case .gallery(let rows):
-            GalleryWidgetView(rows: rows, onShowAllObjects: {
+        case .compactList(let rows, let availableMoreObjects):
+            ListWidgetContentView(style: .compactList, rows: rows, showAllObjects: availableMoreObjects) {
                 model.onShowAllTap()
-            })
+            }
+        case .gallery(let rows, let availableMoreObjects):
+            GalleryWidgetView(rows: rows, showAllObjects: availableMoreObjects) {
+                model.onShowAllTap()
+            }
         case .none:
             EmptyView()
         }

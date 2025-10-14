@@ -25,13 +25,16 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     private var linkedObjectDetails: ObjectDetails?
     private var limit: Int = 0
+    private var allDetails: [ObjectDetails] = []
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = ""
     @Published private var icon: Icon?
+    @Published private var availableMore: Bool = false
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     var iconPublisher: AnyPublisher<Icon?, Never> { $icon.eraseToAnyPublisher() }
+    var availableMoreObjects: AnyPublisher<Bool, Never> { $availableMore.eraseToAnyPublisher() }
     @Published var allowCreateObject = true
     
     init(data: WidgetSubmoduleData) {
@@ -56,7 +59,7 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     func startTreeSubscription() async {
         for await details in subscriptionManager.detailsPublisher.values {
             guard let links = linkedObjectDetails?.links else { continue }
-            self.details = details.sorted { a, b in
+            self.allDetails = details.sorted { a, b in
                 return links.firstIndex(of: a.id) ?? 0 < links.firstIndex(of: b.id) ?? 0
             }
             limitDetails()
@@ -112,7 +115,8 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     }
     
     private func limitDetails() {
-        guard let details else { return }
-        self.details = Array(details.prefix(limit))
+        let details = Array(allDetails.prefix(limit))
+        availableMore = allDetails.count > details.count
+        self.details = details
     }
 }
