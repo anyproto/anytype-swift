@@ -42,6 +42,7 @@ private struct HomeWidgetsInternalView: View {
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
+        .homeBottomPanelHidden(false)
     }
     
     private var content: some View {
