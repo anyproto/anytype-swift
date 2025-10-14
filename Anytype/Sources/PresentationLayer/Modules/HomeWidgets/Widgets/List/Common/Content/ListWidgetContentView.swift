@@ -5,6 +5,8 @@ struct ListWidgetContentView: View {
     
     let style: ListWidgetStyle
     let rows: [ListWidgetRowModel]?
+    let showAllObjects: Bool
+    let allObjectsTap: () -> Void
     
     var body: some View {
         WidgetContainerWithEmptyState(showEmpty: rows?.isEmpty ?? false) {
@@ -19,6 +21,9 @@ struct ListWidgetContentView: View {
             if let rows {
                 ForEach(rows) {
                     rowView(row: $0, showDivider: $0.id != rows.last?.id)
+                }
+                if showAllObjects {
+                    WidgetSeeAllRow(onTap: allObjectsTap)
                 }
                 Spacer.fixedHeight(8)
             }

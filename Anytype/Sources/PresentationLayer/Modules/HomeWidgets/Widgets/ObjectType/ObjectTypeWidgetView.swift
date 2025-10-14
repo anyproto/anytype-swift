@@ -61,8 +61,10 @@ private struct ObjectTypeWidgetInternalView: View {
     @ViewBuilder
     private var content: some View {
         switch model.rows {
-        case .compactList(let rows):
-            ListWidgetContentView(style: .compactList, rows: rows)
+        case .compactList(let rows, let availableMoreObjects):
+            ListWidgetContentView(style: .compactList, rows: rows, showAllObjects: availableMoreObjects) {
+                model.onShowAllTap()
+            }
         case .gallery(let rows):
             GalleryWidgetView(rows: rows, onShowAllObjects: {
                 model.onShowAllTap()

@@ -50,6 +50,7 @@ final class SetObjectWidgetInternalViewModel {
     var rows: SetObjectViewWidgetRows = .list(rows: nil, id: "")
     var allowCreateObject = true
     var showUnsupportedBanner = false
+    var availableMoreObjects = false
     
     init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId
@@ -220,7 +221,7 @@ final class SetObjectWidgetInternalViewModel {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
-            await self?.updateRowDetails(details: data.items)
+            await self?.updateRowDetails(data: data)
         }
     }
     
@@ -273,12 +274,15 @@ final class SetObjectWidgetInternalViewModel {
         await updateViewSubscription()
     }
     
-    private func updateRowDetails(details: [ObjectDetails]) {
+    private func updateRowDetails(data: SubscriptionStorageState) {
         guard let setDocument else { return }
+        
+        availableMoreObjects = data.total > data.items.count
+        
         let rowDetails = setObjectWidgetOrderHelper.reorder(
             setDocument: setDocument,
             subscriptionStorage: subscriptionStorage,
-            details: details,
+            details: data.items,
             onItemTap: { [weak self] details, sortedDetails in
                 self?.handleTapOnObject(details: details, allDetails: sortedDetails)
             }

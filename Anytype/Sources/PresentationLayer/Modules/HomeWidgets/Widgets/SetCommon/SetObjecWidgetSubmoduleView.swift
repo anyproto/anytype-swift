@@ -60,11 +60,15 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
     private var rows: some View {
         switch model.rows {
         case .list(let rows, let id):
-            ListWidgetContentView(style: .list, rows: rows)
-                .id(id)
+            ListWidgetContentView(style: .list, rows: rows, showAllObjects: model.availableMoreObjects) {
+                model.onOpenObjectTap()
+            }
+            .id(id)
         case .compactList(let rows, let id):
-            ListWidgetContentView(style: .compactList, rows: rows)
-                .id(id)
+            ListWidgetContentView(style: .compactList, rows: rows, showAllObjects: model.availableMoreObjects) {
+                model.onOpenObjectTap()
+            }
+            .id(id)
         case .gallery(let rows, let id):
             GalleryWidgetView(
                 rows: rows,

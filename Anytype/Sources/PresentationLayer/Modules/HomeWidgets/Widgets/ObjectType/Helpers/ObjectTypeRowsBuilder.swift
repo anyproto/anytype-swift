@@ -98,13 +98,13 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
                         }
                     }
                 )
-                await updateRows(rowDetails: rowDetails)
+                await updateRows(rowDetails: rowDetails, availableMoreObjects: state.total > state.items.count)
             }
             
         } catch {}
     }
     
-    private func updateRows(rowDetails: [SetContentViewItemConfiguration]) async {
+    private func updateRows(rowDetails: [SetContentViewItemConfiguration], availableMoreObjects: Bool) async {
         let rows: ObjectTypeWidgetRowType
         if isImageType {
             let galleryRows = rowDetails.map { details in
@@ -121,7 +121,7 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
             switch setDocument.activeView.type {
             case .table, .list, .kanban, .calendar, .graph:
                 let listRows = rowDetails.map { ListWidgetRowModel(details: $0) }
-                rows = .compactList(rows: listRows)
+                rows = .compactList(rows: listRows, availableMoreObjects: availableMoreObjects)
             case .gallery:
                 let galleryRows = rowDetails.map { GalleryWidgetRowModel(details: $0) }
                 rows = .gallery(rows: galleryRows)
