@@ -50,6 +50,7 @@ make setup-middle    # Initial setup
 - **All user-facing text must be localized** for international support
 - **Do not add comments** unless explicitly requested
 - **We only work in feature branches** - never push directly to develop/main
+- **Remove unused code after refactoring** - Delete unused properties, functions, and entire files that are no longer referenced
 
 ## 📝 Localization System
 
