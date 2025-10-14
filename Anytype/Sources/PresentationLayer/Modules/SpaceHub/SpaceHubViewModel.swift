@@ -23,7 +23,6 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var notificationsDenied = false
     @Published var spaceMuteData: SpaceMuteData?
-    @Published var toastBarData: ToastBarData?
     @Published var showLoading = false
     @Published var profileIcon: Icon?
     @Published var spaceToDelete: StringIdentifiable?
@@ -83,17 +82,10 @@ final class SpaceHubViewModel: ObservableObject {
     func pin(spaceView: SpaceView) async throws {
         guard let spaces else { return }
         let pinnedSpaces = spaces.filter { $0.spaceView.isPinned }
-        
-        let pinnedSpacesLimit = 6
-        if pinnedSpaces.count >= pinnedSpacesLimit {
-            toastBarData = ToastBarData(Loc.pinLimitReached(pinnedSpacesLimit), type: .failure)
-            UINotificationFeedbackGenerator().notificationOccurred(.warning)
-            return
-        }
-        
+
         var newOrder = pinnedSpaces.filter { $0.spaceView.id != spaceView.id }.map(\.spaceView.id)
         newOrder.insert(spaceView.id, at: 0)
-        
+
         try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
         AnytypeAnalytics.instance().logPinSpace()
     }
