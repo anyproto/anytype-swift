@@ -8,8 +8,8 @@ import AnytypeCore
 final class RemoteStorageViewModel: ObservableObject {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
     @Injected(\.participantSpacesStorage)

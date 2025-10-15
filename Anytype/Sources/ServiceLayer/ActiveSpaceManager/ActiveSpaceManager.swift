@@ -17,8 +17,8 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     // MARK: - DI
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     
@@ -60,7 +60,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
             if let spaceId {
                 do {
                     let info = try await workspaceService.workspaceOpen(spaceId: spaceId, withChat: true)
-                    workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
+                    workspaceStorage.addSpaceInfo(spaceId: spaceId, info: info)
                     await objectTypeProvider.startSubscription(spaceId: spaceId)
                     await propertyDetailsStorage.startSubscription(spaceId: spaceId)
                     
@@ -85,7 +85,7 @@ actor ActiveSpaceManager: ActiveSpaceManagerProtocol, Sendable {
     
     func startSubscription() {
         workspaceSubscription = Task { [weak self, workspaceStorage] in
-            for await workspaces in workspaceStorage.allWorkspsacesPublisher.values {
+            for await workspaces in workspaceStorage.allSpaceViewsPublisher.values {
                 await self?.handleSpaces(workspaces: workspaces)
             }
         }

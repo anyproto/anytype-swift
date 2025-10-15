@@ -7,7 +7,7 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     
     let spaceId: String
     let showBackground: Bool
@@ -21,7 +21,7 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     init(spaceId: String, showBackground: Bool) {
         self.spaceId = spaceId
         self.showBackground = showBackground
-        let activeSpaceInfo = activeSpaceManager.workspaceInfo
+        let activeSpaceInfo = activeSpaceManager.spaceInfo
         if activeSpaceInfo?.accountSpaceId == spaceId {
             info = activeSpaceInfo
         } else {

@@ -40,10 +40,10 @@ struct SpaceSettingsView: View {
                 QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace, route: .settingsSpace)
             }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
-                SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
+                SpaceDeleteAlert(spaceId: model.spaceInfo.accountSpaceId)
             }
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
-                SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
+                SpaceLeaveAlert(spaceId: model.spaceInfo.accountSpaceId)
             }
             .anytypeSheet(isPresented: $model.showInfoView) {
                 SpaceSettingsInfoView(info: model.info)

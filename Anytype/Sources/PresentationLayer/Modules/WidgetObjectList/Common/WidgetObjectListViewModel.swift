@@ -22,8 +22,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
     
     
     // MARK: - State

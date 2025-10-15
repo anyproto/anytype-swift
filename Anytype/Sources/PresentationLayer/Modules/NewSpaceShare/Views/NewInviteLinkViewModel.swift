@@ -20,8 +20,8 @@ final class NewInviteLinkViewModel: ObservableObject {
     @Published var inviteType: SpaceRichIviteType?
     @Published var inviteChangeConfirmation: SpaceRichIviteType?
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.universalLinkParser)

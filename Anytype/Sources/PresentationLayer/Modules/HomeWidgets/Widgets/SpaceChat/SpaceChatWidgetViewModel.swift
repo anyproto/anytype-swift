@@ -6,8 +6,8 @@ import AnytypeCore
 @MainActor
 final class SpaceChatWidgetViewModel: ObservableObject {
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.chatMessagesPreviewsStorage)
     private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     @Injected(\.widgetActionsViewCommonMenuProvider)

@@ -23,7 +23,7 @@ fileprivate struct SpaceSettingInternalsCoordinator: View {
     }
     
     var body: some View {
-        SpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
+        SpaceSettingsView(workspaceInfo: model.spaceInfo, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

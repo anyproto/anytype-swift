@@ -42,7 +42,7 @@ final class SpaceProfileViewModel: ObservableObject {
     private var linkUpdated: Bool = false
     
     init(info: AccountInfo) {
-        self.workspaceInfo = info
+        self.spaceInfo = info
     }
     
     func setupSubscriptions() async {

@@ -20,8 +20,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantsStorage: any ParticipantsStorageProtocol
     @Injected(\.mentionObjectsService)
     private var mentionObjectsService: any MentionObjectsServiceProtocol
     @Injected(\.chatActionService)

@@ -17,10 +17,10 @@ struct SpaceProfileView: View {
                 ActivityView(activityItems: [link])
             }
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
-                SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
+                SpaceDeleteAlert(spaceId: model.spaceInfo.accountSpaceId)
             }
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
-                SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
+                SpaceLeaveAlert(spaceId: model.spaceInfo.accountSpaceId)
             }
             .anytypeSheet(isPresented: $model.showInfoView) {
                 SpaceSettingsInfoView(info: model.settingsInfo)

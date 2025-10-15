@@ -31,7 +31,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
         self.type = type
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
-        self.spaceId = data.workspaceInfo.accountSpaceId
+        self.spaceId = data.spaceInfo.accountSpaceId
         self.name = type.title
     }
     

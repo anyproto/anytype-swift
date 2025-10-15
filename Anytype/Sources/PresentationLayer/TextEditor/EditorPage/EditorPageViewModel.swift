@@ -28,8 +28,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var accountManager: any AccountManagerProtocol
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var participantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var participantStorage: any ParticipantsStorageProtocol
     @Injected(\.publishedUrlBuilder)
     private var publishedUrlBuilder: any PublishedUrlBuilderProtocol
     
