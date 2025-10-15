@@ -6,7 +6,7 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class NewSpaceShareViewModel: ObservableObject {
+final class SpaceShareViewModel: ObservableObject {
     
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
@@ -29,7 +29,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     private var canChangeReaderToWriter = false
     
     let data: SpaceShareData
-    weak var output: (any NewInviteLinkModuleOutput)?
+    weak var output: (any InviteLinkModuleOutput)?
     var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
@@ -50,7 +50,7 @@ final class NewSpaceShareViewModel: ObservableObject {
     @Published var notifyUpdateLinkView = UUID()
     @Published var showStopSharingAnEmptySpaceAlert = false
     
-    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
+    init(data: SpaceShareData, output: (any InviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
     }

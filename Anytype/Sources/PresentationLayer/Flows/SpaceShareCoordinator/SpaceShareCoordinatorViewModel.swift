@@ -3,7 +3,7 @@ import SwiftUI
 import Services
 
 @MainActor
-final class SpaceShareCoordinatorViewModel: ObservableObject, NewInviteLinkModuleOutput {
+final class SpaceShareCoordinatorViewModel: ObservableObject, InviteLinkModuleOutput {
     
     @Published var showMoreInfo = false
     @Published var shareInviteLink: URL? = nil
@@ -15,7 +15,7 @@ final class SpaceShareCoordinatorViewModel: ObservableObject, NewInviteLinkModul
         self.data = data
     }
     
-    // MARK: - NewInviteLinkModuleOutput
+    // MARK: - InviteLinkModuleOutput
     
     func onMoreInfoSelected() {
         showMoreInfo = true

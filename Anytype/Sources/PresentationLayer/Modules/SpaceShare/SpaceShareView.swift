@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 import Services
 
-struct NewSpaceShareView: View {
-    
-    @StateObject private var model: NewSpaceShareViewModel
-    
-    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
-        self._model = StateObject(wrappedValue: NewSpaceShareViewModel(data: data, output: output))
+struct SpaceShareView: View {
+
+    @StateObject private var model: SpaceShareViewModel
+
+    init(data: SpaceShareData, output: (any InviteLinkModuleOutput)?) {
+        self._model = StateObject(wrappedValue: SpaceShareViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -54,7 +54,7 @@ struct NewSpaceShareView: View {
                 VStack(spacing: 0) {
                     
                     SectionHeaderView(title: Loc.SpaceShare.Invite.title)
-                    NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, output: model.output)
+                    InviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, output: model.output)
                     
                     SectionHeaderView(title: Loc.SpaceShare.members)
                     if let reason = model.upgradeTooltipData {

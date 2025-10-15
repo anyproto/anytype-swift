@@ -1,16 +1,16 @@
 import Foundation
 import SwiftUI
 
-struct NewInviteLinkView: View {
-    
-    @StateObject private var model: NewInviteLinkViewModel
+struct InviteLinkView: View {
+
+    @StateObject private var model: InviteLinkViewModel
     @Binding private var notifyUpdateLinkView: UUID
     let canChangeInvite: Bool
-    
-    init(data: SpaceShareData, notifyUpdateLinkView: Binding<UUID>, canChangeInvite: Bool, output: (any NewInviteLinkModuleOutput)?) {
+
+    init(data: SpaceShareData, notifyUpdateLinkView: Binding<UUID>, canChangeInvite: Bool, output: (any InviteLinkModuleOutput)?) {
         self.canChangeInvite = canChangeInvite
         self._notifyUpdateLinkView = notifyUpdateLinkView
-        self._model = StateObject(wrappedValue: NewInviteLinkViewModel(data: data, output: output))
+        self._model = StateObject(wrappedValue: InviteLinkViewModel(data: data, output: output))
     }
     
     var body: some View {

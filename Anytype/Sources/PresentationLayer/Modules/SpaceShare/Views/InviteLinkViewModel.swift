@@ -4,13 +4,13 @@ import ProtobufMessages
 
 
 @MainActor
-protocol NewInviteLinkModuleOutput: AnyObject {
+protocol InviteLinkModuleOutput: AnyObject {
     func showQrCode(url: URL)
     func shareInvite(url: URL)
 }
 
 @MainActor
-final class NewInviteLinkViewModel: ObservableObject {
+final class InviteLinkViewModel: ObservableObject {
     
     @Published var shareLink: URL? = nil
     @Published var toastBarData: ToastBarData?
@@ -29,9 +29,9 @@ final class NewInviteLinkViewModel: ObservableObject {
     
     private let data: SpaceShareData
     private var spaceId: String { data.spaceId }
-    private weak var output: (any NewInviteLinkModuleOutput)?
-    
-    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
+    private weak var output: (any InviteLinkModuleOutput)?
+
+    init(data: SpaceShareData, output: (any InviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
     }
