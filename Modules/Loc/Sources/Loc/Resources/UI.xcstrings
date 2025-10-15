@@ -36788,7 +36788,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Always pick object type when creating"
+            "value" : "Beim Erstellen immer den Objekttyp auswählen"
           }
         },
         "en" : {
@@ -57434,7 +57434,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No properties yet. Add some to this type."
+            "value" : "Noch keine Eigenschaften. Füge welche zu diesem Typ hinzu."
           }
         },
         "en" : {
@@ -74997,7 +74997,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scan documents"
+            "value" : "Dokumente scannen"
           }
         },
         "en" : {
@@ -76339,7 +76339,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You phone doesn’t have a passcode or biometric authorization. It might make it easier to steal your data. Enable it in your app settings to secure your data."
+            "value" : "Dein Telefon verfügt über keinen Passcode und keine biometrische Autorisierung. Dadurch könnten deine Daten leichter gestohlen werden. Aktiviere diese Funktion in deinen App-Einstellungen, um deine Daten zu schützen."
           }
         },
         "en" : {
@@ -76771,9 +76771,147 @@
     "SeeAll" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "See all"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lihat semua"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tümünü gör"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "See all"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "See all"
           }
         }
@@ -81146,7 +81284,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto Create Type Widgets"
+            "value" : "Typ-Widgets automatisch erstellen"
           }
         },
         "en" : {
@@ -108195,7 +108333,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored."
+            "value" : "Wir haben die Funktionsweise von Widgets überarbeitet, sodass dieses Widget nicht mehr unterstützt wird. Nach dem Löschen kann dieses Widget nicht wiederhergestellt werden."
           }
         },
         "en" : {
