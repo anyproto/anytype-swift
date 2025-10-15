@@ -6,7 +6,7 @@ struct PageNavigationBackButton: View {
     @Environment(\.pageNavigationHiddenBackButton) private var pageNavigationHiddenBackButton
     
     var body: some View {
-        IncreaseTapButton {
+        ExpandedTapAreaButton {
             pageNavigation.pop()
         } label: {
             Image(asset: .X24.back)
