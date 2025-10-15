@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct IncreaseTapButton<Label: View>: View {
+struct ExpandedTapAreaButton<Label: View>: View {
     
     let action: @MainActor () -> Void
     let insets: EdgeInsets

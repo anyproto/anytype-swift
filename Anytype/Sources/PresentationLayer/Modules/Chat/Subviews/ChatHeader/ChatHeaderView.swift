@@ -11,7 +11,7 @@ struct ChatHeaderView: View {
     
     var body: some View {
         PageNavigationHeader {
-            IncreaseTapButton {
+            ExpandedTapAreaButton {
                 model.tapOpenWidgets()
             } label: {
                 HStack(spacing: 6) {
@@ -34,7 +34,7 @@ struct ChatHeaderView: View {
             }
         } rightView: {
             if model.showWidgetsButton {
-                IncreaseTapButton {
+                ExpandedTapAreaButton {
                     model.tapOpenWidgets()
                 } label: {
                     IconView(icon: model.icon)
