@@ -20,9 +20,16 @@ struct ChatView: View {
                 .ignoresSafeArea()
         }
         .overlay(alignment: .top) {
-            ChatHeaderView(spaceId: model.spaceId, chatId: model.chatId) {
-                model.onTapWidgets()
-            }
+            ChatHeaderView(
+                spaceId: model.spaceId,
+                chatId: model.chatId,
+                onTapOpenWidgets: {
+                    model.onTapWidgets()
+                },
+                onTapAddMembers: {
+                    model.onTapInviteLink()
+                }
+            )
         }
         .onAppear {
             model.keyboardDismiss = keyboardDismiss

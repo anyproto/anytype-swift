@@ -6,33 +6,41 @@ import AnytypeCore
 
 @MainActor
 final class ChatHeaderViewModel: ObservableObject {
-    
+
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    
+
     @Published var title: String?
     @Published var icon: Icon?
     @Published var showWidgetsButton: Bool = false
     @Published var chatLoading = false
     @Published var spaceLoading = false
     @Published var muted = false
-    
-    var showLoading: Bool {
-        chatLoading || spaceLoading
-    }
-    
+    @Published var showAddMembersButton: Bool = false
+
+    var showLoading: Bool { chatLoading || spaceLoading }
+
     private let spaceId: String
     private let chatId: String
     private let onTapOpenWidgets: () -> Void
+    private let onTapAddMembers: (() -> Void)
     private let chatObject: any BaseDocumentProtocol
-    
-    init(spaceId: String, chatId: String, onTapOpenWidgets: @escaping () -> Void) {
+
+    init(
+        spaceId: String,
+        chatId: String,
+        onTapOpenWidgets: @escaping () -> Void,
+        onTapAddMembers: @escaping (() -> Void)
+    ) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.onTapOpenWidgets = onTapOpenWidgets
+        self.onTapAddMembers = onTapAddMembers
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
     
@@ -44,18 +52,20 @@ final class ChatHeaderViewModel: ObservableObject {
         _ = await (spaceViewSub, chatSub, spaceStatusSub)
     }
     
-    func tapOpenWidgets() {
-        onTapOpenWidgets()
-    }
+    func tapOpenWidgets() { onTapOpenWidgets() }
+
+    func tapAddMembers() { onTapAddMembers() }
     
     // MARK: - Private
     
     private func subscribeOnSpaceView() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
+            let spaceView = participantSpaceView.spaceView
             title = spaceView.title
             icon = spaceView.objectIconImage
             showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
             muted = FeatureFlags.muteSpacePossibility && !spaceView.pushNotificationMode.isUnmutedAll
+            showAddMembersButton = participantSpaceView.participant?.permission == .owner
         }
     }
     
