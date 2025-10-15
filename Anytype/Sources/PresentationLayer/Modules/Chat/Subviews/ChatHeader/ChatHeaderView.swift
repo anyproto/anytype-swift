@@ -22,7 +22,7 @@ struct ChatHeaderView: View {
     
     var body: some View {
         PageNavigationHeader {
-            IncreaseTapButton {
+            ExpandedTapAreaButton {
                 model.tapOpenWidgets()
             } label: {
                 HStack(spacing: 6) {
@@ -46,7 +46,7 @@ struct ChatHeaderView: View {
         } rightView: {
             HStack(spacing: 16) {
                 if model.showAddMembersButton {
-                    IncreaseTapButton {
+                    ExpandedTapAreaButton {
                         model.tapAddMembers()
                     } label: {
                         Image(systemName: "person.fill.badge.plus")
@@ -55,7 +55,7 @@ struct ChatHeaderView: View {
                     }
                 }
                 if model.showWidgetsButton {
-                    IncreaseTapButton {
+                    ExpandedTapAreaButton {
                         model.tapOpenWidgets()
                     } label: {
                         IconView(icon: model.icon)
