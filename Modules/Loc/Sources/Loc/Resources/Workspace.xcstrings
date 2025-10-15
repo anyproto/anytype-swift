@@ -168,7 +168,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to create file. Try again."
+            "value" : "Fehler beim Erstellen der Datei. Versuche es erneut."
           }
         },
         "en" : {
@@ -529,13 +529,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachment at a time"
+                  "value" : "Du kannst nur %d Anhang auf einmal hochladen"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Du kannst nur %d Anhänge auf einmal hochladen"
                 }
               }
             }
@@ -1967,9 +1967,147 @@
     "Chat.Empty.Feature.YoursForever" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Für immer deins"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Yours forever"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tuyo para siempre"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Milikmu selamanya"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sonsuza kadar sizin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yours forever"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Yours forever"
           }
         }
@@ -1978,9 +2116,147 @@
     "Chat.Empty.Feature.AvailableOffline" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nachrichten, Dokumente & Dateien offline verfügbar"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mensajes, documentos y archivos disponibles sin conexión"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pesan, dokumen, dan berkas tersedia di luar jaringan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mesajlar, belgeler ve dosyalar çevrimdışı kullanılabilir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Messages, docs & files available offline"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Messages, docs & files available offline"
           }
         }
@@ -1989,9 +2265,147 @@
     "Chat.Empty.Feature.PrivateEncrypted" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Vollständig privat und verschlüsselt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Completamente privado y cifrado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sepenuhnya pribadi dan terenkripsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tamamen gizli ve şifreli"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fully private and encrypted"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Fully private and encrypted"
           }
         }
@@ -2000,9 +2414,147 @@
     "Chat.Empty.Button.AddMembers" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mitglieder hinzufügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Add members"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Añadir miembros"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tambahkan anggota"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üye ekle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Add members"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Add members"
           }
         }
@@ -2175,7 +2727,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This version doesn’t support sending files or images. Update the app to share media in chats."
+            "value" : "Diese Version unterstützt das Senden von Dateien oder Bildern nicht. Aktualisiere die App, um Medien in Chats zu teilen."
           }
         },
         "en" : {
@@ -2473,7 +3025,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We couldn’t connect right now. This may be due to no internet or a temporary sync issue. We’ll keep trying in the background."
+            "value" : "Wir konnten gerade keine Verbindung herstellen. Dies kann an einer fehlenden Internetverbindung oder einem vorübergehenden Synchronisierungsproblem liegen. Wir versuchen es im Hintergrund weiter."
           }
         },
         "en" : {
@@ -4411,7 +4963,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype now supports real-time chat in Shared Channels — so your thoughts and dialogues can grow together."
+            "value" : "Anytype unterstützt jetzt Echtzeit-Chats in geteilten Kanälen — so können eure Gedanken und Dialoge gemeinsam wachsen."
           }
         },
         "en" : {
@@ -4858,7 +5410,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your Vault just leveled up"
+            "value" : "Dein Tresor ist gerade aufgestiegen"
           }
         },
         "en" : {
@@ -5007,7 +5559,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share ideas, drop docs, edit together — everything flows in real time."
+            "value" : "Ideen teilen, Dokumente ablegen, gemeinsam bearbeiten — alles läuft in Echtzeit ab."
           }
         },
         "en" : {
@@ -5305,7 +5857,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your pages, lists, and files — structured, surfaced, and always within reach."
+            "value" : "Deine Seiten, Listen und Dateien — strukturiert, übersichtlich und immer griffbereit."
           }
         },
         "en" : {
@@ -33934,7 +34486,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "insert-page-name-here"
+            "value" : "Seitenname-hier-einfügen"
           }
         },
         "en" : {
@@ -34083,7 +34635,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This object is live on the web."
+            "value" : "Dieses Objekt ist live im Web."
           }
         },
         "en" : {
@@ -34828,7 +35380,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on."
+            "value" : "Es sieht so aus, als hättest du Benachrichtigungen nicht zugelassen. Das bedeutet, dass du keine neuen Nachrichten, Erwähnungen oder Einladungen sehen wirst. Gehe zu den Einstellungen, um sie zu aktivieren."
           }
         },
         "en" : {
@@ -36169,7 +36721,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Receive notifications about new messages by enabling them in your device settings."
+            "value" : "Erhalte Benachrichtigungen über neue Nachrichten, indem du diese in deinen Geräteeinstellungen aktivierst."
           }
         },
         "en" : {
@@ -39596,7 +40148,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Relation object"
+            "value" : "Beziehungsobjekt"
           }
         },
         "en" : {
@@ -56773,7 +57325,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you switch link type, your existing link will be deactivated."
+            "value" : "Wenn du den Link-Typ wechselst, wird dein bestehender Link deaktiviert."
           }
         },
         "en" : {
@@ -58414,7 +58966,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
+            "value" : "Gruppenchat mit geteilten Daten. Am besten geeignet für kleine Gruppen oder eine einzelne fortlaufende Konversation."
           }
         },
         "en" : {
@@ -58861,7 +59413,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
+            "value" : "Hub für fortgeschrittene Datenverwaltung. Mehrfach-Chats nach Thema bald verfügbar. Ideal für größere Teams."
           }
         },
         "en" : {
@@ -63481,7 +64033,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Once they click your link and request access, you can set their access rights."
+            "value" : "Sobald sie auf deinen Link klicken und Zugriff anfordern, kannst du ihre Zugriffsrechte festlegen."
           }
         },
         "en" : {
@@ -64544,7 +65096,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share this link so that others can join your Stream."
+            "value" : "Teile diesen Link, damit andere deinem Stream beitreten können."
           }
         },
         "en" : {
@@ -66183,7 +66735,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've been invited to join %@, created by %@"
+            "value" : "Du wurdest eingeladen, %@, erstellt von %@, beizutreten"
           }
         },
         "en" : {
