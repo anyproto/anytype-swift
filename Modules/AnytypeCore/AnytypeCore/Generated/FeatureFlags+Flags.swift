@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .swipeToReply)
     }
 
-    static var newSpaceMembersFlow: Bool {
-        value(for: .newSpaceMembersFlow)
-    }
-
     static var removeMessagesFromNotificationsCenter: Bool {
         value(for: .removeMessagesFromNotificationsCenter)
     }
@@ -139,7 +135,6 @@ public extension FeatureFlags {
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
-        .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
         .fixCollectionViewReuseCrashInEditor,

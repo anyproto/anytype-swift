@@ -2,7 +2,6 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import Services
-import AnytypeCore
 
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
@@ -30,7 +29,6 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     @Published var cameraData: SimpleCameraData?
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var newLinkedObject: EditorScreenData?
-    @Published var inviteLinkData: SpaceShareData?
     @Published var spaceShareData: SpaceShareData?
     @Published var qrCodeInviteLink: URL?
     
@@ -100,12 +98,7 @@ final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
     }
     
     func onInviteLinkSelected() {
-        let data = SpaceShareData(spaceId: spaceId, route: .chat)
-        if FeatureFlags.newSpaceMembersFlow {
-            spaceShareData = data
-        } else {
-            inviteLinkData = data
-        }
+        spaceShareData = SpaceShareData(spaceId: spaceId, route: .chat)
     }
 
     func onShowQrCodeSelected(url: URL) {
