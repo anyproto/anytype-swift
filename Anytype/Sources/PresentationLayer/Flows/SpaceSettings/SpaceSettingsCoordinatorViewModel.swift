@@ -29,7 +29,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private var spaceShareCompletion: (() -> Void)?
     
     init(workspaceInfo: AccountInfo) {
-        self.spaceInfo = workspaceInfo
+        self.workspaceInfo = workspaceInfo
     }
     
     // MARK: - SpaceSettingsModuleOutput
