@@ -6,7 +6,7 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class NewSpaceShareViewModel: ObservableObject {
+final class SpaceShareViewModel: ObservableObject {
     
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
