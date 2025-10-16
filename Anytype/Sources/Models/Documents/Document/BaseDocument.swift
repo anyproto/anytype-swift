@@ -41,7 +41,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     private var historyVersionsService: any HistoryVersionsServiceProtocol
     private let propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
-    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let accountParticipantsStorage: any ParticipantsStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
 
     private let basicUserInfoStorage: any BasicUserInfoStorageProtocol = Container.shared.basicUserInfoStorage()
@@ -71,7 +71,7 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         propertyDetailsStorage: some PropertyDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
-        accountParticipantsStorage: some AccountParticipantsStorageProtocol,
+        accountParticipantsStorage: some ParticipantsStorageProtocol,
         eventsListener: some EventsListenerProtocol,
         viewModelSetter: some DocumentViewModelSetterProtocol,
         infoContainer: some InfoContainerProtocol,

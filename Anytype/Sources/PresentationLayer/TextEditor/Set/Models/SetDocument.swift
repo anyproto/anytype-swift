@@ -76,7 +76,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
     private var subscriptions = [AnyCancellable]()
     private let propertyDetailsStorage: any PropertyDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
-    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let accountParticipantsStorage: any ParticipantsStorageProtocol
     private let permissionsBuilder: any SetPermissionsBuilderProtocol
     @Injected(\.setContentViewDataBuilder)
     var dataBuilder: any SetContentViewDataBuilderProtocol
@@ -86,7 +86,7 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         inlineParameters: EditorInlineSetObject?,
         propertyDetailsStorage: some PropertyDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
-        accountParticipantsStorage: some AccountParticipantsStorageProtocol,
+        accountParticipantsStorage: some ParticipantsStorageProtocol,
         permissionsBuilder: some SetPermissionsBuilderProtocol
     ) {
         self.document = document

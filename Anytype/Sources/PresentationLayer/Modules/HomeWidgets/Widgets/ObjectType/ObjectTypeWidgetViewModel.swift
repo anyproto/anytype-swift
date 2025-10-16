@@ -10,8 +10,8 @@ final class ObjectTypeWidgetViewModel {
     private let expandedService: any ExpandedServiceProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.accountParticipantsStorage) @ObservationIgnored
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage) @ObservationIgnored
+    private var accountParticipantsStorage: any ParticipantsStorageProtocol
     private let rowsBuilder: any ObjectTypeRowsBuilderProtocol
     
     private let info: ObjectTypeWidgetInfo

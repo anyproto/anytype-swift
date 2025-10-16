@@ -23,9 +23,9 @@ final class HomeWidgetsViewModel {
     @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
-    @Injected(\.accountParticipantsStorage) @ObservationIgnored
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    @Injected(\.participantsStorage) @ObservationIgnored
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager) @ObservationIgnored
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.objectTypeProvider) @ObservationIgnored

@@ -70,6 +70,6 @@ struct HomeWidgetSubmoduleView: View {
     }
     
     private var widgetData: WidgetSubmoduleData {
-        WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, homeState: $homeState, workspaceInfo: workspaceInfo, output: output)
+        WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, homeState: $homeState, spaceInfo: workspaceInfo, output: output)
     }
 }

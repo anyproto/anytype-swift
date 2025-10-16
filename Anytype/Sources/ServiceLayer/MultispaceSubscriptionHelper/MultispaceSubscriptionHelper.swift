@@ -14,7 +14,7 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel & Sendable>: Sendab
     private let subIdPrefix: String
     private let subscriptionBuilder: any MultispaceSubscriptionDataBuilderProtocol
     
-    private let workspacessStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspacessStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
     private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
     
@@ -32,12 +32,12 @@ final class MultispaceSubscriptionHelper<Value: DetailsModel & Sendable>: Sendab
     
     func startSubscription(update: @escaping @Sendable () -> Void) async {
         // Start first subscription in current async context for guarantee data state before return
-        let spaceIds = workspacessStorage.allWorkspaces
+        let spaceIds = workspacessStorage.allSpaceViews
             .filter { $0.isActive || $0.isLoading }
             .map { $0.targetSpaceId }
         await updateSubscriptions(spaceIds: spaceIds, update: update)
         
-        spacesSubscription.value = workspacessStorage.allWorkspsacesPublisher
+        spacesSubscription.value = workspacessStorage.allSpaceViewsPublisher
             .map { $0.filter { $0.isActive || $0.isLoading }.map { $0.targetSpaceId } }
             .removeDuplicates()
             .receiveOnMain()

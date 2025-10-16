@@ -6,9 +6,9 @@ import AnytypeCore
 
 @MainActor
 final class ChatHeaderViewModel: ObservableObject {
-
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
     @Injected(\.participantSpacesStorage)

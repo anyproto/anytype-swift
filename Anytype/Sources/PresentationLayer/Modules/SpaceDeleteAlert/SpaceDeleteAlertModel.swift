@@ -6,8 +6,8 @@ final class SpaceDeleteAlertModel: ObservableObject {
     
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     
     private let spaceId: String
     

@@ -7,7 +7,7 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     
     let spaceId: String
     let showBackground: Bool

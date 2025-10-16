@@ -12,11 +12,11 @@ actor EncryptionKeyEventHandler: EncryptionKeyEventHandlerProtocol {
     
     private let encryptionKeyService: any EncryptionKeyServiceProtocol = Container.shared.encryptionKeyService()
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     
     func startSubscription() async {
-        let stream = workspaceStorage.allWorkspsacesPublisher.values
+        let stream = workspaceStorage.allSpaceViewsPublisher.values
             .map { $0.map { $0.pushNotificationEncryptionKey }.filter { $0.isNotEmpty } }
             .removeDuplicates()
         for await keys in stream {

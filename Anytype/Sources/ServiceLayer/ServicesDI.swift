@@ -16,8 +16,8 @@ extension Container {
         self { AccountEventHandler() }.singleton
     }
     
-    var workspaceStorage: Factory<any WorkspacesStorageProtocol> {
-        self { WorkspacesStorage() }.singleton
+    var spaceViewsStorage: Factory<any SpaceViewsStorageProtocol> {
+        self { SpaceViewsStorage() }.singleton
     }
     
     var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
@@ -200,8 +200,8 @@ extension Container {
         self { FileLimitsStorage() }.shared
     }
     
-    var workspacesSubscriptionBuilder: Factory<any WorkspacesSubscriptionBuilderProtocol> {
-        self { WorkspacesSubscriptionBuilder() }.shared
+    var spaceViewsSubscriptionBuilder: Factory<any SpaceViewsSubscriptionBuilderProtocol> {
+        self { SpaceViewsSubscriptionBuilder() }.shared
     }
     
     var serverConfigurationStorage: Factory<any ServerConfigurationStorageProtocol> {
@@ -244,8 +244,8 @@ extension Container {
         self { TextPropertyEditingService() }.shared
     }
     
-    var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
-        self { AccountParticipantsStorage() }.singleton
+    var participantsStorage: Factory<any ParticipantsStorageProtocol> {
+        self { ParticipantsStorage() }.singleton
     }
 
     var participantSpacesStorage: Factory<any ParticipantSpacesStorageProtocol> {

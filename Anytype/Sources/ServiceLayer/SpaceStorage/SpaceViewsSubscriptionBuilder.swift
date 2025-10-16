@@ -2,35 +2,35 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol WorkspacesSubscriptionBuilderProtocol: AnyObject, Sendable {
+protocol SpaceViewsSubscriptionBuilderProtocol: AnyObject, Sendable {
     var subscriptionId: String { get }
     func build(techSpaceId: String) -> SubscriptionData
 }
 
-final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol {
-    
+final class SpaceViewsSubscriptionBuilder: SpaceViewsSubscriptionBuilderProtocol {
+
     private enum Constants {
-        static let spacesSubId = "SubscriptionId.Workspaces"
+        static let spacesSubId = "SubscriptionId.SpaceViews"
     }
-    
-    // MARK: - WorkspacesSubscriptionBuilderProtocol
-    
+
+    // MARK: - SpaceViewsSubscriptionBuilderProtocol
+
     var subscriptionId: String {
         Constants.spacesSubId
     }
-    
+
     func build(techSpaceId: String) -> SubscriptionData {
         let sorts: [DataviewSort] = .builder {
             SearchHelper.sort(relation: .spaceOrder, type: .asc, noCollate: true, emptyPlacement: .end)
             SearchHelper.sort(relation: .spaceJoinDate, type: .desc)
             SearchHelper.sort(relation: .createdDate, type: .desc)
         }
-        
+
         let filters: [DataviewFilter] = .builder {
             SearchHelper.layoutFilter([.spaceView])
             SearchHelper.spaceAccountStatusExcludeFilter(.spaceDeleted)
         }
-        
+
         return .search(
             SubscriptionData.Search(
                 identifier: Constants.spacesSubId,

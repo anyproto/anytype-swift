@@ -35,8 +35,8 @@ final class PinnedWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
-        self.homeObjectId = data.workspaceInfo.homeObjectID
-        self.spaceId = data.workspaceInfo.accountSpaceId
+        self.homeObjectId = data.spaceInfo.homeObjectID
+        self.spaceId = data.spaceInfo.accountSpaceId
         self.output = data.output
         
         let documentService = Container.shared.openedDocumentProvider.resolve()

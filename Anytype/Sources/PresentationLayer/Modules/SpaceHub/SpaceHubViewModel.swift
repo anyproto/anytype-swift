@@ -32,8 +32,8 @@ final class SpaceHubViewModel: ObservableObject {
 
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspacesStorage: any SpaceViewsStorageProtocol
     @Injected(\.spaceOrderService)
     private var spaceOrderService: any SpaceOrderServiceProtocol
     @Injected(\.profileStorage)

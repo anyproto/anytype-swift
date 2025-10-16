@@ -9,8 +9,8 @@ final class SpaceRequestAlertModel: ObservableObject {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantService)
     private var participantService: any ParticipantServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     
     private let data: SpaceRequestAlertData
     private let onMembershipUpgradeTap: (MembershipUpgradeReason) -> ()
