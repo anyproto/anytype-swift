@@ -1815,300 +1815,151 @@
         }
       }
     },
-    "Chat.Empty.Title" : {
+    "Chat.Empty.Button.AddMembers" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Noch keine Nachrichten"
+            "value" : "Mitglieder hinzufügen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You just created a chat"
+            "value" : "Add members"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Aún no hay mensajes"
+            "value" : "Añadir miembros"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Belum ada pesan"
+            "value" : "Tambahkan anggota"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Nessun messaggio"
+            "value" : "Add members"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "まだメッセージはありません"
+            "value" : "Add members"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You just created a chat"
+            "value" : "Add members"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Nog geen berichten"
+            "value" : "Add members"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Henüz mesaj yok"
+            "value" : "Üye ekle"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "Add members"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "尚无消息"
+            "value" : "Add members"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
-          }
-        }
-      }
-    },
-    "Chat.Empty.Feature.YoursForever" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Für immer deins"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yours forever"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tuyo para siempre"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Milikmu selamanya"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Sonsuza kadar sizin"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Yours forever"
+            "value" : "Add members"
           }
         }
       }
@@ -2411,151 +2262,300 @@
         }
       }
     },
-    "Chat.Empty.Button.AddMembers" : {
+    "Chat.Empty.Feature.YoursForever" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mitglieder hinzufügen"
+            "value" : "Für immer deins"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Añadir miembros"
+            "value" : "Tuyo para siempre"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tambahkan anggota"
+            "value" : "Milikmu selamanya"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Üye ekle"
+            "value" : "Sonsuza kadar sizin"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Yours forever"
+          }
+        }
+      }
+    },
+    "Chat.Empty.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Noch keine Nachrichten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You just created a chat"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Aún no hay mensajes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Belum ada pesan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nessun messaggio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "まだメッセージはありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You just created a chat"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nog geen berichten"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Henüz mesaj yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "尚无消息"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No messages yet"
           }
         }
       }
@@ -28651,7 +28651,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upgrade to add more spaces"
+            "value" : "Upgrade to add more spaces."
           }
         },
         "es" : {
@@ -53103,6 +53103,50 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "目錄"
+          }
+        }
+      }
+    },
+    "Space limit.Editors.Subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        }
+      }
+    },
+    "Space limit.Editors.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        }
+      }
+    },
+    "Space limit.Shared spaces.Subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upgrade for more or remove spaces"
+          }
+        }
+      }
+    },
+    "Space limit.Shared spaces.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You've reached the limit of %lld shared spaces."
           }
         }
       }

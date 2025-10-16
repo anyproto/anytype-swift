@@ -1764,7 +1764,7 @@ public enum Loc {
     public enum Upgrade {
       public static let button = Loc.tr("Workspace", "Membership.Upgrade.Button", fallback: "Contact Anytype Team")
       public static let moreMembers = Loc.tr("Workspace", "Membership.Upgrade.MoreMembers", fallback: "Upgrade to add more members")
-      public static let moreSpaces = Loc.tr("Workspace", "Membership.Upgrade.MoreSpaces", fallback: "Upgrade to add more spaces")
+      public static let moreSpaces = Loc.tr("Workspace", "Membership.Upgrade.MoreSpaces", fallback: "Upgrade to add more spaces.")
       public static let noMoreEditors = Loc.tr("Workspace", "Membership.Upgrade.NoMoreEditors", fallback: "You can’t add more editors")
       public static let noMoreMembers = Loc.tr("Workspace", "Membership.Upgrade.NoMoreMembers", fallback: "You can’t add more members")
       public static func spacesLimit(_ p1: Int) -> String {
@@ -2219,6 +2219,20 @@ public enum Loc {
       public static let spaceJoining = Loc.tr("Workspace", "Space.Status.SpaceJoining", fallback: "Joining")
       public static let spaceRemoving = Loc.tr("Workspace", "Space.Status.SpaceRemoving", fallback: "Removing")
       public static let unknown = Loc.tr("Workspace", "Space.Status.Unknown", fallback: "Unknown")
+    }
+  }
+  public enum SpaceLimit {
+    public enum Editors {
+      public static let subtitle = Loc.tr("Workspace", "Space limit.Editors.Subtitle", fallback: "Upgrade your membership to invite more members.")
+      public static func title(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Space limit.Editors.Title", p1, fallback: "You've reached the limit of %lld editors.")
+      }
+    }
+    public enum SharedSpaces {
+      public static let subtitle = Loc.tr("Workspace", "Space limit.Shared spaces.Subtitle", fallback: "Upgrade for more or remove spaces")
+      public static func title(_ p1: Int) -> String {
+        return Loc.tr("Workspace", "Space limit.Shared spaces.Title", p1, fallback: "You've reached the limit of %lld shared spaces.")
+      }
     }
   }
   public enum SpaceCreate {

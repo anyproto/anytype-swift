@@ -103,6 +103,25 @@ make setup-middle    # Initial setup
 - **Generated file**: All 3 localization files (Auth, Workspace, UI) generate into a single `Strings.swift` file (~5,000 lines). Use `rg` for searching
 - **Always import**: `import Loc` when using localization
 
+### Dynamic Localization (with Parameters)
+
+**✅ CORRECT** - Generated function with parameters:
+```swift
+// For string: "You've reached the limit of %lld editors"
+Loc.SpaceLimit.Editors.title(4)  // Proper way
+
+// For string: "Pin limit reached: %d pinned spaces"
+Loc.pinLimitReached(10)  // Proper way
+```
+
+**❌ WRONG** - Never use String(format:):
+```swift
+String(format: Loc.SpaceLimit.Editors.title, 4)  // DON'T DO THIS
+String(format: Loc.pinLimitReached, 10)  // DON'T DO THIS
+```
+
+**Why**: SwiftGen automatically generates parameterized functions for strings with format specifiers (%lld, %d, %@). Always use the generated function directly.
+
 ## 🎨 Design System & Common UI Components
 
 ### Quick Reference
