@@ -11,7 +11,7 @@ import AnytypeCore
 /// or for setup custom state in mocks:
 ///
 /// MockView {
-///    SpaceViewStorageMock.shared.workspaces = [...]
+///    SpaceViewsStorageMock.shared.workspaces = [...]
 /// } content: {
 ///    SomeModuleView()
 /// }
@@ -36,8 +36,8 @@ struct MockView<Content: View>: View {
     }
     
     private func setupPreviewMocks() {
-        Container.shared.spaceViewStorage.register {
-            SpaceViewStorageMock.shared
+        Container.shared.spaceViewsStorage.register {
+            SpaceViewsStorageMock.shared
         }
         Container.shared.singleObjectSubscriptionService.register {
             SingleObjectSubscriptionServiceMock.shared
@@ -51,8 +51,8 @@ struct MockView<Content: View>: View {
         Container.shared.syncStatusStorage.register {
             SyncStatusStorageMock.shared
         }
-        Container.shared.participantSpaceStorage.register {
-            ParticipantSpaceStorageMock.shared
+        Container.shared.participantSpacesStorage.register {
+            ParticipantSpacesStorageMock.shared
         }
         Container.shared.searchService.register {
             SearchServiceMock.shared
