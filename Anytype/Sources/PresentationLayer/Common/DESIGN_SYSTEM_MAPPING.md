@@ -73,6 +73,36 @@ Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transperentSecondar
 .border(Color.Control.active)
 ```
 
+### Gradient Colors
+
+**Location**: `Modules/Assets/Sources/Assets/Resources/SystemColors.xcassets/Custom/Gradients/`
+
+**Code Access**:
+```swift
+Color.Gradients.HeaderAlert.redStart
+Color.Gradients.HeaderAlert.violetStart
+```
+
+**Available Categories**:
+- `HeaderAlert/` - Alert/banner gradients (violet, red/peach tones)
+- `UpdateAlert/` - App update notification gradients
+- `fadingXXX` - Fading background gradients (Blue, Green, Ice, Pink, Purple, Red, Sky, Teal, Yellow)
+
+**Design Principle**: Keep gradient count minimal. When Figma design shows similar gradient colors, coordinate with design team to unify rather than creating duplicates.
+
+**Usage in SwiftUI**:
+```swift
+// Linear gradient background
+LinearGradient(
+    gradient: Gradient(colors: [
+        Color.Gradients.HeaderAlert.redStart,
+        Color.Gradients.HeaderAlert.redEnd
+    ]),
+    startPoint: .top,
+    endPoint: .bottom
+)
+```
+
 ## Typography Mapping
 
 ### Figma Typography Reference

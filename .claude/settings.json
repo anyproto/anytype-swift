@@ -29,6 +29,7 @@
       "mcp__linear__list_my_issues",
       "mcp__linear__list_teams",
       "mcp__linear__get_issue",
+      "mcp__linear-server__get_issue",
       "mcp__linear__list_comments",
       "mcp__linear__list_issues",
       "mcp__linear__get_issue_git_branch_name",
@@ -57,7 +58,10 @@
       "Bash(awk:*)",
       "Bash(git stash show:*)",
       "mcp__figma__get_image",
-      "mcp__figma__get_code"
+      "mcp__figma__get_code",
+      "mcp__figma-remote-mcp__get_screenshot",
+      "mcp__figma-remote-mcp__get_design_context",
+      "mcp__figma-remote-mcp__get_metadata"
     ],
     "deny": []
   },
