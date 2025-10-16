@@ -1,12 +1,23 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct ChatHeaderView: View {
-    
+
     @StateObject private var model: ChatHeaderViewModel
-    
-    init(spaceId: String, chatId: String, onTapOpenWidgets: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: ChatHeaderViewModel(spaceId: spaceId, chatId: chatId, onTapOpenWidgets: onTapOpenWidgets))
+
+    init(
+        spaceId: String,
+        chatId: String,
+        onTapOpenWidgets: @escaping () -> Void,
+        onTapAddMembers: @escaping (() -> Void)
+    ) {
+        self._model = StateObject(wrappedValue: ChatHeaderViewModel(
+            spaceId: spaceId,
+            chatId: chatId,
+            onTapOpenWidgets: onTapOpenWidgets,
+            onTapAddMembers: onTapAddMembers
+        ))
     }
     
     var body: some View {
@@ -33,12 +44,23 @@ struct ChatHeaderView: View {
                 }
             }
         } rightView: {
-            if model.showWidgetsButton {
-                ExpandedTapAreaButton {
-                    model.tapOpenWidgets()
-                } label: {
-                    IconView(icon: model.icon)
-                        .frame(width: 28, height: 28)
+            HStack(spacing: 16) {
+                if model.showAddMembersButton {
+                    ExpandedTapAreaButton {
+                        model.tapAddMembers()
+                    } label: {
+                        Image(systemName: "person.fill.badge.plus")
+                            .foregroundColor(.Control.transparentSecondary)
+                            .frame(width: 28, height: 28)
+                    }
+                }
+                if model.showWidgetsButton {
+                    ExpandedTapAreaButton {
+                        model.tapOpenWidgets()
+                    } label: {
+                        IconView(icon: model.icon)
+                            .frame(width: 28, height: 28)
+                    }
                 }
             }
         }
