@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 import Services
 
-struct NewSpaceShareView: View {
-    
-    @StateObject private var model: NewSpaceShareViewModel
-    
+struct SpaceShareView: View {
+
+    @StateObject private var model: SpaceShareViewModel
+
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
-        self._model = StateObject(wrappedValue: NewSpaceShareViewModel(data: data, output: output))
+        self._model = StateObject(wrappedValue: SpaceShareViewModel(data: data, output: output))
     }
     
     var body: some View {
