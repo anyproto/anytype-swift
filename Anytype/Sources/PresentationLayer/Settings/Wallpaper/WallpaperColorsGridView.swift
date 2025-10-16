@@ -111,7 +111,7 @@ private extension View {
 struct WallpaperColorsGridView_Previews: PreviewProvider {
     static var previews: some View {
         MockView {
-            SpaceViewStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
+            SpaceViewsStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
         } content: {
             WallpaperColorsGridView(
                 spaceIcon: .object(.space(.mock)),
