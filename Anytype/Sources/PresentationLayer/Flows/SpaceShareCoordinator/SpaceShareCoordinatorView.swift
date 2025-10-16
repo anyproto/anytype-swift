@@ -11,7 +11,7 @@ struct SpaceShareCoordinatorView: View {
     }
     
     var body: some View {
-        NewSpaceShareView(data: model.data, output: model)
+        SpaceShareView(data: model.data, output: model)
             .sheet(isPresented: $model.showMoreInfo) {
                 SpaceMoreInfoView()
             }
