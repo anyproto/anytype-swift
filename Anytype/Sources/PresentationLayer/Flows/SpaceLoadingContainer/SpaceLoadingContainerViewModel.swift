@@ -21,7 +21,7 @@ final class SpaceLoadingContainerViewModel: ObservableObject {
     init(spaceId: String, showBackground: Bool) {
         self.spaceId = spaceId
         self.showBackground = showBackground
-        let activeSpaceInfo = activeSpaceManager.spaceInfo
+        let activeSpaceInfo = activeSpaceManager.workspaceInfo
         if activeSpaceInfo?.accountSpaceId == spaceId {
             info = activeSpaceInfo
         } else {
