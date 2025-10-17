@@ -26,6 +26,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     init(initialTierId: Int?) {
         self.initialTierId = initialTierId
         membershipStatusStorage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
+        membershipStatusStorage.tiersPublisher.receiveOnMain().assign(to: &$tiers)
     }
     
     func onAppear() {

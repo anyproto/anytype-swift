@@ -56,14 +56,18 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     private func getTiers(noCache: Bool, currentMembership: Anytype_Model_Membership) async throws -> [MembershipTier] {
-        return try await ClientCommands.membershipGetTiers(.with {
-            $0.locale = Locale.current.language.languageCode?.identifier ?? "en"
+        let locale = Locale.current.language.languageCode?.identifier ?? "en"
+
+        let tiers = try await ClientCommands.membershipGetTiers(.with {
+            $0.locale = locale
             $0.noCache = noCache
         })
         .invoke(ignoreLogErrors: .canNotConnect).tiers
         .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
         .filter { $0.iosProductID.isNotEmpty || $0.id == currentMembership.tier }
         .asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
+
+        return tiers
     }
 
     
