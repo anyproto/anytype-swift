@@ -18,8 +18,8 @@ final class SpaceShareViewModel: ObservableObject {
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspacesStorage: any SpaceViewsStorageProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
@@ -95,7 +95,7 @@ final class SpaceShareViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateView() {
-        let workspaceInfo = workspacesStorage.workspaceInfo(spaceId: spaceId)
+        let workspaceInfo = workspacesStorage.spaceInfo(spaceId: spaceId)
         guard let participantSpaceView, let workspaceInfo else { return }
         
         canStopShare = participantSpaceView.canStopSharing

@@ -3,8 +3,8 @@ import Foundation
 
 final class SegmentInfoBuilder {
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     

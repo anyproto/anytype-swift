@@ -17,7 +17,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }()
     
     private lazy var widgetObject: (any BaseDocumentProtocol)? = {
-        guard let info = workspaceStorage.workspaceInfo(spaceId: spaceId) else {
+        guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
             anytypeAssertionFailure("info not found")
             return nil
         }
@@ -34,8 +34,8 @@ final class ObjectActionsViewModel: ObservableObject {
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.universalLinkParser)

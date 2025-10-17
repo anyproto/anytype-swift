@@ -21,8 +21,8 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {

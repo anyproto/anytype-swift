@@ -27,8 +27,8 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
     
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?

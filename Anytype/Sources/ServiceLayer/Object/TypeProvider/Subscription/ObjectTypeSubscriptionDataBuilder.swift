@@ -3,7 +3,7 @@ import Services
 
 final class ObjectTypeSubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol, MultispaceSearchDataBuilderProtocol {
     
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     
     // MARK: - MultispaceSubscriptionDataBuilderProtocol
     

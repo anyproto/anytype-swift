@@ -14,8 +14,8 @@ final class GlobalSearchViewModel: ObservableObject {
     private var searchWithMetaModelBuilder: any SearchWithMetaModelBuilderProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
     

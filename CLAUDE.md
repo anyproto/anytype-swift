@@ -51,6 +51,11 @@ make setup-middle    # Initial setup
 - **Do not add comments** unless explicitly requested
 - **We only work in feature branches** - never push directly to develop/main
 - **Remove unused code after refactoring** - Delete unused properties, functions, and entire files that are no longer referenced
+- **Always update tests and mocks when refactoring** - When renaming classes, properties, or dependencies, search for and update all references in:
+  - Unit tests (`AnyTypeTests/`)
+  - Preview mocks (`Anytype/Sources/PreviewMocks/`)
+  - Mock implementations (`Anytype/Sources/PreviewMocks/Mocks/`)
+  - Dependency injection registrations (`MockView.swift`, test setup files)
 
 ## 📝 Localization System
 
@@ -353,3 +358,9 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 
 #### File Operations & Architecture
 **Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually, keep UI in PresentationLayer.
+
+#### Refactoring & Testing
+**Incomplete Mock Updates (2025-01-16):** Refactored `spaceViewStorage` → `spaceViewsStorage` and `participantSpaceStorage` → `participantSpacesStorage` in production code, but forgot to update `MockView.swift` causing test failures. When renaming dependencies:
+1. Search for old names across entire codebase: `rg "oldName" --type swift`
+2. Update all references in tests, mocks, and DI registrations
+3. Run unit tests to verify: `xcodebuild -scheme Anytype -destination 'platform=iOS Simulator,name=iPhone 15' build-for-testing`

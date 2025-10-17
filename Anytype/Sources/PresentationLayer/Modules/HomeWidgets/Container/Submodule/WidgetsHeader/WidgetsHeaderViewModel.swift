@@ -7,8 +7,8 @@ final class WidgetsHeaderViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     private let onSpaceSelected: () -> Void
@@ -45,7 +45,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
     }
     
     private func startSpaceTask() async {
-        for await spaces in workspaceStorage.activeWorkspsacesPublisher.values {
+        for await spaces in workspaceStorage.activeSpaceViewsPublisher.values {
             guard let space = spaces.first(where: { $0.targetSpaceId == accountSpaceId }) else { continue }
             spaceName = space.title
             spaceIcon = space.objectIconImage

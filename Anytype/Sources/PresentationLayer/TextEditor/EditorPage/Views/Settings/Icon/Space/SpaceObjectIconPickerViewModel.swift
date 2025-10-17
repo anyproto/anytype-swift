@@ -14,8 +14,8 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     
     @Published private(set) var isRemoveEnabled: Bool = false
 

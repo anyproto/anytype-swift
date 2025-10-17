@@ -41,7 +41,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
         guard let currentSpaceId else { return nil }
-        return workspaceStorage.workspaceInfo(spaceId: currentSpaceId)
+        return workspaceStorage.spaceInfo(spaceId: currentSpaceId)
     }
     
     var fallbackSpaceId: String? {
@@ -82,8 +82,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.objectTypeProvider)
