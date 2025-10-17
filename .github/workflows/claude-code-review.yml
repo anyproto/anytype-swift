@@ -39,6 +39,7 @@ jobs:
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
+            COMMIT SHA: ${{ github.event.pull_request.head.sha }}
 
             Review this PR using CLAUDE.md for project conventions. Be LEAN and ACTIONABLE - only provide value, avoid noise.
 
@@ -62,7 +63,23 @@ jobs:
               - ⚠️ **Minor Issues** - [what needs fixing]
               - 🚨 **Major Issues** - [critical problems]
 
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+            IMPORTANT - Review Comment Strategy:
+            1. Post a summary comment using `gh pr comment ${{ github.event.pull_request.number }}` with overall feedback and high-level observations
+            2. For EACH specific code issue, post an inline comment on the exact lines using:
+
+               gh pr comment ${{ github.event.pull_request.number }} \
+                 --body "Your detailed comment about this specific issue" \
+                 --file "path/to/file.swift" \
+                 --line 68
+
+            Example:
+            - Summary: Post overall review with `gh pr comment ${{ github.event.pull_request.number }} --body "Summary..."`
+            - Issue 1: Missing error handling at MembershipStatusStorage.swift:68-75
+              -> Post inline comment: `gh pr comment ${{ github.event.pull_request.number }} --body "Missing error handling..." --file "path/to/MembershipStatusStorage.swift" --line 68`
+            - Issue 2: Race condition at MembershipStatusStorage.swift:38
+              -> Post inline comment: `gh pr comment ${{ github.event.pull_request.number }} --body "Race condition..." --file "path/to/MembershipStatusStorage.swift" --line 38`
+
+            This way, reviewers see inline comments exactly where the issues are in the code.
 
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.claude.com/en/docs/claude-code/cli-reference for available options
