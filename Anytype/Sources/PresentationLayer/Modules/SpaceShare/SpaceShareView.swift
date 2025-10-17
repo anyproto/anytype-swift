@@ -52,16 +52,18 @@ struct SpaceShareView: View {
             
             ScrollView {
                 VStack(spacing: 0) {
-                    
+                    if let bannerData = model.limitBannerData {
+                        SpaceLimitBannerView(
+                            limitType: bannerData,
+                            onManageSpaces: { model.onManageSpaces() },
+                            onUpgrade: { model.onUpgradeTap(reason: bannerData.upgradeReason, route: .incentiveBanner) }
+                        )
+                    }
+
                     SectionHeaderView(title: Loc.SpaceShare.Invite.title)
                     NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, output: model.output)
-                    
+
                     SectionHeaderView(title: Loc.SpaceShare.members)
-                    if let reason = model.upgradeTooltipData {
-                        SpaceShareUpgradeView(reason: reason) {
-                            model.onUpgradeTap(reason: reason, route: .spaceSettings)
-                        }
-                    }
                     ForEach(model.rows) { participant in
                         SpaceShareParticipantView(participant: participant)
                     }
@@ -70,6 +72,6 @@ struct SpaceShareView: View {
             }
         }
         .background(Color.Background.primary)
-        .animation(.default, value: model.upgradeTooltipData)
+        .animation(.default, value: model.limitBannerData)
     }
 }

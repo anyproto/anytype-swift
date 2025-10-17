@@ -44,7 +44,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canRemoveMember = false
     @Published var canApproveRequests = false
     @Published var canChangeInvite = false
-    @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
+    @Published var limitBannerData: SpaceLimitBannerView.LimitType?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
     @Published var notifyUpdateLinkView = UUID()
@@ -87,7 +87,11 @@ final class SpaceShareViewModel: ObservableObject {
             try await makePrivateIfPossible()
         }
     }
-    
+
+    func onManageSpaces() {
+        output?.showSpacesManager()
+    }
+
     // MARK: - Private
     
     private func updateView() {
@@ -124,18 +128,16 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func updateUpgradeViewState() {
         guard let participantSpaceView else { return }
-        
-        let canAddReaders = participantSpaceView.spaceView.canAddReaders(participants: participants)
+
         let canAddWriters = participantSpaceView.spaceView.canAddWriters(participants: participants)
-        let haveJoiningParticipants = participants.contains { $0.status == .joining }
-        
-        
-        if !canAddReaders && haveJoiningParticipants {
-            upgradeTooltipData = .numberOfSpaceReaders
-        } else if !canAddWriters {
-            upgradeTooltipData = .numberOfSpaceEditors
+        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
+
+        if !canAddWriters, let writersLimit = participantSpaceView.spaceView.writersLimit {
+            limitBannerData = .editors(limit: writersLimit)
+        } else if canChangeInvite, let spaceSharingInfo, !spaceSharingInfo.limitsAllowSharing {
+            limitBannerData = .sharedSpaces(limit: spaceSharingInfo.sharedSpacesLimit)
         } else {
-            upgradeTooltipData = nil
+            limitBannerData = nil
         }
     }
     

@@ -3,7 +3,7 @@ import DesignKit
 
 struct SpaceLimitBannerView: View {
 
-    enum LimitType {
+    enum LimitType: Equatable {
         case sharedSpaces(limit: Int)
         case editors(limit: Int)
 
@@ -28,6 +28,15 @@ struct SpaceLimitBannerView: View {
         var showManageButton: Bool {
             if case .sharedSpaces = self { return true }
             return false
+        }
+
+        var upgradeReason: MembershipUpgradeReason {
+            switch self {
+            case .sharedSpaces:
+                return .numberOfSharedSpaces
+            case .editors:
+                return .numberOfSpaceEditors
+            }
         }
     }
 

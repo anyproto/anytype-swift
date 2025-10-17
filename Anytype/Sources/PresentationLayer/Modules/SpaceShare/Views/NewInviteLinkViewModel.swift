@@ -7,6 +7,7 @@ import ProtobufMessages
 protocol NewInviteLinkModuleOutput: AnyObject {
     func showQrCode(url: URL)
     func shareInvite(url: URL)
+    func showSpacesManager()
 }
 
 @MainActor
