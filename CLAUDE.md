@@ -229,6 +229,7 @@ Modules/                # Swift packages
 - Import order: system → third-party → internal
 - Property organization: @Published/@Injected → public → private → constants → variables → methods
 - Use async/await, SwiftUI property wrappers, trailing closures, type inference
+- **Avoid nested types** - Extract enums/structs to top-level with descriptive names (e.g., `SpaceLimitBannerLimitType` instead of `SpaceLimitBannerView.LimitType`)
 
 ## 🔄 Development Workflow
 

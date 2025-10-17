@@ -44,7 +44,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canRemoveMember = false
     @Published var canApproveRequests = false
     @Published var canChangeInvite = false
-    @Published var limitBannerData: SpaceLimitBannerView.LimitType?
+    @Published var limitBannerData: SpaceLimitBannerLimitType?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
     @Published var notifyUpdateLinkView = UUID()
