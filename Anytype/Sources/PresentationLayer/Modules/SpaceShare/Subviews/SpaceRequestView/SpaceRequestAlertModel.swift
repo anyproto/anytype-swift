@@ -22,9 +22,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     @Published var canAddWriter = false
     
     var membershipLimitsExceeded: MembershipParticipantUpgradeReason? {
-        if !canAddReaded {
-            .numberOfSpaceReaders
-        } else if !canAddWriter {
+        if !canAddWriter {
             .numberOfSpaceEditors
         } else {
             nil

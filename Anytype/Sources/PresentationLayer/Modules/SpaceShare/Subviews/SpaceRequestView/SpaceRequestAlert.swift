@@ -40,8 +40,6 @@ struct SpaceRequestAlert: View {
                 switch model.membershipLimitsExceeded {
                 case nil:
                     defaultActions
-                case .numberOfSpaceReaders:
-                    readersLimitActions
                 case .numberOfSpaceEditors:
                     editorsLimitActions
                 }
@@ -68,23 +66,7 @@ struct SpaceRequestAlert: View {
             }
         ]
     }
-    
-    private var readersLimitActions: [BottomAlertButton] {
-        [
-            BottomAlertButton(
-                text: "\(MembershipConstants.membershipSymbol.rawValue) \(Loc.Membership.Upgrade.moreMembers)",
-                style: .primary
-            ) {
-                model.onMembershipUpgrade(reason: .numberOfSpaceReaders)
-                dismiss()
-            },
-            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.reject, style: .warning) {
-                try await model.onReject()
-                dismiss()
-            }
-        ]
-    }
-    
+
     private var editorsLimitActions: [BottomAlertButton] {
         [
             BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary, disable: !model.canAddReaded) {
