@@ -2,11 +2,12 @@ import SwiftUI
 
 
 struct EmojiGridView: View {
-    
+
     let onEmojiSelect: (EmojiData) -> ()
-    
+
     @State private var searchText = ""
-    
+    @State private var filteredGroups: [EmojiGroup] = []
+
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -15,28 +16,36 @@ struct EmojiGridView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    
+
     var body: some View {
         VStack(spacing: 0) {
             SearchBar(text: $searchText, focused: false)
             contentView
         }
+        .onAppear {
+            updateFilteredGroups()
+        }
+        .onChange(of: searchText) {
+            updateFilteredGroups()
+        }
     }
-    
+
     // MARK: - Private variables
-    
+
     private var contentView: some View {
-        let filteredEmojiGroup = EmojiProvider.shared.filteredEmojiGroups(keyword: searchText)
-        
-        return Group {
-            if filteredEmojiGroup.isEmpty {
+        Group {
+            if filteredGroups.isEmpty {
                 makeEmptySearchResultView(placeholder: searchText)
-            } else if filteredEmojiGroup.haveFewEmoji {
-                makeEmojiGrid(groups: filteredEmojiGroup.flattenedList)
+            } else if filteredGroups.haveFewEmoji {
+                makeEmojiGrid(groups: filteredGroups.flattenedList)
             } else {
-                makeEmojiGrid(groups: filteredEmojiGroup)
+                makeEmojiGrid(groups: filteredGroups)
             }
         }
+    }
+
+    private func updateFilteredGroups() {
+        filteredGroups = EmojiProvider.shared.filteredEmojiGroups(keyword: searchText)
     }
     
     private func makeEmptySearchResultView(placeholder: String) -> some View {
