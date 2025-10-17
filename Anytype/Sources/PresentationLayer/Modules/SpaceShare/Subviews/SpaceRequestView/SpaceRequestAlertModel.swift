@@ -18,7 +18,6 @@ final class SpaceRequestAlertModel: ObservableObject {
     
     let title: String
     let icon: ObjectIcon?
-    @Published var canAddReaded = false
     @Published var canAddWriter = false
     
     var membershipLimitsExceeded: MembershipParticipantUpgradeReason? {
@@ -48,8 +47,7 @@ final class SpaceRequestAlertModel: ObservableObject {
         }
         // Don't use participant from active subscription, because active space and space for request can be different
         let participants = try await participantService.searchParticipants(spaceId: data.spaceId)
-        
-        canAddReaded = spaceView.canAddReaders(participants: participants)
+
         canAddWriter = spaceView.canAddWriters(participants: participants)
     }
     

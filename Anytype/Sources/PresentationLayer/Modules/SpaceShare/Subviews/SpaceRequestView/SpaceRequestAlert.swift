@@ -52,7 +52,7 @@ struct SpaceRequestAlert: View {
     
     private var defaultActions: [BottomAlertButton] {
         [
-            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary, disable: !model.canAddReaded) {
+            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary) {
                 try await model.onViewAccess()
                 dismiss()
             },
@@ -69,7 +69,7 @@ struct SpaceRequestAlert: View {
 
     private var editorsLimitActions: [BottomAlertButton] {
         [
-            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary, disable: !model.canAddReaded) {
+            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary) {
                 try await model.onViewAccess()
                 dismiss()
             },
