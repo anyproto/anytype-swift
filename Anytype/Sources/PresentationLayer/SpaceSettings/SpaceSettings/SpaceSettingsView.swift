@@ -216,21 +216,9 @@ struct SpaceSettingsView: View {
             switch state {
             case .unshareable:
                 EmptyView()
-            case .shareable:
+            case .shareable, .reachedSharesLimit:
                 SectionHeaderView(title: Loc.collaboration)
                 RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
-            case .reachedSharesLimit(let limit):
-                SectionHeaderView(title: Loc.collaboration)
-                VStack(alignment: .leading, spacing: 0) {
-                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { }
-                        .disabled(true)
-                    AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
-                        .foregroundColor(.Text.primary)
-                    Spacer.fixedHeight(10)
-                    StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.Membership.Upgrade.moreSpaces)", style: .upgradeBadge) {
-                        model.onMembershipUpgradeTap()
-                    }
-                }
             }
         }
     }

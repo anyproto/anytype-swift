@@ -355,6 +355,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case confirmInvite = "ScreenInviteConfirm"
     case remoteStorage = "ScreenRemoteStorage"
     case publish = "ScreenPublish"
+    case incentiveBanner = "IncentiveBanner"
 }
 
 enum ChangeObjectTypeRoute: String {
