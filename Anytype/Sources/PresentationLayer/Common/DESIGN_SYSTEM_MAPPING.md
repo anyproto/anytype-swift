@@ -162,6 +162,8 @@ Text("Hello World")
     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
 ```
 
+**Note**: `.foregroundColor(.Text.primary)` is the default text color and does not need to be explicitly set. Only specify foreground color when using non-primary text colors.
+
 ## Icon Mapping
 
 ### Icon Size Convention

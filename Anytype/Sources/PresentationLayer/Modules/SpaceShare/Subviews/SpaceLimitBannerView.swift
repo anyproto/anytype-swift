@@ -1,0 +1,101 @@
+import SwiftUI
+import DesignKit
+
+struct SpaceLimitBannerView: View {
+
+    enum LimitType {
+        case sharedSpaces(limit: Int)
+        case editors(limit: Int)
+
+        var titleText: String {
+            switch self {
+            case .sharedSpaces(let limit):
+                Loc.SpaceLimit.SharedSpaces.title(limit)
+            case .editors(let limit):
+                Loc.SpaceLimit.Editors.title(limit)
+            }
+        }
+
+        var subtitleText: String {
+            switch self {
+            case .sharedSpaces:
+                return Loc.SpaceLimit.SharedSpaces.subtitle
+            case .editors:
+                return Loc.SpaceLimit.Editors.subtitle
+            }
+        }
+
+        var showManageButton: Bool {
+            if case .sharedSpaces = self { return true }
+            return false
+        }
+    }
+
+    let limitType: LimitType
+    let onManageSpaces: (() -> Void)?
+    let onUpgrade: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            titleView
+            buttonsView
+        }
+        .padding(16)
+        .background(gradientBackground)
+        .cornerRadius(22)
+    }
+
+    private var titleView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            AnytypeText(limitType.titleText, style: .uxTitle2Semibold) + AnytypeText(" ", style: .uxTitle2Regular) +
+            AnytypeText(limitType.subtitleText, style: .uxTitle2Regular)
+        }
+    }
+
+    @ViewBuilder
+    private var buttonsView: some View {
+        HStack(spacing: 8) {
+            if limitType.showManageButton {
+                StandardButton(Loc.SpaceShare.manageSpaces, style: .secondaryMedium) {
+                    onManageSpaces?()
+                }
+            }
+            StandardButton(
+                "\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)",
+                style: limitType.showManageButton ? .primaryMedium : .primaryLarge
+            ) {
+                onUpgrade()
+            }
+            .frame(maxWidth: limitType.showManageButton ? nil : .infinity)
+        }
+    }
+
+    private var gradientBackground: some View {
+        LinearGradient(
+            gradient: Gradient(colors: [
+                Color.Gradients.HeaderAlert.redStart,
+                Color.Gradients.HeaderAlert.redEnd
+            ]),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+    }
+}
+
+#Preview {
+    VStack(spacing: 20) {
+        SpaceLimitBannerView(
+            limitType: .sharedSpaces(limit: 10),
+            onManageSpaces: {},
+            onUpgrade: {}
+        )
+
+        SpaceLimitBannerView(
+            limitType: .editors(limit: 4),
+            onManageSpaces: nil,
+            onUpgrade: {}
+        )
+    }
+    .padding()
+    .background(Color.Background.primary)
+}
