@@ -15,10 +15,12 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(3)
             ],
             paymentType: nil,
-            color: .green
+            color: .green,
+            isTest: false,
+            iosProductID: ""
         )
     }
-    
+
     static var mockBuilder: MembershipTier {
         MembershipTier(
             type: .builder,
@@ -32,10 +34,12 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .blue
+            color: .blue,
+            isTest: false,
+            iosProductID: "io.anytype.membership.builder"
         )
     }
-    
+
     static var mockCoCreator: MembershipTier {
         MembershipTier(
             type: .coCreator,
@@ -49,10 +53,12 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .red
+            color: .red,
+            isTest: false,
+            iosProductID: "io.anytype.membership.cocreator"
         )
     }
-    
+
     static var mockCustom: MembershipTier {
         MembershipTier(
             type: .custom(id: 228),
@@ -66,10 +72,12 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .purple
+            color: .purple,
+            isTest: false,
+            iosProductID: "io.anytype.membership.custom"
         )
     }
-    
+
     static var mockBuilderTest: MembershipTier {
         MembershipTier(
             type: .custom(id: 1337),
@@ -83,7 +91,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .blue
+            color: .blue,
+            isTest: true,
+            iosProductID: "io.anytype.membership.builder.test"
         )
     }
 }

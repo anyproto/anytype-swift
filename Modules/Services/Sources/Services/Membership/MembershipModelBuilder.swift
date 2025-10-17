@@ -51,10 +51,10 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
 
     func buildMembershipTier(tier: Anytype_Model_MembershipTierData) async -> MembershipTier? {
         guard let type = MembershipTierType(intId: tier.id) else { return nil } // ignore 0 tier
-        
+
         let paymentType = await buildMembershipPaymentType(type: type, tier: tier)
         let anyName: MembershipAnyName = tier.anyNamesCountIncluded > 0 ? .some(minLenght: tier.anyNameMinLength) : .none
-        
+
         return MembershipTier(
             type: type,
             name: tier.name,
@@ -62,7 +62,9 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
             anyName: anyName,
             features: tier.features,
             paymentType: paymentType,
-            color: MembershipColor(string: tier.colorStr)
+            color: MembershipColor(string: tier.colorStr),
+            isTest: tier.isTest,
+            iosProductID: tier.iosProductID
         )
     }
     

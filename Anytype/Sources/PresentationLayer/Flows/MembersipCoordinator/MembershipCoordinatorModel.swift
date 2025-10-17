@@ -6,32 +6,36 @@ import AnytypeCore
 @MainActor
 final class MembershipCoordinatorModel: ObservableObject {
     @Published var userMembership: MembershipStatus = .empty
-    @Published var tiers: [MembershipTier] = []
-    
+    @Published private var allTiers: [MembershipTier] = []
+
     @Published var showTiersLoadingError = false
     @Published var showTier: MembershipTier?
     @Published var showSuccess: MembershipTier?
     @Published var fireConfetti = false
     @Published var emailUrl: URL?
-    
-    @Injected(\.membershipService)
-    private var membershipService: any MembershipServiceProtocol
+
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    
+
     private let initialTierId: Int?
-    
+
+    var tiers: [MembershipTier] {
+        let currentTierId = userMembership.tier?.type.id ?? 0
+        return allTiers
+            .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
+            .filter { !$0.iosProductID.isEmpty || $0.type.id == currentTierId }
+    }
+
     init(initialTierId: Int?) {
         self.initialTierId = initialTierId
         membershipStatusStorage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
+        membershipStatusStorage.tiersPublisher.receiveOnMain().assign(to: &$allTiers)
     }
     
     func onAppear() {
         Task {
-            await loadTiers()
-            
             guard let initialTierId else { return }
             guard let initialTier = tiers.first(where: { $0.type.id == initialTierId }) else {
                 anytypeAssertionFailure("Not found initial id for Memberhsip coordinator", info: ["tierId": String(initialTierId)])
@@ -40,17 +44,11 @@ final class MembershipCoordinatorModel: ObservableObject {
             onTierSelected(tier: initialTier)
         }
     }
-    
-    func loadTiers(noCache: Bool = false) {
-        Task { await loadTiers(noCache: noCache) }
-    }
-    
-    private func loadTiers(noCache: Bool = false) async {
-        do {
-            tiers = try await membershipService.getTiers(noCache: noCache)
+
+    func retryLoadTiers() {
+        Task {
+            await membershipStatusStorage.refreshMembership()
             showTiersLoadingError = false
-        } catch {
-            showTiersLoadingError = true
         }
     }
     
@@ -64,14 +62,15 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     private func showSuccessScreen(tier: MembershipTier) {
         showTier = nil
-        loadTiers(noCache: true)
-        
+
         Task {
+            await membershipStatusStorage.refreshMembership()
+
             // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
             try await Task.sleep(seconds: 0.5)
             showSuccess = tier
-            
-            try await Task.sleep(seconds:0.5)
+
+            try await Task.sleep(seconds: 0.5)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             fireConfetti = true
         }

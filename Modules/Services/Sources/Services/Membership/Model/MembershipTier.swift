@@ -102,9 +102,11 @@ public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
     public let features: [String]
     public let paymentType: MembershipTierPaymentType?
     public let color: MembershipColor
-    
+    public let isTest: Bool
+    public let iosProductID: String
+
     public var id: MembershipTierType { type }
-    
+
     public init(
         type: MembershipTierType,
         name: String,
@@ -112,7 +114,9 @@ public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
         anyName: MembershipAnyName,
         features: [String],
         paymentType: MembershipTierPaymentType?,
-        color: MembershipColor
+        color: MembershipColor,
+        isTest: Bool,
+        iosProductID: String
     ) {
         self.type = type
         self.name = name
@@ -121,5 +125,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
         self.features = features
         self.paymentType = paymentType
         self.color = color
+        self.isTest = isTest
+        self.iosProductID = iosProductID
     }
 }
