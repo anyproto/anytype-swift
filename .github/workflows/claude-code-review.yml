@@ -40,14 +40,23 @@ jobs:
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
 
-            Please review this pull request and provide feedback on:
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage
+            Review this PR using CLAUDE.md for project conventions. Be LEAN and ACTIONABLE - only provide value, avoid noise.
 
-            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
+            RULES:
+            - ONLY include sections when there are ACTUAL issues to report
+            - NO "Strengths" or praise sections
+            - NO "no concerns" statements (skip the section entirely)
+            - Reference specific file:line locations for issues
+            - If no issues found: comment "LGTM - no issues found"
+
+            SECTIONS (include ONLY if issues exist):
+            - **Bugs/Issues**: Logic errors, potential bugs that need fixing
+            - **Best Practices**: Violations of Swift/SwiftUI conventions or CLAUDE.md guidelines
+            - **Performance**: Actual performance problems (not theoretical)
+            - **Security**: Real security vulnerabilities
+
+            END WITH:
+            - **Summary**: 2-3 sentences max, actionable items only
 
             Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
 
