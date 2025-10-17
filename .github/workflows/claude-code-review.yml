@@ -2,7 +2,7 @@ name: Claude Code Review
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened]
     # Optional: Only run on specific file changes
     # paths:
     #   - "src/**/*.ts"
@@ -46,17 +46,21 @@ jobs:
             - ONLY include sections when there are ACTUAL issues to report
             - NO "Strengths" or praise sections
             - NO "no concerns" statements (skip the section entirely)
+            - NO design/UI/spacing suggestions (padding, margins, colors, etc.) - you cannot see the visual design
             - Reference specific file:line locations for issues
-            - If no issues found: comment "LGTM - no issues found"
+            - If no issues found: comment "✅ **Approved** - No issues found"
 
             SECTIONS (include ONLY if issues exist):
             - **Bugs/Issues**: Logic errors, potential bugs that need fixing
-            - **Best Practices**: Violations of Swift/SwiftUI conventions or CLAUDE.md guidelines
+            - **Best Practices**: Violations of Swift/SwiftUI conventions or CLAUDE.md guidelines (code quality only, not design)
             - **Performance**: Actual performance problems (not theoretical)
             - **Security**: Real security vulnerabilities
 
             END WITH:
-            - **Summary**: 2-3 sentences max, actionable items only
+            - **Summary**: ONE sentence only with status emoji:
+              - ✅ **Approved** - [brief reason]
+              - ⚠️ **Minor Issues** - [what needs fixing]
+              - 🚨 **Major Issues** - [critical problems]
 
             Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
 
