@@ -2229,7 +2229,7 @@ public enum Loc {
       }
     }
     public enum SharedSpaces {
-      public static let subtitle = Loc.tr("Workspace", "Space limit.Shared spaces.Subtitle", fallback: "Upgrade for more or remove spaces")
+      public static let subtitle = Loc.tr("Workspace", "Space limit.Shared spaces.Subtitle", fallback: "Upgrade for more or remove spaces.")
       public static func title(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Space limit.Shared spaces.Title", p1, fallback: "You've reached the limit of %lld shared spaces.")
       }
