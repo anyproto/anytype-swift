@@ -75,7 +75,6 @@ struct SpaceLimitBannerView: View {
             ) {
                 onUpgrade()
             }
-            .frame(maxWidth: limitType.showManageButton ? nil : .infinity)
         }
     }
 
