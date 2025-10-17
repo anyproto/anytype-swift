@@ -230,6 +230,26 @@ Modules/                # Swift packages
 - Property organization: @Published/@Injected → public → private → constants → variables → methods
 - Use async/await, SwiftUI property wrappers, trailing closures, type inference
 - **Avoid nested types** - Extract enums/structs to top-level with descriptive names (e.g., `SpaceLimitBannerLimitType` instead of `SpaceLimitBannerView.LimitType`)
+- **Enum exhaustiveness**: Always use explicit switch statements for enum pattern matching to enable compiler warnings when new cases are added
+  - ✅ **CORRECT**:
+    ```swift
+    var showManageButton: Bool {
+        switch self {
+        case .sharedSpaces:
+            return true
+        case .editors:
+            return false
+        }
+    }
+    ```
+  - ❌ **WRONG**:
+    ```swift
+    var showManageButton: Bool {
+        if case .sharedSpaces = self { return true }
+        return false  // Default fallback prevents compiler warnings
+    }
+    ```
+  - **Exception**: Only use default fallback for super obvious single-case checks (e.g., `isSharedSpaces`, `isEditor`)
 
 ## 🔄 Development Workflow
 

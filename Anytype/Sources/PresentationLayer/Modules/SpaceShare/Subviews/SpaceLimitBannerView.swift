@@ -24,8 +24,12 @@ enum SpaceLimitBannerLimitType: Equatable {
     }
 
     var showManageButton: Bool {
-        if case .sharedSpaces = self { return true }
-        return false
+        switch self {
+        case .sharedSpaces:
+            return true
+        case .editors:
+            return false
+        }
     }
 
     var upgradeReason: MembershipUpgradeReason {
