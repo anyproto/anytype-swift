@@ -86,7 +86,7 @@ private extension EmojiProvider {
             return false
         }
         
-        let supportedEmojiVersion = 12
+        let supportedEmojiVersion = 15
         return intVersion <= supportedEmojiVersion
     }
 }
