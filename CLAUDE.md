@@ -127,6 +127,27 @@ String(format: Loc.pinLimitReached, 10)  // DON'T DO THIS
 
 **Why**: SwiftGen automatically generates parameterized functions for strings with format specifiers (%lld, %d, %@). Always use the generated function directly.
 
+### Removing Unused Localization Keys
+
+When removing code that uses localization keys, **always check if the key is still used elsewhere**:
+
+1. **Search for usage**:
+   ```bash
+   rg "keyName" --type swift
+   ```
+
+2. **If only found in Generated/Strings.swift**, the key is unused:
+   - Remove the entire key entry from the source `.xcstrings` file
+   - Run `make generate` to regenerate Strings.swift
+
+3. **Example workflow**:
+   - Removed `MembershipParticipantUpgradeReason.numberOfSpaceReaders`
+   - Search: `rg "noMoreMembers" --type swift` → only in Strings.swift
+   - Remove `"Membership.Upgrade.NoMoreMembers"` from Workspace.xcstrings
+   - Run `make generate`
+
+**Important**: Never leave orphaned localization keys in .xcstrings files - they bloat the codebase and confuse translators.
+
 ## 🎨 Design System & Common UI Components
 
 ### Quick Reference

@@ -1766,7 +1766,6 @@ public enum Loc {
       public static let moreMembers = Loc.tr("Workspace", "Membership.Upgrade.MoreMembers", fallback: "Upgrade to add more members")
       public static let moreSpaces = Loc.tr("Workspace", "Membership.Upgrade.MoreSpaces", fallback: "Upgrade to add more spaces.")
       public static let noMoreEditors = Loc.tr("Workspace", "Membership.Upgrade.NoMoreEditors", fallback: "You can’t add more editors")
-      public static let noMoreMembers = Loc.tr("Workspace", "Membership.Upgrade.NoMoreMembers", fallback: "You can’t add more members")
       public static func spacesLimit(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Membership.Upgrade.SpacesLimit", p1, fallback: "Plural format key: Membership.Upgrade.SpacesLimit")
       }
@@ -2229,7 +2228,7 @@ public enum Loc {
       }
     }
     public enum SharedSpaces {
-      public static let subtitle = Loc.tr("Workspace", "Space limit.Shared spaces.Subtitle", fallback: "Upgrade for more or remove spaces")
+      public static let subtitle = Loc.tr("Workspace", "Space limit.Shared spaces.Subtitle", fallback: "Upgrade for more or remove spaces.")
       public static func title(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Space limit.Shared spaces.Title", p1, fallback: "You've reached the limit of %lld shared spaces.")
       }
