@@ -1422,7 +1422,7 @@ public enum Loc {
       public static let title = Loc.tr("Workspace", "Chat.DeleteMessage.Title", fallback: "Delete this message?")
     }
     public enum Empty {
-      public static let title = Loc.tr("Workspace", "Chat.Empty.Title", fallback: "You just created a chat")
+      public static let title = Loc.tr("Workspace", "Chat.Empty.Title", fallback: "Chat without the cloud")
       public enum Button {
         public static let addMembers = Loc.tr("Workspace", "Chat.Empty.Button.AddMembers", fallback: "Add members")
       }
