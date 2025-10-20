@@ -2435,7 +2435,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You just created a chat"
+            "value" : "Chat without the cloud"
           }
         },
         "es" : {
@@ -2489,7 +2489,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You just created a chat"
+            "value" : "Chat without the cloud"
           }
         },
         "nl" : {
