@@ -477,7 +477,4 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Widget view ID
     case widgetViewId = "widgetViewId"
-
-    /// Is this the main chat
-    case isMainChat = "isMainChat"
 }

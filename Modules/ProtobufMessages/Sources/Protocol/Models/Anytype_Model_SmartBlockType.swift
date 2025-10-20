@@ -45,8 +45,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
   case notificationObject // = 535
   case devicesObject // = 536
 
-  /// DEPRECATED Container for any-store based chats
-  case chatObjectDeprecated // = 537
+  /// Container for any-store based chats
+  case chatObject // = 537
 
   /// Any-store based object for chat
   case chatDerivedObject // = 544
@@ -86,7 +86,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     case 534: self = .participant
     case 535: self = .notificationObject
     case 536: self = .devicesObject
-    case 537: self = .chatObjectDeprecated
+    case 537: self = .chatObject
     case 544: self = .chatDerivedObject
     case 545: self = .accountObject
     default: self = .UNRECOGNIZED(rawValue)
@@ -120,7 +120,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     case .participant: return 534
     case .notificationObject: return 535
     case .devicesObject: return 536
-    case .chatObjectDeprecated: return 537
+    case .chatObject: return 537
     case .chatDerivedObject: return 544
     case .accountObject: return 545
     case .UNRECOGNIZED(let i): return i
@@ -154,7 +154,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
     .fileObject,
     .notificationObject,
     .devicesObject,
-    .chatObjectDeprecated,
+    .chatObject,
     .chatDerivedObject,
     .accountObject,
   ]
@@ -188,7 +188,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     534: .same(proto: "Participant"),
     535: .same(proto: "NotificationObject"),
     536: .same(proto: "DevicesObject"),
-    537: .same(proto: "ChatObjectDeprecated"),
+    537: .same(proto: "ChatObject"),
     544: .same(proto: "ChatDerivedObject"),
     545: .same(proto: "AccountObject"),
   ]

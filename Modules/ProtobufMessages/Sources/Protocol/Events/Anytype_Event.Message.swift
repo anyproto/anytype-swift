@@ -567,14 +567,6 @@ extension Anytype_Event {
       set {value = .membershipUpdate(newValue)}
     }
 
-    public var membershipTiersUpdate: Anytype_Event.Membership.TiersUpdate {
-      get {
-        if case .membershipTiersUpdate(let v)? = value {return v}
-        return Anytype_Event.Membership.TiersUpdate()
-      }
-      set {value = .membershipTiersUpdate(newValue)}
-    }
-
     public var spaceSyncStatusUpdate: Anytype_Event.Space.SyncStatus.Update {
       get {
         if case .spaceSyncStatusUpdate(let v)? = value {return v}
@@ -745,7 +737,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     115: .same(proto: "notificationUpdate"),
     116: .same(proto: "payloadBroadcast"),
     117: .same(proto: "membershipUpdate"),
-    137: .same(proto: "membershipTiersUpdate"),
     119: .same(proto: "spaceSyncStatusUpdate"),
     120: .same(proto: "p2pStatusUpdate"),
     121: .same(proto: "importFinish"),
@@ -1728,19 +1719,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .chatUpdateMessageSyncStatus(v)
         }
       }()
-      case 137: try {
-        var v: Anytype_Event.Membership.TiersUpdate?
-        var hadOneofValue = false
-        if let current = self.value {
-          hadOneofValue = true
-          if case .membershipTiersUpdate(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .membershipTiersUpdate(v)
-        }
-      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         var hadOneofValue = false
@@ -2118,10 +2096,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .chatUpdateMessageSyncStatus?: try {
       guard case .chatUpdateMessageSyncStatus(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 136)
-    }()
-    case .membershipTiersUpdate?: try {
-      guard case .membershipTiersUpdate(let v)? = self.value else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 137)
     }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }

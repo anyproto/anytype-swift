@@ -38,7 +38,7 @@ extension Anytype_Model_ObjectType {
     case pdf // = 20
 
     /// deprecated
-    case chatDeprecated // = 21
+    case chat // = 21
     case chatDerived // = 22
     case tag // = 23
     case notification // = 24
@@ -73,7 +73,7 @@ extension Anytype_Model_ObjectType {
       case 18: self = .spaceView
       case 19: self = .participant
       case 20: self = .pdf
-      case 21: self = .chatDeprecated
+      case 21: self = .chat
       case 22: self = .chatDerived
       case 23: self = .tag
       case 24: self = .notification
@@ -106,7 +106,7 @@ extension Anytype_Model_ObjectType {
       case .spaceView: return 18
       case .participant: return 19
       case .pdf: return 20
-      case .chatDeprecated: return 21
+      case .chat: return 21
       case .chatDerived: return 22
       case .tag: return 23
       case .notification: return 24
@@ -139,7 +139,7 @@ extension Anytype_Model_ObjectType {
       .spaceView,
       .participant,
       .pdf,
-      .chatDeprecated,
+      .chat,
       .chatDerived,
       .tag,
       .notification,
@@ -172,7 +172,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     18: .same(proto: "spaceView"),
     19: .same(proto: "participant"),
     20: .same(proto: "pdf"),
-    21: .same(proto: "chatDeprecated"),
+    21: .same(proto: "chat"),
     22: .same(proto: "chatDerived"),
     23: .same(proto: "tag"),
     24: .same(proto: "notification"),

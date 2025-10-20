@@ -49,7 +49,7 @@ struct ObjectIconPicker: View {
                 EmptyView()
             case .todo, .note, .bookmark, .UNRECOGNIZED, .relation, .relationOption,
                     .dashboard, .relationOptionsList, .audio, .video, .pdf, .date, .space,
-                    .spaceView, .tag, .chatDeprecated, .notification, .missingObject, .devices:
+                    .spaceView, .tag, .chat, .notification, .missingObject, .devices:
                 EmptyView()
                     .onAppear {
                         anytypeAssertionFailure("Not supported layout")
