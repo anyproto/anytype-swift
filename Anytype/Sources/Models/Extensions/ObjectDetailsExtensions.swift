@@ -76,7 +76,7 @@ extension BundledPropertiesValueProvider {
             return .mediaFile
         case .bookmark:
             return .bookmark
-        case .chatDeprecated, .chatDerived:
+        case .chat, .chatDerived:
             return .chat
         }
     }

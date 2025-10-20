@@ -176,7 +176,6 @@ public protocol BundledPropertiesValueProvider {
     var widgetLayout: Int? { get }
     var widgetLimit: Int? { get }
     var widgetViewId: String { get }
-    var isMainChat: Bool { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -819,9 +818,5 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Widget view ID
     var widgetViewId: String {
         return value(for: BundledPropertyKey.widgetViewId.rawValue)
-    }
-    /// Is this the main chat
-    var isMainChat: Bool {
-        return value(for: BundledPropertyKey.isMainChat.rawValue)
     }
 }

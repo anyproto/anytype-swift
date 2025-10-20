@@ -84,7 +84,6 @@ extension Anytype_Event.Message {
       case notificationUpdate(Anytype_Event.Notification.Update)
       case payloadBroadcast(Anytype_Event.Payload.Broadcast)
       case membershipUpdate(Anytype_Event.Membership.Update)
-      case membershipTiersUpdate(Anytype_Event.Membership.TiersUpdate)
       case spaceSyncStatusUpdate(Anytype_Event.Space.SyncStatus.Update)
       case p2PStatusUpdate(Anytype_Event.P2PStatus.Update)
       case importFinish(Anytype_Event.Import.Finish)
