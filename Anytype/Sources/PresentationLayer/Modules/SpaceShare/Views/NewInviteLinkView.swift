@@ -24,7 +24,7 @@ struct NewInviteLinkView: View {
             } else {
                 linkStateButton
                     .opacity(hasReachedSharedSpacesLimit ? 0.5 : 1)
-                    .disabled(hasReachedSharedSpacesLimit)
+                    .disabled(model.isLoading || !canChangeInvite || hasReachedSharedSpacesLimit)
             }
         }
         .transition(.opacity)
