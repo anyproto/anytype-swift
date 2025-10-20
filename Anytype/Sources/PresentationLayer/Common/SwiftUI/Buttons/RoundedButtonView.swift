@@ -6,9 +6,10 @@ enum RoundedButtonDecoration {
     case chervon
     case caption(String)
     case badge(Int)
+    case alert
     case objectType(ObjectType)
     case toggle(isOn: Bool, onToggle: (Bool) -> Void)
-    
+
     init?(objectType: ObjectType?) {
         guard let objectType else { return nil }
         self = .objectType(objectType)
@@ -60,6 +61,13 @@ struct RoundedButtonView: View {
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .badge(let badge):
             CounterView(count: badge, style: .highlighted)
+            Spacer.fixedWidth(8)
+            IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
+        case .alert:
+            AnytypeText("!", style: .caption1Regular)
+                .foregroundColor(Color.Control.white)
+                .frame(width: 20, height: 20)
+                .background(Circle().fill(Color.Pure.red))
             Spacer.fixedWidth(8)
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case let .objectType(objectType):

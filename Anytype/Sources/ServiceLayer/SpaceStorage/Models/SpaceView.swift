@@ -113,30 +113,19 @@ extension SpaceView {
     }
     
     func canAddWriters(participants: [Participant]) -> Bool {
-        guard canAddReaders(participants: participants) else { return false }
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
     }
-    
-    func canAddReaders(participants: [Participant]) -> Bool {
-        guard let readersLimit else { return true }
-        return readersLimit > activeReaders(participants: participants)
-    }
-    
+
     func canChangeWriterToReader(participants: [Participant]) -> Bool {
-        guard let readersLimit else { return true }
-        return readersLimit >= activeReaders(participants: participants)
+        return true
     }
     
     func canChangeReaderToWriter(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)
     }
-    
-    private func activeReaders(participants: [Participant]) -> Int {
-        participants.filter { $0.permission == .reader || $0.permission == .writer || $0.permission == .owner }.count
-    }
-    
+
     private func activeWriters(participants: [Participant]) -> Int {
         participants.filter { $0.permission == .writer || $0.permission == .owner }.count
     }

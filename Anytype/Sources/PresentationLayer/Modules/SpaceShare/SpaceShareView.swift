@@ -61,7 +61,7 @@ struct SpaceShareView: View {
                     }
 
                     SectionHeaderView(title: Loc.SpaceShare.Invite.title)
-                    NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, output: model.output)
+                    NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, hasReachedSharedSpacesLimit: model.hasReachedSharedSpacesLimit, output: model.output)
 
                     SectionHeaderView(title: Loc.SpaceShare.members)
                     ForEach(model.rows) { participant in
@@ -72,6 +72,5 @@ struct SpaceShareView: View {
             }
         }
         .background(Color.Background.primary)
-        .animation(.default, value: model.limitBannerData)
     }
 }
