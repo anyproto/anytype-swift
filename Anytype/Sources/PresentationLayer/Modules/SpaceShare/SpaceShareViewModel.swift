@@ -44,6 +44,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canRemoveMember = false
     @Published var canApproveRequests = false
     @Published var canChangeInvite = false
+    @Published var hasReachedSharedSpacesLimit = false
     @Published var limitBannerData: SpaceLimitBannerLimitType?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
@@ -98,15 +99,19 @@ final class SpaceShareViewModel: ObservableObject {
         let workspaceInfo = workspacesStorage.spaceInfo(spaceId: spaceId)
         guard let participantSpaceView, let workspaceInfo else { return }
         
+        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
+
+        hasReachedSharedSpacesLimit = spaceSharingInfo != nil && !spaceSharingInfo!.limitsAllowSharing
         canStopShare = participantSpaceView.canStopSharing
         canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
             && participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
-        canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
+        canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
         canDeleteLink = participantSpaceView.permissions.canDeleteLink
         canApproveRequests = participantSpaceView.permissions.canApproveRequests
-        canChangeInvite = participantSpaceView.permissions.canEditPermissions && participantSpaceView.permissions.canDeleteLink
+        canChangeInvite = participantSpaceView.permissions.canEditPermissions
+            && participantSpaceView.permissions.canDeleteLink
         
         updateUpgradeViewState()
 

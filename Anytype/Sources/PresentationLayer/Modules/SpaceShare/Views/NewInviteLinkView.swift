@@ -2,13 +2,15 @@ import Foundation
 import SwiftUI
 
 struct NewInviteLinkView: View {
-    
+
     @StateObject private var model: NewInviteLinkViewModel
     @Binding private var notifyUpdateLinkView: UUID
     let canChangeInvite: Bool
-    
-    init(data: SpaceShareData, notifyUpdateLinkView: Binding<UUID>, canChangeInvite: Bool, output: (any NewInviteLinkModuleOutput)?) {
+    let hasReachedSharedSpacesLimit: Bool
+
+    init(data: SpaceShareData, notifyUpdateLinkView: Binding<UUID>, canChangeInvite: Bool, hasReachedSharedSpacesLimit: Bool, output: (any NewInviteLinkModuleOutput)?) {
         self.canChangeInvite = canChangeInvite
+        self.hasReachedSharedSpacesLimit = hasReachedSharedSpacesLimit
         self._notifyUpdateLinkView = notifyUpdateLinkView
         self._model = StateObject(wrappedValue: NewInviteLinkViewModel(data: data, output: output))
     }
@@ -21,6 +23,8 @@ struct NewInviteLinkView: View {
                 linkContent
             } else {
                 linkStateButton
+                    .opacity(hasReachedSharedSpacesLimit ? 0.5 : 1)
+                    .disabled(hasReachedSharedSpacesLimit)
             }
         }
         .transition(.opacity)

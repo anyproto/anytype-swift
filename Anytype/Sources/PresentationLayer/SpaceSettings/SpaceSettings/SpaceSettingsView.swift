@@ -177,8 +177,17 @@ struct SpaceSettingsView: View {
             EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
-        case .owner(let joiningCount):
-            collaborationSection(memberDecoration: joiningCount > 0 ? .badge(joiningCount) : .chervon)
+        case .owner:
+            let decoration: RoundedButtonDecoration = {
+                if !model.canAddWriters {
+                    return .alert
+                } else if model.joiningCount > 0 {
+                    return .badge(model.joiningCount)
+                } else {
+                    return .chervon
+                }
+            }()
+            collaborationSection(memberDecoration: decoration)
         case .editor:
             collaborationSection(memberDecoration: .chervon)
         case .viewer:

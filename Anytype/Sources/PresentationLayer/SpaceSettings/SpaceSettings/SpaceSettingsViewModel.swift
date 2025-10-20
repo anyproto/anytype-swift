@@ -47,6 +47,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var spaceIcon: Icon?
     
     @Published var info = [SettingsInfoModel]()
+    @Published var participants: [Participant] = []
     @Published var snackBarData: ToastBarData?
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
@@ -69,13 +70,14 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var qrInviteLink: URL?
     @Published private(set) var inviteLink: URL?
     @Published var participantsCount: Int = 0
-    
+    @Published var canAddWriters = true
+    @Published var joiningCount: Int = 0
+
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
-    private var joiningCount: Int = 0
     private var owner: Participant?
     private let widgetsObject: any BaseDocumentProtocol
-    
+
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
         self.workspaceInfo = workspaceInfo
         self.output = output
@@ -210,6 +212,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func startJoiningTask() async {
         for await participants in participantsSubscription.participantsPublisher.values {
+            self.participants = participants
             participantsCount = participants.filter { $0.status == .active }.count
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
@@ -260,28 +263,29 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     private func updateViewState() {
         guard let participantSpaceView else { return }
-        
+
         let spaceView = participantSpaceView.spaceView
-        
+
         spaceIcon = spaceView.objectIconImage
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
-        
+        canAddWriters = spaceView.canAddWriters(participants: participants)
+
         uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
-        
+
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
         }
-        
+
         spaceName = spaceView.name
         spaceDescription = spaceView.description
-        
+
         pushNotificationsSettingsMode = spaceView.pushNotificationMode.asNotificationsSettingsMode
-        
+
         shareSection = buildShareSection(participantSpaceView: participantSpaceView)
-        
+
         Task { try await updateInviteIfNeeded() }
     }
     
