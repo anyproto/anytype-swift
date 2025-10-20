@@ -55110,7 +55110,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Spaces"
+            "value" : "My Channels"
           }
         },
         "nl" : {
@@ -58695,7 +58695,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objects"
+                  "value" : "%lld Objekte"
                 }
               }
             }
@@ -59857,7 +59857,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Object types"
+                  "value" : "%lld Objekttypen"
                 }
               }
             }
@@ -60559,7 +60559,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it."
+            "value" : "Möchtest du diesen Typ wirklich löschen? Alle vorhandenen Objekte dieses Typs bleiben erhalten, sind aber nicht mehr mit ihm verknüpft."
           }
         },
         "en" : {
@@ -76798,7 +76798,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all"
+            "value" : "Ver todo"
           }
         },
         "fa" : {
@@ -76828,7 +76828,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all"
+            "value" : "Mostra tutto"
           }
         },
         "ja" : {
