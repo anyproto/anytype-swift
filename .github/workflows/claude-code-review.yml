@@ -64,24 +64,35 @@ jobs:
               - 🚨 **Major Issues** - [critical problems]
 
             IMPORTANT - Review Comment Strategy:
-            1. Post a summary comment using `gh pr comment ${{ github.event.pull_request.number }}` with overall feedback and high-level observations
-            2. For EACH specific code issue, post an inline comment on the exact lines using:
+            1. Post inline comments for EACH specific code issue using the GitHub API directly.
+            2. Post a final summary comment at the end.
 
-               gh pr comment ${{ github.event.pull_request.number }} \
-                 --body "Your detailed comment about this specific issue" \
-                 --file "path/to/file.swift" \
-                 --line 68
+            For inline comments, use this exact format:
+
+            COMMIT_SHA="${{ github.event.pull_request.head.sha }}"
+            gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
+              --method POST \
+              --field body="Your summary here (can be empty if you have inline comments)" \
+              --field event="COMMENT" \
+              --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
+              --field comments[][line]=274 \
+              --field comments[][body]="Your inline comment here"
+
+            You can add multiple --field comments[][...] entries in a single command for multiple inline comments.
 
             Example:
-            - Summary: Post overall review with `gh pr comment ${{ github.event.pull_request.number }} --body "Summary..."`
-            - Issue 1: Missing error handling at MembershipStatusStorage.swift:68-75
-              -> Post inline comment: `gh pr comment ${{ github.event.pull_request.number }} --body "Missing error handling..." --file "path/to/MembershipStatusStorage.swift" --line 68`
-            - Issue 2: Race condition at MembershipStatusStorage.swift:38
-              -> Post inline comment: `gh pr comment ${{ github.event.pull_request.number }} --body "Race condition..." --file "path/to/MembershipStatusStorage.swift" --line 38`
+            gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
+              --method POST \
+              --field body="Found potential race condition" \
+              --field event="COMMENT" \
+              --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
+              --field comments[][line]=274 \
+              --field comments[][body]="**Potential Race Condition**: canAddWriters is computed using participants array (line 274), but participants is updated asynchronously in startJoiningTask() which runs in parallel with startParticipantTask()."
 
-            This way, reviewers see inline comments exactly where the issues are in the code.
+            Then post a final summary comment:
+            gh pr comment ${{ github.event.pull_request.number }} --body "Review complete - see inline comments for details"
 
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.claude.com/en/docs/claude-code/cli-reference for available options
-          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
+          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh api:*)"'
 
