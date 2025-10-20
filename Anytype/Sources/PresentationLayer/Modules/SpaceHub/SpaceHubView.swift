@@ -57,7 +57,7 @@ struct SpaceHubView: View {
                     searchEmptyStateView
                 }
             }
-            .navigationTitle(Loc.mySpaces)
+            .navigationTitle(Loc.myChannels)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarItems }
             .searchable(text: $model.searchText)
@@ -99,7 +99,7 @@ struct SpaceHubView: View {
                     Spacer.fixedWidth(18)
                 }
                 
-                AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
+                AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
                 
                 Spacer.fixedWidth(18)
             }
@@ -142,7 +142,7 @@ struct SpaceHubView: View {
                     Spacer.fixedWidth(18)
                 }
                 
-                AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
+                AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
                 
                 Spacer.fixedWidth(18)
             }
