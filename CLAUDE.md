@@ -93,6 +93,11 @@ make setup-middle    # Initial setup
    }
    ```
 
+   **⚠️ IMPORTANT**: When adding or updating localization strings:
+   - **Only update the English (`en`) translation** - All other language translations are handled automatically via Crowdin
+   - Do not manually edit translations for other languages (de, es, fr, ja, etc.)
+   - The localization team manages non-English translations through Crowdin workflow
+
 5. **Generate and use**:
    ```bash
    make generate
