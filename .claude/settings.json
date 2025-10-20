@@ -2,7 +2,6 @@
   "permissions": {
     "allow": [
       "Read(*)",
-      "read file",
 
       "Bash(git checkout:*)",
       "Bash(git worktree:*)",
