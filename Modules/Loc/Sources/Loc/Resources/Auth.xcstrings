@@ -3448,7 +3448,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "Wähle eine Rolle oder einen Hintergrund aus, der am besten zu dir passt"
           }
         },
         "en" : {
@@ -6726,7 +6726,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "Wähle einen Anwendungsfall aus, der am besten zu dir passt"
           }
         },
         "en" : {
