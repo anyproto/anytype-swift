@@ -5,6 +5,8 @@ USE EXTENDED THINKING
 ## Purpose
 This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, using a pre-configured Linear view to simplify project discovery.
 
+**CRITICAL: Use ONLY Linear MCP tools (`mcp__linear__*`). DO NOT use git, bash, or GitHub CLI commands. All information comes from Linear API.**
+
 ## Process
 
 ### Step 1: Get Release Information
@@ -85,15 +87,17 @@ For each project/epic, find and analyze ALL sub-tasks:
 
 2. **Issue IDs** (format like `IOS-4913`, `IOS-5149`):
    - Human-readable task/story identifiers
-   - Found in git commit messages
-   - Found in sub-tasks of projects
+   - Found in Linear sub-tasks of projects
+   - Found in Linear issue attachments (PR references)
    - **USE THESE in changelogs and impact reports**
 
-### How to Extract Issue IDs
+### How to Extract Issue IDs (Using ONLY Linear MCP Tools)
+**CRITICAL: DO NOT use git commands. All data comes from Linear MCP tools.**
+
 For each project in the view:
-1. **Check sub-tasks** - Each sub-task has an issue ID (IOS-XXXX)
-2. **Look at project description** - Often lists related issue IDs
-3. **Review linked PRs** - GitHub PRs reference issue IDs
+1. **Check sub-tasks** - Use `mcp__linear__list_issues` with project filter to find all issues. Each sub-task has an issue ID (IOS-XXXX)
+2. **Look at project description** - Project descriptions from `mcp__linear__get_project` often list related issue IDs
+3. **Review attachments field** - Linear issues include PR attachments with GitHub URLs
 4. **Note implementation issues** - Main work is done in issue tasks, not project containers
 
 ### Issue ID Mapping Example

@@ -284,34 +284,40 @@ When creating the changelog from Linear and Git data:
    - API details
    - Performance metrics (unless dramatic and user-facing)
 
-## Output 3: Team Celebration Slack Message
+## Output 3: Team Message
 
-Generate a concise, morale-boosting message for team communication (Slack, etc.)
+Generate a concise, realistic message for team communication (Slack, etc.)
 
 **Requirements:**
-- Keep under 15 lines total
-- Use emojis for visual appeal
-- No markdown (plain text for Slack compatibility)
-- Focus on wow-factor numbers and achievements
-- Celebratory tone
+- Keep under 12 lines total (medium Slack message size)
+- No emojis or excessive hype
+- Plain text, professional tone
+- Balance user-facing and technical work
+- Humble and honest about the release scope
 
 **Template Structure:**
 ```
-Insane Numbers of Release [NUMBER] :exploding_head:
-[X] files changed - We basically rewrote half the iOS app
-[X] commits merged - That's more than 1 commit every day for a YEAR
-[Key achievement 1] from ZERO to HERO in one release
-[Key achievement 2] - [Impressive user-facing description]
+Release [NUMBER] - [Descriptive Theme]
 
-*P.S. - [X] Linear projects delivered simultaneously. We're basically wizards now.*
+What users see: [2-3 sentence summary of user-visible features]
+
+What we actually did: [2-3 sentence summary of technical work - refactoring, cleanup, infrastructure]
+
+[Key stats]: [X] files, [X] commits, net [+/-X] lines.
+
+Linear said [X] projects. Git says [X+] initiatives. The gap is [explanation of additional work].
+
+[Honest assessment]. [Simple close].
 ```
 
 **Content Guidelines:**
-- Lead with biggest numbers (files changed, commits, etc.)
-- Include 2-3 most impressive achievements
-- Use transformation language ("ZERO to HERO", "basically rewrote")
-- End with team pride line about coordination/wizardry
-- Keep technical jargon minimal
+- Lead with honest characterization (e.g., "The Cleanup Release", "The Stability Release")
+- **What users see** vs **What we actually did** contrast
+- Include raw numbers without hyperbole
+- Acknowledge gap between planned scope and actual work
+- End with realistic assessment (not sexy but necessary, codebase healthier, etc.)
+- Simple close: "Onward." or "Shipping it." - no forced enthusiasm
+- Avoid: "basically rewrote", "wizards", "HERO", excessive emojis, marketing speak
 
 ## Usage Instructions
 1. Load both context files from Parts 1 & 2
@@ -319,11 +325,11 @@ Insane Numbers of Release [NUMBER] :exploding_head:
 3. Calculate impact scores for each change
 4. Generate comprehensive testing recommendations
 5. Create clean changelog focused on user value (not technical details)
-6. Create team celebration message
+6. Create team message
 7. Save outputs:
    - `impact_analysis_release_[NUMBER].md`
    - `clean_changelog_release_[NUMBER].md`
-   - `team_celebration_release_[NUMBER].txt`
+   - `team_message_release_[NUMBER].txt`
 
 ## Tips for Creating Clean Changelog
 - Focus on WHAT users can do, not HOW it was built
