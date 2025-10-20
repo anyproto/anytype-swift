@@ -1875,7 +1875,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Aggiungi membri"
           }
         },
         "ja" : {
@@ -2024,7 +2024,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messages, docs & files available offline"
+            "value" : "Messaggi, documenti & file disponibili offline"
           }
         },
         "ja" : {
@@ -2173,7 +2173,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "Completamente privato e crittografato"
           }
         },
         "ja" : {
@@ -2322,7 +2322,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "Tuo per sempre"
           }
         },
         "ja" : {
@@ -53161,7 +53161,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld editors."
+            "value" : "Kamu telah mencapai batas %lld penyunting."
           }
         },
         "it" : {
@@ -53459,7 +53459,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld shared spaces."
+            "value" : "Kamu telah mencapai batas %lld ruang terbagi."
           }
         },
         "it" : {
