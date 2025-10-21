@@ -34,7 +34,7 @@ struct JoinSelectionView: View {
         VStack(spacing: 8) {
             StandardButton(
                 Loc.continue,
-                style: .primaryOvalLarge,
+                style: .primaryLarge,
                 action: {
                     model.onNextAction()
                 }

@@ -47,7 +47,7 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Control.primary
+                    backgroundColor: .Control.accent100
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
@@ -58,9 +58,9 @@ public extension StandardButtonStyle {
                 ),
                 textFont: .button1Medium,
                 infoTextFont: .caption1Medium,
-                height: 48,
+                height: 52,
                 stretchSize: true,
-                radius: 12,
+                radius: 26,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .secondaryLarge:
@@ -77,9 +77,9 @@ public extension StandardButtonStyle {
                     borderColor: .Shape.primary
                 ),
                 textFont: .button1Regular,
-                height: 48,
+                height: 52,
                 stretchSize: true,
-                radius: 12,
+                radius: 26,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .warningLarge:
@@ -96,9 +96,9 @@ public extension StandardButtonStyle {
                     borderColor: .Shape.secondary
                 ),
                 textFont: .button1Medium,
-                height: 48,
+                height: 52,
                 stretchSize: true,
-                radius: 12,
+                radius: 26,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .borderlessLarge:
@@ -127,7 +127,7 @@ public extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 44,
                 stretchSize: true,
-                radius: 10,
+                radius: 22,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .secondaryMedium:
@@ -138,7 +138,7 @@ public extension StandardButtonStyle {
                 textFont: .uxBodyRegular,
                 height: 44,
                 stretchSize: true,
-                radius: 10,
+                radius: 22,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large,
                 horizontalPadding: 12
             )
@@ -150,7 +150,7 @@ public extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 44,
                 stretchSize: true,
-                radius: 10,
+                radius: 22,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .primarySmall:
@@ -161,7 +161,7 @@ public extension StandardButtonStyle {
                 textFont: .uxCalloutMedium,
                 height: 36,
                 stretchSize: false,
-                radius: 8,
+                radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .secondarySmall:
@@ -172,7 +172,7 @@ public extension StandardButtonStyle {
                 textFont: .uxCalloutRegular,
                 height: 36,
                 stretchSize: false,
-                radius: 8,
+                radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .warningSmall:
@@ -183,7 +183,7 @@ public extension StandardButtonStyle {
                 textFont: .uxCalloutMedium,
                 height: 36,
                 stretchSize: false,
-                radius: 8,
+                radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .borderlessSmall:
@@ -213,7 +213,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
                 horizontalPadding: 10
             )
@@ -225,7 +225,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: true,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
                 horizontalPadding: 10
             )
@@ -237,7 +237,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Regular,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .warningXSmall:
@@ -248,7 +248,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .transparentXSmall:
@@ -266,7 +266,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .upgradeBadge:
@@ -285,48 +285,7 @@ public extension StandardButtonStyle {
                 textFont: .calloutRegular,
                 height: 32,
                 stretchSize: true,
-                radius: 18,
-                loadingIndicatorSize: .ButtonLoadingIndicator.large
-            )
-        case .primaryOvalLarge:
-            return StandardButtonConfig(
-                normal: StandardButtonConfig.Style(
-                    textColor: .Text.white,
-                    backgroundColor: .Control.accent100
-                ),
-                higlighted: StandardButtonConfig.Style(
-                    textColor: .Text.white,
-                    backgroundColor: .Control.accent125
-                ),
-                disabled: StandardButtonConfig.Style(
-                    textColor: .Text.tertiary,
-                    backgroundColor: .Control.tertiary
-                ),
-                textFont: .button1Medium,
-                infoTextFont: .caption1Medium,
-                height: 48,
-                stretchSize: true,
-                radius: 100,
-                loadingIndicatorSize: .ButtonLoadingIndicator.large
-            )
-        case .secondaryOvalLarge:
-            return StandardButtonConfig(
-                normal: StandardButtonConfig.Style(
-                    textColor: .Text.primary,
-                    backgroundColor: .Shape.primary
-                ),
-                higlighted: StandardButtonConfig.Style(
-                    textColor: .Text.primary,
-                    backgroundColor: .Control.tertiary
-                ),
-                disabled: StandardButtonConfig.Style(
-                    textColor: .Text.tertiary,
-                    backgroundColor: .Shape.tertiary
-                ),
-                textFont: .button1Regular,
-                height: 48,
-                stretchSize: true,
-                radius: 100,
+                radius: 16,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .linkLarge:
@@ -341,7 +300,7 @@ public extension StandardButtonStyle {
                     textColor: .Text.tertiary
                 ),
                 textFont: .button1Regular,
-                height: 48,
+                height: 52,
                 stretchSize: true,
                 radius: 0,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
