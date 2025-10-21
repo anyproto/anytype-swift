@@ -19,8 +19,11 @@ struct ControlsExample: View {
 
                         makeLargeButtonVariants(title: "Link Large - Light", style: .linkLarge).colorScheme(.light)
                         makeLargeButtonVariants(title: "Link Large - Dark", style: .linkLarge).colorScheme(.dark)
+
+                        makeLargeButtonVariants(title: "Borderless Large - Light", style: .borderlessLarge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Borderless Large - Dark", style: .borderlessLarge).colorScheme(.dark)
                     }
-                    
+
                     Group {
                         makeTwoByLineButtonVariants(title: "Primary Medium - Light", style: .primaryMedium).colorScheme(.light)
                         makeTwoByLineButtonVariants(title: "Primary Medium - Dark", style: .primaryMedium).colorScheme(.dark)
@@ -41,8 +44,11 @@ struct ControlsExample: View {
                         
                         makeTwoByLineButtonVariants(title: "Destructive Small - Light", style: .warningSmall).colorScheme(.light)
                         makeTwoByLineButtonVariants(title: "Destructive Small - Dark", style: .warningSmall).colorScheme(.dark)
+
+                        makeTwoByLineButtonVariants(title: "Borderless Small - Light", style: .borderlessSmall).colorScheme(.light)
+                        makeTwoByLineButtonVariants(title: "Borderless Small - Dark", style: .borderlessSmall).colorScheme(.dark)
                     }
-                    
+
                     Group {
                         makeTwoByLineButtonVariants(title: "Primary XSmall - Light", style: .primaryXSmall).colorScheme(.light)
                         makeTwoByLineButtonVariants(title: "Primary XSmall - Dark", style: .primaryXSmall).colorScheme(.dark)
@@ -55,8 +61,14 @@ struct ControlsExample: View {
                         
                         makeTwoByLineButtonVariants(title: "Transparent XSmall - Light", style: .transparentXSmall).colorScheme(.light)
                         makeTwoByLineButtonVariants(title: "Transparent XSmall - Dark", style: .transparentXSmall).colorScheme(.dark)
+
+                        makeLargeButtonVariants(title: "Primary XSmall Stretched - Light", style: .primaryXSmallStretched).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Primary XSmall Stretched - Dark", style: .primaryXSmallStretched).colorScheme(.dark)
+
+                        makeLargeButtonVariants(title: "Upgrade Badge - Light", style: .upgradeBadge).colorScheme(.light)
+                        makeLargeButtonVariants(title: "Upgrade Badge - Dark", style: .upgradeBadge).colorScheme(.dark)
                     }
-                    
+
                     Group {
                         makeComposeButtons(title: "Composite buttons")
                             .colorScheme(.light)
