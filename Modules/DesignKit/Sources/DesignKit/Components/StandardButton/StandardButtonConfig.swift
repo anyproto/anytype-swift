@@ -127,7 +127,7 @@ public extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 44,
                 stretchSize: true,
-                radius: 10,
+                radius: 22,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .secondaryMedium:
@@ -138,7 +138,7 @@ public extension StandardButtonStyle {
                 textFont: .uxBodyRegular,
                 height: 44,
                 stretchSize: true,
-                radius: 10,
+                radius: 22,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large,
                 horizontalPadding: 12
             )
@@ -150,7 +150,7 @@ public extension StandardButtonStyle {
                 textFont: .button1Medium,
                 height: 44,
                 stretchSize: true,
-                radius: 10,
+                radius: 22,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .primarySmall:
@@ -161,7 +161,7 @@ public extension StandardButtonStyle {
                 textFont: .uxCalloutMedium,
                 height: 36,
                 stretchSize: false,
-                radius: 8,
+                radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .secondarySmall:
@@ -172,7 +172,7 @@ public extension StandardButtonStyle {
                 textFont: .uxCalloutRegular,
                 height: 36,
                 stretchSize: false,
-                radius: 8,
+                radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .warningSmall:
@@ -183,7 +183,7 @@ public extension StandardButtonStyle {
                 textFont: .uxCalloutMedium,
                 height: 36,
                 stretchSize: false,
-                radius: 8,
+                radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.small
             )
         case .borderlessSmall:
@@ -213,7 +213,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
                 horizontalPadding: 10
             )
@@ -225,7 +225,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: true,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
                 horizontalPadding: 10
             )
@@ -237,7 +237,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Regular,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .warningXSmall:
@@ -248,7 +248,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .transparentXSmall:
@@ -266,7 +266,7 @@ public extension StandardButtonStyle {
                 textFont: .caption1Medium,
                 height: 28,
                 stretchSize: false,
-                radius: 6,
+                radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
         case .upgradeBadge:
@@ -285,7 +285,7 @@ public extension StandardButtonStyle {
                 textFont: .calloutRegular,
                 height: 32,
                 stretchSize: true,
-                radius: 18,
+                radius: 16,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .linkLarge:
