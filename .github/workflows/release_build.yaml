@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   main:
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - name: Checkout
