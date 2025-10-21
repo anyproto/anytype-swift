@@ -53,7 +53,7 @@ struct MigrationView: View {
             
             StandardButton(
                 Loc.Migration.Initial.startUpdate,
-                style: .primaryOvalLarge,
+                style: .primaryLarge,
                 action: {
                     model.startUpdate()
                 }
@@ -61,7 +61,7 @@ struct MigrationView: View {
             Spacer.fixedHeight(8)
             StandardButton(
                 Loc.Migration.Initial.readMore,
-                style: .secondaryOvalLarge,
+                style: .secondaryLarge,
                 action: {
                     model.readMore()
                 }
@@ -108,7 +108,7 @@ struct MigrationView: View {
             Spacer()
             StandardButton(
                 Loc.tryAgain,
-                style: .primaryOvalLarge,
+                style: .primaryLarge,
                 action: {
                     model.tryAgainTapped()
                 }

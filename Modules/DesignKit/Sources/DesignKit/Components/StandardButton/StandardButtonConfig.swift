@@ -288,47 +288,6 @@ public extension StandardButtonStyle {
                 radius: 18,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
-        case .primaryOvalLarge:
-            return StandardButtonConfig(
-                normal: StandardButtonConfig.Style(
-                    textColor: .Text.white,
-                    backgroundColor: .Control.accent100
-                ),
-                higlighted: StandardButtonConfig.Style(
-                    textColor: .Text.white,
-                    backgroundColor: .Control.accent125
-                ),
-                disabled: StandardButtonConfig.Style(
-                    textColor: .Text.tertiary,
-                    backgroundColor: .Control.tertiary
-                ),
-                textFont: .button1Medium,
-                infoTextFont: .caption1Medium,
-                height: 52,
-                stretchSize: true,
-                radius: 100,
-                loadingIndicatorSize: .ButtonLoadingIndicator.large
-            )
-        case .secondaryOvalLarge:
-            return StandardButtonConfig(
-                normal: StandardButtonConfig.Style(
-                    textColor: .Text.primary,
-                    backgroundColor: .Shape.primary
-                ),
-                higlighted: StandardButtonConfig.Style(
-                    textColor: .Text.primary,
-                    backgroundColor: .Control.tertiary
-                ),
-                disabled: StandardButtonConfig.Style(
-                    textColor: .Text.tertiary,
-                    backgroundColor: .Shape.tertiary
-                ),
-                textFont: .button1Regular,
-                height: 52,
-                stretchSize: true,
-                radius: 100,
-                loadingIndicatorSize: .ButtonLoadingIndicator.large
-            )
         case .linkLarge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(

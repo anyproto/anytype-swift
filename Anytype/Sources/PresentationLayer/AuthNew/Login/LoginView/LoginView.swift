@@ -92,7 +92,7 @@ struct LoginView: View {
             StandardButton(
                 Loc.enter,
                 inProgress: model.loadingInProgress,
-                style: .primaryOvalLarge,
+                style: .primaryLarge,
                 action: {
                     model.onEnterButtonAction()
                 }

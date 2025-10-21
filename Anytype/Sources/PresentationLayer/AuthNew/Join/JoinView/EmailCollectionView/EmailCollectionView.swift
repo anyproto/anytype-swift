@@ -81,7 +81,7 @@ struct EmailCollectionView: View {
             StandardButton(
                 Loc.continue,
                 inProgress: model.inProgress,
-                style: FeatureFlags.brandNewAuthFlow ? .primaryOvalLarge : .primaryLarge,
+                style: .primaryLarge,
                 action: {
                     model.onNextAction()
                 }
