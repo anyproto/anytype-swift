@@ -10,4 +10,4 @@ runs:
       run: bundle install
     - uses: tecolicom/actions-use-homebrew-tools@v1
       with:
-        tools: imagemagick
+        tools: imagemagick libgit2
