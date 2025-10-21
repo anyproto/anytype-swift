@@ -319,6 +319,65 @@ Linear said [X] projects. Git says [X+] initiatives. The gap is [explanation of 
 - Simple close: "Onward." or "Shipping it." - no forced enthusiasm
 - Avoid: "basically rewrote", "wizards", "HERO", excessive emojis, marketing speak
 
+## Output 4: TestFlight Release Notes
+
+Generate concise release notes specifically for TestFlight testers.
+
+**Requirements:**
+- Plain text, no markdown formatting
+- Very concise - bullet points only
+- Focus on what testers need to know
+- Critical information first (breaking changes, compatibility)
+- No emojis, no Linear IDs
+- Keep under 15-20 lines total
+
+**Template Structure:**
+```
+!!! [CRITICAL ALERTS IF ANY - Breaking changes, iOS version drops, etc.] !!!
+
+- [Feature 1 - one line]
+- [Feature 2 - one line]
+- [Feature 3 - one line]
+- [Feature 4 - one line]
+- [Feature 5 - one line]
+
+Misc:
+- [Bug fix 1 - one line]
+- [Bug fix 2 - one line]
+- [Bug fix 3 - one line]
+
+Questions? Reach out in the community or support channels.
+```
+
+**Content Guidelines:**
+- **Critical alerts at top**: iOS version drops, breaking changes, data migrations
+  - Format: `!!! [Alert text] !!!`
+  - Example: `!!! Since this release we dropping Support of iOS 16 and now only support iOS 17.0 and later !!!`
+- **Features section**:
+  - 5-7 key features maximum
+  - One line each, no descriptions
+  - Lead with feature name, add brief context if needed
+  - Example: `New Persistent Invite Button: The "Add members" button now stays visible in your chats, even after you've sent messages.`
+- **Misc section**:
+  - Important bug fixes only (3-5 maximum)
+  - One line each
+  - Format: `[Area]: [What was fixed]`
+  - Example: `Sync Stability: Fixed rare issue where data streams could stop early`
+- **Exclude**:
+  - Minor improvements
+  - Internal refactoring (unless it affects testers)
+  - Technical details
+  - Developer-only changes
+  - Code statistics
+- **Standard closing**: Always end with "Questions? Reach out in the community or support channels."
+
+**What to Prioritize for Testers:**
+- New visible features they should test
+- Bug fixes they might have reported
+- Compatibility changes that affect them
+- Anything that changes existing behavior
+- Known issues to watch for
+
 ## Usage Instructions
 1. Load both context files from Parts 1 & 2
 2. Cross-reference Linear stories with Git changes
@@ -326,10 +385,12 @@ Linear said [X] projects. Git says [X+] initiatives. The gap is [explanation of 
 4. Generate comprehensive testing recommendations
 5. Create clean changelog focused on user value (not technical details)
 6. Create team message
-7. Save outputs:
+7. Create TestFlight release notes
+8. Save outputs:
    - `impact_analysis_release_[NUMBER].md`
    - `clean_changelog_release_[NUMBER].md`
    - `team_message_release_[NUMBER].txt`
+   - `testflight_notes_release_[NUMBER].txt`
 
 ## Tips for Creating Clean Changelog
 - Focus on WHAT users can do, not HOW it was built
