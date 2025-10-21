@@ -41,6 +41,8 @@ jobs:
             PR NUMBER: ${{ github.event.pull_request.number }}
             COMMIT SHA: ${{ github.event.pull_request.head.sha }}
 
+            REFERENCE - Valid GitHub Actions Runners: https://github.com/actions/runner-images/tree/main/images/macos
+
             Review this PR using CLAUDE.md for project conventions. Be LEAN and ACTIONABLE - only provide value, avoid noise.
 
             RULES:
@@ -64,30 +66,43 @@ jobs:
               - 🚨 **Major Issues** - [critical problems]
 
             IMPORTANT - Review Comment Strategy:
-            1. Post inline comments for EACH specific code issue using the GitHub API directly.
-            2. Post a final summary comment at the end.
+            1. For small, localized issues affecting a single chunk of code:
+               - Use GitHub's suggestion mechanism to propose the fix inline
+               - Include the fixed code in a suggestion block
+               - Add brief explanation above the suggestion
+            2. For broader issues or multiple locations:
+               - Post inline comments using the GitHub API
+            3. Post a final summary comment at the end
 
-            For inline comments, use this exact format:
+            For INLINE CODE SUGGESTIONS (preferred for small, localized fixes):
+            Use this format in your comment body:
+            ```suggestion
+            fixed code here
+            ```
 
-            COMMIT_SHA="${{ github.event.pull_request.head.sha }}"
+            Example for single-line fix:
+            gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
+              --method POST \
+              --field body="" \
+              --field event="COMMENT" \
+              --field comments[][path]="fastlane/FastlaneComment" \
+              --field comments[][line]=45 \
+              --field comments[][body]="**Code Quality**: This single-line command is fragile. Consider breaking into multiple lines:
+            \`\`\`suggestion
+            sh(\"export PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig:/usr/local/lib/pkgconfig:\$PKG_CONFIG_PATH\")
+            sh(\"source venv/bin/activate && pip3 install -r requirements.txt && python3 release-utils/main.py\")
+            \`\`\`"
+
+            For INLINE COMMENTS (broader issues, no immediate fix):
             gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
               --method POST \
               --field body="Your summary here (can be empty if you have inline comments)" \
               --field event="COMMENT" \
               --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
               --field comments[][line]=274 \
-              --field comments[][body]="Your inline comment here"
+              --field comments[][body]="**Potential Race Condition**: canAddWriters is computed using participants array (line 274), but participants is updated asynchronously in startJoiningTask() which runs in parallel with startParticipantTask()."
 
             You can add multiple --field comments[][...] entries in a single command for multiple inline comments.
-
-            Example:
-            gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
-              --method POST \
-              --field body="Found potential race condition" \
-              --field event="COMMENT" \
-              --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
-              --field comments[][line]=274 \
-              --field comments[][body]="**Potential Race Condition**: canAddWriters is computed using participants array (line 274), but participants is updated asynchronously in startJoiningTask() which runs in parallel with startParticipantTask()."
 
             Then post a final summary comment:
             gh pr comment ${{ github.event.pull_request.number }} --body "Review complete - see inline comments for details"
