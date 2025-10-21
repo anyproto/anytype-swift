@@ -47,7 +47,7 @@ public extension StandardButtonStyle {
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
                     textColor: .Text.inversion,
-                    backgroundColor: .Control.primary
+                    backgroundColor: .Control.accent100
                 ),
                 higlighted: StandardButtonConfig.Style(
                     overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
@@ -58,9 +58,9 @@ public extension StandardButtonStyle {
                 ),
                 textFont: .button1Medium,
                 infoTextFont: .caption1Medium,
-                height: 48,
+                height: 52,
                 stretchSize: true,
-                radius: 12,
+                radius: 26,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .secondaryLarge:
@@ -77,9 +77,9 @@ public extension StandardButtonStyle {
                     borderColor: .Shape.primary
                 ),
                 textFont: .button1Regular,
-                height: 48,
+                height: 52,
                 stretchSize: true,
-                radius: 12,
+                radius: 26,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .warningLarge:
@@ -96,9 +96,9 @@ public extension StandardButtonStyle {
                     borderColor: .Shape.secondary
                 ),
                 textFont: .button1Medium,
-                height: 48,
+                height: 52,
                 stretchSize: true,
-                radius: 12,
+                radius: 26,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
             )
         case .borderlessLarge:
@@ -304,7 +304,7 @@ public extension StandardButtonStyle {
                 ),
                 textFont: .button1Medium,
                 infoTextFont: .caption1Medium,
-                height: 48,
+                height: 52,
                 stretchSize: true,
                 radius: 100,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
@@ -324,7 +324,7 @@ public extension StandardButtonStyle {
                     backgroundColor: .Shape.tertiary
                 ),
                 textFont: .button1Regular,
-                height: 48,
+                height: 52,
                 stretchSize: true,
                 radius: 100,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
@@ -341,7 +341,7 @@ public extension StandardButtonStyle {
                     textColor: .Text.tertiary
                 ),
                 textFont: .button1Regular,
-                height: 48,
+                height: 52,
                 stretchSize: true,
                 radius: 0,
                 loadingIndicatorSize: .ButtonLoadingIndicator.large
