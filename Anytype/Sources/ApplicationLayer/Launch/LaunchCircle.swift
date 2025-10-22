@@ -7,7 +7,7 @@ struct LaunchCircle: View {
         static let maxSide: CGFloat = 128
         static let middleSide: CGFloat = 48
         static let minSide: CGFloat = 16
-        // Сolor is stored in the assets of the main target. Then it is available in LaunchScreen.storyboard
+        // Color is stored in the assets of the main target. Then it is available in LaunchScreen.storyboard
         static let color = Color.launchColorsCircle
     }
     

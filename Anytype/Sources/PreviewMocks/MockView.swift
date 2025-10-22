@@ -20,10 +20,10 @@ struct MockView<Content: View>: View {
     
     private let content: Content
     
-    init(сonfigure: (() -> Void)? = nil, @ViewBuilder content: () -> Content) {
+    init(configure: (() -> Void)? = nil, @ViewBuilder content: () -> Content) {
         self.content = content()
         setupPreviewMocks()
-        сonfigure?()
+        configure?()
     }
     
     var body: some View {
