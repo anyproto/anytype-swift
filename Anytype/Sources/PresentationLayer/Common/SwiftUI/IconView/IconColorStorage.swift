@@ -6,6 +6,7 @@ import AnytypeCore
 final class IconColorStorage {
         
     static let allBackgroundColors = [
+        Color.Pure.grey,
         Color.Pure.yellow,
         Color.Pure.orange,
         Color.Pure.red,
@@ -14,11 +15,11 @@ final class IconColorStorage {
         Color.Pure.blue,
         Color.Pure.sky,
         Color.Pure.teal,
-        Color.Pure.green,
-        Color.Pure.grey
+        Color.Pure.green
     ]
     
     static let allFontColors = [
+        Color.Light.grey,
         Color.Light.yellow,
         Color.Light.orange,
         Color.Light.red,
@@ -27,8 +28,7 @@ final class IconColorStorage {
         Color.Light.blue,
         Color.Light.sky,
         Color.Light.teal,
-        Color.Light.green,
-        Color.Light.grey
+        Color.Light.green
     ]
     
     static func iconBackgroundColor(iconOption: Int) -> Color {
