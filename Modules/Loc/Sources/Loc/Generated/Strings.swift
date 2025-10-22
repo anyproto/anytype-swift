@@ -1335,7 +1335,7 @@ public enum Loc {
     public enum Layout {
       public enum CompactList {
         public static let description = Loc.tr("UI", "Widgets.Layout.CompactList.Description", fallback: "Widget with a compact list view")
-        public static let title = Loc.tr("UI", "Widgets.Layout.CompactList.Title", fallback: "Сompact list")
+        public static let title = Loc.tr("UI", "Widgets.Layout.CompactList.Title", fallback: "Compact list")
       }
       public enum Link {
         public static let description = Loc.tr("UI", "Widgets.Layout.Link.Description", fallback: "Compact widget view")
@@ -1623,7 +1623,7 @@ public enum Loc {
       }
       public enum Sort {
         public enum Add {
-          public static let searchPlaceholder = Loc.tr("Workspace", "EditSet.Popup.Sort.Add.SearchPlaceholder", fallback: "Сhoose a property to sort")
+          public static let searchPlaceholder = Loc.tr("Workspace", "EditSet.Popup.Sort.Add.SearchPlaceholder", fallback: "Choose a property to sort")
         }
         public enum EmptyTypes {
           public static let end = Loc.tr("Workspace", "EditSet.Popup.Sort.EmptyTypes.End", fallback: "On bottom")

@@ -122,11 +122,11 @@ extension PropertyStyle {
     var objectPropertyStyle: ObjectPropertyView.ObjectPropertyStyle {
         switch self {
         case .regular, .set, .filter:
-            return ObjectPropertyView.ObjectPropertyStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
+            return ObjectPropertyView.ObjectPropertyStyle(hSpacingList: 8, hSpacingObject: 6, size: Constants.size20)
         case .featuredBlock, .kanbanHeader:
-            return ObjectPropertyView.ObjectPropertyStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
+            return ObjectPropertyView.ObjectPropertyStyle(hSpacingList: 6, hSpacingObject: 4, size: Constants.size18)
         case .setCollection:
-            return ObjectPropertyView.ObjectPropertyStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size16)
+            return ObjectPropertyView.ObjectPropertyStyle(hSpacingList: 6, hSpacingObject: 4, size: Constants.size16)
         }
     }
     
