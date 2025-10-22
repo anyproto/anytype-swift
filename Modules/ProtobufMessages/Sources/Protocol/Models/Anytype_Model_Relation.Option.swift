@@ -28,6 +28,9 @@ extension Anytype_Model_Relation {
     /// 4 is reserved for old relation format
     public var relationKey: String = String()
 
+    /// lexicographic id of relation option for ordering
+    public var orderID: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -41,6 +44,7 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
     2: .same(proto: "text"),
     3: .same(proto: "color"),
     5: .same(proto: "relationKey"),
+    6: .same(proto: "orderId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -53,6 +57,7 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
       case 2: try { try decoder.decodeSingularStringField(value: &self.text) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.color) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
       default: break
       }
     }
@@ -71,6 +76,9 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.relationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 5)
     }
+    if !self.orderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.orderID, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -79,6 +87,7 @@ extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.text != rhs.text {return false}
     if lhs.color != rhs.color {return false}
     if lhs.relationKey != rhs.relationKey {return false}
+    if lhs.orderID != rhs.orderID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
