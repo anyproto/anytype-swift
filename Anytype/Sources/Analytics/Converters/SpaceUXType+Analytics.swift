@@ -4,7 +4,7 @@ extension SpaceUxType {
     var analyticsValue: String {
         switch self {
         case .chat:
-            return "Сhat"
+            return "Chat"
         case .data:
             return "Space"
         case .stream:

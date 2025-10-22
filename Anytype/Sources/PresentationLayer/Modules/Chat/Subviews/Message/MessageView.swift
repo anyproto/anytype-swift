@@ -32,7 +32,7 @@ struct MessageView: View {
             contentHorizontalPadding: Constants.messageHorizontalPadding,
             centerOffsetY: $bubbleCenterOffsetY,
             content: {
-                alignedСontent
+                alignedContent
             },
             action: {
                 output?.didSelectReplyTo(message: data)
@@ -41,7 +41,7 @@ struct MessageView: View {
         .id(data.id)
     }
     
-    private var alignedСontent: some View {
+    private var alignedContent: some View {
         HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content

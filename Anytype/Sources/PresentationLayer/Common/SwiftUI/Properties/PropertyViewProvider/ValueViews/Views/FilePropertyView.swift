@@ -19,7 +19,7 @@ struct FilePropertyView: View {
     
     private var objectsList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: style.objectPropertyStyle.hSpaсingList) {
+            HStack(spacing: style.objectPropertyStyle.hSpacingList) {
                 ForEach(options) { objectView(option: $0) }
             }
             .padding(.horizontal, 1)
@@ -27,7 +27,7 @@ struct FilePropertyView: View {
     }
     
     private func objectView(option: Property.File.Option) -> some View {
-        HStack(spacing: style.objectPropertyStyle.hSpaсingObject) {
+        HStack(spacing: style.objectPropertyStyle.hSpacingObject) {
             IconView(icon: option.icon)
                 .frame(
                     width: style.objectPropertyStyle.size.width,
@@ -46,7 +46,7 @@ struct FilePropertyView: View {
     private var moreObjectsView: some View {
         let moreObjectsCount = (options.count - maxOptions) > 0 ? options.count - maxOptions : 0
 
-        return HStack(spacing: style.objectPropertyStyle.hSpaсingObject) {
+        return HStack(spacing: style.objectPropertyStyle.hSpacingObject) {
             objectView(options: Array(options.prefix(maxOptions)))
 
             if moreObjectsCount > 0 {
