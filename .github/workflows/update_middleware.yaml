@@ -190,15 +190,18 @@ jobs:
 
           # Step 1: Query Linear API to get the issue and its team's workflow states
           # We need to find the "Done" state ID for this team
-          ISSUE_QUERY='query($issueId: String!) {
-            issue(id: $issueId) {
-              id
-              team {
-                states {
-                  nodes {
-                    id
-                    name
-                    type
+          # Note: Using 'issues' query with identifier filter to handle human-readable IDs like "IOS-5375"
+          ISSUE_QUERY='query($identifier: String!) {
+            issues(filter: { identifier: { eq: $identifier } }) {
+              nodes {
+                id
+                team {
+                  states {
+                    nodes {
+                      id
+                      name
+                      type
+                    }
                   }
                 }
               }
@@ -209,13 +212,21 @@ jobs:
           ISSUE_DATA=$(curl -s -X POST https://api.linear.app/graphql \
             -H "Authorization: ${{ secrets.LINEAR_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"query\":\"$ISSUE_QUERY\",\"variables\":{\"issueId\":\"$ISSUE_ID\"}}")
+            -d "{\"query\":\"$ISSUE_QUERY\",\"variables\":{\"identifier\":\"$ISSUE_ID\"}}")
 
-          # Step 2: Extract the state ID for "Done" (type="completed")
+          # Step 2: Extract the issue UUID and the state ID for "Done" (type="completed")
+          # We need the UUID for the mutation, not the identifier
+          ISSUE_UUID=$(echo "$ISSUE_DATA" | jq -r '.data.issues.nodes[0].id')
+
           # Different teams may have different names for the Done state, but they all have type="completed"
-          DONE_STATE_ID=$(echo "$ISSUE_DATA" | jq -r '.data.issue.team.states.nodes[] | select(.type == "completed") | .id' | head -1)
+          DONE_STATE_ID=$(echo "$ISSUE_DATA" | jq -r '.data.issues.nodes[0].team.states.nodes[] | select(.type == "completed") | .id' | head -1)
 
-          # Step 3: Verify we found a Done state
+          # Step 3: Verify we found the issue and Done state
+          if [ -z "$ISSUE_UUID" ] || [ "$ISSUE_UUID" = "null" ]; then
+            echo "Warning: Could not find issue $ISSUE_ID"
+            exit 0
+          fi
+
           if [ -z "$DONE_STATE_ID" ]; then
             echo "Warning: Could not find 'Done' state for issue $ISSUE_ID"
             exit 0
@@ -234,11 +245,11 @@ jobs:
             }
           }'
 
-          # Make GraphQL mutation request to update the issue
+          # Make GraphQL mutation request to update the issue using the UUID
           UPDATE_RESULT=$(curl -s -X POST https://api.linear.app/graphql \
             -H "Authorization: ${{ secrets.LINEAR_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"query\":\"$UPDATE_MUTATION\",\"variables\":{\"issueId\":\"$ISSUE_ID\",\"stateId\":\"$DONE_STATE_ID\"}}")
+            -d "{\"query\":\"$UPDATE_MUTATION\",\"variables\":{\"issueId\":\"$ISSUE_UUID\",\"stateId\":\"$DONE_STATE_ID\"}}")
 
           echo "Linear issue $ISSUE_ID closed successfully"
           echo "$UPDATE_RESULT"
