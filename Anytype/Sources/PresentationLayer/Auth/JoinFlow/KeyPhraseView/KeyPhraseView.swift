@@ -87,7 +87,7 @@ struct KeyPhraseView: View {
     private var buttons: some View {
         VStack(spacing: 0) {
             StandardButton(model.keyShown ? Loc.Auth.JoinFlow.Key.Button.Saved.title : Loc.Auth.JoinFlow.Key.Button.Show.title,
-                style: .primaryOvalLarge,
+                style: .primaryLarge,
                 action: {
                     model.onPrimaryButtonTap()
                 }

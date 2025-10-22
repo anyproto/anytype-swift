@@ -26,7 +26,7 @@ struct AlertView<Presenting>: View where Presenting: View {
             
             StandardButton(
                 Loc.ok,
-                style: .secondaryOvalLarge,
+                style: .secondaryLarge,
                 action: {
                     isShowing.toggle()
                     onButtonTap()
