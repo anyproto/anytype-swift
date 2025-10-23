@@ -17842,7 +17842,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сhoose a property to sort"
+            "value" : "Choose a property to sort"
           }
         },
         "es" : {
@@ -17896,7 +17896,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Сhoose a property to sort"
+            "value" : "Choose a property to sort"
           }
         },
         "nl" : {
