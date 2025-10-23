@@ -52023,6 +52023,17 @@
         }
       }
     },
+    "Locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locked"
+          }
+        }
+      }
+    },
     "Log out" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -98284,6 +98295,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "解除鎖定"
+          }
+        }
+      }
+    },
+    "Unlocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlocked"
           }
         }
       }
