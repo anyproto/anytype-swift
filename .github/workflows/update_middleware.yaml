@@ -43,7 +43,7 @@ jobs:
   # This prevents unnecessary work if the version hasn't changed
   check-version:
     name: Check current middleware version
-    runs-on: macos-15
+    runs-on: macos-26
     outputs:
       same: ${{ steps.chk.outputs.same }}
     steps:
@@ -75,7 +75,7 @@ jobs:
   # Only runs if the version check shows the version needs updating
   update:
     name: Update middleware version
-    runs-on: macos-15
+    runs-on: macos-26
     needs: check-version
     if: ${{ needs.check-version.outputs.same != 'true' }}
     steps:
