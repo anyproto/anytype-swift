@@ -78,18 +78,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 extension Anytype_Model_ObjectOrigin: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "none"),
-    1: .same(proto: "clipboard"),
-    2: .same(proto: "dragAndDrop"),
-    3: .same(proto: "import"),
-    4: .same(proto: "webclipper"),
-    5: .same(proto: "sharingExtension"),
-    6: .same(proto: "usecase"),
-    7: .same(proto: "builtin"),
-    8: .same(proto: "bookmark"),
-    9: .same(proto: "api"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0none\0\u{1}clipboard\0\u{1}dragAndDrop\0\u{1}import\0\u{1}webclipper\0\u{1}sharingExtension\0\u{1}usecase\0\u{1}builtin\0\u{1}bookmark\0\u{1}api\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

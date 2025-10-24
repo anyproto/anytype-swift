@@ -50,15 +50,7 @@ extension Anytype_Model_Block.Content {
 
 extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Link"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "targetBlockId"),
-    2: .same(proto: "style"),
-    3: .same(proto: "fields"),
-    4: .same(proto: "iconSize"),
-    5: .same(proto: "cardStyle"),
-    6: .same(proto: "description"),
-    7: .same(proto: "relations"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}targetBlockId\0\u{1}style\0\u{1}fields\0\u{1}iconSize\0\u{1}cardStyle\0\u{1}description\0\u{1}relations\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

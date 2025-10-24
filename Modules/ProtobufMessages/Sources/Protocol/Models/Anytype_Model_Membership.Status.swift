@@ -69,12 +69,7 @@ extension Anytype_Model_Membership {
   }}
 
 extension Anytype_Model_Membership.Status: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "StatusUnknown"),
-    1: .same(proto: "StatusPending"),
-    2: .same(proto: "StatusActive"),
-    3: .same(proto: "StatusPendingRequiresFinalization"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0StatusUnknown\0\u{1}StatusPending\0\u{1}StatusActive\0\u{1}StatusPendingRequiresFinalization\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

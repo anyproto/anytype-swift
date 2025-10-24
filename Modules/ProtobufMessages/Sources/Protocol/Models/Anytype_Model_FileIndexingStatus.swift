@@ -50,11 +50,7 @@ public enum Anytype_Model_FileIndexingStatus: SwiftProtobuf.Enum, Swift.CaseIter
 }
 
 extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NotIndexed"),
-    1: .same(proto: "Indexed"),
-    2: .same(proto: "NotFound"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NotIndexed\0\u{1}Indexed\0\u{1}NotFound\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

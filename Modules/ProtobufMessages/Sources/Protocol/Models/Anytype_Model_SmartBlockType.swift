@@ -162,36 +162,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum, Swift.CaseIterable
 }
 
 extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "AccountOld"),
-    16: .same(proto: "Page"),
-    17: .same(proto: "ProfilePage"),
-    32: .same(proto: "Home"),
-    48: .same(proto: "Archive"),
-    112: .same(proto: "Widget"),
-    256: .same(proto: "File"),
-    288: .same(proto: "Template"),
-    289: .same(proto: "BundledTemplate"),
-    512: .same(proto: "BundledRelation"),
-    513: .same(proto: "SubObject"),
-    514: .same(proto: "BundledObjectType"),
-    515: .same(proto: "AnytypeProfile"),
-    516: .same(proto: "Date"),
-    518: .same(proto: "Workspace"),
-    519: .same(proto: "MissingObject"),
-    521: .same(proto: "STRelation"),
-    528: .same(proto: "STType"),
-    529: .same(proto: "STRelationOption"),
-    530: .same(proto: "SpaceView"),
-    532: .same(proto: "Identity"),
-    533: .same(proto: "FileObject"),
-    534: .same(proto: "Participant"),
-    535: .same(proto: "NotificationObject"),
-    536: .same(proto: "DevicesObject"),
-    537: .same(proto: "ChatObjectDeprecated"),
-    544: .same(proto: "ChatDerivedObject"),
-    545: .same(proto: "AccountObject"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0AccountOld\0\u{2}\u{10}Page\0\u{1}ProfilePage\0\u{2}\u{f}Home\0\u{2}\u{10}Archive\0\u{2}@\u{1}Widget\0\u{2}P\u{2}File\0\u{2} Template\0\u{1}BundledTemplate\0\u{2}_\u{3}BundledRelation\0\u{1}SubObject\0\u{1}BundledObjectType\0\u{1}AnytypeProfile\0\u{1}Date\0\u{2}\u{2}Workspace\0\u{1}MissingObject\0\u{2}\u{2}STRelation\0\u{2}\u{7}STType\0\u{1}STRelationOption\0\u{1}SpaceView\0\u{2}\u{2}Identity\0\u{1}FileObject\0\u{1}Participant\0\u{1}NotificationObject\0\u{1}DevicesObject\0\u{1}ChatObjectDeprecated\0\u{2}\u{7}ChatDerivedObject\0\u{1}AccountObject\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

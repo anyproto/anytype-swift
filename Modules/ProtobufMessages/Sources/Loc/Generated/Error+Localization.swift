@@ -3826,6 +3826,29 @@ extension Anytype_Rpc.File.Reconcile.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.File.SetAutoDownload.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "File.SetAutoDownload.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.File.SpaceOffload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6631,6 +6654,52 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: LocalizedError {
                 return LocHelper.tr(table: "LocalizableError", key: "Publishing.ResolveUri.badInput")
             case .noSuchUri:
                 return LocHelper.tr(table: "LocalizableError", key: "Publishing.ResolveUri.noSuchUri")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.AddMentionIds.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.PushNotification.AddMuteIds.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.AddMuteIds.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

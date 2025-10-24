@@ -120,25 +120,7 @@ public struct Anytype_Model_ObjectType: @unchecked Sendable {
 
 extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ObjectType"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "url"),
-    2: .same(proto: "name"),
-    3: .same(proto: "relationLinks"),
-    4: .same(proto: "layout"),
-    5: .same(proto: "iconEmoji"),
-    6: .same(proto: "description"),
-    7: .same(proto: "hidden"),
-    10: .same(proto: "readonly"),
-    8: .same(proto: "types"),
-    9: .same(proto: "isArchived"),
-    11: .same(proto: "installedByDefault"),
-    12: .same(proto: "key"),
-    13: .same(proto: "revision"),
-    14: .same(proto: "restrictObjectCreation"),
-    15: .same(proto: "iconColor"),
-    16: .same(proto: "iconName"),
-    17: .same(proto: "pluralName"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}url\0\u{1}name\0\u{1}relationLinks\0\u{1}layout\0\u{1}iconEmoji\0\u{1}description\0\u{1}hidden\0\u{1}types\0\u{1}isArchived\0\u{1}readonly\0\u{1}installedByDefault\0\u{1}key\0\u{1}revision\0\u{1}restrictObjectCreation\0\u{1}iconColor\0\u{1}iconName\0\u{1}pluralName\0")
 
   fileprivate class _StorageClass {
     var _url: String = String()
@@ -159,15 +141,11 @@ extension Anytype_Model_ObjectType: SwiftProtobuf.Message, SwiftProtobuf._Messag
     var _iconName: String = String()
     var _pluralName: String = String()
 
-    #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
       // This will force a copy to be made of this reference when the first mutation occurs;
       // hence, it is safe to mark this as `nonisolated(unsafe)`.
       static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
 
     private init() {}
 

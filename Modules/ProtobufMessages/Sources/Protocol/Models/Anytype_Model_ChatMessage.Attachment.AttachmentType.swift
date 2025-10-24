@@ -58,11 +58,7 @@ extension Anytype_Model_ChatMessage.Attachment {
     }}
 
 extension Anytype_Model_ChatMessage.Attachment.AttachmentType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "FILE"),
-    1: .same(proto: "IMAGE"),
-    2: .same(proto: "LINK"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0FILE\0\u{1}IMAGE\0\u{1}LINK\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

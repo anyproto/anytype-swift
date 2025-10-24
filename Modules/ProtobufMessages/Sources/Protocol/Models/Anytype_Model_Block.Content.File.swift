@@ -43,17 +43,7 @@ extension Anytype_Model_Block.Content {
 
 extension Anytype_Model_Block.Content.File: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".File"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "hash"),
-    2: .same(proto: "name"),
-    3: .same(proto: "type"),
-    4: .same(proto: "mime"),
-    5: .same(proto: "size"),
-    6: .same(proto: "addedAt"),
-    9: .same(proto: "targetObjectId"),
-    7: .same(proto: "state"),
-    8: .same(proto: "style"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}hash\0\u{1}name\0\u{1}type\0\u{1}mime\0\u{1}size\0\u{1}addedAt\0\u{1}state\0\u{1}style\0\u{1}targetObjectId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

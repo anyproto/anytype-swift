@@ -56,12 +56,7 @@ extension Anytype_Model_Restrictions {
   }}
 
 extension Anytype_Model_Restrictions.DataviewRestriction: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "DVNone"),
-    1: .same(proto: "DVRelation"),
-    2: .same(proto: "DVCreateObject"),
-    3: .same(proto: "DVViews"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0DVNone\0\u{1}DVRelation\0\u{1}DVCreateObject\0\u{1}DVViews\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

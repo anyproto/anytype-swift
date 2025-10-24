@@ -54,12 +54,7 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum, Swift.Case
 }
 
 extension Anytype_Model_ParticipantPermissions: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Reader"),
-    1: .same(proto: "Writer"),
-    2: .same(proto: "Owner"),
-    3: .same(proto: "NoPermissions"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Reader\0\u{1}Writer\0\u{1}Owner\0\u{1}NoPermissions\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

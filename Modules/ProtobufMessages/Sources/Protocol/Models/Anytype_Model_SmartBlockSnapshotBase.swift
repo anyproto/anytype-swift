@@ -81,19 +81,7 @@ public struct Anytype_Model_SmartBlockSnapshotBase: Sendable {
 
 extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SmartBlockSnapshotBase"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "blocks"),
-    2: .same(proto: "details"),
-    3: .same(proto: "fileKeys"),
-    4: .same(proto: "extraRelations"),
-    5: .same(proto: "objectTypes"),
-    6: .same(proto: "collections"),
-    8: .same(proto: "removedCollectionKeys"),
-    7: .same(proto: "relationLinks"),
-    9: .same(proto: "key"),
-    10: .same(proto: "originalCreatedTimestamp"),
-    11: .same(proto: "fileInfo"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}blocks\0\u{1}details\0\u{1}fileKeys\0\u{1}extraRelations\0\u{1}objectTypes\0\u{1}collections\0\u{1}relationLinks\0\u{1}removedCollectionKeys\0\u{1}key\0\u{1}originalCreatedTimestamp\0\u{1}fileInfo\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

@@ -154,13 +154,7 @@ extension Anytype_Rpc.Chat.GetMessages: SwiftProtobuf.Message, SwiftProtobuf._Me
 
 extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "chatObjectId"),
-    4: .same(proto: "afterOrderId"),
-    2: .same(proto: "beforeOrderId"),
-    3: .same(proto: "limit"),
-    5: .same(proto: "includeBoundary"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}chatObjectId\0\u{1}beforeOrderId\0\u{1}limit\0\u{1}afterOrderId\0\u{1}includeBoundary\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -210,11 +204,7 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Rpc.Chat.GetMessages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "messages"),
-    3: .same(proto: "chatState"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}messages\0\u{1}chatState\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -258,10 +248,7 @@ extension Anytype_Rpc.Chat.GetMessages.Response: SwiftProtobuf.Message, SwiftPro
 
 extension Anytype_Rpc.Chat.GetMessages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -295,11 +282,7 @@ extension Anytype_Rpc.Chat.GetMessages.Response.Error: SwiftProtobuf.Message, Sw
 }
 
 extension Anytype_Rpc.Chat.GetMessages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

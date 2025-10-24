@@ -104,19 +104,7 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 extension Anytype_Model_SpaceStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Unknown"),
-    1: .same(proto: "Loading"),
-    2: .same(proto: "Ok"),
-    3: .same(proto: "Missing"),
-    4: .same(proto: "Error"),
-    5: .same(proto: "RemoteWaitingDeletion"),
-    6: .same(proto: "RemoteDeleted"),
-    7: .same(proto: "SpaceDeleted"),
-    8: .same(proto: "SpaceActive"),
-    9: .same(proto: "SpaceJoining"),
-    10: .same(proto: "SpaceRemoving"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Unknown\0\u{1}Loading\0\u{1}Ok\0\u{1}Missing\0\u{1}Error\0\u{1}RemoteWaitingDeletion\0\u{1}RemoteDeleted\0\u{1}SpaceDeleted\0\u{1}SpaceActive\0\u{1}SpaceJoining\0\u{1}SpaceRemoving\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

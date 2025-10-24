@@ -48,10 +48,7 @@ extension Anytype_Model_Block.Content.Div {
       }}
 
 extension Anytype_Model_Block.Content.Div.Style: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Line"),
-    1: .same(proto: "Dots"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Line\0\u{1}Dots\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

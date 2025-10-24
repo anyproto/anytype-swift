@@ -47,17 +47,7 @@ extension Anytype_Model_Block.Content {
 
 extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Dataview"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "source"),
-    2: .same(proto: "views"),
-    3: .same(proto: "activeView"),
-    4: .same(proto: "relations"),
-    12: .same(proto: "groupOrders"),
-    13: .same(proto: "objectOrders"),
-    5: .same(proto: "relationLinks"),
-    6: .same(proto: "TargetObjectId"),
-    14: .same(proto: "isCollection"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}source\0\u{1}views\0\u{1}activeView\0\u{1}relations\0\u{1}relationLinks\0\u{1}TargetObjectId\0\u{2}\u{6}groupOrders\0\u{1}objectOrders\0\u{1}isCollection\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

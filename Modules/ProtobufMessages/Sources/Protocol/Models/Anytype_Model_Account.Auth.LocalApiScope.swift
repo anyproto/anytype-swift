@@ -58,11 +58,7 @@ extension Anytype_Model_Account.Auth {
     }}
 
 extension Anytype_Model_Account.Auth.LocalApiScope: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Limited"),
-    1: .same(proto: "JsonAPI"),
-    2: .same(proto: "Full"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Limited\0\u{1}JsonAPI\0\u{1}Full\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

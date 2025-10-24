@@ -70,13 +70,7 @@ extension Anytype_Model_Relation {
   }}
 
 extension Anytype_Model_Relation.Scope: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "object"),
-    1: .same(proto: "type"),
-    2: .same(proto: "setOfTheSameType"),
-    3: .same(proto: "objectsOfTheSameType"),
-    4: .same(proto: "library"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0object\0\u{1}type\0\u{1}setOfTheSameType\0\u{1}objectsOfTheSameType\0\u{1}library\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

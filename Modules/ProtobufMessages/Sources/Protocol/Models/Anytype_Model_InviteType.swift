@@ -56,11 +56,7 @@ public enum Anytype_Model_InviteType: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 extension Anytype_Model_InviteType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Member"),
-    1: .same(proto: "Guest"),
-    2: .same(proto: "WithoutApprove"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Member\0\u{1}Guest\0\u{1}WithoutApprove\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

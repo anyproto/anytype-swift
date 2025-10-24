@@ -51,11 +51,7 @@ extension Anytype_Event.Space {
     }}
 
 extension Anytype_Event.Space.Network: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Anytype"),
-    1: .same(proto: "SelfHost"),
-    2: .same(proto: "LocalOnly"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Anytype\0\u{1}SelfHost\0\u{1}LocalOnly\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

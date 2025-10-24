@@ -54,11 +54,7 @@ extension Anytype_Model_Block.Content.File {
       }}
 
 extension Anytype_Model_Block.Content.File.Style: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Auto"),
-    1: .same(proto: "Link"),
-    2: .same(proto: "Embed"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Auto\0\u{1}Link\0\u{1}Embed\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

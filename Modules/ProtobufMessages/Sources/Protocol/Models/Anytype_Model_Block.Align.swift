@@ -56,12 +56,7 @@ extension Anytype_Model_Block {
   }}
 
 extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "AlignLeft"),
-    1: .same(proto: "AlignCenter"),
-    2: .same(proto: "AlignRight"),
-    3: .same(proto: "AlignJustify"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0AlignLeft\0\u{1}AlignCenter\0\u{1}AlignRight\0\u{1}AlignJustify\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

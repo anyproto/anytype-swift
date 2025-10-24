@@ -60,13 +60,7 @@ extension Anytype_Model_Block.Content.Widget {
       }}
 
 extension Anytype_Model_Block.Content.Widget.Layout: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Link"),
-    1: .same(proto: "Tree"),
-    2: .same(proto: "List"),
-    3: .same(proto: "CompactList"),
-    4: .same(proto: "View"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Link\0\u{1}Tree\0\u{1}List\0\u{1}CompactList\0\u{1}View\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

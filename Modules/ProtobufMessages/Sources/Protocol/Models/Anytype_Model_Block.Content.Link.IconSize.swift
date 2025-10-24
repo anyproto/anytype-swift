@@ -52,11 +52,7 @@ extension Anytype_Model_Block.Content.Link {
       }}
 
 extension Anytype_Model_Block.Content.Link.IconSize: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "SizeNone"),
-    1: .same(proto: "SizeSmall"),
-    2: .same(proto: "SizeMedium"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SizeNone\0\u{1}SizeSmall\0\u{1}SizeMedium\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

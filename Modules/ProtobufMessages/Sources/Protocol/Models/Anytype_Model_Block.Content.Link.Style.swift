@@ -58,12 +58,7 @@ extension Anytype_Model_Block.Content.Link {
       }}
 
 extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Page"),
-    1: .same(proto: "Dataview"),
-    2: .same(proto: "Dashboard"),
-    3: .same(proto: "Archive"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Page\0\u{1}Dataview\0\u{1}Dashboard\0\u{1}Archive\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -34,14 +34,7 @@ public struct Anytype_Model_LinkPreview: Sendable {
 
 extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".LinkPreview"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "url"),
-    2: .same(proto: "title"),
-    3: .same(proto: "description"),
-    4: .same(proto: "imageUrl"),
-    5: .same(proto: "faviconUrl"),
-    6: .same(proto: "type"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}url\0\u{1}title\0\u{1}description\0\u{1}imageUrl\0\u{1}faviconUrl\0\u{1}type\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

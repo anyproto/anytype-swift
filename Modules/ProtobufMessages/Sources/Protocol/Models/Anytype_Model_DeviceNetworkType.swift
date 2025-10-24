@@ -50,11 +50,7 @@ public enum Anytype_Model_DeviceNetworkType: SwiftProtobuf.Enum, Swift.CaseItera
 }
 
 extension Anytype_Model_DeviceNetworkType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "WIFI"),
-    1: .same(proto: "CELLULAR"),
-    2: .same(proto: "NOT_CONNECTED"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0WIFI\0\u{1}CELLULAR\0\u{1}NOT_CONNECTED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

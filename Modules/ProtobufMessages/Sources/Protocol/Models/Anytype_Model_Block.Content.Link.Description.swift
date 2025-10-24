@@ -52,11 +52,7 @@ extension Anytype_Model_Block.Content.Link {
       }}
 
 extension Anytype_Model_Block.Content.Link.Description: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Added"),
-    2: .same(proto: "Content"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Added\0\u{1}Content\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

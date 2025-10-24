@@ -796,6 +796,11 @@ extension Anytype_Rpc.File.Reconcile.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.File.SetAutoDownload.Response: ResultWithError {}
+extension Anytype_Rpc.File.SetAutoDownload.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.File.SpaceOffload.Response: ResultWithError {}
 extension Anytype_Rpc.File.SpaceOffload.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1347,6 +1352,16 @@ extension Anytype_Rpc.Publishing.Remove.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Publishing.ResolveUri.Response: ResultWithError {}
 extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.PushNotification.AddMentionIds.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.PushNotification.AddMuteIds.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.AddMuteIds.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

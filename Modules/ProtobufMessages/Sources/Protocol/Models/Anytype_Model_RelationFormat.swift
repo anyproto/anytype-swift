@@ -123,22 +123,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum, Swift.CaseIterable
 }
 
 extension Anytype_Model_RelationFormat: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "longtext"),
-    1: .same(proto: "shorttext"),
-    2: .same(proto: "number"),
-    3: .same(proto: "status"),
-    4: .same(proto: "date"),
-    5: .same(proto: "file"),
-    6: .same(proto: "checkbox"),
-    7: .same(proto: "url"),
-    8: .same(proto: "email"),
-    9: .same(proto: "phone"),
-    10: .same(proto: "emoji"),
-    11: .same(proto: "tag"),
-    100: .same(proto: "object"),
-    101: .same(proto: "relations"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0longtext\0\u{1}shorttext\0\u{1}number\0\u{1}status\0\u{1}date\0\u{1}file\0\u{1}checkbox\0\u{1}url\0\u{1}email\0\u{1}phone\0\u{1}emoji\0\u{1}tag\0\u{2}Y\u{1}object\0\u{1}relations\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
