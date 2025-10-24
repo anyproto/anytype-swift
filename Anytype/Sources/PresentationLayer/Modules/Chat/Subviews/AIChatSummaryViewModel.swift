@@ -74,7 +74,10 @@ final class AIChatSummaryViewModel: ObservableObject {
     }
 
     func findMessage(byId id: String) -> FullChatMessage? {
-        messages.first { $0.message.id == id }
+        let trimmedId = id.trimmingCharacters(in: .whitespacesAndNewlines)
+        return messages.first {
+            $0.message.id.trimmingCharacters(in: .whitespacesAndNewlines) == trimmedId
+        }
     }
 
     private func filterLastTwoDays(_ messages: [FullChatMessage]) -> [FullChatMessage] {

@@ -13,14 +13,14 @@ struct ChatSummary: Sendable {
 }
 
 @available(iOS 26.0, *)
-@Generable(description: "A single point in the summary with optional message reference")
+@Generable(description: "A single point in the summary with required message reference")
 struct SummaryPoint: Sendable, Identifiable {
     var id: String { text }
 
     @Guide(description: "Concise description (5-15 words)")
     let text: String
 
-    @Guide(description: "The message ID most relevant to this point - always pick one")
+    @Guide(description: "REQUIRED: The message ID most relevant to this point. Must always be provided, never null. Pick the single most relevant message ID from the [messageId] prefixes.")
     let relatedMessageId: String?
 }
 
@@ -56,9 +56,9 @@ protocol AISummaryServiceProtocol: Sendable {
 @available(iOS 26.0, *)
 final class AISummaryService: AISummaryServiceProtocol {
 
-    private let maxTokenLimit = 4096
+    private let maxTokenLimit = 4000
     private let estimatedCharsPerToken = 3.0
-    private let promptOverheadTokens = 300
+    private let promptOverheadTokens = 350
 
     func checkAvailability() -> Bool {
         if #available(iOS 26.0, *) {
@@ -109,7 +109,12 @@ final class AISummaryService: AISummaryServiceProtocol {
         let messagesAnalyzed = trimmedMessages.count
 
         let messageTexts = trimmedMessages.enumerated().map { index, msg in
-            "[\(msg.message.id)] \(msg.message.creator): \(msg.message.message.text)"
+            """
+            M: \(msg.message.id)
+            F: \(msg.message.creator)
+            T: \(msg.message.message.text)
+            ---
+            """
         }.joined(separator: "\n")
 
         let conversationContext = wasTrimmed
@@ -117,13 +122,28 @@ final class AISummaryService: AISummaryServiceProtocol {
             : "chat conversation"
 
         let prompt = """
-        Analyze this \(conversationContext). Messages have [messageId] prefix.
+        MESSAGE FORMAT: Each message has three fields:
+        M: message_id (USE THIS for relatedMessageId)
+        F: user_name (DO NOT use this)
+        T: message text
+        ---
+
+        Example:
+        M: abc123
+        F: John
+        T: Let's move to the new database
+        ---
+
+        CRITICAL: For relatedMessageId, extract ONLY the value after "M:" - never use the "F:" value.
+
+        Analyze this \(conversationContext):
 
         \(messageTexts)
 
-        Identify key decisions/actions (keyPoints) and main subjects (topics). ALWAYS include relatedMessageId - pick the most relevant message even if point spans multiple.
+        Identify key decisions/actions (keyPoints) and main subjects (topics). For each point, you MUST provide the relatedMessageId by extracting the value after "M:" from the most relevant message.
 
         Rules:
+        - REQUIRED: relatedMessageId must be the value after "M:", never the "F:" value, never null
         - Start text with action verbs or nouns (not "The", "Users", "Discussion")
         - Be specific: names, numbers, features mentioned
         - Skip generic phrases like "discussed", "focused on"
@@ -152,7 +172,12 @@ final class AISummaryService: AISummaryServiceProtocol {
         var currentLength: Double = 0
 
         for message in messages.reversed() {
-            let messageText = "[\(message.message.id)] \(message.message.creator): \(message.message.message.text)"
+            let messageText = """
+            M: \(message.message.id)
+            F: \(message.message.creator)
+            T: \(message.message.message.text)
+            ---
+            """
             let messageLength = messageText.count
 
             if currentLength + Double(messageLength) <= maxChars {

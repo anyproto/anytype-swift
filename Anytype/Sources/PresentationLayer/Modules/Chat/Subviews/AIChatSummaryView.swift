@@ -173,11 +173,17 @@ struct AIChatSummaryView: View {
     }
 
     private func handleBulletTap(_ item: SummaryPoint) {
-        if let messageId = item.relatedMessageId,
-           let message = model.findMessage(byId: messageId) {
+        guard let messageId = item.relatedMessageId else {
+            toastBarData = ToastBarData("No message ID provided", type: .neutral)
+            return
+        }
+
+        if let message = model.findMessage(byId: messageId) {
             model.selectedMessage = message
         } else {
-            toastBarData = ToastBarData("No specific message linked to this item", type: .neutral)
+            print("DEBUG: Could not find message with ID: '\(messageId)'")
+            print("DEBUG: Available IDs: \(model.messages.prefix(5).map { $0.message.id })")
+            toastBarData = ToastBarData("Could not find message (ID: \(messageId))", type: .neutral)
         }
     }
 
