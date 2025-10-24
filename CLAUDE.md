@@ -152,6 +152,7 @@ When removing code that uses localization keys, **always check if the key is sti
 ### Quick Reference
 - **Search Patterns**: `/PresentationLayer/Common/SwiftUI/Search/SEARCH_PATTERNS.md`
 - **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
+- **Typography Mapping**: `/PresentationLayer/Common/TYPOGRAPHY_MAPPING.md` - Maps Figma text styles to Swift constants
 - **Analytics Patterns**: `/PresentationLayer/Common/Analytics/ANALYTICS_PATTERNS.md`
 
 ### Icons
