@@ -159,10 +159,7 @@ extension Anytype_Rpc.Unsplash.Search: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Anytype_Rpc.Unsplash.Search.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.Search.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "query"),
-    2: .same(proto: "limit"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}query\0\u{1}limit\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -197,10 +194,7 @@ extension Anytype_Rpc.Unsplash.Search.Request: SwiftProtobuf.Message, SwiftProto
 
 extension Anytype_Rpc.Unsplash.Search.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.Search.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "pictures"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}pictures\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -239,12 +233,7 @@ extension Anytype_Rpc.Unsplash.Search.Response: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Rpc.Unsplash.Search.Response.Picture: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.Search.Response.protoMessageName + ".Picture"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "url"),
-    3: .same(proto: "artist"),
-    4: .same(proto: "artistUrl"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}url\0\u{1}artist\0\u{1}artistUrl\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -289,10 +278,7 @@ extension Anytype_Rpc.Unsplash.Search.Response.Picture: SwiftProtobuf.Message, S
 
 extension Anytype_Rpc.Unsplash.Search.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Unsplash.Search.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -326,12 +312,7 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: SwiftProtobuf.Message, Swi
 }
 
 extension Anytype_Rpc.Unsplash.Search.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    100: .same(proto: "RATE_LIMIT_EXCEEDED"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}b\u{1}RATE_LIMIT_EXCEEDED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

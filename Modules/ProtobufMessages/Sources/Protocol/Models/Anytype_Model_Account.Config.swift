@@ -44,13 +44,7 @@ extension Anytype_Model_Account {
 
 extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Config"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "enableDataview"),
-    2: .same(proto: "enableDebug"),
-    3: .same(proto: "enablePrereleaseChannel"),
-    4: .same(proto: "enableSpaces"),
-    100: .same(proto: "extra"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}enableDataview\0\u{1}enableDebug\0\u{1}enablePrereleaseChannel\0\u{1}enableSpaces\0\u{2}`\u{1}extra\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

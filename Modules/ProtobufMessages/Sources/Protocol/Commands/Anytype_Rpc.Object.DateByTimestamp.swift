@@ -141,10 +141,7 @@ extension Anytype_Rpc.Object.DateByTimestamp: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.Object.DateByTimestamp.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.DateByTimestamp.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceId"),
-    2: .same(proto: "timestamp"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}timestamp\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -179,10 +176,7 @@ extension Anytype_Rpc.Object.DateByTimestamp.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Object.DateByTimestamp.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.DateByTimestamp.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "details"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}details\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -221,10 +215,7 @@ extension Anytype_Rpc.Object.DateByTimestamp.Response: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.DateByTimestamp.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -258,11 +249,7 @@ extension Anytype_Rpc.Object.DateByTimestamp.Response.Error: SwiftProtobuf.Messa
 }
 
 extension Anytype_Rpc.Object.DateByTimestamp.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

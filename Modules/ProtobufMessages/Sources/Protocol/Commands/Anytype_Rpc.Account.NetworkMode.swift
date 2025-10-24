@@ -58,11 +58,7 @@ extension Anytype_Rpc.Account {
     }}
 
 extension Anytype_Rpc.Account.NetworkMode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "DefaultConfig"),
-    1: .same(proto: "LocalOnly"),
-    2: .same(proto: "CustomConfig"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0DefaultConfig\0\u{1}LocalOnly\0\u{1}CustomConfig\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

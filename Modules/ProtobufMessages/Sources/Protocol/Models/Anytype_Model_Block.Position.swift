@@ -86,16 +86,7 @@ extension Anytype_Model_Block {
   }}
 
 extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Top"),
-    2: .same(proto: "Bottom"),
-    3: .same(proto: "Left"),
-    4: .same(proto: "Right"),
-    5: .same(proto: "Inner"),
-    6: .same(proto: "Replace"),
-    7: .same(proto: "InnerFirst"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Top\0\u{1}Bottom\0\u{1}Left\0\u{1}Right\0\u{1}Inner\0\u{1}Replace\0\u{1}InnerFirst\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

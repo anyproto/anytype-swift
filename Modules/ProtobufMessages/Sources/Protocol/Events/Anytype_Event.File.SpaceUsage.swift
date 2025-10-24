@@ -28,10 +28,7 @@ extension Anytype_Event.File {
 
 extension Anytype_Event.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.File.protoMessageName + ".SpaceUsage"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "bytesUsage"),
-    2: .same(proto: "spaceId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}bytesUsage\0\u{1}spaceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

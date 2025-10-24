@@ -39,13 +39,7 @@ extension Anytype_Model_Relation {
 
 extension Anytype_Model_Relation.Option: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Relation.protoMessageName + ".Option"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "text"),
-    3: .same(proto: "color"),
-    5: .same(proto: "relationKey"),
-    6: .same(proto: "orderId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}text\0\u{1}color\0\u{2}\u{2}relationKey\0\u{1}orderId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

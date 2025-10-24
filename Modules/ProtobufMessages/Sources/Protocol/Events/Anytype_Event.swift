@@ -38,12 +38,7 @@ public struct Anytype_Event: Sendable {
 
 extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Event"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "messages"),
-    2: .same(proto: "contextId"),
-    3: .same(proto: "initiator"),
-    4: .same(proto: "traceId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}messages\0\u{1}contextId\0\u{1}initiator\0\u{1}traceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

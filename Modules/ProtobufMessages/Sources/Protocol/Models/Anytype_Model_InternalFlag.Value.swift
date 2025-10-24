@@ -58,12 +58,7 @@ extension Anytype_Model_InternalFlag {
   }}
 
 extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "editorDeleteEmpty"),
-    1: .same(proto: "editorSelectType"),
-    2: .same(proto: "editorSelectTemplate"),
-    3: .same(proto: "collectionDontIndexLinks"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0editorDeleteEmpty\0\u{1}editorSelectType\0\u{1}editorSelectTemplate\0\u{1}collectionDontIndexLinks\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

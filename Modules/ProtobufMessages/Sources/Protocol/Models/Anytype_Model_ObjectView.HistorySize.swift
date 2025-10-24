@@ -29,10 +29,7 @@ extension Anytype_Model_ObjectView {
 
 extension Anytype_Model_ObjectView.HistorySize: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".HistorySize"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "undo"),
-    2: .same(proto: "redo"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}undo\0\u{1}redo\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

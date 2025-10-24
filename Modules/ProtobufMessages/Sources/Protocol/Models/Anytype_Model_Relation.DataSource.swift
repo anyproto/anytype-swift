@@ -64,12 +64,7 @@ extension Anytype_Model_Relation {
   }}
 
 extension Anytype_Model_Relation.DataSource: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "details"),
-    1: .same(proto: "derived"),
-    2: .same(proto: "account"),
-    3: .same(proto: "local"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0details\0\u{1}derived\0\u{1}account\0\u{1}local\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

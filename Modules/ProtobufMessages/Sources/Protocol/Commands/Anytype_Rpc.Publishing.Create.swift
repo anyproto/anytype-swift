@@ -153,12 +153,7 @@ extension Anytype_Rpc.Publishing.Create: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Anytype_Rpc.Publishing.Create.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Publishing.Create.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceId"),
-    2: .same(proto: "objectId"),
-    3: .same(proto: "uri"),
-    4: .same(proto: "joinSpace"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}objectId\0\u{1}uri\0\u{1}joinSpace\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -203,10 +198,7 @@ extension Anytype_Rpc.Publishing.Create.Request: SwiftProtobuf.Message, SwiftPro
 
 extension Anytype_Rpc.Publishing.Create.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Publishing.Create.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "uri"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}uri\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -245,10 +237,7 @@ extension Anytype_Rpc.Publishing.Create.Response: SwiftProtobuf.Message, SwiftPr
 
 extension Anytype_Rpc.Publishing.Create.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Publishing.Create.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -282,15 +271,7 @@ extension Anytype_Rpc.Publishing.Create.Response.Error: SwiftProtobuf.Message, S
 }
 
 extension Anytype_Rpc.Publishing.Create.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NO_SUCH_OBJECT"),
-    102: .same(proto: "NO_SUCH_SPACE"),
-    103: .same(proto: "LIMIT_EXCEEDED"),
-    409: .same(proto: "URL_ALREADY_TAKEN"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}NO_SUCH_OBJECT\0\u{1}NO_SUCH_SPACE\0\u{1}LIMIT_EXCEEDED\0\u{2}r\u{4}URL_ALREADY_TAKEN\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

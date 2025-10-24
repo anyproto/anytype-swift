@@ -64,14 +64,7 @@ extension Anytype_Model_Block.Content.File {
       }}
 
 extension Anytype_Model_Block.Content.File.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "File"),
-    2: .same(proto: "Image"),
-    3: .same(proto: "Video"),
-    4: .same(proto: "Audio"),
-    5: .same(proto: "PDF"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}File\0\u{1}Image\0\u{1}Video\0\u{1}Audio\0\u{1}PDF\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

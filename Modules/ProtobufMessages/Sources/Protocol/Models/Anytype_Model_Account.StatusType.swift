@@ -56,12 +56,7 @@ extension Anytype_Model_Account {
   }}
 
 extension Anytype_Model_Account.StatusType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Active"),
-    1: .same(proto: "PendingDeletion"),
-    2: .same(proto: "StartedDeletion"),
-    3: .same(proto: "Deleted"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Active\0\u{1}PendingDeletion\0\u{1}StartedDeletion\0\u{1}Deleted\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

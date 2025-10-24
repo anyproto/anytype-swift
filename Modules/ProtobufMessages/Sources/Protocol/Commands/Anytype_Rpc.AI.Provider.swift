@@ -58,12 +58,7 @@ extension Anytype_Rpc.AI {
     }}
 
 extension Anytype_Rpc.AI.Provider: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "OLLAMA"),
-    1: .same(proto: "OPENAI"),
-    2: .same(proto: "LMSTUDIO"),
-    3: .same(proto: "LLAMACPP"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0OLLAMA\0\u{1}OPENAI\0\u{1}LMSTUDIO\0\u{1}LLAMACPP\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

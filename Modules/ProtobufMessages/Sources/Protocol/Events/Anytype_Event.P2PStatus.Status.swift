@@ -57,12 +57,7 @@ extension Anytype_Event.P2PStatus {
     }}
 
 extension Anytype_Event.P2PStatus.Status: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NotConnected"),
-    1: .same(proto: "NotPossible"),
-    2: .same(proto: "Connected"),
-    3: .same(proto: "Restricted"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NotConnected\0\u{1}NotPossible\0\u{1}Connected\0\u{1}Restricted\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -10,7 +10,7 @@
 
 import Foundation
 import SwiftProtobuf
-public struct Anytype_Model_Invite: @unchecked Sendable {
+public struct Anytype_Model_Invite: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -26,10 +26,7 @@ public struct Anytype_Model_Invite: @unchecked Sendable {
 
 extension Anytype_Model_Invite: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Invite"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "payload"),
-    2: .same(proto: "signature"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}payload\0\u{1}signature\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

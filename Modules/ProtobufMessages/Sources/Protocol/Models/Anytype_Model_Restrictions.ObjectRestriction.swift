@@ -104,19 +104,7 @@ extension Anytype_Model_Restrictions {
   }}
 
 extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Delete"),
-    2: .same(proto: "Relations"),
-    3: .same(proto: "Blocks"),
-    4: .same(proto: "Details"),
-    5: .same(proto: "TypeChange"),
-    6: .same(proto: "LayoutChange"),
-    7: .same(proto: "Template"),
-    8: .same(proto: "Duplicate"),
-    9: .same(proto: "CreateObjectOfThisType"),
-    10: .same(proto: "Publish"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Delete\0\u{1}Relations\0\u{1}Blocks\0\u{1}Details\0\u{1}TypeChange\0\u{1}LayoutChange\0\u{1}Template\0\u{1}Duplicate\0\u{1}CreateObjectOfThisType\0\u{1}Publish\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

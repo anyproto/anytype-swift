@@ -57,11 +57,7 @@ extension Anytype_Event.Account {
 
 extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".LinkChallenge"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "challenge"),
-    2: .same(proto: "clientInfo"),
-    3: .same(proto: "scope"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}challenge\0\u{1}clientInfo\0\u{1}scope\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -105,12 +101,7 @@ extension Anytype_Event.Account.LinkChallenge: SwiftProtobuf.Message, SwiftProto
 
 extension Anytype_Event.Account.LinkChallenge.ClientInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Account.LinkChallenge.protoMessageName + ".ClientInfo"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "processName"),
-    2: .same(proto: "processPath"),
-    4: .same(proto: "name"),
-    3: .same(proto: "signatureVerified"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}processName\0\u{1}processPath\0\u{1}signatureVerified\0\u{1}name\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

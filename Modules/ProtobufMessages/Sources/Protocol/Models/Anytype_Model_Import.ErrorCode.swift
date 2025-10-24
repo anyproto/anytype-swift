@@ -100,23 +100,7 @@ extension Anytype_Model_Import {
   }}
 
 extension Anytype_Model_Import.ErrorCode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "INTERNAL_ERROR"),
-    5: .same(proto: "NOTION_NO_OBJECTS_IN_INTEGRATION"),
-    6: .same(proto: "IMPORT_IS_CANCELED"),
-    7: .same(proto: "CSV_LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED"),
-    8: .same(proto: "FILE_LOAD_ERROR"),
-    9: .same(proto: "INSUFFICIENT_PERMISSIONS"),
-    10: .same(proto: "HTML_WRONG_HTML_STRUCTURE"),
-    11: .same(proto: "PB_NOT_ANYBLOCK_FORMAT"),
-    12: .same(proto: "NOTION_SERVER_IS_UNAVAILABLE"),
-    13: .same(proto: "NOTION_RATE_LIMIT_EXCEEDED"),
-    14: .same(proto: "FILE_IMPORT_NO_OBJECTS_IN_ZIP_ARCHIVE"),
-    17: .same(proto: "FILE_IMPORT_NO_OBJECTS_IN_DIRECTORY"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}INTERNAL_ERROR\0\u{2}\u{2}NOTION_NO_OBJECTS_IN_INTEGRATION\0\u{1}IMPORT_IS_CANCELED\0\u{1}CSV_LIMIT_OF_ROWS_OR_RELATIONS_EXCEEDED\0\u{1}FILE_LOAD_ERROR\0\u{1}INSUFFICIENT_PERMISSIONS\0\u{1}HTML_WRONG_HTML_STRUCTURE\0\u{1}PB_NOT_ANYBLOCK_FORMAT\0\u{1}NOTION_SERVER_IS_UNAVAILABLE\0\u{1}NOTION_RATE_LIMIT_EXCEEDED\0\u{1}FILE_IMPORT_NO_OBJECTS_IN_ZIP_ARCHIVE\0\u{2}\u{3}FILE_IMPORT_NO_OBJECTS_IN_DIRECTORY\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

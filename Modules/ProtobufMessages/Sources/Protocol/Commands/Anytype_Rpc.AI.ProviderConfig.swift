@@ -35,13 +35,7 @@ extension Anytype_Rpc.AI {
 
 extension Anytype_Rpc.AI.ProviderConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.protoMessageName + ".ProviderConfig"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "provider"),
-    2: .same(proto: "endpoint"),
-    3: .same(proto: "model"),
-    4: .same(proto: "token"),
-    5: .same(proto: "temperature"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}provider\0\u{1}endpoint\0\u{1}model\0\u{1}token\0\u{1}temperature\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
