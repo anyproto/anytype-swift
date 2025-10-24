@@ -1,10 +1,12 @@
 import SwiftUI
 import Services
+import UIKit
 
 struct AIChatSummaryView: View {
 
     @StateObject private var model: AIChatSummaryViewModel
     @Environment(\.dismiss) private var dismiss
+    @State private var feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
 
     init(spaceId: String, chatId: String) {
         self._model = StateObject(wrappedValue: AIChatSummaryViewModel(spaceId: spaceId, chatId: chatId))
@@ -12,16 +14,31 @@ struct AIChatSummaryView: View {
 
     var body: some View {
         NavigationView {
-            Group {
-                if model.isLoading {
-                    ProgressView()
-                } else if model.messages.isEmpty {
-                    emptyView
-                } else {
-                    contentView
+            ZStack {
+                if model.isSummarizing {
+                    if #available(iOS 26.0, *) {
+                        AppleIntelligenceGlowEffect()
+                            .ignoresSafeArea()
+                            .onAppear {
+                                feedbackGenerator.prepare()
+                                feedbackGenerator.impactOccurred()
+                            }
+                    } else {
+                        EmptyView()
+                    }
+                }
+
+                Group {
+                    if model.isLoading {
+                        loadingView
+                    } else if model.messages.isEmpty {
+                        emptyView
+                    } else {
+                        summaryContentView
+                    }
                 }
             }
-            .navigationTitle("AI Chat Summary")
+            .navigationTitle("Recent Messages Summary")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -31,35 +48,52 @@ struct AIChatSummaryView: View {
                 }
             }
         }
+        .animation(.default, value: model.isLoading)
         .task {
             await model.loadMessages()
+            if !model.messages.isEmpty && model.isAIAvailable {
+                await model.generateSummary()
+            }
         }
     }
 
-    private var contentView: some View {
-        VStack(spacing: 0) {
-            summarySection
-            Divider()
-            messagesList
+    private var loadingView: some View {
+        VStack(spacing: 12) {
+            ProgressView()
+            Text("Loading messages...")
+                .foregroundColor(.Text.secondary)
+                .font(.system(size: 15))
         }
     }
 
-    private var summarySection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("AI Summary")
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(.Text.primary)
+    private var summaryContentView: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                Text("\(model.messages.count) messages from last 2 days")
+                    .font(.system(size: 14))
+                    .foregroundColor(.Text.secondary)
+                    .padding(.top, 20)
 
+                summaryContent
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    private var summaryContent: some View {
+        Group {
             if model.isSummarizing {
-                HStack {
+                VStack(spacing: 12) {
                     ProgressView()
-                        .controlSize(.small)
                     Text("Generating summary...")
                         .foregroundColor(.Text.secondary)
                         .font(.system(size: 15))
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 40)
             } else if let error = model.summaryError {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text(error)
                         .foregroundColor(.Pure.red)
                         .font(.system(size: 15))
@@ -73,73 +107,24 @@ struct AIChatSummaryView: View {
                     }
                 }
             } else if model.summary.isEmpty {
-                if model.isAIAvailable {
-                    Button {
-                        Task {
-                            await model.generateSummary()
-                        }
-                    } label: {
-                        Label("Generate Summary", systemImage: "sparkles")
-                    }
-                    .buttonStyle(.borderedProminent)
-                } else {
-                    Text("AI summarization requires iOS 26.0 or later")
-                        .foregroundColor(.Text.secondary)
-                        .font(.system(size: 15))
-                }
+                Text("Summary not available")
+                    .foregroundColor(.Text.secondary)
+                    .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
             } else {
                 Text(model.summary)
+                    .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.Text.primary)
-                    .font(.system(size: 15))
-                    .padding(12)
-                    .background(Color.Background.secondary)
-                    .cornerRadius(8)
+                    .lineSpacing(6)
+                    .multilineTextAlignment(.leading)
             }
         }
-        .padding()
-        .background(Color.Background.primary)
     }
 
     private var emptyView: some View {
         VStack(spacing: 12) {
             Text("No messages from the last 2 days")
                 .foregroundColor(.Text.secondary)
-        }
-    }
-
-    private var messagesList: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("\(model.messages.count) messages from last 2 days")
-                    .foregroundColor(.Text.secondary)
-                    .padding(.horizontal)
-                    .padding(.top, 8)
-
-                ForEach(model.messages, id: \.message.id) { fullMessage in
-                    messageRow(fullMessage)
-                }
-            }
-            .padding(.bottom, 16)
-        }
-    }
-
-    private func messageRow(_ fullMessage: FullChatMessage) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text(fullMessage.message.creator)
-                    .foregroundColor(.Text.primary)
-                    .font(.system(size: 15, weight: .semibold))
-                Spacer()
-                Text(fullMessage.message.createdAtDate, style: .relative)
-                    .foregroundColor(.Text.secondary)
-                    .font(.system(size: 13))
-            }
-
-            Text(fullMessage.message.message.text)
-                .foregroundColor(.Text.primary)
                 .font(.system(size: 15))
         }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
     }
 }

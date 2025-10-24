@@ -61,6 +61,7 @@ struct ChatView: View {
         }
         .sheet(isPresented: $model.showAISummarySheet) {
             AIChatSummaryView(spaceId: model.spaceId, chatId: model.chatId)
+                .presentationDetents([.medium])
         }
         .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
