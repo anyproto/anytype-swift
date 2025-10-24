@@ -307,7 +307,11 @@ extension Container {
     var chatActionService: Factory<any ChatActionServiceProtocol> {
         self { ChatActionService() }
     }
-    
+
+    var aiSummaryService: Factory<any AISummaryServiceProtocol> {
+        self { AISummaryService() }.shared
+    }
+
     var appVersionTracker: Factory<any AppVersionTrackerProtocol> {
         self { AppVersionTracker() }.shared
     }
