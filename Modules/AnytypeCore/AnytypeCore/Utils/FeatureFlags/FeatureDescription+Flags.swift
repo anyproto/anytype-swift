@@ -105,7 +105,14 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
-    
+
+    static let aiChatSummary = FeatureDescription(
+        title: "AI Chat Summary",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

@@ -70,6 +70,10 @@ public extension FeatureFlags {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
+    static var aiChatSummary: Bool {
+        value(for: .aiChatSummary)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -148,6 +152,7 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .multichats,
         .doNotWaitCompletionInAnytypePreview,
+        .aiChatSummary,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
