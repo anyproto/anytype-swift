@@ -119,10 +119,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts
-    
+
     @Published var deleteMessageConfirmation: MessageViewData?
     @Published var showSendLimitAlert = false
     @Published var toastBarData: ToastBarData?
+    @Published var showAISummarySheet = false
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
@@ -509,7 +510,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func onTapDismissKeyboard() {
         inputFocused = false
     }
-    
+
+    func onTapAISummary() {
+        showAISummarySheet = true
+    }
+
     // MARK: - MessageModuleOutput
     
     func didSelectAddReaction(messageId: String) {
@@ -710,14 +715,16 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
                 showScrollToBottom: chatState.messages.counter > 0 || bigDistanceToBottom,
                 srollToBottomCounter: Int(chatState.messages.counter),
                 showMentions: chatState.mentions.counter > 0,
-                mentionsCounter: Int(chatState.mentions.counter)
+                mentionsCounter: Int(chatState.mentions.counter),
+                showAISummary: FeatureFlags.aiChatSummary
             )
         } else {
             actionModel = ChatActionPanelModel(
                 showScrollToBottom: bigDistanceToBottom,
                 srollToBottomCounter: 0,
                 showMentions: false,
-                mentionsCounter: 0
+                mentionsCounter: 0,
+                showAISummary: FeatureFlags.aiChatSummary
             )
         }
     }

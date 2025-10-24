@@ -59,6 +59,9 @@ struct ChatView: View {
         .anytypeSheet(isPresented: $model.showSendLimitAlert) {
             ChatSendLimitAlert()
         }
+        .sheet(isPresented: $model.showAISummarySheet) {
+            AIChatSummaryView(spaceId: model.spaceId, chatId: model.chatId)
+        }
         .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
     }
@@ -177,6 +180,8 @@ struct ChatView: View {
             model.onTapScrollToBottom()
         } onTapMention: {
             model.onTapMention()
+        } onTapAISummary: {
+            model.onTapAISummary()
         }
     }
     
