@@ -2,6 +2,28 @@ import Foundation
 import FoundationModels
 import Services
 
+@available(iOS 26.0, *)
+@Generable(description: "Summary of chat conversation with key points and topics")
+struct ChatSummary: Sendable {
+    @Guide(description: "1-2 most important decisions, actions, or insights")
+    let keyPoints: [SummaryPoint]
+
+    @Guide(description: "1-3 main subjects discussed")
+    let topics: [SummaryPoint]
+}
+
+@available(iOS 26.0, *)
+@Generable(description: "A single point in the summary with optional message reference")
+struct SummaryPoint: Sendable, Identifiable {
+    var id: String { text }
+
+    @Guide(description: "Concise description (5-15 words)")
+    let text: String
+
+    @Guide(description: "The message ID most relevant to this point - always pick one")
+    let relatedMessageId: String?
+}
+
 enum AISummaryError: Error, LocalizedError {
     case notAvailable
     case generationFailed(any Error)
@@ -19,11 +41,19 @@ enum AISummaryError: Error, LocalizedError {
     }
 }
 
-protocol AISummaryServiceProtocol: Sendable {
-    func checkAvailability() -> Bool
-    func summarizeMessages(_ messages: [FullChatMessage]) async throws -> String
+@available(iOS 26.0, *)
+struct ChatSummaryResult: Sendable {
+    let summary: ChatSummary
+    let messagesAnalyzed: Int
 }
 
+@available(iOS 26.0, *)
+protocol AISummaryServiceProtocol: Sendable {
+    func checkAvailability() -> Bool
+    func summarizeMessages(_ messages: [FullChatMessage]) async throws -> ChatSummaryResult
+}
+
+@available(iOS 26.0, *)
 final class AISummaryService: AISummaryServiceProtocol {
 
     private let maxTokenLimit = 4096
@@ -44,7 +74,7 @@ final class AISummaryService: AISummaryServiceProtocol {
         return false
     }
 
-    func summarizeMessages(_ messages: [FullChatMessage]) async throws -> String {
+    func summarizeMessages(_ messages: [FullChatMessage]) async throws -> ChatSummaryResult {
         guard #available(iOS 26.0, *) else {
             throw AISummaryError.notAvailable
         }
@@ -56,15 +86,15 @@ final class AISummaryService: AISummaryServiceProtocol {
         do {
             return try await attemptSummarize(messages, trimRatio: 1.0)
         } catch LanguageModelSession.GenerationError.exceededContextWindowSize {
-            return try await attemptSummarize(messages, trimRatio: 0.3)
+            return try await attemptSummarize(messages, trimRatio: 0.10)
         }
     }
 
-    private func attemptSummarize(_ messages: [FullChatMessage], trimRatio: Double) async throws -> String {
+    private func attemptSummarize(_ messages: [FullChatMessage], trimRatio: Double) async throws -> ChatSummaryResult {
         guard #available(iOS 26.0, *) else {
             throw AISummaryError.notAvailable
         }
-        
+
         let session = LanguageModelSession()
 
         let totalCount = messages.count
@@ -76,9 +106,10 @@ final class AISummaryService: AISummaryServiceProtocol {
         }
 
         let wasTrimmed = trimmedMessages.count < totalCount
+        let messagesAnalyzed = trimmedMessages.count
 
-        let messageTexts = trimmedMessages.map { msg in
-            "\(msg.message.creator): \(msg.message.message.text)"
+        let messageTexts = trimmedMessages.enumerated().map { index, msg in
+            "[\(msg.message.id)] \(msg.message.creator): \(msg.message.message.text)"
         }.joined(separator: "\n")
 
         let conversationContext = wasTrimmed
@@ -86,21 +117,26 @@ final class AISummaryService: AISummaryServiceProtocol {
             : "chat conversation"
 
         let prompt = """
-        You are an expert at summarizing chat conversations. Analyze the following \(conversationContext):
+        Analyze this \(conversationContext). Messages have [messageId] prefix.
 
         \(messageTexts)
 
-        Provide a concise summary (2-3 sentences, max 50 words) that captures:
-        • Main topics and themes discussed
-        • Key points, decisions, or conclusions reached
-        • Overall sentiment or tone
+        Identify key decisions/actions (keyPoints) and main subjects (topics). ALWAYS include relatedMessageId - pick the most relevant message even if point spans multiple.
 
-        Write clearly and avoid generic phrases. Focus on what's most valuable to know.
+        Rules:
+        - Start text with action verbs or nouns (not "The", "Users", "Discussion")
+        - Be specific: names, numbers, features mentioned
+        - Skip generic phrases like "discussed", "focused on"
+        - Total: max 50 words across all items
+        - Prioritize: decisions > action items > specific problems > general topics
         """
 
         do {
-            let response = try await session.respond(to: prompt)
-            return response.content
+            let response = try await session.respond(
+                to: prompt,
+                generating: ChatSummary.self
+            )
+            return ChatSummaryResult(summary: response.content, messagesAnalyzed: messagesAnalyzed)
         } catch LanguageModelSession.GenerationError.exceededContextWindowSize(let context) {
             throw AISummaryError.exceededContextWindow("Token limit exceeded even after trimming. Context: \(context)")
         } catch {
@@ -110,18 +146,18 @@ final class AISummaryService: AISummaryServiceProtocol {
 
     private func trimMessagesToFitLimit(_ messages: [FullChatMessage]) -> [FullChatMessage] {
         let availableTokens = maxTokenLimit - promptOverheadTokens
-        let maxChars = availableTokens * estimatedCharsPerToken
+        let maxChars = (availableTokens * estimatedCharsPerToken) * 0.8
 
         var trimmedMessages: [FullChatMessage] = []
         var currentLength: Double = 0
 
         for message in messages.reversed() {
-            let messageText = "\(message.message.creator): \(message.message.message.text)"
+            let messageText = "[\(message.message.id)] \(message.message.creator): \(message.message.message.text)"
             let messageLength = messageText.count
 
             if currentLength + Double(messageLength) <= maxChars {
                 trimmedMessages.insert(message, at: 0)
-                currentLength += messageLength + 1
+                currentLength += Double(messageLength) + 1
             } else {
                 break
             }

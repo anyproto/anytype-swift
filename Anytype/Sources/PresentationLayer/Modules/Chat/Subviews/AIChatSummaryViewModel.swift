@@ -3,6 +3,7 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+@available(iOS 26.0, *)
 @MainActor
 final class AIChatSummaryViewModel: ObservableObject {
 
@@ -11,22 +12,24 @@ final class AIChatSummaryViewModel: ObservableObject {
 
     @Published var messages: [FullChatMessage] = []
     @Published var isLoading = false
-    @Published var summary: String = ""
+    @Published var summary: ChatSummary?
     @Published var isSummarizing = false
     @Published var summaryError: String?
+    @Published var selectedMessage: FullChatMessage?
+    @Published var messagesAnalyzed: Int?
 
     private let chatStorage: any ChatMessagesStorageProtocol
     @Injected(\.messageTextBuilder)
     private var messageTextBuilder: any MessageTextBuilderProtocol
-    @Injected(\.aiSummaryService)
-    private var aiSummaryService: any AISummaryServiceProtocol
+//    @Injected(\.aiSummaryService)
+    private let aiSummaryService: some AISummaryServiceProtocol = AISummaryService()
 
     var isAIAvailable: Bool {
         aiSummaryService.checkAvailability()
     }
 
     var canGenerateSummary: Bool {
-        !messages.isEmpty && isAIAvailable && summary.isEmpty && !isSummarizing
+        !messages.isEmpty && isAIAvailable && summary == nil && !isSummarizing
     }
 
     init(spaceId: String, chatId: String) {
@@ -60,12 +63,18 @@ final class AIChatSummaryViewModel: ObservableObject {
         defer { isSummarizing = false }
 
         do {
-            summary = try await aiSummaryService.summarizeMessages(messages)
+            let result = try await aiSummaryService.summarizeMessages(messages)
+            summary = result.summary
+            messagesAnalyzed = result.messagesAnalyzed
         } catch let error as AISummaryError {
             summaryError = error.errorDescription
         } catch {
             summaryError = "Failed to generate summary: \(error.localizedDescription)"
         }
+    }
+
+    func findMessage(byId id: String) -> FullChatMessage? {
+        messages.first { $0.message.id == id }
     }
 
     private func filterLastTwoDays(_ messages: [FullChatMessage]) -> [FullChatMessage] {

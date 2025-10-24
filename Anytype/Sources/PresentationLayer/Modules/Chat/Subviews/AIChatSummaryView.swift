@@ -2,11 +2,13 @@ import SwiftUI
 import Services
 import UIKit
 
+@available(iOS 26.0, *)
 struct AIChatSummaryView: View {
 
     @StateObject private var model: AIChatSummaryViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+    @State private var toastBarData: ToastBarData?
 
     init(spaceId: String, chatId: String) {
         self._model = StateObject(wrappedValue: AIChatSummaryViewModel(spaceId: spaceId, chatId: chatId))
@@ -48,7 +50,11 @@ struct AIChatSummaryView: View {
                 }
             }
         }
+        .snackbar(toastBarData: $toastBarData)
         .animation(.default, value: model.isLoading)
+        .sheet(item: $model.selectedMessage) { message in
+            messageDetailView(message)
+        }
         .task {
             await model.loadMessages()
             if !model.messages.isEmpty && model.isAIAvailable {
@@ -69,7 +75,7 @@ struct AIChatSummaryView: View {
     private var summaryContentView: some View {
         ScrollView {
             VStack(spacing: 24) {
-                Text("\(model.messages.count) messages from last 2 days")
+                messageCountText
                     .font(.system(size: 14))
                     .foregroundColor(.Text.secondary)
                     .padding(.top, 20)
@@ -77,6 +83,16 @@ struct AIChatSummaryView: View {
                 summaryContent
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    private var messageCountText: some View {
+        Group {
+            if let analyzed = model.messagesAnalyzed, analyzed < model.messages.count {
+                Text("\(model.messages.count) messages from last 2 days (showing last \(analyzed) due to context limit)")
+            } else {
+                Text("\(model.messages.count) messages from last 2 days")
             }
         }
     }
@@ -106,16 +122,20 @@ struct AIChatSummaryView: View {
                         .buttonStyle(.bordered)
                     }
                 }
-            } else if model.summary.isEmpty {
+            } else if model.summary == nil {
                 Text("Summary not available")
                     .foregroundColor(.Text.secondary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-            } else {
-                Text(model.summary)
-                    .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                    .foregroundColor(.Text.primary)
-                    .lineSpacing(6)
-                    .multilineTextAlignment(.leading)
+            } else if let summary = model.summary {
+                VStack(alignment: .leading, spacing: 20) {
+                    if !summary.keyPoints.isEmpty {
+                        summarySection(title: "Key Points:", items: summary.keyPoints)
+                    }
+
+                    if !summary.topics.isEmpty {
+                        summarySection(title: "Topics:", items: summary.topics)
+                    }
+                }
             }
         }
     }
@@ -125,6 +145,71 @@ struct AIChatSummaryView: View {
             Text("No messages from the last 2 days")
                 .foregroundColor(.Text.secondary)
                 .font(.system(size: 15))
+        }
+    }
+
+    private func summarySection(title: String, items: [SummaryPoint]) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(AnytypeFontBuilder.font(anytypeFont: .uxTitle1Semibold))
+                .foregroundColor(.Text.primary)
+
+            ForEach(items) { item in
+                Button(action: {
+                    handleBulletTap(item)
+                }) {
+                    HStack(alignment: .top, spacing: 8) {
+                        Text("•")
+                            .foregroundColor(.blue)
+                        Text(item.text)
+                            .foregroundColor(.blue)
+                            .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
+                            .multilineTextAlignment(.leading)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private func handleBulletTap(_ item: SummaryPoint) {
+        if let messageId = item.relatedMessageId,
+           let message = model.findMessage(byId: messageId) {
+            model.selectedMessage = message
+        } else {
+            toastBarData = ToastBarData("No specific message linked to this item", type: .neutral)
+        }
+    }
+
+    private func messageDetailView(_ message: FullChatMessage) -> some View {
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(message.message.creator)
+                        .font(AnytypeFontBuilder.font(anytypeFont: .uxTitle1Semibold))
+                        .foregroundColor(.Text.primary)
+
+                    Text(message.message.createdAtDate, style: .relative)
+                        .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
+                        .foregroundColor(.Text.secondary)
+
+                    Divider()
+
+                    Text(message.message.message.text)
+                        .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
+                        .foregroundColor(.Text.primary)
+                }
+                .padding(20)
+            }
+            .navigationTitle("Message")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        model.selectedMessage = nil
+                    }
+                }
+            }
         }
     }
 }

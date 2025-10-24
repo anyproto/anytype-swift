@@ -60,8 +60,12 @@ struct ChatView: View {
             ChatSendLimitAlert()
         }
         .sheet(isPresented: $model.showAISummarySheet) {
-            AIChatSummaryView(spaceId: model.spaceId, chatId: model.chatId)
-                .presentationDetents([.medium])
+            if #available(iOS 26.0, *) {
+                AIChatSummaryView(spaceId: model.spaceId, chatId: model.chatId)
+//                    .presentationDetents([.medium])
+            } else {
+                EmptyView()
+            }
         }
         .snackbar(toastBarData: $model.toastBarData)
         .homeBottomPanelHidden(true)
