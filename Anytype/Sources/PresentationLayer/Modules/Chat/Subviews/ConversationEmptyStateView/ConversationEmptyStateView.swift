@@ -64,13 +64,13 @@ struct ConversationEmptyStateView: View {
             Text(title)
                 .anytypeStyle(.bodySemibold)
                 .foregroundStyle(Color.Text.primary)
-            Spacer.fixedHeight(20)
+            Spacer.fixedHeight(24)
             featureRow(icon: "infinity", text: Loc.Chat.Empty.Feature.yoursForever)
             Spacer.fixedHeight(12)
             featureRow(icon: "wifi.slash", text: Loc.Chat.Empty.Feature.availableOffline)
             Spacer.fixedHeight(12)
             featureRow(icon: "key.fill", text: Loc.Chat.Empty.Feature.privateEncrypted)
-            Spacer.fixedHeight(25)
+            Spacer.fixedHeight(27)
             HStack(alignment: .center, spacing: 8) {
                 Spacer()
                 if let addMembersAction {
@@ -99,7 +99,7 @@ struct ConversationEmptyStateView: View {
                 .frame(width: 24, height: 24)
                 .foregroundStyle(Color.Control.transparentSecondary)
             Text(text)
-                .anytypeStyle(.relation3Regular)
+                .anytypeStyle(.previewTitle2Regular)
             Spacer()
         }
         .padding(.horizontal, 45)
