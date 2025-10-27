@@ -160,15 +160,11 @@ jobs:
 
       # Push the branch and create a PR
       - name: Create PR
-        id: create_pr
         run: |
           git push origin ${{ steps.commit.outputs.branch_name }} --no-verify
 
           PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
-          PR_URL=$(gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }})
-
-          # Save PR URL for reference
-          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
 
