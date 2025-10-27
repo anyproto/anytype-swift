@@ -237,6 +237,7 @@ Modules/                # Swift packages
 - K&R style (opening brackets on same line)
 - 120-140 character lines
 - One blank line between functions, two between sections
+- **NEVER trim whitespace-only lines** - Preserve blank lines with spaces or tabs exactly as they appear in the original file
 
 ### Naming
 - **PascalCase**: Classes, Structs, Protocols (`ChatViewModel`)
@@ -309,6 +310,9 @@ When receiving a Linear task ID (e.g., `IOS-5292`):
 - **GitHub CLI**: Use `gh` tool for all GitHub operations
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
+
+### GitHub Workflows & Actions
+For comprehensive documentation on GitHub workflows, actions, and automation (including auto-merge behavior), see `.github/WORKFLOWS_REFERENCE.md`
 
 ### Release Branch Workflow
 - **Branches from release**: When creating a branch from a release branch (e.g., `release/0.42.0`):
