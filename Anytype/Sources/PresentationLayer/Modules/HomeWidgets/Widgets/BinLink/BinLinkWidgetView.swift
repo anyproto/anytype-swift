@@ -38,7 +38,6 @@ private struct BinLinkWidgetViewInternal: View {
             isExpanded: .constant(false),
             dragId: nil,
             homeState: $homeState,
-            allowMenuContent: true,
             allowContent: false,
             header: {
                 LinkWidgetDefaultHeader(title: Loc.bin, icon: .asset(.X24.bin), onTap: {
