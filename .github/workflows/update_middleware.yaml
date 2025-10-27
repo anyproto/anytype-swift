@@ -6,8 +6,7 @@ name: Update middleware version
 # 3. Downloads new middleware binaries and regenerates files
 # 4. Runs unit tests to ensure compatibility
 # 5. Creates a PR with the changes
-# 6. Auto-merges the PR when all checks pass
-# 7. Closes the associated Linear issue (if task_name is provided)
+# 6. Closes the associated Linear issue (if task_name is provided)
 #
 # Required secrets:
 # - SERVICE_USER_GITHUB_TOKEN: GitHub token for creating PRs and pushing changes
@@ -161,23 +160,11 @@ jobs:
 
       # Push the branch and create a PR
       - name: Create PR
-        id: create_pr
         run: |
           git push origin ${{ steps.commit.outputs.branch_name }} --no-verify
 
           PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
-          PR_URL=$(gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }})
-
-          # Save PR URL for the auto-merge step
-          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
-
-      # Enable auto-merge: the PR will be merged when all required checks pass
-      # Uses --squash to keep the commit history clean
-      - name: Auto-merge PR
-        run: |
-          gh pr merge "${{ steps.create_pr.outputs.pr_url }}" --auto --squash
+          gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
 
