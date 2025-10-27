@@ -322,6 +322,14 @@ For comprehensive documentation on GitHub workflows, actions, and automation (in
 
 ### ❌ FORBIDDEN Git Practices
 
+**ABSOLUTELY NEVER run destructive git operations** unless you have explicit, written approval:
+- `git reset --hard` - Discards all local changes permanently
+- `git checkout <old-commit>` or `git restore` to revert to older commits - Can lose work
+- `git clean -fd` - Removes untracked files permanently
+- `git push --force` to main/develop - Rewrites shared history
+
+**If you are even slightly unsure about a git command, STOP and ask the user first.**
+
 **NEVER do this:**
 ```bash
 # ❌ WRONG - Contains AI attribution
@@ -357,6 +365,21 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Sequential branches: `ios-XXXX-description-1`, `ios-XXXX-description-2`
 - Chain PRs: `branch-1` → `develop`, `branch-2` → `branch-1`
 - Atomic changes per branch
+
+### 🔧 Git Technical Tips
+
+**Quoting paths with special characters**:
+- Always quote git paths containing brackets, parentheses, or spaces
+- Prevents shell from treating them as globs or subshells
+
+```bash
+# ✅ CORRECT
+git add "Anytype/Sources/[Feature]/Component.swift"
+git commit -m "Update component" -- "path/with spaces/file.swift"
+
+# ❌ WRONG - Shell interprets brackets as glob pattern
+git add Anytype/Sources/[Feature]/Component.swift
+```
 
 ### Linear Integration
 1. **Get task context**: Extract task number from branch name or ask user
