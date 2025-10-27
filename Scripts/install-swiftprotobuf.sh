@@ -1,4 +1,4 @@
-ф#!/usr/bin/env bash
+#!/usr/bin/env bash
 # ./Scripts/install-swiftprotobuf.sh
 # Clones apple/swift-protobuf (if missing), checks out a specific version, and builds a release.
 
