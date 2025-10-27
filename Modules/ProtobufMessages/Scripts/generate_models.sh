@@ -28,5 +28,5 @@ rm -rf ${MODULE_DIR}/Sources/Protocol/*
 ./build/anytype-swift-filesplit-v1 --path ${PROTO_OUT}/commands.pb.swift --output-dir ${MODULE_DIR}/Sources/Protocol/Commands --other-name CommandsOther.swift
 ./build/anytype-swift-filesplit-v1 --path ${PROTO_OUT}/events.pb.swift --output-dir ${MODULE_DIR}/Sources/Protocol/Events --other-name EventsOther.swift
 ./build/anytype-swift-filesplit-v1 --path ${PROTO_OUT}/models.pb.swift --output-dir ${MODULE_DIR}/Sources/Protocol/Models --other-name ModelsOther.swift --max-depth 4
-cp -r ${PROTO_OUT}/localstore.pb.swift Modules/ProtobufMessages/Sources/Protocol
+cp -r ${PROTO_OUT}/localstore.pb.swift ${MODULE_DIR}/Sources/Protocol
 
