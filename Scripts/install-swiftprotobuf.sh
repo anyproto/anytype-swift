@@ -6,7 +6,7 @@ set -euo pipefail
 
 # ===== Settings =====
 # Set the desired release tag here (examples: 1.26.0, 1.25.2). No env override.
-SWIFT_PROTOBUF_VERSION="1.28.2"
+SWIFT_PROTOBUF_VERSION="1.32.0"
 REPO_URL="https://github.com/apple/swift-protobuf"
 
 # Project root = one level above Scripts/

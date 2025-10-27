@@ -1,4 +1,7 @@
 FILE_SPLITTER = ./build/anytype-swift-filesplit-v1
+BOLD := \033[1m
+GREEN := \033[32m
+RESET := \033[0m
 
 setup-middle:
 	./Scripts/middle-download.sh
@@ -12,13 +15,15 @@ change-github-token:
 	# https://github.com/anyproto/anytype-swift?tab=readme-ov-file#use-pre-built-anytype-heart
 	./Scripts/change-token.sh
 
-generate-middle: setup-tools
+generate-middle:
+	@echo "$(BOLD)If you encounter issues with generation, run $(GREEN)setup-env$(RESET)"
 	./Modules/ProtobufMessages/Scripts/generate.sh
 	./build/sourcery --config ./Modules/ProtobufMessages/sourcery.yml
 	./Tools/anytype-swift-codegen --yaml-path ./Modules/ProtobufMessages/anytypeGen.yml --project-dir ./Modules/ProtobufMessages --output-dir ./Modules/ProtobufMessages/Sources/Generated
 	./build/swiftgen --config ./Modules/Services/swiftgen.yml
 
 generate:
+	@echo "$(BOLD)If you encounter issues with generation, run $(GREEN)setup-env$(RESET)"
 	# We also have code generation in XCode Build phases for main target and widgets
 	./build/sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	./Modules/Assets/Scripts/generate.sh
@@ -37,7 +42,7 @@ build-middle-local:
 
 setup-middle-local: build-middle-local install-middle-local
 
-setup-env:
+setup-env: setup-file-splitter
 	./Scripts/install-sourcery.sh
 	./Scripts/install-swiftprotobuf.sh
 	brew install ubi
@@ -46,7 +51,7 @@ setup-env:
 set-middle-version:
 	echo "MIDDLE_VERSION=$(v)" > Libraryfile
 
-setup-tools:
+setup-file-splitter:
 	@if [ ! -f "$(FILE_SPLITTER)" ]; then \
 		make release -C Tools/anytype-swift-filesplit; \
 		mkdir -p build; \
