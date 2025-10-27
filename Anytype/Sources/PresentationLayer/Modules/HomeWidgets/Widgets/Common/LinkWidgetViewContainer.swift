@@ -6,7 +6,6 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
     @Binding var isExpanded: Bool
     let dragId: String?
     @Binding var homeState: HomeWidgetsState
-    let allowMenuContent: Bool
     let allowContent: Bool
     let allowContextMenuItems: Bool
     let header: Header
@@ -20,7 +19,6 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
         isExpanded: Binding<Bool>,
         dragId: String? = nil,
         homeState: Binding<HomeWidgetsState>,
-        allowMenuContent: Bool = false,
         allowContent: Bool = true,
         allowContextMenuItems: Bool = true,
         createObjectAction: (() -> Void)? = nil,
@@ -31,7 +29,6 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
         self._isExpanded = isExpanded
         self.dragId = dragId
         self._homeState = homeState
-        self.allowMenuContent = allowMenuContent
         self.allowContent = allowContent
         self.allowContextMenuItems = allowContextMenuItems
         self.header = header()
@@ -77,7 +74,6 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
             header
             HStack(spacing: 16) {
                 createObjectButton
-                menuButton
                 arrowButton
             }
             Spacer.fixedWidth(16)
@@ -107,18 +103,6 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 createObjectAction()
             } label: {
                 Image(asset: .X18.plus)
-                    .foregroundColor(.Text.primary)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var menuButton: some View {
-        if allowMenuContent {
-            Menu {
-                menu()
-            } label: {
-                Image(asset: .Widget.settings)
                     .foregroundColor(.Text.primary)
             }
         }
