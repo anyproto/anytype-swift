@@ -57,7 +57,6 @@ struct WidgetContainerView<Content: View>: View {
                 isExpanded: $model.isExpanded,
                 dragId: dragId,
                 homeState: $model.homeState,
-                allowMenuContent: model.menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
                 createObjectAction: model.homeState.isReadWrite ? onCreateObjectTap : nil,
                 header: {
