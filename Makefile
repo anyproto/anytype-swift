@@ -43,6 +43,7 @@ build-middle-local:
 setup-middle-local: build-middle-local install-middle-local
 
 setup-env: setup-file-splitter
+	brew install protobuf
 	./Scripts/install-sourcery.sh
 	./Scripts/install-swiftprotobuf.sh
 	brew install ubi
