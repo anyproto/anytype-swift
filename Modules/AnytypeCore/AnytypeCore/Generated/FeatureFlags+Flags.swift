@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .turnOffAutomaticWidgetOpening)
     }
 
+    static var channelTypeSwitcher: Bool {
+        value(for: .channelTypeSwitcher)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -143,6 +147,7 @@ public extension FeatureFlags {
         .brandNewAuthFlow,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
+        .channelTypeSwitcher,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

@@ -273,7 +273,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowRemoteStorage = participantSpaceView.isOwner
         canAddWriters = spaceView.canAddWriters(participants: participants)
 
-        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
+        uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
 
         info = spaceSettingsInfoBuilder.build(workspaceInfo: workspaceInfo, details: spaceView, owner: owner) { [weak self] in
             self?.snackBarData = ToastBarData(Loc.copiedToClipboard($0))
