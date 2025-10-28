@@ -39,8 +39,39 @@ private extension CGSize {
     }
 }
 
+private extension StandardButtonStyle {
+
+    func primaryXSmallConfig(stretchSize: Bool, backgroundColor: Color? = nil) -> StandardButtonConfig {
+        let baseConfig = StandardButtonStyle.primaryLarge.config
+
+        let normalStyle: StandardButtonConfig.Style
+        if let backgroundColor {
+            normalStyle = StandardButtonConfig.Style(
+                textColor: baseConfig.normal.textColor,
+                borderColor: baseConfig.normal.borderColor,
+                backgroundColor: backgroundColor,
+                overlayBackgroundColor: baseConfig.normal.overlayBackgroundColor
+            )
+        } else {
+            normalStyle = baseConfig.normal
+        }
+
+        return StandardButtonConfig(
+            normal: normalStyle,
+            higlighted: baseConfig.higlighted,
+            disabled: baseConfig.disabled,
+            textFont: .caption1Medium,
+            height: 28,
+            stretchSize: stretchSize,
+            radius: 14,
+            loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
+            horizontalPadding: 10
+        )
+    }
+}
+
 public extension StandardButtonStyle {
-    
+
     var config: StandardButtonConfig {
         switch self {
         case .primaryLarge:
@@ -206,46 +237,11 @@ public extension StandardButtonStyle {
                 horizontalPadding: 0
             )
         case .primaryXSmall:
-            return StandardButtonConfig(
-                normal: StandardButtonStyle.primaryLarge.config.normal,
-                higlighted: StandardButtonStyle.primaryLarge.config.higlighted,
-                disabled: StandardButtonStyle.primaryLarge.config.disabled,
-                textFont: .caption1Medium,
-                height: 28,
-                stretchSize: false,
-                radius: 14,
-                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
-                horizontalPadding: 10
-            )
+            return primaryXSmallConfig(stretchSize: false)
         case .primaryXSmallStretched:
-            return StandardButtonConfig(
-                normal: StandardButtonStyle.primaryLarge.config.normal,
-                higlighted: StandardButtonStyle.primaryLarge.config.higlighted,
-                disabled: StandardButtonStyle.primaryLarge.config.disabled,
-                textFont: .caption1Medium,
-                height: 28,
-                stretchSize: true,
-                radius: 14,
-                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
-                horizontalPadding: 10
-            )
+            return primaryXSmallConfig(stretchSize: true)
         case .primaryXSmallStretchedBlack:
-            return StandardButtonConfig(
-                normal: StandardButtonConfig.Style(
-                    textColor: StandardButtonStyle.primaryLarge.config.normal.textColor,
-                    borderColor: StandardButtonStyle.primaryLarge.config.normal.borderColor,
-                    backgroundColor: Color.Control.primary,
-                    overlayBackgroundColor: StandardButtonStyle.primaryLarge.config.normal.overlayBackgroundColor
-                ),
-                higlighted: StandardButtonStyle.primaryLarge.config.higlighted,
-                disabled: StandardButtonStyle.primaryLarge.config.disabled,
-                textFont: .caption1Medium,
-                height: 28,
-                stretchSize: true,
-                radius: 14,
-                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
-                horizontalPadding: 10
-            )
+            return primaryXSmallConfig(stretchSize: true, backgroundColor: .Control.primary)
         case .secondaryXSmall:
             return StandardButtonConfig(
                 normal: StandardButtonStyle.secondaryLarge.config.normal,
