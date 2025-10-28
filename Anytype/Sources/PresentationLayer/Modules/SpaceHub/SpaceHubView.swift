@@ -4,15 +4,14 @@ import DesignKit
 
 
 struct SpaceHubView: View {
-    @StateObject private var model: SpaceHubViewModel
-    
+    @State private var model: SpaceHubViewModel
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
     private var namespace: Namespace.ID
     
     init(output: (any SpaceHubModuleOutput)?, namespace: Namespace.ID) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
+        _model = State(wrappedValue: SpaceHubViewModel(output: output))
         self.namespace = namespace
     }
     
