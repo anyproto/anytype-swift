@@ -222,7 +222,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates."
+            "value" : "시대를 앞서고 있군요! 일부 기능은 아직 개발 중이거나 배포 준비가 되지 않았습니다. 업데이트를 기다려주세요."
           }
         },
         "nb" : {
@@ -372,7 +372,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to the Alpha version"
+            "value" : "알파 버전에 오신 것을 환영합니다"
           }
         },
         "nb" : {
@@ -521,7 +521,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "I am new here"
+            "value" : "처음입니다"
           }
         },
         "nb" : {
@@ -819,7 +819,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
+            "value" : "우리는 팁과 사용법, 제품 업데이트 소식을 공유하고 싶어요. 이메일은 당신의 계정과 절대 연관되지 않습니다. 우리는 당신의 데이터를 공유하지 않습니다. 절대로요."
           }
         },
         "nb" : {
@@ -968,7 +968,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incorrect email"
+            "value" : "잘못된 이메일"
           }
         },
         "nb" : {
@@ -1117,7 +1117,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enter your email"
+            "value" : "이메일을 입력하세요"
           }
         },
         "nb" : {
@@ -1266,7 +1266,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Stay in the loop"
+            "value" : "계속 업데이트 받으세요"
           }
         },
         "nb" : {
@@ -1564,7 +1564,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Read more"
+            "value" : "더보기"
           }
         },
         "nb" : {
@@ -1713,7 +1713,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not now"
+            "value" : "나중에"
           }
         },
         "nb" : {
@@ -2011,7 +2011,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reveal and copy"
+            "value" : "복사한 뒤 보기"
           }
         },
         "nb" : {
@@ -2160,7 +2160,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings."
+            "value" : "이것은 로그인과 비밀번호를 대체합니다. 안전한 곳에 보관하세요. 당신이 데이터를 통제합니다. 나중에 설정에서 키를 다시 확인할 수 있습니다."
           }
         },
         "nb" : {
@@ -2458,7 +2458,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "당신의 로그인 방법이자 비밀번호입니다"
           }
         },
         "nb" : {
@@ -2756,7 +2756,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Whoever has the key, has access"
+            "value" : "누구든지 키를 가지고 있으면 접근할 수 있습니다"
           }
         },
         "nb" : {
@@ -3054,7 +3054,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only you responsible for it"
+            "value" : "오직 당신만이 책임을 집니다"
           }
         },
         "nb" : {
@@ -3502,7 +3502,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "당신을 가장 잘 설명하는 역할을 선택하세요"
           }
         },
         "nb" : {
@@ -3651,7 +3651,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tell Us About Yourself"
+            "value" : "당신에 대해 설명해주세요"
           }
         },
         "nb" : {
@@ -3800,7 +3800,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Artist / Content Creator"
+            "value" : "아티스트 / 콘텐츠 크리에이터"
           }
         },
         "nb" : {
@@ -3949,7 +3949,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Consultant"
+            "value" : "컨설턴트"
           }
         },
         "nb" : {
@@ -4098,7 +4098,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Designer"
+            "value" : "디자이너"
           }
         },
         "nb" : {
@@ -4247,7 +4247,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Software Developer"
+            "value" : "소프트웨어 개발자"
           }
         },
         "nb" : {
@@ -4396,7 +4396,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Founder / Entrepreneur"
+            "value" : "창업가 / 기업가"
           }
         },
         "nb" : {
@@ -4545,7 +4545,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manager / IT Professional"
+            "value" : "관리자 / IT 전문가"
           }
         },
         "nb" : {
@@ -4694,7 +4694,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Marketer"
+            "value" : "마케터"
           }
         },
         "nb" : {
@@ -4843,7 +4843,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Researcher / Academic"
+            "value" : "연구자 / 학술자"
           }
         },
         "nb" : {
@@ -4992,7 +4992,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "학생"
           }
         },
         "nb" : {
@@ -5141,7 +5141,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Writer / Journalist"
+            "value" : "작가 / 언론인"
           }
         },
         "nb" : {
@@ -5290,7 +5290,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Habit tracking"
+            "value" : "습관 추적"
           }
         },
         "nb" : {
@@ -5439,7 +5439,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal knowledge base / PKM"
+            "value" : "개인 지식 관리 / PKM"
           }
         },
         "nb" : {
@@ -5588,7 +5588,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Life planning"
+            "value" : "인생 계획"
           }
         },
         "nb" : {
@@ -5737,7 +5737,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "메시지 & 그룹 채팅"
           }
         },
         "nb" : {
@@ -5886,7 +5886,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal note-taking"
+            "value" : "개인 노트 필기"
           }
         },
         "nb" : {
@@ -6035,7 +6035,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "프로젝트 & 할 일 관리"
           }
         },
         "nb" : {
@@ -6184,7 +6184,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "팀워크 & 공유 문서"
           }
         },
         "nb" : {
@@ -6631,7 +6631,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add Your Name"
+            "value" : "이름을 추가하세요"
           }
         },
         "nb" : {
@@ -6780,7 +6780,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "당신에게 가장 잘 맞는 사용 시나리오를 고르세요"
           }
         },
         "nb" : {
@@ -6929,7 +6929,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What do you want to use Anytype for?"
+            "value" : "Anytype을 어디에 사용하려고 하시나요?"
           }
         },
         "nb" : {
@@ -7227,7 +7227,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "or enter with"
+            "value" : "또는 다음으로 들어가기"
           }
         },
         "nb" : {
@@ -7525,7 +7525,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Entering the Void"
+            "value" : "보관소에 들어가는 중"
           }
         },
         "nb" : {
@@ -7973,7 +7973,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Use keychain"
+            "value" : "키체인 사용"
           }
         },
         "nb" : {
@@ -8271,7 +8271,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Encrypted, local,"
+            "value" : "암호화되며 로컬인,"
           }
         },
         "nb" : {
@@ -8420,7 +8420,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "yours forever"
+            "value" : "영원한 당신의 것"
           }
         },
         "nb" : {
@@ -8569,7 +8569,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Continue with current vault"
+            "value" : "현재 보관소로 계속하기"
           }
         },
         "nb" : {
@@ -8718,7 +8718,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Logout from current vault"
+            "value" : "현재 보관소에서 로그아웃"
           }
         },
         "nb" : {
@@ -8867,7 +8867,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken."
+            "value" : "안정 버전이 아닌 미들웨어와 함께 앱을 실행했습니다. 실제 사용하는 보관소를 쓰지 마세요. 보관소가 망가질 수 있습니다."
           }
         },
         "nb" : {
@@ -9017,7 +9017,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Warning"
+            "value" : "경고"
           }
         },
         "nb" : {
@@ -9166,7 +9166,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "I won't be using my production vault"
+            "value" : "실제 사용하는 보관소를 쓰지 않겠습니다"
           }
         },
         "nb" : {
@@ -10210,7 +10210,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault."
+            "value" : "보관소에 들어가려면 이것이 필요합니다. 안전한 곳에 보관하세요. 잃어버리면 더 이상 보관소에 접근할 수 없습니다."
           }
         },
         "nb" : {
@@ -10657,7 +10657,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Login Key"
+            "value" : "로그인 키"
           }
         },
         "nb" : {
@@ -10806,7 +10806,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please clear approximately %@ of space and run the process again."
+            "value" : "저장 공간의 약 %@를 비운 뒤, 다시 진행하세요."
           }
         },
         "nb" : {
@@ -10955,7 +10955,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not enough space"
+            "value" : "저장 공간 부족"
           }
         },
         "nb" : {
@@ -11104,7 +11104,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Read More"
+            "value" : "더보기"
           }
         },
         "nb" : {
@@ -11253,7 +11253,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Start Update"
+            "value" : "업데이트 시작"
           }
         },
         "nb" : {
@@ -11552,7 +11552,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Version Update"
+            "value" : "새 버전 업데이트"
           }
         },
         "nb" : {
@@ -11701,7 +11701,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This may take some time. Please don’t close the app until the process is complete."
+            "value" : "약간 시간이 걸립니다. 완료되기 전까지 앱을 닫지 마세요."
           }
         },
         "nb" : {
@@ -11850,7 +11850,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update is in progress..."
+            "value" : "업데이트가 진행 중입니다..."
           }
         },
         "nb" : {
@@ -11999,7 +11999,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You'll see a loading screen during the update. Once finished, you can continue using the app normally."
+            "value" : "업데이트를 하는 동안 로딩 화면이 표시됩니다. 업데이트가 완료되면 앱을 정상적으로 계속 사용할 수 있습니다."
           }
         },
         "nb" : {
@@ -12148,7 +12148,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "During this update, your data remains fully secure. The update is performed directly on your device, and your synced data remains unaffected. We’ll just copy it to a new format, and a local backup will be created on your device, containing all your data in the previous format."
+            "value" : "업데이트를 하는 동안, 당신의 데이터는 완전히 안전합니다. 업데이트는 직접 기기에서 진행되며, 동기화된 데이터는 영향을 받지 않습니다. 데이터가 새로운 형식으로 복사되며, 이전 형식의 데이터를 유지한 로컬 백업이 이 기기에 저장될 예정입니다."
           }
         },
         "nb" : {
@@ -12297,7 +12297,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The reason we’re retaining this backup is to debug and assist you, in case of unforeseen."
+            "value" : "백업을 하는 이유는 만약의 상황이 일어나면 버그를 찾고 당신을 돕기 위해서입니다."
           }
         },
         "nb" : {
@@ -12446,7 +12446,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What to Expect"
+            "value" : "다음과 같은 일들이 일어납니다"
           }
         },
         "nb" : {
@@ -12595,7 +12595,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your Data Remains Safe"
+            "value" : "데이터는 안전하게 유지됩니다"
           }
         },
         "nb" : {
@@ -12744,7 +12744,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version."
+            "value" : "버전이 오래되어 보관소 데이터를 받아올 수 없습니다. Anytype을 최신 버전으로 업데이트하세요."
           }
         },
         "nb" : {
