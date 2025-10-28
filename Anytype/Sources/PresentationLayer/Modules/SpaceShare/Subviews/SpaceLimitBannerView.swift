@@ -69,13 +69,13 @@ struct SpaceLimitBannerView: View {
     private var buttonsView: some View {
         HStack(spacing: 8) {
             if limitType.showManageButton {
-                StandardButton(Loc.SpaceShare.manageSpaces, style: .secondaryMedium) {
+                StandardButton(Loc.SpaceShare.manageSpaces, style: .secondaryXSmallStretched) {
                     onManageSpaces?()
                 }
             }
             StandardButton(
                 "\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)",
-                style: limitType.showManageButton ? .primaryMedium : .primaryLarge
+                style: .primaryXSmallStretchedBlack
             ) {
                 onUpgrade()
             }

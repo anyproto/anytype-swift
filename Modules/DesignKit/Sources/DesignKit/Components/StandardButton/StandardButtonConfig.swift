@@ -229,6 +229,23 @@ public extension StandardButtonStyle {
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
                 horizontalPadding: 10
             )
+        case .primaryXSmallStretchedBlack:
+            return StandardButtonConfig(
+                normal: StandardButtonConfig.Style(
+                    textColor: StandardButtonStyle.primaryLarge.config.normal.textColor,
+                    borderColor: StandardButtonStyle.primaryLarge.config.normal.borderColor,
+                    backgroundColor: Color.Control.primary,
+                    overlayBackgroundColor: StandardButtonStyle.primaryLarge.config.normal.overlayBackgroundColor
+                ),
+                higlighted: StandardButtonStyle.primaryLarge.config.higlighted,
+                disabled: StandardButtonStyle.primaryLarge.config.disabled,
+                textFont: .caption1Medium,
+                height: 28,
+                stretchSize: true,
+                radius: 14,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
+                horizontalPadding: 10
+            )
         case .secondaryXSmall:
             return StandardButtonConfig(
                 normal: StandardButtonStyle.secondaryLarge.config.normal,
@@ -237,6 +254,17 @@ public extension StandardButtonStyle {
                 textFont: .caption1Regular,
                 height: 28,
                 stretchSize: false,
+                radius: 14,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
+            )
+        case .secondaryXSmallStretched:
+            return StandardButtonConfig(
+                normal: StandardButtonStyle.secondaryLarge.config.normal,
+                higlighted: StandardButtonStyle.secondaryLarge.config.higlighted,
+                disabled: StandardButtonStyle.secondaryLarge.config.disabled,
+                textFont: .caption1Regular,
+                height: 28,
+                stretchSize: true,
                 radius: 14,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
