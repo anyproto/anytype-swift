@@ -6,9 +6,10 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 ## 🚀 Quick Start
 
 ### ⚠️ CRITICAL RULES - NEVER VIOLATE
-1. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
-2. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
-3. **NEVER add any form of AI attribution** anywhere in the codebase
+1. **NEVER commit changes without explicit user request** - Always wait for user to explicitly ask you to commit
+2. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
+3. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
+4. **NEVER add any form of AI attribution** anywhere in the codebase
 
 ### Development Setup
 1. **First-time setup** (run in order):
@@ -276,7 +277,8 @@ Modules/                # Swift packages
 ## 🔄 Development Workflow
 
 ### 🚨 Pre-Commit Checklist
-**STOP** before EVERY commit and verify:
+**ONLY WHEN USER EXPLICITLY ASKS YOU TO COMMIT** - STOP and verify:
+- [ ] User has explicitly requested a commit
 - [ ] NO "Co-Authored-By: Claude" in commit message
 - [ ] NO "Generated with Claude" or similar AI signatures
 - [ ] NO emoji signatures like 🤖
@@ -303,7 +305,11 @@ When receiving a Linear task ID (e.g., `IOS-5292`):
 ### Git & GitHub
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
-- **Commit messages**: 
+- **⚠️ CRITICAL: NEVER commit without explicit user request**
+  - Wait for user to explicitly ask you to commit
+  - Do NOT commit automatically after making changes
+  - Do NOT assume commits are expected
+- **Commit messages**:
   - Single line only
   - **NO AI signatures** (no "Generated with Claude", no co-author attribution)
   - Professional and concise
@@ -424,6 +430,9 @@ git add Anytype/Sources/[Feature]/Component.swift
 - Import `AnytypeCore` for feature flags
 
 ### ⚠️ Common Mistakes to Avoid
+
+#### Git Operations
+**Autonomous Committing (2025-01-28):** Committed changes without explicit user request. NEVER commit unless user explicitly asks. This is a CRITICAL rule - committing is a destructive operation that should only happen when user approves.
 
 #### File Operations & Architecture
 **Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually, keep UI in PresentationLayer.

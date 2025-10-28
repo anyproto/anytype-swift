@@ -26,7 +26,12 @@ Review this PR using CLAUDE.md for project conventions. Be LEAN and ACTIONABLE -
 - NO "no concerns" statements (skip the section entirely)
 - NO design/UI/spacing suggestions (padding, margins, colors, etc.) - you cannot see the visual design
 - Reference specific file:line locations for issues
-- If no issues found: comment "✅ **Approved** - No issues found"
+- **If no issues found**:
+  - Comment ONLY: "✅ **Approved** - No issues found"
+  - DO NOT describe what the PR does
+  - DO NOT list changes made
+  - DO NOT provide any summary or explanation
+  - Zero noise, zero fluff - just the approval statement
 
 ### Review Sections
 Include ONLY if issues exist:
