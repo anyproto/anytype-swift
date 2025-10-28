@@ -48,3 +48,7 @@ struct SecureAlertView: View {
         }
     }
 }
+
+#Preview {
+    SecureAlertView(data: SecureAlertData(completion: { _ in }))
+}
