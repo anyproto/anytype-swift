@@ -24,8 +24,3 @@ for_lane :release_anytype do
 	apple_id(ENV["APPLE_ID"]) 
 	app_identifier(ENV["APP_ID_RELEASE_ANYTYPE"]) 
 end
-
-for_lane :release_anyapp do
-	apple_id(ENV["APPLE_ID"]) 
-	app_identifier(ENV["APP_ID_RELEASE_ANYAPP"]) 
-end

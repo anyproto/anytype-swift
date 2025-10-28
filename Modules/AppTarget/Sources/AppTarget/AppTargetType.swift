@@ -2,7 +2,6 @@
 public enum AppTargetType: Sendable {
     case debug
     case releaseAnytype
-    case releaseAnyApp
 }
 
 public extension AppTargetType {
@@ -13,11 +12,6 @@ public extension AppTargetType {
     
     var isReleaseAnytype: Bool {
         if case .releaseAnytype = self { return true }
-        return false
-    }
-    
-    var isReleaseAnyApp: Bool {
-        if case .releaseAnyApp = self { return true }
         return false
     }
 }

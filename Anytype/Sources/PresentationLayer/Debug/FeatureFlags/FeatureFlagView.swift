@@ -42,7 +42,6 @@ struct FeatureFlagView: View {
                 Group {
                     Text("Nightly - \(model.description.debugValue ? "on" : "off")")
                     Text("Release Anytype - \(model.description.releaseAnytypeValue ? "on" : "off")")
-                    Text("Release AnyApp - \(model.description.releaseAnyAppValue ? "on" : "off")")
                 }
                 .font(AnytypeFontBuilder.font(anytypeFont: .calloutRegular))
                 .foregroundColor(.Text.secondary)

@@ -261,11 +261,6 @@ The repository uses a **centralized auto-merge system** via the `automerge.yaml`
 | `SENTRY_AUTH_TOKEN` | Sentry authentication token for crash reporting | All build workflows |
 | `SENTRY_DSN` | Sentry DSN for crash reporting | All build workflows |
 | `AMPLITUDE_API_KEY` | Amplitude analytics API key | All build workflows |
-| `OPENAI_TOKEN` | OpenAI API token | All build workflows |
-| `AI_ENDPOINT` | AI endpoint URL | All build workflows |
-| `AI_MODEL` | AI model name | All build workflows |
-| `ANY_APP_MEMBERSHIP_TIER_SECRET` | Membership tier validation secret | All build workflows |
-| `JOIN_STREAM_URL` | Join stream URL for collaboration | All build workflows |
 | `SLACK_BOT_TOKEN` | Slack bot token for notifications | send-slack-message action |
 | `SLACK_URL_BUILD_TESTS` | Slack webhook for build/test notifications | update_middleware_nightly |
 | `CLAUDE_CODE_OAUTH_TOKEN` | OAuth token for Claude Code API access | claude-code-review |

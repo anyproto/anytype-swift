@@ -94,10 +94,6 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await spaceIconForNotificationsHandler.startUpdating()
         
         Task {
-            // Time-heavy operation
-            #if RELEASE_ANYAPP
-                await storeKitService.activatePromoTier()
-            #endif
             await membershipStatusStorage.startSubscription()
         }
     }
