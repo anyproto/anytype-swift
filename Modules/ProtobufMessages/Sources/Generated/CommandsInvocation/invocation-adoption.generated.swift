@@ -1355,6 +1355,11 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.PushNotification.AddAllIds.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.PushNotification.AddMentionIds.Response: ResultWithError {}
 extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

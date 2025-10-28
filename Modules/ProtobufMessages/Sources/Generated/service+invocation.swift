@@ -3074,4 +3074,14 @@ public struct ClientCommands {
         }
     }
 
+    public static func pushNotificationAddAllIds(
+        _ request: Anytype_Rpc.PushNotification.AddAllIds.Request = .init()
+    ) -> Invocation<Anytype_Rpc.PushNotification.AddAllIds.Request, Anytype_Rpc.PushNotification.AddAllIds.Response> {
+        return Invocation(messageName: "PushNotificationAddAllIds", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServicePushNotificationAddAllIds(requestData) ?? Data()
+            return try Anytype_Rpc.PushNotification.AddAllIds.Response(serializedBytes: responseData)
+        }
+    }
+
 }
