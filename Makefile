@@ -63,7 +63,6 @@ generate_debug_profiles:
 	bundle exec fastlane generate_dev_debug_profiles
 	bundle exec fastlane generate_anytype_debug_profiles
 
-
 generate_appstore_profiles:
     bundle exec fastlane generate_appstore_profiles_for_nightly
     bundle exec fastlane generate_appstore_profiles_for_anytype
