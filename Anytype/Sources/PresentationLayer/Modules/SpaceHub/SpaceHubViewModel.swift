@@ -11,14 +11,7 @@ final class SpaceHubViewModel {
     var spaces: [ParticipantSpaceViewDataWithPreview]?
     var searchText: String = ""
     
-    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] {
-        guard let spaces else { return [] }
-        guard !searchText.isEmpty else { return spaces }
-        
-        return spaces.filter { space in
-            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
-        }
-    }
+    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] = []
     
     var wallpapers: [String: SpaceWallpaperType] = [:]
     
@@ -126,11 +119,16 @@ final class SpaceHubViewModel {
         spaceMuteData = nil
     }
     
+    func searchTextUpdated() {
+        updateFilteredSpaces()
+    }
+    
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
             showLoading = spaces.contains { $0.spaceView.isLoading }
+            updateFilteredSpaces()
         }
     }
     
@@ -206,6 +204,23 @@ final class SpaceHubViewModel {
     private func pushNotificationsSystemSettingsSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsDenied = status.isDenied
+        }
+    }
+    
+    private func updateFilteredSpaces() {
+        
+        guard let spaces else {
+            filteredSpaces = []
+            return
+        }
+        
+        guard !searchText.isEmpty else {
+            filteredSpaces = spaces
+            return
+        }
+        
+        filteredSpaces = spaces.filter { space in
+            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
         }
     }
 }
