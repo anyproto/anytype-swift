@@ -7,7 +7,7 @@ struct SpaceHubCoordinatorView: View {
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    @StateObject private var model = SpaceHubCoordinatorViewModel()
+    @State private var model = SpaceHubCoordinatorViewModel()
     
     @Namespace private var namespace
     
