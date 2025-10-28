@@ -9,36 +9,39 @@ import PhotosUI
 struct SpaceHubNavigationItem: Hashable { }
 
 @MainActor
-final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput {
-    @Published var showSpaceManager = false
-    @Published var showObjectIsNotAvailableAlert = false
-    @Published var profileData: ObjectInfo?
-    @Published var spaceProfileData: AccountInfo?
-    @Published var userWarningAlert: UserWarningAlert?
-    @Published var typeSearchForObjectCreationSpaceId: StringIdentifiable?
-    @Published var showSharingExtension = false
-    @Published var membershipTierId: IntIdentifiable?
-    @Published var showGalleryImport: GalleryInstallationData?
-    @Published var spaceJoinData: SpaceJoinModuleData?
-    @Published var membershipNameFinalizationData: MembershipTier?
-    @Published var showGlobalSearchData: GlobalSearchModuleData?
-    @Published var toastBarData: ToastBarData?
-    @Published var showSpaceShareData: SpaceShareData?
-    @Published var showSpaceMembersData: SpaceMembersData?
-    @Published var chatProvider = ChatActionProvider()
-    @Published var bookmarkScreenData: BookmarkScreenData?
-    @Published var spaceCreateData: SpaceCreateData?
-    @Published var showSpaceTypeForCreate = false
-    @Published var shouldScanQrCode = false
-    @Published var showAppSettings = false
+@Observable
+final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
+    var showSpaceManager = false
+    var showObjectIsNotAvailableAlert = false
+    var profileData: ObjectInfo?
+    var spaceProfileData: AccountInfo?
+    var userWarningAlert: UserWarningAlert?
+    var typeSearchForObjectCreationSpaceId: StringIdentifiable?
+    var showSharingExtension = false
+    var membershipTierId: IntIdentifiable?
+    var showGalleryImport: GalleryInstallationData?
+    var spaceJoinData: SpaceJoinModuleData?
+    var membershipNameFinalizationData: MembershipTier?
+    var showGlobalSearchData: GlobalSearchModuleData?
+    var toastBarData: ToastBarData?
+    var showSpaceShareData: SpaceShareData?
+    var showSpaceMembersData: SpaceMembersData?
+    var chatProvider = ChatActionProvider()
+    var bookmarkScreenData: BookmarkScreenData?
+    var spaceCreateData: SpaceCreateData?
+    var showSpaceTypeForCreate = false
+    var shouldScanQrCode = false
+    var showAppSettings = false
     
-    @Published var photosItems: [PhotosPickerItem] = []
-    @Published var showPhotosPicker = false
-    @Published var cameraData: SimpleCameraData?
-    @Published var showFilesPicker = false
+    var photosItems: [PhotosPickerItem] = []
+    var showPhotosPicker = false
+    var cameraData: SimpleCameraData?
+    var showFilesPicker = false
+    
+    @ObservationIgnored
     private var uploadSpaceId: String?
     
-    @Published var currentSpaceId: String?
+    var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
         guard let currentSpaceId else { return nil }
         return workspaceStorage.spaceInfo(spaceId: currentSpaceId)
@@ -47,10 +50,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
     var fallbackSpaceId: String? {
         userDefaults.lastOpenedScreen?.spaceId ?? fallbackSpaceView?.targetSpaceId
     }
-    @Published private var fallbackSpaceView: SpaceView?
     
-    @Published var pathChanging: Bool = false
-    @Published var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
+    private var fallbackSpaceView: SpaceView?
+    
+    var pathChanging: Bool = false
+    var navigationPath = HomePath(initialPath: [SpaceHubNavigationItem()])
+    @ObservationIgnored
     lazy var pageNavigation = PageNavigation(
         open: { [weak self] data in
             self?.showScreenSync(data: data)
@@ -71,40 +76,43 @@ final class SpaceHubCoordinatorViewModel: ObservableObject, SpaceHubModuleOutput
         }
     )
 
+    @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
+    @ObservationIgnored
     var dismissAllPresented: DismissAllPresented?
     
-    @Injected(\.appActionStorage)
+    @Injected(\.appActionStorage) @ObservationIgnored
     private var appActionsStorage: AppActionStorage
-    @Injected(\.accountManager)
+    @Injected(\.accountManager) @ObservationIgnored
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.activeSpaceManager)
+    @Injected(\.activeSpaceManager) @ObservationIgnored
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    @Injected(\.documentsProvider)
+    @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.spaceViewsStorage)
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.userDefaultsStorage)
+    @Injected(\.userDefaultsStorage) @ObservationIgnored
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var typeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.defaultObjectCreationService)
+    @Injected(\.defaultObjectCreationService) @ObservationIgnored
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    @Injected(\.loginStateService)
+    @Injected(\.loginStateService) @ObservationIgnored
     private var loginStateService: any LoginStateServiceProtocol
-    @Injected(\.participantSpacesStorage)
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.userWarningAlertsHandler)
+    @Injected(\.userWarningAlertsHandler) @ObservationIgnored
     private var userWarningAlertsHandler: any UserWarningAlertsHandlerProtocol
-    @Injected(\.legacyNavigationContext)
+    @Injected(\.legacyNavigationContext) @ObservationIgnored
     private var navigationContext: any NavigationContextProtocol
-    @Injected(\.spaceFileUploadService)
+    @Injected(\.spaceFileUploadService) @ObservationIgnored
     private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
-    @Injected(\.spaceHubPathUXTypeHelper)
+    @Injected(\.spaceHubPathUXTypeHelper) @ObservationIgnored
     private var spaceHubPathUXTypeHelper: any SpaceHubPathUXTypeHelperProtocol
     
+    @ObservationIgnored
     private var needSetup = true
     
     init() { }
