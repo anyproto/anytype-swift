@@ -10,13 +10,10 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
         label.text = Loc.Auth.LoginFlow.Textfield.placeholder
-        label.textColor = FeatureFlags.brandNewAuthFlow ? UIColor.Text.tertiary : UIColor.Text.primary
+        label.textColor = UIColor.Text.tertiary
         label.font = self.font
         label.textAlignment = self.textAlignment
         label.numberOfLines = 0
-        if !FeatureFlags.brandNewAuthFlow {
-            label.layer.opacity = 0.3
-        }
         return label
     }()
 
@@ -61,10 +58,10 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         autocapitalizationType = .none
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
-        font = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Regular.uiKitFont : AnytypeFont.authInput.uiKitFont
-        tintColor = FeatureFlags.brandNewAuthFlow ? UIColor.Control.accent100 : UIColor.Auth.inputText
+        font = AnytypeFont.previewTitle1Regular.uiKitFont
+        tintColor = UIColor.Control.accent100
         textContainer.lineFragmentPadding = 0.0
-        backgroundColor = FeatureFlags.brandNewAuthFlow ? UIColor.Shape.transperentSecondary :  UIColor.Shape.transperentSecondary.withAlphaComponent(0.14)
+        backgroundColor = UIColor.Shape.transperentSecondary
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         textContentType = .password
@@ -108,9 +105,9 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
 extension UIPhraseTextView {
     
     private func configureAttributedString(from text: String, hidden: Bool) -> NSAttributedString {
-        
-        let foregroundColor = FeatureFlags.brandNewAuthFlow ? UIColor.Text.primary : UIColor.Control.white
-        let anytypeFont: AnytypeFont = FeatureFlags.brandNewAuthFlow ? AnytypeFont.previewTitle1Regular : AnytypeFont.authInput
+
+        let foregroundColor = UIColor.Text.primary
+        let anytypeFont: AnytypeFont = AnytypeFont.previewTitle1Regular
         let style = NSMutableParagraphStyle()
         style.lineSpacing = anytypeFont.config.lineHeight
         let attributes = [
