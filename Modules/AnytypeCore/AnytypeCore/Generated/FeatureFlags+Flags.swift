@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .channelTypeSwitcher)
     }
 
+    static var newObjectSettings: Bool {
+        value(for: .newObjectSettings)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -148,6 +152,7 @@ public extension FeatureFlags {
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,
+        .newObjectSettings,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
