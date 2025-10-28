@@ -11,7 +11,6 @@ extension DeepLinkScheme {
     private enum Scheme {
         static let dev = "dev-anytype://"
         static let prodAnytype = "prod-anytype://"
-        static let prodAnyApp = "prod-anyapp://"
         static let main = "anytype://"
     }
     
@@ -30,8 +29,6 @@ extension DeepLinkScheme {
             Scheme.dev
         case .releaseAnytype:
             Scheme.prodAnytype
-        case .releaseAnyApp:
-            Scheme.prodAnyApp
         }
     }
 }

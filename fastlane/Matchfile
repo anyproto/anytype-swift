@@ -17,12 +17,6 @@ APP_ID_ALL_RELEASE_ANYTYPE ||= [
     ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYTYPE"],
     ENV["APP_NOTIFICATION_EXTENSION_ID_RELEASE_ANYTYPE"]
 ]
-APP_ID_ALL_RELEASE_ANYAPP ||= [
-    ENV["APP_ID_RELEASE_ANYAPP"],
-    ENV["APP_WIDGET_ID_RELEASE_ANYAPP"], 
-    ENV["APP_SHARE_EXTENSION_ID_RELEASE_ANYAPP"],
-    ENV["APP_NOTIFICATION_EXTENSION_ID_RELEASE_ANYAPP"]
-]
 
 # For build release
 
@@ -34,11 +28,6 @@ end
 for_lane :release_anytype do
 	type("appstore")
 	app_identifier(APP_ID_ALL_RELEASE_ANYTYPE) 
-end
-
-for_lane :release_anyapp do
-	type("appstore")
-	app_identifier(APP_ID_ALL_RELEASE_ANYAPP) 
 end
 
 for_lane :test_build do
@@ -63,16 +52,11 @@ for_lane :generate_anytype_debug_profiles do
 	app_identifier(APP_ID_ALL_RELEASE_ANYTYPE)
 end
 
-for_lane :generate_anyapp_debug_profiles do
-	type('development')
-	app_identifier(APP_ID_ALL_RELEASE_ANYAPP)
-end
-
 # For Install Debug profiles
 
 for_lane :install_debug_profiles do
 	type("development")
-	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE + APP_ID_ALL_RELEASE_ANYAPP) 
+	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE) 
 end
 
 # For Generate Release profiles
@@ -87,16 +71,11 @@ for_lane :generate_appstore_profiles_for_anytype do
 	app_identifier(APP_ID_ALL_RELEASE_ANYTYPE) 
 end
 
-for_lane :generate_appstore_profiles_for_anyapp do
-	type("appstore")
-	app_identifier(APP_ID_ALL_RELEASE_ANYAPP) 
-end
-
 # For Install Release profiles
 
 for_lane :install_appstore_profiles do
 	type("appstore")
-	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE + APP_ID_ALL_RELEASE_ANYAPP) 
+	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE) 
 end
 
 # For Delete
@@ -108,5 +87,5 @@ end
 
 for_lane :delete_appstore_certs do
 	type("appstore")
-	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE + APP_ID_ALL_RELEASE_ANYAPP) 
+	app_identifier(APP_ID_ALL_DEVELOP + APP_ID_ALL_RELEASE_ANYTYPE) 
 end

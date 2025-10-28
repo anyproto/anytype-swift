@@ -35,8 +35,6 @@ public protocol StoreKitServiceProtocol: Sendable {
     
     func startListenForTransactions() async
     func stopListenForTransactions() async
-    
-    func activatePromoTier() async
 }
 
 actor StoreKitService: StoreKitServiceProtocol {
@@ -130,19 +128,6 @@ actor StoreKitService: StoreKitServiceProtocol {
         @unknown default:
             anytypeAssertionFailure("Unsupported purchase result \(result)")
             fatalError()
-        }
-    }
-    
-    // Temporary promo tiers for AnyApp
-    func activatePromoTier() async {
-        guard let promoReceipt = PromoTierJWTGenerator().promoTierReceiptString(account: accountManager.account) else {
-            return
-        }
-        
-        do {
-            try await membershipService.verifyReceipt(receipt: promoReceipt)
-        } catch let error {
-            anytypeAssertionFailure(error.localizedDescription)
         }
     }
     

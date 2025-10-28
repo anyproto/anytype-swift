@@ -8,8 +8,6 @@
 	<string></string>
 	<key>AmplitudeApiKey</key>
 	<string></string>
-	<key>AnyAppMembershipTierSecret</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

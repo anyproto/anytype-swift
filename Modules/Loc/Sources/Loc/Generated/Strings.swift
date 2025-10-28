@@ -14,12 +14,6 @@ public enum Loc {
     return Loc.tr("Auth", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
   }
   public static let loginKey = Loc.tr("Auth", "Login key", fallback: "Login Key")
-  public enum AnyApp {
-    public enum BetaAlert {
-      public static let description = Loc.tr("Auth", "AnyApp.BetaAlert.Description", fallback: "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.")
-      public static let title = Loc.tr("Auth", "AnyApp.BetaAlert.Title", fallback: "Welcome to the Alpha version")
-    }
-  }
   public enum Auth {
     public static let cameraPermissionTitle = Loc.tr("Auth", "Auth.CameraPermissionTitle", fallback: "Please allow access")
     public static let logIn = Loc.tr("Auth", "Auth.LogIn", fallback: "I already have a key")

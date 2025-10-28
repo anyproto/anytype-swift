@@ -264,7 +264,6 @@ The repository uses a **centralized auto-merge system** via the `automerge.yaml`
 | `OPENAI_TOKEN` | OpenAI API token | All build workflows |
 | `AI_ENDPOINT` | AI endpoint URL | All build workflows |
 | `AI_MODEL` | AI model name | All build workflows |
-| `ANY_APP_MEMBERSHIP_TIER_SECRET` | Membership tier validation secret | All build workflows |
 | `JOIN_STREAM_URL` | Join stream URL for collaboration | All build workflows |
 | `SLACK_BOT_TOKEN` | Slack bot token for notifications | send-slack-message action |
 | `SLACK_URL_BUILD_TESTS` | Slack webhook for build/test notifications | update_middleware_nightly |
