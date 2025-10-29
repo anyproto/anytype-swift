@@ -968,7 +968,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "문의하기"
+            "value" : "문의"
           }
         },
         "nb" : {
@@ -1117,7 +1117,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "장치: %@"
+            "value" : "기기: %@"
           }
         },
         "nb" : {
@@ -1266,7 +1266,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "장치 ID: %@"
+            "value" : "기기 ID: %@"
           }
         },
         "nb" : {
@@ -3203,7 +3203,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "키체인에 있는 키 접근"
+            "value" : "키 저장소의 키 접근"
           }
         },
         "nb" : {
@@ -3352,7 +3352,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Action-focused layout with a checkbox"
+            "value" : "체크박스가 있는 동작 중심의 레이아웃"
           }
         },
         "nb" : {
@@ -3650,7 +3650,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Link to"
+            "value" : "다음으로 링크"
           }
         },
         "nb" : {
@@ -4097,7 +4097,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add"
+            "value" : "추가"
           }
         },
         "nb" : {
@@ -4395,7 +4395,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add below"
+            "value" : "아래에 추가"
           }
         },
         "nb" : {
@@ -4991,7 +4991,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add property"
+            "value" : "속성 추가"
           }
         },
         "nb" : {
@@ -6184,7 +6184,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All"
+            "value" : "전체"
           }
         },
         "nb" : {
@@ -6482,7 +6482,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Try searching with different keywords."
+            "value" : "다른 키워드로 검색해보세요."
           }
         },
         "nb" : {
@@ -6631,7 +6631,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No results found."
+            "value" : "검색 결과 없음."
           }
         },
         "nb" : {
@@ -6930,7 +6930,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlinked objects that do not have a direct link or backlink with other objects in the graph."
+            "value" : "링크되지 않은 오브젝트는 그래프에서 다른 오프젝트와의 직접적인 링크나 백링크가 없습니다."
           }
         },
         "nb" : {
@@ -7079,7 +7079,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only unlinked"
+            "value" : "링크되지 않음"
           }
         },
         "nb" : {
@@ -7228,7 +7228,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View Bin"
+            "value" : "휴지통 보기"
           }
         },
         "nb" : {
@@ -7377,7 +7377,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oldest first"
+            "value" : "오래된 순"
           }
         },
         "nb" : {
@@ -7526,7 +7526,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Newest first"
+            "value" : "최신 순"
           }
         },
         "nb" : {
@@ -7675,7 +7675,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Date created"
+            "value" : "생성된 날짜"
           }
         },
         "nb" : {
@@ -7824,7 +7824,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Date updated"
+            "value" : "수정된 날짜"
           }
         },
         "nb" : {
@@ -8718,7 +8718,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype Network"
+            "value" : "Anytype 네트워크"
           }
         },
         "nb" : {
@@ -9016,7 +9016,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Application"
+            "value" : "앱"
           }
         },
         "nb" : {
@@ -9314,7 +9314,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Apply"
+            "value" : "적용"
           }
         },
         "nb" : {
@@ -10152,7 +10152,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure?"
+            "value" : "정말 진행할까요?"
           }
         },
         "nb" : {
@@ -12316,7 +12316,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Basic"
+            "value" : "기본"
           }
         },
         "nb" : {
@@ -16218,7 +16218,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Camera"
+            "value" : "카메라"
           }
         },
         "nb" : {
@@ -16665,7 +16665,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Cancel deletion"
+            "value" : "삭제 취소"
           }
         },
         "nb" : {
@@ -16814,7 +16814,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change cover"
+            "value" : "표지 변경"
           }
         },
         "nb" : {
@@ -17261,7 +17261,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change type"
+            "value" : "유형 변경"
           }
         },
         "nb" : {
@@ -17410,7 +17410,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change wallpaper"
+            "value" : "배경화면 변경"
           }
         },
         "nb" : {
@@ -17559,7 +17559,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Type"
+            "value" : "채널 유형"
           }
         },
         "nb" : {
@@ -18155,7 +18155,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Clear"
+            "value" : "지우기"
           }
         },
         "nb" : {
@@ -18603,7 +18603,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device."
+            "value" : "Anytype에 저장된 모든 미디어 파일이 현재 장치에서 삭제됩니다. 백업 노드 또는 다른 장치에서 다시 다운로드할 수 있습니다."
           }
         },
         "nb" : {
@@ -18753,7 +18753,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure?"
+            "value" : "정말 진행할까요?"
           }
         },
         "nb" : {
@@ -19051,7 +19051,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Code snippet"
+            "value" : "코드 스니펫"
           }
         },
         "nb" : {
@@ -20392,7 +20392,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Content Model"
+            "value" : "내용 모델"
           }
         },
         "nb" : {
@@ -20690,7 +20690,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yes, convert"
+            "value" : "네, 변환합니다"
           }
         },
         "nb" : {
@@ -20839,7 +20839,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
+            "value" : "스페이스와 채팅 간에 전환하면 경험이 완전히 달라집니다."
           }
         },
         "nb" : {
@@ -20988,7 +20988,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Convert Channel Type?"
+            "value" : "채널 유형 변환?"
           }
         },
         "nb" : {
@@ -21584,7 +21584,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy link"
+            "value" : "링크 복사"
           }
         },
         "nb" : {
@@ -22628,7 +22628,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new type"
+            "value" : "새 유형 만들기"
           }
         },
         "nb" : {
@@ -22926,7 +22926,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create object from clipboard"
+            "value" : "클립보드에서 오브젝트 만들기"
           }
         },
         "nb" : {
@@ -23373,7 +23373,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Query"
+            "value" : "쿼리 만들기"
           }
         },
         "nb" : {
@@ -23820,7 +23820,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current"
+            "value" : "현재"
           }
         },
         "nb" : {
@@ -23969,7 +23969,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Customize URL"
+            "value" : "URL 사용자 지정"
           }
         },
         "nb" : {
@@ -24267,7 +24267,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Gallery"
+            "value" : "갤러리"
           }
         },
         "nb" : {
@@ -24566,7 +24566,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Grid"
+            "value" : "그리드"
           }
         },
         "nb" : {
@@ -24715,7 +24715,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Kanban"
+            "value" : "칸반"
           }
         },
         "nb" : {
@@ -24864,7 +24864,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List"
+            "value" : "목록"
           }
         },
         "nb" : {
@@ -25487,7 +25487,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is nothing here for this date yet"
+            "value" : "이 날짜에는 아직 아무 것도 없습니다."
           }
         },
         "nb" : {
@@ -25636,7 +25636,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open selected date"
+            "value" : "선택된 날짜 열기"
           }
         },
         "nb" : {
@@ -27656,7 +27656,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete vault"
+            "value" : "보관소 삭제"
           }
         },
         "nb" : {
@@ -27805,7 +27805,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Deleted"
+            "value" : "삭제됨"
           }
         },
         "nb" : {
@@ -27954,7 +27954,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete Object Type"
+            "value" : "오브젝트 유형 삭제"
           }
         },
         "nb" : {
@@ -28252,7 +28252,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "다른 모든 장치에서 로그아웃됩니다. 30일 이내에 복구할 수 있으며, 이후에는 영구적으로 삭제됩니다."
+            "value" : "다른 모든 기기에서 로그아웃됩니다. 30일 이내에 복구할 수 있으며 이후에는 영구적으로 삭제됩니다."
           }
         },
         "nb" : {
@@ -28998,7 +28998,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Designed to capture thoughts quickly"
+            "value" : "생각을 빠르게 캡쳐하기 위해 디자인됨"
           }
         },
         "nb" : {
@@ -29836,7 +29836,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Disabled"
+            "value" : "비활성화됨"
           }
         },
         "nb" : {
@@ -30283,7 +30283,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Download"
+            "value" : "다운로드"
           }
         },
         "nb" : {
@@ -30432,7 +30432,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Downloading or uploading data to some node"
+            "value" : "일부 노드에 데이터 다운로드 또는 업로드 중"
           }
         },
         "nb" : {
@@ -30730,7 +30730,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "E-mail"
+            "value" : "이메일"
           }
         },
         "nb" : {
@@ -30879,7 +30879,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit"
+            "value" : "편집"
           }
         },
         "nb" : {
@@ -31475,7 +31475,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "e.g. Project"
+            "value" : "예시. 프로젝트"
           }
         },
         "nb" : {
@@ -31624,7 +31624,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "e.g. Projects"
+            "value" : "예시. 프로젝트들"
           }
         },
         "nb" : {
@@ -32518,7 +32518,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Empty"
+            "value" : "비어 있음"
           }
         },
         "nb" : {
@@ -32667,7 +32667,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Looks like you’re all tidy and organized!"
+            "value" : "모두 단정하게 정돈되었네요!"
           }
         },
         "nb" : {
@@ -32965,7 +32965,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create your first objects to get started."
+            "value" : "시작하려면 첫 스페이스를 만드세요."
           }
         },
         "nb" : {
@@ -33115,7 +33115,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s empty here."
+            "value" : "여긴 비어 있습니다."
           }
         },
         "nb" : {
@@ -33264,7 +33264,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish your first web site to get started."
+            "value" : "첫 번째 웹 사이트를 게시하여 시작하세요."
           }
         },
         "nb" : {
@@ -33413,7 +33413,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enabled"
+            "value" : "활성화됨"
           }
         },
         "nb" : {
@@ -34307,7 +34307,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enter URL"
+            "value" : "URL 입력"
           }
         },
         "nb" : {
@@ -34456,7 +34456,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enter value"
+            "value" : "값 입력"
           }
         },
         "nb" : {
@@ -35351,7 +35351,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update"
+            "value" : "업데이트"
           }
         },
         "nb" : {
@@ -35948,7 +35948,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops!"
+            "value" : "이런!"
           }
         },
         "nb" : {
@@ -36395,7 +36395,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Exact day"
+            "value" : "정확한 날짜"
           }
         },
         "nb" : {
@@ -36544,7 +36544,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Existing properties"
+            "value" : "기존 속성"
           }
         },
         "nb" : {
@@ -38358,7 +38358,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to permanently delete the files?"
+            "value" : "이 파일을 영구적으로 삭제하시겠습니까?"
           }
         },
         "nb" : {
@@ -38508,7 +38508,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Clean up files"
+            "value" : "파일 정리"
           }
         },
         "nb" : {
@@ -39402,7 +39402,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them."
+            "value" : "로컬 장치의 공간을 절약하기 위해 모든 파일을 암호화된 백업 노드로 오프로드할 수 있습니다. 파일을 열면 다시 로드됩니다."
           }
         },
         "nb" : {
@@ -39849,7 +39849,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Offload files"
+            "value" : "파일 오프로드"
           }
         },
         "nb" : {
@@ -39998,7 +39998,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Get more space"
+            "value" : "더 많은 공간 얻기"
           }
         },
         "nb" : {
@@ -40893,7 +40893,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Filter"
+            "value" : "필터"
           }
         },
         "nb" : {
@@ -41042,7 +41042,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Forever"
+            "value" : "영원히"
           }
         },
         "nb" : {
@@ -41340,7 +41340,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Format"
+            "value" : "형식"
           }
         },
         "nb" : {
@@ -41489,7 +41489,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Gallery"
+            "value" : "갤러리"
           }
         },
         "nb" : {
@@ -41788,7 +41788,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Install"
+            "value" : "설치"
           }
         },
         "nb" : {
@@ -41937,7 +41937,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Install to new space"
+            "value" : "새 스페이스에 설치"
           }
         },
         "nb" : {
@@ -42086,7 +42086,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Go to space"
+            "value" : "스페이스로 이동"
           }
         },
         "nb" : {
@@ -42533,7 +42533,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No related objects found"
+            "value" : "관련된 오브젝트 없음."
           }
         },
         "nb" : {
@@ -43129,7 +43129,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Go back"
+            "value" : "뒤로"
           }
         },
         "nb" : {
@@ -43427,7 +43427,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Gradients"
+            "value" : "그라데이션"
           }
         },
         "nb" : {
@@ -44321,7 +44321,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hidden"
+            "value" : "숨김"
           }
         },
         "nb" : {
@@ -44619,7 +44619,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hide types"
+            "value" : "유형 숨기기"
           }
         },
         "nb" : {
@@ -44768,7 +44768,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Highlight"
+            "value" : "강조"
           }
         },
         "nb" : {
@@ -45216,7 +45216,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "라이브러리는 데스크탑 앱에서 사용 가능합니다."
+            "value" : "라이브러리는 데스크톱 앱에서 사용 가능합니다."
           }
         },
         "nb" : {
@@ -46435,7 +46435,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Initializing sync"
+            "value" : "동기화를 초기화하는 중"
           }
         },
         "nb" : {
@@ -47870,7 +47870,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join"
+            "value" : "가입"
           }
         },
         "nb" : {
@@ -48168,7 +48168,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "키체인"
+            "value" : "키 저장소"
           }
         },
         "nb" : {
@@ -48466,7 +48466,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Learn more"
+            "value" : "더 알아보기"
           }
         },
         "nb" : {
@@ -49360,7 +49360,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Link to"
+            "value" : "다음으로 링크"
           }
         },
         "nb" : {
@@ -49509,7 +49509,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Content preview"
+            "value" : "내용 미리보기"
           }
         },
         "nb" : {
@@ -49807,7 +49807,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Object description"
+            "value" : "오브젝트 설명"
           }
         },
         "nb" : {
@@ -49956,7 +49956,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Object type"
+            "value" : "오브젝트 유형"
           }
         },
         "nb" : {
@@ -51797,7 +51797,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Local Only"
+            "value" : "로컬 전용"
           }
         },
         "nb" : {
@@ -51946,7 +51946,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Lock"
+            "value" : "잠금"
           }
         },
         "nb" : {
@@ -52143,7 +52143,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Locked"
+            "value" : "Kilitlendi"
           }
         },
         "uk" : {
@@ -52841,7 +52841,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manage payment"
+            "value" : "결제 관리"
           }
         },
         "nb" : {
@@ -53762,7 +53762,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions"
+            "value" : "멘션"
           }
         },
         "nb" : {
@@ -54060,7 +54060,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Misc"
+            "value" : "기타"
           }
         },
         "nb" : {
@@ -54508,7 +54508,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "More info"
+            "value" : "자세히 보기"
           }
         },
         "nb" : {
@@ -55104,7 +55104,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mute"
+            "value" : "알림 끄기"
           }
         },
         "nb" : {
@@ -55402,7 +55402,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My First Space"
+            "value" : "나의 첫 스페이스"
           }
         },
         "nb" : {
@@ -55551,7 +55551,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Properties"
+            "value" : "내 속성"
           }
         },
         "nb" : {
@@ -55700,7 +55700,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Sites"
+            "value" : "내 사이트"
           }
         },
         "nb" : {
@@ -55849,7 +55849,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Myself"
+            "value" : "내 자신"
           }
         },
         "nb" : {
@@ -56147,7 +56147,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New"
+            "value" : "만들기"
           }
         },
         "nb" : {
@@ -56296,7 +56296,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New property"
+            "value" : "새 속성"
           }
         },
         "nb" : {
@@ -56594,7 +56594,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New query"
+            "value" : "새 쿼리"
           }
         },
         "nb" : {
@@ -57041,7 +57041,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No connection"
+            "value" : "연결되지 않음"
           }
         },
         "nb" : {
@@ -57190,7 +57190,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No date"
+            "value" : "날짜 없음"
           }
         },
         "nb" : {
@@ -57637,7 +57637,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "아직 속성이 없습니다. 이 유형에 추가하세요."
+            "value" : "아직 속성 없음. 추가해보세요."
           }
         },
         "nb" : {
@@ -57786,7 +57786,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No related options here. You can add some"
+            "value" : "관련된 옵션 없음. 추가해보세요"
           }
         },
         "nb" : {
@@ -57935,7 +57935,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\" 유형을 찾을 수 없습니다. 요청을 변경하거나 새로운 유형을 만드세요."
+            "value" : "\"%@\" 유형을 찾을 수 없음. 요청을 수정하거나 새로운 유형을 만드세요."
           }
         },
         "nb" : {
@@ -58084,7 +58084,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Non-existent object"
+            "value" : "존재하지 않는 오브젝트"
           }
         },
         "nb" : {
@@ -58531,7 +58531,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "다시 실행할 작업이 없습니다."
+            "value" : "다시 실행할 작업 없음"
           }
         },
         "nb" : {
@@ -58680,7 +58680,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "실행 취소할 작업이 없습니다"
+            "value" : "실행 취소할 작업이 없음"
           }
         },
         "nb" : {
@@ -60464,7 +60464,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Object Types"
+            "value" : "오브젝트 유형"
           }
         },
         "nb" : {
@@ -60762,7 +60762,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "정말 이 유형을 지울까요? 이 유형에 속하는 모든 오브젝트는 유지되지만, 더이상 이 유형과 연결되지 않습니다."
+            "value" : "정말 이 유형을 삭제할까요? 모든 오브젝트는 유지되지만, 이 유형과의 연결이 해제됩니다."
           }
         },
         "nb" : {
@@ -61060,7 +61060,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ok"
+            "value" : "확인"
           }
         },
         "nb" : {
@@ -61656,7 +61656,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open as Object"
+            "value" : "오브젝트로 열기"
           }
         },
         "nb" : {
@@ -61954,7 +61954,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open object"
+            "value" : "오브젝트 열기"
           }
         },
         "nb" : {
@@ -62103,7 +62103,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open Query"
+            "value" : "쿼리 열기"
           }
         },
         "nb" : {
@@ -62252,7 +62252,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open source"
+            "value" : "오픈 소스"
           }
         },
         "nb" : {
@@ -62401,7 +62401,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\"는 지원되지 않는 유형입니다. 데스크탑에서 열 수 있습니다."
+            "value" : "\"%@\" 유형은 지원되지 않음. 데스크톱에서 열 수 있습니다."
           }
         },
         "nb" : {
@@ -62699,7 +62699,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open Settings"
+            "value" : "설정 열기"
           }
         },
         "nb" : {
@@ -63146,7 +63146,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "P2P Connection"
+            "value" : "P2P 연결"
           }
         },
         "nb" : {
@@ -63891,7 +63891,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pay by Card"
+            "value" : "카드로 결제"
           }
         },
         "nb" : {
@@ -64513,7 +64513,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pending..."
+            "value" : "보류 중..."
           }
         },
         "nb" : {
@@ -68164,7 +68164,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Picture"
+            "value" : "이미지"
           }
         },
         "nb" : {
@@ -69207,7 +69207,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Preferences"
+            "value" : "환경설정"
           }
         },
         "nb" : {
@@ -69505,7 +69505,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Preview layout"
+            "value" : "레이아웃 미리보기"
           }
         },
         "nb" : {
@@ -69655,7 +69655,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This layout differs from the type's default. Reset to match?"
+            "value" : "이 레이아웃은 유형 기본값과 다릅니다. 일치시키기 위해 초기화할까요?"
           }
         },
         "nb" : {
@@ -70102,7 +70102,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish"
+            "value" : "게시"
           }
         },
         "nb" : {
@@ -70251,7 +70251,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish to Web"
+            "value" : "웹에 게시"
           }
         },
         "nb" : {
@@ -70996,7 +70996,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "QR Code"
+            "value" : "QR 코드"
           }
         },
         "nb" : {
@@ -73112,7 +73112,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Previous 7 days"
+            "value" : "지난 7일"
           }
         },
         "nb" : {
@@ -73261,7 +73261,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Previous 14 days"
+            "value" : "지난 14일"
           }
         },
         "nb" : {
@@ -73708,7 +73708,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resend"
+            "value" : "재전송"
           }
         },
         "nb" : {
@@ -74006,7 +74006,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reset to default"
+            "value" : "기본값으로 초기화"
           }
         },
         "nb" : {
@@ -74155,7 +74155,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resolve layout conflict"
+            "value" : "레이아웃 충돌 해결"
           }
         },
         "nb" : {
@@ -74454,7 +74454,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "키체인에서 복구"
+            "value" : "키 저장소에서 복구"
           }
         },
         "nb" : {
@@ -74603,7 +74603,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "키체인에서 키를 복원합니다"
+            "value" : "키 저장소에서 키를 복원"
           }
         },
         "nb" : {
@@ -75051,7 +75051,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Save"
+            "value" : "저장"
           }
         },
         "nb" : {
@@ -75499,7 +75499,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "스캔이 지원되지 않습니다"
+            "value" : "스캔 지원되지 않음"
           }
         },
         "nb" : {
@@ -75946,7 +75946,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Search or create new"
+            "value" : "검색하거나 새로 만들기"
           }
         },
         "nb" : {
@@ -77287,7 +77287,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select date"
+            "value" : "날짜 선택"
           }
         },
         "nb" : {
@@ -78181,7 +78181,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select property format"
+            "value" : "속성 형식 선택"
           }
         },
         "nb" : {
@@ -78952,7 +78952,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Self Host"
+            "value" : "자체 호스팅"
           }
         },
         "nb" : {
@@ -79548,7 +79548,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Local-only"
+            "value" : "로컬 전용"
           }
         },
         "nb" : {
@@ -79995,7 +79995,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "로컬 전용 모드는 실험적 기능이며 보안적으로 어떠한 이득이 없습니다. 데이터 손실이 일어날 수 있으니 위험을 감수하며 사용하세요."
+            "value" : "로컬 전용 모드는 실험적 기능이며 보안적으로 어떠한 이득도 없습니다. 데이터 손실이 일어날 수 있으니 위험을 감수하며 사용하세요."
           }
         },
         "nb" : {
@@ -80144,7 +80144,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure?"
+            "value" : "정말 진행할까요?"
           }
         },
         "nb" : {
@@ -80443,7 +80443,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Networks"
+            "value" : "네트워크"
           }
         },
         "nb" : {
@@ -80593,7 +80593,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Query"
+            "value" : "쿼리"
           }
         },
         "nb" : {
@@ -80742,7 +80742,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Set access"
+            "value" : "권한 설정"
           }
         },
         "nb" : {
@@ -80891,7 +80891,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Set as default"
+            "value" : "기본값으로 설정"
           }
         },
         "nb" : {
@@ -81934,7 +81934,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Data Management"
+            "value" : "데이터 관리"
           }
         },
         "nb" : {
@@ -82083,7 +82083,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit picture"
+            "value" : "이미지 편집"
           }
         },
         "nb" : {
@@ -82680,7 +82680,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New view"
+            "value" : "새 보기"
           }
         },
         "nb" : {
@@ -82829,7 +82829,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View as"
+            "value" : "다음으로 보기"
           }
         },
         "nb" : {
@@ -83276,7 +83276,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New view"
+            "value" : "새 보기"
           }
         },
         "nb" : {
@@ -83575,7 +83575,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit view"
+            "value" : "보기 편집"
           }
         },
         "nb" : {
@@ -83724,7 +83724,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share"
+            "value" : "공유"
           }
         },
         "nb" : {
@@ -84022,7 +84022,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show types"
+            "value" : "유형 표시"
           }
         },
         "nb" : {
@@ -84172,7 +84172,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Clear"
+            "value" : "지우기"
           }
         },
         "nb" : {
@@ -84917,7 +84917,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Insert above"
+            "value" : "위에 삽입"
           }
         },
         "nb" : {
@@ -85066,7 +85066,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Insert below"
+            "value" : "아래에 삽입"
           }
         },
         "nb" : {
@@ -85215,7 +85215,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Insert left"
+            "value" : "왼쪽에 삽입"
           }
         },
         "nb" : {
@@ -85364,7 +85364,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Insert right"
+            "value" : "오른쪽에 삽입"
           }
         },
         "nb" : {
@@ -85513,7 +85513,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Move down"
+            "value" : "아래로 이동"
           }
         },
         "nb" : {
@@ -85662,7 +85662,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Move left"
+            "value" : "왼쪽으로 이동"
           }
         },
         "nb" : {
@@ -85811,7 +85811,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Move right"
+            "value" : "오른쪽으로 이동"
           }
         },
         "nb" : {
@@ -85960,7 +85960,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Move up"
+            "value" : "위로 이동"
           }
         },
         "nb" : {
@@ -86109,7 +86109,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sort"
+            "value" : "정렬"
           }
         },
         "nb" : {
@@ -86854,7 +86854,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Solid colors"
+            "value" : "단색"
           }
         },
         "nb" : {
@@ -87003,7 +87003,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sort"
+            "value" : "정렬"
           }
         },
         "nb" : {
@@ -87152,7 +87152,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Standard layout for canvas blocks"
+            "value" : "캔버스 블록에 대한 기본 레이아웃"
           }
         },
         "nb" : {
@@ -87450,7 +87450,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "결제에 실패했습니다. 결제를 위해 Apple 측에서 사용자 조치가 필요합니다."
+            "value" : "결제 실패. 결제하려면 Apple 측에서 사용자 동작이 필요합니다."
           }
         },
         "nb" : {
@@ -88047,7 +88047,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Submit"
+            "value" : "제출"
           }
         },
         "nb" : {
@@ -88644,7 +88644,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version outdated. Please update Anytype"
+            "value" : "버전이 오래됨. Anytype을 업데이트하세요"
           }
         },
         "nb" : {
@@ -88793,7 +88793,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Synced"
+            "value" : "동기화됨"
           }
         },
         "nb" : {
@@ -89091,7 +89091,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No access to the space"
+            "value" : "스페이스에 권한이 없음"
           }
         },
         "nb" : {
@@ -89240,7 +89240,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Storage limit reached"
+            "value" : "저장 공간 한도 도달"
           }
         },
         "nb" : {
@@ -89389,7 +89389,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unrecognized error"
+            "value" : "알 수 없는 오류"
           }
         },
         "nb" : {
@@ -89538,7 +89538,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "End-to-end encrypted"
+            "value" : "종단간 암호화됨"
           }
         },
         "nb" : {
@@ -89688,7 +89688,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Data backup is disabled"
+            "value" : "데이터 백업이 비활성화됨"
           }
         },
         "nb" : {
@@ -89837,7 +89837,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sync might be slow. Update the app."
+            "value" : "동기화가 느릴 수 있습니다. 앱을 업데이트하세요."
           }
         },
         "nb" : {
@@ -89986,7 +89986,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not connected"
+            "value" : "연결되지 않음"
           }
         },
         "nb" : {
@@ -90135,7 +90135,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connection not possible"
+            "value" : "연결할 수 없음"
           }
         },
         "nb" : {
@@ -90284,7 +90284,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "제한됨. 장치 설정 열기"
+            "value" : "제한됨. 기기 설정을 열면 여기를 누르세요."
           }
         },
         "nb" : {
@@ -90433,7 +90433,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "System Properties"
+            "value" : "시스템 속성"
           }
         },
         "nb" : {
@@ -92099,7 +92099,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New template was added to the type"
+            "value" : " 유형에 새로운 템플릿이 추가됐습니다"
           }
         },
         "nb" : {
@@ -94931,7 +94931,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no spaces yet"
+            "value" : "아직 스페이스가 없음"
           }
         },
         "nb" : {
@@ -95826,7 +95826,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "오브젝트들이 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다."
+            "value" : "오브젝트가 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다."
           }
         },
         "nb" : {
@@ -96869,7 +96869,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Try again"
+            "value" : "다시 시도"
           }
         },
         "nb" : {
@@ -97167,7 +97167,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type Plural name"
+            "value" : "복수형 이름을 입력하세요"
           }
         },
         "nb" : {
@@ -97465,7 +97465,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Undo"
+            "value" : "실행 취소"
           }
         },
         "nb" : {
@@ -97764,7 +97764,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Undo/Redo"
+            "value" : "실행 취소/다시 실행"
           }
         },
         "nb" : {
@@ -97913,7 +97913,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unknown"
+            "value" : "알 수 없음"
           }
         },
         "nb" : {
@@ -98360,7 +98360,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlock"
+            "value" : "잠금해제"
           }
         },
         "nb" : {
@@ -98557,7 +98557,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlocked"
+            "value" : "Kilidi açıldı"
           }
         },
         "uk" : {
@@ -98658,7 +98658,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unmute"
+            "value" : "알림 켜기"
           }
         },
         "nb" : {
@@ -98956,7 +98956,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpublish"
+            "value" : "게시 취소"
           }
         },
         "nb" : {
@@ -99105,7 +99105,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unread"
+            "value" : "읽지 않음"
           }
         },
         "nb" : {
@@ -99850,7 +99850,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unsupported"
+            "value" : "지원되지 않음"
           }
         },
         "nb" : {
@@ -100595,7 +100595,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update"
+            "value" : "업데이트"
           }
         },
         "nb" : {
@@ -101042,7 +101042,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "다음 날짜까지 유효:"
+            "value" : "유효 기간:"
           }
         },
         "nb" : {
@@ -101787,7 +101787,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "보관소 복원 중 에러가 발생했습니다. 인터넷 연결을 확인해주세요."
+            "value" : "보관소 복원 오류, 인터넷 연결을 확인해주세요."
           }
         },
         "nb" : {
@@ -103006,7 +103006,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Views"
+            "value" : "보기"
           }
         },
         "nb" : {
@@ -103454,7 +103454,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Web pages"
+            "value" : "웹 페이지 "
           }
         },
         "nb" : {
@@ -103603,7 +103603,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What’s included"
+            "value" : "포함된 항목"
           }
         },
         "nb" : {
@@ -104051,7 +104051,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "이 작업은 취소할 수 없습니다."
+            "value" : "이 동작은 취소할 수 없습니다."
           }
         },
         "nb" : {
@@ -104425,7 +104425,7 @@
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "이미 휴지통 빔"
+                  "value" : "휴지통이 이미 비어 있음"
                 }
               }
             }
@@ -104811,7 +104811,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Change Widget Type"
+            "value" : "위젯 유형 변경"
           }
         },
         "nb" : {
@@ -105258,7 +105258,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remove Widget"
+            "value" : "위젯 지우기"
           }
         },
         "nb" : {
@@ -105407,7 +105407,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all objects"
+            "value" : "모든 오브젝트 보기"
           }
         },
         "nb" : {
@@ -106003,7 +106003,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "오브젝트 없음"
+            "value" : "여기에 오브젝트 없음"
           }
         },
         "nb" : {
@@ -106152,7 +106152,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget with a compact list view"
+            "value" : "컴팩트 목록 보기 위젯"
           }
         },
         "nb" : {
@@ -106450,7 +106450,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Compact widget view"
+            "value" : "컴팩트 위젯 보기"
           }
         },
         "nb" : {
@@ -106748,7 +106748,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget with a list view"
+            "value" : "목록 보기 위젯"
           }
         },
         "nb" : {
@@ -106897,7 +106897,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "List"
+            "value" : "목록"
           }
         },
         "nb" : {
@@ -107046,7 +107046,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget type"
+            "value" : "위젯 유형"
           }
         },
         "nb" : {
@@ -107195,7 +107195,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget with a hierarchical structure"
+            "value" : "계층 구조 위젯"
           }
         },
         "nb" : {
@@ -107344,7 +107344,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tree"
+            "value" : "트리"
           }
         },
         "nb" : {
@@ -107493,7 +107493,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget with a Query or Collection layout"
+            "value" : "쿼리 또는 컬렉션 레이아웃 위젯"
           }
         },
         "nb" : {
@@ -107791,7 +107791,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Recently edited"
+            "value" : "최근에 수정함"
           }
         },
         "nb" : {
@@ -107940,7 +107940,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "On this device"
+            "value" : "이 기기에서"
           }
         },
         "nb" : {
@@ -108089,7 +108089,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Recently opened"
+            "value" : "최근에 연 항목"
           }
         },
         "nb" : {
@@ -108387,7 +108387,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your objects"
+            "value" : "당신의 오브젝트"
           }
         },
         "nb" : {
@@ -108536,7 +108536,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Suggested"
+            "value" : "제안됨"
           }
         },
         "nb" : {
@@ -108685,7 +108685,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "위젯 작동 방식을 바꾸어 이 위젯은 더이상 지원되지 않습니다. 이 위젯은 삭제 후 복구할 수 없습니다."
+            "value" : "위젯 작동 방식이 바뀌어 이 위젯은 더 이상 지원되지 않습니다. 이 위젯은 삭제되면 복구할 수 없습니다."
           }
         },
         "nb" : {
@@ -108834,7 +108834,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This Widget Cannot Be Restored"
+            "value" : "이 위젯은 복구 불가능합니다"
           }
         },
         "nb" : {
@@ -109579,7 +109579,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your current status:"
+            "value" : "현재 상태:"
           }
         },
         "nb" : {
