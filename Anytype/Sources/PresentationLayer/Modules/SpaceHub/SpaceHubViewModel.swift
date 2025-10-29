@@ -6,43 +6,38 @@ import AsyncAlgorithms
 import Loc
 
 @MainActor
-final class SpaceHubViewModel: ObservableObject {
-    @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
-    @Published var searchText: String = ""
+@Observable
+final class SpaceHubViewModel {
+    var spaces: [ParticipantSpaceViewDataWithPreview]?
+    var searchText: String = ""
     
-    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] {
-        guard let spaces else { return [] }
-        guard !searchText.isEmpty else { return spaces }
-        
-        return spaces.filter { space in
-            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
-        }
-    }
+    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] = []
     
-    @Published var wallpapers: [String: SpaceWallpaperType] = [:]
+    var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var notificationsDenied = false
-    @Published var spaceMuteData: SpaceMuteData?
-    @Published var showLoading = false
-    @Published var profileIcon: Icon?
-    @Published var spaceToDelete: StringIdentifiable?
+    var notificationsDenied = false
+    var spaceMuteData: SpaceMuteData?
+    var showLoading = false
+    var profileIcon: Icon?
+    var spaceToDelete: StringIdentifiable?
     
+    @ObservationIgnored
     private weak var output: (any SpaceHubModuleOutput)?
     
 
-    @Injected(\.userDefaultsStorage)
+    @Injected(\.userDefaultsStorage) @ObservationIgnored
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.spaceViewsStorage)
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspacesStorage: any SpaceViewsStorageProtocol
-    @Injected(\.spaceOrderService)
+    @Injected(\.spaceOrderService) @ObservationIgnored
     private var spaceOrderService: any SpaceOrderServiceProtocol
-    @Injected(\.profileStorage)
+    @Injected(\.profileStorage) @ObservationIgnored
     private var profileStorage: any ProfileStorageProtocol
-    @Injected(\.spaceHubSpacesStorage)
+    @Injected(\.spaceHubSpacesStorage) @ObservationIgnored
     private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster) @ObservationIgnored
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    @Injected(\.workspaceService)
+    @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
@@ -124,11 +119,16 @@ final class SpaceHubViewModel: ObservableObject {
         spaceMuteData = nil
     }
     
+    func searchTextUpdated() {
+        updateFilteredSpaces()
+    }
+    
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
             showLoading = spaces.contains { $0.spaceView.isLoading }
+            updateFilteredSpaces()
         }
     }
     
@@ -204,6 +204,23 @@ final class SpaceHubViewModel: ObservableObject {
     private func pushNotificationsSystemSettingsSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsDenied = status.isDenied
+        }
+    }
+    
+    private func updateFilteredSpaces() {
+        
+        guard let spaces else {
+            filteredSpaces = []
+            return
+        }
+        
+        guard !searchText.isEmpty else {
+            filteredSpaces = spaces
+            return
+        }
+        
+        filteredSpaces = spaces.filter { space in
+            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
         }
     }
 }

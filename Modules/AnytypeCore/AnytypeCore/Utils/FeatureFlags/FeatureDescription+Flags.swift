@@ -51,12 +51,6 @@ public extension FeatureDescription {
         type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
         defaultValue: true
     )
-    
-    static let brandNewAuthFlow = FeatureDescription(
-        title: "New auth flow",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
 
     static let showAllButtonInWidgets = FeatureDescription(
         title: "See all as the last point in the widget - IOS-4945",

@@ -56,3 +56,7 @@ struct DisabledPushNotificationsBannerView: View {
         .cornerRadius(12, style: .continuous)
     }
 }
+
+#Preview {
+    DisabledPushNotificationsBannerView()
+}

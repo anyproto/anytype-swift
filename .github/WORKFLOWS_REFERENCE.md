@@ -66,8 +66,9 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 
 #### `ipa.yaml` - IPA Build
 **File:** `.github/workflows/ipa.yaml`
-**Triggers:** Manual dispatch
-**Purpose:** Creates IPA builds for distribution outside TestFlight/App Store.
+**Triggers:** Manual dispatch, repository dispatch (triggers test run repository after build)
+**Purpose:** Builds IPA file for the application. After successful build, triggers automated tests in the anytype-test repository.
+**Purpose:** Builds IPA file for the application. Invoked from the test run repository for automated testing.
 
 ---
 
@@ -163,10 +164,11 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 
 ---
 
-#### `test_fastlane_build.yaml` - Fastlane Testing
+#### `test_fastlane_build.yaml` - Workflow Development Testing
 **File:** `.github/workflows/test_fastlane_build.yaml`
 **Triggers:** Manual dispatch
-**Purpose:** Tests Fastlane configuration changes without full builds.
+**Purpose:** Test workflow used when developing new GitHub workflows. Helps test workflow changes before merging to dev branch.
+**Note:** Due to GitHub limitations, new workflow files are not visible in the Actions UI until merged into the dev branch.
 
 ---
 
@@ -409,5 +411,5 @@ jobs:
 
 ---
 
-**Last Updated:** 2025-10-27
+**Last Updated:** 2025-10-29
 **Maintainers:** iOS Team

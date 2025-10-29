@@ -4,7 +4,7 @@ import AnytypeCore
 
 struct ApplicationCoordinatorView: View {
     
-    @StateObject private var model = ApplicationCoordinatorViewModel()
+    @State private var model = ApplicationCoordinatorViewModel()
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     var body: some View {
@@ -44,31 +44,14 @@ struct ApplicationCoordinatorView: View {
         switch model.applicationState {
         case .initial:
             InitialCoordinatorView()
-                .if(!FeatureFlags.brandNewAuthFlow) {
-                    $0.overrideDefaultInterfaceStyle(.dark)
-                }
         case .auth:
-            if FeatureFlags.brandNewAuthFlow {
-                AuthCoordinatorView()
-            } else {
-                model.authView()
-                    .overrideDefaultInterfaceStyle(.dark)
-            }
+            AuthCoordinatorView()
         case .login:
             LaunchView()
-                .if(!FeatureFlags.brandNewAuthFlow) {
-                    $0.overrideDefaultInterfaceStyle(.dark)
-                }
         case .home:
             SpaceHubCoordinatorView()
-                .if(!FeatureFlags.brandNewAuthFlow) {
-                    $0.overrideDefaultInterfaceStyle(nil)
-                }
         case .delete:
-            model.deleteAccount()?
-                .if(!FeatureFlags.brandNewAuthFlow) {
-                    $0.overrideDefaultInterfaceStyle(nil)
-                }
+            model.deleteAccount()
         }
     }
 }

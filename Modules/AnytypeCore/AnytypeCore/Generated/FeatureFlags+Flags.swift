@@ -38,10 +38,6 @@ public extension FeatureFlags {
         value(for: .vaultBackToRoots)
     }
 
-    static var brandNewAuthFlow: Bool {
-        value(for: .brandNewAuthFlow)
-    }
-
     static var showAllButtonInWidgets: Bool {
         value(for: .showAllButtonInWidgets)
     }
@@ -148,7 +144,6 @@ public extension FeatureFlags {
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
-        .brandNewAuthFlow,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,

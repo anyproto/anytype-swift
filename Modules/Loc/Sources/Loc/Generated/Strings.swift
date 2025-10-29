@@ -91,11 +91,6 @@ public enum Loc {
           public static let teamWork = Loc.tr("Auth", "Auth.JoinFlow.SelectionOption.UseCase.teamWork", fallback: "Team work & shared docs")
         }
       }
-      public enum Soul {
-        public static let button = Loc.tr("Auth", "Auth.JoinFlow.Soul.Button", fallback: "Done")
-        public static let description = Loc.tr("Auth", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of these names.")
-        public static let title = Loc.tr("Auth", "Auth.JoinFlow.Soul.Title", fallback: "Add Your Name")
-      }
       public enum UseCaseInfo {
         public static let description = Loc.tr("Auth", "Auth.JoinFlow.UseCaseInfo.description", fallback: "Pick one use case that fits you best")
         public static let title = Loc.tr("Auth", "Auth.JoinFlow.UseCaseInfo.title", fallback: "What do you want to use Anytype for?")
@@ -108,14 +103,6 @@ public enum Loc {
     }
     public enum LoginFlow {
       public static let or = Loc.tr("Auth", "Auth.LoginFlow.Or", fallback: "OR")
-      public enum Enter {
-        public static let title = Loc.tr("Auth", "Auth.LoginFlow.Enter.Title", fallback: "Enter my Vault")
-      }
-      public enum Entering {
-        public enum Void {
-          public static let title = Loc.tr("Auth", "Auth.LoginFlow.Entering.Void.Title", fallback: "Entering the Void")
-        }
-      }
       public enum Textfield {
         public static let placeholder = Loc.tr("Auth", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Enter your key")
       }
