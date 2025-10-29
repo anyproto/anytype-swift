@@ -281,18 +281,7 @@ extension Anytype_Model_Block.Content.Dataview {
 
 extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Filter"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    9: .same(proto: "id"),
-    1: .same(proto: "operator"),
-    2: .same(proto: "RelationKey"),
-    5: .same(proto: "relationProperty"),
-    3: .same(proto: "condition"),
-    4: .same(proto: "value"),
-    6: .same(proto: "quickOption"),
-    7: .same(proto: "format"),
-    8: .same(proto: "includeTime"),
-    10: .same(proto: "nestedFilters"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}operator\0\u{1}RelationKey\0\u{1}condition\0\u{1}value\0\u{1}relationProperty\0\u{1}quickOption\0\u{1}format\0\u{1}includeTime\0\u{1}id\0\u{1}nestedFilters\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -370,54 +359,15 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "No"),
-    1: .same(proto: "Or"),
-    2: .same(proto: "And"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0No\0\u{1}Or\0\u{1}And\0")
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Equal"),
-    2: .same(proto: "NotEqual"),
-    3: .same(proto: "Greater"),
-    4: .same(proto: "Less"),
-    5: .same(proto: "GreaterOrEqual"),
-    6: .same(proto: "LessOrEqual"),
-    7: .same(proto: "Like"),
-    8: .same(proto: "NotLike"),
-    9: .same(proto: "In"),
-    10: .same(proto: "NotIn"),
-    11: .same(proto: "Empty"),
-    12: .same(proto: "NotEmpty"),
-    13: .same(proto: "AllIn"),
-    14: .same(proto: "NotAllIn"),
-    15: .same(proto: "ExactIn"),
-    16: .same(proto: "NotExactIn"),
-    17: .same(proto: "Exists"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Equal\0\u{1}NotEqual\0\u{1}Greater\0\u{1}Less\0\u{1}GreaterOrEqual\0\u{1}LessOrEqual\0\u{1}Like\0\u{1}NotLike\0\u{1}In\0\u{1}NotIn\0\u{1}Empty\0\u{1}NotEmpty\0\u{1}AllIn\0\u{1}NotAllIn\0\u{1}ExactIn\0\u{1}NotExactIn\0\u{1}Exists\0")
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "ExactDate"),
-    1: .same(proto: "Yesterday"),
-    2: .same(proto: "Today"),
-    3: .same(proto: "Tomorrow"),
-    4: .same(proto: "LastWeek"),
-    5: .same(proto: "CurrentWeek"),
-    6: .same(proto: "NextWeek"),
-    7: .same(proto: "LastMonth"),
-    8: .same(proto: "CurrentMonth"),
-    9: .same(proto: "NextMonth"),
-    10: .same(proto: "NumberOfDaysAgo"),
-    11: .same(proto: "NumberOfDaysNow"),
-    12: .same(proto: "LastYear"),
-    13: .same(proto: "CurrentYear"),
-    14: .same(proto: "NextYear"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ExactDate\0\u{1}Yesterday\0\u{1}Today\0\u{1}Tomorrow\0\u{1}LastWeek\0\u{1}CurrentWeek\0\u{1}NextWeek\0\u{1}LastMonth\0\u{1}CurrentMonth\0\u{1}NextMonth\0\u{1}NumberOfDaysAgo\0\u{1}NumberOfDaysNow\0\u{1}LastYear\0\u{1}CurrentYear\0\u{1}NextYear\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

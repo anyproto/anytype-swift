@@ -56,12 +56,7 @@ extension Anytype_Model_Notification {
   }}
 
 extension Anytype_Model_Notification.Status: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Created"),
-    1: .same(proto: "Shown"),
-    2: .same(proto: "Read"),
-    3: .same(proto: "Replied"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Created\0\u{1}Shown\0\u{1}Read\0\u{1}Replied\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

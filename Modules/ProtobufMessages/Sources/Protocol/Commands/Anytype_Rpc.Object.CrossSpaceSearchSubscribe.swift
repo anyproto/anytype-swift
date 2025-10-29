@@ -166,15 +166,7 @@ extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe: SwiftProtobuf.Message, S
 
 extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CrossSpaceSearchSubscribe.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "subId"),
-    2: .same(proto: "filters"),
-    3: .same(proto: "sorts"),
-    7: .same(proto: "keys"),
-    10: .same(proto: "source"),
-    13: .same(proto: "noDepSubscription"),
-    14: .same(proto: "collectionId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}subId\0\u{1}filters\0\u{1}sorts\0\u{2}\u{4}keys\0\u{2}\u{3}source\0\u{2}\u{3}noDepSubscription\0\u{1}collectionId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -234,13 +226,7 @@ extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Request: SwiftProtobuf.Me
 
 extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CrossSpaceSearchSubscribe.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "records"),
-    3: .same(proto: "dependencies"),
-    4: .same(proto: "subId"),
-    5: .same(proto: "counters"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}records\0\u{1}dependencies\0\u{1}subId\0\u{1}counters\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -294,10 +280,7 @@ extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response: SwiftProtobuf.M
 
 extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -331,11 +314,7 @@ extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error: SwiftProt
 }
 
 extension Anytype_Rpc.Object.CrossSpaceSearchSubscribe.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

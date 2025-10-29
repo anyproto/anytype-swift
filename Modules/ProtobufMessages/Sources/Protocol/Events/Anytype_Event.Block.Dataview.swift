@@ -772,37 +772,23 @@ extension Anytype_Event.Block.Dataview: SwiftProtobuf.Message, SwiftProtobuf._Me
 }
 
 extension Anytype_Event.Block.Dataview.SliceOperation: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "SliceOperationNone"),
-    1: .same(proto: "SliceOperationAdd"),
-    2: .same(proto: "SliceOperationMove"),
-    3: .same(proto: "SliceOperationRemove"),
-    4: .same(proto: "SliceOperationReplace"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SliceOperationNone\0\u{1}SliceOperationAdd\0\u{1}SliceOperationMove\0\u{1}SliceOperationRemove\0\u{1}SliceOperationReplace\0")
 }
 
 extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewSet"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    3: .same(proto: "view"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}viewId\0\u{1}view\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
     var _viewID: String = String()
     var _view: Anytype_Model_Block.Content.Dataview.View? = nil
 
-    #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
       // This will force a copy to be made of this reference when the first mutation occurs;
       // hence, it is safe to mark this as `nonisolated(unsafe)`.
       static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
 
     private init() {}
 
@@ -875,14 +861,7 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewUpdate"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    3: .same(proto: "filter"),
-    4: .same(proto: "relation"),
-    5: .same(proto: "sort"),
-    6: .same(proto: "fields"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}viewId\0\u{1}filter\0\u{1}relation\0\u{1}sort\0\u{1}fields\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -892,15 +871,11 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
     var _sort: [Anytype_Event.Block.Dataview.ViewUpdate.Sort] = []
     var _fields: Anytype_Event.Block.Dataview.ViewUpdate.Fields? = nil
 
-    #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
       // This will force a copy to be made of this reference when the first mutation occurs;
       // hence, it is safe to mark this as `nonisolated(unsafe)`.
       static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
 
     private init() {}
 
@@ -991,20 +966,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Fields"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "type"),
-    2: .same(proto: "name"),
-    3: .same(proto: "coverRelationKey"),
-    4: .same(proto: "hideIcon"),
-    5: .same(proto: "cardSize"),
-    6: .same(proto: "coverFit"),
-    7: .same(proto: "groupRelationKey"),
-    16: .same(proto: "endRelationKey"),
-    8: .same(proto: "groupBackgroundColors"),
-    9: .same(proto: "pageLimit"),
-    10: .same(proto: "defaultTemplateId"),
-    15: .same(proto: "defaultObjectTypeId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}type\0\u{1}name\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{2}\u{5}defaultObjectTypeId\0\u{1}endRelationKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1089,12 +1051,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Fields: SwiftProtobuf.Message,
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Filter"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "add"),
-    2: .same(proto: "remove"),
-    3: .same(proto: "update"),
-    4: .same(proto: "move"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}add\0\u{1}remove\0\u{1}update\0\u{1}move\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1195,10 +1152,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter: SwiftProtobuf.Message,
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Add"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "afterId"),
-    2: .same(proto: "items"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}afterId\0\u{1}items\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1233,9 +1187,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Add: SwiftProtobuf.Mess
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Remove"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "ids"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1265,10 +1217,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Remove: SwiftProtobuf.M
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Update"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "item"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}item\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1307,10 +1256,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Update: SwiftProtobuf.M
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Filter.protoMessageName + ".Move"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "afterId"),
-    2: .same(proto: "ids"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}afterId\0\u{1}ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1345,12 +1291,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Filter.Move: SwiftProtobuf.Mes
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Relation"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "add"),
-    2: .same(proto: "remove"),
-    3: .same(proto: "update"),
-    4: .same(proto: "move"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}add\0\u{1}remove\0\u{1}update\0\u{1}move\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1451,10 +1392,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation: SwiftProtobuf.Messag
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Add"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "afterId"),
-    2: .same(proto: "items"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}afterId\0\u{1}items\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1489,9 +1427,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Add: SwiftProtobuf.Me
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Remove"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "ids"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1521,10 +1457,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Remove: SwiftProtobuf
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Update"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "item"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}item\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1563,10 +1496,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Update: SwiftProtobuf
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Relation.protoMessageName + ".Move"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "afterId"),
-    2: .same(proto: "ids"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}afterId\0\u{1}ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1601,12 +1531,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Relation.Move: SwiftProtobuf.M
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.protoMessageName + ".Sort"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "add"),
-    2: .same(proto: "remove"),
-    3: .same(proto: "update"),
-    4: .same(proto: "move"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}add\0\u{1}remove\0\u{1}update\0\u{1}move\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1707,10 +1632,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort: SwiftProtobuf.Message, S
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Add"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "afterId"),
-    2: .same(proto: "items"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}afterId\0\u{1}items\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1745,9 +1667,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Add: SwiftProtobuf.Messag
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Remove"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "ids"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1777,10 +1697,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Remove: SwiftProtobuf.Mes
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Update"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "item"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}item\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1819,10 +1736,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Update: SwiftProtobuf.Mes
 
 extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.ViewUpdate.Sort.protoMessageName + ".Move"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "afterId"),
-    2: .same(proto: "ids"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}afterId\0\u{1}ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1857,10 +1771,7 @@ extension Anytype_Event.Block.Dataview.ViewUpdate.Sort.Move: SwiftProtobuf.Messa
 
 extension Anytype_Event.Block.Dataview.ViewDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewDelete"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}viewId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1895,10 +1806,7 @@ extension Anytype_Event.Block.Dataview.ViewDelete: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Event.Block.Dataview.ViewOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ViewOrder"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewIds"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}viewIds\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1933,10 +1841,7 @@ extension Anytype_Event.Block.Dataview.ViewOrder: SwiftProtobuf.Message, SwiftPr
 
 extension Anytype_Event.Block.Dataview.SourceSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".SourceSet"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "source"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}source\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1971,10 +1876,7 @@ extension Anytype_Event.Block.Dataview.SourceSet: SwiftProtobuf.Message, SwiftPr
 
 extension Anytype_Event.Block.Dataview.OldRelationDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".OldRelationDelete"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relationKey"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}relationKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2009,11 +1911,7 @@ extension Anytype_Event.Block.Dataview.OldRelationDelete: SwiftProtobuf.Message,
 
 extension Anytype_Event.Block.Dataview.OldRelationSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".OldRelationSet"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relationKey"),
-    3: .same(proto: "relation"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}relationKey\0\u{1}relation\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2057,10 +1955,7 @@ extension Anytype_Event.Block.Dataview.OldRelationSet: SwiftProtobuf.Message, Sw
 
 extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RelationDelete"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relationKeys"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}relationKeys\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2095,10 +1990,7 @@ extension Anytype_Event.Block.Dataview.RelationDelete: SwiftProtobuf.Message, Sw
 
 extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".RelationSet"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "relationLinks"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}relationLinks\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2133,10 +2025,7 @@ extension Anytype_Event.Block.Dataview.RelationSet: SwiftProtobuf.Message, Swift
 
 extension Anytype_Event.Block.Dataview.GroupOrderUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".GroupOrderUpdate"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "groupOrder"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}groupOrder\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2175,12 +2064,7 @@ extension Anytype_Event.Block.Dataview.GroupOrderUpdate: SwiftProtobuf.Message, 
 
 extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".ObjectOrderUpdate"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "viewId"),
-    3: .same(proto: "groupId"),
-    4: .same(proto: "sliceChanges"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}viewId\0\u{1}groupId\0\u{1}sliceChanges\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2225,11 +2109,7 @@ extension Anytype_Event.Block.Dataview.ObjectOrderUpdate: SwiftProtobuf.Message,
 
 extension Anytype_Event.Block.Dataview.SliceChange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".SliceChange"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "op"),
-    2: .same(proto: "ids"),
-    3: .same(proto: "afterId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}op\0\u{1}ids\0\u{1}afterId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2269,10 +2149,7 @@ extension Anytype_Event.Block.Dataview.SliceChange: SwiftProtobuf.Message, Swift
 
 extension Anytype_Event.Block.Dataview.TargetObjectIdSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".TargetObjectIdSet"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "targetObjectId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}targetObjectId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -2307,10 +2184,7 @@ extension Anytype_Event.Block.Dataview.TargetObjectIdSet: SwiftProtobuf.Message,
 
 extension Anytype_Event.Block.Dataview.IsCollectionSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".IsCollectionSet"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "value"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}value\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

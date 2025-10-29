@@ -144,12 +144,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.RecoverFromLegacyExport.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "path"),
-    2: .same(proto: "rootPath"),
-    3: .same(proto: "icon"),
-    4: .same(proto: "fulltextPrimaryLanguage"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}path\0\u{1}rootPath\0\u{1}icon\0\u{1}fulltextPrimaryLanguage\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -194,11 +189,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Request: SwiftProtobuf.Mes
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.RecoverFromLegacyExport.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "accountId"),
-    3: .same(proto: "personalSpaceId"),
-    2: .same(proto: "error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}accountId\0\u{1}error\0\u{1}personalSpaceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -242,10 +233,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response: SwiftProtobuf.Me
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.RecoverFromLegacyExport.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -279,12 +267,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: SwiftProto
 }
 
 extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "DIFFERENT_ACCOUNT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}DIFFERENT_ACCOUNT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

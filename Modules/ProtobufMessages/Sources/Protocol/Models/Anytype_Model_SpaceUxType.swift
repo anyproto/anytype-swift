@@ -62,12 +62,7 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 extension Anytype_Model_SpaceUxType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Data"),
-    2: .same(proto: "Stream"),
-    3: .same(proto: "Chat"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Data\0\u{1}Stream\0\u{1}Chat\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

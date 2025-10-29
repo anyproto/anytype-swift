@@ -2658,7 +2658,7 @@
 			repositoryURL = "https://github.com/apple/swift-protobuf";
 			requirement = {
 				kind = exactVersion;
-				version = 1.21.0;
+				version = 1.32.0;
 			};
 		};
 		2A94B5D129B88E95009AE2A7 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {

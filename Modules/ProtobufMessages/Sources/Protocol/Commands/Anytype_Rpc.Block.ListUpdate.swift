@@ -161,16 +161,7 @@ extension Anytype_Rpc.Block.ListUpdate: SwiftProtobuf.Message, SwiftProtobuf._Me
 
 extension Anytype_Rpc.Block.ListUpdate.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.ListUpdate.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "contextId"),
-    2: .same(proto: "blockIds"),
-    3: .same(proto: "text"),
-    4: .same(proto: "backgroundColor"),
-    5: .same(proto: "align"),
-    6: .same(proto: "fields"),
-    7: .same(proto: "divStyle"),
-    8: .same(proto: "fileStyle"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}blockIds\0\u{1}text\0\u{1}backgroundColor\0\u{1}align\0\u{1}fields\0\u{1}divStyle\0\u{1}fileStyle\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -295,11 +286,7 @@ extension Anytype_Rpc.Block.ListUpdate.Request: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Rpc.Block.ListUpdate.Request.Text: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Block.ListUpdate.Request.protoMessageName + ".Text"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "style"),
-    2: .same(proto: "color"),
-    3: .same(proto: "mark"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}style\0\u{1}color\0\u{1}mark\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

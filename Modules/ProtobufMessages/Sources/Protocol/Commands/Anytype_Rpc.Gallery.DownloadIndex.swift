@@ -174,11 +174,7 @@ extension Anytype_Rpc.Gallery.DownloadIndex.Request: SwiftProtobuf.Message, Swif
 
 extension Anytype_Rpc.Gallery.DownloadIndex.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Gallery.DownloadIndex.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "categories"),
-    3: .same(proto: "experiences"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}categories\0\u{1}experiences\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -222,10 +218,7 @@ extension Anytype_Rpc.Gallery.DownloadIndex.Response: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Gallery.DownloadIndex.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -259,22 +252,12 @@ extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: SwiftProtobuf.Messag
 }
 
 extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "UNMARSHALLING_ERROR"),
-    4: .same(proto: "DOWNLOAD_ERROR"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}UNMARSHALLING_ERROR\0\u{1}DOWNLOAD_ERROR\0")
 }
 
 extension Anytype_Rpc.Gallery.DownloadIndex.Response.Category: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Gallery.DownloadIndex.Response.protoMessageName + ".Category"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "experiences"),
-    3: .same(proto: "icon"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}experiences\0\u{1}icon\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

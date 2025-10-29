@@ -112,11 +112,7 @@ extension Anytype_Model_Block.Content.Text {
 
 extension Anytype_Model_Block.Content.Text.Mark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Text.protoMessageName + ".Mark"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "range"),
-    2: .same(proto: "type"),
-    3: .same(proto: "param"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}range\0\u{1}type\0\u{1}param\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -159,19 +155,7 @@ extension Anytype_Model_Block.Content.Text.Mark: SwiftProtobuf.Message, SwiftPro
 }
 
 extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Strikethrough"),
-    1: .same(proto: "Keyboard"),
-    2: .same(proto: "Italic"),
-    3: .same(proto: "Bold"),
-    4: .same(proto: "Underscored"),
-    5: .same(proto: "Link"),
-    6: .same(proto: "TextColor"),
-    7: .same(proto: "BackgroundColor"),
-    8: .same(proto: "Mention"),
-    9: .same(proto: "Emoji"),
-    10: .same(proto: "Object"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Strikethrough\0\u{1}Keyboard\0\u{1}Italic\0\u{1}Bold\0\u{1}Underscored\0\u{1}Link\0\u{1}TextColor\0\u{1}BackgroundColor\0\u{1}Mention\0\u{1}Emoji\0\u{1}Object\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

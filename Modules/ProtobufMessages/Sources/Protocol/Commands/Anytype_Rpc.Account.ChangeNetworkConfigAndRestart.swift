@@ -151,10 +151,7 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart: SwiftProtobuf.Messa
 
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "networkMode"),
-    2: .same(proto: "networkCustomConfigFilePath"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}networkMode\0\u{1}networkCustomConfigFilePath\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -189,9 +186,7 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Request: SwiftProtob
 
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    2: .same(proto: "error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -225,10 +220,7 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response: SwiftProto
 
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -262,16 +254,7 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: Swif
 }
 
 extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    4: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
-    100: .same(proto: "ACCOUNT_FAILED_TO_STOP"),
-    200: .same(proto: "CONFIG_FILE_NOT_FOUND"),
-    201: .same(proto: "CONFIG_FILE_INVALID"),
-    202: .same(proto: "CONFIG_FILE_NETWORK_ID_MISMATCH"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}\u{2}ACCOUNT_IS_NOT_RUNNING\0\u{2}`\u{1}ACCOUNT_FAILED_TO_STOP\0\u{2}d\u{1}CONFIG_FILE_NOT_FOUND\0\u{1}CONFIG_FILE_INVALID\0\u{1}CONFIG_FILE_NETWORK_ID_MISMATCH\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

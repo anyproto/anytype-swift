@@ -51,15 +51,7 @@ extension Anytype_Model_Block.Content {
 
 extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Text"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "text"),
-    2: .same(proto: "style"),
-    3: .same(proto: "marks"),
-    4: .same(proto: "checked"),
-    5: .same(proto: "color"),
-    6: .same(proto: "iconEmoji"),
-    7: .same(proto: "iconImage"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}text\0\u{1}style\0\u{1}marks\0\u{1}checked\0\u{1}color\0\u{1}iconEmoji\0\u{1}iconImage\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

@@ -64,14 +64,7 @@ extension Anytype_Model_MembershipTierData {
   }}
 
 extension Anytype_Model_MembershipTierData.PeriodType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "PeriodTypeUnknown"),
-    1: .same(proto: "PeriodTypeUnlimited"),
-    2: .same(proto: "PeriodTypeDays"),
-    3: .same(proto: "PeriodTypeWeeks"),
-    4: .same(proto: "PeriodTypeMonths"),
-    5: .same(proto: "PeriodTypeYears"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0PeriodTypeUnknown\0\u{1}PeriodTypeUnlimited\0\u{1}PeriodTypeDays\0\u{1}PeriodTypeWeeks\0\u{1}PeriodTypeMonths\0\u{1}PeriodTypeYears\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

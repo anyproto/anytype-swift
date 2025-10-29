@@ -64,12 +64,7 @@ extension Anytype_Model_Block.Content.File {
       }}
 
 extension Anytype_Model_Block.Content.File.State: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Empty"),
-    1: .same(proto: "Uploading"),
-    2: .same(proto: "Done"),
-    3: .same(proto: "Error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Empty\0\u{1}Uploading\0\u{1}Done\0\u{1}Error\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

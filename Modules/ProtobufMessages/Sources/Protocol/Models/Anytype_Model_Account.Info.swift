@@ -124,25 +124,7 @@ extension Anytype_Model_Account {
 
 extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Info"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    2: .same(proto: "homeObjectId"),
-    3: .same(proto: "archiveObjectId"),
-    4: .same(proto: "profileObjectId"),
-    11: .same(proto: "marketplaceWorkspaceId"),
-    15: .same(proto: "workspaceObjectId"),
-    16: .same(proto: "spaceChatId"),
-    8: .same(proto: "deviceId"),
-    9: .same(proto: "accountSpaceId"),
-    10: .same(proto: "widgetsId"),
-    13: .same(proto: "spaceViewId"),
-    14: .same(proto: "techSpaceId"),
-    101: .same(proto: "gatewayUrl"),
-    103: .same(proto: "localStoragePath"),
-    104: .same(proto: "timeZone"),
-    105: .same(proto: "analyticsId"),
-    106: .same(proto: "networkId"),
-    107: .same(proto: "ethereumAddress"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}homeObjectId\0\u{1}archiveObjectId\0\u{1}profileObjectId\0\u{2}\u{4}deviceId\0\u{1}accountSpaceId\0\u{1}widgetsId\0\u{1}marketplaceWorkspaceId\0\u{2}\u{2}spaceViewId\0\u{1}techSpaceId\0\u{1}workspaceObjectId\0\u{1}spaceChatId\0\u{2}U\u{1}gatewayUrl\0\u{2}\u{2}localStoragePath\0\u{1}timeZone\0\u{1}analyticsId\0\u{1}networkId\0\u{1}ethereumAddress\0")
 
   fileprivate class _StorageClass {
     var _homeObjectID: String = String()
@@ -163,15 +145,11 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     var _networkID: String = String()
     var _ethereumAddress: String = String()
 
-    #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
       // This will force a copy to be made of this reference when the first mutation occurs;
       // hence, it is safe to mark this as `nonisolated(unsafe)`.
       static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
 
     private init() {}
 

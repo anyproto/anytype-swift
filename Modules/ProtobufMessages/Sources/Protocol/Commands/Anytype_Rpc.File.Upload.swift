@@ -177,19 +177,7 @@ extension Anytype_Rpc.File.Upload: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Upload.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    6: .same(proto: "spaceId"),
-    1: .same(proto: "url"),
-    2: .same(proto: "localPath"),
-    3: .same(proto: "type"),
-    4: .same(proto: "disableEncryption"),
-    5: .same(proto: "style"),
-    7: .same(proto: "details"),
-    8: .same(proto: "origin"),
-    9: .same(proto: "imageKind"),
-    10: .same(proto: "preloadOnly"),
-    11: .same(proto: "preloadFileId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}url\0\u{1}localPath\0\u{1}type\0\u{1}disableEncryption\0\u{1}style\0\u{1}spaceId\0\u{1}details\0\u{1}origin\0\u{1}imageKind\0\u{1}preloadOnly\0\u{1}preloadFileId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -273,12 +261,7 @@ extension Anytype_Rpc.File.Upload.Request: SwiftProtobuf.Message, SwiftProtobuf.
 
 extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Upload.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "objectId"),
-    3: .same(proto: "details"),
-    4: .same(proto: "preloadFileId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}objectId\0\u{1}details\0\u{1}preloadFileId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -327,10 +310,7 @@ extension Anytype_Rpc.File.Upload.Response: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Rpc.File.Upload.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.Upload.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -364,11 +344,7 @@ extension Anytype_Rpc.File.Upload.Response.Error: SwiftProtobuf.Message, SwiftPr
 }
 
 extension Anytype_Rpc.File.Upload.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
