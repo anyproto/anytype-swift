@@ -41,11 +41,7 @@ extension Anytype_Model_Search {
 
 extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Result"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "objectId"),
-    2: .same(proto: "details"),
-    3: .same(proto: "meta"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}objectId\0\u{1}details\0\u{1}meta\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

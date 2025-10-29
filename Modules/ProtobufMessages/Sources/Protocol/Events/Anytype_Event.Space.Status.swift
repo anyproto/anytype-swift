@@ -59,13 +59,7 @@ extension Anytype_Event.Space {
     }}
 
 extension Anytype_Event.Space.Status: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Synced"),
-    1: .same(proto: "Syncing"),
-    2: .same(proto: "Error"),
-    3: .same(proto: "Offline"),
-    4: .same(proto: "NetworkNeedsUpdate"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Synced\0\u{1}Syncing\0\u{1}Error\0\u{1}Offline\0\u{1}NetworkNeedsUpdate\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

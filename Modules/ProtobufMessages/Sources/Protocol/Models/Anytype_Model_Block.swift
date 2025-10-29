@@ -216,33 +216,7 @@ public struct Anytype_Model_Block: @unchecked Sendable {
 
 extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Block"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "fields"),
-    3: .same(proto: "restrictions"),
-    4: .same(proto: "childrenIds"),
-    5: .same(proto: "backgroundColor"),
-    6: .same(proto: "align"),
-    7: .same(proto: "verticalAlign"),
-    11: .same(proto: "smartblock"),
-    14: .same(proto: "text"),
-    15: .same(proto: "file"),
-    16: .same(proto: "layout"),
-    17: .same(proto: "div"),
-    18: .same(proto: "bookmark"),
-    19: .same(proto: "icon"),
-    20: .same(proto: "link"),
-    21: .same(proto: "dataview"),
-    22: .same(proto: "relation"),
-    23: .same(proto: "featuredRelations"),
-    24: .same(proto: "latex"),
-    25: .same(proto: "tableOfContents"),
-    26: .same(proto: "table"),
-    27: .same(proto: "tableColumn"),
-    28: .same(proto: "tableRow"),
-    29: .same(proto: "widget"),
-    30: .same(proto: "chat"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}fields\0\u{1}restrictions\0\u{1}childrenIds\0\u{1}backgroundColor\0\u{1}align\0\u{1}verticalAlign\0\u{2}\u{4}smartblock\0\u{2}\u{3}text\0\u{1}file\0\u{1}layout\0\u{1}div\0\u{1}bookmark\0\u{1}icon\0\u{1}link\0\u{1}dataview\0\u{1}relation\0\u{1}featuredRelations\0\u{1}latex\0\u{1}tableOfContents\0\u{1}table\0\u{1}tableColumn\0\u{1}tableRow\0\u{1}widget\0\u{1}chat\0")
 
   fileprivate class _StorageClass {
     var _id: String = String()
@@ -254,15 +228,11 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _verticalAlign: Anytype_Model_Block.VerticalAlign = .top
     var _content: Anytype_Model_Block.OneOf_Content?
 
-    #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
       // This will force a copy to be made of this reference when the first mutation occurs;
       // hence, it is safe to mark this as `nonisolated(unsafe)`.
       static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
 
     private init() {}
 

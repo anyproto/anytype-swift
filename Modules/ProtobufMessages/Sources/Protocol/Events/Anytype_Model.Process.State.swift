@@ -59,13 +59,7 @@ extension Anytype_Model.Process {
     }}
 
 extension Anytype_Model.Process.State: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "None"),
-    1: .same(proto: "Running"),
-    2: .same(proto: "Done"),
-    3: .same(proto: "Canceled"),
-    4: .same(proto: "Error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Running\0\u{1}Done\0\u{1}Canceled\0\u{1}Error\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

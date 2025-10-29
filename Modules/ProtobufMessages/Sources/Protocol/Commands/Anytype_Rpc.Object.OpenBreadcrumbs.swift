@@ -157,10 +157,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.OpenBreadcrumbs.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "contextId"),
-    2: .same(proto: "traceId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}contextId\0\u{1}traceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -195,12 +192,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.OpenBreadcrumbs.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "objectId"),
-    3: .same(proto: "event"),
-    4: .same(proto: "objectView"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}objectId\0\u{1}event\0\u{1}objectView\0")
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error? = nil
@@ -208,15 +200,11 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Sw
     var _event: Anytype_ResponseEvent? = nil
     var _objectView: Anytype_Model_ObjectView? = nil
 
-    #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
       // This will force a copy to be made of this reference when the first mutation occurs;
       // hence, it is safe to mark this as `nonisolated(unsafe)`.
       static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
 
     private init() {}
 
@@ -295,10 +283,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.OpenBreadcrumbs.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -332,11 +317,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: SwiftProtobuf.Messa
 }
 
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

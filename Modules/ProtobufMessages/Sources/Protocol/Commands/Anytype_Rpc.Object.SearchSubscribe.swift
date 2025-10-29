@@ -180,20 +180,7 @@ extension Anytype_Rpc.Object.SearchSubscribe: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.Object.SearchSubscribe.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.SearchSubscribe.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    15: .same(proto: "spaceId"),
-    1: .same(proto: "subId"),
-    2: .same(proto: "filters"),
-    3: .same(proto: "sorts"),
-    5: .same(proto: "limit"),
-    6: .same(proto: "offset"),
-    7: .same(proto: "keys"),
-    8: .same(proto: "afterId"),
-    9: .same(proto: "beforeId"),
-    10: .same(proto: "source"),
-    13: .same(proto: "noDepSubscription"),
-    14: .same(proto: "collectionId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}subId\0\u{1}filters\0\u{1}sorts\0\u{2}\u{2}limit\0\u{1}offset\0\u{1}keys\0\u{1}afterId\0\u{1}beforeId\0\u{1}source\0\u{2}\u{3}noDepSubscription\0\u{1}collectionId\0\u{1}spaceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -278,13 +265,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Object.SearchSubscribe.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.SearchSubscribe.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "records"),
-    3: .same(proto: "dependencies"),
-    4: .same(proto: "subId"),
-    5: .same(proto: "counters"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}records\0\u{1}dependencies\0\u{1}subId\0\u{1}counters\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -338,10 +319,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.SearchSubscribe.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -375,11 +353,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: SwiftProtobuf.Messa
 }
 
 extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

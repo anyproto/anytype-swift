@@ -117,16 +117,7 @@ extension Anytype_Model_Block.Content.Dataview {
 
 extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Sort"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "RelationKey"),
-    2: .same(proto: "type"),
-    3: .same(proto: "customOrder"),
-    4: .same(proto: "format"),
-    5: .same(proto: "includeTime"),
-    6: .same(proto: "id"),
-    7: .same(proto: "emptyPlacement"),
-    8: .same(proto: "noCollate"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}RelationKey\0\u{1}type\0\u{1}customOrder\0\u{1}format\0\u{1}includeTime\0\u{1}id\0\u{1}emptyPlacement\0\u{1}noCollate\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -190,19 +181,11 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
 }
 
 extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Asc"),
-    1: .same(proto: "Desc"),
-    2: .same(proto: "Custom"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Asc\0\u{1}Desc\0\u{1}Custom\0")
 }
 
 extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NotSpecified"),
-    1: .same(proto: "Start"),
-    2: .same(proto: "End"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NotSpecified\0\u{1}Start\0\u{1}End\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

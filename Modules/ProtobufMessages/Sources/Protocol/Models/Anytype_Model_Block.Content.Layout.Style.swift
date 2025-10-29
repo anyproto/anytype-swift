@@ -64,14 +64,7 @@ extension Anytype_Model_Block.Content.Layout {
       }}
 
 extension Anytype_Model_Block.Content.Layout.Style: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Row"),
-    1: .same(proto: "Column"),
-    2: .same(proto: "Div"),
-    3: .same(proto: "Header"),
-    4: .same(proto: "TableRows"),
-    5: .same(proto: "TableColumns"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Row\0\u{1}Column\0\u{1}Div\0\u{1}Header\0\u{1}TableRows\0\u{1}TableColumns\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

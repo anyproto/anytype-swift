@@ -60,11 +60,7 @@ extension Anytype_Model_Membership {
   }}
 
 extension Anytype_Model_Membership.EmailVerificationStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "StatusNotVerified"),
-    1: .same(proto: "StatusCodeSent"),
-    2: .same(proto: "StatusVerified"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0StatusNotVerified\0\u{1}StatusCodeSent\0\u{1}StatusVerified\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

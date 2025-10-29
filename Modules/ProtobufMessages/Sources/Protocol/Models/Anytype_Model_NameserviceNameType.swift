@@ -44,9 +44,7 @@ public enum Anytype_Model_NameserviceNameType: SwiftProtobuf.Enum, Swift.CaseIte
 }
 
 extension Anytype_Model_NameserviceNameType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "AnyName"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0AnyName\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

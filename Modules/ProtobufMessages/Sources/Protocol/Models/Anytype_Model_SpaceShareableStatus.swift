@@ -50,11 +50,7 @@ public enum Anytype_Model_SpaceShareableStatus: SwiftProtobuf.Enum, Swift.CaseIt
 }
 
 extension Anytype_Model_SpaceShareableStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "StatusUnknown"),
-    1: .same(proto: "StatusShareable"),
-    2: .same(proto: "StatusNotShareable"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0StatusUnknown\0\u{1}StatusShareable\0\u{1}StatusNotShareable\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

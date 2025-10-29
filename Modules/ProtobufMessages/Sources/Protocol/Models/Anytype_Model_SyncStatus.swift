@@ -54,12 +54,7 @@ public enum Anytype_Model_SyncStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 extension Anytype_Model_SyncStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "SyncStatusSynced"),
-    1: .same(proto: "SyncStatusSyncing"),
-    2: .same(proto: "SyncStatusError"),
-    3: .same(proto: "SyncStatusQueued"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SyncStatusSynced\0\u{1}SyncStatusSyncing\0\u{1}SyncStatusError\0\u{1}SyncStatusQueued\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -37,14 +37,7 @@ extension Anytype_Rpc.History {
 
 extension Anytype_Rpc.History.Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.History.protoMessageName + ".Version"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "previousIds"),
-    3: .same(proto: "authorId"),
-    4: .same(proto: "authorName"),
-    5: .same(proto: "time"),
-    6: .same(proto: "groupId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}previousIds\0\u{1}authorId\0\u{1}authorName\0\u{1}time\0\u{1}groupId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

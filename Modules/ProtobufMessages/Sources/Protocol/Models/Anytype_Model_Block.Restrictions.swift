@@ -35,13 +35,7 @@ extension Anytype_Model_Block {
 
 extension Anytype_Model_Block.Restrictions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.protoMessageName + ".Restrictions"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "read"),
-    2: .same(proto: "edit"),
-    3: .same(proto: "remove"),
-    4: .same(proto: "drag"),
-    5: .same(proto: "dropOn"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}read\0\u{1}edit\0\u{1}remove\0\u{1}drag\0\u{1}dropOn\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

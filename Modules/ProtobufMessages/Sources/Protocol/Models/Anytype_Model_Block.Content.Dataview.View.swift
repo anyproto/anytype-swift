@@ -156,24 +156,7 @@ extension Anytype_Model_Block.Content.Dataview {
 
 extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".View"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "type"),
-    3: .same(proto: "name"),
-    4: .same(proto: "sorts"),
-    5: .same(proto: "filters"),
-    6: .same(proto: "relations"),
-    7: .same(proto: "coverRelationKey"),
-    8: .same(proto: "hideIcon"),
-    9: .same(proto: "cardSize"),
-    10: .same(proto: "coverFit"),
-    11: .same(proto: "groupRelationKey"),
-    12: .same(proto: "groupBackgroundColors"),
-    13: .same(proto: "pageLimit"),
-    14: .same(proto: "defaultTemplateId"),
-    15: .same(proto: "defaultObjectTypeId"),
-    16: .same(proto: "endRelationKey"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}type\0\u{1}name\0\u{1}sorts\0\u{1}filters\0\u{1}relations\0\u{1}coverRelationKey\0\u{1}hideIcon\0\u{1}cardSize\0\u{1}coverFit\0\u{1}groupRelationKey\0\u{1}groupBackgroundColors\0\u{1}pageLimit\0\u{1}defaultTemplateId\0\u{1}defaultObjectTypeId\0\u{1}endRelationKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -277,22 +260,11 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
 }
 
 extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Table"),
-    1: .same(proto: "List"),
-    2: .same(proto: "Gallery"),
-    3: .same(proto: "Kanban"),
-    4: .same(proto: "Calendar"),
-    5: .same(proto: "Graph"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Table\0\u{1}List\0\u{1}Gallery\0\u{1}Kanban\0\u{1}Calendar\0\u{1}Graph\0")
 }
 
 extension Anytype_Model_Block.Content.Dataview.View.Size: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Small"),
-    1: .same(proto: "Medium"),
-    2: .same(proto: "Large"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Small\0\u{1}Medium\0\u{1}Large\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

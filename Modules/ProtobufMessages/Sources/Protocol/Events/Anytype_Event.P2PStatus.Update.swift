@@ -30,11 +30,7 @@ extension Anytype_Event.P2PStatus {
 
 extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.P2PStatus.protoMessageName + ".Update"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceId"),
-    2: .same(proto: "status"),
-    3: .same(proto: "devicesCounter"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}status\0\u{1}devicesCounter\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

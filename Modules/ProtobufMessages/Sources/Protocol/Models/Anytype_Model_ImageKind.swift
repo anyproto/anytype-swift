@@ -54,12 +54,7 @@ public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 extension Anytype_Model_ImageKind: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Basic"),
-    1: .same(proto: "Cover"),
-    2: .same(proto: "Icon"),
-    3: .same(proto: "AutomaticallyAdded"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Basic\0\u{1}Cover\0\u{1}Icon\0\u{1}AutomaticallyAdded\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

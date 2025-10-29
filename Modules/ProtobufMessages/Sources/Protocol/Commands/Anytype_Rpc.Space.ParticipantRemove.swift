@@ -155,10 +155,7 @@ extension Anytype_Rpc.Space.ParticipantRemove: SwiftProtobuf.Message, SwiftProto
 
 extension Anytype_Rpc.Space.ParticipantRemove.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.ParticipantRemove.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceId"),
-    2: .same(proto: "identities"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}identities\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -193,9 +190,7 @@ extension Anytype_Rpc.Space.ParticipantRemove.Request: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.Space.ParticipantRemove.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.ParticipantRemove.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -229,10 +224,7 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response: SwiftProtobuf.Message, S
 
 extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Space.ParticipantRemove.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -266,17 +258,7 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: SwiftProtobuf.Mess
 }
 
 extension Anytype_Rpc.Space.ParticipantRemove.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NO_SUCH_SPACE"),
-    102: .same(proto: "SPACE_IS_DELETED"),
-    103: .same(proto: "PARTICIPANT_NOT_FOUND"),
-    104: .same(proto: "REQUEST_FAILED"),
-    105: .same(proto: "LIMIT_REACHED"),
-    106: .same(proto: "NOT_SHAREABLE"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}NO_SUCH_SPACE\0\u{1}SPACE_IS_DELETED\0\u{1}PARTICIPANT_NOT_FOUND\0\u{1}REQUEST_FAILED\0\u{1}LIMIT_REACHED\0\u{1}NOT_SHAREABLE\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

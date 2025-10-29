@@ -166,15 +166,7 @@ extension Anytype_Rpc.Object.CreateFromUrl: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Rpc.Object.CreateFromUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CreateFromUrl.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceId"),
-    2: .same(proto: "objectTypeUniqueKey"),
-    3: .same(proto: "url"),
-    4: .same(proto: "details"),
-    5: .same(proto: "addPageContent"),
-    6: .same(proto: "withChat"),
-    7: .same(proto: "templateId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}objectTypeUniqueKey\0\u{1}url\0\u{1}details\0\u{1}addPageContent\0\u{1}withChat\0\u{1}templateId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -238,12 +230,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Request: SwiftProtobuf.Message, Swift
 
 extension Anytype_Rpc.Object.CreateFromUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CreateFromUrl.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "objectId"),
-    3: .same(proto: "details"),
-    4: .same(proto: "chatId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}objectId\0\u{1}details\0\u{1}chatId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -292,10 +279,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Response: SwiftProtobuf.Message, Swif
 
 extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.CreateFromUrl.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -329,11 +313,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: SwiftProtobuf.Message
 }
 
 extension Anytype_Rpc.Object.CreateFromUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

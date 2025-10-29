@@ -62,14 +62,7 @@ public enum Anytype_Model_ParticipantStatus: SwiftProtobuf.Enum, Swift.CaseItera
 }
 
 extension Anytype_Model_ParticipantStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Joining"),
-    1: .same(proto: "Active"),
-    2: .same(proto: "Removed"),
-    3: .same(proto: "Declined"),
-    4: .same(proto: "Removing"),
-    5: .same(proto: "Canceled"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Joining\0\u{1}Active\0\u{1}Removed\0\u{1}Declined\0\u{1}Removing\0\u{1}Canceled\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

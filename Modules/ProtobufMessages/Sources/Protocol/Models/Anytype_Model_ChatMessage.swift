@@ -76,22 +76,7 @@ public struct Anytype_Model_ChatMessage: Sendable {
 
 extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "orderId"),
-    3: .same(proto: "creator"),
-    4: .same(proto: "createdAt"),
-    9: .same(proto: "modifiedAt"),
-    11: .same(proto: "stateId"),
-    5: .same(proto: "replyToMessageId"),
-    6: .same(proto: "message"),
-    7: .same(proto: "attachments"),
-    8: .same(proto: "reactions"),
-    10: .same(proto: "read"),
-    12: .same(proto: "mentionRead"),
-    14: .same(proto: "hasMention"),
-    13: .same(proto: "synced"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}orderId\0\u{1}creator\0\u{1}createdAt\0\u{1}replyToMessageId\0\u{1}message\0\u{1}attachments\0\u{1}reactions\0\u{1}modifiedAt\0\u{1}read\0\u{1}stateId\0\u{1}mentionRead\0\u{1}synced\0\u{1}hasMention\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

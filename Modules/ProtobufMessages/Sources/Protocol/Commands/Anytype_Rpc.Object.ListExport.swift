@@ -218,22 +218,7 @@ extension Anytype_Rpc.Object.ListExport: SwiftProtobuf.Message, SwiftProtobuf._M
 
 extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.ListExport.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    10: .same(proto: "spaceId"),
-    1: .same(proto: "path"),
-    2: .same(proto: "objectIds"),
-    3: .same(proto: "format"),
-    4: .same(proto: "zip"),
-    5: .same(proto: "includeNested"),
-    6: .same(proto: "includeFiles"),
-    7: .same(proto: "isJson"),
-    9: .same(proto: "includeArchived"),
-    11: .same(proto: "noProgress"),
-    12: .same(proto: "linksStateFilters"),
-    13: .same(proto: "includeBacklinks"),
-    14: .same(proto: "includeSpace"),
-    15: .same(proto: "mdIncludePropertiesAndSchema"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}path\0\u{1}objectIds\0\u{1}format\0\u{1}zip\0\u{1}includeNested\0\u{1}includeFiles\0\u{1}isJson\0\u{2}\u{2}includeArchived\0\u{1}spaceId\0\u{1}noProgress\0\u{1}linksStateFilters\0\u{1}includeBacklinks\0\u{1}includeSpace\0\u{1}mdIncludePropertiesAndSchema\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -332,10 +317,7 @@ extension Anytype_Rpc.Object.ListExport.Request: SwiftProtobuf.Message, SwiftPro
 
 extension Anytype_Rpc.Object.ListExport.StateFilters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.ListExport.protoMessageName + ".StateFilters"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "relationsWhiteList"),
-    2: .same(proto: "removeBlocks"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}relationsWhiteList\0\u{1}removeBlocks\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -370,10 +352,7 @@ extension Anytype_Rpc.Object.ListExport.StateFilters: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.ListExport.protoMessageName + ".RelationsWhiteList"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "layout"),
-    2: .same(proto: "allowedRelations"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}layout\0\u{1}allowedRelations\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -408,12 +387,7 @@ extension Anytype_Rpc.Object.ListExport.RelationsWhiteList: SwiftProtobuf.Messag
 
 extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.ListExport.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "path"),
-    4: .same(proto: "succeed"),
-    3: .same(proto: "event"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}path\0\u{1}event\0\u{1}succeed\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -462,10 +436,7 @@ extension Anytype_Rpc.Object.ListExport.Response: SwiftProtobuf.Message, SwiftPr
 
 extension Anytype_Rpc.Object.ListExport.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.ListExport.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -499,11 +470,7 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: SwiftProtobuf.Message, S
 }
 
 extension Anytype_Rpc.Object.ListExport.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file
