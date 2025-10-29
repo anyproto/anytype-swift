@@ -37,7 +37,7 @@ struct EmailCollectionView: View {
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-            .foregroundColor(FeatureFlags.brandNewAuthFlow ? .Text.secondary : .Text.primary)
+            .foregroundColor(.Text.secondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
@@ -91,7 +91,7 @@ struct EmailCollectionView: View {
             if FeatureFlags.skipOnboardingEmailCollection {
                 StandardButton(
                     Loc.skip,
-                    style: FeatureFlags.brandNewAuthFlow ? .linkLarge : .secondaryLarge,
+                    style: .linkLarge,
                     action: {
                         model.onSkipAction()
                     }

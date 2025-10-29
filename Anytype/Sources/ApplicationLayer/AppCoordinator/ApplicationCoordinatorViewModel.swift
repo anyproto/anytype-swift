@@ -24,8 +24,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
     @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
-    
-    private var authCoordinator: (any AuthCoordinatorProtocol)?
+
     private var dismissAllPresented: DismissAllPresented?
     
     // MARK: - State
@@ -34,21 +33,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData?
     @Published var migrationData: MigrationModuleData?
     @Published var selectAccountTaskId: String?
-    
-    // MARK: - Initializers
-
-    func authView() -> AnyView {
-        if let authCoordinator {
-            return authCoordinator.startFlow()
-        }
-        
-        let coordinator = AuthCoordinator(
-            joinFlowCoordinator: JoinFlowCoordinator(),
-            loginFlowCoordinator: LoginFlowCoordinator()
-        )
-        self.authCoordinator = coordinator
-        return coordinator.startFlow()
-    }
 
     func deleteAccount() -> AnyView? {
         if case let .pendingDeletion(deadline) = accountManager.account.status {
