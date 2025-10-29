@@ -4,7 +4,7 @@ import AnytypeCore
 
 struct ApplicationCoordinatorView: View {
     
-    @StateObject private var model = ApplicationCoordinatorViewModel()
+    @State private var model = ApplicationCoordinatorViewModel()
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     var body: some View {

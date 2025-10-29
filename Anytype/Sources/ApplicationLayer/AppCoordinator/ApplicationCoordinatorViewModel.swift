@@ -4,35 +4,37 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class ApplicationCoordinatorViewModel: ObservableObject {
+@Observable
+final class ApplicationCoordinatorViewModel {
 
-    @Injected(\.authService)
+    @Injected(\.authService) @ObservationIgnored
     private var authService: any AuthServiceProtocol
-    @Injected(\.accountEventHandler)
+    @Injected(\.accountEventHandler) @ObservationIgnored
     private var accountEventHandler: any AccountEventHandlerProtocol
-    @Injected(\.encryptionKeyEventHandler)
+    @Injected(\.encryptionKeyEventHandler) @ObservationIgnored
     private var encryptionKeyEventHandler: any EncryptionKeyEventHandlerProtocol
-    @Injected(\.applicationStateService)
+    @Injected(\.applicationStateService) @ObservationIgnored
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.accountManager)
+    @Injected(\.accountManager) @ObservationIgnored
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.seedService)
+    @Injected(\.seedService) @ObservationIgnored
     private var seedService: any SeedServiceProtocol
-    @Injected(\.fileErrorEventHandler)
+    @Injected(\.fileErrorEventHandler) @ObservationIgnored
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
-    @Injected(\.basicUserInfoStorage)
+    @Injected(\.basicUserInfoStorage) @ObservationIgnored
     private var basicUserInfoStorage: any BasicUserInfoStorageProtocol
-    @Injected(\.pushNotificationsPermissionService)
+    @Injected(\.pushNotificationsPermissionService) @ObservationIgnored
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
 
+    @ObservationIgnored
     private var dismissAllPresented: DismissAllPresented?
     
     // MARK: - State
     
-    @Published var applicationState: ApplicationState = .initial
-    @Published var toastBarData: ToastBarData?
-    @Published var migrationData: MigrationModuleData?
-    @Published var selectAccountTaskId: String?
+    var applicationState: ApplicationState = .initial
+    var toastBarData: ToastBarData?
+    var migrationData: MigrationModuleData?
+    var selectAccountTaskId: String?
 
     func deleteAccount() -> AnyView? {
         if case let .pendingDeletion(deadline) = accountManager.account.status {
