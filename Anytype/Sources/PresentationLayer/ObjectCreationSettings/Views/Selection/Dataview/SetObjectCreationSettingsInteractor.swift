@@ -153,12 +153,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private func updateObjectTypes() {
         Task {
             objectTypes = try await typesService.searchObjectTypes(
-                text: "", 
+                text: "",
                 includePins: true,
                 includeLists: true,
                 includeBookmarks: true,
                 includeFiles: false,
-                includeChat: false,
+                includeChat: FeatureFlags.multichats,
                 includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: setDocument.spaceId

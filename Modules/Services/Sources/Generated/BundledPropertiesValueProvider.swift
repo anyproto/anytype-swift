@@ -170,12 +170,17 @@ public protocol BundledPropertiesValueProvider {
     var apiObjectKey: String { get }
     var relationFormatIncludeTime: [Bool] { get }
     var spacePushNotificationMode: Int? { get }
+    var spacePushNotificationCustomMuteIds: [String] { get }
+    var spacePushNotificationCustomMentionIds: [String] { get }
     var spacePushNotificationKey: String { get }
     var spacePushNotificationEncryptionKey: String { get }
     var spaceJoinDate: Date? { get }
     var widgetLayout: Int? { get }
     var widgetLimit: Int? { get }
     var widgetViewId: String { get }
+    var isMainChat: Bool { get }
+    var lastMessageDate: Date? { get }
+    var fileAvailableOffline: Bool { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -791,9 +796,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var relationFormatIncludeTime: [Bool] {
         return value(for: BundledPropertyKey.relationFormatIncludeTime.rawValue)
     }
-    /// Push notification mode - mute/all/mentions (see model.SpacePushNotificationMode)
+    /// Push notification mode - mute/all/mentions/custom (see model.SpacePushNotificationMode)
     var spacePushNotificationMode: Int? {
         return value(for: BundledPropertyKey.spacePushNotificationMode.rawValue)
+    }
+    /// Push notification custom muted ids
+    var spacePushNotificationCustomMuteIds: [String] {
+        return value(for: BundledPropertyKey.spacePushNotificationCustomMuteIds.rawValue)
+    }
+    /// Push notification custom mention ids
+    var spacePushNotificationCustomMentionIds: [String] {
+        return value(for: BundledPropertyKey.spacePushNotificationCustomMentionIds.rawValue)
     }
     /// Push notifications space key (base64)
     var spacePushNotificationKey: String {
@@ -818,5 +831,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Widget view ID
     var widgetViewId: String {
         return value(for: BundledPropertyKey.widgetViewId.rawValue)
+    }
+    /// Is this the main chat
+    var isMainChat: Bool {
+        return value(for: BundledPropertyKey.isMainChat.rawValue)
+    }
+    /// Date of the last message in a chat
+    var lastMessageDate: Date? {
+        return value(for: BundledPropertyKey.lastMessageDate.rawValue)
+    }
+    /// Is file available offline
+    var fileAvailableOffline: Bool {
+        return value(for: BundledPropertyKey.fileAvailableOffline.rawValue)
     }
 }

@@ -31,6 +31,14 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Load review prompt
+        id: load-prompt
+        run: |
+          PROMPT_CONTENT=$(cat .github/workflows/claude-code-review-prompt.md)
+          echo "prompt_content<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT_CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
@@ -41,56 +49,7 @@ jobs:
             PR NUMBER: ${{ github.event.pull_request.number }}
             COMMIT SHA: ${{ github.event.pull_request.head.sha }}
 
-            Review this PR using CLAUDE.md for project conventions. Be LEAN and ACTIONABLE - only provide value, avoid noise.
-
-            RULES:
-            - ONLY include sections when there are ACTUAL issues to report
-            - NO "Strengths" or praise sections
-            - NO "no concerns" statements (skip the section entirely)
-            - NO design/UI/spacing suggestions (padding, margins, colors, etc.) - you cannot see the visual design
-            - Reference specific file:line locations for issues
-            - If no issues found: comment "✅ **Approved** - No issues found"
-
-            SECTIONS (include ONLY if issues exist):
-            - **Bugs/Issues**: Logic errors, potential bugs that need fixing
-            - **Best Practices**: Violations of Swift/SwiftUI conventions or CLAUDE.md guidelines (code quality only, not design)
-            - **Performance**: Actual performance problems (not theoretical)
-            - **Security**: Real security vulnerabilities
-
-            END WITH:
-            - **Summary**: ONE sentence only with status emoji:
-              - ✅ **Approved** - [brief reason]
-              - ⚠️ **Minor Issues** - [what needs fixing]
-              - 🚨 **Major Issues** - [critical problems]
-
-            IMPORTANT - Review Comment Strategy:
-            1. Post inline comments for EACH specific code issue using the GitHub API directly.
-            2. Post a final summary comment at the end.
-
-            For inline comments, use this exact format:
-
-            COMMIT_SHA="${{ github.event.pull_request.head.sha }}"
-            gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
-              --method POST \
-              --field body="Your summary here (can be empty if you have inline comments)" \
-              --field event="COMMENT" \
-              --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
-              --field comments[][line]=274 \
-              --field comments[][body]="Your inline comment here"
-
-            You can add multiple --field comments[][...] entries in a single command for multiple inline comments.
-
-            Example:
-            gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews \
-              --method POST \
-              --field body="Found potential race condition" \
-              --field event="COMMENT" \
-              --field comments[][path]="Anytype/Sources/PresentationLayer/SpaceSettings/SpaceSettings/SpaceSettingsViewModel.swift" \
-              --field comments[][line]=274 \
-              --field comments[][body]="**Potential Race Condition**: canAddWriters is computed using participants array (line 274), but participants is updated asynchronously in startJoiningTask() which runs in parallel with startParticipantTask()."
-
-            Then post a final summary comment:
-            gh pr comment ${{ github.event.pull_request.number }} --body "Review complete - see inline comments for details"
+            ${{ steps.load-prompt.outputs.prompt_content }}
 
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.claude.com/en/docs/claude-code/cli-reference for available options

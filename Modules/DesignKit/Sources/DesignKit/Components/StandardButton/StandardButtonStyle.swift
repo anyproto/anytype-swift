@@ -21,10 +21,10 @@ public enum StandardButtonStyle {
     case transparentXSmall
     
     case primaryXSmallStretched
+    case primaryXSmallStretchedBlack
+    case secondaryXSmallStretched
     
     case upgradeBadge
-    
-    case primaryOvalLarge
-    case secondaryOvalLarge
+
     case linkLarge
 }

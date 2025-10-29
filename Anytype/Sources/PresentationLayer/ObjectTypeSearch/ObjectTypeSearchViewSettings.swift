@@ -1,3 +1,5 @@
+import AnytypeCore
+
 struct ObjectTypeSearchViewSettings {
     let showPins: Bool
     let showLists: Bool
@@ -25,7 +27,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: false,
         showLists: true,
         showFiles: true,
-        showChat: false,
+        showChat: FeatureFlags.multichats,
         showTemplates: true,
         incudeNotForCreation: true,
         allowPaste: false,

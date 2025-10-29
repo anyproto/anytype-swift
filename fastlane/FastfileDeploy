@@ -10,10 +10,6 @@ platform :ios do
     deploy(config: ENV["APP_CONF_RELEASE_ANYTYPE"])
   end
 
-  lane :release_anyapp do
-    deploy(config: ENV["APP_CONF_RELEASE_ANYAPP"])
-  end
-
   # Private lanes
 
   private_lane :deploy do |options| 
@@ -30,12 +26,7 @@ platform :ios do
         tag_prefix: "release-anytype",
         add_badge: false,
         app_info: "Release Anytype"
-      },
-      ENV["APP_CONF_RELEASE_ANYAPP"] => {
-        tag_prefix: "release-anyapp",
-        add_badge: false,
-        app_info: "Release Any App"
-      },
+      }
     }
 
     setup_ci

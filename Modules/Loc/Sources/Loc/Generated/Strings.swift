@@ -14,12 +14,6 @@ public enum Loc {
     return Loc.tr("Auth", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
   }
   public static let loginKey = Loc.tr("Auth", "Login key", fallback: "Login Key")
-  public enum AnyApp {
-    public enum BetaAlert {
-      public static let description = Loc.tr("Auth", "AnyApp.BetaAlert.Description", fallback: "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.")
-      public static let title = Loc.tr("Auth", "AnyApp.BetaAlert.Title", fallback: "Welcome to the Alpha version")
-    }
-  }
   public enum Auth {
     public static let cameraPermissionTitle = Loc.tr("Auth", "Auth.CameraPermissionTitle", fallback: "Please allow access")
     public static let logIn = Loc.tr("Auth", "Auth.LogIn", fallback: "I already have a key")
@@ -425,6 +419,7 @@ public enum Loc {
   public static let loadingPleaseWait = Loc.tr("UI", "Loading, please wait", fallback: "Loading, please wait")
   public static let localOnly = Loc.tr("UI", "Local Only", fallback: "Local Only")
   public static let lock = Loc.tr("UI", "Lock", fallback: "Lock")
+  public static let locked = Loc.tr("UI", "Locked", fallback: "Locked")
   public static let logOut = Loc.tr("UI", "Log out", fallback: "Log Out")
   public static let logoutAndClearData = Loc.tr("UI", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("UI", "Manage payment", fallback: "Manage payment")
@@ -648,6 +643,7 @@ public enum Loc {
   public static let unknownError = Loc.tr("UI", "Unknown error", fallback: "Unknown error")
   public static let unlimited = Loc.tr("UI", "unlimited", fallback: "Unlimited")
   public static let unlock = Loc.tr("UI", "Unlock", fallback: "Unlock")
+  public static let unlocked = Loc.tr("UI", "Unlocked", fallback: "Unlocked")
   public static let unmute = Loc.tr("UI", "Unmute", fallback: "Unmute")
   public static let unpin = Loc.tr("UI", "Unpin", fallback: "Unpin")
   public static let unpublish = Loc.tr("UI", "Unpublish", fallback: "Unpublish")
