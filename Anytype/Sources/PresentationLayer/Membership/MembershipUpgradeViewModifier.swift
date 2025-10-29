@@ -13,10 +13,10 @@ final class MembershipUpgradeViewModifierModel: ObservableObject {
     
     nonisolated init() { }
     
-    func updateState(reason: MembershipUpgradeReason?) {
+    func updateState(reason: MembershipUpgradeReason?) async {
         guard let reason else { return }
-        guard let currentTier = statusStorage.currentStatus.tier else { return }
         
+        guard let currentTier = await statusStorage.currentStatus().tier else { return }
         if accountManager.account.allowMembership && currentTier.isPossibleToUpgrade(reason: reason) {
             showMembershipScreen = true
         } else {
@@ -56,11 +56,13 @@ struct MembershipUpgradeViewModifier: ViewModifier {
                 }
             })
         
-            .onAppear {
-                model.updateState(reason: reason)
+            .task {
+                await model.updateState(reason: reason)
             }
             .onChange(of: reason) { _, reason in
-                model.updateState(reason: reason)
+                Task {
+                    await model.updateState(reason: reason)
+                }
             }
     }
 }

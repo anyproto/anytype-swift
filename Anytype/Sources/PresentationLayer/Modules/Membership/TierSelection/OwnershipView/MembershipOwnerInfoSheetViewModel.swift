@@ -26,10 +26,20 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipMetadataProvider)
     private var metadataProvider: any MembershipMetadataProviderProtocol
-    
+    private var statusTask: Task<Void, Never>?
+
     init() {
         let storage = Container.shared.membershipStatusStorage.resolve()
-        storage.statusPublisher.receiveOnMain().assign(to: &$membership)
+        statusTask = Task { [weak self] in
+            guard let self else { return }
+            for await status in storage.statusStream() {
+                self.membership = status
+            }
+        }
+    }
+
+    deinit {
+        statusTask?.cancel()
     }
     
     func updateState() {

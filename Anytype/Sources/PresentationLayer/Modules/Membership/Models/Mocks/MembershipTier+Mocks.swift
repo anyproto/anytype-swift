@@ -20,7 +20,7 @@ extension MembershipTier {
             iosProductID: ""
         )
     }
-
+    
     static var mockBuilder: MembershipTier {
         MembershipTier(
             type: .builder,
@@ -39,7 +39,7 @@ extension MembershipTier {
             iosProductID: "io.anytype.membership.builder"
         )
     }
-
+    
     static var mockCoCreator: MembershipTier {
         MembershipTier(
             type: .coCreator,
@@ -58,7 +58,7 @@ extension MembershipTier {
             iosProductID: "io.anytype.membership.cocreator"
         )
     }
-
+    
     static var mockCustom: MembershipTier {
         MembershipTier(
             type: .custom(id: 228),
@@ -77,7 +77,7 @@ extension MembershipTier {
             iosProductID: "io.anytype.membership.custom"
         )
     }
-
+    
     static var mockBuilderTest: MembershipTier {
         MembershipTier(
             type: .custom(id: 1337),

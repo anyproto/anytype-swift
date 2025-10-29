@@ -21,6 +21,7 @@ struct MembershipDebugView: View {
     @State private var transactions: [StoreKit.Transaction] = []
     @State private var toastBarData: ToastBarData?
     
+    @State private var currentStatus: MembershipStatus = .empty
     @State private var refundId: StoreKit.Transaction.ID?
     @State private var showRefund = false
     @State private var showMembership = false
@@ -33,18 +34,24 @@ struct MembershipDebugView: View {
             transactionsView
         }
         .frame(maxWidth: .infinity)
-        .background(storage.currentStatus.tier?.gradient.ignoresSafeArea())
         
+        .background(currentStatus.tier?.gradient.ignoresSafeArea())
         .snackbar(toastBarData: $toastBarData)
         .refundRequestSheet(for: refundId ?? 0, isPresented: $showRefund)
         
-        .sheet(isPresented: $showMembership) { 
+        .sheet(isPresented: $showMembership) {
             MembershipCoordinator()
         }
         
         .task {
+            currentStatus = await storage.currentStatus()
             await loadTiers()
             await loadTransactions()
+        }
+        .task {
+            for await status in storage.statusStream() {
+                currentStatus = status
+            }
         }
     }
     
@@ -52,10 +59,10 @@ struct MembershipDebugView: View {
     private var membershipInfo: some View {
         VStack(alignment: .center) {
             AnytypeText("Current tier", style: .heading)
-            if let mediumIcon = storage.currentStatus.tier?.mediumIcon {
+            if let mediumIcon = currentStatus.tier?.mediumIcon {
                 Image(asset: mediumIcon)
             }
-            AnytypeText(storage.currentStatus.debugDescription, style: .codeBlock)
+            AnytypeText(currentStatus.debugDescription, style: .codeBlock)
             Spacer()
         }
         .padding()

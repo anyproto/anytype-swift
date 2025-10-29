@@ -114,7 +114,7 @@ struct MembershipTierView: View {
 #Preview("No tier") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: nil, status: .pending)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: nil, status: .pending))
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
@@ -129,7 +129,7 @@ struct MembershipTierView: View {
 #Preview("Pending starter") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, status: .pending)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockStarter, status: .pending))
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
@@ -144,7 +144,7 @@ struct MembershipTierView: View {
 #Preview("Active starter") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockStarter))
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
@@ -159,7 +159,7 @@ struct MembershipTierView: View {
 #Preview("Active builder") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockBuilder)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockBuilder))
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockStarter, onTap: { })
@@ -174,7 +174,7 @@ struct MembershipTierView: View {
 #Preview("Active custom") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockCustom, paymentMethod: .methodCrypto)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockCustom, paymentMethod: .methodCrypto))
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockStarter, onTap: { })

@@ -106,7 +106,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
     public let iosProductID: String
 
     public var id: MembershipTierType { type }
-
+    
     public init(
         type: MembershipTierType,
         name: String,

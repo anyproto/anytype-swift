@@ -114,7 +114,7 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - Private
     
     private func membershipSubscriotion() async {
-        for await newMembership in membershipStatusStorage.statusPublisher.values {
+        for await newMembership in membershipStatusStorage.statusStream() {
             membership = newMembership
         }
     }

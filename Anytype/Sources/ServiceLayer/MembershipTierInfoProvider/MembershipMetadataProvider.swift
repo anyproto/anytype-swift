@@ -15,8 +15,8 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol, Send
     private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
     
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState {
-        let status = await storage.currentStatus
         
+        let status = await storage.currentStatus()
         if status.tier?.type == tier.type {
             if status.status == .active {
                 let purchaseType = await purchaseType(status: status)

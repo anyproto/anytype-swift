@@ -19,12 +19,12 @@ struct MembershipPricingView: View {
             AnytypeText(info.localizedPeriod ?? "", style: .caption1Regular)
                 .foregroundColor(.Text.primary)
         case nil:
-            Rectangle().hidden().onAppear {
+            Rectangle().hidden().task {
                 anytypeAssertionFailure(
                     "No pricing view for empty payment info",
                     info: [
                         "Tier": String(reflecting: tier),
-                        "Status": String(reflecting: Container.shared.membershipStatusStorage.resolve().currentStatus)
+                        "Status": String(reflecting: await Container.shared.membershipStatusStorage.resolve().currentStatus())
                     ]
                 )
             }

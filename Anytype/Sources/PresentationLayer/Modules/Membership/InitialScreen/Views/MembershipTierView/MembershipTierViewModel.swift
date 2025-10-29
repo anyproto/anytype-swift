@@ -13,7 +13,8 @@ final class MembershipTierViewModel: ObservableObject {
     
     @Injected(\.membershipMetadataProvider)
     private var tierMetadataProvider: any MembershipMetadataProviderProtocol
-    
+    private var statusTask: Task<Void, Never>?
+
     init(
         tierToDisplay: MembershipTier,
         onTap: @escaping () -> Void
@@ -22,9 +23,18 @@ final class MembershipTierViewModel: ObservableObject {
         self.onTap = onTap
         
         let storage = Container.shared.membershipStatusStorage.resolve()
-        storage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
+        statusTask = Task { [weak self] in
+            guard let self else { return }
+            for await status in storage.statusStream() {
+                self.userMembership = status
+            }
+        }
     }
     
+    deinit {
+        statusTask?.cancel()
+    }
+
     func updateState() {
         Task {
             state = await tierMetadataProvider.owningState(tier: tierToDisplay)
