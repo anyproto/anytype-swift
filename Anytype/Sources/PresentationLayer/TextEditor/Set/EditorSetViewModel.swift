@@ -32,6 +32,7 @@ final class EditorSetViewModel: ObservableObject {
     @MainActor
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
+        output: output as? ObjectSettingsCoordinatorOutput,
         onViewTap: { [weak self] in self?.showViewPicker() },
         onSettingsTap: { [weak self] in self?.showSetSettings() } ,
         onCreateTap: { [weak self] in self?.createObject() },

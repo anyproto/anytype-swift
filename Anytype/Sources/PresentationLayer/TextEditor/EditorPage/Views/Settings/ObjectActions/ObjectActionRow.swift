@@ -45,7 +45,7 @@ extension ObjectActionRow {
     }
 }
 
-private extension ObjectAction {
+extension ObjectAction {
 
     var title: String {
         switch self {

@@ -54,11 +54,14 @@ final class EditorPageController: UIViewController {
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
-        navigationBarBackgroundView: navigationBarBackgroundView, 
+        navigationBarBackgroundView: navigationBarBackgroundView,
+        objectId: viewModel.document.objectId,
+        spaceId: viewModel.document.spaceId,
+        output: viewModel.router,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
-        }, 
+        },
         onSelectAllBarButtonItemTap: { [weak self] allSelected in
             self?.handleSelectState(allSelected: allSelected)
         },
@@ -67,7 +70,7 @@ final class EditorPageController: UIViewController {
         },
         onTemplatesButtonTap: { [weak viewModel] in
             viewModel?.showTemplates()
-        }, 
+        },
         onSyncStatusTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSyncStatusInfo()

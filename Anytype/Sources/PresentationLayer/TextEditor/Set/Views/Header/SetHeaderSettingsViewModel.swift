@@ -7,7 +7,8 @@ class SetHeaderSettingsViewModel: ObservableObject {
     @Published var isActiveCreateButton = true
     @Published var isActiveHeader = true
     @Published var showUnsupportedBanner = false
-    private let setDocument: any SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
+    let output: (any ObjectSettingsCoordinatorOutput)?
     private var subscriptions = [AnyCancellable]()
 
     let onViewTap: () -> Void
@@ -19,12 +20,14 @@ class SetHeaderSettingsViewModel: ObservableObject {
     
     init(
         setDocument: some SetDocumentProtocol,
+        output: (any ObjectSettingsCoordinatorOutput)?,
         onViewTap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
         onCreateTap: @escaping () -> Void,
         onSecondaryCreateTap: @escaping () -> Void
     ) {
         self.setDocument = setDocument
+        self.output = output
         self.onViewTap = onViewTap
         self.onSettingsTap = onSettingsTap
         self.onCreateTap = onCreateTap

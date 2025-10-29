@@ -83,4 +83,29 @@ enum ObjectAction: Hashable, Identifiable {
             return "copyLink"
         }
     }
+
+    var menuOrder: Int {
+        switch self {
+        case .pin:
+            return 10
+        case .undoRedo:
+            return 11
+        case .linkItself:
+            return 20
+        case .makeAsTemplate:
+            return 21
+        case .templateToggleDefaultState:
+            return 22
+        case .locked:
+            return 30
+        case .copyLink:
+            return 40
+        case .duplicate:
+            return 41
+        case .archive:
+            return 42
+        case .delete:
+            return 43
+        }
+    }
 }
