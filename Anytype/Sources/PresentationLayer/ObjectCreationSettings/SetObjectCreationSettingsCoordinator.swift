@@ -51,6 +51,9 @@ final class SetObjectCreationSettingsCoordinator:
         
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: UIHostingController(rootView: editorView),
+            objectId: setting.templateId,
+            spaceId: setting.spaceId,
+            output: self,
             onSettingsTap: { [weak self] in
                 guard let self = self else { return }
                 editorModuleInput?.showSettings(output: self)

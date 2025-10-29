@@ -3,7 +3,7 @@ import Services
 import SwiftUI
 
 @MainActor
-protocol TemplatePickerViewModuleOutput: AnyObject {
+protocol TemplatePickerViewModuleOutput: AnyObject, ObjectSettingsCoordinatorOutput {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void)
     func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item)
     func selectionOptionsView(_ provider: some OptionsItemProvider) -> AnyView
@@ -40,7 +40,9 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
         if case .objectTemplate = data.mode { return true }
         return false
     }
-    
+
+    var spaceId: String { data.spaceId }
+
     private let data: TemplatePickerViewModelData
     private var didSetupDefaultItem = false
     private var dismiss: DismissAction?
@@ -49,8 +51,8 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     private var objectService: any ObjectActionsServiceProtocol
     @Injected(\.templatesSubscription)
     private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
-    
-    private weak var output: (any TemplatePickerViewModuleOutput)?
+
+    weak var output: (any TemplatePickerViewModuleOutput)?
     
     // MARK: - OptionsItemProvider
     
