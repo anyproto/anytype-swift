@@ -38,16 +38,16 @@ public extension FeatureFlags {
         value(for: .vaultBackToRoots)
     }
 
-    static var brandNewAuthFlow: Bool {
-        value(for: .brandNewAuthFlow)
-    }
-
     static var showAllButtonInWidgets: Bool {
         value(for: .showAllButtonInWidgets)
     }
 
     static var turnOffAutomaticWidgetOpening: Bool {
         value(for: .turnOffAutomaticWidgetOpening)
+    }
+
+    static var channelTypeSwitcher: Bool {
+        value(for: .channelTypeSwitcher)
     }
 
     static var setKanbanView: Bool {
@@ -140,9 +140,9 @@ public extension FeatureFlags {
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
-        .brandNewAuthFlow,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
+        .channelTypeSwitcher,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

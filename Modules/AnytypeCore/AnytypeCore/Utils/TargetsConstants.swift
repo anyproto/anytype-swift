@@ -5,8 +5,6 @@ public struct TargetsConstants {
             return "group.io.anytype.app.dev"
         case .releaseAnytype:
             return "group.io.anytype.app"
-        case .releaseAnyApp:
-            return "group.org.any.app"
         }
     }
 }

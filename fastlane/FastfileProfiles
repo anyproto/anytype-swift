@@ -14,12 +14,6 @@ platform :ios do
 
   # Generate Debug
 
-  lane :generate_debug_profiles do
-    generate_dev_debug_profiles
-    generate_anytype_debug_profiles
-    generate_anyapp_debug_profiles
-  end
-
   lane :generate_dev_debug_profiles do
     match(force_for_new_devices: true)
   end
@@ -28,27 +22,13 @@ platform :ios do
     match(force_for_new_devices: true)
   end
 
-  lane :generate_anyapp_debug_profiles do
-    match(force_for_new_devices: true)
-  end
-
   # Generate Release
-
-  lane :generate_appstore_profiles do
-    generate_appstore_profiles_for_nightly
-    generate_appstore_profiles_for_anytype
-    generate_appstore_profiles_for_anyapp
-  end
 
   lane :generate_appstore_profiles_for_nightly do
     match(force: true)
   end
 
   lane :generate_appstore_profiles_for_anytype do
-    match(force: true)
-  end
-
-  lane :generate_appstore_profiles_for_anyapp do
     match(force: true)
   end
 

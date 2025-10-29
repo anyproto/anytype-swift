@@ -114,8 +114,11 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changeLockState() async throws {
-        AnytypeAnalytics.instance().logLockPage(!document.isLocked)
-        try await service.setLocked(!document.isLocked, objectId: objectId)
+        let isCurrentlyLocked = document.isLocked
+        AnytypeAnalytics.instance().logLockPage(!isCurrentlyLocked)
+        try await service.setLocked(!isCurrentlyLocked, objectId: objectId)
+        toastData = ToastBarData(isCurrentlyLocked ? Loc.unlocked : Loc.locked)
+        dismiss.toggle()
     }
     
     func duplicateAction() async throws {

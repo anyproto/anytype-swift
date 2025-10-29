@@ -457,8 +457,14 @@ public enum BundledPropertyKey: String, Sendable {
     /// Should time be shown for relation values with date format
     case relationFormatIncludeTime = "relationFormatIncludeTime"
 
-    /// Push notification mode - mute/all/mentions (see model.SpacePushNotificationMode)
+    /// Push notification mode - mute/all/mentions/custom (see model.SpacePushNotificationMode)
     case spacePushNotificationMode = "spacePushNotificationMode"
+
+    /// Push notification custom muted ids
+    case spacePushNotificationCustomMuteIds = "spacePushNotificationCustomMuteIds"
+
+    /// Push notification custom mention ids
+    case spacePushNotificationCustomMentionIds = "spacePushNotificationCustomMentionIds"
 
     /// Push notifications space key (base64)
     case spacePushNotificationKey = "spacePushNotificationKey"
@@ -480,4 +486,10 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Is this the main chat
     case isMainChat = "isMainChat"
+
+    /// Date of the last message in a chat
+    case lastMessageDate = "lastMessageDate"
+
+    /// Is file available offline
+    case fileAvailableOffline = "fileAvailableOffline"
 }

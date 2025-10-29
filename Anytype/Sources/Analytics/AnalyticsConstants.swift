@@ -96,7 +96,7 @@ enum AnalyticsEventsLinkToObjectType: String {
 
 enum AnalyticsEventsMigrationType: String {
     case complete = "complete"
-    case instruсtions = "instruсtions"
+    case instructions = "instructions"
     case download = "download"
     case exit = "exit"
 }

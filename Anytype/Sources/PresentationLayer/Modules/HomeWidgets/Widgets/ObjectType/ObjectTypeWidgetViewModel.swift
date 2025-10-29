@@ -69,7 +69,7 @@ final class ObjectTypeWidgetViewModel {
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .homeScreen)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
             output?.onObjectSelected(screenData: details.screenData())
         }
     }

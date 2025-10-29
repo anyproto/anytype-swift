@@ -1,46 +1,50 @@
 import SwiftUI
 import DesignKit
 
-struct SpaceLimitBannerView: View {
+enum SpaceLimitBannerLimitType: Equatable {
+    case sharedSpaces(limit: Int)
+    case editors(limit: Int)
 
-    enum LimitType: Equatable {
-        case sharedSpaces(limit: Int)
-        case editors(limit: Int)
-
-        var titleText: String {
-            switch self {
-            case .sharedSpaces(let limit):
-                Loc.SpaceLimit.SharedSpaces.title(limit)
-            case .editors(let limit):
-                Loc.SpaceLimit.Editors.title(limit)
-            }
-        }
-
-        var subtitleText: String {
-            switch self {
-            case .sharedSpaces:
-                return Loc.SpaceLimit.SharedSpaces.subtitle
-            case .editors:
-                return Loc.SpaceLimit.Editors.subtitle
-            }
-        }
-
-        var showManageButton: Bool {
-            if case .sharedSpaces = self { return true }
-            return false
-        }
-
-        var upgradeReason: MembershipUpgradeReason {
-            switch self {
-            case .sharedSpaces:
-                return .numberOfSharedSpaces
-            case .editors:
-                return .numberOfSpaceEditors
-            }
+    var titleText: String {
+        switch self {
+        case .sharedSpaces(let limit):
+            Loc.SpaceLimit.SharedSpaces.title(limit)
+        case .editors(let limit):
+            Loc.SpaceLimit.Editors.title(limit)
         }
     }
 
-    let limitType: LimitType
+    var subtitleText: String {
+        switch self {
+        case .sharedSpaces:
+            return Loc.SpaceLimit.SharedSpaces.subtitle
+        case .editors:
+            return Loc.SpaceLimit.Editors.subtitle
+        }
+    }
+
+    var showManageButton: Bool {
+        switch self {
+        case .sharedSpaces:
+            return true
+        case .editors:
+            return false
+        }
+    }
+
+    var upgradeReason: MembershipUpgradeReason {
+        switch self {
+        case .sharedSpaces:
+            return .numberOfSharedSpaces
+        case .editors:
+            return .numberOfSpaceEditors
+        }
+    }
+}
+
+struct SpaceLimitBannerView: View {
+
+    let limitType: SpaceLimitBannerLimitType
     let onManageSpaces: (() -> Void)?
     let onUpgrade: () -> Void
 
@@ -65,13 +69,13 @@ struct SpaceLimitBannerView: View {
     private var buttonsView: some View {
         HStack(spacing: 8) {
             if limitType.showManageButton {
-                StandardButton(Loc.SpaceShare.manageSpaces, style: .secondaryMedium) {
+                StandardButton(Loc.SpaceShare.manageSpaces, style: .secondaryXSmallStretched) {
                     onManageSpaces?()
                 }
             }
             StandardButton(
                 "\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)",
-                style: limitType.showManageButton ? .primaryMedium : .primaryLarge
+                style: .primaryXSmallStretchedBlack
             ) {
                 onUpgrade()
             }

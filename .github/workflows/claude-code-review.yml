@@ -31,6 +31,14 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Load review prompt
+        id: load-prompt
+        run: |
+          PROMPT_CONTENT=$(cat .github/workflows/claude-code-review-prompt.md)
+          echo "prompt_content<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT_CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
@@ -39,32 +47,11 @@ jobs:
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
+            COMMIT SHA: ${{ github.event.pull_request.head.sha }}
 
-            Review this PR using CLAUDE.md for project conventions. Be LEAN and ACTIONABLE - only provide value, avoid noise.
-
-            RULES:
-            - ONLY include sections when there are ACTUAL issues to report
-            - NO "Strengths" or praise sections
-            - NO "no concerns" statements (skip the section entirely)
-            - NO design/UI/spacing suggestions (padding, margins, colors, etc.) - you cannot see the visual design
-            - Reference specific file:line locations for issues
-            - If no issues found: comment "✅ **Approved** - No issues found"
-
-            SECTIONS (include ONLY if issues exist):
-            - **Bugs/Issues**: Logic errors, potential bugs that need fixing
-            - **Best Practices**: Violations of Swift/SwiftUI conventions or CLAUDE.md guidelines (code quality only, not design)
-            - **Performance**: Actual performance problems (not theoretical)
-            - **Security**: Real security vulnerabilities
-
-            END WITH:
-            - **Summary**: ONE sentence only with status emoji:
-              - ✅ **Approved** - [brief reason]
-              - ⚠️ **Minor Issues** - [what needs fixing]
-              - 🚨 **Major Issues** - [critical problems]
-
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+            ${{ steps.load-prompt.outputs.prompt_content }}
 
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.claude.com/en/docs/claude-code/cli-reference for available options
-          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
+          claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*),Bash(gh api:*)"'
 

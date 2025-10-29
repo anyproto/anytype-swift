@@ -19,7 +19,7 @@ struct StatusPropertyView: View {
     
     private var statusList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: style.objectPropertyStyle.hSpaсingList) {
+            HStack(spacing: style.objectPropertyStyle.hSpacingList) {
                 ForEach(options) { option in
                     statusView(option: option)
                 }
@@ -36,7 +36,7 @@ struct StatusPropertyView: View {
     private var moreStatusesView: some View {
         let moreObjectsCount = (options.count - maxOptions) > 0 ? options.count - maxOptions : 0
 
-        return HStack(spacing: style.objectPropertyStyle.hSpaсingObject) {
+        return HStack(spacing: style.objectPropertyStyle.hSpacingObject) {
             statusView(options: Array(options.prefix(maxOptions)))
 
             if moreObjectsCount > 0 {

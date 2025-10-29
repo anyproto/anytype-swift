@@ -43,8 +43,6 @@ public enum CoreEnvironment {
         switch condition {
         case "DEBUG", "RELEASE_NIGHTLY":
             resolved = .debug
-        case "RELEASE_ANYAPP":
-            resolved = .releaseAnyApp
         case "RELEASE_ANYTYPE":
             resolved = .releaseAnytype
         default:

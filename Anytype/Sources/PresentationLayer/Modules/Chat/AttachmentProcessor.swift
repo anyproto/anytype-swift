@@ -7,19 +7,19 @@ import Factory
 import AnytypeCore
 
 @MainActor
-protocol AttachmentProcessor {
+protocol AttachmentProcessor: AnyObject {
     associatedtype Input
     func process(_ input: Input, spaceId: String) throws -> ChatLinkedObject
 }
 
 @MainActor
-protocol AsyncAttachmentProcessor {
+protocol AsyncAttachmentProcessor: AnyObject {
     associatedtype Input
     func process(_ input: Input, spaceId: String) async throws -> ChatLinkedObject
 }
 
 @MainActor
-struct FileAttachmentProcessor: AttachmentProcessor {
+final class FileAttachmentProcessor: AttachmentProcessor {
     
     @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
@@ -39,7 +39,7 @@ struct FileAttachmentProcessor: AttachmentProcessor {
 }
 
 @MainActor
-struct CameraMediaProcessor: AttachmentProcessor {
+final class CameraMediaProcessor: AttachmentProcessor {
     
     @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
@@ -61,7 +61,7 @@ struct CameraMediaProcessor: AttachmentProcessor {
 }
 
 @MainActor
-struct PhotosPickerProcessor: AsyncAttachmentProcessor {
+final class PhotosPickerProcessor: AsyncAttachmentProcessor {
     
     @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
@@ -73,7 +73,7 @@ struct PhotosPickerProcessor: AsyncAttachmentProcessor {
 }
 
 @MainActor
-struct PasteBufferProcessor: AsyncAttachmentProcessor {
+final class PasteBufferProcessor: AsyncAttachmentProcessor {
     
     @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
@@ -87,7 +87,7 @@ struct PasteBufferProcessor: AsyncAttachmentProcessor {
 }
 
 @MainActor
-struct LinkPreviewProcessor: AsyncAttachmentProcessor {
+final class LinkPreviewProcessor: AsyncAttachmentProcessor {
     
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
@@ -106,7 +106,7 @@ struct LinkPreviewProcessor: AsyncAttachmentProcessor {
 }
 
 @MainActor
-struct UploadedObjectProcessor: AttachmentProcessor {
+final class UploadedObjectProcessor: AttachmentProcessor {
     
     func process(_ input: MessageAttachmentDetails, spaceId: String) throws -> ChatLinkedObject {
         return .uploadedObject(input)

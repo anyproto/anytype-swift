@@ -30,7 +30,7 @@ struct ObjectPropertyView: View {
     
     private var objectsList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: style.objectPropertyStyle.hSpaсingList) {
+            HStack(spacing: style.objectPropertyStyle.hSpacingList) {
                 ForEach(options) { option in
                     objectView(option: option)
                 }
@@ -39,7 +39,7 @@ struct ObjectPropertyView: View {
     }
     
     private func objectView(option: Property.Object.Option) -> some View {
-        HStack(spacing: style.objectPropertyStyle.hSpaсingObject) {
+        HStack(spacing: style.objectPropertyStyle.hSpacingObject) {
             
             if let icon = option.icon, shouldShowIcon(icon: icon) {
                 IconView(icon: icon)
@@ -62,7 +62,7 @@ struct ObjectPropertyView: View {
     private var moreObjectsView: some View {
         let moreObjectsCount = (options.count - maxOptions) > 0 ? options.count - maxOptions : 0
         
-        return HStack(spacing: style.objectPropertyStyle.hSpaсingObject) {
+        return HStack(spacing: style.objectPropertyStyle.hSpacingObject) {
             if let prefix {
                 AnytypeText(
                     prefix,
@@ -108,8 +108,8 @@ struct ObjectPropertyView: View {
 
 extension ObjectPropertyView {
     struct ObjectPropertyStyle {
-        let hSpaсingList: CGFloat
-        let hSpaсingObject: CGFloat
+        let hSpacingList: CGFloat
+        let hSpacingObject: CGFloat
         let size: CGSize
     }
     

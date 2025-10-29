@@ -1875,7 +1875,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Aggiungi membri"
           }
         },
         "ja" : {
@@ -1899,7 +1899,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Voeg leden toe"
           }
         },
         "or" : {
@@ -2024,7 +2024,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messages, docs & files available offline"
+            "value" : "Messaggi, documenti & file disponibili offline"
           }
         },
         "ja" : {
@@ -2048,7 +2048,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messages, docs & files available offline"
+            "value" : "Berichten, documenten & bestanden die offline beschikbaar zijn"
           }
         },
         "or" : {
@@ -2173,7 +2173,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "Completamente privato e crittografato"
           }
         },
         "ja" : {
@@ -2197,7 +2197,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "Volledig privé en versleuteld"
           }
         },
         "or" : {
@@ -2322,7 +2322,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "Tuo per sempre"
           }
         },
         "ja" : {
@@ -2346,7 +2346,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "Voor altijd van jou"
           }
         },
         "or" : {
@@ -2435,13 +2435,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You just created a chat"
+            "value" : "Chat without the cloud"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Aún no hay mensajes"
+            "value" : "Chat fuera de la nube"
           }
         },
         "fa" : {
@@ -2489,7 +2489,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You just created a chat"
+            "value" : "Chat without the cloud"
           }
         },
         "nl" : {
@@ -17842,7 +17842,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сhoose a property to sort"
+            "value" : "Choose a property to sort"
           }
         },
         "es" : {
@@ -17896,7 +17896,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Сhoose a property to sort"
+            "value" : "Choose a property to sort"
           }
         },
         "nl" : {
@@ -28705,7 +28705,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade to add more spaces"
+            "value" : "Upgrade to add more spaces."
           }
         },
         "nl" : {
@@ -28921,155 +28921,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "您無法新增更多編輯者"
-          }
-        }
-      }
-    },
-    "Membership.Upgrade.NoMoreMembers" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "لا يمكنك إضافة المزيد من الأعضاء"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вы не можаце дадаць больш удзельнікаў"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Du kannst keine weiteren Mitglieder hinzufügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You can’t add more members"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No puedes añadir más miembros"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Vous ne pouvez plus ajouter de membres"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Anda tidak dapat menambah anggota lagi"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Non puoi aggiungere altri membri"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "これ以上、閲覧権限のメンバーを追加できません。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Je kunt geen leden meer toevoegen"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Nie możesz dodać więcej członków"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Você não pode adicionar mais membros"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вы не можете добавить больше участников"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Daha fazla üye ekleyemezsiniz"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You can’t add more members"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bạn không thể thêm thành viên"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "您无法添加更多成员"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "您無法新增更多成員"
           }
         }
       }
@@ -53110,9 +52961,147 @@
     "Space limit.Editors.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mejora tu suscripción para invitar a más miembros."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Aggiorna la tua iscrizione per invitare più membri."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade jouw lidmaatschap om meer leden uit te nodigen."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Daha fazla üye davet etmek için üyeliğinizi yükseltin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade your membership to invite more members."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Upgrade your membership to invite more members."
           }
         }
@@ -53121,9 +53110,147 @@
     "Space limit.Editors.Title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Has alcanzado el límite de %lld editores."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kamu telah mencapai batas %lld penyunting."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Je hebt de limiet bereikt van %lld bewerkers."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld editör sınırına ulaştınız."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld editors."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "You've reached the limit of %lld editors."
           }
         }
@@ -53132,9 +53259,147 @@
     "Space limit.Shared spaces.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mejora tu suscripción o elimina alguno."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Esegui l'aggiornamento per ottenere più spazio o rimuovi gli spazi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade voor meer of verwijder ruimten."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Daha fazlası için yükseltin veya var olan alanları kaldırın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Upgrade for more or remove spaces."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Upgrade for more or remove spaces."
           }
         }
@@ -53143,9 +53408,147 @@
     "Space limit.Shared spaces.Title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Has alcanzado el límite de %lld espacios compartidos."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kamu telah mencapai batas %lld ruang terbagi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Je hebt de limiet bereikt van %lld gedeelde ruimten."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%lld paylaşılan alan sınırına ulaştınız."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You've reached the limit of %lld shared spaces."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "You've reached the limit of %lld shared spaces."
           }
         }

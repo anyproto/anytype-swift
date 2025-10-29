@@ -6,9 +6,10 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 ## 🚀 Quick Start
 
 ### ⚠️ CRITICAL RULES - NEVER VIOLATE
-1. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
-2. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
-3. **NEVER add any form of AI attribution** anywhere in the codebase
+1. **NEVER commit changes without explicit user request** - Always wait for user to explicitly ask you to commit
+2. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
+3. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
+4. **NEVER add any form of AI attribution** anywhere in the codebase
 
 ### Development Setup
 1. **First-time setup** (run in order):
@@ -23,14 +24,8 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
    - Swift Package Manager (built-in)
    - If Dependencies/Middleware/Lib.xcframework is missing binaries, try `make generate`
 
-### Build & Test
-```bash
-# Normal build
-xcodebuild -scheme Anytype -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 15' build
-
-# Compilation check
-xcodebuild -scheme Anytype -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 15' build-for-testing
-```
+### Compilation Verification
+After making code changes, report them to the user who will verify compilation in Xcode (faster with caches).
 
 ### Essential Commands
 ```bash
@@ -93,6 +88,11 @@ make setup-middle    # Initial setup
    }
    ```
 
+   **⚠️ IMPORTANT**: When adding or updating localization strings:
+   - **Only update the English (`en`) translation** - All other language translations are handled automatically via Crowdin
+   - Do not manually edit translations for other languages (de, es, fr, ja, etc.)
+   - The localization team manages non-English translations through Crowdin workflow
+
 5. **Generate and use**:
    ```bash
    make generate
@@ -127,11 +127,33 @@ String(format: Loc.pinLimitReached, 10)  // DON'T DO THIS
 
 **Why**: SwiftGen automatically generates parameterized functions for strings with format specifiers (%lld, %d, %@). Always use the generated function directly.
 
+### Removing Unused Localization Keys
+
+When removing code that uses localization keys, **always check if the key is still used elsewhere**:
+
+1. **Search for usage**:
+   ```bash
+   rg "keyName" --type swift
+   ```
+
+2. **If only found in Generated/Strings.swift**, the key is unused:
+   - Remove the entire key entry from the source `.xcstrings` file
+   - Run `make generate` to regenerate Strings.swift
+
+3. **Example workflow**:
+   - Removed `MembershipParticipantUpgradeReason.numberOfSpaceReaders`
+   - Search: `rg "noMoreMembers" --type swift` → only in Strings.swift
+   - Remove `"Membership.Upgrade.NoMoreMembers"` from Workspace.xcstrings
+   - Run `make generate`
+
+**Important**: Never leave orphaned localization keys in .xcstrings files - they bloat the codebase and confuse translators.
+
 ## 🎨 Design System & Common UI Components
 
 ### Quick Reference
 - **Search Patterns**: `/PresentationLayer/Common/SwiftUI/Search/SEARCH_PATTERNS.md`
 - **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
+- **Typography Mapping**: `/PresentationLayer/Common/TYPOGRAPHY_MAPPING.md` - Maps Figma text styles to Swift constants
 - **Analytics Patterns**: `/PresentationLayer/Common/Analytics/ANALYTICS_PATTERNS.md`
 
 ### Icons
@@ -216,6 +238,7 @@ Modules/                # Swift packages
 - K&R style (opening brackets on same line)
 - 120-140 character lines
 - One blank line between functions, two between sections
+- **NEVER trim whitespace-only lines** - Preserve blank lines with spaces or tabs exactly as they appear in the original file
 
 ### Naming
 - **PascalCase**: Classes, Structs, Protocols (`ChatViewModel`)
@@ -229,11 +252,33 @@ Modules/                # Swift packages
 - Import order: system → third-party → internal
 - Property organization: @Published/@Injected → public → private → constants → variables → methods
 - Use async/await, SwiftUI property wrappers, trailing closures, type inference
+- **Avoid nested types** - Extract enums/structs to top-level with descriptive names (e.g., `SpaceLimitBannerLimitType` instead of `SpaceLimitBannerView.LimitType`)
+- **Enum exhaustiveness**: Always use explicit switch statements for enum pattern matching to enable compiler warnings when new cases are added
+  - ✅ **CORRECT**:
+    ```swift
+    var showManageButton: Bool {
+        switch self {
+        case .sharedSpaces:
+            return true
+        case .editors:
+            return false
+        }
+    }
+    ```
+  - ❌ **WRONG**:
+    ```swift
+    var showManageButton: Bool {
+        if case .sharedSpaces = self { return true }
+        return false  // Default fallback prevents compiler warnings
+    }
+    ```
+  - **Exception**: Only use default fallback for super obvious single-case checks (e.g., `isSharedSpaces`, `isEditor`)
 
 ## 🔄 Development Workflow
 
 ### 🚨 Pre-Commit Checklist
-**STOP** before EVERY commit and verify:
+**ONLY WHEN USER EXPLICITLY ASKS YOU TO COMMIT** - STOP and verify:
+- [ ] User has explicitly requested a commit
 - [ ] NO "Co-Authored-By: Claude" in commit message
 - [ ] NO "Generated with Claude" or similar AI signatures
 - [ ] NO emoji signatures like 🤖
@@ -260,13 +305,20 @@ When receiving a Linear task ID (e.g., `IOS-5292`):
 ### Git & GitHub
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
-- **Commit messages**: 
+- **⚠️ CRITICAL: NEVER commit without explicit user request**
+  - Wait for user to explicitly ask you to commit
+  - Do NOT commit automatically after making changes
+  - Do NOT assume commits are expected
+- **Commit messages**:
   - Single line only
   - **NO AI signatures** (no "Generated with Claude", no co-author attribution)
   - Professional and concise
 - **GitHub CLI**: Use `gh` tool for all GitHub operations
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
+
+### GitHub Workflows & Actions
+For comprehensive documentation on GitHub workflows, actions, and automation (including auto-merge behavior), see `.github/WORKFLOWS_REFERENCE.md`
 
 ### Release Branch Workflow
 - **Branches from release**: When creating a branch from a release branch (e.g., `release/0.42.0`):
@@ -275,6 +327,14 @@ When receiving a Linear task ID (e.g., `IOS-5292`):
   - Example: `gh pr create --base release/0.42.0 --label "Release" --title "..." --body "..."`
 
 ### ❌ FORBIDDEN Git Practices
+
+**ABSOLUTELY NEVER run destructive git operations** unless you have explicit, written approval:
+- `git reset --hard` - Discards all local changes permanently
+- `git checkout <old-commit>` or `git restore` to revert to older commits - Can lose work
+- `git clean -fd` - Removes untracked files permanently
+- `git push --force` to main/develop - Rewrites shared history
+
+**If you are even slightly unsure about a git command, STOP and ask the user first.**
 
 **NEVER do this:**
 ```bash
@@ -311,6 +371,21 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 - Sequential branches: `ios-XXXX-description-1`, `ios-XXXX-description-2`
 - Chain PRs: `branch-1` → `develop`, `branch-2` → `branch-1`
 - Atomic changes per branch
+
+### 🔧 Git Technical Tips
+
+**Quoting paths with special characters**:
+- Always quote git paths containing brackets, parentheses, or spaces
+- Prevents shell from treating them as globs or subshells
+
+```bash
+# ✅ CORRECT
+git add "Anytype/Sources/[Feature]/Component.swift"
+git commit -m "Update component" -- "path/with spaces/file.swift"
+
+# ❌ WRONG - Shell interprets brackets as glob pattern
+git add Anytype/Sources/[Feature]/Component.swift
+```
 
 ### Linear Integration
 1. **Get task context**: Extract task number from branch name or ask user
@@ -356,6 +431,9 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 
 ### ⚠️ Common Mistakes to Avoid
 
+#### Git Operations
+**Autonomous Committing (2025-01-28):** Committed changes without explicit user request. NEVER commit unless user explicitly asks. This is a CRITICAL rule - committing is a destructive operation that should only happen when user approves.
+
 #### File Operations & Architecture
 **Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually, keep UI in PresentationLayer.
 
@@ -363,4 +441,4 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 **Incomplete Mock Updates (2025-01-16):** Refactored `spaceViewStorage` → `spaceViewsStorage` and `participantSpaceStorage` → `participantSpacesStorage` in production code, but forgot to update `MockView.swift` causing test failures. When renaming dependencies:
 1. Search for old names across entire codebase: `rg "oldName" --type swift`
 2. Update all references in tests, mocks, and DI registrations
-3. Run unit tests to verify: `xcodebuild -scheme Anytype -destination 'platform=iOS Simulator,name=iPhone 15' build-for-testing`
+3. Report changes to user for compilation verification
