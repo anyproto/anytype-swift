@@ -13,7 +13,7 @@ struct AttachmentValidationResult {
 }
 
 @MainActor
-struct ChatAttachmentValidator {
+final class ChatAttachmentValidator {
     
     @Injected(\.chatMessageLimits)
     private var chatMessageLimits: any ChatMessageLimitsProtocol

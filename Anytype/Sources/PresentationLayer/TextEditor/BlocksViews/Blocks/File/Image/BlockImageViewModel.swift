@@ -4,7 +4,7 @@ import Combine
 import AnytypeCore
 
 @MainActor
-struct BlockImageViewModel: BlockViewModelProtocol {
+final class BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
     
     @Injected(\.openedDocumentProvider)
