@@ -66,7 +66,8 @@ This document provides an overview of GitHub workflows, custom actions, and auto
 
 #### `ipa.yaml` - IPA Build
 **File:** `.github/workflows/ipa.yaml`
-**Triggers:** Manual dispatch, workflow call (called from test run repository)
+**Triggers:** Manual dispatch, repository dispatch (triggers test run repository after build)
+**Purpose:** Builds IPA file for the application. After successful build, triggers automated tests in the anytype-test repository.
 **Purpose:** Builds IPA file for the application. Invoked from the test run repository for automated testing.
 
 ---
