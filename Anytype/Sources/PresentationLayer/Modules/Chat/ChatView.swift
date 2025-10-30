@@ -4,13 +4,13 @@ import AnytypeCore
 
 struct ChatView: View {
     
-    @StateObject private var model: ChatViewModel
+    @State private var model: ChatViewModel
     @State private var actionState = ChatActionOverlayState()
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.chatActionProvider) private var chatActionProvider
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
-        self._model = StateObject(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
+        self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
     }
     
     var body: some View {
