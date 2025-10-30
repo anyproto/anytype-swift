@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct ObjectSettingsMenuView: View {
 
-    @StateObject private var viewModel: ObjectSettingsMenuViewModel
+    @State private var viewModel: ObjectSettingsMenuViewModel
 
     init(
         objectId: String,
@@ -12,7 +12,7 @@ struct ObjectSettingsMenuView: View {
     ) {
         let settingsVM = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
         let actionsVM = ObjectActionsViewModel(objectId: objectId, spaceId: spaceId, output: settingsVM)
-        self._viewModel = StateObject(wrappedValue: ObjectSettingsMenuViewModel(settingsViewModel: settingsVM, actionsViewModel: actionsVM))
+        self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(settingsViewModel: settingsVM, actionsViewModel: actionsVM))
     }
 
     var body: some View {

@@ -3,15 +3,15 @@ import Services
 import AnytypeCore
 
 struct ObjectSettingsView: View {
-    
-    @StateObject private var viewModel: ObjectSettingsViewModel
-    
+
+    @State private var viewModel: ObjectSettingsViewModel
+
     init(
         objectId: String,
         spaceId: String,
         output: some ObjectSettingsModelOutput
     ) {
-        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output))
+        self._viewModel = State(wrappedValue: ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output))
     }
     
     var body: some View {
