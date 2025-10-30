@@ -44547,6 +44547,17 @@
         }
       }
     },
+    "Hide Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Description"
+          }
+        }
+      }
+    },
     "Hide types" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -83946,6 +83957,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "顯示"
+          }
+        }
+      }
+    },
+    "Show Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Description"
           }
         }
       }

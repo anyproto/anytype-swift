@@ -52,8 +52,8 @@ extension ObjectSetting {
             Loc.icon
         case .cover:
             Loc.cover
-        case .description:
-            Loc.description
+        case .description(let isVisible):
+            isVisible ? Loc.hideDescription : Loc.showDescription
         case .relations:
             Loc.fields
         case .history:
