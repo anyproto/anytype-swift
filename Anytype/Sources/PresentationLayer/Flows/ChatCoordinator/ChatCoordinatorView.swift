@@ -2,12 +2,12 @@ import SwiftUI
 
 struct ChatCoordinatorView: View {
     
-    @StateObject private var model: ChatCoordinatorViewModel
+    @State private var model: ChatCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.chatActionProvider) private var chatActionProvider
     
     init(data: ChatCoordinatorData) {
-        self._model = StateObject(wrappedValue: ChatCoordinatorViewModel(data: data))
+        self._model = State(wrappedValue: ChatCoordinatorViewModel(data: data))
     }
     
     var body: some View {

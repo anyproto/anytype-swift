@@ -9,35 +9,41 @@ struct ChatCoordinatorData: Hashable, Codable {
 }
 
 @MainActor
-final class ChatCoordinatorViewModel: ObservableObject, ChatModuleOutput {
+@Observable
+final class ChatCoordinatorViewModel: ChatModuleOutput {
     
+    @ObservationIgnored
     let chatId: String
+    @ObservationIgnored
     let spaceId: String
     
-    @Published var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
-    @Published var showEmojiData: MessageReactionPickerData?
-    @Published var showSyncStatusInfo = false
-    @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var linkToObjectData: LinkToObjectSearchModuleData?
-    @Published var showFilesPicker = false
-    @Published var showPhotosPicker = false
-    @Published var pushNotificationsAlertData: PushNotificationsAlertData?
-    @Published var showDisabledPushNotificationsAlert = false
-    @Published var photosItems: [PhotosPickerItem] = []
-    @Published var participantsReactionData: MessageParticipantsReactionData?
-    @Published var safariUrl: URL?
-    @Published var cameraData: SimpleCameraData?
-    @Published var showSpaceSettingsData: AccountInfo?
-    @Published var newLinkedObject: EditorScreenData?
-    @Published var spaceShareData: SpaceShareData?
-    @Published var qrCodeInviteLink: URL?
+    var objectToMessageSearchData: ObjectSearchWithMetaModuleData?
+    var showEmojiData: MessageReactionPickerData?
+    var showSyncStatusInfo = false
+    var objectIconPickerData: ObjectIconPickerData?
+    var linkToObjectData: LinkToObjectSearchModuleData?
+    var showFilesPicker = false
+    var showPhotosPicker = false
+    var pushNotificationsAlertData: PushNotificationsAlertData?
+    var showDisabledPushNotificationsAlert = false
+    var photosItems: [PhotosPickerItem] = []
+    var participantsReactionData: MessageParticipantsReactionData?
+    var safariUrl: URL?
+    var cameraData: SimpleCameraData?
+    var showSpaceSettingsData: AccountInfo?
+    var newLinkedObject: EditorScreenData?
+    var spaceShareData: SpaceShareData?
+    var qrCodeInviteLink: URL?
     
+    @ObservationIgnored
     private var filesPickerData: FilesPickerData?
+    @ObservationIgnored
     private var photosPickerData: ChatPhotosPickerData?
     
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
     
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionsService: any ObjectActionsServiceProtocol
     
     init(data: ChatCoordinatorData) {
