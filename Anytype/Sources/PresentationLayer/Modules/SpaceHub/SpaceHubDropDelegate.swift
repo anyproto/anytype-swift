@@ -5,9 +5,9 @@ import AnytypeCore
 
 struct SpaceHubDropDelegate: DropDelegate {
     
-    let destinationItem: ParticipantSpaceViewDataWithPreview
+    let destinationSpaceViewId: String?
     @Binding var allSpaces: [ParticipantSpaceViewDataWithPreview]?
-    @Binding var draggedItem: ParticipantSpaceViewDataWithPreview?
+    @Binding var draggedSpaceViewId: String?
     @Binding var initialIndex: Int?
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
@@ -15,20 +15,20 @@ struct SpaceHubDropDelegate: DropDelegate {
     }
     
     func performDrop(info: DropInfo) -> Bool {
-        guard let allSpaces, draggedItem.isNotNil, let initialIndex else { return false }
+        guard let allSpaces, draggedSpaceViewId.isNotNil, let initialIndex else { return false }
         
-        guard let finalIndex = allSpaces.firstIndex(of: destinationItem) else { return false }
+        guard let finalIndex = allSpaces.firstIndex(where: { $0.spaceView.id == destinationSpaceViewId }) else { return false }
         guard finalIndex != initialIndex else { return false }
         
-        self.draggedItem = nil
+        self.draggedSpaceViewId = nil
         self.initialIndex = nil
         return true
     }
     
     func dropEntered(info: DropInfo) {
-        guard var allSpaces, let draggedItem else { return }
-        guard let fromIndex = allSpaces.firstIndex(where: { $0.space.id == draggedItem.space.id } ) else { return }
-        guard let toIndex = allSpaces.firstIndex(where: { $0.space.id == destinationItem.space.id } ) else { return }
+        guard var allSpaces, let draggedSpaceViewId else { return }
+        guard let fromIndex = allSpaces.firstIndex(where: { $0.space.spaceView.id == draggedSpaceViewId } ) else { return }
+        guard let toIndex = allSpaces.firstIndex(where: { $0.space.spaceView.id == destinationSpaceViewId } ) else { return }
         
         guard fromIndex != toIndex else { return }
         
@@ -52,7 +52,7 @@ struct SpaceHubDropDelegate: DropDelegate {
             let spaceOrderService = Container.shared.spaceOrderService()
             
             try await spaceOrderService.setOrder(
-                spaceViewIdMoved: draggedItem.spaceView.id, newOrder: newOrder
+                spaceViewIdMoved: draggedSpaceViewId, newOrder: newOrder
             )
             AnytypeAnalytics.instance().logReorderSpace()
         }
