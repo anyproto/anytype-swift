@@ -11,13 +11,11 @@ struct NewSpaceCardLabel: View {
     
     var body: some View {
         content
-            .if(model.isPinned) {
-                $0.onDrag {
-                    draggedSpaceViewId = model.spaceViewId
-                    return NSItemProvider()
-                } preview: {
-                    EmptyView()
-                }
+            .onDragIf(model.isPinned) {
+                draggedSpaceViewId = model.spaceViewId
+                return NSItemProvider()
+            } preview: {
+                EmptyView()
             }
     }
 
