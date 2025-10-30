@@ -143,7 +143,7 @@ final class ObjectActionsViewModel: ObservableObject {
         output?.onLinkItselfAction(onSelect: onObjectSelection)
     }
     
-    func makeAsTempalte() async throws {
+    func makeAsTemplate() async throws {
         guard let details = document.details else { return }
         
         let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)

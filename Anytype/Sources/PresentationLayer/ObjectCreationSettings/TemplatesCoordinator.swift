@@ -8,13 +8,13 @@ protocol TemplatesCoordinatorProtocol {
     @MainActor
     func showTemplatesPicker(
         document: some BaseDocumentProtocol,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTemplate: @escaping (String) -> Void
     )
     
     @MainActor
     func showTemplatesPicker(
         data: TemplatePickerViewModelData,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTemplate: @escaping (String) -> Void
     )
 }
 
@@ -26,14 +26,14 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
     private var toastPresenter: any ToastPresenterProtocol
     
     private var editorModuleInputs = [String: any EditorPageModuleInput]()
-    private var onSetAsDefaultTempalte: ((String) -> Void)?
+    private var onSetAsDefaultTemplate: ((String) -> Void)?
     
     nonisolated init() {}
     
     @MainActor
     func showTemplatesPicker(
         document: some BaseDocumentProtocol,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTemplate: @escaping (String) -> Void
     ) {
         let data = TemplatePickerViewModelData(
             mode: .objectTemplate(objectId: document.objectId),
@@ -41,15 +41,15 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
             spaceId: document.spaceId,
             defaultTemplateId: nil
         )
-        showTemplatesPicker(data: data, onSetAsDefaultTempalte: onSetAsDefaultTempalte)
+        showTemplatesPicker(data: data, onSetAsDefaultTemplate: onSetAsDefaultTemplate)
     }
     
     @MainActor
     func showTemplatesPicker(
         data: TemplatePickerViewModelData,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTemplate: @escaping (String) -> Void
     ) {
-        self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
+        self.onSetAsDefaultTemplate = onSetAsDefaultTemplate
         let picker = TemplatePickerView(viewModel: .init(data: data, output: self))
         let hostViewController = UIHostingController(rootView: picker)
         hostViewController.modalPresentationStyle = .fullScreen
@@ -101,7 +101,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     func didCreateTemplate(templateId: String) {}
     
     func didTapUseTemplateAsDefault(templateId: String) {
-        onSetAsDefaultTempalte?(templateId)
+        onSetAsDefaultTemplate?(templateId)
     }
     
     func didUndoRedo() {

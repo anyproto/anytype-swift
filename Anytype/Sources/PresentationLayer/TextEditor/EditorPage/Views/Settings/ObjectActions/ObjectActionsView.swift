@@ -29,7 +29,7 @@ struct ObjectActionsView: View {
                         case .linkItself:
                             viewModel.linkItselfAction()
                         case .makeAsTemplate:
-                            try await viewModel.makeAsTempalte()
+                            try await viewModel.makeAsTemplate()
                         case .templateToggleDefaultState:
                             try await viewModel.templateToggleDefaultState()
                         case .delete:
