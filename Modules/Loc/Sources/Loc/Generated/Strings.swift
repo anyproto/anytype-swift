@@ -2410,7 +2410,7 @@ public enum Loc {
     }
   }
   public enum Spaces {
-    public static let title = Loc.tr("Workspace", "Spaces.Title", fallback: "Spaces")
+    public static let title = Loc.tr("Workspace", "Spaces.Title", fallback: "Channels")
     public enum Accessibility {
       public static let personal = Loc.tr("Workspace", "Spaces.Accessibility.Personal", fallback: "Entry Space")
       public static let `private` = Loc.tr("Workspace", "Spaces.Accessibility.Private", fallback: "Private Space")
