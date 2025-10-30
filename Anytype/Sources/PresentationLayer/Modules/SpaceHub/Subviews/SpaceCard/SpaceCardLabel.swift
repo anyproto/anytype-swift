@@ -42,14 +42,11 @@ struct SpaceCardLabel: View {
         .frame(height: 80)
         .background(Color.Background.primary)
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
-
-        .if(model.isPinned) {
-            $0.onDrag {
-                draggedSpaceViewId = model.spaceViewId
-                return NSItemProvider()
-            } preview: {
-                EmptyView()
-            }
+        .onDragIf(model.isPinned) {
+            draggedSpaceViewId = model.spaceViewId
+            return NSItemProvider()
+        } preview: {
+            EmptyView()
         }
     }
 

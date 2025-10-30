@@ -68,17 +68,16 @@ struct SpaceHubList: View {
             }
         )
         .padding(.horizontal, vaultBackToRootsToggle ? 16 : 0)
-        .if(cardModel.isPinned) {
-            $0.onDrop(
-                of: [.text],
-                delegate: SpaceHubDropDelegate(
-                    destinationSpaceViewId: cardModel.spaceViewId,
-                    allSpaces: $model.spaces,
-                    draggedSpaceViewId: $draggedSpaceViewId,
-                    initialIndex: $draggedInitialIndex
-                )
+        .onDropIf(
+            cardModel.isPinned,
+            of: [.text],
+            delegate: SpaceHubDropDelegate(
+                destinationSpaceViewId: cardModel.spaceViewId,
+                allSpaces: $model.spaces,
+                draggedSpaceViewId: $draggedSpaceViewId,
+                initialIndex: $draggedInitialIndex
             )
-        }
+        )
         .id(cardModel.id)
     }
 }

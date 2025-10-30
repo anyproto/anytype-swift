@@ -45,22 +45,13 @@ struct SpaceHubView: View {
     private func spacesView() -> some View {
         NavigationStack {
             SpaceHubList(model: model)
-//            Group {
-//                if model.filteredSpaces.isEmpty && model.searchText.isEmpty {
-//                    emptyStateView
-//                } else if model.filteredSpaces.isNotEmpty {
-//                    scrollView
-//                } else {
-//                    SpaceHubSearchEmptySpaceView()
-//                }
-//            }
-            .navigationTitle(Loc.myChannels)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { toolbarItems }
-            .searchable(text: $model.searchText)
-            .onChange(of: model.searchText) {
-                model.searchTextUpdated()
-            }
+                .navigationTitle(Loc.myChannels)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar { toolbarItems }
+                .searchable(text: $model.searchText)
+                .onChange(of: model.searchText) {
+                    model.searchTextUpdated()
+                }
         }.tint(Color.Text.secondary)
     }
     
