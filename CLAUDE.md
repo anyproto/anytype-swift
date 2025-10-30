@@ -155,6 +155,7 @@ When removing code that uses localization keys, **always check if the key is sti
 - **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
 - **Typography Mapping**: `/PresentationLayer/Common/TYPOGRAPHY_MAPPING.md` - Maps Figma text styles to Swift constants
 - **Analytics Patterns**: `/PresentationLayer/Common/Analytics/ANALYTICS_PATTERNS.md`
+- **Code Review Guidelines**: `/.github/workflows/code-review-guidelines.md` - Shared review standards for local and automated CI reviews
 
 ### Icons
 Icons are code-generated from assets organized by size (x18, x24, x32, x40).
