@@ -124,16 +124,18 @@ final class SpaceHubViewModel {
     }
     
     func searchTextUpdated() {
-        updateFilteredSpaces()
+        Task {
+            await updateFilteredSpaces()
+        }
     }
     
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-            self.dataLoaded = spaces.isNotEmpty
             showLoading = spaces.contains { $0.spaceView.isLoading }
-            updateFilteredSpaces()
+            await updateFilteredSpaces()
+            self.dataLoaded = spaces.isNotEmpty
         }
     }
     
@@ -212,23 +214,21 @@ final class SpaceHubViewModel {
         }
     }
     
-    private func updateFilteredSpaces() {
-        Task {
-            guard let spaces else {
-                filteredSpaces = []
-                return
-            }
-            
-            let spacesToFilter: [ParticipantSpaceViewDataWithPreview]
-            if searchText.isEmpty {
-                spacesToFilter = spaces
-            } else {
-                spacesToFilter = spaces.filter { space in
-                    space.spaceView.name.localizedCaseInsensitiveContains(searchText)
-                }
-            }
-            
-            self.filteredSpaces = await spaceCardModelBuilder.build(from: spacesToFilter, wallpapers: wallpapers)
+    private func updateFilteredSpaces() async {
+        guard let spaces else {
+            filteredSpaces = []
+            return
         }
+        
+        let spacesToFilter: [ParticipantSpaceViewDataWithPreview]
+        if searchText.isEmpty {
+            spacesToFilter = spaces
+        } else {
+            spacesToFilter = spaces.filter { space in
+                space.spaceView.name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+        
+        self.filteredSpaces = await spaceCardModelBuilder.build(from: spacesToFilter, wallpapers: wallpapers)
     }
 }
