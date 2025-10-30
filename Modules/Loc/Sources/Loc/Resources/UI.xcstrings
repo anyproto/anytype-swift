@@ -69146,6 +69146,17 @@
         }
       }
     },
+    "Unpinned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpinned"
+          }
+        }
+      }
+    },
     "Preferences" : {
       "extractionState" : "manual",
       "localizations" : {

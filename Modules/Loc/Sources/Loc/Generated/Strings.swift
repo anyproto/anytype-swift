@@ -635,6 +635,7 @@ public enum Loc {
   public static let unlocked = Loc.tr("UI", "Unlocked", fallback: "Unlocked")
   public static let unmute = Loc.tr("UI", "Unmute", fallback: "Unmute")
   public static let unpin = Loc.tr("UI", "Unpin", fallback: "Unpin")
+  public static let unpinned = Loc.tr("UI", "Unpinned", fallback: "Unpinned")
   public static let unpublish = Loc.tr("UI", "Unpublish", fallback: "Unpublish")
   public static let unread = Loc.tr("UI", "Unread", fallback: "Unread")
   public static let unselectAll = Loc.tr("UI", "Unselect all", fallback: "Unselect all")

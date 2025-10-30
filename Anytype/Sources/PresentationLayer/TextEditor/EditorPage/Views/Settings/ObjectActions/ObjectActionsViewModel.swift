@@ -115,6 +115,7 @@ final class ObjectActionsViewModel {
                 position: first.map { .above(widgetId: $0.id) } ?? .end
             )
         }
+        toastData = ToastBarData(pinned ? Loc.unpinned : Loc.pinned)
         dismiss.toggle()
     }
 
