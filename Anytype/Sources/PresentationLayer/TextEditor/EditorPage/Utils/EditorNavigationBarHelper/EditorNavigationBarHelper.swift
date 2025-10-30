@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import Services
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class EditorNavigationBarHelper {
@@ -16,6 +17,7 @@ final class EditorNavigationBarHelper {
     private let selectAllButton: UIButton
 
     private let settingsItem: UIEditorBarButtonItem
+    private let settingsMenuView: UIView?
     private let syncStatusItem: EditorSyncStatusItem
     private let webBannerItem: EditorWebBannerItem
     private let rightContanerForEditing: UIView
@@ -38,6 +40,9 @@ final class EditorNavigationBarHelper {
     init(
         navigationBarView: EditorNavigationBarView,
         navigationBarBackgroundView: UIView,
+        objectId: String,
+        spaceId: String,
+        output: (any ObjectSettingsCoordinatorOutput)?,
         onSettingsBarButtonItemTap: @escaping () -> Void,
         onSelectAllBarButtonItemTap: @escaping (Bool) -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
@@ -48,6 +53,16 @@ final class EditorNavigationBarHelper {
         self.navigationBarView = navigationBarView
         self.navigationBarBackgroundView = navigationBarBackgroundView
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
+
+        if FeatureFlags.newObjectSettings {
+            let menuContainer = ObjectSettingsMenuContainer(objectId: objectId, spaceId: spaceId, output: output)
+            let hostingController = UIHostingController(rootView: menuContainer)
+            hostingController.view.backgroundColor = .clear
+            self.settingsMenuView = hostingController.view
+        } else {
+            self.settingsMenuView = nil
+        }
+
         self.syncStatusItem = EditorSyncStatusItem(onTap: onSyncStatusTap)
         self.webBannerItem = EditorWebBannerItem(onTap: onWebBannerTap)
 
@@ -94,11 +109,19 @@ final class EditorNavigationBarHelper {
         )
         
         self.rightContanerForEditing.layoutUsing.stack {
-            $0.hStack(
-                spacing: 12,
-                syncStatusItem,
-                settingsItem
-            )
+            if FeatureFlags.newObjectSettings, let settingsMenuView {
+                $0.hStack(
+                    spacing: 12,
+                    syncStatusItem,
+                    settingsMenuView
+                )
+            } else {
+                $0.hStack(
+                    spacing: 12,
+                    syncStatusItem,
+                    settingsItem
+                )
+            }
         }
         
         navigationBarView.bannerView = webBannerItem

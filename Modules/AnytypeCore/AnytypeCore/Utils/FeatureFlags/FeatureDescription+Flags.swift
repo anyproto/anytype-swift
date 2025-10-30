@@ -69,6 +69,13 @@ public extension FeatureDescription {
         type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
         defaultValue: false
     )
+    
+    static let newObjectSettings = FeatureDescription(
+        title: "New Object Settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Experemental
     

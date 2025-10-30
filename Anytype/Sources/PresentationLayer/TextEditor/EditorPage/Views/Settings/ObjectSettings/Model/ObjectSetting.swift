@@ -26,7 +26,26 @@ extension ObjectSetting {
             return .object
         }
     }
-    
+
+    var menuOrder: Int {
+        switch self {
+        case .relations:
+            return 0
+        case .icon:
+            return 1
+        case .cover:
+            return 2
+        case .description:
+            return 10
+        case .resolveConflict:
+            return 11
+        case .webPublishing:
+            return 12
+        case .history:
+            return 21
+        }
+    }
+
     var title: String {
         switch self {
         case .icon:

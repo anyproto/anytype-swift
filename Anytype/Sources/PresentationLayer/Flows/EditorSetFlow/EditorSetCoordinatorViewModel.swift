@@ -253,10 +253,10 @@ final class EditorSetCoordinatorViewModel:
     
     func templateEditingHandler(
         setting: ObjectCreationSetting,
-        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onSetAsDefaultTemplate: @escaping (String) -> Void,
         onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     ) {
-        legacySetObjectCreationSettingsCoordinator.templateEditingHandler(setting: setting, onSetAsDefaultTempalte: onSetAsDefaultTempalte, onTemplateSelection: onTemplateSelection)
+        legacySetObjectCreationSettingsCoordinator.templateEditingHandler(setting: setting, onSetAsDefaultTemplate: onSetAsDefaultTemplate, onTemplateSelection: onTemplateSelection)
     }
     
     func onObjectTypeLayoutTap(_ data: LayoutPickerData) {
@@ -282,7 +282,7 @@ final class EditorSetCoordinatorViewModel:
 
         templatesCoordinator.showTemplatesPicker(
             data: data,
-            onSetAsDefaultTempalte: { [weak self] templateId in
+            onSetAsDefaultTemplate: { [weak self] templateId in
                 self?.setTemplateAsDefault(objectId: objectId, templateId: templateId)
             }
         )

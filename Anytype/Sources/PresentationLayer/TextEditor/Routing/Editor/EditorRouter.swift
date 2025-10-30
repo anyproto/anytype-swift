@@ -365,7 +365,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func showTemplatesPicker() {
         templatesCoordinator.showTemplatesPicker(
             document: document,
-            onSetAsDefaultTempalte: { [weak self] templateId in
+            onSetAsDefaultTemplate: { [weak self] templateId in
                 self?.didTapUseTemplateAsDefault(templateId: templateId)
             }
         )
@@ -440,7 +440,7 @@ extension EditorRouter {
         setObjectCreationSettingsCoordinator.showTemplateEditing(
             setting: setting,
             onTemplateSelection: nil,
-            onSetAsDefaultTempalte: { [weak self] templateId in
+            onSetAsDefaultTemplate: { [weak self] templateId in
                 self?.didTapUseTemplateAsDefault(templateId: templateId)
             },
             completion: { [weak self] in

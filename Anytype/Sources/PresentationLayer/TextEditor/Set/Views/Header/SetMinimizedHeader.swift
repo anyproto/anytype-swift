@@ -69,7 +69,25 @@ struct SetMinimizedHeader: View {
         .frame(width: 28, height: 28)
     }
     
+    @ViewBuilder
     private var settingsButton: some View {
+        if FeatureFlags.newObjectSettings {
+            settingsMenuButton
+        } else {
+            settingsActionButton
+        }
+    }
+
+    private var settingsMenuButton: some View {
+        ObjectSettingsMenuContainer(
+            objectId: model.setDocument.objectId,
+            spaceId: model.setDocument.spaceId,
+            output: model.headerSettingsViewModel.output
+        )
+        .frame(width: 44, height: 44)
+    }
+
+    private var settingsActionButton: some View {
         EditorBarButtonItem(
             imageAsset: .X24.more,
             state: EditorBarItemState(

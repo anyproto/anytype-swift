@@ -8,7 +8,7 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject, SetObjectCreat
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
-        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onSetAsDefaultTemplate: @escaping (String) -> Void,
         completion: (() -> Void)?
     )
 }
@@ -32,7 +32,7 @@ final class SetObjectCreationSettingsCoordinator:
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
-        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onSetAsDefaultTemplate: @escaping (String) -> Void,
         completion: (() -> Void)?
     ) {
         let editorView = EditorPageCoordinatorView(
@@ -47,10 +47,13 @@ final class SetObjectCreationSettingsCoordinator:
             }
         )
         
-        self.useAsTemplateAction = onSetAsDefaultTempalte
+        self.useAsTemplateAction = onSetAsDefaultTemplate
         
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: UIHostingController(rootView: editorView),
+            objectId: setting.templateId,
+            spaceId: setting.spaceId,
+            output: self,
             onSettingsTap: { [weak self] in
                 guard let self = self else { return }
                 editorModuleInput?.showSettings(output: self)
@@ -112,20 +115,20 @@ final class SetObjectCreationSettingsCoordinator:
     
     func templateEditingHandler(
         setting: ObjectCreationSetting,
-        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onSetAsDefaultTemplate: @escaping (String) -> Void,
         onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     ) {
         showTemplateEditing(
             setting: setting,
             onTemplateSelection: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true) {
-                    onSetAsDefaultTempalte(setting.templateId)
+                    onSetAsDefaultTemplate(setting.templateId)
                     onTemplateSelection?(setting)
                 }
             },
-            onSetAsDefaultTempalte: { [weak self] templateId in
+            onSetAsDefaultTemplate: { [weak self] templateId in
                 self?.navigationContext.dismissTopPresented(animated: true, completion: {
-                    onSetAsDefaultTempalte(templateId)
+                    onSetAsDefaultTemplate(templateId)
                 })
             },
             completion: nil
