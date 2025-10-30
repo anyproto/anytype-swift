@@ -5,17 +5,11 @@ struct SpaceHubList: View {
     
     @Bindable var model: SpaceHubViewModel
     
-    @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
+    @State private var draggedSpaceViewId: String?
     @State private var draggedInitialIndex: Int?
     @State private var vaultBackToRootsToggle = FeatureFlags.vaultBackToRoots
     
     var body: some View {
-        let _ = Self._printChanges()
-        return content
-    }
-    
-    @ViewBuilder
-    private var content: some View {
         if model.filteredSpaces.isEmpty && model.searchText.isEmpty {
             emptyStateView
         } else if model.filteredSpaces.isNotEmpty {
@@ -46,45 +40,45 @@ struct SpaceHubList: View {
         }
     }
     
-    private func spaceCard(_ space: ParticipantSpaceViewDataWithPreview) -> some View {
+    @ViewBuilder
+    private func spaceCard(_ cardModel: SpaceCardModel) -> some View {
         SpaceCard(
-            spaceData: space,
-            wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
-            draggedSpace: $draggedSpace,
+            model: cardModel,
+            draggedSpaceViewId: $draggedSpaceViewId,
             onTap: {
-                model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
+                model.onSpaceTap(spaceId: cardModel.targetSpaceId)
             },
             onTapCopy: {
-                model.copySpaceInfo(spaceView: space.spaceView)
+                model.copySpaceInfo(spaceViewId: cardModel.spaceViewId)
             },
             onTapMute: {
-                model.muteSpace(spaceView: space.spaceView)
+                model.muteSpace(spaceViewId: cardModel.spaceViewId)
             },
             onTapPin: {
-                try await model.pin(spaceView: space.spaceView)
+                try await model.pin(spaceViewId: cardModel.spaceViewId)
             },
             onTapUnpin: {
-                try await model.unpin(spaceView: space.spaceView)
+                try await model.unpin(spaceViewId: cardModel.spaceViewId)
             },
             onTapSettings: {
-                model.openSpaceSettings(spaceId: space.spaceView.targetSpaceId)
+                model.openSpaceSettings(spaceId: cardModel.targetSpaceId)
             },
             onTapDelete: {
-                model.onDeleteSpace(spaceId: space.spaceView.targetSpaceId)
+                model.onDeleteSpace(spaceId: cardModel.targetSpaceId)
             }
         )
-        .equatable()
         .padding(.horizontal, vaultBackToRootsToggle ? 16 : 0)
-        .if(space.spaceView.isPinned) {
+        .if(cardModel.isPinned) {
             $0.onDrop(
                 of: [.text],
-                delegate:  SpaceHubDropDelegate(
-                    destinationItem: space,
+                delegate: SpaceHubDropDelegate(
+                    destinationSpaceViewId: cardModel.spaceViewId,
                     allSpaces: $model.spaces,
-                    draggedItem: $draggedSpace,
+                    draggedSpaceViewId: $draggedSpaceViewId,
                     initialIndex: $draggedInitialIndex
                 )
             )
         }
+        .id(cardModel.id)
     }
 }

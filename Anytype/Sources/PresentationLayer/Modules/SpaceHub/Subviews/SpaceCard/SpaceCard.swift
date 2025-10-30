@@ -1,11 +1,10 @@
 import SwiftUI
 import AnytypeCore
 
-struct SpaceCard: View, @preconcurrency Equatable {
-    
-    let spaceData: ParticipantSpaceViewDataWithPreview
-    let wallpaper: SpaceWallpaperType
-    @Binding var draggedSpace: ParticipantSpaceViewDataWithPreview?
+struct SpaceCard: View {
+
+    let model: SpaceCardModel
+    @Binding var draggedSpaceViewId: String?
     let onTap: () -> Void
     let onTapCopy: () -> Void
     let onTapMute: () -> Void
@@ -13,48 +12,48 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTapUnpin: () async throws -> Void
     let onTapSettings: () -> Void
     let onTapDelete: () -> Void
+
+    @State private var vaultBackToRootsToggle = FeatureFlags.vaultBackToRoots
+    @State private var muteSpacePossibilityToggle = FeatureFlags.muteSpacePossibility
     
     var body: some View {
-        let _ = Self._printChanges()
-        return Button {
+        Button {
             onTap()
         } label: {
-            if !FeatureFlags.vaultBackToRoots {
+            if !vaultBackToRootsToggle {
                 SpaceCardLabel(
-                    spaceData: spaceData,
-                    wallpaper: wallpaper,
-                    draggedSpace: $draggedSpace
+                    model: model,
+                    draggedSpaceViewId: $draggedSpaceViewId
                 )
             } else {
                 NewSpaceCardLabel(
-                    spaceData: spaceData,
-                    wallpaper: wallpaper,
-                    draggedSpace: $draggedSpace
+                    model: model,
+                    draggedSpaceViewId: $draggedSpaceViewId
                 )
             }
         }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         .contextMenu { menuItems.tint(Color.Text.primary) }
     }
-    
+
     @ViewBuilder
     private var menuItems: some View {
-        if spaceData.spaceView.isLoading {
+        if model.isLoading {
             copyButton
             Divider()
         }
-        
-        if spaceData.spaceView.isPinned {
+
+        if model.isPinned {
             unpinButton
         } else {
             pinButton
         }
-        
-        if FeatureFlags.muteSpacePossibility, spaceData.spaceView.isShared {
+
+        if muteSpacePossibilityToggle, model.isShared {
             muteButton
         }
-        
-        if spaceData.spaceView.isLoading {
+
+        if model.isLoading {
             deleteButton
         } else {
             settingsButton
@@ -74,9 +73,9 @@ struct SpaceCard: View, @preconcurrency Equatable {
             onTapMute()
         } label: {
             HStack {
-                Text(spaceData.spaceView.pushNotificationMode.isUnmutedAll ? Loc.mute : Loc.unmute)
+                Text(model.allNotificationsUnmuted ? Loc.mute : Loc.unmute)
                 Spacer()
-                Image(systemName: spaceData.spaceView.pushNotificationMode.isUnmutedAll ? "bell.slash" : "bell")
+                Image(systemName: model.allNotificationsUnmuted ? "bell.slash" : "bell")
             }
         }
     }
@@ -122,11 +121,5 @@ struct SpaceCard: View, @preconcurrency Equatable {
             Image(systemName: "trash")
                 .tint(.red)
         }
-    }
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.spaceData == rhs.spaceData
-        && lhs.wallpaper == rhs.wallpaper
-        && lhs.draggedSpace == rhs.draggedSpace
     }
 }

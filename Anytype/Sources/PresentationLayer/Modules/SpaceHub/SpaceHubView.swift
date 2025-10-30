@@ -14,8 +14,7 @@ struct SpaceHubView: View {
     }
     
     var body: some View {
-        let _ = Self._printChanges()
-        return content
+        content
             .onAppear { model.onAppear() }
             .taskWithMemoryScope { await model.startSubscriptions() }
             .task(item: model.spaceMuteData) { data in
