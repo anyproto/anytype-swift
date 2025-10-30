@@ -1,6 +1,7 @@
 import SwiftUI
 import AnytypeCore
 
+// Is part of main view SpaceHubView. Related from SpaceHubViewModel
 struct SpaceHubList: View {
     
     @Bindable var model: SpaceHubViewModel

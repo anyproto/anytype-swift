@@ -35,24 +35,24 @@ struct SpaceCard: View {
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         .contextMenu { menuItems.tint(Color.Text.primary) }
     }
-
+    
     @ViewBuilder
     private var menuItems: some View {
         if model.isLoading {
             copyButton
             Divider()
         }
-
+        
         if model.isPinned {
             unpinButton
         } else {
             pinButton
         }
-
+        
         if muteSpacePossibilityToggle, model.isShared {
             muteButton
         }
-
+        
         if model.isLoading {
             deleteButton
         } else {
