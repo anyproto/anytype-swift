@@ -5,7 +5,7 @@ struct SpaceCardModel: Equatable, Identifiable {
     let spaceViewId: String
     let targetSpaceId: String
     let objectIconImage: Icon
-    let name: String
+    let nameWithPlaceholder: String
     let isPinned: Bool
     let isLoading: Bool
     let isShared: Bool

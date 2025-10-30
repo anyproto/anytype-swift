@@ -15,7 +15,7 @@ struct SpaceCardLabel: View {
                 .frame(width: 56, height: 56)
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text(model.name.withPlaceholder)
+                    Text(model.nameWithPlaceholder)
                         .anytypeFontStyle(.bodySemibold)
                         .lineLimit(1)
                         .foregroundStyle(Color.Text.primary)

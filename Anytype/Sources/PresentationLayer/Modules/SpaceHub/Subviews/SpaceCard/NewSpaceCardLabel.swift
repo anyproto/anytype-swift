@@ -44,6 +44,7 @@ struct NewSpaceCardLabel: View {
             wallpaper: model.wallpaper,
             spaceIcon: model.objectIconImage
         ))
+        .background(Color.Background.primary)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
@@ -51,7 +52,7 @@ struct NewSpaceCardLabel: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .bottom) {
                 HStack(alignment: .center) {
-                    AnytypeText(model.name.withPlaceholder, style: .bodySemibold)
+                    AnytypeText(model.nameWithPlaceholder, style: .bodySemibold)
                         .lineLimit(1)
                         .foregroundColor(Color.Text.primary)
                     if model.isMuted {
@@ -81,7 +82,7 @@ struct NewSpaceCardLabel: View {
     private var mainContentWithoutMessage: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                AnytypeText(model.name.withPlaceholder, style: .bodySemibold)
+                AnytypeText(model.nameWithPlaceholder, style: .bodySemibold)
                     .lineLimit(1)
                     .foregroundColor(Color.Text.primary)
                 if model.isMuted {

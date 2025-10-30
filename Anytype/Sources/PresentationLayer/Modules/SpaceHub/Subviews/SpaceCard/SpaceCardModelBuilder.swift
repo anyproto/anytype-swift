@@ -54,7 +54,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             spaceViewId: spaceView.id,
             targetSpaceId: spaceView.targetSpaceId,
             objectIconImage: spaceView.objectIconImage,
-            name: spaceView.name,
+            nameWithPlaceholder: spaceView.name.withPlaceholder,
             isPinned: spaceView.isPinned,
             isLoading: spaceView.isLoading,
             isShared: spaceView.isShared,
