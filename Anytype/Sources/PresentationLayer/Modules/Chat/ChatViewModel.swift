@@ -10,49 +10,51 @@ import ProtobufMessages
 @preconcurrency import Combine
 
 @MainActor
-final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProviderHandler {
+@Observable
+final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     // MARK: - DI
     
     let spaceId: String
     let chatId: String
+    @ObservationIgnored
     private weak var output: (any ChatModuleOutput)?
     
-    @Injected(\.blockService)
+    @Injected(\.blockService) @ObservationIgnored
     private var blockService: any BlockServiceProtocol
-    @Injected(\.participantsStorage)
+    @Injected(\.participantsStorage) @ObservationIgnored
     private var accountParticipantsStorage: any ParticipantsStorageProtocol
-    @Injected(\.mentionObjectsService)
+    @Injected(\.mentionObjectsService) @ObservationIgnored
     private var mentionObjectsService: any MentionObjectsServiceProtocol
-    @Injected(\.chatActionService)
+    @Injected(\.chatActionService) @ObservationIgnored
     private var chatActionService: any ChatActionServiceProtocol
-    @Injected(\.fileActionsService)
+    @Injected(\.fileActionsService) @ObservationIgnored
     private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.chatService)
+    @Injected(\.chatService) @ObservationIgnored
     private var chatService: any ChatServiceProtocol
-    @Injected(\.chatInputConverter)
+    @Injected(\.chatInputConverter) @ObservationIgnored
     private var chatInputConverter: any ChatInputConverterProtocol
-    @Injected(\.chatMessageLimits)
+    @Injected(\.chatMessageLimits) @ObservationIgnored
     private var chatMessageLimits: any ChatMessageLimitsProtocol
-    @Injected(\.messageTextBuilder)
+    @Injected(\.messageTextBuilder) @ObservationIgnored
     private var messageTextBuilder: any MessageTextBuilderProtocol
-    @Injected(\.searchService)
+    @Injected(\.searchService) @ObservationIgnored
     private var searchService: any SearchServiceProtocol
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.iconColorService)
+    @Injected(\.iconColorService) @ObservationIgnored
     private var iconColorService: any IconColorServiceProtocol
-    @Injected(\.bookmarkService)
+    @Injected(\.bookmarkService) @ObservationIgnored
     private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.participantSpacesStorage)
+    @Injected(\.participantSpacesStorage) @ObservationIgnored
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.pushNotificationsAlertHandler)
+    @Injected(\.pushNotificationsAlertHandler) @ObservationIgnored
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
-    @Injected(\.notificationsCenterService)
+    @Injected(\.notificationsCenterService) @ObservationIgnored
     private var notificationsCenterService: any NotificationsCenterServiceProtocol
-    @Injected(\.workspaceService)
+    @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.universalLinkParser)
+    @Injected(\.universalLinkParser) @ObservationIgnored
     private var universalLinkParser: any UniversalLinkParserProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
@@ -65,64 +67,75 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     // Global
     
-    @Published var dataLoaded = false
-    @Published var canEdit = false
-    @Published var qrCodeInviteUrl: URL?
+    var dataLoaded = false
+    var canEdit = false
+    var qrCodeInviteUrl: URL?
+    @ObservationIgnored
     var keyboardDismiss: KeyboardDismiss?
     
     // Input Message
     
-    @Published var message = NSAttributedString()
-    @Published var inputFocused = false
-    @Published var replyToMessage: ChatInputReplyModel?
-    @Published var editMessage: ChatMessage?
-    @Published var sendMessageTaskInProgress: Bool = false
-    @Published var sendButtonIsLoading: Bool = false
-    @Published var messageTextLimit: String?
-    @Published var textLimitReached = false
-    @Published var typesForCreateObject: [ObjectType] = []
-    @Published var participantSpaceView: ParticipantSpaceViewData?
+    var message = NSAttributedString()
+    var inputFocused = false
+    var replyToMessage: ChatInputReplyModel?
+    var editMessage: ChatMessage?
+    var sendMessageTaskInProgress: Bool = false
+    var sendButtonIsLoading: Bool = false
+    var messageTextLimit: String?
+    var textLimitReached = false
+    var typesForCreateObject: [ObjectType] = []
+    var participantSpaceView: ParticipantSpaceViewData?
     
     // Actions
-    @Published var actionModel: ChatActionPanelModel = .hidden
+    var actionModel: ChatActionPanelModel = .hidden
     
     // Attachment Handler
     let attachmentHandler: any ChatAttachmentHandlerProtocol
     
     // Attachment Handler Published State
-    @Published var linkedObjects: [ChatLinkedObject] = []
-    @Published var attachmentsDownloading: Bool = false
-    @Published var photosItemsTask = UUID()
+    var linkedObjects: [ChatLinkedObject] = []
+    var attachmentsDownloading: Bool = false
+    var photosItemsTask = UUID()
     
     // List
     
-    @Published var mentionSearchState = ChatTextMention.finish
-    @Published var mesageBlocks: [MessageSectionData] = []
-    @Published var mentionObjectsModels: [MentionObjectModel] = []
-    @Published var collectionViewScrollProxy = ChatCollectionScrollProxy()
-    @Published var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
-    @Published var messageHiglightId: String = ""
+    var mentionSearchState = ChatTextMention.finish
+    var mesageBlocks: [MessageSectionData] = []
+    var mentionObjectsModels: [MentionObjectModel] = []
+    var collectionViewScrollProxy = ChatCollectionScrollProxy()
+    var messageYourBackgroundColor: Color = .Background.Chat.bubbleYour
+    var messageHiglightId: String = ""
     
+    @ObservationIgnored
     private var messages: [FullChatMessage] = []
+    @ObservationIgnored
     private var chatState: ChatState?
+    @ObservationIgnored
     private var participants: [Participant] = []
+    @ObservationIgnored
     private var firstUnreadMessageOrderId: String?
+    @ObservationIgnored
     private var bottomVisibleOrderId: String?
+    @ObservationIgnored
     private var bigDistanceToBottom: Bool = false
+    @ObservationIgnored
     private var forceHiddenActionPanel: Bool = true
+    @ObservationIgnored
     private var showScreenLogged = false
-    
+    @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
+    @ObservationIgnored
     var conversationType: ConversationType {
         participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
     }
+    @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
     // Alerts
     
-    @Published var deleteMessageConfirmation: MessageViewData?
-    @Published var showSendLimitAlert = false
-    @Published var toastBarData: ToastBarData?
+    var deleteMessageConfirmation: MessageViewData?
+    var showSendLimitAlert = false
+    var toastBarData: ToastBarData?
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self.spaceId = spaceId
@@ -134,20 +147,6 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId)
-        
-        setupAttachmentHandler()
-    }
-    
-    private func setupAttachmentHandler() {
-        // Subscribe to attachment handler publishers
-        attachmentHandler.linkedObjectsPublisher
-            .assign(to: &$linkedObjects)
-        
-        attachmentHandler.attachmentsDownloadingPublisher
-            .assign(to: &$attachmentsDownloading)
-        
-        attachmentHandler.photosItemsTaskPublisher
-            .assign(to: &$photosItemsTask)
     }
     
     func onAppear() {
@@ -231,8 +230,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
         async let spaceViewSub: () = subscribeOnSpaceView()
+        async let linkedObjectsSub: () = subscribeOnLinkedObjects()
+        async let attachmentsDownloadingSub: () = subscribeOnAttachmentsDownloading()
+        async let photosItemsTaskSub: () = subscribeOnPhotosItemsTask()
 
-        (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub)
+        _ = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub, linkedObjectsSub, attachmentsDownloadingSub, photosItemsTaskSub)
     }
     
     func subscribeOnMessages() async throws {
@@ -648,6 +650,24 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             self.participantSpaceView = participantSpaceView
             await handlePushNotificationsAlert()
+        }
+    }
+    
+    private func subscribeOnLinkedObjects() async {
+        for await linkedObjects in attachmentHandler.linkedObjectsPublisher.values {
+            self.linkedObjects = linkedObjects
+        }
+    }
+    
+    private func subscribeOnAttachmentsDownloading() async {
+        for await attachmentsDownloading in attachmentHandler.attachmentsDownloadingPublisher.values {
+            self.attachmentsDownloading = attachmentsDownloading
+        }
+    }
+    
+    private func subscribeOnPhotosItemsTask() async {
+        for await photosItemsTask in attachmentHandler.photosItemsTaskPublisher.values {
+            self.photosItemsTask = photosItemsTask
         }
     }
 
