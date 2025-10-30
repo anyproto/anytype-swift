@@ -105,7 +105,7 @@ final class ObjectSettingsMenuViewModel: ObservableObject {
         case .linkItself:
             actionsViewModel.linkItselfAction()
         case .makeAsTemplate:
-            try? await actionsViewModel.makeAsTempalte()
+            try? await actionsViewModel.makeAsTemplate()
         case .templateToggleDefaultState:
             try? await actionsViewModel.templateToggleDefaultState()
         case .delete:
