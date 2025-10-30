@@ -77,7 +77,7 @@ public extension StandardButtonStyle {
         case .primaryLarge:
             return StandardButtonConfig(
                 normal: StandardButtonConfig.Style(
-                    textColor: .Text.inversion,
+                    textColor: .Text.white,
                     backgroundColor: .Control.accent100
                 ),
                 higlighted: StandardButtonConfig.Style(
