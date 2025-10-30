@@ -8,9 +8,10 @@ import Loc
 @MainActor
 @Observable
 final class SpaceHubViewModel {
-    var spaces: [ParticipantSpaceViewDataWithPreview]?
-    var searchText: String = ""
     
+    var spaces: [ParticipantSpaceViewDataWithPreview]?
+    var dataLoaded = false
+    var searchText: String = ""
     var filteredSpaces: [ParticipantSpaceViewDataWithPreview] = []
     
     var wallpapers: [String: SpaceWallpaperType] = [:]
@@ -23,7 +24,6 @@ final class SpaceHubViewModel {
     
     @ObservationIgnored
     private weak var output: (any SpaceHubModuleOutput)?
-    
 
     @Injected(\.userDefaultsStorage) @ObservationIgnored
     private var userDefaults: any UserDefaultsStorageProtocol
@@ -127,6 +127,7 @@ final class SpaceHubViewModel {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
+            self.dataLoaded = spaces.isNotEmpty
             showLoading = spaces.contains { $0.spaceView.isLoading }
             updateFilteredSpaces()
         }

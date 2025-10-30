@@ -12,7 +12,8 @@ struct SpaceHubCoordinatorView: View {
     @Namespace private var namespace
     
     var body: some View {
-        content
+        let _ = Self._printChanges()
+        return content
             .onAppear {
                 model.keyboardDismiss = keyboardDismiss
                 model.dismissAllPresented = dismissAllPresented

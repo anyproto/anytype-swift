@@ -15,7 +15,8 @@ struct SpaceCard: View, @preconcurrency Equatable {
     let onTapDelete: () -> Void
     
     var body: some View {
-        Button {
+        let _ = Self._printChanges()
+        return Button {
             onTap()
         } label: {
             if !FeatureFlags.vaultBackToRoots {
