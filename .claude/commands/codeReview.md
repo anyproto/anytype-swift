@@ -44,6 +44,7 @@ When analyzing the diff, pay special attention to:
 5. **Tests & Mocks**: When refactoring, ensure tests and mocks are updated
 6. **Unused Code**: After refactoring, check that old code is removed
 7. **Comments**: Only add if explicitly needed (per CLAUDE.md guidelines)
+8. **Dependency Injection in Structs**: Avoid using `@Injected` properties in structs - dependency resolution happens on every struct recreation. Use classes with `@Observable` instead. See [PR #4173](https://github.com/anyproto/anytype-swift/pull/4173)
 
 ### Step 4: Output Review
 
