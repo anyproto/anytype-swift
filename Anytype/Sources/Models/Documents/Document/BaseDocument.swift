@@ -268,12 +268,10 @@ final class BaseDocument: BaseDocumentProtocol, @unchecked Sendable {
             self?.triggerSync(updates: [.syncStatus])
         }.store(in: &subscriptions)
         
-        Task.detached { [weak self, accountParticipantsStorage, spaceId] in
+        Task { @MainActor [weak self, accountParticipantsStorage, spaceId] in
             for await canEdit in accountParticipantsStorage.canEditSequence(spaceId: spaceId) {
-                await Task { @MainActor [weak self] in
-                    self?.participantIsEditor = canEdit
-                    self?.triggerSync(updates: [.restrictions])
-                }.value
+                self?.participantIsEditor = canEdit
+                self?.triggerSync(updates: [.restrictions])
             }
         }
         .cancellable()

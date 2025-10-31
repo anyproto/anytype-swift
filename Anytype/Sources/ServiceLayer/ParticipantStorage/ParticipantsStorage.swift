@@ -31,11 +31,7 @@ actor ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
     private let subscriptionId = "SubscriptionId.Participant-\(UUID().uuidString)"
 
     // MARK: - DI
-
-//    private let multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
-//        subIdPrefix: Constants.subscriptionIdPrefix,
-//        subscriptionBuilder: AcountParticipantSubscriptionBuilder()
-//    )
+    
     private let stream = AsyncToManyStream<[Participant]>()
     private var subscription: Task<Void, Never>?
     
@@ -64,7 +60,7 @@ actor ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
         let data = subscriptionBuilder.build(accountId: accountManager.account.id, subId: subscriptionId)
         try? await subscriptionStorage.startOrUpdateSubscription(data: data)
         
-        subscription = Task.detached { [weak self, subscriptionStorage] in
+        subscription = Task { [weak self, subscriptionStorage] in
             for await state in subscriptionStorage.statePublisher.values {
                 let participants = state.items.compactMap { try? Participant(details: $0) }
                 self?.stream.send(participants)
@@ -74,15 +70,8 @@ actor ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
 
     func stopSubscription() async {
         try? await subscriptionStorage.stopSubscription()
+        subscription?.cancel()
         subscription = nil
         stream.clearLastValue()
-//        await multispaceSubscriptionHelper.stopSubscription()
-//        storage.value.removeAll()
     }
-
-    // MARK: - Private
-
-//    private func updatePartiipants() {
-//        storage.value = multispaceSubscriptionHelper.data.values.flatMap { $0 }
-//    }
 }
