@@ -2,61 +2,87 @@ import Foundation
 import Services
 import Combine
 import AnytypeCore
+import AsyncTools
+import AsyncAlgorithms
 
 protocol ParticipantsStorageProtocol: AnyObject, Sendable {
     var participants: [Participant] { get }
-    var participantsPublisher: AnyPublisher<[Participant], Never> { get }
+    var participantsSequence: AnyAsyncSequence<[Participant]> { get }
     func startSubscription() async
     func stopSubscription() async
 }
 
 extension ParticipantsStorageProtocol {
-    func participantPublisher(spaceId: String) -> AnyPublisher<Participant, Never> {
-        participantsPublisher.compactMap { $0.first { $0.spaceId == spaceId } }.eraseToAnyPublisher()
+    func participantSequence(spaceId: String) -> AnyAsyncSequence<Participant> {
+        participantsSequence.compactMap { $0.first { $0.spaceId == spaceId } }.removeDuplicates().eraseToAnyAsyncSequence()
     }
 
-    func permissionPublisher(spaceId: String) -> AnyPublisher<ParticipantPermissions, Never> {
-        participantPublisher(spaceId: spaceId).map(\.permission).removeDuplicates().eraseToAnyPublisher()
+    func permissionSequence(spaceId: String) -> AnyAsyncSequence<ParticipantPermissions> {
+        participantSequence(spaceId: spaceId).map(\.permission).removeDuplicates().eraseToAnyAsyncSequence()
     }
 
-    func canEditPublisher(spaceId: String) -> AnyPublisher<Bool, Never> {
-        participantPublisher(spaceId: spaceId).map(\.permission.canEdit).removeDuplicates().eraseToAnyPublisher()
+    func canEditSequence(spaceId: String) -> AnyAsyncSequence<Bool> {
+        participantSequence(spaceId: spaceId).map(\.permission.canEdit).removeDuplicates().eraseToAnyAsyncSequence()
     }
 }
 
-final class ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
+actor ParticipantsStorage: ParticipantsStorageProtocol, Sendable {
 
-    private enum Constants {
-        static let subscriptionIdPrefix = "SubscriptionId.Participant-"
-    }
+    private let subscriptionId = "SubscriptionId.Participant-\(UUID().uuidString)"
 
     // MARK: - DI
 
-    private let multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
-        subIdPrefix: Constants.subscriptionIdPrefix,
-        subscriptionBuilder: AcountParticipantSubscriptionBuilder()
-    )
-    private let storage = AtomicPublishedStorage<[Participant]>([])
-
+//    private let multispaceSubscriptionHelper = MultispaceSubscriptionHelper<Participant>(
+//        subIdPrefix: Constants.subscriptionIdPrefix,
+//        subscriptionBuilder: AcountParticipantSubscriptionBuilder()
+//    )
+    private let stream = AsyncToManyStream<[Participant]>()
+    private var subscription: Task<Void, Never>?
+    
+    @LazyInjected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
+    
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }()
+    
+    private let subscriptionBuilder = AcountParticipantSubscriptionBuilder()
+    
     // MARK: - State
 
-    var participants: [Participant] { storage.value }
-    var participantsPublisher: AnyPublisher<[Participant], Never> { storage.publisher.removeDuplicates().eraseToAnyPublisher() }
+    nonisolated var participants: [Participant] { stream.value ?? [] }
+    nonisolated var participantsSequence: AnyAsyncSequence<[Participant]> { stream.eraseToAnyAsyncSequence() }
 
     func startSubscription() async {
-        await multispaceSubscriptionHelper.startSubscription { [weak self] in
-            self?.updatePartiipants()
+        guard subscription.isNil else {
+            anytypeAssertionFailure("Try to start ParticipantsStorage multiple times")
+            return
+        }
+        
+        let data = subscriptionBuilder.build(accountId: accountManager.account.id, subId: subscriptionId)
+        try? await subscriptionStorage.startOrUpdateSubscription(data: data)
+        
+        subscription = Task.detached { [weak self, subscriptionStorage] in
+            for await state in subscriptionStorage.statePublisher.values {
+                let participants = state.items.compactMap { try? Participant(details: $0) }
+                self?.stream.send(participants)
+            }
         }
     }
 
     func stopSubscription() async {
-        await multispaceSubscriptionHelper.stopSubscription()
-        storage.value.removeAll()
+        try? await subscriptionStorage.stopSubscription()
+        subscription = nil
+        stream.clearLastValue()
+//        await multispaceSubscriptionHelper.stopSubscription()
+//        storage.value.removeAll()
     }
 
     // MARK: - Private
 
-    private func updatePartiipants() {
-        storage.value = multispaceSubscriptionHelper.data.values.flatMap { $0 }
-    }
+//    private func updatePartiipants() {
+//        storage.value = multispaceSubscriptionHelper.data.values.flatMap { $0 }
+//    }
 }

@@ -20,6 +20,8 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return try await makeSearchToggler(data: data)
         case let .objects(data):
             return try await makeObjectsToggler(data: data)
+        case let .crossSpaceSearch(data):
+            return try await makeCrossSpaceSearchToggler(data: data)
         }
     }
     
@@ -48,6 +50,18 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     private func makeObjectsToggler(data: SubscriptionData.Object) async throws -> SubscriptionTogglerResult {
         let response = try await objectSubscriptionService.objectSubscribe(data: data)
+        
+        return SubscriptionTogglerResult(
+            records: response.records,
+            dependencies: response.dependencies,
+            total: response.total,
+            prevCount: response.prevCount,
+            nextCount: response.nextCount
+        )
+    }
+    
+    private func makeCrossSpaceSearchToggler(data: SubscriptionData.CrossSpaceSearch) async throws -> SubscriptionTogglerResult {
+        let response = try await objectSubscriptionService.objectCrossSpaceSearchSubscribe(data: data)
         
         return SubscriptionTogglerResult(
             records: response.records,

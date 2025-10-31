@@ -12,6 +12,10 @@ public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable wher
     
     public init() {}
     
+    public var value: T? {
+        return lastValue
+    }
+    
     public func makeAsyncIterator() -> AsyncIterator {
         subscribe().makeAsyncIterator()
     }
@@ -70,11 +74,18 @@ public final class AsyncToManyStream<T>: AsyncSequence, @unchecked Sendable wher
             continuation.finish()
         }
         continuations.removeAll()
+        lastValue = nil
     }
 
     private func removeContinuation(_ id: UUID) {
         lock.lock()
         defer { lock.unlock() }
         continuations.removeValue(forKey: id)
+    }
+    
+    public func clearLastValue() {
+        lock.lock()
+        defer { lock.unlock() }
+        lastValue = nil
     }
 }

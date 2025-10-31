@@ -1,9 +1,9 @@
 import Foundation
 import Services
 
-final class PropertySubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol, MultispaceSearchDataBuilderProtocol {
+final class PropertySubscriptionDataBuilder: MultispaceOneActiveSubscriptionDataBuilder {
     
-    // MARK: - MultispaceSubscriptionDataBuilderProtocol
+    // MARK: - MultispaceOneActiveSubscriptionDataBuilder
     
     func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData {
         let sort = SearchHelper.sort(
@@ -28,8 +28,6 @@ final class PropertySubscriptionDataBuilder: MultispaceSubscriptionDataBuilderPr
             )
         )
     }
-    
-    // MARK: - MultispaceSearchDataBuilderProtocol
     
     func buildSearch(spaceId: String) -> SearchRequest {
         let sort = SearchHelper.sort(

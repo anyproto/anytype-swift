@@ -103,7 +103,7 @@ final class ObjectTypeWidgetViewModel {
     }
     
     private func startParticipantSubscription() async {
-        for await canEdit in accountParticipantsStorage.canEditPublisher(spaceId: info.spaceId).values {
+        for await canEdit in accountParticipantsStorage.canEditSequence(spaceId: info.spaceId) {
             self.canEdit = canEdit
         }
     }

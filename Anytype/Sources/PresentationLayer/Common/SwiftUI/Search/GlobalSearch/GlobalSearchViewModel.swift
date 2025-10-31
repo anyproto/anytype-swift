@@ -38,7 +38,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func startParticipantTask() async {
-        for await participant in accountParticipantStorage.participantPublisher(spaceId: moduleData.spaceId).values {
+        for await participant in accountParticipantStorage.participantSequence(spaceId: moduleData.spaceId) {
             participantCanEdit = participant.canEdit
             updateSections()
         }

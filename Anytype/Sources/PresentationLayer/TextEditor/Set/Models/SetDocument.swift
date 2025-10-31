@@ -240,10 +240,16 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
         }
         .store(in: &subscriptions)
         
-        accountParticipantsStorage.canEditPublisher(spaceId: spaceId).receiveOnMain().sink { [weak self] canEdit in
-            self?.participantIsEditor = canEdit
-            self?.updateData()
-        }.store(in: &subscriptions)
+        Task.detached { [weak self, accountParticipantsStorage, spaceId] in
+            for await canEdit in accountParticipantsStorage.canEditSequence(spaceId: spaceId) {
+                await Task { @MainActor [weak self] in
+                    self?.participantIsEditor = canEdit
+                    self?.updateData()
+                }.value
+            }
+        }
+        .cancellable()
+        .store(in: &subscriptions)
     }
     
     private func updateData() {
