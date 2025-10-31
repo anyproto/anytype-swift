@@ -1,20 +1,18 @@
 import Foundation
 import Services
 
-@MainActor
-protocol SetSubscriptionDataBuilderProtocol: AnyObject {
+protocol SetSubscriptionDataBuilderProtocol: AnyObject, Sendable {
     
     var subscriptionId: String { get }
     
     func set(_ data: SetSubscriptionData) -> SubscriptionData
 }
 
-@MainActor
-final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
+final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol, Sendable {
     
     let subscriptionId = "Set-\(UUID().uuidString)"
     
-    nonisolated init() {}
+    init() {}
     
     // MARK: - SetSubscriptionDataBuilderProtocol
     

@@ -14,8 +14,8 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     
     @Published private(set) var isRemoveEnabled: Bool = false
 
@@ -27,7 +27,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     
     func startSpaceTask() async {
         for await space in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
-            isRemoveEnabled = space.iconImage?.imageId.isNotNil ?? false
+            isRemoveEnabled = space.objectIconImage.imageId.isNotNil ?? false
         }
     }
     

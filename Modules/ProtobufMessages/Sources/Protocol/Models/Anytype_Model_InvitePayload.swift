@@ -10,7 +10,7 @@
 
 import Foundation
 import SwiftProtobuf
-public struct Anytype_Model_InvitePayload: @unchecked Sendable {
+public struct Anytype_Model_InvitePayload: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -40,17 +40,7 @@ public struct Anytype_Model_InvitePayload: @unchecked Sendable {
 
 extension Anytype_Model_InvitePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".InvitePayload"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "creatorIdentity"),
-    2: .same(proto: "creatorName"),
-    3: .same(proto: "aclKey"),
-    4: .same(proto: "spaceId"),
-    5: .same(proto: "spaceName"),
-    6: .same(proto: "spaceIconCid"),
-    7: .same(proto: "spaceIconEncryptionKeys"),
-    8: .same(proto: "inviteType"),
-    9: .same(proto: "guestKey"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}creatorIdentity\0\u{1}creatorName\0\u{1}aclKey\0\u{1}spaceId\0\u{1}spaceName\0\u{1}spaceIconCid\0\u{1}spaceIconEncryptionKeys\0\u{1}inviteType\0\u{1}guestKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

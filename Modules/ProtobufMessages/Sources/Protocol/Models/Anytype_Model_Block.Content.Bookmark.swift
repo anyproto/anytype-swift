@@ -45,16 +45,7 @@ extension Anytype_Model_Block.Content {
 
 extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Bookmark"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "url"),
-    2: .same(proto: "title"),
-    3: .same(proto: "description"),
-    4: .same(proto: "imageHash"),
-    5: .same(proto: "faviconHash"),
-    6: .same(proto: "type"),
-    7: .same(proto: "targetObjectId"),
-    8: .same(proto: "state"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}url\0\u{1}title\0\u{1}description\0\u{1}imageHash\0\u{1}faviconHash\0\u{1}type\0\u{1}targetObjectId\0\u{1}state\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

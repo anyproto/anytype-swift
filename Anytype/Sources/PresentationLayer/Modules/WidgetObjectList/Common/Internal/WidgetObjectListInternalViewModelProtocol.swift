@@ -35,7 +35,7 @@ protocol WidgetObjectListInternalViewModelProtocol: AnyObject {
 }
 
 extension WidgetObjectListInternalViewModelProtocol {
-    var availableMenuItems: [WidgetObjectListMenuItem] { [.pin, .unpin, .moveToBin] }
+    var availableMenuItems: [WidgetObjectListMenuItem] { [.moveToBin] }
     func onMove(from: IndexSet, to: Int) {}
     func subtitle(for details: ObjectDetails) -> String? { return nil }
 }

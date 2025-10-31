@@ -16,9 +16,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         static let grouppingDateInterval: Int = 60 // seconds
     }
     
-    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
+    private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     
     private let spaceId: String
     private let chatId: String

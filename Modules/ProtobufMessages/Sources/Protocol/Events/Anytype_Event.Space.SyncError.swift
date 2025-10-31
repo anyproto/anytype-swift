@@ -55,12 +55,7 @@ extension Anytype_Event.Space {
     }}
 
 extension Anytype_Event.Space.SyncError: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Null"),
-    1: .same(proto: "StorageLimitExceed"),
-    2: .same(proto: "IncompatibleVersion"),
-    3: .same(proto: "NetworkError"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Null\0\u{1}StorageLimitExceed\0\u{1}IncompatibleVersion\0\u{1}NetworkError\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

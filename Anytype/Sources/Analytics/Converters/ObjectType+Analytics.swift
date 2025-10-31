@@ -15,18 +15,12 @@ extension WidgetSource {
 extension AnytypeWidgetId {
     var analyticsSource: AnalyticsWidgetSource {
         switch self {
-        case .allObjects:
-            return .allObjects
         case .pinned:
             return .pinned
         case .recent:
             return .recent
         case .recentOpen:
             return .recentOpen
-        case .bin:
-            return .bin
-        case .chat:
-            return .chat
         }
     }
 }

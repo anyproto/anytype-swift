@@ -22,7 +22,7 @@ struct NetworkIconView<T: NetworkIconProvider>: View {
         .onAppear {
             updateColor()
         }
-        .onChange(of: provider.background) { _ in
+        .onChange(of: provider.background) {
             updateColor()
         }
         .transition(.opacity)

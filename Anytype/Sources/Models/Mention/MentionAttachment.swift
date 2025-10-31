@@ -2,7 +2,7 @@ import UIKit
 import AnytypeCore
 import Services
 
-final class IconTextAttachment: NSTextAttachment {
+final class IconTextAttachment: NSTextAttachment, @unchecked Sendable {
     let icon: Icon?
     let size: CGSize
     let rightPadding: CGFloat
@@ -88,24 +88,28 @@ final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider, @unche
     }
     
     override func loadView() {
-        MainActor.assumeIsolated {
-            guard let mentionAttachment = textAttachment as? IconTextAttachment else {
-                anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])
-                return
+        guard let mentionAttachment = textAttachment as? IconTextAttachment else {
+            anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])
+            return
+        }
+        guard let icon = mentionAttachment.icon else {
+            view = MainActor.assumeIsolated {
+                return UIView()
             }
-            guard let icon = mentionAttachment.icon else {
-                view = UIView()
-                return
-            }
+            return
+        }
+        let rightPadding = mentionAttachment.rightPadding
+        let container = MainActor.assumeIsolated { () -> UIView in
             let container = UIView()
             let iconView = IconViewUIKit()
             iconView.isUserInteractionEnabled = false
             container.addSubview(iconView) {
-                $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: mentionAttachment.rightPadding))
+                $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: rightPadding))
             }
             iconView.icon = icon
-            view = container
+            return container
         }
+        view = container
     }
 }
 

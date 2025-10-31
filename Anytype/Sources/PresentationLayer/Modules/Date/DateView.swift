@@ -139,7 +139,7 @@ struct DateView: View {
                 .padding(.horizontal, 16)
             }
             .scrollIndicators(.hidden)
-            .onChange(of: model.scrollToRelationId) { id in
+            .onChange(of: model.scrollToRelationId) { _, id in
                 reader.scrollTo(id, anchor: .center)
             }
         }

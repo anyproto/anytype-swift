@@ -76,7 +76,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
         switch detailsLayout {
         case .basic, .set, .collection, .objectType:
             return true
-        case .profile, .participant, .space, .spaceView, .chat:
+        case .profile, .participant, .space, .spaceView, .chatDerived:
             return details.iconImage.isNotEmpty
         default:
             anytypeAssertionFailure(

@@ -18,7 +18,7 @@ struct EditorPageView: View {
         EditorSwiftUIViewContainer(viewController: stateModel.viewController)
             .anytypeStatusBar(style: .default)
             .homeBottomPanelHidden(model.bottomPanelHidden, animated: model.bottomPanelHiddenAnimated)
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
             .anytypeSheet(isPresented: $stateModel.model.showUpdateAlert, onDismiss: { dismiss() }) {

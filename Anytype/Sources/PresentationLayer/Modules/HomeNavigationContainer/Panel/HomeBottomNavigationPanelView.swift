@@ -42,9 +42,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .cornerRadius(16, style: .continuous)
         .overlay {
             if !model.newObjectPlusMenu {
-                if #available(iOS 17.0, *) {
-                    HomeTipView()
-                }
+                HomeTipView()
             }
         }
         .padding(.vertical, 10)
@@ -56,7 +54,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 model.updateVisibleScreen(data: last)
             }
         }
-        .onChange(of: homePath) { homePath in
+        .onChange(of: homePath) { _, homePath in
             if let last = homePath.lastPathElement {
                 model.updateVisibleScreen(data: last)
             }

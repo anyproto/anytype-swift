@@ -34,8 +34,6 @@ struct ObjectActionsView: View {
                             try await viewModel.templateToggleDefaultState()
                         case .delete:
                             try await viewModel.deleteAction()
-                        case .createWidget:
-                            try await viewModel.createWidget()
                         case .copyLink:
                             try await viewModel.copyLinkAction()
                         }
@@ -44,7 +42,7 @@ struct ObjectActionsView: View {
             }.padding(.horizontal, 16)
         }
         .snackbar(toastBarData: $viewModel.toastData)
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
         .task {

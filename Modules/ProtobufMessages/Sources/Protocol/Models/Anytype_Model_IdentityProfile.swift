@@ -34,14 +34,7 @@ public struct Anytype_Model_IdentityProfile: Sendable {
 
 extension Anytype_Model_IdentityProfile: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".IdentityProfile"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "identity"),
-    2: .same(proto: "name"),
-    3: .same(proto: "iconCid"),
-    4: .same(proto: "iconEncryptionKeys"),
-    5: .same(proto: "description"),
-    6: .same(proto: "globalName"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}identity\0\u{1}name\0\u{1}iconCid\0\u{1}iconEncryptionKeys\0\u{1}description\0\u{1}globalName\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

@@ -22,8 +22,8 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
     
     
     // MARK: - State
@@ -114,12 +114,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     // MARK: - WidgetObjectListMenuOutput
-    
-    func setPin(objectIds: [String], _ isPinned: Bool) {
-        AnytypeAnalytics.instance().logAddToFavorites(isPinned)
-        Task { try? await objectActionService.setPin(objectIds: objectIds, isPinned) }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
     
     func setArchive(objectIds: [String], _ isArchived: Bool) {
         AnytypeAnalytics.instance().logMoveToBin(isArchived)

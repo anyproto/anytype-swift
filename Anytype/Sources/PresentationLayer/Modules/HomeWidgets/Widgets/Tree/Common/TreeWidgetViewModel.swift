@@ -38,6 +38,7 @@ final class TreeWidgetViewModel: ObservableObject {
     
     @Published private(set) var name: String = ""
     @Published private(set) var icon: Icon?
+    @Published private(set) var availableMore: Bool = false
     var dragId: String? { widgetBlockId }
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
@@ -59,6 +60,11 @@ final class TreeWidgetViewModel: ObservableObject {
         guard let screenData = internalModel.screenData() else { return }
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         AnytypeAnalytics.instance().logClickWidgetTitle(source: internalModel.analyticsSource(), createType: info.widgetCreateType)
+        output?.onObjectSelected(screenData: screenData)
+    }
+    
+    func onSeeAllTap() {
+        guard let screenData = internalModel.screenData() else { return }
         output?.onObjectSelected(screenData: screenData)
     }
     
@@ -108,6 +114,10 @@ final class TreeWidgetViewModel: ObservableObject {
         internalModel.iconPublisher
             .receiveOnMain()
             .assign(to: &$icon)
+        
+        internalModel.availableMoreObjects
+            .receiveOnMain()
+            .assign(to: &$availableMore)
         
         internalModel.detailsPublisher
             .receiveOnMain()

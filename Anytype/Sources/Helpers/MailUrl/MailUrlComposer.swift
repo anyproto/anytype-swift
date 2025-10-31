@@ -8,8 +8,8 @@ protocol MailUrlBuilderProtocol {
 final class MailUrlBuilder: MailUrlBuilderProtocol {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantsStorage: any ParticipantsStorageProtocol
     
     nonisolated init() { }
     

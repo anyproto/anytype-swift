@@ -60,13 +60,13 @@ struct ChatCoordinatorView: View {
             .anytypeSheet(isPresented: $model.showDisabledPushNotificationsAlert){
                 DisabledPushNotificationsAlertView()
             }
-            .anytypeSheet(item: $model.inviteLinkData) { data in
-                InviteLinkCoordinatorView(data: data)
-            }
             .sheet(item: $model.spaceShareData) { data in
                 SpaceShareCoordinatorView(data: data)
             }
-            .onChange(of: model.photosItems) { _ in
+            .anytypeSheet(item: $model.qrCodeInviteLink) {
+                QrCodeView(title: Loc.joinSpace, data: $0.absoluteString, analyticsType: .inviteSpace, route: .chat)
+            }
+            .onChange(of: model.photosItems) {
                 model.photosPickerFinished()
             }
     }

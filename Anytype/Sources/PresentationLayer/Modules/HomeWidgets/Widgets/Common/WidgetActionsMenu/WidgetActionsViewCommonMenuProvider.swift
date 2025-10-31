@@ -17,12 +17,6 @@ protocol WidgetActionsViewCommonMenuProviderProtocol: AnyObject {
         homeState: HomeWidgetsState,
         output: (any CommonWidgetModuleOutput)?
     )
-    
-    func onAddBelowTap(
-        widgetBlockId: String,
-        homeState: HomeWidgetsState,
-        output: (any CommonWidgetModuleOutput)?
-    )
 }
 
 @MainActor
@@ -41,7 +35,7 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
     ) {
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         
-        if FeatureFlags.homeObjectTypeWidgets, info.source.isLibrary {
+        if info.source.isLibrary {
             let data = DeleteSystemWidgetConfirmationData(onConfirm: { [weak self] in
                 self?.deleteWidget(widgetObject: widgetObject, info: info, homeState: homeState)
             })
@@ -57,16 +51,6 @@ final class WidgetActionsViewCommonMenuProvider: WidgetActionsViewCommonMenuProv
         output: (any CommonWidgetModuleOutput)?
     ) {
         output?.onChangeWidgetType(widgetId: widgetBlockId, context: homeState.analyticsWidgetContext)
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
-    func onAddBelowTap(
-        widgetBlockId: String,
-        homeState: HomeWidgetsState,
-        output: (any CommonWidgetModuleOutput)?
-    ) {
-        AnytypeAnalytics.instance().logClickAddWidget(context: homeState.analyticsWidgetContext)
-        output?.onAddBelowWidget(widgetId: widgetBlockId, context: homeState.analyticsWidgetContext)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     

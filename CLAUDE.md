@@ -50,6 +50,12 @@ make setup-middle    # Initial setup
 - **All user-facing text must be localized** for international support
 - **Do not add comments** unless explicitly requested
 - **We only work in feature branches** - never push directly to develop/main
+- **Remove unused code after refactoring** - Delete unused properties, functions, and entire files that are no longer referenced
+- **Always update tests and mocks when refactoring** - When renaming classes, properties, or dependencies, search for and update all references in:
+  - Unit tests (`AnyTypeTests/`)
+  - Preview mocks (`Anytype/Sources/PreviewMocks/`)
+  - Mock implementations (`Anytype/Sources/PreviewMocks/Mocks/`)
+  - Dependency injection registrations (`MockView.swift`, test setup files)
 
 ## 📝 Localization System
 
@@ -64,7 +70,15 @@ make setup-middle    # Initial setup
    - Block subtitles: `[feature]BlockSubtitle`
    - Common words: `camera`, `photo`, `picture`, `video(1)`
 
-3. **Only if key doesn't exist**, add to `Modules/Loc/Sources/Loc/Resources/Localizable.xcstrings`:
+3. **Choosing the Right File**:
+   Localization is split into 3 files - select based on your feature:
+   - **Auth.xcstrings** (86 keys): Authentication, login/join flows, keychain, vault, onboarding, migration
+   - **Workspace.xcstrings** (493 keys): Spaces, objects, relations, collections, sets, types, templates, collaboration
+   - **UI.xcstrings** (667 keys): Settings, widgets, alerts, common UI elements, general app strings
+
+   **⚠️ CRITICAL**: Keys must be unique across ALL three files. Duplicate keys will break code generation.
+
+4. **Only if key doesn't exist**, add to the appropriate file in `Modules/Loc/Sources/Loc/Resources/`:
    ```json
    "Your localization key" : {
      "extractionState" : "manual",
@@ -79,7 +93,12 @@ make setup-middle    # Initial setup
    }
    ```
 
-4. **Generate and use**:
+   **⚠️ IMPORTANT**: When adding or updating localization strings:
+   - **Only update the English (`en`) translation** - All other language translations are handled automatically via Crowdin
+   - Do not manually edit translations for other languages (de, es, fr, ja, etc.)
+   - The localization team manages non-English translations through Crowdin workflow
+
+5. **Generate and use**:
    ```bash
    make generate
    ```
@@ -91,8 +110,48 @@ make setup-middle    # Initial setup
 ### Key Patterns
 - **Naming**: Use short, descriptive keys → `"No properties yet"` ✅, `"No properties yet. Add some to this type."` ❌
 - **Hierarchical**: Use dots for organization → `"QR.join.title"` creates `Loc.Qr.Join.title`
-- **Generated file**: 160,000+ lines, use `rg` for searching
+- **Generated file**: All 3 localization files (Auth, Workspace, UI) generate into a single `Strings.swift` file (~5,000 lines). Use `rg` for searching
 - **Always import**: `import Loc` when using localization
+
+### Dynamic Localization (with Parameters)
+
+**✅ CORRECT** - Generated function with parameters:
+```swift
+// For string: "You've reached the limit of %lld editors"
+Loc.SpaceLimit.Editors.title(4)  // Proper way
+
+// For string: "Pin limit reached: %d pinned spaces"
+Loc.pinLimitReached(10)  // Proper way
+```
+
+**❌ WRONG** - Never use String(format:):
+```swift
+String(format: Loc.SpaceLimit.Editors.title, 4)  // DON'T DO THIS
+String(format: Loc.pinLimitReached, 10)  // DON'T DO THIS
+```
+
+**Why**: SwiftGen automatically generates parameterized functions for strings with format specifiers (%lld, %d, %@). Always use the generated function directly.
+
+### Removing Unused Localization Keys
+
+When removing code that uses localization keys, **always check if the key is still used elsewhere**:
+
+1. **Search for usage**:
+   ```bash
+   rg "keyName" --type swift
+   ```
+
+2. **If only found in Generated/Strings.swift**, the key is unused:
+   - Remove the entire key entry from the source `.xcstrings` file
+   - Run `make generate` to regenerate Strings.swift
+
+3. **Example workflow**:
+   - Removed `MembershipParticipantUpgradeReason.numberOfSpaceReaders`
+   - Search: `rg "noMoreMembers" --type swift` → only in Strings.swift
+   - Remove `"Membership.Upgrade.NoMoreMembers"` from Workspace.xcstrings
+   - Run `make generate`
+
+**Important**: Never leave orphaned localization keys in .xcstrings files - they bloat the codebase and confuse translators.
 
 ## 🎨 Design System & Common UI Components
 
@@ -196,6 +255,27 @@ Modules/                # Swift packages
 - Import order: system → third-party → internal
 - Property organization: @Published/@Injected → public → private → constants → variables → methods
 - Use async/await, SwiftUI property wrappers, trailing closures, type inference
+- **Avoid nested types** - Extract enums/structs to top-level with descriptive names (e.g., `SpaceLimitBannerLimitType` instead of `SpaceLimitBannerView.LimitType`)
+- **Enum exhaustiveness**: Always use explicit switch statements for enum pattern matching to enable compiler warnings when new cases are added
+  - ✅ **CORRECT**:
+    ```swift
+    var showManageButton: Bool {
+        switch self {
+        case .sharedSpaces:
+            return true
+        case .editors:
+            return false
+        }
+    }
+    ```
+  - ❌ **WRONG**:
+    ```swift
+    var showManageButton: Bool {
+        if case .sharedSpaces = self { return true }
+        return false  // Default fallback prevents compiler warnings
+    }
+    ```
+  - **Exception**: Only use default fallback for super obvious single-case checks (e.g., `isSharedSpaces`, `isEditor`)
 
 ## 🔄 Development Workflow
 
@@ -207,6 +287,23 @@ Modules/                # Swift packages
 - [ ] Single line commit message only
 - [ ] Professional message without AI attribution
 
+### Task-Based Branching
+**⚠️ CRITICAL: This is the FIRST thing to do when starting any task**
+
+When receiving a Linear task ID (e.g., `IOS-5292`):
+1. **Identify the task branch**: The branch name follows the format `ios-XXXX-description`
+   - Example: `ios-5292-update-space-hub-loading-state`
+   - You can retrieve the branch name from Linear issue details
+
+2. **Switch to the task branch IMMEDIATELY** before doing ANY other work:
+   ```bash
+   git checkout ios-5292-update-space-hub-loading-state
+   ```
+
+3. **All work for the task must be done in this dedicated branch**
+   - Never work on tasks in the wrong branch
+   - Verify you're on the correct branch: `git branch --show-current`
+
 ### Git & GitHub
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
@@ -217,6 +314,12 @@ Modules/                # Swift packages
 - **GitHub CLI**: Use `gh` tool for all GitHub operations
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
+
+### Release Branch Workflow
+- **Branches from release**: When creating a branch from a release branch (e.g., `release/0.42.0`):
+  - Target the **release branch** in your PR, not `develop`
+  - Always add the **"Release"** label to the PR
+  - Example: `gh pr create --base release/0.42.0 --label "Release" --title "..." --body "..."`
 
 ### ❌ FORBIDDEN Git Practices
 
@@ -302,3 +405,9 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 
 #### File Operations & Architecture
 **Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually, keep UI in PresentationLayer.
+
+#### Refactoring & Testing
+**Incomplete Mock Updates (2025-01-16):** Refactored `spaceViewStorage` → `spaceViewsStorage` and `participantSpaceStorage` → `participantSpacesStorage` in production code, but forgot to update `MockView.swift` causing test failures. When renaming dependencies:
+1. Search for old names across entire codebase: `rg "oldName" --type swift`
+2. Update all references in tests, mocks, and DI registrations
+3. Run unit tests to verify: `xcodebuild -scheme Anytype -destination 'platform=iOS Simulator,name=iPhone 15' build-for-testing`

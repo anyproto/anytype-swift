@@ -11,18 +11,16 @@ struct SpaceCreateTypePickerView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            if FeatureFlags.spaceUxTypes {
-                SpaceTypePickerRow(
-                    icon: .Channel.chat,
-                    title: Loc.Spaces.UxType.Chat.title,
-                    subtitle: Loc.Spaces.UxType.Chat.description,
-                    onTap: {
-                        dismiss()
-                        onSelectSpaceType(.chat)
-                        AnytypeAnalytics.instance().logClickVaultCreateMenuChat()
-                    }
-                )
-            }
+            SpaceTypePickerRow(
+                icon: .Channel.chat,
+                title: Loc.Spaces.UxType.Chat.title,
+                subtitle: Loc.Spaces.UxType.Chat.description,
+                onTap: {
+                    dismiss()
+                    onSelectSpaceType(.chat)
+                    AnytypeAnalytics.instance().logClickVaultCreateMenuChat()
+                }
+            )
             SpaceTypePickerRow(
                 icon: .Channel.space,
                 title: Loc.Spaces.UxType.Space.title,
@@ -33,17 +31,6 @@ struct SpaceCreateTypePickerView: View {
                     AnytypeAnalytics.instance().logClickVaultCreateMenuSpace()
                 }
             )
-            if FeatureFlags.enableStreamSpaceType {
-                SpaceTypePickerRow(
-                    icon: .Channel.stream,
-                    title: Loc.Spaces.UxType.Stream.title,
-                    subtitle: Loc.Spaces.UxType.Stream.description,
-                    onTap: {
-                        dismiss()
-                        onSelectSpaceType(.stream)
-                    }
-                )
-            }
             SpaceTypePickerRow(
                 icon: .X32.qrCodeJoin,
                 title: Loc.Qr.Join.title,
@@ -54,8 +41,7 @@ struct SpaceCreateTypePickerView: View {
                 }
             )
         }
-        .padding(.bottom, 16)
-        .background(Color.Background.secondary)
+        .fitPresentationDetents()
         .onAppear {
             AnytypeAnalytics.instance().logScreenVaultCreateMenu()
         }

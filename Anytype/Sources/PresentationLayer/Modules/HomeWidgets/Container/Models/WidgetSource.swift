@@ -37,8 +37,6 @@ extension WidgetSource {
             switch library {
             case .pinned, .recent, .recentOpen:
                 return [.compactList, .list, .tree]
-            case .allObjects, .bin, .chat:
-                return [.link]
             }
         }
     }

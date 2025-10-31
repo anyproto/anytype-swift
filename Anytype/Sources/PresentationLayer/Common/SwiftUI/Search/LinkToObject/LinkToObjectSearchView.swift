@@ -23,7 +23,7 @@ struct LinkToObjectSearchView: View {
                 model.onSelect(searchData: data)
             }
         )
-        .onChange(of: model.openUrl) { url in
+        .onChange(of: model.openUrl) { _, url in
             guard let url else { return }
             openURL(url)
         }

@@ -22,12 +22,12 @@ public struct CachedAsyncImage<Content: View>: View {
     
     private let url: URL?
     private let content: (AsyncImagePhase) -> Content
-    @StateObject private var model: CachedAsyncImageModel
+    @State private var model: CachedAsyncImageModel
     
     public init(url: URL?, cache: CachedAsyncImageCache = .default, @ViewBuilder content: @escaping (AsyncImagePhase) -> Content) {
         self.url = url
         self.content = content
-        self._model = StateObject(wrappedValue: CachedAsyncImageModel(url: url, cache: cache))
+        self._model = State(wrappedValue: CachedAsyncImageModel(url: url, cache: cache))
 
     }
     
@@ -42,11 +42,13 @@ public struct CachedAsyncImage<Content: View>: View {
 }
 
 @MainActor
-private final class CachedAsyncImageModel: ObservableObject {
+@Observable
+private final class CachedAsyncImageModel {
     
-    @Published var state: AsyncImagePhase
+    var state: AsyncImagePhase = .empty
     
     private let cache: CachedAsyncImageCache
+    @ObservationIgnored
     private var currentURL: URL?
     
     init(url: URL?, cache: CachedAsyncImageCache) {

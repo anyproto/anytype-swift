@@ -6,6 +6,7 @@ import AnytypeCore
 import Collections
 import UIKit
 import NotificationsCore
+import ProtobufMessages
 @preconcurrency import Combine
 
 @MainActor
@@ -19,8 +20,8 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantsStorage: any ParticipantsStorageProtocol
     @Injected(\.mentionObjectsService)
     private var mentionObjectsService: any MentionObjectsServiceProtocol
     @Injected(\.chatActionService)
@@ -49,6 +50,10 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
     @Injected(\.notificationsCenterService)
     private var notificationsCenterService: any NotificationsCenterServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
     
     private let participantSubscription: any ParticipantsSubscriptionProtocol
     private let chatStorage: any ChatMessagesStorageProtocol
@@ -62,6 +67,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     @Published var dataLoaded = false
     @Published var canEdit = false
+    @Published var qrCodeInviteUrl: URL?
     var keyboardDismiss: KeyboardDismiss?
     
     // Input Message
@@ -213,6 +219,11 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     func onTapInviteLink() {
         output?.onInviteLinkSelected()
     }
+
+    func onTapShowQrCode() {
+        guard let url = qrCodeInviteUrl else { return }
+        output?.onShowQrCodeSelected(url: url)
+    }
     
     func startSubscriptions() async {
         async let permissionsSub: () = subscribeOnPermissions()
@@ -220,7 +231,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
         async let typesSub: () = subscribeOnTypes()
         async let messageBackgroundSub: () = subscribeOnMessageBackground()
         async let spaceViewSub: () = subscribeOnSpaceView()
-        
+
         (_, _, _, _, _) = await (permissionsSub, participantsSub, typesSub, messageBackgroundSub, spaceViewSub)
     }
     
@@ -639,6 +650,15 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
             await handlePushNotificationsAlert()
         }
     }
+
+    func updateInviteState() async {
+        do {
+            let invite = try await workspaceService.getCurrentInvite(spaceId: spaceId)
+            qrCodeInviteUrl = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        } catch {
+            qrCodeInviteUrl = nil
+        }
+    }
     
     private func updateMessages() async {
         let newMessageBlocks = await chatMessageBuilder.makeMessage(
@@ -655,7 +675,7 @@ final class ChatViewModel: ObservableObject, MessageModuleOutput, ChatActionProv
     
     private func clearInput() {
         message = NSAttributedString()
-        attachmentHandler.clearAll()
+        attachmentHandler.clearState()
         replyToMessage = nil
         editMessage = nil
     }

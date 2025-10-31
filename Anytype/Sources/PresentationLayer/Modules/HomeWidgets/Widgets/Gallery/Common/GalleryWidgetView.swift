@@ -1,10 +1,14 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct GalleryWidgetView: View {
     
     let rows: [GalleryWidgetRowModel]?
+    let showAllObjects: Bool
     let onShowAllObjects: () -> Void
+    
+    @State private var showAllButtonInWidgets = FeatureFlags.showAllButtonInWidgets
     
     var body: some View {
         WidgetContainerWithEmptyState(showEmpty: (rows?.isEmpty ?? false)) {
@@ -20,7 +24,9 @@ struct GalleryWidgetView: View {
                     ForEach(rows, id: \.objectId) { row in
                         GalleryWidgetRow(model: row)
                     }
-                    GalleryWidgetShowAllView(onTap: onShowAllObjects)
+                    if showAllButtonInWidgets, showAllObjects {
+                        GalleryWidgetShowAllView(onTap: onShowAllObjects)
+                    }
                 }
             }
             .padding(.horizontal, 16)

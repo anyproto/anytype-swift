@@ -5,8 +5,8 @@ import SharedContentManager
 @MainActor
 final class SharingExtensionShareToViewModel: ObservableObject {
     
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspacesStorage: any SpaceViewsStorageProtocol
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
     @Injected(\.activeSpaceManager)
@@ -97,11 +97,7 @@ final class SharingExtensionShareToViewModel: ObservableObject {
             comment: comment
         )
         try await contentManager.clearSharedContent()
-        
-        if #available(iOS 16.4, *) {
-        } else {
-            dismiss.toggle()
-        }
+
         output?.shareToFinished()
     }
     

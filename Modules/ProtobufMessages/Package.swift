@@ -5,7 +5,7 @@ let package = Package(
     name: "ProtobufMessages",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v16),
+        .iOS(.v17),
     ],
     products: [
         .library(
@@ -14,7 +14,7 @@ let package = Package(
             targets: ["ProtobufMessages"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.28.2")
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.32.0")
     ],
     targets: [
         .target(

@@ -40,15 +40,7 @@ extension Anytype_Model_Account.Auth {
 
 extension Anytype_Model_Account.Auth.AppInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Account.Auth.protoMessageName + ".AppInfo"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "appHash"),
-    2: .same(proto: "appName"),
-    4: .same(proto: "appKey"),
-    5: .same(proto: "createdAt"),
-    6: .same(proto: "expireAt"),
-    7: .same(proto: "scope"),
-    8: .same(proto: "isActive"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}appHash\0\u{1}appName\0\u{2}\u{2}appKey\0\u{1}createdAt\0\u{1}expireAt\0\u{1}scope\0\u{1}isActive\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

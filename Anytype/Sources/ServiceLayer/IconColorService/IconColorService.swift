@@ -10,7 +10,7 @@ protocol IconColorServiceProtocol: AnyObject {
 
 final class IconColorService: IconColorServiceProtocol, Sendable {
     
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     private let imageCacher = CachedAsyncImageCache.default
     
     func color(spaceId: String) -> AsyncStream<Color> {

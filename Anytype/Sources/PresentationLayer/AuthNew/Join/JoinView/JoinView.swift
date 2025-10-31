@@ -23,7 +23,7 @@ struct JoinView: View {
             view.alertView(isShowing: $model.showError, errorText: errorText, onButtonTap: {})
         }
         .fitIPadToReadableContentGuide()
-        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.dismiss) { dismiss() }
     }
     
     private func content(height: CGFloat) -> some View {

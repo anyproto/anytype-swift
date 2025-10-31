@@ -22,7 +22,7 @@ struct EditorPageCoordinatorView: View {
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
             .sheet(item: $model.relationValueData) { data in

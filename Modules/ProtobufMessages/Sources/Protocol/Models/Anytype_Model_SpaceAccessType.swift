@@ -50,11 +50,7 @@ public enum Anytype_Model_SpaceAccessType: SwiftProtobuf.Enum, Swift.CaseIterabl
 }
 
 extension Anytype_Model_SpaceAccessType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Private"),
-    1: .same(proto: "Personal"),
-    2: .same(proto: "Shared"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Private\0\u{1}Personal\0\u{1}Shared\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

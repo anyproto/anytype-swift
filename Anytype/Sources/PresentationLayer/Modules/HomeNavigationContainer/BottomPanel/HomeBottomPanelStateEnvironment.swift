@@ -29,7 +29,7 @@ private struct HomeBottomHiddenStateViewModifier: ViewModifier {
                         }
                     }
                 }
-                .onChange(of: state, perform: { newValue in
+                .onChange(of: state) { _, newValue in
                     if newValue.animated == false {
                         homeBottomPanelState.setHidden(newValue.hidden, for: itemData)
                     } else {
@@ -37,7 +37,7 @@ private struct HomeBottomHiddenStateViewModifier: ViewModifier {
                             homeBottomPanelState.setHidden(newValue.hidden, for: itemData)
                         }
                     }
-                })
+                }
         } else {
             content
         }

@@ -15,7 +15,7 @@ struct GalleryInstallationCoordinatorView: View {
             .sheet(isPresented: $model.showSpaceSelection) {
                 GallerySpaceSelectionView(output: model)
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
     }

@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "SecureService",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v17),
     ],
     products: [
         .library(

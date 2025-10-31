@@ -38,7 +38,7 @@ extension Anytype_Model_ObjectType {
     case pdf // = 20
 
     /// deprecated
-    case chat // = 21
+    case chatDeprecated // = 21
     case chatDerived // = 22
     case tag // = 23
     case notification // = 24
@@ -73,7 +73,7 @@ extension Anytype_Model_ObjectType {
       case 18: self = .spaceView
       case 19: self = .participant
       case 20: self = .pdf
-      case 21: self = .chat
+      case 21: self = .chatDeprecated
       case 22: self = .chatDerived
       case 23: self = .tag
       case 24: self = .notification
@@ -106,7 +106,7 @@ extension Anytype_Model_ObjectType {
       case .spaceView: return 18
       case .participant: return 19
       case .pdf: return 20
-      case .chat: return 21
+      case .chatDeprecated: return 21
       case .chatDerived: return 22
       case .tag: return 23
       case .notification: return 24
@@ -139,7 +139,7 @@ extension Anytype_Model_ObjectType {
       .spaceView,
       .participant,
       .pdf,
-      .chat,
+      .chatDeprecated,
       .chatDerived,
       .tag,
       .notification,
@@ -150,35 +150,7 @@ extension Anytype_Model_ObjectType {
   }}
 
 extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "basic"),
-    1: .same(proto: "profile"),
-    2: .same(proto: "todo"),
-    3: .same(proto: "set"),
-    4: .same(proto: "objectType"),
-    5: .same(proto: "relation"),
-    6: .same(proto: "file"),
-    7: .same(proto: "dashboard"),
-    8: .same(proto: "image"),
-    9: .same(proto: "note"),
-    10: .same(proto: "space"),
-    11: .same(proto: "bookmark"),
-    12: .same(proto: "relationOptionsList"),
-    13: .same(proto: "relationOption"),
-    14: .same(proto: "collection"),
-    15: .same(proto: "audio"),
-    16: .same(proto: "video"),
-    17: .same(proto: "date"),
-    18: .same(proto: "spaceView"),
-    19: .same(proto: "participant"),
-    20: .same(proto: "pdf"),
-    21: .same(proto: "chat"),
-    22: .same(proto: "chatDerived"),
-    23: .same(proto: "tag"),
-    24: .same(proto: "notification"),
-    25: .same(proto: "missingObject"),
-    26: .same(proto: "devices"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0basic\0\u{1}profile\0\u{1}todo\0\u{1}set\0\u{1}objectType\0\u{1}relation\0\u{1}file\0\u{1}dashboard\0\u{1}image\0\u{1}note\0\u{1}space\0\u{1}bookmark\0\u{1}relationOptionsList\0\u{1}relationOption\0\u{1}collection\0\u{1}audio\0\u{1}video\0\u{1}date\0\u{1}spaceView\0\u{1}participant\0\u{1}pdf\0\u{1}chatDeprecated\0\u{1}chatDerived\0\u{1}tag\0\u{1}notification\0\u{1}missingObject\0\u{1}devices\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

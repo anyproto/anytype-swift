@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View>: View {
         name: String,
         icon: Icon? = nil,
         dragId: String?,
-        menuItems: [WidgetMenuItem] = [.addBelow, .changeType, .remove, .removeSystemWidget],
+        menuItems: [WidgetMenuItem] = [.changeType, .remove, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
         output: (any CommonWidgetModuleOutput)?,
@@ -49,9 +49,7 @@ struct WidgetContainerView<Content: View>: View {
             isEnable: onCreateObjectTap != nil && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
-                if #available(iOS 17.0, *) {
-                    WidgetSwipeTip().invalidate(reason: .actionPerformed)
-                }
+                WidgetSwipeTip().invalidate(reason: .actionPerformed)
                 onCreateObjectTap?()
             }
         ) {
@@ -59,9 +57,7 @@ struct WidgetContainerView<Content: View>: View {
                 isExpanded: $model.isExpanded,
                 dragId: dragId,
                 homeState: $model.homeState,
-                allowMenuContent: model.menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
-                removeAction: removeAction(),
                 createObjectAction: model.homeState.isReadWrite ? onCreateObjectTap : nil,
                 header: {
                     LinkWidgetDefaultHeader(title: name, icon: icon, onTap: {
@@ -94,7 +90,7 @@ struct WidgetContainerView<Content: View>: View {
     
     @ViewBuilder
     private var createObjectMenuButton: some View {
-        if FeatureFlags.homeObjectTypeWidgets, let onCreateObjectTap {
+        if let onCreateObjectTap {
             Button {
                 onCreateObjectTap()
             } label: {
@@ -102,15 +98,6 @@ struct WidgetContainerView<Content: View>: View {
                 Image(systemName: "square.and.pencil")
             }
             Divider()
-        }
-    }
-            
-    private func removeAction() -> (() -> Void)? {
-        
-        guard model.menuItems.contains(.remove) else { return nil }
-        
-        return {
-            model.onDeleteWidgetTap()
         }
     }
 }

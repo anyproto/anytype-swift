@@ -21,8 +21,8 @@ final class SoulViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
     
     init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state

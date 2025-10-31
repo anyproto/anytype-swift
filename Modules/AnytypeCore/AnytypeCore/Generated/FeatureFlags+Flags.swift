@@ -6,18 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var spaceUxTypes: Bool {
-        value(for: .spaceUxTypes)
-    }
-
-    static var spaceLoadingForScreen: Bool {
-        value(for: .spaceLoadingForScreen)
-    }
-
-    static var binScreenEmptyAction: Bool {
-        value(for: .binScreenEmptyAction)
-    }
-
     static var muteSpacePossibility: Bool {
         value(for: .muteSpacePossibility)
     }
@@ -28,14 +16,6 @@ public extension FeatureFlags {
 
     static var swipeToReply: Bool {
         value(for: .swipeToReply)
-    }
-
-    static var newSharingExtension: Bool {
-        value(for: .newSharingExtension)
-    }
-
-    static var newSpaceMembersFlow: Bool {
-        value(for: .newSpaceMembersFlow)
     }
 
     static var removeMessagesFromNotificationsCenter: Bool {
@@ -62,8 +42,12 @@ public extension FeatureFlags {
         value(for: .brandNewAuthFlow)
     }
 
-    static var homeObjectTypeWidgets: Bool {
-        value(for: .homeObjectTypeWidgets)
+    static var showAllButtonInWidgets: Bool {
+        value(for: .showAllButtonInWidgets)
+    }
+
+    static var turnOffAutomaticWidgetOpening: Bool {
+        value(for: .turnOffAutomaticWidgetOpening)
     }
 
     static var setKanbanView: Bool {
@@ -78,36 +62,8 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var hideWebPayments: Bool {
-        value(for: .hideWebPayments)
-    }
-
-    static var enableStreamSpaceType: Bool {
-        value(for: .enableStreamSpaceType)
-    }
-
-    static var aiToolInSet: Bool {
-        value(for: .aiToolInSet)
-    }
-
-    static var anyAppBetaTip: Bool {
-        value(for: .anyAppBetaTip)
-    }
-
-    static var guideUseCaseForDataSpace: Bool {
-        value(for: .guideUseCaseForDataSpace)
-    }
-
-    static var chatLayoutInsideSpace: Bool {
-        value(for: .chatLayoutInsideSpace)
-    }
-
-    static var joinStream: Bool {
-        value(for: .joinStream)
-    }
-
-    static var simpleSetForTypes: Bool {
-        value(for: .simpleSetForTypes)
+    static var multichats: Bool {
+        value(for: .multichats)
     }
 
     static var doNotWaitCompletionInAnytypePreview: Bool {
@@ -158,10 +114,6 @@ public extension FeatureFlags {
         value(for: .showGlobalSearchScore)
     }
 
-    static var versionHistoryPaginationTest: Bool {
-        value(for: .versionHistoryPaginationTest)
-    }
-
     static var networkHTTPSRequestsLogger: Bool {
         value(for: .networkHTTPSRequestsLogger)
     }
@@ -180,32 +132,21 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .spaceUxTypes,
-        .spaceLoadingForScreen,
-        .binScreenEmptyAction,
         .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
-        .newSharingExtension,
-        .newSpaceMembersFlow,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .brandNewAuthFlow,
-        .homeObjectTypeWidgets,
+        .showAllButtonInWidgets,
+        .turnOffAutomaticWidgetOpening,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .hideWebPayments,
-        .enableStreamSpaceType,
-        .aiToolInSet,
-        .anyAppBetaTip,
-        .guideUseCaseForDataSpace,
-        .chatLayoutInsideSpace,
-        .joinStream,
-        .simpleSetForTypes,
+        .multichats,
         .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
@@ -218,7 +159,6 @@ public extension FeatureFlags {
         .membershipTestTiers,
         .failReceiptValidation,
         .showGlobalSearchScore,
-        .versionHistoryPaginationTest,
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,

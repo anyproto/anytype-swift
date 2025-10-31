@@ -25,6 +25,7 @@ final class BlockModelInfomationProvider: @unchecked Sendable {
     }
 }
 
+@MainActor
 final class TextBlockViewModel: BlockViewModelProtocol {
     enum Style {
         case none

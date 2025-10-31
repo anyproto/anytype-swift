@@ -13,7 +13,7 @@ struct ObjectSearchWithMetaCoordinatorView: View {
         ObjectSearchWithMetaView(
             data: model.data
         )
-        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.dismiss) { dismiss() }
     }
 }
 

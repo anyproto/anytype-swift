@@ -14,12 +14,12 @@ struct HomeWidgetsView: View {
 }
 
 private struct HomeWidgetsInternalView: View {
-    @StateObject private var model: HomeWidgetsViewModel
+    @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
     
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
-        self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+        self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
     }
     
     var body: some View {
@@ -28,10 +28,6 @@ private struct HomeWidgetsInternalView: View {
             
             content
                 .animation(.default, value: model.widgetBlocks.count)
-            
-            HomeBottomPanelView(homeState: $model.homeState) {
-                model.onCreateWidgetFromEditMode()
-            }
         }
         .task {
             await model.startSubscriptions()
@@ -46,7 +42,7 @@ private struct HomeWidgetsInternalView: View {
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .homeBottomPanelHidden(model.homeState.isEditWidgets)
+        .homeBottomPanelHidden(false)
     }
     
     private var content: some View {
@@ -60,13 +56,9 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
-                if FeatureFlags.homeObjectTypeWidgets {
-                    topWidgets
-                    blockWidgets
-                    objectTypeWidgets
-                } else {
-                    oldBlockWidgets
-                }
+                topWidgets
+                blockWidgets
+                objectTypeWidgets
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
@@ -82,30 +74,6 @@ private struct HomeWidgetsInternalView: View {
     }
     
     @ViewBuilder
-    private var oldBlockWidgets: some View {
-        VStack(spacing: 12) {
-            if #available(iOS 17.0, *) {
-                WidgetSwipeTipView()
-            }
-            ForEach(model.widgetBlocks) { widgetInfo in
-                HomeWidgetSubmoduleView(
-                    widgetInfo: widgetInfo,
-                    widgetObject: model.widgetObject,
-                    workspaceInfo: model.info,
-                    homeState: $model.homeState,
-                    output: model.output
-                )
-            }
-            editButtons
-        }
-        .anytypeVerticalDrop(data: model.widgetBlocks, state: $widgetsDndState) { from, to in
-            model.widgetsDropUpdate(from: from, to: to)
-        } dropFinish: { from, to in
-            model.widgetsDropFinish(from: from, to: to)
-        }
-    }
-    
-    @ViewBuilder
     private var blockWidgets: some View {
         if model.widgetBlocks.isNotEmpty {
             HomeWidgetsGroupView(title: Loc.pinned) {
@@ -113,9 +81,7 @@ private struct HomeWidgetsInternalView: View {
             }
             if model.pinnedSectionIsExpanded {
                 VStack(spacing: 12) {
-                    if #available(iOS 17.0, *) {
-                        WidgetSwipeTipView()
-                    }
+                    WidgetSwipeTipView()
                     ForEach(model.widgetBlocks) { widgetInfo in
                         HomeWidgetSubmoduleView(
                             widgetInfo: widgetInfo,
@@ -153,17 +119,6 @@ private struct HomeWidgetsInternalView: View {
                 model.typesDropUpdate(from: from, to: to)
             } dropFinish: { from, to in
                 model.typesDropFinish(from: from, to: to)
-            }
-        }
-    }
-    
-    private var editButtons: some View {
-        EqualFitWidthHStack(spacing: 12) {
-            HomeEditButton(text: Loc.Widgets.Actions.addWidget, homeState: model.homeState) {
-                model.onCreateWidgetFromMainMode()
-            }
-            HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
-                model.onEditButtonTap()
             }
         }
     }

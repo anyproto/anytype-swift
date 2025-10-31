@@ -308,12 +308,7 @@ extension Anytype_Rpc.AI.WritingTools: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Anytype_Rpc.AI.WritingTools.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.WritingTools.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "config"),
-    2: .same(proto: "mode"),
-    3: .same(proto: "language"),
-    4: .same(proto: "text"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}config\0\u{1}mode\0\u{1}language\0\u{1}text\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -361,42 +356,16 @@ extension Anytype_Rpc.AI.WritingTools.Request: SwiftProtobuf.Message, SwiftProto
 }
 
 extension Anytype_Rpc.AI.WritingTools.Request.WritingMode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "DEFAULT"),
-    1: .same(proto: "SUMMARIZE"),
-    2: .same(proto: "GRAMMAR"),
-    3: .same(proto: "SHORTEN"),
-    4: .same(proto: "EXPAND"),
-    5: .same(proto: "BULLET"),
-    6: .same(proto: "TABLE"),
-    7: .same(proto: "CASUAL"),
-    8: .same(proto: "FUNNY"),
-    9: .same(proto: "CONFIDENT"),
-    10: .same(proto: "STRAIGHTFORWARD"),
-    11: .same(proto: "PROFESSIONAL"),
-    12: .same(proto: "TRANSLATE"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0DEFAULT\0\u{1}SUMMARIZE\0\u{1}GRAMMAR\0\u{1}SHORTEN\0\u{1}EXPAND\0\u{1}BULLET\0\u{1}TABLE\0\u{1}CASUAL\0\u{1}FUNNY\0\u{1}CONFIDENT\0\u{1}STRAIGHTFORWARD\0\u{1}PROFESSIONAL\0\u{1}TRANSLATE\0")
 }
 
 extension Anytype_Rpc.AI.WritingTools.Request.Language: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "EN"),
-    1: .same(proto: "ES"),
-    2: .same(proto: "FR"),
-    3: .same(proto: "DE"),
-    4: .same(proto: "IT"),
-    5: .same(proto: "PT"),
-    6: .same(proto: "HI"),
-    7: .same(proto: "TH"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0EN\0\u{1}ES\0\u{1}FR\0\u{1}DE\0\u{1}IT\0\u{1}PT\0\u{1}HI\0\u{1}TH\0")
 }
 
 extension Anytype_Rpc.AI.WritingTools.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.WritingTools.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "text"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}text\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -435,10 +404,7 @@ extension Anytype_Rpc.AI.WritingTools.Response: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Rpc.AI.WritingTools.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.WritingTools.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -472,16 +438,7 @@ extension Anytype_Rpc.AI.WritingTools.Response.Error: SwiftProtobuf.Message, Swi
 }
 
 extension Anytype_Rpc.AI.WritingTools.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    100: .same(proto: "RATE_LIMIT_EXCEEDED"),
-    101: .same(proto: "ENDPOINT_NOT_REACHABLE"),
-    102: .same(proto: "MODEL_NOT_FOUND"),
-    103: .same(proto: "AUTH_REQUIRED"),
-    104: .same(proto: "LANGUAGE_NOT_SUPPORTED"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}b\u{1}RATE_LIMIT_EXCEEDED\0\u{1}ENDPOINT_NOT_REACHABLE\0\u{1}MODEL_NOT_FOUND\0\u{1}AUTH_REQUIRED\0\u{1}LANGUAGE_NOT_SUPPORTED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

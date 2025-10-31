@@ -16,23 +16,18 @@ struct SpaceCreateView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: FeatureFlags.spaceUxTypes ? model.data.title : Loc.SpaceCreate.Space.title)
+            TitleView(title: model.data.title)
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     iconSection
-                    
-                    RoundedTextFieldWithTitle(
-                        title: FeatureFlags.spaceUxTypes ? Loc.name : Loc.Settings.spaceName,
+
+                    FramedTextField(
+                        title: Loc.name,
                         placeholder: Loc.untitled,
                         axis: .vertical,
                         text: $model.spaceName
                     )
-                    .focused(.constant(true))
-                    
-                    if !FeatureFlags.spaceUxTypes {
-                        SectionHeaderView(title: Loc.typeLabel)
-                        SpaceTypeView(name: model.spaceAccessType.name)
-                    }
+                    .accessibilityLabel("SpaceNameTextField")
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -50,13 +45,12 @@ struct SpaceCreateView: View {
         .onAppear {
             model.onAppear()
         }
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
-        .ignoreSafeAreaKeyboardLegacy()
         .background(Color.Background.primary)
         .onChange(of: model.spaceName) {
-            model.updateNameIconIfNeeded($0)
+            model.updateNameIconIfNeeded($1)
         }
     }
     
@@ -73,18 +67,6 @@ struct SpaceCreateView: View {
         .fixTappableArea()
         .onTapGesture {
             model.onIconTapped()
-        }
-    }
-}
-
-private extension View {
-    // Fix glitch when user dismiss screen with opened keyboard
-    @available(iOS, deprecated: 16.4)
-    func ignoreSafeAreaKeyboardLegacy() -> some View {
-        if #available(iOS 16.4, *) {
-            return self
-        } else {
-            return self.ignoresSafeArea(.keyboard)
         }
     }
 }

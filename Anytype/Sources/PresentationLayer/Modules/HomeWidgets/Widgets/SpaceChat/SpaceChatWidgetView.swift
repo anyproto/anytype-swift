@@ -15,9 +15,7 @@ struct SpaceChatWidgetView: View {
             isExpanded: .constant(false),
             dragId: nil,
             homeState: .constant(.readwrite),
-            allowMenuContent: false,
             allowContent: false,
-            removeAction: nil,
             header: {
                 LinkWidgetDefaultHeader(
                     title: Loc.chat,

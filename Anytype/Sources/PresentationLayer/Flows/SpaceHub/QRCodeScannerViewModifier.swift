@@ -79,16 +79,16 @@ struct QRCodeScannerViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: shouldScan) { newValue in
+            .onChange(of: shouldScan) { _, newValue in
                 if newValue {
                     model.requestQrCodeScan()
                     shouldScan = false
                 }
             }
-            .onChange(of: model.qrCode) { _ in
+            .onChange(of: model.qrCode) {
                 model.onQrCodeChange()
             }
-            .onChange(of: model.qrCodeScanErrorText) { _ in
+            .onChange(of: model.qrCodeScanErrorText) {
                 model.onQrCodeScanErrorChange()
             }
             .sheet(isPresented: $model.showQrCodeScanner) {

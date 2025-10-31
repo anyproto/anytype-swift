@@ -605,10 +605,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.NewChallenge.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "appName"),
-    2: .same(proto: "scope"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}appName\0\u{1}scope\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -643,10 +640,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Request: SwiftProtobuf.Mess
 
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.NewChallenge.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "challengeId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}challengeId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -685,10 +679,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response: SwiftProtobuf.Mes
 
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.NewChallenge.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -722,13 +713,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: SwiftProtob
 }
 
 extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
-    102: .same(proto: "TOO_MANY_REQUESTS"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_IS_NOT_RUNNING\0\u{1}TOO_MANY_REQUESTS\0")
 }
 
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -752,10 +737,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge: SwiftProtobuf.Message, S
 
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.SolveChallenge.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "challengeId"),
-    2: .same(proto: "answer"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}challengeId\0\u{1}answer\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -790,11 +772,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Request: SwiftProtobuf.Me
 
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.SolveChallenge.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "sessionToken"),
-    3: .same(proto: "appKey"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}sessionToken\0\u{1}appKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -838,10 +816,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response: SwiftProtobuf.M
 
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -875,15 +850,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: SwiftProt
 }
 
 extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
-    102: .same(proto: "INVALID_CHALLENGE_ID"),
-    103: .same(proto: "CHALLENGE_ATTEMPTS_EXCEEDED"),
-    104: .same(proto: "INCORRECT_ANSWER"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_IS_NOT_RUNNING\0\u{1}INVALID_CHALLENGE_ID\0\u{1}CHALLENGE_ATTEMPTS_EXCEEDED\0\u{1}INCORRECT_ANSWER\0")
 }
 
 extension Anytype_Rpc.Account.LocalLink.ListApps: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -926,10 +893,7 @@ extension Anytype_Rpc.Account.LocalLink.ListApps.Request: SwiftProtobuf.Message,
 
 extension Anytype_Rpc.Account.LocalLink.ListApps.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.ListApps.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "app"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}app\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -968,10 +932,7 @@ extension Anytype_Rpc.Account.LocalLink.ListApps.Response: SwiftProtobuf.Message
 
 extension Anytype_Rpc.Account.LocalLink.ListApps.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.ListApps.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1005,12 +966,7 @@ extension Anytype_Rpc.Account.LocalLink.ListApps.Response.Error: SwiftProtobuf.M
 }
 
 extension Anytype_Rpc.Account.LocalLink.ListApps.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_IS_NOT_RUNNING\0")
 }
 
 extension Anytype_Rpc.Account.LocalLink.CreateApp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -1034,9 +990,7 @@ extension Anytype_Rpc.Account.LocalLink.CreateApp: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Rpc.Account.LocalLink.CreateApp.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.CreateApp.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "app"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}app\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1070,10 +1024,7 @@ extension Anytype_Rpc.Account.LocalLink.CreateApp.Request: SwiftProtobuf.Message
 
 extension Anytype_Rpc.Account.LocalLink.CreateApp.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.CreateApp.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "appKey"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}appKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1112,10 +1063,7 @@ extension Anytype_Rpc.Account.LocalLink.CreateApp.Response: SwiftProtobuf.Messag
 
 extension Anytype_Rpc.Account.LocalLink.CreateApp.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.CreateApp.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1149,12 +1097,7 @@ extension Anytype_Rpc.Account.LocalLink.CreateApp.Response.Error: SwiftProtobuf.
 }
 
 extension Anytype_Rpc.Account.LocalLink.CreateApp.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}c\u{1}ACCOUNT_IS_NOT_RUNNING\0")
 }
 
 extension Anytype_Rpc.Account.LocalLink.RevokeApp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -1178,9 +1121,7 @@ extension Anytype_Rpc.Account.LocalLink.RevokeApp: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Rpc.Account.LocalLink.RevokeApp.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.RevokeApp.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "appHash"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}appHash\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1210,9 +1151,7 @@ extension Anytype_Rpc.Account.LocalLink.RevokeApp.Request: SwiftProtobuf.Message
 
 extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.RevokeApp.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1246,10 +1185,7 @@ extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response: SwiftProtobuf.Messag
 
 extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Account.LocalLink.RevokeApp.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1283,13 +1219,7 @@ extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response.Error: SwiftProtobuf.
 }
 
 extension Anytype_Rpc.Account.LocalLink.RevokeApp.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "NOT_FOUND"),
-    101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}NOT_FOUND\0\u{2}b\u{1}ACCOUNT_IS_NOT_RUNNING\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

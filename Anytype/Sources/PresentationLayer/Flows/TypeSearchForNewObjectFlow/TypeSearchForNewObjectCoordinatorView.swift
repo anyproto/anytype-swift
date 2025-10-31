@@ -14,7 +14,7 @@ struct TypeSearchForNewObjectCoordinatorView: View {
     
     var body: some View {
         model.typeSearchModule()
-            .onChange(of: model.shouldDismiss) { shouldDismiss in
+            .onChange(of: model.shouldDismiss) { _, shouldDismiss in
                 if shouldDismiss { dismiss() }
             }
     }

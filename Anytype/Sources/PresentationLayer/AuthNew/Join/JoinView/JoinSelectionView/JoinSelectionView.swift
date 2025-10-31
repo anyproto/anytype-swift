@@ -40,6 +40,7 @@ struct JoinSelectionView: View {
                 }
             )
             .disabled(model.selectedOptions.isEmpty)
+            .accessibilityLabel("Continue")
             
             StandardButton(
                 Loc.skip,
@@ -48,6 +49,7 @@ struct JoinSelectionView: View {
                     model.onSkipAction()
                 }
             )
+            .accessibilityLabel("Skip")
         }
     }
 }

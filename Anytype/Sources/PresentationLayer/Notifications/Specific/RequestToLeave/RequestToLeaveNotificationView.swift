@@ -16,7 +16,7 @@ struct RequestToLeaveNotificationView: View {
                 try await model.onTapApprove()
             }
         ])
-        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.dismiss) { dismiss() }
         .snackbar(toastBarData: $model.toast)
     }
 }

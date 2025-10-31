@@ -67,8 +67,6 @@ private extension ObjectAction {
             return isDefault ? Loc.unsetDefault : Loc.Actions.templateMakeDefault
         case .delete:
             return Loc.delete
-        case .createWidget:
-            return Loc.Actions.CreateWidget.title
         case .copyLink:
             return Loc.copyLink
         }
@@ -94,8 +92,6 @@ private extension ObjectAction {
             return isDefault ? .X32.Favorite.unfavorite : .X32.Favorite.favorite
         case .delete:
             return .X32.delete
-        case .createWidget:
-            return .X32.dashboard
         case .copyLink:
             return .X32.copy
         }

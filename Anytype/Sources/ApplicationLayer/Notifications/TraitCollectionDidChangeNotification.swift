@@ -11,7 +11,7 @@ private struct TraitCollectionNotifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: colorScheme) { _ in
+            .onChange(of: colorScheme) {
                 NotificationCenter.default.post(
                     name: .traitCollectionDidChangeNotification,
                     object: nil

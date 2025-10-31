@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import Services
+import AnytypeCore
 
 enum AuthViewModelError: Error {
     case unsupportedAppAction
@@ -130,7 +131,7 @@ final class AuthViewModel: ObservableObject {
     private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
         guard spaceId.isNotEmpty else { return }
         let startingObjectId = try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
-        if let startingObjectId, startingObjectId.isNotEmpty, appActionsStorage.action.isNil {
+        if !FeatureFlags.turnOffAutomaticWidgetOpening, let startingObjectId, startingObjectId.isNotEmpty, appActionsStorage.action.isNil {
             appActionsStorage.action = .openObject(objectId: startingObjectId, spaceId: spaceId)
         }
         try? await workspaceService.workspaceSetDetails(

@@ -210,16 +210,7 @@ extension Anytype_Rpc.Object.Graph: SwiftProtobuf.Message, SwiftProtobuf._Messag
 
 extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Graph.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "filters"),
-    2: .same(proto: "limit"),
-    3: .same(proto: "objectTypeFilter"),
-    4: .same(proto: "keys"),
-    5: .same(proto: "spaceId"),
-    6: .same(proto: "collectionId"),
-    7: .same(proto: "setSource"),
-    8: .same(proto: "includeTypeEdges"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}filters\0\u{1}limit\0\u{1}objectTypeFilter\0\u{1}keys\0\u{1}spaceId\0\u{1}collectionId\0\u{1}setSource\0\u{1}includeTypeEdges\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -284,16 +275,7 @@ extension Anytype_Rpc.Object.Graph.Request: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Rpc.Object.Graph.Edge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Graph.protoMessageName + ".Edge"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "source"),
-    2: .same(proto: "target"),
-    3: .same(proto: "name"),
-    4: .same(proto: "type"),
-    5: .same(proto: "description"),
-    6: .same(proto: "iconImage"),
-    7: .same(proto: "iconEmoji"),
-    8: .same(proto: "hidden"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}source\0\u{1}target\0\u{1}name\0\u{1}type\0\u{1}description\0\u{1}iconImage\0\u{1}iconEmoji\0\u{1}hidden\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -357,19 +339,12 @@ extension Anytype_Rpc.Object.Graph.Edge: SwiftProtobuf.Message, SwiftProtobuf._M
 }
 
 extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Link"),
-    1: .same(proto: "Relation"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Link\0\u{1}Relation\0")
 }
 
 extension Anytype_Rpc.Object.Graph.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Graph.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "nodes"),
-    3: .same(proto: "edges"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}nodes\0\u{1}edges\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -413,10 +388,7 @@ extension Anytype_Rpc.Object.Graph.Response: SwiftProtobuf.Message, SwiftProtobu
 
 extension Anytype_Rpc.Object.Graph.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Object.Graph.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -450,11 +422,7 @@ extension Anytype_Rpc.Object.Graph.Response.Error: SwiftProtobuf.Message, SwiftP
 }
 
 extension Anytype_Rpc.Object.Graph.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

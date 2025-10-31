@@ -16,10 +16,10 @@ struct TextPropertyEditingView: View {
             content
         }
         .background(Color.Background.secondary)
-        .onChange(of: viewModel.dismiss) { _ in
+        .onChange(of: viewModel.dismiss) {
             dismiss()
         }
-        .onChange(of: viewModel.text) { newText in
+        .onChange(of: viewModel.text) { _, newText in
             viewModel.onTextChanged(newText)
         }
         .task {

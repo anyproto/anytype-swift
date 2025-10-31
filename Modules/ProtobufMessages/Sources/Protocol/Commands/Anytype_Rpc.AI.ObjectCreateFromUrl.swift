@@ -182,12 +182,7 @@ extension Anytype_Rpc.AI.ObjectCreateFromUrl: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.AI.ObjectCreateFromUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.ObjectCreateFromUrl.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "config"),
-    2: .same(proto: "spaceId"),
-    3: .same(proto: "url"),
-    4: .same(proto: "details"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}config\0\u{1}spaceId\0\u{1}url\0\u{1}details\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -236,11 +231,7 @@ extension Anytype_Rpc.AI.ObjectCreateFromUrl.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.ObjectCreateFromUrl.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "objectId"),
-    3: .same(proto: "details"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}objectId\0\u{1}details\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -284,10 +275,7 @@ extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.AI.ObjectCreateFromUrl.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -321,15 +309,7 @@ extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error: SwiftProtobuf.Messa
 }
 
 extension Anytype_Rpc.AI.ObjectCreateFromUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    100: .same(proto: "RATE_LIMIT_EXCEEDED"),
-    101: .same(proto: "ENDPOINT_NOT_REACHABLE"),
-    102: .same(proto: "MODEL_NOT_FOUND"),
-    103: .same(proto: "AUTH_REQUIRED"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{2}b\u{1}RATE_LIMIT_EXCEEDED\0\u{1}ENDPOINT_NOT_REACHABLE\0\u{1}MODEL_NOT_FOUND\0\u{1}AUTH_REQUIRED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "Services",
     platforms: [
-        .iOS(.v16),
+        .iOS(.v17),
     ],
     products: [
         .library(
@@ -13,7 +13,7 @@ let package = Package(
             targets: ["Services"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.28.2"),
+        .package(url: "https://github.com/apple/swift-protobuf", revision: "1.32.0"),
         .package(url: "https://github.com/hmlongco/Factory", revision: "2.3.1"),
         .package(path: "../ProtobufMessages"),
         .package(path: "../AnytypeCore"),

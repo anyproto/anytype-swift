@@ -7,7 +7,7 @@ private struct URLViewModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .onChange(of: url) { currentUrl in
+            .onChange(of: url) { _, currentUrl in
                 guard let currentUrl else { return }
                 
                 openURL(currentUrl)

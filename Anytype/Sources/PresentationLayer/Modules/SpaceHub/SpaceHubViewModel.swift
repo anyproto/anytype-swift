@@ -23,7 +23,6 @@ final class SpaceHubViewModel: ObservableObject {
     
     @Published var notificationsDenied = false
     @Published var spaceMuteData: SpaceMuteData?
-    @Published var toastBarData: ToastBarData?
     @Published var showLoading = false
     @Published var profileIcon: Icon?
     @Published var spaceToDelete: StringIdentifiable?
@@ -33,10 +32,8 @@ final class SpaceHubViewModel: ObservableObject {
 
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.activeSpaceManager)
-    private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspacesStorage: any SpaceViewsStorageProtocol
     @Injected(\.spaceOrderService)
     private var spaceOrderService: any SpaceOrderServiceProtocol
     @Injected(\.profileStorage)
@@ -65,15 +62,8 @@ final class SpaceHubViewModel: ObservableObject {
     }
     
     func onSpaceTap(spaceId: String) {
-        if FeatureFlags.spaceLoadingForScreen {
-            output?.onSelectSpace(spaceId: spaceId)
-            UISelectionFeedbackGenerator().selectionChanged()
-        } else {
-            Task {
-                try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-                UISelectionFeedbackGenerator().selectionChanged()
-            }
-        }
+        output?.onSelectSpace(spaceId: spaceId)
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     
@@ -92,17 +82,10 @@ final class SpaceHubViewModel: ObservableObject {
     func pin(spaceView: SpaceView) async throws {
         guard let spaces else { return }
         let pinnedSpaces = spaces.filter { $0.spaceView.isPinned }
-        
-        let pinnedSpacesLimit = 6
-        if pinnedSpaces.count >= pinnedSpacesLimit {
-            toastBarData = ToastBarData(Loc.pinLimitReached(pinnedSpacesLimit), type: .failure)
-            UINotificationFeedbackGenerator().notificationOccurred(.warning)
-            return
-        }
-        
+
         var newOrder = pinnedSpaces.filter { $0.spaceView.id != spaceView.id }.map(\.spaceView.id)
         newOrder.insert(spaceView.id, at: 0)
-        
+
         try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
         AnytypeAnalytics.instance().logPinSpace()
     }
@@ -145,9 +128,7 @@ final class SpaceHubViewModel: ObservableObject {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-            if FeatureFlags.spaceLoadingForScreen {
-                showLoading = spaces.contains { $0.spaceView.isLoading }
-            }
+            showLoading = spaces.contains { $0.spaceView.isLoading }
         }
     }
     

@@ -73,13 +73,4 @@ extension ScreenData {
             return nil
         }
     }
-    
-    var isSimpleSet: Bool {
-        switch self {
-        case .editor(let editorScreenData):
-            return editorScreenData.isSimpleSet
-        default:
-            return false
-        }
-    }
 }

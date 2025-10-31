@@ -30,7 +30,7 @@ struct ApplicationCoordinatorView: View {
             await model.selectAccount(id: accountId)
         }
         .onChange(of: dismissAllPresented) {
-            model.setDismissAllPresented(dismissAllPresented: $0)
+            model.setDismissAllPresented(dismissAllPresented: $1)
         }
         .snackbar(toastBarData: $model.toastBarData)
         // migration

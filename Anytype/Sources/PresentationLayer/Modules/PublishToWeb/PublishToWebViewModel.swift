@@ -17,12 +17,12 @@ final class PublishToWebViewModel: ObservableObject {
     
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var participantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var participantStorage: any ParticipantsStorageProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.workspaceStorage)
-    private var activeWorkspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var activeWorkspaceStorage: any SpaceViewsStorageProtocol
     
     private let spaceId: String
     private let objectId: String

@@ -33,9 +33,7 @@ final class SharingExtensionViewModel: ObservableObject {
     
     init(output: (any SharingExtensionModuleOutput)?) {
         self.output = output
-        if #available(iOS 17.0, *) {
-            SharingTip().invalidate(reason: .actionPerformed)
-        }
+        SharingTip().invalidate(reason: .actionPerformed)
     }
     
     func onAppear() async {

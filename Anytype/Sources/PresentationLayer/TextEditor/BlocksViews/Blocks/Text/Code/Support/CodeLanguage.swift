@@ -181,7 +181,7 @@ enum CodeLanguage: String, CaseIterable {
         case .scheme:
             return "Scheme"
         case .scss:
-            return "SСSS"
+            return "SCSS"
         case .shell:
             return "Shell"
         case .sql:

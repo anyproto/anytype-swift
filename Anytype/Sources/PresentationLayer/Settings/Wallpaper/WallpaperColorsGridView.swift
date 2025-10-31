@@ -45,7 +45,7 @@ struct WallpaperColorsGridView: View {
     private func colorView(_ color: CoverColor) -> some View {
         DashboardWallpaper(wallpaper: .color(color), spaceIcon: spaceIcon)
             .coverGridSelection(show: currentWallpaper == .color(color))
-            .сoverGridAppearance()
+            .coverGridAppearance()
             .onTapGesture {
                 onCoverSelect(.color(color))
             }
@@ -54,7 +54,7 @@ struct WallpaperColorsGridView: View {
     private func gradientView(_ gradient: CoverGradient) -> some View {
         DashboardWallpaper(wallpaper: .gradient(gradient), spaceIcon: spaceIcon)
             .coverGridSelection(show: currentWallpaper == .gradient(gradient))
-            .сoverGridAppearance()
+            .coverGridAppearance()
             .onTapGesture {
                 onCoverSelect(.gradient(gradient))
             }
@@ -67,7 +67,7 @@ struct WallpaperColorsGridView: View {
                     DashboardWallpaper(wallpaper: .blurredIcon, spaceIcon: spaceIcon)
                         .frame(width: geo.size.width)
                         .coverGridSelection(show: currentWallpaper == .blurredIcon)
-                        .сoverGridAppearance()
+                        .coverGridAppearance()
                         .onTapGesture {
                             onCoverSelect(.blurredIcon)
                         }
@@ -89,7 +89,7 @@ struct WallpaperColorsGridView: View {
 }
 
 private extension View {
-    func сoverGridAppearance() -> some View {
+    func coverGridAppearance() -> some View {
         self
             .cornerRadius(12)
             .clipped()
@@ -111,7 +111,7 @@ private extension View {
 struct WallpaperColorsGridView_Previews: PreviewProvider {
     static var previews: some View {
         MockView {
-            WorkspacesStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
+            SpaceViewsStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
         } content: {
             WallpaperColorsGridView(
                 spaceIcon: .object(.space(.mock)),

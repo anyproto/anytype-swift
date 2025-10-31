@@ -34,7 +34,7 @@ struct FileAttachmentProcessor: AttachmentProcessor {
             throw AttachmentError.fileCreationFailed
         }
         
-        return .localBinaryFile(fileData)
+        return .localBinaryFile(ChatLocalBinaryFile(data: fileData))
     }
 }
 
@@ -50,12 +50,12 @@ struct CameraMediaProcessor: AttachmentProcessor {
             guard let fileData = try? fileActionsService.createFileData(image: image, type: type) else {
                 throw AttachmentError.fileCreationFailed
             }
-            return .localBinaryFile(fileData)
+            return .localBinaryFile(ChatLocalBinaryFile(data: fileData))
         case .video(let file):
             guard let fileData = try? fileActionsService.createFileData(fileUrl: file) else {
                 throw AttachmentError.fileCreationFailed
             }
-            return .localBinaryFile(fileData)
+            return .localBinaryFile(ChatLocalBinaryFile(data: fileData))
         }
     }
 }
@@ -68,7 +68,7 @@ struct PhotosPickerProcessor: AsyncAttachmentProcessor {
     
     func process(_ input: PhotosPickerItem, spaceId: String) async throws -> ChatLinkedObject {
         let data = try await fileActionsService.createFileData(photoItem: input)
-        return .localPhotosFile(ChatLocalPhotosFile(data: data, photosPickerItemHash: input.hashValue))
+        return .localPhotosFile(ChatLocalPhotosFile(data: ChatLocalBinaryFile(data: data), photosPickerItemHash: input.hashValue))
     }
 }
 
@@ -82,7 +82,7 @@ struct PasteBufferProcessor: AsyncAttachmentProcessor {
         guard let fileData = try? await fileActionsService.createFileData(source: .itemProvider(input)) else {
             throw AttachmentError.fileCreationFailed
         }
-        return .localBinaryFile(fileData)
+        return .localBinaryFile(ChatLocalBinaryFile(data: fileData))
     }
 }
 

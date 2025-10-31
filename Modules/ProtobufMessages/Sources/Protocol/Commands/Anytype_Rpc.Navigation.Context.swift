@@ -56,11 +56,7 @@ extension Anytype_Rpc.Navigation {
     }}
 
 extension Anytype_Rpc.Navigation.Context: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Navigation"),
-    1: .same(proto: "MoveTo"),
-    2: .same(proto: "LinkTo"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Navigation\0\u{1}MoveTo\0\u{1}LinkTo\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

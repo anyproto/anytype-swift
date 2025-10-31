@@ -13,9 +13,6 @@ struct NewSpaceCardLabel: View {
     
     var body: some View {
         content
-            // Delete this line with FeatureFlags.spaceLoadingForScreen
-            .if(spaceData.spaceView.isLoading && !FeatureFlags.spaceLoadingForScreen) { $0.redacted(reason: .placeholder) }
-            
             .if(spaceData.spaceView.isPinned) {
                 $0.onDrag {
                     draggedSpace = spaceData
@@ -52,7 +49,7 @@ struct NewSpaceCardLabel: View {
         .background(DashboardWallpaper(
             mode: .spaceHub,
             wallpaper: wallpaper,
-            spaceIcon: spaceData.spaceView.iconImage
+            spaceIcon: spaceData.spaceView.objectIconImage
         ))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }

@@ -6,11 +6,10 @@ struct SettingsInfoEditingViewData: Identifiable {
     let title: String
     let placeholder: String
     let initialValue: String
-    let font: AnytypeFont
     let usecase: ThresholdCounterUsecase
-    
+
     let onSave: (String) -> Void
-    
+
     var id: String { usecase.rawValue }
 }
 
@@ -18,18 +17,16 @@ struct SettingsInfoEditingView: View {
     private let title: String
     private let placeholder: String
     private let initialValue: String
-    private let font: AnytypeFont
     private let usecase: ThresholdCounterUsecase
-    
+
     private let onSave: (String) -> Void
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     init(_ data: SettingsInfoEditingViewData) {
         title = data.title
         placeholder = data.placeholder
         initialValue = data.initialValue
-        font = data.font
         usecase = data.usecase
         onSave = data.onSave
     }
@@ -74,14 +71,12 @@ struct SettingsInfoEditingView: View {
     }
     
     private var editingView: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            AnytypeText(title, style: .uxCalloutRegular).foregroundColor(.Text.secondary)
-            AutofocusedTextField(placeholder: placeholder, font: font, axis: .vertical, text: $value)
-                .autocorrectionDisabled()
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .border(12, color: .Control.accent50, lineWidth: 2)
+        FramedTextField(
+            title: title,
+            placeholder: placeholder,
+            axis: .vertical,
+            text: $value
+        )
         .padding(.horizontal, 16)
     }
 }

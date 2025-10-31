@@ -2,14 +2,19 @@ import Foundation
 import Services
 
 struct ChatLocalPhotosFile: Equatable {
-    let data: FileData?
+    var data: ChatLocalBinaryFile?
     let photosPickerItemHash: Int
+}
+
+struct ChatLocalBinaryFile: Equatable {
+    let data: FileData
+    var preloadFileId: String?
 }
 
 enum ChatLinkedObject: Identifiable, Equatable {
     case uploadedObject(MessageAttachmentDetails)
     case localPhotosFile(ChatLocalPhotosFile)
-    case localBinaryFile(FileData)
+    case localBinaryFile(ChatLocalBinaryFile)
     case localBookmark(ChatLocalBookmark)
     
     var id: Int {
@@ -19,7 +24,7 @@ enum ChatLinkedObject: Identifiable, Equatable {
         case .localPhotosFile(let file):
             return file.photosPickerItemHash
         case .localBinaryFile(let file):
-            return file.path.hashValue
+            return file.data.path.hashValue
         case .localBookmark(let bookmark):
             return bookmark.hashValue
         }
@@ -50,5 +55,28 @@ enum ChatLinkedObject: Identifiable, Equatable {
         default:
             return nil
         }
+    }
+
+    var preloadFileId: String? {
+        switch self {
+        case .localPhotosFile(let file):
+            return file.data?.preloadFileId
+        case .localBinaryFile(let file):
+            return file.preloadFileId
+        default:
+            return nil
+        }
+    }
+    
+    var fileData: FileData? {
+        switch self {
+        case .localPhotosFile(let file):
+            return file.data?.data
+        case .localBinaryFile(let file):
+            return file.data
+        case .localBookmark, .uploadedObject:
+            return nil
+        }
+        
     }
 }

@@ -34,7 +34,7 @@ struct MembershipCoordinator: View {
         .anytypeSheet(item: $model.showSuccess) {
             MembershipTierSuccessView(tier: $0)
         }
-        .onChange(of: model.emailUrl) { url in
+        .onChange(of: model.emailUrl) { _, url in
             showEmail(url: url)
         }
         .onAppear {

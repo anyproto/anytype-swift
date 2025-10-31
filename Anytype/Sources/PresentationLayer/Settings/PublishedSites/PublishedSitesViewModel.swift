@@ -7,8 +7,8 @@ import AnytypeCore
 final class PublishedSitesViewModel: ObservableObject {
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var participantStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var participantStorage: any ParticipantsStorageProtocol
     @Injected(\.publishedUrlBuilder)
     private var urlBuilder: any PublishedUrlBuilderProtocol
     

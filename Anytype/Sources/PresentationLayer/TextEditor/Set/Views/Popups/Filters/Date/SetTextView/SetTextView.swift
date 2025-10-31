@@ -29,7 +29,7 @@ struct SetTextView: View {
             )
             .frame(height: 48)
             .keyboardType(.decimalPad)
-            .onChange(of: text) { text in
+            .onChange(of: text) { _, text in
                 onTextChanged(text)
             }
         }

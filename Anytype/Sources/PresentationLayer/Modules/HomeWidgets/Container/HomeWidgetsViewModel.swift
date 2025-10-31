@@ -5,7 +5,8 @@ import Combine
 import SwiftUI
 
 @MainActor
-final class HomeWidgetsViewModel: ObservableObject {
+@Observable
+final class HomeWidgetsViewModel {
 
     private enum Constants {
         static let pinnedSectionId = "HomePinnedSection"
@@ -17,38 +18,40 @@ final class HomeWidgetsViewModel: ObservableObject {
     let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
     
-    @Injected(\.blockWidgetService)
+    @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.objectActionsService)
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.homeWidgetsRecentStateManager)
+    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    @Injected(\.participantsStorage) @ObservationIgnored
+    private var accountParticipantStorage: any ParticipantsStorageProtocol
+    @Injected(\.homeWidgetsRecentStateManager) @ObservationIgnored
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
-    @Injected(\.objectTypeProvider)
+    @Injected(\.objectTypeProvider) @ObservationIgnored
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectTypeService)
+    @Injected(\.objectTypeService) @ObservationIgnored
     private var objectTypeService: any ObjectTypeServiceProtocol
-    @Injected(\.expandedService)
+    @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
     
+    @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
+    @ObservationIgnored
     private var typesDropTask: Task<Void, any Error>?
     
     // MARK: - State
     
-    @Published var widgetBlocks: [BlockWidgetInfo] = []
-    @Published var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
-    @Published var homeState: HomeWidgetsState = .readonly
-    @Published var widgetsDataLoaded: Bool = false
-    @Published var objectTypesDataLoaded: Bool = false
-    @Published var wallpaper: SpaceWallpaperType = .default
-    @Published var pinnedSectionIsExpanded: Bool = false
-    @Published var objectTypeSectionIsExpanded: Bool = false
-    @Published var canCreateObjectType: Bool = false
-    @Published var chatWidgetData: SpaceChatWidgetData?
+    var widgetBlocks: [BlockWidgetInfo] = []
+    var objectTypeWidgets: [ObjectTypeWidgetInfo] = []
+    var homeState: HomeWidgetsState = .readonly
+    var widgetsDataLoaded: Bool = false
+    var objectTypesDataLoaded: Bool = false
+    var wallpaper: SpaceWallpaperType = .default
+    var pinnedSectionIsExpanded: Bool = false
+    var objectTypeSectionIsExpanded: Bool = false
+    var canCreateObjectType: Bool = false
+    var chatWidgetData: SpaceChatWidgetData?
     
     var spaceId: String { info.accountSpaceId }
     
@@ -74,11 +77,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenWidget()
-    }
-    
-    func onEditButtonTap() {
-        AnytypeAnalytics.instance().logEditWidget()
-        homeState = .editWidgets
     }
     
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
@@ -115,16 +113,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onSpaceSelected()
     }
     
-    func onCreateWidgetFromEditMode() {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .editor)
-        output?.onCreateWidgetSelected(context: .editor)
-    }
-    
-    func onCreateWidgetFromMainMode() {
-        AnytypeAnalytics.instance().logClickAddWidget(context: .main)
-        output?.onCreateWidgetSelected(context: .main)
-    }
-    
     func onCreateObjectType() {
         output?.onCreateObjectType()
     }
@@ -155,20 +143,9 @@ final class HomeWidgetsViewModel: ObservableObject {
             var newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
-            newWidgetBlocks.removeAll { $0.source == .library(.chat) }
-            
-            if FeatureFlags.homeObjectTypeWidgets {
-                newWidgetBlocks.removeAll { $0.source == .library(.allObjects) || $0.source == .library(.bin) }
-            }
-            
             guard widgetBlocks != newWidgetBlocks else { continue }
             
             widgetBlocks = newWidgetBlocks
-            
-            // Reset panel for empty state
-            if newWidgetBlocks.isEmpty && homeState == .editWidgets {
-                homeState = .readwrite
-            }
         }
     }
     
@@ -180,7 +157,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     private func startObjectTypesTask() async {
-        guard FeatureFlags.homeObjectTypeWidgets else { return }
         let spaceId = spaceId
         
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)

@@ -4,8 +4,8 @@ import Foundation
 final class PermissionChangeNotificationViewModel: ObservableObject {
     
     private let notification: NotificationParticipantPermissionsChange
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     
     @Published var message: String = ""
     

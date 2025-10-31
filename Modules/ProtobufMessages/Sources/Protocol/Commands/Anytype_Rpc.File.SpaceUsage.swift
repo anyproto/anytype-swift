@@ -163,9 +163,7 @@ extension Anytype_Rpc.File.SpaceUsage: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Anytype_Rpc.File.SpaceUsage.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.SpaceUsage.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "spaceId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -195,10 +193,7 @@ extension Anytype_Rpc.File.SpaceUsage.Request: SwiftProtobuf.Message, SwiftProto
 
 extension Anytype_Rpc.File.SpaceUsage.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.SpaceUsage.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-    2: .same(proto: "usage"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}usage\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -237,14 +232,7 @@ extension Anytype_Rpc.File.SpaceUsage.Response: SwiftProtobuf.Message, SwiftProt
 
 extension Anytype_Rpc.File.SpaceUsage.Response.Usage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.SpaceUsage.Response.protoMessageName + ".Usage"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "filesCount"),
-    2: .same(proto: "cidsCount"),
-    3: .same(proto: "bytesUsage"),
-    4: .same(proto: "bytesLeft"),
-    5: .same(proto: "bytesLimit"),
-    6: .same(proto: "localBytesUsage"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}filesCount\0\u{1}cidsCount\0\u{1}bytesUsage\0\u{1}bytesLeft\0\u{1}bytesLimit\0\u{1}localBytesUsage\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -299,10 +287,7 @@ extension Anytype_Rpc.File.SpaceUsage.Response.Usage: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.File.SpaceUsage.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.File.SpaceUsage.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -336,11 +321,7 @@ extension Anytype_Rpc.File.SpaceUsage.Response.Error: SwiftProtobuf.Message, Swi
 }
 
 extension Anytype_Rpc.File.SpaceUsage.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

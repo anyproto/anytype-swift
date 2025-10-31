@@ -60,7 +60,7 @@ actor StoreKitService: StoreKitServiceProtocol {
                         "Error in Receipt verification",
                         tags: [SentryTagKey.appArea.rawValue : SentryAppArea.payments.rawValue]
                     )
-                    return
+                    continue
                 }
                 
                 do {

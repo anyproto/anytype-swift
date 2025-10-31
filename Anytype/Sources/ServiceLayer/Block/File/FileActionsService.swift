@@ -160,8 +160,26 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
                 try? FileManager.default.removeItem(atPath: data.path)
             }
         }
-        
+
         return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId, origin: origin)
+    }
+
+    func preloadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> String {
+        return try await fileService.preloadFileObject(path: data.path, spaceId: spaceId, origin: origin)
+    }
+
+    func uploadPreloadedFileObject(fileId: String, spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
+        defer {
+            if data.isTemporary {
+                try? FileManager.default.removeItem(atPath: data.path)
+            }
+        }
+        
+        return try await fileService.uploadPreloadedFileObject(fileId: fileId, spaceId: spaceId, origin: origin)
+    }
+
+    func discardPreloadFile(fileId: String, spaceId: String) async throws {
+        try await fileService.discardPreloadFile(fileId: fileId, spaceId: spaceId)
     }
     
     func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws {
@@ -216,14 +234,4 @@ final class FileActionsService: FileActionsServiceProtocol, Sendable {
         return FileData(path: url.relativePath, type: type, sizeInBytes: resources.fileSize, isTemporary: true)
     }
 
-}
-
-extension FileActionsServiceProtocol {
-    func uploadFileObject(spaceId: String, data: FileData, origin: ObjectOrigin) async throws -> FileDetails {
-        try await uploadFileObject(spaceId: spaceId, data: data, origin: origin)
-    }
-    
-    func uploadImage(spaceId: String, source: FileUploadingSource, origin: ObjectOrigin) async throws -> FileDetails {
-        try await uploadImage(spaceId: spaceId, source: source, origin: origin)
-    }
 }

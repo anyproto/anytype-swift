@@ -62,7 +62,6 @@ final class EditorSetCoordinatorViewModel:
     @Published var syncStatusSpaceId: StringIdentifiable?
     @Published var setObjectCreationData: SetObjectCreationData?
     @Published var presentSettings = false
-    @Published var aiToolData: AIToolData?
     @Published var layoutPickerData: LayoutPickerData?
     @Published var showTypePropertiesDocument: BaseDocumentIdentifiable?
     @Published var templatesPickerDocument: BaseDocumentIdentifiable?
@@ -88,27 +87,14 @@ final class EditorSetCoordinatorViewModel:
     }
     
     // MARK: - EditorSetModuleOutput - SetViewPicker
-    
+
     func showSetViewPicker(document: some SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
         setViewPickerData = SetViewData(
             document: document,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
     }
-    
-    // MARK: - EditorSetModuleOutput - AI tool
-    
-    func showAITool(objectIds: [String]) {
-        aiToolData = AIToolData(
-            id: data.objectId,
-            spaceId: data.spaceId,
-            objectIds: objectIds,
-            completion: { [weak self] screenData in
-                self?.showEditorScreen(data: screenData)
-            }
-        )
-    }
-    
+
     // MARK: - EditorSetModuleOutput - SetViewSettings
     
     func showSetViewSettings(document: some SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {

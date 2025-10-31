@@ -44,9 +44,7 @@ extension Anytype_Model_Notification {
   }}
 
 extension Anytype_Model_Notification.ActionType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "CLOSE"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0CLOSE\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

@@ -54,8 +54,8 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectLifecycleService)
     private var objectLifecycleService: any ObjectLifecycleServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    @Injected(\.participantsStorage)
+    private var accountParticipantsStorage: any ParticipantsStorageProtocol
     
     func document(objectId: String, spaceId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
         internalDocument(objectId: objectId, spaceId: spaceId, mode: mode)

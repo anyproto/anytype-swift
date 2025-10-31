@@ -30,7 +30,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
         }
         .padding(.horizontal, 16)
         .onAppear { viewModel.onAppear() }
-        .onChange(of: searchText) { newValue in
+        .onChange(of: searchText) { _, newValue in
             viewModel.didChangeSearchQuery(query: newValue)
         }
     }

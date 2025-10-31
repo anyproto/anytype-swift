@@ -3,7 +3,8 @@ output_dir: ../../Sources/Loc
 
 strings:
   inputs: 
-    - Resources/Localizable.xcstrings
+    - Resources
+  filter: .+\.xcstrings$
   outputs:
     - templatePath: Templates/structured-swift5.stencil
       output: Generated/Strings.swift

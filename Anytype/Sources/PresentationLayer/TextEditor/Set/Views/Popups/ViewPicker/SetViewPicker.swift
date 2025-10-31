@@ -19,7 +19,7 @@ struct SetViewPicker: View {
         .task {
             await viewModel.startSyncTask()
         }
-        .onChange(of: viewModel.shouldDismiss) { _ in dismiss() }
+        .onChange(of: viewModel.shouldDismiss) { dismiss() }
     }
     
     private var content: some View {
@@ -28,7 +28,7 @@ struct SetViewPicker: View {
                 .navigationTitle(Loc.views)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
-                .onChange(of: viewModel.rows) { newValue in
+                .onChange(of: viewModel.rows) { _, newValue in
                     if editMode == .active && viewModel.rows.count == 0 {
                         editMode = .inactive
                     }
@@ -69,7 +69,7 @@ struct SetViewPicker: View {
                 addButton
             }
         }
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
         .background(Color.Background.secondary)
     }
     

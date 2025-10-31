@@ -18,11 +18,11 @@ struct HomeWidgetsCoordinatorView: View {
 
 private struct HomeWidgetsCoordinatorInternalView: View {
     
-    @StateObject private var model: HomeWidgetsCoordinatorViewModel
+    @State private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     
     init(info: AccountInfo) {
-        self._model = StateObject(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
+        self._model = State(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
     }
     
     var body: some View {
@@ -32,11 +32,6 @@ private struct HomeWidgetsCoordinatorInternalView: View {
             }
             .sheet(item: $model.showChangeTypeData) {
                 WidgetTypeChangeView(data: $0)
-            }
-            .sheet(item: $model.showCreateWidgetData) {
-                CreateWidgetCoordinatorView(data: $0) {
-                    model.onFinishCreateSource(screenData: $0)
-                }
             }
             .anytypeSheet(item: $model.createTypeData) {
                 CreateObjectTypeView(data: $0)

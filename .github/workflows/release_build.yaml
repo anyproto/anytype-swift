@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   main:
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - name: Checkout
@@ -46,7 +46,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.6.0
         with:
-          xcode-version: '16.4'
+          xcode-version: '26.0'
 
       - name: Download Middleware
         run: make setup-middle-ci

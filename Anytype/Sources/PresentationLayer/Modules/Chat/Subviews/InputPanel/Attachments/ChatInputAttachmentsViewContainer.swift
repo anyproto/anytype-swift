@@ -51,7 +51,7 @@ struct ChatInputAttachmentsViewContainer: View {
                 .padding(.horizontal, 12)
             }
             .scrollIndicators(.hidden)
-            .onChange(of: objects) { newValue in
+            .onChange(of: objects) { _, newValue in
                 if objects.count < newValue.count, let last = newValue.last {
                     reader.scrollTo(last.id, anchor: .bottom)
                 }

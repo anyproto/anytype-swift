@@ -56,12 +56,7 @@ extension Anytype_Model_LinkPreview {
   }}
 
 extension Anytype_Model_LinkPreview.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Unknown"),
-    1: .same(proto: "Page"),
-    2: .same(proto: "Image"),
-    3: .same(proto: "Text"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0Unknown\0\u{1}Page\0\u{1}Image\0\u{1}Text\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

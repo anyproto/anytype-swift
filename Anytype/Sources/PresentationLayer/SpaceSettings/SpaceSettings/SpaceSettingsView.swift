@@ -21,7 +21,7 @@ struct SpaceSettingsView: View {
             .task {
                 await model.startSubscriptions()
             }
-            .onChange(of: model.dismiss) { _ in
+            .onChange(of: model.dismiss) {
                 dismiss()
             }
         
@@ -177,8 +177,8 @@ struct SpaceSettingsView: View {
             EmptyView()
         case let .private(state):
             privateSpaceSetting(state: state)
-        case .owner(let joiningCount):
-            collaborationSection(memberDecoration: joiningCount > 0 ? .badge(joiningCount) : .chervon)
+        case .owner:
+            collaborationSection(memberDecoration: ownerButtonDecoration())
         case .editor:
             collaborationSection(memberDecoration: .chervon)
         case .viewer:
@@ -216,25 +216,23 @@ struct SpaceSettingsView: View {
             switch state {
             case .unshareable:
                 EmptyView()
-            case .shareable:
+            case .shareable, .reachedSharesLimit:
                 SectionHeaderView(title: Loc.collaboration)
                 RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
-            case .reachedSharesLimit(let limit):
-                SectionHeaderView(title: Loc.collaboration)
-                VStack(alignment: .leading, spacing: 0) {
-                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { }
-                        .disabled(true)
-                    AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
-                        .foregroundColor(.Text.primary)
-                    Spacer.fixedHeight(10)
-                    StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.Membership.Upgrade.moreSpaces)", style: .upgradeBadge) {
-                        model.onMembershipUpgradeTap()
-                    }
-                }
             }
         }
     }
-    
+
+    private func ownerButtonDecoration() -> RoundedButtonDecoration {
+        if !model.canAddWriters {
+            return .alert
+        } else if model.joiningCount > 0 {
+            return .badge(model.joiningCount)
+        } else {
+            return .chervon
+        }
+    }
+
     @ViewBuilder
     private var contentModel: some View {
         SectionHeaderView(title: Loc.contentModel)

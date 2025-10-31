@@ -12,8 +12,8 @@ final class WallpaperPickerViewModel: ObservableObject {
     var spaceIcon: Icon? { spaceStorage.spaceView(spaceId: spaceId)?.objectIconImage }
     
     private let userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.workspaceStorage)
-    private var spaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceStorage: any SpaceViewsStorageProtocol
     
     private let spaceId: String    
     

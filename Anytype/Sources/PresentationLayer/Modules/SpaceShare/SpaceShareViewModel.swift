@@ -5,12 +5,6 @@ import DeepLinks
 import Combine
 import AnytypeCore
 
-struct SpaceShareData: Identifiable, Hashable {
-    let spaceId: String
-    let route: SettingsSpaceShareRoute
-    var id: Int { hashValue }
-}
-
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
     
@@ -24,18 +18,18 @@ final class SpaceShareViewModel: ObservableObject {
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspacesStorage: any SpaceViewsStorageProtocol
     
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
-    private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     
     let data: SpaceShareData
+    weak var output: (any NewInviteLinkModuleOutput)?
     var spaceId: String { data.spaceId }
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
@@ -49,13 +43,17 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
     @Published var canApproveRequests = false
-    @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
+    @Published var canChangeInvite = false
+    @Published var hasReachedSharedSpacesLimit = false
+    @Published var limitBannerData: SpaceLimitBannerLimitType?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var participantInfo: ObjectInfo?
+    @Published var notifyUpdateLinkView = UUID()
+    @Published var showStopSharingAnEmptySpaceAlert = false
     
-    init(data: SpaceShareData, onMoreInfo: @escaping () -> Void) {
+    init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
-        self.onMoreInfo = onMoreInfo
+        self.output = output
     }
     
     func startParticipantsTask() async {
@@ -76,11 +74,6 @@ final class SpaceShareViewModel: ObservableObject {
         showStopSharingAlert = true
     }
     
-    func onMoreInfoTap() {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .moreInfo)
-        onMoreInfo()
-    }
-    
     func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
         onUpgradeTap(reason: MembershipUpgradeReason(participantReason: reason), route: route)
     }
@@ -90,24 +83,41 @@ final class SpaceShareViewModel: ObservableObject {
         membershipUpgradeReason = reason
     }
     
+    func onReject() {
+        Task {
+            try await makePrivateIfPossible()
+        }
+    }
+
+    func onManageSpaces() {
+        output?.showSpacesManager()
+    }
+
     // MARK: - Private
     
     private func updateView() {
-        let workspaceInfo = workspacesStorage.workspaceInfo(spaceId: spaceId)
+        let workspaceInfo = workspacesStorage.spaceInfo(spaceId: spaceId)
         guard let participantSpaceView, let workspaceInfo else { return }
         
+        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
+
+        hasReachedSharedSpacesLimit = spaceSharingInfo != nil && !spaceSharingInfo!.limitsAllowSharing
         canStopShare = participantSpaceView.canStopSharing
         canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
             && participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
-        canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
+        canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
         canDeleteLink = participantSpaceView.permissions.canDeleteLink
         canApproveRequests = participantSpaceView.permissions.canApproveRequests
+        canChangeInvite = participantSpaceView.permissions.canEditPermissions
+            && participantSpaceView.permissions.canDeleteLink
         
         updateUpgradeViewState()
-        
-        rows = participants.map { participant in
+
+        let filteredParticipants = participantSpaceView.permissions.canEditPermissions ? participants : participants.filter { $0.status == .active }
+
+        rows = filteredParticipants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
             return SpaceShareParticipantViewModel(
                 id: participant.id,
@@ -123,18 +133,16 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func updateUpgradeViewState() {
         guard let participantSpaceView else { return }
-        
-        let canAddReaders = participantSpaceView.spaceView.canAddReaders(participants: participants)
+
         let canAddWriters = participantSpaceView.spaceView.canAddWriters(participants: participants)
-        let haveJoiningParticipants = participants.contains { $0.status == .joining }
-        
-        
-        if !canAddReaders && haveJoiningParticipants {
-            upgradeTooltipData = .numberOfSpaceReaders
-        } else if !canAddWriters {
-            upgradeTooltipData = .numberOfSpaceEditors
+        let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
+
+        if !canAddWriters, let writersLimit = participantSpaceView.spaceView.writersLimit {
+            limitBannerData = .editors(limit: writersLimit)
+        } else if canChangeInvite, let spaceSharingInfo, !spaceSharingInfo.limitsAllowSharing {
+            limitBannerData = .sharedSpaces(limit: spaceSharingInfo.sharedSpacesLimit)
         } else {
-            upgradeTooltipData = nil
+            limitBannerData = nil
         }
     }
     
@@ -143,7 +151,7 @@ final class SpaceShareViewModel: ObservableObject {
         case .active:
             return .active(permission: participant.permission.title)
         case .joining:
-            return .pending(message: Loc.SpaceShare.joinRequest)
+            return .pending(message: canApproveRequests ? Loc.setAccess : Loc.pending)
         case .removing:
             return .pending(message: Loc.SpaceShare.leaveRequest)
         case .declined, .canceled, .removed, .UNRECOGNIZED:
@@ -152,59 +160,70 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     private func participantAction(_ participant: Participant) -> SpaceShareParticipantViewModel.Action? {
-        switch participant.status {
-        case .joining:
-            guard canApproveRequests else { return nil }
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.viewRequest, action: { [weak self] in
-                self?.showRequestAlert(participant: participant)
-            })
-        case .removing:
-            guard canApproveRequests else { return nil }
-            return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
-                AnytypeAnalytics.instance().logApproveLeaveRequest()
-                try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
-                self?.toastBarData = ToastBarData(Loc.SpaceShare.Approve.toast(participant.title))
-            })
-        case .active:
-            return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
-                self?.showParticipantInfo(participant)
-            })
-        case .canceled, .declined, .removed, .UNRECOGNIZED:
-            return nil
-        }
+        return SpaceShareParticipantViewModel.Action(title: nil, action: { [weak self] in
+            self?.showParticipantInfo(participant)
+        })
     }
     
     private func participantContextActions(_ participant: Participant) -> [SpaceShareParticipantViewModel.ContextAction] {
-        guard participant.permission != .owner, participant.status == .active else { return [] }
-        return [
-            SpaceShareParticipantViewModel.ContextAction(
-                title: Loc.SpaceShare.Permissions.reader,
-                isSelected: participant.permission == .reader,
-                destructive: false,
-                enabled: canChangeWriterToReader || participant.permission == .reader,
-                action: { [weak self] in
-                    self?.showPermissionAlert(participant: participant, newPermission: .reader)
-                }
-            ),
-            SpaceShareParticipantViewModel.ContextAction(
-                title: Loc.SpaceShare.Permissions.writer,
-                isSelected: participant.permission == .writer,
-                destructive: false,
-                enabled: canChangeReaderToWriter || participant.permission == .writer,
-                action: { [weak self] in
-                    self?.showPermissionAlert(participant: participant, newPermission: .writer)
-                }
-            ),
-            SpaceShareParticipantViewModel.ContextAction(
-                title: Loc.SpaceShare.RemoveMember.title,
+        guard let participantSpaceView, participantSpaceView.permissions.canEditPermissions else { return [] }
+        guard participant.permission != .owner else { return [] }
+        switch participant.status {
+        case .active:
+            return [
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.reader,
+                    isSelected: participant.permission == .reader,
+                    destructive: false,
+                    enabled: canChangeWriterToReader || participant.permission == .reader,
+                    action: { [weak self] in
+                        self?.showPermissionAlert(participant: participant, newPermission: .reader)
+                    }
+                ),
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Permissions.writer,
+                    isSelected: participant.permission == .writer,
+                    destructive: false,
+                    enabled: canChangeReaderToWriter || participant.permission == .writer,
+                    action: { [weak self] in
+                        self?.showPermissionAlert(participant: participant, newPermission: .writer)
+                    }
+                ),
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.RemoveMember.title,
+                    isSelected: false,
+                    destructive: true,
+                    enabled: canRemoveMember,
+                    action: { [weak self] in
+                        self?.showRemoveAlert(participant: participant)
+                    }
+                )]
+        case .joining:
+            return canApproveRequests ? [SpaceShareParticipantViewModel.ContextAction(
+                title: Loc.SpaceShare.Action.viewRequest,
                 isSelected: false,
-                destructive: true,
-                enabled: canRemoveMember,
+                destructive: false,
+                enabled: canApproveRequests,
                 action: { [weak self] in
-                    self?.showRemoveAlert(participant: participant)
+                    self?.showRequestAlert(participant: participant)
                 }
-            )
-        ]
+            )] : []
+        case .removing:
+            return canApproveRequests ? [
+                SpaceShareParticipantViewModel.ContextAction(
+                    title: Loc.SpaceShare.Action.approve,
+                    isSelected: false,
+                    destructive: false,
+                    enabled: canApproveRequests,
+                    action: { [weak self] in
+                        AnytypeAnalytics.instance().logApproveLeaveRequest()
+                        try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
+                        self?.toastBarData = ToastBarData(Loc.SpaceShare.Approve.toast(participant.title))
+                    }
+                )] : []
+        case .removed, .declined, .canceled, .UNRECOGNIZED(_):
+            return []
+        }
     }
     
     private func showRequestAlert(participant: Participant) {
@@ -243,6 +262,7 @@ final class SpaceShareViewModel: ObservableObject {
             onConfirm: { [weak self] in
                 AnytypeAnalytics.instance().logRemoveSpaceMember()
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+                try await self?.makePrivateIfPossible()
             }
         )
     }
@@ -250,16 +270,37 @@ final class SpaceShareViewModel: ObservableObject {
     private func showParticipantInfo(_ participant: Participant) {
         participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
     }
+    
+    private func makePrivateIfPossible() async throws {
+        // Waiting middleware participant events
+        try await Task.sleep(seconds: 0.5)
+        guard participants.count == 1 else { return }
+        try await workspaceService.stopSharing(spaceId: spaceId)
+        notifyUpdateLinkView = UUID()
+        showStopSharingAnEmptySpaceAlert.toggle()
+    }
 }
 
 private extension Participant {
     var sortingWeight: Int {
+        if permission == .owner {
+            return 1000
+        }
+        
         if status == .joining {
-            return 3
+            return 30
         }
         
         if status == .removing {
-            return 2
+            return 20
+        }
+        
+        if permission == .writer {
+            return 5
+        }
+        
+        if permission == .reader {
+            return 4
         }
         
         return 1

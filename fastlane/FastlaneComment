@@ -42,7 +42,7 @@ platform :ios do
 
         Dir.chdir("#{working_dir}/release-utils") do
             sh("python3 -m venv venv")
-            sh("source venv/bin/activate && pip3 install -r requirements.txt && python3 release.py")
+            sh("export PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH && export CFLAGS=\"-I/opt/homebrew/include -I/usr/local/include\" && export LDFLAGS=\"-L/opt/homebrew/lib -L/usr/local/lib\" && source venv/bin/activate && pip3 install -r requirements.txt && python3 release.py")
         end
 
         FileUtils.rm_rf(working_dir)

@@ -14,10 +14,6 @@ struct SpaceTypeChangeConfirmationAlert: View {
         ) {
             BottomAlertButton(text: Loc.ConvertChannelTypeAlert.confirm, style: .primary) {
                 try await onTapConvert()
-                if #available(iOS 16.4, *) {
-                } else {
-                    dismiss()
-                }
             }
         
             BottomAlertButton(text: Loc.cancel, style: .secondary) {

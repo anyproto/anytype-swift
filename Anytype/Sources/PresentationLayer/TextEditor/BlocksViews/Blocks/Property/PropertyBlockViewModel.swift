@@ -20,6 +20,7 @@ final class PropertyProvider {
     }
 }
 
+@MainActor
 final class PropertyBlockViewModel: BlockViewModelProtocol {
     let blockInformationProvider: BlockModelInfomationProvider
     nonisolated var info: BlockInformation { blockInformationProvider.info }

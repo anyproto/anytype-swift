@@ -4,24 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
     
-    static let spaceUxTypes = FeatureDescription(
-        title: "Create chat space",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let spaceLoadingForScreen = FeatureDescription(
-        title: "Space Loading State Inside Screen",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let binScreenEmptyAction = FeatureDescription(
-        title: "Bin screen - empty action",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
     static let muteSpacePossibility = FeatureDescription(
         title: "Mute space possibility",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
@@ -39,19 +21,7 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
         defaultValue: true
     )
-    
-    static let newSharingExtension = FeatureDescription(
-        title: "New Sharing Extension - IOS-4915",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let newSpaceMembersFlow = FeatureDescription(
-        title: "New Space Members Flow",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
+
     static let removeMessagesFromNotificationsCenter = FeatureDescription(
         title: "Remove messages from NotificationsCenter",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
@@ -88,9 +58,15 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
-    static let homeObjectTypeWidgets = FeatureDescription(
-        title: "Home object type widget",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13"),
+    static let showAllButtonInWidgets = FeatureDescription(
+        title: "See all as the last point in the widget - IOS-4945",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
+        defaultValue: true
+    )
+    
+    static let turnOffAutomaticWidgetOpening = FeatureDescription(
+        title: "Turn off automatic object opening - IOS-5309",
+        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
         defaultValue: true
     )
     
@@ -115,68 +91,14 @@ public extension FeatureDescription {
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false
     )
-    
-    static let hideWebPayments = FeatureDescription(
-        title: "Hide web based payments for memebership tier",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "On demand"),
-        defaultValue: true
-    )
-    
-    static let enableStreamSpaceType = FeatureDescription(
-        title: "Create stream space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let aiToolInSet = FeatureDescription(
-        title: "Add AI tool in Set / Collection",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
-        debugValue: false
-    )
-    
-    static let anyAppBetaTip = FeatureDescription(
-        title: "Show any app beta alert",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let guideUseCaseForDataSpace = FeatureDescription(
-        title: "Guide usecase for data space",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let chatLayoutInsideSpace = FeatureDescription(
-        title: "Chat Layout Inside Space",
+
+    static let multichats = FeatureDescription(
+        title: "Multichats",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: false,
+        defaultValue: false,
         debugValue: true
     )
-    
-    static let joinStream = FeatureDescription(
-        title: "Join to stream after login",
-        type: .feature(author: "m@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
-    static let simpleSetForTypes = FeatureDescription(
-        title: "Simple set for types",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "demo"),
-        releaseAnytypeValue: false,
-        releaseAnyAppValue: true,
-        debugValue: false
-    )
-    
+
     static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
         title: "Do not wait completion in Anytype Preview",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
@@ -257,13 +179,6 @@ public extension FeatureDescription {
     
     static let showGlobalSearchScore = FeatureDescription(
         title: "Show global search score",
-        type: .debug,
-        defaultValue: false,
-        debugValue: false
-    )
-    
-    static let versionHistoryPaginationTest = FeatureDescription(
-        title: "Version history pagination test - 15",
         type: .debug,
         defaultValue: false,
         debugValue: false

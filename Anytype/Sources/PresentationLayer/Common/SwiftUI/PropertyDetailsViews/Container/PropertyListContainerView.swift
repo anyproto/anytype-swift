@@ -67,7 +67,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
             }
         }
         .buttonStyle(BorderlessButtonStyle())
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var clearButton: some View {

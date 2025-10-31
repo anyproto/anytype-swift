@@ -20,9 +20,16 @@ struct ChatView: View {
                 .ignoresSafeArea()
         }
         .overlay(alignment: .top) {
-            ChatHeaderView(spaceId: model.spaceId, chatId: model.chatId) {
-                model.onTapWidgets()
-            }
+            ChatHeaderView(
+                spaceId: model.spaceId,
+                chatId: model.chatId,
+                onTapOpenWidgets: {
+                    model.onTapWidgets()
+                },
+                onTapAddMembers: {
+                    model.onTapInviteLink()
+                }
+            )
         }
         .onAppear {
             model.keyboardDismiss = keyboardDismiss
@@ -144,7 +151,7 @@ struct ChatView: View {
         .throwingTask(id: model.sendMessageTaskInProgress) {
             try await model.sendMessageTask()
         }
-        .onChange(of: model.message) { _ in
+        .onChange(of: model.message) {
             model.messageDidChanged()
         }
     }
@@ -153,10 +160,16 @@ struct ChatView: View {
         ConversationEmptyStateView(
             conversationType: model.conversationType,
             participantPermissions: model.participantPermissions,
-            action: {
+            addMembersAction: {
                 model.onTapInviteLink()
-            }
+            },
+            qrCodeAction: model.qrCodeInviteUrl != nil ? {
+                model.onTapShowQrCode()
+            } : nil
         )
+        .task {
+            await model.updateInviteState()
+        }
     }
     
     private var actionView: some View {

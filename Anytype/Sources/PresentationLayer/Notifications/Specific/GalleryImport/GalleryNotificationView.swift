@@ -16,6 +16,6 @@ struct GalleryNotificationView: View {
                 try await model.onTapSpace()
             })
         ])
-        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.dismiss) { dismiss() }
     }
 }

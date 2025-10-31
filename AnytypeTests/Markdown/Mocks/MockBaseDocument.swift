@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 @testable import Anytype
 
-class MockBaseDocument: BaseDocumentProtocol {
+class MockBaseDocument: BaseDocumentProtocol, @unchecked Sendable {
     // Configurable properties
     var mockInfoContainer: any InfoContainerProtocol = InfoContainerMock()
     var mockDetailsStorage = ObjectDetailsStorage()

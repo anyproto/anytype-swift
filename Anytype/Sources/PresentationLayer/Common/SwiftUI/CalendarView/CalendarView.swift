@@ -22,7 +22,7 @@ struct CalendarView: View {
     var body: some View {
         content
             .background(Color.Background.secondary)
-            .onChange(of: date) { newDate in
+            .onChange(of: date) { _, newDate in
                 onDateChanged(newDate)
             }
             .frame(height: height)
@@ -36,7 +36,7 @@ struct CalendarView: View {
             }
             .readSize { height = $0.height }
         }
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var calendar: some View {

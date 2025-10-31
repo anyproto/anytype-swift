@@ -52,10 +52,7 @@ extension Anytype_Rpc.Publishing {
     }}
 
 extension Anytype_Rpc.Publishing.PublishStatus: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "PublishStatusCreated"),
-    1: .same(proto: "PublishStatusPublished"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0PublishStatusCreated\0\u{1}PublishStatusPublished\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

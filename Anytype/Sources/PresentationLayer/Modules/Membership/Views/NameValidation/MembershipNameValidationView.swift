@@ -28,10 +28,10 @@ struct MembershipNameValidationView: View {
             
             nameStatus
         }
-        .onChange(of: name) { name in
+        .onChange(of: name) { _, name in
             model.validateName(name: name)
         }
-        .onChange(of: model.state) { state in
+        .onChange(of: model.state) { _, state in
             onValidation(state == .validated)
         }
     }

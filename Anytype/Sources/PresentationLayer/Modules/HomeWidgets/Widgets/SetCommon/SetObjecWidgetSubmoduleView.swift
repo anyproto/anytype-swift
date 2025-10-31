@@ -14,11 +14,11 @@ struct SetObjecWidgetSubmoduleView: View {
 private struct SetObjectWidgetSubmoduleInternalView: View {
     
     private let data: WidgetSubmoduleData
-    @StateObject private var model: SetObjectWidgetInternalViewModel
+    @State private var model: SetObjectWidgetInternalViewModel
     
     init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.data = data
-        self._model = StateObject(wrappedValue: SetObjectWidgetInternalViewModel(data: data, style: style))
+        self._model = State(wrappedValue: SetObjectWidgetInternalViewModel(data: data, style: style))
     }
     
     var body: some View {
@@ -60,14 +60,19 @@ private struct SetObjectWidgetSubmoduleInternalView: View {
     private var rows: some View {
         switch model.rows {
         case .list(let rows, let id):
-            ListWidgetContentView(style: .list, rows: rows)
-                .id(id)
+            ListWidgetContentView(style: .list, rows: rows, showAllObjects: model.availableMoreObjects) {
+                model.onOpenObjectTap()
+            }
+            .id(id)
         case .compactList(let rows, let id):
-            ListWidgetContentView(style: .compactList, rows: rows)
-                .id(id)
+            ListWidgetContentView(style: .compactList, rows: rows, showAllObjects: model.availableMoreObjects) {
+                model.onOpenObjectTap()
+            }
+            .id(id)
         case .gallery(let rows, let id):
             GalleryWidgetView(
                 rows: rows,
+                showAllObjects: model.availableMoreObjects,
                 onShowAllObjects: {
                     model.onOpenObjectTap()
                 }

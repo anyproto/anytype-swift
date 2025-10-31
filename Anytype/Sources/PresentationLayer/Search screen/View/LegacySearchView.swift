@@ -22,7 +22,7 @@ struct LegacySearchView: View {
             }
         }
         .background(viewModel.style.backgroundColor)
-        .onChange(of: searchText) { viewModel.didAskToSearch(text: $0) }
+        .onChange(of: searchText) { viewModel.didAskToSearch(text: $1) }
         .onAppear { viewModel.didAskToSearch(text: searchText) }
     }
     

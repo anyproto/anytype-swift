@@ -60,13 +60,7 @@ extension Anytype_Model_Membership {
   }}
 
 extension Anytype_Model_Membership.PaymentMethod: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "MethodNone"),
-    1: .same(proto: "MethodStripe"),
-    2: .same(proto: "MethodCrypto"),
-    3: .same(proto: "MethodInappApple"),
-    4: .same(proto: "MethodInappGoogle"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0MethodNone\0\u{1}MethodStripe\0\u{1}MethodCrypto\0\u{1}MethodInappApple\0\u{1}MethodInappGoogle\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

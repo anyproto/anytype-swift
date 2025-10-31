@@ -12,7 +12,6 @@ class KeyboardActionHandlerTests: XCTestCase {
     private var toggleStorage: ToggleStorage!
     private var textView: UITextView!
     
-    @MainActor 
     override func setUpWithError() throws {
         let blockServiceMock = BlockServiceMock()
         Container.shared.blockService.register { blockServiceMock }

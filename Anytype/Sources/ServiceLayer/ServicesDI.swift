@@ -16,8 +16,8 @@ extension Container {
         self { AccountEventHandler() }.singleton
     }
     
-    var workspaceStorage: Factory<any WorkspacesStorageProtocol> {
-        self { WorkspacesStorage() }.singleton
+    var spaceViewsStorage: Factory<any SpaceViewsStorageProtocol> {
+        self { SpaceViewsStorage() }.singleton
     }
     
     var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
@@ -200,8 +200,8 @@ extension Container {
         self { FileLimitsStorage() }.shared
     }
     
-    var workspacesSubscriptionBuilder: Factory<any WorkspacesSubscriptionBuilderProtocol> {
-        self { WorkspacesSubscriptionBuilder() }.shared
+    var spaceViewsSubscriptionBuilder: Factory<any SpaceViewsSubscriptionBuilderProtocol> {
+        self { SpaceViewsSubscriptionBuilder() }.shared
     }
     
     var serverConfigurationStorage: Factory<any ServerConfigurationStorageProtocol> {
@@ -244,8 +244,8 @@ extension Container {
         self { TextPropertyEditingService() }.shared
     }
     
-    var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
-        self { AccountParticipantsStorage() }.singleton
+    var participantsStorage: Factory<any ParticipantsStorageProtocol> {
+        self { ParticipantsStorage() }.singleton
     }
 
     var participantSpacesStorage: Factory<any ParticipantSpacesStorageProtocol> {
@@ -304,14 +304,6 @@ extension Container {
         self { UserDefaultsStorage() }.singleton
     }
     
-    var allObjectsSubscriptionService: Factory<any AllObjectsSubscriptionServiceProtocol> {
-        self { AllObjectsSubscriptionService() }
-    }
-    
-    var allObjectsStateStorageService: Factory<any AllObjectsStateStorageServiceProtocol> {
-        self { AllObjectsStateStorageService() }.shared
-    }
-    
     var chatActionService: Factory<any ChatActionServiceProtocol> {
         self { ChatActionService() }
     }
@@ -339,11 +331,7 @@ extension Container {
     var profileStorage: Factory<any ProfileStorageProtocol> {
         self { ProfileStorage() }.singleton
     }
-    
-    var simpleSetSubscriptionService: Factory<any SimpleSetSubscriptionServiceProtocol> {
-        self { SimpleSetSubscriptionService() }
-    }
-    
+
     var iconColorService: Factory<any IconColorServiceProtocol> {
         self { IconColorService() }.shared
     }

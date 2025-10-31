@@ -32,6 +32,6 @@ struct AnytypeToggle: View {
         }
         .toggleStyle(SwitchToggleStyle(tint: .Control.accent50))
         
-        .onChange(of: model.isOn) { onChange($0) }
+        .onChange(of: model.isOn) { onChange($1) }
     }
 }

@@ -32,7 +32,7 @@ struct MessageView: View {
             contentHorizontalPadding: Constants.messageHorizontalPadding,
             centerOffsetY: $bubbleCenterOffsetY,
             content: {
-                alignedСontent
+                alignedContent
             },
             action: {
                 output?.didSelectReplyTo(message: data)
@@ -41,7 +41,7 @@ struct MessageView: View {
         .id(data.id)
     }
     
-    private var alignedСontent: some View {
+    private var alignedContent: some View {
         HStack(alignment: .bottom, spacing: 6) {
             leadingView
             content
@@ -243,30 +243,21 @@ struct MessageView: View {
     @ViewBuilder
     private var contextMenu: some View {
         if data.canAddReaction {
-            if #available(iOS 16.4, *) {
-                ControlGroup {
-                    ForEach(Constants.emoji, id:\.self) { emoji in
-                        AsyncButton {
-                            try await output?.didTapOnReaction(data: data, emoji: emoji)
-                        } label: {
-                            Text(emoji)
-                        }
-                    }
-                    Button {
-                        output?.didSelectAddReaction(messageId: data.message.id)
+            ControlGroup {
+                ForEach(Constants.emoji, id:\.self) { emoji in
+                    AsyncButton {
+                        try await output?.didTapOnReaction(data: data, emoji: emoji)
                     } label: {
-                        Image(asset: .Reactions.selectEmoji)
+                        Text(emoji)
                     }
                 }
-                .controlGroupStyle(.compactMenu)
-            } else {
-                
                 Button {
                     output?.didSelectAddReaction(messageId: data.message.id)
                 } label: {
-                    Label(Loc.Message.Action.addReaction, systemImage: "face.smiling")            
+                    Image(asset: .Reactions.selectEmoji)
                 }
             }
+            .controlGroupStyle(.compactMenu)
         }
         
         Divider()

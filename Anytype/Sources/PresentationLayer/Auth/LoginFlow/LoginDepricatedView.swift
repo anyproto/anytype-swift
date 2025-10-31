@@ -50,7 +50,7 @@ struct LoginDepricatedView: View {
                 dismiss()
             }
             .fitIPadToReadableContentGuide()
-            .onChange(of: model.dismiss) { _ in dismiss() }
+            .onChange(of: model.dismiss) { dismiss() }
         
             .sheet(isPresented: $model.showDebugMenu) {
                 PublicDebugMenuView()

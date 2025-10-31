@@ -10,7 +10,7 @@ struct MembershipOwnerInfoSheetView: View {
             .onAppear {
                 model.updateState()
             }
-            .onChange(of: model.membership) { _ in
+            .onChange(of: model.membership) {
                 model.updateState()
             }
         

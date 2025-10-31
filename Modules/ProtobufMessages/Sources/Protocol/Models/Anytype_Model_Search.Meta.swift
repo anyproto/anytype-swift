@@ -49,13 +49,7 @@ extension Anytype_Model_Search {
 
 extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Meta"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "highlight"),
-    2: .same(proto: "highlightRanges"),
-    3: .same(proto: "blockId"),
-    4: .same(proto: "relationKey"),
-    5: .same(proto: "relationDetails"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}highlight\0\u{1}highlightRanges\0\u{1}blockId\0\u{1}relationKey\0\u{1}relationDetails\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

@@ -4,6 +4,7 @@ import AnytypeCore
 import SwiftUI
 import Combine
 
+@MainActor
 final class EmbedBlockViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation

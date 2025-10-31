@@ -3,12 +3,11 @@ import TipKit
 import Combine
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct SpaceCreationTip: Tip {
     var title: Text {
         Text(verbatim: "Create Chats")
     }
-    
+
     var options: [any TipOption] {
         Tip.MaxDisplayCount(10)
     }
@@ -17,24 +16,20 @@ struct SpaceCreationTip: Tip {
 @MainActor
 class SpaceCreationTipWrapper: ObservableObject {
     @Published var shouldDisplay = false
-    
+
     init() {
         startUpdating()
     }
-    
+
     private func startUpdating() {
-        if #available(iOS 17.0, *) {
-            Task { @MainActor in
-                for await shouldDisplayValue in SpaceCreationTip().shouldDisplayUpdates {
-                    shouldDisplay = shouldDisplayValue
-                }
+        Task { @MainActor in
+            for await shouldDisplayValue in SpaceCreationTip().shouldDisplayUpdates {
+                shouldDisplay = shouldDisplayValue
             }
         }
     }
-    
+
     func invalidate() {
-        if #available(iOS 17.0, *) {
-            SpaceCreationTip().invalidate(reason: .actionPerformed)
-        }
+        SpaceCreationTip().invalidate(reason: .actionPerformed)
     }
 }

@@ -96,13 +96,12 @@ enum AnalyticsEventsLinkToObjectType: String {
 
 enum AnalyticsEventsMigrationType: String {
     case complete = "complete"
-    case instruсtions = "instruсtions"
+    case instructions = "instructions"
     case download = "download"
     case exit = "exit"
 }
 
 enum AnalyticsWidgetSource {
-    case allObjects
     case pinned
     case recent
     case recentOpen
@@ -112,8 +111,6 @@ enum AnalyticsWidgetSource {
     
     var analyticsId: String {
         switch self {
-        case .allObjects:
-            return "AllObjects"
         case .pinned:
             return "Pinned"
         case .recent:
@@ -310,6 +307,7 @@ enum ScreenQrRoute: String {
     case inviteLink = "InviteLink"
     case settingsSpace = "SettingsSpace"
     case spaceProfile = "SpaceProfile"
+    case chat = "Chat"
 }
 
 enum ClickShareSpaceCopyLinkRoute: String {
@@ -357,6 +355,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case confirmInvite = "ScreenInviteConfirm"
     case remoteStorage = "ScreenRemoteStorage"
     case publish = "ScreenPublish"
+    case incentiveBanner = "IncentiveBanner"
 }
 
 enum ChangeObjectTypeRoute: String {
@@ -489,7 +488,6 @@ enum ClickNavBarAddMenuRoute: String {
     case screenBin = "ScreenBin"
     case screenDate = "ScreenDate"
     case screenType = "ScreenType"
-    case screenAllObjects = "ScreenAllObjects"
 }
 
 enum ClickNavBarAddMenuType: String {

@@ -26,7 +26,7 @@ struct GalleryInstallationPreviewView: View {
             }
             DragIndicator()
         }
-        .presentationCornerRadiusLegacy(16)
+        .presentationCornerRadius(16)
     }
     
     private var errorState: some View {

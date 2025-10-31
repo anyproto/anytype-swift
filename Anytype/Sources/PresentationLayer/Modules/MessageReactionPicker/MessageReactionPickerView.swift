@@ -19,7 +19,7 @@ struct MessageReactionPickerView: View {
         }
         .presentationDragIndicator(.hidden)
         .presentationDetents([.medium, .large])
-        .onChange(of: model.dismiss) { _ in
+        .onChange(of: model.dismiss) {
             dismiss()
         }
     }

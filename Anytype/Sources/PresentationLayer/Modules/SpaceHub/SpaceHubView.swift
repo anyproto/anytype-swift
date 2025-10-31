@@ -5,13 +5,15 @@ import DesignKit
 
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
-    @StateObject var spaceCreationTip = SpaceCreationTipWrapper()
     
     @State private var draggedSpace: ParticipantSpaceViewDataWithPreview?
     @State private var draggedInitialIndex: Int?
     
-    init(output: (any SpaceHubModuleOutput)?) {
+    private var namespace: Namespace.ID
+    
+    init(output: (any SpaceHubModuleOutput)?, namespace: Namespace.ID) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(output: output))
+        self.namespace = namespace
     }
     
     var body: some View {
@@ -22,11 +24,11 @@ struct SpaceHubView: View {
                 await model.pushNotificationSetSpaceMode(data: data)
             }
             .homeBottomPanelHidden(true)
-            .snackbar(toastBarData: $model.toastBarData)
             .anytypeSheet(item: $model.spaceToDelete) { spaceId in
                 SpaceDeleteAlert(spaceId: spaceId.value)
             }
             .handleChatCreationTip()
+            .accessibilityLabel("SpaceHub")
     }
     
     @ViewBuilder
@@ -55,7 +57,7 @@ struct SpaceHubView: View {
                     searchEmptyStateView
                 }
             }
-            .navigationTitle(Loc.mySpaces)
+            .navigationTitle(Loc.myChannels)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarItems }
             .searchable(text: $model.searchText)
@@ -66,19 +68,7 @@ struct SpaceHubView: View {
         ScrollView {
             VStack(spacing: FeatureFlags.vaultBackToRoots ? 8 : 0) {
                 HomeUpdateSubmoduleView().padding(8)
-                
-                if #available(iOS 17.0, *) {
-                } else {
-                    UpdateAppBanner()
-                }
-                
-                if #available(iOS 17.0, *) {
-                    if FeatureFlags.anyAppBetaTip {
-                        HomeAnyAppWidgetTipView()
-                            .padding(.horizontal, 8)
-                    }
-                }
-                
+
                 ForEach(model.filteredSpaces) {
                     spaceCard($0)
                 }
@@ -90,6 +80,15 @@ struct SpaceHubView: View {
     
     @ToolbarContentBuilder
     private var toolbarItems: some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            ios26ToolbarItems
+        } else {
+            legacyToolbarItems
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private var legacyToolbarItems: some ToolbarContent {
         ToolbarItem(placement: .principal) {
             HStack(spacing: 6) {
                 if model.showLoading {
@@ -100,7 +99,7 @@ struct SpaceHubView: View {
                     Spacer.fixedWidth(18)
                 }
                 
-                AnytypeText(Loc.mySpaces, style: .uxTitle1Semibold)
+                AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
                 
                 Spacer.fixedWidth(18)
             }
@@ -124,23 +123,57 @@ struct SpaceHubView: View {
         }
         
         ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                spaceCreationTip.invalidate()
+            SpaceHubNewSpaceButton {
                 model.onTapCreateSpace()
-            }
-            label: {
-                Image(asset: .X32.addFilled)
-                    .foregroundStyle(Color.Control.secondary)
-                    .frame(width: 32, height: 32)
-                    .overlay(alignment: .bottomLeading) {
-                        if spaceCreationTip.shouldDisplay {
-                            AttentionDotView()
-                        }
-                    }
-                    .padding(.vertical, 6)
             }
         }
     }
+    
+    @available(iOS 26.0, *)
+    @ToolbarContentBuilder
+    private var ios26ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            HStack(spacing: 6) {
+                if model.showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                } else {
+                    Spacer.fixedWidth(18)
+                }
+                
+                AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
+                
+                Spacer.fixedWidth(18)
+            }
+        }
+
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                model.onTapSettings()
+            } label: {
+                IconView(icon: model.profileIcon)
+                    .foregroundStyle(Color.Control.secondary)
+                    .frame(width: 28, height: 28)
+                    .overlay(alignment: .topTrailing) {
+                        if model.notificationsDenied {
+                            attentionDotView
+                        }
+                    }
+                    .padding(.vertical, 8)
+            }
+        }
+        
+        DefaultToolbarItem(kind: .search, placement: .bottomBar)
+        
+        ToolbarSpacer(placement: .bottomBar)
+
+        ToolbarItem(placement: .bottomBar) {
+            Button { model.onTapCreateSpace() } label: { Label("", systemImage: "plus") }
+        }
+        .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)         
+    }
+    
     
     @ViewBuilder
     private var emptyStateView: some View {
@@ -219,5 +252,6 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView(output: nil)
+    @Previewable @Namespace var namespace
+    SpaceHubView(output: nil, namespace: namespace)
 }

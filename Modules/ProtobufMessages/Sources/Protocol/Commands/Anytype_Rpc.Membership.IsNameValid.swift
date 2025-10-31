@@ -185,11 +185,7 @@ extension Anytype_Rpc.Membership.IsNameValid: SwiftProtobuf.Message, SwiftProtob
 
 extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.protoMessageName + ".Request"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "requestedTier"),
-    2: .same(proto: "nsName"),
-    3: .same(proto: "nsNameType"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}requestedTier\0\u{1}nsName\0\u{1}nsNameType\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -229,9 +225,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
 
 extension Anytype_Rpc.Membership.IsNameValid.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.protoMessageName + ".Response"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "error"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -265,10 +259,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Response: SwiftProtobuf.Message, Sw
 
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.Response.protoMessageName + ".Error"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "code"),
-    2: .same(proto: "description"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -302,22 +293,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: SwiftProtobuf.Messa
 }
 
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NULL"),
-    1: .same(proto: "UNKNOWN_ERROR"),
-    2: .same(proto: "BAD_INPUT"),
-    3: .same(proto: "TOO_SHORT"),
-    4: .same(proto: "TOO_LONG"),
-    5: .same(proto: "HAS_INVALID_CHARS"),
-    6: .same(proto: "TIER_FEATURES_NO_NAME"),
-    7: .same(proto: "TIER_NOT_FOUND"),
-    8: .same(proto: "NOT_LOGGED_IN"),
-    9: .same(proto: "PAYMENT_NODE_ERROR"),
-    10: .same(proto: "CACHE_ERROR"),
-    11: .same(proto: "CAN_NOT_RESERVE"),
-    12: .same(proto: "CAN_NOT_CONNECT"),
-    13: .same(proto: "NAME_IS_RESERVED"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0\u{1}TOO_SHORT\0\u{1}TOO_LONG\0\u{1}HAS_INVALID_CHARS\0\u{1}TIER_FEATURES_NO_NAME\0\u{1}TIER_NOT_FOUND\0\u{1}NOT_LOGGED_IN\0\u{1}PAYMENT_NODE_ERROR\0\u{1}CACHE_ERROR\0\u{1}CAN_NOT_RESERVE\0\u{1}CAN_NOT_CONNECT\0\u{1}NAME_IS_RESERVED\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

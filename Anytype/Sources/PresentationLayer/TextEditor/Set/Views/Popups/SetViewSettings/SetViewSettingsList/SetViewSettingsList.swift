@@ -3,8 +3,7 @@ import SwiftUI
 struct SetViewSettingsList: View {
     @StateObject private var model: SetViewSettingsListModel
     @Environment(\.presentationMode) @Binding private var presentationMode
-    @FocusState private var isFocused: Bool
-    
+
     init(data: SetSettingsData, output: (any SetViewSettingsCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: SetViewSettingsListModel(data: data, output: output))
     }
@@ -43,43 +42,16 @@ struct SetViewSettingsList: View {
             .padding(.horizontal, 20)
             .padding(.top, 1)
         }
-        .bounceBehaviorBasedOnSize()
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     private var viewName: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            viewNameContent
-                .padding(.horizontal, 16)
-        }
-        .overlay(
-            RoundedRectangle(cornerRadius: 10).stroke(
-                isFocused ? Color.Control.accent50 : Color.Shape.primary,
-                lineWidth: isFocused ? 2 : 1
-            )
-        )
-    }
-    
-    @ViewBuilder
-    private var viewNameContent: some View {
-        Spacer.fixedHeight(10)
-        
-        AnytypeText(Loc.name, style: .caption1Medium)
-                .foregroundColor(.Text.secondary)
-        
-        Spacer.fixedHeight(2)
-        
-        TextField(
-            model.mode.placeholder,
+        FramedTextField(
+            title: Loc.name,
+            placeholder: model.mode.placeholder,
+            shouldFocus: model.shouldSetupFocus(),
             text: $model.name
         )
-        .foregroundColor(.Text.primary)
-        .font(AnytypeFontBuilder.font(anytypeFont: .uxTitle1Semibold))
-        .focused($isFocused)
-        .task {
-            isFocused = model.shouldSetupFocus()
-        }
-        
-        Spacer.fixedHeight(10)
     }
     
     private var settings: some View {

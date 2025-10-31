@@ -5,42 +5,28 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModuleOutput, SetObjectCreationCoordinatorOutput {
+@Observable
+final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectCreationCoordinatorOutput {
     
     let spaceInfo: AccountInfo
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
     
-    @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
-    @Published var createTypeData: CreateObjectTypeData?
-    @Published var deleteSystemWidgetConfirmationData: DeleteSystemWidgetConfirmationData?
+    var showChangeTypeData: WidgetTypeChangeData?
+    var createTypeData: CreateObjectTypeData?
+    var deleteSystemWidgetConfirmationData: DeleteSystemWidgetConfirmationData?
     
-    @Injected(\.legacySetObjectCreationCoordinator)
+    @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     
     init(info: AccountInfo) {
         self.spaceInfo = info
     }
     
-    func onFinishCreateSource(screenData: ScreenData?) {
-        if let screenData {
-            pageNavigation?.open(screenData)
-        }
-    }
-    
     // MARK: - HomeWidgetsModuleOutput
     
     func onSpaceSelected() {
         pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceInfo.accountSpaceId)))
-    }
-    
-    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .end,
-            context: context
-        )
     }
     
     func onCreateObjectType() {
@@ -60,15 +46,6 @@ final class HomeWidgetsCoordinatorViewModel: ObservableObject, HomeWidgetsModule
             onFinish: { [weak self] in
                 self?.showChangeTypeData = nil
             }
-        )
-    }
-    
-    func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: spaceInfo.accountSpaceId,
-            widgetObjectId: spaceInfo.widgetsId,
-            position: .below(widgetId: widgetId),
-            context: context
         )
     }
     

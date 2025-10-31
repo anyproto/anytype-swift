@@ -113,7 +113,7 @@ struct WidgetSwipeActionView<Content: View>: View {
                     dragState = .cancel
                 }
         )
-        .onChange(of: dragGestureActive) { newIsActiveValue in
+        .onChange(of: dragGestureActive) { _, newIsActiveValue in
             if newIsActiveValue == false {
                 withAnimation {
                     dragOffsetX = 0

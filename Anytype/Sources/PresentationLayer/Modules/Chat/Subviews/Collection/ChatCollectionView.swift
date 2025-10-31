@@ -54,26 +54,18 @@ struct ChatCollectionView<
         collectionView.delegate = context.coordinator
         collectionView.scrollsToTop = false
         collectionView.showsVerticalScrollIndicator = false
-        
-        if #available(iOS 16.4, *) {
-            collectionView.keyboardDismissMode = .interactive
-        } else {
-            // Safe area regions can be disabled starting from iOS 16.4.
-            // Without disabling safe area regions on iOS 16.0, interactive behavior will not work correctly.
-            collectionView.keyboardDismissMode = .onDrag
-        }
-        
+
+        collectionView.keyboardDismissMode = .interactive
+
         context.coordinator.setupDataSource(collectionView: collectionView)
         context.coordinator.setupDismissKeyboardOnTap(collectionView: collectionView)
         
         let bottomPanel = UIHostingController(rootView: bottomPanel)
         bottomPanel.view.backgroundColor = .clear
         bottomPanel.sizingOptions = [.intrinsicContentSize]
-        
-        if #available(iOS 16.4, *) {
-            bottomPanel.safeAreaRegions = SafeAreaRegions()
-        }
-        
+
+        bottomPanel.safeAreaRegions = SafeAreaRegions()
+
         let emptyView = UIHostingController(rootView: emptyView)
         emptyView.view.backgroundColor = .clear
         emptyView.sizingOptions = [.intrinsicContentSize]
@@ -81,11 +73,9 @@ struct ChatCollectionView<
         let actionView = UIHostingController(rootView: actionView)
         actionView.view.backgroundColor = .clear
         actionView.sizingOptions = [.intrinsicContentSize]
-        
-        if #available(iOS 16.4, *) {
-            actionView.safeAreaRegions = SafeAreaRegions()
-        }
-        
+
+        actionView.safeAreaRegions = SafeAreaRegions()
+
         let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView, actionView: actionView)
         container.contentInset = UIEdgeInsets(top: PageNavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
         return container

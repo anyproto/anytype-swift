@@ -29,8 +29,8 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let expandedService: any ExpandedServiceProtocol = Container.shared.expandedService()
     private let membershipStatusStorage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
     private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
-    private let workspacesStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
-    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
+    private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
     private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
     private let syncStatusStorage: any SyncStatusStorageProtocol = Container.shared.syncStatusStorage()
@@ -48,21 +48,21 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
-        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
-        
+        WidgetSwipeTip.isFirstSession = false
+
         await startSubscriptions()
     }
-    
+
     func setupStateAfterAuth() async {
         isFirstLaunchAfterAuthorizationStorage.value = true
-        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = false }
+        WidgetSwipeTip.isFirstSession = false
     }
     
     func setupStateAfterRegistration(account: AccountData) async {
         isFirstLaunchAfterRegistrationStorage.value = true
-        if #available(iOS 17.0, *) { WidgetSwipeTip.isFirstSession = true }
+        WidgetSwipeTip.isFirstSession = true
         middlewareConfigurationProvider.setupConfiguration(account: account)
-        
+
         await startSubscriptions()
     }
     

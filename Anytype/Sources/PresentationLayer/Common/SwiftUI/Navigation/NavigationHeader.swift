@@ -12,7 +12,7 @@ struct NavigationHeader<TitleView: View, RightView: View>: View {
     
     var body: some View {
         NavigationHeaderContainer(spacing: 20) {
-            IncreaseTapButton {
+            ExpandedTapAreaButton {
                 dismiss()
             } label: {
                 Image(asset: .X24.back)

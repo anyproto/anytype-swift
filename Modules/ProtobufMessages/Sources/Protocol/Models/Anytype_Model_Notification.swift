@@ -116,24 +116,7 @@ public struct Anytype_Model_Notification: Sendable {
 
 extension Anytype_Model_Notification: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".Notification"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "createTime"),
-    4: .same(proto: "status"),
-    5: .same(proto: "isLocal"),
-    6: .same(proto: "import"),
-    8: .same(proto: "export"),
-    9: .same(proto: "galleryImport"),
-    10: .same(proto: "requestToJoin"),
-    11: .same(proto: "test"),
-    13: .same(proto: "participantRequestApproved"),
-    15: .same(proto: "requestToLeave"),
-    16: .same(proto: "participantRemove"),
-    17: .same(proto: "participantRequestDecline"),
-    18: .same(proto: "participantPermissionsChange"),
-    7: .same(proto: "space"),
-    14: .same(proto: "aclHeadId"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}id\0\u{1}createTime\0\u{2}\u{2}status\0\u{1}isLocal\0\u{1}import\0\u{1}space\0\u{1}export\0\u{1}galleryImport\0\u{1}requestToJoin\0\u{1}test\0\u{2}\u{2}participantRequestApproved\0\u{1}aclHeadId\0\u{1}requestToLeave\0\u{1}participantRemove\0\u{1}participantRequestDecline\0\u{1}participantPermissionsChange\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {

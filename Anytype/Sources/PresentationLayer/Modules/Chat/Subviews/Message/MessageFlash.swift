@@ -26,7 +26,7 @@ fileprivate struct MessageFlashBackgroundModifier: ViewModifier {
             .onAppear {
                 checkFlash()
             }
-            .onChange(of: messageFlashId) { _ in
+            .onChange(of: messageFlashId) {
                 checkFlash()
             }
             .background(higlight ? Color.Background.Chat.bubbleFlash : Color.clear)

@@ -13,8 +13,8 @@ actor SpaceIconForNotificationsHandler: SpaceIconForNotificationsHandlerProtocol
     
     @Injected(\.spaceIconStorage)
     private var spaceIconStorage: any SpaceIconStorageProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspacesStorage: any SpaceViewsStorageProtocol
     
     @UserDefault("SpaceIcon.SavedItems", defaultValue: [:])
     private var savedIcons: [String: Int]
@@ -24,7 +24,7 @@ actor SpaceIconForNotificationsHandler: SpaceIconForNotificationsHandlerProtocol
     
     func startUpdating() async {
         workspaceSubscription = Task { [weak self, workspacesStorage] in
-            for await workspaces in workspacesStorage.allWorkspsacesPublisher.values {
+            for await workspaces in workspacesStorage.allSpaceViewsPublisher.values {
                 await self?.handleSpaces(workspaces: workspaces)
             }
         }

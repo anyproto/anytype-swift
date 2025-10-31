@@ -14,7 +14,7 @@ struct ExportStackGoroutinesViewModifier: ViewModifier {
             .sheet(item: $shareUrlFile) { url in
                 ActivityViewController(activityItems: [url], applicationActivities: nil)
             }
-            .onChange(of: isPresented) { isPresented in
+            .onChange(of: isPresented) { _, isPresented in
                 guard isPresented else { return }
                 exportStackGoroutines()
             }

@@ -10,7 +10,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
     private let actionsService: any ObjectActionsServiceProtocol = Container.shared.objectActionsService()
     private let pinsStorage: any TypesPinStorageProtocol = Container.shared.typesPinsStorage()
     private let typeProvider: any ObjectTypeProviderProtocol = Container.shared.objectTypeProvider()
-    private let workspaceStorage: any WorkspacesStorageProtocol = Container.shared.workspaceStorage()
+    private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     
     func createType(name: String, pluralName: String, icon: CustomIcon?, color: CustomIconColor?, spaceId: String) async throws -> ObjectType {
         var fields: [String: Google_Protobuf_Value] = [
@@ -69,7 +69,7 @@ final class TypesService: TypesServiceProtocol, Sendable {
         }
         
         if !includeChat {
-            layouts.removeAll(where: { $0 == .chat })
+            layouts.removeAll(where: { $0 == .chatDerived })
         }
         
         let filters: [DataviewFilter] = .builder {

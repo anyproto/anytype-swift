@@ -32,8 +32,8 @@ final class SpaceJoinViewModel: ObservableObject {
     private let data: SpaceJoinModuleData
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: any WorkspacesStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var workspaceStorage: any SpaceViewsStorageProtocol
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @Injected(\.accountManager)
@@ -149,7 +149,7 @@ final class SpaceJoinViewModel: ObservableObject {
             state = .data
             
             let inviteWithoutApprove = inviteView.inviteType.withoutApprove
-            if let spaceView = workspaceStorage.allWorkspaces.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
+            if let spaceView = workspaceStorage.allSpaceViews.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
                 switch spaceView.accountStatus {
                 case .spaceJoining:
                     dataState = .requestSent
