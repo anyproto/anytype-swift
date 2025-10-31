@@ -1,15 +1,16 @@
 import Foundation
-import Combine
 import SwiftUI
 
 @MainActor
-final class ObjectSettingsMenuViewModel: ObservableObject {
+@Observable
+final class ObjectSettingsMenuViewModel {
 
-    @Published var menuConfig = ObjectMenuConfiguration(sections: [])
+    var menuConfig = ObjectMenuConfiguration(sections: [])
 
+    @ObservationIgnored
     let settingsViewModel: ObjectSettingsViewModel
+    @ObservationIgnored
     let actionsViewModel: ObjectActionsViewModel
-    private var cancellables = Set<AnyCancellable>()
 
     var showConflictAlert: Binding<Bool> {
         Binding(
@@ -42,17 +43,30 @@ final class ObjectSettingsMenuViewModel: ObservableObject {
     }
 
     private func setupSubscriptions() {
-        settingsViewModel.$settings
-            .sink { [weak self] _ in
-                self?.rebuildMenu()
-            }
-            .store(in: &cancellables)
+        observeSettings()
+        observeActions()
+    }
 
-        actionsViewModel.$objectActions
-            .sink { [weak self] _ in
+    private func observeSettings() {
+        withObservationTracking {
+            _ = settingsViewModel.settings
+        } onChange: { [weak self] in
+            Task { @MainActor [weak self] in
                 self?.rebuildMenu()
+                self?.observeSettings()
             }
-            .store(in: &cancellables)
+        }
+    }
+
+    private func observeActions() {
+        withObservationTracking {
+            _ = actionsViewModel.objectActions
+        } onChange: { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.rebuildMenu()
+                self?.observeActions()
+            }
+        }
     }
 
     private func rebuildMenu() {

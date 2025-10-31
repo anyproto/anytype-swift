@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 import FloatingPanel
@@ -26,27 +25,32 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 }
 
 @MainActor
-final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
+@Observable
+final class ObjectSettingsViewModel: ObjectActionsOutput {
 
-    @Injected(\.openedDocumentProvider)
+    @Injected(\.openedDocumentProvider) @ObservationIgnored
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
-    @Injected(\.propertiesService)
+    @Injected(\.propertiesService) @ObservationIgnored
     private var propertiesService: any PropertiesServiceProtocol
-    @Injected(\.objectSettingsBuilder)
+    @Injected(\.objectSettingsBuilder) @ObservationIgnored
     private var settingsBuilder: any ObjectSettingsBuilderProtocol
-    @Injected(\.objectSettingsConflictManager)
+    @Injected(\.objectSettingsConflictManager) @ObservationIgnored
     private var conflictManager: any ObjectSettingsPrimitivesConflictManagerProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any ObjectSettingsModelOutput)?
-    
+
+    @ObservationIgnored
     private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
-    
+
+    @ObservationIgnored
     let objectId: String
+    @ObservationIgnored
     let spaceId: String
-    @Published var settings: [ObjectSetting] = []
-    @Published var showConflictAlert = false
+    var settings: [ObjectSetting] = []
+    var showConflictAlert = false
     
     init(
         objectId: String,
