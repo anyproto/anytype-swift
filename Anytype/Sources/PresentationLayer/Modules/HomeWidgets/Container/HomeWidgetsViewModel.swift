@@ -140,7 +140,7 @@ final class HomeWidgetsViewModel {
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
-            var newWidgetBlocks = blocks
+            let newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
             guard widgetBlocks != newWidgetBlocks else { continue }
@@ -150,7 +150,7 @@ final class HomeWidgetsViewModel {
     }
     
     private func startParticipantTask() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
+        for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
             homeState = canEdit ? .readwrite : .readonly
             canCreateObjectType = canEdit
         }

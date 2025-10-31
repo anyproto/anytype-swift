@@ -52,7 +52,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func subscribeOnParticipant() async {
-        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+        for await participant in accountParticipantStorage.participantSequence(spaceId: spaceId) {
             participantCanEdit = participant.canEdit
         }
     }

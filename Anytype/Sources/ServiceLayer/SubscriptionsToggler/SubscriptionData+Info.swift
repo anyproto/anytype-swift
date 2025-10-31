@@ -7,6 +7,8 @@ extension SubscriptionData {
             return description.identifier
         case .objects(let description):
             return description.identifier
+        case .crossSpaceSearch(let description):
+            return description.identifier
         }
     }
 }

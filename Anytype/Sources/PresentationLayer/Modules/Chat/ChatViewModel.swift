@@ -629,7 +629,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     private func subscribeOnPermissions() async {
-        for await canEditMessages in accountParticipantsStorage.canEditPublisher(spaceId: spaceId).values {
+        for await canEditMessages in accountParticipantsStorage.canEditSequence(spaceId: spaceId) {
             canEdit = canEditMessages
         }
     }
