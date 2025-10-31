@@ -19,11 +19,13 @@ actor SpaceIconForNotificationsHandler: SpaceIconForNotificationsHandlerProtocol
     @UserDefault("SpaceIcon.SavedItems", defaultValue: [:])
     private var savedIcons: [String: Int]
     
-    private var workspaceSubscription: Task<Void, Never>?
+    private var workspaceSubscription: Task<Void, any Error>?
     private var tasks = [String: Task<Void, Never>]()
     
     func startUpdating() async {
         workspaceSubscription = Task { [weak self, workspacesStorage] in
+            // Do not affect the start of the application. The images are rendered on the main thread.
+            try await Task.sleep(seconds: 10)
             for await workspaces in workspacesStorage.allSpaceViewsPublisher.values {
                 await self?.handleSpaces(workspaces: workspaces)
             }
