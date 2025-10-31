@@ -14,24 +14,75 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var fireConfetti = false
     @Published var emailUrl: URL?
     
-    @Injected(\.membershipService)
-    private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
     private let initialTierId: Int?
-    
+    private var statusTask: Task<Void, Never>?
+    private var tiersTask: Task<Void, Never>?
+
     init(initialTierId: Int?) {
         self.initialTierId = initialTierId
-        membershipStatusStorage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
+
+        statusTask = Task { [weak self] in
+            guard let self else { return }
+            for await status in membershipStatusStorage.statusStream() {
+                self.userMembership = status
+            }
+        }
+
+        tiersTask = Task { [weak self] in
+            guard let self else { return }
+            for await (status, allTiers) in self.combinedStream() {
+                let currentTierId = status.tier?.type.id ?? 0
+                self.tiers = allTiers
+                    .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
+                    .filter { !$0.iosProductID.isEmpty || $0.type.id == currentTierId }
+            }
+        }
+    }
+
+    deinit {
+        statusTask?.cancel()
+        tiersTask?.cancel()
+    }
+
+    private func combinedStream() -> AsyncStream<(MembershipStatus, [MembershipTier])> {
+        let storage = membershipStatusStorage
+        return AsyncStream { continuation in
+            let task = Task {
+                var currentStatus = await storage.currentStatus()
+                var currentTiers = await storage.currentTiers()
+
+                continuation.yield((currentStatus, currentTiers))
+
+                await withTaskGroup(of: Void.self) { group in
+                    group.addTask {
+                        for await status in storage.statusStream() {
+                            currentStatus = status
+                            continuation.yield((currentStatus, currentTiers))
+                        }
+                    }
+
+                    group.addTask {
+                        for await tiers in storage.tiersStream() {
+                            currentTiers = tiers
+                            continuation.yield((currentStatus, currentTiers))
+                        }
+                    }
+                }
+            }
+
+            continuation.onTermination = { _ in
+                task.cancel()
+            }
+        }
     }
     
     func onAppear() {
         Task {
-            await loadTiers()
-            
             guard let initialTierId else { return }
             guard let initialTier = tiers.first(where: { $0.type.id == initialTierId }) else {
                 anytypeAssertionFailure("Not found initial id for Memberhsip coordinator", info: ["tierId": String(initialTierId)])
@@ -40,17 +91,15 @@ final class MembershipCoordinatorModel: ObservableObject {
             onTierSelected(tier: initialTier)
         }
     }
-    
-    func loadTiers(noCache: Bool = false) {
-        Task { await loadTiers(noCache: noCache) }
-    }
-    
-    private func loadTiers(noCache: Bool = false) async {
-        do {
-            tiers = try await membershipService.getTiers(noCache: noCache)
-            showTiersLoadingError = false
-        } catch {
-            showTiersLoadingError = true
+
+    func retryLoadTiers() {
+        Task {
+            do {
+                try await membershipStatusStorage.refreshMembership()
+                showTiersLoadingError = false
+            } catch {
+                showTiersLoadingError = true
+            }
         }
     }
     
@@ -64,14 +113,14 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     private func showSuccessScreen(tier: MembershipTier) {
         showTier = nil
-        loadTiers(noCache: true)
-        
         Task {
+            try? await membershipStatusStorage.refreshMembership()
+
             // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
             try await Task.sleep(seconds: 0.5)
             showSuccess = tier
             
-            try await Task.sleep(seconds:0.5)
+            try await Task.sleep(seconds: 0.5)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             fireConfetti = true
         }

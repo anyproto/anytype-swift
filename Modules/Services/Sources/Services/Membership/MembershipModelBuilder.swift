@@ -62,7 +62,9 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
             anyName: anyName,
             features: tier.features,
             paymentType: paymentType,
-            color: MembershipColor(string: tier.colorStr)
+            color: MembershipColor(string: tier.colorStr),
+            isTest: tier.isTest,
+            iosProductID: tier.iosProductID
         )
     }
     

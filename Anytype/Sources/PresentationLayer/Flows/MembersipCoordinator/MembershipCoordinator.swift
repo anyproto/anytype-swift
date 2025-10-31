@@ -49,7 +49,7 @@ struct MembershipCoordinator: View {
             style: .error,
             buttonData: EmptyStateView.ButtonData(
                 title: Loc.tryAgain,
-                action: { model.loadTiers() }
+                action: { model.retryLoadTiers() }
             )
         )
     }

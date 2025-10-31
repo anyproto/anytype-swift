@@ -148,7 +148,7 @@ struct MembershipOwnerInfoSheetView: View {
 #Preview("Starter without email") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, email: "")
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockStarter, email: ""))
         } content: {
             MembershipOwnerInfoSheetView()
         }
@@ -158,7 +158,7 @@ struct MembershipOwnerInfoSheetView: View {
 #Preview("Starter with email") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockStarter, email: "vo@va.com")
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockStarter, email: "vo@va.com"))
         } content: {
             MembershipOwnerInfoSheetView()
         }
@@ -169,7 +169,7 @@ struct MembershipOwnerInfoSheetView: View {
 #Preview("Stripe builder") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockBuilder, paymentMethod: .methodStripe)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockBuilder, paymentMethod: .methodStripe))
         } content: {
             MembershipOwnerInfoSheetView()
         }
@@ -179,7 +179,7 @@ struct MembershipOwnerInfoSheetView: View {
 #Preview("InApp CockReator") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = .mock(tier: .mockCoCreator, paymentMethod: .methodInappApple)
+            MembershipStatusStorageMock.shared.setStatus(.mock(tier: .mockCoCreator, paymentMethod: .methodInappApple))
         } content: {
             MembershipOwnerInfoSheetView()
         }

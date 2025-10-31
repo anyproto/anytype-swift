@@ -15,7 +15,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(3)
             ],
             paymentType: nil,
-            color: .green
+            color: .green,
+            isTest: false,
+            iosProductID: ""
         )
     }
     
@@ -32,7 +34,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .blue
+            color: .blue,
+            isTest: false,
+            iosProductID: "io.anytype.membership.builder"
         )
     }
     
@@ -49,7 +53,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .red
+            color: .red,
+            isTest: false,
+            iosProductID: "io.anytype.membership.cocreator"
         )
     }
     
@@ -66,7 +72,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .purple
+            color: .purple,
+            isTest: false,
+            iosProductID: "io.anytype.membership.custom"
         )
     }
     
@@ -83,7 +91,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.viewers(999)
             ],
             paymentType: .mockExternal,
-            color: .blue
+            color: .blue,
+            isTest: true,
+            iosProductID: "io.anytype.membership.builder.test"
         )
     }
 }

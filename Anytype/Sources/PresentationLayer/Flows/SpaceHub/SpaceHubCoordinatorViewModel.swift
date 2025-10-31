@@ -201,7 +201,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     func startHandleMembershipStatus() async {
         for await membership in Container.shared.membershipStatusStorage.resolve()
-            .statusPublisher.values {
+            .statusStream() {
                 guard membership.status == .pendingRequiresFinalization else { continue }
                 
                 membershipNameFinalizationData = membership.tier
