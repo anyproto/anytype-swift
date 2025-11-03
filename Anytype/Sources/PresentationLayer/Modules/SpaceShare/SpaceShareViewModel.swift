@@ -132,7 +132,8 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     private func updateUpgradeViewState() {
-        guard let participantSpaceView else { return }
+        guard let participantSpaceView, let participant = participantSpaceView.participant else { return }
+        guard participant.isOwner else { return }
 
         let canAddWriters = participantSpaceView.spaceView.canAddWriters(participants: participants)
         let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo
