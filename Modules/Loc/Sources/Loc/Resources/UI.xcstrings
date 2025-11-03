@@ -7365,7 +7365,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oldest first"
+            "value" : "Prima i più vecchi"
           }
         },
         "ja" : {
@@ -7514,7 +7514,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Newest first"
+            "value" : "Prima i più recenti"
           }
         },
         "ja" : {
@@ -7663,7 +7663,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Date created"
+            "value" : "Data di creazione"
           }
         },
         "ja" : {
@@ -7812,7 +7812,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Date updated"
+            "value" : "Data di aggiornamento"
           }
         },
         "ja" : {
@@ -44601,7 +44601,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hide Description"
+            "value" : "Sembunyikan Deskripsi"
           }
         },
         "it" : {
@@ -52226,7 +52226,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Locked"
+            "value" : "Terkunci"
           }
         },
         "it" : {
@@ -69338,7 +69338,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpinned"
+            "value" : "Tak disemat"
           }
         },
         "it" : {
@@ -84302,7 +84302,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show Description"
+            "value" : "Tampilkan Deskripsi"
           }
         },
         "it" : {
@@ -98938,7 +98938,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlocked"
+            "value" : "Takterkunci"
           }
         },
         "it" : {
@@ -107928,7 +107928,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget with a Query or Collection layout"
+            "value" : "Widget con layout Query o Collezione"
           }
         },
         "ja" : {
