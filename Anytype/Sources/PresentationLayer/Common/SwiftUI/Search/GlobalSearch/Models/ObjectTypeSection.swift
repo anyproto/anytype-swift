@@ -34,10 +34,10 @@ enum ObjectTypeSection: String, CaseIterable, Codable {
         }
     }
     
-    var supportedLayouts: [DetailsLayout] {
+    func supportedLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
         switch self {
         case .all:
-            DetailsLayout.visibleLayoutsWithFiles
+            DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)
         case .pages:
             DetailsLayout.editorLayouts
         case .lists:

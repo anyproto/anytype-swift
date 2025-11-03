@@ -113,5 +113,6 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
 
 extension ObjectSearchWithMetaModuleData {    
     static let supportedLayouts: [DetailsLayout] =
-        ObjectTypeSection.pages.supportedLayouts + ObjectTypeSection.lists.supportedLayouts
+        ObjectTypeSection.pages.supportedLayouts(spaceUxType: nil) +
+        ObjectTypeSection.lists.supportedLayouts(spaceUxType: nil)
 }

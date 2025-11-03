@@ -31,7 +31,9 @@ final class SetObjectWidgetInternalViewModel {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.setObjectWidgetOrderHelper) @ObservationIgnored
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
-    
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     // MARK: - State
     @ObservationIgnored
     private var widgetInfo: BlockWidgetInfo?
@@ -207,7 +209,8 @@ final class SetObjectWidgetInternalViewModel {
         }
         
         guard setDocument.canStartSubscription() else { return }
-        
+
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
         let subscriptionData = setSubscriptionDataBuilder.set(
             SetSubscriptionData(
                 identifier: subscriptionId,
@@ -216,7 +219,8 @@ final class SetObjectWidgetInternalViewModel {
                 currentPage: 0,
                 numberOfRowsPerPage: widgetInfo.fixedLimit,
                 collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId)
+                objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
+                spaceUxType: spaceUxType
             )
         )
         

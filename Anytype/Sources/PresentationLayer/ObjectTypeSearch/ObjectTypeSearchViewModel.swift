@@ -29,7 +29,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.participantsStorage)
     private var accountParticipantStorage: any ParticipantsStorageProtocol
-    
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
     
@@ -73,6 +75,9 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         searchTask?.cancel()
         
         searchTask = Task {
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+            let effectiveShowChat = settings.showChat && (spaceUxType?.showsChatLayouts ?? true)
+
             let pinnedTypes = settings.showPins ? try await typesService.searchPinnedTypes(text: text, spaceId: spaceId) : []
             let listTypes = settings.showLists ? try await typesService.searchListTypes(
                 text: searchText, includePins: !settings.showPins, spaceId: spaceId
@@ -83,7 +88,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 includeLists: false,
                 includeBookmarks: true,
                 includeFiles: settings.showFiles,
-                includeChat: settings.showChat,
+                includeChat: effectiveShowChat,
                 includeTemplates: settings.showTemplates,
                 incudeNotForCreation: settings.incudeNotForCreation,
                 spaceId: spaceId

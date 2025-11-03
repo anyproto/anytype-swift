@@ -55,11 +55,12 @@ final class TypesService: TypesServiceProtocol, Sendable {
         spaceId: String
     ) async throws -> [ObjectDetails] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
-        
-        let sort = SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId))
-                
-        var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
-        
+
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+
+        var layouts = includeFiles ? DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType) : DetailsLayout.visibleLayouts(spaceUxType: spaceUxType)
+
         if !includeLists {
             layouts.removeAll(where: { $0.isList })
         }
@@ -96,9 +97,10 @@ final class TypesService: TypesServiceProtocol, Sendable {
         spaceId: String
     ) async throws -> [ObjectType] {
         let excludedTypeIds = includePins ? [] : try await searchPinnedTypes(text: "", spaceId: spaceId).map { $0.id }
-        
-        let sort = SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId))
-        
+
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+
         let filters: [DataviewFilter] = .builder {
             SearchFiltersBuilder.build(isArchived: false)
             SearchHelper.layoutFilter([DetailsLayout.objectType])
@@ -112,12 +114,13 @@ final class TypesService: TypesServiceProtocol, Sendable {
     
     func searchLibraryObjectTypes(text: String, includeInstalledTypes: Bool, spaceId: String) async throws -> [ObjectDetails] {
         let excludedIds = includeInstalledTypes ? [] : typeProvider.objectTypes(spaceId: spaceId).map(\.sourceObject)
-        
-        let sort = SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId))
-        
+
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let sort = SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType)
+
         let filters = Array.builder {
             SearchHelper.layoutFilter([DetailsLayout.objectType])
-            SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts)
+            SearchHelper.recomendedLayoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
         

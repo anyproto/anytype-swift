@@ -8,34 +8,62 @@ public extension DetailsLayout {
     static let fileLayouts: [DetailsLayout] = [ .file, .pdf ]
     static let mediaLayouts: [DetailsLayout] = [ .image, .audio, .video ]
     static let fileAndMediaLayouts = DetailsLayout.fileLayouts + DetailsLayout.mediaLayouts
-    static let chatLayouts: [DetailsLayout] = FeatureFlags.multichats ? [.chatDerived] : []
-    
-    static let visibleLayouts: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .date, .objectType] + chatLayouts
-    static let visibleLayoutsWithFiles = visibleLayouts + fileAndMediaLayouts
-    
-    static let supportedForCreation: [DetailsLayout] = supportedForCreationInSets + listLayouts + chatLayouts
+
+    fileprivate static let visibleLayoutsBase: [DetailsLayout] = listLayouts + editorLayouts + [.bookmark, .participant, .date, .objectType] + chatLayouts
+    fileprivate static let visibleLayoutsWithFilesBase = visibleLayoutsBase + fileAndMediaLayouts
+
+    fileprivate static let supportedForCreationBase: [DetailsLayout] = supportedForCreationInSets + listLayouts + chatLayouts
     static let supportedForSharingExtension: [DetailsLayout] = [.collection] + editorLayouts
-    
-    static let widgetTypeLayouts = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
-    
-    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFiles + [.objectType]
+
+    fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
+
+    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType]
 
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
+    private static let chatLayouts: [DetailsLayout] = FeatureFlags.multichats ? [.chatDerived] : []
+}
+
+// MARK: - Space-aware filtering
+
+public extension DetailsLayout {
+    static func visibleLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
+        let spaceUxType = spaceUxType ?? .data
+        guard !spaceUxType.showsChatLayouts else { return visibleLayoutsBase }
+        return visibleLayoutsBase.filter { $0 != .chatDerived }
+    }
+
+    static func visibleLayoutsWithFiles(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
+        let spaceUxType = spaceUxType ?? .data
+        guard !spaceUxType.showsChatLayouts else { return visibleLayoutsWithFilesBase }
+        return visibleLayoutsWithFilesBase.filter { $0 != .chatDerived }
+    }
+
+    static func supportedForCreation(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
+        let spaceUxType = spaceUxType ?? .data
+        guard !spaceUxType.showsChatLayouts else { return supportedForCreationBase }
+        return supportedForCreationBase.filter { $0 != .chatDerived }
+    }
+
+    static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
+        let spaceUxType = spaceUxType ?? .data
+        guard !spaceUxType.showsChatLayouts else { return widgetTypeLayoutsBase }
+        return widgetTypeLayoutsBase.filter { $0 != .chatDerived }
+    }
 }
 
 // MARK: - Computed properties
 
 public extension DetailsLayout {
-    var isVisible: Bool { DetailsLayout.visibleLayouts.contains(self) }
-    var isVisibleOrFile: Bool { DetailsLayout.visibleLayoutsWithFiles.contains(self) }
+    var isVisible: Bool { DetailsLayout.visibleLayoutsBase.contains(self) }
+    var isVisibleOrFile: Bool { DetailsLayout.visibleLayoutsWithFilesBase.contains(self) }
     var isEditorLayout: Bool { DetailsLayout.editorLayouts.contains(self) }
     var isFile: Bool { Self.fileLayouts.contains(self) }
     var isFileOrMedia: Bool { Self.fileAndMediaLayouts.contains(self) }
     var isSupportedForCreationInSets: Bool { Self.supportedForCreationInSets.contains(self) }
     var isSupportedForOpening: Bool { Self.supportedForOpening.contains(self) }
-    var isSupportedForCreation: Bool { Self.supportedForCreation.contains(self) }
+    var isSupportedForCreation: Bool { Self.supportedForCreationBase.contains(self) }
     var haveIcon: Bool { Self.layoutsWithIcon.contains(self) }
     var haveCover: Bool { Self.layoutsWithCover.contains(self) }
     

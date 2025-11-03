@@ -21,7 +21,9 @@ final class MentionsViewModel {
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.objectDateByTimestampService)
     private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
-    
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     private var searchTask: Task<(), any Error>?
     
     private let router: any EditorRouterProtocol
@@ -51,14 +53,17 @@ final class MentionsViewModel {
                 updatedMentions.append(contentsOf: dateMentions.map { .mention($0) })
                 updatedMentions.append(.selectDate)
             }
-            
+
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: document.spaceId)?.uxType
+            let objectLayouts = DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType) - [.date]
+
             let objectsMentions = try await mentionService.searchMentions(
                 spaceId: document.spaceId,
                 text: filterString,
                 excludedObjectIds: [document.objectId],
-                limitLayout: DetailsLayout.visibleLayoutsWithFiles - [.date]
+                limitLayout: objectLayouts
             )
-            
+
             if objectsMentions.isNotEmpty {
                 updatedMentions.append(.header(title: Loc.objects))
                 updatedMentions.append(contentsOf: objectsMentions.map { .mention($0) })

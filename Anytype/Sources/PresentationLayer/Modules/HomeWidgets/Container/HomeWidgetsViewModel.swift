@@ -158,12 +158,14 @@ final class HomeWidgetsViewModel {
     
     private func startObjectTypesTask() async {
         let spaceId = spaceId
-        
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType)
+
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
             .values
             .map { objects in
                 let objects = objects
-                    .filter { ($0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false) && !$0.isTemplateType }
+                    .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
