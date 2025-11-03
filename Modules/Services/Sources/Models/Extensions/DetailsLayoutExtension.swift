@@ -29,26 +29,22 @@ public extension DetailsLayout {
 
 public extension DetailsLayout {
     static func visibleLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        let spaceUxType = spaceUxType ?? .data
-        guard !spaceUxType.showsChatLayouts else { return visibleLayoutsBase }
+        guard !(spaceUxType?.showsChatLayouts ?? true) else { return visibleLayoutsBase }
         return visibleLayoutsBase.filter { $0 != .chatDerived }
     }
 
     static func visibleLayoutsWithFiles(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        let spaceUxType = spaceUxType ?? .data
-        guard !spaceUxType.showsChatLayouts else { return visibleLayoutsWithFilesBase }
+        guard !(spaceUxType?.showsChatLayouts ?? true) else { return visibleLayoutsWithFilesBase }
         return visibleLayoutsWithFilesBase.filter { $0 != .chatDerived }
     }
 
     static func supportedForCreation(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        let spaceUxType = spaceUxType ?? .data
-        guard !spaceUxType.showsChatLayouts else { return supportedForCreationBase }
+        guard !(spaceUxType?.showsChatLayouts ?? true) else { return supportedForCreationBase }
         return supportedForCreationBase.filter { $0 != .chatDerived }
     }
 
     static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        let spaceUxType = spaceUxType ?? .data
-        guard !spaceUxType.showsChatLayouts else { return widgetTypeLayoutsBase }
+        guard !(spaceUxType?.showsChatLayouts ?? true) else { return widgetTypeLayoutsBase }
         return widgetTypeLayoutsBase.filter { $0 != .chatDerived }
     }
 }
