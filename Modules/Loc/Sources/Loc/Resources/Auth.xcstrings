@@ -3394,7 +3394,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Tell Us About Yourself"
+            "value" : "Расскажите нам о себе"
           }
         },
         "tr" : {
@@ -3543,7 +3543,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Artist / Content Creator"
+            "value" : "Артист"
           }
         },
         "tr" : {
@@ -3692,7 +3692,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Consultant"
+            "value" : "Консультант"
           }
         },
         "tr" : {
@@ -3841,7 +3841,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Designer"
+            "value" : "Дизайнер"
           }
         },
         "tr" : {
@@ -3990,7 +3990,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Software Developer"
+            "value" : "Разработчик ПО"
           }
         },
         "tr" : {
@@ -4288,7 +4288,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Manager / IT Professional"
+            "value" : "Менеджер/Специалист ИТ"
           }
         },
         "tr" : {
@@ -9750,7 +9750,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please clear approximately %@ of space and run the process again."
+            "value" : "Liberare circa %@ di spazio ed eseguire nuovamente il processo."
           }
         },
         "ja" : {
