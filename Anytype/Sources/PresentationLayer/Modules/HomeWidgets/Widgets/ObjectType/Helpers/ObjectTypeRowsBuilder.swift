@@ -24,7 +24,9 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     @LazyInjected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    
+    @LazyInjected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
@@ -71,7 +73,8 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
     private func startObjectsSubscription() async {
         do {
             try await setDocument.open()
-            
+
+            let spaceUxType = await spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
             let subscriptionData = setSubscriptionDataBuilder.set(
                 SetSubscriptionData(
                     identifier: subscriptionId,
@@ -80,7 +83,8 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
                     currentPage: 0,
                     numberOfRowsPerPage: 6,
                     collectionId: nil,
-                    objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId)
+                    objectOrderIds: setDocument.objectOrderIds(for: setSubscriptionDataBuilder.subscriptionId),
+                    spaceUxType: spaceUxType
                 )
             )
             

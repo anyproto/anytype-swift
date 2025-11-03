@@ -20,7 +20,8 @@ struct SetSubscriptionData: Hashable {
         currentPage: Int,
         numberOfRowsPerPage: Int,
         collectionId: String?,
-        objectOrderIds: [String]
+        objectOrderIds: [String],
+        spaceUxType: SpaceUxType?
     ) {
         self.identifier = identifier
         self.source = document.details?.filteredSetOf
@@ -55,7 +56,7 @@ struct SetSubscriptionData: Hashable {
         if let groupFilter {
             filters.append(groupFilter)
         }
-        filters.append(SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles))
+        filters.append(SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)))
         filters.append(contentsOf: SearchHelper.notHiddenFilters())
         self.filters = filters
         self.options = view.options

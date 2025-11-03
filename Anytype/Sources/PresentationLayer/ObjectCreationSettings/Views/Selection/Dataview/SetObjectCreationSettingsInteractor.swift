@@ -62,7 +62,9 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private var typesService: any TypesServiceProtocol
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     @Published private var templatesDetails = [ObjectDetails]()
     @Published private var defaultTemplateId: String
     @Published private var typeDefaultTemplateId: String = ""
@@ -152,13 +154,16 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func updateObjectTypes() {
         Task {
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
+            let chatTypeVisible = spaceUxType?.showsChatLayouts ?? true
+            let includeChat = FeatureFlags.multichats && chatTypeVisible
             objectTypes = try await typesService.searchObjectTypes(
                 text: "",
                 includePins: true,
                 includeLists: true,
                 includeBookmarks: true,
                 includeFiles: false,
-                includeChat: FeatureFlags.multichats,
+                includeChat: includeChat,
                 includeTemplates: false,
                 incudeNotForCreation: false,
                 spaceId: setDocument.spaceId

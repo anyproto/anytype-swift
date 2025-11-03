@@ -10,11 +10,13 @@ enum SearchDefaults {
 final class SearchService: SearchServiceProtocol, Sendable {
     
     private let searchMiddleService: any SearchMiddleServiceProtocol = Container.shared.searchMiddleService()
-    
+    private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+
     // MARK: - SearchServiceProtocol
     
     func search(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, excludedIds: [], spaceId: spaceId)
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        return try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts(spaceUxType: spaceUxType), excludedIds: [], spaceId: spaceId)
     }
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -73,10 +75,11 @@ final class SearchService: SearchServiceProtocol, Sendable {
             relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts)
+                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
             } else {
                 SearchFiltersBuilder.build(isArchived: false)
                 SearchHelper.typeFilter(typeIds)
@@ -101,9 +104,10 @@ final class SearchService: SearchServiceProtocol, Sendable {
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
         )
-        
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles)
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType))
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }

@@ -41,10 +41,11 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     ) async {
         
         let sort = makeSort(type: type)
-        
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
+            SearchHelper.layoutFilter(DetailsLayout.visibleLayouts(spaceUxType: spaceUxType))
             SearchHelper.templateScheme(include: false)
             makeDateFilter(type: type, spaceId: spaceId)
         }

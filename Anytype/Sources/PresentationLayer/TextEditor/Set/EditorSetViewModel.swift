@@ -213,6 +213,8 @@ final class EditorSetViewModel: ObservableObject {
     private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
     private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
@@ -550,7 +552,8 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         guard setDocument.canStartSubscription() else { return }
-        
+
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
         let data = setSubscriptionDataBuilder.set(
             SetSubscriptionData(
                 identifier: subscriptionId,
@@ -559,7 +562,8 @@ final class EditorSetViewModel: ObservableObject {
                 currentPage: currentPage, // show first page for empty request
                 numberOfRowsPerPage: numberOfRowsPerPage,
                 collectionId: setDocument.isCollection() ? objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId)
+                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
+                spaceUxType: spaceUxType
             )
         )
         

@@ -12,5 +12,14 @@ public extension SpaceUxType {
     var isData: Bool {
         self == .data
     }
+
+    var showsChatLayouts: Bool {
+        switch self {
+        case .chat, .stream, .none, .UNRECOGNIZED:
+            return false
+        case .data:
+            return true
+        }
+    }
 }
 
