@@ -11,7 +11,9 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
     private var searchWithMetaService: any SearchWithMetaServiceProtocol
     @Injected(\.searchWithMetaModelBuilder)
     private var searchWithMetaModelBuilder: any SearchWithMetaModelBuilderProtocol
-    
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
     @Published var searchText = ""
@@ -36,7 +38,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
             searchResult = try await searchWithMetaService.search(
                 text: searchText,
                 spaceId: moduleData.spaceId,
-                layouts: ObjectSearchWithMetaModuleData.supportedLayouts,
+                layouts: supportedLayouts(),
                 sorts: buildSorts(),
                 excludedObjectIds: moduleData.excludedObjectIds
             )
@@ -109,10 +111,10 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
             )
         }
     }
-}
 
-extension ObjectSearchWithMetaModuleData {    
-    static let supportedLayouts: [DetailsLayout] =
-        ObjectTypeSection.pages.supportedLayouts(spaceUxType: nil) +
-        ObjectTypeSection.lists.supportedLayouts(spaceUxType: nil)
+    private func supportedLayouts() -> [DetailsLayout] {
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.uxType
+        return ObjectTypeSection.pages.supportedLayouts(spaceUxType: spaceUxType) +
+               ObjectTypeSection.lists.supportedLayouts(spaceUxType: spaceUxType)
+    }
 }
