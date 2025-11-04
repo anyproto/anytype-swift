@@ -76,9 +76,52 @@ for skill in $(jq -r '.skills | keys[]' "$SKILL_RULES"); do
     fi
 done
 
-# If no skills matched, exit silently
+# If no skills matched, check if prompt is substantial
 if [ ${#MATCHED_SKILLS[@]} -eq 0 ]; then
     echo "  No skills matched" >> "$LOG_FILE"
+
+    # Calculate prompt size metrics
+    CHAR_COUNT=${#USER_PROMPT}
+    LINE_COUNT=$(echo "$USER_PROMPT" | wc -l | tr -d ' ')
+
+    # Threshold: 100+ characters OR 3+ lines
+    if [ $CHAR_COUNT -ge 100 ] || [ $LINE_COUNT -ge 3 ]; then
+        echo "  Substantial prompt (${CHAR_COUNT} chars, ${LINE_COUNT} lines) - prompting user" >> "$LOG_FILE"
+
+        # Log to missed activations file
+        MISSED_LOG="$LOG_DIR/skill-activations-missed.log"
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] Missed activation" >> "$MISSED_LOG"
+        echo "  Prompt: ${USER_PROMPT:0:200}..." >> "$MISSED_LOG"
+        echo "  Size: ${CHAR_COUNT} chars, ${LINE_COUNT} lines" >> "$MISSED_LOG"
+        echo "" >> "$MISSED_LOG"
+
+        # Build skill list for user
+        echo ""
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "💡 NO SKILLS ACTIVATED"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo ""
+        echo "Your prompt seems substantial (${CHAR_COUNT} chars, ${LINE_COUNT} lines) but no skills matched."
+        echo ""
+        echo "📚 Available skills:"
+        echo ""
+
+        # List all skills
+        for skill in $(jq -r '.skills | keys[]' "$SKILL_RULES"); do
+            description=$(jq -r ".skills[\"$skill\"].description" "$SKILL_RULES")
+            echo "   • $skill"
+            echo "     $description"
+            echo ""
+        done
+
+        echo "❓ Should any of these skills be activated for this task?"
+        echo "   If yes, tell me which one and I'll extract keywords from your prompt"
+        echo "   to improve future auto-activation."
+        echo ""
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo ""
+    fi
+
     exit 0
 fi
 

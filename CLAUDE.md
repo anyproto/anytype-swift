@@ -56,6 +56,25 @@ The skills system provides context-aware guidance that auto-activates based on y
 
 **How it works**: When you start a task, the system analyzes your prompt and file context, then automatically suggests relevant skills. No manual loading needed.
 
+**Auto-learning**: When the system fails to activate a skill for a substantial prompt (100+ chars or 3+ lines):
+1. You'll be prompted with available skills
+2. If you identify which skill should have activated, tell Claude
+3. Claude extracts relevant keywords from your prompt
+4. Keywords are automatically added to skill-rules.json
+5. Future similar prompts will auto-activate the skill
+
+**Manual keyword management**:
+```bash
+# Extract keywords from a prompt
+.claude/hooks/utils/extract-keywords.sh "your prompt text"
+
+# Add keywords to a skill
+.claude/hooks/utils/add-keywords-to-skill.sh <skill-name> <keyword1> [keyword2] ...
+
+# Example
+.claude/hooks/utils/add-keywords-to-skill.sh localization-developer "membership" "tiers"
+```
+
 **Learn more**: See `.claude/skills/README.md` for system overview and `.claude/hooks/README.md` for automation details.
 
 #### Specialized Documentation
