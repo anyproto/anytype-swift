@@ -28,7 +28,7 @@ struct MessageView: View {
     
     var body: some View {
         MessageReplyActionView(
-            isEnabled: FeatureFlags.swipeToReply && data.canReply,
+            isEnabled: data.canReply,
             contentHorizontalPadding: Constants.messageHorizontalPadding,
             centerOffsetY: $bubbleCenterOffsetY,
             content: {

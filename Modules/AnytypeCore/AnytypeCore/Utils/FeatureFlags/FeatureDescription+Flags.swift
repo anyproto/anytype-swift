@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    static let swipeToReply = FeatureDescription(
-        title: "Swipe to reply in chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-
     static let removeMessagesFromNotificationsCenter = FeatureDescription(
         title: "Remove messages from NotificationsCenter",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),

@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var swipeToReply: Bool {
-        value(for: .swipeToReply)
-    }
-
     static var removeMessagesFromNotificationsCenter: Bool {
         value(for: .removeMessagesFromNotificationsCenter)
     }
@@ -128,7 +124,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .swipeToReply,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
         .fixCollectionViewReuseCrashInEditor,
