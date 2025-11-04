@@ -1,6 +1,6 @@
-# Code Review Guidelines
+# Code Review Guide
 
-Shared review standards for both local reviews and automated CI reviews.
+Comprehensive review standards for both local reviews and automated CI reviews.
 
 ## Core Review Rules
 
