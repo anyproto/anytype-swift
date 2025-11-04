@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var mediaCarouselForWidgets: Bool {
-        value(for: .mediaCarouselForWidgets)
-    }
-
     static var fixCollectionViewReuseCrashInEditor: Bool {
         value(for: .fixCollectionViewReuseCrashInEditor)
     }
@@ -120,7 +116,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .mediaCarouselForWidgets,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,

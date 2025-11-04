@@ -298,7 +298,7 @@ final class SetObjectWidgetInternalViewModel {
         guard let info = widgetObject.widgetInfo(blockId: widgetBlockId) else { return }
         AnytypeAnalytics.instance().logOpenSidebarObject(createType: info.widgetCreateType)
         let isAllMediaFiles = allDetails.allSatisfy { $0.editorViewType.isMediaFile }
-        if FeatureFlags.mediaCarouselForWidgets, isAllMediaFiles {
+        if isAllMediaFiles {
             output?.onObjectSelected(screenData: .preview(
                 MediaFileScreenData(selectedItem: details, allItems: allDetails, route: .widget)
             ))
