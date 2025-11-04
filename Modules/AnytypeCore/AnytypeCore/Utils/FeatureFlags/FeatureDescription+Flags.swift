@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    static let addNotificationsSettings = FeatureDescription(
-        title: "Add notifications settings",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
     static let swipeToReply = FeatureDescription(
         title: "Swipe to reply in chats",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),

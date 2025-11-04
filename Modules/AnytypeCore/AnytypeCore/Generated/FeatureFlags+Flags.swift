@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var addNotificationsSettings: Bool {
-        value(for: .addNotificationsSettings)
-    }
-
     static var swipeToReply: Bool {
         value(for: .swipeToReply)
     }
@@ -132,7 +128,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .addNotificationsSettings,
         .swipeToReply,
         .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
