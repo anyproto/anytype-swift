@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var muteSpacePossibility: Bool {
-        value(for: .muteSpacePossibility)
-    }
-
     static var addNotificationsSettings: Bool {
         value(for: .addNotificationsSettings)
     }
@@ -136,7 +132,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .muteSpacePossibility,
         .addNotificationsSettings,
         .swipeToReply,
         .removeMessagesFromNotificationsCenter,

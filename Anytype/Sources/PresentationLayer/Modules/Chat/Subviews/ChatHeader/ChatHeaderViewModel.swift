@@ -64,7 +64,7 @@ final class ChatHeaderViewModel: ObservableObject {
             title = spaceView.title
             icon = spaceView.objectIconImage
             showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
-            muted = FeatureFlags.muteSpacePossibility && !spaceView.pushNotificationMode.isUnmutedAll
+            muted = !spaceView.pushNotificationMode.isUnmutedAll
             showAddMembersButton = participantSpaceView.participant?.permission == .owner
         }
     }

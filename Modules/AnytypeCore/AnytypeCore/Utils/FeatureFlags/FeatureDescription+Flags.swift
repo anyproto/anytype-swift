@@ -3,13 +3,7 @@ import Foundation
 // Call `make generate` to update FeatureFlags helper
 
 public extension FeatureDescription {
-    
-    static let muteSpacePossibility = FeatureDescription(
-        title: "Mute space possibility",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
+
     static let addNotificationsSettings = FeatureDescription(
         title: "Add notifications settings",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),

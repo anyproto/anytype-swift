@@ -34,7 +34,7 @@ final class SpaceChatWidgetViewModel: ObservableObject {
     func startSubscriptions() async {
         let spaceId = data.spaceId
         let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
-        muted = FeatureFlags.muteSpacePossibility && !(spaceView?.pushNotificationMode.isUnmutedAll ?? true)
+        muted = !(spaceView?.pushNotificationMode.isUnmutedAll ?? true)
         
         let chatId = spaceView?.chatId
         let sequence = (await chatMessagesPreviewsStorage.previewsSequence)

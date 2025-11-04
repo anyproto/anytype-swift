@@ -14,8 +14,7 @@ struct SpaceCard: View {
     let onTapDelete: () -> Void
 
     @State private var vaultBackToRootsToggle = FeatureFlags.vaultBackToRoots
-    @State private var muteSpacePossibilityToggle = FeatureFlags.muteSpacePossibility
-    
+
     var body: some View {
         Button {
             onTap()
@@ -48,8 +47,8 @@ struct SpaceCard: View {
         } else {
             pinButton
         }
-        
-        if muteSpacePossibilityToggle, model.isShared {
+
+        if model.isShared {
             muteButton
         }
         
