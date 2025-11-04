@@ -39,9 +39,60 @@ make setup-middle    # Initial setup
 ### AI Assistance
 - **Always present a detailed action plan before implementing multi-step changes and await approval before proceeding**
 
+### 📚 Skills System & Documentation (Progressive Disclosure)
+
+**Level 1 - This File**: Quick start, critical rules, high-level overview
+**Level 2 - Skills**: Context-aware guides that auto-activate → `.claude/skills/`
+**Level 3 - Specialized Docs**: Deep knowledge for specific domains
+
+#### Auto-Activating Skills
+
+The skills system provides context-aware guidance that auto-activates based on your work:
+- **ios-dev-guidelines** → Auto-activates when working with `.swift` files
+- **localization-developer** → Auto-activates for localization work
+- **code-generation-developer** → Auto-activates for code generation
+- **design-system-developer** → Auto-activates for UI/design work
+- **code-review-developer** → Auto-activates when reviewing PRs or code changes
+
+**How it works**: When you start a task, the system analyzes your prompt and file context, then automatically suggests relevant skills. No manual loading needed.
+
+**Auto-learning**: When the system fails to activate a skill for a substantial prompt (100+ chars or 3+ lines):
+1. You'll be prompted with available skills
+2. If you identify which skill should have activated, tell Claude
+3. Claude extracts relevant keywords from your prompt
+4. Keywords are automatically added to skill-rules.json
+5. Future similar prompts will auto-activate the skill
+
+**Manual keyword management**:
+```bash
+# Extract keywords from a prompt
+.claude/hooks/utils/extract-keywords.sh "your prompt text"
+
+# Add keywords to a skill
+.claude/hooks/utils/add-keywords-to-skill.sh <skill-name> <keyword1> [keyword2] ...
+
+# Example
+.claude/hooks/utils/add-keywords-to-skill.sh localization-developer "membership" "tiers"
+```
+
+**Learn more**: See `.claude/skills/README.md` for system overview and `.claude/hooks/README.md` for automation details.
+
+#### Specialized Documentation
+
+For deep knowledge, see these guides:
+
+| Topic | Quick Reference (Skills) | Complete Guide (Specialized Docs) |
+|-------|-------------------------|-----------------------------------|
+| **iOS Development** | `.claude/skills/ios-dev-guidelines/` | `Anytype/Sources/IOS_DEVELOPMENT_GUIDE.md` |
+| **Localization** | `.claude/skills/localization-developer/` | `Anytype/Sources/PresentationLayer/Common/LOCALIZATION_GUIDE.md` |
+| **Code Generation** | `.claude/skills/code-generation-developer/` | `Modules/AnytypeCore/CODE_GENERATION_GUIDE.md` |
+| **Design System** | `.claude/skills/design-system-developer/` | `Anytype/Sources/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md` |
+| **Typography** | `.claude/skills/design-system-developer/` | `Anytype/Sources/PresentationLayer/Common/TYPOGRAPHY_MAPPING.md` |
+| **Code Review** | `.claude/skills/code-review-developer/` | `.claude/CODE_REVIEW_GUIDE.md` |
+
 ### Code Quality
 - **Never edit files marked with `// Generated using Sourcery/SwiftGen`** - These are automatically generated
-- **Never use hardcoded strings in UI** - Always use localization constants
+- **Never use hardcoded strings in UI** - Always use localization constants (see LOCALIZATION_GUIDE.md)
 - **All user-facing text must be localized** for international support
 - **Do not add comments** unless explicitly requested
 - **We only work in feature branches** - never push directly to develop/main
@@ -52,228 +103,125 @@ make setup-middle    # Initial setup
   - Mock implementations (`Anytype/Sources/PreviewMocks/Mocks/`)
   - Dependency injection registrations (`MockView.swift`, test setup files)
 
-## 📝 Localization System
+## 📝 Localization System (Quick Reference)
+
+**Full Guide**: `Anytype/Sources/PresentationLayer/Common/LOCALIZATION_GUIDE.md`
 
 ### Quick Workflow
-1. **Search existing keys first**:
-   ```bash
-   rg "yourSearchTerm" Modules/Loc/Sources/Loc/Generated/Strings.swift
-   ```
+1. Search existing: `rg "yourSearchTerm" Modules/Loc/Sources/Loc/Generated/Strings.swift`
+2. Choose file: Auth (86 keys), Workspace (493 keys), or UI (667 keys)
+3. Add to appropriate `.xcstrings` file if missing
+4. Run: `make generate`
+5. Use: `Loc.yourKey` or `AnytypeText(Loc.yourKey, style: .uxBodyRegular)`
 
-2. **Use existing patterns**:
-   - Block titles: `[feature]BlockTitle`
-   - Block subtitles: `[feature]BlockSubtitle`
-   - Common words: `camera`, `photo`, `picture`, `video(1)`
+### Critical Rules
+- ❌ Never use hardcoded strings
+- ❌ Never use `String(format: Loc.key, value)` → ✅ Use `Loc.key(value)`
+- ⚠️ Keys must be unique across ALL 3 .xcstrings files
+- ⚠️ Only edit English (`en`) - Crowdin handles other languages
 
-3. **Choosing the Right File**:
-   Localization is split into 3 files - select based on your feature:
-   - **Auth.xcstrings** (86 keys): Authentication, login/join flows, keychain, vault, onboarding, migration
-   - **Workspace.xcstrings** (493 keys): Spaces, objects, relations, collections, sets, types, templates, collaboration
-   - **UI.xcstrings** (667 keys): Settings, widgets, alerts, common UI elements, general app strings
+## 🎨 Design System (Quick Reference)
 
-   **⚠️ CRITICAL**: Keys must be unique across ALL three files. Duplicate keys will break code generation.
-
-4. **Only if key doesn't exist**, add to the appropriate file in `Modules/Loc/Sources/Loc/Resources/`:
-   ```json
-   "Your localization key" : {
-     "extractionState" : "manual",
-     "localizations" : {
-       "en" : {
-         "stringUnit" : {
-           "state" : "translated",
-           "value" : "Your English text here"
-         }
-       }
-     }
-   }
-   ```
-
-   **⚠️ IMPORTANT**: When adding or updating localization strings:
-   - **Only update the English (`en`) translation** - All other language translations are handled automatically via Crowdin
-   - Do not manually edit translations for other languages (de, es, fr, ja, etc.)
-   - The localization team manages non-English translations through Crowdin workflow
-
-5. **Generate and use**:
-   ```bash
-   make generate
-   ```
-   ```swift
-   import Loc
-   AnytypeText(Loc.yourLocalizationKey, style: .uxCalloutMedium)
-   ```
-
-### Key Patterns
-- **Naming**: Use short, descriptive keys → `"No properties yet"` ✅, `"No properties yet. Add some to this type."` ❌
-- **Hierarchical**: Use dots for organization → `"QR.join.title"` creates `Loc.Qr.Join.title`
-- **Generated file**: All 3 localization files (Auth, Workspace, UI) generate into a single `Strings.swift` file (~5,000 lines). Use `rg` for searching
-- **Always import**: `import Loc` when using localization
-
-### Dynamic Localization (with Parameters)
-
-**✅ CORRECT** - Generated function with parameters:
-```swift
-// For string: "You've reached the limit of %lld editors"
-Loc.SpaceLimit.Editors.title(4)  // Proper way
-
-// For string: "Pin limit reached: %d pinned spaces"
-Loc.pinLimitReached(10)  // Proper way
-```
-
-**❌ WRONG** - Never use String(format:):
-```swift
-String(format: Loc.SpaceLimit.Editors.title, 4)  // DON'T DO THIS
-String(format: Loc.pinLimitReached, 10)  // DON'T DO THIS
-```
-
-**Why**: SwiftGen automatically generates parameterized functions for strings with format specifiers (%lld, %d, %@). Always use the generated function directly.
-
-### Removing Unused Localization Keys
-
-When removing code that uses localization keys, **always check if the key is still used elsewhere**:
-
-1. **Search for usage**:
-   ```bash
-   rg "keyName" --type swift
-   ```
-
-2. **If only found in Generated/Strings.swift**, the key is unused:
-   - Remove the entire key entry from the source `.xcstrings` file
-   - Run `make generate` to regenerate Strings.swift
-
-3. **Example workflow**:
-   - Removed `MembershipParticipantUpgradeReason.numberOfSpaceReaders`
-   - Search: `rg "noMoreMembers" --type swift` → only in Strings.swift
-   - Remove `"Membership.Upgrade.NoMoreMembers"` from Workspace.xcstrings
-   - Run `make generate`
-
-**Important**: Never leave orphaned localization keys in .xcstrings files - they bloat the codebase and confuse translators.
-
-## 🎨 Design System & Common UI Components
-
-### Quick Reference
-- **Search Patterns**: `/PresentationLayer/Common/SwiftUI/Search/SEARCH_PATTERNS.md`
-- **Design System Mapping**: `/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
-- **Typography Mapping**: `/PresentationLayer/Common/TYPOGRAPHY_MAPPING.md` - Maps Figma text styles to Swift constants
-- **Analytics Patterns**: `/PresentationLayer/Common/Analytics/ANALYTICS_PATTERNS.md`
-- **Code Review Guidelines**: `/.github/workflows/code-review-guidelines.md` - Shared review standards for local and automated CI reviews
+**Full Guides**:
+- `Anytype/Sources/PresentationLayer/Common/DESIGN_SYSTEM_MAPPING.md`
+- `Anytype/Sources/PresentationLayer/Common/TYPOGRAPHY_MAPPING.md`
 
 ### Icons
-Icons are code-generated from assets organized by size (x18, x24, x32, x40).
-
-**Usage**:
+Icons organized by size (x18, x24, x32, x40):
 ```swift
-Image(asset: .X32.qrCode)    // 32pt QR code icon
-Image(asset: .X24.search)    // 24pt search icon
+Image(asset: .X32.qrCode)    // 32pt icon
+Image(asset: .X24.search)    // 24pt icon
 ```
 
-**Adding new icons**:
-1. Export SVG from Figma ("32/qr code" format)
-2. Add to `/Modules/Assets/.../Assets.xcassets/DesignSystem/x32/QRCode.imageset/`
-3. Run `make generate`
-4. Use: `Image(asset: .X32.qrCode)`
+**Adding**: Export SVG from Figma → Add to Assets.xcassets → `make generate` → Use constant
+
+### Typography
+Figma styles map to Swift constants:
+```swift
+AnytypeText("Title", style: .uxTitle1Semibold)  // Screen titles
+AnytypeText("Body", style: .bodyRegular)         // Body text
+```
+
+### Colors
+Always use design system constants:
+```swift
+.foregroundColor(Color.Text.primary)
+.background(Color.Shape.transperentSecondary)
+```
+
+## 🔧 Code Generation (Quick Reference)
+
+**Full Guide**: `Modules/AnytypeCore/CODE_GENERATION_GUIDE.md`
+
+### Quick Workflow
+```bash
+make generate        # After adding flags, assets, or localization
+make generate-middle # After middleware/protobuf changes
+```
 
 ### Feature Flags
-Wrap new features in boolean toggles for safe rollouts.
+1. Add to `/Modules/AnytypeCore/.../FeatureDescription+Flags.swift`
+2. Run `make generate`
+3. Use: `if FeatureFlags.yourFlag { ... }`
 
-**Adding**:
-1. Edit `/Modules/AnytypeCore/AnytypeCore/Utils/FeatureFlags/FeatureDescription+Flags.swift`:
-   ```swift
-   static let yourFeatureName = FeatureDescription(
-       title: "Your Feature Name",
-       type: .feature(author: "Your Name", releaseVersion: "X.X.X"),
-       defaultValue: false,
-       debugValue: true
-   )
-   ```
+### Tools
+- **SwiftGen**: Assets & localization → type-safe constants
+- **Sourcery**: Swift code from templates → boilerplate reduction
+- **Protobuf**: Middleware message generation
 
-2. Generate: `make generate`
+## 🏗️ Architecture (High-Level)
 
-3. Use:
-   ```swift
-   import AnytypeCore
-   
-   if FeatureFlags.yourFeatureName {
-       // Your feature code
-   }
-   ```
-
-**Types**: `.debug` (debug-only), `.feature(author:releaseVersion:)` (production)
-
-## 🏗️ Architecture
+**Full Guide**: `Anytype/Sources/IOS_DEVELOPMENT_GUIDE.md`
 
 ### Technologies
 - **Swift & SwiftUI** - Primary language and UI framework
 - **Combine** - Reactive programming
 - **Factory** - Dependency injection
-- **Middleware** - Custom binary framework for core functionality
-- **Protobuf** - Middleware communication
+- **Middleware** - Custom binary framework (Protobuf communication)
 
-### Structure
+### Project Structure
 ```
 Anytype/Sources/
 ├── ApplicationLayer/    # App lifecycle, coordinators
 ├── PresentationLayer/   # UI components, ViewModels
 ├── ServiceLayer/        # Business logic, data services
 ├── Models/             # Data models, entities
-├── CoreLayer/          # Core utilities, networking
-└── DesignSystem/       # Reusable UI components
+└── CoreLayer/          # Core utilities, networking
 
 Modules/                # Swift packages
-├── Services/           # Core services
-├── AnytypeCore/        # Core utilities
-├── ProtobufMessages/   # Generated protobuf code
-└── ...
+├── AnytypeCore/        # Core utilities, feature flags
+├── Loc/                # Localization
+├── Assets/             # Design assets
+└── Services/           # Core services
 ```
 
 ### Key Patterns
-- **MVVM**: ViewModels handle business logic for SwiftUI views
+- **MVVM**: ViewModels handle business logic, Views are lightweight
 - **Coordinator**: Navigation handled by coordinators
 - **Repository**: Data access abstracted through services
-- **Protocol-Oriented**: Heavy use of protocols for testability
-- **Dependency Injection**: Factory pattern in `ServiceLayer/ServicesDI.swift`
+- **Dependency Injection**: Factory pattern with `@Injected`
 
-## 🔧 Code Style
+## 🔧 Code Style (Quick Reference)
+
+**Full Guide**: `Anytype/Sources/IOS_DEVELOPMENT_GUIDE.md`
 
 ### Formatting
 - 4 spaces indentation (no tabs)
 - K&R style (opening brackets on same line)
 - 120-140 character lines
-- One blank line between functions, two between sections
-- **NEVER trim whitespace-only lines** - Preserve blank lines with spaces or tabs exactly as they appear in the original file
+- **NEVER trim whitespace-only lines** - Preserve blank lines with spaces/tabs exactly
 
 ### Naming
 - **PascalCase**: Classes, Structs, Protocols (`ChatViewModel`)
 - **camelCase**: Variables, Functions (`objectDetails`, `updateRows()`)
 - **Extensions**: `TypeName+Feature.swift`
-- **Protocols**: Often suffixed with `Protocol`
 
 ### Swift Best Practices
-- Prefer `guard` for early returns
 - Use `@MainActor` for UI classes
-- Import order: system → third-party → internal
-- Property organization: @Published/@Injected → public → private → constants → variables → methods
-- Use async/await, SwiftUI property wrappers, trailing closures, type inference
-- **Avoid nested types** - Extract enums/structs to top-level with descriptive names (e.g., `SpaceLimitBannerLimitType` instead of `SpaceLimitBannerView.LimitType`)
-- **Enum exhaustiveness**: Always use explicit switch statements for enum pattern matching to enable compiler warnings when new cases are added
-  - ✅ **CORRECT**:
-    ```swift
-    var showManageButton: Bool {
-        switch self {
-        case .sharedSpaces:
-            return true
-        case .editors:
-            return false
-        }
-    }
-    ```
-  - ❌ **WRONG**:
-    ```swift
-    var showManageButton: Bool {
-        if case .sharedSpaces = self { return true }
-        return false  // Default fallback prevents compiler warnings
-    }
-    ```
-  - **Exception**: Only use default fallback for super obvious single-case checks (e.g., `isSharedSpaces`, `isEditor`)
+- Prefer `guard` for early returns
+- Use async/await over completion handlers
+- Avoid nested types (extract to top-level)
+- Use explicit switch for enums (enables compiler warnings)
 
 ## 🔄 Development Workflow
 
@@ -290,30 +238,15 @@ Modules/                # Swift packages
 **⚠️ CRITICAL: This is the FIRST thing to do when starting any task**
 
 When receiving a Linear task ID (e.g., `IOS-5292`):
-1. **Identify the task branch**: The branch name follows the format `ios-XXXX-description`
-   - Example: `ios-5292-update-space-hub-loading-state`
-   - You can retrieve the branch name from Linear issue details
-
-2. **Switch to the task branch IMMEDIATELY** before doing ANY other work:
-   ```bash
-   git checkout ios-5292-update-space-hub-loading-state
-   ```
-
+1. **Identify the task branch**: Format is `ios-XXXX-description`
+2. **Switch to the task branch IMMEDIATELY**: `git checkout ios-5292-update-space-hub-loading-state`
 3. **All work for the task must be done in this dedicated branch**
-   - Never work on tasks in the wrong branch
-   - Verify you're on the correct branch: `git branch --show-current`
 
 ### Git & GitHub
 - **Main branch**: `develop`
 - **Feature branches**: `ios-XXXX-description`
 - **⚠️ CRITICAL: NEVER commit without explicit user request**
-  - Wait for user to explicitly ask you to commit
-  - Do NOT commit automatically after making changes
-  - Do NOT assume commits are expected
-- **Commit messages**:
-  - Single line only
-  - **NO AI signatures** (no "Generated with Claude", no co-author attribution)
-  - Professional and concise
+- **Commit messages**: Single line, no AI signatures
 - **GitHub CLI**: Use `gh` tool for all GitHub operations
   - `gh pr view <PR_NUMBER> --repo anyproto/anytype-swift`
   - `gh pr diff <PR_NUMBER> --repo anyproto/anytype-swift`
@@ -322,37 +255,20 @@ When receiving a Linear task ID (e.g., `IOS-5292`):
 For comprehensive documentation on GitHub workflows, actions, and automation (including auto-merge behavior), see `.github/WORKFLOWS_REFERENCE.md`
 
 ### Release Branch Workflow
-- **Branches from release**: When creating a branch from a release branch (e.g., `release/0.42.0`):
-  - Target the **release branch** in your PR, not `develop`
-  - Always add the **"Release"** label to the PR
-  - Example: `gh pr create --base release/0.42.0 --label "Release" --title "..." --body "..."`
+When creating a branch from a release branch (e.g., `release/0.42.0`):
+- Target the **release branch** in your PR, not `develop`
+- Always add the **"Release"** label to the PR
+- Example: `gh pr create --base release/0.42.0 --label "Release" --title "..." --body "..."`
 
 ### ❌ FORBIDDEN Git Practices
 
 **ABSOLUTELY NEVER run destructive git operations** unless you have explicit, written approval:
 - `git reset --hard` - Discards all local changes permanently
-- `git checkout <old-commit>` or `git restore` to revert to older commits - Can lose work
+- `git checkout <old-commit>` or `git restore` to revert to older commits
 - `git clean -fd` - Removes untracked files permanently
 - `git push --force` to main/develop - Rewrites shared history
 
 **If you are even slightly unsure about a git command, STOP and ask the user first.**
-
-**NEVER do this:**
-```bash
-# ❌ WRONG - Contains AI attribution
-git commit -m "Fix pinned spaces limit
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
-
-# ❌ WRONG - Contains AI signature
-git commit -m "Add feature 🤖 Generated with Claude Code"
-```
-
-**ALWAYS do this:**
-```bash
-# ✅ CORRECT - Clean, professional, single line
-git commit -m "IOS-4852 Add limit check for pinned spaces"
-```
 
 ### Pull Requests
 **Format**:
@@ -363,28 +279,23 @@ git commit -m "IOS-4852 Add limit check for pinned spaces"
 
 **Note**: PRs are for programmers, not testers - **NO test plan needed**
 
-**IMPORTANT**: 
+**IMPORTANT**:
 - **NEVER add AI signatures** like "🤖 Generated with Claude Code" to pull requests
-- **NEVER add AI signatures** to commit messages
 - Keep commits and PRs professional without AI attribution
 
 **Incremental Strategy** (for related changes):
 - Sequential branches: `ios-XXXX-description-1`, `ios-XXXX-description-2`
 - Chain PRs: `branch-1` → `develop`, `branch-2` → `branch-1`
-- Atomic changes per branch
 
 ### 🔧 Git Technical Tips
 
 **Quoting paths with special characters**:
-- Always quote git paths containing brackets, parentheses, or spaces
-- Prevents shell from treating them as globs or subshells
-
+Always quote git paths containing brackets, parentheses, or spaces:
 ```bash
 # ✅ CORRECT
 git add "Anytype/Sources/[Feature]/Component.swift"
-git commit -m "Update component" -- "path/with spaces/file.swift"
 
-# ❌ WRONG - Shell interprets brackets as glob pattern
+# ❌ WRONG - Shell interprets brackets as glob
 git add Anytype/Sources/[Feature]/Component.swift
 ```
 
@@ -394,52 +305,27 @@ git add Anytype/Sources/[Feature]/Component.swift
 3. **Check PRs**: Use `gh` tool to examine related PRs
 4. **Update progress**: Add comments and check off completed items
 
-## 🛠️ Code Generation
-
-### Tools & Locations
-- **SwiftGen**: Assets, localization strings (`/Modules/*/swiftgen.yml`)
-- **Sourcery**: Swift code from templates (`/Modules/*/sourcery.yml`)
-- **Custom**: Protobuf splitting (`anytypeGen.yml`)
-
-### Important Notes
-- Generated files marked with `// Generated using Sourcery/SwiftGen`
-- Never edit generated files directly
-- Update source templates/configurations instead
-- Always run `make generate` after template changes
-
-## 📚 Common Tasks
-
-### Adding Features
-1. Create models in `Models/` (if needed)
-2. Add service logic in `ServiceLayer/`
-3. Create ViewModel in `PresentationLayer/`
-4. Build UI with SwiftUI
-5. Add tests in `AnyTypeTests/`
-6. Wrap in feature flags
-
-### Working with Middleware
-- Pre-compiled binary framework
-- Communication via Protobuf messages
-- Message definitions in `Modules/ProtobufMessages/`
-
 ## 📋 Memories & Tips
 - For trivial PRs, add GitHub label "🧠 No brainer" (not in title)
 - Use `rg` for searching large files
-- Check existing keys before adding new localization
 - Feature flags for all new features
-- **NO need to import `Loc` manually** - it's pre-imported by default in shared header
+- **NO need to import `Loc` manually** - it's pre-imported by default
 - Import `AnytypeCore` for feature flags
 
-### ⚠️ Common Mistakes to Avoid
+## ⚠️ Common Mistakes to Avoid
 
-#### Git Operations
-**Autonomous Committing (2025-01-28):** Committed changes without explicit user request. NEVER commit unless user explicitly asks. This is a CRITICAL rule - committing is a destructive operation that should only happen when user approves.
+### Git Operations
+**Autonomous Committing (2025-01-28):** Committed changes without explicit user request. NEVER commit unless user explicitly asks. This is a CRITICAL rule.
 
-#### File Operations & Architecture
-**Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually, keep UI in PresentationLayer.
+### File Operations & Architecture
+**Wildcard File Deletion (2025-01-24):** Used `rm -f .../PublishingPreview*.swift` - accidentally deleted main UI component. Always check with `ls` first, remove files individually.
 
-#### Refactoring & Testing
-**Incomplete Mock Updates (2025-01-16):** Refactored `spaceViewStorage` → `spaceViewsStorage` and `participantSpaceStorage` → `participantSpacesStorage` in production code, but forgot to update `MockView.swift` causing test failures. When renaming dependencies:
-1. Search for old names across entire codebase: `rg "oldName" --type swift`
+### Refactoring & Testing
+**Incomplete Mock Updates (2025-01-16):** Refactored properties in production code but forgot to update `MockView.swift` causing test failures. When renaming dependencies:
+1. Search for old names: `rg "oldName" --type swift`
 2. Update all references in tests, mocks, and DI registrations
 3. Report changes to user for compilation verification
+
+---
+
+**Remember**: This file provides quick reference and overview. For detailed guidance, see the specialized documentation guides linked above.

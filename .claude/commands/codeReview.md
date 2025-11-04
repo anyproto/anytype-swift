@@ -23,9 +23,12 @@ git diff develop...HEAD
 ### Step 2: Apply Review Standards
 
 **Apply the shared review guidelines from:**
-`.github/workflows/code-review-guidelines.md`
+`.claude/CODE_REVIEW_GUIDE.md`
 
 Follow all core rules, review sections, common mistakes, and analysis checklist defined in that file.
+
+**Also consult:**
+- `.claude/skills/code-review-developer/SKILL.md` - Quick reference for critical rules and workflow
 
 **Context adaptation for local reviews:**
 - This is a local review (not a GitHub PR)

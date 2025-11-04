@@ -1,0 +1,290 @@
+{
+  "skills": {
+    "ios-dev-guidelines": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Swift/iOS development patterns (→ IOS_DEVELOPMENT_GUIDE.md). Critical rules, MVVM/Coordinator patterns, code style",
+      "promptTriggers": {
+        "keywords": [
+          "swift",
+          "swiftui",
+          "viewmodel",
+          "coordinator",
+          "repository",
+          "refactor",
+          "architecture",
+          "mvvm",
+          "combine",
+          "async",
+          "await",
+          "@Published",
+          "@MainActor",
+          "protocol",
+          "extension",
+          "formatting",
+          "whitespace",
+          "indentation",
+          "code style",
+          "best practice"
+        ],
+        "intentPatterns": [
+          "(create|add|implement|build).*?(view|viewmodel|coordinator|service|repository)",
+          "(refactor|restructure|reorganize).*?(code|class|struct|module)",
+          "(how to|best practice|correct way).*?(swift|ios|architecture|pattern)",
+          "(format|style|organize).*?(code|file|property)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift",
+          "**/PresentationLayer/**",
+          "**/ServiceLayer/**",
+          "**/ApplicationLayer/**",
+          "**/Models/**"
+        ],
+        "contentPatterns": [
+          "class.*ViewModel",
+          "class.*Coordinator",
+          "protocol.*Repository",
+          "@Published",
+          "@MainActor",
+          "import SwiftUI",
+          "import Combine"
+        ]
+      }
+    },
+    "localization-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to localization system (→ LOCALIZATION_GUIDE.md). 3-file .xcstrings workflow, Loc constants, format specifiers",
+      "promptTriggers": {
+        "keywords": [
+          "localization",
+          "localiz",
+          "Loc.",
+          "xcstrings",
+          "translation",
+          "strings",
+          "text",
+          "label",
+          "title",
+          "hardcoded",
+          "string literal",
+          "user-facing text",
+          "crowdin",
+          "Auth.xcstrings",
+          "Workspace.xcstrings",
+          "UI.xcstrings",
+          "make generate"
+        ],
+        "intentPatterns": [
+          "(add|create|update).*?(localization|string|text|label)",
+          "(hardcoded|hard-coded|literal).*?(string|text)",
+          "(remove|delete).*?(localization|string|key)",
+          "(search|find).*?(localization|string|key)",
+          "(how to|where).*?(localization|string|text)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/Loc/**/*.xcstrings",
+          "**/Loc/**/*.swift",
+          "**/Resources/**/*.xcstrings"
+        ],
+        "contentPatterns": [
+          "import Loc",
+          "Loc\\.",
+          "\\.xcstrings",
+          "AnytypeText\\(",
+          "localization"
+        ]
+      }
+    },
+    "code-generation-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to code generation (→ CODE_GENERATION_GUIDE.md). Feature flags, SwiftGen, Sourcery, make generate workflows",
+      "promptTriggers": {
+        "keywords": [
+          "make generate",
+          "swiftgen",
+          "sourcery",
+          "generate",
+          "codegen",
+          "code generation",
+          "feature flag",
+          "FeatureFlags",
+          "FeatureDescription",
+          "protobuf",
+          "generated",
+          "// Generated using",
+          "Assets.xcassets",
+          "imageset"
+        ],
+        "intentPatterns": [
+          "(run|execute).*?(make generate|swiftgen|sourcery)",
+          "(create|add|enable).*?(feature flag|flag)",
+          "(generate|regenerate).*?(code|assets|localization|protobuf)",
+          "(update|modify).*?(feature flag|generated)",
+          "(how to|best practice).*?(generate|feature flag|codegen)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/FeatureDescription+Flags.swift",
+          "**/Assets.xcassets/**",
+          "**/.xcassets/**",
+          "**/swiftgen.yml",
+          "**/sourcery.yml",
+          "**/anytypeGen.yml",
+          "**/Generated/**"
+        ],
+        "contentPatterns": [
+          "// Generated using Sourcery",
+          "// Generated using SwiftGen",
+          "FeatureFlags\\.",
+          "FeatureDescription\\(",
+          "static let.*=.*FeatureDescription"
+        ]
+      }
+    },
+    "design-system-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to design system (→ DESIGN_SYSTEM_MAPPING.md, TYPOGRAPHY_MAPPING.md). Icons (x18-x40), typography mapping, spacing formula",
+      "promptTriggers": {
+        "keywords": [
+          "icon",
+          "image asset",
+          "x18",
+          "x24",
+          "x32",
+          "x40",
+          "typography",
+          "font",
+          "text style",
+          "design system",
+          "color",
+          "UI component",
+          "figma",
+          "design token",
+          "AnytypeText",
+          "DESIGN_SYSTEM_MAPPING",
+          "TYPOGRAPHY_MAPPING"
+        ],
+        "intentPatterns": [
+          "(add|create|use).*?(icon|image|asset)",
+          "(update|change).*?(typography|font|text style)",
+          "(how to|where).*?(icon|image|asset|typography|font)",
+          "(design system|ui component).*?(pattern|usage|guide)",
+          "(export|add).*?(figma|svg)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/Assets.xcassets/**/*.imageset/**",
+          "**/DesignSystem/**",
+          "**/PresentationLayer/Common/**",
+          "**/DESIGN_SYSTEM_MAPPING.md",
+          "**/TYPOGRAPHY_MAPPING.md"
+        ],
+        "contentPatterns": [
+          "Image\\(asset:",
+          "\\.X18\\.",
+          "\\.X24\\.",
+          "\\.X32\\.",
+          "\\.X40\\.",
+          "AnytypeText\\(",
+          "style:.*\\.ux"
+        ]
+      }
+    },
+    "skills-manager": {
+      "type": "meta",
+      "priority": "medium",
+      "description": "Smart router to skills/hooks management (→ SKILLS_MANAGEMENT_GUIDE.md). Troubleshoot activation, add keywords, fine-tune system",
+      "promptTriggers": {
+        "keywords": [
+          "skill activation",
+          "skill didn't activate",
+          "hook",
+          "troubleshoot skill",
+          "fine-tune",
+          "add keyword",
+          "skill-rules.json",
+          "activation log",
+          "why didn't",
+          "false positive",
+          "false negative",
+          "check logs",
+          "skills system",
+          "hooks system",
+          "skill not working"
+        ],
+        "intentPatterns": [
+          "(check|view|show).*?(activation|log|skill)",
+          "(add|remove).*?keyword",
+          "(troubleshoot|debug|fix).*?(skill|hook|activation)",
+          "why (didn't|did).*?(activate|trigger)",
+          "(how to|how do I).*?(add|modify|change).*?(skill|hook|keyword)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/.claude/hooks/**",
+          "**/.claude/skills/**",
+          "**/skill-rules.json",
+          "**/SKILLS_MANAGEMENT_GUIDE.md"
+        ],
+        "contentPatterns": [
+          "skill-rules.json",
+          "promptTriggers",
+          "fileTriggers"
+        ]
+      }
+    },
+    "code-review-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to code review guidelines (→ code-review-guidelines.md). Review standards, common mistakes, actionable feedback only",
+      "promptTriggers": {
+        "keywords": [
+          "code review",
+          "review code",
+          "PR review",
+          "pull request review",
+          "review PR",
+          "approve",
+          "review changes",
+          "review diff",
+          "feedback",
+          "code feedback",
+          "review guidelines",
+          "review standards"
+        ],
+        "intentPatterns": [
+          "(review|check|analyze).*?(code|pr|pull request|changes|diff)",
+          "(approve|reject).*?(pr|pull request)",
+          "(provide|give).*?(review|feedback)",
+          "(how to|best practice).*?review"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/.github/workflows/code-review-guidelines.md",
+          "**/.github/workflows/claude-code-review-prompt.md"
+        ],
+        "contentPatterns": [
+          "Review using CLAUDE.md",
+          "Review Sections",
+          "gh pr comment"
+        ]
+      }
+    }
+  },
+  "config": {
+    "maxSkillsPerPrompt": 2,
+    "logActivations": true,
+    "logPath": ".claude/logs/skill-activations.log"
+  }
+}
