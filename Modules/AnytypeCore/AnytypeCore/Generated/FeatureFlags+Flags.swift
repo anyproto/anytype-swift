@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var removeMessagesFromNotificationsCenter: Bool {
-        value(for: .removeMessagesFromNotificationsCenter)
-    }
-
     static var mediaCarouselForWidgets: Bool {
         value(for: .mediaCarouselForWidgets)
     }
@@ -124,7 +120,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .removeMessagesFromNotificationsCenter,
         .mediaCarouselForWidgets,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
