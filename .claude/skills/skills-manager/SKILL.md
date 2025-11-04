@@ -97,6 +97,34 @@ echo '{"prompt":"add feature flag"}' | .claude/hooks/skill-activation-prompt.sh
 
 Should output skill suggestion if match found.
 
+### Auto-Learning Feature
+
+**What it does**: When a substantial prompt (100+ chars OR 3+ lines) doesn't activate any skills, the system prompts you with available skills and auto-updates keywords based on your feedback.
+
+**Workflow**:
+1. You submit a substantial prompt
+2. No skills activate
+3. System shows: "Should any of these skills be activated?"
+4. You respond: "Yes, localization-developer should activate"
+5. Claude extracts keywords from your prompt
+6. Claude runs: `.claude/hooks/utils/add-keywords-to-skill.sh localization-developer <keywords>`
+7. skill-rules.json updated
+8. Future similar prompts auto-activate
+
+**Manual keyword extraction**:
+```bash
+# Test keyword extraction
+echo "Update space settings localization for membership tiers" | .claude/hooks/utils/extract-keywords.sh
+# Output: membership, settings, localization, tiers, update
+
+# Add keywords manually
+.claude/hooks/utils/add-keywords-to-skill.sh localization-developer "membership" "tiers"
+```
+
+**Logs**:
+- Missed activations: `.claude/logs/skill-activations-missed.log`
+- Learning updates: `.claude/logs/skill-learning.log`
+
 ## 🔧 The System Components
 
 ### Hooks (Automation)
@@ -112,12 +140,13 @@ Should output skill suggestion if match found.
 
 **Location**: `.claude/skills/*/SKILL.md`
 
-**The 5 skills**:
+**The 6 skills**:
 1. `ios-dev-guidelines` - Swift/iOS patterns
 2. `localization-developer` - Localization
 3. `code-generation-developer` - Feature flags, make generate
 4. `design-system-developer` - Icons, typography, colors
 5. `skills-manager` - This skill (meta!)
+6. `code-review-developer` - Code review standards
 
 ### Configuration
 
