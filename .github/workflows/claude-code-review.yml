@@ -31,10 +31,24 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Load review prompt
+      - name: Load review skill and CI automation
         id: load-prompt
         run: |
-          PROMPT_CONTENT=$(cat .github/workflows/claude-code-review-prompt.md)
+          # Load the code-review-developer skill (routes to general standards)
+          SKILL_CONTENT=$(cat .claude/skills/code-review-developer/SKILL.md)
+
+          # Load CI-specific automation instructions
+          CI_AUTOMATION=$(cat .github/workflows/pr-review-automation.md)
+
+          # Combine both for the prompt
+          PROMPT_CONTENT="${SKILL_CONTENT}
+
+          ---
+
+          # CI/PR-Specific Instructions
+
+          ${CI_AUTOMATION}"
+
           echo "prompt_content<<EOF" >> $GITHUB_OUTPUT
           echo "$PROMPT_CONTENT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
