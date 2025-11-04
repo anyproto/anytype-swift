@@ -56,20 +56,12 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
-                topWidgets
                 blockWidgets
                 objectTypeWidgets
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
-        }
-    }
-    
-    @ViewBuilder
-    private var topWidgets: some View {
-        if let data = model.chatWidgetData {
-            SpaceChatWidgetView(data: data)
         }
     }
     

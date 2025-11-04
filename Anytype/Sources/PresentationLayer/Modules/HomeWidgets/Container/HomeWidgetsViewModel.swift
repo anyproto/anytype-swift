@@ -51,7 +51,6 @@ final class HomeWidgetsViewModel {
     var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
-    var chatWidgetData: SpaceChatWidgetData?
     
     var spaceId: String { info.accountSpaceId }
     
@@ -70,9 +69,8 @@ final class HomeWidgetsViewModel {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
-        async let spaceViewTask: () = startSpaceViewTask()
-        
-        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask)
+
+        _ = await (widgetObjectSub, participantTask, objectTypesTask)
     }
     
     func onAppear() {
@@ -173,12 +171,6 @@ final class HomeWidgetsViewModel {
         for await objectTypes in stream {
             objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
-        }
-    }
-    
-    private func startSpaceViewTask() async {
-        for await showChat in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map(\.canShowChatWidget).removeDuplicates().values {
-            chatWidgetData = showChat ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
         }
     }
 }
