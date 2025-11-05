@@ -1,7 +1,7 @@
 import SwiftUI
 import AnytypeCore
 
-// SpaceCardLabel and SpaceCard are splitted for better SwiftUI diff.
+// NewSpaceCardLabel and SpaceCard are splitted for better SwiftUI diff.
 struct NewSpaceCardLabel: View {
 
     let model: SpaceCardModel

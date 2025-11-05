@@ -6,18 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var fixCollectionViewReuseCrashInEditor: Bool {
-        value(for: .fixCollectionViewReuseCrashInEditor)
-    }
-
-    static var loadAttachmentsOnHomePlusMenu: Bool {
-        value(for: .loadAttachmentsOnHomePlusMenu)
-    }
-
-    static var vaultBackToRoots: Bool {
-        value(for: .vaultBackToRoots)
-    }
-
     static var showAllButtonInWidgets: Bool {
         value(for: .showAllButtonInWidgets)
     }
@@ -116,9 +104,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .fixCollectionViewReuseCrashInEditor,
-        .loadAttachmentsOnHomePlusMenu,
-        .vaultBackToRoots,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,

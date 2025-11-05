@@ -13,23 +13,14 @@ struct SpaceCard: View {
     let onTapSettings: () -> Void
     let onTapDelete: () -> Void
 
-    @State private var vaultBackToRootsToggle = FeatureFlags.vaultBackToRoots
-
     var body: some View {
         Button {
             onTap()
         } label: {
-            if !vaultBackToRootsToggle {
-                SpaceCardLabel(
-                    model: model,
-                    draggedSpaceViewId: $draggedSpaceViewId
-                )
-            } else {
-                NewSpaceCardLabel(
-                    model: model,
-                    draggedSpaceViewId: $draggedSpaceViewId
-                )
-            }
+            NewSpaceCardLabel(
+                model: model,
+                draggedSpaceViewId: $draggedSpaceViewId
+            )
         }
         .contentShape([.dragPreview, .contextMenuPreview], RoundedRectangle(cornerRadius: 20, style: .continuous))
         .contextMenu { menuItems.tint(Color.Text.primary) }

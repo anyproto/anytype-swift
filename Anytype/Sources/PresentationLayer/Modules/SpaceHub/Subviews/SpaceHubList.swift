@@ -8,8 +8,7 @@ struct SpaceHubList: View {
     
     @State private var draggedSpaceViewId: String?
     @State private var draggedInitialIndex: Int?
-    @State private var vaultBackToRootsToggle = FeatureFlags.vaultBackToRoots
-    
+
     var body: some View {
         if model.filteredSpaces.isEmpty && model.searchText.isEmpty {
             emptyStateView
@@ -22,7 +21,7 @@ struct SpaceHubList: View {
     
     private var scrollView: some View {
         ScrollView {
-            VStack(spacing: vaultBackToRootsToggle ? 8 : 0) {
+            VStack(spacing: 8) {
                 HomeUpdateSubmoduleView().padding(8)
 
                 ForEach(model.filteredSpaces) {
@@ -68,7 +67,7 @@ struct SpaceHubList: View {
                 model.onDeleteSpace(spaceId: cardModel.targetSpaceId)
             }
         )
-        .padding(.horizontal, vaultBackToRootsToggle ? 16 : 0)
+        .padding(.horizontal, 16)
         .onDropIf(
             cardModel.isPinned,
             of: [.text],
