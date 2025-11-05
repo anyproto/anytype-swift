@@ -170,8 +170,9 @@ public protocol BundledPropertiesValueProvider {
     var apiObjectKey: String { get }
     var relationFormatIncludeTime: [Bool] { get }
     var spacePushNotificationMode: Int? { get }
-    var spacePushNotificationCustomMuteIds: [String] { get }
-    var spacePushNotificationCustomMentionIds: [String] { get }
+    var spacePushNotificationForceAllIds: [String] { get }
+    var spacePushNotificationForceMuteIds: [String] { get }
+    var spacePushNotificationForceMentionIds: [String] { get }
     var spacePushNotificationKey: String { get }
     var spacePushNotificationEncryptionKey: String { get }
     var spaceJoinDate: Date? { get }
@@ -800,13 +801,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var spacePushNotificationMode: Int? {
         return value(for: BundledPropertyKey.spacePushNotificationMode.rawValue)
     }
-    /// Push notification custom muted ids
-    var spacePushNotificationCustomMuteIds: [String] {
-        return value(for: BundledPropertyKey.spacePushNotificationCustomMuteIds.rawValue)
+    /// Push notification all ids
+    var spacePushNotificationForceAllIds: [String] {
+        return value(for: BundledPropertyKey.spacePushNotificationForceAllIds.rawValue)
     }
-    /// Push notification custom mention ids
-    var spacePushNotificationCustomMentionIds: [String] {
-        return value(for: BundledPropertyKey.spacePushNotificationCustomMentionIds.rawValue)
+    /// Push notification muted ids
+    var spacePushNotificationForceMuteIds: [String] {
+        return value(for: BundledPropertyKey.spacePushNotificationForceMuteIds.rawValue)
+    }
+    /// Push notification mention ids
+    var spacePushNotificationForceMentionIds: [String] {
+        return value(for: BundledPropertyKey.spacePushNotificationForceMentionIds.rawValue)
     }
     /// Push notifications space key (base64)
     var spacePushNotificationKey: String {

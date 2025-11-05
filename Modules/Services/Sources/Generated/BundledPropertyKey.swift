@@ -460,11 +460,14 @@ public enum BundledPropertyKey: String, Sendable {
     /// Push notification mode - mute/all/mentions/custom (see model.SpacePushNotificationMode)
     case spacePushNotificationMode = "spacePushNotificationMode"
 
-    /// Push notification custom muted ids
-    case spacePushNotificationCustomMuteIds = "spacePushNotificationCustomMuteIds"
+    /// Push notification all ids
+    case spacePushNotificationForceAllIds = "spacePushNotificationForceAllIds"
 
-    /// Push notification custom mention ids
-    case spacePushNotificationCustomMentionIds = "spacePushNotificationCustomMentionIds"
+    /// Push notification muted ids
+    case spacePushNotificationForceMuteIds = "spacePushNotificationForceMuteIds"
+
+    /// Push notification mention ids
+    case spacePushNotificationForceMentionIds = "spacePushNotificationForceMentionIds"
 
     /// Push notifications space key (base64)
     case spacePushNotificationKey = "spacePushNotificationKey"
