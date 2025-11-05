@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var loadAttachmentsOnHomePlusMenu: Bool {
-        value(for: .loadAttachmentsOnHomePlusMenu)
-    }
-
     static var vaultBackToRoots: Bool {
         value(for: .vaultBackToRoots)
     }
@@ -112,7 +108,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
