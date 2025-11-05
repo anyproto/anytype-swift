@@ -1,5 +1,3 @@
-import AnytypeCore
-
 public extension DetailsLayout {
     
     static let editorLayouts: [DetailsLayout] = [ .note, .basic, .profile, .todo ]
@@ -22,7 +20,7 @@ public extension DetailsLayout {
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
     private static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    private static let chatLayouts: [DetailsLayout] = FeatureFlags.multichats ? [.chatDerived] : []
+    private static let chatLayouts: [DetailsLayout] = [.chatDerived]
 }
 
 // MARK: - Space-aware filtering

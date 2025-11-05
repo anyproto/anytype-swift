@@ -34,10 +34,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var multichats: Bool {
-        value(for: .multichats)
-    }
-
     static var doNotWaitCompletionInAnytypePreview: Bool {
         value(for: .doNotWaitCompletionInAnytypePreview)
     }
@@ -111,7 +107,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .multichats,
         .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
