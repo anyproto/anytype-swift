@@ -1,7 +1,6 @@
 import QuickLook
 import Combine
 import Services
-import AnytypeCore
 
 @MainActor
 final class AnytypePreviewController: QLPreviewController {
@@ -67,11 +66,6 @@ final class AnytypePreviewController: QLPreviewController {
     }
     
     private func handleItemUpdate() {
-        if FeatureFlags.doNotWaitCompletionInAnytypePreview {
-            refreshCurrentPreviewItem()
-            return
-        }
-        
         if didFinishTransition {
             refreshCurrentPreviewItem()
         } else {
