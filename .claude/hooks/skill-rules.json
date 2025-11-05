@@ -280,6 +280,53 @@
           "gh pr comment"
         ]
       }
+    },
+    "feature-toggle-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to feature toggle removal (→ feature-toggle-developer.md). Systematic toggle removal, automated cleanup detection, unused code identification",
+      "promptTriggers": {
+        "keywords": [
+          "remove toggle",
+          "delete toggle",
+          "enable toggle",
+          "feature flag",
+          "feature toggle",
+          "remove feature flag",
+          "delete feature flag",
+          "enable feature flag",
+          "cleanup after toggle",
+          "unused code",
+          "orphaned code",
+          "defaultValue: true",
+          "defaultValue: false",
+          "FeatureFlags.",
+          "toggle removal"
+        ],
+        "intentPatterns": [
+          "(remove|delete|eliminate).*?(toggle|feature flag|feature toggle)",
+          "(enable|activate|turn on).*?(toggle|feature flag|permanently)",
+          "(cleanup|clean up|remove unused).*?(code|component|class|file)",
+          "(find|identify|check for).*?(unused|orphaned|dead).*?(code|component)",
+          "(after|completed).*?(toggle|feature flag).*?(removal|cleanup)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/FeatureDescription+Flags.swift",
+          "**/FeatureFlags+Flags.swift",
+          "**/.claude/skills/feature-toggle-developer.md"
+        ],
+        "contentPatterns": [
+          "FeatureFlags\\.",
+          "static let.*=.*FeatureDescription",
+          "defaultValue: true",
+          "defaultValue: false",
+          "if FeatureFlags\\.",
+          "guard.*FeatureFlags\\.",
+          "@State.*FeatureFlags"
+        ]
+      }
     }
   },
   "config": {

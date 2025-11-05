@@ -140,13 +140,14 @@ echo "Update space settings localization for membership tiers" | .claude/hooks/u
 
 **Location**: `.claude/skills/*/SKILL.md`
 
-**The 6 skills**:
+**The 7 skills**:
 1. `ios-dev-guidelines` - Swift/iOS patterns
 2. `localization-developer` - Localization
 3. `code-generation-developer` - Feature flags, make generate
 4. `design-system-developer` - Icons, typography, colors
 5. `skills-manager` - This skill (meta!)
 6. `code-review-developer` - Code review standards
+7. `feature-toggle-developer` - Feature toggle removal, cleanup detection
 
 ### Configuration
 
