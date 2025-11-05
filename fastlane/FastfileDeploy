@@ -107,14 +107,22 @@ platform :ios do
       # For incremental builds (e.g., 0.41.0/26 -> 0.41.0/27), use the previous build number
       old_tag_name = "#{prefix}/#{version}/#{build_number.to_i - 1}"
     else
-      # For the first build of a new version (e.g., 0.41.1/1), find the last tag of the previous version
-      # Get all tags for the current major version (e.g., all 0.41.x tags), sorted by version
-      all_version_tags = sh("git tag -l '#{prefix}/#{version.split('.')[0]}.*/*' | sort -V").split("\n")
+      # For the first build of a new version (e.g., 0.41.1/1), find the last tag of the previous patch version
+      # Get major.minor version (e.g., "0.41" from "0.41.1")
+      version_parts = version.split('.')
+      major_minor = "#{version_parts[0]}.#{version_parts[1]}"
+      current_patch = version_parts[2].to_i
 
-      # Find the index of the current version in the sorted list
-      current_idx = all_version_tags.index { |t| t.start_with?("#{prefix}/#{version}/") }
-      # Use the tag immediately before the current version, or fallback to current tag if not found
-      old_tag_name = current_idx && current_idx > 0 ? all_version_tags[current_idx - 1] : tag_name
+      # Get all tags for the current major.minor (e.g., all 0.41.x tags), sorted by version
+      all_version_tags = sh("git tag -l '#{prefix}/#{major_minor}.*/*' | sort -V").split("\n")
+
+      # Find tags for versions less than current patch, take the last one
+      previous_version_tags = all_version_tags.select do |t|
+        tag_patch = t.match(/#{Regexp.escape(prefix)}\/#{Regexp.escape(major_minor)}\.(\d+)\//)
+        tag_patch && tag_patch[1].to_i < current_patch
+      end
+
+      old_tag_name = previous_version_tags.last || tag_name
     end
 
     add_linear_comment(
