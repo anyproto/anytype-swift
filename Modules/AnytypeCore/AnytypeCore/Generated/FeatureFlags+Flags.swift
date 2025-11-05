@@ -34,10 +34,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var doNotWaitCompletionInAnytypePreview: Bool {
-        value(for: .doNotWaitCompletionInAnytypePreview)
-    }
-
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -107,7 +103,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
