@@ -4,12 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    static let vaultBackToRoots = FeatureDescription(
-        title: "New old design of vault cells",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-
     static let showAllButtonInWidgets = FeatureDescription(
         title: "See all as the last point in the widget - IOS-4945",
         type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),

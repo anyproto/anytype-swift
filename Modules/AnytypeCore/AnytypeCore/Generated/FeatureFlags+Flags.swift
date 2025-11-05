@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var vaultBackToRoots: Bool {
-        value(for: .vaultBackToRoots)
-    }
-
     static var showAllButtonInWidgets: Bool {
         value(for: .showAllButtonInWidgets)
     }
@@ -108,7 +104,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .vaultBackToRoots,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,
