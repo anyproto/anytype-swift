@@ -307,8 +307,3 @@ performOldBehavior()
 - **code-generation-developer**: References for `make generate` command and troubleshooting
 - **ios-dev-guidelines**: Swift refactoring patterns, import management
 - **code-review-developer**: Cleanup standards, ensuring no orphaned code in PRs
-
-## Example Session
-
-```
-User: "remove vaultBackToRoots toggle"
