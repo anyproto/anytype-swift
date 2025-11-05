@@ -1355,23 +1355,18 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds.Response: ResultWithError {}
-extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.PushNotification.AddMentionIds.Response: ResultWithError {}
-extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.PushNotification.AddMuteIds.Response: ResultWithError {}
-extension Anytype_Rpc.PushNotification.AddMuteIds.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.PushNotification.RegisterToken.Response: ResultWithError {}
 extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.PushNotification.ResetIds.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.ResetIds.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Response: ResultWithError {}
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

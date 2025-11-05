@@ -3054,33 +3054,23 @@ public struct ClientCommands {
         }
     }
 
-    public static func pushNotificationAddMuteIds(
-        _ request: Anytype_Rpc.PushNotification.AddMuteIds.Request = .init()
-    ) -> Invocation<Anytype_Rpc.PushNotification.AddMuteIds.Request, Anytype_Rpc.PushNotification.AddMuteIds.Response> {
-        return Invocation(messageName: "PushNotificationAddMuteIds", request: request) { request in
+    public static func pushNotificationSetForceModeIds(
+        _ request: Anytype_Rpc.PushNotification.SetForceModeIds.Request = .init()
+    ) -> Invocation<Anytype_Rpc.PushNotification.SetForceModeIds.Request, Anytype_Rpc.PushNotification.SetForceModeIds.Response> {
+        return Invocation(messageName: "PushNotificationSetForceModeIds", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePushNotificationAddMuteIds(requestData) ?? Data()
-            return try Anytype_Rpc.PushNotification.AddMuteIds.Response(serializedBytes: responseData)
+            let responseData = Lib.ServicePushNotificationSetForceModeIds(requestData) ?? Data()
+            return try Anytype_Rpc.PushNotification.SetForceModeIds.Response(serializedBytes: responseData)
         }
     }
 
-    public static func pushNotificationAddMentionIds(
-        _ request: Anytype_Rpc.PushNotification.AddMentionIds.Request = .init()
-    ) -> Invocation<Anytype_Rpc.PushNotification.AddMentionIds.Request, Anytype_Rpc.PushNotification.AddMentionIds.Response> {
-        return Invocation(messageName: "PushNotificationAddMentionIds", request: request) { request in
+    public static func pushNotificationResetIds(
+        _ request: Anytype_Rpc.PushNotification.ResetIds.Request = .init()
+    ) -> Invocation<Anytype_Rpc.PushNotification.ResetIds.Request, Anytype_Rpc.PushNotification.ResetIds.Response> {
+        return Invocation(messageName: "PushNotificationResetIds", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServicePushNotificationAddMentionIds(requestData) ?? Data()
-            return try Anytype_Rpc.PushNotification.AddMentionIds.Response(serializedBytes: responseData)
-        }
-    }
-
-    public static func pushNotificationAddAllIds(
-        _ request: Anytype_Rpc.PushNotification.AddAllIds.Request = .init()
-    ) -> Invocation<Anytype_Rpc.PushNotification.AddAllIds.Request, Anytype_Rpc.PushNotification.AddAllIds.Response> {
-        return Invocation(messageName: "PushNotificationAddAllIds", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServicePushNotificationAddAllIds(requestData) ?? Data()
-            return try Anytype_Rpc.PushNotification.AddAllIds.Response(serializedBytes: responseData)
+            let responseData = Lib.ServicePushNotificationResetIds(requestData) ?? Data()
+            return try Anytype_Rpc.PushNotification.ResetIds.Response(serializedBytes: responseData)
         }
     }
 

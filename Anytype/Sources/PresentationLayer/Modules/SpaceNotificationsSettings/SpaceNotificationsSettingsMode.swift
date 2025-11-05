@@ -51,7 +51,7 @@ extension SpacePushNotificationsMode {
         switch self {
         case .all: return .allActiviy
         case .mentions: return .mentions
-        case .custom, .nothing, .UNRECOGNIZED(_): return .disabled
+        case .nothing, .UNRECOGNIZED(_): return .disabled
         }
     }
     
@@ -64,7 +64,6 @@ extension SpacePushNotificationsMode {
         case .all: return "All"
         case .mentions: return "Mentions"
         case .nothing: return "Nothing"
-        case .custom: return "Custom"
         case .UNRECOGNIZED(_): return ""
         }
     }
