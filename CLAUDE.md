@@ -238,9 +238,21 @@ Modules/                # Swift packages
 **⚠️ CRITICAL: This is the FIRST thing to do when starting any task**
 
 When receiving a Linear task ID (e.g., `IOS-5292`):
-1. **Identify the task branch**: Format is `ios-XXXX-description`
-2. **Switch to the task branch IMMEDIATELY**: `git checkout ios-5292-update-space-hub-loading-state`
-3. **All work for the task must be done in this dedicated branch**
+1. **Fetch the Linear issue**: Use `mcp__linear__list_issues` with the task ID to get issue details
+2. **Get the branch name**: Extract `gitBranchName` field from the Linear issue (format: `ios-XXXX-description`)
+3. **Switch to the task branch IMMEDIATELY**: `git checkout ios-5292-update-space-hub-loading-state`
+
+**All work for the task must be done in this dedicated branch**
+
+**Example**:
+```bash
+# Fetch issue details
+mcp__linear__list_issues(query: "IOS-5292", limit: 1)
+# Response includes: "gitBranchName": "ios-5292-update-space-hub-loading-state"
+
+# Use the exact branch name from Linear
+git checkout ios-5292-update-space-hub-loading-state
+```
 
 ### Git & GitHub
 - **Main branch**: `develop`
@@ -300,10 +312,10 @@ git add Anytype/Sources/[Feature]/Component.swift
 ```
 
 ### Linear Integration
-1. **Get task context**: Extract task number from branch name or ask user
-2. **Fetch details**: Use Linear MCP tools (`mcp__linear__get_issue`)
-3. **Check PRs**: Use `gh` tool to examine related PRs
-4. **Update progress**: Add comments and check off completed items
+- **Branch management**: See "Task-Based Branching" section above for fetching branch names from Linear
+- **Get task context**: Extract task ID from user request or current branch name
+- **Check PRs**: Use `gh` tool to examine related PRs
+- **Update progress**: Add comments and check off completed items using Linear MCP tools
 
 ## 📋 Memories & Tips
 - For trivial PRs, add GitHub label "🧠 No brainer" (not in title)
