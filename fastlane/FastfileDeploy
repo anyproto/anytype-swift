@@ -99,7 +99,23 @@ platform :ios do
     sh("git push origin refs/tags/#{tag_name} --no-verify --force")
   
     appInfo = settings[:app_info]
-    old_tag_name = sh("git describe --first-parent --tags --abbrev=0 HEAD~").chomp
+
+    # Determine the previous tag to use for diff generation in Linear comments
+    # This ensures hotfix releases (e.g., 0.41.1) correctly diff against the last build
+    # of the previous version (0.41.0/27) instead of finding an old tag from a different branch
+    if build_number.to_i > 1
+      # For incremental builds (e.g., 0.41.0/26 -> 0.41.0/27), use the previous build number
+      old_tag_name = "#{prefix}/#{version}/#{build_number.to_i - 1}"
+    else
+      # For the first build of a new version (e.g., 0.41.1/1), find the last tag of the previous version
+      # Get all tags for the current major version (e.g., all 0.41.x tags), sorted by version
+      all_version_tags = sh("git tag -l '#{prefix}/#{version.split('.')[0]}.*/*' | sort -V").split("\n")
+
+      # Find the index of the current version in the sorted list
+      current_idx = all_version_tags.index { |t| t.start_with?("#{prefix}/#{version}/") }
+      # Use the tag immediately before the current version, or fallback to current tag if not found
+      old_tag_name = current_idx && current_idx > 0 ? all_version_tags[current_idx - 1] : tag_name
+    end
 
     add_linear_comment(
       from_tag: old_tag_name,
