@@ -58,7 +58,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isPinned: spaceView.isPinned,
             isLoading: spaceView.isLoading,
             isShared: spaceView.isShared,
-            isMuted: FeatureFlags.muteSpacePossibility && !spaceView.pushNotificationMode.isUnmutedAll,
+            isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
             uxTypeName: spaceView.uxType.name,
             allNotificationsUnmuted: spaceView.pushNotificationMode.isUnmutedAll,
             lastMessage: lastMessage,

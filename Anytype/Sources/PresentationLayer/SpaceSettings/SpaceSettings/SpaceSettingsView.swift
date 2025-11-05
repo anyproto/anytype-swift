@@ -191,14 +191,12 @@ struct SpaceSettingsView: View {
             SectionHeaderView(title: Loc.collaboration)
             VStack(spacing: 8) {
                 RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
-                if FeatureFlags.muteSpacePossibility {
-                    RoundedButton(
-                        Loc.notifications,
-                        icon: pushNotificationsSettingIcon(),
-                        decoration: .caption(pushNotificationsSettingCaption())) {
-                            model.onNotificationsTap()
-                        }
-                }
+                RoundedButton(
+                    Loc.notifications,
+                    icon: pushNotificationsSettingIcon(),
+                    decoration: .caption(pushNotificationsSettingCaption())) {
+                        model.onNotificationsTap()
+                    }
                 if let data = model.uxTypeSettingsData {
                     RoundedButton(
                         Loc.channelType,

@@ -150,7 +150,6 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func onAppear() {
-        guard FeatureFlags.removeMessagesFromNotificationsCenter else { return }
         notificationsCenterService.removeDeliveredNotifications(chatId: chatId)
     }
     

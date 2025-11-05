@@ -6,26 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var muteSpacePossibility: Bool {
-        value(for: .muteSpacePossibility)
-    }
-
-    static var addNotificationsSettings: Bool {
-        value(for: .addNotificationsSettings)
-    }
-
-    static var swipeToReply: Bool {
-        value(for: .swipeToReply)
-    }
-
-    static var removeMessagesFromNotificationsCenter: Bool {
-        value(for: .removeMessagesFromNotificationsCenter)
-    }
-
-    static var mediaCarouselForWidgets: Bool {
-        value(for: .mediaCarouselForWidgets)
-    }
-
     static var fixCollectionViewReuseCrashInEditor: Bool {
         value(for: .fixCollectionViewReuseCrashInEditor)
     }
@@ -136,11 +116,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .muteSpacePossibility,
-        .addNotificationsSettings,
-        .swipeToReply,
-        .removeMessagesFromNotificationsCenter,
-        .mediaCarouselForWidgets,
         .fixCollectionViewReuseCrashInEditor,
         .loadAttachmentsOnHomePlusMenu,
         .vaultBackToRoots,
