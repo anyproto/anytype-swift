@@ -205,21 +205,27 @@
       "description": "Smart router to skills/hooks management (→ SKILLS_MANAGEMENT_GUIDE.md). Troubleshoot activation, add keywords, fine-tune system",
       "promptTriggers": {
         "keywords": [
+          "activation log",
+          "add keyword",
+          "check logs",
+          "claude.md",
+          "false negative",
+          "false positive",
+          "fine-tune",
+          "hook",
+          "hooks system",
+          "instances",
+          "knowledge",
+          "proactive",
           "skill activation",
           "skill didn't activate",
-          "hook",
-          "troubleshoot skill",
-          "fine-tune",
-          "add keyword",
+          "skill not working",
           "skill-rules.json",
-          "activation log",
-          "why didn't",
-          "false positive",
-          "false negative",
-          "check logs",
           "skills system",
-          "hooks system",
-          "skill not working"
+          "solidify",
+          "suggested",
+          "troubleshoot skill",
+          "why didn't"
         ],
         "intentPatterns": [
           "(check|view|show).*?(activation|log|skill)",
@@ -325,6 +331,60 @@
           "if FeatureFlags\\.",
           "guard.*FeatureFlags\\.",
           "@State.*FeatureFlags"
+        ]
+      }
+    },
+    "analytics-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to analytics system (→ ANALYTICS_PATTERNS.md). Event logging, route tracking, AnalyticsConstants enums",
+      "promptTriggers": {
+        "keywords": [
+          "analytics",
+          "route tracking",
+          "logEvent",
+          "AnytypeAnalytics",
+          "AnalyticsConstants",
+          "analytics event",
+          "track route",
+          "event properties",
+          "AnalyticsEventsPropertiesKey",
+          "route enum",
+          "HomeWidgetRoute",
+          "analytics pattern",
+          "log screen",
+          "log click",
+          "logScreen",
+          "logClick",
+          "amplitude",
+          "analytics tracking",
+          "user analytics"
+        ],
+        "intentPatterns": [
+          "(add|create|implement).*?(analytics|event|route tracking)",
+          "(track|log).*?(route|screen|click|user|event|action)",
+          "(update|modify).*?(analytics|event|route)",
+          "(how to|where).*?(analytics|track|log|event)",
+          "(define|add).*?(route enum|analytics enum)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/AnalyticsConstants.swift",
+          "**/AnytypeAnalytics+Events.swift",
+          "**/Analytics/**/*.swift",
+          "**/ANALYTICS_PATTERNS.md"
+        ],
+        "contentPatterns": [
+          "AnytypeAnalytics\\.instance\\(\\)",
+          "logEvent\\(",
+          "AnalyticsEventsPropertiesKey\\.",
+          "enum.*Route.*String",
+          "\\.analyticsValue",
+          "\\.analyticsType",
+          "\\.analyticsId",
+          "logScreen",
+          "logClick"
         ]
       }
     }
