@@ -43,6 +43,8 @@ Context-aware routing to code review guidelines. Helps you conduct thorough, act
 ✅ **Approved** - No issues found
 ```
 
+**CRITICAL**: When approving, output ONLY the line above. NO additional explanation, NO listing what the PR does, NO praise. Just the approval line.
+
 **If issues found**:
 ```
 ## Bugs/Issues
@@ -218,7 +220,21 @@ For GitHub Actions integration:
 ✅ **Approved** - No issues found
 ```
 
-**That's it! Don't add explanations, don't list changes.**
+**That's it! Absolutely nothing else. Not even in comments posted to GitHub.**
+
+**❌ WRONG** (too verbose):
+```
+✅ **Approved** - No issues found
+
+The PR correctly implements per-chat notification overrides:
+- Added force list properties with proper subscription keys
+- effectiveNotificationMode(for:) method correctly prioritizes...
+```
+
+**✅ CORRECT**:
+```
+✅ **Approved** - No issues found
+```
 
 ### Example 2: Minor Issues
 ```

@@ -5,12 +5,22 @@
 - **PR NUMBER**: Pull request number (injected by workflow)
 - **COMMIT SHA**: Commit SHA being reviewed (injected by workflow)
 
-## Review Standards
+## 🚨 CRITICAL OUTPUT RULES
 
-**Apply the shared review guidelines from:**
-`.github/workflows/code-review-guidelines.md`
+**If NO issues found:**
+```
+✅ **Approved** - No issues found
+```
 
-Follow all core rules, review sections, common mistakes, and analysis checklist defined in that file.
+**DO NOT add ANY additional text:**
+- ❌ NO "The PR correctly implements..."
+- ❌ NO explanations of what changed
+- ❌ NO lists of what was added/cleaned
+- ❌ NO implementation details
+- ❌ ONLY the one-line approval message above
+
+**If issues ARE found:**
+Follow the format from `.claude/skills/code-review-developer/SKILL.md`
 
 ## CI-Specific Reference Documentation
 
