@@ -130,7 +130,7 @@ final class ObjectActionsViewModel {
     func duplicateAction() async throws {
         guard let details = document.details else { return }
         
-        AnytypeAnalytics.instance().logDuplicateObject(count: 1, objectType: details.objectType.analyticsType, spaceId: details.spaceId)
+        AnytypeAnalytics.instance().logDuplicateObject(count: 1, objectType: details.objectType.analyticsType)
         
         let duplicatedId = try await service.duplicate(objectId: objectId)
         
@@ -218,7 +218,7 @@ final class ObjectActionsViewModel {
                     objectIds: [currentObjectId]
                 )
                 output?.onLinkItselfToObjectHandler(data: details.screenData())
-                AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
+                AnytypeAnalytics.instance().logLinkToObject(type: .collection)
             } else {
                 let info = BlockInformation.emptyLink(targetId: currentObjectId)
                 AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: details.spaceId)
@@ -229,7 +229,7 @@ final class ObjectActionsViewModel {
                     position: .bottom
                 )
                 output?.onLinkItselfToObjectHandler(data: details.screenData())
-                AnytypeAnalytics.instance().logLinkToObject(type: .object, spaceId: details.spaceId)
+                AnytypeAnalytics.instance().logLinkToObject(type: .object)
             }
         }
     }

@@ -110,7 +110,7 @@ final class TypePropertiesViewModel: ObservableObject {
             target: .type(typeData),
             onRelationSelect: { [spaceId = document.spaceId] details, isNew in
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
-                    format: details.format, isNew: isNew, type: .type, key: details.analyticsKey, spaceId: spaceId
+                    format: details.format, isNew: isNew, type: .type, key: details.analyticsKey
                 )
             }
         )
@@ -131,7 +131,7 @@ final class TypePropertiesViewModel: ObservableObject {
                 anytypeAssertionFailure("Empty relation format for onRelationRemove")
                 return
             }
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: format, route: .type)
+            AnytypeAnalytics.instance().logDeleteRelation(format: format, route: .type)
         }
     }
     

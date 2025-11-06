@@ -54,8 +54,7 @@ final class PropertyCalendarViewModel: ObservableObject {
                 isEmpty: value.isZero,
                 format: relationDetails.format,
                 type: config.analyticsType,
-                key: relationDetails.analyticsKey,
-                spaceId: config.spaceId
+                key: relationDetails.analyticsKey
             )
         }
     }

@@ -51,19 +51,19 @@ final class PasteboardTask: Sendable {
         // Find first item to paste with follow order anySlots (blocks slots), htmlSlot, textSlot, filesSlots
         // blocks slots
         if let blocksSlots = pasteboardHelper.obtainBlocksSlots() {
-            AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: blocksSlots.count)
+            AnytypeAnalytics.instance().logPasteBlock(countBlocks: blocksSlots.count)
             return try await pasteboardMiddlewareService.pasteBlock(blocksSlots, objectId: objectId, context: context)
         }
 
         // html slot
         if let htmlSlot = pasteboardHelper.obtainHTMLSlot() {
-            AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: 1)
+            AnytypeAnalytics.instance().logPasteBlock(countBlocks: 1)
             return try await pasteboardMiddlewareService.pasteHTML(htmlSlot, objectId: objectId, context: context)
         }
 
         // text slot
         if let textSlot = pasteboardHelper.obtainTextSlot() {
-            AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: 1)
+            AnytypeAnalytics.instance().logPasteBlock(countBlocks: 1)
             return try await pasteboardMiddlewareService.pasteText(textSlot, objectId: objectId, context: context)
         }
 
@@ -76,7 +76,7 @@ final class PasteboardTask: Sendable {
         }
         
         let fileSlots = pasteboardHelper.obtainFileSlots()
-        AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: fileSlots.count)
+        AnytypeAnalytics.instance().logPasteBlock(countBlocks: fileSlots.count)
         
         for itemProvider in fileSlots {
             try Task.checkCancellation()

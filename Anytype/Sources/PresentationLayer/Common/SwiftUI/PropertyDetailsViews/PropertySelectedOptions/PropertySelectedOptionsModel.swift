@@ -83,8 +83,7 @@ final class PropertySelectedOptionsModel: PropertySelectedOptionsModelProtocol {
                 isEmpty: selectedOptionsIds.isEmpty,
                 format: relationDetails.format,
                 type: config.analyticsType,
-                key: relationDetails.analyticsKey,
-                spaceId: config.spaceId
+                key: relationDetails.analyticsKey
             )
         }
     }
