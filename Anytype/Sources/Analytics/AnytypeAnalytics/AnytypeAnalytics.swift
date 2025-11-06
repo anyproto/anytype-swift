@@ -104,8 +104,8 @@ final class AnytypeAnalytics: @unchecked Sendable {
         logRawEvent(eventType, withEventProperties: eventProperties)
     }
     
-    func logEvent(_ eventType: String, withEventProperties eventProperties: [String : Any] = [:]) {
-        if let workspaceInfo = activeSpaceManager.workspaceInfo {
+    func logEvent(_ eventType: String, addActiveSpaceInfo: Bool = true, withEventProperties eventProperties: [String : Any] = [:]) {
+        if addActiveSpaceInfo, let workspaceInfo = activeSpaceManager.workspaceInfo {
             logEvent(eventType, spaceId: workspaceInfo.accountSpaceId, withEventProperties: eventProperties)
         } else {
             logRawEvent(eventType, withEventProperties: eventProperties)
