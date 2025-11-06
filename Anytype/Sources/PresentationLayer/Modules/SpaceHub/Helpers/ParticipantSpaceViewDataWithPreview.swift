@@ -4,21 +4,33 @@ import StoredHashMacro
 @StoredHash
 struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     let space: ParticipantSpaceViewData
-    let preview: ChatMessagePreview
-    
+    let latestPreview: ChatMessagePreview
+    let totalUnreadCounter: Int
+    let totalMentionCounter: Int
+
     var id: String { space.id }
-    
+
     var spaceView: SpaceView { space.spaceView }
-    
-    var hasCounters: Bool { preview.unreadCounter > 0 || preview.mentionCounter > 0 }
-    
-    func updated(preview: ChatMessagePreview) -> Self {
-        ParticipantSpaceViewDataWithPreview(space: space, preview: preview)
+
+    var hasCounters: Bool { totalUnreadCounter > 0 || totalMentionCounter > 0 }
+
+    func updated(latestPreview: ChatMessagePreview, totalUnread: Int, totalMentions: Int) -> Self {
+        ParticipantSpaceViewDataWithPreview(
+            space: space,
+            latestPreview: latestPreview,
+            totalUnreadCounter: totalUnread,
+            totalMentionCounter: totalMentions
+        )
     }
 }
 
 extension ParticipantSpaceViewDataWithPreview {
     init(space: ParticipantSpaceViewData) {
-        self.init(space: space, preview: ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId))
+        self.init(
+            space: space,
+            latestPreview: ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId),
+            totalUnreadCounter: 0,
+            totalMentionCounter: 0
+        )
     }
 }
