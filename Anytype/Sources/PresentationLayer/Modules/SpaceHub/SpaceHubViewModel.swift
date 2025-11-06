@@ -148,8 +148,8 @@ final class SpaceHubViewModel {
         case (false, true):
             return false
         case (false, false):
-            let lhsMessageDate = lhs.preview.lastMessage?.createdAt
-            let rhsMessageDate = rhs.preview.lastMessage?.createdAt
+            let lhsMessageDate = lhs.latestPreview.lastMessage?.createdAt
+            let rhsMessageDate = rhs.latestPreview.lastMessage?.createdAt
             let lhsJoinDate = lhs.spaceView.joinDate
             let rhsJoinDate = rhs.spaceView.joinDate
             

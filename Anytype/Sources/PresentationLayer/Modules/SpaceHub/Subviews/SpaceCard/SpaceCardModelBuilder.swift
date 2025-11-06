@@ -30,9 +30,9 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
         wallpapers: [String: SpaceWallpaperType]
     ) -> SpaceCardModel {
         let spaceView = spaceData.spaceView
-        let preview = spaceData.preview
+        let latestPreview = spaceData.latestPreview
 
-        let lastMessage = preview.lastMessage.map { lastMessagePreview in
+        let lastMessage = latestPreview.lastMessage.map { lastMessagePreview in
             let attachments = lastMessagePreview.attachments.prefix(3).map { objectDetails in
                 SpaceCardLastMessageModel.Attachment(
                     id: objectDetails.id,
@@ -62,9 +62,9 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             uxTypeName: spaceView.uxType.name,
             allNotificationsUnmuted: spaceView.pushNotificationMode.isUnmutedAll,
             lastMessage: lastMessage,
-            unreadCounter: preview.unreadCounter,
-            mentionCounter: preview.mentionCounter,
-            hasCounters: preview.hasCounters,
+            unreadCounter: spaceData.totalUnreadCounter,
+            mentionCounter: spaceData.totalMentionCounter,
+            hasCounters: spaceData.hasCounters,
             wallpaper: wallpapers[spaceView.targetSpaceId] ?? .default
         )
     }
