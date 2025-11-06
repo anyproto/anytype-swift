@@ -63,9 +63,9 @@ struct SpaceCard: View {
             onTapMute()
         } label: {
             HStack {
-                Text(model.allNotificationsUnmuted ? Loc.mute : Loc.unmute)
+                Text(!model.isMuted ? Loc.mute : Loc.unmute)
                 Spacer()
-                Image(systemName: model.allNotificationsUnmuted ? "bell.slash" : "bell")
+                Image(systemName: !model.isMuted ? "bell.slash" : "bell")
             }
         }
     }

@@ -60,7 +60,6 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isShared: spaceView.isShared,
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
             uxTypeName: spaceView.uxType.name,
-            allNotificationsUnmuted: spaceView.pushNotificationMode.isUnmutedAll,
             lastMessage: lastMessage,
             unreadCounter: preview.unreadCounter,
             mentionCounter: preview.mentionCounter,
