@@ -927,7 +927,6 @@ extension AnytypeAnalytics {
     func logOnboardingTooltip(tooltip: OnboardingTooltip, step: Int? = nil) {
         logEvent(
             "OnboardingTooltip",
-            addActiveSpaceInfo: false,
             withEventProperties: .builder {
                 [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
                 if let step { [AnalyticsEventsPropertiesKey.step: step] }
@@ -948,7 +947,6 @@ extension AnytypeAnalytics {
     func logClickOnboardingTooltip(tooltip: OnboardingTooltip, type: ClickOnboardingTooltipType) {
         logEvent(
             "ClickOnboardingTooltip",
-            addActiveSpaceInfo: false,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.id: tooltip.rawValue,
                 AnalyticsEventsPropertiesKey.type: type.rawValue
