@@ -53,8 +53,44 @@ The skills system provides context-aware guidance that auto-activates based on y
 - **code-generation-developer** → Auto-activates for code generation
 - **design-system-developer** → Auto-activates for UI/design work
 - **code-review-developer** → Auto-activates when reviewing PRs or code changes
+- **analytics-developer** → Auto-activates for analytics events and route tracking
+- **feature-toggle-developer** → Auto-activates for feature flag removal
+- **skills-manager** → Auto-activates for skill system management
 
 **How it works**: When you start a task, the system analyzes your prompt and file context, then automatically suggests relevant skills. No manual loading needed.
+
+**🚨 CRITICAL: Claude Must Actively Use Skills**
+
+The hook system only **suggests** skills - it does NOT auto-load them. When you (Claude) see skill suggestions in system reminders, you MUST:
+
+1. **📚 When you see "Relevant Skill: X"**:
+   - IMMEDIATELY read `.claude/skills/X/SKILL.md`
+   - Apply the patterns and rules from that skill
+   - Don't just acknowledge - actively use the skill's guidance
+
+2. **💡 When you see "NO SKILLS ACTIVATED"**:
+   - ASK the user: "Should the [skill-name] skill have activated for this task?"
+   - If yes, run: `.claude/hooks/utils/extract-keywords.sh "user's prompt"`
+   - Then run: `.claude/hooks/utils/add-keywords-to-skill.sh <skill-name> <keywords>`
+   - This teaches the system for future prompts
+
+3. **🎯 Be Proactive**:
+   - Notice skill suggestions in EVERY system reminder
+   - Read suggested skills even if you think you know the answer
+   - Skills contain critical, project-specific patterns you must follow
+
+**Example Flow**:
+```
+User: "Add analytics to track button clicks"
+System: 📚 Relevant Skill: analytics-developer
+Claude: [Reads .claude/skills/analytics-developer/SKILL.md]
+Claude: [Follows the patterns in that skill]
+```
+
+**Why This Matters**:
+- Skills contain CRITICAL project-specific rules (e.g., "NEVER hardcode strings")
+- Each instance of Claude needs to learn from skills, not just general knowledge
+- The skill system enables consistent behavior across all Claude instances
 
 **Auto-learning**: When the system fails to activate a skill for a substantial prompt (100+ chars or 3+ lines):
 1. You'll be prompted with available skills
