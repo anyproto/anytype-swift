@@ -38,6 +38,7 @@ make setup-middle    # Initial setup
 
 ### AI Assistance
 - **Always present a detailed action plan before implementing multi-step changes and await approval before proceeding**
+- **When code review is approved**: Proceed directly with push and PR creation without asking for confirmation
 
 ### 📚 Skills System & Documentation (Progressive Disclosure)
 

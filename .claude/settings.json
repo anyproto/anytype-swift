@@ -43,7 +43,9 @@
       "mcp__linear__list_issue_labels",
       "mcp__linear__get_team",
       "mcp__linear__search_documentation",
-      
+
+      "SlashCommand(/codeReview)",
+
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
       "Bash(git fetch:*)",
