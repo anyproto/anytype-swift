@@ -84,6 +84,9 @@ final class TypesService: TypesServiceProtocol, Sendable {
             if !includeTemplates {
                 SearchHelper.uniqueKeyFilter(key: ObjectTypeUniqueKey.template.value, include: false)
             }
+            if !includeChat {
+                SearchHelper.uniqueKeyFilter(key: ObjectTypeUniqueKey.chatDerived.value, include: false)
+            }
         }
         
         let result = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: sort, fullText: text)

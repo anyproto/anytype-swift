@@ -5,11 +5,14 @@ public final class SearchFiltersBuilder {
             SearchHelper.notHiddenFilters(isArchive: isArchived)
         }
     }
-    
-    public static func build(isArchived: Bool, layouts: [DetailsLayout]) -> [DataviewFilter] {
+
+    public static func build(isArchived: Bool, layouts: [DetailsLayout], spaceUxType: SpaceUxType?) -> [DataviewFilter] {
         var filters = build(isArchived: isArchived)
         filters.append(SearchHelper.layoutFilter(layouts))
         filters.append(SearchHelper.templateScheme(include: false))
+        if !spaceUxType.showsChatLayouts {
+            filters.append(SearchHelper.filterOutChatType())
+        }
         return filters
     }
 }
