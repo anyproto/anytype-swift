@@ -61,7 +61,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             self?.showScreenSync(data: data)
         }, pushHome: { [weak self] in
             guard let self, let currentSpaceId else { return }
-            navigationPath.push(HomeWidgetData(spaceId: currentSpaceId))
+            navigationPath.push(HomeWidgetData(spaceId: currentSpaceId, route: .home))
         }, pop: { [weak self] in
             self?.navigationPath.pop()
         }, popToFirstInSpace: { [weak self] in
@@ -163,12 +163,12 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     func setupInitialScreen() async {
         guard !loginStateService.isFirstLaunchAfterRegistration, appActionsStorage.action.isNil else { return }
-        
+
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
             try? await showScreen(data: .editor(editorData))
         case .widgets(let spaceId):
-            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
+            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId, route: .appLaunch)))
         case .chat(let data):
             try? await showScreen(data: .chat(data))
         case .spaceChat(let data):
@@ -308,7 +308,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             let chatData = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
             try await showScreen(data: .spaceChat(chatData))
         } else {
-            let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
+            let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId, route: .space)
             try await showScreen(data: .widget(widgetData))
         }
     }
@@ -357,7 +357,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         case .spaceChat(let data):
             currentPath.openOnce(data)
         case .widget(let data):
-            let data = HomeWidgetData(spaceId: data.spaceId)
+            let data = HomeWidgetData(spaceId: data.spaceId, route: nil)
             currentPath.openOnce(data)
         }
         
@@ -433,7 +433,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             if spaceView.initialScreenIsChat {
                 SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
             } else {
-                HomeWidgetData(spaceId: spaceView.targetSpaceId)
+                HomeWidgetData(spaceId: spaceView.targetSpaceId, route: nil)
             }
         }
     }

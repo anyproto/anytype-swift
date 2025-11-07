@@ -20,7 +20,7 @@ final class SpaceHubPathUXTypeHelper: SpaceHubPathUXTypeHelperProtocol {
             case .data:
                 // Expected: SpaceHubNavigationItem, HomeWidgetData
                 let chatItem = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-                let homeItem = HomeWidgetData(spaceId: spaceView.targetSpaceId)
+                let homeItem = HomeWidgetData(spaceId: spaceView.targetSpaceId, route: nil)
                 path.remove(chatItem)
                 path.remove(homeItem)
                 path.insert(homeItem, at: 1)
