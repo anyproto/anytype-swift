@@ -158,4 +158,9 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    static let spaceHubAlwaysShowLoading = FeatureDescription(
+        title: "Space Hub - Always show loading",
+        type: .debug,
+        defaultValue: false
+    )
 }
