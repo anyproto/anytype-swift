@@ -6660,75 +6660,6 @@ extension Anytype_Rpc.Publishing.ResolveUri.Response.Error: LocalizedError {
     }
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.AddAllIds.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
-extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.AddMentionIds.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
-extension Anytype_Rpc.PushNotification.AddMuteIds.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if !localizeError.isEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.AddMuteIds.badInput")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
 extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -6746,6 +6677,52 @@ extension Anytype_Rpc.PushNotification.RegisterToken.Response.Error: LocalizedEr
                 return ""
             case .badInput:
                 return LocHelper.tr(table: "LocalizableError", key: "PushNotification.RegisterToken.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.PushNotification.ResetIds.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.ResetIds.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "PushNotification.SetForceModeIds.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
