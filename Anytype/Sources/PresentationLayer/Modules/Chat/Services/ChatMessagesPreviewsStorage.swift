@@ -84,7 +84,7 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     
     private func handle(events: EventsBunch) async {
         var hasChanges = false
-        
+
         for event in events.middlewareEvents {
             switch event.value {
             case let .chatStateUpdate(state):
@@ -95,11 +95,15 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
                 if await handleChatAddEvent(spaceId: event.spaceID, contextId: events.contextId, data: data) {
                     hasChanges = true
                 }
+            case let .chatDelete(data):
+                if handleChatDeleteEvent(spaceId: event.spaceID, contextId: events.contextId, data: data) {
+                    hasChanges = true
+                }
             default:
                 break
             }
         }
-        
+
         if hasChanges {
             previewsStream.send(Array(previewsBySpace.values))
         }
@@ -125,11 +129,26 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
     
     private func handleChatAddEvent(spaceId: String, contextId: String, data: ChatAddData) async -> Bool {
         guard data.subIds.contains(subscriptionId) else { return false }
-        
+
         await handleChatLastMessage(spaceId: spaceId, chatId: contextId, message: data.message, dependencies: data.dependencies.compactMap(\.asDetails))
         return true
     }
-    
+
+    private func handleChatDeleteEvent(spaceId: String, contextId: String, data: ChatDeleteData) -> Bool {
+        guard data.subIds.contains(subscriptionId) else { return false }
+
+        let key = ChatMessagePreviewKey(spaceId: spaceId, chatId: contextId)
+        guard var preview = previewsBySpace[key] else { return false }
+
+        guard let lastMessage = preview.lastMessage, lastMessage.id == data.id else {
+            return false
+        }
+
+        preview.lastMessage = nil
+        previewsBySpace[key] = preview
+        return true
+    }
+
     private func handleChatLastMessage(spaceId: String, chatId: String, message: ChatMessage, dependencies: [ObjectDetails]) async {
         guard message.hasMessage else { return }
       
@@ -142,11 +161,12 @@ actor ChatMessagesPreviewsStorage: ChatMessagesPreviewsStorageProtocol {
         
         let attachmentsIds = message.attachments.map(\.target)
         let attachments = attachmentsIds.compactMap { id in dependencies.first { $0.id == id } }
-        
+
         // TODO: change to full equality after MW fix
         let creator = dependencies.first { $0.id.hasSuffix(message.creator) }.flatMap { try? Participant(details: $0) }
-        
+
         let message = LastMessagePreview(
+            id: message.id,
             creator: creator,
             text: messageTextBuilder.makeMessaeWithoutStyle(content: message.message),
             createdAt: message.createdAtDate,
