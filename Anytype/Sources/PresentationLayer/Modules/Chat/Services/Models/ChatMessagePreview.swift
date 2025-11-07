@@ -2,18 +2,20 @@ import Services
 import Foundation
 
 struct LastMessagePreview: Hashable {
+    let id: String
     let creator: Participant?
     let text: String
-    
+
     let createdAt: Date
     let modifiedAt: Date?
-    
+
     let attachments: [ObjectDetails]
     let localizedAttachmentsText: String
-    
+
     let orderId: String
-    
-    init(creator: Participant?, text: String, createdAt: Date, modifiedAt: Date?, attachments: [ObjectDetails], orderId: String) {
+
+    init(id: String, creator: Participant?, text: String, createdAt: Date, modifiedAt: Date?, attachments: [ObjectDetails], orderId: String) {
+        self.id = id
         self.creator = creator
         self.text = text
         self.createdAt = createdAt
