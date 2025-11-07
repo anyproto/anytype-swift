@@ -37,7 +37,7 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         
         let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType))
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
             filters
         }
         
