@@ -256,11 +256,11 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 let prevChatIsEmpty = self.messages.isEmpty
                 
                 self.messages = messages
-                self.dataLoaded = true
                 if prevChatIsEmpty {
                     firstUnreadMessageOrderId = chatState?.messages.oldestOrderID
                 }
                 await updateMessages()
+                self.dataLoaded = true
                 if prevChatIsEmpty {
                     if let oldestOrderId = chatState?.messages.oldestOrderID, let message = messages.first(where: { $0.message.orderID == oldestOrderId}) {
                         collectionViewScrollProxy.scrollTo(itemId: message.message.id, position: .center, animated: false)
