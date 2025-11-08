@@ -43,8 +43,7 @@ fileprivate final class PropertyValueProcessingService: PropertyValueProcessingS
                     isEmpty: !newValue,
                     format: relationDetails.format,
                     type: analyticsType,
-                    key: relationDetails.analyticsKey,
-                    spaceId: objectDetails.spaceId
+                    key: relationDetails.analyticsKey
                 )
             }
         case .unknown:

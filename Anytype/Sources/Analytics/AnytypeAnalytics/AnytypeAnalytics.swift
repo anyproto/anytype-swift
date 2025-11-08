@@ -28,6 +28,8 @@ final class AnytypeAnalytics: @unchecked Sendable {
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @Injected(\.activeSpaceManager)
+    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     
     private init() {
         userProperties[Keys.interfaceLang] = Locale.current.language.languageCode?.identifier
@@ -99,10 +101,20 @@ final class AnytypeAnalytics: @unchecked Sendable {
             eventProperties[AnalyticsEventsPropertiesKey.uxType] = uxType
         }
         
-        logEvent(eventType, withEventProperties: eventProperties)
+        logRawEvent(eventType, withEventProperties: eventProperties)
     }
     
-    func logEvent(_ eventType: String, withEventProperties eventProperties: [String : Any] = [:]) {
+    func logEvent(_ eventType: String, addActiveSpaceInfo: Bool = true, withEventProperties eventProperties: [String : Any] = [:]) {
+        if addActiveSpaceInfo, let workspaceInfo = activeSpaceManager.workspaceInfo {
+            logEvent(eventType, spaceId: workspaceInfo.accountSpaceId, withEventProperties: eventProperties)
+        } else {
+            logRawEvent(eventType, withEventProperties: eventProperties)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func logRawEvent(_ eventType: String, withEventProperties eventProperties: [String : Any] = [:]) {
         let eventConfiguration = eventsConfiguration[eventType]
 
         if case .notInRow = eventConfiguration?.threshold, lastEvents == eventType {

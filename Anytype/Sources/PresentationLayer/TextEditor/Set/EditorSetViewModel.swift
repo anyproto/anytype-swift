@@ -285,13 +285,13 @@ final class EditorSetViewModel: ObservableObject {
     
     func logModuleScreen() {
         if let details = setDocument.details, details.isObjectType {
-            AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType, spaceId: setDocument.spaceId)
+            AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType)
         } else if setDocument.isCollection() {
             let viewType = activeView.type.analyticStringValue
-            AnytypeAnalytics.instance().logScreenCollection(with: viewType, spaceId: setDocument.spaceId)
+            AnytypeAnalytics.instance().logScreenCollection(with: viewType)
         } else {
             let viewType = activeView.type.analyticStringValue
-            AnytypeAnalytics.instance().logScreenSet(with: viewType, spaceId: setDocument.spaceId)
+            AnytypeAnalytics.instance().logScreenSet(with: viewType)
         }
     }
     

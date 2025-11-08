@@ -70,7 +70,7 @@ final class PropertiesListCoordinatorViewModel:
         showTypePicker = false
         Task {
             try await objectActionsService.setObjectType(objectId: document.objectId, typeUniqueKey: type.uniqueKey)
-            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, spaceId: document.spaceId, route: .relationsList)
+            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, route: .relationsList)
         }
     }
     

@@ -120,8 +120,7 @@ final class TextPropertyEditingViewModel: ObservableObject {
                 isEmpty: text.isEmpty,
                 format: relationDetails.format,
                 type: config.analyticsType,
-                key: relationDetails.analyticsKey,
-                spaceId: config.spaceId
+                key: relationDetails.analyticsKey
             )
         }
     }

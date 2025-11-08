@@ -80,7 +80,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSearchTextChanged() {
-        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
+        AnytypeAnalytics.instance().logSearchInput()
     }
     
     func onKeyboardButtonTap() {
@@ -89,7 +89,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSelect(searchData: SearchWithMetaModel) {
-        AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId, objectType: state.section.analyticsValue)
+        AnytypeAnalytics.instance().logSearchResult(objectType: state.section.analyticsValue)
         dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
     }
@@ -141,12 +141,12 @@ final class GlobalSearchViewModel: ObservableObject {
     private func restoreState() {
         let restoredState = globalSearchSavedStatesService.restoreState(for: moduleData.spaceId)
         guard let restoredState else {
-            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .empty)
+            AnytypeAnalytics.instance().logScreenSearch(type: .empty)
             return
         }
         state = restoredState
         if restoredState.searchText.isNotEmpty {
-            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
+            AnytypeAnalytics.instance().logScreenSearch(type: .saved)
         }
     }
     

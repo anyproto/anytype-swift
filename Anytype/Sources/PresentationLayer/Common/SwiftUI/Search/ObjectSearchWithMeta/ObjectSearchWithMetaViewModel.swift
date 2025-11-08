@@ -52,7 +52,7 @@ final class ObjectSearchWithMetaViewModel: ObservableObject {
             sections = []
         }
         
-        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
+        AnytypeAnalytics.instance().logSearchInput()
     }
     
     func onSelect(searchData: SearchWithMetaModel) {
