@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.PushNotification {
-    public struct AddAllIds: Sendable {
+    public struct SetForceModeIds: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -28,6 +28,8 @@ extension Anytype_Rpc.PushNotification {
 
         public var chatIds: [String] = []
 
+        public var mode: Anytype_Rpc.PushNotification.Mode = .all
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -38,8 +40,8 @@ extension Anytype_Rpc.PushNotification {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.PushNotification.AddAllIds.Response.Error {
-          get {return _error ?? Anytype_Rpc.PushNotification.AddAllIds.Response.Error()}
+        public var error: Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error {
+          get {return _error ?? Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -63,7 +65,7 @@ extension Anytype_Rpc.PushNotification {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.PushNotification.AddAllIds.Response.Error.Code = .null
+          public var code: Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -99,7 +101,7 @@ extension Anytype_Rpc.PushNotification {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.PushNotification.AddAllIds.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -112,7 +114,7 @@ extension Anytype_Rpc.PushNotification {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.PushNotification.AddAllIds.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
@@ -120,8 +122,8 @@ extension Anytype_Rpc.PushNotification {
     }    
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.protoMessageName + ".AddAllIds"
+extension Anytype_Rpc.PushNotification.SetForceModeIds: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.protoMessageName + ".SetForceModeIds"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -133,15 +135,15 @@ extension Anytype_Rpc.PushNotification.AddAllIds: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddAllIds, rhs: Anytype_Rpc.PushNotification.AddAllIds) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetForceModeIds, rhs: Anytype_Rpc.PushNotification.SetForceModeIds) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.AddAllIds.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatIds\0")
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.SetForceModeIds.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatIds\0\u{1}mode\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -151,6 +153,7 @@ extension Anytype_Rpc.PushNotification.AddAllIds.Request: SwiftProtobuf.Message,
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.chatIds) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.mode) }()
       default: break
       }
     }
@@ -163,19 +166,23 @@ extension Anytype_Rpc.PushNotification.AddAllIds.Request: SwiftProtobuf.Message,
     if !self.chatIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.chatIds, fieldNumber: 2)
     }
+    if self.mode != .all {
+      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddAllIds.Request, rhs: Anytype_Rpc.PushNotification.AddAllIds.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetForceModeIds.Request, rhs: Anytype_Rpc.PushNotification.SetForceModeIds.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.chatIds != rhs.chatIds {return false}
+    if lhs.mode != rhs.mode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.AddAllIds.protoMessageName + ".Response"
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.SetForceModeIds.protoMessageName + ".Response"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -205,7 +212,7 @@ extension Anytype_Rpc.PushNotification.AddAllIds.Response: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddAllIds.Response, rhs: Anytype_Rpc.PushNotification.AddAllIds.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetForceModeIds.Response, rhs: Anytype_Rpc.PushNotification.SetForceModeIds.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -213,8 +220,8 @@ extension Anytype_Rpc.PushNotification.AddAllIds.Response: SwiftProtobuf.Message
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.AddAllIds.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.SetForceModeIds.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -240,7 +247,7 @@ extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddAllIds.Response.Error, rhs: Anytype_Rpc.PushNotification.AddAllIds.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error, rhs: Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -248,7 +255,7 @@ extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error: SwiftProtobuf.M
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddAllIds.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.PushNotification.SetForceModeIds.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 

@@ -12,7 +12,7 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Rpc.PushNotification {
-    public struct AddMentionIds: Sendable {
+    public struct ResetIds: Sendable {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -38,8 +38,8 @@ extension Anytype_Rpc.PushNotification {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.PushNotification.AddMentionIds.Response.Error {
-          get {return _error ?? Anytype_Rpc.PushNotification.AddMentionIds.Response.Error()}
+        public var error: Anytype_Rpc.PushNotification.ResetIds.Response.Error {
+          get {return _error ?? Anytype_Rpc.PushNotification.ResetIds.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -63,7 +63,7 @@ extension Anytype_Rpc.PushNotification {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.PushNotification.AddMentionIds.Response.Error.Code = .null
+          public var code: Anytype_Rpc.PushNotification.ResetIds.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -99,7 +99,7 @@ extension Anytype_Rpc.PushNotification {
             }
 
             // The compiler won't synthesize support with the UNRECOGNIZED case.
-            public static let allCases: [Anytype_Rpc.PushNotification.AddMentionIds.Response.Error.Code] = [
+            public static let allCases: [Anytype_Rpc.PushNotification.ResetIds.Response.Error.Code] = [
               .null,
               .unknownError,
               .badInput,
@@ -112,7 +112,7 @@ extension Anytype_Rpc.PushNotification {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.PushNotification.AddMentionIds.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.PushNotification.ResetIds.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
@@ -120,8 +120,8 @@ extension Anytype_Rpc.PushNotification {
     }    
 }
 
-extension Anytype_Rpc.PushNotification.AddMentionIds: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.protoMessageName + ".AddMentionIds"
+extension Anytype_Rpc.PushNotification.ResetIds: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.protoMessageName + ".ResetIds"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -133,14 +133,14 @@ extension Anytype_Rpc.PushNotification.AddMentionIds: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddMentionIds, rhs: Anytype_Rpc.PushNotification.AddMentionIds) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.ResetIds, rhs: Anytype_Rpc.PushNotification.ResetIds) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddMentionIds.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.AddMentionIds.protoMessageName + ".Request"
+extension Anytype_Rpc.PushNotification.ResetIds.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.ResetIds.protoMessageName + ".Request"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}spaceId\0\u{1}chatIds\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -166,7 +166,7 @@ extension Anytype_Rpc.PushNotification.AddMentionIds.Request: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddMentionIds.Request, rhs: Anytype_Rpc.PushNotification.AddMentionIds.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.ResetIds.Request, rhs: Anytype_Rpc.PushNotification.ResetIds.Request) -> Bool {
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.chatIds != rhs.chatIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -174,8 +174,8 @@ extension Anytype_Rpc.PushNotification.AddMentionIds.Request: SwiftProtobuf.Mess
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddMentionIds.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.AddMentionIds.protoMessageName + ".Response"
+extension Anytype_Rpc.PushNotification.ResetIds.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.ResetIds.protoMessageName + ".Response"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}event\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -205,7 +205,7 @@ extension Anytype_Rpc.PushNotification.AddMentionIds.Response: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddMentionIds.Response, rhs: Anytype_Rpc.PushNotification.AddMentionIds.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.ResetIds.Response, rhs: Anytype_Rpc.PushNotification.ResetIds.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -213,8 +213,8 @@ extension Anytype_Rpc.PushNotification.AddMentionIds.Response: SwiftProtobuf.Mes
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.PushNotification.AddMentionIds.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.PushNotification.ResetIds.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.PushNotification.ResetIds.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}code\0\u{1}description\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -240,7 +240,7 @@ extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.PushNotification.AddMentionIds.Response.Error, rhs: Anytype_Rpc.PushNotification.AddMentionIds.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.PushNotification.ResetIds.Response.Error, rhs: Anytype_Rpc.PushNotification.ResetIds.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -248,7 +248,7 @@ extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error: SwiftProtob
   }
 }
 
-extension Anytype_Rpc.PushNotification.AddMentionIds.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.PushNotification.ResetIds.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0NULL\0\u{1}UNKNOWN_ERROR\0\u{1}BAD_INPUT\0")
 }
 

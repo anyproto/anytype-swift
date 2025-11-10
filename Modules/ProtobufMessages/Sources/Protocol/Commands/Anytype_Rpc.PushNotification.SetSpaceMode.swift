@@ -19,48 +19,6 @@ extension Anytype_Rpc.PushNotification {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public enum Mode: SwiftProtobuf.Enum, Swift.CaseIterable {
-        public typealias RawValue = Int
-        case all // = 0
-        case mentions // = 1
-        case nothing // = 2
-        case custom // = 3
-        case UNRECOGNIZED(Int)
-
-        public init() {
-          self = .all
-        }
-
-        public init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .all
-          case 1: self = .mentions
-          case 2: self = .nothing
-          case 3: self = .custom
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        public var rawValue: Int {
-          switch self {
-          case .all: return 0
-          case .mentions: return 1
-          case .nothing: return 2
-          case .custom: return 3
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-        // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static let allCases: [Anytype_Rpc.PushNotification.SetSpaceMode.Mode] = [
-          .all,
-          .mentions,
-          .nothing,
-          .custom,
-        ]
-
-      }
-
       public struct Request: Sendable {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -68,7 +26,7 @@ extension Anytype_Rpc.PushNotification {
 
         public var spaceID: String = String()
 
-        public var mode: Anytype_Rpc.PushNotification.SetSpaceMode.Mode = .all
+        public var mode: Anytype_Rpc.PushNotification.Mode = .all
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -179,10 +137,6 @@ extension Anytype_Rpc.PushNotification.SetSpaceMode: SwiftProtobuf.Message, Swif
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Rpc.PushNotification.SetSpaceMode.Mode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0All\0\u{1}Mentions\0\u{1}Nothing\0\u{1}Custom\0")
 }
 
 extension Anytype_Rpc.PushNotification.SetSpaceMode.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
