@@ -44,21 +44,20 @@ final class WidgetTypeChangeViewModel: ObservableObject {
     }
     
     private func onTap(layout: BlockWidget.Layout, source: WidgetSource) {
-        
+
         AnytypeAnalytics.instance().logChangeWidgetLayout(
             source: source.analyticsSource,
             layout: layout,
             route: .inner,
             context: data.context
         )
-        
+
         Task { @MainActor in
             try? await blockWidgetService.setLayout(
                 contextId: data.widgetObjectId,
                 widgetBlockId: data.widgetId,
                 layout: layout
             )
-            data.onFinish()
         }
     }
 }
