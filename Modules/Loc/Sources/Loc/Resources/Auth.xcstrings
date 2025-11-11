@@ -1241,7 +1241,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Read more"
+            "value" : "En savoir plus"
           }
         },
         "id" : {
@@ -1837,7 +1837,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings."
+            "value" : "Votre clé remplace identifiant et mot de passe. Gardez-la en sécurité — vous contrôlez vos données. Vous pourrez la retrouver plus tard dans les paramètres de l'application."
           }
         },
         "id" : {
@@ -5414,7 +5414,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "Messagerie et conversations de groupe"
           }
         },
         "id" : {
@@ -5712,7 +5712,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "Gestion des projets et des tâches"
           }
         },
         "id" : {
@@ -5861,7 +5861,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "Travail d'équipe et documentation partagée"
           }
         },
         "id" : {
