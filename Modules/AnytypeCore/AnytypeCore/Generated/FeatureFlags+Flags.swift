@@ -94,6 +94,10 @@ public extension FeatureFlags {
         value(for: .skipOnboardingEmailCollection)
     }
 
+    static var spaceHubAlwaysShowLoading: Bool {
+        value(for: .spaceHubAlwaysShowLoading)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .showAllButtonInWidgets,
@@ -117,6 +121,7 @@ public extension FeatureFlags {
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
-        .skipOnboardingEmailCollection
+        .skipOnboardingEmailCollection,
+        .spaceHubAlwaysShowLoading
     ]
 }
