@@ -18,12 +18,13 @@ struct SpaceHubList: View {
     }
     
     private var scrollView: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack(spacing: 8) {
                 SpaceHubHeader(
                     showLoading: model.showLoading,
                     profileIcon: model.profileIcon,
                     notificationsDenied: model.notificationsDenied,
+                    searchText: $model.searchText,
                     onTapSettings: {
                         model.onTapSettings()
                     },

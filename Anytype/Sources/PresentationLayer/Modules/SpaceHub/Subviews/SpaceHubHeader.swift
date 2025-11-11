@@ -6,46 +6,61 @@ struct SpaceHubHeader: View {
     let showLoading: Bool
     let profileIcon: Icon?
     let notificationsDenied: Bool
+    @Binding var searchText: String
     let onTapSettings: () -> Void
     let onTapCreateSpace: () -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
             if #available(iOS 26, *) {
                 contentIOS26
             } else {
                 legacyContent
             }
-
-            ProgressBar(showAnimation: showLoading)
         }
     }
     
     var contentIOS26: some View {
-        HStack(spacing: 0) {
-            AnytypeText(Loc.Spaces.title, style: .title)
-
-            Spacer()
-
-            settingsButton(small: false)
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                AnytypeText(Loc.Spaces.title, style: .title)
+                
+                Spacer()
+                
+                settingsButton(small: false)
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 20)
+            
+            SpaceHubLoadingBar(showAnimation: showLoading)
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 20)
     }
     
     var legacyContent: some View {
-        HStack(spacing: 0) {
-            settingsButton(small: true)
+        VStack(spacing: 6) {
+            HStack(spacing: 6) {
+                settingsButton(small: true)
 
-            Spacer()
+                Spacer()
 
-            AnytypeText(Loc.Spaces.title, style: .uxTitle2Semibold)
+                if showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                } else {
+                    Spacer.fixedWidth(18)
+                }
 
-            Spacer()
+                AnytypeText(Loc.Spaces.title, style: .uxTitle2Semibold)
 
-            SpaceHubNewSpaceButton { onTapCreateSpace() }
+                Spacer()
+
+                SpaceHubNewSpaceButton { onTapCreateSpace() }
+            }
+            .padding(.horizontal, 16)
+
+            SearchBar(text: $searchText, focused: false)
         }
-        .padding(.horizontal, 16)
         .padding(.top, 20)
     }
 
