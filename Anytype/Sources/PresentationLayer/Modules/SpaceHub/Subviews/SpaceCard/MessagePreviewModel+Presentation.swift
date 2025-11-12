@@ -30,7 +30,7 @@ extension MessagePreviewModel {
         isMuted ? .muted : .highlighted
     }
     
-    var counterStyle: CounterViewStyle {
+    var unreadStyle: CounterViewStyle {
         isMuted ? .muted : .highlighted
     }
 

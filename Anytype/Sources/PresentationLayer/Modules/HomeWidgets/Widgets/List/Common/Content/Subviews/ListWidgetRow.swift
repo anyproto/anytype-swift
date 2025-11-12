@@ -78,7 +78,7 @@ struct ListWidgetRow: View {
                         if chatPreview.unreadCounter > 0 {
                             CounterView(
                                 count: chatPreview.unreadCounter,
-                                style: chatPreview.counterStyle
+                                style: chatPreview.unreadStyle
                             )
                         }
                     }
