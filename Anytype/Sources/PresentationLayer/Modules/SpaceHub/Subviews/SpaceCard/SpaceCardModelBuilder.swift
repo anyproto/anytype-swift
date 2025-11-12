@@ -45,9 +45,9 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 attachments: Array(attachments),
                 localizedAttachmentsText: lastMessagePreview.localizedAttachmentsText,
                 chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
-                unreadCounter: 0,
-                mentionCounter: 0,
-                isMuted: false
+                unreadCounter: 0, // unsupported in space hub
+                mentionCounter: 0, // unsupported in space hub
+                isMuted: false // unsupported in space hub
             )
         }
 

@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Factory
 
+@MainActor
 protocol WidgetRowModelBuilderProtocol: AnyObject, Sendable {
     func buildListRows(
         from configs: [SetContentViewItemConfiguration],
@@ -14,6 +15,7 @@ protocol WidgetRowModelBuilderProtocol: AnyObject, Sendable {
     ) -> [GalleryWidgetRowModel]
 }
 
+@MainActor
 final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
 
     private let dateFormatter = ChatPreviewDateFormatter()
