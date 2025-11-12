@@ -39,7 +39,7 @@ final class SpaceHubViewModel {
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.spaceCardModelBuilder)@ObservationIgnored
+    @Injected(\.spaceCardModelBuilder) @ObservationIgnored
     private var spaceCardModelBuilder: any SpaceCardModelBuilderProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {

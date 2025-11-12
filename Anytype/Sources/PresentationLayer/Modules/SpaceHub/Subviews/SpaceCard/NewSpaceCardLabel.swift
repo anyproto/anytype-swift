@@ -48,7 +48,7 @@ struct NewSpaceCardLabel: View {
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
-    private func mainContentWithMessage(_ message: SpaceCardLastMessageModel) -> some View {
+    private func mainContentWithMessage(_ message: MessagePreviewModel) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .bottom) {
                 HStack(alignment: .center) {
