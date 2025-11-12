@@ -3,17 +3,20 @@ import SwiftUI
 struct LinkWidgetDefaultHeader<RightView: View>: View {
     
     let title: String
+    let titleColor: Color
     let icon: Icon?
     let rightAccessory: RightView
     let onTap: (() -> Void)
     
     init(
         title: String,
+        titleColor: Color = .Text.primary,
         icon: Icon?,
         @ViewBuilder rightAccessory: () -> RightView = { EmptyView() },
         onTap: @escaping () -> Void
     ) {
         self.title = title
+        self.titleColor = titleColor
         self.icon = icon
         self.rightAccessory = rightAccessory()
         self.onTap = onTap
@@ -30,7 +33,7 @@ struct LinkWidgetDefaultHeader<RightView: View>: View {
                 Spacer.fixedWidth(16)
             }
             AnytypeText(title, style: .subheading)
-                .foregroundColor(.Text.primary)
+                .foregroundColor(titleColor)
                 .lineLimit(1)
                 .layoutPriority(-1)
             Spacer.fixedWidth(16)
