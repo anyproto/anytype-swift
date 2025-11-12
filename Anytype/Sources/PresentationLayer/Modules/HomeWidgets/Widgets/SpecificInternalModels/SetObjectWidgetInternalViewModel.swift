@@ -33,6 +33,10 @@ final class SetObjectWidgetInternalViewModel {
     private var setObjectWidgetOrderHelper: any SetObjectWidgetOrderHelperProtocol
     @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @Injected(\.widgetRowModelBuilder) @ObservationIgnored
+    private var widgetRowModelBuilder: any WidgetRowModelBuilderProtocol
 
     // MARK: - State
     @ObservationIgnored
@@ -43,6 +47,8 @@ final class SetObjectWidgetInternalViewModel {
     private var activeViewId: String?
     @ObservationIgnored
     private var canEditBlocks = true
+    @ObservationIgnored
+    private var chatPreviews: [ChatMessagePreview] = []
     
     var dragId: String? { widgetBlockId }
     
@@ -68,8 +74,9 @@ final class SetObjectWidgetInternalViewModel {
         async let permissionsTask: () = startPermissionsPublisher()
         async let startInfoTask: () = startInfoPublisher()
         async let targetDetailsTask: () = startTargetDetailsPublisher()
-        
-        _ = await (permissionsTask, startInfoTask, targetDetailsTask)
+        async let chatPreviewsTask: () = startChatPreviewsSequence()
+
+        _ = await (permissionsTask, startInfoTask, targetDetailsTask, chatPreviewsTask)
     }
     
     // MARK: - Actions
@@ -127,6 +134,13 @@ final class SetObjectWidgetInternalViewModel {
             await updateSetDocument(objectId: details.id, spaceId: details.spaceId)
         }
     }
+
+    private func startChatPreviewsSequence() async {
+        for await previews in await chatMessagesPreviewsStorage.previewsSequence {
+            chatPreviews = previews
+            await updateBodyState()
+        }
+    }
     
     // MARK: - Private for view updates
     
@@ -136,35 +150,38 @@ final class SetObjectWidgetInternalViewModel {
          
             switch style {
             case .list:
-                let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                let listRows = buildListRows(from: rowDetails)
                 rows = .list(rows: listRows, id: activeViewId ?? "")
             case .compactList:
-                let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                let listRows = buildListRows(from: rowDetails)
                 rows = .compactList(rows: listRows, id: activeViewId ?? "")
             case .view:
                 if isSetByImageType() {
-                    let galleryRows = rowDetails?.map { details in
-                        GalleryWidgetRowModel(
-                            objectId: details.id,
-                            title: nil,
-                            icon: nil,
-                            cover: .cover(.imageId(details.id)),
-                            onTap: details.onItemTap
-                        )
-                    }
+                    let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
                     rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
                 } else {
                     switch setDocument?.activeView.type {
                     case .table, .list, .kanban, .calendar, .graph, nil:
-                        let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                        let listRows = buildListRows(from: rowDetails)
                         rows = .compactList(rows: listRows, id: activeViewId ?? "")
                     case .gallery:
-                        let galleryRows = rowDetails?.map { GalleryWidgetRowModel(details: $0) }
+                        let galleryRows = rowDetails.map { widgetRowModelBuilder.buildGalleryRows(from: $0) }
                         rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
                     }
                 }
             }
         }
+    }
+
+    private func buildListRows(from configs: [SetContentViewItemConfiguration]?) -> [ListWidgetRowModel]? {
+        guard let configs, let setDocument else { return nil }
+        let spaceView = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)
+
+        return widgetRowModelBuilder.buildListRows(
+            from: configs,
+            spaceView: spaceView,
+            chatPreviews: chatPreviews
+        )
     }
     
     private func isSetByImageType() -> Bool {

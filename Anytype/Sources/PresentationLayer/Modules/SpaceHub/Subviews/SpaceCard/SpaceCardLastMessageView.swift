@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SpaceCardLastMessageView: View {
     
-    let model: SpaceCardLastMessageModel
+    let model: MessagePreviewModel
     
     var body: some View {
         if model.text.isNotEmpty {

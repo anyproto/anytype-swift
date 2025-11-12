@@ -1,0 +1,40 @@
+import SwiftUI
+
+extension MessagePreviewModel {
+
+    var messagePreviewText: String {
+        if let authorName = creatorTitle, authorName.isNotEmpty {
+            return "\(authorName): \(localizedAttachmentsText)"
+        }
+        return localizedAttachmentsText
+    }
+    
+    var titleColor: Color {
+        if !isMuted {
+            .Text.primary
+        } else {
+            .Text.secondary
+        }
+    }
+
+    var messagePreviewColor: Color {
+        guard !isMuted else { return .Text.secondary }
+        return totalCounter > 0 ? .Text.primary : .Text.secondary
+    }
+
+    var totalCounter: Int {
+        unreadCounter + mentionCounter
+    }
+
+    var mentionStyle: MentionBadgeStyle {
+        isMuted ? .muted : .highlighted
+    }
+    
+    var unreadStyle: CounterViewStyle {
+        isMuted ? .muted : .highlighted
+    }
+
+    var hasCounters: Bool {
+        totalCounter > 0
+    }
+}

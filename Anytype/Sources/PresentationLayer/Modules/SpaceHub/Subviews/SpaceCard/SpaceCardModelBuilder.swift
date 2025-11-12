@@ -11,7 +11,6 @@ protocol SpaceCardModelBuilderProtocol: AnyObject, Sendable {
 
 final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
 
-    private let historyDateFormatter = HistoryDateFormatter()
     private let chatPreviewDateFormatter = ChatPreviewDateFormatter()
 
     func build(
@@ -34,19 +33,21 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
 
         let lastMessage = latestPreview.lastMessage.map { lastMessagePreview in
             let attachments = lastMessagePreview.attachments.prefix(3).map { objectDetails in
-                SpaceCardLastMessageModel.Attachment(
+                MessagePreviewModel.Attachment(
                     id: objectDetails.id,
                     icon: objectDetails.objectIconImage
                 )
             }
 
-            return SpaceCardLastMessageModel(
+            return MessagePreviewModel(
                 creatorTitle: lastMessagePreview.creator?.title,
                 text: lastMessagePreview.text,
                 attachments: Array(attachments),
                 localizedAttachmentsText: lastMessagePreview.localizedAttachmentsText,
-                historyDate: historyDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
-                chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true)
+                chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
+                unreadCounter: 0, // unsupported in space hub
+                mentionCounter: 0, // unsupported in space hub
+                isMuted: false // unsupported in space hub
             )
         }
 

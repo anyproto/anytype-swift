@@ -2,7 +2,7 @@ import SwiftUI
 
 struct NewSpaceCardLastMessageView: View {
     
-    let model: SpaceCardLastMessageModel
+    let model: MessagePreviewModel
     
     var body: some View {
         Group {
