@@ -38,5 +38,8 @@ struct LinkWidgetInternalView: View {
             output: data.output,
             content: { EmptyView() }
         )
+        .task {
+            await model.startSubscriptions()
+        }
     }
 }

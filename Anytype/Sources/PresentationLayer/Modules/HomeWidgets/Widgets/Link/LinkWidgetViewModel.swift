@@ -21,7 +21,6 @@ final class LinkWidgetViewModel: ObservableObject {
 
     // MARK: - State
     
-    private var subscriptions = [AnyCancellable]()
     private var linkedObjectDetails: ObjectDetails?
     private var chatPreviews: [ChatMessagePreview] = []
 
@@ -36,8 +35,6 @@ final class LinkWidgetViewModel: ObservableObject {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
         self.output = data.output
-        setupAllSubscriptions()
-        startChatPreviewsSubscription()
     }
     
     func onHeaderTap() {
@@ -50,28 +47,28 @@ final class LinkWidgetViewModel: ObservableObject {
         output?.onObjectSelected(screenData: linkedObjectDetails.screenData())
     }
     
+    func startSubscriptions() async {
+        async let detailsSub: () = startDetailsSubscriptions()
+        async let chatPreviewsSub: () = startChatPreviewsSubscription()
+        
+        _ = await (detailsSub, chatPreviewsSub)
+    }
+    
     // MARK: - Private
     
-    private func setupAllSubscriptions() {
-        
-        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
-            .receiveOnMain()
-            .sink { [weak self] details in
-                self?.linkedObjectDetails = details
-                self?.name = details.pluralTitle
-                self?.icon = details.objectIconImage
-                self?.updateBadgeModel()
-            }
-            .store(in: &subscriptions)
+    private func startDetailsSubscriptions() async {
+        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
+            linkedObjectDetails = details
+            name = details.pluralTitle
+            icon = details.objectIconImage
+            updateBadgeModel()
+        }
     }
 
-    private func startChatPreviewsSubscription() {
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            for await previews in await chatMessagesPreviewsStorage.previewsSequence {
-                self.chatPreviews = previews
-                self.updateBadgeModel()
-            }
+    private func startChatPreviewsSubscription() async {
+        for await previews in await chatMessagesPreviewsStorage.previewsSequence {
+            chatPreviews = previews
+            updateBadgeModel()
         }
     }
 
