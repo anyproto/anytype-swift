@@ -19,6 +19,8 @@ protocol SetContentViewDataBuilderProtocol: AnyObject {
         canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
+        chatPreviews: [ChatMessagePreview],
+        spaceView: SpaceView?,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration]
 }
@@ -29,6 +31,8 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     private var relationsBuilder: any PropertiesBuilderProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
+
+    private let dateFormatter = ChatPreviewDateFormatter()
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetProperty] {
         let storageRelationsDetails = propertyDetailsStorage.relationsDetails(keys: dataview.relationLinks.map(\.key), spaceId: spaceId)
@@ -93,6 +97,8 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
+        chatPreviews: [ChatMessagePreview],
+        spaceView: SpaceView?,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
@@ -119,14 +125,21 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         
         let minHeight = calculateMinHeight(activeView: activeView, items: items, showTitle: showTitle, showIcon: showIcon)
         let hasCover = activeView.coverRelationKey.isNotEmpty && activeView.type != .kanban
-        
+
+        let chatPreviewsDict = Dictionary(uniqueKeysWithValues: chatPreviews.map { ($0.chatId, $0) })
+
         return items.map { item in
+            let chatPreview = buildChatPreview(
+                objectId: item.details.id,
+                spaceView: spaceView,
+                chatPreviewsDict: chatPreviewsDict
+            )
             return SetContentViewItemConfiguration(
                 id: item.details.id,
                 title: item.details.pluralTitle,
                 showTitle: showTitle,
                 description: item.details.description,
-                icon: item.details.objectIconImage, 
+                icon: item.details.objectIconImage,
                 canEditIcon: canEditIcon,
                 relations: item.relations,
                 showIcon: showIcon,
@@ -135,6 +148,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 coverFit: activeView.coverFit,
                 coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: storage),
                 minHeight: minHeight,
+                chatPreview: chatPreview,
                 onItemTap: { [details = item.details] in
                     onItemTap(details)
                 }
@@ -269,5 +283,36 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         }
         
         return maxHeight
+    }
+
+    func buildChatPreview(
+        objectId: String,
+        spaceView: SpaceView?,
+        chatPreviewsDict: [String: ChatMessagePreview]
+    ) -> MessagePreviewModel? {
+        guard let preview = chatPreviewsDict[objectId],
+              let lastMessage = preview.lastMessage else {
+            return nil
+        }
+
+        let attachments = lastMessage.attachments.prefix(3).map { objectDetails in
+            MessagePreviewModel.Attachment(
+                id: objectDetails.id,
+                icon: objectDetails.objectIconImage
+            )
+        }
+
+        let isMuted = !(spaceView?.effectiveNotificationMode(for: objectId).isUnmutedAll ?? true)
+
+        return MessagePreviewModel(
+            creatorTitle: lastMessage.creator?.globalName,
+            text: lastMessage.text,
+            attachments: Array(attachments),
+            localizedAttachmentsText: lastMessage.localizedAttachmentsText,
+            chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
+            unreadCounter: preview.unreadCounter,
+            mentionCounter: preview.mentionCounter,
+            isMuted: isMuted
+        )
     }
 }
