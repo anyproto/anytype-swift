@@ -36,7 +36,7 @@ struct SheetView<Content: View>: View {
     
     private var contentView: some View {
         content
-            .cornerRadius(16, style: .continuous)
+            .cornerRadius(34, style: .continuous)
             .shadow(radius: 20)
             .padding(.horizontal, 8)
             .gesture(
