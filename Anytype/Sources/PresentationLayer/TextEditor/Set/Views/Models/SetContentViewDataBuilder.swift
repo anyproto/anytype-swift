@@ -285,7 +285,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         return maxHeight
     }
 
-    private func buildChatPreview(
+    func buildChatPreview(
         objectId: String,
         spaceView: SpaceView?,
         chatPreviewsDict: [String: ChatMessagePreview]
