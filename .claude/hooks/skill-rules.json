@@ -209,6 +209,8 @@
           "add keyword",
           "check logs",
           "claude.md",
+          "create skill",
+          "develop skill",
           "false negative",
           "false positive",
           "fine-tune",
@@ -216,8 +218,10 @@
           "hooks system",
           "instances",
           "knowledge",
+          "new skill",
           "proactive",
           "skill activation",
+          "skill developer",
           "skill didn't activate",
           "skill not working",
           "skill-rules.json",
@@ -385,6 +389,73 @@
           "\\.analyticsId",
           "logScreen",
           "logClick"
+        ]
+      }
+    },
+    "tests-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to testing patterns and practices. Writing unit tests, creating mocks, test organization",
+      "promptTriggers": {
+        "keywords": [
+          "test",
+          "tests",
+          "testing",
+          "unit test",
+          "unit tests",
+          "write test",
+          "write tests",
+          "test coverage",
+          "test cases",
+          "test file",
+          "test class",
+          "mock",
+          "mocking",
+          "mock helper",
+          "mock service",
+          "@Test",
+          "@Suite",
+          "Swift Testing",
+          "XCTest",
+          "XCTestCase",
+          "XCTAssert",
+          "#expect",
+          "edge case",
+          "edge cases",
+          "boundary condition",
+          "TDD",
+          "test-driven",
+          "assertion",
+          "test refactor",
+          "update tests",
+          "fix tests"
+        ],
+        "intentPatterns": [
+          "(write|create|add).*?(test|tests|unit test|mock)",
+          "(update|modify|fix).*?(test|tests|mock)",
+          "(how to|best practice).*?(test|testing|mock)",
+          "(test|testing).*?(edge case|boundary|nil|empty)",
+          "(refactor|update).*?(test|mock)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/AnyTypeTests/**/*.swift",
+          "**/Tests/**/*.swift",
+          "**/*Tests.swift",
+          "**/Mocks/**/*.swift",
+          "**/*Mock.swift"
+        ],
+        "contentPatterns": [
+          "import Testing",
+          "@Test func",
+          "@Suite",
+          "import XCTest",
+          "XCTestCase",
+          "XCTAssert",
+          "#expect\\(",
+          "\\.mock\\(",
+          "static func mock"
         ]
       }
     }
