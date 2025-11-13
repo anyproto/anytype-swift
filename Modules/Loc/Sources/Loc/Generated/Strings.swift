@@ -942,9 +942,7 @@ public enum Loc {
     }
     public enum Space {
       public static let getMore = Loc.tr("UI", "FileStorage.Space.GetMore", fallback: "Get more space")
-      public static func instruction(_ p1: Any) -> String {
-        return Loc.tr("UI", "FileStorage.Space.Instruction", String(describing: p1), fallback: "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.")
-      }
+      public static let instruction = Loc.tr("UI", "FileStorage.Space.Instruction", fallback: "You can store your files on our encrypted backup node. Once you reach your limit, files will stop syncing and will only be stored locally.")
       public static let localOnlyInstruction = Loc.tr("UI", "FileStorage.Space.LocalOnlyInstruction", fallback: "Remote storage is not available in local-only mode. Your files are stored locally on your device.")
       public static let title = Loc.tr("UI", "FileStorage.Space.Title", fallback: "Remote storage")
       public static func used(_ p1: Any, _ p2: Any) -> String {

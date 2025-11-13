@@ -40099,7 +40099,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally."
+            "value" : "You can store your files on our encrypted backup node. Once you reach your limit, files will stop syncing and will only be stored locally."
           }
         },
         "es" : {

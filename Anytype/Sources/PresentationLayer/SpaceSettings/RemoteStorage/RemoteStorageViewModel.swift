@@ -97,11 +97,11 @@ final class RemoteStorageViewModel: ObservableObject {
     private func updateView(nodeUsage: NodeUsageInfo) {
         let bytesUsed = nodeUsage.node.bytesUsage
         let bytesLimit = nodeUsage.node.bytesLimit
-        
+
         let used = byteCountFormatter.string(fromByteCount: bytesUsed)
         let limit = byteCountFormatter.string(fromByteCount: bytesLimit)
-        
-        spaceInstruction = Loc.FileStorage.Space.instruction(limit)
+
+        spaceInstruction = Loc.FileStorage.Space.instruction
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
         let percentUsage = Double(bytesUsed) / Double(bytesLimit)
         let percentToShowGetMoreButton = 0.7
