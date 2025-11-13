@@ -133,6 +133,69 @@ Skills provide **automatic activation** based on your prompts and file context, 
 
 **Location**: `.claude/skills/code-review-developer/SKILL.md`
 
+---
+
+### 7. **tests-developer** (Smart Router)
+**Purpose**: Routes to testing patterns and practices for writing unit tests and creating mocks
+
+**Auto-activates when**:
+- Writing or discussing unit tests
+- Creating test mocks or mock helpers
+- Working with test files (AnyTypeTests/)
+- Keywords: test, testing, mock, unit test, @Test, @Suite, XCTest, edge case, TDD
+
+**Provides**:
+- Critical rules (use Swift Testing for new tests, test edge cases, update tests when refactoring)
+- Swift Testing vs XCTest patterns
+- Edge case testing checklist
+- Mock helper patterns (in-file extensions vs separate mocks)
+- Dependency injection in tests (Factory pattern)
+- Testing protobuf models
+- When to make methods internal for testing
+- **→ Routes to**: `IOS_DEVELOPMENT_GUIDE.md` for comprehensive testing architecture
+
+**Location**: `.claude/skills/tests-developer/SKILL.md`
+
+---
+
+### 8. **feature-toggle-developer** (Smart Router)
+**Purpose**: Routes to feature toggle removal workflows and unused code cleanup
+
+**Auto-activates when**:
+- Removing or enabling feature flags
+- Discussing feature toggles or cleanup
+- Keywords: remove toggle, feature flag, cleanup, unused code, defaultValue, FeatureFlags.
+
+**Provides**:
+- Critical rules for systematic toggle removal
+- Automated cleanup detection
+- Unused code identification patterns
+- Step-by-step removal workflow
+- Common mistakes to avoid
+
+**Location**: `.claude/skills/feature-toggle-developer/SKILL.md`
+
+---
+
+### 9. **analytics-developer** (Smart Router)
+**Purpose**: Routes to analytics event logging and route tracking patterns
+
+**Auto-activates when**:
+- Adding analytics events or route tracking
+- Working with AnytypeAnalytics
+- Keywords: analytics, logEvent, route tracking, AnalyticsConstants, track route
+
+**Provides**:
+- Critical rules for event logging
+- Route tracking enum patterns
+- AnalyticsConstants organization
+- Event properties naming
+- **→ Routes to**: `ANALYTICS_PATTERNS.md` for comprehensive patterns
+
+**Location**: `.claude/skills/analytics-developer/SKILL.md`
+
+---
+
 ## 📊 Progressive Disclosure Architecture
 
 This documentation system follows the principle of **progressive disclosure** - load only what's needed, when it's needed.
@@ -233,7 +296,16 @@ Read the file .claude/skills/ios-dev-guidelines/SKILL.md
 ├── skills-manager/
 │   └── SKILL.md (smart router - meta!)
 │
-└── code-review-developer/
+├── code-review-developer/
+│   └── SKILL.md (smart router)
+│
+├── tests-developer/
+│   └── SKILL.md (smart router)
+│
+├── feature-toggle-developer/
+│   └── SKILL.md (smart router)
+│
+└── analytics-developer/
     └── SKILL.md (smart router)
 ```
 
