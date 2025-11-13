@@ -1,6 +1,6 @@
 import Foundation
 
-struct MessagePreviewModel: Equatable {
+struct MessagePreviewModel: Equatable, Hashable {
     let creatorTitle: String?
     let text: String
     let attachments: [Attachment]
@@ -12,7 +12,7 @@ struct MessagePreviewModel: Equatable {
 }
 
 extension MessagePreviewModel {
-    struct Attachment: Equatable, Identifiable {
+    struct Attachment: Equatable, Hashable, Identifiable {
         let id: String
         let icon: Icon
     }

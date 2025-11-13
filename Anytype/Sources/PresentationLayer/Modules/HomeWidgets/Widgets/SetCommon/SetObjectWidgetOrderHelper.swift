@@ -38,6 +38,8 @@ final class SetObjectWidgetOrderHelper: SetObjectWidgetOrderHelperProtocol {
             canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
+            chatPreviews: [],
+            spaceView: nil,
             onItemTap: {
                 onItemTap($0, sortedDetails)
             }

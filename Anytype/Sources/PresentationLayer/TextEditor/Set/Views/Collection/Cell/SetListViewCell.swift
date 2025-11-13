@@ -12,12 +12,21 @@ struct SetListViewCell: View {
         }
         .buttonStyle(LightDimmingButtonStyle())
     }
-    
+
+    @ViewBuilder
     private var content: some View {
+        if let chatPreview = configuration.chatPreview {
+            SetListChatPreviewView(configuration: configuration, chatPreview: chatPreview)
+        } else {
+            regularContent
+        }
+    }
+
+    private var regularContent: some View {
         FlowPropertiesView(
             viewModel: FlowPropertiesViewModel(
                 icon: configuration.icon,
-                showIcon: configuration.showIcon, 
+                showIcon: configuration.showIcon,
                 canEditIcon: configuration.canEditIcon,
                 title: configuration.title,
                 description: configuration.description,
