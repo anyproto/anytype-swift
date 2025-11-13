@@ -125,11 +125,27 @@ platform :ios do
       old_tag_name = previous_version_tags.last || tag_name
     end
 
-    add_linear_comment(
-      from_tag: old_tag_name,
-      to_tag: tag_name,
-      comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
-    )
+    # Check if we should add Linear comments
+    # Skip if: (1) old_tag is the same as new tag (first release)
+    #          (2) both tags point to the same commit (retried build)
+    if old_tag_name == tag_name
+      puts "⏭️  Skipping Linear comments: First release, no previous version to compare"
+    else
+      old_commit = sh("git rev-parse #{old_tag_name}^{commit} 2>/dev/null || echo ''").strip
+      new_commit = sh("git rev-parse #{tag_name}^{commit}").strip
+
+      if old_commit.empty?
+        puts "⚠️  Warning: Could not find commit for #{old_tag_name}, skipping Linear comments"
+      elsif old_commit == new_commit
+        puts "⏭️  Skipping Linear comments: #{old_tag_name} and #{tag_name} point to the same commit (#{old_commit[0..7]})"
+      else
+        add_linear_comment(
+          from_tag: old_tag_name,
+          to_tag: tag_name,
+          comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+        )
+      end
+    end
   
     upload_to_testflight(skip_waiting_for_build_processing: true)
 
