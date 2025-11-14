@@ -169,7 +169,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func createType(name: String) {
-        newTypeInfo = CreateObjectTypeData(spaceId: spaceId, name: name)
+        newTypeInfo = CreateObjectTypeData(spaceId: spaceId, name: name, route: .screenObjectTypes)
     }
 
     func onCreateTypeSubmit(type: ObjectType) {

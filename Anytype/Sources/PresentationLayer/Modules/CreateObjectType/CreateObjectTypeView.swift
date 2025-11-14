@@ -1,10 +1,12 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct CreateObjectTypeData: Identifiable {
     let spaceId: String
     let name: String
-    
+    let route: ScreenCreateTypeRoute
+
     var id: String { spaceId }
 }
 
@@ -19,6 +21,9 @@ struct CreateObjectTypeView: View {
     var body: some View {
         ObjectTypeInfoView(info: model.info) { info in
             model.onCreate(info: info)
+        }
+        .onAppear {
+            model.onAppear()
         }
     }
 }
