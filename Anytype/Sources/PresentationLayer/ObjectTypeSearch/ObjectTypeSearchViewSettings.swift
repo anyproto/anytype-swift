@@ -69,7 +69,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: false,
         showLists: true,
         showFiles: true,
-        showChat: false,
+        showChat: true,
         showTemplates: true,
         incudeNotForCreation: true,
         allowPaste: false,
