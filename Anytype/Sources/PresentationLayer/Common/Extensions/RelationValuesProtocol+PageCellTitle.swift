@@ -41,6 +41,6 @@ extension BundledPropertiesValueProvider {
     }
 
     var mentionTitle: String {
-        String(pluralTitle.prefix(30)).replacingOccurrences(of: "\n", with: " ")
+        String(pluralTitle.prefix(30)).replacing("\n", with: " ")
     }
 }
