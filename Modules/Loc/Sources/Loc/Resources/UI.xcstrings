@@ -40105,7 +40105,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Puedes almacenar gratuitamente hasta %@ de archivos en nuestro nodo de respaldo cifrado. Si llegas al límite, los archivos se almacenarán solo localmente."
+            "value" : "Puedes almacenar gratuitamente hasta %@ de archivos en nuestro nodo de respaldo cifrado. Cuando llegues al límite, los archivos dejarán de sincronizarse y solo se almacenarán localmente."
           }
         },
         "fa" : {
@@ -40153,7 +40153,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally."
+            "value" : "You can store your files on our encrypted backup node. Once you reach your limit, files will stop syncing and will only be stored locally."
           }
         },
         "nl" : {
