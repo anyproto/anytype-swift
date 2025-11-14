@@ -310,10 +310,11 @@ extension AnytypeAnalytics {
         logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)
     }
     
-    func logCreateObjectType() {
+    func logCreateObjectType(route: ScreenCreateTypeRoute) {
         let properties = [
             AnalyticsEventsPropertiesKey.objectType: "_otobjectType",
-            AnalyticsEventsPropertiesKey.format: "Page"
+            AnalyticsEventsPropertiesKey.format: "Page",
+            AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
         logEvent("CreateObject", withEventProperties: properties)
     }
@@ -1410,7 +1411,16 @@ extension AnytypeAnalytics {
             ]
         )
     }
-    
+
+    func logScreenCreateType(route: ScreenCreateTypeRoute) {
+        logEvent(
+            "ScreenCreateType",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
+    }
+
     func logOpenObjectByLink(type: OpenObjectByLinkType, route: OpenObjectByLinkRoute) {
         logEvent(
             "OpenObjectByLink",
