@@ -24,6 +24,7 @@ extension SearchHelper {
                 ObjectTypeUniqueKey.page.value,
                 ObjectTypeUniqueKey.note.value,
                 ObjectTypeUniqueKey.task.value,
+                ObjectTypeUniqueKey.chatDerived.value,
                 ObjectTypeUniqueKey.collection.value,
                 ObjectTypeUniqueKey.set.value,
                 ObjectTypeUniqueKey.bookmark.value,
@@ -31,8 +32,7 @@ extension SearchHelper {
                 ObjectTypeUniqueKey.image.value,
                 ObjectTypeUniqueKey.file.value,
                 ObjectTypeUniqueKey.video.value,
-                ObjectTypeUniqueKey.audio.value,
-                ObjectTypeUniqueKey.chatDerived.value
+                ObjectTypeUniqueKey.audio.value
             ])
         
         let orderIdSort = SearchHelper.sort(relation: .orderId, type: .asc, emptyPlacement: .end)
