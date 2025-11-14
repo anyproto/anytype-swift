@@ -13,6 +13,7 @@ public final class SearchFiltersBuilder {
         if !spaceUxType.showsChatLayouts {
             filters.append(SearchHelper.filterOutChatType())
         }
+        filters.append(SearchHelper.filterOutParticipantType())
         return filters
     }
 }
