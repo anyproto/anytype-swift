@@ -107,7 +107,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 reply: fullMessage.reply
             )
             
-            let unreadItem: MessageSectionItem? = isUnread ? .unread("\(message.id)-unread") : nil
+            let unreadItem: MessageSectionItem? = isUnread ? .unread(id: "\(message.id)-unread", messageId: message.id, messageOrderId: message.orderID) : nil
             
             if firstInSection {
                 if let currentSectionData {
