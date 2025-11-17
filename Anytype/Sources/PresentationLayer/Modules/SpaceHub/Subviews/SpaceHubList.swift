@@ -12,37 +12,23 @@ struct SpaceHubList: View {
     var body: some View {
         if model.filteredSpaces.isEmpty && model.searchText.isEmpty {
             emptyStateView
-        } else {
+        } else if model.filteredSpaces.isNotEmpty {
             scrollView
+        } else {
+            SpaceHubSearchEmptySpaceView()
         }
     }
     
     private var scrollView: some View {
         ScrollView {
             VStack(spacing: 8) {
-                SpaceHubHeader(
-                    showLoading: model.showLoading,
-                    profileIcon: model.profileIcon,
-                    notificationsDenied: model.notificationsDenied,
-                    onTapSettings: {
-                        model.onTapSettings()
-                    },
-                    onTapCreateSpace: {
-                        model.onTapCreateSpace()
-                    }
-                )
-                
-                if model.filteredSpaces.isNotEmpty {
-                    HomeUpdateSubmoduleView().padding(8)
+                HomeUpdateSubmoduleView().padding(8)
 
-                    ForEach(model.filteredSpaces) {
-                        spaceCard($0)
-                    }
-                    
-                    Spacer.fixedHeight(40)
-                } else {
-                    SpaceHubSearchEmptySpaceView()
+                ForEach(model.filteredSpaces) {
+                    spaceCard($0)
                 }
+                
+                Spacer.fixedHeight(40)
             }
         }
         .animation(.default, value: model.filteredSpaces)
