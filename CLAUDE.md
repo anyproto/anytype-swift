@@ -7,9 +7,10 @@ Anytype is a privacy-focused, local-first workspace application for iOS. Built w
 
 ### ⚠️ CRITICAL RULES - NEVER VIOLATE
 1. **NEVER commit changes without explicit user request** - Always wait for user to explicitly ask you to commit
-2. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
-3. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
-4. **NEVER add any form of AI attribution** anywhere in the codebase
+2. **NEVER stage files without explicit user request** - Always wait for user to explicitly ask you to stage files with `git add`
+3. **NEVER add AI signatures to commits** - No "Co-Authored-By: Claude <noreply@anthropic.com>"
+4. **NEVER add AI signatures to PRs** - No "🤖 Generated with Claude Code"
+5. **NEVER add any form of AI attribution** anywhere in the codebase
 
 ### Development Setup
 1. **First-time setup** (run in order):
@@ -263,7 +264,8 @@ Modules/                # Swift packages
 ## 🔄 Development Workflow
 
 ### 🚨 Pre-Commit Checklist
-**ONLY WHEN USER EXPLICITLY ASKS YOU TO COMMIT** - STOP and verify:
+**ONLY WHEN USER EXPLICITLY ASKS YOU TO STAGE OR COMMIT** - STOP and verify:
+- [ ] User has explicitly requested staging files (`git add`) or committing
 - [ ] User has explicitly requested a commit
 - [ ] NO "Co-Authored-By: Claude" in commit message
 - [ ] NO "Generated with Claude" or similar AI signatures

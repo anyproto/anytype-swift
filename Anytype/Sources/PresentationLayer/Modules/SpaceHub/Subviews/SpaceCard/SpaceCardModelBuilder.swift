@@ -12,6 +12,8 @@ protocol SpaceCardModelBuilderProtocol: AnyObject, Sendable {
 final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
 
     private let chatPreviewDateFormatter = ChatPreviewDateFormatter()
+    @Injected(\.chatViewsStorage)
+    private var chatViewsStorage: any ChatViewsStorageProtocol
 
     func build(
         from spaces: [ParticipantSpaceViewDataWithPreview],
@@ -39,6 +41,9 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 )
             }
 
+            let chatId = latestPreview.chatId
+            let chatName = chatViewsStorage.chat(id: chatId)?.name
+
             return MessagePreviewModel(
                 creatorTitle: lastMessagePreview.creator?.title,
                 text: lastMessagePreview.text,
@@ -47,7 +52,8 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 chatPreviewDate: chatPreviewDateFormatter.localizedDateString(for: lastMessagePreview.createdAt, showTodayTime: true),
                 unreadCounter: 0, // unsupported in space hub
                 mentionCounter: 0, // unsupported in space hub
-                isMuted: false // unsupported in space hub
+                isMuted: false, // unsupported in space hub
+                chatName: chatName
             )
         }
 
@@ -61,6 +67,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             isShared: spaceView.isShared,
             isMuted: !spaceView.pushNotificationMode.isUnmutedAll,
             uxTypeName: spaceView.uxType.name,
+            uxType: spaceView.uxType,
             lastMessage: lastMessage,
             unreadCounter: spaceData.totalUnreadCounter,
             mentionCounter: spaceData.totalMentionCounter,

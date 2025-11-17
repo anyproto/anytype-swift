@@ -19,7 +19,11 @@ extension Container {
     var spaceViewsStorage: Factory<any SpaceViewsStorageProtocol> {
         self { SpaceViewsStorage() }.singleton
     }
-    
+
+    var chatViewsStorage: Factory<any ChatViewsStorageProtocol> {
+        self { ChatViewsStorage() }.singleton
+    }
+
     var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
         self { SingleObjectSubscriptionService() }
     }
@@ -203,7 +207,11 @@ extension Container {
     var spaceViewsSubscriptionBuilder: Factory<any SpaceViewsSubscriptionBuilderProtocol> {
         self { SpaceViewsSubscriptionBuilder() }.shared
     }
-    
+
+    var chatViewsSubscriptionBuilder: Factory<any ChatViewsSubscriptionBuilderProtocol> {
+        self { ChatViewsSubscriptionBuilder() }.shared
+    }
+
     var serverConfigurationStorage: Factory<any ServerConfigurationStorageProtocol> {
         self { ServerConfigurationStorage() }.singleton
     }

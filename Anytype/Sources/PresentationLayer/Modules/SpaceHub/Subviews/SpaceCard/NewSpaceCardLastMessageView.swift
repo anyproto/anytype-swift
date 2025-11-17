@@ -1,9 +1,11 @@
 import SwiftUI
+import Services
 
 struct NewSpaceCardLastMessageView: View {
-    
+
     let model: MessagePreviewModel
-    
+    let supportsMultiChats: Bool
+
     var body: some View {
         Group {
             if model.attachments.isNotEmpty {
@@ -11,7 +13,7 @@ struct NewSpaceCardLastMessageView: View {
             } else if model.text.isNotEmpty {
                 messageWithoutAttachements
             } else {
-                AnytypeText(model.creatorTitle ?? Loc.Chat.newMessages, style: .chatPreviewMedium)
+                AnytypeText(model.creatorTitle ?? Loc.Chat.newMessages, style: .chatPreviewRegular)
                     .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
@@ -21,14 +23,15 @@ struct NewSpaceCardLastMessageView: View {
     
     private var messageWithoutAttachements: some View {
         Group {
-            if let creatorTitle = model.creatorTitle {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(creatorTitle).anytypeFontStyle(.chatPreviewMedium)
-                    Text(model.text).anytypeFontStyle(.chatPreviewRegular)
-                }
-                .lineLimit(1)
+            if supportsMultiChats, let chatName = model.chatName {
+                multiChatMessageView(chatName: chatName, messageText: model.text, creatorTitle: model.creatorTitle)
+            } else if let creatorTitle = model.creatorTitle {
+                Text("\(creatorTitle): \(model.text)")
+                    .anytypeFontStyle(.chatPreviewRegular)
+                    .lineLimit(2)
             } else {
-                Text(model.text).anytypeFontStyle(.chatPreviewRegular)
+                Text(model.text)
+                    .anytypeFontStyle(.chatPreviewRegular)
                     .lineLimit(2)
             }
         }
@@ -36,11 +39,29 @@ struct NewSpaceCardLastMessageView: View {
         .anytypeLineHeightStyle(.chatPreviewRegular)
     }
 
+    private func multiChatMessageView(chatName: String, messageText: String, creatorTitle: String?) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(chatName).anytypeFontStyle(.chatPreviewMedium)
+                .lineLimit(1)
+            if let creatorTitle {
+                Text("\(creatorTitle): \(messageText)").anytypeFontStyle(.chatPreviewRegular)
+                    .lineLimit(1)
+            } else {
+                Text(messageText).anytypeFontStyle(.chatPreviewRegular)
+                    .lineLimit(1)
+            }
+        }
+    }
+
     private var messageWithAttachements: some View {
         VStack(alignment: .leading, spacing: 2) {
 
-            if let creatorTitle = model.creatorTitle {
-                AnytypeText(creatorTitle, style: .chatPreviewMedium)
+            if supportsMultiChats, let chatName = model.chatName {
+                AnytypeText(chatName, style: .chatPreviewMedium)
+                    .foregroundColor(.Text.transparentSecondary)
+                    .lineLimit(1)
+            } else if let creatorTitle = model.creatorTitle {
+                AnytypeText(creatorTitle, style: .chatPreviewRegular)
                     .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
