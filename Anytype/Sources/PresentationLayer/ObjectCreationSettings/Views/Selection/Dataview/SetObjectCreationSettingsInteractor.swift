@@ -155,7 +155,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private func updateObjectTypes() {
         Task {
             let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
-            let chatTypeVisible = spaceUxType?.showsChatLayouts ?? true
+            let chatTypeVisible = spaceUxType?.supportsMultiChats ?? true
             let includeChat = chatTypeVisible
             objectTypes = try await typesService.searchObjectTypes(
                 text: "",

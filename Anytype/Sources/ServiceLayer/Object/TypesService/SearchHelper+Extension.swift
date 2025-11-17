@@ -5,8 +5,8 @@ extension SearchHelper {
     static func defaultObjectTypeSort(spaceUxType: SpaceUxType?) -> [DataviewSort] {
         let nameSort = SearchHelper.sort(relation: .name, type: .asc)
 
-        let showsChatLayouts = spaceUxType?.showsChatLayouts ?? true
-        let customSort = !showsChatLayouts
+        let supportsMultiChats = spaceUxType?.supportsMultiChats ?? true
+        let customSort = !supportsMultiChats
             ? SearchHelper.customSort(relationKey: BundledPropertyKey.uniqueKey.rawValue, values: [
                 ObjectTypeUniqueKey.image.value,
                 ObjectTypeUniqueKey.bookmark.value,

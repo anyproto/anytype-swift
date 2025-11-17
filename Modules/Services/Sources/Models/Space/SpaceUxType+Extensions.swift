@@ -13,7 +13,7 @@ public extension SpaceUxType {
         self == .data
     }
 
-    var showsChatLayouts: Bool {
+    var supportsMultiChats: Bool {
         switch self {
         case .chat, .stream, .none, .UNRECOGNIZED:
             return false
@@ -24,8 +24,8 @@ public extension SpaceUxType {
 }
 
 public extension Optional where Wrapped == SpaceUxType {
-    var showsChatLayouts: Bool {
-        self?.showsChatLayouts ?? true
+    var supportsMultiChats: Bool {
+        self?.supportsMultiChats ?? true
     }
 }
 
