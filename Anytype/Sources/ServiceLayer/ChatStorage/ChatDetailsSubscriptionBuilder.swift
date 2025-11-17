@@ -2,12 +2,12 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol ChatViewsSubscriptionBuilderProtocol: AnyObject, Sendable {
+protocol ChatDetailsSubscriptionBuilderProtocol: AnyObject, Sendable {
     var subscriptionId: String { get }
     func build() -> SubscriptionData
 }
 
-final class ChatViewsSubscriptionBuilder: ChatViewsSubscriptionBuilderProtocol {
+final class ChatDetailsSubscriptionBuilder: ChatDetailsSubscriptionBuilderProtocol {
 
     private enum Constants {
         static let chatsSubId = "SubscriptionId.ChatViews"

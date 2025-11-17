@@ -3,7 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
-protocol ChatViewsStorageProtocol: AnyObject, Sendable {
+protocol ChatDetailsStorageProtocol: AnyObject, Sendable {
     var allChats: [ObjectDetails] { get }
     var allChatsPublisher: AnyPublisher<[ObjectDetails], Never> { get }
     func startSubscription() async
@@ -11,12 +11,11 @@ protocol ChatViewsStorageProtocol: AnyObject, Sendable {
     func chat(id: String) -> ObjectDetails?
 }
 
-final class ChatViewsStorage: ChatViewsStorageProtocol {
+final class ChatDetailsStorage: ChatDetailsStorageProtocol {
 
-    private let subscriptionBuilder: any ChatViewsSubscriptionBuilderProtocol = Container.shared.chatViewsSubscriptionBuilder()
+    private let subscriptionBuilder: any ChatDetailsSubscriptionBuilderProtocol = Container.shared.chatDetailsSubscriptionBuilder()
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
     private let subscriptionStorage: any SubscriptionStorageProtocol
-    private let accountManager: any AccountManagerProtocol = Container.shared.accountManager()
 
     private let allChatsStorage = AtomicPublishedStorage<[ObjectDetails]>([])
     var allChats: [ObjectDetails] { allChatsStorage.value }

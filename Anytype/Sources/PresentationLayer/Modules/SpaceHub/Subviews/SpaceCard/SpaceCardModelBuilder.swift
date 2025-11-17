@@ -12,8 +12,8 @@ protocol SpaceCardModelBuilderProtocol: AnyObject, Sendable {
 final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
 
     private let chatPreviewDateFormatter = ChatPreviewDateFormatter()
-    @Injected(\.chatViewsStorage)
-    private var chatViewsStorage: any ChatViewsStorageProtocol
+    @Injected(\.chatDetailsStorage)
+    private var chatDetailsStorage: any ChatDetailsStorageProtocol
 
     func build(
         from spaces: [ParticipantSpaceViewDataWithPreview],
@@ -42,7 +42,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             }
 
             let chatId = latestPreview.chatId
-            let chatName = chatViewsStorage.chat(id: chatId)?.name
+            let chatName = chatDetailsStorage.chat(id: chatId)?.name
 
             return MessagePreviewModel(
                 creatorTitle: lastMessagePreview.creator?.title,

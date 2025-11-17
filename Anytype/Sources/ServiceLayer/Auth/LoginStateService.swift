@@ -30,7 +30,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let membershipStatusStorage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
     private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-    private let chatViewsStorage: any ChatViewsStorageProtocol = Container.shared.chatViewsStorage()
+    private let chatDetailsStorage: any ChatDetailsStorageProtocol = Container.shared.chatDetailsStorage()
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
     private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
@@ -86,7 +86,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     private func startSubscriptions() async {
         await workspacesStorage.startSubscription()
-        await chatViewsStorage.startSubscription()
+        await chatDetailsStorage.startSubscription()
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
@@ -102,7 +102,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
-        await chatViewsStorage.stopSubscription()
+        await chatDetailsStorage.stopSubscription()
         await propertyDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
         await accountParticipantsStorage.stopSubscription()
