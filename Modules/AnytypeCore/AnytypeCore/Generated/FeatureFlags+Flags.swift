@@ -22,6 +22,10 @@ public extension FeatureFlags {
         value(for: .newObjectSettings)
     }
 
+    static var showUploadStatusIndicator: Bool {
+        value(for: .showUploadStatusIndicator)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -104,6 +108,7 @@ public extension FeatureFlags {
         .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,
         .newObjectSettings,
+        .showUploadStatusIndicator,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

@@ -9,6 +9,7 @@ struct MessagePreviewModel: Equatable, Hashable {
     let unreadCounter: Int
     let mentionCounter: Int
     let isMuted: Bool
+    let chatName: String?
 }
 
 extension MessagePreviewModel {

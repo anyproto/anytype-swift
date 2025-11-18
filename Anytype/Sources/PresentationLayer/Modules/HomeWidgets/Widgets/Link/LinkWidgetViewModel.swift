@@ -102,7 +102,8 @@ final class LinkWidgetViewModel: ObservableObject {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: chatPreview.unreadCounter,
             mentionCounter: chatPreview.mentionCounter,
-            isMuted: isMuted
+            isMuted: isMuted,
+            chatName: nil
         )
     }
 }

@@ -8,9 +8,11 @@ struct WidgetObjectListCommonRowView: View {
     let subtitle: String?
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 0) {
             IconView(icon: icon)
                 .frame(width: 48, height: 48)
+            
+            Spacer.fixedWidth(12)
             
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(title, style: .previewTitle2Medium)

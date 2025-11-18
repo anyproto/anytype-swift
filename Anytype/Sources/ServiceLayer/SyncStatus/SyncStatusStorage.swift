@@ -5,7 +5,8 @@ import ProtobufMessages
 
 protocol SyncStatusStorageProtocol: Sendable {
     func statusPublisher(spaceId: String) -> AnyPublisher<SpaceSyncStatusInfo, Never>
-    
+    func allSpacesStatusPublisher() -> AnyPublisher<[SpaceSyncStatusInfo], Never>
+
     func startSubscription() async
     func stopSubscriptionAndClean() async
 }
@@ -20,6 +21,12 @@ actor SyncStatusStorage: SyncStatusStorageProtocol, Sendable {
     nonisolated func statusPublisher(spaceId: String) -> AnyPublisher<SpaceSyncStatusInfo, Never> {
         storage.publisher
             .compactMap { $0[spaceId] }
+            .eraseToAnyPublisher()
+    }
+
+    nonisolated func allSpacesStatusPublisher() -> AnyPublisher<[SpaceSyncStatusInfo], Never> {
+        storage.publisher
+            .map { Array($0.values) }
             .eraseToAnyPublisher()
     }
     

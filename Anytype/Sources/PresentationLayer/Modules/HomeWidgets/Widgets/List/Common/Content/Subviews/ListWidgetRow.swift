@@ -9,9 +9,11 @@ struct ListWidgetRow: View {
     @Environment(\.editMode) private var editMode
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 0) {
             IconView(icon: model.icon)
                 .frame(width: 48, height: 48)
+            
+            Spacer.fixedWidth(12)
 
             if let chatPreview = model.chatPreview {
                 chatContent(chatPreview: chatPreview)

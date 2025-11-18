@@ -38286,6 +38286,38 @@
         }
       }
     },
+    "Files uploading" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "FilesList.ForceDelete.Title" : {
       "extractionState" : "manual",
       "localizations" : {
