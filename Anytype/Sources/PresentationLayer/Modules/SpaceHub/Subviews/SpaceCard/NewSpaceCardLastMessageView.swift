@@ -26,28 +26,30 @@ struct NewSpaceCardLastMessageView: View {
             if supportsMultiChats, let chatName = model.chatName {
                 multiChatMessageView(chatName: chatName, messageText: model.text, creatorTitle: model.creatorTitle)
             } else if let creatorTitle = model.creatorTitle {
-                Text("\(creatorTitle): \(model.text)")
-                    .anytypeFontStyle(.chatPreviewRegular)
+                AnytypeText("\(creatorTitle): \(model.text)", style: .chatPreviewRegular)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(2)
             } else {
-                Text(model.text)
-                    .anytypeFontStyle(.chatPreviewRegular)
+                AnytypeText(model.text, style: .chatPreviewRegular)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(2)
             }
         }
-        .foregroundColor(.Text.transparentSecondary)
         .anytypeLineHeightStyle(.chatPreviewRegular)
     }
 
     private func multiChatMessageView(chatName: String, messageText: String, creatorTitle: String?) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(chatName).anytypeFontStyle(.chatPreviewMedium)
+            AnytypeText(chatName, style: .chatPreviewMedium)
+                .foregroundColor(.Text.transparentSecondary)
                 .lineLimit(1)
             if let creatorTitle {
-                Text("\(creatorTitle): \(messageText)").anytypeFontStyle(.chatPreviewRegular)
+                AnytypeText("\(creatorTitle): \(messageText)", style: .chatPreviewRegular)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             } else {
-                Text(messageText).anytypeFontStyle(.chatPreviewRegular)
+                AnytypeText(messageText, style: .chatPreviewRegular)
+                    .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
@@ -55,7 +57,6 @@ struct NewSpaceCardLastMessageView: View {
 
     private var messageWithAttachements: some View {
         VStack(alignment: .leading, spacing: 2) {
-
             if supportsMultiChats, let chatName = model.chatName {
                 AnytypeText(chatName, style: .chatPreviewMedium)
                     .foregroundColor(.Text.transparentSecondary)
