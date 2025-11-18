@@ -115,10 +115,10 @@ struct SpaceHubCoordinatorView: View {
             }
     }
     
-    private var content: some View {  
+    private var content: some View {
         ZStack {
-            NotificationCoordinatorView()
-            
+            Color.Background.primary
+
             HomeBottomPanelContainer(
                 path: $model.navigationPath,
                 content: {
@@ -156,6 +156,8 @@ struct SpaceHubCoordinatorView: View {
                     }
                 }
             )
+
+            NotificationCoordinatorView()
         }
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)

@@ -7,9 +7,9 @@ final class SyncStatusStorageMock: SyncStatusStorageProtocol, @unchecked Sendabl
     static let shared = SyncStatusStorageMock()
     
     @Published private var publishedInfo: SpaceSyncStatusInfo = .default(spaceId: "")
-    var infoToReturn = Services.SpaceSyncStatusInfo.mockArray()
+    var infoToReturn = SpaceSyncStatusInfo.mockArray()
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<Services.SpaceSyncStatusInfo, Never> {
+    func statusPublisher(spaceId: String) -> AnyPublisher<SpaceSyncStatusInfo, Never> {
         Task.detached { [infoToReturn] in
             while true {
                 for info in infoToReturn {
@@ -22,17 +22,23 @@ final class SyncStatusStorageMock: SyncStatusStorageProtocol, @unchecked Sendabl
         return $publishedInfo.eraseToAnyPublisher()
     }
     
-    func startSubscription() {
-       fatalError()
+    func allSpacesStatusPublisher() -> AnyPublisher<[SpaceSyncStatusInfo], Never> {
+        return $publishedInfo
+            .map { [$0] }
+            .eraseToAnyPublisher()
     }
     
-    func stopSubscriptionAndClean() {
-        fatalError()
+    func startSubscription() async {
+       // Mock implementation - no-op
+    }
+    
+    func stopSubscriptionAndClean() async {
+        // Mock implementation - no-op
     }
 }
 
 extension SpaceSyncStatusInfo {
-    static func mockArray(network: Anytype_Event.Space.Network = .anytype) -> [Services.SpaceSyncStatusInfo] {
+    static func mockArray(network: Anytype_Event.Space.Network = .anytype) -> [SpaceSyncStatusInfo] {
         [
             .mock(network: network, status: .offline),
             .mock(network: network, status: .syncing),
@@ -44,8 +50,8 @@ extension SpaceSyncStatusInfo {
     static func mock(
         network: Anytype_Event.Space.Network = .anytype,
         status: Anytype_Event.Space.Status = .offline
-    ) -> Services.SpaceSyncStatusInfo {
-        var mock = Services.SpaceSyncStatusInfo.init()
+    ) -> SpaceSyncStatusInfo {
+        var mock = SpaceSyncStatusInfo.init()
         mock.id = "1337"
         mock.status = status
         mock.error = .incompatibleVersion

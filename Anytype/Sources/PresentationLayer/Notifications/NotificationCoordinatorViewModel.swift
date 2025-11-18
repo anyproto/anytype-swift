@@ -12,16 +12,16 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
     @Injected(\.objectIconBuilder)
     private var objectIconBuilder: any ObjectIconBuilderProtocol
-    
+    @Injected(\.syncStatusStorage)
+    private var syncStatusStorage: any SyncStatusStorageProtocol
+
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    
-    init() {
-    }
-    
+    @Published var uploadingFilesCount: Int = 0
+
     func onAppear() {
         Task {
             if subscription.isNotNil {
@@ -46,9 +46,22 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     func onMembershipUpgrateTap(reason: MembershipUpgradeReason) {
         membershipUpgradeReason = reason
     }
+
+    func startHandleSyncStatus() async {
+        for await statuses in syncStatusStorage.allSpacesStatusPublisher().values {
+            guard FeatureFlags.showUploadStatusIndicator else { continue }
+
+            let count = statuses
+                .filter { $0.status == .syncing } // todo: count only files
+                .reduce(0) { $0 + Int($1.syncingObjectsCounter) }
+
+            withAnimation {
+                uploadingFilesCount = count
+            }
+        }
+    }
     
     // MARK: - Private
-    
     private func handle(events: [NotificationEvent]) async {
         for event in events {
             switch event {

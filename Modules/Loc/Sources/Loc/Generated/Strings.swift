@@ -354,6 +354,9 @@ public enum Loc {
     return Loc.tr("UI", "File", p1, fallback: "Plural format key: File")
   }
   public static let files = Loc.tr("UI", "Files", fallback: "Files")
+  public static func filesUploading(_ p1: Int) -> String {
+    return Loc.tr("UI", "Files uploading", p1, fallback: "%#@file@ uploading")
+  }
   public static let filter = Loc.tr("UI", "Filter", fallback: "Filter")
   public static let forever = Loc.tr("UI", "Forever", fallback: "Forever")
   public static let foreverFree = Loc.tr("UI", "Forever free", fallback: "Forever free")

@@ -29,6 +29,13 @@ public extension FeatureDescription {
         debugValue: true
     )
 
+    static let showUploadStatusIndicator = FeatureDescription(
+        title: "Show visual indicator for uploading files - IOS-5054",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
