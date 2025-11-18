@@ -1,29 +1,34 @@
 import Foundation
-import Combine
 import Services
-import AnytypeCore
+import AsyncTools
+import AsyncAlgorithms
 
 protocol ChatDetailsStorageProtocol: AnyObject, Sendable {
-    var allChats: [ObjectDetails] { get }
-    var allChatsPublisher: AnyPublisher<[ObjectDetails], Never> { get }
+    func allChats() async -> [ObjectDetails]
+    var allChatsSequence: AnyAsyncSequence<[ObjectDetails]> { get async }
     func startSubscription() async
     func stopSubscription() async
-    func chat(id: String) -> ObjectDetails?
+    func chat(id: String) async -> ObjectDetails?
 }
 
-final class ChatDetailsStorage: ChatDetailsStorageProtocol {
+actor ChatDetailsStorage: ChatDetailsStorageProtocol {
 
     private let subscriptionBuilder: any ChatDetailsSubscriptionBuilderProtocol = Container.shared.chatDetailsSubscriptionBuilder()
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
     private let subscriptionStorage: any SubscriptionStorageProtocol
 
-    private let allChatsStorage = AtomicPublishedStorage<[ObjectDetails]>([])
-    var allChats: [ObjectDetails] { allChatsStorage.value }
-    var allChatsPublisher: AnyPublisher<[ObjectDetails], Never> {
-        allChatsStorage.publisher
-            .throttle(for: .milliseconds(50), scheduler: DispatchQueue.global(), latest: true)
+    private let allChatsStream = AsyncToManyStream<[ObjectDetails]>()
+
+    func allChats() -> [ObjectDetails] {
+        allChatsStream.value ?? []
+    }
+
+    var allChatsSequence: AnyAsyncSequence<[ObjectDetails]> {
+        allChatsStream
+            .subscribe([])
+            .throttle(milliseconds: 300, latest: true)
             .removeDuplicates()
-            .eraseToAnyPublisher()
+            .eraseToAnyAsyncSequence()
     }
 
     init() {
@@ -34,7 +39,7 @@ final class ChatDetailsStorage: ChatDetailsStorageProtocol {
         let data = subscriptionBuilder.build()
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            allChatsStorage.value = data.items
+            self.allChatsStream.send(data.items)
         }
     }
 
@@ -43,6 +48,6 @@ final class ChatDetailsStorage: ChatDetailsStorageProtocol {
     }
 
     func chat(id: String) -> ObjectDetails? {
-        return allChatsStorage.value.first(where: { $0.id == id })
+        return allChatsStream.value?.first(where: { $0.id == id })
     }
 }

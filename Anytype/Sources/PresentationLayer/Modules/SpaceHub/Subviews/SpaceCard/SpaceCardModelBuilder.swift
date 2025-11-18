@@ -20,20 +20,23 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
         wallpapers: [String: SpaceWallpaperType]
     ) async -> [SpaceCardModel] {
         await Task.detached {
-            spaces.map { spaceData in
-                self.buildModel(from: spaceData, wallpapers: wallpapers)
+            var models = [SpaceCardModel]()
+            for space in spaces {
+                models.append(await self.buildModel(from: space, wallpapers: wallpapers))
             }
+            return models
         }.value
     }
 
     private func buildModel(
         from spaceData: ParticipantSpaceViewDataWithPreview,
         wallpapers: [String: SpaceWallpaperType]
-    ) -> SpaceCardModel {
+    ) async -> SpaceCardModel {
         let spaceView = spaceData.spaceView
         let latestPreview = spaceData.latestPreview
 
-        let lastMessage = latestPreview.lastMessage.map { lastMessagePreview in
+        let lastMessage: MessagePreviewModel?
+        if let lastMessagePreview = latestPreview.lastMessage {
             let attachments = lastMessagePreview.attachments.prefix(3).map { objectDetails in
                 MessagePreviewModel.Attachment(
                     id: objectDetails.id,
@@ -42,9 +45,9 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             }
 
             let chatId = latestPreview.chatId
-            let chatName = chatDetailsStorage.chat(id: chatId)?.name
+            let chatName = await chatDetailsStorage.chat(id: chatId)?.name
 
-            return MessagePreviewModel(
+            lastMessage = MessagePreviewModel(
                 creatorTitle: lastMessagePreview.creator?.title,
                 text: lastMessagePreview.text,
                 attachments: Array(attachments),
@@ -55,6 +58,8 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
                 isMuted: false, // unsupported in space hub
                 chatName: chatName
             )
+        } else {
+            lastMessage = nil
         }
 
         return SpaceCardModel(
