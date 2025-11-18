@@ -18,7 +18,6 @@ final class SpaceHubViewModel {
     
     var notificationsDenied = false
     var spaceMuteData: SpaceMuteData?
-    var showLoading = false
     var profileIcon: Icon?
     var spaceToDelete: StringIdentifiable?
     
@@ -133,7 +132,6 @@ final class SpaceHubViewModel {
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-            showLoading = spaces.contains { $0.spaceView.isLoading } || FeatureFlags.spaceHubAlwaysShowLoading
             await updateFilteredSpaces()
             self.dataLoaded = spaces.isNotEmpty
         }

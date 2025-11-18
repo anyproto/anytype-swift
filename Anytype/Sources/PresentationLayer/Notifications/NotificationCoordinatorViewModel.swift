@@ -14,13 +14,17 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var objectIconBuilder: any ObjectIconBuilderProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.spaceHubSpacesStorage)
+    private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
 
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?
-    
+    private var uploadingFilesCount: Int = 0
+    private var showSpaceLoading: Bool = false
+
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var uploadingFilesCount: Int = 0
+    @Published var uploadStatusText: String?
 
     func onAppear() {
         Task {
@@ -55,13 +59,34 @@ final class NotificationCoordinatorViewModel: ObservableObject {
                 .filter { $0.status == .syncing } // todo: count only files
                 .reduce(0) { $0 + Int($1.syncingObjectsCounter) }
 
-            withAnimation {
-                uploadingFilesCount = count
-            }
+            uploadingFilesCount = count
+            updateUploadStatusText()
         }
     }
-    
+
+    func startHandleSpaceLoading() async {
+        for await spaces in await spaceHubSpacesStorage.spacesStream {
+            showSpaceLoading = spaces.contains { $0.spaceView.isLoading } || FeatureFlags.spaceHubAlwaysShowLoading
+            updateUploadStatusText()
+        }
+    }
+
     // MARK: - Private
+
+    private func updateUploadStatusText() {
+        let newText: String? = if uploadingFilesCount > 0 {
+            Loc.filesUploading(uploadingFilesCount)
+        } else if showSpaceLoading {
+            Loc.syncing
+        } else {
+            nil
+        }
+
+        withAnimation {
+            uploadStatusText = newText
+        }
+    }
+
     private func handle(events: [NotificationEvent]) async {
         for event in events {
             switch event {
