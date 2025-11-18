@@ -11,7 +11,7 @@ struct SpaceCardModel: Equatable, Identifiable {
     let isShared: Bool
     let isMuted: Bool
     let uxTypeName: String
-    let uxType: SpaceUxType
+    let supportsMultiChats: Bool
 
     let lastMessage: MessagePreviewModel?
     let unreadCounter: Int
