@@ -46,7 +46,7 @@ struct SpaceHubView: View {
         NavigationStack {
             SpaceHubList(model: model)
                 .navigationTitle(Loc.myChannels)
-                .navigationBarTitleDisplayMode(.inline)
+                .scrollEdgeEffectStyleIOS26(.soft, for: .top)
                 .toolbar { toolbarItems }
                 .searchable(text: $model.searchText)
                 .onChange(of: model.searchText) {
@@ -57,7 +57,6 @@ struct SpaceHubView: View {
     
     private var toolbarItems: some ToolbarContent {
         SpaceHubToolbar(
-            showLoading: model.showLoading,
             profileIcon: model.profileIcon,
             notificationsDenied: model.notificationsDenied,
             namespace: namespace,

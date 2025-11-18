@@ -427,7 +427,7 @@ public enum Loc {
   public static let moveTo = Loc.tr("UI", "Move to", fallback: "Move to")
   public static let moveToBin = Loc.tr("UI", "Move To Bin", fallback: "Move To Bin")
   public static let mute = Loc.tr("UI", "Mute", fallback: "Mute")
-  public static let myChannels = Loc.tr("UI", "My channels", fallback: "My Channels")
+  public static let myChannels = Loc.tr("UI", "My channels", fallback: "Channels")
   public static let myFirstSpace = Loc.tr("UI", "My First Space", fallback: "My First Space")
   public static let myProperties = Loc.tr("UI", "My Properties", fallback: "My Properties")
   public static let mySites = Loc.tr("UI", "My Sites", fallback: "My Sites")

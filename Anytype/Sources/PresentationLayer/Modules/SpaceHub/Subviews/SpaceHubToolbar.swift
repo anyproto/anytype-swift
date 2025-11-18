@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SpaceHubToolbar: ToolbarContent {
     
-    let showLoading: Bool
     let profileIcon: Icon?
     let notificationsDenied: Bool
     let namespace: Namespace.ID
@@ -20,23 +19,6 @@ struct SpaceHubToolbar: ToolbarContent {
     
     @ToolbarContentBuilder
     private var legacyToolbarItems: some ToolbarContent {
-        ToolbarItem(placement: .principal) {
-            HStack(spacing: 6) {
-                if showLoading {
-                    CircleLoadingView(.Text.primary)
-                        .frame(width: 18, height: 18)
-                        .transition(.scale.combined(with: .opacity))
-                } else {
-                    Spacer.fixedWidth(18)
-                }
-                
-                AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
-                
-                Spacer.fixedWidth(18)
-            }
-        }
-        
-        
         ToolbarItem(placement: .topBarLeading) {
             Button {
                 onTapSettings()
@@ -63,29 +45,13 @@ struct SpaceHubToolbar: ToolbarContent {
     @available(iOS 26.0, *)
     @ToolbarContentBuilder
     private var ios26ToolbarItems: some ToolbarContent {
-        ToolbarItem(placement: .principal) {
-            HStack(spacing: 6) {
-                if showLoading {
-                    CircleLoadingView(.Text.primary)
-                        .frame(width: 18, height: 18)
-                        .transition(.scale.combined(with: .opacity))
-                } else {
-                    Spacer.fixedWidth(18)
-                }
-                
-                AnytypeText(Loc.myChannels, style: .uxTitle1Semibold)
-                
-                Spacer.fixedWidth(18)
-            }
-        }
-
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 onTapSettings()
             } label: {
                 IconView(icon: profileIcon)
                     .foregroundStyle(Color.Control.secondary)
-                    .frame(width: 28, height: 28)
+                    .frame(width: 44, height: 44)
                     .overlay(alignment: .topTrailing) {
                         if notificationsDenied {
                             attentionDotView
@@ -94,6 +60,7 @@ struct SpaceHubToolbar: ToolbarContent {
                     .padding(.vertical, 8)
             }
         }
+        .sharedBackgroundVisibility(.hidden)
         
         DefaultToolbarItem(kind: .search, placement: .bottomBar)
         
