@@ -5,10 +5,11 @@ struct SetListChatPreviewView: View {
     let chatPreview: MessagePreviewModel
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 0) {
             if configuration.showIcon {
                 IconView(icon: configuration.icon)
                     .frame(width: 48, height: 48)
+                Spacer.fixedWidth(12)
             }
 
             VStack(alignment: .leading, spacing: 1) {
