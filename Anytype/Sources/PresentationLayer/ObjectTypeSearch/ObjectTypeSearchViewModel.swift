@@ -76,7 +76,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         
         searchTask = Task {
             let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
-            let effectiveShowChat = settings.showChat && (spaceUxType?.showsChatLayouts ?? true)
+            let effectiveShowChat = settings.showChat && (spaceUxType?.supportsMultiChats ?? true)
 
             let pinnedTypes = settings.showPins ? try await typesService.searchPinnedTypes(text: text, spaceId: spaceId) : []
             let listTypes = settings.showLists ? try await typesService.searchListTypes(

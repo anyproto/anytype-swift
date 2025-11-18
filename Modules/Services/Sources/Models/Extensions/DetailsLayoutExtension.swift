@@ -27,22 +27,22 @@ public extension DetailsLayout {
 
 public extension DetailsLayout {
     static func visibleLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.showsChatLayouts else { return visibleLayoutsBase }
+        guard !spaceUxType.supportsMultiChats else { return visibleLayoutsBase }
         return visibleLayoutsBase.filter { $0 != .chatDerived }
     }
 
     static func visibleLayoutsWithFiles(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.showsChatLayouts else { return visibleLayoutsWithFilesBase }
+        guard !spaceUxType.supportsMultiChats else { return visibleLayoutsWithFilesBase }
         return visibleLayoutsWithFilesBase.filter { $0 != .chatDerived }
     }
 
     static func supportedForCreation(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.showsChatLayouts else { return supportedForCreationBase }
+        guard !spaceUxType.supportsMultiChats else { return supportedForCreationBase }
         return supportedForCreationBase.filter { $0 != .chatDerived }
     }
 
     static func widgetTypeLayouts(spaceUxType: SpaceUxType?) -> [DetailsLayout] {
-        guard !spaceUxType.showsChatLayouts else { return widgetTypeLayoutsBase }
+        guard !spaceUxType.supportsMultiChats else { return widgetTypeLayoutsBase }
         return widgetTypeLayoutsBase.filter { $0 != .chatDerived }
     }
 }

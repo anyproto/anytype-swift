@@ -10,7 +10,7 @@ public final class SearchFiltersBuilder {
         var filters = build(isArchived: isArchived)
         filters.append(SearchHelper.layoutFilter(layouts))
         filters.append(SearchHelper.templateScheme(include: false))
-        if !spaceUxType.showsChatLayouts {
+        if !spaceUxType.supportsMultiChats {
             filters.append(SearchHelper.filterOutChatType())
         }
         filters.append(SearchHelper.filterOutParticipantType())

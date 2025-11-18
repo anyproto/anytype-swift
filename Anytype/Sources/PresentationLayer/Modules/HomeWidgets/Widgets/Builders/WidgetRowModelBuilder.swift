@@ -68,7 +68,8 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: preview.unreadCounter,
             mentionCounter: preview.mentionCounter,
-            isMuted: isMuted
+            isMuted: isMuted,
+            chatName: nil
         )
     }
 }
