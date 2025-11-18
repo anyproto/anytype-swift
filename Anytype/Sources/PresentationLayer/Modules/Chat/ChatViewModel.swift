@@ -438,11 +438,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func visibleRangeChanged(from: MessageSectionItem, to: MessageSectionItem) {
-        guard let fromMessage = from.messageData, let toMessage = to.messageData else { return }
         Task {
-            bottomVisibleOrderId = toMessage.message.orderID
+            bottomVisibleOrderId = to.messageOrderId
             forceHiddenActionPanel = false // Without update panel. Waiting middleware event.
-            await chatStorage.updateVisibleRange(startMessageId: fromMessage.message.id, endMessageId: toMessage.message.id)
+            await chatStorage.updateVisibleRange(startMessageId: from.messageId, endMessageId: to.messageId)
         }
     }
     
