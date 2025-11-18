@@ -24,23 +24,27 @@ struct EditorContextualMenuView: View {
     let optionTapHandler: (EditorContextualOption) -> Void
 
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            Spacer.fixedHeight(8)
+        VStack(alignment: .leading, spacing: 0) {
+            Spacer.fixedHeight(12)
             ForEach(options) { option in
                 Button {
                     optionTapHandler(option)
                 } label: {
-                    Text(verbatim: option.localisedString)
-                        .foregroundColor(Color.Text.primary)
-                        .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
-                        .padding(.leading, 16)
-                        .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
-                        .fixTappableArea()
+                    HStack {
+                        Text(verbatim: option.localisedString)
+                            .frame(alignment: .leading)
+                            .foregroundColor(Color.Text.primary)
+                            .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
+                            .padding(.vertical, 9)
+                            .padding(.leading, 24)
+                            .fixTappableArea()
+                        Spacer()
+                    }
                 }
-                .frame(minWidth: 208, maxWidth: 224, minHeight: 28, maxHeight: 43.5)
+                .frame(width: 252, height: 40)
                 .buttonStyle(TertiaryPressedBackgroundButtonStyle())
             }
-            Spacer.fixedHeight(8)
+            Spacer.fixedHeight(12)
         }
     }
 }
