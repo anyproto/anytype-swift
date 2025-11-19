@@ -89857,6 +89857,17 @@
         }
       }
     },
+    "Syncing..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syncing..."
+          }
+        }
+      }
+    },
     "SyncStatus.Error.incompatibleVersion" : {
       "extractionState" : "manual",
       "localizations" : {
