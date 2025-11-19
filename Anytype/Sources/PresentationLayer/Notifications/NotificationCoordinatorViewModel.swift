@@ -56,8 +56,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             guard FeatureFlags.showUploadStatusIndicator else { continue }
 
             let count = statuses
-                .filter { $0.status == .syncing } // todo: count only files
-                .reduce(0) { $0 + Int($1.syncingObjectsCounter) }
+                .filter { $0.status == .syncing }
+                .reduce(0) { $0 + Int($1.uploadingFilesCounter) }
 
             uploadingFilesCount = count
             updateUploadStatusText()
