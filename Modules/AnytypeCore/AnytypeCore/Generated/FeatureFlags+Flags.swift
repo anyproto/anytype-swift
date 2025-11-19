@@ -18,12 +18,12 @@ public extension FeatureFlags {
         value(for: .channelTypeSwitcher)
     }
 
-    static var newObjectSettings: Bool {
-        value(for: .newObjectSettings)
-    }
-
     static var showUploadStatusIndicator: Bool {
         value(for: .showUploadStatusIndicator)
+    }
+
+    static var newObjectSettings: Bool {
+        value(for: .newObjectSettings)
     }
 
     static var setKanbanView: Bool {
@@ -111,8 +111,8 @@ public extension FeatureFlags {
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,
-        .newObjectSettings,
         .showUploadStatusIndicator,
+        .newObjectSettings,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

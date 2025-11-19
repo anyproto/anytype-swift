@@ -16,22 +16,22 @@ public extension FeatureDescription {
         defaultValue: true
     )
 
+    // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
         type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
         defaultValue: false
     )
-    
-    static let newObjectSettings = FeatureDescription(
-        title: "New Object Settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
-        defaultValue: false,
-        debugValue: true
-    )
 
     static let showUploadStatusIndicator = FeatureDescription(
         title: "Show visual indicator for uploading files - IOS-5054",
         type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
+        defaultValue: true
+    )
+    
+    static let newObjectSettings = FeatureDescription(
+        title: "New Object Settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
         defaultValue: false,
         debugValue: true
     )
