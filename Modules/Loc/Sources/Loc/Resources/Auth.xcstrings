@@ -562,7 +562,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’d love to share tips, tricks and product updates with you. Your email is never linked to your identity. We won’t share your data. Ever."
+            "value" : "Мы бы хотели делиться с вами подсказками, хитростями и обновлениями. Ваш адрес электронной почты никогда не будет привязан к вашей личности. Мы не будем делиться вашими данными. Никогда."
           }
         },
         "tr" : {
@@ -1009,7 +1009,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Stay in the loop"
+            "value" : "Оставайтесь в курсе"
           }
         },
         "tr" : {
@@ -1307,7 +1307,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Read more"
+            "value" : "Подробнее"
           }
         },
         "tr" : {
@@ -1754,7 +1754,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reveal and copy"
+            "value" : "Показать и скопировать"
           }
         },
         "tr" : {
@@ -1903,7 +1903,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It replaces login and password. Keep it safe — you control your data. You can find this Key later in app settings."
+            "value" : "Он заменяет логин и пароль. Держите его в безопасности — вы контролируете ваши данные. Вы можете найти этот ключ позже в настройках приложения."
           }
         },
         "tr" : {
@@ -3245,7 +3245,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select one role or background that best fits you"
+            "value" : "Выберите одну роль или фон, которые лучше всего подходят вам"
           }
         },
         "tr" : {
@@ -4139,7 +4139,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Founder / Entrepreneur"
+            "value" : "Основатель / Предприниматель"
           }
         },
         "tr" : {
@@ -4437,7 +4437,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Marketer"
+            "value" : "Маркетолог"
           }
         },
         "tr" : {
@@ -4586,7 +4586,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Researcher / Academic"
+            "value" : "Исследователь / Академик"
           }
         },
         "tr" : {
@@ -4735,7 +4735,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "Студент"
           }
         },
         "tr" : {
@@ -4884,7 +4884,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Writer / Journalist"
+            "value" : "Писатель / Журналист"
           }
         },
         "tr" : {
@@ -5033,7 +5033,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Habit tracking"
+            "value" : "Отслеживание привычек"
           }
         },
         "tr" : {
@@ -5182,7 +5182,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal knowledge base / PKM"
+            "value" : "База личных знаний / БЛЗ"
           }
         },
         "tr" : {
@@ -5331,7 +5331,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Life planning"
+            "value" : "Планирование жизни"
           }
         },
         "tr" : {
@@ -5480,7 +5480,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messaging & group chats"
+            "value" : "Общение и групповые чаты"
           }
         },
         "tr" : {
@@ -5629,7 +5629,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Personal note-taking"
+            "value" : "Личные заметки"
           }
         },
         "tr" : {
@@ -5778,7 +5778,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Projects & tasks management"
+            "value" : "Управление проектами и задачами"
           }
         },
         "tr" : {
@@ -5927,7 +5927,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Team work & shared docs"
+            "value" : "Работа в команде и общие документы"
           }
         },
         "tr" : {
@@ -6076,7 +6076,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Pick one use case that fits you best"
+            "value" : "Выберите один вариант использования, который подходит вам лучше всего"
           }
         },
         "tr" : {
@@ -6225,7 +6225,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "What do you want to use Anytype for?"
+            "value" : "Для чего вы хотите использовать Anytype?"
           }
         },
         "tr" : {
@@ -6523,7 +6523,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "or enter with"
+            "value" : "или введите через"
           }
         },
         "tr" : {
@@ -7269,7 +7269,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Encrypted, local,"
+            "value" : "Зашифрованный, локальный,"
           }
         },
         "tr" : {
@@ -7418,7 +7418,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "yours forever"
+            "value" : "ваш навсегда"
           }
         },
         "tr" : {
@@ -9357,7 +9357,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair"
+            "value" : "Ведьма крах практика кормить стыд открывать отчаяние ручей дорога снова лёд наименьший озеро дерево молодой адрес мозг отчаяние"
           }
         },
         "tr" : {
@@ -9804,7 +9804,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please clear approximately %@ of space and run the process again."
+            "value" : "Пожалуйста, освободите %@ места и запустите процесс снова."
           }
         },
         "tr" : {
@@ -10848,7 +10848,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update is in progress..."
+            "value" : "Идёт обновление..."
           }
         },
         "tr" : {
