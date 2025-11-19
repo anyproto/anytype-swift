@@ -598,7 +598,6 @@ public enum Loc {
     return Loc.tr("UI", "SuccessfullyDeleted ", String(describing: p1), fallback: "%@ deleted successfully")
   }
   public static let synced = Loc.tr("UI", "Synced", fallback: "Synced")
-  public static let syncing = Loc.tr("UI", "Syncing...", fallback: "Syncing...")
   public static let systemProperties = Loc.tr("UI", "System Properties", fallback: "System Properties")
   public static func tag(_ p1: Int) -> String {
     return Loc.tr("UI", "Tag", p1, fallback: "Plural format key: Tag")
