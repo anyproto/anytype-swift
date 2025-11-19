@@ -4,7 +4,6 @@ import Services
 
 struct HomeWidgetData: Hashable {
     let spaceId: String
-    let route: HomeWidgetRoute?
 }
 
 struct HomeWidgetsCoordinatorView: View {
@@ -12,7 +11,7 @@ struct HomeWidgetsCoordinatorView: View {
 
     var body: some View {
         SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) {
-            HomeWidgetsCoordinatorInternalView(info: $0, route: data.route)
+            HomeWidgetsCoordinatorInternalView(info: $0)
         }
     }
 }
@@ -21,15 +20,13 @@ private struct HomeWidgetsCoordinatorInternalView: View {
 
     @State private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
-    let route: HomeWidgetRoute?
 
-    init(info: AccountInfo, route: HomeWidgetRoute?) {
+    init(info: AccountInfo) {
         self._model = State(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
-        self.route = route
     }
-    
+
     var body: some View {
-        HomeWidgetsView(info: model.spaceInfo, output: model, route: route)
+        HomeWidgetsView(info: model.spaceInfo, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

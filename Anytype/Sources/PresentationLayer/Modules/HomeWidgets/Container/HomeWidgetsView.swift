@@ -6,10 +6,9 @@ import AnytypeCore
 struct HomeWidgetsView: View {
     let info: AccountInfo
     let output: (any HomeWidgetsModuleOutput)?
-    let route: HomeWidgetRoute?
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, output: output, route: route)
+        HomeWidgetsInternalView(info: info, output: output)
             .id(info.hashValue)
     }
 }
@@ -19,8 +18,8 @@ private struct HomeWidgetsInternalView: View {
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
 
-    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?, route: HomeWidgetRoute?) {
-        self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output, route: route))
+    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
+        self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
     }
     
     var body: some View {
