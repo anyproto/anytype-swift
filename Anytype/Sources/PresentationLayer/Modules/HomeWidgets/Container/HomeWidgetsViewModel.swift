@@ -17,8 +17,7 @@ final class HomeWidgetsViewModel {
 
     let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
-    let route: HomeWidgetRoute?
-    
+
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
@@ -54,15 +53,13 @@ final class HomeWidgetsViewModel {
     var canCreateObjectType: Bool = false
     
     var spaceId: String { info.accountSpaceId }
-    
+
     init(
         info: AccountInfo,
-        output: (any HomeWidgetsModuleOutput)?,
-        route: HomeWidgetRoute?
+        output: (any HomeWidgetsModuleOutput)?
     ) {
         self.info = info
         self.output = output
-        self.route = route
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
@@ -75,11 +72,11 @@ final class HomeWidgetsViewModel {
 
         _ = await (widgetObjectSub, participantTask, objectTypesTask)
     }
-    
+
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenWidget(route: route)
+        AnytypeAnalytics.instance().logScreenWidget()
     }
-    
+
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
         widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }

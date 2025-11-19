@@ -1303,13 +1303,11 @@ extension AnytypeAnalytics {
     func logHistoryBack() {
         logEvent("HistoryBack")
     }
-    
-    func logScreenWidget(route: HomeWidgetRoute?) {
-        logEvent("ScreenWidget", withEventProperties: [
-            AnalyticsEventsPropertiesKey.route: route?.rawValue
-        ].compactMapValues { $0 })
+
+    func logScreenWidget() {
+        logEvent("ScreenWidget")
     }
-    
+
     func logScreenBin() {
         logEvent("ScreenBin")
     }

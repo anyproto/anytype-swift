@@ -171,12 +171,6 @@ enum AnalyticsWidgetContext: String, Hashable {
     case auto = "Auto"
 }
 
-enum HomeWidgetRoute: String, Hashable, Codable {
-    case home = "Home"
-    case space = "Space"
-    case appLaunch = "AppLaunch"
-}
-
 enum RemoveCompletelyRoute: String {
     case bin = "Bin"
     case settings = "Settings"
