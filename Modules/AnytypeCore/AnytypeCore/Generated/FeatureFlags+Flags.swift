@@ -102,6 +102,10 @@ public extension FeatureFlags {
         value(for: .spaceHubAlwaysShowLoading)
     }
 
+    static var showHangedObjects: Bool {
+        value(for: .showHangedObjects)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .showAllButtonInWidgets,
@@ -127,6 +131,7 @@ public extension FeatureFlags {
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
         .skipOnboardingEmailCollection,
-        .spaceHubAlwaysShowLoading
+        .spaceHubAlwaysShowLoading,
+        .showHangedObjects
     ]
 }

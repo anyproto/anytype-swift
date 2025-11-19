@@ -170,4 +170,11 @@ public extension FeatureDescription {
         type: .debug,
         defaultValue: false
     )
+
+    static let showHangedObjects = FeatureDescription(
+        title: "Show hanged objects",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
+    )
 }

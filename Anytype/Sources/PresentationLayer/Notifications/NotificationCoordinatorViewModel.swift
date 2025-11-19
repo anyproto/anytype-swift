@@ -21,12 +21,17 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var dismissAllPresented: DismissAllPresented?
     private var uploadingFilesCount: Int = 0
     private var showSpaceLoading: Bool = false
+    private let hangedObjectsMonitor = HangedObjectsMonitor()
 
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var uploadStatusText: String?
 
     func onAppear() {
+        hangedObjectsMonitor.onStateChanged = { [weak self] in
+            self?.updateUploadStatusText()
+        }
+
         Task {
             if subscription.isNotNil {
                 anytypeAssertionFailure("Try start subscription again")
@@ -41,6 +46,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     func onDisappear() {
         subscription?.cancel()
         subscription = nil
+        hangedObjectsMonitor.reset()
     }
     
     func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
@@ -55,11 +61,17 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         for await statuses in syncStatusStorage.allSpacesStatusPublisher().values {
             guard FeatureFlags.showUploadStatusIndicator else { continue }
 
-            let count = statuses
-                .filter { $0.status == .syncing } // todo: count only files
-                .reduce(0) { $0 + Int($1.syncingObjectsCounter) }
+            uploadingFilesCount = statuses
+                .filter { $0.status == .syncing }
+                .reduce(0) { $0 + Int($1.uploadingFilesCounter) }
 
-            uploadingFilesCount = count
+            if FeatureFlags.showHangedObjects {
+                let syncingCount = statuses
+                    .filter { $0.status == .syncing }
+                    .reduce(0) { $0 + Int($1.syncingObjectsCounter) }
+                hangedObjectsMonitor.update(count: syncingCount)
+            }
+
             updateUploadStatusText()
         }
     }
@@ -78,6 +90,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             Loc.filesUploading(uploadingFilesCount)
         } else if showSpaceLoading {
             Loc.syncing
+        } else if hangedObjectsMonitor.shouldShow() {
+            Loc.itemsSyncing(hangedObjectsMonitor.objectsCount)
         } else {
             nil
         }
