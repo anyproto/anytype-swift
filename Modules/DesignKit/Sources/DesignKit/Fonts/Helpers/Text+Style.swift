@@ -28,7 +28,7 @@ public extension TextField {
 
 public extension View {
     func anytypeLineHeightStyle(_ style: AnytypeFont) -> some View {
-        if #available(iOS 26, *) {
+        if #available(iOS 26.0, *) {
             return self.lineHeight(.exact(points: style.config.lineHeight))
         } else {
             return self.environment(\._lineHeightMultiple, style.lineHeightMultiple)

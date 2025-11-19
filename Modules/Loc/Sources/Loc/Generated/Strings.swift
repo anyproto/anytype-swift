@@ -430,7 +430,7 @@ public enum Loc {
   public static let moveTo = Loc.tr("UI", "Move to", fallback: "Move to")
   public static let moveToBin = Loc.tr("UI", "Move To Bin", fallback: "Move To Bin")
   public static let mute = Loc.tr("UI", "Mute", fallback: "Mute")
-  public static let myChannels = Loc.tr("UI", "My channels", fallback: "My Channels")
+  public static let myChannels = Loc.tr("UI", "My channels", fallback: "Channels")
   public static let myFirstSpace = Loc.tr("UI", "My First Space", fallback: "My First Space")
   public static let myProperties = Loc.tr("UI", "My Properties", fallback: "My Properties")
   public static let mySites = Loc.tr("UI", "My Sites", fallback: "My Sites")
@@ -598,6 +598,7 @@ public enum Loc {
     return Loc.tr("UI", "SuccessfullyDeleted ", String(describing: p1), fallback: "%@ deleted successfully")
   }
   public static let synced = Loc.tr("UI", "Synced", fallback: "Synced")
+  public static let syncing = Loc.tr("UI", "Syncing...", fallback: "Syncing...")
   public static let systemProperties = Loc.tr("UI", "System Properties", fallback: "System Properties")
   public static func tag(_ p1: Int) -> String {
     return Loc.tr("UI", "Tag", p1, fallback: "Plural format key: Tag")

@@ -45,28 +45,28 @@ struct SpaceHubView: View {
     private func spacesView() -> some View {
         NavigationStack {
             SpaceHubList(model: model)
+                .navigationTitle(Loc.myChannels)
+                .scrollEdgeEffectStyleIOS26(.soft, for: .top)
                 .toolbar { toolbarItems }
-                .navigationBarTitle("")
-                .navigationBarHidden(true)
                 .searchable(text: $model.searchText)
                 .onChange(of: model.searchText) {
                     model.searchTextUpdated()
                 }
         }.tint(Color.Text.secondary)
     }
-
-    @ToolbarContentBuilder
+    
     private var toolbarItems: some ToolbarContent {
-        if #available(iOS 26.0, *) {
-            DefaultToolbarItem(kind: .search, placement: .bottomBar)
-
-            ToolbarSpacer(placement: .bottomBar)
-
-            ToolbarItem(placement: .bottomBar) {
-                Button { model.onTapCreateSpace() } label: { Label("", systemImage: "plus") }
+        SpaceHubToolbar(
+            profileIcon: model.profileIcon,
+            notificationsDenied: model.notificationsDenied,
+            namespace: namespace,
+            onTapCreateSpace: {
+                model.onTapCreateSpace()
+            },
+            onTapSettings: {
+                model.onTapSettings()
             }
-            .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)
-        }
+        )
     }
 }
 

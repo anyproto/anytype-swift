@@ -10,14 +10,14 @@ struct NotificationCoordinatorView: View {
         Color.clear
             .allowsHitTesting(false)
             .overlay(alignment: .top) {
-                if model.uploadingFilesCount > 0 {
-                    UploadStatusBannerView(count: model.uploadingFilesCount)
+                if let text = model.uploadStatusText {
+                    UploadStatusBannerView(text: text)
                         .padding(.top, 8)
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .allowsHitTesting(true)
                 }
             }
-            .animation(.spring(), value: model.uploadingFilesCount)
+            .animation(.spring(), value: model.uploadStatusText)
             .onAppear {
                 model.onAppear()
                 model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
@@ -27,6 +27,9 @@ struct NotificationCoordinatorView: View {
             }
             .taskWithMemoryScope {
                 await model.startHandleSyncStatus()
+            }
+            .taskWithMemoryScope {
+                await model.startHandleSpaceLoading()
             }
             .anytypeSheet(item: $model.spaceRequestAlert) {
                 SpaceRequestAlert(data: $0) { reason in

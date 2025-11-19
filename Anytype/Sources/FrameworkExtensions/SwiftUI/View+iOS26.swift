@@ -10,4 +10,33 @@ extension View {
             self
         }
     }
+    
+    @ViewBuilder
+    nonisolated public func scrollEdgeEffectStyleIOS26(_ style: ScrollEdgeEffectStyleIOS26?, for edges: Edge.Set) -> some View {
+        if #available(iOS 26.0, *) {
+            self.scrollEdgeEffectStyle(style?.style, for: edges)
+        } else {
+            self
+        }
+    }
+}
+
+public enum ScrollEdgeEffectStyleIOS26 {
+    case automatic
+    case hard
+    case soft
+}
+
+@available(iOS 26.0, *)
+public extension ScrollEdgeEffectStyleIOS26 {
+    var style: ScrollEdgeEffectStyle {
+        switch self {
+        case .automatic:
+                .automatic
+        case .hard:
+                .hard
+        case .soft:
+                .soft
+        }
+    }
 }
