@@ -15,7 +15,7 @@ public extension DetailsLayout {
 
     fileprivate static let widgetTypeLayoutsBase = listLayouts + editorLayouts + [.bookmark] + fileAndMediaLayouts + chatLayouts
 
-    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType]
+    private static let supportedForOpening: [DetailsLayout] = visibleLayoutsWithFilesBase + [.objectType, .participant]
 
     private static let supportedForCreationInSets: [DetailsLayout] = editorLayouts + [.bookmark] + listLayouts
     private static let layoutsWithIcon: [DetailsLayout] = listLayouts + fileAndMediaLayouts + [.basic, .profile, .objectType]
