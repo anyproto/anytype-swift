@@ -27,7 +27,7 @@ struct MessageImageView: View {
                     MessageAttachmentLoadingIndicator()
                 }
             } loadTimeTracker: { time, success in
-                print("time: \(time) ms, success: \(success), sizeInBytes: \(sizeInBytes)")
+                AnytypeAnalytics.instance().logScreenChatImage(time: time, status: success ? .success : .failure, size: sizeInBytes)
             }
         }
     }

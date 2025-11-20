@@ -7,7 +7,7 @@ public extension CachedAsyncImage {
         cache: CachedAsyncImageCache = .default,
         @ViewBuilder content: @escaping (Image) -> I,
         @ViewBuilder placeholder: @escaping () -> P,
-        loadTimeTracker: ((TimeInterval, Bool) -> Void)? = nil
+        loadTimeTracker: ((Int, Bool) -> Void)? = nil
     ) where Content == _ConditionalContent<I, P> {
         self.init(url: url, cache: cache, content: { state in
             if let image = state.image {
@@ -25,7 +25,7 @@ public struct CachedAsyncImage<Content: View>: View {
     private let content: (AsyncImagePhase) -> Content
     @State private var model: CachedAsyncImageModel
     
-    public init(url: URL?, cache: CachedAsyncImageCache = .default, @ViewBuilder content: @escaping (AsyncImagePhase) -> Content, loadTimeTracker: ((TimeInterval, Bool) -> Void)? = nil) {
+    public init(url: URL?, cache: CachedAsyncImageCache = .default, @ViewBuilder content: @escaping (AsyncImagePhase) -> Content, loadTimeTracker: ((Int, Bool) -> Void)? = nil) {
         self.url = url
         self.content = content
         self._model = State(wrappedValue: CachedAsyncImageModel(url: url, cache: cache, loadTimeTracker: loadTimeTracker))
@@ -52,9 +52,9 @@ private final class CachedAsyncImageModel {
     @ObservationIgnored
     private var currentURL: URL?
     // Load time in ms
-    private let loadTimeTracker: ((TimeInterval, Bool) -> Void)?
+    private let loadTimeTracker: ((Int, Bool) -> Void)?
     
-    init(url: URL?, cache: CachedAsyncImageCache, loadTimeTracker: ((TimeInterval, Bool) -> Void)?) {
+    init(url: URL?, cache: CachedAsyncImageCache, loadTimeTracker: ((Int, Bool) -> Void)?) {
         self.cache = cache
         self.currentURL = url
         self.loadTimeTracker = loadTimeTracker
@@ -90,7 +90,7 @@ private final class CachedAsyncImageModel {
         
         if let loadTimeTracker {
             let end = DispatchTime.now()
-            let time = Double(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000 // ms
+            let time = Int(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000 // ms
             loadTimeTracker(time, successForTracker)
         }
     }

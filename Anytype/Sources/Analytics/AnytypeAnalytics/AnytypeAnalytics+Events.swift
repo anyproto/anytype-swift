@@ -1758,4 +1758,16 @@ extension AnytypeAnalytics {
             AnalyticsEventsPropertiesKey.type: objectType.analyticsId
         ].compactMapValues { $0 })
     }
+    
+    func logScreenChatImage(time: Int, status: ScreenChatImageStatus, size: Int?) {
+        logEvent("ScreenChatImage", withEventProperties: .builder {
+            [
+                AnalyticsEventsPropertiesKey.time: time,
+                AnalyticsEventsPropertiesKey.status: status.rawValue
+            ]
+            if let size {
+                [AnalyticsEventsPropertiesKey.size: size]
+            }
+        })
+    }
 }
