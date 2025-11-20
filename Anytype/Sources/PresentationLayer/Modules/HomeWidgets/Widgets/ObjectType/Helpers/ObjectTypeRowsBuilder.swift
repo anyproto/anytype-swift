@@ -75,7 +75,7 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
     }
 
     private func startChatPreviewsSubscription() async {
-        for await previews in await chatMessagesPreviewsStorage.previewsSequence {
+        for await previews in await chatMessagesPreviewsStorage.previewsSequenceWithEmpty {
             chatPreviews = previews
         }
     }
