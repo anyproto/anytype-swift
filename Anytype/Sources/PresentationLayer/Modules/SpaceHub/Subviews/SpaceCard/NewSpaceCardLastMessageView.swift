@@ -57,10 +57,12 @@ struct NewSpaceCardLastMessageView: View {
 
     private var messageWithAttachements: some View {
         VStack(alignment: .leading, spacing: 2) {
-            if supportsMultiChats, let chatName = model.chatName {
-                AnytypeText(chatName, style: .chatPreviewMedium)
-                    .foregroundColor(.Text.transparentSecondary)
-                    .lineLimit(1)
+            if supportsMultiChats {
+                if let chatName = model.chatName {
+                    AnytypeText(chatName, style: .chatPreviewMedium)
+                        .foregroundColor(.Text.transparentSecondary)
+                        .lineLimit(1)
+                }
             } else if let creatorTitle = model.creatorTitle {
                 AnytypeText(creatorTitle, style: .chatPreviewRegular)
                     .foregroundColor(.Text.transparentSecondary)
@@ -68,6 +70,13 @@ struct NewSpaceCardLastMessageView: View {
             }
 
             HStack(spacing: 2) {
+                if let creatorTitle = model.creatorTitle {
+                    AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
+                        .foregroundColor(.Text.transparentSecondary)
+                        .lineLimit(1)
+                }
+                Spacer.fixedWidth(2)
+                
                 ForEach(model.attachments) {
                     IconView(icon: $0.icon).frame(width: 18, height: 18)
                 }
