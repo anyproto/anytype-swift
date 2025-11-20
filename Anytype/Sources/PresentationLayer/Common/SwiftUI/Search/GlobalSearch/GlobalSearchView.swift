@@ -63,26 +63,30 @@ struct GlobalSearchView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 0) {
                 ForEach(ObjectTypeSection.searchSupportedSection, id: \.self) { section in
-                    AnytypeText(
-                        section.title,
-                        style: .uxTitle2Medium
-                    )
-                    .foregroundColor(model.state.section == section ? .Text.inversion : .Text.secondary)
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 10)
-                    .background(model.state.section == section ? Color.Control.secondary : .clear)
-                    .cornerRadius(16)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        UISelectionFeedbackGenerator().selectionChanged()
-                        model.onSectionChanged(section)
-                    }
-                    .animation(.easeInOut, value: model.state.section == section)
+                    sectionView(section)
                 }
             }
             .padding(.bottom, 10)
             .padding(.horizontal, 6)
         }
+    }
+    
+    func sectionView(_ section: ObjectTypeSection) -> some View {
+        AnytypeText(
+            section.title,
+            style: .uxTitle2Medium
+        )
+        .foregroundColor(model.state.section == section ? .Text.inversion : .Text.secondary)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .background(model.state.section == section ? Color.Control.secondary : .clear)
+        .cornerRadius(16)
+        .fixTappableArea()
+        .onTapGesture {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onSectionChanged(section)
+        }
+        .animation(.easeInOut, value: model.state.section == section)
     }
     
     @ViewBuilder
