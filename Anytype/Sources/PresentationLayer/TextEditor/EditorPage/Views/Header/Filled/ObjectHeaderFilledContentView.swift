@@ -74,7 +74,10 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
             withHorizontalFittingPriority: .defaultHigh,
             verticalFittingPriority: .fittingSizeLevel
         )
-        invalidateIntrinsicContentSize()
+        UIView.performWithoutAnimation {
+            invalidateIntrinsicContentSize()
+            superview?.layoutIfNeeded()
+        }
     }
 }
 
