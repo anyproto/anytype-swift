@@ -1758,4 +1758,8 @@ extension AnytypeAnalytics {
             AnalyticsEventsPropertiesKey.type: objectType.analyticsId
         ].compactMapValues { $0 })
     }
+
+    func logClickNavigationScreenHome() {
+        logEvent("ClickNavigationScreenHome")
+    }
 }
