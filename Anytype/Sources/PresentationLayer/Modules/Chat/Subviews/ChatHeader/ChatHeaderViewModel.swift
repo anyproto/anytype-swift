@@ -31,6 +31,11 @@ final class ChatHeaderViewModel: ObservableObject {
     private let onTapAddMembers: (() -> Void)
     private let chatObject: any BaseDocumentProtocol
 
+    private var spaceSupportsMultiChats: Bool = false
+    private var spaceTitle: String?
+    private var spaceIcon: Icon?
+    private var chatDetails: ObjectDetails?
+
     init(
         spaceId: String,
         chatId: String,
@@ -46,10 +51,11 @@ final class ChatHeaderViewModel: ObservableObject {
     
     func startSubscriptions() async {
         async let spaceViewSub: () = subscribeOnSpaceView()
+        async let chatDetailsSub: () = subscribeOnChatDetails()
         async let chatSub: () = subscribeOnChatStatus()
         async let spaceStatusSub: () = subscribeOnSpaceStatus()
-        
-        _ = await (spaceViewSub, chatSub, spaceStatusSub)
+
+        _ = await (spaceViewSub, chatDetailsSub, chatSub, spaceStatusSub)
     }
     
     func tapOpenWidgets() { onTapOpenWidgets() }
@@ -61,14 +67,23 @@ final class ChatHeaderViewModel: ObservableObject {
     private func subscribeOnSpaceView() async {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
-            title = spaceView.title
-            icon = spaceView.objectIconImage
+            spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
+            spaceTitle = spaceView.title
+            spaceIcon = spaceView.objectIconImage
             showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
             muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll
             showAddMembersButton = participantSpaceView.participant?.permission == .owner
+            updateHeaderDisplay()
         }
     }
-    
+
+    private func subscribeOnChatDetails() async {
+        for await details in chatObject.detailsPublisher.values {
+            chatDetails = details
+            updateHeaderDisplay()
+        }
+    }
+
     private func subscribeOnChatStatus() async {
         let loadingPublisher = chatObject.detailsPublisher
             .map {
@@ -106,6 +121,21 @@ final class ChatHeaderViewModel: ObservableObject {
     private func subscribeOnSpaceStatus() async {
         for await spaceStatus in syncStatusStorage.statusPublisher(spaceId: spaceId).values {
             spaceLoading = spaceStatus.status == .error
+        }
+    }
+
+    private func updateHeaderDisplay() {
+        if spaceSupportsMultiChats {
+            if let chatDetails {
+                title = chatDetails.name.withPlaceholder
+                icon = chatDetails.objectIconImage
+            } else {
+                title = nil
+                icon = nil
+            }
+        } else {
+            title = spaceTitle
+            icon = spaceIcon
         }
     }
 }
