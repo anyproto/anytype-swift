@@ -112,6 +112,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onTapHome() {
+        AnytypeAnalytics.instance().logClickNavigationScreenHome()
         output?.popToFirstInSpace()
     }
     
