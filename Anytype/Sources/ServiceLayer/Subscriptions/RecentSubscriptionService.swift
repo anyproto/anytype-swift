@@ -85,12 +85,14 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         case .recentEdit:
             return SearchHelper.sort(
                 relation: BundledPropertyKey.lastModifiedDate,
-                type: .desc
+                type: .desc,
+                includeTime: true
             )
         case .recentOpen:
             return SearchHelper.sort(
                 relation: BundledPropertyKey.lastOpenedDate,
-                type: .desc
+                type: .desc,
+                includeTime: true
             )
         }
     }
