@@ -108,7 +108,7 @@ final class TypePropertiesViewModel: ObservableObject {
             spaceId: document.spaceId,
             excludedRelationsIds: relationRows.compactMap(\.relationId),
             target: .type(typeData),
-            onRelationSelect: { [spaceId = document.spaceId] details, isNew in
+            onRelationSelect: { details, isNew in
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                     format: details.format, isNew: isNew, type: .type, key: details.analyticsKey
                 )
