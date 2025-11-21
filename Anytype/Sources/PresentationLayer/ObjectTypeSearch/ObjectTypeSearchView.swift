@@ -213,7 +213,7 @@ struct ObjectTypeSearchView: View {
         }
         
         let isNotListLayout = data.type.recommendedLayout.flatMap { !$0.isList } ?? false
-        let canSetAsDefault = !data.isDefault && data.type.canCreateObjectOfThisType && isNotListLayout
+        let canSetAsDefault = !data.isDefault && data.type.canCreateObjectOfThisType && isNotListLayout && !data.type.isChatType
         
         if  canSetAsDefault {
             Button(Loc.setAsDefault) {
