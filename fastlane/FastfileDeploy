@@ -144,7 +144,8 @@ platform :ios do
         new_parts = new_version[1].split('.')
 
         # Check if major.minor are the same
-        if old_parts[0] == new_parts[0] && old_parts[1] == new_parts[1]
+        if old_parts.length >= 2 && new_parts.length >= 2 &&
+           old_parts[0] == new_parts[0] && old_parts[1] == new_parts[1]
           is_patch_release = true
         end
       end
