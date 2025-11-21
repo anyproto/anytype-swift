@@ -7,6 +7,7 @@ import Collections
 import UIKit
 import NotificationsCore
 import ProtobufMessages
+import AsyncAlgorithms
 @preconcurrency import Combine
 
 @MainActor
@@ -627,8 +628,14 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     private func subscribeOnPermissions() async {
-        for await canEditMessages in accountParticipantsStorage.canEditSequence(spaceId: spaceId) {
-            canEdit = canEditMessages
+        let permissionsSequence = accountParticipantsStorage.canEditSequence(spaceId: spaceId)
+        let deletedOrArchivedSequence = chatObject.detailsPublisher
+            .map { !$0.isDeleted && !$0.isArchived }
+            .removeDuplicates()
+            .values
+
+        for await (canEditMessages, canEditChat) in combineLatest(permissionsSequence, deletedOrArchivedSequence) {
+            canEdit = canEditMessages && canEditChat
         }
     }
     

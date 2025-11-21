@@ -146,9 +146,11 @@ extension ObjectType: DetailsModel {
     }
     
     public var isTemplateType: Bool { uniqueKey == .template }
-    
+
     public var isDateType: Bool { uniqueKey == .date }
-    
+
+    public var isChatType: Bool { uniqueKey == .chatDerived }
+
     // MARK: - Layout proxy
     public var isListType: Bool { recommendedLayout.isList }
     

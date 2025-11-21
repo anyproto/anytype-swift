@@ -64,11 +64,6 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
             AnytypeAnalytics.instance().logClickShareObjectUpdate(objectType: analyticsObjectType)
         }
         
-        let encodedPath = customPath
-            .removingPercentEncoding?
-            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? customPath
-        customPath = encodedPath
-        
         try await publishingService.create(spaceId: spaceId, objectId: objectId, uri: customPath, joinSpace: showJoinSpaceButton)
         status = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId)
         
