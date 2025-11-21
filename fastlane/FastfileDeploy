@@ -126,11 +126,34 @@ platform :ios do
     end
 
     # Check if we should add Linear comments
-    # Skip if: (1) old_tag is the same as new tag (first release)
-    #          (2) both tags point to the same commit (retried build)
+    # For release patch builds: Skip if (1) old_tag is the same as new tag (first release)
+    #                                    (2) both tags point to the same commit (retried build)
+    # For release minor/major builds: Always add comments (skip only if first release)
+    # For dev/nightly builds: Always add comments (skip only if first release)
+    is_release_build = prefix == "release-anytype"
+
+    # Detect if this is a patch release (same major.minor, different patch)
+    is_patch_release = false
+    if is_release_build && old_tag_name != tag_name
+      # Extract versions from both tags
+      old_version = old_tag_name.match(/#{Regexp.escape(prefix)}\/([^\/]+)\//)
+      new_version = tag_name.match(/#{Regexp.escape(prefix)}\/([^\/]+)\//)
+
+      if old_version && new_version
+        old_parts = old_version[1].split('.')
+        new_parts = new_version[1].split('.')
+
+        # Check if major.minor are the same
+        if old_parts[0] == new_parts[0] && old_parts[1] == new_parts[1]
+          is_patch_release = true
+        end
+      end
+    end
+
     if old_tag_name == tag_name
       puts "⏭️  Skipping Linear comments: First release, no previous version to compare"
-    else
+    elsif is_release_build && is_patch_release
+      # For release patch builds: check if commits match to avoid duplicates on retried builds
       old_commit = sh("git rev-parse #{old_tag_name}^{commit} 2>/dev/null || echo ''").strip
       new_commit = sh("git rev-parse #{tag_name}^{commit}").strip
 
@@ -145,6 +168,13 @@ platform :ios do
           comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
         )
       end
+    else
+      # For release minor/major and dev/nightly builds: always add comments without commit comparison
+      add_linear_comment(
+        from_tag: old_tag_name,
+        to_tag: tag_name,
+        comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+      )
     end
   
     upload_to_testflight(skip_waiting_for_build_processing: true)
