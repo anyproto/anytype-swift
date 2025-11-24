@@ -20,12 +20,14 @@ platform :ios do
       ENV["APP_CONF_DEVELOP"] => {
         tag_prefix: "dev",
         add_badge: true,
-        app_info: "Debug"
+        app_info: "Debug",
+        bundle_id: "io.anytype.app.dev"
       },
       ENV["APP_CONF_RELEASE_ANYTYPE"] => {
         tag_prefix: "release-anytype",
         add_badge: false,
-        app_info: "Release Anytype"
+        app_info: "Release Anytype",
+        bundle_id: "io.anytype.app"
       }
     }
 
@@ -147,6 +149,9 @@ platform :ios do
       end
     end
   
+    bundle_id = settings[:bundle_id]
+    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--apple-id #{bundle_id} --use-old-altool"
+
     upload_to_testflight(skip_waiting_for_build_processing: true)
 
     github_message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"
