@@ -2,6 +2,7 @@ import Foundation
 import ProtobufMessages
 import Combine
 import Services
+import AnytypeCore
 
 
 @MainActor
@@ -24,15 +25,18 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
     var currentStatus: MembershipStatus { _status }
     @Published private var _status: MembershipStatus = .empty
-    
+
+    private var _currentMembership: Anytype_Model_Membership?
+    private var _cachedTiers: [MembershipTier] = []
+
     private var subscription: AnyCancellable?
     
     nonisolated init() { }
     
     func startSubscription() async {
-        _status =  (try? await membershipService.getMembership(noCache: true)) ?? .empty
+        _status =  (try? await membershipService.getMembership(noCache: false)) ?? .empty
         AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
-        
+
         setupSubscription()
     }
     
@@ -56,17 +60,46 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .membershipUpdate(let update):
-                Task {
-                    let allTiers = try await membershipService.getTiers()
-                    
-                    _status = try builder.buildMembershipStatus(membership: update.data, allTiers: allTiers)
-                    _status.tier.flatMap { AnytypeAnalytics.instance().logChangePlan(tier: $0) }
-                    
-                    AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
-                }
+                handleMembershipUpdate(update)
+            case .membershipTiersUpdate(let update):
+                handleMembershipTiersUpdate(update)
             default:
                 break
             }
         }
+    }
+
+    private func handleMembershipUpdate(_ update: Anytype_Event.Membership.Update) {
+        Task {
+            _currentMembership = update.data
+
+            rebuildStatusIfReady()
+
+            if let tier = _cachedTiers.first(where: { $0.id.id == update.data.tier }) {
+                AnytypeAnalytics.instance().logChangePlan(tier: tier)
+            }
+        }
+    }
+
+    private func handleMembershipTiersUpdate(_ update: Anytype_Event.Membership.TiersUpdate) {
+        Task {
+            let filteredTiers = update.tiers
+                .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
+
+            _cachedTiers = await filteredTiers.asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
+
+            rebuildStatusIfReady()
+        }
+    }
+
+    private func rebuildStatusIfReady() {
+        guard let membership = _currentMembership, !_cachedTiers.isEmpty else { return }
+
+        guard let newStatus = try? builder.buildMembershipStatus(membership: membership, allTiers: _cachedTiers) else {
+            return
+        }
+
+        _status = newStatus
+        AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
     }
 }
