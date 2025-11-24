@@ -4,10 +4,10 @@ import Services
 
 struct SpaceShareView: View {
 
-    @StateObject private var model: SpaceShareViewModel
+    @State private var model: SpaceShareViewModel
 
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SpaceShareViewModel(data: data, output: output))
+        self._model = State(wrappedValue: SpaceShareViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -49,7 +49,39 @@ struct SpaceShareView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.SpaceShare.members)
-            
+                .overlay(alignment: .trailing) {
+                    if model.linkViewModel.shareLink != nil {
+                        Menu {
+                            Button {
+                                model.linkViewModel.onCopyLink(route: .menu)
+                            } label: {
+                                Text(Loc.copyLink)
+                                Spacer()
+                                Image(systemName: "link")
+                            }
+                            Button {
+                                model.linkViewModel.onShareInvite()
+                            } label: {
+                                Text(Loc.SpaceShare.Share.link)
+                                Spacer()
+                                Image(systemName: "square.and.arrow.up")
+                            }
+                            Button {
+                                model.linkViewModel.onShowQrCode()
+                            } label: {
+                                Text(Loc.SpaceShare.Qr.button)
+                                Spacer()
+                                Image(systemName: "qrcode")
+                            }
+                        } label: {
+                            IconView(icon: .asset(.X24.more))
+                                .frame(width: 24, height: 24)
+                        }
+                        .menuOrder(.fixed)
+                        .padding(.trailing, 16)
+                    }
+                }
+
             ScrollView {
                 VStack(spacing: 0) {
                     if let bannerData = model.limitBannerData {
@@ -61,7 +93,7 @@ struct SpaceShareView: View {
                     }
 
                     SectionHeaderView(title: Loc.SpaceShare.Invite.title)
-                    NewInviteLinkView(data: model.data, notifyUpdateLinkView: $model.notifyUpdateLinkView, canChangeInvite: model.canChangeInvite, hasReachedSharedSpacesLimit: model.hasReachedSharedSpacesLimit, output: model.output)
+                    NewInviteLinkView(model: model.linkViewModel, canChangeInvite: model.canChangeInvite, hasReachedSharedSpacesLimit: model.hasReachedSharedSpacesLimit)
 
                     SectionHeaderView(title: Loc.SpaceShare.members)
                     ForEach(model.rows) { participant in
