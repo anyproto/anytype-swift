@@ -6,54 +6,70 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class SpaceShareViewModel: ObservableObject {
-    
+@Observable
+final class SpaceShareViewModel {
+
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
     @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
+    @ObservationIgnored
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspacesStorage: any SpaceViewsStorageProtocol
-    
+
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
-    
+
+    @ObservationIgnored
     private var participants: [Participant] = []
+    @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
     private var canChangeWriterToReader = false
+    @ObservationIgnored
     private var canChangeReaderToWriter = false
-    
+
+    @ObservationIgnored
     let data: SpaceShareData
+    @ObservationIgnored
     weak var output: (any NewInviteLinkModuleOutput)?
+    @ObservationIgnored
     var spaceId: String { data.spaceId }
-    
-    @Published var rows: [SpaceShareParticipantViewModel] = []
-    @Published var toastBarData: ToastBarData?
-    @Published var requestAlertModel: SpaceRequestAlertData?
-    @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
-    @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
-    @Published var showStopSharingAlert = false
-    @Published var showUpgradeBadge = false
-    @Published var canStopShare = false
-    @Published var canDeleteLink = false
-    @Published var canRemoveMember = false
-    @Published var canApproveRequests = false
-    @Published var canChangeInvite = false
-    @Published var hasReachedSharedSpacesLimit = false
-    @Published var limitBannerData: SpaceLimitBannerLimitType?
-    @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var participantInfo: ObjectInfo?
-    @Published var notifyUpdateLinkView = UUID()
-    @Published var showStopSharingAnEmptySpaceAlert = false
+
+    var linkViewModel: NewInviteLinkViewModel
+    var rows: [SpaceShareParticipantViewModel] = []
+    var toastBarData: ToastBarData?
+    var requestAlertModel: SpaceRequestAlertData?
+    var changeAccessAlertModel: SpaceChangeAccessViewModel?
+    var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
+    var showStopSharingAlert = false
+    var showUpgradeBadge = false
+    var canStopShare = false
+    var canDeleteLink = false
+    var canRemoveMember = false
+    var canApproveRequests = false
+    var canChangeInvite = false
+    var hasReachedSharedSpacesLimit = false
+    var limitBannerData: SpaceLimitBannerLimitType?
+    var membershipUpgradeReason: MembershipUpgradeReason?
+    var participantInfo: ObjectInfo?
+    var showStopSharingAnEmptySpaceAlert = false
     
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
+        self.linkViewModel = NewInviteLinkViewModel(data: data, output: output)
     }
     
     func startParticipantsTask() async {
@@ -277,7 +293,7 @@ final class SpaceShareViewModel: ObservableObject {
         try await Task.sleep(seconds: 0.5)
         guard participants.count == 1 else { return }
         try await workspaceService.stopSharing(spaceId: spaceId)
-        notifyUpdateLinkView = UUID()
+        linkViewModel.updateLink()
         showStopSharingAnEmptySpaceAlert.toggle()
     }
 }

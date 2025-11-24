@@ -266,7 +266,7 @@ struct MessageView: View {
         AsyncButton {
             try await output?.didSelectUnread(message: data)
         } label: {
-            Text(Loc.Message.Action.unread)
+            Label(Loc.Message.Action.unread, systemImage: "envelope.badge")
         }
         #endif
         
