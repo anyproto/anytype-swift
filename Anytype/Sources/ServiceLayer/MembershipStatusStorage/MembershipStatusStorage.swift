@@ -50,48 +50,44 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     
     // MARK: - Private
     
-    private func setupSubscription() {        
+    private func setupSubscription() {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
             Task { @MainActor [weak self] in
-                self?.handle(events: events)
+                await self?.handle(events: events)
             }
         }
     }
     
-    private func handle(events: EventsBunch) {
+    private func handle(events: EventsBunch) async {
         for event in events.middlewareEvents {
             switch event.value {
             case .membershipUpdate(let update):
-                handleMembershipUpdate(update)
+                await handleMembershipUpdate(update)
             case .membershipTiersUpdate(let update):
-                handleMembershipTiersUpdate(update)
+                await handleMembershipTiersUpdate(update)
             default:
                 break
             }
         }
     }
 
-    private func handleMembershipUpdate(_ update: Anytype_Event.Membership.Update) {
-        Task {
-            _currentMembership = update.data
+    private func handleMembershipUpdate(_ update: Anytype_Event.Membership.Update) async {
+        _currentMembership = update.data
 
-            rebuildStatusIfReady()
+        rebuildStatusIfReady()
 
-            if let tier = _cachedTiers.first(where: { $0.id.id == update.data.tier }) {
-                AnytypeAnalytics.instance().logChangePlan(tier: tier)
-            }
+        if let tier = _cachedTiers.first(where: { $0.id.id == update.data.tier }) {
+            AnytypeAnalytics.instance().logChangePlan(tier: tier)
         }
     }
 
-    private func handleMembershipTiersUpdate(_ update: Anytype_Event.Membership.TiersUpdate) {
-        Task {
-            let filteredTiers = update.tiers
-                .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
+    private func handleMembershipTiersUpdate(_ update: Anytype_Event.Membership.TiersUpdate) async {
+        let filteredTiers = update.tiers
+            .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
 
-            _cachedTiers = await filteredTiers.asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
+        _cachedTiers = await filteredTiers.asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
 
-            rebuildStatusIfReady()
-        }
+        rebuildStatusIfReady()
     }
 
     private func rebuildStatusIfReady() {
