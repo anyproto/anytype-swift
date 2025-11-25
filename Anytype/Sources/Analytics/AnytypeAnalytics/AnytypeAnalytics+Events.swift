@@ -1770,4 +1770,8 @@ extension AnytypeAnalytics {
             }
         })
     }
+
+    func logClickNavigationScreenHome() {
+        logEvent("ClickNavigationScreenHome")
+    }
 }

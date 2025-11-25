@@ -11,9 +11,9 @@ protocol ObjectTypeRowsBuilderProtocol: AnyObject, Sendable {
 }
 
 actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
-    
+
     private let info: ObjectTypeWidgetInfo
-    
+
     @LazyInjected(\.openedDocumentProvider)
     private var openedDocumentProvider: any OpenedDocumentsProviderProtocol
     @LazyInjected(\.objectTypeProvider)
@@ -26,14 +26,19 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @LazyInjected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
+    @LazyInjected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+    @LazyInjected(\.widgetRowModelBuilder)
+    private var widgetRowModelBuilder: any WidgetRowModelBuilderProtocol
 
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
-    
+
     private let subscriptionId = "ObjectTypeWidget-\(UUID().uuidString)"
     private var isImageType: Bool = false
-    
+    private var chatPreviews: [ChatMessagePreview] = []
+
     private let rowsChannel = AsyncChannel<ObjectTypeWidgetRowType>()
     private var onTap: (@MainActor (_ details: ObjectDetails) -> Void)?
     
@@ -58,8 +63,9 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
     func startSubscriptions() async {
         async let typeSub: () = startTypeSubscription()
         async let objectSub: () = startObjectsSubscription()
-        
-        _ = await (typeSub, objectSub)
+        async let chatPreviewsSub: () = startChatPreviewsSubscription()
+
+        _ = await (typeSub, objectSub, chatPreviewsSub)
     }
     
     private func startTypeSubscription() async {
@@ -67,7 +73,13 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
             isImageType = type.isImageLayout
         }
     }
-    
+
+    private func startChatPreviewsSubscription() async {
+        for await previews in await chatMessagesPreviewsStorage.previewsSequenceWithEmpty {
+            chatPreviews = previews
+        }
+    }
+
     // MARK: - Private
     
     private func startObjectsSubscription() async {
@@ -91,10 +103,13 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
             try await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData)
             
             for await state in subscriptionStorage.statePublisher.values {
+                let spaceView = await spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)
                 let rowDetails = setObjectWidgetOrderHelper.reorder(
                     setDocument: setDocument,
                     subscriptionStorage: subscriptionStorage,
                     details: state.items,
+                    chatPreviews: chatPreviews,
+                    spaceView: spaceView,
                     onItemTap: { [weak self] details, _ in
                         Task {
                             let onTap = await self?.onTap
@@ -102,13 +117,13 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
                         }
                     }
                 )
-                await updateRows(rowDetails: rowDetails, availableMoreObjects: state.total > state.items.count)
+                await updateRows(rowDetails: rowDetails, spaceView: spaceView, availableMoreObjects: state.total > state.items.count)
             }
             
         } catch {}
     }
     
-    private func updateRows(rowDetails: [SetContentViewItemConfiguration], availableMoreObjects: Bool) async {
+    private func updateRows(rowDetails: [SetContentViewItemConfiguration], spaceView: SpaceView?, availableMoreObjects: Bool) async {
         let rows: ObjectTypeWidgetRowType
         if isImageType {
             let galleryRows = rowDetails.map { details in
@@ -124,14 +139,18 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
         } else {
             switch setDocument.activeView.type {
             case .table, .list, .kanban, .calendar, .graph:
-                let listRows = rowDetails.map { ListWidgetRowModel(details: $0) }
+                let listRows = await widgetRowModelBuilder.buildListRows(
+                    from: rowDetails,
+                    spaceView: spaceView,
+                    chatPreviews: chatPreviews
+                )
                 rows = .compactList(rows: listRows, availableMoreObjects: availableMoreObjects)
             case .gallery:
                 let galleryRows = rowDetails.map { GalleryWidgetRowModel(details: $0) }
                 rows = .gallery(rows: galleryRows, availableMoreObjects: availableMoreObjects)
             }
         }
-        
+
         await rowsChannel.send(rows)
     }
 }

@@ -297,13 +297,16 @@ final class SetObjectWidgetInternalViewModel {
     
     private func updateRowDetails(data: SubscriptionStorageState) {
         guard let setDocument else { return }
-        
+
         availableMoreObjects = data.total > data.items.count
-        
+
+        let spaceView = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)
         let rowDetails = setObjectWidgetOrderHelper.reorder(
             setDocument: setDocument,
             subscriptionStorage: subscriptionStorage,
             details: data.items,
+            chatPreviews: chatPreviews,
+            spaceView: spaceView,
             onItemTap: { [weak self] details, sortedDetails in
                 self?.handleTapOnObject(details: details, allDetails: sortedDetails)
             }

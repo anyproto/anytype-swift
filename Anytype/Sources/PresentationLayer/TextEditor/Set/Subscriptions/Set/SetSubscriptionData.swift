@@ -58,6 +58,7 @@ struct SetSubscriptionData: Hashable {
         }
         filters.append(SearchHelper.layoutFilter(DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)))
         filters.append(contentsOf: SearchHelper.notHiddenFilters())
+        filters.append(SearchHelper.filterOutParticipantType())
         self.filters = filters
         self.options = view.options
         self.currentPage = currentPage

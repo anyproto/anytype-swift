@@ -11,25 +11,32 @@ protocol NewInviteLinkModuleOutput: AnyObject {
 }
 
 @MainActor
-final class NewInviteLinkViewModel: ObservableObject {
-    
-    @Published var shareLink: URL? = nil
-    @Published var toastBarData: ToastBarData?
-    @Published var invitePickerItem: SpaceRichIviteType?
-    @Published var showInitialLoading = true
-    @Published var isLoading = false
-    @Published var inviteType: SpaceRichIviteType?
-    @Published var inviteChangeConfirmation: SpaceRichIviteType?
-    
+@Observable
+final class NewInviteLinkViewModel {
+
+    var shareLink: URL? = nil
+    var toastBarData: ToastBarData?
+    var invitePickerItem: SpaceRichIviteType?
+    var showInitialLoading = true
+    var isLoading = false
+    var inviteType: SpaceRichIviteType?
+    var inviteChangeConfirmation: SpaceRichIviteType?
+
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
     @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
-    
+
+    @ObservationIgnored
     private let data: SpaceShareData
+    @ObservationIgnored
     private var spaceId: String { data.spaceId }
+    @ObservationIgnored
     private weak var output: (any NewInviteLinkModuleOutput)?
     
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
