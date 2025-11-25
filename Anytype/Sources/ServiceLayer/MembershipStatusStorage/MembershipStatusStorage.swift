@@ -43,6 +43,8 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     func stopSubscriptionAndClean() async {
         subscription = nil
         _status = .empty
+        _currentMembership = nil
+        _cachedTiers = []
         AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
     }
     
