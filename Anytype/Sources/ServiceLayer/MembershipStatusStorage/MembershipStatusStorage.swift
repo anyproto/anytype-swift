@@ -28,6 +28,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
 
     private var _currentMembership: Anytype_Model_Membership?
     private var _cachedTiers: [MembershipTier] = []
+    private var _pendingPlanChangeTierId: Int?
 
     private var subscription: AnyCancellable?
     
@@ -45,6 +46,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
         _status = .empty
         _currentMembership = nil
         _cachedTiers = []
+        _pendingPlanChangeTierId = nil
         AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
     }
     
@@ -73,12 +75,9 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
 
     private func handleMembershipUpdate(_ update: Anytype_Event.Membership.Update) async {
         _currentMembership = update.data
+        _pendingPlanChangeTierId = Int(update.data.tier)
 
         rebuildStatusIfReady()
-
-        if let tier = _cachedTiers.first(where: { $0.id.id == update.data.tier }) {
-            AnytypeAnalytics.instance().logChangePlan(tier: tier)
-        }
     }
 
     private func handleMembershipTiersUpdate(_ update: Anytype_Event.Membership.TiersUpdate) async {
@@ -99,5 +98,11 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
 
         _status = newStatus
         AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+
+        if let pendingTierId = _pendingPlanChangeTierId,
+           let tier = _cachedTiers.first(where: { $0.id.id == pendingTierId }) {
+            AnytypeAnalytics.instance().logChangePlan(tier: tier)
+            _pendingPlanChangeTierId = nil
+        }
     }
 }
