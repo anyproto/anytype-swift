@@ -38,8 +38,7 @@ final class SetPropertiesCoordinatorViewModel:
             spaceId: setDocument.spaceId,
             excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),
             target: .dataview(objectId: setDocument.objectId, activeViewId: setDocument.activeView.id, typeDetails: typeDetails),
-            onRelationSelect: { [weak self] relationDetails, isNew in
-                guard let self else { return }
+            onRelationSelect: { relationDetails, isNew in
                 AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
                     format: relationDetails.format,
                     isNew: isNew,

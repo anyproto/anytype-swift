@@ -86,7 +86,7 @@ actor ObjectTypeRowsBuilder: ObjectTypeRowsBuilderProtocol {
         do {
             try await setDocument.open()
 
-            let spaceUxType = await spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: setDocument.spaceId)?.uxType
             let subscriptionData = setSubscriptionDataBuilder.set(
                 SetSubscriptionData(
                     identifier: subscriptionId,
