@@ -305,7 +305,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         let isMuted = !(spaceView?.effectiveNotificationMode(for: objectId).isUnmutedAll ?? true)
 
         return MessagePreviewModel(
-            creatorTitle: lastMessage.creator?.globalName,
+            creatorTitle: lastMessage.creator?.title,
             text: lastMessage.text,
             attachments: Array(attachments),
             localizedAttachmentsText: lastMessage.localizedAttachmentsText,
