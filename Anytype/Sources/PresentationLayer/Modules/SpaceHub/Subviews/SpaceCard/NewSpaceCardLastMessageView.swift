@@ -70,7 +70,7 @@ struct NewSpaceCardLastMessageView: View {
             }
 
             HStack(spacing: 2) {
-                if let creatorTitle = model.creatorTitle {
+                if supportsMultiChats, let creatorTitle = model.creatorTitle {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
                         .foregroundColor(.Text.transparentSecondary)
                         .lineLimit(1)
