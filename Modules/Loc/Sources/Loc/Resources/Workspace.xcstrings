@@ -8093,7 +8093,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Inline query"
+            "value" : "Inline Abfrage"
           }
         },
         "en" : {
@@ -20371,7 +20371,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "Space beitreten"
           }
         },
         "en" : {
@@ -26410,7 +26410,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can manage tier on Desktop platform"
+            "value" : "Du kannst deine Mitgliedschaft in der Desktop-App verwalten"
           }
         },
         "en" : {
@@ -53572,7 +53572,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can edit and write in chat"
+            "value" : "Personen mit Link können den Chat ansehen und lesen"
           }
         },
         "en" : {
@@ -53721,7 +53721,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editor access"
+            "value" : "Bearbeiter-Zugriff"
           }
         },
         "en" : {
@@ -54615,7 +54615,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Viewer access"
+            "value" : "Lese-Zugriff"
           }
         },
         "en" : {
@@ -60587,13 +60587,162 @@
         }
       }
     },
+    "Spaces.UxType.OneToOne.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private channel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gizli kanal"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private channel"
+          }
+        }
+      }
+    },
     "SpaceSettings.DeleteAlert.Message" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This space will be deleted irrevocably. You can’t undo this action."
+            "value" : "This space will be deleted irrevocably. You can't undo this action."
           }
         },
         "be" : {
@@ -60611,7 +60760,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This space will be deleted irrevocably. You can’t undo this action."
+            "value" : "This space will be deleted irrevocably. You can't undo this action."
           }
         },
         "es" : {
@@ -60665,7 +60814,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen."
+            "value" : "This space will be deleted irrevocably. You can't undo this action."
           }
         },
         "nl" : {
@@ -66288,7 +66437,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The link you are using does not seem to work. Please ask the owner to share a new one with you."
+            "value" : "Der von dir verwendete Link scheint nicht zu funktionieren. Bitte frage den Eigentümer nach einem Neuen."
           }
         },
         "en" : {
@@ -66884,7 +67033,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No access to this space"
+            "value" : "Kein Zugriff auf den Space"
           }
         },
         "en" : {
@@ -67033,7 +67182,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "Space beitreten"
           }
         },
         "en" : {
