@@ -159,6 +159,8 @@ public protocol BundledPropertiesValueProvider {
     var fileSourceChecksum: String { get }
     var spaceOrder: String { get }
     var orderId: String { get }
+    var oneToOneIdentity: String { get }
+    var oneToOneRequestMetadataKey: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var recommendedHiddenRelations: [ObjectId] { get }
@@ -756,6 +758,14 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Lexicographic id for object ordering
     var orderId: String {
         return value(for: BundledPropertyKey.orderId.rawValue)
+    }
+    /// OneToOne (second) participant identity
+    var oneToOneIdentity: String {
+        return value(for: BundledPropertyKey.oneToOneIdentity.rawValue)
+    }
+    /// OneToOne (second) participant RequestMetadata (key)
+    var oneToOneRequestMetadataKey: String {
+        return value(for: BundledPropertyKey.oneToOneRequestMetadataKey.rawValue)
     }
     /// Choose icon for the type among custom Anytype icons
     var iconName: String {
