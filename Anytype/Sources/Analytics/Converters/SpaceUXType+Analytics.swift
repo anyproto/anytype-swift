@@ -9,6 +9,8 @@ extension SpaceUxType {
             return "Space"
         case .stream:
             return "Stream"
+        case .oneToOne:
+            return "OneToOne"
         case .UNRECOGNIZED:
             return "UNRECOGNIZED"
         case .none:

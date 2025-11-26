@@ -57,6 +57,13 @@ public extension FeatureDescription {
         defaultValue: false
     )
 
+    static let demoOneToOneSpaces = FeatureDescription(
+        title: "Demo 1-1 Spaces - IOS-5521",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

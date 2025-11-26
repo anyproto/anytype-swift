@@ -4,17 +4,16 @@ import Services
 
 struct ConversationEmptyStateView: View {
 
-    let conversationType: ConversationType
+    let spaceUxType: SpaceUxType
     let participantPermissions: ParticipantPermissions?
     let addMembersAction: (() -> Void)?
     let qrCodeAction: (() -> Void)?
-    
+
     var body: some View {
-        switch conversationType {
-        case .chat:
-            chatEmptyStateView
-        case .stream:
+        if spaceUxType.isStream {
             streamEmptyStateView
+        } else {
+            chatEmptyStateView
         }
     }
     

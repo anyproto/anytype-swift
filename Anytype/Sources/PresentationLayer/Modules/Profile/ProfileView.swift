@@ -1,14 +1,16 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 struct ProfileView: View {
     @StateObject private var model: ProfileViewModel
-    
+    @Environment(\.pageNavigation) private var pageNavigation
+
     init(info: ObjectInfo) {
         _model = StateObject(wrappedValue: ProfileViewModel(info: info))
     }
-    
+
     var body: some View {
         Group {
             if let details = model.details {
@@ -17,9 +19,12 @@ struct ProfileView: View {
                 emptyView
             }
         }
-        
-        
-        .task { await model.setupSubscriptions() }
+        .onAppear {
+            model.pageNavigation = pageNavigation
+        }
+        .task {
+            await model.setupSubscriptions()
+        }
         .sheet(isPresented: $model.showSettings) {
             SettingsCoordinatorView()
         }
@@ -73,10 +78,11 @@ struct ProfileView: View {
             AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.description, style: .previewTitle2Regular)
-            Spacer.fixedHeight(78)
+            connectButton
+            Spacer.fixedHeight(32)
         }
     }
-    
+
     private func viewWithoutDescription(_ details: ObjectDetails) -> some View {
         Group {
             Spacer.fixedHeight(30)
@@ -85,7 +91,20 @@ struct ProfileView: View {
             AnytypeText(details.name, style: .heading).lineLimit(1)
             Spacer.fixedHeight(4)
             AnytypeText(details.displayName, style: .caption1Regular).foregroundColor(.Text.secondary).lineLimit(1)
-            Spacer.fixedHeight(84)
+            connectButton
+            Spacer.fixedHeight(32)
+        }
+    }
+
+    @ViewBuilder
+    private var connectButton: some View {
+        if FeatureFlags.demoOneToOneSpaces, !model.isOwner {
+            Spacer.fixedHeight(24)
+            AsyncStandardButton(Loc.connect, style: .secondaryLarge) {
+                await model.onConnect()
+            }
+        } else {
+            Spacer.fixedHeight(52)
         }
     }
 }

@@ -38,6 +38,10 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
+    static var demoOneToOneSpaces: Bool {
+        value(for: .demoOneToOneSpaces)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -116,6 +120,7 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
+        .demoOneToOneSpaces,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

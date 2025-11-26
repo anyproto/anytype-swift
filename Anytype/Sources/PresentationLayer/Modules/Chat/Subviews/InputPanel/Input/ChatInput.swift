@@ -11,7 +11,7 @@ struct ChatInput: View {
     let disableAddButton: Bool
     let sendButtonIsLoading: Bool
     let createObjectTypes: [ObjectType]
-    let conversationType: ConversationType
+    let spaceUxType: SpaceUxType
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
@@ -84,7 +84,7 @@ struct ChatInput: View {
     private var input: some View {
         ZStack(alignment: .topLeading) {
             if text.string.isEmpty {
-                Text(conversationType.isChat ? Loc.Message.Input.Chat.emptyPlaceholder : Loc.Message.Input.Stream.emptyPlaceholder)
+                Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
                     .anytypeStyle(.chatText)
                     .foregroundColor(.Text.tertiary)
                     .padding(.top, 18)
