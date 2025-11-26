@@ -72,7 +72,6 @@ jobs:
           FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Summary Anytype
-        if: ${{ inputs.build_anytype_app == true }}
         run: echo "${{ env.FASTLANE_GITHUB_SUMMARY }}" >> $GITHUB_STEP_SUMMARY
 
       - name: Send Slack Notification
