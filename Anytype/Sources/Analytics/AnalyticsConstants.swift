@@ -51,6 +51,9 @@ enum AnalyticsEventsPropertiesKey {
     static let relationKey = "relationKey"
     static let unreadMessageCount = "unreadMessageCount"
     static let hasMention = "hasMention"
+    static let size = "size"
+    static let time = "time"
+    static let status = "status"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -499,4 +502,9 @@ enum ClickNavBarAddMenuType: String {
     case camera = "Camera"
     case file = "File"
     case photo = "Photo"
+}
+
+enum ScreenChatImageStatus: String {
+    case success = "Success"
+    case failure = "Failure"
 }

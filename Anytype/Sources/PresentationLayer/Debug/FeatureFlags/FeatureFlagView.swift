@@ -33,7 +33,7 @@ struct FeatureFlagView: View {
             Button {
                 showDefaultValues.toggle()
             } label: {
-                Text("Default values")
+                Text("> Default values")
                     .font(AnytypeFontBuilder.font(anytypeFont: .previewTitle2Medium))
                     .foregroundColor(.Text.secondary)
             }

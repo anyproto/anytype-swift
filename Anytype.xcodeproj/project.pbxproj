@@ -209,14 +209,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		2E30581A2D81DF7F00BF4F25 /* Exceptions for "AnytypeNotificationServiceExtension" folder in "AnytypeNotificationServiceExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 2E30580C2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */;
 		};
-		3D0DC1052DFC9BC000E555FD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		3D0DC1052DFC9BC000E555FD /* Exceptions for "AnytypeTests" folder in "AnytypeTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				AnytypeTests.xctestplan,
@@ -229,7 +229,7 @@
 			);
 			target = 03C5C53F22DFD90C00DD91DE /* AnytypeTests */;
 		};
-		3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		3D69777F2CAE9EC5003F5A91 /* Exceptions for "Supporting files" folder in "Anytype" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/LaunchScreen.storyboard,
@@ -238,7 +238,7 @@
 			);
 			target = 0303ECFA22D8EDAA005C552B /* Anytype */;
 		};
-		3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				/Localized/MainInterface.storyboard,
@@ -249,14 +249,66 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (2E30581A2D81DF7F00BF4F25 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeNotificationServiceExtension; sourceTree = "<group>"; };
-		3D0DC0E12DFC9BC000E555FD /* AnytypeTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D0DC1052DFC9BC000E555FD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeTests; sourceTree = "<group>"; };
-		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D69777F2CAE9EC5003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting files"; sourceTree = "<group>"; };
-		3D6977812CAE9ED0003F5A91 /* Video */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Video; sourceTree = "<group>"; };
-		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Preview Content"; sourceTree = "<group>"; };
-		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D6989E52CAEA5E1003F5A91 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = AnytypeShareExtension; sourceTree = "<group>"; };
-		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Sources; sourceTree = "<group>"; };
-		7424EFB92D79C71B00E51377 /* Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Modules; sourceTree = "<group>"; };
+		2E30580E2D81DF7E00BF4F25 /* AnytypeNotificationServiceExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2E30581A2D81DF7F00BF4F25 /* Exceptions for "AnytypeNotificationServiceExtension" folder in "AnytypeNotificationServiceExtension" target */,
+			);
+			path = AnytypeNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		3D0DC0E12DFC9BC000E555FD /* AnytypeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3D0DC1052DFC9BC000E555FD /* Exceptions for "AnytypeTests" folder in "AnytypeTests" target */,
+			);
+			path = AnytypeTests;
+			sourceTree = "<group>";
+		};
+		3D69777D2CAE9EC5003F5A91 /* Supporting files */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3D69777F2CAE9EC5003F5A91 /* Exceptions for "Supporting files" folder in "Anytype" target */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		3D6977812CAE9ED0003F5A91 /* Video */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		3D6977912CAE9EEC003F5A91 /* Preview Content */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3D6989E22CAEA5E1003F5A91 /* AnytypeShareExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3D6989E52CAEA5E1003F5A91 /* Exceptions for "AnytypeShareExtension" folder in "AnytypeShareExtension" target */,
+			);
+			path = AnytypeShareExtension;
+			sourceTree = "<group>";
+		};
+		3D69B4E82CAEA9CB003F5A91 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		7424EFB92D79C71B00E51377 /* Modules */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,6 +628,8 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+			);
 			name = AnytypeShareExtension;
 			packageProductDependencies = (
 				2ACDC9B32B553F840063BFBD /* SharedContentManager */,
@@ -599,6 +653,8 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
 			);
 			name = AnytypeWidgetExtension;
 			packageProductDependencies = (
@@ -1049,7 +1105,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1092,7 +1148,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1119,7 +1175,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1144,7 +1200,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1260,7 +1316,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
 				PRODUCT_NAME = "$(TARGET_NAME) Dev";
@@ -1287,7 +1343,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1326,7 +1382,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1400,7 +1456,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1476,7 +1532,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1596,7 +1652,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1622,7 +1678,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1654,7 +1710,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.homewidget";
@@ -1685,7 +1741,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1759,7 +1815,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1792,7 +1848,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.AnytypeShareExtension";
@@ -1821,7 +1877,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1851,7 +1907,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1882,7 +1938,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev.homewidget";
@@ -1913,7 +1969,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.homewidget";
@@ -1944,7 +2000,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.42.0;
+				MARKETING_VERSION = 0.43.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev.homewidget";
