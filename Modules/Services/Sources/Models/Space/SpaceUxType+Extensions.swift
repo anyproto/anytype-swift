@@ -13,9 +13,13 @@ public extension SpaceUxType {
         self == .data
     }
 
+    var isOneToOne: Bool {
+        self == .oneToOne
+    }
+
     var supportsMultiChats: Bool {
         switch self {
-        case .chat, .stream, .none, .UNRECOGNIZED:
+        case .chat, .stream, .none, .oneToOne, .UNRECOGNIZED:
             return false
         case .data:
             return true

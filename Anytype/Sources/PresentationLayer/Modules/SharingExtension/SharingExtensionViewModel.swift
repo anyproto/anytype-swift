@@ -44,19 +44,19 @@ final class SharingExtensionViewModel: ObservableObject {
     }
     
     func onTapSpace(_ space: SpaceView) {
-        if space.uxType.isChat {
+        if !space.uxType.supportsMultiChats {
             selectedSpace = space == selectedSpace ? nil : space
         } else {
             selectedSpace = nil
             output?.onSelectDataSpace(spaceId: space.targetSpaceId)
         }
     }
-    
+
     func onTapSend() async throws {
         sendInProgress = true
         defer { sendInProgress = false }
-        
-        guard let selectedSpace, selectedSpace.uxType.isChat else { return }
+
+        guard let selectedSpace, !selectedSpace.uxType.supportsMultiChats else { return }
         
         let content = try await contentManager.getSharedContent()
         

@@ -126,9 +126,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     @ObservationIgnored
-    var conversationType: ConversationType {
-        participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
-    }
+    var spaceUxType: SpaceUxType { participantSpaceView?.spaceView.uxType ?? .data }
     @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 

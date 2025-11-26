@@ -60587,13 +60587,24 @@
         }
       }
     },
+    "Spaces.UxType.OneToOne.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private channel"
+          }
+        }
+      }
+    },
     "SpaceSettings.DeleteAlert.Message" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This space will be deleted irrevocably. You can’t undo this action."
+            "value" : "This space will be deleted irrevocably. You can't undo this action."
           }
         },
         "be" : {
@@ -60611,7 +60622,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This space will be deleted irrevocably. You can’t undo this action."
+            "value" : "This space will be deleted irrevocably. You can't undo this action."
           }
         },
         "es" : {

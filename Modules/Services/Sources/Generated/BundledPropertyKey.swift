@@ -427,6 +427,12 @@ public enum BundledPropertyKey: String, Sendable {
     /// Lexicographic id for object ordering
     case orderId = "orderId"
 
+    /// OneToOne (second) participant identity
+    case oneToOneIdentity = "oneToOneIdentity"
+
+    /// OneToOne (second) participant RequestMetadata (key)
+    case oneToOneRequestMetadataKey = "oneToOneRequestMetadataKey"
+
     /// Choose icon for the type among custom Anytype icons
     case iconName = "iconName"
 

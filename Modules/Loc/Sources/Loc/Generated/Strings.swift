@@ -262,6 +262,7 @@ public enum Loc {
   public static let color = Loc.tr("UI", "Color", fallback: "Color")
   public static let companiesContactsFriendsAndFamily = Loc.tr("UI", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   public static let confirm = Loc.tr("UI", "Confirm", fallback: "Confirm")
+  public static let connect = Loc.tr("UI", "Connect", fallback: "Connect")
   public static let connecting = Loc.tr("UI", "Connecting", fallback: "Connecting...")
   public static let contentModel = Loc.tr("UI", "Content Model", fallback: "Content Model")
   public static let `continue` = Loc.tr("UI", "Continue", fallback: "Continue")
@@ -2256,7 +2257,7 @@ public enum Loc {
     public static let share = Loc.tr("Workspace", "SpaceSettings.Share", fallback: "Share")
     public static let title = Loc.tr("Workspace", "SpaceSettings.Title", fallback: "Space settings")
     public enum DeleteAlert {
-      public static let message = Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Message", fallback: "This space will be deleted irrevocably. You can’t undo this action.")
+      public static let message = Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Message", fallback: "This space will be deleted irrevocably. You can't undo this action.")
       public static func title(_ p1: Any) -> String {
         return Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
@@ -2429,6 +2430,9 @@ public enum Loc {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Chat.ChangeDescription", fallback: "Group chat with shared data. Best for small groups or a single ongoing conversation.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Chat.Description", fallback: "Group chat with content organization")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Chat.Title", fallback: "Chat")
+      }
+      public enum OneToOne {
+        public static let title = Loc.tr("Workspace", "Spaces.UxType.OneToOne.Title", fallback: "Private channel")
       }
       public enum Space {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")

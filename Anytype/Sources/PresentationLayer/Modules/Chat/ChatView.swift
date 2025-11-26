@@ -100,7 +100,7 @@ struct ChatView: View {
                 disableAddButton: model.sendMessageTaskInProgress,
                 sendButtonIsLoading: model.sendButtonIsLoading,
                 createObjectTypes: model.typesForCreateObject,
-                conversationType: model.conversationType,
+                spaceUxType: model.spaceUxType,
                 onTapAddObject: {
                     model.onTapAddObjectToMessage()
                 },
@@ -158,7 +158,7 @@ struct ChatView: View {
     
     private var emptyView: some View {
         ConversationEmptyStateView(
-            conversationType: model.conversationType,
+            spaceUxType: model.spaceUxType,
             participantPermissions: model.participantPermissions,
             addMembersAction: {
                 model.onTapInviteLink()
