@@ -14,6 +14,12 @@ public enum Loc {
     return Loc.tr("Auth", "Agreement Disclamer", String(describing: p1), String(describing: p2), fallback: "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)")
   }
   public static let loginKey = Loc.tr("Auth", "Login key", fallback: "Login Key")
+  public enum AnyApp {
+    public enum BetaAlert {
+      public static let description = Loc.tr("Auth", "AnyApp.BetaAlert.Description", fallback: "You’re ahead of the curve! Some features are still in development or not production-ready – stay tuned for updates.")
+      public static let title = Loc.tr("Auth", "AnyApp.BetaAlert.Title", fallback: "Welcome to the Alpha version")
+    }
+  }
   public enum Auth {
     public static let cameraPermissionTitle = Loc.tr("Auth", "Auth.CameraPermissionTitle", fallback: "Please allow access")
     public static let logIn = Loc.tr("Auth", "Auth.LogIn", fallback: "I already have a key")
@@ -91,6 +97,11 @@ public enum Loc {
           public static let teamWork = Loc.tr("Auth", "Auth.JoinFlow.SelectionOption.UseCase.teamWork", fallback: "Team work & shared docs")
         }
       }
+      public enum Soul {
+        public static let button = Loc.tr("Auth", "Auth.JoinFlow.Soul.Button", fallback: "Done")
+        public static let description = Loc.tr("Auth", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of these names.")
+        public static let title = Loc.tr("Auth", "Auth.JoinFlow.Soul.Title", fallback: "Add Your Name")
+      }
       public enum UseCaseInfo {
         public static let description = Loc.tr("Auth", "Auth.JoinFlow.UseCaseInfo.description", fallback: "Pick one use case that fits you best")
         public static let title = Loc.tr("Auth", "Auth.JoinFlow.UseCaseInfo.title", fallback: "What do you want to use Anytype for?")
@@ -103,6 +114,14 @@ public enum Loc {
     }
     public enum LoginFlow {
       public static let or = Loc.tr("Auth", "Auth.LoginFlow.Or", fallback: "OR")
+      public enum Enter {
+        public static let title = Loc.tr("Auth", "Auth.LoginFlow.Enter.Title", fallback: "Enter my Vault")
+      }
+      public enum Entering {
+        public enum Void {
+          public static let title = Loc.tr("Auth", "Auth.LoginFlow.Entering.Void.Title", fallback: "Entering the Void")
+        }
+      }
       public enum Textfield {
         public static let placeholder = Loc.tr("Auth", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Enter your key")
       }
