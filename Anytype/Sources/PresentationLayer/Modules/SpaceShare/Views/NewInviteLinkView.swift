@@ -64,7 +64,7 @@ struct NewInviteLinkView: View {
             linkStateButton
             linkView
             Spacer.fixedHeight(8)
-            StandardButton(Loc.copyLink, style: .primaryLarge) {
+            StandardButton(Loc.copyLink, style: .primaryMedium) {
                 model.onCopyLink(route: .button)
             }
         }

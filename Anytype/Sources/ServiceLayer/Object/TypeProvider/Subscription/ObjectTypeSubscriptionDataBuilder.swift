@@ -1,23 +1,24 @@
 import Foundation
 import Services
 
-final class ObjectTypeSubscriptionDataBuilder: MultispaceSubscriptionDataBuilderProtocol, MultispaceSearchDataBuilderProtocol {
+final class ObjectTypeSubscriptionDataBuilder: MultispaceOneActiveSubscriptionDataBuilder {
     
     private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
     
-    // MARK: - MultispaceSubscriptionDataBuilderProtocol
+    // MARK: - MultispaceOneActiveSubscriptionDataBuilder
     
     func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData {
         
         let filters = [
             SearchHelper.layoutFilter([DetailsLayout.objectType])
         ]
-        
+
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
         return .search(
             SubscriptionData.Search(
                 identifier: subId,
                 spaceId: spaceId,
-                sorts: SearchHelper.defaultObjectTypeSort(isChat: workspaceStorage.spaceIsChat(spaceId: spaceId)),
+                sorts: SearchHelper.defaultObjectTypeSort(spaceUxType: spaceUxType),
                 filters: filters,
                 limit: 0,
                 offset: 0,
@@ -26,8 +27,6 @@ final class ObjectTypeSubscriptionDataBuilder: MultispaceSubscriptionDataBuilder
             )
         )
     }
-    
-    // MARK: - MultispaceSearchDataBuilderProtocol
     
     func buildSearch(spaceId: String) -> SearchRequest {
         let sort = SearchHelper.sort(

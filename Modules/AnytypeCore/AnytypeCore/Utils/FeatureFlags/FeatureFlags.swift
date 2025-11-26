@@ -16,8 +16,6 @@ public final class FeatureFlags {
         switch CoreEnvironment.targetType {
         case .debug:
             defaultValue = feature.debugValue
-        case .releaseAnyApp:
-            defaultValue = feature.releaseAnyAppValue
         case .releaseAnytype:
             defaultValue = feature.releaseAnytypeValue
         }

@@ -1,7 +1,8 @@
 import Foundation
-import Combine
+@preconcurrency import Combine
 import Services
 import AnytypeCore
+import AsyncAlgorithms
 
 protocol ParticipantSpacesStorageProtocol: AnyObject, Sendable {
     var allParticipantSpaces: [ParticipantSpaceViewData] { get }
@@ -54,8 +55,8 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     private let participantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let serverConfigurationStorage: any ServerConfigurationStorageProtocol = Container.shared.serverConfigurationStorage()
     private let profileStorage: any ProfileStorageProtocol = Container.shared.profileStorage()
-
-    private let subscription = AtomicStorage<AnyCancellable?>(nil)
+    
+    private let subscription = AtomicStorage<Task<Void, Never>?>(nil)
 
     private let allParticipantSpacesStorage = AtomicPublishedStorage<[ParticipantSpaceViewData]>([])
 
@@ -75,10 +76,11 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     }
 
     func startSubscription() async {
-        subscription.value = Publishers.CombineLatest(spaceViewsStorage.allSpaceViewsPublisher, participantsStorage.participantsPublisher)
-            .sink { [weak self] spaces, participants in
+        subscription.value = Task.detached { [weak self, spaceViewsStorage, participantsStorage] in
+            for await (spaces, participants) in combineLatest(spaceViewsStorage.allSpaceViewsPublisher.values, participantsStorage.participantsSequence) {
                 self?.updateData(spaces: spaces, participants: participants)
             }
+        }
     }
 
     func stopSubscription() async {

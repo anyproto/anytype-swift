@@ -6,7 +6,7 @@ import AnytypeCore
 struct HomeWidgetsView: View {
     let info: AccountInfo
     let output: (any HomeWidgetsModuleOutput)?
-    
+
     var body: some View {
         HomeWidgetsInternalView(info: info, output: output)
             .id(info.hashValue)
@@ -17,7 +17,7 @@ private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
-    
+
     init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
     }
@@ -56,20 +56,12 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
-                topWidgets
                 blockWidgets
                 objectTypeWidgets
                 AnytypeNavigationSpacer()
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
-        }
-    }
-    
-    @ViewBuilder
-    private var topWidgets: some View {
-        if let data = model.chatWidgetData {
-            SpaceChatWidgetView(data: data)
         }
     }
     

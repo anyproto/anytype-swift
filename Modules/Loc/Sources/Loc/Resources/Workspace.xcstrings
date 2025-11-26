@@ -264,7 +264,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to create file. Try again."
+            "value" : "Не удалось создать файл. Повторите попытку."
           }
         },
         "tr" : {
@@ -413,7 +413,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid file. Try again"
+            "value" : "Недопустимый файл. Попробуйте еще раз"
           }
         },
         "tr" : {
@@ -811,25 +811,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Вы можете загрузить только %d вложений за раз"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Вы можете загрузить только %d вложений за раз"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachment at a time"
+                  "value" : "Вы можете загрузить только %d Вложение за раз"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Вы можете загрузить только %d вложений за раз"
                 }
               }
             }
@@ -1929,7 +1929,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Добавить участников"
           }
         },
         "tr" : {
@@ -2078,7 +2078,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messages, docs & files available offline"
+            "value" : "Сообщения, документы и файлы доступны оффлайн"
           }
         },
         "tr" : {
@@ -2227,7 +2227,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "Полностью приватный и зашифрованный"
           }
         },
         "tr" : {
@@ -2376,7 +2376,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "Ваш навсегда"
           }
         },
         "tr" : {
@@ -2441,7 +2441,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Aún no hay mensajes"
+            "value" : "Chat fuera de la nube"
           }
         },
         "fa" : {
@@ -2471,7 +2471,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Nessun messaggio"
+            "value" : "Chatta senza il cloud"
           }
         },
         "ja" : {
@@ -2483,7 +2483,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No messages yet"
+            "value" : "클라우드를 거치지 않는 채팅"
           }
         },
         "nb" : {
@@ -3121,7 +3121,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We couldn’t connect right now. This may be due to no internet or a temporary sync issue. We’ll keep trying in the background."
+            "value" : "Мы не смогли подключиться в данный момент. Это может быть вызвано отсутствием интернета или временной синхронизацией. Мы продолжим работу в фоновом режиме."
           }
         },
         "tr" : {
@@ -3419,7 +3419,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Network Error"
+            "value" : "Ошибка сети"
           }
         },
         "tr" : {
@@ -5059,7 +5059,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype now supports real-time chat in Shared Channels — so your thoughts and dialogues can grow together."
+            "value" : "Anytype теперь поддерживает чат в режиме реального времени в общих каналах — поэтому ваши мысли и диалоги могут расти вместе."
           }
         },
         "tr" : {
@@ -5208,7 +5208,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ideas need conversations"
+            "value" : "Идеи рождаются в диалоге."
           }
         },
         "tr" : {
@@ -5357,7 +5357,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Spaces and Chats now show live previews and updates — one place to follow everything that matters."
+            "value" : "Пробелы и чаты теперь показывают живые превью и обновления — одно место для того, чтобы следить за всем необходимым."
           }
         },
         "tr" : {
@@ -5506,7 +5506,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your Vault just leveled up"
+            "value" : "Ваш Хранилище только что повысилось"
           }
         },
         "tr" : {
@@ -5655,7 +5655,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share ideas, drop docs, edit together — everything flows in real time."
+            "value" : "Делитесь идеями, удаляйте доски, редактируйте вместе — все потоки в режиме реального времени."
           }
         },
         "tr" : {
@@ -5804,7 +5804,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chats that do more"
+            "value" : "Чаты, которые делают больше"
           }
         },
         "tr" : {
@@ -5953,7 +5953,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your pages, lists, and files — structured, surfaced, and always within reach."
+            "value" : "Ваши страницы, списки и файлы — структурированные, поверхностные и всегда в пределах досягаемости."
           }
         },
         "tr" : {
@@ -6102,7 +6102,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Everything in Its Right Place"
+            "value" : "Все в правом месте"
           }
         },
         "tr" : {
@@ -8338,7 +8338,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This inline query doesn’t have a source"
+            "value" : "Этот встроенный запрос не имеет источника"
           }
         },
         "tr" : {
@@ -9084,7 +9084,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Chat"
+            "value" : "Создать чат"
           }
         },
         "tr" : {
@@ -14303,7 +14303,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current year"
+            "value" : "Текущий год"
           }
         },
         "tr" : {
@@ -14899,7 +14899,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last year"
+            "value" : "Прошлый год"
           }
         },
         "tr" : {
@@ -15346,7 +15346,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next year"
+            "value" : "Следующий год"
           }
         },
         "tr" : {
@@ -19125,7 +19125,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add to the current type"
+            "value" : "Добавить в текущий тип"
           }
         },
         "tr" : {
@@ -19275,7 +19275,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been created"
+            "value" : "Свойство ‘%@’ было создано"
           }
         },
         "tr" : {
@@ -19424,7 +19424,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Found in objects"
+            "value" : "Найдено в объектах"
           }
         },
         "tr" : {
@@ -19573,7 +19573,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Local"
+            "value" : "Локальные"
           }
         },
         "tr" : {
@@ -19871,7 +19871,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type."
+            "value" : "Эти свойства существуют в некоторых объектах, но не являются частью типа. Добавьте их, чтобы они появились во всех объектах данного типа."
           }
         },
         "tr" : {
@@ -20020,7 +20020,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remove from the object"
+            "value" : "Удалить из объекта"
           }
         },
         "tr" : {
@@ -20169,7 +20169,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been updated"
+            "value" : "Свойство ‘%@’ было обновлено"
           }
         },
         "tr" : {
@@ -20467,7 +20467,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "Вступить в пространство"
           }
         },
         "tr" : {
@@ -20616,7 +20616,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space Button"
+            "value" : "Кнопка \"Присоединиться к пространству\""
           }
         },
         "tr" : {
@@ -28294,7 +28294,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This tier is not available in the app. We know it's not ideal."
+            "value" : "Этот уровень недоступен в приложении. Мы знаем, что это не идеально."
           }
         },
         "tr" : {
@@ -30258,7 +30258,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy Plain Text"
+            "value" : "Копировать обычный текст"
           }
         },
         "tr" : {
@@ -30556,7 +30556,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mark Unread"
+            "value" : "Снять отметку о прочтении"
           }
         },
         "tr" : {
@@ -31152,7 +31152,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Broadcast"
+            "value" : "Трансляция"
           }
         },
         "tr" : {
@@ -31301,7 +31301,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Property"
+            "value" : "Новое свойство"
           }
         },
         "tr" : {
@@ -31599,7 +31599,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications"
+            "value" : "Уведомления"
           }
         },
         "tr" : {
@@ -34135,7 +34135,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to load your domain. Please try again."
+            "value" : "Не удалось загрузить ваш домен. Пожалуйста, попробуйте еще раз."
           }
         },
         "tr" : {
@@ -34284,7 +34284,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to load object data. Please try again."
+            "value" : "Не удалось загрузить данные объекта. Пожалуйста, попробуйте еще раз."
           }
         },
         "tr" : {
@@ -34433,7 +34433,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "insert-page-name-here"
+            "value" : "вставить имя страницы-здесь"
           }
         },
         "tr" : {
@@ -34582,7 +34582,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This object is live on the web."
+            "value" : "Этот объект живет в Интернете."
           }
         },
         "tr" : {
@@ -34731,7 +34731,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View site ↗︎"
+            "value" : "Просмотр сайта ↗️"
           }
         },
         "tr" : {
@@ -34880,7 +34880,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully published"
+            "value" : "Успешно опубликовано"
           }
         },
         "tr" : {
@@ -35029,7 +35029,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully unpublished"
+            "value" : "Публикация успешно отменена."
           }
         },
         "tr" : {
@@ -35178,7 +35178,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Successfully updated"
+            "value" : "Успешно обновлено"
           }
         },
         "tr" : {
@@ -35327,7 +35327,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It looks like you didn’t allow notifications. That means you won’t see new messages, mentions, or invites. Go to settings to turn them on."
+            "value" : "Похоже, вы не разрешали уведомления. Это означает, что вы не увидите новых сообщений, упоминаний или приглашений. Перейдите в настройки, чтобы включить их."
           }
         },
         "tr" : {
@@ -35476,7 +35476,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Skip for now"
+            "value" : "Пропустить"
           }
         },
         "tr" : {
@@ -35625,7 +35625,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications are still turned off"
+            "value" : "Уведомления по-прежнему отключены"
           }
         },
         "tr" : {
@@ -35774,7 +35774,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachment"
+            "value" : "Вложение"
           }
         },
         "tr" : {
@@ -35923,7 +35923,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Get notified instantly when someone messages or mentions you in your spaces."
+            "value" : "Получайте мгновенное уведомление, когда кто-то упоминает вас в своих местах."
           }
         },
         "tr" : {
@@ -36072,7 +36072,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Message"
+            "value" : "Новое сообщение"
           }
         },
         "tr" : {
@@ -36221,7 +36221,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enable notifications"
+            "value" : "Включить уведомления"
           }
         },
         "tr" : {
@@ -36519,7 +36519,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Turn on push notifications"
+            "value" : "Включить Push-уведомления"
           }
         },
         "tr" : {
@@ -36668,7 +36668,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Receive notifications about new messages by enabling them in your device settings."
+            "value" : "Получать уведомления о новых сообщениях, включив их в настройках устройства."
           }
         },
         "tr" : {
@@ -36817,7 +36817,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Notifications are disabled"
+            "value" : "Уведомления отключены"
           }
         },
         "tr" : {
@@ -36966,7 +36966,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Message Notifications"
+            "value" : "Уведомления о сообщениях"
           }
         },
         "tr" : {
@@ -37115,7 +37115,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join via QR Code"
+            "value" : "Присоединиться через QR-код"
           }
         },
         "tr" : {
@@ -37264,7 +37264,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scanning error"
+            "value" : "Сканирование не поддерживается"
           }
         },
         "tr" : {
@@ -37413,7 +37413,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code contains URL in invalid format"
+            "value" : "Отсканированный QR-код содержит URL в неверном формате"
           }
         },
         "tr" : {
@@ -37562,7 +37562,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid QR Code"
+            "value" : "Недопустимый QR-код"
           }
         },
         "tr" : {
@@ -37711,7 +37711,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code doesn't contain a valid URL"
+            "value" : "Отсканированный QR-код не содержит действительный URL"
           }
         },
         "tr" : {
@@ -38009,7 +38009,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The scanned QR code contains different action"
+            "value" : "Отсканированный QR-код содержит другое действие"
           }
         },
         "tr" : {
@@ -40095,7 +40095,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Relation object"
+            "value" : "Объект связи"
           }
         },
         "tr" : {
@@ -40947,7 +40947,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ 유형으로 부터"
+            "value" : "%@ 유형으로부터"
           }
         },
         "nb" : {
@@ -41735,7 +41735,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Obsidian"
+            "value" : "Обсидиан"
           }
         },
         "tr" : {
@@ -42587,7 +42587,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "객체 유형:"
+            "value" : "오브젝트 유형:"
           }
         },
         "nb" : {
@@ -46805,7 +46805,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property:"
+            "value" : "Свойство:"
           }
         },
         "tr" : {
@@ -46954,7 +46954,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properties:"
+            "value" : "Свойства:"
           }
         },
         "tr" : {
@@ -47850,7 +47850,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add search query to aggregate objects with equal types and properties in a live mode"
+            "value" : "Добавить поисковый запрос в агрегацию объектов с одинаковыми типами и свойствами в живом режиме"
           }
         },
         "tr" : {
@@ -50237,7 +50237,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No properties"
+            "value" : "Нет свойств"
           }
         },
         "tr" : {
@@ -50983,7 +50983,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add a comment..."
+            "value" : "Добавить комментарий..."
           }
         },
         "tr" : {
@@ -51282,7 +51282,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select destination"
+            "value" : "Выберите пункт назначения"
           }
         },
         "tr" : {
@@ -51431,7 +51431,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send to chat"
+            "value" : "Отправить в чат"
           }
         },
         "tr" : {
@@ -52326,7 +52326,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select Space"
+            "value" : "Выберите пространство"
           }
         },
         "tr" : {
@@ -53072,7 +53072,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade your membership to invite more members."
+            "value" : "Улучшите членство, чтобы пригласить больше участников."
           }
         },
         "tr" : {
@@ -53221,7 +53221,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld editors."
+            "value" : "Вы достигли лимита редакторов %lld."
           }
         },
         "tr" : {
@@ -53370,7 +53370,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade for more or remove spaces."
+            "value" : "Улучшите для более или удалите пробелы."
           }
         },
         "tr" : {
@@ -53519,7 +53519,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld shared spaces."
+            "value" : "Вы достигли лимита общих пробелов для %lld."
           }
         },
         "tr" : {
@@ -53668,7 +53668,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can edit and write in chat"
+            "value" : "Люди со ссылкой могут редактировать и писать в чате"
           }
         },
         "tr" : {
@@ -53817,7 +53817,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editor access"
+            "value" : "Права на редактирование"
           }
         },
         "tr" : {
@@ -53966,7 +53966,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only already invited members have access"
+            "value" : "Только приглашенные участники имеют доступ"
           }
         },
         "tr" : {
@@ -54115,7 +54115,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Link disabled"
+            "value" : "Ссылка отключена"
           }
         },
         "tr" : {
@@ -54264,7 +54264,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Owner must approve each join request"
+            "value" : "Владелец должен одобрить каждый запрос на присоединение"
           }
         },
         "tr" : {
@@ -54413,7 +54413,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Request access"
+            "value" : "Запросить доступ"
           }
         },
         "tr" : {
@@ -54562,7 +54562,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can view and read chat"
+            "value" : "Люди со ссылкой могут просматривать и читать чат"
           }
         },
         "tr" : {
@@ -54711,7 +54711,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Viewer access"
+            "value" : "Права на просмотр"
           }
         },
         "tr" : {
@@ -55333,7 +55333,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "All activity"
+            "value" : "Все действия"
           }
         },
         "tr" : {
@@ -55482,7 +55482,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Disable notifications"
+            "value" : "Выключить уведомления"
           }
         },
         "tr" : {
@@ -55631,7 +55631,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mentions only"
+            "value" : "Только упоминания"
           }
         },
         "tr" : {
@@ -57421,7 +57421,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create a chat"
+            "value" : "Создать чат"
           }
         },
         "tr" : {
@@ -57719,7 +57719,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create a stream"
+            "value" : "Создать трансляцию"
           }
         },
         "tr" : {
@@ -57868,7 +57868,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "If you switch link type, your existing link will be deactivated."
+            "value" : "Если вы переключаетесь на тип ссылки, ваша существующая ссылка будет отключена."
           }
         },
         "tr" : {
@@ -58017,7 +58017,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The current link will stop working"
+            "value" : "Текущая ссылка перестанет работать"
           }
         },
         "tr" : {
@@ -58721,7 +58721,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Default Space"
+            "value" : "기본 스페이스"
           }
         },
         "nb" : {
@@ -59270,7 +59270,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spaces"
+            "value" : "Channels"
           }
         },
         "es" : {
@@ -59306,7 +59306,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Spazi"
+            "value" : "Canali"
           }
         },
         "ja" : {
@@ -59324,7 +59324,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Rom"
+            "value" : "Channels"
           }
         },
         "nl" : {
@@ -59509,7 +59509,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
+            "value" : "Групповой чат с общими данными. Лучше всего для небольших групп или для одной постоянной беседы."
           }
         },
         "tr" : {
@@ -59956,7 +59956,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
+            "value" : "Хаб для расширенного управления данными. Мульти-чаты скоро появятся. Идеально подходит для больших команд."
           }
         },
         "tr" : {
@@ -60403,7 +60403,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "For broadcasting your vibe"
+            "value" : "Для трансляции вашего vibe"
           }
         },
         "tr" : {
@@ -60552,7 +60552,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Stream"
+            "value" : "Стрим"
           }
         },
         "tr" : {
@@ -63384,7 +63384,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy invite link"
+            "value" : "Скопировать ссылку для приглашения"
           }
         },
         "tr" : {
@@ -64427,7 +64427,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share this invite link so that others can join your space"
+            "value" : "Поделитесь этой ссылкой-приглашением, чтобы другие могли присоединиться к вам"
           }
         },
         "tr" : {
@@ -64576,7 +64576,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Once they click your link and request access, you can set their access rights."
+            "value" : "Как только они перейдут по ссылке и захотят получить доступ, вы можете установить их права доступа."
           }
         },
         "tr" : {
@@ -65639,7 +65639,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share this link so that others can join your Stream."
+            "value" : "Поделитесь этой ссылкой, чтобы другие могли присоединиться к вашему потоку."
           }
         },
         "tr" : {
@@ -66384,7 +66384,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The link you are using does not seem to work. Please ask the owner to share a new one with you."
+            "value" : "Ссылка, которую вы используете, не работает. Пожалуйста, попросите владельца поделиться с вами новой ссылкой."
           }
         },
         "tr" : {
@@ -66533,7 +66533,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "To join as an editor, ask the owner to add more editor seats or send you a new link with view-only access."
+            "value" : "Чтобы присоединиться к редактору, попросите владельца добавить больше мест для редактора или отправьте вам новую ссылку с доступом только для просмотра."
           }
         },
         "tr" : {
@@ -66682,7 +66682,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This space has reached its limit"
+            "value" : "Достигнут лимит пространства"
           }
         },
         "tr" : {
@@ -66980,7 +66980,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No access to this space"
+            "value" : "Нет доступа к пространству"
           }
         },
         "tr" : {
@@ -67129,7 +67129,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "Вступить в пространство"
           }
         },
         "tr" : {
@@ -67278,7 +67278,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've been invited to join %@, created by %@"
+            "value" : "Вы были приглашены присоединиться к %@ пространству, созданному %@"
           }
         },
         "tr" : {
@@ -67427,7 +67427,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join %@"
+            "value" : "Присоединиться к «%@»"
           }
         },
         "tr" : {
@@ -67576,7 +67576,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ask the owner to share it with you."
+            "value" : "Попросите владельца поделиться им с вами."
           }
         },
         "tr" : {
@@ -70880,7 +70880,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share link"
+            "value" : "Поделиться ссылкой"
           }
         },
         "tr" : {
@@ -71625,7 +71625,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
+            "value" : "Вы удалили последнего пользователя, так что теперь это приватное пространство и доступно только вам."
           }
         },
         "tr" : {
@@ -71774,7 +71774,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The space is now private"
+            "value" : "Область теперь приватна"
           }
         },
         "tr" : {
@@ -73414,7 +73414,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invite people and start sharing your vibe"
+            "value" : "Пригласите людей и начните делиться своим вайбом"
           }
         },
         "tr" : {
@@ -73563,7 +73563,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This stream is empty"
+            "value" : "Этот поток пуст"
           }
         },
         "tr" : {
@@ -75005,25 +75005,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Этот тип шаблона имеет шаблоны %d"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Этот тип шаблона имеет шаблоны %d"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d template"
+                  "value" : "Этот тип шаблона имеет шаблон %d"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Этот тип шаблона имеет шаблоны %d"
                 }
               }
             }

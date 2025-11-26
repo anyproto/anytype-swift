@@ -18,7 +18,9 @@ final class GlobalSearchViewModel: ObservableObject {
     private var accountParticipantStorage: any ParticipantsStorageProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     private let moduleData: GlobalSearchModuleData
     
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
@@ -28,6 +30,7 @@ final class GlobalSearchViewModel: ObservableObject {
     @Published var dismiss = false
     @Published private var participantCanEdit = false
     
+    private var spaceUxType: SpaceUxType?
     private var searchResult = [SearchResultWithMeta]()
     private var sectionChanged = false
     var isInitial = true
@@ -35,10 +38,11 @@ final class GlobalSearchViewModel: ObservableObject {
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
         self.restoreState()
+        self.loadSpaceUxType()
     }
     
     func startParticipantTask() async {
-        for await participant in accountParticipantStorage.participantPublisher(spaceId: moduleData.spaceId).values {
+        for await participant in accountParticipantStorage.participantSequence(spaceId: moduleData.spaceId) {
             participantCanEdit = participant.canEdit
             updateSections()
         }
@@ -76,7 +80,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSearchTextChanged() {
-        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
+        AnytypeAnalytics.instance().logSearchInput()
     }
     
     func onKeyboardButtonTap() {
@@ -85,7 +89,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSelect(searchData: SearchWithMetaModel) {
-        AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId, objectType: state.section.analyticsValue)
+        AnytypeAnalytics.instance().logSearchResult(objectType: state.section.analyticsValue)
         dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
     }
@@ -95,6 +99,10 @@ final class GlobalSearchViewModel: ObservableObject {
         Task { try? await objectActionService.setArchive(objectIds: [objectId], true) }
         
         UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    private func loadSpaceUxType() {
+        spaceUxType = spaceViewsStorage.spaceView(spaceId: moduleData.spaceId)?.uxType
     }
     
     private func updateSections() {
@@ -133,12 +141,12 @@ final class GlobalSearchViewModel: ObservableObject {
     private func restoreState() {
         let restoredState = globalSearchSavedStatesService.restoreState(for: moduleData.spaceId)
         guard let restoredState else {
-            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .empty)
+            AnytypeAnalytics.instance().logScreenSearch(type: .empty)
             return
         }
         state = restoredState
         if restoredState.searchText.isNotEmpty {
-            AnytypeAnalytics.instance().logScreenSearch(spaceId: moduleData.spaceId, type: .saved)
+            AnytypeAnalytics.instance().logScreenSearch(type: .saved)
         }
     }
     
@@ -161,11 +169,11 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     private func buildLayouts() -> [DetailsLayout] {
-        .builder {
+        return .builder {
             if state.searchText.isEmpty {
-                state.section.supportedLayouts.filter { $0 != .participant }
+                state.section.supportedLayouts(spaceUxType: spaceUxType).filter { $0 != .participant }
             } else {
-                state.section.supportedLayouts
+                state.section.supportedLayouts(spaceUxType: spaceUxType)
             }
         }
     }

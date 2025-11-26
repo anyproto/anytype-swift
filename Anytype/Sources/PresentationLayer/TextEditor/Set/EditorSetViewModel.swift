@@ -32,6 +32,7 @@ final class EditorSetViewModel: ObservableObject {
     @MainActor
     lazy var headerSettingsViewModel = SetHeaderSettingsViewModel(
         setDocument: setDocument,
+        output: output as? ObjectSettingsCoordinatorOutput,
         onViewTap: { [weak self] in self?.showViewPicker() },
         onSettingsTap: { [weak self] in self?.showSetSettings() } ,
         onCreateTap: { [weak self] in self?.createObject() },
@@ -212,12 +213,16 @@ final class EditorSetViewModel: ObservableObject {
     private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
+    @Injected(\.chatMessagesPreviewsStorage)
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
     private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: any SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
     private var descriptionSubscription: AnyCancellable?
+    private var chatPreviews: [ChatMessagePreview] = []
+    private let spaceView: SpaceView?
     private weak var output: (any EditorSetModuleOutput)?
 
     init(data: EditorListObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
@@ -242,6 +247,10 @@ final class EditorSetViewModel: ObservableObject {
         
         self.showHeader = showHeader
         self.output = output
+        
+        let spaceViewsStorage = Container.shared.spaceViewsStorage()
+        self.spaceView = spaceViewsStorage.spaceView(spaceId: data.spaceId)
+        
         self.setup()
     }
     
@@ -282,13 +291,13 @@ final class EditorSetViewModel: ObservableObject {
     
     func logModuleScreen() {
         if let details = setDocument.details, details.isObjectType {
-            AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType, spaceId: setDocument.spaceId)
+            AnytypeAnalytics.instance().logScreenType(objectType: details.analyticsType)
         } else if setDocument.isCollection() {
             let viewType = activeView.type.analyticStringValue
-            AnytypeAnalytics.instance().logScreenCollection(with: viewType, spaceId: setDocument.spaceId)
+            AnytypeAnalytics.instance().logScreenCollection(with: viewType)
         } else {
             let viewType = activeView.type.analyticStringValue
-            AnytypeAnalytics.instance().logScreenSet(with: viewType, spaceId: setDocument.spaceId)
+            AnytypeAnalytics.instance().logScreenSet(with: viewType)
         }
     }
     
@@ -317,8 +326,9 @@ final class EditorSetViewModel: ObservableObject {
     func startSubscriptions() async {
         async let templatesSub: () = subscribeOnTemplates()
         async let relationsSub: () = subscribeOnRelations()
-    
-        (_, _) = await (templatesSub, relationsSub)
+        async let chatPreviewsSub: () = startChatPreviewsSequence()
+
+        (_, _, _) = await (templatesSub, relationsSub, chatPreviewsSub)
     }
     
     private func subscribeOnTemplates() async {
@@ -337,6 +347,13 @@ final class EditorSetViewModel: ObservableObject {
                 .filter { !$0.isHidden && !$0.isDeleted }
 
             self.relationsCount = properties.installed.count + conflictingRelations.count
+        }
+    }
+
+    private func startChatPreviewsSequence() async {
+        for await previews in await chatMessagesPreviewsStorage.previewsSequence {
+            chatPreviews = previews
+            updateConfigurations(with: Array(recordsDict.keys))
         }
     }
  
@@ -549,7 +566,7 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         guard setDocument.canStartSubscription() else { return }
-        
+
         let data = setSubscriptionDataBuilder.set(
             SetSubscriptionData(
                 identifier: subscriptionId,
@@ -558,7 +575,8 @@ final class EditorSetViewModel: ObservableObject {
                 currentPage: currentPage, // show first page for empty request
                 numberOfRowsPerPage: numberOfRowsPerPage,
                 collectionId: setDocument.isCollection() ? objectId : nil,
-                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId)
+                objectOrderIds: setDocument.objectOrderIds(for: subscriptionId),
+                spaceUxType: spaceView?.uxType
             )
         )
         
@@ -593,10 +611,12 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
-                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView, 
+                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
                     canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
+                    chatPreviews: chatPreviews,
+                    spaceView: spaceView,
                     onItemTap: { [weak self] details in
                         self?.itemTapped(details)
                     }

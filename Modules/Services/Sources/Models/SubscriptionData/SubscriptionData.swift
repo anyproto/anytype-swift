@@ -1,6 +1,7 @@
 public enum SubscriptionData: Equatable, Sendable {
     case search(Search)
     case objects(Object)
+    case crossSpaceSearch(CrossSpaceSearch)
 }
 
 extension SubscriptionData {
@@ -68,6 +69,34 @@ extension SubscriptionData {
             self.objectIds = objectIds
             self.keys = keys
             self.ignoreWorkspace = ignoreWorkspace
+        }
+    }
+    
+    public struct CrossSpaceSearch: Equatable, Sendable {
+        public let identifier: String
+        public let sorts: [DataviewSort]
+        public let filters: [DataviewFilter]
+        public let keys: [String]
+        public let source: [String]?
+        public let noDepSubscription: Bool
+        public let collectionId: String?
+
+        public init(
+            identifier: String,
+            sorts: [DataviewSort] = [],
+            filters: [DataviewFilter],
+            keys: [String],
+            source: [String]? = nil,
+            noDepSubscription: Bool = false,
+            collectionId: String? = nil
+        ) {
+            self.identifier = identifier
+            self.sorts = sorts
+            self.filters = filters
+            self.keys = keys
+            self.source = source
+            self.noDepSubscription = noDepSubscription
+            self.collectionId = collectionId
         }
     }
 }

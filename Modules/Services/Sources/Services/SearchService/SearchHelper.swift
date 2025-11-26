@@ -264,7 +264,25 @@ public class SearchHelper {
 
         return filter
     }
-    
+
+    public static func filterOutChatType() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.relationKey = "\(BundledPropertyKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.chatDerived.value.protobufValue
+
+        return filter
+    }
+
+    public static func filterOutParticipantType() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEqual
+        filter.relationKey = "\(BundledPropertyKey.uniqueKey.rawValue)"
+        filter.value = ObjectTypeUniqueKey.participant.value.protobufValue
+
+        return filter
+    }
+
     public static func filterOutTypeType() -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual

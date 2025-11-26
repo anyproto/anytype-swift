@@ -40,7 +40,7 @@ extension FileDownloadingCoordinator: FileDownloadingModuleOutput {
     
     func didDownloadFileTo(_ url: URL) {
         type.flatMap {
-            AnytypeAnalytics.instance().logDownloadMedia(type: $0, spaceId: spaceId)
+            AnytypeAnalytics.instance().logDownloadMedia(type: $0)
         }
         viewController?.topPresentedController.dismiss(animated: true) { [weak self] in
             self?.showDocumentPickerViewController(url: url)

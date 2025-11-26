@@ -6,48 +6,24 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var muteSpacePossibility: Bool {
-        value(for: .muteSpacePossibility)
-    }
-
-    static var addNotificationsSettings: Bool {
-        value(for: .addNotificationsSettings)
-    }
-
-    static var swipeToReply: Bool {
-        value(for: .swipeToReply)
-    }
-
-    static var removeMessagesFromNotificationsCenter: Bool {
-        value(for: .removeMessagesFromNotificationsCenter)
-    }
-
-    static var mediaCarouselForWidgets: Bool {
-        value(for: .mediaCarouselForWidgets)
-    }
-
-    static var fixCollectionViewReuseCrashInEditor: Bool {
-        value(for: .fixCollectionViewReuseCrashInEditor)
-    }
-
-    static var loadAttachmentsOnHomePlusMenu: Bool {
-        value(for: .loadAttachmentsOnHomePlusMenu)
-    }
-
-    static var vaultBackToRoots: Bool {
-        value(for: .vaultBackToRoots)
-    }
-
-    static var brandNewAuthFlow: Bool {
-        value(for: .brandNewAuthFlow)
-    }
-
     static var showAllButtonInWidgets: Bool {
         value(for: .showAllButtonInWidgets)
     }
 
     static var turnOffAutomaticWidgetOpening: Bool {
         value(for: .turnOffAutomaticWidgetOpening)
+    }
+
+    static var channelTypeSwitcher: Bool {
+        value(for: .channelTypeSwitcher)
+    }
+
+    static var showUploadStatusIndicator: Bool {
+        value(for: .showUploadStatusIndicator)
+    }
+
+    static var newObjectSettings: Bool {
+        value(for: .newObjectSettings)
     }
 
     static var setKanbanView: Bool {
@@ -60,14 +36,6 @@ public extension FeatureFlags {
 
     static var dndOnCollectionsAndSets: Bool {
         value(for: .dndOnCollectionsAndSets)
-    }
-
-    static var multichats: Bool {
-        value(for: .multichats)
-    }
-
-    static var doNotWaitCompletionInAnytypePreview: Bool {
-        value(for: .doNotWaitCompletionInAnytypePreview)
     }
 
     static var rainbowViews: Bool {
@@ -130,24 +98,24 @@ public extension FeatureFlags {
         value(for: .skipOnboardingEmailCollection)
     }
 
+    static var spaceHubAlwaysShowLoading: Bool {
+        value(for: .spaceHubAlwaysShowLoading)
+    }
+
+    static var showHangedObjects: Bool {
+        value(for: .showHangedObjects)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
-        .muteSpacePossibility,
-        .addNotificationsSettings,
-        .swipeToReply,
-        .removeMessagesFromNotificationsCenter,
-        .mediaCarouselForWidgets,
-        .fixCollectionViewReuseCrashInEditor,
-        .loadAttachmentsOnHomePlusMenu,
-        .vaultBackToRoots,
-        .brandNewAuthFlow,
         .showAllButtonInWidgets,
         .turnOffAutomaticWidgetOpening,
+        .channelTypeSwitcher,
+        .showUploadStatusIndicator,
+        .newObjectSettings,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .multichats,
-        .doNotWaitCompletionInAnytypePreview,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -162,6 +130,8 @@ public extension FeatureFlags {
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
-        .skipOnboardingEmailCollection
+        .skipOnboardingEmailCollection,
+        .spaceHubAlwaysShowLoading,
+        .showHangedObjects
     ]
 }

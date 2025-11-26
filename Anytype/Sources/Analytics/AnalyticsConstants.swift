@@ -402,6 +402,11 @@ enum EditTypeRoute: String {
     case type = "Type"
 }
 
+enum ScreenCreateTypeRoute: String {
+    case screenObjectTypes = "ScreenObjectTypes"
+    case screenWidget = "ScreenWidget"
+}
+
 enum OpenObjectByLinkType: String {
     case object = "Object"
     case invite = "Invite"

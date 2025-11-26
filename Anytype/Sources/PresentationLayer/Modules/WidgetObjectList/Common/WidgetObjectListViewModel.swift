@@ -86,7 +86,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func startParticipantTask() async {
-        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+        for await participant in accountParticipantStorage.participantSequence(spaceId: spaceId) {
             self.participant = participant
             canEdit = participant.canEdit
             editMode = canEdit ? internalModel.editMode : .normal(allowDnd: false)

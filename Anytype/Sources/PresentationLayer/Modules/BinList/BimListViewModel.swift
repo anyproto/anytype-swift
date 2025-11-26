@@ -106,7 +106,7 @@ final class BinListViewModel: ObservableObject, OptionsItemProvider {
     }
     
     private func subscribeOnParticipant() async {
-        for await participant in accountParticipantStorage.participantPublisher(spaceId: spaceId).values {
+        for await participant in accountParticipantStorage.participantSequence(spaceId: spaceId) {
             self.participant = participant
             updateView()
         }

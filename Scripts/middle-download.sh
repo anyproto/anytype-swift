@@ -7,6 +7,11 @@ PROJECT_DIR=${BASEDIR}/..
 CACHE_DIR=${PROJECT_DIR}/.libcache
 CACHE_LIMIT=10
 
+#Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+RESET='\033[0m'
+
 . ${BASEDIR}/common.sh --source-only
 
 source Libraryfile
@@ -33,9 +38,8 @@ if [[ ! -f "$LIB_PATH" ]]; then
     LIB_PATH_TMP=${CACHE_DIR}/lib-tmp.gz
 
     if ! curl https://maven.pkg.github.com/anyproto/anytype-heart/io.anyproto/anytype-heart-ios/${MIDDLE_VERSION}/anytype-heart-ios-${MIDDLE_VERSION}.gz -f --header "Authorization: token ${token}" -L --output ${LIB_PATH_TMP}; then
-        RED='\033[0;31m'
-        TERMINATOR='\n\e[0m'
-        printf "${RED}Error downloading middleware, check out token provided${TERMINATOR}"
+
+        printf "${RED}Error downloading middleware, check out token provided${RESET}"
         printf "use \"make change-github-token\" command to update token"
         exit 1
     fi
@@ -62,6 +66,5 @@ if [[ -d "$CACHE_DIR" ]]; then
     fi
 fi
 
-GREEN='\033[0;32m'
-printf "${GREEN}Success"
+printf "${GREEN}Success${RESET}"
 echo -e "\a" # play sound

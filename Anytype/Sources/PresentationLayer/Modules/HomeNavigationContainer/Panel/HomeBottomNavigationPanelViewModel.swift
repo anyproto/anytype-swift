@@ -37,7 +37,9 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.experimentalFeaturesStorage)
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
-    
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
+
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
@@ -110,6 +112,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onTapHome() {
+        AnytypeAnalytics.instance().logClickNavigationScreenHome()
         output?.popToFirstInSpace()
     }
     
@@ -161,8 +164,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func typesSubscription() async {
         for await types in objectTypeProvider.objectTypesPublisher(spaceId: info.accountSpaceId).values {
+            let spaceUxType = spaceViewsStorage.spaceView(spaceId: info.accountSpaceId)?.uxType
+            let supportedLayouts = DetailsLayout.supportedForCreation(spaceUxType: spaceUxType)
             let types = types.filter { type in
-                DetailsLayout.supportedForCreation.contains { $0 == type.recommendedLayout }
+                supportedLayouts.contains { $0 == type.recommendedLayout }
                 && !type.isTemplateType
             }
             

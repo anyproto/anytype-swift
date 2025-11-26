@@ -1,5 +1,18 @@
 name: Update middleware version
 
+# This workflow automates the process of updating the middleware version:
+# 1. Checks if the version is already up-to-date
+# 2. Updates the version in Libraryfile
+# 3. Downloads new middleware binaries and regenerates files
+# 4. Runs unit tests to ensure compatibility
+# 5. Creates a PR with the changes
+# 6. Closes the associated Linear issue (if task_name is provided)
+#
+# Required secrets:
+# - SERVICE_USER_GITHUB_TOKEN: GitHub token for creating PRs and pushing changes
+# - MIDDLEWARE_TOKEN: Token for accessing middleware repository
+# - LINEAR_TOKEN: Linear API token for closing issues (required when task_name is provided)
+
 on:
   workflow_dispatch:
     inputs:
@@ -25,9 +38,11 @@ permissions:
   pull-requests: write
 
 jobs:
+  # First job: Check if the middleware version is already up-to-date
+  # This prevents unnecessary work if the version hasn't changed
   check-version:
     name: Check current middleware version
-    runs-on: macos-15
+    runs-on: macos-26
     outputs:
       same: ${{ steps.chk.outputs.same }}
     steps:
@@ -38,12 +53,15 @@ jobs:
         id: chk
         shell: bash
         run: |
+          # Read the MIDDLE_VERSION from Libraryfile (contains current middleware version)
           set -a
           source Libraryfile || true
           set +a
           CURR="${MIDDLE_VERSION:-}"
           echo "Current version: ${CURR}"
           echo "Target version: ${{ inputs.middle_version }}"
+
+          # Compare current version with target version
           if [ "$CURR" = "${{ inputs.middle_version }}" ]; then
             echo "same=true" >> "$GITHUB_OUTPUT"
             echo "Version already up-to-date. Workflow will finish successfully without updates."
@@ -52,15 +70,18 @@ jobs:
             echo "Version differs. Proceeding with update…"
           fi
 
+  # Second job: Perform the actual middleware update
+  # Only runs if the version check shows the version needs updating
   update:
     name: Update middleware version
-    runs-on: macos-15
+    runs-on: macos-26
     needs: check-version
     if: ${{ needs.check-version.outputs.same != 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # Restore cached build artifacts to speed up the process
       - name: Restore cache for local build folder
         uses: actions/cache/restore@v4
         with:
@@ -68,10 +89,11 @@ jobs:
           key: build-local-tools-${{ github.sha }}
           restore-keys: |
             build-local-tools-
-      
+
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
+      # Restore Xcode derived data cache to speed up builds
       - name: Xcode Cache
         uses: irgaly/xcode-cache@v1
         with:
@@ -84,56 +106,137 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.6.0
         with:
-          xcode-version: '26.0'
+          xcode-version: '26.1'
 
+      # Install required development tools (e.g., SwiftGen, Sourcery)
       - name: Setup tools
         run: make setup-env
         env:
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
-      
+
+      # Update the MIDDLE_VERSION value in Libraryfile
       - name: Update Middleware Version
         run: make set-middle-version v=${{ inputs.middle_version }}
 
+      # Download the new middleware binaries and regenerate protobuf files
       - name: Download Middleware and Generate Files
         run: make setup-middle
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
+      # Configure git user for commits
       - name: Update git config
         uses: ./.github/actions/update-git-config
-      
+
+      # Create a new branch and commit the changes
+      # Branch name format: IOS-123-update-middleware-1.2.3 or update-middleware-1.2.3
       - name: Create Commit
         id: commit
         run: |
           BRANCH_NAME="${{ inputs.task_name != '' && format('{0}-update-middleware-{1}', inputs.task_name, inputs.middle_version) || format('update-middleware-{0}', inputs.middle_version) }}"
           COMMIT_MESSAGE="${{ inputs.task_name != '' && format('{0} Automation: Update middleware to {1}', inputs.task_name, inputs.middle_version) || format('Automation: Update middleware to {0}', inputs.middle_version) }}"
-          
-          # Delete local branch if exists
+
+          # Clean up any existing branch with the same name
           git branch -D $BRANCH_NAME || true
-          # Delete remote branch if exists
           git push origin --delete $BRANCH_NAME || true
-          # Create new branch
+
+          # Create new branch and commit all changes
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "$COMMIT_MESSAGE" --no-verify
-          
+
+          # Export branch name and commit message for later steps
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
 
+      # Verify that the middleware update doesn't break existing tests
       - name: Run unit tests
         run: bundle exec fastlane tests skip_notify:true
         env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODE_LIST_TIMEOUT: 900
-      
-      - name: Create and Merge PR
+
+      # Push the branch and create a PR
+      - name: Create PR
         run: |
           git push origin ${{ steps.commit.outputs.branch_name }} --no-verify
-          
+
           PR_BODY="This PR updates middleware to version ${{ inputs.middle_version }}"
           gh pr create --title "${{ steps.commit.outputs.commit_message }}" --body "$PR_BODY" --base ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
-        
+
+      # Close the Linear issue by moving it to "Done" state
+      # Only runs if a task_name was provided (e.g., IOS-123)
+      - name: Close Linear Issue
+        if: ${{ inputs.task_name != '' }}
+        run: |
+          ISSUE_ID="${{ inputs.task_name }}"
+
+          # Step 1: Query Linear API to get the issue and its team's workflow states
+          # We need to find the "Done" state ID for this team
+          # Note: Using 'issues' query with identifier filter to handle human-readable IDs like "IOS-5375"
+          ISSUE_QUERY='query($identifier: String!) {
+            issues(filter: { identifier: { eq: $identifier } }) {
+              nodes {
+                id
+                team {
+                  states {
+                    nodes {
+                      id
+                      name
+                      type
+                    }
+                  }
+                }
+              }
+            }
+          }'
+
+          # Make GraphQL request to get issue data
+          ISSUE_DATA=$(curl -s -X POST https://api.linear.app/graphql \
+            -H "Authorization: ${{ secrets.LINEAR_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"$ISSUE_QUERY\",\"variables\":{\"identifier\":\"$ISSUE_ID\"}}")
+
+          # Step 2: Extract the issue UUID and the state ID for "Done" (type="completed")
+          # We need the UUID for the mutation, not the identifier
+          ISSUE_UUID=$(echo "$ISSUE_DATA" | jq -r '.data.issues.nodes[0].id')
+
+          # Different teams may have different names for the Done state, but they all have type="completed"
+          DONE_STATE_ID=$(echo "$ISSUE_DATA" | jq -r '.data.issues.nodes[0].team.states.nodes[] | select(.type == "completed") | .id' | head -1)
+
+          # Step 3: Verify we found the issue and Done state
+          if [ -z "$ISSUE_UUID" ] || [ "$ISSUE_UUID" = "null" ]; then
+            echo "Warning: Could not find issue $ISSUE_ID"
+            exit 0
+          fi
+
+          if [ -z "$DONE_STATE_ID" ]; then
+            echo "Warning: Could not find 'Done' state for issue $ISSUE_ID"
+            exit 0
+          fi
+
+          # Step 4: Update the issue to move it to Done state
+          UPDATE_MUTATION='mutation($issueId: String!, $stateId: String!) {
+            issueUpdate(id: $issueId, input: { stateId: $stateId }) {
+              success
+              issue {
+                id
+                state {
+                  name
+                }
+              }
+            }
+          }'
+
+          # Make GraphQL mutation request to update the issue using the UUID
+          UPDATE_RESULT=$(curl -s -X POST https://api.linear.app/graphql \
+            -H "Authorization: ${{ secrets.LINEAR_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"query\":\"$UPDATE_MUTATION\",\"variables\":{\"issueId\":\"$ISSUE_UUID\",\"stateId\":\"$DONE_STATE_ID\"}}")
+
+          echo "Linear issue $ISSUE_ID closed successfully"
+          echo "$UPDATE_RESULT"

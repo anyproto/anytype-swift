@@ -20,6 +20,9 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let uxType: SpaceUxType
     let pushNotificationEncryptionKey: String
     let pushNotificationMode: SpacePushNotificationsMode
+    let forceAllIds: [String]
+    let forceMuteIds: [String]
+    let forceMentionIds: [String]
 }
 
 extension SpaceView: DetailsModel {
@@ -41,6 +44,9 @@ extension SpaceView: DetailsModel {
         self.uxType = details.spaceUxTypeValue ?? .data
         self.pushNotificationEncryptionKey = details.spacePushNotificationEncryptionKey
         self.pushNotificationMode = details.spacePushNotificationModeValue ?? .all
+        self.forceAllIds = details.spacePushNotificationForceAllIds
+        self.forceMuteIds = details.spacePushNotificationForceMuteIds
+        self.forceMentionIds = details.spacePushNotificationForceMentionIds
     }
     
     static let subscriptionKeys: [BundledPropertyKey] = .builder {
@@ -62,6 +68,9 @@ extension SpaceView: DetailsModel {
         BundledPropertyKey.spaceUxType
         BundledPropertyKey.spacePushNotificationEncryptionKey
         BundledPropertyKey.spacePushNotificationMode
+        BundledPropertyKey.spacePushNotificationForceAllIds
+        BundledPropertyKey.spacePushNotificationForceMuteIds
+        BundledPropertyKey.spacePushNotificationForceMentionIds
     }
 }
 
@@ -103,11 +112,7 @@ extension SpaceView {
     var canAddChatWidget: Bool {
         !initialScreenIsChat && isShared && hasChat
     }
-    
-    var canShowChatWidget: Bool {
-        !initialScreenIsChat && hasChat
-    }
-    
+
     var hasChat: Bool {
         chatId.isNotEmpty
     }
@@ -128,5 +133,18 @@ extension SpaceView {
 
     private func activeWriters(participants: [Participant]) -> Int {
         participants.filter { $0.permission == .writer || $0.permission == .owner }.count
+    }
+
+    func effectiveNotificationMode(for chatId: String) -> SpacePushNotificationsMode {
+        if forceAllIds.contains(chatId) {
+            return .all
+        }
+        if forceMuteIds.contains(chatId) {
+            return .nothing
+        }
+        if forceMentionIds.contains(chatId) {
+            return .mentions
+        }
+        return pushNotificationMode
     }
 }

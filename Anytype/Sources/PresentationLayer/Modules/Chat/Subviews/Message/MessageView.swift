@@ -8,7 +8,7 @@ struct MessageView: View {
         static let attachmentsPadding: CGFloat = 4
         static let messageHorizontalPadding: CGFloat = 12
         static let coordinateSpace = "MessageViewCoordinateSpace"
-        static let emoji = ["👍🏻", "️️❤️", "😂"]
+        static let emoji = ["👍", "️️❤️", "😂"]
     }
     
     private let data: MessageViewData
@@ -28,7 +28,7 @@ struct MessageView: View {
     
     var body: some View {
         MessageReplyActionView(
-            isEnabled: FeatureFlags.swipeToReply && data.canReply,
+            isEnabled: data.canReply,
             contentHorizontalPadding: Constants.messageHorizontalPadding,
             centerOffsetY: $bubbleCenterOffsetY,
             content: {

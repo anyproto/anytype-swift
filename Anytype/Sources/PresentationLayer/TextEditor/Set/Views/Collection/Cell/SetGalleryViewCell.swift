@@ -31,15 +31,19 @@ struct SetGalleryViewCell: View {
     
     private var infoContent: some View {
         VStack(alignment: .leading, spacing: 4) {
-            TitleWithIconView(
-                icon: configuration.icon,
-                showIcon: configuration.showIcon,
-                canEditIcon: configuration.canEditIcon,
-                title: configuration.title,
-                showTitle: configuration.showTitle,
-                style: .gallery
-            )                            
-            relations
+            if let chatPreview = configuration.chatPreview {
+                SetChatPreviewView(configuration: configuration, chatPreview: chatPreview)
+            } else {
+                TitleWithIconView(
+                    icon: configuration.icon,
+                    showIcon: configuration.showIcon,
+                    canEditIcon: configuration.canEditIcon,
+                    title: configuration.title,
+                    showTitle: configuration.showTitle,
+                    style: .gallery
+                )
+                relations
+            }
         }
         .padding(.top, configuration.hasCover && configuration.coverType.isNotNil ? 0 : Constants.contentPadding )
         .padding([.leading, .trailing, .bottom], Constants.contentPadding)

@@ -3,60 +3,6 @@ import Foundation
 // Call `make generate` to update FeatureFlags helper
 
 public extension FeatureDescription {
-    
-    static let muteSpacePossibility = FeatureDescription(
-        title: "Mute space possibility",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let addNotificationsSettings = FeatureDescription(
-        title: "Add notifications settings",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let swipeToReply = FeatureDescription(
-        title: "Swipe to reply in chats",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-
-    static let removeMessagesFromNotificationsCenter = FeatureDescription(
-        title: "Remove messages from NotificationsCenter",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let mediaCarouselForWidgets = FeatureDescription(
-        title: "Media carousel for widgets",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let fixCollectionViewReuseCrashInEditor = FeatureDescription(
-        title: "Attempt to fix collection view reuse crash in Editor",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let loadAttachmentsOnHomePlusMenu = FeatureDescription(
-        title: "Possibility to load attachments on home + menu",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let vaultBackToRoots = FeatureDescription(
-        title: "New old design of vault cells",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
-    
-    static let brandNewAuthFlow = FeatureDescription(
-        title: "New auth flow",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "13"),
-        defaultValue: true
-    )
 
     static let showAllButtonInWidgets = FeatureDescription(
         title: "See all as the last point in the widget - IOS-4945",
@@ -69,7 +15,27 @@ public extension FeatureDescription {
         type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
         defaultValue: true
     )
+
+    // should be disabled
+    static let channelTypeSwitcher = FeatureDescription(
+        title: "Channel type switcher - IOS-5378",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
+        defaultValue: false
+    )
+
+    static let showUploadStatusIndicator = FeatureDescription(
+        title: "Show visual indicator for uploading files - IOS-5054",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
+        defaultValue: false
+    )
     
+    static let newObjectSettings = FeatureDescription(
+        title: "New Object Settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
@@ -92,20 +58,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
 
-    static let multichats = FeatureDescription(
-        title: "Multichats",
-        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: true
-    )
-
-    static let doNotWaitCompletionInAnytypePreview = FeatureDescription(
-        title: "Do not wait completion in Anytype Preview",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
@@ -209,6 +161,18 @@ public extension FeatureDescription {
     
     static let skipOnboardingEmailCollection = FeatureDescription(
         title: "Skip mandatory onboarding email collection",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
+    )
+    static let spaceHubAlwaysShowLoading = FeatureDescription(
+        title: "Space Hub - Always show loading",
+        type: .debug,
+        defaultValue: false
+    )
+
+    static let showHangedObjects = FeatureDescription(
+        title: "Show hanged objects",
         type: .debug,
         defaultValue: false,
         debugValue: true

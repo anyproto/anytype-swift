@@ -15,7 +15,7 @@ protocol SetObjectCreationSettingsOutput: AnyObject {
     func onObjectTypesSearchAction(setDocument: some SetDocumentProtocol, completion: @escaping (ObjectType) -> Void)
     func templateEditingHandler(
         setting: ObjectCreationSetting,
-        onSetAsDefaultTempalte: @escaping (String) -> Void,
+        onSetAsDefaultTemplate: @escaping (String) -> Void,
         onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     )
 }
@@ -95,10 +95,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             guard let self else { return }
             do {
                 let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId, spaceId: spaceId)
-                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId), spaceId: spaceId)
+                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
                 output?.templateEditingHandler(
                     setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId),
-                    onSetAsDefaultTempalte: { [weak self] templateId in
+                    onSetAsDefaultTemplate: { [weak self] templateId in
                         self?.setTemplateAsDefault(templateId: templateId)
                     },
                     onTemplateSelection: data.onTemplateSelection
@@ -221,7 +221,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 case .editTemplate:
                     output?.templateEditingHandler(
                         setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id),
-                        onSetAsDefaultTempalte: { [weak self] templateId in
+                        onSetAsDefaultTemplate: { [weak self] templateId in
                             self?.setTemplateAsDefault(templateId: templateId)
                         },
                         onTemplateSelection: data.onTemplateSelection

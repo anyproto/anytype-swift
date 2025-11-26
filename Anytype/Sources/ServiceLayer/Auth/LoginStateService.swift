@@ -30,6 +30,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     private let membershipStatusStorage: any MembershipStatusStorageProtocol = Container.shared.membershipStatusStorage()
     private let propertyDetailsStorage: any PropertyDetailsStorageProtocol = Container.shared.propertyDetailsStorage()
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+    private let chatDetailsStorage: any ChatDetailsStorageProtocol = Container.shared.chatDetailsStorage()
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let participantSpacesStorage: any ParticipantSpacesStorageProtocol = Container.shared.participantSpacesStorage()
     private let storeKitService: any StoreKitServiceProtocol = Container.shared.storeKitService()
@@ -85,6 +86,7 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
     
     private func startSubscriptions() async {
         await workspacesStorage.startSubscription()
+        await chatDetailsStorage.startSubscription()
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
@@ -94,16 +96,13 @@ final class LoginStateService: LoginStateServiceProtocol, Sendable {
         await spaceIconForNotificationsHandler.startUpdating()
         
         Task {
-            // Time-heavy operation
-            #if RELEASE_ANYAPP
-                await storeKitService.activatePromoTier()
-            #endif
             await membershipStatusStorage.startSubscription()
         }
     }
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
+        await chatDetailsStorage.stopSubscription()
         await propertyDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
         await accountParticipantsStorage.stopSubscription()

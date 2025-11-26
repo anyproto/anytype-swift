@@ -10,11 +10,13 @@ enum SearchDefaults {
 final class SearchService: SearchServiceProtocol, Sendable {
     
     private let searchMiddleService: any SearchMiddleServiceProtocol = Container.shared.searchMiddleService()
-    
+    private let spaceViewsStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
+
     // MARK: - SearchServiceProtocol
     
     func search(text: String, spaceId: String) async throws -> [ObjectDetails] {
-        try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, excludedIds: [], spaceId: spaceId)
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        return try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts(spaceUxType: spaceUxType), excludedIds: [], spaceId: spaceId)
     }
     
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
@@ -73,10 +75,11 @@ final class SearchService: SearchServiceProtocol, Sendable {
             relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             if typeIds.isEmpty {
-                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts)
+                SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayouts(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
             } else {
                 SearchFiltersBuilder.build(isArchived: false)
                 SearchHelper.typeFilter(typeIds)
@@ -101,9 +104,10 @@ final class SearchService: SearchServiceProtocol, Sendable {
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
         )
-        
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles)
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
@@ -112,9 +116,12 @@ final class SearchService: SearchServiceProtocol, Sendable {
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [PropertyOption] {
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        
         var filters = SearchFiltersBuilder.build(
             isArchived: false,
-            layouts: [DetailsLayout.relationOption]
+            layouts: [DetailsLayout.relationOption],
+            spaceUxType: spaceUxType
         )
         filters.append(SearchHelper.relationKey(relationKey))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
@@ -129,9 +136,12 @@ final class SearchService: SearchServiceProtocol, Sendable {
     }
 
     func searchRelationOptions(optionIds: [String], spaceId: String) async throws -> [PropertyOption] {
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
+        
         var filters = SearchFiltersBuilder.build(
             isArchived: false,
-            layouts: [DetailsLayout.relationOption]
+            layouts: [DetailsLayout.relationOption],
+            spaceUxType: spaceUxType
         )
         filters.append(SearchHelper.includeIdsFilter(optionIds))
 
@@ -145,14 +155,15 @@ final class SearchService: SearchServiceProtocol, Sendable {
             type: .desc,
             includeTime: true
         )
-        
+
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: [DetailsLayout.relation])
+            SearchFiltersBuilder.build(isArchived: false, layouts: [DetailsLayout.relation], spaceUxType: spaceUxType)
             SearchHelper.relationReadonlyValue(false)
             SearchHelper.excludedRelationKeys(BundledPropertyKey.internalKeys.map(\.rawValue))
             SearchHelper.excludedIdsFilter(excludedIds)
         }
-        
+
         let details = try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text)
         return details.map { PropertyDetails(details: $0) }
     }
@@ -186,12 +197,13 @@ final class SearchService: SearchServiceProtocol, Sendable {
             relation: BundledPropertyKey.lastOpenedDate,
             type: .desc
         )
-        
+
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: layouts)
+            SearchFiltersBuilder.build(isArchived: false, layouts: layouts, spaceUxType: spaceUxType)
             SearchHelper.excludedIdsFilter(excludedIds)
         }
-        
+
         return try await searchMiddleService.search(spaceId: spaceId, filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
     

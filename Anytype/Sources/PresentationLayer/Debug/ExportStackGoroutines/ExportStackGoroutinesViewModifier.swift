@@ -1,11 +1,9 @@
 import SwiftUI
 import Services
 
-
 struct ExportStackGoroutinesViewModifier: ViewModifier {
-    @Injected(\.debugService)
-    private var debugService: any DebugServiceProtocol
     
+    @State private var model = ExportStackGoroutinesViewModel()
     @State private var shareUrlFile: URL?
     @Binding var isPresented: Bool
     
@@ -21,10 +19,21 @@ struct ExportStackGoroutinesViewModifier: ViewModifier {
     }
     
     private func exportStackGoroutines() {
-        Task { shareUrlFile = try await debugService.exportStackGoroutinesZip() }
+        Task { shareUrlFile = try await model.exportStackGoroutinesZip() }
     }
 }
 
+@MainActor
+@Observable
+private final class ExportStackGoroutinesViewModel {
+    
+    @Injected(\.debugService) @ObservationIgnored
+    private var debugService: any DebugServiceProtocol
+    
+    func exportStackGoroutinesZip() async throws -> URL {
+        try await debugService.exportStackGoroutinesZip()
+    }
+}
 
 extension View {
     func exportStackGoroutinesSheet(isPresented: Binding<Bool>) -> some View {

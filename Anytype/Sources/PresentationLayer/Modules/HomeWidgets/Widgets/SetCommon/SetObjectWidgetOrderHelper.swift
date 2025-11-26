@@ -6,6 +6,8 @@ protocol SetObjectWidgetOrderHelperProtocol: AnyObject {
         setDocument: any SetDocumentProtocol,
         subscriptionStorage: any SubscriptionStorageProtocol,
         details: [ObjectDetails],
+        chatPreviews: [ChatMessagePreview],
+        spaceView: SpaceView?,
         onItemTap: @escaping @MainActor (_ details: ObjectDetails, _ allDetails: [ObjectDetails]) -> Void
     ) -> [SetContentViewItemConfiguration]
 }
@@ -19,9 +21,11 @@ final class SetObjectWidgetOrderHelper: SetObjectWidgetOrderHelperProtocol {
         setDocument: any SetDocumentProtocol,
         subscriptionStorage: any SubscriptionStorageProtocol,
         details: [ObjectDetails],
+        chatPreviews: [ChatMessagePreview],
+        spaceView: SpaceView?,
         onItemTap: @escaping @MainActor (_ details: ObjectDetails, _ allDetails: [ObjectDetails]) -> Void
     ) -> [SetContentViewItemConfiguration] {
-        
+
         let sortedDetails: [ObjectDetails]
         let objectOrderIds = setDocument.objectOrderIds(for: "")
         if objectOrderIds.isNotEmpty {
@@ -29,7 +33,7 @@ final class SetObjectWidgetOrderHelper: SetObjectWidgetOrderHelperProtocol {
         } else {
             sortedDetails = details
         }
-        
+
         return setContentViewDataBuilder.itemData(
             sortedDetails,
             dataView: setDocument.dataView,
@@ -38,6 +42,8 @@ final class SetObjectWidgetOrderHelper: SetObjectWidgetOrderHelperProtocol {
             canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
+            chatPreviews: chatPreviews,
+            spaceView: spaceView,
             onItemTap: {
                 onItemTap($0, sortedDetails)
             }

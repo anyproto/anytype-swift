@@ -26,19 +26,29 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
             ).throttle(milliseconds: 300)
             
             return combineStream.map { (spaces, previews) in
-                var spaces = spaces.map { ParticipantSpaceViewDataWithPreview(space: $0) }
-                
-                for preview in previews {
-                    if let spaceIndex = spaces.firstIndex(where: { $0.spaceView.targetSpaceId == preview.spaceId }) {
-                        let participantSpace = spaces[spaceIndex]
-                        
-                        if participantSpace.spaceView.chatId == preview.chatId {
-                            spaces[spaceIndex] = spaces[spaceIndex].updated(preview: preview)
+                spaces.map { space in
+                    let spacePreviews = previews.filter { $0.spaceId == space.spaceView.targetSpaceId }
+
+                    guard let latestPreview = spacePreviews.max(by: { preview1, preview2 in
+                        guard let date1 = preview1.lastMessage?.createdAt,
+                              let date2 = preview2.lastMessage?.createdAt else {
+                            return preview1.lastMessage == nil
                         }
+                        return date1 < date2
+                    }) else {
+                        return ParticipantSpaceViewDataWithPreview(space: space)
                     }
+
+                    let totalUnread = spacePreviews.reduce(0) { $0 + $1.unreadCounter }
+                    let totalMentions = spacePreviews.reduce(0) { $0 + $1.mentionCounter }
+
+                    return ParticipantSpaceViewDataWithPreview(
+                        space: space,
+                        latestPreview: latestPreview,
+                        totalUnreadCounter: totalUnread,
+                        totalMentionCounter: totalMentions
+                    )
                 }
-                
-                return spaces
             }
             .removeDuplicates()
             .eraseToAnyAsyncSequence()

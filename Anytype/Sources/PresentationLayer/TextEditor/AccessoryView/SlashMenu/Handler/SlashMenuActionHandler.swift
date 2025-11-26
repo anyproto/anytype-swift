@@ -56,7 +56,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let typeDetails):
                 let objectType = ObjectType(details: typeDetails)
-                AnytypeAnalytics.instance().logCreateLink(spaceId: objectType.spaceId, objectType: objectType.analyticsType, route: .slashMenu)
+                AnytypeAnalytics.instance().logCreateLink(objectType: objectType.analyticsType, route: .slashMenu)
                 try await actionHandler
                     .createPage(
                         targetId: blockInformation.id,
@@ -72,7 +72,7 @@ final class SlashMenuActionHandler {
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAddPropertyInfoView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
+                router.showAddPropertyInfoView(document: document) { [weak self] relation, isNew in
                     Task {
                         try await self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable())
                     }
@@ -81,7 +81,6 @@ final class SlashMenuActionHandler {
                         isNew: isNew,
                         type: .block,
                         key: relation.analyticsKey,
-                        spaceId: spaceId,
                         route: .slashMenu
                     )
                 }

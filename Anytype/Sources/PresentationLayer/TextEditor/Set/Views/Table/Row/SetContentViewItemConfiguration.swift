@@ -16,6 +16,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let coverFit: Bool
     let coverType: ObjectHeaderCoverType?
     let minHeight: CGFloat?
+    let chatPreview: MessagePreviewModel?
     @EquatableNoop var onItemTap: @MainActor () -> Void
     
     init(
@@ -32,6 +33,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         coverFit: Bool,
         coverType: ObjectHeaderCoverType?,
         minHeight: CGFloat?,
+        chatPreview: MessagePreviewModel? = nil,
         onItemTap: @escaping @MainActor () -> Void
     ) {
         self.id = id
@@ -47,6 +49,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.coverFit = coverFit
         self.coverType = coverType
         self.minHeight = minHeight
+        self.chatPreview = chatPreview
         self.onItemTap = onItemTap
     }
 }

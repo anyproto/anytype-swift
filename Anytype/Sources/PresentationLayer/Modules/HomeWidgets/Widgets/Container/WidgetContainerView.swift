@@ -9,6 +9,7 @@ struct WidgetContainerView<Content: View>: View {
     
     let name: String
     let icon: Icon?
+    let badgeModel: MessagePreviewModel?
     let dragId: String?
     let onCreateObjectTap: (() -> Void)?
     let onHeaderTap: () -> Void
@@ -20,6 +21,7 @@ struct WidgetContainerView<Content: View>: View {
         homeState: Binding<HomeWidgetsState>,
         name: String,
         icon: Icon? = nil,
+        badgeModel: MessagePreviewModel? = nil,
         dragId: String?,
         menuItems: [WidgetMenuItem] = [.changeType, .remove, .removeSystemWidget],
         onCreateObjectTap: (() -> Void)?,
@@ -30,6 +32,7 @@ struct WidgetContainerView<Content: View>: View {
         self._homeState = homeState
         self.name = name
         self.icon = icon
+        self.badgeModel = badgeModel
         self.dragId = dragId
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
@@ -60,9 +63,29 @@ struct WidgetContainerView<Content: View>: View {
                 allowContent: Content.self != EmptyView.self,
                 createObjectAction: model.homeState.isReadWrite ? onCreateObjectTap : nil,
                 header: {
-                    LinkWidgetDefaultHeader(title: name, icon: icon, onTap: {
-                        onHeaderTap()
-                    })
+                    LinkWidgetDefaultHeader(
+                        title: name,
+                        titleColor: badgeModel?.titleColor ?? .Text.primary,
+                        icon: icon,
+                        rightAccessory: {
+                            if let badgeModel, badgeModel.hasCounters {
+                                HStack(spacing: 4) {
+                                    if badgeModel.mentionCounter > 0 {
+                                        MentionBadge(style: badgeModel.mentionStyle)
+                                    }
+                                    if badgeModel.unreadCounter > 0 {
+                                        CounterView(
+                                            count: badgeModel.unreadCounter,
+                                            style: badgeModel.unreadStyle
+                                        )
+                                    }
+                                }
+                            }
+                        },
+                        onTap: {
+                            onHeaderTap()
+                        }
+                    )
                 },
                 menu: {
                     menuItemsView

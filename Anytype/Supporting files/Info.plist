@@ -2,13 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AIEndpoint</key>
-	<string></string>
-	<key>AIModel</key>
-	<string></string>
 	<key>AmplitudeApiKey</key>
-	<string></string>
-	<key>AnyAppMembershipTierSecret</key>
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -81,8 +75,6 @@
 		<string>INSendMessageIntent</string>
 		<string>ConfigurationIntent</string>
 	</array>
-	<key>OpenAIToken</key>
-	<string></string>
 	<key>SentryDSN</key>
 	<string></string>
 	<key>SentryEnv</key>

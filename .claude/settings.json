@@ -2,7 +2,6 @@
   "permissions": {
     "allow": [
       "Read(*)",
-      "read file",
 
       "Bash(git checkout:*)",
       "Bash(git worktree:*)",
@@ -44,7 +43,9 @@
       "mcp__linear__list_issue_labels",
       "mcp__linear__get_team",
       "mcp__linear__search_documentation",
-      
+
+      "SlashCommand(/codeReview)",
+
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
       "Bash(git fetch:*)",
@@ -68,5 +69,38 @@
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "Linear"
-  ]
+  ],
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/skill-activation-prompt.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/post-tool-use-tracker.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/swiftformat-auto.sh"
+          }
+        ]
+      }
+    ]
+  }
 }

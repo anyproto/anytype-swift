@@ -30,7 +30,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     }
     
     func onCreateObjectType() {
-        createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "")
+        createTypeData = CreateObjectTypeData(spaceId: spaceInfo.accountSpaceId, name: "", route: .screenWidget)
     }
     
     func onObjectSelected(screenData: ScreenData) {

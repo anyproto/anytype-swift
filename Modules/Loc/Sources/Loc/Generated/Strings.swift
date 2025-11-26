@@ -373,6 +373,9 @@ public enum Loc {
     return Loc.tr("UI", "File", p1, fallback: "Plural format key: File")
   }
   public static let files = Loc.tr("UI", "Files", fallback: "Files")
+  public static func filesUploading(_ p1: Int) -> String {
+    return Loc.tr("UI", "Files uploading", p1, fallback: "%#@file@ uploading")
+  }
   public static let filter = Loc.tr("UI", "Filter", fallback: "Filter")
   public static let forever = Loc.tr("UI", "Forever", fallback: "Forever")
   public static let foreverFree = Loc.tr("UI", "Forever free", fallback: "Forever free")
@@ -388,6 +391,7 @@ public enum Loc {
   public static let header = Loc.tr("UI", "Header", fallback: "Header")
   public static let hidden = Loc.tr("UI", "Hidden", fallback: "Hidden")
   public static let hide = Loc.tr("UI", "Hide", fallback: "Hide")
+  public static let hideDescription = Loc.tr("UI", "Hide Description", fallback: "Hide Description")
   public static let hideTypes = Loc.tr("UI", "Hide types", fallback: "Hide types")
   public static let highlight = Loc.tr("UI", "Highlight", fallback: "Highlight")
   public static let history = Loc.tr("UI", "History", fallback: "History")
@@ -425,6 +429,7 @@ public enum Loc {
   public static let loadingPleaseWait = Loc.tr("UI", "Loading, please wait", fallback: "Loading, please wait")
   public static let localOnly = Loc.tr("UI", "Local Only", fallback: "Local Only")
   public static let lock = Loc.tr("UI", "Lock", fallback: "Lock")
+  public static let locked = Loc.tr("UI", "Locked", fallback: "Locked")
   public static let logOut = Loc.tr("UI", "Log out", fallback: "Log Out")
   public static let logoutAndClearData = Loc.tr("UI", "Logout and clear data", fallback: "Logout and clear data")
   public static let managePayment = Loc.tr("UI", "Manage payment", fallback: "Manage payment")
@@ -444,7 +449,7 @@ public enum Loc {
   public static let moveTo = Loc.tr("UI", "Move to", fallback: "Move to")
   public static let moveToBin = Loc.tr("UI", "Move To Bin", fallback: "Move To Bin")
   public static let mute = Loc.tr("UI", "Mute", fallback: "Mute")
-  public static let myChannels = Loc.tr("UI", "My channels", fallback: "My Channels")
+  public static let myChannels = Loc.tr("UI", "My channels", fallback: "Channels")
   public static let myFirstSpace = Loc.tr("UI", "My First Space", fallback: "My First Space")
   public static let myProperties = Loc.tr("UI", "My Properties", fallback: "My Properties")
   public static let mySites = Loc.tr("UI", "My Sites", fallback: "My Sites")
@@ -597,6 +602,7 @@ public enum Loc {
   public static let settings = Loc.tr("UI", "Settings", fallback: "Settings")
   public static let share = Loc.tr("UI", "Share", fallback: "Share")
   public static let show = Loc.tr("UI", "Show", fallback: "Show")
+  public static let showDescription = Loc.tr("UI", "Show Description", fallback: "Show Description")
   public static let showTypes = Loc.tr("UI", "Show types", fallback: "Show types")
   public static let skip = Loc.tr("UI", "Skip", fallback: "Skip")
   public static let sky = Loc.tr("UI", "Sky", fallback: "Sky")
@@ -611,6 +617,7 @@ public enum Loc {
     return Loc.tr("UI", "SuccessfullyDeleted ", String(describing: p1), fallback: "%@ deleted successfully")
   }
   public static let synced = Loc.tr("UI", "Synced", fallback: "Synced")
+  public static let syncing = Loc.tr("UI", "Syncing...", fallback: "Syncing...")
   public static let systemProperties = Loc.tr("UI", "System Properties", fallback: "System Properties")
   public static func tag(_ p1: Int) -> String {
     return Loc.tr("UI", "Tag", p1, fallback: "Plural format key: Tag")
@@ -648,8 +655,10 @@ public enum Loc {
   public static let unknownError = Loc.tr("UI", "Unknown error", fallback: "Unknown error")
   public static let unlimited = Loc.tr("UI", "unlimited", fallback: "Unlimited")
   public static let unlock = Loc.tr("UI", "Unlock", fallback: "Unlock")
+  public static let unlocked = Loc.tr("UI", "Unlocked", fallback: "Unlocked")
   public static let unmute = Loc.tr("UI", "Unmute", fallback: "Unmute")
   public static let unpin = Loc.tr("UI", "Unpin", fallback: "Unpin")
+  public static let unpinned = Loc.tr("UI", "Unpinned", fallback: "Unpinned")
   public static let unpublish = Loc.tr("UI", "Unpublish", fallback: "Unpublish")
   public static let unread = Loc.tr("UI", "Unread", fallback: "Unread")
   public static let unselectAll = Loc.tr("UI", "Unselect all", fallback: "Unselect all")
@@ -956,9 +965,7 @@ public enum Loc {
     }
     public enum Space {
       public static let getMore = Loc.tr("UI", "FileStorage.Space.GetMore", fallback: "Get more space")
-      public static func instruction(_ p1: Any) -> String {
-        return Loc.tr("UI", "FileStorage.Space.Instruction", String(describing: p1), fallback: "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.")
-      }
+      public static let instruction = Loc.tr("UI", "FileStorage.Space.Instruction", fallback: "You can store your files on our encrypted backup node. Once you reach your limit, files will stop syncing and will only be stored locally.")
       public static let localOnlyInstruction = Loc.tr("UI", "FileStorage.Space.LocalOnlyInstruction", fallback: "Remote storage is not available in local-only mode. Your files are stored locally on your device.")
       public static let title = Loc.tr("UI", "FileStorage.Space.Title", fallback: "Remote storage")
       public static func used(_ p1: Any, _ p2: Any) -> String {
@@ -2427,7 +2434,7 @@ public enum Loc {
     }
   }
   public enum Spaces {
-    public static let title = Loc.tr("Workspace", "Spaces.Title", fallback: "Spaces")
+    public static let title = Loc.tr("Workspace", "Spaces.Title", fallback: "Channels")
     public enum Accessibility {
       public static let personal = Loc.tr("Workspace", "Spaces.Accessibility.Personal", fallback: "Entry Space")
       public static let `private` = Loc.tr("Workspace", "Spaces.Accessibility.Private", fallback: "Private Space")

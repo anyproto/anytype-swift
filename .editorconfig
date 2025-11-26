@@ -1,0 +1,56 @@
+# EditorConfig - Ensures consistent coding styles across editors and IDEs
+# https://editorconfig.org
+
+root = true
+
+# Swift files
+[*.swift]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = false  # CRITICAL: Preserve whitespace on blank lines
+max_line_length = 140
+
+# YAML files (Fastlane, workflows, configs)
+[*.{yml,yaml}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# JSON files (Xcode assets, configs)
+[*.json]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Markdown files
+[*.md]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = false  # Preserve trailing spaces (used for line breaks)
+
+# Makefiles (MUST use tabs)
+[Makefile]
+indent_style = tab
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Shell scripts
+[*.sh]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true

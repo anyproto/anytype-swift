@@ -1,21 +1,26 @@
 import Foundation
-import Combine
 import Services
 import AnytypeCore
 import UIKit
 import DeepLinks
 
 @MainActor
-final class ObjectActionsViewModel: ObservableObject {
+@Observable
+final class ObjectActionsViewModel {
 
+    @ObservationIgnored
     private let objectId: String
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private weak var output: (any ObjectActionsOutput)?
-    
+
+    @ObservationIgnored
     private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId, spaceId: spaceId)
     }()
-    
+
+    @ObservationIgnored
     private lazy var widgetObject: (any BaseDocumentProtocol)? = {
         guard let info = workspaceStorage.spaceInfo(spaceId: spaceId) else {
             anytypeAssertionFailure("info not found")
@@ -23,31 +28,31 @@ final class ObjectActionsViewModel: ObservableObject {
         }
         return openDocumentsProvider.document(objectId: info.widgetsId, spaceId: spaceId)
     }()
-    
-    @Injected(\.objectActionsService)
+
+    @Injected(\.objectActionsService) @ObservationIgnored
     private var service: any ObjectActionsServiceProtocol
-    @Injected(\.blockService)
+    @Injected(\.blockService) @ObservationIgnored
     private var blockService: any BlockServiceProtocol
-    @Injected(\.templatesService)
+    @Injected(\.templatesService) @ObservationIgnored
     private var templatesService: any TemplatesServiceProtocol
-    @Injected(\.documentsProvider)
+    @Injected(\.documentsProvider) @ObservationIgnored
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.blockWidgetService)
+    @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.spaceViewsStorage)
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.deepLinkParser)
+    @Injected(\.deepLinkParser) @ObservationIgnored
     private var deepLinkParser: any DeepLinkParserProtocol
-    @Injected(\.universalLinkParser)
+    @Injected(\.universalLinkParser) @ObservationIgnored
     private var universalLinkParser: any UniversalLinkParserProtocol
-    @Injected(\.openedDocumentProvider)
+    @Injected(\.openedDocumentProvider) @ObservationIgnored
     private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
-    @Injected(\.workspaceService)
+    @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
-    
-    @Published var objectActions: [ObjectAction] = []
-    @Published var toastData: ToastBarData?
-    @Published var dismiss = false
+
+    var objectActions: [ObjectAction] = []
+    var toastData: ToastBarData?
+    var dismiss = false
     
     init(objectId: String, spaceId: String, output: (any ObjectActionsOutput)?) {
         self.objectId = objectId
@@ -110,18 +115,22 @@ final class ObjectActionsViewModel: ObservableObject {
                 position: first.map { .above(widgetId: $0.id) } ?? .end
             )
         }
+        toastData = ToastBarData(pinned ? Loc.unpinned : Loc.pinned)
         dismiss.toggle()
     }
 
     func changeLockState() async throws {
-        AnytypeAnalytics.instance().logLockPage(!document.isLocked)
-        try await service.setLocked(!document.isLocked, objectId: objectId)
+        let isCurrentlyLocked = document.isLocked
+        AnytypeAnalytics.instance().logLockPage(!isCurrentlyLocked)
+        try await service.setLocked(!isCurrentlyLocked, objectId: objectId)
+        toastData = ToastBarData(isCurrentlyLocked ? Loc.unlocked : Loc.locked)
+        dismiss.toggle()
     }
     
     func duplicateAction() async throws {
         guard let details = document.details else { return }
         
-        AnytypeAnalytics.instance().logDuplicateObject(count: 1, objectType: details.objectType.analyticsType, spaceId: details.spaceId)
+        AnytypeAnalytics.instance().logDuplicateObject(count: 1, objectType: details.objectType.analyticsType)
         
         let duplicatedId = try await service.duplicate(objectId: objectId)
         
@@ -140,7 +149,7 @@ final class ObjectActionsViewModel: ObservableObject {
         output?.onLinkItselfAction(onSelect: onObjectSelection)
     }
     
-    func makeAsTempalte() async throws {
+    func makeAsTemplate() async throws {
         guard let details = document.details else { return }
         
         let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)
@@ -209,7 +218,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     objectIds: [currentObjectId]
                 )
                 output?.onLinkItselfToObjectHandler(data: details.screenData())
-                AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
+                AnytypeAnalytics.instance().logLinkToObject(type: .collection)
             } else {
                 let info = BlockInformation.emptyLink(targetId: currentObjectId)
                 AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: details.spaceId)
@@ -220,7 +229,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     position: .bottom
                 )
                 output?.onLinkItselfToObjectHandler(data: details.screenData())
-                AnytypeAnalytics.instance().logLinkToObject(type: .object, spaceId: details.spaceId)
+                AnytypeAnalytics.instance().logLinkToObject(type: .object)
             }
         }
     }

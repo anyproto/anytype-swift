@@ -6,44 +6,40 @@ import AsyncAlgorithms
 import Loc
 
 @MainActor
-final class SpaceHubViewModel: ObservableObject {
-    @Published var spaces: [ParticipantSpaceViewDataWithPreview]?
-    @Published var searchText: String = ""
+@Observable
+final class SpaceHubViewModel {
     
-    var filteredSpaces: [ParticipantSpaceViewDataWithPreview] {
-        guard let spaces else { return [] }
-        guard !searchText.isEmpty else { return spaces }
-        
-        return spaces.filter { space in
-            space.spaceView.name.localizedCaseInsensitiveContains(searchText)
-        }
-    }
+    var spaces: [ParticipantSpaceViewDataWithPreview]?
+    var dataLoaded = false
+    var searchText: String = ""
+    var filteredSpaces: [SpaceCardModel] = []
     
-    @Published var wallpapers: [String: SpaceWallpaperType] = [:]
+    var wallpapers: [String: SpaceWallpaperType] = [:]
     
-    @Published var notificationsDenied = false
-    @Published var spaceMuteData: SpaceMuteData?
-    @Published var showLoading = false
-    @Published var profileIcon: Icon?
-    @Published var spaceToDelete: StringIdentifiable?
+    var notificationsDenied = false
+    var spaceMuteData: SpaceMuteData?
+    var profileIcon: Icon?
+    var spaceToDelete: StringIdentifiable?
     
+    @ObservationIgnored
     private weak var output: (any SpaceHubModuleOutput)?
-    
 
-    @Injected(\.userDefaultsStorage)
+    @Injected(\.userDefaultsStorage) @ObservationIgnored
     private var userDefaults: any UserDefaultsStorageProtocol
-    @Injected(\.spaceViewsStorage)
+    @Injected(\.spaceViewsStorage) @ObservationIgnored
     private var workspacesStorage: any SpaceViewsStorageProtocol
-    @Injected(\.spaceOrderService)
+    @Injected(\.spaceOrderService) @ObservationIgnored
     private var spaceOrderService: any SpaceOrderServiceProtocol
-    @Injected(\.profileStorage)
+    @Injected(\.profileStorage) @ObservationIgnored
     private var profileStorage: any ProfileStorageProtocol
-    @Injected(\.spaceHubSpacesStorage)
+    @Injected(\.spaceHubSpacesStorage) @ObservationIgnored
     private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @Injected(\.pushNotificationsSystemSettingsBroadcaster) @ObservationIgnored
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    @Injected(\.workspaceService)
+    @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.spaceCardModelBuilder) @ObservationIgnored
+    private var spaceCardModelBuilder: any SpaceCardModelBuilderProtocol
     
     init(output: (any SpaceHubModuleOutput)?) {
         self.output = output
@@ -67,11 +63,13 @@ final class SpaceHubViewModel: ObservableObject {
     }
     
     
-    func copySpaceInfo(spaceView: SpaceView) {
+    func copySpaceInfo(spaceViewId: String) {
+        guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
         UIPasteboard.general.string = String(describing: spaceView)
     }
     
-    func muteSpace(spaceView: SpaceView) {
+    func muteSpace(spaceViewId: String) {
+        guard let spaceView = spaces?.first(where: { $0.spaceView.id == spaceViewId })?.spaceView else { return }
         let isUnmutedAll = spaceView.pushNotificationMode.isUnmutedAll
         spaceMuteData = SpaceMuteData(
             spaceId: spaceView.targetSpaceId,
@@ -79,19 +77,19 @@ final class SpaceHubViewModel: ObservableObject {
         )
     }
     
-    func pin(spaceView: SpaceView) async throws {
+    func pin(spaceViewId: String) async throws {
         guard let spaces else { return }
         let pinnedSpaces = spaces.filter { $0.spaceView.isPinned }
+        
+        var newOrder = pinnedSpaces.filter { $0.spaceView.id != spaceViewId }.map(\.spaceView.id)
+        newOrder.insert(spaceViewId, at: 0)
 
-        var newOrder = pinnedSpaces.filter { $0.spaceView.id != spaceView.id }.map(\.spaceView.id)
-        newOrder.insert(spaceView.id, at: 0)
-
-        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceView.id, newOrder: newOrder)
+        try await spaceOrderService.setOrder(spaceViewIdMoved: spaceViewId, newOrder: newOrder)
         AnytypeAnalytics.instance().logPinSpace()
     }
     
-    func unpin(spaceView: SpaceView) async throws {
-        try await spaceOrderService.unsetOrder(spaceViewId: spaceView.id)
+    func unpin(spaceViewId: String) async throws {
+        try await spaceOrderService.unsetOrder(spaceViewId: spaceViewId)
         AnytypeAnalytics.instance().logUnpinSpace()
     }
     
@@ -124,11 +122,18 @@ final class SpaceHubViewModel: ObservableObject {
         spaceMuteData = nil
     }
     
+    func searchTextUpdated() {
+        Task {
+            await updateFilteredSpaces()
+        }
+    }
+    
     // MARK: - Private
     private func subscribeOnSpaces() async {
         for await spaces in await spaceHubSpacesStorage.spacesStream {
             self.spaces = spaces.sorted(by: sortSpacesForPinnedFeature)
-            showLoading = spaces.contains { $0.spaceView.isLoading }
+            await updateFilteredSpaces()
+            self.dataLoaded = spaces.isNotEmpty
         }
     }
     
@@ -141,8 +146,8 @@ final class SpaceHubViewModel: ObservableObject {
         case (false, true):
             return false
         case (false, false):
-            let lhsMessageDate = lhs.preview.lastMessage?.createdAt
-            let rhsMessageDate = rhs.preview.lastMessage?.createdAt
+            let lhsMessageDate = lhs.latestPreview.lastMessage?.createdAt
+            let rhsMessageDate = rhs.latestPreview.lastMessage?.createdAt
             let lhsJoinDate = lhs.spaceView.joinDate
             let rhsJoinDate = rhs.spaceView.joinDate
             
@@ -205,5 +210,23 @@ final class SpaceHubViewModel: ObservableObject {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsDenied = status.isDenied
         }
+    }
+    
+    private func updateFilteredSpaces() async {
+        guard let spaces else {
+            filteredSpaces = []
+            return
+        }
+        
+        let spacesToFilter: [ParticipantSpaceViewDataWithPreview]
+        if searchText.isEmpty {
+            spacesToFilter = spaces
+        } else {
+            spacesToFilter = spaces.filter { space in
+                space.spaceView.name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+        
+        self.filteredSpaces = await spaceCardModelBuilder.build(from: spacesToFilter, wallpapers: wallpapers)
     }
 }

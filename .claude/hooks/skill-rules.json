@@ -1,0 +1,468 @@
+{
+  "skills": {
+    "ios-dev-guidelines": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Swift/iOS development patterns (→ IOS_DEVELOPMENT_GUIDE.md). Critical rules, MVVM/Coordinator patterns, code style",
+      "promptTriggers": {
+        "keywords": [
+          "swift",
+          "swiftui",
+          "viewmodel",
+          "coordinator",
+          "repository",
+          "refactor",
+          "architecture",
+          "mvvm",
+          "combine",
+          "async",
+          "await",
+          "@Published",
+          "@MainActor",
+          "protocol",
+          "extension",
+          "formatting",
+          "whitespace",
+          "indentation",
+          "code style",
+          "best practice"
+        ],
+        "intentPatterns": [
+          "(create|add|implement|build).*?(view|viewmodel|coordinator|service|repository)",
+          "(refactor|restructure|reorganize).*?(code|class|struct|module)",
+          "(how to|best practice|correct way).*?(swift|ios|architecture|pattern)",
+          "(format|style|organize).*?(code|file|property)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift",
+          "**/PresentationLayer/**",
+          "**/ServiceLayer/**",
+          "**/ApplicationLayer/**",
+          "**/Models/**"
+        ],
+        "contentPatterns": [
+          "class.*ViewModel",
+          "class.*Coordinator",
+          "protocol.*Repository",
+          "@Published",
+          "@MainActor",
+          "import SwiftUI",
+          "import Combine"
+        ]
+      }
+    },
+    "localization-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to localization system (→ LOCALIZATION_GUIDE.md). 3-file .xcstrings workflow, Loc constants, format specifiers",
+      "promptTriggers": {
+        "keywords": [
+          "localization",
+          "localiz",
+          "Loc.",
+          "xcstrings",
+          "translation",
+          "strings",
+          "text",
+          "label",
+          "title",
+          "hardcoded",
+          "string literal",
+          "user-facing text",
+          "crowdin",
+          "Auth.xcstrings",
+          "Workspace.xcstrings",
+          "UI.xcstrings",
+          "make generate"
+        ],
+        "intentPatterns": [
+          "(add|create|update).*?(localization|string|text|label)",
+          "(hardcoded|hard-coded|literal).*?(string|text)",
+          "(remove|delete).*?(localization|string|key)",
+          "(search|find).*?(localization|string|key)",
+          "(how to|where).*?(localization|string|text)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/Loc/**/*.xcstrings",
+          "**/Loc/**/*.swift",
+          "**/Resources/**/*.xcstrings"
+        ],
+        "contentPatterns": [
+          "import Loc",
+          "Loc\\.",
+          "\\.xcstrings",
+          "AnytypeText\\(",
+          "localization"
+        ]
+      }
+    },
+    "code-generation-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to code generation (→ CODE_GENERATION_GUIDE.md). Feature flags, SwiftGen, Sourcery, make generate workflows",
+      "promptTriggers": {
+        "keywords": [
+          "make generate",
+          "swiftgen",
+          "sourcery",
+          "generate",
+          "codegen",
+          "code generation",
+          "feature flag",
+          "FeatureFlags",
+          "FeatureDescription",
+          "protobuf",
+          "generated",
+          "// Generated using",
+          "Assets.xcassets",
+          "imageset"
+        ],
+        "intentPatterns": [
+          "(run|execute).*?(make generate|swiftgen|sourcery)",
+          "(create|add|enable).*?(feature flag|flag)",
+          "(generate|regenerate).*?(code|assets|localization|protobuf)",
+          "(update|modify).*?(feature flag|generated)",
+          "(how to|best practice).*?(generate|feature flag|codegen)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/FeatureDescription+Flags.swift",
+          "**/Assets.xcassets/**",
+          "**/.xcassets/**",
+          "**/swiftgen.yml",
+          "**/sourcery.yml",
+          "**/anytypeGen.yml",
+          "**/Generated/**"
+        ],
+        "contentPatterns": [
+          "// Generated using Sourcery",
+          "// Generated using SwiftGen",
+          "FeatureFlags\\.",
+          "FeatureDescription\\(",
+          "static let.*=.*FeatureDescription"
+        ]
+      }
+    },
+    "design-system-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to design system (→ DESIGN_SYSTEM_MAPPING.md, TYPOGRAPHY_MAPPING.md). Icons (x18-x40), typography mapping, spacing formula",
+      "promptTriggers": {
+        "keywords": [
+          "icon",
+          "image asset",
+          "x18",
+          "x24",
+          "x32",
+          "x40",
+          "typography",
+          "font",
+          "text style",
+          "design system",
+          "color",
+          "UI component",
+          "figma",
+          "design token",
+          "AnytypeText",
+          "DESIGN_SYSTEM_MAPPING",
+          "TYPOGRAPHY_MAPPING"
+        ],
+        "intentPatterns": [
+          "(add|create|use).*?(icon|image|asset)",
+          "(update|change).*?(typography|font|text style)",
+          "(how to|where).*?(icon|image|asset|typography|font)",
+          "(design system|ui component).*?(pattern|usage|guide)",
+          "(export|add).*?(figma|svg)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/Assets.xcassets/**/*.imageset/**",
+          "**/DesignSystem/**",
+          "**/PresentationLayer/Common/**",
+          "**/DESIGN_SYSTEM_MAPPING.md",
+          "**/TYPOGRAPHY_MAPPING.md"
+        ],
+        "contentPatterns": [
+          "Image\\(asset:",
+          "\\.X18\\.",
+          "\\.X24\\.",
+          "\\.X32\\.",
+          "\\.X40\\.",
+          "AnytypeText\\(",
+          "style:.*\\.ux"
+        ]
+      }
+    },
+    "skills-manager": {
+      "type": "meta",
+      "priority": "medium",
+      "description": "Smart router to skills/hooks management (→ SKILLS_MANAGEMENT_GUIDE.md). Troubleshoot activation, add keywords, fine-tune system",
+      "promptTriggers": {
+        "keywords": [
+          "activation log",
+          "add keyword",
+          "check logs",
+          "claude.md",
+          "create skill",
+          "develop skill",
+          "false negative",
+          "false positive",
+          "fine-tune",
+          "hook",
+          "hooks system",
+          "instances",
+          "knowledge",
+          "new skill",
+          "proactive",
+          "skill activation",
+          "skill developer",
+          "skill didn't activate",
+          "skill not working",
+          "skill-rules.json",
+          "skills system",
+          "solidify",
+          "suggested",
+          "troubleshoot skill",
+          "why didn't"
+        ],
+        "intentPatterns": [
+          "(check|view|show).*?(activation|log|skill)",
+          "(add|remove).*?keyword",
+          "(troubleshoot|debug|fix).*?(skill|hook|activation)",
+          "why (didn't|did).*?(activate|trigger)",
+          "(how to|how do I).*?(add|modify|change).*?(skill|hook|keyword)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/.claude/hooks/**",
+          "**/.claude/skills/**",
+          "**/skill-rules.json",
+          "**/SKILLS_MANAGEMENT_GUIDE.md"
+        ],
+        "contentPatterns": [
+          "skill-rules.json",
+          "promptTriggers",
+          "fileTriggers"
+        ]
+      }
+    },
+    "code-review-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to code review guidelines (→ code-review-guidelines.md). Review standards, common mistakes, actionable feedback only",
+      "promptTriggers": {
+        "keywords": [
+          "code review",
+          "review code",
+          "PR review",
+          "pull request review",
+          "review PR",
+          "approve",
+          "review changes",
+          "review diff",
+          "feedback",
+          "code feedback",
+          "review guidelines",
+          "review standards"
+        ],
+        "intentPatterns": [
+          "(review|check|analyze).*?(code|pr|pull request|changes|diff)",
+          "(approve|reject).*?(pr|pull request)",
+          "(provide|give).*?(review|feedback)",
+          "(how to|best practice).*?review"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/.github/workflows/code-review-guidelines.md",
+          "**/.github/workflows/claude-code-review-prompt.md"
+        ],
+        "contentPatterns": [
+          "Review using CLAUDE.md",
+          "Review Sections",
+          "gh pr comment"
+        ]
+      }
+    },
+    "feature-toggle-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to feature toggle removal (→ feature-toggle-developer.md). Systematic toggle removal, automated cleanup detection, unused code identification",
+      "promptTriggers": {
+        "keywords": [
+          "remove toggle",
+          "delete toggle",
+          "enable toggle",
+          "feature flag",
+          "feature toggle",
+          "remove feature flag",
+          "delete feature flag",
+          "enable feature flag",
+          "cleanup after toggle",
+          "unused code",
+          "orphaned code",
+          "defaultValue: true",
+          "defaultValue: false",
+          "FeatureFlags.",
+          "toggle removal"
+        ],
+        "intentPatterns": [
+          "(remove|delete|eliminate).*?(toggle|feature flag|feature toggle)",
+          "(enable|activate|turn on).*?(toggle|feature flag|permanently)",
+          "(cleanup|clean up|remove unused).*?(code|component|class|file)",
+          "(find|identify|check for).*?(unused|orphaned|dead).*?(code|component)",
+          "(after|completed).*?(toggle|feature flag).*?(removal|cleanup)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/FeatureDescription+Flags.swift",
+          "**/FeatureFlags+Flags.swift",
+          "**/.claude/skills/feature-toggle-developer.md"
+        ],
+        "contentPatterns": [
+          "FeatureFlags\\.",
+          "static let.*=.*FeatureDescription",
+          "defaultValue: true",
+          "defaultValue: false",
+          "if FeatureFlags\\.",
+          "guard.*FeatureFlags\\.",
+          "@State.*FeatureFlags"
+        ]
+      }
+    },
+    "analytics-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to analytics system (→ ANALYTICS_PATTERNS.md). Event logging, route tracking, AnalyticsConstants enums",
+      "promptTriggers": {
+        "keywords": [
+          "analytics",
+          "route tracking",
+          "logEvent",
+          "AnytypeAnalytics",
+          "AnalyticsConstants",
+          "analytics event",
+          "track route",
+          "event properties",
+          "AnalyticsEventsPropertiesKey",
+          "route enum",
+          "HomeWidgetRoute",
+          "analytics pattern",
+          "log screen",
+          "log click",
+          "logScreen",
+          "logClick",
+          "amplitude",
+          "analytics tracking",
+          "user analytics"
+        ],
+        "intentPatterns": [
+          "(add|create|implement).*?(analytics|event|route tracking)",
+          "(track|log).*?(route|screen|click|user|event|action)",
+          "(update|modify).*?(analytics|event|route)",
+          "(how to|where).*?(analytics|track|log|event)",
+          "(define|add).*?(route enum|analytics enum)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/AnalyticsConstants.swift",
+          "**/AnytypeAnalytics+Events.swift",
+          "**/Analytics/**/*.swift",
+          "**/ANALYTICS_PATTERNS.md"
+        ],
+        "contentPatterns": [
+          "AnytypeAnalytics\\.instance\\(\\)",
+          "logEvent\\(",
+          "AnalyticsEventsPropertiesKey\\.",
+          "enum.*Route.*String",
+          "\\.analyticsValue",
+          "\\.analyticsType",
+          "\\.analyticsId",
+          "logScreen",
+          "logClick"
+        ]
+      }
+    },
+    "tests-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to testing patterns and practices. Writing unit tests, creating mocks, test organization",
+      "promptTriggers": {
+        "keywords": [
+          "test",
+          "tests",
+          "testing",
+          "unit test",
+          "unit tests",
+          "write test",
+          "write tests",
+          "test coverage",
+          "test cases",
+          "test file",
+          "test class",
+          "mock",
+          "mocking",
+          "mock helper",
+          "mock service",
+          "@Test",
+          "@Suite",
+          "Swift Testing",
+          "XCTest",
+          "XCTestCase",
+          "XCTAssert",
+          "#expect",
+          "edge case",
+          "edge cases",
+          "boundary condition",
+          "TDD",
+          "test-driven",
+          "assertion",
+          "test refactor",
+          "update tests",
+          "fix tests"
+        ],
+        "intentPatterns": [
+          "(write|create|add).*?(test|tests|unit test|mock)",
+          "(update|modify|fix).*?(test|tests|mock)",
+          "(how to|best practice).*?(test|testing|mock)",
+          "(test|testing).*?(edge case|boundary|nil|empty)",
+          "(refactor|update).*?(test|mock)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/AnyTypeTests/**/*.swift",
+          "**/Tests/**/*.swift",
+          "**/*Tests.swift",
+          "**/Mocks/**/*.swift",
+          "**/*Mock.swift"
+        ],
+        "contentPatterns": [
+          "import Testing",
+          "@Test func",
+          "@Suite",
+          "import XCTest",
+          "XCTestCase",
+          "XCTAssert",
+          "#expect\\(",
+          "\\.mock\\(",
+          "static func mock"
+        ]
+      }
+    }
+  },
+  "config": {
+    "maxSkillsPerPrompt": 2,
+    "logActivations": true,
+    "logPath": ".claude/logs/skill-activations.log"
+  }
+}

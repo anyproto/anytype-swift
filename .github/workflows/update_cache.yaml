@@ -8,7 +8,7 @@ on:
 jobs:
   main:
     name: Update build cache
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - name: Checkout
@@ -28,7 +28,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.6.0
         with:
-          xcode-version: '26.0'
+          xcode-version: '26.1'
 
       - name: Download Middleware
         run: make setup-middle-ci

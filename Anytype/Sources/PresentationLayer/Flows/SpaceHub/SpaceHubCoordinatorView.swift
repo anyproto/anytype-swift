@@ -7,7 +7,7 @@ struct SpaceHubCoordinatorView: View {
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    @StateObject private var model = SpaceHubCoordinatorViewModel()
+    @State private var model = SpaceHubCoordinatorViewModel()
     
     @Namespace private var namespace
     
@@ -115,10 +115,10 @@ struct SpaceHubCoordinatorView: View {
             }
     }
     
-    private var content: some View {  
+    private var content: some View {
         ZStack {
-            NotificationCoordinatorView()
-            
+            Color.Background.primary
+
             HomeBottomPanelContainer(
                 path: $model.navigationPath,
                 content: {
@@ -156,6 +156,8 @@ struct SpaceHubCoordinatorView: View {
                     }
                 }
             )
+
+            NotificationCoordinatorView()
         }
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)

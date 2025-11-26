@@ -99,13 +99,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                         Label(Loc.photos, systemImage: "photo")
                     }
 
-                    if FeatureFlags.loadAttachmentsOnHomePlusMenu {
-                        Button { model.onCameraSelected() } label: {
-                            Label(Loc.camera, systemImage: "camera")
-                        }
-                        Button { model.onAddFilesSelected() } label: {
-                            Label(Loc.files, systemImage: "doc")
-                        }
+                    Button { model.onCameraSelected() } label: {
+                        Label(Loc.camera, systemImage: "camera")
+                    }
+                    Button { model.onAddFilesSelected() } label: {
+                        Label(Loc.files, systemImage: "doc")
                     }
 
                     Divider()

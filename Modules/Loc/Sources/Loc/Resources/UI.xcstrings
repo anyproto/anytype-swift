@@ -968,7 +968,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "문의하기"
+            "value" : "문의"
           }
         },
         "nb" : {
@@ -4288,7 +4288,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add a description..."
+            "value" : "Добавить описание..."
           }
         },
         "tr" : {
@@ -6972,7 +6972,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlinked objects that do not have a direct link or backlink with other objects in the graph."
+            "value" : "Непривязанные объекты, не имеющие прямой связи или обратной связи с другими объектами на графе."
           }
         },
         "tr" : {
@@ -7121,7 +7121,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only unlinked"
+            "value" : "Только несвязанные"
           }
         },
         "tr" : {
@@ -7717,7 +7717,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Date created"
+            "value" : "Дата создания"
           }
         },
         "tr" : {
@@ -9058,7 +9058,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Application"
+            "value" : "Приложение"
           }
         },
         "tr" : {
@@ -10343,7 +10343,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attach Object"
+            "value" : "Прикрепить объект"
           }
         },
         "tr" : {
@@ -10741,25 +10741,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Attachments"
+                  "value" : "%lld Вложений"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Attachments"
+                  "value" : "%lld вложений"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Attachment"
+                  "value" : "Вложение"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Attachments"
+                  "value" : "%lld вложений"
                 }
               }
             }
@@ -11214,13 +11214,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld Аудио"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld Аудио"
                 }
               },
               "one" : {
@@ -11232,7 +11232,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld Аудио"
                 }
               }
             }
@@ -15738,25 +15738,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bookmarks"
+                  "value" : "%lld Закладок"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bookmarks"
+                  "value" : "%lld Закладок"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Bookmark"
+                  "value" : "Закладка"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bookmarks"
+                  "value" : "%lld Закладки"
                 }
               }
             }
@@ -17601,7 +17601,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Type"
+            "value" : "Тип канала"
           }
         },
         "tr" : {
@@ -20434,7 +20434,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Content Model"
+            "value" : "Модель содержимого"
           }
         },
         "tr" : {
@@ -20732,7 +20732,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yes, convert"
+            "value" : "Да, конвертировать"
           }
         },
         "tr" : {
@@ -20881,7 +20881,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
+            "value" : "Переключение между Пространством и Чатом существенно изменит ваш опыт работы."
           }
         },
         "tr" : {
@@ -21030,7 +21030,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Convert Channel Type?"
+            "value" : "Конвертировать тип канала?"
           }
         },
         "tr" : {
@@ -23266,7 +23266,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create property ‘%@’"
+            "value" : "Создать свойство ‘%@’"
           }
         },
         "tr" : {
@@ -23564,7 +23564,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Space"
+            "value" : "Создать пространство"
           }
         },
         "tr" : {
@@ -24011,7 +24011,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Customize URL"
+            "value" : "Настроить URL"
           }
         },
         "tr" : {
@@ -25304,25 +25304,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dates"
+                  "value" : "%lld Дат"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dates"
+                  "value" : "%lld Дат"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Date"
+                  "value" : "Дата"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dates"
+                  "value" : "%lld Даты"
                 }
               }
             }
@@ -26520,7 +26520,7 @@
                   "zero" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "today"
+                      "value" : "сегодня"
                     }
                   }
                 }
@@ -27996,7 +27996,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete Object Type"
+            "value" : "Удалить тип объекта"
           }
         },
         "tr" : {
@@ -29878,7 +29878,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Disabled"
+            "value" : "Отключено"
           }
         },
         "tr" : {
@@ -30027,7 +30027,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Document scan failed"
+            "value" : "Сбой сканирования документа"
           }
         },
         "tr" : {
@@ -31070,7 +31070,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit property"
+            "value" : "Изменить свойство"
           }
         },
         "tr" : {
@@ -31368,7 +31368,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Edit type"
+            "value" : "Редактировать тип"
           }
         },
         "tr" : {
@@ -31964,7 +31964,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. This content is not available on mobile"
+            "value" : "%@ встраиваемый контент не доступен на мобильном устройстве"
           }
         },
         "tr" : {
@@ -32113,7 +32113,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. Opens in external app or browser"
+            "value" : "%@ встраивается. Открывается во внешнем приложении или браузере"
           }
         },
         "tr" : {
@@ -32262,7 +32262,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed is empty"
+            "value" : "Вставка %@ пуста"
           }
         },
         "tr" : {
@@ -33306,7 +33306,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish your first web site to get started."
+            "value" : "Опубликуйте свой первый веб-сайт, чтобы начать."
           }
         },
         "tr" : {
@@ -33455,7 +33455,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Enabled"
+            "value" : "Включено"
           }
         },
         "tr" : {
@@ -36735,7 +36735,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Experimental Features"
+            "value" : "Экспериментальные функции"
           }
         },
         "tr" : {
@@ -36884,7 +36884,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Always pick object type when creating"
+            "value" : "Всегда выбирать тип объекта при создании"
           }
         },
         "tr" : {
@@ -37033,7 +37033,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Object Creation Menu"
+            "value" : "Меню создания нового объекта"
           }
         },
         "tr" : {
@@ -37480,7 +37480,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Featured properties"
+            "value" : "уже проданные объекты"
           }
         },
         "tr" : {
@@ -38027,25 +38027,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Files"
+                  "value" : "%lld файлов"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Files"
+                  "value" : "%lld файлов"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "File"
+                  "value" : "Файл"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Files"
+                  "value" : "%lld файлов"
                 }
               }
             }
@@ -38282,6 +38282,695 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "檔案"
+          }
+        }
+      }
+    },
+    "Files uploading" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "two" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "zero" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cargando %#@file@"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg archivo"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg archivos"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ yükleniyor"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg dosya"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg dosya"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%#@file@ uploading"
+          },
+          "substitutions" : {
+            "file" : {
+              "formatSpecifier" : "ld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "new",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -40099,13 +40788,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally."
+            "value" : "You can store your files on our encrypted backup node. Once you reach your limit, files will stop syncing and will only be stored locally."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Puedes almacenar gratuitamente hasta %@ de archivos en nuestro nodo de respaldo cifrado. Si llegas al límite, los archivos se almacenarán solo localmente."
+            "value" : "Puedes almacenar gratuitamente hasta %@ de archivos en nuestro nodo de respaldo cifrado. Cuando llegues al límite, los archivos dejarán de sincronizarse y solo se almacenarán localmente."
           }
         },
         "fa" : {
@@ -40135,7 +40824,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Puoi archiviare fino a %@ dei tuoi file sul nostro nodo di backup crittografato gratuitamente. Se raggiungi il limite, i file verranno archiviati solo in locale."
+            "value" : "Puoi archiviare i tuoi file sul nostro nodo di backup crittografato. Una volta raggiunto il limite, i file smetteranno di sincronizzarsi e saranno archiviati solo localmente."
           }
         },
         "ja" : {
@@ -40153,7 +40842,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally."
+            "value" : "You can store your files on our encrypted backup node. Once you reach your limit, files will stop syncing and will only be stored locally."
           }
         },
         "nl" : {
@@ -40338,7 +41027,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remote storage is not available in local-only mode. Your files are stored locally on your device."
+            "value" : "Удаленное хранилище недоступно в локальном режиме. Ваши файлы хранятся локально на вашем устройстве."
           }
         },
         "tr" : {
@@ -43320,7 +44009,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "I got it!"
+            "value" : "Я понял!"
           }
         },
         "tr" : {
@@ -44543,6 +45232,155 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "隱藏"
+          }
+        }
+      }
+    },
+    "Hide Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Description"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ocultad descripción"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sembunyikan Deskripsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nascondi Descrizione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "설명 숨기기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Скрыть описание"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Açıklamayı Gizle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide Description"
           }
         }
       }
@@ -45806,25 +46644,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Images"
+                  "value" : "%lld Изображений"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Images"
+                  "value" : "%lld Изображений"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Image"
+                  "value" : "Изображение"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Images"
+                  "value" : "%lld Изображения"
                 }
               }
             }
@@ -46030,7 +46868,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Image from Photo Library"
+            "value" : "Изображение из Фотогалереи"
           }
         },
         "tr" : {
@@ -48210,7 +49048,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Keychain"
+            "value" : "Связка ключей"
           }
         },
         "tr" : {
@@ -48955,7 +49793,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Let's try it"
+            "value" : "Давайте попробуем!"
           }
         },
         "tr" : {
@@ -51317,25 +52155,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Lists"
+                  "value" : "%lld Списков"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Lists"
+                  "value" : "%lld Списков"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "List"
+                  "value" : "Список"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Lists"
+                  "value" : "%lld Списки"
                 }
               }
             }
@@ -52019,6 +52857,155 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "鎖定"
+          }
+        }
+      }
+    },
+    "Locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locked"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Protegido"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Terkunci"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bloccato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "잠김"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Заблокировано"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kilitlendi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Locked"
           }
         }
       }
@@ -54997,7 +55984,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mute"
+            "value" : "Заглушить"
           }
         },
         "tr" : {
@@ -55056,7 +56043,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "My Channels"
+            "value" : "Channels"
           }
         },
         "es" : {
@@ -55092,7 +56079,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "I miei Spazi"
+            "value" : "I miei Canali"
           }
         },
         "ja" : {
@@ -55110,7 +56097,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Channels"
+            "value" : "Channels"
           }
         },
         "nl" : {
@@ -55593,7 +56580,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "My Sites"
+            "value" : "Мои сайты"
           }
         },
         "tr" : {
@@ -57381,7 +58368,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No matches found.\nTry a different keyword or check your spelling."
+            "value" : "Совпадения не найдены.\nПопробуйте другое ключевое слово или проверьте правильность написания."
           }
         },
         "tr" : {
@@ -57530,7 +58517,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No properties yet. Add some to this type."
+            "value" : "Свойств пока нет. Добавьте некоторые к этому типу."
           }
         },
         "tr" : {
@@ -58382,7 +59369,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "다시 실행할 작업이 없습니다."
+            "value" : "다시 실행할 작업 없음"
           }
         },
         "nb" : {
@@ -58531,7 +59518,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "실행 취소할 작업이 없습니다"
+            "value" : "실행 취소할 작업이 없음"
           }
         },
         "nb" : {
@@ -58971,25 +59958,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objects"
+                  "value" : "%lld Объектов"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objects"
+                  "value" : "%lld Объектов"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Object"
+                  "value" : "Объект"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objects"
+                  "value" : "%lld Объекты"
                 }
               }
             }
@@ -60133,25 +61120,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Object types"
+                  "value" : "%lld Типов объекта"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Object types"
+                  "value" : "%lld Типов объекта"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Object type"
+                  "value" : "Тип объекта"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Object types"
+                  "value" : "%lld Типы объекта"
                 }
               }
             }
@@ -60655,7 +61642,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it."
+            "value" : "Вы уверены, что хотите удалить этот тип? Все существующие объекты этого типа будут сохранены, но больше не будут связаны с ним."
           }
         },
         "tr" : {
@@ -60804,7 +61791,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete Object Type?"
+            "value" : "Удалить тип объекта?"
           }
         },
         "tr" : {
@@ -61251,7 +62238,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "On analytics"
+            "value" : "По аналитике"
           }
         },
         "tr" : {
@@ -62443,7 +63430,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open web page"
+            "value" : "Открыть страницу"
           }
         },
         "tr" : {
@@ -62592,7 +63579,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open Settings"
+            "value" : "Открыть настройки"
           }
         },
         "tr" : {
@@ -62890,7 +63877,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Other properties"
+            "value" : "Другие свойства"
           }
         },
         "tr" : {
@@ -64182,13 +65169,13 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld PDFs"
+                  "value" : "%lld PDF"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld PDFs"
+                  "value" : "%lld PDF"
                 }
               },
               "one" : {
@@ -64200,7 +65187,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld PDFs"
+                  "value" : "%lld PDF"
                 }
               }
             }
@@ -67759,7 +68746,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Photo"
+            "value" : "Фото"
           }
         },
         "tr" : {
@@ -68355,7 +69342,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %d pinned spaces."
+            "value" : "Вы достигли лимита общих пространств %d."
           }
         },
         "tr" : {
@@ -69995,7 +70982,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish"
+            "value" : "Опубликовать"
           }
         },
         "tr" : {
@@ -70144,7 +71131,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish to Web"
+            "value" : "Опубликовать в веб"
           }
         },
         "tr" : {
@@ -70591,7 +71578,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Puzzle"
+            "value" : "Задача"
           }
         },
         "tr" : {
@@ -70740,7 +71727,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Puzzles"
+            "value" : "Задачи"
           }
         },
         "tr" : {
@@ -72780,25 +73767,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relations"
+                  "value" : "%lld Связей"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relations"
+                  "value" : "%lld Связей"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Relation"
+                  "value" : "Связь"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relations"
+                  "value" : "%lld Связи"
                 }
               }
             }
@@ -74454,7 +75441,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "키체인에서 키를 복원합니다"
+            "value" : "키 저장소에서 키를 복원"
           }
         },
         "nb" : {
@@ -75093,7 +76080,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scan documents"
+            "value" : "Сканировать документы"
           }
         },
         "tr" : {
@@ -76435,7 +77422,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You phone doesn’t have a passcode or biometric authorization. It might make it easier to steal your data. Enable it in your app settings to secure your data."
+            "value" : "У вас нет пароля или биометрической авторизации. Это может облегчить кражу ваших данных. Включите его в настройках приложения, чтобы защитить ваши данные."
           }
         },
         "tr" : {
@@ -76584,7 +77571,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Proceed anyway"
+            "value" : "Все равно продолжить"
           }
         },
         "tr" : {
@@ -76733,7 +77720,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Secure your phone"
+            "value" : "Защитите ваш телефон"
           }
         },
         "tr" : {
@@ -76882,7 +77869,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all"
+            "value" : "Просмотреть все"
           }
         },
         "tr" : {
@@ -77627,7 +78614,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select Objects"
+            "value" : "Выбор объектов"
           }
         },
         "tr" : {
@@ -78994,7 +79981,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send"
+            "value" : "Отправить"
           }
         },
         "tr" : {
@@ -80635,7 +81622,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Set access"
+            "value" : "Установить доступ"
           }
         },
         "tr" : {
@@ -80933,7 +81920,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Query of %@"
+            "value" : "Запрос %@"
           }
         },
         "tr" : {
@@ -81082,7 +82069,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Queries"
+            "value" : "Запросы"
           }
         },
         "tr" : {
@@ -81380,7 +82367,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Auto Create Type Widgets"
+            "value" : "Автоматически создавать виджеты типа"
           }
         },
         "tr" : {
@@ -83797,6 +84784,155 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "顯示"
+          }
+        }
+      }
+    },
+    "Show Description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Description"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mostrar descripción"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tampilkan Deskripsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mostra Descrizione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "설명 보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Показывать описание"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Açıklamayı Göster"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show Description"
           }
         }
       }
@@ -87301,7 +88437,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "결제에 실패했습니다. 결제를 위해 Apple 측에서 사용자 조치가 필요합니다."
+            "value" : "결제 실패. 결제하려면 Apple 측에서 사용자 동작이 필요합니다."
           }
         },
         "nb" : {
@@ -88089,7 +89225,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ deleted successfully"
+            "value" : "%@ успешно удален"
           }
         },
         "tr" : {
@@ -88717,6 +89853,155 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "已同步"
+          }
+        }
+      }
+    },
+    "Syncing..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syncing..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sincronizando…"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Syncing..."
           }
         }
       }
@@ -90724,25 +92009,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tags"
+                  "value" : "%lld Тэгов"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tags"
+                  "value" : "%lld Тэгов"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Tag"
+                  "value" : "%lld Тэг"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tags"
+                  "value" : "%lld тэгов"
                 }
               }
             }
@@ -92290,7 +93575,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Text Style"
+            "value" : "Стиль текста"
           }
         },
         "tr" : {
@@ -94824,7 +96109,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no spaces yet"
+            "value" : "Ещё нет пространств"
           }
         },
         "tr" : {
@@ -95421,7 +96706,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no property named %@"
+            "value" : "Нет свойства с именем %@"
           }
         },
         "tr" : {
@@ -96911,7 +98196,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type Name"
+            "value" : "Имя типа"
           }
         },
         "tr" : {
@@ -98288,6 +99573,155 @@
         }
       }
     },
+    "Unlocked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlocked"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Desprotegido"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Takterkunci"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sbloccato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "잠금 해제됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Разблокировано"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kilidi açıldı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlocked"
+          }
+        }
+      }
+    },
     "Unmute" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -98402,7 +99836,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unmute"
+            "value" : "Включить звук"
           }
         },
         "tr" : {
@@ -98586,6 +100020,155 @@
         }
       }
     },
+    "Unpinned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpinned"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No anclado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tak disemat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Non fissato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "고정 해제됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Откреплена"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sabitleme kaldırıldı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unpinned"
+          }
+        }
+      }
+    },
     "Unpublish" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -98700,7 +100283,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpublish"
+            "value" : "Отменить публикацию"
           }
         },
         "tr" : {
@@ -98849,7 +100432,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unread"
+            "value" : "Непрочитанные"
           }
         },
         "tr" : {
@@ -99147,7 +100730,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset as default"
+            "value" : "Убрать по умолчанию"
           }
         },
         "tr" : {
@@ -99296,7 +100879,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset default"
+            "value" : "Изменить заданное по умолчанию значение"
           }
         },
         "tr" : {
@@ -101489,7 +103072,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "보관소 복원 중 에러가 발생했습니다. 인터넷 연결을 확인해주세요."
+            "value" : "보관소 복원 오류, 인터넷 연결을 확인해주세요."
           }
         },
         "nb" : {
@@ -102228,25 +103811,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld Видео"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld Видео"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Video"
+                  "value" : "Видео"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld Видео"
                 }
               }
             }
@@ -102601,7 +104184,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View in Browser"
+            "value" : "Открыть в браузере"
           }
         },
         "tr" : {
@@ -104319,7 +105902,7 @@
               "zero" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Bin already empty"
+                  "value" : "Корзина уже пуста"
                 }
               }
             }
@@ -105449,7 +107032,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget %@ was added"
+            "value" : "Виджет %@ добавлен"
           }
         },
         "tr" : {
@@ -108429,7 +110012,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored."
+            "value" : "Мы изменили способ работы виджетов и этот виджет больше не поддерживается. После удаления этот виджет не может быть восстановлен."
           }
         },
         "tr" : {
@@ -108578,7 +110161,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This Widget Cannot Be Restored"
+            "value" : "Этот виджет не может быть восстановлен"
           }
         },
         "tr" : {
@@ -109174,7 +110757,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You joined %@"
+            "value" : "Вы присоединились к %@"
           }
         },
         "tr" : {

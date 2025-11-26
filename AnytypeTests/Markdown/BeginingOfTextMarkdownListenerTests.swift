@@ -32,7 +32,7 @@ class BeginingOfTextMarkdownListenerTests: XCTestCase {
         type: BlockContentType,
         success: Bool = true
     ) {
-        let shortcutByDeletingSpaces = shortcut.replacingOccurrences(of: " ", with: "")
+        let shortcutByDeletingSpaces = shortcut.replacing(" ", with: "")
         let data = buildData(
             text: shortcutByDeletingSpaces,
             carretPosition: shortcutByDeletingSpaces.count

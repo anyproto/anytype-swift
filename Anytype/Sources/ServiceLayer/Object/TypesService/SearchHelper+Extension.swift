@@ -1,11 +1,12 @@
 import Services
 
 extension SearchHelper {
-    
-    static func defaultObjectTypeSort(isChat: Bool) -> [DataviewSort] {
+
+    static func defaultObjectTypeSort(spaceUxType: SpaceUxType?) -> [DataviewSort] {
         let nameSort = SearchHelper.sort(relation: .name, type: .asc)
-        
-        let customSort = isChat
+
+        let supportsMultiChats = spaceUxType?.supportsMultiChats ?? true
+        let customSort = !supportsMultiChats
             ? SearchHelper.customSort(relationKey: BundledPropertyKey.uniqueKey.rawValue, values: [
                 ObjectTypeUniqueKey.image.value,
                 ObjectTypeUniqueKey.bookmark.value,
@@ -23,6 +24,7 @@ extension SearchHelper {
                 ObjectTypeUniqueKey.page.value,
                 ObjectTypeUniqueKey.note.value,
                 ObjectTypeUniqueKey.task.value,
+                ObjectTypeUniqueKey.chatDerived.value,
                 ObjectTypeUniqueKey.collection.value,
                 ObjectTypeUniqueKey.set.value,
                 ObjectTypeUniqueKey.bookmark.value,

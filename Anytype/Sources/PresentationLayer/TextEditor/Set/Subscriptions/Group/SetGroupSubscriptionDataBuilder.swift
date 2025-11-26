@@ -17,10 +17,12 @@ final class SetGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProt
     nonisolated init() {}
     
     func groupsData(_ setDocument: some SetDocumentProtocol) -> GroupsSubscriptionData {
-        GroupsSubscriptionData(
+        var filters = setDocument.activeView.filters
+        filters.append(SearchHelper.filterOutParticipantType())
+        return GroupsSubscriptionData(
             identifier: groupSubscriptionId,
             relationKey: setDocument.activeView.groupRelationKey,
-            filters: setDocument.activeView.filters,
+            filters: filters,
             source: setDocument.details?.filteredSetOf,
             collectionId: setDocument.isCollection() ? setDocument.objectId : nil
         )

@@ -14,10 +14,10 @@ final class HomeWidgetsViewModel {
     }
     
     // MARK: - DI
-    
+
     let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
-    
+
     @Injected(\.blockWidgetService) @ObservationIgnored
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService) @ObservationIgnored
@@ -51,10 +51,9 @@ final class HomeWidgetsViewModel {
     var pinnedSectionIsExpanded: Bool = false
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
-    var chatWidgetData: SpaceChatWidgetData?
     
     var spaceId: String { info.accountSpaceId }
-    
+
     init(
         info: AccountInfo,
         output: (any HomeWidgetsModuleOutput)?
@@ -70,15 +69,14 @@ final class HomeWidgetsViewModel {
         async let widgetObjectSub: () = startWidgetObjectTask()
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
-        async let spaceViewTask: () = startSpaceViewTask()
-        
-        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask)
+
+        _ = await (widgetObjectSub, participantTask, objectTypesTask)
     }
-    
+
     func onAppear() {
         AnytypeAnalytics.instance().logScreenWidget()
     }
-    
+
     func widgetsDropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
         widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
@@ -140,7 +138,7 @@ final class HomeWidgetsViewModel {
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
-            var newWidgetBlocks = blocks
+            let newWidgetBlocks = blocks
                 .compactMap { widgetObject.widgetInfo(block: $0) }
             
             guard widgetBlocks != newWidgetBlocks else { continue }
@@ -150,7 +148,7 @@ final class HomeWidgetsViewModel {
     }
     
     private func startParticipantTask() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
+        for await canEdit in accountParticipantStorage.canEditSequence(spaceId: info.accountSpaceId) {
             homeState = canEdit ? .readwrite : .readonly
             canCreateObjectType = canEdit
         }
@@ -158,12 +156,14 @@ final class HomeWidgetsViewModel {
     
     private func startObjectTypesTask() async {
         let spaceId = spaceId
-        
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let allowedLayouts = DetailsLayout.widgetTypeLayouts(spaceUxType: spaceUxType)
+
         let stream = objectTypeProvider.objectTypesPublisher(spaceId: spaceId)
             .values
             .map { objects in
                 let objects = objects
-                    .filter { ($0.recommendedLayout.map { DetailsLayout.widgetTypeLayouts.contains($0) } ?? false) && !$0.isTemplateType }
+                    .filter { ($0.recommendedLayout.map { allowedLayouts.contains($0) } ?? false) && !$0.isTemplateType }
                 return objects.map { ObjectTypeWidgetInfo(objectTypeId: $0.id, spaceId: spaceId) }
             }
             .removeDuplicates()
@@ -171,12 +171,6 @@ final class HomeWidgetsViewModel {
         for await objectTypes in stream {
             objectTypesDataLoaded = true
             objectTypeWidgets = objectTypes
-        }
-    }
-    
-    private func startSpaceViewTask() async {
-        for await showChat in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map(\.canShowChatWidget).removeDuplicates().values {
-            chatWidgetData = showChat ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
         }
     }
 }

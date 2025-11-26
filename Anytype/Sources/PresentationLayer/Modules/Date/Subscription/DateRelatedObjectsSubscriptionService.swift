@@ -18,6 +18,8 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
     
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
@@ -33,8 +35,9 @@ final class DateRelatedObjectsSubscriptionService: DateRelatedObjectsSubscriptio
         update: @escaping @MainActor ([ObjectDetails], Int) -> Void
     ) async {
         
+        let spaceUxType = spaceViewsStorage.spaceView(spaceId: spaceId)?.uxType
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles)
+            SearchFiltersBuilder.build(isArchived: false, layouts: DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType), spaceUxType: spaceUxType)
             filters
         }
         

@@ -44,8 +44,6 @@ struct AnytypeWidgetEntryView : View {
         private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .debug)
     #elseif RELEASE_ANYTYPE
         private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnytype)
-    #elseif RELEASE_ANYAPP
-        private let deepLinkParser = DeepLinkDI.shared.parser(targetType: .releaseAnyApp)
     #endif
     
     var body: some View {

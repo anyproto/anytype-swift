@@ -3,11 +3,10 @@ import AnytypeCore
 import Combine
 import Services
 
-protocol MultispaceSearchDataBuilderProtocol: AnyObject, Sendable {
+protocol MultispaceOneActiveSubscriptionDataBuilder: AnyObject, Sendable {
     func buildSearch(spaceId: String) -> SearchRequest
+    func build(accountId: String, spaceId: String, subId: String) -> SubscriptionData
 }
-
-typealias MultispaceOneActiveSubscriptionDataBuilder = MultispaceSubscriptionDataBuilderProtocol & MultispaceSearchDataBuilderProtocol
 
 actor MultispaceOneActiveSubscriptionHelper<Value: DetailsModel & Sendable>: Sendable {
 

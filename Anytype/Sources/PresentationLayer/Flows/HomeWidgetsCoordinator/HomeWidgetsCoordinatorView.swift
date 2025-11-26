@@ -8,7 +8,7 @@ struct HomeWidgetData: Hashable {
 
 struct HomeWidgetsCoordinatorView: View {
     let data: HomeWidgetData
-    
+
     var body: some View {
         SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) {
             HomeWidgetsCoordinatorInternalView(info: $0)
@@ -17,14 +17,14 @@ struct HomeWidgetsCoordinatorView: View {
 }
 
 private struct HomeWidgetsCoordinatorInternalView: View {
-    
+
     @State private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
-    
+
     init(info: AccountInfo) {
         self._model = State(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
     }
-    
+
     var body: some View {
         HomeWidgetsView(info: model.spaceInfo, output: model)
             .onAppear {

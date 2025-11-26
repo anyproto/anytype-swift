@@ -5,9 +5,7 @@ import Services
 struct TodoIconView: View {
     
     private static let maxSide = 28.0
-    
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
+    @State private var model = TodoIconViewModel()
     
     let checked: Bool
     let objectId: String?
@@ -20,10 +18,22 @@ struct TodoIconView: View {
             .frame(maxWidth: 28, maxHeight: 28)
             .onTapGesture {
                 guard let objectId else { return }
-                Task {
-                    try await objectActionsService.updateBundledDetails(contextID: objectId, details: [.done(!checked)])
-                    UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-                }
+                model.updateDone(objectId: objectId, checked: !checked)
             }
+    }
+}
+
+@MainActor
+@Observable
+private final class TodoIconViewModel {
+    
+    @Injected(\.objectActionsService) @ObservationIgnored
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    
+    func updateDone(objectId: String, checked: Bool) {
+        Task {
+            try await objectActionsService.updateBundledDetails(contextID: objectId, details: [.done(checked)])
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+        }
     }
 }

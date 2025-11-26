@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
@@ -51,7 +52,7 @@ struct SetHeaderSettingsView: View {
             Rectangle()
                 .fill(Color.clear)
                 .frame(width: 1, height: 28)
-                .background(Color.Additional.separator)
+                .background(model.isActiveCreateButton ? Color.Control.accent80 : Color.Shape.transperentSecondary)
             StandardButton(.image(.X18.listArrow), style: .primaryXSmall, corners: [.topRight, .bottomRight]) {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.onSecondaryCreateTap()
@@ -86,7 +87,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
     static var previews: some View {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
-                setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""),
+                setDocument: Container.shared.documentsProvider().setDocument(objectId: "", spaceId: ""), output: nil,
                 onViewTap: {},
                 onSettingsTap: {},
                 onCreateTap:{},

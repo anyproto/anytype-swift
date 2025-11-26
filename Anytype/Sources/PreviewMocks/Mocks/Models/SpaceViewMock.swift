@@ -28,7 +28,10 @@ extension SpaceView {
             spaceOrder: "",
             uxType: .allCases.randomElement()!,
             pushNotificationEncryptionKey: "",
-            pushNotificationMode: .allCases.randomElement()!
+            pushNotificationMode: .allCases.randomElement()!,
+            forceAllIds: [],
+            forceMuteIds: [],
+            forceMentionIds: []
         )
     }
 }

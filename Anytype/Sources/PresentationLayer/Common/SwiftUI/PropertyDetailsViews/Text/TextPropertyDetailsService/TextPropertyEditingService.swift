@@ -22,7 +22,7 @@ final class TextPropertyEditingService: TextPropertyEditingServiceProtocol, Send
                 guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
                 try await service.updateProperty(objectId: objectId, propertyKey: key, value: number.protobufValue)
             case .phone, .email, .url:
-                let value = value.replacingOccurrences(of: " ", with: "")
+                let value = value.replacing(" ", with: "")
                 try await service.updateProperty(objectId: objectId, propertyKey: key, value: value.protobufValue)
             }
         }

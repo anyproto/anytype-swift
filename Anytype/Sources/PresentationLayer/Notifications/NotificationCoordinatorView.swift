@@ -2,22 +2,34 @@ import Foundation
 import SwiftUI
 
 struct NotificationCoordinatorView: View {
-    
-    @StateObject private var model: NotificationCoordinatorViewModel
+
+    @StateObject private var model = NotificationCoordinatorViewModel()
     @Environment(\.dismissAllPresented) private var dismissAllPresented
-    
-    init() {
-        self._model = StateObject(wrappedValue: NotificationCoordinatorViewModel())
-    }
-    
+
     var body: some View {
-        Color.Background.primary
+        Color.clear
+            .allowsHitTesting(false)
+            .overlay(alignment: .top) {
+                if let text = model.uploadStatusText {
+                    UploadStatusBannerView(text: text)
+                        .padding(.top, 8)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .allowsHitTesting(true)
+                }
+            }
+            .animation(.spring(), value: model.uploadStatusText)
             .onAppear {
                 model.onAppear()
                 model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
             }
             .onDisappear {
                 model.onDisappear()
+            }
+            .taskWithMemoryScope {
+                await model.startHandleSyncStatus()
+            }
+            .taskWithMemoryScope {
+                await model.startHandleSpaceLoading()
             }
             .anytypeSheet(item: $model.spaceRequestAlert) {
                 SpaceRequestAlert(data: $0) { reason in

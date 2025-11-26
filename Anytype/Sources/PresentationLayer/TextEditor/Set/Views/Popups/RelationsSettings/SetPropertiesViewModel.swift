@@ -111,8 +111,7 @@ final class SetPropertiesViewModel: ObservableObject {
                 format: relation.format,
                 isNew: isNew,
                 type: .dataview,
-                key: relation.analyticsKey,
-                spaceId: spaceId
+                key: relation.analyticsKey
             )
         }
     }

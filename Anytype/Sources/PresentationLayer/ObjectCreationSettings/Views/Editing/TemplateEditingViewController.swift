@@ -8,6 +8,10 @@ final class TemplateEditingViewController: UIViewController {
     private let editorViewController: UIViewController
     private let onSettingsTap: () -> Void
     private let onSelectTemplateTap: (() -> Void)?
+    private let objectId: String
+    private let spaceId: String
+    private weak var output: (any ObjectSettingsCoordinatorOutput)?
+    private var settingsMenuView: UIView?
     
     private lazy var keyboardHelper = KeyboardEventsListnerHelper(
         didShowAction: { [weak selectTemplateButton] _ in
@@ -35,10 +39,16 @@ final class TemplateEditingViewController: UIViewController {
     
     init(
         editorViewController: UIViewController,
+        objectId: String,
+        spaceId: String,
+        output: any ObjectSettingsCoordinatorOutput,
         onSettingsTap: @escaping () -> Void,
         onSelectTemplateTap: (() -> Void)?
     ) {
         self.editorViewController = editorViewController
+        self.objectId = objectId
+        self.spaceId = spaceId
+        self.output = output
         self.onSettingsTap = onSettingsTap
         self.onSelectTemplateTap = onSelectTemplateTap
         
@@ -54,8 +64,8 @@ final class TemplateEditingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        setupLayout()
         setupView()
+        setupLayout()
     }
     
     @objc
@@ -73,6 +83,13 @@ final class TemplateEditingViewController: UIViewController {
         settingsButton.setImage(UIImage(asset: .X24.more), for: .normal)
         settingsButton.addTarget(self, action: #selector(didTapSettingButton), for: .touchUpInside)
         settingsButton.tintColor = .Control.secondary
+
+        if FeatureFlags.newObjectSettings, let output {
+            let menuContainer = ObjectSettingsMenuContainer(objectId: objectId, spaceId: spaceId, output: output)
+            let hostingController = UIHostingController(rootView: menuContainer)
+            hostingController.view.backgroundColor = .clear
+            self.settingsMenuView = hostingController.view
+        }
     }
     
     private func setupLayout() {
@@ -89,9 +106,16 @@ final class TemplateEditingViewController: UIViewController {
             $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
         }
         
-        fakeNavigationView.addSubview(settingsButton) {
-            $0.trailing.equal(to: fakeNavigationView.trailingAnchor, constant: -20)
-            $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
+        if FeatureFlags.newObjectSettings, let settingsMenuView {
+            fakeNavigationView.addSubview(settingsMenuView) {
+                $0.trailing.equal(to: fakeNavigationView.trailingAnchor, constant: -20)
+                $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
+            }
+        } else {
+            fakeNavigationView.addSubview(settingsButton) {
+                $0.trailing.equal(to: fakeNavigationView.trailingAnchor, constant: -20)
+                $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
+            }
         }
 
         embedChild(editorViewController, into: view)

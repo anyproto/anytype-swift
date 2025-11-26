@@ -10,10 +10,6 @@ platform :ios do
     deploy(config: ENV["APP_CONF_RELEASE_ANYTYPE"])
   end
 
-  lane :release_anyapp do
-    deploy(config: ENV["APP_CONF_RELEASE_ANYAPP"])
-  end
-
   # Private lanes
 
   private_lane :deploy do |options| 
@@ -24,18 +20,15 @@ platform :ios do
       ENV["APP_CONF_DEVELOP"] => {
         tag_prefix: "dev",
         add_badge: true,
-        app_info: "Debug"
+        app_info: "Debug",
+        bundle_id: "io.anytype.app.dev"
       },
       ENV["APP_CONF_RELEASE_ANYTYPE"] => {
         tag_prefix: "release-anytype",
         add_badge: false,
-        app_info: "Release Anytype"
-      },
-      ENV["APP_CONF_RELEASE_ANYAPP"] => {
-        tag_prefix: "release-anyapp",
-        add_badge: false,
-        app_info: "Release Any App"
-      },
+        app_info: "Release Anytype",
+        bundle_id: "io.anytype.app"
+      }
     }
 
     setup_ci
@@ -108,14 +101,57 @@ platform :ios do
     sh("git push origin refs/tags/#{tag_name} --no-verify --force")
   
     appInfo = settings[:app_info]
-    old_tag_name = sh("git describe --first-parent --tags --abbrev=0 HEAD~").chomp
 
-    add_linear_comment(
-      from_tag: old_tag_name,
-      to_tag: tag_name,
-      comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
-    )
+    # Determine the previous tag to use for diff generation in Linear comments
+    # This ensures hotfix releases (e.g., 0.41.1) correctly diff against the last build
+    # of the previous version (0.41.0/27) instead of finding an old tag from a different branch
+    if build_number.to_i > 1
+      # For incremental builds (e.g., 0.41.0/26 -> 0.41.0/27), use the previous build number
+      old_tag_name = "#{prefix}/#{version}/#{build_number.to_i - 1}"
+    else
+      # For the first build of a new version (e.g., 0.41.1/1), find the last tag of the previous patch version
+      # Get major.minor version (e.g., "0.41" from "0.41.1")
+      version_parts = version.split('.')
+      major_minor = "#{version_parts[0]}.#{version_parts[1]}"
+      current_patch = version_parts[2].to_i
+
+      # Get all tags for the current major.minor (e.g., all 0.41.x tags), sorted by version
+      all_version_tags = sh("git tag -l '#{prefix}/#{major_minor}.*/*' | sort -V").split("\n")
+
+      # Find tags for versions less than current patch, take the last one
+      previous_version_tags = all_version_tags.select do |t|
+        tag_patch = t.match(/#{Regexp.escape(prefix)}\/#{Regexp.escape(major_minor)}\.(\d+)\//)
+        tag_patch && tag_patch[1].to_i < current_patch
+      end
+
+      old_tag_name = previous_version_tags.last || tag_name
+    end
+
+    # Check if we should add Linear comments
+    # Skip if: (1) old_tag is the same as new tag (first release)
+    #          (2) both tags point to the same commit (retried build)
+    if old_tag_name == tag_name
+      puts "⏭️  Skipping Linear comments: First release, no previous version to compare"
+    else
+      old_commit = sh("git rev-parse #{old_tag_name}^{commit} 2>/dev/null || echo ''").strip
+      new_commit = sh("git rev-parse #{tag_name}^{commit}").strip
+
+      if old_commit.empty?
+        puts "⚠️  Warning: Could not find commit for #{old_tag_name}, skipping Linear comments"
+      elsif old_commit == new_commit
+        puts "⏭️  Skipping Linear comments: #{old_tag_name} and #{tag_name} point to the same commit (#{old_commit[0..7]})"
+      else
+        add_linear_comment(
+          from_tag: old_tag_name,
+          to_tag: tag_name,
+          comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
+        )
+      end
+    end
   
+    bundle_id = settings[:bundle_id]
+    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--apple-id #{bundle_id} --use-old-altool"
+
     upload_to_testflight(skip_waiting_for_build_processing: true)
 
     github_message = "Anytype #{appInfo} Version: **#{version}(#{build_number})** :gem::gem::gem:"

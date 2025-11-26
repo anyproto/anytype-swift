@@ -11,20 +11,21 @@ protocol ChatMessageBuilderProtocol: AnyObject, Sendable {
 }
 
 actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
-    
+
     private enum Constants {
         static let grouppingDateInterval: Int = 60 // seconds
     }
-    
+
     private let accountParticipantsStorage: any ParticipantsStorageProtocol = Container.shared.participantsStorage()
     private let messageTextBuilder: any MessageTextBuilderProtocol = Container.shared.messageTextBuilder()
     private let workspaceStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-    
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
+
     private let spaceId: String
     private let chatId: String
-    
+
     private let dateFormatter = HistoryDateFormatter()
-    
+
     init(spaceId: String, chatId: String) {
         self.spaceId = spaceId
         self.chatId = chatId
@@ -36,10 +37,12 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         firstUnreadMessageOrderId: String?,
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
-        
+
         let isStream = workspaceStorage.spaceView(spaceId: spaceId)?.uxType.isStream ?? false
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
-        let canEdit = participant?.canEdit ?? false
+        let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
+        let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
+        let canEdit = (participant?.canEdit ?? false) && !isChatDeletedOrArchived
         let yourProfileIdentity = participant?.identity
         
         var currentSectionData: MessageSectionData?
@@ -107,7 +110,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 reply: fullMessage.reply
             )
             
-            let unreadItem: MessageSectionItem? = isUnread ? .unread("\(message.id)-unread") : nil
+            let unreadItem: MessageSectionItem? = isUnread ? .unread(id: "\(message.id)-unread", messageId: message.id, messageOrderId: message.orderID) : nil
             
             if firstInSection {
                 if let currentSectionData {

@@ -100,7 +100,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
     }
     
     func duplicate(blockId: String) {
-        AnytypeAnalytics.instance().logDuplicateBlock(spaceId: document.spaceId)
+        AnytypeAnalytics.instance().logDuplicateBlock()
         service.duplicate(blockId: blockId)
     }
     
@@ -148,7 +148,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
         Task {
             let isBookmarkType = targetDetails.resolvedLayoutValue == .bookmark
             AnytypeAnalytics.instance().logCreateLink(
-                spaceId: targetDetails.spaceId,
                 objectType: targetDetails.objectType.analyticsType,
                 route: route
             )
@@ -234,7 +233,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
             try await fileService.uploadDataAt(source: uploadingSource, contextID: document.objectId, blockID: blockId)
         }
 
-        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId, route: route)
+        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, route: route)
     }
     
     func uploadImage(image: UIImage, type: String, blockId: String, route: UploadMediaRoute) {
@@ -251,11 +250,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol, Sendable {
             try await fileService.uploadDataAt(data: fileData, contextID: document.objectId, blockID: blockId)
         }
 
-        AnytypeAnalytics.instance().logUploadMedia(type: .image, spaceId: document.spaceId, route: route)
+        AnytypeAnalytics.instance().logUploadMedia(type: .image, route: route)
     }
     
     func uploadFileAt(localPath: String, blockId: String, route: UploadMediaRoute) {
-        AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId, route: route)
+        AnytypeAnalytics.instance().logUploadMedia(type: .file, route: route)
         
         Task {
             await EventsBunch(

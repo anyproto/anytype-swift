@@ -44,8 +44,7 @@ final class SetPropertiesCoordinatorViewModel:
                     format: relationDetails.format,
                     isNew: isNew,
                     type: .dataview,
-                    key: relationDetails.analyticsKey,
-                    spaceId: setDocument.spaceId
+                    key: relationDetails.analyticsKey
                 )
             }
         )

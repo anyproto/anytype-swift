@@ -6,7 +6,8 @@ import UIKit
 @MainActor
 protocol EditorRouterProtocol:
     AnyObject,
-    ObjectHeaderRouterProtocol
+    ObjectHeaderRouterProtocol,
+    ObjectSettingsCoordinatorOutput
 {
     func showAlert(alertModel: AlertModel)
     func showObject(objectId: String, forceOpenObject: Bool)

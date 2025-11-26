@@ -29,6 +29,7 @@ struct LinkWidgetInternalView: View {
             homeState: data.homeState,
             name: model.name,
             icon: model.icon,
+            badgeModel: model.badgeModel,
             dragId: model.dragId,
             onCreateObjectTap: nil,
             onHeaderTap: {
@@ -37,5 +38,8 @@ struct LinkWidgetInternalView: View {
             output: data.output,
             content: { EmptyView() }
         )
+        .task {
+            await model.startSubscriptions()
+        }
     }
 }
