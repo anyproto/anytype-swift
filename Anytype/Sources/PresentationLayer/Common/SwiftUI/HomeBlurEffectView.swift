@@ -52,6 +52,11 @@ final class HomeBlurEffectUIView: UIView {
                 self?.setBlurRadius()
             }
         }
+        
+        // Register for trait changes using the modern API
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.setBlurRadius()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -81,13 +86,6 @@ final class HomeBlurEffectUIView: UIView {
             backgroundLayer.filters?.removeAll { String(describing: $0) != "gaussianBlur" }
             let filter = backgroundLayer.filters?.last as? NSObject
             filter?.setValue(4, forKey: "inputRadius")
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        DispatchQueue.main.async { [weak self] in
-            self?.setBlurRadius()
         }
     }
 }
