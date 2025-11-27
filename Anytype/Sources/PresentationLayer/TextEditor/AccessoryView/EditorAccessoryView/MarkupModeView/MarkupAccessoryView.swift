@@ -29,6 +29,7 @@ final class MarkupAccessoryView: UIView {
         setupViews(viewModel: viewModel)
         bindViewModel(viewModel: viewModel)
         updateColorViewStyle()
+        setupTraitChangeObservation()
     }
 
     private func createColorView(viewModel: MarkupAccessoryViewModel) -> ColorView {
@@ -82,11 +83,12 @@ final class MarkupAccessoryView: UIView {
         }.store(in: &cancellables)
     }
 
-    // MARK: - Public methos
+    // MARK: - Private methods
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateColorViewStyle()
+    private func setupTraitChangeObservation() {
+        registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (self: Self, previousTraitCollection: UITraitCollection) in
+            self.updateColorViewStyle()
+        }
     }
 
     // MARK: - Unavailable
