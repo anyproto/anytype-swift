@@ -85,7 +85,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     private func showLoginOrAuth() {
         if basicUserInfoStorage.usersId.isNotEmpty {
-            applicationStateService.state = .login
+            applicationStateService.state = .launch
         } else {
             applicationStateService.state = .auth
         }
