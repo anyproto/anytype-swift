@@ -114,7 +114,7 @@ struct SpaceProfileView: View {
                     .frame(width: 24, height: 24)
             }
             .padding(20)
-            .background(Color.Shape.transperentSecondary)
+            .background(Color.Shape.transparentSecondary)
             .cornerRadius(10)
             
             Spacer.fixedHeight(6)

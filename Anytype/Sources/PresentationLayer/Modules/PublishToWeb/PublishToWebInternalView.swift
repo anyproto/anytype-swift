@@ -87,7 +87,7 @@ struct PublishToWebInternalView: View {
         .padding(.vertical, 16)
         .padding(.horizontal, 12)
         .border(10, color: .Shape.primary)
-        .background(Color.Shape.transperentTertiary)
+        .background(Color.Shape.transparentTertiary)
         .cornerRadius(10)
     }
     
@@ -118,7 +118,7 @@ struct PublishToWebInternalView: View {
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
             .border(10, color: .Shape.primary)
-            .background(Color.Shape.transperentTertiary)
+            .background(Color.Shape.transparentTertiary)
             .cornerRadius(10)
         })
     }

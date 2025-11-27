@@ -8,7 +8,7 @@ extension CustomIconDataColor {
         case .selected(let color):
             color.color
         case .placeholder:
-            .Shape.transperentPrimary
+            .Shape.transparentPrimary
         }
     }
 }

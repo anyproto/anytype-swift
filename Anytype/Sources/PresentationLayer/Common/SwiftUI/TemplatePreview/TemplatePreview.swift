@@ -53,7 +53,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                     AnytypeText("Default", style: .relation2Regular)
                         .foregroundColor(.Text.secondary)
                         .padding(.horizontal, 6)
-                        .background(Color.Shape.transperentSecondary)
+                        .background(Color.Shape.transparentSecondary)
                         .cornerRadius(4, style: .continuous)
                     Spacer.fixedHeight(8)
                 }

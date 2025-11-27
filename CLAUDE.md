@@ -184,7 +184,7 @@ AnytypeText("Body", style: .bodyRegular)         // Body text
 Always use design system constants:
 ```swift
 .foregroundColor(Color.Text.primary)
-.background(Color.Shape.transperentSecondary)
+.background(Color.Shape.transparentSecondary)
 ```
 
 ## 🔧 Code Generation (Quick Reference)
