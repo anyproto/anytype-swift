@@ -20,7 +20,7 @@ struct GalleryWidgetRow: View {
     var body: some View {
         ZStack {
             Color.clear
-                .border(8, color: .Shape.transperentPrimary)
+                .border(8, color: .Shape.transparentPrimary)
             
             VStack(alignment: .leading, spacing: 0) {
                 if let cover = model.cover {

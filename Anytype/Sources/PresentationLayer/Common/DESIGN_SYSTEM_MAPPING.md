@@ -9,7 +9,7 @@ This document provides a comprehensive mapping between Figma design system eleme
 ### How to Read Figma Colors
 In Figma, colors are displayed in the format: `Category/Subcategory/Name`
 
-Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transperentSecondary`
+Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transparentSecondary`
 
 ### Color Categories
 
@@ -19,9 +19,9 @@ Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transperentSecondar
 | `Shapes/Primary` | `Color.Shape.primary` | Primary shape backgrounds |
 | `Shapes/Secondary` | `Color.Shape.secondary` | Secondary shape backgrounds |
 | `Shapes/Tertiary` | `Color.Shape.tertiary` | Tertiary shape backgrounds |
-| `Shapes/Transparent Primary` | `Color.Shape.transperentPrimary` | Semi-transparent overlays |
-| `Shapes/Transparent Secondary` | `Color.Shape.transperentSecondary` | Search bars, subtle backgrounds |
-| `Shapes/Transparent Tertiary` | `Color.Shape.transperentTertiary` | Light overlays |
+| `Shapes/Transparent Primary` | `Color.Shape.transparentPrimary` | Semi-transparent overlays |
+| `Shapes/Transparent Secondary` | `Color.Shape.transparentSecondary` | Search bars, subtle backgrounds |
+| `Shapes/Transparent Tertiary` | `Color.Shape.transparentTertiary` | Light overlays |
 
 #### Text Colors
 | Figma Name | Code Implementation | Usage |
@@ -64,7 +64,7 @@ Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transperentSecondar
 ### Usage in SwiftUI
 ```swift
 // Background color
-.background(Color.Shape.transperentSecondary)
+.background(Color.Shape.transparentSecondary)
 
 // Text color
 .foregroundColor(Color.Text.primary)

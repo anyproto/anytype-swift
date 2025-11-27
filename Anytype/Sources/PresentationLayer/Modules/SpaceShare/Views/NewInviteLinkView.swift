@@ -93,7 +93,7 @@ struct NewInviteLinkView: View {
                 .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 12)
-        .background(Color.Shape.transperentTertiary)
+        .background(Color.Shape.transparentTertiary)
         .cornerRadius(10, style: .circular)
     }
 }

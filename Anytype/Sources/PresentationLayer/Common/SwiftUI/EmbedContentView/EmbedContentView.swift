@@ -39,7 +39,7 @@ struct EmbedContentView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(Color.Shape.transperentTertiary)
+        .background(Color.Shape.transparentTertiary)
         .cornerRadius(16)
         .safariSheet(url: $model.safariUrl)
     }
@@ -47,7 +47,7 @@ struct EmbedContentView: View {
     private var icon: some View {
         Image(asset: model.data.icon)
             .frame(width: 40, height: 40)
-            .background(Color.Shape.transperentSecondary)
+            .background(Color.Shape.transparentSecondary)
             .cornerRadius(8)
     }
 }
