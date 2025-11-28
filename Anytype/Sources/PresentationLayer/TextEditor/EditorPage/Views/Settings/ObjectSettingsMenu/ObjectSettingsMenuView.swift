@@ -40,14 +40,29 @@ struct ObjectSettingsMenuView: View {
 
     @ViewBuilder
     private func renderSection(_ section: ObjectMenuSection) -> some View {
-        if section.layout == .horizontal {
+        switch section.layout {
+        case .horizontal:
             ControlGroup {
                 ForEach(section.items) { item in
                     renderMenuItem(item)
                 }
             }
             .controlGroupStyle(.menu)
-        } else {
+        case .collapsible:
+            Menu {
+                ForEach(section.items) { item in
+                    renderMenuItem(item)
+                }
+            } label: {
+                Label {
+                    Text(Loc.more)
+                } icon: {
+                    Image(asset: .X24.more)
+                        .renderingMode(.template)
+                        .foregroundColor(.Text.primary)
+                }
+            }
+        case .vertical:
             ForEach(section.items) { item in
                 renderMenuItem(item)
             }
