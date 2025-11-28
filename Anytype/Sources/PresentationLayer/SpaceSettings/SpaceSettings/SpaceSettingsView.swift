@@ -72,10 +72,12 @@ struct SpaceSettingsView: View {
     
     private var header: some View {
         PageNavigationHeader(title: "") {
-            Button {
-                model.onEditTap()
-            } label: {
-                AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+            if !model.isOneToOne {
+                Button {
+                    model.onEditTap()
+                } label: {
+                    AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+                }
             }
         }
     }
@@ -83,15 +85,7 @@ struct SpaceSettingsView: View {
     private var spaceDetails: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                Button {
-                    model.onChangeIconTap()
-                } label: {
-                    VStack(spacing: 0) {
-                        Spacer.fixedHeight(8)
-                        IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
-                        Spacer.fixedHeight(16)
-                    }
-                }
+                spaceIconView
                 Menu {
                     spaceNameMenuItems
                 } label: {
@@ -102,7 +96,26 @@ struct SpaceSettingsView: View {
             }
         }
     }
-    
+
+    @ViewBuilder
+    private var spaceIconView: some View {
+        let iconContent = VStack(spacing: 0) {
+            Spacer.fixedHeight(8)
+            IconView(icon: model.spaceIcon).frame(width: 112, height: 112)
+            Spacer.fixedHeight(16)
+        }
+
+        if !model.isOneToOne {
+            Button {
+                model.onChangeIconTap()
+            } label: {
+                iconContent
+            }
+        } else {
+            iconContent
+        }
+    }
+
     private var spaceNameMenuItems: some View {
         VStack {
             Button {
@@ -112,12 +125,14 @@ struct SpaceSettingsView: View {
                 Spacer()
                 Image(systemName: "document.on.document")
             }
-            Button {
-                model.onEditTap()
-            } label: {
-                Text(Loc.edit)
-                Spacer()
-                Image(systemName: "pencil")
+            if !model.isOneToOne {
+                Button {
+                    model.onEditTap()
+                } label: {
+                    Text(Loc.edit)
+                    Spacer()
+                    Image(systemName: "pencil")
+                }
             }
         }
     }
@@ -190,7 +205,9 @@ struct SpaceSettingsView: View {
         VStack(spacing: 0) {
             SectionHeaderView(title: Loc.collaboration)
             VStack(spacing: 8) {
-                RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                if !model.isOneToOne {
+                    RoundedButton(Loc.members, icon: .X24.member, decoration: memberDecoration) { model.onMembersTap() }
+                }
                 RoundedButton(
                     Loc.notifications,
                     icon: pushNotificationsSettingIcon(),
@@ -215,8 +232,10 @@ struct SpaceSettingsView: View {
             case .unshareable:
                 EmptyView()
             case .shareable, .reachedSharesLimit:
-                SectionHeaderView(title: Loc.collaboration)
-                RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
+                if !model.isOneToOne {
+                    SectionHeaderView(title: Loc.collaboration)
+                    RoundedButton(Loc.members, icon: .X24.member, decoration: .chervon) { model.onMembersTap() }
+                }
             }
         }
     }

@@ -32,19 +32,23 @@ extension SpacePermissions {
     }
     
     init(spaceView: SpaceView, spaceAccessType: SpaceAccessType, isOwner: Bool, participantCanEdit: Bool, isLocalMode: Bool) {
-        
+
+        let isOneToOne = spaceView.uxType.isOneToOne
+
         canBeShared = isOwner && spaceAccessType.isSharable && !isLocalMode
         canStopSharing = isOwner && spaceAccessType.isShared && !isLocalMode
         canEdit = participantCanEdit
-        canLeave = !isOwner && spaceView.isActive && !isLocalMode
-        
+        canLeave = !isOwner && spaceView.isActive && !isLocalMode && !isOneToOne
+
+        let baseCanBeDeleted: Bool
         if spaceView.localStatus == .loading {
-            canBeDeleted = true
+            baseCanBeDeleted = true
         } else if isOwner {
-            canBeDeleted = spaceAccessType.isDeletable
+            baseCanBeDeleted = spaceAccessType.isDeletable
         } else {
-            canBeDeleted = spaceView.accountStatus == .spaceRemoving
+            baseCanBeDeleted = spaceView.accountStatus == .spaceRemoving
         }
+        canBeDeleted = baseCanBeDeleted && !isOneToOne
 
         canBeArchived = spaceView.isActive
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
