@@ -23,6 +23,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
     @Published var spaceUxType = ""
     @Published var spaceMembers = ""
     @Published var sharedSpace = false
+    @Published var isOneToOne = false
     @Published var canEdit = false
     
     init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
@@ -51,6 +52,7 @@ final class WidgetsHeaderViewModel: ObservableObject {
             spaceIcon = space.objectIconImage
             spaceUxType = space.uxType.name
             sharedSpace = space.isShared
+            isOneToOne = space.uxType.isOneToOne
         }
     }
     
