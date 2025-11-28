@@ -35,6 +35,13 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let oneToOneSpaces = FeatureDescription(
+        title: "1-1 Spaces - IOS-5531",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
+        defaultValue: false,
+        debugValue: true
+    )
 
     // MARK: - Experemental
     
@@ -55,13 +62,6 @@ public extension FeatureDescription {
         title: "Dnd on collections and sets (wating for the middle)",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false
-    )
-
-    static let demoOneToOneSpaces = FeatureDescription(
-        title: "Demo 1-1 Spaces - IOS-5521",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: true
     )
 
     // MARK: - Debug

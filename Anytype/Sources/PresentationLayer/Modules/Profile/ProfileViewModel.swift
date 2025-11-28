@@ -23,6 +23,8 @@ final class ProfileViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     private let subId = "ProfileViewModel-\(UUID().uuidString)"
 
@@ -36,12 +38,16 @@ final class ProfileViewModel: ObservableObject {
         (_) = await (subscription)
     }
 
-    func onConnect() async {
+    func onConnect() async throws {
         guard let identity = details?.identity, identity.isNotEmpty else { return }
 
-        if let spaceId = try? await workspaceService.createOneToOneSpace(oneToOneIdentity: identity) {
-            pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: spaceId)))
+        if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: identity) {
+            pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
+            return
         }
+        
+        let newSpaceId = try await workspaceService.createOneToOneSpace(oneToOneIdentity: identity)
+        pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
     }
 
     // MARK: - Private

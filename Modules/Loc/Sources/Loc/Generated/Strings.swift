@@ -574,6 +574,7 @@ public enum Loc {
   }
   public static let selfHost = Loc.tr("UI", "Self Host", fallback: "Self Host")
   public static let send = Loc.tr("UI", "Send", fallback: "Send")
+  public static let sendMessage = Loc.tr("UI", "sendMessage", fallback: "Send Message")
   public static let `set` = Loc.tr("UI", "Set", fallback: "Query")
   public static let setAccess = Loc.tr("UI", "Set access", fallback: "Set access")
   public static let setAsDefault = Loc.tr("UI", "Set as default", fallback: "Set as default")

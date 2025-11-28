@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .newObjectSettings)
     }
 
+    static var oneToOneSpaces: Bool {
+        value(for: .oneToOneSpaces)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -36,10 +40,6 @@ public extension FeatureFlags {
 
     static var dndOnCollectionsAndSets: Bool {
         value(for: .dndOnCollectionsAndSets)
-    }
-
-    static var demoOneToOneSpaces: Bool {
-        value(for: .demoOneToOneSpaces)
     }
 
     static var rainbowViews: Bool {
@@ -117,10 +117,10 @@ public extension FeatureFlags {
         .channelTypeSwitcher,
         .showUploadStatusIndicator,
         .newObjectSettings,
+        .oneToOneSpaces,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .demoOneToOneSpaces,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

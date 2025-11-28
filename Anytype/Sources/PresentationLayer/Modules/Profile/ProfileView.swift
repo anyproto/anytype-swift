@@ -98,10 +98,10 @@ struct ProfileView: View {
 
     @ViewBuilder
     private var connectButton: some View {
-        if FeatureFlags.demoOneToOneSpaces, !model.isOwner {
+        if FeatureFlags.oneToOneSpaces, !model.isOwner {
             Spacer.fixedHeight(24)
-            AsyncStandardButton(Loc.connect, style: .secondaryLarge) {
-                await model.onConnect()
+            AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
+                try await model.onConnect()
             }
         } else {
             Spacer.fixedHeight(52)
