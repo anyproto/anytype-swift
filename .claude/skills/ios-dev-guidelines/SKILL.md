@@ -90,10 +90,23 @@ struct MyView: View {
 // ✅ PREFERRED: AsyncStandardButton handles loading state automatically
 struct MyView: View {
     var body: some View {
-        AsyncStandardButton(Loc.connect, style: .secondaryLarge) {
-            await viewModel.connect()
+        AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
+            try await viewModel.onConnect()
         }
     }
+}
+
+// ViewModel can throw - errors are handled automatically
+func onConnect() async throws {
+    guard let identity = details?.identity, identity.isNotEmpty else { return }
+
+    if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: identity) {
+        pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
+        return
+    }
+
+    let newSpaceId = try await workspaceService.createOneToOneSpace(oneToOneIdentity: identity)
+    pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
 }
 ```
 
@@ -102,7 +115,7 @@ struct MyView: View {
 - Shows error toast automatically on failure
 - Provides haptic feedback (selection on tap, error on failure)
 - Cleaner ViewModel (no `@Published var isLoading` needed)
-- Action is `async throws` - just throw errors, they're handled
+- **Action is `async throws`** - use `try await` and let errors propagate naturally
 
 ## 🗂️ Project Structure
 

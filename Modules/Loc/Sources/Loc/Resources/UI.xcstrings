@@ -80027,6 +80027,17 @@
         }
       }
     },
+    "sendMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Message"
+          }
+        }
+      }
+    },
     "Server.AddButton" : {
       "extractionState" : "manual",
       "localizations" : {

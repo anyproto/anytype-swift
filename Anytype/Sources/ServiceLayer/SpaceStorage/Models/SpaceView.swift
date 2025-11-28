@@ -23,6 +23,7 @@ struct SpaceView: Identifiable, Equatable, Hashable {
     let forceAllIds: [String]
     let forceMuteIds: [String]
     let forceMentionIds: [String]
+    let oneToOneIdentity: String
 }
 
 extension SpaceView: DetailsModel {
@@ -47,6 +48,7 @@ extension SpaceView: DetailsModel {
         self.forceAllIds = details.spacePushNotificationForceAllIds
         self.forceMuteIds = details.spacePushNotificationForceMuteIds
         self.forceMentionIds = details.spacePushNotificationForceMentionIds
+        self.oneToOneIdentity = details.oneToOneIdentity
     }
     
     static let subscriptionKeys: [BundledPropertyKey] = .builder {
@@ -71,6 +73,7 @@ extension SpaceView: DetailsModel {
         BundledPropertyKey.spacePushNotificationForceAllIds
         BundledPropertyKey.spacePushNotificationForceMuteIds
         BundledPropertyKey.spacePushNotificationForceMentionIds
+        BundledPropertyKey.oneToOneIdentity
     }
 }
 
