@@ -18,7 +18,7 @@ struct WidgetsHeaderView: View {
                     AnytypeText(model.spaceName, style: .uxTitle2Semibold)
                         .foregroundColor(.Text.primary)
                         .lineLimit(1)
-                    if model.sharedSpace {
+                    if model.sharedSpace, !model.isOneToOne {
                         AnytypeText(model.spaceMembers, style: .relation2Regular)
                             .foregroundColor(.Control.transparentSecondary)
                     } else {

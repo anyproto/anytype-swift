@@ -91,8 +91,10 @@ struct SpaceSettingsView: View {
                 } label: {
                     AnytypeText(model.spaceName.isNotEmpty ? model.spaceName : Loc.untitled, style: .heading)
                 }
-                Spacer.fixedHeight(4)
-                AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
+                if !model.isOneToOne {
+                    Spacer.fixedHeight(4)
+                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
+                }
             }
         }
     }
