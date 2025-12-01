@@ -304,6 +304,7 @@ enum PermissionAnalyticsType: String {
 
 enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
+    case profile = "Profile"
 }
 
 enum ScreenQrRoute: String {
@@ -311,6 +312,7 @@ enum ScreenQrRoute: String {
     case settingsSpace = "SettingsSpace"
     case spaceProfile = "SpaceProfile"
     case chat = "Chat"
+    case settings = "Settings"
 }
 
 enum ClickShareSpaceCopyLinkRoute: String {

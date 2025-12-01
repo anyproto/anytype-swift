@@ -1,53 +1,60 @@
-import Foundation
 import SwiftUI
+import QRCode
 
 struct ProfileQRCodeView: View {
 
-    let anyName: String = "vova.any"
+    @StateObject private var model = ProfileQRCodeViewModel()
 
     var body: some View {
+        content
+            .background(Color.Background.primary)
+            .sheet(item: $model.sharedData) { data in
+                ActivityView(activityItems: [data.value])
+            }
+            .snackbar(toastBarData: $model.toastBarData)
+            .onAppear {
+                model.onAppear()
+            }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch model.state {
+        case .loading:
+            EmptyView()
+        case .error:
+            EmptyStateView(
+                title: Loc.error,
+                style: .error
+            )
+        case .loaded(let document):
+            loadedContent(document: document)
+        }
+    }
+
+    private func loadedContent(document: QRCode.Document) -> some View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(12)
-
-            HStack {
-                Spacer()
-                HStack(spacing: 4) {
-                    AnytypeText(anyName, style: .uxBodyRegular)
-                        .foregroundColor(.Text.primary)
-                }
-                Spacer()
-            }
-
+            AnytypeText(model.anyName, style: .uxBodyRegular)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(24)
-
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.Shape.tertiary)
+            QRCodeDocumentUIView(document: document)
                 .frame(width: 200, height: 200)
-                .overlay {
-                    AnytypeText("QR Code", style: .bodyRegular)
-                        .foregroundColor(.Text.secondary)
-                }
-
             Spacer.fixedHeight(32)
-
             StandardButton(Loc.share, style: .primaryLarge) {
-                // Stub action
+                model.onShare()
             }
-
             Spacer.fixedHeight(12)
-
             StandardButton(Loc.download, style: .secondaryLarge) {
-                // Stub action
+                model.onDownload()
             }
-
             Spacer.fixedHeight(16)
         }
         .padding(.horizontal, 20)
-        .background(Color.Background.primary)
     }
 }
 
 #Preview {
-    ProfileQRCodeView(anyName: "barulenkov.any")
+    ProfileQRCodeView()
 }

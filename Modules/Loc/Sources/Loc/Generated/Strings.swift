@@ -554,6 +554,7 @@ public enum Loc {
   public static let restoreFromKeychain = Loc.tr("UI", "Restore from keychain", fallback: "Restore from keychain")
   public static let restoreKeyFromKeychain = Loc.tr("UI", "Restore key from keychain", fallback: "Restore Key from the keychain")
   public static let save = Loc.tr("UI", "Save", fallback: "Save")
+  public static let savedToPhotos = Loc.tr("UI", "Saved to Photos", fallback: "Saved to Photos")
   public static let scanDocuments = Loc.tr("UI", "Scan documents", fallback: "Scan documents")
   public static let scanQRCode = Loc.tr("UI", "Scan QR code", fallback: "Scan QR code")
   public static let search = Loc.tr("UI", "Search", fallback: "Search...")

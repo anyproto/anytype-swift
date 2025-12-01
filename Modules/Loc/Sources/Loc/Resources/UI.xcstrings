@@ -75977,6 +75977,17 @@
         }
       }
     },
+    "Saved to Photos" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved to Photos"
+          }
+        }
+      }
+    },
     "Scan documents" : {
       "extractionState" : "manual",
       "localizations" : {

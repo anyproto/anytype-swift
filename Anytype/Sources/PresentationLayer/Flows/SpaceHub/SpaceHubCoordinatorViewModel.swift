@@ -472,6 +472,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             membershipTierId = tierId.identifiable
         case .networkConfig:
             toastBarData = ToastBarData(Loc.unsupportedDeeplink)
+        case let .hi(identity, key):
+            toastBarData = ToastBarData("HI: \(identity) --- \(key)")
         }
     }
     
