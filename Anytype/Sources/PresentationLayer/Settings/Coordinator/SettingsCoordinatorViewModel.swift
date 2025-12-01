@@ -25,6 +25,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showMySites = false
     @Published var showExperimentalFeatures = false
     @Published var showKeychainPhraseForSettings = false
+    @Published var showProfileQRCode = false
     @Published var objectIconPickerData: ObjectIconPickerData?
     
     // MARK: - SettingsModuleOutput
@@ -73,7 +74,11 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     func onMembershipSelected() {
         showMembership = true
     }
-    
+
+    func onProfileQRCodeSelected() {
+        showProfileQRCode = true
+    }
+
     func onBackupTap() {
         showKeychainPhraseForLogout = true
     }

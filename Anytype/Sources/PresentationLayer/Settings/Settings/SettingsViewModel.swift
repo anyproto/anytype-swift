@@ -95,6 +95,10 @@ final class SettingsViewModel: ObservableObject {
     func onMembershipTap() {
         output?.onMembershipSelected()
     }
+
+    func onQRCodeTap() {
+        output?.onProfileQRCodeSelected()
+    }
     
     func onLogoutTap() {
         output?.onLogoutSelected()
