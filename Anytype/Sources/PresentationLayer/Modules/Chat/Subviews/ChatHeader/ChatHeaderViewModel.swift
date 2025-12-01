@@ -21,11 +21,13 @@ final class ChatHeaderViewModel: ObservableObject {
     @Published var spaceLoading = false
     @Published var muted = false
     @Published var showAddMembersButton: Bool = false
+    @Published private(set) var isMultiChatSpace: Bool = false
 
     var showLoading: Bool { chatLoading || spaceLoading }
 
-    private let spaceId: String
-    private let chatId: String
+    let spaceId: String
+    let chatId: String
+    
     private let onTapOpenWidgets: () -> Void
     private let onTapOpenSpaceSettings: () -> Void
     private let onTapAddMembers: (() -> Void)
@@ -72,6 +74,7 @@ final class ChatHeaderViewModel: ObservableObject {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
             spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
+            isMultiChatSpace = spaceSupportsMultiChats
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
             muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll

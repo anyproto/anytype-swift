@@ -56,11 +56,22 @@ struct ChatHeaderView: View {
                             .frame(width: 28, height: 28)
                     }
                 }
-                ExpandedTapAreaButton {
-                    model.tapOpenSpaceSettings()
-                } label: {
-                    IconView(icon: model.icon)
-                        .frame(width: 28, height: 28)
+                if model.isMultiChatSpace {
+                    ObjectSettingsMenuContainer(
+                        objectId: model.chatId,
+                        spaceId: model.spaceId,
+                        output: nil
+                    ) {
+                        IconView(icon: model.icon)
+                            .frame(width: 28, height: 28)
+                    }
+                } else {
+                    ExpandedTapAreaButton {
+                        model.tapOpenSpaceSettings()
+                    } label: {
+                        IconView(icon: model.icon)
+                            .frame(width: 28, height: 28)
+                    }
                 }
             }
         }
