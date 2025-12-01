@@ -1,18 +1,21 @@
 import SwiftUI
 import AnytypeCore
 
-struct ObjectSettingsMenuView: View {
+struct ObjectSettingsMenuView<LabelView: View>: View {
 
     @State private var viewModel: ObjectSettingsMenuViewModel
+    private let labelView: LabelView
 
     init(
         objectId: String,
         spaceId: String,
-        output: some ObjectSettingsModelOutput
+        output: some ObjectSettingsModelOutput,
+        @ViewBuilder labelView: () -> LabelView
     ) {
         let settingsVM = ObjectSettingsViewModel(objectId: objectId, spaceId: spaceId, output: output)
         let actionsVM = ObjectActionsViewModel(objectId: objectId, spaceId: spaceId, output: settingsVM)
         self._viewModel = State(wrappedValue: ObjectSettingsMenuViewModel(settingsViewModel: settingsVM, actionsViewModel: actionsVM))
+        self.labelView = labelView()
     }
 
     var body: some View {
@@ -24,8 +27,7 @@ struct ObjectSettingsMenuView: View {
                 renderSection(section)
             }
         } label: {
-            Image(asset: .X24.more)
-                .foregroundColor(.Text.primary)
+            labelView
         }
         .task {
             await viewModel.startTasks()

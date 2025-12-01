@@ -212,7 +212,11 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func onTapWidgets() {
         output?.onWidgetsSelected()
     }
-    
+
+    func onTapSpaceSettings() {
+        output?.onSpaceSettingsSelected()
+    }
+
     func onTapInviteLink() {
         output?.onInviteLinkSelected()
     }
