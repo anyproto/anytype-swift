@@ -17,7 +17,6 @@ final class ChatHeaderViewModel: ObservableObject {
 
     @Published var title: String?
     @Published var icon: Icon?
-    @Published var showWidgetsButton: Bool = false
     @Published var chatLoading = false
     @Published var spaceLoading = false
     @Published var muted = false
@@ -75,7 +74,6 @@ final class ChatHeaderViewModel: ObservableObject {
             spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
-            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
             muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll
             showAddMembersButton = participantSpaceView.participant?.permission == .owner
             updateHeaderDisplay()

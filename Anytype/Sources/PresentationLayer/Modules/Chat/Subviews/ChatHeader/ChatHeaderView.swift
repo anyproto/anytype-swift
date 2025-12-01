@@ -56,13 +56,11 @@ struct ChatHeaderView: View {
                             .frame(width: 28, height: 28)
                     }
                 }
-                if model.showWidgetsButton {
-                    ExpandedTapAreaButton {
-                        model.tapOpenSpaceSettings()
-                    } label: {
-                        IconView(icon: model.icon)
-                            .frame(width: 28, height: 28)
-                    }
+                ExpandedTapAreaButton {
+                    model.tapOpenSpaceSettings()
+                } label: {
+                    IconView(icon: model.icon)
+                        .frame(width: 28, height: 28)
                 }
             }
         }
