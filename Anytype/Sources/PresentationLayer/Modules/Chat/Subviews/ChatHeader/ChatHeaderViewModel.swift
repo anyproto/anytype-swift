@@ -28,6 +28,7 @@ final class ChatHeaderViewModel: ObservableObject {
     private let spaceId: String
     private let chatId: String
     private let onTapOpenWidgets: () -> Void
+    private let onTapOpenSpaceSettings: () -> Void
     private let onTapAddMembers: (() -> Void)
     private let chatObject: any BaseDocumentProtocol
 
@@ -40,11 +41,13 @@ final class ChatHeaderViewModel: ObservableObject {
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
+        onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
     ) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.onTapOpenWidgets = onTapOpenWidgets
+        self.onTapOpenSpaceSettings = onTapOpenSpaceSettings
         self.onTapAddMembers = onTapAddMembers
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
@@ -59,6 +62,8 @@ final class ChatHeaderViewModel: ObservableObject {
     }
     
     func tapOpenWidgets() { onTapOpenWidgets() }
+
+    func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
 
     func tapAddMembers() { onTapAddMembers() }
     

@@ -26,6 +26,9 @@ struct ChatView: View {
                 onTapOpenWidgets: {
                     model.onTapWidgets()
                 },
+                onTapOpenSpaceSettings: {
+                    model.onTapSpaceSettings()
+                },
                 onTapAddMembers: {
                     model.onTapInviteLink()
                 }

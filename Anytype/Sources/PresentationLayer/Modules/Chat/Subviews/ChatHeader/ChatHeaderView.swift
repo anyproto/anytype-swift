@@ -10,12 +10,14 @@ struct ChatHeaderView: View {
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
+        onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
     ) {
         self._model = StateObject(wrappedValue: ChatHeaderViewModel(
             spaceId: spaceId,
             chatId: chatId,
             onTapOpenWidgets: onTapOpenWidgets,
+            onTapOpenSpaceSettings: onTapOpenSpaceSettings,
             onTapAddMembers: onTapAddMembers
         ))
     }
@@ -56,7 +58,7 @@ struct ChatHeaderView: View {
                 }
                 if model.showWidgetsButton {
                     ExpandedTapAreaButton {
-                        model.tapOpenWidgets()
+                        model.tapOpenSpaceSettings()
                     } label: {
                         IconView(icon: model.icon)
                             .frame(width: 28, height: 28)
