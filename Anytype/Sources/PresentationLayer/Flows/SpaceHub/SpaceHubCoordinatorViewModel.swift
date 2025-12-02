@@ -111,7 +111,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
     @Injected(\.spaceHubPathUXTypeHelper) @ObservationIgnored
     private var spaceHubPathUXTypeHelper: any SpaceHubPathUXTypeHelperProtocol
-    
+    @Injected(\.workspaceService) @ObservationIgnored
+    private var workspaceService: any WorkspaceServiceProtocol
+
     @ObservationIgnored
     private var needSetup = true
     
@@ -473,7 +475,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         case .networkConfig:
             toastBarData = ToastBarData(Loc.unsupportedDeeplink)
         case let .hi(identity, key):
-            toastBarData = ToastBarData("HI: \(identity) --- \(key)")
+            await handleHiDeepLink(identity: identity, key: key)
         }
     }
     
@@ -496,7 +498,20 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             AnytypeAnalytics.instance().logOpenObjectByLink(type: .invite, route: route)
         }
     }
-    
+
+    private func handleHiDeepLink(identity: String, key: String) async {
+        guard identity.isNotEmpty else { return }
+
+        if let existingSpace = workspaceStorage.oneToOneSpaceView(identity: identity) {
+            try? await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
+            return
+        }
+
+        if let newSpaceId = try? await workspaceService.createOneToOneSpace(oneToOneIdentity: identity) {
+            try? await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
+        }
+    }
+
     private func handleOpenObject(objectId: String, spaceId: String) async throws {
         guard let spaceView = workspaceStorage.spaceView(spaceId: spaceId) else { return }
         if spaceView.chatId == objectId, spaceView.initialScreenIsChat {
