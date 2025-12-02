@@ -150,6 +150,24 @@ func onConnect() async throws {
 - If the surrounding code expects error handling (e.g., catch blocks nearby)
 - If it's a user-initiated action that typically needs feedback
 
+### Mistake: Flagging SF Symbols as Non-Design System
+
+**Scenario**: Code uses `Image(systemName: "...")` instead of `Image(asset: ...)`.
+
+**Wrong Analysis**:
+- ❌ "Uses SF Symbol instead of design system asset"
+- ❌ "Should use Image(asset: ...) for consistency"
+
+**Why This Is Wrong**:
+- SF Symbols (`Image(systemName:)`) are a **valid and common pattern** in this codebase
+- 40+ usages across 24+ files confirm this is an accepted practice
+- SF Symbols provide consistent iOS-native icons and accessibility
+
+**Correct Approach**:
+- ✅ `Image(systemName: "qrcode.viewfinder")` - Valid
+- ✅ `Image(asset: .X24.qrCode)` - Also valid
+- Both approaches are acceptable depending on context and availability
+
 ## Analysis Checklist
 
 Before suggesting removal of "unused" code:
