@@ -30,13 +30,19 @@ struct CircularTextView: View {
     private var padding: CGFloat { fontSize }
 
     var body: some View {
-        Canvas { context, canvasSize in
-            drawText(context: context, canvasSize: canvasSize)
+        TimelineView(.animation) { timeline in
+            let elapsed = timeline.date.timeIntervalSinceReferenceDate
+            let cycleDuration: Double = 250
+            let progress = elapsed.truncatingRemainder(dividingBy: cycleDuration) / cycleDuration
+
+            Canvas { context, canvasSize in
+                drawText(context: context, canvasSize: canvasSize, offset: progress)
+            }
+            .frame(width: size + padding * 2, height: size + padding * 2)
         }
-        .frame(width: size + padding * 2, height: size + padding * 2)
     }
 
-    private func drawText(context: GraphicsContext, canvasSize: CGSize) {
+    private func drawText(context: GraphicsContext, canvasSize: CGSize, offset: Double) {
         let center = CGPoint(x: canvasSize.width / 2, y: canvasSize.height / 2)
         let halfSize: CGFloat = size / 2
         let perimeter: CGFloat = 4 * (size - 2 * cornerRadius) + 2 * .pi * cornerRadius
@@ -45,7 +51,9 @@ struct CircularTextView: View {
 
         for index in 0..<characters.count {
             let character = characters[index]
-            let distance: CGFloat = CGFloat(index) * charSpacing
+            let baseDistance = CGFloat(index) * charSpacing
+            let distance = (baseDistance + CGFloat(offset) * perimeter)
+                .truncatingRemainder(dividingBy: perimeter)
             let (point, angle) = positionOnRoundedRect(
                 distance: distance,
                 center: center,
@@ -153,6 +161,6 @@ struct CircularTextView: View {
 }
 
 #Preview {
-    CircularTextView(phrase: Loc.connectMeAtAnytype, size: 280)
+    CircularTextView(phrase: Loc.connectWithMeOnAnytype, size: 280)
         .background(Color.gray.opacity(0.2))
 }

@@ -20182,6 +20182,17 @@
         }
       }
     },
+    "Connect with me on Anytype" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect with me on Anytype"
+          }
+        }
+      }
+    },
     "Connecting" : {
       "extractionState" : "manual",
       "localizations" : {

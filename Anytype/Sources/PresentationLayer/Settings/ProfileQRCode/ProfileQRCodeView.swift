@@ -88,7 +88,7 @@ struct ProfileQRCodeView: View {
 
             ZStack {
                 CircularTextView(
-                    phrase: Loc.connectMeAtAnytype,
+                    phrase: Loc.connectWithMeOnAnytype,
                     size: circularTextSize
                 )
                 QRCodeDocumentUIView(document: document)

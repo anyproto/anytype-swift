@@ -263,7 +263,7 @@ public enum Loc {
   public static let companiesContactsFriendsAndFamily = Loc.tr("UI", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   public static let confirm = Loc.tr("UI", "Confirm", fallback: "Confirm")
   public static let connect = Loc.tr("UI", "Connect", fallback: "Connect")
-  public static let connectMeAtAnytype = Loc.tr("UI", "Connect me at Anytype", fallback: "Connect me at Anytype")
+  public static let connectWithMeOnAnytype = Loc.tr("UI", "Connect with me on Anytype", fallback: "Connect with me on Anytype")
   public static let connecting = Loc.tr("UI", "Connecting", fallback: "Connecting...")
   public static let contentModel = Loc.tr("UI", "Content Model", fallback: "Content Model")
   public static let `continue` = Loc.tr("UI", "Continue", fallback: "Continue")
