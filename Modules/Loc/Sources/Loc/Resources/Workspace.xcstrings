@@ -841,13 +841,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Tek seferde yalnızca %d ek yükleyebilirsiniz"
+                  "value" : "Tek seferde yalnızca %d ek dosya yükleyebilirsin"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Tek seferde yalnızca %d ek yükleyebilirsiniz"
+                  "value" : "Tek seferde yalnızca %d ek dosya yükleyebilirsin"
                 }
               }
             }
@@ -1339,7 +1339,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bu ekranı kapatmak istediğinizden emin misiniz?"
+            "value" : "Bu ekranı kapatmak istediğinden emin misin?"
           }
         },
         "uk" : {
@@ -19775,7 +19775,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type."
+            "value" : "Diese Eigenschaften existieren in einigen Objekten aber sind nicht Teil des Typs. Füge sie hinzu, um sie in allen Objekten dieses Typs erscheinen zu lassen."
           }
         },
         "en" : {
@@ -20520,7 +20520,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space Button"
+            "value" : "Space beitreten Schaltfläche"
           }
         },
         "en" : {
@@ -26214,7 +26214,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Android platformunda katmanı yönetebilirsiniz"
+            "value" : "Android platformunda katmanı yönetebilirsin"
           }
         },
         "uk" : {
@@ -26363,7 +26363,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Katmanı başka bir AppleId hesabından yönetebilirsiniz"
+            "value" : "Katmanı başka bir AppleId hesabından yönetebilirsin"
           }
         },
         "uk" : {
@@ -32100,7 +32100,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You're editing type"
+            "value" : "Du bearbeitest den Typ"
           }
         },
         "en" : {
@@ -35827,7 +35827,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Get notified instantly when someone messages or mentions you in your spaces."
+            "value" : "Werde sofort benachrichtigt, wenn dir jemand eine Nachricht sendet oder dich in einem deiner Space erwähnt."
           }
         },
         "en" : {
@@ -60593,145 +60593,145 @@
         "ar" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Gizli kanal"
+            "value" : "Doğrudan kanal"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         }
       }
@@ -60856,7 +60856,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bu alan geri alınamaz şekilde silinecektir. Bu işlemi geri alamazsınız."
+            "value" : "Bu alan geri alınamaz şekilde silinecektir. Bu işlemi geri alamazsın."
           }
         },
         "uk" : {
@@ -63688,7 +63688,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yeni üyeler alanınıza katılamayacaklar. İstediğiniz zaman yeni bir bağlantı oluşturabilirsiniz."
+            "value" : "Yeni üyeler alanına katılamayacaklar. İstediğin zaman yeni bir bağlantı oluşturabilirsin."
           }
         },
         "uk" : {
@@ -64731,7 +64731,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bağlantınıza tıklayıp erişim talep ettiklerinde erişim haklarını ayarlayabilirsiniz."
+            "value" : "Bağlantına tıklayıp erişim talep ettiklerinde erişim haklarını ayarlayabilirsin."
           }
         },
         "uk" : {
