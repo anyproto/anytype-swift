@@ -13,6 +13,7 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
         static let inviteHostStage = "invite-stage.any.coop"
         static let inviteHosts = [inviteHostProd, inviteHostStage]
         static let objectHost = "object.any.coop"
+        static let hiHost = "hi.any.coop"
     }
     
     func parse(url: URL) -> UniversalLink? {
@@ -49,7 +50,21 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
             
             return .object(objectId: objectId, spaceId: spaceId, cid: cid, key: key)
         }
-        
+
+        // Link: https://hi.any.coop/<identity>#<encryptionkey>
+        if let host = components.host, host == LinkPaths.hiHost, var path = components.path, let fragment = components.fragment {
+
+            if path.hasPrefix("/") {
+                path.removeFirst(1)
+            }
+
+            guard path.isNotEmpty, fragment.isNotEmpty else {
+                return nil
+            }
+
+            return .hi(identity: path, key: fragment)
+        }
+
         return nil
     }
     
@@ -68,6 +83,8 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
                 return components.url
             }
             return URL(string: absoluteString + "#\(key)")
+        case .hi(let identity, let key):
+            return URL(string: "https://\(LinkPaths.hiHost)/\(identity)#\(key)")
         }
     }
 }

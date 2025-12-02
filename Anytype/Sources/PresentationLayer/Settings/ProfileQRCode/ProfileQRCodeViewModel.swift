@@ -1,7 +1,6 @@
 import Foundation
 import QRCode
 import UIKit
-import DeepLinks
 import AnytypeCore
 import DesignKit
 
@@ -19,8 +18,8 @@ final class ProfileQRCodeViewModel: ObservableObject {
 
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.deepLinkParser)
-    private var deepLinkParser: any DeepLinkParserProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: any UniversalLinkParserProtocol
 
     // MARK: - State
 
@@ -67,12 +66,12 @@ final class ProfileQRCodeViewModel: ObservableObject {
 
     private func createQR() {
         // TODO: IOS-5553 - Replace placeholder_key with actual encryption key when backend is ready
-        guard let url = deepLinkParser.createUrl(deepLink: .hi(
+        guard let url = universalLinkParser.createUrl(link: .hi(
             identity: accountManager.account.id,
             key: "placeholder_key"
-        ), scheme: .buildSpecific) else {
+        )) else {
             state = .error
-            anytypeAssertionFailure("Can not build deeplink for qr code", info: ["identity": accountManager.account.id, "key": "placeholder_key"])
+            anytypeAssertionFailure("Can not build universal link for qr code", info: ["identity": accountManager.account.id, "key": "placeholder_key"])
             return
         }
 
