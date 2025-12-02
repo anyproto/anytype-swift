@@ -29,11 +29,14 @@ extension Anytype_Rpc.Wallet {
         /// Path to a wallet directory
         public var rootPath: String = String()
 
-        /// Mnemonic of a wallet to recover
+        /// Mnemonic of a wallet to recover (mutually exclusive with accountKey)
         public var mnemonic: String = String()
 
         /// optional, default fts language
         public var fulltextPrimaryLanguage: String = String()
+
+        /// optional: serialized account master node (base64 encoded), used to auth account instead of mnemonic
+        public var accountKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -151,7 +154,7 @@ extension Anytype_Rpc.Wallet.Recover: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.Recover.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}rootPath\0\u{1}mnemonic\0\u{1}fulltextPrimaryLanguage\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}rootPath\0\u{1}mnemonic\0\u{1}fulltextPrimaryLanguage\0\u{1}accountKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -162,6 +165,7 @@ extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtob
       case 1: try { try decoder.decodeSingularStringField(value: &self.rootPath) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.mnemonic) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.fulltextPrimaryLanguage) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.accountKey) }()
       default: break
       }
     }
@@ -177,6 +181,9 @@ extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.fulltextPrimaryLanguage.isEmpty {
       try visitor.visitSingularStringField(value: self.fulltextPrimaryLanguage, fieldNumber: 3)
     }
+    if !self.accountKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountKey, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -184,6 +191,7 @@ extension Anytype_Rpc.Wallet.Recover.Request: SwiftProtobuf.Message, SwiftProtob
     if lhs.rootPath != rhs.rootPath {return false}
     if lhs.mnemonic != rhs.mnemonic {return false}
     if lhs.fulltextPrimaryLanguage != rhs.fulltextPrimaryLanguage {return false}
+    if lhs.accountKey != rhs.accountKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
