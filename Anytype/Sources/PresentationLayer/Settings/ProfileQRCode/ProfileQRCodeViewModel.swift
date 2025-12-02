@@ -65,13 +65,13 @@ final class ProfileQRCodeViewModel: ObservableObject {
     // MARK: - Private
 
     private func createQR() {
-        // TODO: IOS-5553 - Replace placeholder_key with actual encryption key when backend is ready
+        let metadataKey = accountManager.account.info.metadataKey
         guard let url = universalLinkParser.createUrl(link: .hi(
             identity: accountManager.account.id,
-            key: "placeholder_key"
+            key: metadataKey
         )) else {
             state = .error
-            anytypeAssertionFailure("Can not build universal link for qr code", info: ["identity": accountManager.account.id, "key": "placeholder_key"])
+            anytypeAssertionFailure("Can not build universal link for qr code", info: ["identity": accountManager.account.id, "key": metadataKey])
             return
         }
 
