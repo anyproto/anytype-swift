@@ -45,11 +45,6 @@ final class QRCodeScannerViewModifierModel: ObservableObject {
             return
         }
 
-        guard case .invite = link else {
-            qrCodeScanAlertError = .wrongLinkType
-            return
-        }
-
         appActionStorage.action = .deepLink(link.toDeepLink(), .internal)
     }
     
