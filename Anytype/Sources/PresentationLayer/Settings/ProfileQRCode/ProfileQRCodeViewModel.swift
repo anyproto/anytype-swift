@@ -41,18 +41,18 @@ final class ProfileQRCodeViewModel: ObservableObject {
     // MARK: - Public
 
     func onAppear() {
-        createQR()
         AnytypeAnalytics.instance().logScreenQr(type: .profile, route: .settings)
+        createQR()
     }
 
     func onShare() {
         guard case .loaded(let document) = state else { return }
-        sharedData = document.jpegData(dimension: 600)?.identifiable
+        sharedData = try? document.jpegData(dimension: 600).identifiable
     }
 
     func onDownload() {
         guard case .loaded(let document) = state,
-              let imageData = document.jpegData(dimension: 600),
+              let imageData = try? document.jpegData(dimension: 600),
               let image = UIImage(data: imageData) else { return }
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         toastBarData = ToastBarData(Loc.savedToPhotos)
@@ -67,16 +67,21 @@ final class ProfileQRCodeViewModel: ObservableObject {
             key: "placeholder_key"
         ), scheme: .buildSpecific) else {
             state = .error
-            anytypeAssertionFailure("Can not build qr code", info: [
-                "identity": accountManager.account.id,
-                "key": "placeholder_key"
-            ])
+            anytypeAssertionFailure("Can not build deeplink for qr code", info: ["identity": accountManager.account.id, "key": "placeholder_key"])
             return
         }
 
-        let doc = QRCode.Document(generator: QRCodeGenerator_External())
-        doc.utf8String = url.absoluteString
-        doc.design.backgroundColor(UIColor.white.cgColor)
+        guard let doc = try? QRCode.Document(utf8String: url.absoluteString) else {
+            state = .error
+            anytypeAssertionFailure("Can not build qr code", info: ["url": url.absoluteString])
+            return
+        }        
+        
+        let design = QRCode.Design()
+        design.shape.onPixels = QRCode.PixelShape.Circle()
+        design.shape.eye = QRCode.EyeShape.Cloud()
+        design.backgroundColor(UIColor.clear.cgColor)
+        doc.design = design
 
         if let icon = UIImage(asset: .QrCode.smile)?.cgImage {
             let logoTemplate = QRCode.LogoTemplate(

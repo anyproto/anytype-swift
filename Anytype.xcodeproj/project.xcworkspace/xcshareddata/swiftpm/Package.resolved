@@ -231,8 +231,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dagronf/QRCode",
       "state" : {
-        "revision" : "3d20089ead9f9fb559dad58f45f78ffb07d940cc",
-        "version" : "18.3.0"
+        "revision" : "ea4047a7777bae470adc140cd94bfa5396a96202",
+        "version" : "27.11.0"
       }
     },
     {
@@ -339,8 +339,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/dagronf/SwiftImageReadWrite",
       "state" : {
-        "revision" : "96361ba7f9dce5184d95aba8ea90d9faa4acabb2",
-        "version" : "1.6.1"
+        "revision" : "42ace2412279f18bc264bc306e96b51c36e12a33",
+        "version" : "1.9.2"
       }
     },
     {

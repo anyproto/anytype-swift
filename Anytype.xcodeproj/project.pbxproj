@@ -2069,7 +2069,7 @@
 			repositoryURL = "https://github.com/dagronf/QRCode";
 			requirement = {
 				kind = exactVersion;
-				version = 18.3.0;
+				version = 27.11.0;
 			};
 		};
 		2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
