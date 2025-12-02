@@ -43,6 +43,13 @@ public extension FeatureDescription {
         debugValue: true
     )
 
+    static let chatSettings = FeatureDescription(
+        title: "Chat Settings",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

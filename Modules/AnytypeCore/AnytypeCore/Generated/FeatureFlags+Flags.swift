@@ -30,6 +30,10 @@ public extension FeatureFlags {
         value(for: .oneToOneSpaces)
     }
 
+    static var chatSettings: Bool {
+        value(for: .chatSettings)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -118,6 +122,7 @@ public extension FeatureFlags {
         .showUploadStatusIndicator,
         .newObjectSettings,
         .oneToOneSpaces,
+        .chatSettings,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
