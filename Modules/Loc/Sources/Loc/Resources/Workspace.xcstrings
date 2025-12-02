@@ -60593,7 +60593,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Private channel"
+            "value" : "Direct channel"
           }
         }
       }

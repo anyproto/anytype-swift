@@ -2436,7 +2436,7 @@ public enum Loc {
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Chat.Title", fallback: "Chat")
       }
       public enum OneToOne {
-        public static let title = Loc.tr("Workspace", "Spaces.UxType.OneToOne.Title", fallback: "Private channel")
+        public static let title = Loc.tr("Workspace", "Spaces.UxType.OneToOne.Title", fallback: "Direct channel")
       }
       public enum Space {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")
