@@ -501,4 +501,7 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Is file available offline
     case fileAvailableOffline = "fileAvailableOffline"
+
+    /// Anonymous chat analytics id
+    case analyticsChatId = "analyticsChatId"
 }

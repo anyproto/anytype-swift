@@ -184,6 +184,7 @@ public protocol BundledPropertiesValueProvider {
     var isMainChat: Bool { get }
     var lastMessageDate: Date? { get }
     var fileAvailableOffline: Bool { get }
+    var analyticsChatId: String { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -858,5 +859,9 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Is file available offline
     var fileAvailableOffline: Bool {
         return value(for: BundledPropertyKey.fileAvailableOffline.rawValue)
+    }
+    /// Anonymous chat analytics id
+    var analyticsChatId: String {
+        return value(for: BundledPropertyKey.analyticsChatId.rawValue)
     }
 }
