@@ -21,12 +21,13 @@ final class ProfileQRCodeViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
-    
+
     // MARK: - State
 
     @Published private(set) var state: State = .loading
     @Published var sharedData: DataIdentifiable?
     @Published var toastBarData: ToastBarData?
+    @Published var shouldScanQrCode = false
 
     let anyName: String
     let profileIcon: Icon
@@ -56,6 +57,10 @@ final class ProfileQRCodeViewModel: ObservableObject {
               let image = UIImage(data: imageData) else { return }
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         toastBarData = ToastBarData(Loc.savedToPhotos)
+    }
+
+    func onScanTap() {
+        shouldScanQrCode = true
     }
 
     // MARK: - Private

@@ -12,6 +12,7 @@ struct ProfileQRCodeView: View {
             .sheet(item: $model.sharedData) { data in
                 ActivityView(activityItems: [data.value])
             }
+            .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
             .snackbar(toastBarData: $model.toastBarData)
             .onAppear {
                 model.onAppear()
@@ -70,7 +71,7 @@ struct ProfileQRCodeView: View {
                     .foregroundColor(.Text.primary)
             }
             Spacer()
-            Button { } label: {
+            Button { model.onScanTap() } label: {
                 Image(systemName: "qrcode.viewfinder")
                     .resizable()
                     .frame(width: 18, height: 18)
