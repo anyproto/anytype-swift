@@ -20171,6 +20171,28 @@
         }
       }
     },
+    "Connect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect"
+          }
+        }
+      }
+    },
+    "Connect with me on Anytype" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect with me on Anytype"
+          }
+        }
+      }
+    },
     "Connecting" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -21359,17 +21381,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%@ 已複製到剪貼簿"
-          }
-        }
-      }
-    },
-    "Connect" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connect"
           }
         }
       }
@@ -75977,6 +75988,17 @@
         }
       }
     },
+    "Saved to Photos" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved to Photos"
+          }
+        }
+      }
+    },
     "Scan documents" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -84657,6 +84679,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "分享"
+          }
+        }
+      }
+    },
+    "Share QR Code" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share QR Code"
           }
         }
       }

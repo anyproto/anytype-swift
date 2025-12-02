@@ -134,7 +134,7 @@ final class PrimaryAuthViewModel: ObservableObject {
             switch deeplink {
             case .networkConfig(let config):
                 try updateNetworkConfig(config)
-            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership:
+            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership, .hi:
                 throw AuthViewModelError.unsupportedAppAction
             }
         }
