@@ -61,6 +61,7 @@ final class ProfileQRCodeViewModel: ObservableObject {
     // MARK: - Private
 
     private func createQR() {
+        // TODO: IOS-5553 - Replace placeholder_key with actual encryption key when backend is ready
         guard let url = deepLinkParser.createUrl(deepLink: .hi(
             identity: accountManager.account.id,
             key: "placeholder_key"
