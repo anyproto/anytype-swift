@@ -17,6 +17,9 @@ struct SettingsView: View {
                     model.onQRCodeTap()
                 } label: {
                     Image(asset: .X24.qrCode)
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: 24, height: 24)
                 }
             } rightButton: {
                 Menu {

@@ -29,11 +29,13 @@ final class ProfileQRCodeViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData?
 
     let anyName: String
+    let profileIcon: Icon
 
     // MARK: - Lifecycle
 
     init() {
-        anyName = Container.shared.membershipStatusStorage().currentStatus.anyName.handle
+        self.profileIcon = Container.shared.profileStorage().profile.icon
+        anyName = Container.shared.membershipStatusStorage().currentStatus.anyName.formatted
     }
 
     // MARK: - Public

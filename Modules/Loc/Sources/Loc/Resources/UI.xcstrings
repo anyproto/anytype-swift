@@ -20171,6 +20171,17 @@
         }
       }
     },
+    "Connect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect"
+          }
+        }
+      }
+    },
     "Connecting" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -21359,17 +21370,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%@ 已複製到剪貼簿"
-          }
-        }
-      }
-    },
-    "Connect" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connect"
           }
         }
       }
@@ -84668,6 +84668,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "分享"
+          }
+        }
+      }
+    },
+    "Share QR Code" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share QR Code"
           }
         }
       }
