@@ -66,7 +66,7 @@ struct CircularTextView: View {
             ctx.rotate(by: angle)
 
             let text = Text(String(character))
-                .font(AnytypeFontBuilder.font(anytypeFont: .caption2Regular))
+                .font(AnytypeFontBuilder.font(anytypeFont: .tagline))
                 .foregroundColor(Color.Text.secondary)
 
             ctx.draw(text, at: .zero)
