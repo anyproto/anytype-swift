@@ -507,7 +507,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             return
         }
 
-        if let newSpaceId = try? await workspaceService.createOneToOneSpace(oneToOneIdentity: identity) {
+        if let newSpaceId = try? await workspaceService.createOneToOneSpace(oneToOneIdentity: identity, metadataKey: key) {
             try? await showScreen(data: .spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
         }
     }
