@@ -240,6 +240,32 @@ let totalMentions = space.spaceView.uxType.isOneToOne
 
 ---
 
+### 10. Chat Mentions
+
+**What it controls:** Whether the @ mention popup appears in chat.
+
+**File:** `Anytype/Sources/PresentationLayer/Modules/Chat/ChatViewModel.swift`
+
+```swift
+func updateMentionState() async throws {
+    guard !spaceUxType.isOneToOne else {
+        mentionObjectsModels = []
+        return
+    }
+    // ... search for mentions
+}
+```
+
+**Behavior:**
+- **1-1 spaces**: Mention popup is disabled. Typing `@` inserts the character but shows no suggestions.
+- **All other spaces**: Mention popup shows matching participants.
+
+**Rationale:** In 1-1 chats there's only one other participant, making mentions redundant.
+
+**Related:** IOS-5560
+
+---
+
 ## Key Files Reference
 
 | File | Purpose |
