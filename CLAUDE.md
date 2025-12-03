@@ -314,6 +314,7 @@ When creating a branch from a release branch (e.g., `release/0.42.0`):
 ### ❌ FORBIDDEN Git Practices
 
 **ABSOLUTELY NEVER run destructive git operations** unless you have explicit, written approval:
+- `git commit --amend` - Never amend commits, always create new commits instead
 - `git reset --hard` - Discards all local changes permanently
 - `git checkout <old-commit>` or `git restore` to revert to older commits
 - `git clean -fd` - Removes untracked files permanently
