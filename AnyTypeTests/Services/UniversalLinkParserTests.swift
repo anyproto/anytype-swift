@@ -64,8 +64,15 @@ final class UniversalLinkParserTests: XCTestCase {
     
     func testParseWithEncoding() throws {
         let url = URL(string: "https://invite.any.coop/bafybeidxxezwgcghm2kxakfdscdqzo5i2bzn72epvmwvzuldzgk2qw54oq%233QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va")!
-        
+
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, .invite(cid: "bafybeidxxezwgcghm2kxakfdscdqzo5i2bzn72epvmwvzuldzgk2qw54oq", key: "3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va"))
+    }
+
+    func testCreateUrlWithSpecialCharacters() throws {
+        let url = parser.createUrl(link: .invite(cid: "test#value", key: "key?value"))
+        XCTAssertNotNil(url)
+        let parsed = parser.parse(url: url!)
+        XCTAssertEqual(parsed, .invite(cid: "test#value", key: "key?value"))
     }
 }
