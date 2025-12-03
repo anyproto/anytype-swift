@@ -109,12 +109,7 @@ extension SpaceView {
     }
     
     var initialScreenIsChat: Bool {
-        switch uxType {
-        case .chat, .stream, .oneToOne:
-            return true
-        case .data, .none, .UNRECOGNIZED:
-            return false
-        }
+        uxType.initialScreenIsChat
     }
     
     var canAddChatWidget: Bool {

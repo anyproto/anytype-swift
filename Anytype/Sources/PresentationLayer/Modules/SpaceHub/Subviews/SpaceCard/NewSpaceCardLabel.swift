@@ -70,7 +70,7 @@ struct NewSpaceCardLabel: View {
             }
 
             HStack(alignment: .top) {
-                NewSpaceCardLastMessageView(model: message, supportsMultiChats: model.supportsMultiChats, isOneToOne: model.isOneToOne)
+                NewSpaceCardLastMessageView(model: message, supportsMultiChats: model.supportsMultiChats, showsMessageAuthor: model.showsMessageAuthor)
                 Spacer()
                 decoration
             }

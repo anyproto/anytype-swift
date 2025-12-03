@@ -339,7 +339,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func updateMentionState() async throws {
-        guard !spaceUxType.isOneToOne else {
+        guard spaceUxType.supportsMentions else {
             mentionObjectsModels = []
             return
         }
