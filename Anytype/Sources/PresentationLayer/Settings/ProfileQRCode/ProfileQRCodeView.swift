@@ -62,7 +62,6 @@ struct ProfileQRCodeView: View {
 
     private var headerRow: some View {
         HStack {
-            Color.clear.frame(width: 44, height: 44)
             Spacer()
             HStack(spacing: 6) {
                 IconView(icon: model.profileIcon)

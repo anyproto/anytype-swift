@@ -39,14 +39,20 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func onConnect() async throws {
-        guard let identity = details?.identity, identity.isNotEmpty else { return }
+        guard let details, details.identity.isNotEmpty else {
+            anytypeAssertionFailure("Identity is empty for on connect")
+            return
+        }
 
-        if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: identity) {
+        if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: details.identity) {
             pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
             return
         }
-        
-        let newSpaceId = try await workspaceService.createOneToOneSpace(oneToOneIdentity: identity)
+
+        let newSpaceId = try await workspaceService.createOneToOneSpace(
+            oneToOneIdentity: details.identity,
+            metadataKey: details.oneToOneRequestMetadataKey
+        )
         pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
     }
 
@@ -57,7 +63,7 @@ final class ProfileViewModel: ObservableObject {
             subId: subId,
             spaceId: info.spaceId,
             objectId: info.objectId,
-            additionalKeys: [.identity, .identityProfileLink, .globalName]
+            additionalKeys: [.identity, .identityProfileLink, .globalName, .oneToOneRequestMetadataKey]
         ) { [weak self] details in
             await self?.handleProfileDetails(details)
         }
