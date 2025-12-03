@@ -40,7 +40,10 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                     }
 
                     let totalUnread = spacePreviews.reduce(0) { $0 + $1.unreadCounter }
-                    let totalMentions = spacePreviews.reduce(0) { $0 + $1.mentionCounter }
+                    // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+                    let totalMentions = space.spaceView.uxType.isOneToOne
+                        ? 0
+                        : spacePreviews.reduce(0) { $0 + $1.mentionCounter }
 
                     return ParticipantSpaceViewDataWithPreview(
                         space: space,
