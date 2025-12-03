@@ -75,4 +75,47 @@ final class UniversalLinkParserTests: XCTestCase {
         let parsed = parser.parse(url: url!)
         XCTAssertEqual(parsed, .invite(cid: "test#value", key: "key?value"))
     }
+
+    // MARK: - Hi Link Tests
+
+    func testHiLinkNormal() throws {
+        let url = URL(string: "https://hi.any.coop/AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w#3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va")!
+
+        let deepLink = parser.parse(url: url)
+        XCTAssertEqual(deepLink, .hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va"))
+    }
+
+    func testHiLinkOnlyIdentity() throws {
+        let url = URL(string: "https://hi.any.coop/AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w")!
+
+        let deepLink = parser.parse(url: url)
+        XCTAssertEqual(deepLink, nil)
+    }
+
+    func testHiLinkEmptyIdentity() throws {
+        let url = URL(string: "https://hi.any.coop/#3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va")!
+
+        let deepLink = parser.parse(url: url)
+        XCTAssertEqual(deepLink, nil)
+    }
+
+    func testHiLinkEmptyKey() throws {
+        let url = URL(string: "https://hi.any.coop/AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w#")!
+
+        let deepLink = parser.parse(url: url)
+        XCTAssertEqual(deepLink, nil)
+    }
+
+    func testCreateHiLinkURL() throws {
+        let url = parser.createUrl(link: .hi(identity: "identity123", key: "key456"))
+        XCTAssertEqual(url, URL(string: "https://hi.any.coop/identity123#key456")!)
+    }
+
+    func testHiLinkRoundTrip() throws {
+        let original = UniversalLink.hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va")
+        let url = parser.createUrl(link: original)
+        XCTAssertNotNil(url)
+        let parsed = parser.parse(url: url!)
+        XCTAssertEqual(parsed, original)
+    }
 }
