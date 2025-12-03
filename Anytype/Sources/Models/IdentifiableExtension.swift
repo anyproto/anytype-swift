@@ -53,3 +53,21 @@ extension Data {
         DataIdentifiable(value: self)
     }
 }
+
+// For show modules with one URL arg
+struct URLIdentifiable: Identifiable {
+
+    let value: URL
+
+    init(value: URL) {
+        self.value = value
+    }
+
+    var id: String { value.absoluteString }
+}
+
+extension URL {
+    var identifiable: URLIdentifiable {
+        URLIdentifiable(value: self)
+    }
+}
