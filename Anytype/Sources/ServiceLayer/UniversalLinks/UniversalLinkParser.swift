@@ -71,20 +71,25 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
     func createUrl(link: UniversalLink) -> URL? {
         switch link {
         case .invite(let cid, let key):
-            return URL(string: "https://\(LinkPaths.inviteHostProd)/\(cid)#\(key)")
+            guard let encodedCid = cid.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                  let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else { return nil }
+            return URL(string: "https://\(LinkPaths.inviteHostProd)/\(encodedCid)#\(encodedKey)")
         case let .object(objectId, spaceId, cid, key):
-            let componentsString = "https://\(LinkPaths.objectHost)/\(objectId)"
+            guard let encodedObjectId = objectId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return nil }
+            let componentsString = "https://\(LinkPaths.objectHost)/\(encodedObjectId)"
             guard var components = URLComponents(string: componentsString) else { return nil }
             components.queryItems = [
                 URLQueryItem(name: "spaceId", value: spaceId),
                 URLQueryItem(name: "inviteId", value: cid),
             ]
-            guard let key, let absoluteString = components.url?.absoluteString else {
-                return components.url
+            if let key {
+                components.fragment = key
             }
-            return URL(string: absoluteString + "#\(key)")
+            return components.url
         case .hi(let identity, let key):
-            return URL(string: "https://\(LinkPaths.hiHost)/\(identity)#\(key)")
+            guard let encodedIdentity = identity.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+                  let encodedKey = key.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else { return nil }
+            return URL(string: "https://\(LinkPaths.hiHost)/\(encodedIdentity)#\(encodedKey)")
         }
     }
 }
