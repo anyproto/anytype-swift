@@ -925,6 +925,41 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.MembershipV2.AnyNameAllocate.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.AnyNameAllocate.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.AnyNameIsValid.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.AnyNameIsValid.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.CartGet.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.CartGet.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.CartUpdate.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.CartUpdate.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.GetPortalLink.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.GetPortalLink.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.GetProducts.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.GetProducts.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.MembershipV2.GetStatus.Response: ResultWithError {}
+extension Anytype_Rpc.MembershipV2.GetStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.NameService.ResolveAnyId.Response: ResultWithError {}
 extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

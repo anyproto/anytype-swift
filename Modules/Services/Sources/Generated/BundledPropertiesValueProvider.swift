@@ -160,6 +160,7 @@ public protocol BundledPropertiesValueProvider {
     var spaceOrder: String { get }
     var orderId: String { get }
     var oneToOneIdentity: String { get }
+    var oneToOneInboxSentStatus: Int? { get }
     var oneToOneRequestMetadataKey: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
@@ -185,6 +186,7 @@ public protocol BundledPropertiesValueProvider {
     var lastMessageDate: Date? { get }
     var fileAvailableOffline: Bool { get }
     var analyticsChatId: String { get }
+    var score: Int? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -764,6 +766,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var oneToOneIdentity: String {
         return value(for: BundledPropertyKey.oneToOneIdentity.rawValue)
     }
+    /// OneToOne Inbox invite sent status
+    var oneToOneInboxSentStatus: Int? {
+        return value(for: BundledPropertyKey.oneToOneInboxSentStatus.rawValue)
+    }
     /// OneToOne (second) participant RequestMetadata (key)
     var oneToOneRequestMetadataKey: String {
         return value(for: BundledPropertyKey.oneToOneRequestMetadataKey.rawValue)
@@ -863,5 +869,9 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Anonymous chat analytics id
     var analyticsChatId: String {
         return value(for: BundledPropertyKey.analyticsChatId.rawValue)
+    }
+    /// Fulltext search score
+    var score: Int? {
+        return value(for: BundledPropertyKey.score.rawValue)
     }
 }

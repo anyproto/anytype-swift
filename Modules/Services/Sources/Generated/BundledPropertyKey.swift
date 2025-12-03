@@ -430,6 +430,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// OneToOne (second) participant identity
     case oneToOneIdentity = "oneToOneIdentity"
 
+    /// OneToOne Inbox invite sent status
+    case oneToOneInboxSentStatus = "oneToOneInboxSentStatus"
+
     /// OneToOne (second) participant RequestMetadata (key)
     case oneToOneRequestMetadataKey = "oneToOneRequestMetadataKey"
 
@@ -504,4 +507,7 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Anonymous chat analytics id
     case analyticsChatId = "analyticsChatId"
+
+    /// Fulltext search score
+    case score = "_score"
 }
