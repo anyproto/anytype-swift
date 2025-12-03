@@ -217,6 +217,29 @@ Only data spaces (where `initialScreenIsChat` is false) that are shared and have
 
 ---
 
+### 9. Mention Counter Display
+
+**What it controls:** Whether mention counters (@) are shown in space cards.
+
+**File:** `Anytype/Sources/PresentationLayer/Modules/SpaceHub/Helpers/SpaceHubSpacesStorage.swift`
+
+```swift
+// TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+let totalMentions = space.spaceView.uxType.isOneToOne
+    ? 0
+    : spacePreviews.reduce(0) { $0 + $1.mentionCounter }
+```
+
+**Behavior:**
+- **1-1 spaces**: Mention counter is always hidden (set to 0 at data construction). In 1-1 chats, replies and mentions are implicit since you're always talking to one person.
+- **All other spaces**: Mention counter displayed as reported by middleware.
+
+**Note:** This is a temporary client-side workaround. The proper fix should be implemented in the middleware.
+
+**Related:** IOS-5561
+
+---
+
 ## Key Files Reference
 
 | File | Purpose |
