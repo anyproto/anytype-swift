@@ -25,6 +25,33 @@ public extension SpaceUxType {
             return true
         }
     }
+
+    var initialScreenIsChat: Bool {
+        switch self {
+        case .chat, .stream, .oneToOne:
+            return true
+        case .data, .none, .UNRECOGNIZED:
+            return false
+        }
+    }
+
+    var supportsMentions: Bool {
+        switch self {
+        case .chat, .stream, .data:
+            return true
+        case .oneToOne, .none, .UNRECOGNIZED:
+            return false
+        }
+    }
+
+    var showsMessageAuthor: Bool {
+        switch self {
+        case .chat, .stream, .data:
+            return true
+        case .oneToOne, .none, .UNRECOGNIZED:
+            return false
+        }
+    }
 }
 
 public extension Optional where Wrapped == SpaceUxType {
