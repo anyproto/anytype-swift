@@ -339,6 +339,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func updateMentionState() async throws {
+        guard !spaceUxType.isOneToOne else {
+            mentionObjectsModels = []
+            return
+        }
         switch mentionSearchState {
         case let .search(searchText, _):
             let mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
