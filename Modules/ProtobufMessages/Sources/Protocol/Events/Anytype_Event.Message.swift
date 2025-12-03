@@ -667,6 +667,22 @@ extension Anytype_Event {
       set {value = .chatStateUpdate(newValue)}
     }
 
+    public var membershipV2Update: Anytype_Event.MembershipV2.Update {
+      get {
+        if case .membershipV2Update(let v)? = value {return v}
+        return Anytype_Event.MembershipV2.Update()
+      }
+      set {value = .membershipV2Update(newValue)}
+    }
+
+    public var membershipV2ProductsUpdate: Anytype_Event.MembershipV2.ProductsUpdate {
+      get {
+        if case .membershipV2ProductsUpdate(let v)? = value {return v}
+        return Anytype_Event.MembershipV2.ProductsUpdate()
+      }
+      set {value = .membershipV2ProductsUpdate(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -675,7 +691,7 @@ extension Anytype_Event {
 
 extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Message"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}accountShow\0\u{1}blockAdd\0\u{1}blockDelete\0\u{1}filesUpload\0\u{1}marksInfo\0\u{1}blockSetFields\0\u{1}blockSetChildrenIds\0\u{1}blockSetRestrictions\0\u{1}blockSetBackgroundColor\0\u{1}blockSetText\0\u{1}blockSetFile\0\u{2}\u{2}blockSetLink\0\u{1}blockSetBookmark\0\u{1}blockSetAlign\0\u{1}objectDetailsSet\0\u{1}blockSetDiv\0\u{2}\u{2}blockDataviewViewSet\0\u{1}blockDataviewViewDelete\0\u{1}blockSetRelation\0\u{2}\u{2}blockDataviewOldRelationSet\0\u{1}blockDataviewOldRelationDelete\0\u{1}blockSetLatex\0\u{2}\u{4}blockDataviewViewOrder\0\u{2}\u{2}userBlockJoin\0\u{1}userBlockLeft\0\u{1}userBlockSelectRange\0\u{1}userBlockTextRange\0\u{1}blockDataviewSourceSet\0\u{1}blockSetVerticalAlign\0\u{1}blockSetTableRow\0\u{1}blockDataViewGroupOrderUpdate\0\u{1}blockDataViewObjectOrderUpdate\0\u{1}blockSetWidget\0\u{2}\u{a}objectDetailsAmend\0\u{1}objectDetailsUnset\0\u{1}objectRelationsAmend\0\u{1}objectRelationsRemove\0\u{1}objectRemove\0\u{1}objectRestrictionsSet\0\u{2}\u{5}subscriptionAdd\0\u{1}subscriptionRemove\0\u{1}subscriptionPosition\0\u{1}subscriptionCounters\0\u{1}subscriptionGroups\0\u{1}objectClose\0\u{2}#ping\0\u{1}processNew\0\u{1}processUpdate\0\u{1}processDone\0\u{2}\u{7}threadStatus\0\u{1}fileLimitReached\0\u{1}fileSpaceUsage\0\u{1}fileLocalUsage\0\u{1}notificationSend\0\u{1}notificationUpdate\0\u{1}payloadBroadcast\0\u{1}membershipUpdate\0\u{1}fileLimitUpdated\0\u{1}spaceSyncStatusUpdate\0\u{1}p2pStatusUpdate\0\u{1}importFinish\0\u{2}\u{2}blockDataviewRelationSet\0\u{1}blockDataviewRelationDelete\0\u{1}blockDataviewViewUpdate\0\u{1}blockDataviewTargetObjectIdSet\0\u{1}blockDataviewIsCollectionSet\0\u{1}chatAdd\0\u{1}chatUpdate\0\u{1}chatUpdateReactions\0\u{1}chatDelete\0\u{1}spaceId\0\u{1}chatStateUpdate\0\u{1}chatUpdateMessageReadStatus\0\u{1}chatUpdateMentionReadStatus\0\u{1}chatUpdateMessageSyncStatus\0\u{1}membershipTiersUpdate\0\u{2}@\u{1}accountDetails\0\u{1}accountConfigUpdate\0\u{1}accountUpdate\0\u{1}accountLinkChallenge\0\u{1}accountLinkChallengeHide\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}accountShow\0\u{1}blockAdd\0\u{1}blockDelete\0\u{1}filesUpload\0\u{1}marksInfo\0\u{1}blockSetFields\0\u{1}blockSetChildrenIds\0\u{1}blockSetRestrictions\0\u{1}blockSetBackgroundColor\0\u{1}blockSetText\0\u{1}blockSetFile\0\u{2}\u{2}blockSetLink\0\u{1}blockSetBookmark\0\u{1}blockSetAlign\0\u{1}objectDetailsSet\0\u{1}blockSetDiv\0\u{2}\u{2}blockDataviewViewSet\0\u{1}blockDataviewViewDelete\0\u{1}blockSetRelation\0\u{2}\u{2}blockDataviewOldRelationSet\0\u{1}blockDataviewOldRelationDelete\0\u{1}blockSetLatex\0\u{2}\u{4}blockDataviewViewOrder\0\u{2}\u{2}userBlockJoin\0\u{1}userBlockLeft\0\u{1}userBlockSelectRange\0\u{1}userBlockTextRange\0\u{1}blockDataviewSourceSet\0\u{1}blockSetVerticalAlign\0\u{1}blockSetTableRow\0\u{1}blockDataViewGroupOrderUpdate\0\u{1}blockDataViewObjectOrderUpdate\0\u{1}blockSetWidget\0\u{2}\u{a}objectDetailsAmend\0\u{1}objectDetailsUnset\0\u{1}objectRelationsAmend\0\u{1}objectRelationsRemove\0\u{1}objectRemove\0\u{1}objectRestrictionsSet\0\u{2}\u{5}subscriptionAdd\0\u{1}subscriptionRemove\0\u{1}subscriptionPosition\0\u{1}subscriptionCounters\0\u{1}subscriptionGroups\0\u{1}objectClose\0\u{2}#ping\0\u{1}processNew\0\u{1}processUpdate\0\u{1}processDone\0\u{2}\u{7}threadStatus\0\u{1}fileLimitReached\0\u{1}fileSpaceUsage\0\u{1}fileLocalUsage\0\u{1}notificationSend\0\u{1}notificationUpdate\0\u{1}payloadBroadcast\0\u{1}membershipUpdate\0\u{1}fileLimitUpdated\0\u{1}spaceSyncStatusUpdate\0\u{1}p2pStatusUpdate\0\u{1}importFinish\0\u{2}\u{2}blockDataviewRelationSet\0\u{1}blockDataviewRelationDelete\0\u{1}blockDataviewViewUpdate\0\u{1}blockDataviewTargetObjectIdSet\0\u{1}blockDataviewIsCollectionSet\0\u{1}chatAdd\0\u{1}chatUpdate\0\u{1}chatUpdateReactions\0\u{1}chatDelete\0\u{1}spaceId\0\u{1}chatStateUpdate\0\u{1}chatUpdateMessageReadStatus\0\u{1}chatUpdateMentionReadStatus\0\u{1}chatUpdateMessageSyncStatus\0\u{1}membershipTiersUpdate\0\u{1}membershipV2Update\0\u{1}membershipV2ProductsUpdate\0\u{2}>accountDetails\0\u{1}accountConfigUpdate\0\u{1}accountUpdate\0\u{1}accountLinkChallenge\0\u{1}accountLinkChallengeHide\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1659,6 +1675,32 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .membershipTiersUpdate(v)
         }
       }()
+      case 138: try {
+        var v: Anytype_Event.MembershipV2.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .membershipV2Update(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .membershipV2Update(v)
+        }
+      }()
+      case 139: try {
+        var v: Anytype_Event.MembershipV2.ProductsUpdate?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .membershipV2ProductsUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .membershipV2ProductsUpdate(v)
+        }
+      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         var hadOneofValue = false
@@ -2040,6 +2082,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .membershipTiersUpdate?: try {
       guard case .membershipTiersUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 137)
+    }()
+    case .membershipV2Update?: try {
+      guard case .membershipV2Update(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 138)
+    }()
+    case .membershipV2ProductsUpdate?: try {
+      guard case .membershipV2ProductsUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 139)
     }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }

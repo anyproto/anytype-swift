@@ -4588,6 +4588,249 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError 
     }
 }
 
+extension Anytype_Rpc.MembershipV2.AnyNameAllocate.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.badInput")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.paymentNodeError")
+            case .cacheError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.cacheError")
+            case .membershipNotFound:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.membershipNotFound")
+            case .membershipWrongState:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.membershipWrongState")
+            case .badAnyname:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.badAnyname")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.canNotConnect")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameAllocate.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.AnyNameIsValid.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.badInput")
+            case .tooShort:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.tooShort")
+            case .tooLong:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.tooLong")
+            case .hasInvalidChars:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.hasInvalidChars")
+            case .accountFeaturesNoName:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.accountFeaturesNoName")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.paymentNodeError")
+            case .cacheError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.cacheError")
+            case .canNotReserve:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.canNotReserve")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.canNotConnect")
+            case .nameIsReserved:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.nameIsReserved")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.AnyNameIsValid.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.CartGet.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartGet.badInput")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartGet.canNotConnect")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartGet.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.CartUpdate.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartUpdate.badInput")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartUpdate.canNotConnect")
+            case .badProduct:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartUpdate.badProduct")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.CartUpdate.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.GetPortalLink.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetPortalLink.badInput")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetPortalLink.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetPortalLink.paymentNodeError")
+            case .authBad:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetPortalLink.authBad")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetPortalLink.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.GetProducts.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.badInput")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.paymentNodeError")
+            case .authBad:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.authBad")
+            case .cacheError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.cacheError")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.canNotConnect")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetProducts.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.MembershipV2.GetStatus.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if !localizeError.isEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.badInput")
+            case .notLoggedIn:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.notLoggedIn")
+            case .paymentNodeError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.paymentNodeError")
+            case .cacheError:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.cacheError")
+            case .membershipNotFound:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.membershipNotFound")
+            case .membershipWrongState:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.membershipWrongState")
+            case .canNotConnect:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.canNotConnect")
+            case .v2CallNotEnabled:
+                return LocHelper.tr(table: "LocalizableError", key: "MembershipV2.GetStatus.v2CallNotEnabled")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

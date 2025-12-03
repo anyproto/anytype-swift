@@ -40,7 +40,7 @@ public typealias ObjectId = String
   {%- elif maxCount == "0" -%}
   [{{typeName}}]
   {%- else -%}
-  MaxCountUndefined
+  {{typeName}}{{optional}}
   {%- endif -%}
 {% endmacro %}
 {% macro typeDescription value %}
