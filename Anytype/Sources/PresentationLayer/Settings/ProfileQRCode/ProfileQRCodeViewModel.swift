@@ -10,7 +10,7 @@ final class ProfileQRCodeViewModel: ObservableObject {
 
     enum State {
         case loading
-        case loaded(QRCode.Document)
+        case loaded(QRCode.Document, URL)
         case error
     }
 
@@ -24,7 +24,7 @@ final class ProfileQRCodeViewModel: ObservableObject {
     // MARK: - State
 
     @Published private(set) var state: State = .loading
-    @Published var sharedData: DataIdentifiable?
+    @Published var sharedUrl: URLIdentifiable?
     @Published var toastBarData: ToastBarData?
     @Published var shouldScanQrCode = false
 
@@ -45,17 +45,15 @@ final class ProfileQRCodeViewModel: ObservableObject {
         createQR()
     }
 
-    func onShare() {
-        guard case .loaded(let document) = state else { return }
-        sharedData = try? document.jpegData(dimension: 600).identifiable
+    func onCopyLink() {
+        guard case .loaded(_, let url) = state else { return }
+        UIPasteboard.general.string = url.absoluteString
+        toastBarData = ToastBarData(Loc.copied)
     }
 
-    func onDownload() {
-        guard case .loaded(let document) = state,
-              let imageData = try? document.jpegData(dimension: 600),
-              let image = UIImage(data: imageData) else { return }
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        toastBarData = ToastBarData(Loc.savedToPhotos)
+    func onShare() {
+        guard case .loaded(_, let url) = state else { return }
+        sharedUrl = url.identifiable
     }
 
     func onScanTap() {
@@ -96,6 +94,6 @@ final class ProfileQRCodeViewModel: ObservableObject {
             doc.logoTemplate = logoTemplate
         }
 
-        state = .loaded(doc)
+        state = .loaded(doc, url)
     }
 }

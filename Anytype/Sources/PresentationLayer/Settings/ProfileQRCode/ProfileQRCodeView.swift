@@ -9,8 +9,8 @@ struct ProfileQRCodeView: View {
 
     var body: some View {
         content
-            .sheet(item: $model.sharedData) { data in
-                ActivityView(activityItems: [data.value])
+            .sheet(item: $model.sharedUrl) { url in
+                ActivityView(activityItems: [url.value])
             }
             .qrCodeScanner(shouldScan: $model.shouldScanQrCode)
             .snackbar(toastBarData: $model.toastBarData)
@@ -29,7 +29,7 @@ struct ProfileQRCodeView: View {
                 EmptyView()
             case .error:
                 EmptyStateView(title: Loc.error, style: .error)
-            case .loaded(let document):
+            case .loaded(let document, _):
                 loadedContent(document: document)
             }
         }
@@ -48,12 +48,12 @@ struct ProfileQRCodeView: View {
             qrCodeWithCircularText(document: document)
             
             Spacer(minLength: 32)
-            StandardButton(Loc.shareQRCode, style: .primaryLarge) {
-                model.onShare()
+            StandardButton(Loc.copyLink, style: .primaryLarge) {
+                model.onCopyLink()
             }
             Spacer.fixedHeight(12)
-            StandardButton(Loc.download, style: .secondaryLarge) {
-                model.onDownload()
+            StandardButton(Loc.share, style: .secondaryLarge) {
+                model.onShare()
             }
             Spacer.fixedHeight(16)
         }
