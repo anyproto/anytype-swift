@@ -69,13 +69,6 @@ final class UniversalLinkParserTests: XCTestCase {
         XCTAssertEqual(deepLink, .invite(cid: "bafybeidxxezwgcghm2kxakfdscdqzo5i2bzn72epvmwvzuldzgk2qw54oq", key: "3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va"))
     }
 
-    func testCreateUrlWithSpecialCharacters() throws {
-        let url = parser.createUrl(link: .invite(cid: "test#value", key: "key?value"))
-        XCTAssertNotNil(url)
-        let parsed = parser.parse(url: url!)
-        XCTAssertEqual(parsed, .invite(cid: "test#value", key: "key?value"))
-    }
-
     // MARK: - Hi Link Tests
 
     func testHiLinkNormal() throws {
@@ -83,6 +76,13 @@ final class UniversalLinkParserTests: XCTestCase {
 
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, .hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGYyt73ZxLgTCdfvbgzJeVWCw2w8va"))
+    }
+    
+    func testHiLinkSpecialChars() throws {
+        let url = URL(string: "https://hi.any.coop/AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w#3QVNcQf7zLv3rAJGY/yt73ZxLgTCdfvbgzJeVWCw2w8va")!
+
+        let deepLink = parser.parse(url: url)
+        XCTAssertEqual(deepLink, .hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGY/yt73ZxLgTCdfvbgzJeVWCw2w8va"))
     }
 
     func testHiLinkOnlyIdentity() throws {
@@ -117,5 +117,21 @@ final class UniversalLinkParserTests: XCTestCase {
         XCTAssertNotNil(url)
         let parsed = parser.parse(url: url!)
         XCTAssertEqual(parsed, original)
+    }
+    
+    func testHiLinkRoundTripSpecialCharacters() throws {
+        let original = UniversalLink.hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGYyt73Z/xLgTCdfvbgzJeVWCw2w8va")
+        let url = parser.createUrl(link: original)
+        XCTAssertNotNil(url)
+        let parsed = parser.parse(url: url!)
+        XCTAssertEqual(parsed, original)
+    }
+    
+    
+    func testCreateUrlWithSpecialCharacters() throws {
+        let url = parser.createUrl(link: .hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGYyt73Z/xLgTCdfvbgzJeVWCw2w8va"))
+        XCTAssertNotNil(url)
+        let parsed = parser.parse(url: url!)
+        XCTAssertEqual(parsed, .hi(identity: "AAjLRjvT98nBGpEU2JcouWBPHa6Qcx1KKNFKPjLvZbwMVz1w", key: "3QVNcQf7zLv3rAJGYyt73Z/xLgTCdfvbgzJeVWCw2w8va"))
     }
 }
