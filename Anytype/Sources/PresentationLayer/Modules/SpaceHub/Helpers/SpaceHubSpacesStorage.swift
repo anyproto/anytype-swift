@@ -22,7 +22,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
         get async {
             let combineStream = combineLatest(
                 participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values,
-                 await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
+                 await chatMessagesPreviewsStorage.previewsSequence
             ).throttle(milliseconds: 300)
             
             return combineStream.map { (spaces, previews) in
