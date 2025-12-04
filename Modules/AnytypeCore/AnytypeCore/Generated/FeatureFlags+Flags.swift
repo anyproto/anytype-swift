@@ -34,6 +34,10 @@ public extension FeatureFlags {
         value(for: .chatSettings)
     }
 
+    static var qrCodeCircularText: Bool {
+        value(for: .qrCodeCircularText)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -123,6 +127,7 @@ public extension FeatureFlags {
         .newObjectSettings,
         .oneToOneSpaces,
         .chatSettings,
+        .qrCodeCircularText,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

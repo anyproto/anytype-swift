@@ -2,6 +2,7 @@ import SwiftUI
 import QRCode
 import Assets
 import Services
+import AnytypeCore
 
 struct ProfileQRCodeView: View {
 
@@ -85,10 +86,12 @@ struct ProfileQRCodeView: View {
             let qrCodeSize = containerSize * 0.625
 
             ZStack {
-                CircularTextView(
-                    phrase: Loc.connectWithMeOnAnytype,
-                    size: circularTextSize
-                )
+                if FeatureFlags.qrCodeCircularText {
+                    CircularTextView(
+                        phrase: Loc.connectWithMeOnAnytype,
+                        size: circularTextSize
+                    )
+                }
                 QRCodeDocumentUIView(document: document)
                     .frame(width: qrCodeSize, height: qrCodeSize)
             }
