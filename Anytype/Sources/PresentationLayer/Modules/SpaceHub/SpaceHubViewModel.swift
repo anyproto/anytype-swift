@@ -13,6 +13,7 @@ final class SpaceHubViewModel {
     var dataLoaded = false
     var searchText: String = ""
     var filteredSpaces: [SpaceCardModel] = []
+    var animationsEnabled = false
     
     var wallpapers: [String: SpaceWallpaperType] = [:]
     
