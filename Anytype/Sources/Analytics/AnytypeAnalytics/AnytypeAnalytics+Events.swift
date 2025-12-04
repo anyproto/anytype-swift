@@ -1476,16 +1476,31 @@ extension AnytypeAnalytics {
         logEvent("ScreenVaultCreateMenu")
     }
     
-    func logClickScrollToReply() {
-        logEvent("ClickScrollToReply")
+    func logClickScrollToReply(chatId: String) {
+        logEvent(
+            "ClickScrollToReply",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
     }
-    
-    func logClickScrollToMention() {
-        logEvent("ClickScrollToMention")
+
+    func logClickScrollToMention(chatId: String) {
+        logEvent(
+            "ClickScrollToMention",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
     }
-    
-    func logClickScrollToBottom() {
-        logEvent("ClickScrollToBottom")
+
+    func logClickScrollToBottom(chatId: String) {
+        logEvent(
+            "ClickScrollToBottom",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
     }
     
     func logChangeMessageNotificationState(type: String, route: ChangeMessageNotificationStateRoute) {
@@ -1526,17 +1541,23 @@ extension AnytypeAnalytics {
         logEvent("ClickMessageMenuReply")
     }
     
-    func logAttachItemChat(type: ChatAttachmentType) {
+    func logAttachItemChat(type: ChatAttachmentType, chatId: String) {
         logEvent(
             "AttachItemChat",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.chatId: chatId
             ]
         )
     }
-    
-    func logDetachItemChat() {
-        logEvent("DetachItemChat")
+
+    func logDetachItemChat(chatId: String) {
+        logEvent(
+            "DetachItemChat",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
     }
     
     func logScreenAllowPushType(_ type: ScreenAllowPushType) {
@@ -1561,33 +1582,36 @@ extension AnytypeAnalytics {
         logEvent("AllowPush")
     }
     
-    func logClickScreenChatAttach(type: ChatAttachmentType, objectType: ObjectType? = nil) {
+    func logClickScreenChatAttach(type: ChatAttachmentType, chatId: String, objectType: ObjectType? = nil) {
         logEvent(
             "ClickScreenChatAttach",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.chatId: chatId,
                 AnalyticsEventsPropertiesKey.objectType: objectType?.analyticsType.analyticsId
             ].compactMapValues { $0 }
         )
     }
-    
-    func logSentMessage(type: SentMessageType) {
+
+    func logSentMessage(type: SentMessageType, chatId: String) {
         logEvent(
             "SentMessage",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.chatId: chatId
             ]
         )
     }
-    
+
     func logOpenChatByPush() {
         logEvent("OpenChatByPush")
     }
-    
-    func logScreenChat(unreadMessageCount: Int32?, hasMention: Bool?) {
+
+    func logScreenChat(chatId: String, unreadMessageCount: Int32?, hasMention: Bool?) {
         logEvent(
             "ScreenChat",
             withEventProperties: .builder {
+                [AnalyticsEventsPropertiesKey.chatId: chatId]
                 if let unreadMessageCount {
                     [AnalyticsEventsPropertiesKey.unreadMessageCount: unreadMessageCount]
                 }
@@ -1597,20 +1621,30 @@ extension AnytypeAnalytics {
             }
         )
     }
-    
-    func logAddReaction() {
-        logEvent("AddReaction")
+
+    func logAddReaction(chatId: String) {
+        logEvent(
+            "AddReaction",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
     }
-    
-    func logRemoveReaction() {
-        logEvent("RemoveReaction")
+
+    func logRemoveReaction(chatId: String) {
+        logEvent(
+            "RemoveReaction",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.chatId: chatId
+            ]
+        )
     }
-    
-    func logToggleReaction(added: Bool) {
+
+    func logToggleReaction(added: Bool, chatId: String) {
         if added {
-            logAddReaction()
+            logAddReaction(chatId: chatId)
         } else {
-            logRemoveReaction()
+            logRemoveReaction(chatId: chatId)
         }
     }
     
