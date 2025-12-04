@@ -17905,7 +17905,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Varsayılan nesne türü seç"
+            "value" : "Varsayılan nesne türünü seç"
           }
         },
         "uk" : {
@@ -20434,7 +20434,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect with me on Anytype"
+            "value" : "Свяжитесь со мной на Anytype"
           }
         },
         "tr" : {
@@ -76318,7 +76318,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Saved to Photos"
+            "value" : "Tersimpan ke Foto"
           }
         },
         "it" : {
@@ -76378,7 +76378,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Saved to Photos"
+            "value" : "Сохранено в Фото"
           }
         },
         "tr" : {
@@ -85289,7 +85289,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share QR Code"
+            "value" : "Bagikan Kode QR"
           }
         },
         "it" : {
@@ -85349,7 +85349,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share QR Code"
+            "value" : "Поделиться QR кодом"
           }
         },
         "tr" : {
