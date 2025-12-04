@@ -50,6 +50,13 @@ public extension FeatureDescription {
         debugValue: true
     )
 
+    static let qrCodeCircularText = FeatureDescription(
+        title: "QR Code Circular Text - IOS-5580",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
+        defaultValue: false,
+        debugValue: true
+    )
+
     // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(

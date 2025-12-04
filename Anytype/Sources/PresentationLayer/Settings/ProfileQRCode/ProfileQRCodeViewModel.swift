@@ -2,6 +2,7 @@ import Foundation
 import QRCode
 import UIKit
 import AnytypeCore
+import Assets
 import DesignKit
 
 
@@ -80,13 +81,13 @@ final class ProfileQRCodeViewModel: ObservableObject {
             return
         }
 
-        configureDocument(lightDoc, foregroundColor: UIColor.black.cgColor)
-        configureDocument(darkDoc, foregroundColor: UIColor.white.cgColor)
+        configureDocument(lightDoc, foregroundColor: UIColor.black.cgColor, smileAsset: .QrCode.smile)
+        configureDocument(darkDoc, foregroundColor: UIColor.white.cgColor, smileAsset: .QrCode.smileLight)
 
         state = .loaded(lightDocument: lightDoc, darkDocument: darkDoc, url)
     }
 
-    private func configureDocument(_ doc: QRCode.Document, foregroundColor: CGColor) {
+    private func configureDocument(_ doc: QRCode.Document, foregroundColor: CGColor, smileAsset: ImageAsset) {
         let design = QRCode.Design()
         design.shape.onPixels = QRCode.PixelShape.Circle()
         design.shape.eye = QRCode.EyeShape.Cloud()
@@ -94,7 +95,7 @@ final class ProfileQRCodeViewModel: ObservableObject {
         design.style.onPixels = QRCode.FillStyle.Solid(foregroundColor)
         doc.design = design
 
-        if let icon = UIImage(asset: .QrCode.smile)?.cgImage {
+        if let icon = UIImage(asset: smileAsset)?.cgImage {
             let logoTemplate = QRCode.LogoTemplate(
                 image: icon,
                 path: CGPath(rect: CGRect(x: 0.33, y: 0.33, width: 0.34, height: 0.34), transform: nil),
