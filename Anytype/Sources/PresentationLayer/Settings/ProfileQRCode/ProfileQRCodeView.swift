@@ -6,6 +6,7 @@ import Services
 struct ProfileQRCodeView: View {
 
     @StateObject private var model = ProfileQRCodeViewModel()
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         content
@@ -29,7 +30,8 @@ struct ProfileQRCodeView: View {
                 EmptyView()
             case .error:
                 EmptyStateView(title: Loc.error, style: .error)
-            case .loaded(let document, _):
+            case .loaded(let lightDocument, let darkDocument, _):
+                let document = colorScheme == .dark ? darkDocument : lightDocument
                 loadedContent(document: document)
             }
         }

@@ -10,7 +10,7 @@ final class ProfileQRCodeViewModel: ObservableObject {
 
     enum State {
         case loading
-        case loaded(QRCode.Document, URL)
+        case loaded(lightDocument: QRCode.Document, darkDocument: QRCode.Document, URL)
         case error
     }
 
@@ -46,13 +46,13 @@ final class ProfileQRCodeViewModel: ObservableObject {
     }
 
     func onCopyLink() {
-        guard case .loaded(_, let url) = state else { return }
+        guard case .loaded(_, _, let url) = state else { return }
         UIPasteboard.general.string = url.absoluteString
         toastBarData = ToastBarData(Loc.copied)
     }
 
     func onShare() {
-        guard case .loaded(_, let url) = state else { return }
+        guard case .loaded(_, _, let url) = state else { return }
         sharedUrl = url.identifiable
     }
 
@@ -73,16 +73,25 @@ final class ProfileQRCodeViewModel: ObservableObject {
             return
         }
 
-        guard let doc = try? QRCode.Document(utf8String: url.absoluteString) else {
+        guard let lightDoc = try? QRCode.Document(utf8String: url.absoluteString),
+              let darkDoc = try? QRCode.Document(utf8String: url.absoluteString) else {
             state = .error
             anytypeAssertionFailure("Can not build qr code", info: ["url": url.absoluteString])
             return
-        }        
-        
+        }
+
+        configureDocument(lightDoc, foregroundColor: UIColor.black.cgColor)
+        configureDocument(darkDoc, foregroundColor: UIColor.white.cgColor)
+
+        state = .loaded(lightDocument: lightDoc, darkDocument: darkDoc, url)
+    }
+
+    private func configureDocument(_ doc: QRCode.Document, foregroundColor: CGColor) {
         let design = QRCode.Design()
         design.shape.onPixels = QRCode.PixelShape.Circle()
         design.shape.eye = QRCode.EyeShape.Cloud()
         design.backgroundColor(UIColor.clear.cgColor)
+        design.style.onPixels = QRCode.FillStyle.Solid(foregroundColor)
         doc.design = design
 
         if let icon = UIImage(asset: .QrCode.smile)?.cgImage {
@@ -93,7 +102,5 @@ final class ProfileQRCodeViewModel: ObservableObject {
             )
             doc.logoTemplate = logoTemplate
         }
-
-        state = .loaded(doc, url)
     }
 }
