@@ -37,18 +37,27 @@ public extension SpaceUxType {
 
     var supportsMentions: Bool {
         switch self {
-        case .chat, .stream, .data:
+        case .chat, .stream, .data, .none, .UNRECOGNIZED:
             return true
-        case .oneToOne, .none, .UNRECOGNIZED:
+        case .oneToOne:
             return false
         }
     }
 
     var showsMessageAuthor: Bool {
         switch self {
-        case .chat, .stream, .data:
+        case .chat, .data, .none, .UNRECOGNIZED:
             return true
-        case .oneToOne, .none, .UNRECOGNIZED:
+        case .stream, .oneToOne:
+            return false
+        }
+    }
+
+    var positionsYourMessageOnRight: Bool {
+        switch self {
+        case .chat, .data, .oneToOne, .none, .UNRECOGNIZED:
+            return true
+        case .stream:
             return false
         }
     }
