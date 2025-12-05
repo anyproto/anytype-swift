@@ -4,18 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    static let showAllButtonInWidgets = FeatureDescription(
-        title: "See all as the last point in the widget - IOS-4945",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
-        defaultValue: true
-    )
-    
-    static let turnOffAutomaticWidgetOpening = FeatureDescription(
-        title: "Turn off automatic object opening - IOS-5309",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
-        defaultValue: true
-    )
-
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
@@ -32,22 +20,19 @@ public extension FeatureDescription {
     static let newObjectSettings = FeatureDescription(
         title: "New Object Settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true,
     )
     
     static let oneToOneSpaces = FeatureDescription(
         title: "1-1 Spaces - IOS-5531",
         type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true,
     )
 
     static let chatSettings = FeatureDescription(
         title: "Chat Settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: false,
-        debugValue: true
+        type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
+        defaultValue: false
     )
 
     static let qrCodeCircularText = FeatureDescription(
@@ -62,8 +47,7 @@ public extension FeatureDescription {
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: false
     )
     
     static let fullInlineSetImpl = FeatureDescription(

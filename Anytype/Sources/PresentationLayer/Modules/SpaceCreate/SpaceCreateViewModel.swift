@@ -75,17 +75,9 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 } catch {}
             }
             
-            if !FeatureFlags.turnOffAutomaticWidgetOpening, createResponse.startingObjectID.isNotEmpty {
-                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
-            } else {
-                try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-            }
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
-            
-            if !FeatureFlags.turnOffAutomaticWidgetOpening, createResponse.startingObjectID.isNotEmpty {
-                appActionStorage.action = .openObject(objectId: createResponse.startingObjectID, spaceId: spaceId)
-            }
         }
     }
     
