@@ -21,6 +21,7 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
     
     let domain: DomainType
     let objectDetails: ObjectDetails
+    let spaceUxType: SpaceUxType
     
     private weak var output: (any PublishToWebModuleOutput)?
     
@@ -44,6 +45,7 @@ final class PublishToWebInternalViewModel: ObservableObject, PublishingPreviewOu
         domain = data.domain
         status = data.status
         objectDetails = data.objectDetails
+        spaceUxType = data.spaceUxType
         self.output = output
         
         customPath = data.status?.uri ?? data.objectDetails.name
