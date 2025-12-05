@@ -20,22 +20,19 @@ public extension FeatureDescription {
     static let newObjectSettings = FeatureDescription(
         title: "New Object Settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true,
     )
     
     static let oneToOneSpaces = FeatureDescription(
         title: "1-1 Spaces - IOS-5531",
         type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true,
     )
 
     static let chatSettings = FeatureDescription(
         title: "Chat Settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: false,
-        debugValue: true
+        type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
+        defaultValue: false
     )
 
     static let qrCodeCircularText = FeatureDescription(
@@ -50,8 +47,7 @@ public extension FeatureDescription {
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: false
     )
     
     static let fullInlineSetImpl = FeatureDescription(
