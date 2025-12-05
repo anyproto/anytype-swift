@@ -20189,7 +20189,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect"
+            "value" : "Verbinden"
           }
         },
         "en" : {
@@ -76282,7 +76282,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Saved to Photos"
+            "value" : "In Fotos gespeichert"
           }
         },
         "en" : {
@@ -80481,7 +80481,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send Message"
+            "value" : "Nachricht senden"
           }
         },
         "en" : {
@@ -85253,7 +85253,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share QR Code"
+            "value" : "QR-Code teilen"
           }
         },
         "en" : {
