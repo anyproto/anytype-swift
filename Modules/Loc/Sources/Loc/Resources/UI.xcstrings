@@ -20174,9 +20174,147 @@
     "Connect" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Connect"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Conectar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hubungkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connetti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Подключиться"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bağlan"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Connect"
           }
         }
@@ -20185,9 +20323,147 @@
     "Connect with me on Anytype" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " Conecta conmigo en Anytype"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Свяжитесь со мной на Anytype"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Anytype üzerinden benimle bağlantı kur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Connect with me on Anytype"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Connect with me on Anytype"
           }
         }
@@ -20807,7 +21083,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
+            "value" : "Der Wechsel zwischen Space und Chat wird das Erlebnis erheblich verändern."
           }
         },
         "en" : {
@@ -33232,7 +33508,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish your first web site to get started."
+            "value" : "Veröffentliche deine erste Webseite, um loszulegen."
           }
         },
         "en" : {
@@ -38830,7 +39106,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "Загрузка %#@file@"
           },
           "substitutions" : {
             "file" : {
@@ -38840,25 +39116,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%arg файл"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%arg файл"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg file"
+                      "value" : "%arg файл"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%arg файлов"
                     }
                   }
                 }
@@ -45276,7 +45552,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hide Description"
+            "value" : "Beschreibung ausblenden"
           }
         },
         "en" : {
@@ -52901,7 +53177,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Locked"
+            "value" : "Gesperrt"
           }
         },
         "en" : {
@@ -54866,7 +55142,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Misc"
+            "value" : "Sonstiges"
           }
         },
         "en" : {
@@ -70461,7 +70737,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This layout differs from the type's default. Reset to match?"
+            "value" : "Dieses Layout weicht von der Standardeinstellung des Typs ab. Zur Übereinstimmung zurücksetzen?"
           }
         },
         "en" : {
@@ -74961,7 +75237,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resolve layout conflict"
+            "value" : "Layoutkonflikt lösen"
           }
         },
         "en" : {
@@ -75991,9 +76267,147 @@
     "Saved to Photos" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Saved to Photos"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Guardado en Fotos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tersimpan ke Foto"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Сохранено в Фото"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Fotoğraflara Kaydedildi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved to Photos"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Saved to Photos"
           }
         }
@@ -77806,7 +78220,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all"
+            "value" : "Alles ansehen"
           }
         },
         "en" : {
@@ -80052,9 +80466,147 @@
     "sendMessage" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Send Message"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enviar mensaje"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kirim Pesan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Invia Messaggio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Отправить сообщение"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mesaj Gönder"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Send Message"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Send Message"
           }
         }
@@ -84686,9 +85238,147 @@
     "Share QR Code" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Share QR Code"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Compartir código QR"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bagikan Kode QR"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Поделиться QR кодом"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Karekodu Paylaş"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Share QR Code"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Share QR Code"
           }
         }
@@ -84861,7 +85551,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show Description"
+            "value" : "Beschreibung anzeigen"
           }
         },
         "en" : {
@@ -89966,13 +90656,13 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "Menyinkronkan…"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "Sincronizzazione in corso..."
           }
         },
         "ja" : {
@@ -90026,13 +90716,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "Синхронизация..."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "Senkronize ediliyor..."
           }
         },
         "uk" : {
@@ -90228,7 +90918,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No access to the space"
+            "value" : "Kein Zugriff auf den Space"
           }
         },
         "en" : {
@@ -96068,7 +96758,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There are no spaces yet"
+            "value" : "Es gibt noch keine Spaces"
           }
         },
         "en" : {
@@ -99646,7 +100336,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlocked"
+            "value" : "Entsperrt"
           }
         },
         "en" : {
@@ -100093,7 +100783,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpinned"
+            "value" : "Losgelöst"
           }
         },
         "en" : {
@@ -108779,7 +109469,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget with a Query or Collection layout"
+            "value" : "Widget mit Abfrage- oder Sammlungslayout"
           }
         },
         "en" : {
