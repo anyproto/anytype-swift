@@ -60605,7 +60605,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "Direkter Kanal"
           }
         },
         "en" : {
@@ -60641,7 +60641,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "Kanal langsung"
           }
         },
         "it" : {
@@ -60701,7 +60701,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "Прямой канал"
           }
         },
         "tr" : {
