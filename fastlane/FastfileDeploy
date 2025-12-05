@@ -21,13 +21,15 @@ platform :ios do
         tag_prefix: "dev",
         add_badge: true,
         app_info: "Debug",
-        bundle_id: "io.anytype.app.dev"
+        bundle_id: "io.anytype.app.dev",
+        app_apple_id: "6449487256"
       },
       ENV["APP_CONF_RELEASE_ANYTYPE"] => {
         tag_prefix: "release-anytype",
         add_badge: false,
         app_info: "Release Anytype",
-        bundle_id: "io.anytype.app"
+        bundle_id: "io.anytype.app",
+        app_apple_id: "6449487029"
       }
     }
 
@@ -194,8 +196,8 @@ platform :ios do
       )
     end
   
-    bundle_id = settings[:bundle_id]
-    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--apple-id #{bundle_id}"
+    app_apple_id = settings[:app_apple_id]
+    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--apple-id #{app_apple_id} --use-old-altool"
 
     upload_to_testflight(skip_waiting_for_build_processing: true)
 
