@@ -8093,7 +8093,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Inline query"
+            "value" : "Inline Abfrage"
           }
         },
         "en" : {
@@ -19775,7 +19775,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "These properties exist in some objects but aren’t part of the Type. Add them to make them appear in all objects of this Type."
+            "value" : "Diese Eigenschaften existieren in einigen Objekten aber sind nicht Teil des Typs. Füge sie hinzu, um sie in allen Objekten dieses Typs erscheinen zu lassen."
           }
         },
         "en" : {
@@ -20371,7 +20371,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "Space beitreten"
           }
         },
         "en" : {
@@ -20520,7 +20520,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space Button"
+            "value" : "Space beitreten Schaltfläche"
           }
         },
         "en" : {
@@ -26410,7 +26410,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can manage tier on Desktop platform"
+            "value" : "Du kannst deine Mitgliedschaft in der Desktop-App verwalten"
           }
         },
         "en" : {
@@ -32100,7 +32100,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You're editing type"
+            "value" : "Du bearbeitest den Typ"
           }
         },
         "en" : {
@@ -35827,7 +35827,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Get notified instantly when someone messages or mentions you in your spaces."
+            "value" : "Werde sofort benachrichtigt, wenn dir jemand eine Nachricht sendet oder dich in einem deiner Space erwähnt."
           }
         },
         "en" : {
@@ -53572,7 +53572,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "People with link can edit and write in chat"
+            "value" : "Personen mit Link können den Chat ansehen und lesen"
           }
         },
         "en" : {
@@ -53721,7 +53721,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Editor access"
+            "value" : "Bearbeiter-Zugriff"
           }
         },
         "en" : {
@@ -54615,7 +54615,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Viewer access"
+            "value" : "Lese-Zugriff"
           }
         },
         "en" : {
@@ -60590,9 +60590,147 @@
     "Spaces.UxType.OneToOne.Title" : {
       "extractionState" : "manual",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Direct channel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kanal langsung"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Прямой канал"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Doğrudan kanal"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
             "value" : "Direct channel"
           }
         }
@@ -60676,7 +60814,7 @@
         "nb" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen."
+            "value" : "This space will be deleted irrevocably. You can't undo this action."
           }
         },
         "nl" : {
@@ -66299,7 +66437,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The link you are using does not seem to work. Please ask the owner to share a new one with you."
+            "value" : "Der von dir verwendete Link scheint nicht zu funktionieren. Bitte frage den Eigentümer nach einem Neuen."
           }
         },
         "en" : {
@@ -66895,7 +67033,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No access to this space"
+            "value" : "Kein Zugriff auf den Space"
           }
         },
         "en" : {
@@ -67044,7 +67182,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space"
+            "value" : "Space beitreten"
           }
         },
         "en" : {
