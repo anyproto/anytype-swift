@@ -508,6 +508,9 @@ public enum BundledPropertyKey: String, Sendable {
     /// Anonymous chat analytics id
     case analyticsChatId = "analyticsChatId"
 
+    /// Anonymous space analytics id
+    case analyticsSpaceId = "analyticsSpaceId"
+
     /// Fulltext search score
     case score = "_score"
 }
