@@ -45,7 +45,7 @@ final class SpaceCardModelBuilder: SpaceCardModelBuilderProtocol, Sendable {
             }
 
             let chatId = latestPreview.chatId
-            let chatName = await chatDetailsStorage.chat(id: chatId)?.name
+            let chatName = await chatDetailsStorage.chat(id: chatId)?.name.withPlaceholder
 
             lastMessage = MessagePreviewModel(
                 creatorTitle: lastMessagePreview.creator?.title,
