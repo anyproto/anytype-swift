@@ -61,6 +61,15 @@ public extension SpaceUxType {
             return false
         }
     }
+
+    var supportsJoinSpaceButton: Bool {
+        switch self {
+        case .chat, .stream, .data, .none, .UNRECOGNIZED:
+            return true
+        case .oneToOne:
+            return false
+        }
+    }
 }
 
 public extension Optional where Wrapped == SpaceUxType {
