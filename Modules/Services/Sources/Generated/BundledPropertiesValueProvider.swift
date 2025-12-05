@@ -186,6 +186,7 @@ public protocol BundledPropertiesValueProvider {
     var lastMessageDate: Date? { get }
     var fileAvailableOffline: Bool { get }
     var analyticsChatId: String { get }
+    var analyticsSpaceId: String { get }
     var score: Int? { get }
 } 
 
@@ -869,6 +870,10 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Anonymous chat analytics id
     var analyticsChatId: String {
         return value(for: BundledPropertyKey.analyticsChatId.rawValue)
+    }
+    /// Anonymous space analytics id
+    var analyticsSpaceId: String {
+        return value(for: BundledPropertyKey.analyticsSpaceId.rawValue)
     }
     /// Fulltext search score
     var score: Int? {
