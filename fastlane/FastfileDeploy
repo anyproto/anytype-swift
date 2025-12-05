@@ -105,12 +105,9 @@ platform :ios do
     # Determine the previous tag to use for diff generation in Linear comments
     # This ensures hotfix releases (e.g., 0.41.1) correctly diff against the last build
     # of the previous version (0.41.0/27) instead of finding an old tag from a different branch
-    if build_number.to_i > 1
-      # For incremental builds (e.g., 0.41.0/26 -> 0.41.0/27), use the previous build number
-      old_tag_name = "#{prefix}/#{version}/#{build_number.to_i - 1}"
-    else
-      # For the first build of a new version (e.g., 0.41.1/1), find the last tag of the previous patch version
-      # Get major.minor version (e.g., "0.41" from "0.41.1")
+
+    # Helper lambda to find the last tag from the previous version
+    find_previous_version_tag = lambda do
       version_parts = version.split('.')
       major_minor = "#{version_parts[0]}.#{version_parts[1]}"
       current_patch = version_parts[2].to_i
@@ -124,7 +121,24 @@ platform :ios do
         tag_patch && tag_patch[1].to_i < current_patch
       end
 
-      old_tag_name = previous_version_tags.last || tag_name
+      previous_version_tags.last || tag_name
+    end
+
+    if build_number.to_i > 1
+      # For incremental builds (e.g., 0.41.0/26 -> 0.41.0/27), try to use the previous build number
+      candidate_tag = "#{prefix}/#{version}/#{build_number.to_i - 1}"
+
+      # Check if this tag actually exists (build numbers can skip due to TestFlight)
+      if sh("git tag -l #{candidate_tag}").strip != ""
+        old_tag_name = candidate_tag
+      else
+        # Previous build tag doesn't exist - fall back to finding last tag from previous version
+        puts "⚠️  Previous build tag #{candidate_tag} not found, falling back to previous version"
+        old_tag_name = find_previous_version_tag.call
+      end
+    else
+      # For the first build of a new version (e.g., 0.41.1/1), find the last tag of the previous patch version
+      old_tag_name = find_previous_version_tag.call
     end
 
     # Check if we should add Linear comments
