@@ -4,18 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    static let showAllButtonInWidgets = FeatureDescription(
-        title: "See all as the last point in the widget - IOS-4945",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
-        defaultValue: true
-    )
-    
-    static let turnOffAutomaticWidgetOpening = FeatureDescription(
-        title: "Turn off automatic object opening - IOS-5309",
-        type: .feature(author: "m@anytype.io", releaseVersion: "13.5"),
-        defaultValue: true
-    )
-
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
