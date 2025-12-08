@@ -10367,7 +10367,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attach Object"
+            "value" : "附加对象"
           }
         },
         "zh-Hant" : {
@@ -10831,7 +10831,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Attachments"
+                  "value" : "%lld 个附件"
                 }
               }
             }
@@ -11304,7 +11304,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Audios"
+                  "value" : "%lld 个音频"
                 }
               }
             }
@@ -15828,7 +15828,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Bookmarks"
+                  "value" : "%lld个书签"
                 }
               }
             }
@@ -16433,7 +16433,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Take photo or video"
+            "value" : "拍摄照片或视频"
           }
         },
         "zh-Hant" : {
@@ -20189,7 +20189,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect"
+            "value" : "Verbinden"
           }
         },
         "en" : {
@@ -20309,7 +20309,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect"
+            "value" : "连接"
           }
         },
         "zh-Hant" : {
@@ -20458,7 +20458,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect with me on Anytype"
+            "value" : "与我在Anytype上联系"
           }
         },
         "zh-Hant" : {
@@ -24333,7 +24333,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Customize URL"
+            "value" : "自定义链接"
           }
         },
         "zh-Hant" : {
@@ -25692,7 +25692,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Dates"
+                  "value" : "%lld 个日期"
                 }
               }
             }
@@ -30349,7 +30349,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Document scan failed"
+            "value" : "文档扫描失败"
           }
         },
         "zh-Hant" : {
@@ -32286,7 +32286,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. This content is not available on mobile"
+            "value" : "这是一个 %@ 嵌入组件，无法在移动端查看。"
           }
         },
         "zh-Hant" : {
@@ -32435,7 +32435,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. Opens in external app or browser"
+            "value" : "这是一个 %@ 嵌入组件。您可在第三方应用或浏览器中打开。"
           }
         },
         "zh-Hant" : {
@@ -32584,7 +32584,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed is empty"
+            "value" : "这是一个 %@ 嵌入组件，内容为空。"
           }
         },
         "zh-Hant" : {
@@ -37057,7 +37057,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Experimental Features"
+            "value" : "实验性功能"
           }
         },
         "zh-Hant" : {
@@ -37206,7 +37206,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Always pick object type when creating"
+            "value" : "在创建对象时始终选择对象类型"
           }
         },
         "zh-Hant" : {
@@ -37355,7 +37355,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Object Creation Menu"
+            "value" : "新版对象创建菜单"
           }
         },
         "zh-Hant" : {
@@ -38415,7 +38415,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Files"
+                  "value" : "%lld 个文件"
                 }
               }
             }
@@ -39232,7 +39232,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "%#@file@ 正在上传"
           },
           "substitutions" : {
             "file" : {
@@ -41349,7 +41349,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Remote storage is not available in local-only mode. Your files are stored locally on your device."
+            "value" : "本地模式下无法使用远程存储，您的文件将保存在当前设备中。"
           }
         },
         "zh-Hant" : {
@@ -45672,7 +45672,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hide Description"
+            "value" : "隐藏描述"
           }
         },
         "zh-Hant" : {
@@ -47032,7 +47032,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Images"
+                  "value" : "%lld 张图像"
                 }
               }
             }
@@ -47190,7 +47190,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Image from Photo Library"
+            "value" : "相册中的照片"
           }
         },
         "zh-Hant" : {
@@ -49370,7 +49370,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Keychain"
+            "value" : "钥匙串"
           }
         },
         "zh-Hant" : {
@@ -50115,7 +50115,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Let's try it"
+            "value" : "让我们试试吧"
           }
         },
         "zh-Hant" : {
@@ -52543,7 +52543,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Lists"
+                  "value" : "%lld 个列表"
                 }
               }
             }
@@ -53297,7 +53297,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Locked"
+            "value" : "已锁定"
           }
         },
         "zh-Hant" : {
@@ -58690,7 +58690,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No matches found.\nTry a different keyword or check your spelling."
+            "value" : "未找到相关结果。\n请尝试其他关键词。"
           }
         },
         "zh-Hant" : {
@@ -58839,7 +58839,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No properties yet. Add some to this type."
+            "value" : "尚无属性。为此类型添加一些吧。"
           }
         },
         "zh-Hant" : {
@@ -60346,7 +60346,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Objects"
+                  "value" : "%lld 个对象"
                 }
               }
             }
@@ -61508,7 +61508,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Object types"
+                  "value" : "%lld 种类型"
                 }
               }
             }
@@ -61964,7 +61964,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete this Type? All existing objects of this type will be preserved, but will no longer be associated with it."
+            "value" : "确定要删除此类型吗？所有已创建的对象将保留，但不再与此类型关联。"
           }
         },
         "zh-Hant" : {
@@ -62113,7 +62113,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete Object Type?"
+            "value" : "确认删除此类型？"
           }
         },
         "zh-Hant" : {
@@ -63752,7 +63752,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open web page"
+            "value" : "打开网页"
           }
         },
         "zh-Hant" : {
@@ -65557,7 +65557,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld PDFs"
+                  "value" : "%lld 个PDF"
                 }
               }
             }
@@ -69068,7 +69068,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Photo"
+            "value" : "照片"
           }
         },
         "zh-Hant" : {
@@ -69664,7 +69664,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %d pinned spaces."
+            "value" : "已达到 %d 个置顶空间的上限"
           }
         },
         "zh-Hant" : {
@@ -71453,7 +71453,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish to Web"
+            "value" : "发布至网络"
           }
         },
         "zh-Hant" : {
@@ -74155,7 +74155,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Relations"
+                  "value" : "%lld 个关系"
                 }
               }
             }
@@ -76282,7 +76282,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Saved to Photos"
+            "value" : "In Fotos gespeichert"
           }
         },
         "en" : {
@@ -76402,7 +76402,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Saved to Photos"
+            "value" : "已保存到相册"
           }
         },
         "zh-Hant" : {
@@ -76551,7 +76551,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Scan documents"
+            "value" : "扫描文档"
           }
         },
         "zh-Hant" : {
@@ -77893,7 +77893,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You phone doesn’t have a passcode or biometric authorization. It might make it easier to steal your data. Enable it in your app settings to secure your data."
+            "value" : "您的手机没有设置密码或生物识别验证，这可能会增加您的数据被盗的风险。请在应用设置中启用密码或生物识别验证，以保护您的数据安全。"
           }
         },
         "zh-Hant" : {
@@ -78042,7 +78042,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Proceed anyway"
+            "value" : "仍要继续"
           }
         },
         "zh-Hant" : {
@@ -78191,7 +78191,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Secure your phone"
+            "value" : "保护您的手机"
           }
         },
         "zh-Hant" : {
@@ -78340,7 +78340,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "See all"
+            "value" : "查看全部"
           }
         },
         "zh-Hant" : {
@@ -79085,7 +79085,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Select Objects"
+            "value" : "选择对象"
           }
         },
         "zh-Hant" : {
@@ -80452,7 +80452,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send"
+            "value" : "发送"
           }
         },
         "zh-Hant" : {
@@ -80481,7 +80481,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send Message"
+            "value" : "Nachricht senden"
           }
         },
         "en" : {
@@ -80601,7 +80601,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Send Message"
+            "value" : "发送消息"
           }
         },
         "zh-Hant" : {
@@ -85253,7 +85253,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share QR Code"
+            "value" : "QR-Code teilen"
           }
         },
         "en" : {
@@ -85373,7 +85373,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share QR Code"
+            "value" : "分享二维码"
           }
         },
         "zh-Hant" : {
@@ -85671,7 +85671,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Show Description"
+            "value" : "显示描述"
           }
         },
         "zh-Hant" : {
@@ -89994,7 +89994,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ deleted successfully"
+            "value" : "已删除 %@"
           }
         },
         "zh-Hant" : {
@@ -90740,7 +90740,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Syncing..."
+            "value" : "同步中..."
           }
         },
         "zh-Hant" : {
@@ -92844,7 +92844,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Tags"
+                  "value" : "%lld 个标签"
                 }
               }
             }
@@ -94344,7 +94344,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Text Style"
+            "value" : "文本样式"
           }
         },
         "zh-Hant" : {
@@ -100456,7 +100456,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unlocked"
+            "value" : "已解锁"
           }
         },
         "zh-Hant" : {
@@ -100903,7 +100903,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unpinned"
+            "value" : "已取消置顶"
           }
         },
         "zh-Hant" : {
@@ -101499,7 +101499,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset as default"
+            "value" : "重置为默认值"
           }
         },
         "zh-Hant" : {
@@ -101648,7 +101648,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset default"
+            "value" : "取消默认设置"
           }
         },
         "zh-Hant" : {
@@ -104646,7 +104646,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%lld Videos"
+                  "value" : "%lld 个视频"
                 }
               }
             }
@@ -104953,7 +104953,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "View in Browser"
+            "value" : "在浏览器中查看"
           }
         },
         "zh-Hant" : {
@@ -110781,7 +110781,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored."
+            "value" : "我们已经重新设计了小组件，因此不再支持这个小组件。一旦删除，这个小组件将无法恢复。"
           }
         },
         "zh-Hant" : {
@@ -111526,7 +111526,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You joined %@"
+            "value" : "您已加入 %@"
           }
         },
         "zh-Hant" : {
