@@ -16,6 +16,14 @@ protocol MembershipStatusStorageProtocol: Sendable {
 
 @MainActor
 final class MembershipStatusStorage: MembershipStatusStorageProtocol {
+
+    // WORKAROUND: Force linker to retain Anytype_Event.Membership metadata.
+    // This wrapper struct gets stripped in Release builds because it's never
+    // directly referenced. Its nested Update type needs the parent metadata
+    // to be present, causing null pointer crash if stripped.
+    private static let _forceParentTypeRetention: Anytype_Event.Membership.Type =
+        Anytype_Event.Membership.self
+
     @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipModelBuilder)
