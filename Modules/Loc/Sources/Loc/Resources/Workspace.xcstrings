@@ -288,7 +288,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to create file. Try again."
+            "value" : "无法创建文件。请重试"
           }
         },
         "zh-Hant" : {
@@ -437,7 +437,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid file. Try again"
+            "value" : "文件无效。请重试"
           }
         },
         "zh-Hant" : {
@@ -901,7 +901,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "您一次只能上传 %d 个附件"
                 }
               }
             }
@@ -1953,7 +1953,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "添加成员"
           }
         },
         "zh-Hant" : {
@@ -2102,7 +2102,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Messages, docs & files available offline"
+            "value" : "消息、文档和文件可离线访问"
           }
         },
         "zh-Hant" : {
@@ -2251,7 +2251,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "完全隐私，信息加密"
           }
         },
         "zh-Hant" : {
@@ -2400,7 +2400,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "永远属于您"
           }
         },
         "zh-Hant" : {
@@ -2698,7 +2698,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update App"
+            "value" : "更新应用"
           }
         },
         "zh-Hant" : {
@@ -2847,7 +2847,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This version doesn’t support sending files or images. Update the app to share media in chats."
+            "value" : "此版本不支持发送文件或图像。您需要更新应用，才能在聊天中发送媒体文件。"
           }
         },
         "zh-Hant" : {
@@ -2996,7 +2996,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incompatible Version"
+            "value" : "版本不兼容"
           }
         },
         "zh-Hant" : {
@@ -3145,7 +3145,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We couldn’t connect right now. This may be due to no internet or a temporary sync issue. We’ll keep trying in the background."
+            "value" : "目前无法连接服务器，可能是网络异常或同步服务暂时出现问题。我们将在后台自动重试。"
           }
         },
         "zh-Hant" : {
@@ -3443,7 +3443,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Network Error"
+            "value" : "网络错误"
           }
         },
         "zh-Hant" : {
@@ -5083,7 +5083,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype now supports real-time chat in Shared Channels — so your thoughts and dialogues can grow together."
+            "value" : "Anytype 现已支持共享空间的实时聊天——让每一次所思所言，共同生长。"
           }
         },
         "zh-Hant" : {
@@ -9108,7 +9108,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create Chat"
+            "value" : "新建聊天"
           }
         },
         "zh-Hant" : {
@@ -31325,7 +31325,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Property"
+            "value" : "新建属性"
           }
         },
         "zh-Hant" : {
@@ -60605,7 +60605,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "Direkter Kanal"
           }
         },
         "en" : {
@@ -60617,7 +60617,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Direct channel"
+            "value" : "Canal directo"
           }
         },
         "fa" : {
