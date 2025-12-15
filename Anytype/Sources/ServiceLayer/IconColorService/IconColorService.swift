@@ -83,7 +83,7 @@ final class IconColorService: IconColorServiceProtocol, Sendable {
             return UIColor(light: lightColor, dark: darkColor)
         } else {
             let lightColor = UIColor(hue: hue, saturation: 0.4, brightness: 0.8, alpha: 1)
-            let darkColor = UIColor(hue: hue, saturation: 0.4, brightness: 0.2, alpha: 1)
+            let darkColor = UIColor(hue: hue, saturation: 0.6, brightness: 0.4, alpha: 1)
             return UIColor(light: lightColor, dark: darkColor)
         }
     }
