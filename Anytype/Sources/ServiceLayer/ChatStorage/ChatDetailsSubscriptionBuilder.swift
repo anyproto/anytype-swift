@@ -30,7 +30,8 @@ final class ChatDetailsSubscriptionBuilder: ChatDetailsSubscriptionBuilderProtoc
             BundledPropertyKey.layout.rawValue,
             BundledPropertyKey.resolvedLayout.rawValue,
             BundledPropertyKey.type.rawValue,
-            BundledPropertyKey.isDeleted.rawValue
+            BundledPropertyKey.isDeleted.rawValue,
+            BundledPropertyKey.isArchived.rawValue
         ]
 
         return .crossSpaceSearch(
