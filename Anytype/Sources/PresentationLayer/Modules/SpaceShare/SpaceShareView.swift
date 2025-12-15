@@ -36,7 +36,7 @@ struct SpaceShareView: View {
                 StopSharingAlert(spaceId: model.spaceId) {}
             }
             .anytypeSheet(isPresented: $model.showMakePrivateAlert) {
-                MakePrivateAlert {
+                SpaceMakePrivateAlert {
                     try await model.onMakePrivateConfirm()
                 }
             }

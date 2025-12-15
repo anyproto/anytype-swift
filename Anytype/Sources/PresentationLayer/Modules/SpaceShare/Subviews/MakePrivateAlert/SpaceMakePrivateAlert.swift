@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct MakePrivateAlert: View {
+struct SpaceMakePrivateAlert: View {
 
     let onConfirm: () async throws -> Void
     @Environment(\.dismiss) private var dismiss
