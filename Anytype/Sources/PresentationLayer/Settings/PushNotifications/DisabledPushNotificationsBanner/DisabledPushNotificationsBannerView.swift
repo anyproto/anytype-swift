@@ -52,7 +52,7 @@ struct DisabledPushNotificationsBannerView: View {
         .padding(.top, 20)
         .padding(.bottom, 24)
         .padding(.horizontal, 20)
-        .background(Color.Shape.transperentTertiary)
+        .background(Color.Shape.transparentTertiary)
         .cornerRadius(12, style: .continuous)
     }
 }

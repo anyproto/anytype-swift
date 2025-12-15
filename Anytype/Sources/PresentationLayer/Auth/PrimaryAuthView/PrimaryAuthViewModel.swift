@@ -106,10 +106,7 @@ final class PrimaryAuthViewModel: ObservableObject {
     
     private func setDefaultSpaceInfo(_ spaceId: String, iconOption: Int) async throws {
         guard spaceId.isNotEmpty else { return }
-        let startingObjectId = try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
-        if !FeatureFlags.turnOffAutomaticWidgetOpening, let startingObjectId, startingObjectId.isNotEmpty, appActionStorage.action.isNil {
-            appActionStorage.action = .openObject(objectId: startingObjectId, spaceId: spaceId)
-        }
+        _ = try? await usecaseService.setObjectImportDefaultUseCase(spaceId: spaceId)
         try? await workspaceService.workspaceSetDetails(
             spaceId: spaceId,
             details: [.name(Loc.myFirstSpace), .iconOption(iconOption)]
@@ -134,7 +131,7 @@ final class PrimaryAuthViewModel: ObservableObject {
             switch deeplink {
             case .networkConfig(let config):
                 try updateNetworkConfig(config)
-            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership:
+            case .createObjectFromWidget, .showSharingExtension, .galleryImport, .invite, .object, .membership, .hi:
                 throw AuthViewModelError.unsupportedAppAction
             }
         }

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct ChatHeaderView: View {
 
@@ -10,12 +11,14 @@ struct ChatHeaderView: View {
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
+        onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
     ) {
         self._model = StateObject(wrappedValue: ChatHeaderViewModel(
             spaceId: spaceId,
             chatId: chatId,
             onTapOpenWidgets: onTapOpenWidgets,
+            onTapOpenSpaceSettings: onTapOpenSpaceSettings,
             onTapAddMembers: onTapAddMembers
         ))
     }
@@ -54,7 +57,25 @@ struct ChatHeaderView: View {
                             .frame(width: 28, height: 28)
                     }
                 }
-                if model.showWidgetsButton {
+                if FeatureFlags.chatSettings {
+                    if model.isMultiChatSpace {
+                        ObjectSettingsMenuContainer(
+                            objectId: model.chatId,
+                            spaceId: model.spaceId,
+                            output: nil
+                        ) {
+                            IconView(icon: model.icon)
+                                .frame(width: 28, height: 28)
+                        }
+                    } else {
+                        ExpandedTapAreaButton {
+                            model.tapOpenSpaceSettings()
+                        } label: {
+                            IconView(icon: model.icon)
+                                .frame(width: 28, height: 28)
+                        }
+                    }
+                } else {
                     ExpandedTapAreaButton {
                         model.tapOpenWidgets()
                     } label: {

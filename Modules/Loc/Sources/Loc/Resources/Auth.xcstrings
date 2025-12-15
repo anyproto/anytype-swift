@@ -2404,7 +2404,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "It’s your login and password"
+            "value" : "Es ist dein Login oder Passwort"
           }
         },
         "en" : {
@@ -4938,7 +4938,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Student"
+            "value" : "Schüler"
           }
         },
         "en" : {

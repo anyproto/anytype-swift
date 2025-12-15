@@ -3,16 +3,14 @@ import SwiftUI
 
 struct NewInviteLinkView: View {
 
-    @StateObject private var model: NewInviteLinkViewModel
-    @Binding private var notifyUpdateLinkView: UUID
+    @Bindable var model: NewInviteLinkViewModel
     let canChangeInvite: Bool
     let hasReachedSharedSpacesLimit: Bool
 
-    init(data: SpaceShareData, notifyUpdateLinkView: Binding<UUID>, canChangeInvite: Bool, hasReachedSharedSpacesLimit: Bool, output: (any NewInviteLinkModuleOutput)?) {
+    init(model: NewInviteLinkViewModel, canChangeInvite: Bool, hasReachedSharedSpacesLimit: Bool) {
+        self.model = model
         self.canChangeInvite = canChangeInvite
         self.hasReachedSharedSpacesLimit = hasReachedSharedSpacesLimit
-        self._notifyUpdateLinkView = notifyUpdateLinkView
-        self._model = StateObject(wrappedValue: NewInviteLinkViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -43,9 +41,6 @@ struct NewInviteLinkView: View {
             SpaceInviteChangeAlert {
                 model.onInviteChangeConfirmed(invite)
             }
-        }
-        .onChange(of: notifyUpdateLinkView) {
-            model.updateLink()
         }
         .snackbar(toastBarData: $model.toastBarData)
     }
@@ -88,46 +83,17 @@ struct NewInviteLinkView: View {
     }
     
     private var linkView: some View {
-        HStack {
-            Button {
-                model.onCopyLink(route: .menu)
-            } label: {
-                AnytypeText(model.shareLink?.absoluteString ?? "", style: .uxCalloutRegular)
-                    .foregroundColor(.Text.primary)
-                    .lineLimit(1)
-                    .frame(height: 44)
-                    .frame(maxWidth: .infinity)
-            }
-            Menu {
-                Button() {
-                    model.onCopyLink(route: .menu)
-                } label: {
-                    Text(Loc.SpaceShare.CopyInviteLink.title)
-                    Spacer()
-                    Image(systemName: "link")
-                }
-                Button() {
-                    model.onShareInvite()
-                } label: {
-                    Text(Loc.SpaceShare.Share.link)
-                    Spacer()
-                    Image(systemName: "square.and.arrow.up")
-                }
-                Button() {
-                    model.onShowQrCode()
-                } label: {
-                    Text(Loc.SpaceShare.Qr.button)
-                    Spacer()
-                    Image(systemName: "qrcode")
-                }
-            } label: {
-                IconView(icon: .asset(.X24.more))
-                    .frame(width: 24, height: 24)
-            }
-            .menuOrder(.fixed)
+        Button {
+            model.onCopyLink(route: .menu)
+        } label: {
+            AnytypeText(model.shareLink?.absoluteString ?? "", style: .uxCalloutRegular)
+                .foregroundColor(.Text.primary)
+                .lineLimit(1)
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 12)
-        .background(Color.Shape.transperentTertiary)
+        .background(Color.Shape.transparentTertiary)
         .cornerRadius(10, style: .circular)
     }
 }

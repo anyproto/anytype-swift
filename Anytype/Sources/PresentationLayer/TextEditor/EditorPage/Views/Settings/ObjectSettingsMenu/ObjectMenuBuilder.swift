@@ -16,15 +16,7 @@ struct ObjectMenuBuilder {
             ))
         }
 
-        if let items = grouped[.mainSettings]?.map({ $0.1 }), !items.isEmpty {
-            sections.append(ObjectMenuSection(
-                items: items.sorted { $0.order < $1.order },
-                layout: .vertical,
-                showDividerBefore: false
-            ))
-        }
-
-        if let items = grouped[.objectActions]?.map({ $0.1 }), !items.isEmpty {
+        if let items = grouped[.descriptionSection]?.map({ $0.1 }), !items.isEmpty {
             sections.append(ObjectMenuSection(
                 items: items.sorted { $0.order < $1.order },
                 layout: .vertical,
@@ -32,10 +24,18 @@ struct ObjectMenuBuilder {
             ))
         }
 
-        if let items = grouped[.management]?.map({ $0.1 }), !items.isEmpty {
+        if let items = grouped[.mainSettings]?.map({ $0.1 }), !items.isEmpty {
             sections.append(ObjectMenuSection(
                 items: items.sorted { $0.order < $1.order },
                 layout: .vertical,
+                showDividerBefore: true
+            ))
+        }
+
+        if let items = grouped[.moreCollapsible]?.map({ $0.1 }), !items.isEmpty {
+            sections.append(ObjectMenuSection(
+                items: items.sorted { $0.order < $1.order },
+                layout: .collapsible,
                 showDividerBefore: true
             ))
         }

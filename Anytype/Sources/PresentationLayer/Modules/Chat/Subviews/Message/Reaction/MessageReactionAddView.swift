@@ -13,7 +13,7 @@ struct MessageReactionAddView: View {
             Image(asset: .X24.reaction)
                 .foregroundStyle(Color.Control.primary)
                 .frame(width: 28, height: 28)
-                .background(Color.Shape.transperentSecondary)
+                .background(Color.Shape.transparentSecondary)
                 .cornerRadius(16, style: .circular)
         }
     }

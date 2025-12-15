@@ -427,6 +427,15 @@ public enum BundledPropertyKey: String, Sendable {
     /// Lexicographic id for object ordering
     case orderId = "orderId"
 
+    /// OneToOne (second) participant identity
+    case oneToOneIdentity = "oneToOneIdentity"
+
+    /// OneToOne Inbox invite sent status
+    case oneToOneInboxSentStatus = "oneToOneInboxSentStatus"
+
+    /// OneToOne (second) participant RequestMetadata (key)
+    case oneToOneRequestMetadataKey = "oneToOneRequestMetadataKey"
+
     /// Choose icon for the type among custom Anytype icons
     case iconName = "iconName"
 
@@ -495,4 +504,13 @@ public enum BundledPropertyKey: String, Sendable {
 
     /// Is file available offline
     case fileAvailableOffline = "fileAvailableOffline"
+
+    /// Anonymous chat analytics id
+    case analyticsChatId = "analyticsChatId"
+
+    /// Anonymous space analytics id
+    case analyticsSpaceId = "analyticsSpaceId"
+
+    /// Fulltext search score
+    case score = "_score"
 }

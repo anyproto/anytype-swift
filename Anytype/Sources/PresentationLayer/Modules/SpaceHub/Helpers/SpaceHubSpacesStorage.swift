@@ -22,7 +22,7 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
         get async {
             let combineStream = combineLatest(
                 participantSpacesStorage.activeOrLoadingParticipantSpacesPublisher.values,
-                 await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
+                 await chatMessagesPreviewsStorage.previewsSequence
             ).throttle(milliseconds: 300)
             
             return combineStream.map { (spaces, previews) in
@@ -40,7 +40,10 @@ actor SpaceHubSpacesStorage: SpaceHubSpacesStorageProtocol {
                     }
 
                     let totalUnread = spacePreviews.reduce(0) { $0 + $1.unreadCounter }
-                    let totalMentions = spacePreviews.reduce(0) { $0 + $1.mentionCounter }
+                    // TODO: IOS-5561 - Temporary client-side fix. Should be handled by middleware.
+                    let totalMentions = space.spaceView.uxType.supportsMentions
+                        ? spacePreviews.reduce(0) { $0 + $1.mentionCounter }
+                        : 0
 
                     return ParticipantSpaceViewDataWithPreview(
                         space: space,

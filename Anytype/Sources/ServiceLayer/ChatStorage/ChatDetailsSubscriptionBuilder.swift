@@ -18,10 +18,6 @@ final class ChatDetailsSubscriptionBuilder: ChatDetailsSubscriptionBuilderProtoc
     }
 
     func build() -> SubscriptionData {
-        let sorts: [DataviewSort] = .builder {
-            SearchHelper.sort(relation: .lastMessageDate, type: .desc)
-        }
-
         let filters: [DataviewFilter] = .builder {
             SearchHelper.layoutFilter([.chatDerived])
         }

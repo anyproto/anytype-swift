@@ -6,15 +6,16 @@ public extension CachedAsyncImage {
         url: URL?,
         cache: CachedAsyncImageCache = .default,
         @ViewBuilder content: @escaping (Image) -> I,
-        @ViewBuilder placeholder: @escaping () -> P
+        @ViewBuilder placeholder: @escaping () -> P,
+        loadTimeTracker: ((Int, Bool) -> Void)? = nil
     ) where Content == _ConditionalContent<I, P> {
-        self.init(url: url, cache: cache) { state in
+        self.init(url: url, cache: cache, content: { state in
             if let image = state.image {
                 content(image)
             } else {
                 placeholder()
             }
-        }
+        }, loadTimeTracker: loadTimeTracker)
     }
 }
 
@@ -24,10 +25,10 @@ public struct CachedAsyncImage<Content: View>: View {
     private let content: (AsyncImagePhase) -> Content
     @State private var model: CachedAsyncImageModel
     
-    public init(url: URL?, cache: CachedAsyncImageCache = .default, @ViewBuilder content: @escaping (AsyncImagePhase) -> Content) {
+    public init(url: URL?, cache: CachedAsyncImageCache = .default, @ViewBuilder content: @escaping (AsyncImagePhase) -> Content, loadTimeTracker: ((Int, Bool) -> Void)? = nil) {
         self.url = url
         self.content = content
-        self._model = State(wrappedValue: CachedAsyncImageModel(url: url, cache: cache))
+        self._model = State(wrappedValue: CachedAsyncImageModel(url: url, cache: cache, loadTimeTracker: loadTimeTracker))
 
     }
     
@@ -50,10 +51,13 @@ private final class CachedAsyncImageModel {
     private let cache: CachedAsyncImageCache
     @ObservationIgnored
     private var currentURL: URL?
+    // Load time in ms
+    private let loadTimeTracker: ((Int, Bool) -> Void)?
     
-    init(url: URL?, cache: CachedAsyncImageCache) {
+    init(url: URL?, cache: CachedAsyncImageCache, loadTimeTracker: ((Int, Bool) -> Void)?) {
         self.cache = cache
         self.currentURL = url
+        self.loadTimeTracker = loadTimeTracker
         if let url, let uiImage = try? cache.cachedImage(from: url) {
             self.state = .success(Image(uiImage: uiImage))
         } else {
@@ -71,12 +75,23 @@ private final class CachedAsyncImageModel {
             return
         }
         
+        let start = DispatchTime.now()
+        var successForTracker = false
+        
         do {
             let uiImage = try await cache.loadImage(from: url)
             let image = Image(uiImage: uiImage)
             state = .success(image)
+            successForTracker = true
         } catch {
             state = .failure(error)
+            successForTracker = false
+        }
+        
+        if let loadTimeTracker {
+            let end = DispatchTime.now()
+            let time = Int(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000 // ms
+            loadTimeTracker(time, successForTracker)
         }
     }
 }

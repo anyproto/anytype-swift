@@ -63,7 +63,7 @@ struct TypePropertiesView: View {
         }
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
-        .background(Color.Shape.transperentSecondary)
+        .background(Color.Shape.transparentSecondary)
     }
     
     private var fieldsList: some View {

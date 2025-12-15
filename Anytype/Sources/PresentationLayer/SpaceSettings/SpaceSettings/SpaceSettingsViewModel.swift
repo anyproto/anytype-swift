@@ -55,7 +55,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var dismiss = false
     @Published var allowDelete = false
     @Published var allowLeave = false
-    @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
     @Published var uxTypeSettingsData: SpaceUxTypeSettingsData?
     @Published var shareSection: SpaceSettingsShareSection = .personal
@@ -72,6 +71,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var participantsCount: Int = 0
     @Published var canAddWriters = true
     @Published var joiningCount: Int = 0
+    @Published var isOneToOne = false
 
     let workspaceInfo: AccountInfo
     private var participantSpaceView: ParticipantSpaceViewData?
@@ -269,9 +269,9 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceIcon = spaceView.objectIconImage
         allowDelete = participantSpaceView.canBeDeleted
         allowLeave = participantSpaceView.canLeave
-        allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
         canAddWriters = spaceView.canAddWriters(participants: participants)
+        isOneToOne = spaceView.uxType.isOneToOne
 
         uxTypeSettingsData = participantSpaceView.canChangeUxType && spaceView.hasChat && FeatureFlags.channelTypeSwitcher ? SpaceUxTypeSettingsData(uxType: spaceView.uxType) : nil
 
@@ -319,6 +319,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private func updateInviteIfNeeded() async throws {
         guard let participantSpaceView else { return }
         guard shareSection.isSharingAvailable else { return }
+        guard !participantSpaceView.spaceView.uxType.isOneToOne else { return }
         
         if participantSpaceView.spaceView.uxType.isStream {
             let invite = try? await workspaceService.getGuestInvite(spaceId: workspaceInfo.accountSpaceId)

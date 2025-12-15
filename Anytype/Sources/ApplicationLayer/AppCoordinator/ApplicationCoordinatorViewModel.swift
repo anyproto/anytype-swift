@@ -90,14 +90,14 @@ final class ApplicationCoordinatorViewModel {
     
     private func handleApplicationState(_ applicationState: ApplicationState) async {
         await dismissAllPresented?(animated: false)
-        withAnimation(self.applicationState == .login ? .default : .none) {
+        withAnimation(self.applicationState == .launch ? .default : .none) {
             self.applicationState = applicationState
         }
         
         switch applicationState {
         case .initial:
             break
-        case .login:
+        case .launch:
             await loginProcess()
         case .home:
             break

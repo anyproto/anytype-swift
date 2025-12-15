@@ -31,7 +31,9 @@ struct SpaceHubList: View {
                 Spacer.fixedHeight(40)
             }
         }
-        .animation(.default, value: model.filteredSpaces)
+        .animation(model.animationsEnabled ? .default : nil, value: model.filteredSpaces)
+        .onAppear { DispatchQueue.main.async { model.animationsEnabled = true } }
+        .onDisappear { model.animationsEnabled = false }
     }
     
     private var emptyStateView: some View {

@@ -61,7 +61,7 @@ struct InfoSelectionView: View {
         .padding(.vertical, 10)
         .padding(.leading, 12)
         .padding(.trailing, 16)
-        .background(isSelected ? Color.Control.accent25 : Color.Shape.transperentSecondary)
+        .background(isSelected ? Color.Control.accent25 : Color.Shape.transparentSecondary)
         .cornerRadius(16, style: .continuous)
         .onTapGesture {
             onSelect(option)

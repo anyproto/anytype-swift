@@ -227,6 +227,13 @@ public extension AnytypeFont {
                 lineHeight: 14,
                 kern: -0.07
             )
+        case .tagline:
+            return AnytypeFontConfig(
+                font: FontFamily.Inter.regular,
+                size: 11,
+                lineHeight: 14,
+                kern: -0.2
+            )
         case .button1Regular:
             return AnytypeFontConfig(
                 font: FontFamily.Inter.regular,

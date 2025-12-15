@@ -200,7 +200,9 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         if canLinkToChat {
             leftButtonMode = .chat(participantSpaceView.permissions.canEdit)
         } else if isWidgetsScreen {
-            if participantSpaceView.isOwner {
+            if participantSpaceView.spaceView.uxType.isOneToOne {
+                leftButtonMode = .home
+            } else if participantSpaceView.isOwner {
                 let limitAllowSharing = participantSpacesStorage.spaceSharingInfo?.limitsAllowSharing ?? false
                 let canBeShared = participantSpaceView.permissions.canBeShared
                 let isShared = participantSpaceView.spaceView.isShared

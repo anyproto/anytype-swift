@@ -2784,6 +2784,76 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipV2GetProducts(
+        _ request: Anytype_Rpc.MembershipV2.GetProducts.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.GetProducts.Request, Anytype_Rpc.MembershipV2.GetProducts.Response> {
+        return Invocation(messageName: "MembershipV2GetProducts", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2GetProducts(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.GetProducts.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2GetStatus(
+        _ request: Anytype_Rpc.MembershipV2.GetStatus.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.GetStatus.Request, Anytype_Rpc.MembershipV2.GetStatus.Response> {
+        return Invocation(messageName: "MembershipV2GetStatus", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2GetStatus(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.GetStatus.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2GetPortalLink(
+        _ request: Anytype_Rpc.MembershipV2.GetPortalLink.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.GetPortalLink.Request, Anytype_Rpc.MembershipV2.GetPortalLink.Response> {
+        return Invocation(messageName: "MembershipV2GetPortalLink", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2GetPortalLink(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.GetPortalLink.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2AnyNameIsValid(
+        _ request: Anytype_Rpc.MembershipV2.AnyNameIsValid.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.AnyNameIsValid.Request, Anytype_Rpc.MembershipV2.AnyNameIsValid.Response> {
+        return Invocation(messageName: "MembershipV2AnyNameIsValid", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2AnyNameIsValid(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.AnyNameIsValid.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2AnyNameAllocate(
+        _ request: Anytype_Rpc.MembershipV2.AnyNameAllocate.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.AnyNameAllocate.Request, Anytype_Rpc.MembershipV2.AnyNameAllocate.Response> {
+        return Invocation(messageName: "MembershipV2AnyNameAllocate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2AnyNameAllocate(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.AnyNameAllocate.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2CartGet(
+        _ request: Anytype_Rpc.MembershipV2.CartGet.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.CartGet.Request, Anytype_Rpc.MembershipV2.CartGet.Response> {
+        return Invocation(messageName: "MembershipV2CartGet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2CartGet(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.CartGet.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func membershipV2CartUpdate(
+        _ request: Anytype_Rpc.MembershipV2.CartUpdate.Request = .init()
+    ) -> Invocation<Anytype_Rpc.MembershipV2.CartUpdate.Request, Anytype_Rpc.MembershipV2.CartUpdate.Response> {
+        return Invocation(messageName: "MembershipV2CartUpdate", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipV2CartUpdate(requestData) ?? Data()
+            return try Anytype_Rpc.MembershipV2.CartUpdate.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func nameServiceUserAccountGet(
         _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
     ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {

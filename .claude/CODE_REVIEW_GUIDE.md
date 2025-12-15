@@ -112,6 +112,62 @@ LinkWidgetViewContainer(
 )
 ```
 
+### Mistake: Flagging `try?` with Middleware Calls as Silent Error Handling
+
+**Scenario**: A PR uses `try?` when calling middleware/service methods.
+
+**Wrong Analysis**:
+- ❌ "Error is silently ignored, should use `try await` for user feedback"
+- ❌ "AsyncStandardButton won't show error toast"
+
+**Why This Is Wrong**:
+- All middleware errors are **automatically logged** internally
+- Using `try?` is intentional when the operation should fail silently from user's perspective
+- Not every failure needs user-facing feedback (e.g., creating a space quietly fails)
+
+**Correct Approach**:
+1. Middleware calls already have internal error logging
+2. `try?` = intentional silent failure (logged but no user toast)
+3. `try await` = propagate error for user feedback (toast/alert)
+4. Both are valid patterns depending on UX requirements
+
+**Example**:
+```swift
+// ✅ VALID: Silent failure - error is logged internally, user sees nothing
+if let spaceId = try? await workspaceService.createOneToOneSpace(...) {
+    pageNavigation?.open(.spaceChat(...))
+}
+
+// ✅ ALSO VALID: Propagate error - AsyncStandardButton shows toast
+func onConnect() async throws {
+    let spaceId = try await workspaceService.createOneToOneSpace(...)
+    pageNavigation?.open(.spaceChat(...))
+}
+```
+
+**When to flag `try?`**:
+- Only if there's evidence the error SHOULD be shown to users
+- If the surrounding code expects error handling (e.g., catch blocks nearby)
+- If it's a user-initiated action that typically needs feedback
+
+### Mistake: Flagging SF Symbols as Non-Design System
+
+**Scenario**: Code uses `Image(systemName: "...")` instead of `Image(asset: ...)`.
+
+**Wrong Analysis**:
+- ❌ "Uses SF Symbol instead of design system asset"
+- ❌ "Should use Image(asset: ...) for consistency"
+
+**Why This Is Wrong**:
+- SF Symbols (`Image(systemName:)`) are a **valid and common pattern** in this codebase
+- 40+ usages across 24+ files confirm this is an accepted practice
+- SF Symbols provide consistent iOS-native icons and accessibility
+
+**Correct Approach**:
+- ✅ `Image(systemName: "qrcode.viewfinder")` - Valid
+- ✅ `Image(asset: .X24.qrCode)` - Also valid
+- Both approaches are acceptable depending on context and availability
+
 ## Analysis Checklist
 
 Before suggesting removal of "unused" code:

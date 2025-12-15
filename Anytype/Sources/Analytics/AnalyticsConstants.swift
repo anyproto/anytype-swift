@@ -51,6 +51,10 @@ enum AnalyticsEventsPropertiesKey {
     static let relationKey = "relationKey"
     static let unreadMessageCount = "unreadMessageCount"
     static let hasMention = "hasMention"
+    static let chatId = "chatId"
+    static let size = "size"
+    static let time = "time"
+    static let status = "status"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -301,6 +305,7 @@ enum PermissionAnalyticsType: String {
 
 enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
+    case profile = "Profile"
 }
 
 enum ScreenQrRoute: String {
@@ -308,6 +313,7 @@ enum ScreenQrRoute: String {
     case settingsSpace = "SettingsSpace"
     case spaceProfile = "SpaceProfile"
     case chat = "Chat"
+    case settings = "Settings"
 }
 
 enum ClickShareSpaceCopyLinkRoute: String {
@@ -499,4 +505,9 @@ enum ClickNavBarAddMenuType: String {
     case camera = "Camera"
     case file = "File"
     case photo = "Photo"
+}
+
+enum ScreenChatImageStatus: String {
+    case success = "Success"
+    case failure = "Failure"
 }

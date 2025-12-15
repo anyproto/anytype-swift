@@ -20,7 +20,7 @@ struct MembershipNameValidationView: View {
             HStack {
                 TextField(Loc.myself, text: $name)
                     .textContentType(.username)
-                AnytypeText(".any", style: .bodyRegular)
+                AnytypeText(AnyNameExtension.anyName.description, style: .bodyRegular)
                     .foregroundColor(.Text.primary)
             }
             .padding(.vertical, 12)
