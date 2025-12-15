@@ -59842,6 +59842,155 @@
         }
       }
     },
+    "Spaces.UxType.OneToOne.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direkter Kanal"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Direct channel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Canal directo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Kanal langsung"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Прямой канал"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Doğrudan kanal"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Direct channel"
+          }
+        }
+      }
+    },
     "Spaces.UxType.Space.ChangeDescription" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -60583,155 +60732,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Stream"
-          }
-        }
-      }
-    },
-    "Spaces.UxType.OneToOne.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direkter Kanal"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Direct channel"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Canal directo"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kanal langsung"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Прямой канал"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Doğrudan kanal"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Direct channel"
           }
         }
       }
@@ -68650,6 +68650,61 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "離開請求"
+          }
+        }
+      }
+    },
+    "SpaceShare.MakePrivate.Action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make Private"
+          }
+        }
+      }
+    },
+    "SpaceShare.MakePrivate.Confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        }
+      }
+    },
+    "SpaceShare.MakePrivate.Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated."
+          }
+        }
+      }
+    },
+    "SpaceShare.MakePrivate.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make this space private?"
+          }
+        }
+      }
+    },
+    "SpaceShare.MakePrivate.Toast" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can make the space private after removing all members"
           }
         }
       }

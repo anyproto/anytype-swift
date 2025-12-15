@@ -2370,6 +2370,13 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
       public static let title = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
+    public enum MakePrivate {
+      public static let action = Loc.tr("Workspace", "SpaceShare.MakePrivate.Action", fallback: "Make Private")
+      public static let confirm = Loc.tr("Workspace", "SpaceShare.MakePrivate.Confirm", fallback: "Confirm")
+      public static let message = Loc.tr("Workspace", "SpaceShare.MakePrivate.Message", fallback: "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.MakePrivate.Title", fallback: "Make this space private?")
+      public static let toast = Loc.tr("Workspace", "SpaceShare.MakePrivate.Toast", fallback: "You can make the space private after removing all members")
+    }
     public enum Permissions {
       public static let owner = Loc.tr("Workspace", "SpaceShare.Permissions.Owner", fallback: "Owner")
       public static let reader = Loc.tr("Workspace", "SpaceShare.Permissions.Reader", fallback: "Viewer")

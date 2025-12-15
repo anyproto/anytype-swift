@@ -54,8 +54,10 @@ final class SpaceShareViewModel {
     var changeAccessAlertModel: SpaceChangeAccessViewModel?
     var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     var showStopSharingAlert = false
+    var showMakePrivateAlert = false
     var showUpgradeBadge = false
     var canStopShare = false
+    var canMakePrivate = false
     var canDeleteLink = false
     var canRemoveMember = false
     var canApproveRequests = false
@@ -89,6 +91,22 @@ final class SpaceShareViewModel {
     func onStopSharing() {
         showStopSharingAlert = true
     }
+
+    func onMakePrivateTapped() {
+        if canMakePrivate {
+            AnytypeAnalytics.instance().logScreenStopShare()
+            showMakePrivateAlert = true
+        } else {
+            toastBarData = ToastBarData(Loc.SpaceShare.MakePrivate.toast, type: .neutral)
+        }
+    }
+
+    func onMakePrivateConfirm() async throws {
+        try await workspaceService.stopSharing(spaceId: spaceId)
+        toastBarData = ToastBarData(Loc.SpaceShare.StopSharing.toast, type: .success)
+        AnytypeAnalytics.instance().logStopSpaceShare()
+        linkViewModel.updateLink()
+    }
     
     func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
         onUpgradeTap(reason: MembershipUpgradeReason(participantReason: reason), route: route)
@@ -119,6 +137,8 @@ final class SpaceShareViewModel {
 
         hasReachedSharedSpacesLimit = spaceSharingInfo != nil && !spaceSharingInfo!.limitsAllowSharing
         canStopShare = participantSpaceView.canStopSharing
+        let activeMembers = participants.filter { $0.status == .active }
+        canMakePrivate = activeMembers.count == 1
         canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
             && participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
         canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions
