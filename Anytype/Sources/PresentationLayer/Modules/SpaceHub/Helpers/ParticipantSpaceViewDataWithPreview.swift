@@ -7,21 +7,14 @@ struct ParticipantSpaceViewDataWithPreview: Equatable, Identifiable, Hashable {
     let latestPreview: ChatMessagePreview
     let totalUnreadCounter: Int
     let totalMentionCounter: Int
+    let unreadCounterStyle: CounterViewStyle
+    let mentionCounterStyle: MentionBadgeStyle
 
     var id: String { space.id }
 
     var spaceView: SpaceView { space.spaceView }
 
     var hasCounters: Bool { totalUnreadCounter > 0 || totalMentionCounter > 0 }
-
-    func updated(latestPreview: ChatMessagePreview, totalUnread: Int, totalMentions: Int) -> Self {
-        ParticipantSpaceViewDataWithPreview(
-            space: space,
-            latestPreview: latestPreview,
-            totalUnreadCounter: totalUnread,
-            totalMentionCounter: totalMentions
-        )
-    }
 }
 
 extension ParticipantSpaceViewDataWithPreview {
@@ -30,7 +23,9 @@ extension ParticipantSpaceViewDataWithPreview {
             space: space,
             latestPreview: ChatMessagePreview(spaceId: space.id, chatId: space.spaceView.chatId),
             totalUnreadCounter: 0,
-            totalMentionCounter: 0
+            totalMentionCounter: 0,
+            unreadCounterStyle: .highlighted,
+            mentionCounterStyle: .highlighted
         )
     }
 }

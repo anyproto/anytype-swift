@@ -115,12 +115,12 @@ struct NewSpaceCardLabel: View {
     private var unreadCounters: some View {
         HStack(spacing: 4) {
             if model.mentionCounter > 0 {
-                MentionBadge(style: model.isMuted ? .muted : .highlighted)
+                MentionBadge(style: model.mentionCounterStyle)
             }
             if model.unreadCounter > 0 {
                 CounterView(
                     count: model.unreadCounter,
-                    style: model.isMuted ? .muted : .highlighted
+                    style: model.unreadCounterStyle
                 )
             }
         }
