@@ -61946,7 +61946,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bu Türü silmek istediğinden emin misin? Bu Türdeki mevcut tüm nesneler korunacak ancak artık onunla ilişkilendirilmeyecekler."
+            "value" : "Bu Türü silmek istediğinizden emin misiniz? Bu Türdeki mevcut tüm nesneler korunacak, ancak artık onunla ilişkilendirilmeyecekler."
           }
         },
         "uk" : {
