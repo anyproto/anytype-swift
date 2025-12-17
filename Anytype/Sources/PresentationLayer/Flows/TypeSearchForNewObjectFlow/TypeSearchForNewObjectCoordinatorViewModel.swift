@@ -7,7 +7,9 @@ import AnytypeCore
 @MainActor
 final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     @Published var shouldDismiss = false
-    
+
+    var pageNavigation: PageNavigation?
+
     @Injected(\.pasteboardBlockService)
     private var pasteboardBlockService: any PasteboardBlockServiceProtocol
     @Injected(\.objectActionsService)
@@ -82,6 +84,12 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
         type: ObjectType,
         pasteContent: Bool
     ) {
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: spaceId)))
+            pageNavigation?.open(screenData)
+            return
+        }
+
         Task {
             let details = try await objectActionsService.createObject(
                 name: "",

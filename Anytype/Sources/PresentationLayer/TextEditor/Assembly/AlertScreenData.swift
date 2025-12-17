@@ -5,21 +5,37 @@ struct ObjectInfo: Hashable, Codable, Identifiable {
     var id: String { objectId + spaceId }
 }
 
+struct ChatCreateScreenData: Hashable, Identifiable {
+    let spaceId: String
+    let collectionId: String?
 
-enum AlertScreenData: Hashable, Codable {
+    var id: Int { hashValue }
+
+    init(spaceId: String, collectionId: String? = nil) {
+        self.spaceId = spaceId
+        self.collectionId = collectionId
+    }
+}
+
+enum AlertScreenData: Hashable {
     case spaceMember(ObjectInfo)
-    
-    var objectId: String {
+    case chatCreate(ChatCreateScreenData)
+
+    var objectId: String? {
         switch self {
         case .spaceMember(let info):
             info.objectId
+        case .chatCreate:
+            nil
         }
     }
-    
+
     var spaceId: String {
         switch self {
         case .spaceMember(let info):
             info.spaceId
+        case .chatCreate(let data):
+            data.spaceId
         }
     }
 }

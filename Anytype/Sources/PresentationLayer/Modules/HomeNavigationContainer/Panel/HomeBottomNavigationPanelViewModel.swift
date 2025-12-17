@@ -118,6 +118,13 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     func onTapCreateObject(type: ObjectType) {
         AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
+
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: info.accountSpaceId)))
+            output?.onCreateObjectSelected(screenData: screenData)
+            return
+        }
+
         Task { @MainActor in
             let details = try await objectActionsService.createObject(
                 name: "",

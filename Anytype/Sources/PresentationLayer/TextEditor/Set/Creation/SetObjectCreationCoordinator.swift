@@ -47,8 +47,8 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             self.output = output
             self.customAnalyticsRoute = customAnalyticsRoute
             do {
-                let result = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
-                handleCreatedObjectIfNeeded(result.details, titleInputType: result.titleInputType, setDocument: setDocument, mode: mode)
+                let action = try await objectCreationHelper.createObject(for: setDocument, setting: setting)
+                handleAction(action, mode: mode, setDocument: setDocument)
             } catch {
                 anytypeAssertionFailure("Cannot create object for set document", info: [
                     "error": error.localizedDescription
@@ -56,9 +56,10 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             }
         }
     }
-    
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: some SetDocumentProtocol, mode: SetObjectCreationMode) {
-        if let details {
+
+    private func handleAction(_ action: SetObjectCreationAction, mode: SetObjectCreationMode, setDocument: some SetDocumentProtocol) {
+        switch action {
+        case .showObject(let details, let titleInputType):
             switch mode {
             case .internal:
                 showCreateObject(details: details, titleInputType: titleInputType)
@@ -70,8 +71,13 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
                 spaceId: details.spaceId,
                 route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
             )
-        } else {
-            showCreateBookmarkObject(setDocument: setDocument)
+
+        case .showBookmarkCreation(let spaceId, let collectionId):
+            showCreateBookmarkObject(spaceId: spaceId, collectionId: collectionId)
+
+        case .showChatCreation(let spaceId, let collectionId):
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: spaceId, collectionId: collectionId)))
+            showObject(data: screenData)
         }
     }
     
@@ -86,10 +92,10 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         navigationContext.present(moduleViewController)
     }
     
-    private func showCreateBookmarkObject(setDocument: some SetDocumentProtocol) {
+    private func showCreateBookmarkObject(spaceId: String, collectionId: String?) {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            spaceId: setDocument.spaceId,
-            collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
+            spaceId: spaceId,
+            collectionId: collectionId,
             closeAction: { [weak self] details in
                 self?.navigationContext.dismissTopPresented(animated: true) {
                     guard details.isNil else {

@@ -1403,6 +1403,9 @@ public enum Loc {
         return Loc.tr("Workspace", "Chat.AttachmentsError.LimitExceeded", p1, fallback: "Plural format key: Chat.AttachmentsError.LimitExceeded")
       }
     }
+    public enum Create {
+      public static let namePlaceholder = Loc.tr("Workspace", "Chat.Create.namePlaceholder", fallback: "Chat Name")
+    }
     public enum CreateObject {
       public enum Dismiss {
         public static let message = Loc.tr("Workspace", "Chat.CreateObject.Dismiss.Message", fallback: "If you leave it, all your changes will be lost.")

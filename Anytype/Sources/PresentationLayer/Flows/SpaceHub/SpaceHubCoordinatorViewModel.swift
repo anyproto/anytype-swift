@@ -29,6 +29,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
     var spaceCreateData: SpaceCreateData?
+    var chatCreateData: ChatCreateScreenData?
     var showSpaceTypeForCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
@@ -377,6 +378,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
+        case .chatCreate(let chatData):
+            chatCreateData = chatData
         }
     }
     

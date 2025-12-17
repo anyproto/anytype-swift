@@ -15,7 +15,7 @@ struct ObjectIconView: View {
         case .emoji(let emoji, let circular):
             EmojiIconView(emoji: emoji, circular: circular)
         case let .customIcon(data):
-            CustomIconView(icon: data.icon, iconColor: data.color)
+            CustomIconView(icon: data.icon, iconColor: data.color, circular: data.circular)
         case .bookmark(let imageId):
             BookmarkIconView(imageId: imageId)
         case .space(let space):
