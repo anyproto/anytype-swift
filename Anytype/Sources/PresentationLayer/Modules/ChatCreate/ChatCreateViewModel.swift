@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 import AnytypeCore
+import DesignKit
 
 enum ChatIconSelection {
     case file(FileData)
@@ -41,6 +42,7 @@ final class ChatCreateViewModel {
     var createLoadingState = false
     var dismiss: Bool = false
     var iconPickerData: ChatIconPickerData?
+    var toastBarData: ToastBarData?
 
     @ObservationIgnored
     var pageNavigation: PageNavigation?
@@ -58,16 +60,22 @@ final class ChatCreateViewModel {
         Task {
             defer { createLoadingState = false }
 
-            guard let details = try? await objectActionsService.createObject(
-                name: chatName,
-                typeUniqueKey: .chatDerived,
-                shouldDeleteEmptyObject: false,
-                shouldSelectType: false,
-                shouldSelectTemplate: false,
-                spaceId: data.spaceId,
-                origin: .none,
-                templateId: nil
-            ) else { return }
+            let details: ObjectDetails
+            do {
+                details = try await objectActionsService.createObject(
+                    name: chatName,
+                    typeUniqueKey: .chatDerived,
+                    shouldDeleteEmptyObject: false,
+                    shouldSelectType: false,
+                    shouldSelectTemplate: false,
+                    spaceId: data.spaceId,
+                    origin: .none,
+                    templateId: nil
+                )
+            } catch {
+                toastBarData = ToastBarData(error.localizedDescription, type: .failure)
+                return
+            }
 
             switch iconSelection {
             case .emoji(let emojiData):

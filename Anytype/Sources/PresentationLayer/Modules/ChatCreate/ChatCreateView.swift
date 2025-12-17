@@ -69,6 +69,7 @@ struct ChatCreateView: View {
             .padding(.horizontal, 20)
         }
         .background(Color.Background.primary)
+        .snackbar(toastBarData: $model.toastBarData)
     }
 
     private var iconSection: some View {
