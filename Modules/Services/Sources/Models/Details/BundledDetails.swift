@@ -53,5 +53,8 @@ extension BundledDetails {
         case .lastUsedDate(let date): date.protobufValue
         }
     }
-    
+
+    public static func iconDetails(objectId: String = "", iconName: String = "", iconEmoji: String = "", iconOption: Int? = nil) -> [BundledDetails] {
+        [.iconObjectId(objectId), .iconName(iconName), .iconEmoji(iconEmoji), .iconOption(iconOption ?? 1)]
+    }
 }

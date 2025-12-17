@@ -89,7 +89,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 AnytypeAnalytics.instance().logSetIcon()
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
-                    bundledDetails: iconBundledDetails(iconEmoji: emojiUnicode)
+                    bundledDetails: BundledDetails.iconDetails(iconEmoji: emojiUnicode)
                 )
             case .upload(let itemProvider):
                 AnytypeAnalytics.instance().logSetIcon()
@@ -98,25 +98,21 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol, 
                 let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
-                    bundledDetails: iconBundledDetails(objectId: fileDetails.id)
+                    bundledDetails: BundledDetails.iconDetails(objectId: fileDetails.id)
                 )
             case let .customIcon(data):
                 AnytypeAnalytics.instance().logSetIcon()
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
-                    bundledDetails: iconBundledDetails(iconName: data.icon.stringRepresentation, iconOption: data.color.iconOption)
+                    bundledDetails: BundledDetails.iconDetails(iconName: data.icon.stringRepresentation, iconOption: data.color.iconOption)
                 )
             }
         case .removeIcon:
             AnytypeAnalytics.instance().logRemoveIcon()
             try await detailsService.updateBundledDetails(
                 objectId: objectId,
-                bundledDetails: iconBundledDetails()
+                bundledDetails: BundledDetails.iconDetails()
             )
         }
-    }
-    
-    private func iconBundledDetails(objectId: String = "", iconName: String = "", iconEmoji: String = "", iconOption: Int? = nil) -> [BundledDetails] {
-        return [.iconObjectId(objectId), .iconName(iconName), .iconEmoji(iconEmoji), .iconOption(iconOption ?? 1)]
     }
 }

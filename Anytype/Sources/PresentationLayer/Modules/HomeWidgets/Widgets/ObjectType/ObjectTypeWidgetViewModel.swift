@@ -58,7 +58,13 @@ final class ObjectTypeWidgetViewModel {
     func onCreateObject() {
         Task {
             let type = try objectTypeProvider.objectType(id: info.objectTypeId)
-            
+
+            if type.isChatType {
+                let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: type.spaceId)))
+                output?.onObjectSelected(screenData: screenData)
+                return
+            }
+
             let details = try await objectActionsService.createObject(
                 name: "",
                 typeUniqueKey: type.uniqueKey,
