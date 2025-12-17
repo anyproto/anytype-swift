@@ -2,8 +2,10 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-struct HomeWidgetData: Hashable {
+struct HomeWidgetData: Hashable, Identifiable {
     let spaceId: String
+    
+    var id: String { spaceId }
 }
 
 struct HomeWidgetsCoordinatorView: View {

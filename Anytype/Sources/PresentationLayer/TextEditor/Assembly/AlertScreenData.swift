@@ -20,11 +20,14 @@ struct ChatCreateScreenData: Hashable, Identifiable {
 enum AlertScreenData: Hashable {
     case spaceMember(ObjectInfo)
     case chatCreate(ChatCreateScreenData)
+    case widget(HomeWidgetData)
 
     var objectId: String? {
         switch self {
         case .spaceMember(let info):
             info.objectId
+        case .widget:
+            nil
         case .chatCreate:
             nil
         }
@@ -36,6 +39,8 @@ enum AlertScreenData: Hashable {
             info.spaceId
         case .chatCreate(let data):
             data.spaceId
+        case .widget(let info):
+            info.spaceId
         }
     }
 }

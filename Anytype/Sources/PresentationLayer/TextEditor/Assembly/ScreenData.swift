@@ -16,6 +16,12 @@ enum ScreenType {
     }
 }
 
+struct SpaceInitialStateData: Hashable, Identifiable, Sendable {
+    let spaceId: String
+    
+    var id: String { spaceId }
+}
+
 enum ScreenData: Hashable, Identifiable, Sendable {
     case editor(EditorScreenData)
     case alert(AlertScreenData)
@@ -25,7 +31,8 @@ enum ScreenData: Hashable, Identifiable, Sendable {
     // Read SpaceChatCoordinatorView why chat and spaceChat are different
     case chat(ChatCoordinatorData)
     case spaceChat(SpaceChatCoordinatorData)
-    case widget(HomeWidgetData)
+//    case widget(HomeWidgetData)
+    case initialState(SpaceInitialStateData)
     
     var id: Int { hashValue }
 }
@@ -39,7 +46,9 @@ extension ScreenData {
             return alertScreenData.objectId
         case .bookmark(let data):
             return data.editorScreenData.objectId
-        case .preview, .spaceInfo, .chat, .widget, .spaceChat:
+        case .preview, .spaceInfo, .chat, .spaceChat:
+            return nil
+        case .initialState(_):
             return nil
         }
     }
@@ -58,9 +67,11 @@ extension ScreenData {
             data.spaceId
         case .chat(let data):
             data.spaceId
-        case .widget(let data):
-            data.spaceId
+//        case .widget(let data):
+//            data.spaceId
         case .spaceChat(let data):
+            data.spaceId
+        case .initialState(let data):
             data.spaceId
         }
     }

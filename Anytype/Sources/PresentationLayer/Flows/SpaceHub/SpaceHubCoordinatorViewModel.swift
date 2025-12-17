@@ -30,6 +30,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var bookmarkScreenData: BookmarkScreenData?
     var spaceCreateData: SpaceCreateData?
     var chatCreateData: ChatCreateScreenData?
+    var overlayWidgetsData: HomeWidgetData?
     var showSpaceTypeForCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
@@ -61,8 +62,9 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         open: { [weak self] data in
             self?.showScreenSync(data: data)
         }, pushHome: { [weak self] in
-            guard let self, let currentSpaceId else { return }
-            navigationPath.push(HomeWidgetData(spaceId: currentSpaceId))
+            return
+//            guard let self, let currentSpaceId else { return }
+//            navigationPath.push(HomeWidgetData(spaceId: currentSpaceId))
         }, pop: { [weak self] in
             self?.navigationPath.pop()
         }, popToFirstInSpace: { [weak self] in
@@ -125,18 +127,34 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onPathChange() {
+        let screen: LastOpenedScreen?
+        let spaceId: String?
+
         if let editorData = navigationPath.lastPathElement as? EditorScreenData {
-            userDefaults.lastOpenedScreen = .editor(editorData)
-        } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
-            userDefaults.lastOpenedScreen = .widgets(spaceId: widgetData.spaceId)
+            screen = .editor(editorData)
+            spaceId = editorData.spaceId
+//        } else if let widgetData = navigationPath.lastPathElement as? HomeWidgetData {
+//            screen = .widgets(spaceId: widgetData.spaceId)
+//            spaceId = widgetData.spaceId
         } else if let chatData = navigationPath.lastPathElement as? ChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .chat(chatData)
+            screen = .chat(chatData)
+            spaceId = chatData.spaceId
         } else if let chatData = navigationPath.lastPathElement as? SpaceChatCoordinatorData {
-            userDefaults.lastOpenedScreen = .spaceChat(chatData)
+            screen = .spaceChat(chatData)
+            spaceId = chatData.spaceId
         } else {
-            userDefaults.lastOpenedScreen = nil
+            screen = nil
+            spaceId = nil
         }
-        
+
+        // Global (for app launch restoration)
+        userDefaults.lastOpenedScreen = screen
+
+        // Per-space (for space switching)
+        if let screen, let spaceId {
+            userDefaults.setLastOpenedScreen(spaceId: spaceId, screen: screen)
+        }
+
         if navigationPath.count == 1 {
             Task {
                 currentSpaceId = nil
@@ -170,8 +188,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
             try? await showScreen(data: .editor(editorData))
-        case .widgets(let spaceId):
-            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
+//        case .widgets(let spaceId):
+//            try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
         case .chat(let data):
             try? await showScreen(data: .chat(data))
         case .spaceChat(let data):
@@ -310,13 +328,21 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     private func openSpaceWithIntialScreen(spaceId: String) async throws {
         let spaceView = try await setActiveSpace(spaceId: spaceId)
-        if spaceView.initialScreenIsChat {
-            let chatData = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-            try await showScreen(data: .spaceChat(chatData))
-        } else {
-            let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
-            try await showScreen(data: .widget(widgetData))
+        let targetSpaceId = spaceView.targetSpaceId
+
+        // Check for per-space last opened screen
+        if let lastScreen = userDefaults.lastOpenedScreen(spaceId: targetSpaceId) {
+            do {
+                try await showScreen(data: lastScreen.toScreenData())
+                return
+            } catch {
+                // Object might be deleted, continue to empty state
+            }
         }
+
+        // No last object or failed to open - show initial state
+        currentSpaceId = targetSpaceId
+        navigationPath = HomePath(initialPath: [SpaceHubNavigationItem(), SpaceInitialStateData(spaceId: targetSpaceId)])
     }
     
     private func showScreen(data: ScreenData) async throws {
@@ -362,8 +388,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             currentPath.openOnce(data)
         case .spaceChat(let data):
             currentPath.openOnce(data)
-        case .widget(let data):
-            let data = HomeWidgetData(spaceId: data.spaceId)
+//        case .widget(let data):
+//            let data = HomeWidgetData(spaceId: data.spaceId)
+//            currentPath.openOnce(data)
+        case .initialState(let data):
             currentPath.openOnce(data)
         }
         
@@ -380,6 +408,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             profileData = objectInfo
         case .chatCreate(let chatData):
             chatCreateData = chatData
+        case .widget(let widgetData):
+            overlayWidgetsData = widgetData
         }
     }
     
@@ -436,13 +466,27 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     private func initialHomePath(spaceView: SpaceView) -> [AnyHashable] {
-        .builder {
+        let targetSpaceId = spaceView.targetSpaceId
+        let lastScreen = userDefaults.lastOpenedScreen(spaceId: targetSpaceId)
+
+        return .builder {
             SpaceHubNavigationItem()
-            if spaceView.initialScreenIsChat {
-                SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-            } else {
-                HomeWidgetData(spaceId: spaceView.targetSpaceId)
+
+            // Add last opened screen if exists (skip widget)
+            if let lastScreen {
+                switch lastScreen {
+                case .editor(let editorData):
+                    editorData
+                case .chat(let chatData):
+                    chatData
+                case .spaceChat(let chatData):
+                    chatData
+//                case .widgets:
+//                    // Skip widget - show empty state
+//                    break
+                }
             }
+            // If no lastScreen, path is just [SpaceHubNavigationItem] - empty state
         }
     }
 
@@ -594,8 +638,12 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
 
     func popToFirstInSpace() {
-        guard !pathChanging else { return }
-        navigationPath.popToFirstOpened()
+        guard let spaceInfo else { return }
+        overlayWidgetsData = HomeWidgetData(spaceId: spaceInfo.accountSpaceId)
+        
+        
+//        guard !pathChanging else { return }
+//        navigationPath.popToFirstOpened()
     }
     
     func onPickTypeForNewObjectSelected() {

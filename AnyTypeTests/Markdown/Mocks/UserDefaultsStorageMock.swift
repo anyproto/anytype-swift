@@ -17,7 +17,15 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     var rowsPerPageInGroupedSet: Int { get { fatalError() } set { fatalError() } }
     var userInterfaceStyle: UIUserInterfaceStyle { get { fatalError() } set { fatalError() } }
     var lastOpenedScreen: LastOpenedScreen? { get { fatalError() } set { fatalError() } }
-    
+
+    func lastOpenedScreen(spaceId: String) -> LastOpenedScreen? {
+        fatalError()
+    }
+
+    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen) {
+        fatalError()
+    }
+
     func wallpapersPublisher() -> AnyPublisher<[String : Anytype.SpaceWallpaperType], Never> {
         fatalError()
     }

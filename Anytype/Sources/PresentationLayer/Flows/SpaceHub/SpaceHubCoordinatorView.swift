@@ -81,6 +81,10 @@ struct SpaceHubCoordinatorView: View {
                 ChatCreateView(data: data)
                     .pageNavigation(model.pageNavigation)
             }
+            .sheet(item: $model.overlayWidgetsData) { data in
+                HomeWidgetsCoordinatorView(data: data)
+                    .pageNavigation(model.pageNavigation)
+            }
             .sheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)
@@ -127,9 +131,9 @@ struct SpaceHubCoordinatorView: View {
                 path: $model.navigationPath,
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
-                        builder.appendBuilder(for: HomeWidgetData.self) { data in
-                            HomeWidgetsCoordinatorView(data: data)
-                        }
+//                        builder.appendBuilder(for: HomeWidgetData.self) { data in
+//                            HomeWidgetsCoordinatorView(data: data)
+//                        }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)
                         }
@@ -141,6 +145,14 @@ struct SpaceHubCoordinatorView: View {
                         }
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
+                        }
+                        builder.appendBuilder(for: SpaceInitialStateData.self) { _ in
+                            Rectangle().foregroundStyle(Color.Pure.orange).ignoresSafeArea()
+                                .navigationTitle("emptyState")
+                                .navigationBarTitleDisplayMode(.large)
+                                .overlay(alignment: .center) {
+                                    AnytypeText("EMPTY STATE FOLKS!", style: .title)
+                                }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {

@@ -5,7 +5,7 @@ import SwiftUI
 
 enum LastOpenedScreen: Codable {
     case editor(EditorScreenData)
-    case widgets(spaceId: String)
+//    case widgets(spaceId: String)
     case chat(ChatCoordinatorData)
     case spaceChat(SpaceChatCoordinatorData)
     
@@ -13,8 +13,8 @@ enum LastOpenedScreen: Codable {
         switch self {
         case .editor(let data):
             data.spaceId
-        case .widgets(let spaceId):
-            spaceId
+//        case .widgets(let spaceId):
+//            spaceId
         case .chat(let data):
             data.spaceId
         case .spaceChat(let data):
@@ -33,8 +33,10 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
     var lastOpenedScreen: LastOpenedScreen? { get set }
-    
-    
+
+    func lastOpenedScreen(spaceId: String) -> LastOpenedScreen?
+    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen)
+
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
     func wallpaper(spaceId: String) -> SpaceWallpaperType
@@ -68,7 +70,18 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     
     @UserDefault("UserData.LastOpenedScreen.NewKey", defaultValue: nil)
     var lastOpenedScreen: LastOpenedScreen?
-    
+
+    @UserDefault("UserData.LastOpenedScreens", defaultValue: [:])
+    private var _lastOpenedScreens: [String: LastOpenedScreen]
+
+    func lastOpenedScreen(spaceId: String) -> LastOpenedScreen? {
+        return _lastOpenedScreens[spaceId]
+    }
+
+    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen) {
+        _lastOpenedScreens[spaceId] = screen
+    }
+
     @UserDefault("serverConfig", defaultValue: .anytype)
     private var serverConfig: NetworkServerConfig
     
@@ -118,6 +131,22 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     func cleanStateAfterLogout() {
         showUnstableMiddlewareError = true
         lastOpenedScreen = nil
+        _lastOpenedScreens = [:]
     }
-    
+
+}
+
+extension LastOpenedScreen {
+    func toScreenData() -> ScreenData {
+        switch self {
+        case .editor(let data):
+            return .editor(data)
+//        case .widgets(let spaceId):
+//            return .widget(HomeWidgetData(spaceId: spaceId))
+        case .chat(let data):
+            return .chat(data)
+        case .spaceChat(let data):
+            return .spaceChat(data)
+        }
+    }
 }
