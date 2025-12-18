@@ -11,5 +11,6 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onCameraSelected(spaceId: String)
     func onAddFilesSelected(spaceId: String)
     func popToFirstInSpace()
+    func openWidgets()
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject)
 }

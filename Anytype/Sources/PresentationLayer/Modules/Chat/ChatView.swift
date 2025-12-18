@@ -8,6 +8,7 @@ struct ChatView: View {
     @State private var actionState = ChatActionOverlayState()
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.chatActionProvider) private var chatActionProvider
+    @Environment(\.pageNavigation) private var pageNavigation
     
     init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
         self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
@@ -104,6 +105,9 @@ struct ChatView: View {
                 sendButtonIsLoading: model.sendButtonIsLoading,
                 createObjectTypes: model.typesForCreateObject,
                 spaceUxType: model.spaceUxType,
+                onTapBurger: {
+                    pageNavigation.open(.alert(.widget(HomeWidgetData(spaceId: model.spaceId))))
+                },
                 onTapAddObject: {
                     model.onTapAddObjectToMessage()
                 },

@@ -15,7 +15,7 @@ struct PageNavigationBackButton: View {
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.3)
                 .onEnded { _ in
-                    pageNavigation.popToFirstInSpace()
+                    pageNavigation.openWidgets()
                 }
         )
         .if(pageNavigationHiddenBackButton) {

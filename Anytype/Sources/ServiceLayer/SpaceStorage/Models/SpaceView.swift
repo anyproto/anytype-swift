@@ -119,7 +119,11 @@ extension SpaceView {
     var hasChat: Bool {
         chatId.isNotEmpty
     }
-    
+
+    var canShowChatWidget: Bool {
+        !uxType.supportsMultiChats
+    }
+
     func canAddWriters(participants: [Participant]) -> Bool {
         guard let writersLimit else { return true }
         return writersLimit > activeWriters(participants: participants)

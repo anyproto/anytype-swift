@@ -12,6 +12,7 @@ struct ChatInput: View {
     let sendButtonIsLoading: Bool
     let createObjectTypes: [ObjectType]
     let spaceUxType: SpaceUxType
+    let onTapBurger: () -> Void
     let onTapAddObject: () -> Void
     let onTapAddMedia: () -> Void
     let onTapAddFiles: () -> Void
@@ -26,13 +27,24 @@ struct ChatInput: View {
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
-            plusButton
+            burgerButton
             input
+            plusButton
             sendButton
         }
         .padding(.horizontal, 8)
     }
     
+    private var burgerButton: some View {
+        Button {
+            onTapBurger()
+        } label: {
+            Image(asset: .X24.burger)
+                .navPanelDynamicForegroundStyle()
+        }
+        .frame(height: 56)
+    }
+
     private var plusButton: some View {
         Menu {
             Button { onTapAddMedia() } label: {

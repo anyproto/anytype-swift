@@ -2,15 +2,25 @@ import Foundation
 import SwiftUI
 
 struct WidgetsHeaderView: View {
-    
+
     @StateObject private var model: WidgetsHeaderViewModel
-    
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.pageNavigation) private var pageNavigation
+
     init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
         _model = StateObject(wrappedValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
     }
-    
+
     var body: some View {
-        PageNavigationHeader {
+        NavigationHeaderContainer(spacing: 20) {
+            ExpandedTapAreaButton {
+                dismiss()
+                pageNavigation.popToFirstInSpace()
+            } label: {
+                Image(asset: .X32.Island.vault)
+                    .navPanelDynamicForegroundStyle()
+            }
+        } titleView: {
             HStack(spacing: 12) {
                 IconView(icon: model.spaceIcon)
                     .frame(width: 32, height: 32)
@@ -34,6 +44,8 @@ struct WidgetsHeaderView: View {
                     .foregroundStyle(Color.Control.transparentSecondary)
             }
         }
+        .padding(.horizontal, 16)
+        .frame(height: PageNavigationHeaderConstants.height)
         .background {
             HomeBlurEffectView(direction: .topToBottom)
                 .ignoresSafeArea()

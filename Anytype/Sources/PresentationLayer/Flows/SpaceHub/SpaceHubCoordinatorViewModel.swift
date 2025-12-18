@@ -69,6 +69,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             self?.navigationPath.pop()
         }, popToFirstInSpace: { [weak self] in
             self?.popToFirstInSpace()
+        }, openWidgets: { [weak self] in
+            self?.openWidgets()
         }, replace: { [weak self] data in
             guard let self else { return }
             if navigationPath.count > 1 {
@@ -638,12 +640,13 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     }
 
     func popToFirstInSpace() {
+        guard !pathChanging else { return }
+        navigationPath.popToRoot()
+    }
+
+    func openWidgets() {
         guard let spaceInfo else { return }
         overlayWidgetsData = HomeWidgetData(spaceId: spaceInfo.accountSpaceId)
-        
-        
-//        guard !pathChanging else { return }
-//        navigationPath.popToFirstOpened()
     }
     
     func onPickTypeForNewObjectSelected() {
@@ -666,6 +669,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
         AnytypeAnalytics.instance().logClickQuote()
         chatProvider.addAttachment(attachment, clearInput: true)
-        popToFirstInSpace()
+        openWidgets()
     }
 }

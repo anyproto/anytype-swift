@@ -180,7 +180,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             Button {
                 model.onTapAddToSpaceLevelChat()
             } label: {
-                Image(asset: .X32.Island.discuss)
+                Image(asset: .X24.burger)
                     .navPanelDynamicForegroundStyle()
             }
             .disabled(!enable)
@@ -188,7 +188,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             Button {
                 model.onTapHome()
             } label: {
-                Image(asset: .X32.Island.vault)
+                Image(asset: .X24.burger)
                     .navPanelDynamicForegroundStyle()
             }
         case .none:
