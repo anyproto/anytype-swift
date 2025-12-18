@@ -48,6 +48,7 @@ protocol SetDocumentProtocol: AnyObject, Sendable {
     func isTypeSet() -> Bool
     func isSetByRelation() -> Bool
     func isBookmarksSet() -> Bool
+    func isChatSet() -> Bool
     func isCollection() -> Bool
     func isActiveHeader() -> Bool
     func defaultObjectTypeForActiveView() throws -> ObjectType

@@ -95,7 +95,7 @@ final class LinkWidgetViewModel: ObservableObject {
         let isMuted = !(spaceView?.effectiveNotificationMode(for: linkedObjectDetails.id).isUnmutedAll ?? true)
 
         badgeModel = MessagePreviewModel(
-            creatorTitle: lastMessage.creator?.globalName,
+            creatorTitle: lastMessage.creator?.title,
             text: lastMessage.text,
             attachments: Array(attachments),
             localizedAttachmentsText: lastMessage.localizedAttachmentsText,

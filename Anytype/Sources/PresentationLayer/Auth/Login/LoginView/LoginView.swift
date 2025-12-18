@@ -142,7 +142,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             ZStack {
                 Circle()
-                    .fill(Color.Shape.transperentSecondary)
+                    .fill(Color.Shape.transparentSecondary)
                     .frame(width: 56, height: 56)
                 Image(asset: asset)
                     .foregroundStyle(Color.Control.primary)

@@ -5,8 +5,9 @@ import AnytypeCore
 public protocol WorkspaceServiceProtocol: Sendable {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
-    
+
     func createSpace(name: String, iconOption: Int, accessType: SpaceAccessType, useCase: UseCase, withChat: Bool, uxType: SpaceUxType) async throws -> WorkspaceCreateResponse
+    func createOneToOneSpace(oneToOneIdentity: String, metadataKey: String) async throws -> String
     func workspaceOpen(spaceId: String, withChat: Bool) async throws -> AccountInfo
     func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws
     func workspaceExport(spaceId: String, path: String) async throws -> String
@@ -67,7 +68,20 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         }).invoke()
         return result
     }
-    
+
+    public func createOneToOneSpace(oneToOneIdentity: String, metadataKey: String) async throws -> String {
+        let result = try await ClientCommands.workspaceCreate(.with {
+            $0.details.fields[BundledPropertyKey.spaceAccessType.rawValue] = SpaceAccessType.shared.rawValue.protobufValue
+            $0.details.fields[BundledPropertyKey.spaceUxType.rawValue] = SpaceUxType.oneToOne.rawValue.protobufValue
+            $0.details.fields[BundledPropertyKey.oneToOneIdentity.rawValue] = oneToOneIdentity.protobufValue
+            $0.details.fields[BundledPropertyKey.oneToOneRequestMetadataKey.rawValue] = metadataKey.protobufValue
+            $0.useCase = .none
+            $0.withChat = true
+        }).invoke()
+
+        return result.spaceID
+    }
+
     public func workspaceOpen(spaceId: String, withChat: Bool) async throws -> AccountInfo {
         let result = try await ClientCommands.workspaceOpen(.with {
             $0.spaceID = spaceId

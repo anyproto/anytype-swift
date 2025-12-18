@@ -6,11 +6,10 @@ public typealias MembershipSubscriptionStatus = Anytype_Model_Membership.Status
 public typealias MembershipPaymentMethod = Anytype_Model_Membership.PaymentMethod
 public typealias AnyNameExtension = Anytype_Model_NameserviceNameType
 
-
 public struct AnyName: Equatable, Sendable {
     public let handle: String
     public let `extension`: AnyNameExtension
-    
+
     public init(handle: String, extension: AnyNameExtension) {
         self.handle = handle
         self.extension = `extension`

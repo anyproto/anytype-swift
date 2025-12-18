@@ -3,10 +3,17 @@ import AnytypeCore
 import ProtobufMessages
 
 public extension BundledPropertyKey {
-    static let sortIncudeTimeKeys: [BundledPropertyKey] = [
-        .lastOpenedDate,
+    static let dateKeys: [BundledPropertyKey] = [
+        .createdDate,
         .lastModifiedDate,
-        .createdDate
+        .lastOpenedDate,
+        .lastMessageDate,
+        .dueDate,
+        .addedDate,
+        .lastUsedDate,
+        .syncDate,
+        .spaceJoinDate,
+        .toBeDeletedDate
     ]
 }
 
@@ -14,14 +21,14 @@ public extension BundledPropertyKey {
 
 public extension DataviewSort {
     func fixIncludeTime() -> Self {
-        let rawKeys = BundledPropertyKey.sortIncudeTimeKeys.map(\.rawValue)
-        
+        let rawKeys = BundledPropertyKey.dateKeys.map(\.rawValue)
+
         if rawKeys.contains(relationKey) {
             var newSort = self
             newSort.includeTime = true
             return newSort
         }
-        
+
         return self
     }
 }

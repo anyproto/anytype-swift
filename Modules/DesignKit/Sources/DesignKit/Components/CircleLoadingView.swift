@@ -50,14 +50,14 @@ public struct CircleLoadingView: View {
     VStack {
         CircleLoadingView()
             .frame(width: 30, height: 30)
-            .background(Color.Shape.transperentPrimary)
+            .background(Color.Shape.transparentPrimary)
         
         CircleLoadingView()
             .frame(width: 50, height: 50)
-            .background(Color.Shape.transperentPrimary)
+            .background(Color.Shape.transparentPrimary)
         
         CircleLoadingView()
             .frame(width: 100, height: 100)
-            .background(Color.Shape.transperentPrimary)
+            .background(Color.Shape.transparentPrimary)
     }
 }

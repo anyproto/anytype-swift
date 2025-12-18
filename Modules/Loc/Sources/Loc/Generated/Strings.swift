@@ -262,6 +262,8 @@ public enum Loc {
   public static let color = Loc.tr("UI", "Color", fallback: "Color")
   public static let companiesContactsFriendsAndFamily = Loc.tr("UI", "Companies, contacts, friends and family", fallback: "Companies, contacts, friends and family")
   public static let confirm = Loc.tr("UI", "Confirm", fallback: "Confirm")
+  public static let connect = Loc.tr("UI", "Connect", fallback: "Connect")
+  public static let connectWithMeOnAnytype = Loc.tr("UI", "Connect with me on Anytype", fallback: "Connect with me on Anytype")
   public static let connecting = Loc.tr("UI", "Connecting", fallback: "Connecting...")
   public static let contentModel = Loc.tr("UI", "Content Model", fallback: "Content Model")
   public static let `continue` = Loc.tr("UI", "Continue", fallback: "Continue")
@@ -553,6 +555,7 @@ public enum Loc {
   public static let restoreFromKeychain = Loc.tr("UI", "Restore from keychain", fallback: "Restore from keychain")
   public static let restoreKeyFromKeychain = Loc.tr("UI", "Restore key from keychain", fallback: "Restore Key from the keychain")
   public static let save = Loc.tr("UI", "Save", fallback: "Save")
+  public static let savedToPhotos = Loc.tr("UI", "Saved to Photos", fallback: "Saved to Photos")
   public static let scanDocuments = Loc.tr("UI", "Scan documents", fallback: "Scan documents")
   public static let scanQRCode = Loc.tr("UI", "Scan QR code", fallback: "Scan QR code")
   public static let search = Loc.tr("UI", "Search", fallback: "Search...")
@@ -573,6 +576,7 @@ public enum Loc {
   }
   public static let selfHost = Loc.tr("UI", "Self Host", fallback: "Self Host")
   public static let send = Loc.tr("UI", "Send", fallback: "Send")
+  public static let sendMessage = Loc.tr("UI", "sendMessage", fallback: "Send Message")
   public static let `set` = Loc.tr("UI", "Set", fallback: "Query")
   public static let setAccess = Loc.tr("UI", "Set access", fallback: "Set access")
   public static let setAsDefault = Loc.tr("UI", "Set as default", fallback: "Set as default")
@@ -582,6 +586,7 @@ public enum Loc {
   public static let sets = Loc.tr("UI", "Sets", fallback: "Queries")
   public static let settings = Loc.tr("UI", "Settings", fallback: "Settings")
   public static let share = Loc.tr("UI", "Share", fallback: "Share")
+  public static let shareQRCode = Loc.tr("UI", "Share QR Code", fallback: "Share QR Code")
   public static let show = Loc.tr("UI", "Show", fallback: "Show")
   public static let showDescription = Loc.tr("UI", "Show Description", fallback: "Show Description")
   public static let showTypes = Loc.tr("UI", "Show types", fallback: "Show types")
@@ -1397,6 +1402,9 @@ public enum Loc {
       public static func limitExceeded(_ p1: Int) -> String {
         return Loc.tr("Workspace", "Chat.AttachmentsError.LimitExceeded", p1, fallback: "Plural format key: Chat.AttachmentsError.LimitExceeded")
       }
+    }
+    public enum Create {
+      public static let namePlaceholder = Loc.tr("Workspace", "Chat.Create.namePlaceholder", fallback: "Chat Name")
     }
     public enum CreateObject {
       public enum Dismiss {
@@ -2256,7 +2264,7 @@ public enum Loc {
     public static let share = Loc.tr("Workspace", "SpaceSettings.Share", fallback: "Share")
     public static let title = Loc.tr("Workspace", "SpaceSettings.Title", fallback: "Space settings")
     public enum DeleteAlert {
-      public static let message = Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Message", fallback: "This space will be deleted irrevocably. You can’t undo this action.")
+      public static let message = Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Message", fallback: "This space will be deleted irrevocably. You can't undo this action.")
       public static func title(_ p1: Any) -> String {
         return Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
@@ -2365,6 +2373,13 @@ public enum Loc {
       public static let message = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Message", fallback: "You will receive a notification when the space owner will approve your request.")
       public static let title = Loc.tr("Workspace", "SpaceShare.JoinConfirmation.Title", fallback: "Request sent")
     }
+    public enum MakePrivate {
+      public static let action = Loc.tr("Workspace", "SpaceShare.MakePrivate.Action", fallback: "Make Private")
+      public static let confirm = Loc.tr("Workspace", "SpaceShare.MakePrivate.Confirm", fallback: "Confirm")
+      public static let message = Loc.tr("Workspace", "SpaceShare.MakePrivate.Message", fallback: "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated.")
+      public static let title = Loc.tr("Workspace", "SpaceShare.MakePrivate.Title", fallback: "Make this space private?")
+      public static let toast = Loc.tr("Workspace", "SpaceShare.MakePrivate.Toast", fallback: "You can make the space private after removing all members")
+    }
     public enum Permissions {
       public static let owner = Loc.tr("Workspace", "SpaceShare.Permissions.Owner", fallback: "Owner")
       public static let reader = Loc.tr("Workspace", "SpaceShare.Permissions.Reader", fallback: "Viewer")
@@ -2429,6 +2444,9 @@ public enum Loc {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Chat.ChangeDescription", fallback: "Group chat with shared data. Best for small groups or a single ongoing conversation.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Chat.Description", fallback: "Group chat with content organization")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Chat.Title", fallback: "Chat")
+      }
+      public enum OneToOne {
+        public static let title = Loc.tr("Workspace", "Spaces.UxType.OneToOne.Title", fallback: "Direct channel")
       }
       public enum Space {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")

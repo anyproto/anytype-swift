@@ -248,7 +248,8 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
     
         let chatMenuKeys = NSAttributedString.Key.chatToggleMenuKeys
         let toggleMenuItems = chatMenuKeys.compactMap { makeToggleMenuAction(textView, editMenuForTextIn: range, attributed: $0) }
-        let format = UIMenu(title: Loc.format, children: toggleMenuItems)
+        var format = UIMenu(title: Loc.format, children: toggleMenuItems)
+        format.preferredElementSize = .small
         
         let linkToAction = UIAction(title: Loc.link) { [linkTo] _ in
             linkTo?(range)
@@ -332,7 +333,7 @@ final class ChatTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContent
         guard let info = attributed.chatToggleMenuItemInfo() else { return nil }
         
         let containsNoStyle = textView.attributedText.containsNilAttribute(attributed, in: range)
-        return UIAction(image: UIImage(asset: info.icon)) { [weak self] _ in
+        return UIAction(title: info.title, image: UIImage(asset: info.icon)) { [weak self] _ in
             _ = self?.addStyle(
                 textView: textView,
                 type: info.markupType,

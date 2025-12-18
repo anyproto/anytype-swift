@@ -458,6 +458,48 @@ Text(Loc.addMember)
 // ❌ Don't edit this file - changes will be overwritten
 ```
 
+### ❌ Computed Properties Accessing Storage in ViewModels
+
+Using computed properties that access storage/services causes unnecessary calls on every view re-render:
+
+```swift
+// ❌ WRONG - Called on every view re-render
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    @Injected(\.membershipStorage) private var storage
+
+    var userName: String {
+        storage.currentStatus.name  // Called every re-render!
+    }
+}
+
+// ✅ CORRECT - Captured once at initialization
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    let userName: String
+
+    init() {
+        userName = Container.shared.membershipStorage().currentStatus.name
+    }
+}
+
+// ✅ CORRECT - For values that change, subscribe to updates
+@MainActor
+final class ProfileViewModel: ObservableObject {
+    @Published private(set) var userName: String = ""
+    private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        Container.shared.membershipStorage()
+            .statusPublisher
+            .map(\.name)
+            .assign(to: &$userName)
+    }
+}
+```
+
+**Rule**: If the value doesn't change during the view's lifetime, use `let` constant. If it can change, subscribe to updates with `@Published`.
+
 ## 📚 Integration with Other Guides
 
 - **Localization**: See `LOCALIZATION_GUIDE.md` for using `Loc.*` constants
@@ -482,6 +524,7 @@ Text(Loc.addMember)
 - Use completion handlers (use async/await)
 - Trim whitespace-only lines
 - Hardcode strings (use Loc.*)
+- Use computed properties accessing storage in ViewModels (causes re-render overhead)
 
 ### Testing
 

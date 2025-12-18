@@ -3,7 +3,7 @@ import Combine
 
 enum ApplicationState {
     case initial
-    case login
+    case launch
     case home
     case auth
     case delete

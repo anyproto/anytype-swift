@@ -29,7 +29,7 @@ struct InviteStateView: View {
         HStack(spacing: 12) {
             ZStack {
                 Circle()
-                    .fill(Color.Shape.transperentSecondary)
+                    .fill(Color.Shape.transparentSecondary)
                     .frame(width: 48, height: 48)
                 
                 Image(asset: icon)

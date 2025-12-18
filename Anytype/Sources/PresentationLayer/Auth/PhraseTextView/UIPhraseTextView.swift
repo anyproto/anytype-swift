@@ -61,7 +61,7 @@ class UIPhraseTextView: UITextView, UITextViewDelegate {
         font = AnytypeFont.previewTitle1Regular.uiKitFont
         tintColor = UIColor.Control.accent100
         textContainer.lineFragmentPadding = 0.0
-        backgroundColor = UIColor.Shape.transperentSecondary
+        backgroundColor = UIColor.Shape.transparentSecondary
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         textContentType = .password

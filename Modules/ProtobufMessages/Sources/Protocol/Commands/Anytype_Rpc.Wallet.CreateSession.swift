@@ -35,7 +35,7 @@ extension Anytype_Rpc.Wallet {
           set {auth = .mnemonic(newValue)}
         }
 
-        /// persistent app key, that can be used to restore session
+        /// persistent app key, that can be used to restore session. Used for Local JSON API
         public var appKey: String {
           get {
             if case .appKey(let v)? = auth {return v}
@@ -53,15 +53,26 @@ extension Anytype_Rpc.Wallet {
           set {auth = .token(newValue)}
         }
 
+        /// private key of specific account
+        public var accountKey: String {
+          get {
+            if case .accountKey(let v)? = auth {return v}
+            return String()
+          }
+          set {auth = .accountKey(newValue)}
+        }
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum OneOf_Auth: Equatable, Sendable {
           /// cold auth
           case mnemonic(String)
-          /// persistent app key, that can be used to restore session
+          /// persistent app key, that can be used to restore session. Used for Local JSON API
           case appKey(String)
           /// token from the previous session
           case token(String)
+          /// private key of specific account
+          case accountKey(String)
 
         }
 
@@ -180,7 +191,7 @@ extension Anytype_Rpc.Wallet.CreateSession: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.CreateSession.protoMessageName + ".Request"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}mnemonic\0\u{1}appKey\0\u{1}token\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}mnemonic\0\u{1}appKey\0\u{1}token\0\u{1}accountKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -212,6 +223,14 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
           self.auth = .token(v)
         }
       }()
+      case 4: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.auth != nil {try decoder.handleConflictingOneOf()}
+          self.auth = .accountKey(v)
+        }
+      }()
       default: break
       }
     }
@@ -234,6 +253,10 @@ extension Anytype_Rpc.Wallet.CreateSession.Request: SwiftProtobuf.Message, Swift
     case .token?: try {
       guard case .token(let v)? = self.auth else { preconditionFailure() }
       try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    }()
+    case .accountKey?: try {
+      guard case .accountKey(let v)? = self.auth else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
     }()
     case nil: break
     }

@@ -12,7 +12,7 @@ final class SpaceHubPathUXTypeHelper: SpaceHubPathUXTypeHelperProtocol {
         await Task.detached {
             var path = path
             switch spaceView.uxType {
-            case .chat:
+            case .chat, .oneToOne, .stream:
                 // Expected: SpaceHubNavigationItem, SpaceChatCoordinatorData
                 let chatItem = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
                 path.remove(chatItem)
@@ -24,7 +24,7 @@ final class SpaceHubPathUXTypeHelper: SpaceHubPathUXTypeHelperProtocol {
                 path.remove(chatItem)
                 path.remove(homeItem)
                 path.insert(homeItem, at: 1)
-            default:
+            case .none, .UNRECOGNIZED:
                 break
             }
             return path

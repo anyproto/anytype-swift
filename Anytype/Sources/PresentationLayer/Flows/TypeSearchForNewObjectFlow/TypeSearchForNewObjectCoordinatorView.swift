@@ -4,6 +4,7 @@ import Services
 
 struct TypeSearchForNewObjectCoordinatorView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.pageNavigation) private var pageNavigation
     @StateObject private var model: TypeSearchForNewObjectCoordinatorViewModel
     
     init(spaceId: String, openObject: @escaping (ObjectDetails)->()) {
@@ -14,6 +15,9 @@ struct TypeSearchForNewObjectCoordinatorView: View {
     
     var body: some View {
         model.typeSearchModule()
+            .onAppear {
+                model.pageNavigation = pageNavigation
+            }
             .onChange(of: model.shouldDismiss) { _, shouldDismiss in
                 if shouldDismiss { dismiss() }
             }

@@ -43,16 +43,22 @@ final class SimpleTableViewModel {
             .receiveOnMain()
             .sink { [weak self] blockIds in
                 guard let self else { return }
-                
+
                 let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer)
                 guard computedTable.isNotNil else { return }
-                
+
                 let allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
-                
+
                 if Set(allRelatedIds).intersection(blockIds).count > 0 {
                     forceUpdate(shouldApplyFocus: true)
                     stateManager.checkOpenedState()
                 }
+            }.store(in: &cancellables)
+
+        document.permissionsPublisher
+            .receiveOnMain()
+            .sink { [weak self] _ in
+                self?.stateManager.checkOpenedState()
             }.store(in: &cancellables)
     }
 

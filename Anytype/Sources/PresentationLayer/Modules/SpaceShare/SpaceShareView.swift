@@ -35,6 +35,11 @@ struct SpaceShareView: View {
             .anytypeSheet(isPresented: $model.showStopSharingAlert) {
                 StopSharingAlert(spaceId: model.spaceId) {}
             }
+            .anytypeSheet(isPresented: $model.showMakePrivateAlert) {
+                SpaceMakePrivateAlert {
+                    try await model.onMakePrivateConfirm()
+                }
+            }
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)
             }
@@ -72,6 +77,16 @@ struct SpaceShareView: View {
                                 Text(Loc.SpaceShare.Qr.button)
                                 Spacer()
                                 Image(systemName: "qrcode")
+                            }
+                            if model.canStopShare {
+                                Divider()
+                                Button {
+                                    model.onMakePrivateTapped()
+                                } label: {
+                                    Text(Loc.SpaceShare.MakePrivate.action)
+                                    Spacer()
+                                    Image(systemName: "lock")
+                                }
                             }
                         } label: {
                             IconView(icon: .asset(.X24.more))

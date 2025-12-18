@@ -18,10 +18,6 @@ final class ChatDetailsSubscriptionBuilder: ChatDetailsSubscriptionBuilderProtoc
     }
 
     func build() -> SubscriptionData {
-        let sorts: [DataviewSort] = .builder {
-            SearchHelper.sort(relation: .lastMessageDate, type: .desc)
-        }
-
         let filters: [DataviewFilter] = .builder {
             SearchHelper.layoutFilter([.chatDerived])
         }
@@ -34,7 +30,8 @@ final class ChatDetailsSubscriptionBuilder: ChatDetailsSubscriptionBuilderProtoc
             BundledPropertyKey.layout.rawValue,
             BundledPropertyKey.resolvedLayout.rawValue,
             BundledPropertyKey.type.rawValue,
-            BundledPropertyKey.isDeleted.rawValue
+            BundledPropertyKey.isDeleted.rawValue,
+            BundledPropertyKey.isArchived.rawValue
         ]
 
         return .crossSpaceSearch(
