@@ -120,7 +120,19 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
 
         if type.isChatType {
-            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: info.accountSpaceId)))
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
+                spaceId: info.accountSpaceId,
+                analyticsRoute: .navigation
+            )))
+            output?.onCreateObjectSelected(screenData: screenData)
+            return
+        }
+
+        if type.isBookmarkType {
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                spaceId: info.accountSpaceId,
+                analyticsRoute: .navigation
+            )))
             output?.onCreateObjectSelected(screenData: screenData)
             return
         }

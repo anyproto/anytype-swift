@@ -60,7 +60,19 @@ final class ObjectTypeWidgetViewModel {
             let type = try objectTypeProvider.objectType(id: info.objectTypeId)
 
             if type.isChatType {
-                let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: type.spaceId)))
+                let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
+                    spaceId: type.spaceId,
+                    analyticsRoute: .widget
+                )))
+                output?.onObjectSelected(screenData: screenData)
+                return
+            }
+
+            if type.isBookmarkType {
+                let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                    spaceId: type.spaceId,
+                    analyticsRoute: .widget
+                )))
                 output?.onObjectSelected(screenData: screenData)
                 return
             }

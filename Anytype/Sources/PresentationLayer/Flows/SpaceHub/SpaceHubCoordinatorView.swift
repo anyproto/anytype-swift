@@ -81,6 +81,10 @@ struct SpaceHubCoordinatorView: View {
                 ChatCreateView(data: data)
                     .pageNavigation(model.pageNavigation)
             }
+            .anytypeSheet(item: $model.bookmarkCreateData) { data in
+                BookmarkCreateView(data: data)
+                    .pageNavigation(model.pageNavigation)
+            }
             .sheet(isPresented: $model.showSpaceTypeForCreate) {
                 SpaceCreateTypePickerView(onSelectSpaceType: { type in
                     model.onSpaceTypeSelected(type)

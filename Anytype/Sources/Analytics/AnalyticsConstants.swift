@@ -76,6 +76,7 @@ enum AnalyticsEventsRouteKind: String {
     case type = "Type"
     case link = "Link"
     case slashMenu = "SlashMenu"
+    case quickAction = "QuickAction"
 }
 
 enum AnalyticsEventsRelationType: String {

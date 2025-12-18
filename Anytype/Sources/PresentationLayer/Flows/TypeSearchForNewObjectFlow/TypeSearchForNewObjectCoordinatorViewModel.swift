@@ -85,7 +85,19 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
         pasteContent: Bool
     ) {
         if type.isChatType {
-            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: spaceId)))
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
+                spaceId: spaceId,
+                analyticsRoute: .search
+            )))
+            pageNavigation?.open(screenData)
+            return
+        }
+
+        if type.isBookmarkType {
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                spaceId: spaceId,
+                analyticsRoute: .search
+            )))
             pageNavigation?.open(screenData)
             return
         }

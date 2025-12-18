@@ -107,7 +107,7 @@ final class ChatCreateViewModel {
             }
 
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: data.analyticsRoute)
 
             dismiss = true
             pageNavigation?.open(details.screenData())
