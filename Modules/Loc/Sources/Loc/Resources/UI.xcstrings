@@ -5188,7 +5188,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Karekodu taramak için Anytype'ın kameranıza erişmesi gerekir.\n\nLütfen cihazınızın Ayarlar -> Gizlilik -> Kamera bölümüne gidin ve Anytype'a kamera izni verin."
+            "value" : "Karekodu taramak için Anytype'ın kamerana erişmesi gerekir.\n\nLütfen cihazının Ayarlar -> Gizlilik -> Kamera bölümüne git ve Anytype'a kamera iznini ver."
           }
         },
         "uk" : {
@@ -9952,7 +9952,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : " %#@object@ nesnesini silmek istediğinizden emin misiniz?"
+            "value" : " %#@object@ nesnesini silmek istediğinden emin misin?"
           },
           "substitutions" : {
             "object" : {
@@ -17905,7 +17905,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Varsayılan nesne türü seç"
+            "value" : "Varsayılan nesne türünü seç"
           }
         },
         "uk" : {
@@ -28748,7 +28748,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Kasanızı silmek istediğinizden emin misiniz?"
+            "value" : "Kasanı silmek istediğinden emin misin?"
           }
         },
         "uk" : {
@@ -41182,7 +41182,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Dosyalarınızın %@ kadarını şifrelenmiş yedekleme düğümümüzde ücretsiz olarak depolayabilirsiniz. Sınıra ulaşırsanız, dosyalar yalnızca yerel olarak depolanacaktır."
+            "value" : "Dosyalarını şifreli yedekleme düğümümüzde saklayabilirsin. Sınıra ulaşırsan dosyalarının senkronizasyonu durdurulur ve yalnızca yerel olarak saklanır."
           }
         },
         "uk" : {
@@ -43419,7 +43419,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Deneyim \"%@\" alanına başarıyla yüklendi. Şimdi açıp kullanabilirsiniz."
+            "value" : "Deneyim \"%@\" alanına başarıyla yüklendi. Şimdi açıp kullanabilirsin."
           }
         },
         "uk" : {
@@ -63585,7 +63585,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\"%@\", desteklenmeyen bir türdür. Masaüstü üzerinden açabilirsiniz."
+            "value" : "\"%@\", desteklenmeyen bir türdür. Masaüstü üzerinden açabilirsin."
           }
         },
         "uk" : {
@@ -97755,7 +97755,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bu nesneler geri alınamayacak şekilde silinecektir. Bu işlemi geri alamazsınız."
+            "value" : "Bu nesneler geri alınamayacak şekilde silinecektir. Bu işlemi geri alamazsın."
           }
         },
         "uk" : {
@@ -106129,7 +106129,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Bu eylemi geri alamazsınız."
+            "value" : "Bu eylemi geri alamazsın."
           }
         },
         "uk" : {

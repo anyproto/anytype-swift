@@ -1909,7 +1909,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Kullanıcı adı ve şifrenin yerini alır. Onu güvende tutmalısınız. Verilerinizin kontrolü sizde olur. Daha sonra uygulama ayarlarında bulabilirsiniz."
+            "value" : "Kullanıcı adı ve şifrenin yerini alır. Onu güvende tutmalısın. Verilerinin kontrolü sende olur. Daha sonra uygulama ayarlarında bulabilirsin."
           }
         },
         "uk" : {
@@ -11748,7 +11748,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sürümünüz güncel olmadığı için kasa verilerinizi alamadık. Lütfen Anytype'ı en son sürüme güncelleyin."
+            "value" : "Uygulama sürümü güncel olmadığı için kasa verilerinizi alamadık. Lütfen Anytype'ı en son sürüme güncelleyin."
           }
         },
         "uk" : {
