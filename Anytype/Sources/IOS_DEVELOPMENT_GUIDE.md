@@ -53,7 +53,11 @@ Modules/                # Swift packages
 **View** (SwiftUI):
 ```swift
 struct ChatView: View {
-    @StateObject private var model: ChatViewModel
+    @State private var model: ChatViewModel
+
+    init() {
+        _model = State(wrappedValue: ChatViewModel())
+    }
 
     var body: some View {
         // UI only, no business logic
@@ -61,11 +65,14 @@ struct ChatView: View {
 }
 ```
 
-**ViewModel**:
+**ViewModel** (using `@Observable` macro - preferred):
 ```swift
 @MainActor
-final class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
+@Observable
+final class ChatViewModel {
+    var messages: [Message] = []
+
+    @ObservationIgnored
     @Injected(\.chatService) private var chatService
 
     func sendMessage(_ text: String) async {
@@ -74,14 +81,17 @@ final class ChatViewModel: ObservableObject {
 }
 ```
 
+> **Note**: Use `@Observable` macro instead of `ObservableObject`. Properties are observed by default - no `@Published` needed. Use `@ObservationIgnored` for properties that shouldn't trigger view updates (DI, navigation, private state).
+
 #### 2. Coordinator Pattern
 
 Coordinators handle navigation:
 
 ```swift
 @MainActor
-final class ChatCoordinator: ObservableObject {
-    @Published var route: Route?
+@Observable
+final class ChatCoordinator {
+    var route: Route?
 
     enum Route {
         case settings
