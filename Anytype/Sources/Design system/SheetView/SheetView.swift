@@ -34,9 +34,17 @@ struct SheetView<Content: View>: View {
         .padding(.bottom, 10)
     }
     
+    private var sheetCornerRadius: CGFloat {
+        if #available(iOS 26.0, *) {
+            return 38
+        } else {
+            return 34
+        }
+    }
+
     private var contentView: some View {
         content
-            .cornerRadius(34, style: .continuous)
+            .cornerRadius(sheetCornerRadius, style: .continuous)
             .shadow(radius: 20)
             .padding(.horizontal, 8)
             .gesture(
