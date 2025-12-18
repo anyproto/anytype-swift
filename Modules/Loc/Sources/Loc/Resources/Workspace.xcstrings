@@ -921,6 +921,17 @@
         }
       }
     },
+    "Chat.Create.namePlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat Name"
+          }
+        }
+      }
+    },
     "Chat.CreateObject.Dismiss.Message" : {
       "extractionState" : "manual",
       "localizations" : {
