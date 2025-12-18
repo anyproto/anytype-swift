@@ -57,7 +57,7 @@ struct SetGalleryViewCell: View {
             ObjectHeaderCoverView(objectCover: coverType, fitImage: configuration.coverFit)
                 .frame(height: height)
                 .frame(maxWidth: .infinity)
-                .background(Color.Shape.transperentSecondary)
+                .background(Color.Shape.transparentSecondary)
         }
     }
     

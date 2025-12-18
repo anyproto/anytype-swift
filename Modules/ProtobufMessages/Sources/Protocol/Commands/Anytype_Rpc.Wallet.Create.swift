@@ -56,6 +56,8 @@ extension Anytype_Rpc.Wallet {
         /// Mnemonic of a new account (sequence of words, divided by spaces)
         public var mnemonic: String = String()
 
+        public var accountKey: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error: Sendable {
@@ -187,7 +189,7 @@ extension Anytype_Rpc.Wallet.Create.Request: SwiftProtobuf.Message, SwiftProtobu
 
 extension Anytype_Rpc.Wallet.Create.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Wallet.Create.protoMessageName + ".Response"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}mnemonic\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}error\0\u{1}mnemonic\0\u{1}accountKey\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -197,6 +199,7 @@ extension Anytype_Rpc.Wallet.Create.Response: SwiftProtobuf.Message, SwiftProtob
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.mnemonic) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.accountKey) }()
       default: break
       }
     }
@@ -213,12 +216,16 @@ extension Anytype_Rpc.Wallet.Create.Response: SwiftProtobuf.Message, SwiftProtob
     if !self.mnemonic.isEmpty {
       try visitor.visitSingularStringField(value: self.mnemonic, fieldNumber: 2)
     }
+    if !self.accountKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.accountKey, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Wallet.Create.Response, rhs: Anytype_Rpc.Wallet.Create.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.mnemonic != rhs.mnemonic {return false}
+    if lhs.accountKey != rhs.accountKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

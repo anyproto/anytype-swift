@@ -12,10 +12,13 @@ struct SpaceCardModel: Equatable, Identifiable {
     let isMuted: Bool
     let uxTypeName: String
     let supportsMultiChats: Bool
+    let showsMessageAuthor: Bool
 
     let lastMessage: MessagePreviewModel?
     let unreadCounter: Int
     let mentionCounter: Int
+    let unreadCounterStyle: CounterViewStyle
+    let mentionCounterStyle: MentionBadgeStyle
     let hasCounters: Bool
 
     let wallpaper: SpaceWallpaperType

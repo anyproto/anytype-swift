@@ -5,6 +5,7 @@ struct NewSpaceCardLastMessageView: View {
 
     let model: MessagePreviewModel
     let supportsMultiChats: Bool
+    let showsMessageAuthor: Bool
 
     var body: some View {
         Group {
@@ -25,7 +26,7 @@ struct NewSpaceCardLastMessageView: View {
         Group {
             if supportsMultiChats, let chatName = model.chatName {
                 multiChatMessageView(chatName: chatName, messageText: model.text, creatorTitle: model.creatorTitle)
-            } else if let creatorTitle = model.creatorTitle {
+            } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
                 AnytypeText("\(creatorTitle): \(model.text)", style: .chatPreviewRegular)
                     .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(2)
@@ -63,14 +64,14 @@ struct NewSpaceCardLastMessageView: View {
                         .foregroundColor(.Text.transparentSecondary)
                         .lineLimit(1)
                 }
-            } else if let creatorTitle = model.creatorTitle {
+            } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
                 AnytypeText(creatorTitle, style: .chatPreviewRegular)
                     .foregroundColor(.Text.transparentSecondary)
                     .lineLimit(1)
             }
 
             HStack(spacing: 2) {
-                if let creatorTitle = model.creatorTitle {
+                if supportsMultiChats, let creatorTitle = model.creatorTitle {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
                         .foregroundColor(.Text.transparentSecondary)
                         .lineLimit(1)

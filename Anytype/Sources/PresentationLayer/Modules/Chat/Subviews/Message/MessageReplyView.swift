@@ -45,7 +45,7 @@ struct MessageReplyView: View {
         .cornerRadius(16, style: .continuous)
         .padding(.leading, 8)
         .overlay(alignment: .leading) {
-            Color.Shape.transperentPrimary
+            Color.Shape.transparentPrimary
                 .frame(width: 4)
                 .cornerRadius(2)
         }

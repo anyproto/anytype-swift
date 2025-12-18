@@ -39,7 +39,7 @@ struct SetContentViewDataBuilderTests {
     }
 
     @Test func testBuildChatPreview_NilSpaceView_UsesDefaultNotificationMode() {
-        let creator = Participant.mock(id: "user1", globalName: "Test User")
+        let creator = Participant.mock(id: "user1", localName: "Test User")
         let lastMessage = LastMessagePreview(
             id: "msg1",
             creator: creator,
@@ -93,7 +93,7 @@ struct SetContentViewDataBuilderTests {
     }
 
     @Test func testBuildChatPreview_ValidPreview_BuildsCompleteModel() {
-        let creator = Participant.mock(id: "user1", globalName: "John Doe")
+        let creator = Participant.mock(id: "user1", localName: "John Doe")
         let lastMessage = LastMessagePreview(
             id: "msg1",
             creator: creator,

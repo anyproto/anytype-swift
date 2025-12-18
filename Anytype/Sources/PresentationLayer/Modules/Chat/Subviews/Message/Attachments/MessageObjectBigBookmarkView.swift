@@ -46,7 +46,7 @@ struct MessageObjectBigBookmarkView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
         }
-        .background(Color.Shape.transperentSecondary)
+        .background(Color.Shape.transparentSecondary)
         .cornerRadius(12, style: .continuous)
         .onTapGesture {
             onTapObject()

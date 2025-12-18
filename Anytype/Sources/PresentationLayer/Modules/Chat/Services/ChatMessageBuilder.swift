@@ -38,7 +38,9 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
         limits: any ChatMessageLimitsProtocol
     ) async -> [MessageSectionData] {
 
-        let isStream = workspaceStorage.spaceView(spaceId: spaceId)?.uxType.isStream ?? false
+        let spaceUxType = workspaceStorage.spaceView(spaceId: spaceId)?.uxType
+        let showsMessageAuthor = spaceUxType?.showsMessageAuthor ?? true
+        let positionsYourMessageOnRight = spaceUxType?.positionsYourMessageOnRight ?? true
         let participant = accountParticipantsStorage.participants.first { $0.spaceId == spaceId }
         let chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
         let isChatDeletedOrArchived = (chatObject.details?.isDeleted ?? false) || (chatObject.details?.isArchived ?? false)
@@ -71,7 +73,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             
             let isYourMessage = message.creator == yourProfileIdentity
             let authorParticipant = participants.first { $0.identity == message.creator }
-            let position: MessageHorizontalPosition = (isYourMessage && !isStream) ? .right : .left
+            let position: MessageHorizontalPosition = (isYourMessage && positionsYourMessageOnRight) ? .right : .left
             let isUnread = message.orderID == firstUnreadMessageOrderId
             let nextIsUnread = nextMessage?.orderID == firstUnreadMessageOrderId
             
@@ -100,8 +102,8 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
                 canAddReaction: canEdit && limits.canAddReaction(message: fullMessage.message, yourProfileIdentity: yourProfileIdentity ?? ""),
                 canReply: canEdit,
                 nextSpacing: (lastInSection || nextIsUnread) ? .disable : (lastForCurrentUser || nextDateIntervalIsBig ? .medium : .small),
-                authorIconMode: (isYourMessage || isStream) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
-                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && !isStream,
+                authorIconMode: (isYourMessage || !showsMessageAuthor) ? .hidden : (lastForCurrentUser || lastInSection || nextDateIntervalIsBig ? .show : .empty),
+                showAuthorName: (firstForCurrentUser || prevDateIntervalIsBig) && !isYourMessage && showsMessageAuthor,
                 canDelete: isYourMessage && canEdit,
                 canEdit: isYourMessage && canEdit,
                 showMessageSyncIndicator: isYourMessage,

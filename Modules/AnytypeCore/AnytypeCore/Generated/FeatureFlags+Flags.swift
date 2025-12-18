@@ -6,14 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var showAllButtonInWidgets: Bool {
-        value(for: .showAllButtonInWidgets)
-    }
-
-    static var turnOffAutomaticWidgetOpening: Bool {
-        value(for: .turnOffAutomaticWidgetOpening)
-    }
-
     static var channelTypeSwitcher: Bool {
         value(for: .channelTypeSwitcher)
     }
@@ -24,6 +16,18 @@ public extension FeatureFlags {
 
     static var newObjectSettings: Bool {
         value(for: .newObjectSettings)
+    }
+
+    static var oneToOneSpaces: Bool {
+        value(for: .oneToOneSpaces)
+    }
+
+    static var chatSettings: Bool {
+        value(for: .chatSettings)
+    }
+
+    static var qrCodeCircularText: Bool {
+        value(for: .qrCodeCircularText)
     }
 
     static var setKanbanView: Bool {
@@ -108,11 +112,12 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .showAllButtonInWidgets,
-        .turnOffAutomaticWidgetOpening,
         .channelTypeSwitcher,
         .showUploadStatusIndicator,
         .newObjectSettings,
+        .oneToOneSpaces,
+        .chatSettings,
+        .qrCodeCircularText,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,

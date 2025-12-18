@@ -56,6 +56,8 @@ struct SettingsCoordinatorView: View {
             .sheet(isPresented: $model.showExperimentalFeatures) {
                 ExperimentalFeaturesView()
             }
-
+            .sheet(isPresented: $model.showProfileQRCode) {
+                ProfileQRCodeView()
+            }
     }
 }

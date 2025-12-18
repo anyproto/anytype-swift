@@ -114,6 +114,12 @@ extension Anytype_Model_Account {
       set {_uniqueStorage()._ethereumAddress = newValue}
     }
 
+    /// symmetric key for encrypting profile metadata
+    public var metaDataKey: String {
+      get {return _storage._metaDataKey}
+      set {_uniqueStorage()._metaDataKey = newValue}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -124,7 +130,7 @@ extension Anytype_Model_Account {
 
 extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Info"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}homeObjectId\0\u{1}archiveObjectId\0\u{1}profileObjectId\0\u{2}\u{4}deviceId\0\u{1}accountSpaceId\0\u{1}widgetsId\0\u{1}marketplaceWorkspaceId\0\u{2}\u{2}spaceViewId\0\u{1}techSpaceId\0\u{1}workspaceObjectId\0\u{1}spaceChatId\0\u{2}U\u{1}gatewayUrl\0\u{2}\u{2}localStoragePath\0\u{1}timeZone\0\u{1}analyticsId\0\u{1}networkId\0\u{1}ethereumAddress\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}homeObjectId\0\u{1}archiveObjectId\0\u{1}profileObjectId\0\u{2}\u{4}deviceId\0\u{1}accountSpaceId\0\u{1}widgetsId\0\u{1}marketplaceWorkspaceId\0\u{2}\u{2}spaceViewId\0\u{1}techSpaceId\0\u{1}workspaceObjectId\0\u{1}spaceChatId\0\u{2}U\u{1}gatewayUrl\0\u{2}\u{2}localStoragePath\0\u{1}timeZone\0\u{1}analyticsId\0\u{1}networkId\0\u{1}ethereumAddress\0\u{1}metaDataKey\0")
 
   fileprivate class _StorageClass {
     var _homeObjectID: String = String()
@@ -144,6 +150,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     var _analyticsID: String = String()
     var _networkID: String = String()
     var _ethereumAddress: String = String()
+    var _metaDataKey: String = String()
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -171,6 +178,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       _analyticsID = source._analyticsID
       _networkID = source._networkID
       _ethereumAddress = source._ethereumAddress
+      _metaDataKey = source._metaDataKey
     }
   }
 
@@ -206,6 +214,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
         case 105: try { try decoder.decodeSingularStringField(value: &_storage._analyticsID) }()
         case 106: try { try decoder.decodeSingularStringField(value: &_storage._networkID) }()
         case 107: try { try decoder.decodeSingularStringField(value: &_storage._ethereumAddress) }()
+        case 108: try { try decoder.decodeSingularStringField(value: &_storage._metaDataKey) }()
         default: break
         }
       }
@@ -265,6 +274,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       if !_storage._ethereumAddress.isEmpty {
         try visitor.visitSingularStringField(value: _storage._ethereumAddress, fieldNumber: 107)
       }
+      if !_storage._metaDataKey.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._metaDataKey, fieldNumber: 108)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -291,6 +303,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
         if _storage._analyticsID != rhs_storage._analyticsID {return false}
         if _storage._networkID != rhs_storage._networkID {return false}
         if _storage._ethereumAddress != rhs_storage._ethereumAddress {return false}
+        if _storage._metaDataKey != rhs_storage._metaDataKey {return false}
         return true
       }
       if !storagesAreEqual {return false}

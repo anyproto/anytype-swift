@@ -516,6 +516,7 @@ extension ImageAsset {
   }
   public enum QrCode {
     public static let smile = ImageAsset.bundle(name: "QrCode/Smile")
+    public static let smileLight = ImageAsset.bundle(name: "QrCode/SmileLight")
   }
   public enum Reactions {
     public static let selectEmoji = ImageAsset.bundle(name: "Reactions/SelectEmoji")
@@ -759,6 +760,7 @@ extension ImageAsset {
     public static let remove = ImageAsset.bundle(name: "x32/Remove")
     public static let reply = ImageAsset.bundle(name: "x32/Reply")
     public static let restore = ImageAsset.bundle(name: "x32/Restore")
+    public static let scanCode = ImageAsset.bundle(name: "x32/Scan code")
     public static let slashMenu = ImageAsset.bundle(name: "x32/SlashMenu")
     public static let sort = ImageAsset.bundle(name: "x32/Sort")
     public static let style = ImageAsset.bundle(name: "x32/Style")

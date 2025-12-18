@@ -17,17 +17,19 @@ final class ChatHeaderViewModel: ObservableObject {
 
     @Published var title: String?
     @Published var icon: Icon?
-    @Published var showWidgetsButton: Bool = false
     @Published var chatLoading = false
     @Published var spaceLoading = false
     @Published var muted = false
     @Published var showAddMembersButton: Bool = false
+    @Published private(set) var isMultiChatSpace: Bool = false
 
     var showLoading: Bool { chatLoading || spaceLoading }
 
-    private let spaceId: String
-    private let chatId: String
+    let spaceId: String
+    let chatId: String
+    
     private let onTapOpenWidgets: () -> Void
+    private let onTapOpenSpaceSettings: () -> Void
     private let onTapAddMembers: (() -> Void)
     private let chatObject: any BaseDocumentProtocol
 
@@ -40,11 +42,13 @@ final class ChatHeaderViewModel: ObservableObject {
         spaceId: String,
         chatId: String,
         onTapOpenWidgets: @escaping () -> Void,
+        onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
     ) {
         self.spaceId = spaceId
         self.chatId = chatId
         self.onTapOpenWidgets = onTapOpenWidgets
+        self.onTapOpenSpaceSettings = onTapOpenSpaceSettings
         self.onTapAddMembers = onTapAddMembers
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
     }
@@ -60,6 +64,8 @@ final class ChatHeaderViewModel: ObservableObject {
     
     func tapOpenWidgets() { onTapOpenWidgets() }
 
+    func tapOpenSpaceSettings() { onTapOpenSpaceSettings() }
+
     func tapAddMembers() { onTapAddMembers() }
     
     // MARK: - Private
@@ -68,9 +74,9 @@ final class ChatHeaderViewModel: ObservableObject {
         for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: spaceId).values {
             let spaceView = participantSpaceView.spaceView
             spaceSupportsMultiChats = spaceView.uxType.supportsMultiChats
+            isMultiChatSpace = spaceSupportsMultiChats
             spaceTitle = spaceView.title
             spaceIcon = spaceView.objectIconImage
-            showWidgetsButton = spaceView.chatId == chatId && spaceView.initialScreenIsChat
             muted = !spaceView.effectiveNotificationMode(for: chatId).isUnmutedAll
             showAddMembersButton = participantSpaceView.participant?.permission == .owner
             updateHeaderDisplay()

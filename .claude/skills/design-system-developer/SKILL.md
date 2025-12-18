@@ -85,7 +85,7 @@ Text("Add Member").anytypeStyle(.caption1Medium)  // Note: no "ux" prefix!
 
 ```swift
 // Backgrounds
-.background(Color.Shape.transperentSecondary)
+.background(Color.Shape.transparentSecondary)
 .background(Color.Background.primary)
 
 // Text colors

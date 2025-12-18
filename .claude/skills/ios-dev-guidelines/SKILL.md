@@ -68,6 +68,55 @@ extension Container {
 @Injected(\.chatService) private var chatService
 ```
 
+### Async Button Actions
+**Prefer `AsyncStandardButton` over manual loading state management** for cleaner code:
+
+```swift
+// ❌ AVOID: Manual loading state
+struct MyView: View {
+    @State private var isLoading = false
+
+    var body: some View {
+        StandardButton(.text("Connect"), inProgress: isLoading, style: .secondaryLarge) {
+            isLoading = true
+            Task {
+                await viewModel.connect()
+                isLoading = false
+            }
+        }
+    }
+}
+
+// ✅ PREFERRED: AsyncStandardButton handles loading state automatically
+struct MyView: View {
+    var body: some View {
+        AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
+            try await viewModel.onConnect()
+        }
+    }
+}
+
+// ViewModel can throw - errors are handled automatically
+func onConnect() async throws {
+    guard let identity = details?.identity, identity.isNotEmpty else { return }
+
+    if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: identity) {
+        pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
+        return
+    }
+
+    let newSpaceId = try await workspaceService.createOneToOneSpace(oneToOneIdentity: identity)
+    pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
+}
+```
+
+**Benefits of `AsyncStandardButton`**:
+- Manages `inProgress` state internally
+- Shows error toast automatically on failure
+- Provides haptic feedback (selection on tap, error on failure)
+- Cleaner ViewModel (no `@Published var isLoading` needed)
+- **Action is `async throws`** - use `try await` and let errors propagate naturally
+
 ## 🗂️ Project Structure
 
 ```

@@ -29,17 +29,10 @@ public struct FeatureDescription: Sendable {
     public let releaseAnytypeValue: Bool
     public let debugValue: Bool
     
-    init(title: String, type: FeatureType, releaseAnytypeValue: Bool, debugValue: Bool = true) {
-        self.title = title
-        self.type = type
-        self.releaseAnytypeValue = releaseAnytypeValue
-        self.debugValue = debugValue
-    }
-    
-    init(title: String, type: FeatureType, defaultValue: Bool, debugValue: Bool = true) {
+    init(title: String, type: FeatureType, defaultValue: Bool, debugValue: Bool? = nil) {
         self.title = title
         self.type = type
         self.releaseAnytypeValue = defaultValue
-        self.debugValue = debugValue
+        self.debugValue = debugValue ?? defaultValue
     }
 }

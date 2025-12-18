@@ -165,7 +165,13 @@ final class SetDocument: SetDocumentProtocol, @unchecked Sendable {
               let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark, spaceId: document.spaceId)) else { return false }
         return details.filteredSetOf.contains(bookmarkType.id)
     }
-    
+
+    func isChatSet() -> Bool {
+        guard let details,
+              let chatType = (try? objectTypeProvider.objectType(uniqueKey: .chatDerived, spaceId: document.spaceId)) else { return false }
+        return details.filteredSetOf.contains(chatType.id)
+    }
+
     func isSetByRelation() -> Bool {
         let relation = parsedProperties.systemProperties.first { $0.key == BundledPropertyKey.setOf.rawValue }
         if let relation, relation.hasSelectedObjectsRelationType {

@@ -126,9 +126,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     @ObservationIgnored
     var showEmptyState: Bool { mesageBlocks.isEmpty && dataLoaded }
     @ObservationIgnored
-    var conversationType: ConversationType {
-        participantSpaceView?.spaceView.uxType.asConversationType ?? .chat
-    }
+    var spaceUxType: SpaceUxType { participantSpaceView?.spaceView.uxType ?? .data }
     @ObservationIgnored
     var participantPermissions: ParticipantPermissions? { participantSpaceView?.participant?.permission }
 
@@ -147,7 +145,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         self.participantSubscription = Container.shared.participantSubscription(spaceId)
         // Open object. Middleware will know that we are using the object and will be make a refresh after open from background
         self.chatObject = openDocumentProvider.document(objectId: chatId, spaceId: spaceId)
-        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId)
+        self.attachmentHandler = ChatAttachmentHandler(spaceId: spaceId, chatId: chatId)
     }
     
     func onAppear() {
@@ -155,7 +153,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func onTapAddObjectToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pagesLists)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .pagesLists, chatId: chatId)
         let data = ObjectSearchWithMetaModuleData(
             spaceId: spaceId,
             excludedObjectIds: linkedObjects.compactMap { $0.uploadedObject?.id },
@@ -170,9 +168,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         )
         output?.onLinkObjectSelected(data: data)
     }
-    
+
     func onTapAddMediaToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .photo, chatId: chatId)
         let currentPhotosItems = attachmentHandler.getPhotosItems()
         let data = ChatPhotosPickerData(selectedItems: currentPhotosItems) { [weak self] result in
             guard let self else { return }
@@ -184,9 +182,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         }
         output?.onPhotosPickerSelected(data: data)
     }
-    
+
     func onTapAddFilesToMessage() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .file, chatId: chatId)
         let data = FilesPickerData(handler: { [weak self] result in
             guard let self else { return }
             do {
@@ -197,9 +195,9 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         })
         output?.onFilePickerSelected(data: data)
     }
-    
+
     func onTapCamera() {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .camera, chatId: chatId)
         let data = SimpleCameraData(onMediaTaken: { [weak self] media in
             guard let self else { return }
             do {
@@ -214,7 +212,11 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     func onTapWidgets() {
         output?.onWidgetsSelected()
     }
-    
+
+    func onTapSpaceSettings() {
+        output?.onSpaceSettingsSelected()
+    }
+
     func onTapInviteLink() {
         output?.onInviteLinkSelected()
     }
@@ -246,6 +248,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             
             if !showScreenLogged {
                 AnytypeAnalytics.instance().logScreenChat(
+                    chatId: chatId,
                     unreadMessageCount: chatState?.messages.counter,
                     hasMention: chatState.map { $0.mentions.counter > 0 }
                 )
@@ -309,7 +312,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
                 replyToMessageId: replyToMessage?.id
             )
             let type: SentMessageType = linkedObjects.isNotEmpty ? (message.string.isNotEmpty ? .mixed : .attachment) : .text
-            AnytypeAnalytics.instance().logSentMessage(type: type)
+            AnytypeAnalytics.instance().logSentMessage(type: type, chatId: chatId)
             collectionViewScrollProxy.scrollTo(itemId: messageId, position: .bottom, animated: true)
             chatMessageLimits.markSentMessage()
             clearInput()
@@ -337,6 +340,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func updateMentionState() async throws {
+        guard spaceUxType.supportsMentions else {
+            mentionObjectsModels = []
+            return
+        }
         switch mentionSearchState {
         case let .search(searchText, _):
             let mentionObjects = try await mentionObjectsService.searchMentions(spaceId: spaceId, text: searchText, excludedObjectIds: [], limitLayout: [.participant])
@@ -473,12 +480,12 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     }
     
     func onTapCreateObject(type: ObjectType) {
-        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, objectType: type)
+        AnytypeAnalytics.instance().logClickScreenChatAttach(type: .object, chatId: chatId, objectType: type)
         output?.didSelectCreateObject(type: type)
     }
-    
+
     func onTapScrollToBottom() {
-        AnytypeAnalytics.instance().logClickScrollToBottom()
+        AnytypeAnalytics.instance().logClickScrollToBottom(chatId: chatId)
         if let bottomVisibleOrderId, let chatState, let firstUnreadMessageOrderId,
             firstUnreadMessageOrderId > bottomVisibleOrderId,
             bottomVisibleOrderId < chatState.messages.oldestOrderID {
@@ -496,10 +503,10 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
             }
         }
     }
-    
+
     func onTapMention() {
         guard let chatState else { return }
-        AnytypeAnalytics.instance().logClickScrollToMention()
+        AnytypeAnalytics.instance().logClickScrollToMention(chatId: chatId)
         Task {
             let message = try await chatStorage.loadPagesTo(orderId: chatState.mentions.oldestOrderID)
             collectionViewScrollProxy.scrollTo(itemId: message.id, position: .center, animated: true)
@@ -520,7 +527,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     func didTapOnReaction(data: MessageViewData, emoji: String) async throws {
         let added = try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: emoji)
-        AnytypeAnalytics.instance().logToggleReaction(added: added)
+        AnytypeAnalytics.instance().logToggleReaction(added: added, chatId: data.chatId)
     }
     
     func didLongTapOnReaction(data: MessageViewData, reaction: MessageReactionModel) {
@@ -559,7 +566,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     func didSelectReplyMessage(message: MessageViewData) {
         guard let reply = message.reply else { return }
-        AnytypeAnalytics.instance().logClickScrollToReply()
+        AnytypeAnalytics.instance().logClickScrollToReply(chatId: message.chatId)
         Task {
             try await chatStorage.loadPagesTo(messageId: reply.id)
             collectionViewScrollProxy.scrollTo(itemId: reply.id)

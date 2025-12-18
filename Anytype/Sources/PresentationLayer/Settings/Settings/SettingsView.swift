@@ -13,6 +13,15 @@ struct SettingsView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.Settings.title) {
+                Button {
+                    model.onQRCodeTap()
+                } label: {
+                    Image(asset: .X24.qrCode)
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: 24, height: 24)
+                }
+            } rightButton: {
                 Menu {
                     if model.canDeleteVault {
                         Button(Loc.deleteVault) { model.onDeleteAccountTap() }
@@ -25,13 +34,16 @@ struct SettingsView: View {
             .onTapGesture(count: 5) {
                 model.showDebugMenu.toggle()
             }
-            
+
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    
-                    SettingsObjectHeader(name: $model.profileName, nameTitle: Loc.name, iconImage: model.profileIcon, onTap: {
-                        model.onChangeIconTap()
-                    })
+
+                    SettingsObjectHeader(
+                        name: $model.profileName,
+                        nameTitle: Loc.name,
+                        iconImage: model.profileIcon,
+                        onTap: { model.onChangeIconTap() }
+                    )
                     
                     SectionHeaderView(title: Loc.application)
                     

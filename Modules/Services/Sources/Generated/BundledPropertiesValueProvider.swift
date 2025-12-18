@@ -159,6 +159,9 @@ public protocol BundledPropertiesValueProvider {
     var fileSourceChecksum: String { get }
     var spaceOrder: String { get }
     var orderId: String { get }
+    var oneToOneIdentity: String { get }
+    var oneToOneInboxSentStatus: Int? { get }
+    var oneToOneRequestMetadataKey: String { get }
     var iconName: String { get }
     var recommendedFeaturedRelations: [ObjectId] { get }
     var recommendedHiddenRelations: [ObjectId] { get }
@@ -182,6 +185,9 @@ public protocol BundledPropertiesValueProvider {
     var isMainChat: Bool { get }
     var lastMessageDate: Date? { get }
     var fileAvailableOffline: Bool { get }
+    var analyticsChatId: String { get }
+    var analyticsSpaceId: String { get }
+    var score: Int? { get }
 } 
 
 public extension BundledPropertiesValueProvider where Self: PropertyValueProvider {
@@ -757,6 +763,18 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     var orderId: String {
         return value(for: BundledPropertyKey.orderId.rawValue)
     }
+    /// OneToOne (second) participant identity
+    var oneToOneIdentity: String {
+        return value(for: BundledPropertyKey.oneToOneIdentity.rawValue)
+    }
+    /// OneToOne Inbox invite sent status
+    var oneToOneInboxSentStatus: Int? {
+        return value(for: BundledPropertyKey.oneToOneInboxSentStatus.rawValue)
+    }
+    /// OneToOne (second) participant RequestMetadata (key)
+    var oneToOneRequestMetadataKey: String {
+        return value(for: BundledPropertyKey.oneToOneRequestMetadataKey.rawValue)
+    }
     /// Choose icon for the type among custom Anytype icons
     var iconName: String {
         return value(for: BundledPropertyKey.iconName.rawValue)
@@ -848,5 +866,17 @@ public extension BundledPropertiesValueProvider where Self: PropertyValueProvide
     /// Is file available offline
     var fileAvailableOffline: Bool {
         return value(for: BundledPropertyKey.fileAvailableOffline.rawValue)
+    }
+    /// Anonymous chat analytics id
+    var analyticsChatId: String {
+        return value(for: BundledPropertyKey.analyticsChatId.rawValue)
+    }
+    /// Anonymous space analytics id
+    var analyticsSpaceId: String {
+        return value(for: BundledPropertyKey.analyticsSpaceId.rawValue)
+    }
+    /// Fulltext search score
+    var score: Int? {
+        return value(for: BundledPropertyKey.score.rawValue)
     }
 }

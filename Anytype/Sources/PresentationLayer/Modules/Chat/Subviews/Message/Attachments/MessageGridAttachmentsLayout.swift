@@ -35,7 +35,9 @@ struct MessageGridAttachmentsLayout: Layout {
             cache.rows[rowIndex].height = rowHeight
         }
         
-        let height = cache.rows.reduce(0, { $0 + $1.height }) + (cache.rows.count - 1) * spacing
+        let totalRowHeight = cache.rows.reduce(0, { $0 + $1.height })
+        let spacingHeight = CGFloat(cache.rows.count - 1) * spacing
+        let height = totalRowHeight + spacingHeight
         
         return CGSize(width: width, height: height)
     }

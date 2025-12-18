@@ -32,12 +32,12 @@ extension SpacePermissions {
     }
     
     init(spaceView: SpaceView, spaceAccessType: SpaceAccessType, isOwner: Bool, participantCanEdit: Bool, isLocalMode: Bool) {
-        
+
         canBeShared = isOwner && spaceAccessType.isSharable && !isLocalMode
         canStopSharing = isOwner && spaceAccessType.isShared && !isLocalMode
         canEdit = participantCanEdit
         canLeave = !isOwner && spaceView.isActive && !isLocalMode
-        
+
         if spaceView.localStatus == .loading {
             canBeDeleted = true
         } else if isOwner {

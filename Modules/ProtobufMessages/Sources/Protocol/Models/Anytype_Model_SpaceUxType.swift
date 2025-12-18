@@ -25,6 +25,9 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   /// chat UX
   case chat // = 3
+
+  /// onetoone UX (space with chat and immutable ACL between two participants)
+  case oneToOne // = 4
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -37,6 +40,7 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 1: self = .data
     case 2: self = .stream
     case 3: self = .chat
+    case 4: self = .oneToOne
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -47,6 +51,7 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .data: return 1
     case .stream: return 2
     case .chat: return 3
+    case .oneToOne: return 4
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -57,12 +62,13 @@ public enum Anytype_Model_SpaceUxType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .data,
     .stream,
     .chat,
+    .oneToOne,
   ]
 
 }
 
 extension Anytype_Model_SpaceUxType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Data\0\u{1}Stream\0\u{1}Chat\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0None\0\u{1}Data\0\u{1}Stream\0\u{1}Chat\0\u{1}OneToOne\0")
 }
 
 // If the compiler emits an error on this type, it is because this file

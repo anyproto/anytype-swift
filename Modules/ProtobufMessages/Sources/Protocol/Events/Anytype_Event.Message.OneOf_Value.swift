@@ -100,6 +100,8 @@ extension Anytype_Event.Message {
       case chatDelete(Anytype_Event.Chat.Delete)
       /// in case new unread messages received or chat state changed
       case chatStateUpdate(Anytype_Event.Chat.UpdateState)
+      case membershipV2Update(Anytype_Event.MembershipV2.Update)
+      case membershipV2ProductsUpdate(Anytype_Event.MembershipV2.ProductsUpdate)
 
     }}
 

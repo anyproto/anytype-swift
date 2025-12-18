@@ -102,7 +102,11 @@ final class ChatCoordinatorViewModel: ChatModuleOutput {
     func onWidgetsSelected() {
         pageNavigation?.pushHome()
     }
-    
+
+    func onSpaceSettingsSelected() {
+        pageNavigation?.open(.spaceInfo(.settings(spaceId: spaceId)))
+    }
+
     func onInviteLinkSelected() {
         spaceShareData = SpaceShareData(spaceId: spaceId, route: .chat)
     }

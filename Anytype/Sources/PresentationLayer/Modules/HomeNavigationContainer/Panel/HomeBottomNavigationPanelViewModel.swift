@@ -118,6 +118,13 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     func onTapCreateObject(type: ObjectType) {
         AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
+
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: info.accountSpaceId)))
+            output?.onCreateObjectSelected(screenData: screenData)
+            return
+        }
+
         Task { @MainActor in
             let details = try await objectActionsService.createObject(
                 name: "",
@@ -200,7 +207,9 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         if canLinkToChat {
             leftButtonMode = .chat(participantSpaceView.permissions.canEdit)
         } else if isWidgetsScreen {
-            if participantSpaceView.isOwner {
+            if participantSpaceView.spaceView.uxType.isOneToOne {
+                leftButtonMode = .home
+            } else if participantSpaceView.isOwner {
                 let limitAllowSharing = participantSpacesStorage.spaceSharingInfo?.limitsAllowSharing ?? false
                 let canBeShared = participantSpaceView.permissions.canBeShared
                 let isShared = participantSpaceView.spaceView.isShared

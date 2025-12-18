@@ -36,9 +36,11 @@ struct PublishToWebInternalView: View {
     private var topContent: some View {
         VStack(spacing: 0) {
             customUrlSection
-            
-            SectionHeaderView(title: Loc.preferences)
-            joinSpaceButtonToggle
+
+            if model.spaceUxType.supportsJoinSpaceButton {
+                SectionHeaderView(title: Loc.preferences)
+                joinSpaceButtonToggle
+            }
         }
     }
     
@@ -87,7 +89,7 @@ struct PublishToWebInternalView: View {
         .padding(.vertical, 16)
         .padding(.horizontal, 12)
         .border(10, color: .Shape.primary)
-        .background(Color.Shape.transperentTertiary)
+        .background(Color.Shape.transparentTertiary)
         .cornerRadius(10)
     }
     
@@ -118,7 +120,7 @@ struct PublishToWebInternalView: View {
             .padding(.vertical, 16)
             .padding(.horizontal, 12)
             .border(10, color: .Shape.primary)
-            .background(Color.Shape.transperentTertiary)
+            .background(Color.Shape.transparentTertiary)
             .cornerRadius(10)
         })
     }
@@ -213,6 +215,7 @@ struct PublishToWebInternalView: View {
         domain: .paid("vo.va"),
         status: nil,
         objectDetails: ObjectDetails(id: ""),
-        spaceName: "My Space"
+        spaceName: "My Space",
+        spaceUxType: .data
     ), output: nil)
 }

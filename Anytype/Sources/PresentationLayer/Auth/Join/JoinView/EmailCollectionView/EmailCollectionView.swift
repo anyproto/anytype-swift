@@ -72,7 +72,7 @@ struct EmailCollectionView: View {
             .padding(.horizontal, 20)            
         }
         .frame(height: 64)
-        .background(Color.Shape.transperentSecondary)
+        .background(Color.Shape.transparentSecondary)
         .cornerRadius(16)
     }
     

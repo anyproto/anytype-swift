@@ -50,8 +50,10 @@ final class PublishToWebViewModel: ObservableObject {
             return
         }
         
-        let spaceName = activeWorkspaceStorage.spaceView(spaceId: spaceId)?.title ?? ""
-        
+        let spaceView = activeWorkspaceStorage.spaceView(spaceId: spaceId)
+        let spaceName = spaceView?.title ?? ""
+        let spaceUxType = spaceView?.uxType ?? .data
+
         do {
             let status: PublishState?
             if let newStatus = try await publishingService.getStatus(spaceId: spaceId, objectId: objectId) {
@@ -66,7 +68,8 @@ final class PublishToWebViewModel: ObservableObject {
                 domain: domain,
                 status: status,
                 objectDetails: objectDetails,
-                spaceName: spaceName
+                spaceName: spaceName,
+                spaceUxType: spaceUxType
             ))
         } catch {
             state = .error(error.localizedDescription)

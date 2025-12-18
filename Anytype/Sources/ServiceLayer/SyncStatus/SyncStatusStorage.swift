@@ -12,7 +12,14 @@ protocol SyncStatusStorageProtocol: Sendable {
 }
 
 actor SyncStatusStorage: SyncStatusStorageProtocol, Sendable {
-    
+
+    // WORKAROUND: Force linker to retain Anytype_Event.Space.SyncStatus metadata.
+    // This empty wrapper struct gets stripped in Release builds because it's never
+    // directly referenced. Its nested Update type (SpaceSyncStatusInfo) needs the
+    // parent metadata to be present, causing null pointer crash if stripped.
+    private static let _forceParentTypeRetention: Anytype_Event.Space.SyncStatus.Type =
+        Anytype_Event.Space.SyncStatus.self
+
     private let storage = AtomicPublishedStorage([String: SpaceSyncStatusInfo]())
     private var subscription: AnyCancellable?
     

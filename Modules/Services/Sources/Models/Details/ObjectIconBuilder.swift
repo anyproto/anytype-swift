@@ -43,14 +43,16 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func icon(relations: BundledPropertiesValueProvider) -> ObjectIcon? {
         switch relations.resolvedLayoutValue {
-        case .basic, .set, .collection, .image, .chatDerived:
+        case .basic, .set, .collection, .image:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
+        case .chatDerived:
+            return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji, circular: true)
         case .profile, .participant:
             return profileIcon(iconImage: relations.iconImage, objectName: relations.objectName)
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
         case .space, .spaceView:
-            return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName, circular: relations.spaceUxTypeValue?.isChat ?? false)
+            return spaceIcon(iconImage: relations.iconImage, iconOption: relations.iconOption, objectName: relations.objectName, circular: !relations.spaceUxTypeValue.supportsMultiChats)
         case .objectType:
             return objectTypeIcon(customIcon: relations.customIcon, customIconColor: relations.customIconColor, iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
@@ -59,13 +61,13 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         }
     }
     
-    private func basicIcon(iconImage: String, iconEmoji: Emoji?) -> ObjectIcon? {
+    private func basicIcon(iconImage: String, iconEmoji: Emoji?, circular: Bool = false) -> ObjectIcon? {
         if iconImage.isNotEmpty {
-            return .basic(iconImage)
+            return .basic(iconImage, circular: circular)
         }
         
         if let iconEmoji = iconEmoji {
-            return .emoji(iconEmoji)
+            return .emoji(iconEmoji, circular: circular)
         }
         
         return nil
