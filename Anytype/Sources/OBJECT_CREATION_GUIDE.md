@@ -194,7 +194,8 @@ Must show `ChatCreateView` for name/icon input before creation.
 - Type search (long tap)
 - Quick actions
 - Set/Collection (chat collections)
-- Widget (via SetObjectCreationCoordinator)
+- ObjectType widget
+- Set/Collection widget (via SetObjectCreationCoordinator)
 
 **Pattern:**
 ```swift
@@ -206,13 +207,29 @@ if type.isChatType {
 ```
 
 ### Bookmark Objects
-Must show URL input before creation.
+Must show URL input (BookmarkCreateView) before creation.
 
 **Entry points with bookmark support:**
+- Bottom navigation plus menu
+- Type search (long tap)
+- Quick actions
 - Set/Collection (bookmark sets)
+- ObjectType widget
+- Set/Collection widget (via SetObjectCreationCoordinator)
+
+**Auto-creation (no UI):**
 - Type search (URL in clipboard)
 - Sharing extension
 - Chat input (auto-created)
+
+**Pattern:**
+```swift
+if type.isBookmarkType {
+    // Route to BookmarkCreateView via AlertScreenData
+    let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(...)))
+    output?.onCreateObjectSelected(screenData: screenData)
+}
+```
 
 ---
 

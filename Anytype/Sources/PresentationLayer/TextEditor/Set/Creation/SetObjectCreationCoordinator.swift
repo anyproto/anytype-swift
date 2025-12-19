@@ -58,6 +58,9 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     }
 
     private func handleAction(_ action: SetObjectCreationAction, mode: SetObjectCreationMode, setDocument: some SetDocumentProtocol) {
+        
+        let analyticsRoute: AnalyticsEventsRouteKind = customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
+        
         switch action {
         case .showObject(let details, let titleInputType):
             switch mode {
@@ -69,14 +72,15 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
                 spaceId: details.spaceId,
-                route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
+                route: analyticsRoute
             )
 
         case .showBookmarkCreation(let spaceId, let collectionId):
-            showCreateBookmarkObject(spaceId: spaceId, collectionId: collectionId)
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(spaceId: spaceId, collectionId: collectionId, analyticsRoute: analyticsRoute)))
+            showObject(data: screenData)
 
         case .showChatCreation(let spaceId, let collectionId):
-            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: spaceId, collectionId: collectionId)))
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(spaceId: spaceId, collectionId: collectionId, analyticsRoute: analyticsRoute)))
             showObject(data: screenData)
         }
     }
@@ -88,28 +92,10 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         } closeAction: { [weak self] in
             self?.navigationContext.dismissTopPresented()
         }
-        
+
         navigationContext.present(moduleViewController)
     }
-    
-    private func showCreateBookmarkObject(spaceId: String, collectionId: String?) {
-        let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
-            spaceId: spaceId,
-            collectionId: collectionId,
-            closeAction: { [weak self] details in
-                self?.navigationContext.dismissTopPresented(animated: true) {
-                    guard details.isNil else {
-                        SharingTip.didCopyText = true
-                        return
-                    }
-                    self?.toastPresenter.showFailureAlert(message: Loc.Set.Bookmark.Error.message)
-                }
-            }
-        )
-        
-        navigationContext.present(moduleViewController)
-    }
-    
+
     private func showObject(data: ScreenData) {
         output?.showEditorScreen(data: data)
     }

@@ -30,6 +30,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var bookmarkScreenData: BookmarkScreenData?
     var spaceCreateData: SpaceCreateData?
     var chatCreateData: ChatCreateScreenData?
+    var bookmarkCreateData: BookmarkCreateScreenData?
     var showSpaceTypeForCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
@@ -374,12 +375,14 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     
     private func showAlert(_ data: AlertScreenData) async {
         await dismissAllPresented?()
-        
+
         switch data {
         case .spaceMember(let objectInfo):
             profileData = objectInfo
         case .chatCreate(let chatData):
             chatCreateData = chatData
+        case .bookmarkCreate(let bookmarkData):
+            bookmarkCreateData = bookmarkData
         }
     }
     
@@ -549,6 +552,24 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         type: ObjectType,
         route: AnalyticsEventsRouteKind
     ) async throws {
+        if type.isChatType {
+            let screenData = ScreenData.alert(.chatCreate(ChatCreateScreenData(
+                spaceId: type.spaceId,
+                analyticsRoute: .quickAction
+            )))
+            showScreenSync(data: screenData)
+            return
+        }
+
+        if type.isBookmarkType {
+            let screenData = ScreenData.alert(.bookmarkCreate(BookmarkCreateScreenData(
+                spaceId: type.spaceId,
+                analyticsRoute: .quickAction
+            )))
+            showScreenSync(data: screenData)
+            return
+        }
+
         let details = try await objectActionsService.createObject(
             name: "",
             typeUniqueKey: type.uniqueKey,
@@ -560,7 +581,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             templateId: type.defaultTemplateId
         )
         AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-        
+
         showScreenSync(data: details.screenData())
     }
     
