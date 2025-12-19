@@ -2,21 +2,23 @@ import SwiftUI
 import LocalAuthentication
 
 @MainActor
-class KeychainPhraseViewModel: ObservableObject {
-    
+@Observable
+final class KeychainPhraseViewModel {
+
     // MARK: - DI
 
+    @ObservationIgnored
     private let shownInContext: AnalyticsEventsKeychainContext
-    @Injected(\.seedService)
+    @ObservationIgnored @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
-    @Injected(\.localAuthService)
+    @ObservationIgnored @Injected(\.localAuthService)
     private var localAuthService: any LocalAuthServiceProtocol
 
     // MARK: - State
-    
-    @Published private(set) var recoveryPhrase: String? = nil
-    @Published var toastBarData: ToastBarData?
-    @Published var secureAlertData: SecureAlertData?
+
+    private(set) var recoveryPhrase: String? = nil
+    var toastBarData: ToastBarData?
+    var secureAlertData: SecureAlertData?
     
     init(shownInContext: AnalyticsEventsKeychainContext) {
         self.shownInContext = shownInContext
