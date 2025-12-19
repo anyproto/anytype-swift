@@ -13,13 +13,13 @@
         "be" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Працягваючы,  вы згаджаецеся з нашымі [Умовамі Выкарыстання](%@) і [Палітыкай Прыватнасці](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Wenn Sie fortfahren, stimmen Sie den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@) zu"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "en" : {
@@ -43,13 +43,13 @@
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Jatkamalla hyväksyt [Käyttösopimuksen](%@) ja [Tietoturvaselosteen](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "id" : {
@@ -61,19 +61,19 @@
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "続行することで[利用規約](%@)および[プライバシーポリシー](%@)に同意したものとみなします"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "계속 진행하면 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것입니다"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "nb" : {
@@ -85,43 +85,43 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ao continuar, você concorda com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ao continuar, está a concordar com os [Termos de Uso](%@) e com a [Política de Privacidade](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Продолжая, вы соглашаетесь с нашими [условиями пользования](%@) и [политикой конфиденциальности](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz"
+            "value" : "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursun"
           }
         },
         "uk" : {
@@ -139,13 +139,13 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)"
+            "value" : "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)"
           }
         }
       }
@@ -9738,31 +9738,31 @@
         "fr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Veuillez libérer environ %@ d'espace et relancer le processus."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Silakan bersihkan kurang lebih %@ ruang penyimpanan, lalu coba lagi."
+            "value" : "Silakan bersihkan ruang penyimpanan sebanyak %@ lalu coba lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Liberare circa %@ di spazio ed eseguire nuovamente il processo."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "約%@の空き容量を確保し、再度実行してください。"
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "저장 공간의 약 %@를 비운 뒤, 다시 진행하세요."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "nb" : {
@@ -9774,7 +9774,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Maak alsjeblieft ongeveer %@ aan ruimte vrij en voer het proces opnieuw uit."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "or" : {
@@ -9804,13 +9804,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Пожалуйста, освободите %@ места и запустите процесс снова."
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Lütfen yaklaşık %@ kadarlık alanı temizleyin ve işlemi tekrarlayın."
+            "value" : "Lütfen yaklaşık %@ kadarlık alanı temizle ve işlemi tekrarla."
           }
         },
         "uk" : {
@@ -9828,7 +9828,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "请清理大约  %@ 空间后重试。"
+            "value" : "Please clear approximately %@ of space and run the process again."
           }
         },
         "zh-Hant" : {
