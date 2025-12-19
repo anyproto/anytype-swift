@@ -637,7 +637,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Kamu hanya bisa mengunggah %d lampiran bersamaan"
                 }
               }
             }
@@ -917,6 +917,155 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "Chat.Create.namePlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat Name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Nama Obrolan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sohbet Adı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chat Name"
           }
         }
       }
@@ -1364,155 +1513,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Are you sure you want to close this screen?"
-          }
-        }
-      }
-    },
-    "Chat.Create.namePlaceholder" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chat Name"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Sohbet Adı"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Chat Name"
           }
         }
       }
@@ -4253,7 +4253,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachments (%@)"
+            "value" : "Lampiran (%@)"
           }
         },
         "it" : {
@@ -4402,7 +4402,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Files (%@)"
+            "value" : "Berkas (%@)"
           }
         },
         "it" : {
@@ -4551,7 +4551,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Images (%@)"
+            "value" : "Gambar (%@)"
           }
         },
         "it" : {
@@ -4701,7 +4701,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reply to %@"
+            "value" : "Balas %@"
           }
         },
         "it" : {
@@ -15868,7 +15868,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days ago"
+                  "value" : "%d hari yang lalu"
                 }
               }
             }
@@ -16490,7 +16490,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "%d hari dari sekarang"
                 }
               }
             }
@@ -19364,7 +19364,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been created"
+            "value" : "Properti '%@' telah dibuat"
           }
         },
         "it" : {
@@ -20258,7 +20258,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been updated"
+            "value" : "Properti '%@' telah diperbarui"
           }
         },
         "it" : {
@@ -23523,7 +23523,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared spaces"
+                  "value" : "Hingga %d Ruang terbagi"
                 }
               }
             }
@@ -23996,7 +23996,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editors per shared space"
+                  "value" : "%d Penyunting per ruang terbagi"
                 }
               }
             }
@@ -24334,7 +24334,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ GB of backup & sync space on the Anytype network"
+            "value" : "%@ GB ruang pencadangan dan sinkronisasi di jaringan Anytype"
           }
         },
         "it" : {
@@ -24483,7 +24483,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unique Network name (%@+ characters)"
+            "value" : "Nama Jaringan unik (%@+ karakter)"
           }
         },
         "it" : {
@@ -72674,7 +72674,7 @@
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Son üyeyi de kaldırdın. Bundan dolayı bu alan artık özel ve yalnızca senin erişimine açık hale geldi."
+            "value" : "Son üyeyi de kaldırdınız. Bu nedenle bu alan artık özel ve yalnızca sizin erişiminize açıktır."
           }
         },
         "uk" : {
