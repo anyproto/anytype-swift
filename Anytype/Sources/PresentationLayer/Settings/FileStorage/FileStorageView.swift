@@ -2,12 +2,8 @@ import SwiftUI
 import AnytypeCore
 
 struct FileStorageView: View {
-    
-    @StateObject private var model: FileStorageViewModel
-    
-    init() {
-        self._model = StateObject(wrappedValue: FileStorageViewModel())
-    }
+
+    @State private var model = FileStorageViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,6 +22,9 @@ struct FileStorageView: View {
         }
         .onAppear {
             model.onAppear()
+        }
+        .task {
+            await model.startSubscription()
         }
         .anytypeSheet(isPresented: $model.showClearCacheAlert) {
             DashboardClearCacheAlert()
