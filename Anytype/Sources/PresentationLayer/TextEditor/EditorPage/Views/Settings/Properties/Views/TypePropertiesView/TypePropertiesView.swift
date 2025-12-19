@@ -84,23 +84,26 @@ struct TypePropertiesView: View {
     
     private var propertiesSection: some View {
         ForEach(model.relationRows) { row in
-            Group {
-                switch row {
-                case .header(let header):
-                    headerRow(header).padding(.horizontal, 20)
-                case .relation(let relation):
-                    propertyRow(relation)
-                        .divider()
-                case .emptyRow:
-                    Rectangle().foregroundStyle(Color.clear).fixTappableArea().frame(height: 52)
-                }
-            }
-            .onDrop(of: [.text], delegate: TypePropertiesDropDelegate(
-                destinationRow: row,
-                document: model.document,
-                draggedRow: $draggedRow,
-                allRows: $model.relationRows)
-            )
+            propertyRowContent(row)
+                .onDrop(of: [.text], delegate: TypePropertiesDropDelegate(
+                    destinationRow: row,
+                    document: model.document,
+                    draggedRow: $draggedRow,
+                    allRows: $model.relationRows)
+                )
+        }
+    }
+
+    @ViewBuilder
+    private func propertyRowContent(_ row: TypePropertiesRow) -> some View {
+        switch row {
+        case .header(let header):
+            headerRow(header).padding(.horizontal, 20)
+        case .relation(let relation):
+            propertyRow(relation)
+                .divider()
+        case .emptyRow:
+            Rectangle().foregroundStyle(Color.clear).fixTappableArea().frame(height: 52)
         }
     }
     

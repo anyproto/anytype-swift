@@ -16,14 +16,8 @@ struct EditorSetView: View {
     }
     
     var body: some View {
-        Group {
-            if model.loadingDocument {
-                Spacer()
-            } else {
-                content
-            }
-        }
-        .navigationBarHidden(true)
+        loadingContent
+            .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onAppear {
             model.onAppear()
@@ -46,7 +40,16 @@ struct EditorSetView: View {
         }
         .homeBottomPanelHidden(false)
     }
-    
+
+    @ViewBuilder
+    private var loadingContent: some View {
+        if model.loadingDocument {
+            Spacer()
+        } else {
+            content
+        }
+    }
+
     private var content: some View {
         ZStack(alignment: .top) {
             contentView

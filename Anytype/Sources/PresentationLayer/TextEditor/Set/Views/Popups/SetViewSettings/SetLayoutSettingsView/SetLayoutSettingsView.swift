@@ -77,20 +77,23 @@ struct SetLayoutSettingsView: View {
     private var settingsSection: some View {
         VStack(spacing: 0) {
             ForEach(model.settings) { setting in
-                Group {
-                    switch setting {
-                    case let .toggle(item):
-                        toggleSettings(with: item)
-                    case let .value(item):
-                        valueSetting(with: item)
-                    case let .context(item):
-                        contextMenu(with: item)
+                settingContent(setting)
+                    .if(model.settings.last != setting) {
+                        $0.divider()
                     }
-                }
-                .if(model.settings.last != setting) {
-                    $0.divider()
-                }
             }
+        }
+    }
+
+    @ViewBuilder
+    private func settingContent(_ setting: SetViewSettingsItem) -> some View {
+        switch setting {
+        case let .toggle(item):
+            toggleSettings(with: item)
+        case let .value(item):
+            valueSetting(with: item)
+        case let .context(item):
+            contextMenu(with: item)
         }
     }
     
