@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct AboutView: View {
-    
-    @StateObject private var model: AboutViewModel
-    
+
+    @State private var model: AboutViewModel
+
     init(output: (any AboutModuleOutput)?) {
-        _model = StateObject(wrappedValue: AboutViewModel(output: output))
+        _model = State(initialValue: AboutViewModel(output: output))
     }
     
     var body: some View {
