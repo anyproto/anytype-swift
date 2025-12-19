@@ -2,7 +2,7 @@
 
 Complete guide to iOS development patterns, architecture, and best practices for the Anytype iOS app.
 
-*Last updated: 2025-01-30*
+*Last updated: 2025-12-18*
 
 ## Overview
 
@@ -468,6 +468,65 @@ Text(Loc.addMember)
 // ❌ Don't edit this file - changes will be overwritten
 ```
 
+### ❌ SwiftUI Group with Lifecycle Modifiers (2025-12-18)
+
+`Group` distributes modifiers to its children. When used with conditionals and lifecycle modifiers (`onAppear`, `task`), callbacks can fire multiple times as views switch between branches.
+
+```swift
+// ❌ WRONG - onAppear/task can fire multiple times when loadingDocument changes
+var body: some View {
+    Group {
+        if model.loadingDocument {
+            Spacer()
+        } else {
+            content
+        }
+    }
+    .onAppear { model.onAppear() }
+    .task { await model.startSubscriptions() }
+}
+
+// ✅ CORRECT - Extract to @ViewBuilder, modifiers applied once
+var body: some View {
+    loadingContent
+        .onAppear { model.onAppear() }
+        .task { await model.startSubscriptions() }
+}
+
+@ViewBuilder
+private var loadingContent: some View {
+    if model.loadingDocument {
+        Spacer()
+    } else {
+        content
+    }
+}
+```
+
+**Also avoid Group inside ForEach with modifiers**:
+```swift
+// ❌ WRONG - Group distributes onDrop to each case
+ForEach(items) { item in
+    Group {
+        switch item.type { ... }
+    }
+    .onDrop(...)
+}
+
+// ✅ CORRECT - Extract switch to @ViewBuilder function
+ForEach(items) { item in
+    itemContent(item)
+        .onDrop(...)
+}
+
+@ViewBuilder
+private func itemContent(_ item: Item) -> some View {
+    switch item.type { ... }
+}
+```
+
+**Reference**: [SwiftUI Group Still Considered Harmful](https://twocentstudios.com/2025/12/12/swiftui-group-still-considered-harmful/)
+
 ### ❌ Computed Properties Accessing Storage in ViewModels
 
 Using computed properties that access storage/services causes unnecessary calls on every view re-render:
@@ -535,6 +594,7 @@ final class ProfileViewModel: ObservableObject {
 - Trim whitespace-only lines
 - Hardcode strings (use Loc.*)
 - Use computed properties accessing storage in ViewModels (causes re-render overhead)
+- Use `Group` with conditionals + lifecycle modifiers (use `@ViewBuilder` instead)
 
 ### Testing
 

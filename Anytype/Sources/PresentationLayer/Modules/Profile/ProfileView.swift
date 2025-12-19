@@ -12,14 +12,8 @@ struct ProfileView: View {
     }
 
     var body: some View {
-        Group {
-            if let details = model.details {
-                content(details)
-            } else {
-                emptyView
-            }
-        }
-        .onAppear {
+        mainContent
+            .onAppear {
             model.pageNavigation = pageNavigation
         }
         .task {
@@ -29,7 +23,16 @@ struct ProfileView: View {
             SettingsCoordinatorView()
         }
     }
-    
+
+    @ViewBuilder
+    private var mainContent: some View {
+        if let details = model.details {
+            content(details)
+        } else {
+            emptyView
+        }
+    }
+
     private var emptyView: some View {
         Spacer.fixedHeight(300)
             .background(Color.Background.secondary)
