@@ -5,9 +5,9 @@ import AnytypeCore
 import Assets
 import DesignKit
 
-
 @MainActor
-final class ProfileQRCodeViewModel: ObservableObject {
+@Observable
+final class ProfileQRCodeViewModel {
 
     enum State {
         case loading
@@ -17,17 +17,17 @@ final class ProfileQRCodeViewModel: ObservableObject {
 
     // MARK: - DI
 
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.universalLinkParser)
+    @ObservationIgnored @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
 
     // MARK: - State
 
-    @Published private(set) var state: State = .loading
-    @Published var sharedUrl: URLIdentifiable?
-    @Published var toastBarData: ToastBarData?
-    @Published var shouldScanQrCode = false
+    private(set) var state: State = .loading
+    var sharedUrl: URLIdentifiable?
+    var toastBarData: ToastBarData?
+    var shouldScanQrCode = false
 
     let anyName: String
     let profileIcon: Icon

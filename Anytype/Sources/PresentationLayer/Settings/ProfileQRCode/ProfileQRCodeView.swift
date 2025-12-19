@@ -6,7 +6,7 @@ import AnytypeCore
 
 struct ProfileQRCodeView: View {
 
-    @StateObject private var model = ProfileQRCodeViewModel()
+    @State private var model = ProfileQRCodeViewModel()
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
