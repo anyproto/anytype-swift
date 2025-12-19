@@ -68,6 +68,24 @@ extension Container {
 @Injected(\.chatService) private var chatService
 ```
 
+### ViewModel Initialization
+Keep ViewModel `init()` cheap - defer heavy work to `.task`:
+```swift
+// Init assigns parameters only
+init(id: String) {
+    _model = State(wrappedValue: ViewModel(id: id))
+}
+
+// Heavy work in .task
+.task { await model.startSubscriptions() }
+```
+
+For expensive init, defer creation entirely:
+```swift
+@State private var model: ViewModel?
+.task(id: id) { model = ViewModel(id: id) }
+```
+
 ### Async Button Actions
 **Prefer `AsyncStandardButton` over manual loading state management** for cleaner code:
 

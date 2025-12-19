@@ -569,6 +569,45 @@ final class ProfileViewModel: ObservableObject {
 
 **Rule**: If the value doesn't change during the view's lifetime, use `let` constant. If it can change, subscribe to updates with `@Published`.
 
+### ViewModel Initialization Performance (2025-12-19)
+
+ViewModel initializers run every time the View struct is created, not just when the view appears. Keep initializers cheap.
+
+**Current Best Practice (already used in codebase)**:
+```swift
+// ✅ CORRECT - Init is cheap, heavy work in .task
+struct ChatView: View {
+    @State private var model: ChatViewModel
+
+    init(spaceId: String, chatId: String) {
+        _model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId))
+    }
+
+    var body: some View {
+        content
+            .task { await model.startSubscriptions() }  // Heavy work here
+    }
+}
+```
+
+**Alternative for Expensive Initialization**:
+If the ViewModel init itself is expensive (performs I/O, network, etc.), defer creation:
+```swift
+struct ExpensiveView: View {
+    let id: String
+    @State private var model: ExpensiveViewModel?
+
+    var body: some View {
+        content
+            .task(id: id) {
+                model = ExpensiveViewModel(id: id)  // Runs once per id
+            }
+    }
+}
+```
+
+**Reference**: [Initializing @Observable Classes in SwiftUI](https://nilcoalescing.com/blog/InitializingObservableClassesWithinTheSwiftUIHierarchy/)
+
 ## 📚 Integration with Other Guides
 
 - **Localization**: See `LOCALIZATION_GUIDE.md` for using `Loc.*` constants
