@@ -58,7 +58,7 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
             )
         }
 
-        let isMuted = !(spaceView?.effectiveNotificationMode(for: objectId).isUnmutedAll ?? true)
+        let notificationMode = spaceView?.effectiveNotificationMode(for: objectId) ?? .all
 
         return MessagePreviewModel(
             creatorTitle: lastMessage.creator?.title,
@@ -68,7 +68,7 @@ final class WidgetRowModelBuilder: WidgetRowModelBuilderProtocol, Sendable {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: preview.unreadCounter,
             mentionCounter: preview.mentionCounter,
-            isMuted: isMuted,
+            notificationMode: notificationMode,
             chatName: nil
         )
     }

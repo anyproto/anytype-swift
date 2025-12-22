@@ -71,12 +71,12 @@ struct WidgetContainerView<Content: View>: View {
                             if let badgeModel, badgeModel.hasCounters {
                                 HStack(spacing: 4) {
                                     if badgeModel.mentionCounter > 0 {
-                                        MentionBadge(style: badgeModel.mentionStyle)
+                                        MentionBadge(style: badgeModel.mentionCounterStyle)
                                     }
                                     if badgeModel.unreadCounter > 0 {
                                         CounterView(
                                             count: badgeModel.unreadCounter,
-                                            style: badgeModel.unreadStyle
+                                            style: badgeModel.unreadCounterStyle
                                         )
                                     }
                                 }
