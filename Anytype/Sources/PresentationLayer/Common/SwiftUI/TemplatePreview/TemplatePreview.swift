@@ -26,7 +26,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                             templateModel.title,
                             style: .caption2Medium
                         )
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .padding(.horizontal, 16)
                     case let .todo(isChecked):
                         HStack(spacing: 4) {
@@ -35,7 +35,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                                 templateModel.title,
                                 style: .caption2Medium
                             )
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                             .lineLimit(1)
                         }.padding(.horizontal, 16)
                     }
@@ -51,7 +51,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
             $0.overlay(alignment: .bottom) {
                 VStack(spacing: 0) {
                     AnytypeText("Default", style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .padding(.horizontal, 6)
                         .background(Color.Shape.transparentSecondary)
                         .cornerRadius(4, style: .continuous)

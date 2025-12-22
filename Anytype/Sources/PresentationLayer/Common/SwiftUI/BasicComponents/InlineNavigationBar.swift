@@ -41,12 +41,12 @@ struct InlineNavigationBar_Previews: PreviewProvider {
         InlineNavigationBar(
             title: {
                 AnytypeText("ad", style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             },
             rightButton: {
                 Button(action: {}) {
                     AnytypeText("ad", style: .uxBodyRegular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                 }
             }
         )

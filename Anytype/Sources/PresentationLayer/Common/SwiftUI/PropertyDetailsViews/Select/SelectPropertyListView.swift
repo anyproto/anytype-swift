@@ -75,7 +75,7 @@ struct SelectPropertyListView: View {
         switch viewModel.style {
         case .status:
             AnytypeText(option.text, style: .relation1Regular)
-                .foregroundColor(option.color)
+                .foregroundStyle(Color(option.color))
         case .tag:
             TagView(
                 config: TagView.Config(

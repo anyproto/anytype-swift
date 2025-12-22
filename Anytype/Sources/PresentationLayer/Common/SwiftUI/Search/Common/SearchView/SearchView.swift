@@ -83,7 +83,7 @@ struct SearchView<SearchData: SearchDataProtocol>: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
                                 AnytypeText(section.sectionName, style: .caption1Regular)
-                                    .foregroundColor(.Text.secondary)
+                                    .foregroundStyle(Color.Text.secondary)
                                     .divider(spacing: 7, leadingPadding: 0, trailingPadding: 0, alignment: .leading)
                             }
                             .padding(.horizontal, 20)

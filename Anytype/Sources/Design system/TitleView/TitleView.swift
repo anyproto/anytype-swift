@@ -17,7 +17,7 @@ struct TitleView<LeftContent, RightContent>: View where LeftContent: View, Right
             Spacer()
             if let title = title {
                 AnytypeText(title, style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .frame(height: 48)
             }
             Spacer()

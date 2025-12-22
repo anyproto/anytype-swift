@@ -24,7 +24,7 @@ struct PropertyValuePlaceholderView: View {
     private func hintView(with text: String?) -> some View {
         if let text {
             AnytypeText(text, style: style.hintFont)
-                .foregroundColor(style.hintColor)
+                .foregroundStyle(style.hintColor)
                 .lineLimit(1)
         }
     }

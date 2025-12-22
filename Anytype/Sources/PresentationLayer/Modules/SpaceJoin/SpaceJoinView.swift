@@ -72,10 +72,10 @@ struct SpaceJoinView: View {
             Image(asset: .Dialog.invite)
             Spacer.fixedHeight(15)
             AnytypeText(model.title, style: .heading)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(8)
             AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .if(placeholder) {
                     $0.redacted(reason: .placeholder)
                 }
@@ -96,7 +96,7 @@ struct SpaceJoinView: View {
                 } else {
                     Spacer.fixedHeight(17)
                     AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 }
             }
         }

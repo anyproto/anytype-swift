@@ -76,7 +76,7 @@ struct SpaceSettingsView: View {
                 Button {
                     model.onEditTap()
                 } label: {
-                    AnytypeText(Loc.edit, style: .bodyRegular).foregroundColor(.Control.secondary)
+                    AnytypeText(Loc.edit, style: .bodyRegular).foregroundStyle(Color.Control.secondary)
                 }
             }
         }
@@ -93,7 +93,7 @@ struct SpaceSettingsView: View {
                 }
                 if !model.isOneToOne {
                     Spacer.fixedHeight(4)
-                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundColor(.Text.secondary)
+                    AnytypeText(Loc.membersPlural(model.participantsCount), style: .caption1Regular).foregroundStyle(Color.Text.secondary)
                 }
             }
         }
@@ -183,7 +183,7 @@ struct SpaceSettingsView: View {
             Spacer.fixedHeight(6)
             
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
     }
     

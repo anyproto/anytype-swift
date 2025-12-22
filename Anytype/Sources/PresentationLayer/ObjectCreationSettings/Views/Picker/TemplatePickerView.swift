@@ -48,7 +48,7 @@ struct TemplatePickerView: View {
                     Loc.TemplateSelection.Available.title(viewModel.items.count),
                     style: .caption1Medium
                 )
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 settingsButton
@@ -89,7 +89,7 @@ struct TemplatePickerView: View {
             viewModel.onCloseButtonTap()
         } label: {
             Image(asset: .X24.close)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
     }
     
@@ -108,7 +108,7 @@ struct TemplatePickerView: View {
                 viewModel.onSettingsButtonTap()
             } label: {
                 Image(asset: .X24.more)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         }
     }

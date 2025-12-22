@@ -19,7 +19,7 @@ public struct AnytypeTextField: View {
             TextField("", text: $text, axis: axis)
                 .placeholder(when: text.isEmpty) {
                     AnytypeText(placeholder, style: font)
-                        .foregroundColor(.Text.tertiary)
+                        .foregroundStyle(Color.Text.tertiary)
                 }
                 .font(AnytypeFontBuilder.font(anytypeFont: font))
                 .kerning(font.config.kern)

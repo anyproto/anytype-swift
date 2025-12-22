@@ -67,14 +67,14 @@ struct ProfileQRCodeView: View {
         HStack {
             Spacer()
             AnytypeText(model.anyName.isEmpty ? Loc.qrCode : model.anyName, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
         }
         .overlay(alignment: .trailing) {
             Button { model.onScanTap() } label: {
                 Image(asset: .X32.scanCode)
                     .frame(width: 32, height: 32)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }

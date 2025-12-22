@@ -361,6 +361,43 @@ let items: [Item] = fetchItems()
 let callback: (String) -> Void = handle
 ```
 
+### SwiftUI Best Practices
+
+#### Use `foregroundStyle()` instead of `foregroundColor()`
+
+`foregroundColor()` is deprecated. Use `foregroundStyle()` with explicit `Color` type:
+
+```swift
+// ❌ WRONG - Deprecated
+Text("Hello")
+    .foregroundColor(.red)
+
+// ❌ WRONG - Type inference doesn't work
+Text("Hello")
+    .foregroundStyle(.red)
+
+// ✅ CORRECT - Explicit Color type
+AnytypeText("Hello", style: .bodyRegular)
+    .foregroundStyle(Color.Text.primary)
+```
+
+#### Use `AnytypeText` instead of plain `Text`
+
+Never use SwiftUI's plain `Text` view. Always use `AnytypeText` which encapsulates design system typography:
+
+```swift
+// ❌ WRONG - Plain Text
+Text("Hello World")
+
+// ✅ CORRECT - AnytypeText with design system style
+AnytypeText("Hello World", style: .bodyRegular)
+
+// ✅ With localization
+AnytypeText(Loc.welcomeMessage, style: .heading)
+```
+
+`AnytypeText` ensures consistent typography and automatically applies design system fonts.
+
 ## 🧪 Testing & Mocks
 
 ### Always Update Tests When Refactoring

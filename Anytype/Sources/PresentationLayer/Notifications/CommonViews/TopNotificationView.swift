@@ -17,7 +17,7 @@ struct TopNotificationView: View {
             }
             VStack(alignment: .leading, spacing: 10) {
                 AnytypeText(title, style: .caption1Regular, enableMarkdown: true)
-                    .foregroundColor(.Text.inversion)
+                    .foregroundStyle(Color.Text.inversion)
                 if buttons.isNotEmpty {
                     HStack(spacing: 24) {
                         ForEach(0..<buttons.count, id: \.self) { index in
@@ -26,7 +26,7 @@ struct TopNotificationView: View {
                                 try await button.action()
                             } label: {
                                 AnytypeText(button.title, style: .caption1Semibold)
-                                    .foregroundColor(.Text.inversion)
+                                    .foregroundStyle(Color.Text.inversion)
                             }
                         }
                     }

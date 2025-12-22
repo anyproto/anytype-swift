@@ -38,8 +38,8 @@ public extension View {
 
 #Preview("Join 1 option") {
     TextPreview {
-        Text("ABC \(Text("DEF").foregroundColor(.red).anytypeFontStyle(.bodyRegular))")
-            .foregroundColor(.blue)
+        Text("ABC \(Text("DEF").foregroundStyle(Color.red).anytypeFontStyle(.bodyRegular))")
+            .foregroundStyle(Color.blue)
             .anytypeStyle(.bodySemibold)
     }
 }
@@ -48,11 +48,11 @@ public extension View {
     TextPreview {
         Group {
             Text("ABC")
-                .foregroundColor(.blue)
+                .foregroundStyle(Color.blue)
                 .anytypeFontStyle(.bodySemibold)
             +
             Text("DEF")
-                .foregroundColor(.red)
+                .foregroundStyle(Color.red)
                 .anytypeFontStyle(.bodyRegular)
         }
         .anytypeLineHeightStyle(.bodyRegular)

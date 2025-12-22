@@ -39,7 +39,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             Spacer()
             
             AnytypeText(data.title, style: data.isMinimal ? .uxBodyRegular : .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .frame(height: 20)
             
@@ -48,14 +48,14 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
                 if let descriptionInfo {
                     Spacer.fixedHeight(1)
                     AnytypeText(descriptionInfo.description, style: descriptionInfo.descriptionFont)
-                        .foregroundColor(descriptionInfo.descriptionTextColor)
+                        .foregroundStyle(Color(descriptionInfo.descriptionTextColor))
                         .lineLimit(1)
                 }
                 
                 if let callout {
                     Spacer.fixedHeight(2)
                     AnytypeText(callout, style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
                 }
             case .minimal:

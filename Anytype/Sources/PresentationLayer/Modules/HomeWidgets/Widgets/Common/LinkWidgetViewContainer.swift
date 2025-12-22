@@ -90,7 +90,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 }
             } label: {
                 Image(asset: .X18.Disclosure.right)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .rotationEffect(.degrees(isExpanded ? 90 : 0))
             }
         }
@@ -103,7 +103,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 createObjectAction()
             } label: {
                 Image(asset: .X18.plus)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }

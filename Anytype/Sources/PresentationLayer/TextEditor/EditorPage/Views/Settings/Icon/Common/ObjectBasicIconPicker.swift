@@ -46,7 +46,7 @@ struct ObjectBasicIconPicker: View {
     private var navigationBarView: some View {
         InlineNavigationBar {
             AnytypeText(Loc.changeIcon, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if isRemoveButtonAvailable {
@@ -55,7 +55,7 @@ struct ObjectBasicIconPicker: View {
                     dismiss()
                 } label: {
                     AnytypeText(Loc.remove, style: .uxBodyRegular)
-                        .foregroundColor(.Pure.red)
+                        .foregroundStyle(Color.Pure.red)
                 }
             } else {
                 EmptyView()
@@ -96,7 +96,7 @@ struct ObjectBasicIconPicker: View {
             
         } label: {
             AnytypeText(tab.title, style: .uxBodyRegular)
-                .foregroundColor(selectedTab == tab ? Color.Control.primary : Color.Control.secondary)
+                .foregroundStyle(selectedTab == tab ? Color.Control.primary : Color.Control.secondary)
         }
         .frame(maxWidth: .infinity)
     }
@@ -108,7 +108,7 @@ struct ObjectBasicIconPicker: View {
             }
         } label: {
             AnytypeText(Loc.random, style: .uxBodyRegular)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
         .frame(maxWidth: .infinity)
     }

@@ -39,7 +39,7 @@ struct RoundedButtonView: View {
                     .frame(width: 24, height: 24)
                 Spacer.fixedWidth(8)
             }
-            AnytypeText(text, style: .previewTitle1Regular).foregroundColor(textColor)
+            AnytypeText(text, style: .previewTitle1Regular).foregroundStyle(textColor)
             Spacer()
             decorationView
         }
@@ -56,7 +56,7 @@ struct RoundedButtonView: View {
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .caption(let caption):
             AnytypeText(caption, style: .bodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer.fixedWidth(8)
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .badge(let badge):
@@ -65,7 +65,7 @@ struct RoundedButtonView: View {
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .alert:
             AnytypeText("!", style: .caption1Regular)
-                .foregroundColor(Color.Control.white)
+                .foregroundStyle(Color.Control.white)
                 .frame(width: 20, height: 20)
                 .background(Circle().fill(Color.Pure.red))
             Spacer.fixedWidth(8)

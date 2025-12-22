@@ -51,7 +51,7 @@ struct LoginView: View {
             backButton
         } titleView: {
             Image(asset: .logo)
-                .foregroundColor(.Control.primary)
+                .foregroundStyle(Color.Control.primary)
                 .onTapGesture(count: 5) {
                     AudioServicesPlaySystemSound(1109)
                     model.openPublicDebugMenuTap()
@@ -103,7 +103,7 @@ struct LoginView: View {
                 Loc.Auth.Login.Or.title,
                 style: .caption1Regular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             
             HStack(spacing: 44) {
                 Spacer()
@@ -133,7 +133,7 @@ struct LoginView: View {
             model.onbackButtonAction()
         }) {
             Image(asset: .X24.back)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
         .disabled(model.backButtonDisabled)
     }
@@ -152,7 +152,7 @@ struct LoginView: View {
             Spacer.fixedHeight(8)
             
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         .fixTappableArea()
     }

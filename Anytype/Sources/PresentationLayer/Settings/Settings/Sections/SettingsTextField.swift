@@ -8,9 +8,9 @@ struct SettingsTextField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             AnytypeText(title, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             AnytypeTextField(placeholder: Loc.untitled, font: .heading, text: $text)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .autocorrectionDisabled()
         }
         .padding(.vertical, 11)

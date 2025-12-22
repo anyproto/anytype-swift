@@ -10,7 +10,7 @@ struct DebugMenuInputSettings: View {
     var body: some View {
         HStack {
             AnytypeText(title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
             TextField(placeholder, text: $inputText)
                 .textFieldStyle(.roundedBorder)

@@ -36,7 +36,7 @@ struct NewPropertySectionView<Content: View>: View {
     
     private var titleView: some View {
         AnytypeText(title, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
     }
     

@@ -76,7 +76,7 @@ struct GlobalSearchView: View {
             section.title,
             style: .uxTitle2Medium
         )
-        .foregroundColor(model.state.section == section ? .Text.inversion : .Text.secondary)
+        .foregroundStyle(model.state.section == section ? Color.Text.inversion : Color.Text.secondary)
         .padding(.vertical, 6)
         .padding(.horizontal, 10)
         .background(model.state.section == section ? Color.Control.secondary : .clear)

@@ -53,7 +53,7 @@ struct TextPropertyEditingView: View {
                 .frame(maxWidth: 100, alignment: .leading)
             
             AnytypeText(viewModel.config.title, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
             
@@ -90,7 +90,7 @@ struct TextPropertyEditingView: View {
                 viewModel.onClear()
             } label: {
                 AnytypeText(Loc.clear, style: .uxBodyRegular)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         } else {
             Spacer()
@@ -104,7 +104,7 @@ struct TextPropertyEditingView: View {
                 viewModel.onPaste()
             } label: {
                 AnytypeText(Loc.paste, style: .uxBodyRegular)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         } else {
             Spacer()
@@ -123,13 +123,13 @@ struct TextPropertyEditingView: View {
                 } label: {
                     HStack(spacing: 0) {
                         Image(asset: model.iconAsset)
-                            .foregroundColor(model.isActionAvailable ? .Control.secondary : .Control.tertiary)
+                            .foregroundStyle(model.isActionAvailable ? Color.Control.secondary : Color.Control.tertiary)
                         Spacer.fixedWidth(10)
                         AnytypeText(
                             model.title,
                             style: .bodyRegular
                         )
-                        .foregroundColor(model.isActionAvailable ? .Text.primary : .Text.tertiary)
+                        .foregroundStyle(model.isActionAvailable ? Color.Text.primary : Color.Text.tertiary)
                         .lineLimit(1)
                         Spacer()
                     }

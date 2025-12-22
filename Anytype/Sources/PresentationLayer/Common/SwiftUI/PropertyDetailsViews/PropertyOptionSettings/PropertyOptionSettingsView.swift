@@ -45,7 +45,7 @@ struct PropertyOptionSettingsView: View {
             Loc.Relation.Create.Textfield.placeholder,
             text: $model.text
         )
-        .foregroundColor(model.selectedColor)
+        .foregroundStyle(Color(model.selectedColor))
         .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
         .focused(.constant(true))
         .frame(height: 48)
@@ -75,7 +75,7 @@ struct PropertyOptionSettingsView: View {
             .if(color == model.selectedColor, transform: {
                 $0.overlay(alignment: .center) {
                     Image(asset: .X24.tick)
-                        .foregroundColor(.Text.white)
+                        .foregroundStyle(Color.Text.white)
                 }
             })
     }

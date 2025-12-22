@@ -25,7 +25,7 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
     private var header: some View {
         HStack {
             AnytypeText(title, style: .uxTitle2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             
             Spacer()
             

@@ -10,14 +10,14 @@ struct MembershipPricingView: View {
         switch tier.paymentType {
         case .appStore(let info):
             AnytypeText("\(info.product.anytypeDisplayPrice) ", style: .bodySemibold)
-                .foregroundColor(.Text.primary) +
+                .foregroundStyle(Color.Text.primary) +
             AnytypeText(info.product.localizedPeriod ?? "", style: .caption1Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         case .external(let info):
             AnytypeText("\(info.displayPrice) ", style: .bodySemibold)
-                .foregroundColor(.Text.primary) +
+                .foregroundStyle(Color.Text.primary) +
             AnytypeText(info.localizedPeriod ?? "", style: .caption1Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         case nil:
             Rectangle().hidden().onAppear {
                 anytypeAssertionFailure(

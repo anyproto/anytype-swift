@@ -44,7 +44,7 @@ extension ObjectSettingsMenuContainer where Label == AnyView {
         self.init(objectId: objectId, spaceId: spaceId, output: output) {
             AnyView(
                 Image(asset: .X24.more)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             )
         }
     }

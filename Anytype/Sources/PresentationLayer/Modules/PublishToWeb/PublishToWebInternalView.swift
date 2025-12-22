@@ -56,12 +56,12 @@ struct PublishToWebInternalView: View {
     private var customPathInput: some View {
         HStack(spacing: 0) {
             AnytypeText("/", style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             TextField(Loc.Publishing.Url.placeholder, text: $model.customPath)
                 .textFieldStyle(PlainTextFieldStyle())
                 .textInputAutocapitalization(.never)
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         .padding(12)
         .border(10, color: .Shape.primary)
@@ -82,7 +82,7 @@ struct PublishToWebInternalView: View {
     private func paidDomain(domainUrl: String) -> some View {
         HStack {
             AnytypeText(domainUrl, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
             Spacer()
         }
@@ -100,12 +100,12 @@ struct PublishToWebInternalView: View {
             HStack {
                 HStack(spacing: 8) {
                     AnytypeText(domainUrl, style: .bodyRegular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
                     
                     HStack(spacing: 4) {
                         AnytypeText("Pro", style: .relation1Regular)
-                            .foregroundColor(.Control.accent125)
+                            .foregroundStyle(Color.Control.accent125)
                         Image(systemName: "line.diagonal.arrow")
                             .resizable()
                             .frame(width: 8, height: 8)
@@ -135,7 +135,7 @@ struct PublishToWebInternalView: View {
             
             AnytypeText(Loc.joinSpaceButton, style: .uxBodyRegular)
                 .lineLimit(1)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .frame(maxWidth: .infinity)
             
             Spacer()

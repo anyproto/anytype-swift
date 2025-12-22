@@ -9,7 +9,7 @@ struct MembershipPendingInfoSheetView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(34)
             AnytypeText(Loc.yourCurrentStatus, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(14)
             info
             Spacer.fixedHeight(46)
@@ -18,11 +18,11 @@ struct MembershipPendingInfoSheetView: View {
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
     }
-    
+
     var info: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.pending, style: .title)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 34)

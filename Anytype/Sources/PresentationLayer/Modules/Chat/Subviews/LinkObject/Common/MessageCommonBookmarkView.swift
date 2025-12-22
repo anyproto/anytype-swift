@@ -16,14 +16,14 @@ struct MessageCommonBookmarkView: View {
                     .frame(width: 14, height: 14)
                 Text(title)
                     .anytypeStyle(.caption1Regular)
-                    .foregroundColor(style.titleColor)
+                    .foregroundStyle(style.titleColor)
                     .lineLimit(1)
                     .padding(.bottom, 5)
                 Spacer()
             }
             Text(description)
                 .anytypeStyle(.uxTitle2Medium)
-                .foregroundColor(style.descriptionColor)
+                .foregroundStyle(style.descriptionColor)
                 .lineLimit(1)
         }
         .padding(12)

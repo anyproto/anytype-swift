@@ -32,14 +32,14 @@ struct ObjectPropertyOptionView: View {
                 option.isDeleted ? Loc.nonExistentObject : option.title,
                 style: .uxTitle2Regular
             )
-            .foregroundColor(option.isUnavailable ? .Text.tertiary : .Text.primary)
+            .foregroundStyle(option.isUnavailable ? Color.Text.tertiary : Color.Text.primary)
             .lineLimit(1)
             
             AnytypeText(
                 option.isDeleted ? Loc.deleted : option.type,
                 style: .relation3Regular
             )
-            .foregroundColor(option.isUnavailable ? .Text.secondary : .Text.tertiary)
+            .foregroundStyle(option.isUnavailable ? Color.Text.secondary : Color.Text.tertiary)
             .lineLimit(1)
         }
     }

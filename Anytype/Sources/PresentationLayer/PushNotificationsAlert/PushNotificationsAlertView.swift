@@ -69,7 +69,7 @@ struct PushNotificationsAlertView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(Loc.PushNotifications.RequestAlert.notificationTitle, style: .previewTitle2Medium)
-                    .foregroundColor(.PushNotifications.text)
+                    .foregroundStyle(Color.PushNotifications.text)
                     .lineLimit(1)
                 
                 Spacer.fixedHeight(5)

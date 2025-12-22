@@ -30,7 +30,7 @@ struct IconsGroupView: View {
             .frame(width: Constants.iconDiameter, height: Constants.iconDiameter)
             .background {
                 Circle()
-                    .foregroundColor(Color.Background.secondary)
+                    .foregroundStyle(Color.Background.secondary)
                     .frame(width: Constants.backgroundDiameter, height: Constants.backgroundDiameter)
             }
     }
@@ -39,7 +39,7 @@ struct IconsGroupView: View {
     private var countView: some View {
         if icons.count > Constants.maxVisibleIcons {
             AnytypeText("+\(icons.count - Constants.maxVisibleIcons)", style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
     }
 }

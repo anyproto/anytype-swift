@@ -56,11 +56,11 @@ struct ServerConfigurationView: View {
     private func makeRow(row: ServerConfigurationRow) -> some View {
         HStack {
             AnytypeText(row.title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
             if row.isSelected {
                 Image(asset: .X24.tick)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
         .frame(height: 48)

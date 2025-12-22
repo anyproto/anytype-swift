@@ -17,7 +17,7 @@ struct InviteTypePicker: View {
                             InviteStateView(richInviteType: type)
                             if type == currentType {
                                 Image(asset: .X24.tick)
-                                    .foregroundColor(.Control.primary)
+                                    .foregroundStyle(Color.Control.primary)
                            }
                     }
                     .if(index < SpaceRichIviteType.allCases.count - 1) {

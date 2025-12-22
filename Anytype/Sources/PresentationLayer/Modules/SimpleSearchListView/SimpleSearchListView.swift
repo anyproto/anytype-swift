@@ -35,7 +35,7 @@ struct SimpleSearchListView: View {
         HStack(spacing: 10) {
             IconView(icon: item.icon)
             AnytypeText(item.title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 14)

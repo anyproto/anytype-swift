@@ -35,7 +35,7 @@ struct SetSortsListView: View {
                     viewModel.addButtonTapped()
                 } label: {
                     Image(asset: .X32.plus)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }
@@ -63,7 +63,7 @@ struct SetSortsListView: View {
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
                 style: .uxCalloutRegular
             )
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .frame(height: 68)
             Spacer()
         }
@@ -92,7 +92,7 @@ struct SetSortsListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         }
         .background(Color.Background.secondary)

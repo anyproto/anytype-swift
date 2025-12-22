@@ -39,15 +39,15 @@ struct GalleryInstallationPreviewManifestView: View {
                 .shadow(radius: 40, y: 4)
                 Group {
                     AnytypeText(manifest.title, style: .title)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     Spacer.fixedHeight(8)
                     AnytypeText(manifest.description, style: .bodyRegular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     Spacer.fixedHeight(20)
                     WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8) {
                         ForEach(manifest.categories.indices, id: \.self) { index in
                             AnytypeText(manifest.categories[index], style: .caption1Medium)
-                                .foregroundColor(.Text.secondary)
+                                .foregroundStyle(Color.Text.secondary)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 1)
                                 .background(Color.Shape.tertiary)
@@ -57,10 +57,10 @@ struct GalleryInstallationPreviewManifestView: View {
                     }
                     Spacer.fixedHeight(16)
                     AnytypeText(manifest.author, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Spacer.fixedHeight(2)
                     AnytypeText(manifest.fileSize, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Spacer()
                 }
                 .padding(.horizontal, 20)

@@ -17,7 +17,7 @@ struct NewPropertyRestrictionsSectionView: View {
     
     private var emptyView: some View {
         AnytypeText(Loc.none, style: .uxBodyRegular)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .lineLimit(1)
     }
     
@@ -37,9 +37,9 @@ struct NewPropertyRestrictionsSectionView: View {
     private func objectTypeView(model: ObjectTypeModel) -> some View {
         HStack(spacing: 5) {
             IconView(object: model.icon).frame(width: 20, height: 20)
-            
+
             AnytypeText(model.title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
         }
     }

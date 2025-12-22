@@ -49,7 +49,7 @@ struct JoinView: View {
             backButton
         } titleView: {
             Image(asset: .logo)
-                .foregroundColor(.Control.primary)
+                .foregroundStyle(Color.Control.primary)
         } rightView: {
             EmptyView()
         }
@@ -60,7 +60,7 @@ struct JoinView: View {
             model.onBackButtonTap()
         }) {
             Image(asset: .X24.back)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
         .disabled(model.backButtonDisabled)
     }

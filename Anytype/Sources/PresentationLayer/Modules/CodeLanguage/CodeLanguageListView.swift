@@ -23,12 +23,12 @@ struct CodeLanguageListView: View {
                         } label: {
                             HStack(spacing: 0) {
                                 AnytypeText(row.title, style: .bodyRegular)
-                                    .foregroundColor(.Text.primary)
+                                    .foregroundStyle(Color.Text.primary)
                                     .lineLimit(1)
                                 Spacer()
                                 if row.isSelected {
                                     Image(asset: .X24.tick)
-                                        .foregroundColor(Color.Text.primary)
+                                        .foregroundStyle(Color.Text.primary)
                                 }
                             }
                             .frame(height: 52)

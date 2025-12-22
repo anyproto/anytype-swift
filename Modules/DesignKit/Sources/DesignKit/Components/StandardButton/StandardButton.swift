@@ -73,19 +73,19 @@ public struct StandardButton: View {
                     text,
                     style: style.config.textFont
                 )
-                .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                .foregroundStyle(colorConfigStyle.textColor ?? Color.Text.primary)
                 .padding(.horizontal, style.config.horizontalPadding)
                 .multilineTextAlignment(.center)
             case let .image(asset):
                 Image(asset: asset)
-                    .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                    .foregroundStyle(colorConfigStyle.textColor ?? Color.Text.primary)
                     .padding(.horizontal, 5)
             case let .textWithBadge(text, badge):
                 HStack(spacing: 8) {
                     AnytypeText(text, style: style.config.textFont)
-                        .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
+                        .foregroundStyle(colorConfigStyle.textColor ?? Color.Text.primary)
                     AnytypeText(badge, style: style.config.textFont)
-                        .foregroundColor(Color.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
                 .padding(.horizontal, style.config.horizontalPadding)
             }
@@ -139,7 +139,7 @@ public struct StandardButton: View {
     private func progressView(config: StandardButtonConfig.Style) -> some View {
         if inProgress {
             DotsView()
-                .foregroundColor(config.textColor)
+                .foregroundStyle(config.textColor ?? Color.Text.primary)
                 .frame(width: style.config.loadingIndicatorSize.width, height: style.config.loadingIndicatorSize.height)
         }
     }
@@ -149,7 +149,7 @@ public struct StandardButton: View {
         if let info, let infoTextFont = style.config.infoTextFont {
             let infoColorConfigStyle = buildInfoColorConfigStyle()
             AnytypeText(info, style: infoTextFont)
-                .foregroundColor(infoColorConfigStyle.textColor ?? .Text.primary)
+                .foregroundStyle(infoColorConfigStyle.textColor ?? Color.Text.primary)
                 .frame(width: 24, height: 24)
                 .background(background(style: infoColorConfigStyle))
                 .clipShape(Circle())

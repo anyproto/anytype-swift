@@ -52,7 +52,7 @@ struct BinListView: View {
                     model.onTapDone()
                 } label: {
                     AnytypeText(Loc.done, style: .uxBodyRegular)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             } else {
                 Menu {
@@ -66,7 +66,7 @@ struct BinListView: View {
                     
                 } label: {
                     AnytypeText("...", style: .uxBodyRegular)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }

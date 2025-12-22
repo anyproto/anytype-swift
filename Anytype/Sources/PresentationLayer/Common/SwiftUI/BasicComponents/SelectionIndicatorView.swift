@@ -21,7 +21,7 @@ struct SelectionIndicatorView: View {
     
     private func selectedView(index: Int) -> some View {
         AnytypeText("\(index)", style: .uxTitle2Medium)
-            .foregroundColor(.Text.white)
+            .foregroundStyle(Color.Text.white)
             .lineLimit(1)
             .frame(width:24, height: 24)
             .background(Color.Pure.sky)

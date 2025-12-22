@@ -19,9 +19,9 @@ struct MembershipNameSheetView: View {
             info
             nameView
             AnytypeText("\(model.tier.paymentType?.displayPrice ?? "") ", style: .title)
-                .foregroundColor(.Text.primary) +
+                .foregroundStyle(Color.Text.primary) +
             AnytypeText(model.tier.paymentType?.localizedPeriod ?? "", style: .relation1Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(15)
             AsyncStandardButton(
                 Loc.payByCard,
@@ -46,10 +46,10 @@ struct MembershipNameSheetView: View {
                 EmptyView()
             case .availableForPruchase:
                 AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 Spacer.fixedHeight(6)
                 AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 Spacer.fixedHeight(10)
             }
         }
@@ -73,10 +73,10 @@ struct MembershipNameSheetView: View {
     var nameLabel: some View {
         HStack {
             AnytypeText(model.anyName.handle, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
             AnytypeText(model.anyName.extension.description, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         .padding(.vertical, 12)
         .newDivider()
@@ -88,7 +88,7 @@ struct MembershipNameSheetView: View {
             style: .caption1Regular,
             enableMarkdown: true
         )
-        .foregroundColor(.Text.tertiary)
+        .foregroundStyle(Color.Text.tertiary)
         .accentColor(.Text.secondary)
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)

@@ -67,7 +67,7 @@ struct CircularTextView: View {
 
             let text = Text(String(character))
                 .font(AnytypeFontBuilder.font(anytypeFont: .tagline))
-                .foregroundColor(Color.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
 
             ctx.draw(text, at: .zero)
         }

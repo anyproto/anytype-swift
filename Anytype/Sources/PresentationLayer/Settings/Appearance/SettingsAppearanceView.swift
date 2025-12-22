@@ -12,7 +12,7 @@ struct SettingsAppearanceView: View {
             
             Spacer.fixedHeight(12)
             AnytypeText(Loc.appearance, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(12)
             
             appearanceType
@@ -32,7 +32,7 @@ struct SettingsAppearanceView: View {
     private var appearanceType: some View {
         VStack(alignment: .center) {
             AnytypeText(Loc.mode, style: .caption1Medium)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .frame(alignment: .center)
             HStack {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
@@ -66,7 +66,7 @@ struct SettingsAppearanceView: View {
                 style.title,
                 style: .caption2Regular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .frame(maxWidth: .infinity)
         }
     }
@@ -74,7 +74,7 @@ struct SettingsAppearanceView: View {
     private var iconPicker: some View {
         VStack(alignment: .center) {
             AnytypeText(Loc.applicationIcon, style: .caption1Medium)
-                .foregroundColor(.Text.secondary).padding(.bottom, 6)
+                .foregroundStyle(Color.Text.secondary).padding(.bottom, 6)
             HStack {
                 ForEach(AppIcon.avaliableIcons, id: \.self) { icon in
                     appIcon(icon)

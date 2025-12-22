@@ -40,12 +40,12 @@ struct SetSortTypesListView: View {
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(item.title, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 
                 Spacer()
 
                 if item.isSelected {
-                    Image(asset: .X24.tick).foregroundColor(.Control.primary)
+                    Image(asset: .X24.tick).foregroundStyle(Color.Control.primary)
                 }
             }
             .frame(height: 52)

@@ -54,7 +54,7 @@ struct ObjectPropertyListView: View {
                         items[index].name,
                         style: items[index].isSelected ? .caption1Medium : .caption1Regular
                     )
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 }
             }
             .padding(.top, 26)

@@ -28,15 +28,15 @@ struct SettingsInfoBlockView: View {
     var label: some View {
         VStack(alignment: .leading, spacing: 4) {
             AnytypeText(model.title, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             HStack {
                 AnytypeText(model.subtitle, style: .previewTitle2Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .multilineTextAlignment(.leading)
                 Spacer()
                 if model.onTap.isNotNil {
                     Image(asset: .X24.copy)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }

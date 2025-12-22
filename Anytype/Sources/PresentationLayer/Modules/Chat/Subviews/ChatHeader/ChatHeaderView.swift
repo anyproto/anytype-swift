@@ -40,7 +40,7 @@ struct ChatHeaderView: View {
                         .lineLimit(1)
                     if model.muted {
                         Image(asset: .X18.muted)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     } else {
                         Spacer.fixedWidth(18)
                     }
@@ -53,7 +53,7 @@ struct ChatHeaderView: View {
                         model.tapAddMembers()
                     } label: {
                         Image(systemName: "person.fill.badge.plus")
-                            .foregroundColor(.Control.transparentSecondary)
+                            .foregroundStyle(Color.Control.transparentSecondary)
                             .frame(width: 28, height: 28)
                     }
                 }

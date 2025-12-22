@@ -15,7 +15,7 @@ struct KeychainPhraseView: View {
             TitleView(title: Loc.loginKey)
             Spacer.fixedHeight(8)
             AnytypeText(Loc.Keychain.Key.description, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(24)
             SeedPhraseView(model: model)
             Spacer()

@@ -51,14 +51,14 @@ struct EmojiGridView: View {
                 Loc.thereIsNoEmojiNamed + " \"\(placeholder)\"",
                 style: .uxBodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .multilineTextAlignment(.center)
             
             AnytypeText(
                 Loc.tryToFindANewOneOrUploadYourImage,
                 style: .uxBodyRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .multilineTextAlignment(.center)
             Spacer()
         }

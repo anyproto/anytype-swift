@@ -15,7 +15,7 @@ struct NewSpaceCardLastMessageView: View {
                 messageWithoutAttachements
             } else {
                 AnytypeText(model.creatorTitle ?? Loc.Chat.newMessages, style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
@@ -28,11 +28,11 @@ struct NewSpaceCardLastMessageView: View {
                 multiChatMessageView(chatName: chatName, messageText: model.text, creatorTitle: model.creatorTitle)
             } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
                 AnytypeText("\(creatorTitle): \(model.text)", style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(2)
             } else {
                 AnytypeText(model.text, style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(2)
             }
         }
@@ -42,15 +42,15 @@ struct NewSpaceCardLastMessageView: View {
     private func multiChatMessageView(chatName: String, messageText: String, creatorTitle: String?) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             AnytypeText(chatName, style: .chatPreviewMedium)
-                .foregroundColor(.Text.transparentSecondary)
+                .foregroundStyle(Color.Text.transparentSecondary)
                 .lineLimit(1)
             if let creatorTitle {
                 AnytypeText("\(creatorTitle): \(messageText)", style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             } else {
                 AnytypeText(messageText, style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }
@@ -61,19 +61,19 @@ struct NewSpaceCardLastMessageView: View {
             if supportsMultiChats {
                 if let chatName = model.chatName {
                     AnytypeText(chatName, style: .chatPreviewMedium)
-                        .foregroundColor(.Text.transparentSecondary)
+                        .foregroundStyle(Color.Text.transparentSecondary)
                         .lineLimit(1)
                 }
             } else if showsMessageAuthor, let creatorTitle = model.creatorTitle {
                 AnytypeText(creatorTitle, style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
 
             HStack(spacing: 2) {
                 if supportsMultiChats, let creatorTitle = model.creatorTitle {
                     AnytypeText("\(creatorTitle):", style: .chatPreviewRegular)
-                        .foregroundColor(.Text.transparentSecondary)
+                        .foregroundStyle(Color.Text.transparentSecondary)
                         .lineLimit(1)
                 }
                 Spacer.fixedWidth(2)
@@ -84,7 +84,7 @@ struct NewSpaceCardLastMessageView: View {
 
                 Spacer.fixedWidth(2)
                 AnytypeText(model.localizedAttachmentsText, style: .chatPreviewRegular)
-                    .foregroundColor(.Text.transparentSecondary)
+                    .foregroundStyle(Color.Text.transparentSecondary)
                     .lineLimit(1)
             }
         }

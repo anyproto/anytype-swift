@@ -27,7 +27,7 @@ struct PageNavigationHeader<TitleView: View, RightView: View>: View {
 extension PageNavigationHeader where TitleView == AnyView {
     init(title: String, @ViewBuilder rightView: () -> RightView) {
         self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(height: 48)
             .lineLimit(1)
             .eraseToAnyView()
@@ -38,7 +38,7 @@ extension PageNavigationHeader where TitleView == AnyView {
 extension PageNavigationHeader where TitleView == AnyView, RightView == AnyView {
     init(title: String) {
         self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(height: 48)
             .lineLimit(1)
             .eraseToAnyView()

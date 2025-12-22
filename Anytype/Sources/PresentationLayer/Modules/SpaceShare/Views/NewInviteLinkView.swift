@@ -87,7 +87,7 @@ struct NewInviteLinkView: View {
             model.onCopyLink(route: .menu)
         } label: {
             AnytypeText(model.shareLink?.absoluteString ?? "", style: .uxCalloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity)

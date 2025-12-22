@@ -19,12 +19,12 @@ struct EmailVerificationView: View {
             DragIndicator()
             Spacer.fixedHeight(118)
             AnytypeText(Loc.Membership.emailValidation, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(44)
             textInput
             Spacer.fixedHeight(7)
             AnytypeText(model.error, style: .relation2Regular)
-                .foregroundColor(.Pure.red)
+                .foregroundStyle(Color.Pure.red)
             Spacer()
             resend
             Spacer.fixedHeight(30)
@@ -71,7 +71,7 @@ struct EmailVerificationView: View {
                     .textContentType(.oneTimeCode)
                     .keyboardType(.numberPad)
                 
-                    .foregroundColor(.clear)
+                    .foregroundStyle(Color.clear)
                     .accentColor(.clear)
                     .background(Color.clear)
                     .frame(width: 0, height: 0)
@@ -81,7 +81,7 @@ struct EmailVerificationView: View {
     
     private func numberView(number: String) -> some View {
         AnytypeText(number, style: .title)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(width: 48, height: 64)
             .border(7, color: .Shape.primary, lineWidth: 1)
     }

@@ -18,41 +18,41 @@ struct ObjectIconExample: View {
                 VStack(spacing: 20) {
                     Group {
                         AnytypeText("Object Icon", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.basic(iconId))) }
                         AnytypeText("Object Icon Empty (page)", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.defaultObjectIcon)) }
                         AnytypeText("Profile Icon", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }
                         AnytypeText("Profile Char", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.name("A")))) }
                     }
                     Group {
                         AnytypeText("Emoji", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.emoji(Emoji("😀")!))) }
                         AnytypeText("Todo done", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.todo(true, nil))) }
                         AnytypeText("Todo empty", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.todo(false, nil))) }
                         AnytypeText("Space gradient", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         AnytypeText("Space char", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .object(.space(.name(name: "A", iconOption: 1, circular: true)))) }
                     }
                     
                     Group {
                         AnytypeText("Assets - active (copy example)", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .asset(.X32.copy)) }
                         AnytypeText("Assets - inactive (copy example)", style: .subheading)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         demoBlock { IconView(icon: .asset(.X32.copy)).disabled(true) }
                     }
                 }
@@ -70,7 +70,7 @@ struct ObjectIconExample: View {
         ForEach(0..<emojiExamples.count, id: \.self) { index in
             let size = emojiExamples[index]
             AnytypeText("Size \(size)", style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             HStack(spacing: 0) {
                 HStack {
                     Spacer()

@@ -61,7 +61,7 @@ struct SettingsInfoEditingView: View {
                 onSave(value)
             } label: {
                 AnytypeText(Loc.save, style: .previewTitle1Medium)
-                    .foregroundColor(saveDisabled ? .Text.tertiary: .Text.primary)
+                    .foregroundStyle(saveDisabled ? Color.Text.tertiary: Color.Text.primary)
             }
             .disabled(saveDisabled)
             

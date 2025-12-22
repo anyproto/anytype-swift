@@ -16,14 +16,14 @@ struct WidgetsHeaderView: View {
                     .frame(width: 32, height: 32)
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(model.spaceName, style: .uxTitle2Semibold)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
                     if model.sharedSpace, !model.isOneToOne {
                         AnytypeText(model.spaceMembers, style: .relation2Regular)
-                            .foregroundColor(.Control.transparentSecondary)
+                            .foregroundStyle(Color.Control.transparentSecondary)
                     } else {
                         AnytypeText(model.spaceUxType, style: .relation2Regular)
-                            .foregroundColor(.Control.transparentSecondary)
+                            .foregroundStyle(Color.Control.transparentSecondary)
                     }
                 }
                 Spacer()

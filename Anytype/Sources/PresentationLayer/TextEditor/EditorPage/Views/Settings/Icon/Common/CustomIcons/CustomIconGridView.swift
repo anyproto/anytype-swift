@@ -55,14 +55,14 @@ struct CustomIconGridView: View {
                 Loc.thereIsNoIconNamed + " \"\(placeholder)\"",
                 style: .uxBodyRegular
             )
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .multilineTextAlignment(.center)
             
             AnytypeText(
                 Loc.tryToFindANewOne,
                 style: .uxBodyRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .multilineTextAlignment(.center)
             Spacer()
         }
@@ -84,7 +84,7 @@ struct CustomIconGridView: View {
                 Image(asset: icon.imageAsset)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(iconToPickColor == icon ? Color.Control.transparentTertiary : defaultColor.color)
+                    .foregroundStyle(iconToPickColor == icon ? Color.Control.transparentTertiary : defaultColor.color)
                     .frame(width: 40, height: 40)
                     .padding(.top, 12)
                     .onTapGesture {

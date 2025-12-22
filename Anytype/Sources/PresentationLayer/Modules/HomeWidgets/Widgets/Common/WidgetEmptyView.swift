@@ -7,7 +7,7 @@ struct WidgetEmptyView: View {
         VStack(spacing: 10) {
             Text(Loc.Widgets.Empty.title)
                 .anytypeStyle(.relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
         .padding(EdgeInsets(top: 12, leading: 16, bottom: 14, trailing: 16))
     }

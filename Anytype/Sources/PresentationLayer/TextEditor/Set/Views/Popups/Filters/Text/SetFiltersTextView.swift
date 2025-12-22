@@ -24,7 +24,7 @@ struct SetFiltersTextView: View {
             font: .uxBodyRegular,
             text: $viewModel.input
         )
-        .foregroundColor(.Text.primary)
+        .foregroundStyle(Color.Text.primary)
         .keyboardType(viewModel.keyboardType)
         .frame(height: 48)
         .divider()

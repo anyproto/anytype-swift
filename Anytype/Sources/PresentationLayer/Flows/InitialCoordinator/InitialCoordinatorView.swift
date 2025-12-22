@@ -51,9 +51,9 @@ struct InitialCoordinatorView: View {
             Spacer()
             AnytypeText("🚨", style: .uxTitle1Semibold)
             AnytypeText("Previous run finished with crash", style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             AnytypeText("You can copy and send your data (documents, files, etc.) to developers. If your data contains private information, do not send it to anyone.", style: .uxTitle2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer()
             StandardButton("Export full directory 🤐", style: .primaryLarge) {

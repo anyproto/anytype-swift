@@ -46,7 +46,7 @@ public struct BottomAlertView<Header: View, Body: View>: View {
     @ViewBuilder
     private var titleView: some View {
         AnytypeText(title, style: .heading)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .multilineTextAlignment(.center)
     }
     
@@ -54,7 +54,7 @@ public struct BottomAlertView<Header: View, Body: View>: View {
     private var messageView: some View {
         if let message, message.isNotEmpty {
             AnytypeText(message, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
         }
     }

@@ -24,7 +24,7 @@ struct ObjectPropertyView: View {
             title,
             style: style.font
         )
-        .foregroundColor(.Text.secondary)
+        .foregroundStyle(Color.Text.secondary)
         .lineLimit(1)
     }
     
@@ -54,7 +54,7 @@ struct ObjectPropertyView: View {
                 option.title,
                 style: style.font
             )
-            .foregroundColor(titleColor(option: option))
+            .foregroundStyle(titleColor(option: option))
             .lineLimit(1)
         }
     }
@@ -68,7 +68,7 @@ struct ObjectPropertyView: View {
                     prefix,
                     style: style.font
                 )
-                .foregroundColor(style.fontColorWithError)
+                .foregroundStyle(style.fontColorWithError)
             }
 
             objectView(options: Array(options.prefix(maxOptions)))
