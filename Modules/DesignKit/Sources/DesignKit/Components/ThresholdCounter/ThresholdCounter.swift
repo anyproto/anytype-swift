@@ -18,7 +18,7 @@ public struct ThresholdCounter: View {
             Spacer()
             if count >= threshold - visibilityCount {
                 AnytypeText("\(threshold - count)", style: .calloutRegular)
-                    .foregroundColor(count <= threshold ? .Text.secondary : .Pure.red)
+                    .foregroundStyle(count <= threshold ? Color.Text.secondary : Color.Pure.red)
                     .contentTransition(.numericText())
                     .padding(.horizontal, 16)
                     .padding(.vertical, 11)

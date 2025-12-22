@@ -53,6 +53,7 @@ public struct AnytypeText: View {
     }
     
     
+    @available(*, deprecated, message: "Use foregroundStyle(_:) instead")
     public func foregroundColor(_ color: Color) -> AnytypeText {
         let textView = textView.foregroundColor(color)
         return AnytypeText(textView: textView, spacing: spacing)
