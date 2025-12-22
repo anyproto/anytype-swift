@@ -4,17 +4,17 @@ import AnytypeCore
 
 
 struct TypePropertiesView: View {
-    
-    @StateObject private var model: TypePropertiesViewModel
-    
+
+    @State private var model: TypePropertiesViewModel
+
     @State private var draggedRow: TypePropertiesRow?
-    
+
     init(data: EditorTypeObject) {
-        _model = StateObject(wrappedValue: TypePropertiesViewModel(data: data))
+        _model = State(initialValue: TypePropertiesViewModel(data: data))
     }
-    
+
     init(document: some BaseDocumentProtocol) {
-        _model = StateObject(wrappedValue: TypePropertiesViewModel(document: document))
+        _model = State(initialValue: TypePropertiesViewModel(document: document))
     }
     
     var body: some View {

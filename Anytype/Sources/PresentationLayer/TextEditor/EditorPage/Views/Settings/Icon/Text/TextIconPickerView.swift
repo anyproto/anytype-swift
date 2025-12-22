@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct TextIconPickerView: View {
-    
-    @StateObject private var model: TextIconPickerViewModel
-    
+
+    @State private var model: TextIconPickerViewModel
+
     init(data: TextIconPickerData) {
-        self._model = StateObject(wrappedValue: TextIconPickerViewModel(data: data))
+        _model = State(initialValue: TextIconPickerViewModel(data: data))
     }
     
     var body: some View {

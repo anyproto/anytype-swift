@@ -8,20 +8,22 @@ struct SpaceNotificationsSettingsModuleData: Identifiable, Hashable {
 }
 
 @MainActor
-final class SpaceNotificationsSettingsViewModel: ObservableObject {
-    
+@Observable
+final class SpaceNotificationsSettingsViewModel {
+
+    @ObservationIgnored
     private let data: SpaceNotificationsSettingsModuleData
-    
-    @Injected(\.workspaceService)
+
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @ObservationIgnored @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    
-    @Published var mode = SpaceNotificationsSettingsMode.allActiviy
-    @Published var dismiss = false
-    @Published var status: PushNotificationsSettingsStatus?
+
+    var mode = SpaceNotificationsSettingsMode.allActiviy
+    var dismiss = false
+    var status: PushNotificationsSettingsStatus?
     
     init(data: SpaceNotificationsSettingsModuleData) {
         self.data = data

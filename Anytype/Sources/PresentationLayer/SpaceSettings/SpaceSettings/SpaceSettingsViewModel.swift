@@ -1,81 +1,89 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 import AnytypeCore
 
 
 @MainActor
-final class SpaceSettingsViewModel: ObservableObject {
-    
+@Observable
+final class SpaceSettingsViewModel {
+
     // MARK: - DI
-    
-    @Injected(\.objectActionsService)
+
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.propertyDetailsStorage)
+    @ObservationIgnored @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
-    @Injected(\.workspaceService)
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.mailUrlBuilder)
+    @ObservationIgnored @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
-    @Injected(\.universalLinkParser)
+    @ObservationIgnored @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
-    @Injected(\.fileLimitsStorage)
+    @ObservationIgnored @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.spaceSettingsInfoBuilder)
+    @ObservationIgnored @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
+    @ObservationIgnored
     private let openedDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    @Injected(\.pushNotificationsSystemSettingsBroadcaster)
+    @ObservationIgnored @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    
+
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
-    
+
+    @ObservationIgnored
     private let dateFormatter = DateFormatter.relativeDateFormatter
+    @ObservationIgnored
     private let storageInfoBuilder = SegmentInfoBuilder()
+    @ObservationIgnored
     private weak var output: (any SpaceSettingsModuleOutput)?
-    
+
     // MARK: - State
-    
-    @Published var spaceName = ""
-    @Published var spaceDescription = ""
-    @Published var spaceIcon: Icon?
-    
-    @Published var info = [SettingsInfoModel]()
-    @Published var participants: [Participant] = []
-    @Published var snackBarData: ToastBarData?
-    @Published var showSpaceDeleteAlert = false
-    @Published var showSpaceLeaveAlert = false
-    @Published var showInfoView = false
-    @Published var dismiss = false
-    @Published var allowDelete = false
-    @Published var allowLeave = false
-    @Published var allowRemoteStorage = false
-    @Published var uxTypeSettingsData: SpaceUxTypeSettingsData?
-    @Published var shareSection: SpaceSettingsShareSection = .personal
-    @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var storageInfo = RemoteStorageSegmentInfo()
-    @Published var defaultObjectType: ObjectType?
-    @Published var showIconPickerSpaceId: StringIdentifiable?
-    @Published var editingData: SettingsInfoEditingViewData?
-    @Published var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
-    @Published var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
-    @Published var shareInviteLink: URL?
-    @Published var qrInviteLink: URL?
-    @Published private(set) var inviteLink: URL?
-    @Published var participantsCount: Int = 0
-    @Published var canAddWriters = true
-    @Published var joiningCount: Int = 0
-    @Published var isOneToOne = false
+
+    var spaceName = ""
+    var spaceDescription = ""
+    var spaceIcon: Icon?
+
+    var info = [SettingsInfoModel]()
+    var participants: [Participant] = []
+    var snackBarData: ToastBarData?
+    var showSpaceDeleteAlert = false
+    var showSpaceLeaveAlert = false
+    var showInfoView = false
+    var dismiss = false
+    var allowDelete = false
+    var allowLeave = false
+    var allowRemoteStorage = false
+    var uxTypeSettingsData: SpaceUxTypeSettingsData?
+    var shareSection: SpaceSettingsShareSection = .personal
+    var membershipUpgradeReason: MembershipUpgradeReason?
+    var storageInfo = RemoteStorageSegmentInfo()
+    var defaultObjectType: ObjectType?
+    var showIconPickerSpaceId: StringIdentifiable?
+    var editingData: SettingsInfoEditingViewData?
+    var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
+    var pushNotificationsSettingsStatus: PushNotificationsSettingsStatus?
+    var shareInviteLink: URL?
+    var qrInviteLink: URL?
+    private(set) var inviteLink: URL?
+    var participantsCount: Int = 0
+    var canAddWriters = true
+    var joiningCount: Int = 0
+    var isOneToOne = false
 
     let workspaceInfo: AccountInfo
+    @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
     private var owner: Participant?
+    @ObservationIgnored
     private let widgetsObject: any BaseDocumentProtocol
 
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {

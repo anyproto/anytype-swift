@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct VersionHistoryView: View {
-    
-    @StateObject private var model: VersionHistoryViewModel
+
+    @State private var model: VersionHistoryViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: VersionHistoryData, output: (any VersionHistoryModuleOutput)?) {
-        _model = StateObject(wrappedValue: VersionHistoryViewModel(data: data, output: output))
+        _model = State(initialValue: VersionHistoryViewModel(data: data, output: output))
     }
     
     var body: some View {

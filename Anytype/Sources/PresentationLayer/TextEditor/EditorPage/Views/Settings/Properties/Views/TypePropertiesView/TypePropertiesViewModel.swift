@@ -2,33 +2,36 @@ import Foundation
 import Services
 import SwiftProtobuf
 import AnytypeCore
-import Combine
 import SwiftUI
 
 
 @MainActor
-final class TypePropertiesViewModel: ObservableObject {
-        
-    @Published var canEditPropertiesList = false
-    @Published var showConflictingInfo = false
-    @Published var relationRows = [TypePropertiesRow]()
-    @Published var relationsSearchData: PropertiesSearchData?
-    @Published var propertyData: PropertyInfoData?
-    @Published var conflictRelations = [PropertyDetails]()
-    
+@Observable
+final class TypePropertiesViewModel {
+
+    var canEditPropertiesList = false
+    var showConflictingInfo = false
+    var relationRows = [TypePropertiesRow]()
+    var relationsSearchData: PropertiesSearchData?
+    var propertyData: PropertyInfoData?
+    var conflictRelations = [PropertyDetails]()
+
     // MARK: - Private variables
-    
+
     let document: any BaseDocumentProtocol
+    @ObservationIgnored
     private let fieldsDataBuilder = TypePropertiesRowBuilder()
+    @ObservationIgnored
     private let moveHandler = TypePropertiesMoveHandler()
-    
+
+    @ObservationIgnored
     private var parsedProperties = ParsedProperties.empty
-    
-    @Injected(\.propertiesService)
+
+    @ObservationIgnored @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
-    @Injected(\.propertyDetailsStorage)
+    @ObservationIgnored @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
-    @Injected(\.singlePropertyBuilder)
+    @ObservationIgnored @Injected(\.singlePropertyBuilder)
     private var relationsBuilder: any SinglePropertyBuilderProtocol
     
     

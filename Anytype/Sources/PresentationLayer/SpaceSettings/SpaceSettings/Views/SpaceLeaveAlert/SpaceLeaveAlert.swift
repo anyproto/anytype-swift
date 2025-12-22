@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct SpaceLeaveAlert: View {
-    
-    @StateObject private var model: SpaceLeaveAlertModel
+
+    @State private var model: SpaceLeaveAlertModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(spaceId: String) {
-        self._model = StateObject(wrappedValue: SpaceLeaveAlertModel(spaceId: spaceId))
+        _model = State(initialValue: SpaceLeaveAlertModel(spaceId: spaceId))
     }
     
     var body: some View {

@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct DisabledPushNotificationsBannerView: View {
-    
-    @StateObject private var model: DisabledPushNotificationsBannerViewModel
-    
-    init() {
-        _model = StateObject(wrappedValue: DisabledPushNotificationsBannerViewModel())
-    }
+
+    @State private var model = DisabledPushNotificationsBannerViewModel()
+
     
     var body: some View {
         VStack(spacing: 0) {

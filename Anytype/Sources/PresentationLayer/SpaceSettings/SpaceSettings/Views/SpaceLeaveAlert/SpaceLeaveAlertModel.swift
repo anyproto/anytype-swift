@@ -2,17 +2,19 @@ import Foundation
 import Services
 
 @MainActor
-final class SpaceLeaveAlertModel: ObservableObject {
-    
-    @Injected(\.workspaceService)
+@Observable
+final class SpaceLeaveAlertModel {
+
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    
+
+    @ObservationIgnored
     private let spaceId: String
-    
-    @Published var spaceName: String = ""
-    @Published var toast: ToastBarData?
+
+    var spaceName: String = ""
+    var toast: ToastBarData?
     
     init(spaceId: String) {
         self.spaceId = spaceId

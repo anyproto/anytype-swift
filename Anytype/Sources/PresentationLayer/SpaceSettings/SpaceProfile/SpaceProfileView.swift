@@ -3,10 +3,10 @@ import Services
 
 
 struct SpaceProfileView: View {
-    @StateObject private var model: SpaceProfileViewModel
-    
+    @State private var model: SpaceProfileViewModel
+
     init(info: AccountInfo) {
-        _model = StateObject(wrappedValue: SpaceProfileViewModel(info: info))
+        _model = State(initialValue: SpaceProfileViewModel(info: info))
     }
     
     var body: some View {

@@ -4,41 +4,46 @@ import AnytypeCore
 
 
 @MainActor
-final class SpaceProfileViewModel: ObservableObject {
-    @Published var spaceName = ""
-    @Published var spaceDescription = ""
-    @Published var spaceIcon: Icon?
-    
-    @Published var allowDelete = false
-    @Published var allowLeave = false
-    
-    @Published var showInfoView = false
-    @Published var showSpaceDeleteAlert = false
-    @Published var showSpaceLeaveAlert = false
-    
-    @Published var settingsInfo = [SettingsInfoModel]()
-    @Published var snackBarData: ToastBarData?
-    
-    @Published var shareInviteLink: URL?
-    @Published var qrInviteLink: URL?
-    @Published var inviteLink: URL?
-    
+@Observable
+final class SpaceProfileViewModel {
+    var spaceName = ""
+    var spaceDescription = ""
+    var spaceIcon: Icon?
+
+    var allowDelete = false
+    var allowLeave = false
+
+    var showInfoView = false
+    var showSpaceDeleteAlert = false
+    var showSpaceLeaveAlert = false
+
+    var settingsInfo = [SettingsInfoModel]()
+    var snackBarData: ToastBarData?
+
+    var shareInviteLink: URL?
+    var qrInviteLink: URL?
+    var inviteLink: URL?
+
     let workspaceInfo: AccountInfo
-    
-    @Injected(\.participantSpacesStorage)
+
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.spaceSettingsInfoBuilder)
+    @ObservationIgnored @Injected(\.spaceSettingsInfoBuilder)
     private var spaceSettingsInfoBuilder: any SpaceSettingsInfoBuilderProtocol
-    
-    @Injected(\.workspaceService)
+
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.universalLinkParser)
+    @ObservationIgnored @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
-    
+
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
-    
+
+    @ObservationIgnored
     private var owner: Participant?
+    @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
+    @ObservationIgnored
     private var linkUpdated: Bool = false
     
     init(info: AccountInfo) {

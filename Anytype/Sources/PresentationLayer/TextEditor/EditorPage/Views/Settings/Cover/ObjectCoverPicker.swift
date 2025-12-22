@@ -2,14 +2,14 @@ import SwiftUI
 import Services
 
 struct ObjectCoverPicker: View {
-    
-    @StateObject private var viewModel: ObjectCoverPickerViewModel
+
+    @State private var viewModel: ObjectCoverPickerViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     @State private var index: Int = 0
-    
+
     init(data: BaseDocumentIdentifiable) {
-        self._viewModel = StateObject(wrappedValue: ObjectCoverPickerViewModel(data: data))
+        _viewModel = State(initialValue: ObjectCoverPickerViewModel(data: data))
     }
     
     var body: some View {

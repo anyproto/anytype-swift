@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct SpaceNotificationsSettingsView: View {
-    
-    @StateObject private var model: SpaceNotificationsSettingsViewModel
+
+    @State private var model: SpaceNotificationsSettingsViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceNotificationsSettingsModuleData) {
-        self._model = StateObject(wrappedValue: SpaceNotificationsSettingsViewModel(data: data))
+        _model = State(initialValue: SpaceNotificationsSettingsViewModel(data: data))
     }
     
     var body: some View {

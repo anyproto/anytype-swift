@@ -2,12 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct PersonalizationView: View {
-    @StateObject private var model: PersonalizationViewModel
+    @State private var model: PersonalizationViewModel
 
     init(spaceId: String, output: (any PersonalizationModuleOutput)?) {
-        self._model = StateObject(wrappedValue: PersonalizationViewModel(spaceId: spaceId, output: output))
+        _model = State(initialValue: PersonalizationViewModel(spaceId: spaceId, output: output))
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -15,7 +15,7 @@ struct PersonalizationView: View {
             AnytypeText(Loc.personalization, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
-            
+
             AnytypeRow(title: Loc.defaultObjectType, description: model.objectType, action: { model.onObjectTypeTap() })
             AnytypeRow(title: Loc.wallpaper, description: nil, action: { model.onWallpaperChangeTap() })
             Spacer.fixedHeight(20)
@@ -23,6 +23,9 @@ struct PersonalizationView: View {
         .cornerRadius(16, corners: .top)
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsPersonal()
+        }
+        .task {
+            await model.startSubscription()
         }
         .fitPresentationDetents()
         .background(Color.Background.secondary)
