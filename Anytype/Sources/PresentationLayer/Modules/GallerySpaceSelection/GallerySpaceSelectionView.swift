@@ -40,14 +40,14 @@ struct GallerySpaceSelectionView: View {
                 }
                 .frame(width: 48, height: 48)
                 AnytypeText(Loc.Gallery.installToNew, style: .uxTitle2Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 Spacer()
             }
             .frame(height: 64)
         }
     }
-    
+
     private var spaces: some View {
         ForEach(model.spaces) { space in
             Button {
@@ -57,7 +57,7 @@ struct GallerySpaceSelectionView: View {
                     IconView(icon: space.objectIconImage)
                         .frame(width: 48, height: 48)
                     AnytypeText(space.title, style: .uxTitle2Regular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
                     Spacer()
                 }

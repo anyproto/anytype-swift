@@ -26,7 +26,7 @@ struct MembershipOwnerInfoSheetView: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(26)
             AnytypeText(Loc.yourCurrentStatus, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(14)
             info
             actions
@@ -40,25 +40,25 @@ struct MembershipOwnerInfoSheetView: View {
     private var info: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(4)
             if let tier = model.membership.tier {
                 if !tier.isAnyTeam {
                     switch model.membership.dateEnds {
                     case .never:
                         AnytypeText(Loc.forever, style: .title)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     case .date:
                         AnytypeText(model.membership.formattedDateEnds, style: .title)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                     paymentText
                 } else {
                     AnytypeText(model.membership.formattedDateEnds, style: .title)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     Spacer.fixedHeight(23)
                     AnytypeText(Loc.paidBy("your faith and love"), style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Spacer.fixedHeight(15)
                 }
             } else {
@@ -76,7 +76,7 @@ struct MembershipOwnerInfoSheetView: View {
             if let paymentMethod = model.membership.localizablePaymentMethod {
                 Spacer.fixedHeight(23)
                 AnytypeText(Loc.paidBy(paymentMethod), style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 Spacer.fixedHeight(15)
             } else {
                 Spacer.fixedHeight(55)
@@ -136,7 +136,7 @@ struct MembershipOwnerInfoSheetView: View {
     private func managePaymentNotice(paymentMethod: MembershipExternalPaymentMethod) -> some View {
         Group {
             AnytypeText(paymentMethod.noticeText, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .lineLimit(2)
                 .multilineTextAlignment(.center) 
                 .padding(.vertical)

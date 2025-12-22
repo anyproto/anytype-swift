@@ -60,7 +60,7 @@ struct TagPropertyView: View {
             switch style {
             case .regular, .featuredBlock, .set:
                 AnytypeText(leftTagsCount, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
                     .frame(width: 24, height: 18)
                     .background(Color.Shape.tertiary)

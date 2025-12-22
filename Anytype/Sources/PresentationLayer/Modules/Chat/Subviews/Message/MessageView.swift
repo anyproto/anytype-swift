@@ -170,13 +170,13 @@ struct MessageView: View {
     
     private var infoView: some View {
         Text(messageBottomInfo: data)
-            .foregroundColor(messageTimeColor)
+            .foregroundStyle(messageTimeColor)
             .lineLimit(1)
     }
     
     private var infoForSpacing: Text {
         Text(messageBottomInfo: data)
-            .foregroundColor(.clear)
+            .foregroundStyle(Color.clear)
     }
     
     @ViewBuilder

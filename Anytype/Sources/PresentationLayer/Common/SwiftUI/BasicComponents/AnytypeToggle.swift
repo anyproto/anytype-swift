@@ -25,7 +25,7 @@ struct AnytypeToggle: View {
     var body: some View {
         Toggle(isOn: $model.isOn) {
             AnytypeText(title, style: font)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         .if(title.isEmpty) {
             $0.labelsHidden()

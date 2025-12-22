@@ -99,9 +99,9 @@ struct ObjectTypeSearchView: View {
                     viewModel.createObjectFromClipboard()
                 } label: {
                     HStack(spacing: 6) {
-                        Image(asset: .X24.clipboard).foregroundColor(.Control.secondary)
+                        Image(asset: .X24.clipboard).foregroundStyle(Color.Control.secondary)
                         AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                         Spacer()
                     }
                     .padding(.horizontal, 20)
@@ -147,7 +147,7 @@ struct ObjectTypeSearchView: View {
     private func sectionHeader(_ type: SectionType) -> some View {
         HStack(spacing: 0) {
             AnytypeText(type.name, style: .caption1Medium)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -166,7 +166,7 @@ struct ObjectTypeSearchView: View {
                         IconView(object: typeData.type.icon).frame(width: 18, height: 18)
                         
                         AnytypeText(typeData.type.displayName, style: .uxTitle2Medium)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                     .padding(.vertical, 15)
                     .padding(.leading, 14)

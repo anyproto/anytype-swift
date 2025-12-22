@@ -20,9 +20,9 @@ struct SetFilterRow: View {
         HStack {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color.Background.highlightedMedium)
+                    .foregroundStyle(Color.Background.highlightedMedium)
                 Image(asset: configuration.iconAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
             .frame(width: 48, height: 48)
             
@@ -30,7 +30,7 @@ struct SetFilterRow: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(configuration.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 filterConditionView
             }
             
@@ -50,14 +50,14 @@ struct SetFilterRow: View {
             {
                 HStack(spacing: 8) {
                     AnytypeText(subtitle, style: .relation1Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .layoutPriority(1)
                     switch configuration.type {
                     case let .relation(relation):
                         relationValueView(for: relation)
                     case let .date(date):
                         AnytypeText(date, style: .relation1Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                     }
                 }
             }

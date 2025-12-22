@@ -48,7 +48,7 @@ struct GalleryWidgetRow: View {
                     Text(model.icon.isNotNil ? title.leftIndented : title)
                         .anytypeStyle(.caption1Medium)
                         .lineLimit(2)
-                        .foregroundColor(Color.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .frame(maxHeight: .infinity, alignment: .top) // For equal height. Always height == 2 lines
                     Spacer()
                 }

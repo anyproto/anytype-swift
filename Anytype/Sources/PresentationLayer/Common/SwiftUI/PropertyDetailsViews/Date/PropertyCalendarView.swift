@@ -47,7 +47,7 @@ struct PropertyCalendarView: View {
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(Loc.Date.Open.Action.title, style: .bodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 Spacer()
                 Image(asset: .RightAttribute.disclosure)
             }
@@ -63,7 +63,7 @@ struct PropertyCalendarView: View {
         HStack(spacing: 6) {
             clearButton
             AnytypeText(viewModel.config.title, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity)
             Spacer.fixedWidth(clearButtonWidth)
@@ -77,7 +77,7 @@ struct PropertyCalendarView: View {
             viewModel.clear()
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
         .readSize { size in
             clearButtonWidth = size.width

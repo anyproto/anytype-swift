@@ -30,13 +30,13 @@ struct ObjectCell: View {
             Spacer()
             
             AnytypeText(data.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
                 .frame(height: 20)
             
             Spacer.fixedHeight(2)
             AnytypeText(data.type, style: .relation2Regular)
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .lineLimit(1)
             
             Spacer()

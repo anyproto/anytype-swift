@@ -43,7 +43,7 @@ struct DateView: View {
                 .frame(width: 28, height: 28)
                 
                 Image(asset: .X24.calendar)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                     .onTapGesture {
                         model.onCalendarTap()
                     }
@@ -56,18 +56,18 @@ struct DateView: View {
             HStack(spacing: 0) {
                 if model.relativeTag.isNotEmpty {
                     AnytypeText(model.relativeTag, style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Circle()
                         .fill(Color.Text.secondary)
                         .frame(width: 3, height: 3)
                         .padding(.horizontal, 8)
                 }
                 AnytypeText(model.weekday, style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
             }
             HStack(alignment: .center) {
                 Image(asset: .X24.Arrow.left)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                     .onTapGesture {
                         model.onPrevDayTap()
                     }
@@ -75,14 +75,14 @@ struct DateView: View {
                 
                 Spacer()
                 AnytypeText(model.title, style: .title)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .onTapGesture {
                         model.onCalendarTap()
                     }
                 Spacer()
                 
                 Image(asset: .X24.Arrow.right)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                     .onTapGesture {
                         model.onNextDayTap()
                     }
@@ -153,7 +153,7 @@ struct DateView: View {
                 IconView(icon: item.icon)
                     .frame(width: 24, height: 24)
                 AnytypeText(item.title, style: .uxCalloutMedium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
         .padding(.horizontal,12)

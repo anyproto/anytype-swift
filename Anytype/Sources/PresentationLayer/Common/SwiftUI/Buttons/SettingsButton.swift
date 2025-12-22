@@ -12,7 +12,7 @@ struct SettingsButton: View {
                 Spacer.fixedHeight(14)
                 HStack(spacing: 0) {
                     AnytypeText(text, style: .uxBodyRegular)
-                        .foregroundColor(textColor)
+                        .foregroundStyle(textColor)
                     Spacer()
                 }
                 Spacer.fixedHeight(14)

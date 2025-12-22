@@ -9,10 +9,10 @@ struct SharingExtensionDebugView: View {
     var body: some View {
         HStack {
             AnytypeText("\(index)", style: .uxCalloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             VStack {
                 AnytypeText(Loc.Debug.mimeTypes(mimeTypes.joined(separator: ", ")), style: .uxCalloutRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }

@@ -62,7 +62,7 @@ struct ObjectPreviewView: View {
             VStack(spacing: 0) {
                 Spacer()
                 AnytypeText(Loc.featuredRelations, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                     .padding(.bottom, 8)
             }
             .frame(height: 52)
@@ -90,7 +90,7 @@ struct ObjectPreviewView: View {
 
             if item.isLocked {
                 AnytypeText(item.name, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             } else {
                 AnytypeToggle(
                     title: item.name,
@@ -108,7 +108,7 @@ struct ObjectPreviewView: View {
         if let imageAsset = imageAsset {
             return Group {
                 Image(asset: imageAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                 Spacer.fixedWidth(10)
             }.eraseToAnyView()
         } else {
@@ -123,15 +123,15 @@ struct ObjectPreviewView: View {
             HStack(spacing: 0) {
                 if let icon = icon {
                     Image(asset: icon)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                     Spacer.fixedWidth(10)
                 }
 
                 AnytypeText(name, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 Spacer.fixedWidth(10)
                 Image(asset: .RightAttribute.disclosure)
             }

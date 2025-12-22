@@ -18,7 +18,7 @@ struct KeyPhraseMoreInfoView: View {
             Spacer.fixedHeight(26)
             
             AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.title, style: .contentTitleSemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(24)
@@ -42,7 +42,7 @@ struct KeyPhraseMoreInfoView: View {
             AnytypeText(title, style: .bodySemibold)
             Spacer.fixedHeight(4)
             AnytypeText(description, style: .bodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
     }
 }

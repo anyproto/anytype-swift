@@ -25,7 +25,7 @@ struct RemoteStorageView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer.fixedHeight(10)
                     AnytypeText(model.spaceInstruction, style: .uxCalloutRegular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                     if model.showGetMoreSpaceButton {
                         Spacer.fixedHeight(16)
                         StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)", style: .upgradeBadge) {
@@ -34,7 +34,7 @@ struct RemoteStorageView: View {
                     }
                     Spacer.fixedHeight(20)
                     AnytypeText(model.spaceUsed, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                     Spacer.fixedHeight(8)
                     RemoteStorageSegment(model: model.segmentInfo)
                     Spacer.fixedHeight(16)

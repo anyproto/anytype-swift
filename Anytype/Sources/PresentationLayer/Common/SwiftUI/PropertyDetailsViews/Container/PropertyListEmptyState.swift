@@ -7,7 +7,7 @@ struct PropertyListEmptyState: View {
             Image(asset: .Dialog.duck)
             Spacer.fixedHeight(12)
             AnytypeText(Loc.Relation.EmptyState.Blocked.title, style: .uxCalloutMedium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(24)
         }
         .padding(.horizontal, 20)

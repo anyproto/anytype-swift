@@ -17,9 +17,9 @@ struct SpaceMoreInfoView: View {
                 ForEach(steps.indices, id: \.self) { index in
                     HStack(alignment: .top, spacing: 8) {
                         AnytypeText("\(index + 1).", style: .bodyRegular)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         AnytypeText(steps[index], style: .bodyRegular)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                         Spacer()
                     }
                 }

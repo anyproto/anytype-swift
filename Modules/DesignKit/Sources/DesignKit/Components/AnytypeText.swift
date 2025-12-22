@@ -57,6 +57,11 @@ public struct AnytypeText: View {
         let textView = textView.foregroundColor(color)
         return AnytypeText(textView: textView, spacing: spacing)
     }
+
+    public func foregroundStyle<S: ShapeStyle>(_ style: S) -> AnytypeText {
+        let textView = textView.foregroundStyle(style)
+        return AnytypeText(textView: textView, spacing: spacing)
+    }
     
     // MARK: - Private
     

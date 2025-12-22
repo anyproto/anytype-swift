@@ -35,7 +35,7 @@ struct TreeWidgetRowView: View {
                 Spacer.fixedWidth(12)
 
                 AnytypeText(model.title, style: .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 Spacer.fixedWidth(12)
                 Spacer()
@@ -71,6 +71,6 @@ struct TreeWidgetRowView: View {
                     }
             }
         }
-        .foregroundColor(.Text.primary)
+        .foregroundStyle(Color.Text.primary)
     }
 }

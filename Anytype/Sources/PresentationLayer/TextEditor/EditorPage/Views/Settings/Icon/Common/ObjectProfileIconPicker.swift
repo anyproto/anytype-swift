@@ -39,7 +39,7 @@ struct ObjectProfileIconPicker: View {
             dismiss()
         } label: {
             AnytypeText(Loc.removePhoto, style: .uxBodyRegular)
-                .foregroundColor(isRemoveEnabled ? Color.Pure.red : .Control.tertiary)
+                .foregroundStyle(isRemoveEnabled ? Color.Pure.red : Color.Control.tertiary)
         }
         .disabled(!isRemoveEnabled)
         .frame(height: 48)

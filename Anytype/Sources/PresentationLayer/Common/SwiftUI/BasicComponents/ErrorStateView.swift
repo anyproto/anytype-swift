@@ -8,10 +8,10 @@ struct ErrorStateView: View {
             Image(asset: .Dialog.duck)
             Spacer.fixedHeight(12)
             AnytypeText(Loc.error, style: .uxCalloutMedium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             AnytypeText(message, style: .uxCalloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
         }
         .padding(.horizontal, 20)

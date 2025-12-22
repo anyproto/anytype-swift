@@ -86,7 +86,7 @@ struct ChatInput: View {
             if text.string.isEmpty {
                 Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
                     .anytypeStyle(.chatText)
-                    .foregroundColor(.Text.tertiary)
+                    .foregroundStyle(Color.Text.tertiary)
                     .padding(.top, 18)
                     .allowsHitTesting(false)
                     .lineLimit(1)

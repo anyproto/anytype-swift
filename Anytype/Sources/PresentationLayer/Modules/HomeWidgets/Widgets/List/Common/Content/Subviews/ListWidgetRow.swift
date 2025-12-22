@@ -39,12 +39,12 @@ struct ListWidgetRow: View {
     private var regularContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(model.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
             if let description = model.description, description.isNotEmpty {
                 Spacer.fixedHeight(1)
                 AnytypeText(description, style: .relation3Regular)
-                    .foregroundColor(.Widget.secondary)
+                    .foregroundStyle(Color.Widget.secondary)
                     .lineLimit(1)
             }
         }
@@ -55,19 +55,19 @@ struct ListWidgetRow: View {
         VStack(alignment: .leading, spacing: 1) {
             HStack(spacing: 0) {
                 AnytypeText(model.title, style: .previewTitle2Medium)
-                    .foregroundColor(chatPreview.titleColor)
+                    .foregroundStyle(chatPreview.titleColor)
                     .lineLimit(1)
 
                 Spacer()
 
                 AnytypeText(chatPreview.chatPreviewDate, style: .relation3Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
 
             HStack(spacing: 0) {
                 AnytypeText(chatPreview.messagePreviewText, style: .relation2Regular)
-                    .foregroundColor(chatPreview.messagePreviewColor)
+                    .foregroundStyle(chatPreview.messagePreviewColor)
                     .lineLimit(1)
 
                 Spacer()

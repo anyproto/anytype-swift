@@ -34,7 +34,7 @@ struct IllustrationView: View {
             background
             if let icon {
                 Image(asset: icon)
-                    .foregroundColor(color.imageColor)
+                    .foregroundStyle(Color(color.imageColor))
             }
         }
         .frame(height: 104)

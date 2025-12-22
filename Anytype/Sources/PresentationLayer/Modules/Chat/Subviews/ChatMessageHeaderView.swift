@@ -8,7 +8,7 @@ struct ChatMessageHeaderView: View {
             Spacer()
             Text(text)
                 .anytypeFontStyle(.caption1Medium)
-                .foregroundColor(.Text.white)
+                .foregroundStyle(Color.Text.white)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 2)
                 .background(Color.Control.transparentTertiary)

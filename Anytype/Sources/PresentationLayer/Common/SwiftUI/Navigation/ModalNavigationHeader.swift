@@ -25,7 +25,7 @@ struct ModalNavigationHeader<LeftView: View, TitleView: View, RightView: View>: 
 extension ModalNavigationHeader where TitleView == AnyView {
     init(title: String, @ViewBuilder leftView: () -> LeftView, @ViewBuilder rightView: () -> RightView) {
         self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(height: 48)
             .lineLimit(1)
             .eraseToAnyView()
@@ -37,7 +37,7 @@ extension ModalNavigationHeader where TitleView == AnyView {
 extension ModalNavigationHeader where TitleView == AnyView, RightView == AnyView, LeftView == AnyView {
     init(title: String) {
         self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(height: 48)
             .lineLimit(1)
             .eraseToAnyView()

@@ -28,7 +28,7 @@ struct EmailCollectionView: View {
     private var content: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.Auth.JoinFlow.Email.title, style: .contentTitleSemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(8)
@@ -37,7 +37,7 @@ struct EmailCollectionView: View {
                 Loc.Auth.JoinFlow.Email.description,
                 style: .bodyRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 20)
             
@@ -53,7 +53,7 @@ struct EmailCollectionView: View {
             VStack(spacing: 4) {
                 if model.showIncorrectEmailError {
                     AnytypeText(Loc.Auth.JoinFlow.Email.incorrectError, style: .caption1Regular)
-                        .foregroundColor(.Pure.red)
+                        .foregroundStyle(Color.Pure.red)
                         .lineLimit(1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -66,7 +66,7 @@ struct EmailCollectionView: View {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
                 .textContentType(.emailAddress)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .accentColor(.Text.tertiary)
             }
             .padding(.horizontal, 20)            

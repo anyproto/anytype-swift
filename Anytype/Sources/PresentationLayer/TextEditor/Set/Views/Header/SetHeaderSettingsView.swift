@@ -33,7 +33,7 @@ struct SetHeaderSettingsView: View {
             model.onSettingsTap()
         }) {
             Image(asset: .X24.settings)
-                .foregroundColor(model.isActiveHeader ? .Control.secondary : .Control.tertiary)
+                .foregroundStyle(model.isActiveHeader ? Color.Control.secondary : Color.Control.tertiary)
         }
         .disabled(!model.isActiveHeader)
     }
@@ -73,10 +73,10 @@ struct SetHeaderSettingsView: View {
                     model.viewName.isNotEmpty ? model.viewName : Loc.untitled,
                     style: .subheading
                 )
-                .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
+                .foregroundStyle(model.isActiveHeader ? Color.Text.primary : Color.Text.tertiary)
                 Spacer.fixedWidth(4)
                 Image(asset: .arrowDown)
-                    .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
+                    .foregroundStyle(model.isActiveHeader ? Color.Text.primary : Color.Text.tertiary)
             }
         }
         .disabled(!model.isActiveHeader)

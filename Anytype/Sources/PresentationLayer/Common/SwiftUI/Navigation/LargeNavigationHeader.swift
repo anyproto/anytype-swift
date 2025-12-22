@@ -41,7 +41,7 @@ extension LargeNavigationHeader where TitleView == AnyView, RightView == AnyView
 extension LargeNavigationHeader {
     static func defaultTextView(title: String) -> AnyView {
         AnytypeText(title, style: .title)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .frame(height: 64)
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)

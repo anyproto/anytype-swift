@@ -7,9 +7,9 @@ struct NewPropertyFormatSectionView: View {
     var body: some View {
         HStack(spacing: 5) {
             Image(asset: model.icon)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
             AnytypeText(model.title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
         }
     }

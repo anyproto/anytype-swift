@@ -38,7 +38,7 @@ struct FilePropertyView: View {
                 option.title,
                 style: style.font
             )
-                .foregroundColor(style.fontColor)
+                .foregroundStyle(style.fontColor)
                 .lineLimit(1)
         }
     }

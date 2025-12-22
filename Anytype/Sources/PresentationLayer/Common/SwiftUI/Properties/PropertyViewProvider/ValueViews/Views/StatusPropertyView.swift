@@ -29,7 +29,7 @@ struct StatusPropertyView: View {
     
     private func statusView(option: Property.Status.Option) -> some View {
         AnytypeText(option.text, style: style.font)
-            .foregroundColor(option.color)
+            .foregroundStyle(option.color)
             .lineLimit(1)
     }
     

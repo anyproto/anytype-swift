@@ -33,7 +33,7 @@ struct LinkWidgetDefaultHeader<RightView: View>: View {
                 Spacer.fixedWidth(16)
             }
             AnytypeText(title, style: .subheading)
-                .foregroundColor(titleColor)
+                .foregroundStyle(titleColor)
                 .lineLimit(1)
                 .layoutPriority(-1)
             Spacer.fixedWidth(16)

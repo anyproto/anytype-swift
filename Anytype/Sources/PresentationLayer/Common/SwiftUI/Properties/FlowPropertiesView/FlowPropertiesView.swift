@@ -30,7 +30,7 @@ struct FlowPropertiesView: View {
                     description,
                     style: .relation3Regular
                 )
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(1)
             } else {

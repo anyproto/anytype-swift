@@ -61,7 +61,7 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                 } icon: {
                     Image(asset: .X24.more)
                         .renderingMode(.template)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                 }
             }
         case .vertical:
@@ -85,7 +85,7 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                 } icon: {
                     Image(asset: setting.imageAsset)
                         .renderingMode(.template)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                 }
             }
         case .action(let action):
@@ -102,7 +102,7 @@ struct ObjectSettingsMenuView<LabelView: View>: View {
                     } else {
                         Image(asset: action.imageAsset)
                             .renderingMode(.template)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                 }
             }

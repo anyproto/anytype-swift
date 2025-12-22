@@ -61,7 +61,7 @@ struct SpaceCreateView: View {
                 .frame(width: 96, height: 96)
             Spacer.fixedHeight(6)
             AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
             Spacer.fixedHeight(20)
         }
         .fixTappableArea()

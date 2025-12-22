@@ -43,7 +43,7 @@ struct PropertyNameValueView: View {
 
     private var name: some View {
         AnytypeText(viewModel.property.name, style: .relation1Regular)
-                .foregroundColor(.Text.secondary).lineLimit(1)
+                .foregroundStyle(Color.Text.secondary).lineLimit(1)
     }
 
     private var valueViewButton: some View {

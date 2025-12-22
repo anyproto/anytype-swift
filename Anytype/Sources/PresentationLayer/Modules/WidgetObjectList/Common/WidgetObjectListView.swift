@@ -93,7 +93,7 @@ struct WidgetObjectListView: View {
                     model.onSelectAll()
                 } label: {
                     AnytypeText(model.selectButtonText, style: .uxBodyRegular)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }

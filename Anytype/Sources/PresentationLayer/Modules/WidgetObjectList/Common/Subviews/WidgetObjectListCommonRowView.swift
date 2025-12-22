@@ -16,18 +16,18 @@ struct WidgetObjectListCommonRowView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(title, style: .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 if let description = description, description.isNotEmpty {
                     Spacer.fixedHeight(1)
                     AnytypeText(description, style: .relation3Regular)
-                        .foregroundColor(descriptionColor)
+                        .foregroundStyle(descriptionColor)
                         .lineLimit(1)
                 }
                 if let subtitle = subtitle, subtitle.isNotEmpty {
                     Spacer.fixedHeight(2)
                     AnytypeText(subtitle, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
                 }
             }

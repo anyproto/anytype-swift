@@ -44,7 +44,7 @@ struct TypePropertiesView: View {
         HStack {
             Spacer()
             AnytypeText(Loc.fields, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
         }
         .frame(height: 48)
@@ -125,7 +125,7 @@ struct TypePropertiesView: View {
                 model.onRelationTap(data)
             } label: {
                 Image(asset: data.relation.iconAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                 Spacer.fixedWidth(10)
                 AnytypeText(data.relation.name, style: .uxBodyRegular)
                 
@@ -182,7 +182,7 @@ struct TypePropertiesView: View {
                 Button(Loc.Fields.addToType) { model.onAddConflictRelation(data) }
             } label: {
                 Image(asset: data.format.iconAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
                 Spacer.fixedWidth(10)
                 AnytypeText(data.name, style: .uxBodyRegular)
                 

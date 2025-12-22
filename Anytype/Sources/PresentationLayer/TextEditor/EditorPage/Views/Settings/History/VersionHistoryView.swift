@@ -66,9 +66,9 @@ struct VersionHistoryView: View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(data.time, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 AnytypeText(data.author, style: .caption1Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     .lineLimit(1)
             }
             

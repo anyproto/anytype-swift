@@ -12,11 +12,11 @@ struct ExperimentalFeatureRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     if title.isNotEmpty {
                         AnytypeText(title, style: .previewTitle1Regular)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                     if subtitle.isNotEmpty {
                         AnytypeText(subtitle, style: .caption1Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                     }
                 }
             }

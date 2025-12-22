@@ -50,7 +50,7 @@ struct SetLayoutSettingsView: View {
                 configuration.name,
                 style: configuration.isSelected ? .caption2Medium : .caption2Regular
             )
-            .foregroundColor(configuration.isSelected ? .Control.accent100 : .Text.secondary)
+            .foregroundStyle(configuration.isSelected ? Color.Control.accent100 : Color.Text.secondary)
         }
         .frame(height: 96)
         .frame(maxWidth: .infinity)
@@ -125,7 +125,7 @@ struct SetLayoutSettingsView: View {
                         option.onTap()
                     } label: {
                         AnytypeText(option.id, style: .uxBodyRegular)
-                            .foregroundColor(.Text.primary)
+                            .foregroundStyle(Color.Text.primary)
                     }
                 }
             }
@@ -138,13 +138,13 @@ struct SetLayoutSettingsView: View {
     private func valueSettingContent(title: String, value: String, contextual: Bool) -> some View {
         HStack(spacing: 0) {
             AnytypeText(title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
             AnytypeText(value, style: .uxBodyRegular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             Spacer.fixedWidth(6)
             Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
         }
     }
 }

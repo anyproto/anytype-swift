@@ -79,7 +79,7 @@ struct SetKanbanColumn: View {
                     Loc.Set.View.Kanban.Column.Title.uncategorized,
                     style: .relation2Regular
                 )
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             case let .status(options):
                 StatusPropertyView(options: options, hint: "", style: .kanbanHeader)
             case let .tag(options):
@@ -90,7 +90,7 @@ struct SetKanbanColumn: View {
                         Image(asset: .TextEditor.Text.checked)
                     } else {
                         Image(asset: .TextEditor.Text.unchecked)
-                            .foregroundColor(.Control.secondary)
+                            .foregroundStyle(Color.Control.secondary)
                     }
                     let text = isChecked ?
                     Loc.Set.View.Kanban.Column.Title.checked(title) :
@@ -99,13 +99,13 @@ struct SetKanbanColumn: View {
                         text,
                         style: .relation2Regular
                     )
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                 }
             }
             
             Spacer()
             
-            Image(asset: .X24.more).foregroundColor(.Control.secondary)
+            Image(asset: .X24.more).foregroundStyle(Color.Control.secondary)
         }
         .padding(.horizontal, 10)
     }
@@ -119,14 +119,14 @@ struct SetKanbanColumn: View {
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(3)
                     Image(asset: .arrowDown)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .frame(width: 18, height: 18)
                     Spacer.fixedWidth(7)
                     AnytypeText(
                         Loc.Set.View.Kanban.Column.Paging.Title.showMore,
                         style: .caption1Medium
                     )
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
                     Spacer()
                 }
                 Spacer.fixedHeight(4)

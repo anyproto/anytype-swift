@@ -34,11 +34,11 @@ struct DisabledPushNotificationsBannerView: View {
             Spacer.fixedHeight(12)
             
             AnytypeText(Loc.PushNotifications.Settings.DisabledAlert.title, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             AnytypeText(Loc.PushNotifications.Settings.DisabledAlert.description, style: .uxTitle2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(12)

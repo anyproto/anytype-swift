@@ -20,9 +20,9 @@ struct SetSortRow: View {
         HStack {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color.Background.highlightedMedium)
+                    .foregroundStyle(Color.Background.highlightedMedium)
                 Image(asset: configuration.iconAsset)
-                    .foregroundColor(.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
             .frame(width: 48, height: 48)
             
@@ -30,9 +30,9 @@ struct SetSortRow: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(configuration.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 AnytypeText(configuration.subtitle, style: .relation1Regular)
-                    .foregroundColor(.Text.secondary)
+                    .foregroundStyle(Color.Text.secondary)
             }
             
             Spacer()

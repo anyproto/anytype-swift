@@ -21,9 +21,9 @@ struct DebugMenuView: View {
             DragIndicator()
             VStack {
                 AnytypeText("Internal debug menu 👻", style: .title)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 AnytypeText("Environment: \(BuildTypeProvider.buidType.rawValue)", style: .caption1Medium)
-                    .foregroundColor(.Text.tertiary)
+                    .foregroundStyle(Color.Text.tertiary)
             }.padding()
             
             ScrollView {
@@ -233,7 +233,7 @@ struct DebugMenuView: View {
                     }
                 } label: {
                     AnytypeText(section.title, style: .heading)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .padding()
                 }
             }
@@ -246,19 +246,19 @@ struct DebugMenuView: View {
     private var searchBar: some View {
         HStack {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             
             TextField(Loc.search, text: $model.searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             
             if !model.searchText.isEmpty {
                 Button {
                     model.searchText = ""
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 }
             }
         }

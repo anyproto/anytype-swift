@@ -30,13 +30,13 @@ struct SyncStatusInfoView: View {
                         .lineLimit(1)
                     if model.syncStatusInfo.networkSubtitle.isNotEmpty {
                         AnytypeText(model.syncStatusInfo.networkSubtitle, style: .relation3Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                     }
                 }
                 Spacer()
                 if model.syncStatusInfo.haveTapIndicatior {
-                    Image(asset: .X18.webLink).foregroundColor(.Text.tertiary)
+                    Image(asset: .X18.webLink).foregroundStyle(Color.Text.tertiary)
                 }
             }
             .padding(.horizontal, 16)
@@ -56,13 +56,13 @@ struct SyncStatusInfoView: View {
                         .lineLimit(1)
                     if model.p2pStatusInfo.networkSubtitle.isNotEmpty {
                         AnytypeText(model.p2pStatusInfo.networkSubtitle, style: .relation3Regular)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundStyle(Color.Text.secondary)
                             .lineLimit(1)
                     }
                 }
                 Spacer()
                 if model.p2pStatusInfo.haveTapIndicatior {
-                    Image(asset: .X18.webLink).foregroundColor(.Text.tertiary)
+                    Image(asset: .X18.webLink).foregroundStyle(Color.Text.tertiary)
                 }
             }
             .padding(.horizontal, 16)

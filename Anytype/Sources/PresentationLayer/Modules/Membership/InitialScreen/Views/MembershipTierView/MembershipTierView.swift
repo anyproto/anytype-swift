@@ -40,10 +40,10 @@ struct MembershipTierView: View {
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
             AnytypeText(model.tierToDisplay.name, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(5)
             AnytypeText(model.tierToDisplay.description, style: .caption1Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .minimumScaleFactor(0.8)
             Spacer()
             
@@ -70,7 +70,7 @@ struct MembershipTierView: View {
                 expirationText
             case .pending:
                 AnytypeText(Loc.pending, style: .caption1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             case .unowned:
                 MembershipPricingView(tier: model.tierToDisplay)
             case nil:
@@ -84,17 +84,17 @@ struct MembershipTierView: View {
             switch model.userMembership.dateEnds {
             case .never:
                 AnytypeText(Loc.foreverFree, style: .caption1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             case .date:
                 AnytypeText(Loc.validUntilDate(model.userMembership.formattedDateEnds), style: .caption1Regular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
             }
         }
     }
     
     private var ownershipOverlay: some View {
         AnytypeText(Loc.current, style: .relation3Regular)
-            .foregroundColor(.Text.primary)
+            .foregroundStyle(Color.Text.primary)
             .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
             .border(11, color: .Text.primary)
             .padding(.top, 16)

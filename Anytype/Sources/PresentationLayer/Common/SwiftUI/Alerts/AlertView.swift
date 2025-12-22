@@ -20,7 +20,7 @@ struct AlertView<Presenting>: View where Presenting: View {
     private var content: some View {
         VStack(spacing: 18) {
             AnytypeText(errorText, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .padding(.horizontal, 8)
                 .multilineTextAlignment(.center)
             
@@ -48,7 +48,7 @@ struct AlertView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack {
             AnytypeText("ParentView", style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
         return AlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view, onButtonTap: {})
     }

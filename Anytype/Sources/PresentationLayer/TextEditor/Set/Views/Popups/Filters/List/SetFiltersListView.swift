@@ -40,7 +40,7 @@ struct SetFiltersListView: View {
                     viewModel.addButtonTapped()
                 } label: {
                     Image(asset: .X32.plus)
-                        .foregroundColor(.Control.secondary)
+                        .foregroundStyle(Color.Control.secondary)
                 }
             }
         }
@@ -68,7 +68,7 @@ struct SetFiltersListView: View {
                 Loc.EditSet.Popup.Filters.EmptyView.title,
                 style: .uxCalloutRegular
             )
-            .foregroundColor(.Text.secondary)
+            .foregroundStyle(Color.Text.secondary)
             .frame(height: 68)
             Spacer()
         }
@@ -94,7 +94,7 @@ struct SetFiltersListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Control.secondary)
+                    .foregroundStyle(Color.Control.secondary)
             }
         }
         .background(Color.Background.secondary)

@@ -11,11 +11,11 @@ struct AnytypeRow: View {
         Button(action: action) {
             HStack(spacing: 0) {
                 AnytypeText(title, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                 Spacer()
                 if let description {
                     AnytypeText(description, style: .uxBodyRegular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                         .lineLimit(1)
                     Spacer.fixedWidth(10)
                 }

@@ -45,10 +45,10 @@ struct MembershipNameFinalizationView: View {
     var info: some View {
         Group {
             AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(6)
             AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer.fixedHeight(10)
         }
     }

@@ -27,7 +27,7 @@ struct MessageParticipantsReactionView: View {
         HStack {
             Spacer()
             AnytypeText(model.title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
             Spacer()
         }
         .frame(height: 48)

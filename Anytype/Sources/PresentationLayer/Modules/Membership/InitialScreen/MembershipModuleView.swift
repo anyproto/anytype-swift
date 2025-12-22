@@ -30,7 +30,7 @@ struct MembershipModuleView: View {
                     Spacer.fixedHeight(35)
                     title
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
-                        .foregroundColor(.Text.primary)
+                        .foregroundStyle(Color.Text.primary)
                         .padding(.horizontal, 60)
                         .multilineTextAlignment(.center)
                     Spacer.fixedHeight(32)
@@ -61,7 +61,7 @@ struct MembershipModuleView: View {
                 AnytypeText(Loc.Membership.Ad.title, style: .interBannerTitle)
             }
         }
-        .foregroundColor(.Text.primary)
+        .foregroundStyle(Color.Text.primary)
         .padding(.horizontal, 20)
         .multilineTextAlignment(.center)
     }
@@ -104,12 +104,12 @@ struct MembershipModuleView: View {
                 AnytypeText(
                     "\(Loc.Membership.Legal.alreadyPurchasedTier) ",
                     style: .caption1Regular
-                ).foregroundColor(.Text.primary) +
+                ).foregroundStyle(Color.Text.primary) +
                 AnytypeText(
                     Loc.Membership.Legal.restorePurchases,
                     style: .caption1Regular
                 )
-                .foregroundColor(.Text.primary).underline()
+                .foregroundStyle(Color.Text.primary).underline()
             }
             .multilineTextAlignment(.leading)
             .padding(.horizontal, 20)

@@ -82,7 +82,7 @@ struct MembershipTierSelectionView: View {
         VStack {
             AnytypeText(Loc.Membership.unavailable, style: .uxTitle2Regular)
                 .frame(maxWidth: .infinity)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 34)
         }

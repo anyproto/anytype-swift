@@ -92,12 +92,12 @@ struct ObjectPropertiesLibraryView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 Spacer()
-                
+
                 AnytypeText(data.title, style: data.isMinimal ? .uxBodyRegular : .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                     .frame(height: 20)
-                    
+
                 Spacer()
             }
             

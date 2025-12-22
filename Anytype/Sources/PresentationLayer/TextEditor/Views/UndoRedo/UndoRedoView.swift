@@ -42,7 +42,7 @@ private struct ItemView: View {
     var body: some View {
         VStack(spacing: 5) {
             Image(asset: imageAsset)
-                .foregroundColor(.Control.secondary)
+                .foregroundStyle(Color.Control.secondary)
                 .frame(height: 52)
                 .frame(
                     minWidth: 0,
@@ -52,7 +52,7 @@ private struct ItemView: View {
                 .background(Color.Background.highlightedMedium)
                 .cornerRadius(10.5)
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
     }
 }

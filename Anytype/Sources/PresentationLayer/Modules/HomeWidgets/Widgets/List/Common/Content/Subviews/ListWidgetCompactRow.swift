@@ -18,7 +18,7 @@ struct ListWidgetCompactRow: View {
                 .frame(width: 18, height: 18)
 
             AnytypeText(model.title, style: .previewTitle2Medium)
-                .foregroundColor(titleColor)
+                .foregroundStyle(titleColor)
                 .lineLimit(1)
 
             Spacer()

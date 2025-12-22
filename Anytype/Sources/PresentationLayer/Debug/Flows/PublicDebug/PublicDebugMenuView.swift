@@ -12,7 +12,7 @@ struct PublicDebugMenuView: View {
             DragIndicator()
             VStack {
                 AnytypeText("Y0u h4ve f0und secr3t D3bug m3nu 🎉", style: .title)
-                    .foregroundColor(.Text.primary)
+                    .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.5)
             }.padding()
@@ -94,7 +94,7 @@ struct PublicDebugMenuView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText("Advanced stuff 🤓", style: .subheading)
                     AnytypeText("ĐØ ₦Ø₮ Ɇ₦₮ɆⱤ, ⱤɄ₦", style: .bodyRegular)
-                        .foregroundColor(.Text.secondary)
+                        .foregroundStyle(Color.Text.secondary)
                 }
                     .padding()
             }

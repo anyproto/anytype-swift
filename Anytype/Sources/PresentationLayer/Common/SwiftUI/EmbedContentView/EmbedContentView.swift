@@ -26,7 +26,7 @@ struct EmbedContentView: View {
             Spacer.fixedWidth(12)
             
             AnytypeText(model.data.text, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
             
             if model.data.url.isNotNil {
                 Spacer()

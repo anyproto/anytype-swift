@@ -38,7 +38,7 @@ struct UnsplashItemView: View {
                     )
                     .fade(duration: 0.25)
                 AnytypeText(viewModel.item.artistName, style: .caption2Medium)
-                    .foregroundColor(.Text.white)
+                    .foregroundStyle(Color.Text.white)
                     .padding(.init(8))
             }
         }

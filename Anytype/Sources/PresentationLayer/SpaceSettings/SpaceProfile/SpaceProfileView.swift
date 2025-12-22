@@ -120,7 +120,7 @@ struct SpaceProfileView: View {
             Spacer.fixedHeight(6)
             
             AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.primary)
+                .foregroundStyle(Color.Text.primary)
         }
     }
 }
