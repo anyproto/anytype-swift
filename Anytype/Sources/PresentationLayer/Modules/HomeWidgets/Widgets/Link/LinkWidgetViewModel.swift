@@ -92,7 +92,7 @@ final class LinkWidgetViewModel: ObservableObject {
         }
 
         let spaceView = spaceViewsStorage.spaceView(spaceId: linkedObjectDetails.spaceId)
-        let isMuted = !(spaceView?.effectiveNotificationMode(for: linkedObjectDetails.id).isUnmutedAll ?? true)
+        let notificationMode = spaceView?.effectiveNotificationMode(for: linkedObjectDetails.id) ?? .all
 
         badgeModel = MessagePreviewModel(
             creatorTitle: lastMessage.creator?.title,
@@ -102,7 +102,7 @@ final class LinkWidgetViewModel: ObservableObject {
             chatPreviewDate: dateFormatter.localizedDateString(for: lastMessage.createdAt, showTodayTime: true),
             unreadCounter: chatPreview.unreadCounter,
             mentionCounter: chatPreview.mentionCounter,
-            isMuted: isMuted,
+            notificationMode: notificationMode,
             chatName: nil
         )
     }

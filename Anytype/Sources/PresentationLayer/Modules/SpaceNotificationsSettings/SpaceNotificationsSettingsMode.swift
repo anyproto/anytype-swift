@@ -54,11 +54,29 @@ extension SpacePushNotificationsMode {
         case .nothing, .UNRECOGNIZED(_): return .disabled
         }
     }
-    
+
     var isUnmutedAll: Bool {
         self == .all
     }
-    
+
+    var unreadCounterStyle: CounterViewStyle {
+        switch self {
+        case .all:
+            return .highlighted
+        case .mentions, .nothing, .UNRECOGNIZED:
+            return .muted
+        }
+    }
+
+    var mentionCounterStyle: MentionBadgeStyle {
+        switch self {
+        case .all, .mentions:
+            return .highlighted
+        case .nothing, .UNRECOGNIZED:
+            return .muted
+        }
+    }
+
     var analyticsValue: String {
         switch self {
         case .all: return "All"
