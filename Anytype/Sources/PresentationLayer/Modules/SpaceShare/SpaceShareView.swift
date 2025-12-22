@@ -22,8 +22,6 @@ struct SpaceShareView: View {
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
                 SpaceRequestAlert(data: alertModel) { reason in
                     model.onUpgradeTap(reason: reason, route: .confirmInvite)
-                } onReject: {
-                    model.onReject()
                 }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
@@ -42,9 +40,6 @@ struct SpaceShareView: View {
             }
             .anytypeSheet(item: $model.participantInfo) {
                 ProfileView(info: $0)
-            }
-            .anytypeSheet(isPresented: $model.showStopSharingAnEmptySpaceAlert) {
-                StopSharingAnEmptySpaceAlert()
             }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()

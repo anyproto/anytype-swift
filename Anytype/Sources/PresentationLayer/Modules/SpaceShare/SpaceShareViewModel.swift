@@ -66,8 +66,7 @@ final class SpaceShareViewModel {
     var limitBannerData: SpaceLimitBannerLimitType?
     var membershipUpgradeReason: MembershipUpgradeReason?
     var participantInfo: ObjectInfo?
-    var showStopSharingAnEmptySpaceAlert = false
-    
+
     init(data: SpaceShareData, output: (any NewInviteLinkModuleOutput)?) {
         self.data = data
         self.output = output
@@ -117,12 +116,6 @@ final class SpaceShareViewModel {
         membershipUpgradeReason = reason
     }
     
-    func onReject() {
-        Task {
-            try await makePrivateIfPossible()
-        }
-    }
-
     func onManageSpaces() {
         output?.showSpacesManager()
     }
@@ -299,22 +292,12 @@ final class SpaceShareViewModel {
             onConfirm: { [weak self] in
                 AnytypeAnalytics.instance().logRemoveSpaceMember()
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
-                try await self?.makePrivateIfPossible()
             }
         )
     }
     
     private func showParticipantInfo(_ participant: Participant) {
         participantInfo = ObjectInfo(objectId: participant.id, spaceId: participant.spaceId)
-    }
-    
-    private func makePrivateIfPossible() async throws {
-        // Waiting middleware participant events
-        try await Task.sleep(seconds: 0.5)
-        guard participants.count == 1 else { return }
-        try await workspaceService.stopSharing(spaceId: spaceId)
-        linkViewModel.updateLink()
-        showStopSharingAnEmptySpaceAlert.toggle()
     }
 }
 
