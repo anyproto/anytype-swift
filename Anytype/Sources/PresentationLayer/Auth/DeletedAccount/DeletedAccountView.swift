@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct DeletedAccountView: View {
-    
-    @StateObject private var viewModel: DeletedAccountViewModel
-    
+
+    @State private var viewModel: DeletedAccountViewModel
+
     init(deadline: Date) {
-        _viewModel = StateObject(wrappedValue: DeletedAccountViewModel(deadline: deadline))
+        _viewModel = State(initialValue: DeletedAccountViewModel(deadline: deadline))
     }
     
     var body: some View {

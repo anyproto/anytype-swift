@@ -3,18 +3,21 @@ import AnytypeCore
 import AudioToolbox
 
 struct PrimaryAuthView: View {
-    
-    @StateObject private var model: PrimaryAuthViewModel
+
+    @State private var model: PrimaryAuthViewModel
     @Environment(\.authCircleCenterVerticalOffset) private var circleOffset
-    
+
     init(output: (any PrimaryAuthOutput)?) {
-        _model = StateObject(wrappedValue: PrimaryAuthViewModel(output: output))
+        _model = State(initialValue: PrimaryAuthViewModel(output: output))
     }
-    
+
     var body: some View {
         content
             .onAppear {
                 model.onAppear()
+            }
+            .task {
+                await model.startAppActionSubscription()
             }
             .task(item: model.createAccountTaskId) { _ in
                 await model.createAccount()

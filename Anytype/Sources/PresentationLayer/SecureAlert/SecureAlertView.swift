@@ -2,12 +2,12 @@ import SwiftUI
 import DesignKit
 
 struct SecureAlertView: View {
-    
-    @StateObject private var model: SecureAlertViewModel
+
+    @State private var model: SecureAlertViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(data: SecureAlertData) {
-        _model = StateObject(wrappedValue: SecureAlertViewModel(data: data))
+        _model = State(initialValue: SecureAlertViewModel(data: data))
     }
     
     var body: some View {

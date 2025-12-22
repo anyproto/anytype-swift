@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct KeyPhraseView: View {
-    
-    @StateObject private var model: KeyPhraseViewModel
-    
+
+    @State private var model: KeyPhraseViewModel
+
     init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
-        _model = StateObject(
-            wrappedValue: KeyPhraseViewModel(state: state, output: output)
+        _model = State(
+            initialValue: KeyPhraseViewModel(state: state, output: output)
         )
     }
     

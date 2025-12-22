@@ -1,45 +1,46 @@
 import SwiftUI
-@preconcurrency import Combine
 import Services
 
 @MainActor
-final class LoginViewModel: ObservableObject {
-    @Published var phrase = ""
-    @Published var loadingInProgress = false
-    @Published var accountSelectInProgress = false
-    @Published var entropy: String = ""
-    @Published var errorText: String? {
+@Observable
+final class LoginViewModel {
+    var phrase = ""
+    var loadingInProgress = false
+    var accountSelectInProgress = false
+    var entropy: String = ""
+    var errorText: String? {
         didSet {
             showError = errorText.isNotNil
         }
     }
-    @Published var showError: Bool = false
-    @Published var dismiss = false
-    @Published var accountId: String?
-    @Published var walletRecoveryTaskId: String?
-    @Published var logoutTaskId: String?
-    
+    var showError: Bool = false
+    var dismiss = false
+    var accountId: String?
+    var walletRecoveryTaskId: String?
+    var logoutTaskId: String?
+    var canRestoreFromKeychain: Bool = false
+
     var backButtonDisabled: Bool {
         loadingInProgress && !accountSelectInProgress
     }
-    
-    lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
-    
-    @Injected(\.authService)
+
+
+    @ObservationIgnored @Injected(\.authService)
     private var authService: any AuthServiceProtocol
-    @Injected(\.seedService)
+    @ObservationIgnored @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
-    @Injected(\.localAuthService)
+    @ObservationIgnored @Injected(\.localAuthService)
     private var localAuthService: any LocalAuthServiceProtocol
-    @Injected(\.cameraPermissionVerifier)
+    @ObservationIgnored @Injected(\.cameraPermissionVerifier)
     private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
-    @Injected(\.accountEventHandler)
+    @ObservationIgnored @Injected(\.accountEventHandler)
     private var accountEventHandler: any AccountEventHandlerProtocol
-    @Injected(\.applicationStateService)
+    @ObservationIgnored @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    @Injected(\.pushNotificationsPermissionService)
+    @ObservationIgnored @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any LoginOutput)?
     
     init(output: (any LoginOutput)?) {
@@ -48,6 +49,7 @@ final class LoginViewModel: ObservableObject {
     
     func onAppear() {
         AnytypeAnalytics.instance().logLoginScreenShow()
+        canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
     }
     
     func onEnterButtonAction() {
