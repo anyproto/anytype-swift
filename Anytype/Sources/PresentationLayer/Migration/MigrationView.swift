@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct MigrationView: View {
-    
-    @StateObject private var model: MigrationViewModel
+
+    @State private var model: MigrationViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     private let topOffcet: CGFloat = UIDevice.isPad ? 310 : 180
-    
+
     init(data: MigrationModuleData, output: (any MigrationModuleOutput)?) {
-        _model = StateObject(wrappedValue: MigrationViewModel(data: data, output: output))
+        _model = State(initialValue: MigrationViewModel(data: data, output: output))
     }
     
     var body: some View {

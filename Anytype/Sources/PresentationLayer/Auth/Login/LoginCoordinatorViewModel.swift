@@ -2,14 +2,15 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class LoginCoordinatorViewModel: ObservableObject, LoginOutput {
-    
-    @Published var showPublicDebugMenu = false
-    @Published var showOpenSettingsURL = false
-    
-    @Published var migrationData: MigrationModuleData?
-    @Published var secureAlertData: SecureAlertData?
-    @Published var qrCodeScannerData: QrCodeScannerData?
+@Observable
+final class LoginCoordinatorViewModel: LoginOutput {
+
+    var showPublicDebugMenu = false
+    var showOpenSettingsURL = false
+
+    var migrationData: MigrationModuleData?
+    var secureAlertData: SecureAlertData?
+    var qrCodeScannerData: QrCodeScannerData?
     
     // MARK: - LoginOutput
     

@@ -2,13 +2,14 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class AuthCoordinatorViewModel: ObservableObject, PrimaryAuthOutput {
-    
-    @Published var showDebugMenu = false
-    @Published var showSettings = false
-    @Published var showLogin = false
-    @Published var showJoinFlow = false
-    
+@Observable
+final class AuthCoordinatorViewModel: PrimaryAuthOutput {
+
+    var showDebugMenu = false
+    var showSettings = false
+    var showLogin = false
+    var showJoinFlow = false
+
     var joinState: JoinFlowState?
     
     // MARK: - PrimaryAuthOutput

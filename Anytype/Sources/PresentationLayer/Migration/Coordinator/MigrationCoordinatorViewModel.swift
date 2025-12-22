@@ -1,12 +1,14 @@
 import SwiftUI
 
 @MainActor
-final class MigrationCoordinatorViewModel: ObservableObject, MigrationModuleOutput {
-    
+@Observable
+final class MigrationCoordinatorViewModel: MigrationModuleOutput {
+
+    @ObservationIgnored
     let data: MigrationModuleData
-    
-    @Published var showPublicDebugMenu = false
-    @Published var showMigrationInfo = false
+
+    var showPublicDebugMenu = false
+    var showMigrationInfo = false
     
     init(data: MigrationModuleData) {
         self.data = data

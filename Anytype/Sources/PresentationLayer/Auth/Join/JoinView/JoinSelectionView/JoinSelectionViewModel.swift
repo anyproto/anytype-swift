@@ -2,13 +2,17 @@ import SwiftUI
 import Services
 
 @MainActor
-final class JoinSelectionViewModel: ObservableObject {
-    
-    @Published var selectedOptions = [InfoSelectionOption]()
-    
+@Observable
+final class JoinSelectionViewModel {
+
+    var selectedOptions = [InfoSelectionOption]()
+
+    @ObservationIgnored
     let type: JoinSelectionType
+    @ObservationIgnored
     private let state: JoinFlowState
-    
+
+    @ObservationIgnored
     private weak var output: (any JoinBaseOutput)?
 
     

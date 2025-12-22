@@ -1,5 +1,5 @@
 import Foundation
-@preconcurrency import Combine
+import Combine
 import Services
 
 struct MigrationModuleData: Identifiable {
@@ -14,24 +14,29 @@ enum MigrationState: Equatable {
 }
 
 @MainActor
-final class MigrationViewModel: ObservableObject {
-    
+@Observable
+final class MigrationViewModel {
+
+    @ObservationIgnored
     private let data: MigrationModuleData
+    @ObservationIgnored
     private var activeProcess: Process?
-    
-    @Published var progress: CGFloat = 0
-    @Published var startFlowId: String?
-    @Published var dismiss = false
-    @Published var state = MigrationState.initial
-    
-    @Injected(\.accountMigrationService)
+
+    var progress: CGFloat = 0
+    var startFlowId: String?
+    var dismiss = false
+    var state = MigrationState.initial
+
+    @ObservationIgnored @Injected(\.accountMigrationService)
     private var accountMigrationService: any AccountMigrationServiceProtocol
-    @Injected(\.localRepoService)
+    @ObservationIgnored @Injected(\.localRepoService)
     private var localRepoService: any LocalRepoServiceProtocol
-    @Injected(\.processSubscriptionService)
+    @ObservationIgnored @Injected(\.processSubscriptionService)
     private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any MigrationModuleOutput)?
+    @ObservationIgnored
     private var processSubscription: AnyCancellable?
     
     // MARK: - Initializer

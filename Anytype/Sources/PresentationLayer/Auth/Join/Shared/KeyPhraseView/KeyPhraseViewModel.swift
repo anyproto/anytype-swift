@@ -1,19 +1,22 @@
 import SwiftUI
 
 @MainActor
-final class KeyPhraseViewModel: ObservableObject {
+@Observable
+final class KeyPhraseViewModel {
 
-    @Published var key: String
-    @Published var keyShown: Bool {
+    var key: String
+    var keyShown: Bool {
         didSet {
             state.keyShown = keyShown
         }
     }
-    @Published var showMoreInfo = false
-    @Published var snackBar: ToastBarData?
-    
+    var showMoreInfo = false
+    var snackBar: ToastBarData?
+
+    @ObservationIgnored
     let state: JoinFlowState
-    
+
+    @ObservationIgnored
     private weak var output: (any JoinFlowStepOutput)?
     
     init(
