@@ -8,25 +8,33 @@ protocol VersionHistoryModuleOutput: AnyObject {
 }
 
 @MainActor
-final class VersionHistoryViewModel: ObservableObject {
-    
-    @Published var groups = [VersionHistoryDataGroup]()
-    @Published var expandedGroups: Set<String> = []
-    @Published var lastViewedVersionId = ""
-    
+@Observable
+final class VersionHistoryViewModel {
+
+    var groups = [VersionHistoryDataGroup]()
+    var expandedGroups: Set<String> = []
+    var lastViewedVersionId = ""
+
+    @ObservationIgnored
     private let objectId: String
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private var rawVersions = OrderedSet<VersionHistory>()
+    @ObservationIgnored
     private var participantsDict = [String: Participant]()
+    @ObservationIgnored
     private weak var output: (any VersionHistoryModuleOutput)?
-    
+
+    @ObservationIgnored
     private var firstOpen = true
-    
-    @Injected(\.historyVersionsService)
+
+    @ObservationIgnored @Injected(\.historyVersionsService)
     private var historyVersionsService: any HistoryVersionsServiceProtocol
-    @Injected(\.versionHistoryDataBuilder)
+    @ObservationIgnored @Injected(\.versionHistoryDataBuilder)
     private var versionHistoryDataBuilder: any VersionHistoryDataBuilderProtocol
-    
+
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
     init(data: VersionHistoryData, output: (any VersionHistoryModuleOutput)?) {

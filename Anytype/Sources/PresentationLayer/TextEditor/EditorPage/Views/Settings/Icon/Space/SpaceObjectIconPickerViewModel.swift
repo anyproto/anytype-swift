@@ -1,23 +1,24 @@
-import Combine
 import UIKit
 import Services
 import AnytypeCore
 
 @MainActor
-final class SpaceObjectIconPickerViewModel: ObservableObject {
+@Observable
+final class SpaceObjectIconPickerViewModel {
 
     // MARK: - Private variables
-    
+
+    @ObservationIgnored
     private let spaceId: String
-    
-    @Injected(\.workspaceService)
+
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.fileActionsService)
+    @ObservationIgnored @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    
-    @Published private(set) var isRemoveEnabled: Bool = false
+
+    private(set) var isRemoveEnabled: Bool = false
 
     // MARK: - Initializer
     

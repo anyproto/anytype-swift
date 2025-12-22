@@ -4,12 +4,12 @@ import AnytypeCore
 import Services
 
 struct SpaceSettingsView: View {
-    
-    @StateObject private var model: SpaceSettingsViewModel
+
+    @State private var model: SpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
+        _model = State(initialValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
     }
     
     var body: some View {

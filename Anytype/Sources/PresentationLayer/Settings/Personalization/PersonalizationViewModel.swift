@@ -1,36 +1,37 @@
 import Foundation
 
 @MainActor
-final class PersonalizationViewModel: ObservableObject {
- 
+@Observable
+final class PersonalizationViewModel {
+
     // MARK: - DI
+    @ObservationIgnored
     private let spaceId: String
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @ObservationIgnored
     private weak var output: (any PersonalizationModuleOutput)?
-    
+
     // MARK: - State
-    
-    @Published var objectType: String = ""
-    
+
+    var objectType: String = ""
+
     init(spaceId: String, output: (any PersonalizationModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
-        setupSubscriptions()
     }
-    
+
     func onObjectTypeTap() {
         output?.onDefaultTypeSelected()
     }
-    
+
     func onWallpaperChangeTap() {
         output?.onWallpaperChangeSelected()
     }
-    
-    private func setupSubscriptions() {
-        objectTypeProvider.defaultObjectTypePublisher(spaceId: spaceId)
-            .map { $0.displayName }
-            .receiveOnMain()
-            .assign(to: &$objectType)
+
+    func startSubscription() async {
+        for await defaultObjectType in objectTypeProvider.defaultObjectTypePublisher(spaceId: spaceId).values {
+            objectType = defaultObjectType.displayName
+        }
     }
 }

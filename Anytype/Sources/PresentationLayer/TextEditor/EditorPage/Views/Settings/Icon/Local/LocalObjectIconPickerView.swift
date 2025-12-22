@@ -8,11 +8,11 @@ struct LocalObjectIconPickerData: Identifiable {
 }
 
 struct LocalObjectIconPickerView: View {
-    
-    @StateObject private var model: LocalObjectIconPickerViewModel
-    
+
+    @State private var model: LocalObjectIconPickerViewModel
+
     init(data: LocalObjectIconPickerData) {
-        self._model = StateObject(wrappedValue: LocalObjectIconPickerViewModel(data: data))
+        _model = State(initialValue: LocalObjectIconPickerViewModel(data: data))
     }
     
     var body: some View {

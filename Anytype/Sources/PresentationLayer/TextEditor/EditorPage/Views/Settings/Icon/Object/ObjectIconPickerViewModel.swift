@@ -1,4 +1,3 @@
-import Combine
 import UIKit
 import Services
 import AnytypeCore
@@ -14,37 +13,39 @@ enum ObjectIconPickerAction {
         case upload(itemProvider: NSItemProvider)
         case customIcon(data: CustomIconData)
     }
-    
+
     case setIcon(IconSource)
     case removeIcon
 }
 
 @MainActor
-final class ObjectIconPickerViewModel: ObservableObject {
-    
-    @Injected(\.objectHeaderUploadingService)
+@Observable
+final class ObjectIconPickerViewModel {
+
+    @ObservationIgnored @Injected(\.objectHeaderUploadingService)
     private var objectHeaderUploadingService: any ObjectHeaderUploadingServiceProtocol
-    
+
     let mediaPickerContentType: MediaPickerContentType = .images
 
-    @Published private(set) var isRemoveButtonAvailable: Bool = false
-    @Published private(set) var detailsLayout: DetailsLayout?
-    @Published private(set) var isRemoveEnabled: Bool = false
+    private(set) var isRemoveButtonAvailable: Bool = false
+    private(set) var detailsLayout: DetailsLayout?
+    private(set) var isRemoveEnabled: Bool = false
 
     // MARK: - Private variables
-    
+
+    @ObservationIgnored
     private let document: any BaseDocumentProtocol
-    private var subscription: AnyCancellable?
-        
+
     // MARK: - Initializer
-    
+
     init(data: ObjectIconPickerData) {
         self.document = data.document
-        subscription = document.detailsPublisher
-            .receiveOnMain()
-            .sink { [weak self] details in
-                self?.updateState(details: details)
-            }
+    }
+
+    func startSubscription() async {
+        for await details in document.detailsPublisher.values {
+            updateState(details: details)
+        }
     }
     
     
