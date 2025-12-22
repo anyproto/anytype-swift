@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 import AnytypeCore
@@ -10,30 +9,35 @@ protocol SpaceCreateModuleOutput: AnyObject {
 }
 
 @MainActor
-final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput {
-    
+@Observable
+final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     let data: SpaceCreateData
-    
-    @Injected(\.activeSpaceManager)
+
+    @ObservationIgnored @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
-    @Injected(\.workspaceService)
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.fileActionsService)
+    @ObservationIgnored @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
-    @Injected(\.appActionStorage)
+    @ObservationIgnored @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
-    
+
     // MARK: - State
-    
-    @Published var spaceName = ""
-    @Published var spaceIcon: Icon
-    @Published var createLoadingState = false
-    @Published var dismiss: Bool = false
-    
+
+    var spaceName = ""
+    var spaceIcon: Icon
+    var createLoadingState = false
+    var dismiss: Bool = false
+
+    @ObservationIgnored
     var fileData: FileData?
+    @ObservationIgnored
     private let spaceIconOption: Int
+    @ObservationIgnored
     private weak var output: (any SpaceCreateModuleOutput)?
     
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {

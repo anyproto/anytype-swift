@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct ChatHeaderView: View {
 
-    @StateObject private var model: ChatHeaderViewModel
+    @State private var model: ChatHeaderViewModel
 
     init(
         spaceId: String,
@@ -14,7 +14,7 @@ struct ChatHeaderView: View {
         onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
     ) {
-        self._model = StateObject(wrappedValue: ChatHeaderViewModel(
+        _model = State(initialValue: ChatHeaderViewModel(
             spaceId: spaceId,
             chatId: chatId,
             onTapOpenWidgets: onTapOpenWidgets,

@@ -3,14 +3,18 @@ import Factory
 import SwiftUI
 
 @MainActor
-final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
-    
+@Observable
+final class ChatCreateObjectCoordinatorViewModel {
+
     // MARK: DI
-    
+
+    @ObservationIgnored
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
-    
+
     // MARK: State
+    @ObservationIgnored
     let data: EditorScreenData
+    @ObservationIgnored
     lazy var pageNavigation = PageNavigation(
         open: { [weak self] in
             self?.handleOpenObject(data: $0)
@@ -20,14 +24,19 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
         popToFirstInSpace: {},
         replace: { _ in }
     )
+    @ObservationIgnored
     private let document: (any BaseDocumentProtocol)?
+    @ObservationIgnored
     private let onDismiss: (ChatCreateObjectDismissResult) -> Void
-    
-    @Published var isNotEmpty = false
-    @Published var dismissConfirmationAlert = false
-    @Published var openObjectConfirmationAlert: ScreenData?
+
+    var isNotEmpty = false
+    var dismissConfirmationAlert = false
+    var openObjectConfirmationAlert: ScreenData?
+    @ObservationIgnored
     var parentPageNavigation: PageNavigation?
+    @ObservationIgnored
     var chatActionProvider: ChatActionProvider?
+    @ObservationIgnored
     var dismiss: DismissAction?
     
     init(data: EditorScreenData, onDismiss: @escaping (ChatCreateObjectDismissResult) -> Void) {

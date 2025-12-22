@@ -3,13 +3,17 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class CreateObjectTypeViewModel: ObservableObject {
+@Observable
+final class CreateObjectTypeViewModel {
 
-    @Injected(\.typesService)
+    @ObservationIgnored @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
+    @ObservationIgnored
     private let data: CreateObjectTypeData
+    @ObservationIgnored
     private let completion: ((_ type: ObjectType) -> ())?
 
+    @ObservationIgnored
     let info: ObjectTypeInfo
 
     init(data: CreateObjectTypeData, completion: ((_ type: ObjectType) -> ())?) {

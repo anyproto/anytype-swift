@@ -2,16 +2,16 @@ import Foundation
 import SwiftUI
 
 struct ChatCreateObjectCoordinatorView: View {
-    
-    @StateObject private var model: ChatCreateObjectCoordinatorViewModel
+
+    @State private var model: ChatCreateObjectCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.pageNavigation) private var parentPageNavigation
     @Environment(\.chatActionProvider) private var chatActionProvider
-    
+
     @State private var topInset: CGFloat = 0
-    
+
     init(data: EditorScreenData, onDismiss: @escaping (ChatCreateObjectDismissResult) -> Void = { _ in }) {
-        self._model = StateObject(wrappedValue: ChatCreateObjectCoordinatorViewModel(data: data, onDismiss: onDismiss))
+        _model = State(initialValue: ChatCreateObjectCoordinatorViewModel(data: data, onDismiss: onDismiss))
     }
     
     var body: some View {

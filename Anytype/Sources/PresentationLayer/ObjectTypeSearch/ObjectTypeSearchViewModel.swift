@@ -8,31 +8,36 @@ enum TypeSelectionResult {
 }
 
 @MainActor
-final class ObjectTypeSearchViewModel: ObservableObject {
-    @Published var state = State.searchResults([])
-    @Published var searchText = ""
-    @Published var showPasteButton = false
-    @Published var newTypeInfo: CreateObjectTypeData?
-    @Published var toastData: ToastBarData?
-    @Published var participantCanEdit = false
-    
+@Observable
+final class ObjectTypeSearchViewModel {
+    var state = State.searchResults([])
+    var searchText = ""
+    var showPasteButton = false
+    var newTypeInfo: CreateObjectTypeData?
+    var toastData: ToastBarData?
+    var participantCanEdit = false
+
+    @ObservationIgnored
     let settings: ObjectTypeSearchViewSettings
+    @ObservationIgnored
     private let spaceId: String
-    
-    @Injected(\.workspaceService)
+
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.typesService)
+    @ObservationIgnored @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.pasteboardHelper)
+    @ObservationIgnored @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
-    @Injected(\.participantsStorage)
+    @ObservationIgnored @Injected(\.participantsStorage)
     private var accountParticipantStorage: any ParticipantsStorageProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
+    @ObservationIgnored
     private let onSelect: (TypeSelectionResult) -> Void
+    @ObservationIgnored
     private var searchTask: Task<(), any Error>?
     
     init(

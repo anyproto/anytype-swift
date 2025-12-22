@@ -24,7 +24,6 @@ final class LoginViewModel {
         loadingInProgress && !accountSelectInProgress
     }
 
-
     @ObservationIgnored @Injected(\.authService)
     private var authService: any AuthServiceProtocol
     @ObservationIgnored @Injected(\.seedService)

@@ -5,23 +5,27 @@ import AnytypeCore
 
 
 @MainActor
-final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
-    @Published var shouldDismiss = false
+@Observable
+final class TypeSearchForNewObjectCoordinatorViewModel {
+    var shouldDismiss = false
 
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
 
-    @Injected(\.pasteboardBlockService)
+    @ObservationIgnored @Injected(\.pasteboardBlockService)
     private var pasteboardBlockService: any PasteboardBlockServiceProtocol
-    @Injected(\.objectActionsService)
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.blockService)
+    @ObservationIgnored @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.bookmarkService)
+    @ObservationIgnored @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var typeProvider: any ObjectTypeProviderProtocol
-    
+
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private let openObject: (ObjectDetails)->()
     
     init(spaceId: String, openObject: @escaping (ObjectDetails)->()) {

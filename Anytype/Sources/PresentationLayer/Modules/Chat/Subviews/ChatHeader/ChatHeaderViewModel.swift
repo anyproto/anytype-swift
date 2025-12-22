@@ -5,37 +5,49 @@ import Combine
 import AnytypeCore
 
 @MainActor
-final class ChatHeaderViewModel: ObservableObject {
-    
-    @Injected(\.spaceViewsStorage)
+@Observable
+final class ChatHeaderViewModel {
+
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    @Injected(\.syncStatusStorage)
+    @ObservationIgnored @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
 
-    @Published var title: String?
-    @Published var icon: Icon?
-    @Published var chatLoading = false
-    @Published var spaceLoading = false
-    @Published var muted = false
-    @Published var showAddMembersButton: Bool = false
-    @Published private(set) var isMultiChatSpace: Bool = false
+    var title: String?
+    var icon: Icon?
+    var chatLoading = false
+    var spaceLoading = false
+    var muted = false
+    var showAddMembersButton: Bool = false
+    private(set) var isMultiChatSpace: Bool = false
 
     var showLoading: Bool { chatLoading || spaceLoading }
 
+    @ObservationIgnored
     let spaceId: String
+    @ObservationIgnored
     let chatId: String
-    
+
+    @ObservationIgnored
     private let onTapOpenWidgets: () -> Void
+    @ObservationIgnored
     private let onTapOpenSpaceSettings: () -> Void
+    @ObservationIgnored
     private let onTapAddMembers: (() -> Void)
+    @ObservationIgnored
     private let chatObject: any BaseDocumentProtocol
 
+    @ObservationIgnored
     private var spaceSupportsMultiChats: Bool = false
+    @ObservationIgnored
     private var spaceTitle: String?
+    @ObservationIgnored
     private var spaceIcon: Icon?
+    @ObservationIgnored
     private var chatDetails: ObjectDetails?
 
     init(

@@ -4,11 +4,11 @@ import AnytypeCore
 
 
 struct ProfileView: View {
-    @StateObject private var model: ProfileViewModel
+    @State private var model: ProfileViewModel
     @Environment(\.pageNavigation) private var pageNavigation
 
     init(info: ObjectInfo) {
-        _model = StateObject(wrappedValue: ProfileViewModel(info: info))
+        _model = State(initialValue: ProfileViewModel(info: info))
     }
 
     var body: some View {

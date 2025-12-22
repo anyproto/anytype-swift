@@ -4,28 +4,32 @@ import AnytypeCore
 
 
 @MainActor
-final class ProfileViewModel: ObservableObject {
+@Observable
+final class ProfileViewModel {
 
-    @Published var details: ObjectDetails?
-    @Published var showSettings = false
+    var details: ObjectDetails?
+    var showSettings = false
 
+    @ObservationIgnored
     var pageNavigation: PageNavigation?
 
     var isOwner: Bool {
         accountManager.account.info.profileObjectID == details?.identityProfileLink
     }
 
+    @ObservationIgnored
     private let info: ObjectInfo
 
-    @Injected(\.singleObjectSubscriptionService)
+    @ObservationIgnored @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.workspaceService)
+    @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
+    @ObservationIgnored
     private let subId = "ProfileViewModel-\(UUID().uuidString)"
 
     init(info: ObjectInfo) {

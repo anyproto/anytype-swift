@@ -5,12 +5,12 @@ import DesignKit
 
 
 struct SpaceCreateView: View {
-    
-    @StateObject private var model: SpaceCreateViewModel
+
+    @State private var model: SpaceCreateViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceCreateData, output: (any SpaceCreateModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceCreateViewModel(data: data, output: output))
+        _model = State(initialValue: SpaceCreateViewModel(data: data, output: output))
     }
     
     var body: some View {

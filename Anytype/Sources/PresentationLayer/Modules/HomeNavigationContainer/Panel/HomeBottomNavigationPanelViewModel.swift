@@ -1,66 +1,75 @@
 import Foundation
 import Services
-@preconcurrency import Combine
+import Combine
 import UIKit
 import AnytypeCore
-import Services
 
 @MainActor
-final class HomeBottomNavigationPanelViewModel: ObservableObject {
-    
+@Observable
+final class HomeBottomNavigationPanelViewModel {
+
     enum LeftButtonMode {
         case member
         case owner(_ enable: Bool)
         case chat(_ enable: Bool)
         case home
     }
-    
+
     private enum Constants {
         static let priorityTypesUniqueKeys: [ObjectTypeUniqueKey] = [.page, .note, .task]
 
     }
-    
+
     // MARK: - Private properties
+    @ObservationIgnored
     private let info: AccountInfo
-    
-    @Injected(\.singleObjectSubscriptionService)
+
+    @ObservationIgnored @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
-    @Injected(\.defaultObjectCreationService)
+    @ObservationIgnored @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
-    @Injected(\.processSubscriptionService)
+    @ObservationIgnored @Injected(\.processSubscriptionService)
     private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
-    @Injected(\.participantSpacesStorage)
+    @ObservationIgnored @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.objectTypeProvider)
+    @ObservationIgnored @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
+    @ObservationIgnored @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.experimentalFeaturesStorage)
+    @ObservationIgnored @Injected(\.experimentalFeaturesStorage)
     private var experimentalFeaturesStorage: any ExperimentalFeaturesStorageProtocol
-    @Injected(\.spaceViewsStorage)
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
+    @ObservationIgnored
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
+    @ObservationIgnored
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
-    
+
+    @ObservationIgnored
     private var activeProcess: Process?
+    @ObservationIgnored
     private var subscriptions: [AnyCancellable] = []
+    @ObservationIgnored
     private var chatLinkData: ChatLinkObject?
+    @ObservationIgnored
     private var isWidgetsScreen: Bool = false
+    @ObservationIgnored
     private var currentData: AnyHashable?
+    @ObservationIgnored
     private var participantSpaceView: ParticipantSpaceViewData?
-    
+
     // MARK: - Public properties
-    
-    @Published var profileIcon: Icon?
-    @Published var progress: Double? = nil
-    @Published var leftButtonMode: LeftButtonMode?
-    @Published var canCreateObject: Bool = false
-    @Published var pageObjectType: ObjectType?
-    @Published var noteObjectType: ObjectType?
-    @Published var taskObjectType: ObjectType?
-    @Published var otherObjectTypes: [ObjectType] = []
-    @Published var newObjectPlusMenu: Bool = false
+
+    var profileIcon: Icon?
+    var progress: Double? = nil
+    var leftButtonMode: LeftButtonMode?
+    var canCreateObject: Bool = false
+    var pageObjectType: ObjectType?
+    var noteObjectType: ObjectType?
+    var taskObjectType: ObjectType?
+    var otherObjectTypes: [ObjectType] = []
+    var newObjectPlusMenu: Bool = false
     
     init(
         info: AccountInfo,

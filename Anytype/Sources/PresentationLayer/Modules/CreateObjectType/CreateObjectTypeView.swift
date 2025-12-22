@@ -11,11 +11,11 @@ struct CreateObjectTypeData: Identifiable {
 }
 
 struct CreateObjectTypeView: View {
-    
-    @StateObject private var model: CreateObjectTypeViewModel
-    
+
+    @State private var model: CreateObjectTypeViewModel
+
     init(data: CreateObjectTypeData, completion: ((_ type: ObjectType) -> ())? = nil) {
-        self._model = StateObject(wrappedValue: CreateObjectTypeViewModel(data: data, completion: completion))
+        _model = State(initialValue: CreateObjectTypeViewModel(data: data, completion: completion))
     }
     
     var body: some View {
