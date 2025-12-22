@@ -2,31 +2,31 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class SettingsCoordinatorViewModel: ObservableObject,
-                                    SettingsModuleOutput,
-                                    AboutModuleOutput {
-    
-    @Injected(\.openedDocumentProvider)
+@Observable
+final class SettingsCoordinatorViewModel: SettingsModuleOutput,
+                                          AboutModuleOutput {
+
+    @ObservationIgnored @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
-    @Injected(\.applicationStateService)
+    @ObservationIgnored @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
-    
-    @Published var showFileStorage = false
-    @Published var showAppearance = false
-    @Published var showPushNotificationsSettings = false
-    @Published var showLogoutAlert = false
-    @Published var showKeychainPhraseForLogout = false
-    @Published var showDeleteAccountAlert = false
-    @Published var showAbout = false
-    @Published var showDebugMenuForAbout = false
-    @Published var showDebugMenu = false
-    @Published var showSpaceManager = false
-    @Published var showMembership = false
-    @Published var showMySites = false
-    @Published var showExperimentalFeatures = false
-    @Published var showKeychainPhraseForSettings = false
-    @Published var showProfileQRCode = false
-    @Published var objectIconPickerData: ObjectIconPickerData?
+
+    var showFileStorage = false
+    var showAppearance = false
+    var showPushNotificationsSettings = false
+    var showLogoutAlert = false
+    var showKeychainPhraseForLogout = false
+    var showDeleteAccountAlert = false
+    var showAbout = false
+    var showDebugMenuForAbout = false
+    var showDebugMenu = false
+    var showSpaceManager = false
+    var showMembership = false
+    var showMySites = false
+    var showExperimentalFeatures = false
+    var showKeychainPhraseForSettings = false
+    var showProfileQRCode = false
+    var objectIconPickerData: ObjectIconPickerData?
     
     // MARK: - SettingsModuleOutput
     

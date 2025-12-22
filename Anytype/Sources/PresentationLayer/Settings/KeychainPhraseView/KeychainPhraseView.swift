@@ -2,10 +2,10 @@ import SwiftUI
 
 struct KeychainPhraseView: View {
 
-    @StateObject private var model: KeychainPhraseViewModel
-    
+    @State private var model: KeychainPhraseViewModel
+
     init(context: AnalyticsEventsKeychainContext) {
-        _model = StateObject(wrappedValue: KeychainPhraseViewModel(shownInContext: context))
+        _model = State(initialValue: KeychainPhraseViewModel(shownInContext: context))
     }
     
     var body: some View {

@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 
 struct SettingsCoordinatorView: View {
-    
-    @StateObject private var model = SettingsCoordinatorViewModel()
+
+    @State private var model = SettingsCoordinatorViewModel()
     
     var body: some View {
         SettingsView(output: model)

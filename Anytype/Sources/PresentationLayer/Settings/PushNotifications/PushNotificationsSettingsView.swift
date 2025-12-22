@@ -1,12 +1,8 @@
 import SwiftUI
 
 struct PushNotificationsSettingsView: View {
-    
-    @StateObject private var model: PushNotificationsSettingsViewModel
-    
-    init() {
-        _model = StateObject(wrappedValue: PushNotificationsSettingsViewModel())
-    }
+
+    @State private var model = PushNotificationsSettingsViewModel()
     
     var body: some View {
         VStack(spacing: 0) {

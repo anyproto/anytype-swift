@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SeedPhraseView: View {
     
-    @ObservedObject var model: KeychainPhraseViewModel
+    @Bindable var model: KeychainPhraseViewModel
     
     var body: some View {
         Button(action: { model.onSeedViewTap() }) {

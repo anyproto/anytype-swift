@@ -2,13 +2,13 @@ import SwiftUI
 import AnytypeCore
 
 struct SettingsView: View {
-    
-    @StateObject private var model: SettingsViewModel
-    
+
+    @State private var model: SettingsViewModel
+
     init(output: some SettingsModuleOutput) {
-        _model = StateObject(wrappedValue: SettingsViewModel(output: output))
+        _model = State(initialValue: SettingsViewModel(output: output))
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -135,6 +135,9 @@ struct SettingsView: View {
         }
         .task {
             await model.startSubscriptions()
+        }
+        .onChange(of: model.profileName) {
+            model.onProfileNameChange()
         }
     }
 }

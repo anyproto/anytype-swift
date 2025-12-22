@@ -5,24 +5,29 @@ import DeviceKit
 import AudioToolbox
 
 @MainActor
-final class AboutViewModel: ObservableObject {
-    
+@Observable
+final class AboutViewModel {
+
     // MARK: - DI
-    @Injected(\.middlewareConfigurationProvider)
+
+    @ObservationIgnored @Injected(\.middlewareConfigurationProvider)
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored
     private weak var output: (any AboutModuleOutput)?
-    
+
+    @ObservationIgnored
     private var appVersion: String? = MetadataProvider.appVersion
+    @ObservationIgnored
     private var buildNumber: String? = MetadataProvider.buildNumber
-    
+
     // MARK: - State
-    
-    @Published var info: String = ""
-    @Published var snackBarData: ToastBarData?
-    @Published var safariUrl: URL?
-    @Published var openUrl: URL?
+
+    var info: String = ""
+    var snackBarData: ToastBarData?
+    var safariUrl: URL?
+    var openUrl: URL?
     
     init(output: (any AboutModuleOutput)?) {
         self.output = output

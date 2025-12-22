@@ -1,9 +1,8 @@
 import SwiftUI
 import Services
 
-
 struct PublishedSitesView: View {
-    @StateObject private var model = PublishedSitesViewModel()
+    @State private var model = PublishedSitesViewModel()
     @Environment(\.pageNavigation) private var pageNavigation
     
     var body: some View {

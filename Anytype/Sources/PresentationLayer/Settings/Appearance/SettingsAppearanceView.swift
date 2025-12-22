@@ -2,14 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct SettingsAppearanceView: View {
-    
-    @StateObject var model: SettingsAppearanceViewModel
-    
+
+    @State private var model = SettingsAppearanceViewModel()
+
     @Environment(\.appInterfaceStyle) private var appInterfaceStyle
-    
-    init() {
-        _model = StateObject(wrappedValue: SettingsAppearanceViewModel())
-    }
     
     var body: some View {
         VStack(spacing: 0) {

@@ -2,17 +2,20 @@ import SwiftUI
 import AnytypeCore
 
 struct RemoteStorageView: View {
-    
-    @StateObject private var model: RemoteStorageViewModel
-    
+
+    @State private var model: RemoteStorageViewModel
+
     init(spaceId: String, output: (any RemoteStorageModuleOutput)?) {
-        _model = StateObject(wrappedValue: RemoteStorageViewModel(spaceId: spaceId, output: output))
+        _model = State(initialValue: RemoteStorageViewModel(spaceId: spaceId, output: output))
     }
-    
+
     var body: some View {
         content
             .onAppear {
                 model.onAppear()
+            }
+            .task {
+                await model.startSubscription()
             }
             .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
