@@ -12,12 +12,15 @@ enum MembershipAnyNameAvailability {
 
 
 @MainActor
-final class MembershipNameSheetViewModel: ObservableObject {
-    @Published var isNameValidated = false
-    
+@Observable
+final class MembershipNameSheetViewModel {
+    var isNameValidated = false
+
+    @ObservationIgnored
     let tier: MembershipTier
+    @ObservationIgnored
     let anyName: AnyName
-    
+
     var anyNameAvailability: MembershipAnyNameAvailability {
         switch tier.anyName {
         case .none:
@@ -30,7 +33,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
             }
         }
     }
-    
+
     var canBuyTier: Bool {
         switch anyNameAvailability {
         case .notAvailable, .alreadyBought:
@@ -39,13 +42,15 @@ final class MembershipNameSheetViewModel: ObservableObject {
             isNameValidated
         }
     }
-    
+
+    @ObservationIgnored
     private let product: Product
+    @ObservationIgnored
     private let onSuccessfulPurchase: (MembershipTier) -> ()
-    
-    @Injected(\.storeKitService)
+
+    @ObservationIgnored @Injected(\.storeKitService)
     private var storeKitService: any StoreKitServiceProtocol
-    @Injected(\.membershipService)
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
     
     init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {

@@ -8,7 +8,7 @@ enum MembershipNameValidationViewState: Equatable {
     case validating
     case error(text: String)
     case validated
-    
+
     var isValidated: Bool {
         if case .validated = self {
             return true
@@ -19,10 +19,13 @@ enum MembershipNameValidationViewState: Equatable {
 }
 
 @MainActor
-final class MembershipNameValidationViewModel: ObservableObject {
-    @Published var state = MembershipNameValidationViewState.default
+@Observable
+final class MembershipNameValidationViewModel {
+    var state = MembershipNameValidationViewState.default
+
+    @ObservationIgnored
     let tier: MembershipTier
-    
+
     var minimumNumberOfCharacters: UInt32 {
         switch tier.anyName {
         case .none:
@@ -32,10 +35,11 @@ final class MembershipNameValidationViewModel: ObservableObject {
             return minLenght
         }
     }
-    
-    @Injected(\.membershipService)
+
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
-    
+
+    @ObservationIgnored
     private var validationTask: Task<(), any Error>?
     
     init(tier: MembershipTier) {

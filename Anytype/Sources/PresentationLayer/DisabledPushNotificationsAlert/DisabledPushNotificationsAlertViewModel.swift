@@ -2,9 +2,10 @@ import Foundation
 import UIKit
 
 @MainActor
-final class DisabledPushNotificationsAlertViewModel: ObservableObject {
-    
-    @Published var dismiss = false
+@Observable
+final class DisabledPushNotificationsAlertViewModel {
+
+    var dismiss = false
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenAllowPushType(.subsequent)

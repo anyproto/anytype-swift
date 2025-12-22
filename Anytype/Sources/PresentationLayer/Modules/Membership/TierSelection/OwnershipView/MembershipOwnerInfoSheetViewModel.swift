@@ -3,33 +3,39 @@ import Foundation
 
 
 @MainActor
-final class MembershipOwnerInfoSheetViewModel: ObservableObject {
-    
-    @Published var membership: MembershipStatus = .empty
-    
-    @Published var purchaseType: MembershipPurchaseType?
-    @Published var showManageSubscriptions = false
-    @Published var showEmailVerification = false
-    
-    @Published var email: String = ""
-    @Published var changeEmail = false
-    @Published var toastData: ToastBarData?
-    
+@Observable
+final class MembershipOwnerInfoSheetViewModel {
+
+    var membership: MembershipStatus = .empty
+
+    var purchaseType: MembershipPurchaseType?
+    var showManageSubscriptions = false
+    var showEmailVerification = false
+
+    var email: String = ""
+    var changeEmail = false
+    var toastData: ToastBarData?
+
     // remove after middleware start to send update membership event
-    @Published private var justUpdatedEmail = false
+    private var justUpdatedEmail = false
     var alreadyHaveEmail: Bool {
         membership.email.isNotEmpty || justUpdatedEmail
     }
-    
-    
-    @Injected(\.membershipService)
+
+
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
-    @Injected(\.membershipMetadataProvider)
+    @ObservationIgnored @Injected(\.membershipMetadataProvider)
     private var metadataProvider: any MembershipMetadataProviderProtocol
-    
-    init() {
-        let storage = Container.shared.membershipStatusStorage.resolve()
-        storage.statusPublisher.receiveOnMain().assign(to: &$membership)
+    @ObservationIgnored @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
+
+    init() { }
+
+    func startMembershipSubscription() async {
+        for await status in membershipStatusStorage.statusPublisher.values {
+            membership = status
+        }
     }
     
     func updateState() {
