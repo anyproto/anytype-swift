@@ -18,12 +18,11 @@ final class LoginViewModel {
     var accountId: String?
     var walletRecoveryTaskId: String?
     var logoutTaskId: String?
+    var canRestoreFromKeychain: Bool = false
 
     var backButtonDisabled: Bool {
         loadingInProgress && !accountSelectInProgress
     }
-
-    lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
 
     @ObservationIgnored @Injected(\.authService)
     private var authService: any AuthServiceProtocol
@@ -49,6 +48,7 @@ final class LoginViewModel {
     
     func onAppear() {
         AnytypeAnalytics.instance().logLoginScreenShow()
+        canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
     }
     
     func onEnterButtonAction() {
