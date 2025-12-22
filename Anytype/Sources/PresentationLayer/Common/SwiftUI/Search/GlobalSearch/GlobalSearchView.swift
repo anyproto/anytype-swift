@@ -80,7 +80,7 @@ struct GlobalSearchView: View {
         .padding(.vertical, 6)
         .padding(.horizontal, 10)
         .background(model.state.section == section ? Color.Control.secondary : .clear)
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
         .fixTappableArea()
         .onTapGesture {
             UISelectionFeedbackGenerator().selectionChanged()

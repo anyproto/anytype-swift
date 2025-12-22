@@ -66,8 +66,8 @@ Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transparentSecondar
 // Background color
 .background(Color.Shape.transparentSecondary)
 
-// Text color
-.foregroundColor(Color.Text.primary)
+// Text color (use foregroundStyle, not foregroundColor)
+.foregroundStyle(Color.Text.primary)
 
 // Border color
 .border(Color.Control.active)
@@ -162,7 +162,7 @@ Text("Hello World")
     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
 ```
 
-**Note**: `.foregroundColor(.Text.primary)` is the default text color and does not need to be explicitly set. Only specify foreground color when using non-primary text colors.
+**Note**: `.foregroundStyle(Color.Text.primary)` is the default text color and does not need to be explicitly set. Only specify foreground style when using non-primary text colors. Always use `foregroundStyle()` not the deprecated `foregroundColor()`.
 
 ## Icon Mapping
 
@@ -189,9 +189,9 @@ Example: `32/qr code` maps to `Image(asset: .X32.qrCode)`
 
 ### Usage in SwiftUI
 ```swift
-// Standard icon usage
+// Standard icon usage (use foregroundStyle, not foregroundColor)
 Image(asset: .X24.search)
-    .foregroundColor(Color.Control.active)
+    .foregroundStyle(Color.Control.active)
 
 // With frame
 Image(asset: .X32.plus)

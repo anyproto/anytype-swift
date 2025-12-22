@@ -36,7 +36,7 @@ struct AlertView<Presenting>: View where Presenting: View {
         .padding(32)
         .frame(maxWidth: 300)
         .background(Color.Background.secondary)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
         .shadow(color: .black.opacity(0.15), radius: 12)
         .transition(.slide)
         .setZeroOpacity(!isShowing)

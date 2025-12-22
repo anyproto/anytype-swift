@@ -21,7 +21,7 @@ struct SearchBar: View {
         .padding(8)
         .padding(.horizontal, 25)
         .background(Color.Background.highlightedMedium)
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 10))
         .overlay(alignment: .leading) {
             Image(asset: .X18.search)
                 .foregroundStyle(Color.Control.secondary)

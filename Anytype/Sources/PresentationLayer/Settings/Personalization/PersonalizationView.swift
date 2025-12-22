@@ -20,7 +20,7 @@ struct PersonalizationView: View {
             AnytypeRow(title: Loc.wallpaper, description: nil, action: { model.onWallpaperChangeTap() })
             Spacer.fixedHeight(20)
         }
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsPersonal()
         }

@@ -178,7 +178,7 @@ struct SpaceSettingsView: View {
             }
             .padding(20)
             .background(Color.Shape.transparentSecondary)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 10))
             
             Spacer.fixedHeight(6)
             

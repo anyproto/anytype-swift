@@ -398,6 +398,32 @@ AnytypeText(Loc.welcomeMessage, style: .heading)
 
 `AnytypeText` ensures consistent typography and automatically applies design system fonts.
 
+#### Use `clipShape()` instead of `cornerRadius()`
+
+`cornerRadius()` is deprecated. Use `clipShape()` with appropriate shapes:
+
+```swift
+// ❌ WRONG - Deprecated
+Rectangle()
+    .cornerRadius(16)
+
+// ✅ CORRECT - Simple corner radius
+Rectangle()
+    .clipShape(.rect(cornerRadius: 16))
+
+// ✅ CORRECT - With continuous style
+Rectangle()
+    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+// ✅ CORRECT - Specific corners only
+Rectangle()
+    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
+```
+
+**Corner mappings for UnevenRoundedRectangle:**
+- Top corners: `topLeadingRadius`, `topTrailingRadius`
+- Bottom corners: `bottomLeadingRadius`, `bottomTrailingRadius`
+
 ## 🧪 Testing & Mocks
 
 ### Always Update Tests When Refactoring

@@ -50,7 +50,7 @@ private struct ItemView: View {
                     alignment: .center
                 )
                 .background(Color.Background.highlightedMedium)
-                .cornerRadius(10.5)
+                .clipShape(.rect(cornerRadius: 10.5))
             AnytypeText(title, style: .caption2Regular)
                 .foregroundStyle(Color.Text.secondary)
         }

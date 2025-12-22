@@ -9,6 +9,6 @@ struct SetUnsupportedView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
             .background(Color.VeryLight.sky)
-            .cornerRadius(8, style: .continuous)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
     }
 }

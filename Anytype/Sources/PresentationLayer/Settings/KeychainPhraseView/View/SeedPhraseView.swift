@@ -21,7 +21,7 @@ struct SeedPhraseView: View {
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
             .background(Color.Shape.transparentSecondary)
-            .cornerRadius(4)
+            .clipShape(.rect(cornerRadius: 4))
         }
     }
 }

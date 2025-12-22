@@ -25,7 +25,7 @@ struct SettingsAppearanceView: View {
             Spacer.fixedHeight(20)
         }
         .background(Color.Background.secondary)
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
         
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsAppearance()
@@ -98,7 +98,7 @@ struct SettingsAppearanceView: View {
             } label: {
                 VStack(spacing: 0) {
                     Image(asset: icon.previewAsset)
-                        .cornerRadius(8)
+                        .clipShape(.rect(cornerRadius: 8))
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                         .overlay(
                             RoundedRectangle(cornerRadius: 14)

@@ -72,7 +72,7 @@ struct TemplatePickerView: View {
         Spacer
             .fixedHeight(4)
             .background(isSelected ? Color.Text.primary : Color.Shape.primary)
-            .cornerRadius(2)
+            .clipShape(.rect(cornerRadius: 2))
             .frame(maxWidth: 20)
     }
 

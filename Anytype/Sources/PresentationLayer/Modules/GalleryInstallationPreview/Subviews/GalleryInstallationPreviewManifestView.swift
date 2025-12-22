@@ -19,13 +19,13 @@ struct GalleryInstallationPreviewManifestView: View {
                             content: { image in
                                 image.resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .cornerRadius(8, style: .continuous)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                             },
                             placeholder: {
                                 Image(asset: .X32.plus) // Any image for make placeholder
                                     .resizable()
                                     .redacted(reason: .placeholder)
-                                    .cornerRadius(8, style: .continuous)
+                                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                             }
                         )
                         .frame(height: 335)
@@ -51,7 +51,7 @@ struct GalleryInstallationPreviewManifestView: View {
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 1)
                                 .background(Color.Shape.tertiary)
-                                .cornerRadius(4, style: .continuous)
+                                .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
 
                         }
                     }

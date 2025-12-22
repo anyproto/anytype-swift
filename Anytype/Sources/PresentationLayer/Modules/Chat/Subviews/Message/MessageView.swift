@@ -110,8 +110,8 @@ struct MessageView: View {
         }
         .messageFlashBackground(id: data.id)
         .background(messageBackgorundColor)
-        .cornerRadius(16, style: .continuous)
-        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .circular))
+        .clipShape(.rect(cornerRadius: 16, style: .continuous))
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
         .contextMenu {
             contextMenu
         }

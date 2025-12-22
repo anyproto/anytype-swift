@@ -74,26 +74,26 @@ For simpler search implementations that don't require the full SearchBar compone
 ```swift
 HStack {
     Image(systemName: "magnifyingglass")
-        .foregroundColor(.Text.secondary)
-    
+        .foregroundStyle(Color.Text.secondary)
+
     TextField(Loc.search, text: $searchText)
         .textFieldStyle(PlainTextFieldStyle())
         .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
-        .foregroundColor(.Text.primary)
-    
+        .foregroundStyle(Color.Text.primary)
+
     if !searchText.isEmpty {
         Button {
             searchText = ""
         } label: {
             Image(systemName: "xmark.circle.fill")
-                .foregroundColor(.Text.secondary)
+                .foregroundStyle(Color.Text.secondary)
         }
     }
 }
 .padding(.horizontal, 12)
 .padding(.vertical, 8)
 .background(Color.Background.secondary)
-.cornerRadius(10)
+.clipShape(.rect(cornerRadius: 10))
 ```
 
 ## Async Search Implementation

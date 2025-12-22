@@ -49,7 +49,7 @@ struct LinkWidgetViewContainer<Header, Content, MenuContent>: View where Header:
                 }
             }
             .background(Color.Background.widget)
-            .cornerRadius(16, style: .continuous)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .if(homeState.isReadWrite) {

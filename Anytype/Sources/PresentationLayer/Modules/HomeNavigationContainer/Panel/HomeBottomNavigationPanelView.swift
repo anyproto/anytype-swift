@@ -39,7 +39,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .background(progressView)
         .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
-        .cornerRadius(16, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .overlay {
             if !model.newObjectPlusMenu {
                 HomeTipView()
@@ -150,7 +150,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         if let progress = model.progress {
             GeometryReader { reader in
                 Color.VeryLight.orange
-                    .cornerRadius(2)
+                    .clipShape(.rect(cornerRadius: 2))
                     .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
                     .animation(.linear, value: progress)
             }

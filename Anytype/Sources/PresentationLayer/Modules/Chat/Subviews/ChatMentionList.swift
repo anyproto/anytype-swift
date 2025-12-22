@@ -23,7 +23,7 @@ struct ChatMentionList: View {
         }
         .background(Color.Background.primary)
         .frame(maxHeight: Constants.itemHeight * min(CGFloat(models.count), Constants.maxVisibleItems))
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
         .padding(.horizontal, 8)
         .padding(.bottom, 4)
     }

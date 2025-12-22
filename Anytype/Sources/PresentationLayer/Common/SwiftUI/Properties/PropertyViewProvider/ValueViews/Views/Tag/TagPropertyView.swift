@@ -64,7 +64,7 @@ struct TagPropertyView: View {
                     .lineLimit(1)
                     .frame(width: 24, height: 18)
                     .background(Color.Shape.tertiary)
-                    .cornerRadius(3)
+                    .clipShape(.rect(cornerRadius: 3))
             case .filter, .setCollection, .kanbanHeader:
                 CountTagView(count: count, style: style)
             }

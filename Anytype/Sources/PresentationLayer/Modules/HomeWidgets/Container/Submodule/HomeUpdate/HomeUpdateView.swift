@@ -26,7 +26,7 @@ struct HomeUpdateView: View, Animatable {
         .background {
             HomeUpdateGradient(percent: gradientPercent)
         }
-        .cornerRadius(10, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         .colorScheme(.light)
     }
 }

@@ -42,12 +42,12 @@ struct MessageReplyView: View {
         }
         .padding(8)
         .background(messageBackgorundColor)
-        .cornerRadius(16, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .padding(.leading, 8)
         .overlay(alignment: .leading) {
             Color.Shape.transparentPrimary
                 .frame(width: 4)
-                .cornerRadius(2)
+                .clipShape(.rect(cornerRadius: 2))
         }
     }
     

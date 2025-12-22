@@ -69,11 +69,11 @@ struct EmailCollectionView: View {
                 .foregroundStyle(Color.Text.primary)
                 .accentColor(.Text.tertiary)
             }
-            .padding(.horizontal, 20)            
+            .padding(.horizontal, 20)
         }
         .frame(height: 64)
         .background(Color.Shape.transparentSecondary)
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
     }
     
     private var buttons: some View {

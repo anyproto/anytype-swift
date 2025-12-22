@@ -13,7 +13,7 @@ struct ChatMessageHeaderView: View {
                 .padding(.vertical, 2)
                 .background(Color.Control.transparentTertiary)
                 .background(.ultraThinMaterial)
-                .cornerRadius(16)
+                .clipShape(.rect(cornerRadius: 16))
                 .frame(height: 50)
                 .lineLimit(1)
             Spacer()

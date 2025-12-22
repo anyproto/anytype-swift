@@ -28,7 +28,7 @@ struct PublishingPreview: View {
             previewContent
         }
         .background(Color.Background.secondary)
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.Shape.secondary, lineWidth: 1)
@@ -103,7 +103,7 @@ struct PublishingPreview: View {
         .padding(.horizontal, 8)
         .padding(.vertical, 2.5)
         .background(Color.Control.primary)
-        .cornerRadius(4)
+        .clipShape(.rect(cornerRadius: 4))
     }
     
     @ViewBuilder
@@ -155,7 +155,7 @@ struct PublishingPreview: View {
                 EmptyView()
             }
         }
-        .cornerRadius(4)
+        .clipShape(.rect(cornerRadius: 4))
     }
     
     private var contentSection: some View {
@@ -172,7 +172,7 @@ struct PublishingPreview: View {
                         width: max(280, screenSize.width * 0.8),
                         height: 6
                     )
-                    .cornerRadius(1)
+                    .clipShape(.rect(cornerRadius: 1))
                 
                 Rectangle()
                     .fill(Color.Shape.secondary)
@@ -180,7 +180,7 @@ struct PublishingPreview: View {
                         width: max(180, screenSize.width * 0.6),
                         height: 6
                     )
-                    .cornerRadius(1)
+                    .clipShape(.rect(cornerRadius: 1))
             }
         }
         .padding(.horizontal, 32)

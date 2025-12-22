@@ -63,6 +63,6 @@ private extension View {
     func applyCoverGridItemAppearance() -> some View {
         self
             .frame(height: ItemPickerGridViewContants.gridItemHeight)
-            .cornerRadius(4)
+            .clipShape(.rect(cornerRadius: 4))
     }
 }

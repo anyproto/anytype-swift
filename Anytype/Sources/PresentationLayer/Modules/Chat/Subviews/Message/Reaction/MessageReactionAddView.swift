@@ -14,7 +14,7 @@ struct MessageReactionAddView: View {
                 .foregroundStyle(Color.Control.primary)
                 .frame(width: 28, height: 28)
                 .background(Color.Shape.transparentSecondary)
-                .cornerRadius(16, style: .circular)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .circular))
         }
     }
 }

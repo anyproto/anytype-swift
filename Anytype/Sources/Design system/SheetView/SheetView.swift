@@ -44,7 +44,7 @@ struct SheetView<Content: View>: View {
 
     private var contentView: some View {
         content
-            .cornerRadius(sheetCornerRadius, style: .continuous)
+            .clipShape(RoundedRectangle(cornerRadius: sheetCornerRadius, style: .continuous))
             .shadow(radius: 20)
             .padding(.horizontal, 8)
             .gesture(
