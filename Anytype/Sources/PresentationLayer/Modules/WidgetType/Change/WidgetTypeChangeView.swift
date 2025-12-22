@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct WidgetTypeChangeView: View {
-    
-    @StateObject private var model: WidgetTypeChangeViewModel
-    
+
+    @State private var model: WidgetTypeChangeViewModel
+
     init(data: WidgetTypeChangeData) {
-        self._model = StateObject(wrappedValue: WidgetTypeChangeViewModel(data: data))
+        _model = State(initialValue: WidgetTypeChangeViewModel(data: data))
     }
     
     var body: some View {

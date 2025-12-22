@@ -1,22 +1,24 @@
 import Foundation
 import Services
-import Combine
 
 @MainActor
-final class WidgetTypeChangeViewModel: ObservableObject {
-    
-    @Injected(\.blockWidgetService)
+@Observable
+final class WidgetTypeChangeViewModel {
+
+    @ObservationIgnored @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
-    @Injected(\.openedDocumentProvider)
+    @ObservationIgnored @Injected(\.openedDocumentProvider)
     private var documentService: any OpenedDocumentsProviderProtocol
-    
+
+    @ObservationIgnored
     private let data: WidgetTypeChangeData
-    
+
+    @ObservationIgnored
     private lazy var widgetObject: any BaseDocumentProtocol = {
         documentService.document(objectId: data.widgetObjectId, spaceId: data.widgetSpaceId)
     }()
-    
-    @Published var rows: [WidgetTypeRowView.Model] = []
+
+    var rows: [WidgetTypeRowView.Model] = []
 
     init(data: WidgetTypeChangeData) {
         self.data = data

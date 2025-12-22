@@ -12,11 +12,11 @@ struct ObjectTypeSearchView: View {
     private typealias SectionData = ObjectTypeSearchViewModel.SectionData
     private typealias SectionType = ObjectTypeSearchViewModel.SectionType
     private typealias ObjectTypeData =  ObjectTypeSearchViewModel.ObjectTypeData
-    
+
     let title: String
     let style: ObjectTypeSearchNavigationHeaderStyle
-    @StateObject private var viewModel: ObjectTypeSearchViewModel
-    
+    @State private var viewModel: ObjectTypeSearchViewModel
+
     init(
         title: String,
         spaceId: String,
@@ -26,8 +26,8 @@ struct ObjectTypeSearchView: View {
     ) {
         self.title = title
         self.style = style
-        _viewModel = StateObject(
-            wrappedValue: ObjectTypeSearchViewModel(
+        _viewModel = State(
+            initialValue: ObjectTypeSearchViewModel(
                 spaceId: spaceId,
                 settings: settings,
                 onSelect: onSelect

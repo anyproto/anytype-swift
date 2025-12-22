@@ -1,31 +1,37 @@
 import Foundation
 import Services
-@preconcurrency import Combine
+import Combine
 import AnytypeCore
 import SwiftEntryKit
 import SwiftUI
 
 @MainActor
-final class NotificationCoordinatorViewModel: ObservableObject {
-    
-    @Injected(\.notificationsSubscriptionService)
+@Observable
+final class NotificationCoordinatorViewModel {
+
+    @ObservationIgnored @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
-    @Injected(\.objectIconBuilder)
+    @ObservationIgnored @Injected(\.objectIconBuilder)
     private var objectIconBuilder: any ObjectIconBuilderProtocol
-    @Injected(\.syncStatusStorage)
+    @ObservationIgnored @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
-    @Injected(\.spaceHubSpacesStorage)
+    @ObservationIgnored @Injected(\.spaceHubSpacesStorage)
     private var spaceHubSpacesStorage: any SpaceHubSpacesStorageProtocol
 
+    @ObservationIgnored
     private var subscription: AnyCancellable?
+    @ObservationIgnored
     private var dismissAllPresented: DismissAllPresented?
+    @ObservationIgnored
     private var uploadingFilesCount: Int = 0
+    @ObservationIgnored
     private var showSpaceLoading: Bool = false
+    @ObservationIgnored
     private let hangedObjectsMonitor = HangedObjectsMonitor()
 
-    @Published var spaceRequestAlert: SpaceRequestAlertData?
-    @Published var membershipUpgradeReason: MembershipUpgradeReason?
-    @Published var uploadStatusText: String?
+    var spaceRequestAlert: SpaceRequestAlertData?
+    var membershipUpgradeReason: MembershipUpgradeReason?
+    var uploadStatusText: String?
 
     func onAppear() {
         hangedObjectsMonitor.onStateChanged = { [weak self] in

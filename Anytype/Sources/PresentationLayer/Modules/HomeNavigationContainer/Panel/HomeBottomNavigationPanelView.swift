@@ -16,13 +16,13 @@ struct HomeBottomNavigationPanelView: View {
 }
 
 private struct HomeBottomNavigationPanelViewInternal: View {
-    
+
     let homePath: HomePath
-    @StateObject private var model: HomeBottomNavigationPanelViewModel
-    
+    @State private var model: HomeBottomNavigationPanelViewModel
+
     init(homePath: HomePath, info: AccountInfo, output: (any HomeBottomNavigationPanelModuleOutput)?) {
         self.homePath = homePath
-        self._model = StateObject(wrappedValue: HomeBottomNavigationPanelViewModel(info: info, output: output))
+        _model = State(initialValue: HomeBottomNavigationPanelViewModel(info: info, output: output))
     }
     
     var body: some View {

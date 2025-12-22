@@ -5,11 +5,11 @@ import Services
 struct TypeSearchForNewObjectCoordinatorView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.pageNavigation) private var pageNavigation
-    @StateObject private var model: TypeSearchForNewObjectCoordinatorViewModel
-    
+    @State private var model: TypeSearchForNewObjectCoordinatorViewModel
+
     init(spaceId: String, openObject: @escaping (ObjectDetails)->()) {
-        _model = StateObject(
-            wrappedValue: TypeSearchForNewObjectCoordinatorViewModel(spaceId: spaceId, openObject: openObject)
+        _model = State(
+            initialValue: TypeSearchForNewObjectCoordinatorViewModel(spaceId: spaceId, openObject: openObject)
         )
     }
     
