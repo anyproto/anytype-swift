@@ -2,11 +2,11 @@ import SwiftUI
 import AnytypeCore
 
 struct JoinSelectionView: View {
-    
-    @StateObject private var model: JoinSelectionViewModel
-    
+
+    @State private var model: JoinSelectionViewModel
+
     init(type: JoinSelectionType, state: JoinFlowState, output: (any JoinBaseOutput)?) {
-        _model = StateObject(wrappedValue: JoinSelectionViewModel(type: type, state: state, output: output))
+        _model = State(initialValue: JoinSelectionViewModel(type: type, state: state, output: output))
     }
     
     var body: some View {

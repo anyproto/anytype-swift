@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 
 struct InitialCoordinatorView: View {
-    
-    @StateObject private var model = InitialCoordinatorViewModel()
+
+    @State private var model = InitialCoordinatorViewModel()
     
     var body: some View {
         ZStack {

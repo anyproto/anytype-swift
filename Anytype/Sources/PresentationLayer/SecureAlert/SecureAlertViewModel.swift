@@ -7,12 +7,14 @@ struct SecureAlertData: Identifiable {
 }
 
 @MainActor
-final class SecureAlertViewModel: ObservableObject {
-    
-    @Published var dismiss = false
-    @Published var proceedTaskId: String?
-    @Published var inProgress = false
-    
+@Observable
+final class SecureAlertViewModel {
+
+    var dismiss = false
+    var proceedTaskId: String?
+    var inProgress = false
+
+    @ObservationIgnored
     private let data: SecureAlertData
     
     init(data: SecureAlertData) {

@@ -3,12 +3,12 @@ import AnytypeCore
 import AudioToolbox
 
 struct LoginView: View {
-    
-    @StateObject private var model: LoginViewModel
+
+    @State private var model: LoginViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(output: (any LoginOutput)?) {
-        _model = StateObject(wrappedValue: LoginViewModel(output: output))
+        _model = State(initialValue: LoginViewModel(output: output))
     }
     
     var body: some View {

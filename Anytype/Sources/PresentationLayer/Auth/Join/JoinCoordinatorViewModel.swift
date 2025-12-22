@@ -2,10 +2,12 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class JoinCoordinatorViewModel: ObservableObject {
-    
+@Observable
+final class JoinCoordinatorViewModel {
+
+    @ObservationIgnored
     let state: JoinFlowState
-    
+
     init(state: JoinFlowState) {
         self.state = state
     }

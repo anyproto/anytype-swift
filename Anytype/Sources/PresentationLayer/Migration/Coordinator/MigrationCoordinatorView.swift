@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct MigrationCoordinatorView: View {
-    
-    @StateObject private var model: MigrationCoordinatorViewModel
-    
+
+    @State private var model: MigrationCoordinatorViewModel
+
     init(data: MigrationModuleData) {
-        self._model = StateObject(wrappedValue: MigrationCoordinatorViewModel(data: data))
+        _model = State(initialValue: MigrationCoordinatorViewModel(data: data))
     }
     
     var body: some View {
