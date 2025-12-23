@@ -91,7 +91,7 @@ struct WallpaperColorsGridView: View {
 private extension View {
     func coverGridAppearance() -> some View {
         self
-            .cornerRadius(12)
+            .clipShape(.rect(cornerRadius: 12))
             .clipped()
             .frame(height: 208)
             .padding(.top, 16)

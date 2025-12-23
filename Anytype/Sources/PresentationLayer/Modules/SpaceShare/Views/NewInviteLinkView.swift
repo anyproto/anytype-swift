@@ -94,6 +94,6 @@ struct NewInviteLinkView: View {
         }
         .padding(.horizontal, 12)
         .background(Color.Shape.transparentTertiary)
-        .cornerRadius(10, style: .circular)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .circular))
     }
 }

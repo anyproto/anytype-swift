@@ -34,7 +34,7 @@ struct MembershipOwnerInfoSheetView: View {
         }
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
     }
     
     private var info: some View {
@@ -68,7 +68,7 @@ struct MembershipOwnerInfoSheetView: View {
         .frame(maxWidth: .infinity)
         .padding(.top, 34)
         .background(Color.Shape.tertiary)
-        .cornerRadius(12, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
     
     private var paymentText: some View {

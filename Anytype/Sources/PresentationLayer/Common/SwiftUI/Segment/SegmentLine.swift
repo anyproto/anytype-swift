@@ -48,7 +48,7 @@ struct SegmentLine: View {
                 ForEach(Array(items.enumerated()), id: \.element) { index, item in
                     item.color
                         .frame(width: finalWidths[index])
-                        .cornerRadius(5, style: .continuous)
+                        .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                 }
             }
             

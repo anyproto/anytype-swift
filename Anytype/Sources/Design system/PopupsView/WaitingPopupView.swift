@@ -22,7 +22,7 @@ struct WaitingPopupView: View {
         }
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
     }
 }
 

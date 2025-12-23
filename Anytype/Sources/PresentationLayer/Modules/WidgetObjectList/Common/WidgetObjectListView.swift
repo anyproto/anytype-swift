@@ -104,7 +104,7 @@ struct WidgetObjectListView: View {
         if model.showActionPanel {
             SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: model))
                 .frame(height: 100)
-                .cornerRadius(16, style: .continuous)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .shadow(radius: 16)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)

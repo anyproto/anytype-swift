@@ -83,7 +83,7 @@ struct SettingsSectionItemView: View {
                     .padding(.horizontal, 11)
                     .padding(.vertical, 5)
                     .background(Color.Control.accent100)
-                    .cornerRadius(6, style: .continuous)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
             case .none:
                 EmptyView()
             }

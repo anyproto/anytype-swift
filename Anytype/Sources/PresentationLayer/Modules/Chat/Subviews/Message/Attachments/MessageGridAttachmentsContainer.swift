@@ -31,9 +31,9 @@ struct MessageGridAttachmentsContainer: View {
                         MessageImageView(details: object)
                     }
                 }
-                .cornerRadius(4)
+                .clipShape(.rect(cornerRadius: 4))
             }
         }
-        .cornerRadius(12)
+        .clipShape(.rect(cornerRadius: 12))
     }
 }

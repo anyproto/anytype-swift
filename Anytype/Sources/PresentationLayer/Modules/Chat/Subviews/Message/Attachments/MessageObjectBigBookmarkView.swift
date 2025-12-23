@@ -16,7 +16,7 @@ struct MessageObjectBigBookmarkView: View {
             if pictureId.isNotEmpty {
                 ImageIdIconView(imageId: pictureId, square: false, side: .original)
                     .aspectRatio(CGSize(width: 1.91, height: 1), contentMode: .fit)
-                    .cornerRadius(2)
+                    .clipShape(.rect(cornerRadius: 2))
             }
             HStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 2) {
@@ -47,7 +47,7 @@ struct MessageObjectBigBookmarkView: View {
             .padding(.vertical, 8)
         }
         .background(Color.Shape.transparentSecondary)
-        .cornerRadius(12, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .onTapGesture {
             onTapObject()
         }

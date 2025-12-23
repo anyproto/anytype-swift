@@ -19,7 +19,7 @@ struct MessageBookmarkView: View {
         .frame(height: 64)
         .frame(minWidth: 231)
         .background(Color.Shape.transparentSecondary)
-        .cornerRadius(12, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 

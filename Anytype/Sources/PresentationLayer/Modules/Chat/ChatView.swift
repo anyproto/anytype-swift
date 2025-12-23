@@ -144,7 +144,7 @@ struct ChatView: View {
         }
         .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
-        .cornerRadius(16)
+        .clipShape(.rect(cornerRadius: 16))
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)

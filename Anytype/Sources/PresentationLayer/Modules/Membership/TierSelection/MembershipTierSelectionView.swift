@@ -42,7 +42,7 @@ struct MembershipTierSelectionView: View {
             VStack(spacing: 0) {
                 MembershipTierInfoView(tier: model.tierToDisplay)
                 sheet
-                    .cornerRadius(12, corners: .top)
+                    .clipShape(UnevenRoundedRectangle(topLeadingRadius: 12, topTrailingRadius: 12))
                     .background(sheetBackground)
             }
         }
@@ -87,7 +87,7 @@ struct MembershipTierSelectionView: View {
                 .padding(.vertical, 34)
         }
         .background(Color.Background.primary)
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
     }
 
     // To mimic sheet overlay style

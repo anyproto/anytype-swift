@@ -34,7 +34,7 @@ struct MessageReactionView: View {
             .frame(height: 28)
             .padding(.horizontal, 8)
             .background(model.selected ? messageYourBackgroundColor : Color.Background.Chat.bubbleSomeones)
-            .cornerRadius(20)
+            .clipShape(.rect(cornerRadius: 20))
         }
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.25)

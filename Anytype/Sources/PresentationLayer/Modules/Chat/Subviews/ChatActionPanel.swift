@@ -43,7 +43,7 @@ struct ChatActionPanelView: View {
                 .frame(width: 48, height: 48)
                 .background(Color.Background.navigationPanel)
                 .background(.ultraThinMaterial)
-                .cornerRadius(16)
+                .clipShape(.rect(cornerRadius: 16))
                 .overlay(alignment: .topTrailing) {
                     if count > 0 {
                         CounterView(count: count)

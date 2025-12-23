@@ -60,7 +60,7 @@ struct MembershipTierView: View {
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
         .background(backgroundView)
-        .cornerRadius(16, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
     
     private var info: some View  {

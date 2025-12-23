@@ -45,7 +45,7 @@ struct EditableView<Content: View & ContextualMenuItemsProvider>: View {
             .foregroundStyle(Color.Control.secondary)
             .background(Color.Background.highlightedMedium)
             .background(.ultraThinMaterial)
-            .cornerRadius(Constaints.dotImageSize / 2)
+            .clipShape(.rect(cornerRadius: Constaints.dotImageSize / 2))
     }
 }
 

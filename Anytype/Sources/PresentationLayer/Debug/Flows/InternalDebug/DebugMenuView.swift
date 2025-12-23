@@ -240,7 +240,7 @@ struct DebugMenuView: View {
         }
         .padding(.horizontal, 20)
         .background(UIColor.systemGroupedBackground.suColor)
-        .cornerRadius(20, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20))
     }
     
     private var searchBar: some View {
@@ -265,7 +265,7 @@ struct DebugMenuView: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(Color.Background.secondary)
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 10))
         .padding(.vertical, 12)
     }
     
@@ -304,7 +304,7 @@ struct DebugMenuView: View {
         }
         .padding()
         .background(UIColor.systemGroupedBackground.suColor)
-        .cornerRadius(20, corners: .bottom)
+        .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 20, bottomTrailingRadius: 20))
     }
 }
 

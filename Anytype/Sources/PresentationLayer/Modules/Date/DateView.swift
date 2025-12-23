@@ -159,7 +159,7 @@ struct DateView: View {
         .padding(.horizontal,12)
         .frame(height: 40)
         .background(model.state.selectedRelation == item.details ? Color.Shape.transparentSecondary : .clear)
-        .cornerRadius(10, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         .border(10, color: Color.Shape.primary)
         .id(item.id)
         .onAppear {

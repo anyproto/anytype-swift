@@ -17,7 +17,7 @@ struct ObjectActionRow: View {
                     .foregroundStyle(Color.Control.secondary)
                     .frame(width: 52, height: 52)
                     .background(Color.Background.highlightedMedium)
-                    .cornerRadius(10)
+                    .clipShape(.rect(cornerRadius: 10))
                 Text("")
                     .overlay {
                         AnytypeText(

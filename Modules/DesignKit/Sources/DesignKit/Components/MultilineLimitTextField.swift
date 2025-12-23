@@ -25,7 +25,7 @@ public struct MultilineLimitTextField: View {
             .frame(minHeight: 48, maxHeight: 64, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
             .background(Color.Background.secondary)
-            .cornerRadius(12)
+            .clipShape(.rect(cornerRadius: 12))
             .border(12, color: .Shape.primary, lineWidth: 0.5)
             .overlay(alignment: .top) {
                 if limit - text.count < 0 {

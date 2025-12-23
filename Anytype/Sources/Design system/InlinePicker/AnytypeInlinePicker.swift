@@ -24,7 +24,7 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
                 .newDivider(leadingPadding: 40, color: UIColor.separator.suColor)
             }
         }
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
     }
     
     @ViewBuilder

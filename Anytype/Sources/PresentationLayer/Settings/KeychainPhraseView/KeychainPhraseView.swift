@@ -24,7 +24,7 @@ struct KeychainPhraseView: View {
             }
             Spacer.fixedHeight(20)
         }
-        .cornerRadius(12)
+        .clipShape(.rect(cornerRadius: 12))
         .padding(.horizontal, 20)
         .onAppear {
             model.onAppear()

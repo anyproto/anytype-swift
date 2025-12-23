@@ -11,7 +11,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
             }, else: {
                 $0.border(16, color: .Shape.primary, lineWidth: 1)
             })
-        .cornerRadius(16, corners: .top)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 16, topTrailingRadius: 16))
         .frame(width: 120, height: 224)
     }
     
@@ -54,7 +54,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                         .foregroundStyle(Color.Text.secondary)
                         .padding(.horizontal, 6)
                         .background(Color.Shape.transparentSecondary)
-                        .cornerRadius(4, style: .continuous)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                     Spacer.fixedHeight(8)
                 }
             }

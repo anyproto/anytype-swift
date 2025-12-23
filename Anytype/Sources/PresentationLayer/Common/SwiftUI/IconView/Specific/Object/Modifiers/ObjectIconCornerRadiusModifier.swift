@@ -27,7 +27,7 @@ private struct ObjectIconCornerRadiusModifier: ViewModifier {
             .readSize {
                 size = $0
             }
-            .cornerRadius(ObjectIconCornerRadiusBuilder.calculateObjectIconCornerRadius(size: size), style: .continuous)
+            .clipShape(RoundedRectangle(cornerRadius: ObjectIconCornerRadiusBuilder.calculateObjectIconCornerRadius(size: size), style: .continuous))
     }
 }
 

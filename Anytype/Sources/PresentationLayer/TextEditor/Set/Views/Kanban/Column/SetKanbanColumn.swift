@@ -36,7 +36,7 @@ struct SetKanbanColumn: View {
             backgroundColor.swiftColor.opacity(0.5) :
             Color.Background.primary
         )
-        .cornerRadius(4)
+        .clipShape(.rect(cornerRadius: 4))
         .frame(width: 270)
     }
     

@@ -22,7 +22,7 @@ struct SetGalleryViewCell: View {
         }
         .background(Color.Background.primary)
         .frame(maxWidth: .infinity, minHeight: configuration.minHeight, alignment: .topLeading)
-        .cornerRadius(Constants.cornerRadius)
+        .clipShape(.rect(cornerRadius: Constants.cornerRadius))
         .overlay(
             RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.Shape.primary, lineWidth: 0.5)
         )

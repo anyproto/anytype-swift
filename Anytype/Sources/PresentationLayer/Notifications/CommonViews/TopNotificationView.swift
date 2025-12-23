@@ -36,7 +36,7 @@ struct TopNotificationView: View {
         }
         .padding(EdgeInsets(horizontal: 20, vertical: 16))
         .background(Color.Text.primary)
-        .cornerRadius(16, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .ignoresSafeArea()
         .snackbar(toastBarData: $toast)
         .environment(\.colorScheme, .light)

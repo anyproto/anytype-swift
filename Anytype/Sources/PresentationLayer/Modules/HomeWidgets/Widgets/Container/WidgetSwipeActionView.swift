@@ -53,7 +53,7 @@ struct WidgetSwipeActionView<Content: View>: View {
         ZStack {
                     ZStack(alignment: .trailing) {
                         Color.Widget.actionsBackground
-                            .cornerRadius(16, style: .continuous)
+                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                         
                         if isEnable {
                             VStack(spacing: 0) {

@@ -64,7 +64,7 @@ struct PushNotificationsAlertView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 36, height: 36)
-                    .cornerRadius(9, style: .continuous)
+                    .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
             }
             
             VStack(alignment: .leading, spacing: 0) {
@@ -88,7 +88,7 @@ struct PushNotificationsAlertView: View {
         .padding(.bottom, 16)
         .frame(width: 280)
         .background(Color.PushNotifications.background)
-        .cornerRadius(20, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
     
     private var hiddenLine: some View {

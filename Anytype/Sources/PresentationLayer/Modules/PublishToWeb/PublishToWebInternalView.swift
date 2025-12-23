@@ -66,7 +66,7 @@ struct PublishToWebInternalView: View {
         .padding(12)
         .border(10, color: .Shape.primary)
         .background(Color.Background.primary)
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 10))
     }
     
     @ViewBuilder
@@ -90,7 +90,7 @@ struct PublishToWebInternalView: View {
         .padding(.horizontal, 12)
         .border(10, color: .Shape.primary)
         .background(Color.Shape.transparentTertiary)
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 10))
     }
     
     private func freeDomain(domainUrl: String) -> some View {
@@ -113,7 +113,7 @@ struct PublishToWebInternalView: View {
                     }
                     .padding(.horizontal, 6)
                     .background(Color.Control.accent25)
-                    .cornerRadius(4, style: .continuous)
+                    .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                 }
                 Spacer()
             }
@@ -121,7 +121,7 @@ struct PublishToWebInternalView: View {
             .padding(.horizontal, 12)
             .border(10, color: .Shape.primary)
             .background(Color.Shape.transparentTertiary)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 10))
         })
     }
     

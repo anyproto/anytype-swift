@@ -12,7 +12,7 @@ struct GalleryWidgetShowAllView: View {
             .frame(width: 136)
             .frame(maxHeight: .infinity)
             .border(8, color: .Shape.transparentPrimary)
-            .cornerRadius(8, style: .continuous)
+            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             .shadow(color: .black.opacity(0.05), radius: 4)
             .fixTappableArea()
             .onTapGesture {

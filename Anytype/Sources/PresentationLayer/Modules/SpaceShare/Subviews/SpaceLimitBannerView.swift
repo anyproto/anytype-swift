@@ -55,7 +55,7 @@ struct SpaceLimitBannerView: View {
         }
         .padding(16)
         .background(gradientBackground)
-        .cornerRadius(22)
+        .clipShape(.rect(cornerRadius: 22))
     }
 
     private var titleView: some View {

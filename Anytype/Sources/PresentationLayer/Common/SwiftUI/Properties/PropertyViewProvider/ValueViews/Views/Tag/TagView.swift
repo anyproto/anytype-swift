@@ -9,7 +9,7 @@ struct TagView: View {
             .lineLimit(1)
             .padding(.horizontal, config.guidlines.textPadding)
             .background(config.backgroundColor)
-            .cornerRadius(config.guidlines.cornerRadius)
+            .clipShape(.rect(cornerRadius: config.guidlines.cornerRadius))
             .if(config.backgroundColor == Color.VeryLight.default) {
                 $0.overlay(
                     RoundedRectangle(cornerRadius: config.guidlines.cornerRadius)

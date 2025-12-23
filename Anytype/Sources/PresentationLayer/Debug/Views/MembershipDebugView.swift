@@ -149,7 +149,7 @@ struct MembershipDebugView: View {
         }
         .padding()
         .background(Color.Control.tertiary.gradient)
-        .cornerRadius(18, style: .continuous)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
     
     // MARK: - Logic

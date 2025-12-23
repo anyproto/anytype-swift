@@ -38,7 +38,7 @@ struct NewSpaceCardLabel: View {
         // Optimization for fast sizeThatFits
         .frame(height: 98)
 
-        .cornerRadius(20, style: .continuous)
+        .clipShape(.rect(cornerRadius: 20, style: .continuous))
         .background(DashboardWallpaper(
             mode: .spaceHub,
             wallpaper: model.wallpaper,
