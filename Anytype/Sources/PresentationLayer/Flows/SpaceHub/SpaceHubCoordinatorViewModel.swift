@@ -154,7 +154,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
         // Per-space (for space switching)
         if let screen, let spaceId {
-            userDefaults.setLastOpenedScreen(spaceId: spaceId, screen: screen)
+//            userDefaults.setLastOpenedScreen(spaceId: spaceId, screen: screen)
         }
 
         if navigationPath.count == 1 {

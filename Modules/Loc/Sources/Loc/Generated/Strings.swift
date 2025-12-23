@@ -2237,6 +2237,11 @@ public enum Loc {
     public enum Space {
       public static let title = Loc.tr("Workspace", "SpaceCreate.Space.Title", fallback: "Create a space")
     }
+    public enum StartWith {
+      public static let chat = Loc.tr("Workspace", "SpaceCreate.StartWith.chat", fallback: "Chat")
+      public static let collection = Loc.tr("Workspace", "SpaceCreate.StartWith.collection", fallback: "Collection")
+      public static let page = Loc.tr("Workspace", "SpaceCreate.StartWith.page", fallback: "Page")
+    }
     public enum Stream {
       public static let title = Loc.tr("Workspace", "SpaceCreate.Stream.Title", fallback: "Create a stream")
     }

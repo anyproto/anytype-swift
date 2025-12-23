@@ -7,6 +7,7 @@ import AnytypeCore
 @MainActor
 protocol SpaceCreateModuleOutput: AnyObject {
     func onIconPickerSelected(fileData: FileData?, output: any LocalObjectIconPickerOutput)
+    func onSpaceCreated(spaceId: String)
 }
 
 @MainActor
@@ -75,9 +76,9 @@ final class SpaceCreateViewModel: ObservableObject, LocalObjectIconPickerOutput 
                 } catch {}
             }
             
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
+            output?.onSpaceCreated(spaceId: spaceId)
         }
     }
     

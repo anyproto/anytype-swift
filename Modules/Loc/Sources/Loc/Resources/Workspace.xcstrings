@@ -57765,6 +57765,39 @@
         }
       }
     },
+    "SpaceCreate.StartWith.chat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat"
+          }
+        }
+      }
+    },
+    "SpaceCreate.StartWith.collection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collection"
+          }
+        }
+      }
+    },
+    "SpaceCreate.StartWith.page" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Page"
+          }
+        }
+      }
+    },
     "SpaceInvite.Alert.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

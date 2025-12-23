@@ -146,12 +146,15 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: ChatCoordinatorData.self) {
                             ChatCoordinatorView(data: $0)
                         }
-                        builder.appendBuilder(for: SpaceInitialStateData.self) { _ in
+                        builder.appendBuilder(for: SpaceInitialStateData.self) { stateData in
                             Rectangle().foregroundStyle(Color.Pure.orange).ignoresSafeArea()
                                 .navigationTitle("emptyState")
                                 .navigationBarTitleDisplayMode(.large)
                                 .overlay(alignment: .center) {
                                     AnytypeText("EMPTY STATE FOLKS!", style: .title)
+                                }
+                                .onAppear {
+                                    model.pageNavigation.open(.alert(.widget(.init(spaceId: stateData.spaceId))))
                                 }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
