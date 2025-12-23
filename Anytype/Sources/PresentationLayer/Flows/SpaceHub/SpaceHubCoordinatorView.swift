@@ -81,7 +81,7 @@ struct SpaceHubCoordinatorView: View {
                 ChatCreateView(data: data)
                     .pageNavigation(model.pageNavigation)
             }
-            .sheet(item: $model.overlayWidgetsData) { data in
+            .fullScreenCover(item: $model.overlayWidgetsData) { data in
                 HomeWidgetsCoordinatorView(data: data)
                     .pageNavigation(model.pageNavigation)
             }

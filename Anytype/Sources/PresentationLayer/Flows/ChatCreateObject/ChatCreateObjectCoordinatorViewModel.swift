@@ -19,6 +19,7 @@ final class ChatCreateObjectCoordinatorViewModel: ObservableObject {
         pop: { },
         popToFirstInSpace: {},
         openWidgets: {},
+        closeWidgets: {},
         replace: { _ in }
     )
     private let document: (any BaseDocumentProtocol)?

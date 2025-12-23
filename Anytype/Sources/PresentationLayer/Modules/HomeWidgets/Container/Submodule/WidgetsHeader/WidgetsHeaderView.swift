@@ -15,9 +15,9 @@ struct WidgetsHeaderView: View {
         NavigationHeaderContainer(spacing: 20) {
             ExpandedTapAreaButton {
                 dismiss()
-                pageNavigation.popToFirstInSpace()
+                pageNavigation.closeWidgets()
             } label: {
-                Image(asset: .X32.Island.vault)
+                Image(asset: .X24.burger)
                     .navPanelDynamicForegroundStyle()
             }
         } titleView: {

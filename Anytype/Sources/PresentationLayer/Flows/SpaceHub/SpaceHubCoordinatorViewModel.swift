@@ -71,6 +71,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             self?.popToFirstInSpace()
         }, openWidgets: { [weak self] in
             self?.openWidgets()
+        }, closeWidgets: { [weak self] in
+            self?.closeWidgets()
         }, replace: { [weak self] data in
             guard let self else { return }
             if navigationPath.count > 1 {
@@ -647,6 +649,10 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func openWidgets() {
         guard let spaceInfo else { return }
         overlayWidgetsData = HomeWidgetData(spaceId: spaceInfo.accountSpaceId)
+    }
+    
+    func closeWidgets() {
+        overlayWidgetsData = nil
     }
     
     func onPickTypeForNewObjectSelected() {
