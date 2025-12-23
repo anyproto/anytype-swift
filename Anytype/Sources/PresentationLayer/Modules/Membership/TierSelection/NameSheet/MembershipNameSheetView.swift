@@ -1,15 +1,15 @@
 import SwiftUI
 import Services
 import StoreKit
- 
 
-struct MembershipNameSheetView: View {    
-    @StateObject private var model: MembershipNameSheetViewModel
+
+struct MembershipNameSheetView: View {
+    @State private var model: MembershipNameSheetViewModel
     @State private var name = ""
-    
+
     init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
-        _model = StateObject(
-            wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName, product: product, onSuccessfulPurchase: onSuccessfulPurchase)
+        _model = State(
+            initialValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName, product: product, onSuccessfulPurchase: onSuccessfulPurchase)
         )
     }
     

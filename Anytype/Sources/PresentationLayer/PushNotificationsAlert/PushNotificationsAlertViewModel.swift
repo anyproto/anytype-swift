@@ -7,16 +7,18 @@ struct PushNotificationsAlertData: Identifiable {
 }
 
 @MainActor
-final class PushNotificationsAlertViewModel: ObservableObject {
-    
-    @Published var dismiss = false
-    @Published var requestAuthorizationId: String?
-    
-    @Injected(\.pushNotificationsAlertHandler)
+@Observable
+final class PushNotificationsAlertViewModel {
+
+    var dismiss = false
+    var requestAuthorizationId: String?
+
+    @ObservationIgnored @Injected(\.pushNotificationsAlertHandler)
     private var pushNotificationsAlertHandler: any PushNotificationsAlertHandlerProtocol
-    @Injected(\.pushNotificationsPermissionService)
+    @ObservationIgnored @Injected(\.pushNotificationsPermissionService)
     private var pushNotificationsPermissionService: any PushNotificationsPermissionServiceProtocol
-    
+
+    @ObservationIgnored
     private let data: PushNotificationsAlertData
     
     init(data: PushNotificationsAlertData) {

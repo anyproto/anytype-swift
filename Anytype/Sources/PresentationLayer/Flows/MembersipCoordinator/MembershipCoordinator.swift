@@ -3,13 +3,13 @@ import Services
 
 
 struct MembershipCoordinator: View {
-    @StateObject var model: MembershipCoordinatorModel
+    @State var model: MembershipCoordinatorModel
     @Environment(\.openURL) private var openURL
-    
+
     init(initialTierId: Int? = nil) {
-        _model = StateObject(wrappedValue: MembershipCoordinatorModel(initialTierId: initialTierId))
+        _model = State(initialValue: MembershipCoordinatorModel(initialTierId: initialTierId))
     }
-    
+
     var body: some View {
         Group {
             if model.showTiersLoadingError {
@@ -27,7 +27,7 @@ struct MembershipCoordinator: View {
             }
         }
         .background(Color.Background.primary)
-        
+
         .sheet(item: $model.showTier) { tier in
             tierSelection(tier: tier)
         }
@@ -36,6 +36,9 @@ struct MembershipCoordinator: View {
         }
         .onChange(of: model.emailUrl) { _, url in
             showEmail(url: url)
+        }
+        .task {
+            await model.startMembershipSubscription()
         }
         .onAppear {
             model.onAppear()

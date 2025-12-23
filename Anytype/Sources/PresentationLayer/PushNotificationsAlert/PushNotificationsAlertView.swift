@@ -2,12 +2,12 @@ import SwiftUI
 import DesignKit
 
 struct PushNotificationsAlertView: View {
-    
-    @StateObject private var model: PushNotificationsAlertViewModel
+
+    @State private var model: PushNotificationsAlertViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(data: PushNotificationsAlertData) {
-        _model = StateObject(wrappedValue: PushNotificationsAlertViewModel(data: data))
+        _model = State(initialValue: PushNotificationsAlertViewModel(data: data))
     }
     
     var body: some View {

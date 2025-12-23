@@ -2,10 +2,11 @@ import SwiftUI
 import Services
 
 
-struct MembershipOwnerInfoSheetView: View {    
-    @StateObject private var model = MembershipOwnerInfoSheetViewModel()
-    
+struct MembershipOwnerInfoSheetView: View {
+    @State private var model = MembershipOwnerInfoSheetViewModel()
+
     var body: some View {
+        @Bindable var model = model
         content
             .onAppear {
                 model.updateState()
@@ -13,7 +14,9 @@ struct MembershipOwnerInfoSheetView: View {
             .onChange(of: model.membership) {
                 model.updateState()
             }
-        
+            .task {
+                await model.startMembershipSubscription()
+            }
             .snackbar(toastBarData: $model.toastData)
             .sheet(isPresented: $model.showEmailVerification) {
                 EmailVerificationView(email: $model.email) {

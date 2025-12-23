@@ -5,12 +5,14 @@ import StoreKit
 
 
 @MainActor
-final class MembershipNameFinalizationViewModel: ObservableObject {
-    @Published var isNameValid = false
-    
+@Observable
+final class MembershipNameFinalizationViewModel {
+    var isNameValid = false
+
+    @ObservationIgnored
     let tier: MembershipTier
-    
-    @Injected(\.membershipService)
+
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
     
     init(tier: MembershipTier) {

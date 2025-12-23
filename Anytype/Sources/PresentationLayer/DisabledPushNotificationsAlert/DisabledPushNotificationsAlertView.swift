@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct DisabledPushNotificationsAlertView: View {
-    
-    @StateObject private var model: DisabledPushNotificationsAlertViewModel
+
+    @State private var model: DisabledPushNotificationsAlertViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init() {
-        _model = StateObject(wrappedValue: DisabledPushNotificationsAlertViewModel())
+        _model = State(initialValue: DisabledPushNotificationsAlertViewModel())
     }
     
     var body: some View {

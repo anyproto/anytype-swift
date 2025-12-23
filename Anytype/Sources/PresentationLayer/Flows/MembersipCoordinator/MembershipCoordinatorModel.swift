@@ -4,28 +4,35 @@ import AnytypeCore
 
 
 @MainActor
-final class MembershipCoordinatorModel: ObservableObject {
-    @Published var userMembership: MembershipStatus = .empty
-    @Published var tiers: [MembershipTier] = []
-    
-    @Published var showTiersLoadingError = false
-    @Published var showTier: MembershipTier?
-    @Published var showSuccess: MembershipTier?
-    @Published var fireConfetti = false
-    @Published var emailUrl: URL?
-    
-    @Injected(\.membershipService)
+@Observable
+final class MembershipCoordinatorModel {
+    var userMembership: MembershipStatus = .empty
+    var tiers: [MembershipTier] = []
+
+    var showTiersLoadingError = false
+    var showTier: MembershipTier?
+    var showSuccess: MembershipTier?
+    var fireConfetti = false
+    var emailUrl: URL?
+
+    @ObservationIgnored @Injected(\.membershipService)
     private var membershipService: any MembershipServiceProtocol
-    @Injected(\.membershipStatusStorage)
+    @ObservationIgnored @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
-    @Injected(\.accountManager)
+    @ObservationIgnored @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    
+
+    @ObservationIgnored
     private let initialTierId: Int?
-    
+
     init(initialTierId: Int?) {
         self.initialTierId = initialTierId
-        membershipStatusStorage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
+    }
+
+    func startMembershipSubscription() async {
+        for await status in membershipStatusStorage.statusPublisher.values {
+            userMembership = status
+        }
     }
     
     func onAppear() {
