@@ -6,9 +6,10 @@ import AnytypeCore
 struct HomeWidgetsView: View {
     let info: AccountInfo
     let output: (any HomeWidgetsModuleOutput)?
+    var navigationButtonType: WidgetNavigationButtonType = .burger
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, output: output)
+        HomeWidgetsInternalView(info: info, output: output, navigationButtonType: navigationButtonType)
             .id(info.hashValue)
     }
 }
@@ -17,9 +18,11 @@ private struct HomeWidgetsInternalView: View {
     @State private var model: HomeWidgetsViewModel
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
+    let navigationButtonType: WidgetNavigationButtonType
 
-    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
+    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?, navigationButtonType: WidgetNavigationButtonType) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+        self.navigationButtonType = navigationButtonType
     }
     
     var body: some View {
@@ -36,7 +39,7 @@ private struct HomeWidgetsInternalView: View {
             model.onAppear()
         }
         .safeAreaInset(edge: .top) {
-            WidgetsHeaderView(spaceId: model.spaceId) {
+            WidgetsHeaderView(spaceId: model.spaceId, navigationButtonType: navigationButtonType) {
                 model.onSpaceSelected()
             }
         }

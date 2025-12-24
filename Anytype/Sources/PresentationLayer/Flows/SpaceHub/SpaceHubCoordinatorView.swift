@@ -154,7 +154,7 @@ struct SpaceHubCoordinatorView: View {
                                     AnytypeText("EMPTY STATE FOLKS!", style: .title)
                                 }
                                 .onAppear {
-                                    model.pageNavigation.open(.alert(.widget(.init(spaceId: stateData.spaceId))))
+                                    model.pageNavigation.open(.alert(.widget(.init(spaceId: stateData.spaceId, navigationButtonType: .arrowBack))))
                                 }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in

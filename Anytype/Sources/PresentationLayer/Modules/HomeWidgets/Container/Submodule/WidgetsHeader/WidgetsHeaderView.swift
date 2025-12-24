@@ -6,19 +6,33 @@ struct WidgetsHeaderView: View {
     @StateObject private var model: WidgetsHeaderViewModel
     @Environment(\.dismiss) private var dismiss
     @Environment(\.pageNavigation) private var pageNavigation
+    let navigationButtonType: WidgetNavigationButtonType
 
-    init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
+    init(spaceId: String, navigationButtonType: WidgetNavigationButtonType = .burger, onSpaceSelected: @escaping () -> Void) {
         _model = StateObject(wrappedValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
+        self.navigationButtonType = navigationButtonType
     }
 
     var body: some View {
         NavigationHeaderContainer(spacing: 20) {
             ExpandedTapAreaButton {
-                dismiss()
-                pageNavigation.closeWidgets()
+                switch navigationButtonType {
+                case .burger:
+                    dismiss()
+                    pageNavigation.closeWidgets()
+                case .arrowBack:
+                    dismiss()
+                    pageNavigation.pop()
+                }
             } label: {
-                Image(asset: .X24.burger)
-                    .navPanelDynamicForegroundStyle()
+                switch navigationButtonType {
+                case .burger:
+                    Image(asset: .X24.burger)
+                        .navPanelDynamicForegroundStyle()
+                case .arrowBack:
+                    Image(asset: .X24.back)
+                        .navPanelDynamicForegroundStyle()
+                }
             }
         } titleView: {
             HStack(spacing: 12) {
