@@ -19,7 +19,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var spaceNotificationsSettingsModuleData: SpaceNotificationsSettingsModuleData?
     @Published var spaceTypeChangeData: SpaceTypeChangeData?
     @Published var showFiles = false
-    
+    @Published var homePagePickerData: HomePagePickerModuleData?
+
     var pageNavigation: PageNavigation?
     @Published var showDefaultObjectTypeSearch = false
     
@@ -41,7 +42,11 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     func onDefaultObjectTypeSelected() {
         showDefaultObjectTypeSearch.toggle()
     }
-    
+
+    func onHomePageSelected() {
+        homePagePickerData = HomePagePickerModuleData(spaceId: spaceId)
+    }
+
     func onRemoteStorageSelected() {
         showRemoteStorage.toggle()
     }

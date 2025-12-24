@@ -33,7 +33,11 @@ final class SpaceSettingsViewModel: ObservableObject {
     private let openedDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
     @Injected(\.pushNotificationsSystemSettingsBroadcaster)
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
-    
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: any DocumentsProviderProtocol
+
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relativeDateFormatter
@@ -61,6 +65,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var storageInfo = RemoteStorageSegmentInfo()
     @Published var defaultObjectType: ObjectType?
+    @Published var homePageObjectDetails: ObjectDetails?
     @Published var showIconPickerSpaceId: StringIdentifiable?
     @Published var editingData: SettingsInfoEditingViewData?
     @Published var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
@@ -100,7 +105,19 @@ final class SpaceSettingsViewModel: ObservableObject {
     func onDefaultObjectTypeTap() {
         output?.onDefaultObjectTypeSelected()
     }
-    
+
+    func onHomePageTap() {
+        output?.onHomePageSelected()
+    }
+
+    var homePageDecoration: RoundedButtonDecoration {
+        if let details = homePageObjectDetails {
+            return .object(icon: details.objectIconImage, name: details.title)
+        } else {
+            return .caption(Loc.HomePage.widgets)
+        }
+    }
+
     func onStorageTap() {
         output?.onRemoteStorageSelected()
     }
@@ -201,7 +218,8 @@ final class SpaceSettingsViewModel: ObservableObject {
         async let defaultTypeTask: () = startDefaultTypeTask()
         async let widgetsObjectTask: () = startWidgetsObjectTask()
         async let systemSettingsChangesTask: () = startSystemSettingsChangesTask()
-        (_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask)
+        async let homePageTask: () = loadHomePageDetails()
+        (_,_,_,_,_,_,_) = await (storageTask, joiningTask, participantTask, defaultTypeTask, widgetsObjectTask, systemSettingsChangesTask, homePageTask)
     }
     
     private func startStorageTask() async {
@@ -244,7 +262,33 @@ final class SpaceSettingsViewModel: ObservableObject {
             self.pushNotificationsSettingsStatus = status.asPushNotificationsSettingsStatus
         }
     }
-    
+
+    private func loadHomePageDetails() async {
+        guard let lastScreen = userDefaults.lastOpenedScreen(spaceId: workspaceInfo.accountSpaceId) else {
+            homePageObjectDetails = nil
+            return
+        }
+
+        let objectId: String?
+        switch lastScreen {
+        case .editor(let data):
+            objectId = data.objectId
+        case .chat(let data):
+            objectId = data.chatId
+        case .spaceChat:
+            objectId = nil
+        }
+
+        guard let objectId else {
+            homePageObjectDetails = nil
+            return
+        }
+
+        let document = documentsProvider.document(objectId: objectId, spaceId: workspaceInfo.accountSpaceId, mode: .preview)
+        try? await document.open()
+        homePageObjectDetails = document.details
+    }
+
     // MARK: - Private
     
     private func saveDetails(name: String, description: String) {

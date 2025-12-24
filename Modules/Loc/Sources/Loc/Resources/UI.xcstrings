@@ -46279,6 +46279,39 @@
         }
       }
     },
+    "HomePage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home Page"
+          }
+        }
+      }
+    },
+    "HomePage.SpecificObject" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Specific Object"
+          }
+        }
+      }
+    },
+    "HomePage.Widgets" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets"
+          }
+        }
+      }
+    },
     "Home.Snackbar.Library" : {
       "comment" : "MARK: - Home",
       "extractionState" : "manual",

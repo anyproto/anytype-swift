@@ -4,6 +4,7 @@ import Foundation
 protocol SpaceSettingsModuleOutput: AnyObject {
     func onWallpaperSelected()
     func onDefaultObjectTypeSelected()
+    func onHomePageSelected()
     func onObjectTypesSelected()
     func onPropertiesSelected()
 

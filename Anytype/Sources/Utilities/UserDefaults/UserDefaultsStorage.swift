@@ -35,7 +35,8 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     var lastOpenedScreen: LastOpenedScreen? { get set }
 
     func lastOpenedScreen(spaceId: String) -> LastOpenedScreen?
-    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen)
+    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen?)
+    func clearLastOpenedScreen(spaceId: String)
 
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
@@ -78,8 +79,16 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
         return _lastOpenedScreens[spaceId]
     }
 
-    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen) {
-        _lastOpenedScreens[spaceId] = screen
+    func setLastOpenedScreen(spaceId: String, screen: LastOpenedScreen?) {
+        if let screen {
+            _lastOpenedScreens[spaceId] = screen
+        } else {
+            _lastOpenedScreens.removeValue(forKey: spaceId)
+        }
+    }
+
+    func clearLastOpenedScreen(spaceId: String) {
+        _lastOpenedScreens.removeValue(forKey: spaceId)
     }
 
     @UserDefault("serverConfig", defaultValue: .anytype)

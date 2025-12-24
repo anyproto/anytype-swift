@@ -379,6 +379,7 @@ public enum Loc {
   public static let highlight = Loc.tr("UI", "Highlight", fallback: "Highlight")
   public static let history = Loc.tr("UI", "History", fallback: "History")
   public static let home = Loc.tr("UI", "Home", fallback: "Home")
+  public static let homePage = Loc.tr("UI", "HomePage", fallback: "Home Page")
   public static let icon = Loc.tr("UI", "Icon", fallback: "Icon")
   public static func image(_ p1: Int) -> String {
     return Loc.tr("UI", "Image", p1, fallback: "Plural format key: Image")
@@ -999,6 +1000,10 @@ public enum Loc {
     public enum Snackbar {
       public static let library = Loc.tr("UI", "Home.Snackbar.Library", fallback: "Library is available in desktop app")
     }
+  }
+  public enum HomePage {
+    public static let specificObject = Loc.tr("UI", "HomePage.SpecificObject", fallback: "Specific Object")
+    public static let widgets = Loc.tr("UI", "HomePage.Widgets", fallback: "Widgets")
   }
   public enum InterfaceStyle {
     public static let dark = Loc.tr("UI", "InterfaceStyle.dark", fallback: "Dark")
