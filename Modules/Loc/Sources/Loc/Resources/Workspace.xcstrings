@@ -252,7 +252,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Failed to create file. Try again."
+            "value" : "Falha ao criar arquivo. Tente novamente."
           }
         },
         "pt-PT" : {
@@ -401,7 +401,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Invalid file. Try again"
+            "value" : "Arquivo inválido. Tente novamente"
           }
         },
         "pt-PT" : {
@@ -775,13 +775,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachment at a time"
+                  "value" : "Você pode enviar apenas %d anexo por vez"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Você pode enviar apenas %d anexos por vez"
                 }
               }
             }
@@ -1023,7 +1023,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "Nome da Conversa"
           }
         },
         "pt-PT" : {
@@ -2066,7 +2066,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add members"
+            "value" : "Adicionar membros"
           }
         },
         "pt-PT" : {
@@ -2364,7 +2364,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Fully private and encrypted"
+            "value" : "Totalmente privado e criptografado"
           }
         },
         "pt-PT" : {
@@ -2513,7 +2513,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yours forever"
+            "value" : "Seu para sempre"
           }
         },
         "pt-PT" : {
@@ -2811,7 +2811,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Update App"
+            "value" : "Atualizar aplicativo"
           }
         },
         "pt-PT" : {
@@ -2960,7 +2960,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This version doesn’t support sending files or images. Update the app to share media in chats."
+            "value" : "Esta versão não suporta o envio de arquivos ou imagens. Atualize o aplicativo para compartilhar mídia em conversas."
           }
         },
         "pt-PT" : {
@@ -3109,7 +3109,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Incompatible Version"
+            "value" : "Versão incompatível"
           }
         },
         "pt-PT" : {
@@ -3258,7 +3258,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We couldn’t connect right now. This may be due to no internet or a temporary sync issue. We’ll keep trying in the background."
+            "value" : "Não foi possível conectar no momento. Isso pode ser devido à falta de internet ou a um problema de sincronização temporária. Continuaremos tentando em segundo plano."
           }
         },
         "pt-PT" : {
@@ -3556,7 +3556,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Network Error"
+            "value" : "Erro de conexão"
           }
         },
         "pt-PT" : {
@@ -3705,7 +3705,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Messages"
+            "value" : "Novas mensagens"
           }
         },
         "pt-PT" : {
@@ -4301,7 +4301,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachments (%@)"
+            "value" : "Anexos (%@)"
           }
         },
         "pt-PT" : {
@@ -4450,7 +4450,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Files (%@)"
+            "value" : "Arquivos (%@)"
           }
         },
         "pt-PT" : {
@@ -4599,7 +4599,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Images (%@)"
+            "value" : "Imagens (%@)"
           }
         },
         "pt-PT" : {
@@ -4749,7 +4749,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reply to %@"
+            "value" : "Responder para %@"
           }
         },
         "pt-PT" : {
@@ -14440,7 +14440,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Current year"
+            "value" : "Este ano"
           }
         },
         "pt-PT" : {
@@ -15036,7 +15036,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Last year"
+            "value" : "Ano passado"
           }
         },
         "pt-PT" : {
@@ -15483,7 +15483,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Next year"
+            "value" : "Ano seguinte"
           }
         },
         "pt-PT" : {
@@ -54103,7 +54103,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Only already invited members have access"
+            "value" : "Apenas membros convidados possuem acesso"
           }
         },
         "pt-PT" : {
@@ -54252,7 +54252,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Link disabled"
+            "value" : "Link desativado"
           }
         },
         "pt-PT" : {
@@ -69155,7 +69155,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated."
+            "value" : "Membuat ruang ini privat akan menonaktifkan tautan undangan saat ini. Kamu akan menjadi satu-satunya anggota ruang. Jika kamu mengaktifkan kembali pembagian, tautan baru akan dibuat."
           }
         },
         "it" : {
@@ -69304,7 +69304,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make this space private?"
+            "value" : "Buat ruang ini privat?"
           }
         },
         "it" : {
@@ -69453,7 +69453,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can make the space private after removing all members"
+            "value" : "Kamu bisa membuat ruang ini privat setelah mengeluarkan semua anggota"
           }
         },
         "it" : {
@@ -71911,7 +71911,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Share link"
+            "value" : "Compartilhar link"
           }
         },
         "pt-PT" : {
@@ -72550,304 +72550,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "此空間將不再共享"
-          }
-        }
-      }
-    },
-    "SpaceShare.StopSharingEmptySpace.Message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Has eliminado el último miembro, por lo que este espacio ahora es privado y solo puedes acceder tú."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Kamu telah menghapus anggota terakhir, jadi sekarang ruang ini privat dan hanya bisa diakses olehmu."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Hai rimosso l'ultimo membro, quindi questo spazio è ora privato e accessibile solo a te."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "마지막 멤버를 지웠습니다. 이제 이 스페이스는 비공개이며 당신만 접근 가능합니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Je hebt het laatste lid verwijderd, dus deze ruimte is nu privé en alleen toegankelijk voor jou."
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Вы удалили последнего пользователя, так что теперь это приватное пространство и доступно только вам."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Son üyeyi de kaldırdınız. Bu nedenle bu alan artık özel ve yalnızca sizin erişiminize açıktır."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You’ve removed the last member, so this space is now private and only accessible to you."
-          }
-        }
-      }
-    },
-    "SpaceShare.StopSharingEmptySpace.Title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "be" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The space is now private"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Este espacio ahora es privado"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Ruang ini sekarang privat"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Lo spazio è ora privato"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "이 스페이스는 이제 비공개입니다"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "De ruimte is nu privé"
-          }
-        },
-        "or" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Область теперь приватна"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Bu alan artık özel bir alandır"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space is now private"
           }
         }
       }
