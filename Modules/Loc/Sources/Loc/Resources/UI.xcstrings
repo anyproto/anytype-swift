@@ -180,7 +180,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Analytics ID: %@"
+            "value" : "ID de análisis: %@"
           }
         },
         "fa" : {
@@ -252,7 +252,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Analytics ID: %@"
+            "value" : "ID do Analytics: %@"
           }
         },
         "pt-PT" : {
@@ -478,7 +478,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype ID: %@"
+            "value" : "ID de Anytype: %@"
           }
         },
         "fa" : {
@@ -550,7 +550,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype ID: %@"
+            "value" : "ID Anytype: %@"
           }
         },
         "pt-PT" : {
@@ -628,7 +628,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "App version: %@"
+            "value" : "Versión de la aplicación: %@"
           }
         },
         "fa" : {
@@ -700,7 +700,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "App version: %@"
+            "value" : "Versão do aplicativo: %@"
           }
         },
         "pt-PT" : {
@@ -777,7 +777,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Build number: %@"
+            "value" : "Número de compilación: %@"
           }
         },
         "fa" : {
@@ -849,7 +849,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Build number: %@"
+            "value" : "Número de compilação: %@"
           }
         },
         "pt-PT" : {
@@ -1075,7 +1075,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device: %@"
+            "value" : "Dispositivo: %@"
           }
         },
         "fa" : {
@@ -1147,7 +1147,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device: %@"
+            "value" : "Dispositivo: %@"
           }
         },
         "pt-PT" : {
@@ -1224,7 +1224,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device ID: %@"
+            "value" : "ID del dispositivo: %@"
           }
         },
         "fa" : {
@@ -1296,7 +1296,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device ID: %@"
+            "value" : "ID do dispositivo: %@"
           }
         },
         "pt-PT" : {
@@ -1820,7 +1820,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Library version: %@"
+            "value" : "Versión de la biblioteca: %@"
           }
         },
         "fa" : {
@@ -1892,7 +1892,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Library version: %@"
+            "value" : "Versão da biblioteca: %@"
           }
         },
         "pt-PT" : {
@@ -1969,7 +1969,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\n\nTechnical information\n%@"
+            "value" : "\n\nInformación técnica\n%@"
           }
         },
         "fa" : {
@@ -2041,7 +2041,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\n\nTechnical information\n%@"
+            "value" : "\n\nInformação técnica\n%@"
           }
         },
         "pt-PT" : {
@@ -2190,7 +2190,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Support request, Vault ID %@"
+            "value" : "Pedido de suporte, ID do Cofre %@"
           }
         },
         "pt-PT" : {
@@ -2267,7 +2267,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "OS version: %@"
+            "value" : "Versión del SO: %@"
           }
         },
         "fa" : {
@@ -2339,7 +2339,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "OS version: %@"
+            "value" : "Versão do SO: %@"
           }
         },
         "pt-PT" : {
@@ -4276,7 +4276,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Add a description..."
+            "value" : "Adicionar uma descrição..."
           }
         },
         "pt-PT" : {
@@ -9541,7 +9541,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "¿Seguro que quieres eliminar %#@object@?"
           },
           "substitutions" : {
             "object" : {
@@ -9557,7 +9557,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg objetos"
                     }
                   }
                 }
@@ -21542,7 +21542,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ copied to clipboard"
+            "value" : "%@ copiado en el portapapeles"
           }
         },
         "fa" : {
@@ -22735,7 +22735,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new object \"%@\""
+            "value" : "Crear nuevo objeto «%@»"
           }
         },
         "fa" : {
@@ -23331,7 +23331,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create option ‘%@’"
+            "value" : "Crear opción «%@»"
           }
         },
         "fa" : {
@@ -23480,7 +23480,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create property ‘%@’"
+            "value" : "Crear propiedad «%@»"
           }
         },
         "fa" : {
@@ -26328,7 +26328,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This vault will be deleted %#@days@"
+            "value" : "Esta arca se eliminará %#@days@"
           },
           "substitutions" : {
             "days" : {
@@ -39525,7 +39525,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Clean up files"
+            "value" : "Limpar arquivos"
           }
         },
         "pt-PT" : {
@@ -60532,7 +60532,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg objetos"
                     }
                   }
                 }
