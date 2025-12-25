@@ -1444,6 +1444,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func fileCacheDownload(
+        _ request: Anytype_Rpc.File.CacheDownload.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.CacheDownload.Request, Anytype_Rpc.File.CacheDownload.Response> {
+        return Invocation(messageName: "FileCacheDownload", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileCacheDownload(requestData) ?? Data()
+            return try Anytype_Rpc.File.CacheDownload.Response(serializedBytes: responseData)
+        }
+    }
+
+    public static func fileCacheCancelDownload(
+        _ request: Anytype_Rpc.File.CacheCancelDownload.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.CacheCancelDownload.Request, Anytype_Rpc.File.CacheCancelDownload.Response> {
+        return Invocation(messageName: "FileCacheCancelDownload", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileCacheCancelDownload(requestData) ?? Data()
+            return try Anytype_Rpc.File.CacheCancelDownload.Response(serializedBytes: responseData)
+        }
+    }
+
     public static func navigationListObjects(
         _ request: Anytype_Rpc.Navigation.ListObjects.Request = .init()
     ) -> Invocation<Anytype_Rpc.Navigation.ListObjects.Request, Anytype_Rpc.Navigation.ListObjects.Response> {

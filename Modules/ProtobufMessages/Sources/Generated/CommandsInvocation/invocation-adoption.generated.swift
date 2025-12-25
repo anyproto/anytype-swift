@@ -761,6 +761,16 @@ extension Anytype_Rpc.Device.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.File.CacheCancelDownload.Response: ResultWithError {}
+extension Anytype_Rpc.File.CacheCancelDownload.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.File.CacheDownload.Response: ResultWithError {}
+extension Anytype_Rpc.File.CacheDownload.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.File.DiscardPreload.Response: ResultWithError {}
 extension Anytype_Rpc.File.DiscardPreload.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
