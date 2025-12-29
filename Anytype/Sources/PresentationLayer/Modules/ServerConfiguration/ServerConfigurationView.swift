@@ -11,7 +11,7 @@ struct ServerConfigurationView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 DragIndicator()
                 TitleView(title: Loc.Server.network)

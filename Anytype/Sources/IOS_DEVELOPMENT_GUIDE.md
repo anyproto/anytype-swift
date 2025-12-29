@@ -469,6 +469,28 @@ ContentView()
     }
 ```
 
+#### Use `NavigationStack` instead of `NavigationView`
+
+`NavigationView` is deprecated in iOS 16+. Always use `NavigationStack` for navigation containers:
+
+```swift
+// ❌ WRONG - Deprecated
+NavigationView {
+    content
+}
+.navigationViewStyle(.stack)
+
+// ✅ CORRECT - Modern API
+NavigationStack {
+    content
+}
+```
+
+**Notes:**
+- `NavigationStack` is always stack-based (no need for `.navigationViewStyle(.stack)`)
+- For complex navigation with path management, see `AnytypeNavigationView` custom wrapper
+- Existing `.navigationTitle()` and `.navigationBarTitleDisplayMode()` modifiers work unchanged
+
 ## 🧪 Testing & Mocks
 
 ### Always Update Tests When Refactoring

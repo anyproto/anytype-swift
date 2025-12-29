@@ -6,10 +6,9 @@ struct TemplatePickerView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             content
         }
-        .navigationViewStyle(.stack)
         .task {
             await viewModel.startTemplateSubscription()
         }
