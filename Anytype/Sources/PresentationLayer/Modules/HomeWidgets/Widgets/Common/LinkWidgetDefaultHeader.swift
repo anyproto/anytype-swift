@@ -23,26 +23,28 @@ struct LinkWidgetDefaultHeader<RightView: View>: View {
     }
     
     var body: some View {
-        HStack(spacing: 0) {
-            if let icon {
-                Spacer.fixedWidth(14)
-                IconView(icon: icon, assetColor: .Text.primary)
-                    .frame(width: 20, height: 20)
-                Spacer.fixedWidth(8)
-            } else {
-                Spacer.fixedWidth(16)
-            }
-            AnytypeText(title, style: .subheading)
-                .foregroundStyle(titleColor)
-                .lineLimit(1)
-                .layoutPriority(-1)
-            Spacer.fixedWidth(16)
-            Spacer()
-            rightAccessory
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             onTap()
+        } label: {
+            HStack(spacing: 0) {
+                if let icon {
+                    Spacer.fixedWidth(14)
+                    IconView(icon: icon, assetColor: .Text.primary)
+                        .frame(width: 20, height: 20)
+                    Spacer.fixedWidth(8)
+                } else {
+                    Spacer.fixedWidth(16)
+                }
+                AnytypeText(title, style: .subheading)
+                    .foregroundStyle(titleColor)
+                    .lineLimit(1)
+                    .layoutPriority(-1)
+                Spacer.fixedWidth(16)
+                Spacer()
+                rightAccessory
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }

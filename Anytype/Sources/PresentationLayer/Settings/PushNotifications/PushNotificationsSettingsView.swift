@@ -37,6 +37,21 @@ struct PushNotificationsSettingsView: View {
     }
     
     private func notificationsStatusRow(enabled: Bool) -> some View {
+        Group {
+            if enabled {
+                rowContent(enabled: true)
+            } else {
+                Button {
+                    model.openSettings()
+                } label: {
+                    rowContent(enabled: false)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private func rowContent(enabled: Bool) -> some View {
         HStack(spacing: 0) {
             AnytypeText(Loc.PushNotifications.Settings.Status.title, style: .previewTitle1Regular)
                 .foregroundStyle(Color.Text.primary)
@@ -62,10 +77,5 @@ struct PushNotificationsSettingsView: View {
         .padding(.horizontal, 4)
         .newDivider()
         .fixTappableArea()
-        .if(!enabled) {
-            $0.onTapGesture {
-                model.openSettings()
-            }
-        }
     }
 }

@@ -8,10 +8,12 @@ struct ChatInputLocalFile: View {
     let onTapRemove: () -> Void
     
     var body: some View {
-        content
-            .onTapGesture {
-                onTapObject()
-            }
+        Button {
+            onTapObject()
+        } label: {
+            content
+        }
+        .buttonStyle(.plain)
     }
     
     @ViewBuilder

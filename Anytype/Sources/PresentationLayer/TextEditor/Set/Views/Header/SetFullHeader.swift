@@ -150,15 +150,17 @@ extension SetFullHeader {
     private var iconView: some View {
         Group {
             if model.hasTargetObjectId, let iconImage = model.details?.objectIconImage {
-                IconView(icon: iconImage)
-                .frame(
-                    width: 32,
-                    height: 32
-                )
-                .padding(.top, 1)
-                .onTapGesture {
+                Button {
                     model.showIconPicker()
+                } label: {
+                    IconView(icon: iconImage)
+                        .frame(
+                            width: 32,
+                            height: 32
+                        )
+                        .padding(.top, 1)
                 }
+                .buttonStyle(.plain)
             }
         }
     }

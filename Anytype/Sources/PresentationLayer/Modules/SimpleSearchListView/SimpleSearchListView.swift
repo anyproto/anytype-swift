@@ -32,20 +32,22 @@ struct SimpleSearchListView: View {
     }
     
     private func searchCell(for item: SimpleSearchListItem) -> some View {
-        HStack(spacing: 10) {
-            IconView(icon: item.icon)
-            AnytypeText(item.title, style: .bodyRegular)
-                .foregroundStyle(Color.Text.primary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 14)
-        .newDivider()
-        .padding(.horizontal, 20)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             dismiss()
             item.onTap()
+        } label: {
+            HStack(spacing: 10) {
+                IconView(icon: item.icon)
+                AnytypeText(item.title, style: .bodyRegular)
+                    .foregroundStyle(Color.Text.primary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 14)
+            .newDivider()
+            .padding(.horizontal, 20)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }
 

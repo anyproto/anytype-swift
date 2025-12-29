@@ -46,18 +46,22 @@ struct SharingExtensionShareToView: View {
                 .newDivider()
                 .padding(.horizontal, 16)
             if let chatRow = model.chatRow {
-                SharingExtensionsChatRow(data: chatRow)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapChat()
-                    }
+                Button {
+                    model.onTapChat()
+                } label: {
+                    SharingExtensionsChatRow(data: chatRow)
+                        .fixTappableArea()
+                }
+                .buttonStyle(.plain)
             }
             ForEach(model.rows) { data in
-                SharingExtensionsShareRow(data: data)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapCell(data: data)
-                    }
+                Button {
+                    model.onTapCell(data: data)
+                } label: {
+                    SharingExtensionsShareRow(data: data)
+                        .fixTappableArea()
+                }
+                .buttonStyle(.plain)
             }
         }
         .safeAreaInset(edge: .bottom) {

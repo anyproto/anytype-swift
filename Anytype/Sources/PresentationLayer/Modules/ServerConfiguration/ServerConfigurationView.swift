@@ -11,7 +11,7 @@ struct ServerConfigurationView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 DragIndicator()
                 TitleView(title: Loc.Server.network)
@@ -54,20 +54,22 @@ struct ServerConfigurationView: View {
     }
     
     private func makeRow(row: ServerConfigurationRow) -> some View {
-        HStack {
-            AnytypeText(row.title, style: .bodyRegular)
-                .foregroundStyle(Color.Text.primary)
-            Spacer()
-            if row.isSelected {
-                Image(asset: .X24.tick)
-                    .foregroundStyle(Color.Text.primary)
-            }
-        }
-        .frame(height: 48)
-        .newDivider()
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             row.onTap()
+        } label: {
+            HStack {
+                AnytypeText(row.title, style: .bodyRegular)
+                    .foregroundStyle(Color.Text.primary)
+                Spacer()
+                if row.isSelected {
+                    Image(asset: .X24.tick)
+                        .foregroundStyle(Color.Text.primary)
+                }
+            }
+            .frame(height: 48)
+            .newDivider()
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }

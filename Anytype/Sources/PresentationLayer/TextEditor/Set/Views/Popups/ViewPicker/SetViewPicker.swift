@@ -23,7 +23,7 @@ struct SetViewPicker: View {
     }
     
     private var content: some View {
-        NavigationView {
+        NavigationStack {
             viewsList
                 .navigationTitle(Loc.views)
                 .navigationBarTitleDisplayMode(.inline)
@@ -34,7 +34,6 @@ struct SetViewPicker: View {
                     }
                 }
         }
-        .navigationViewStyle(.stack)
     }
     
     private var viewsList: some View {

@@ -68,10 +68,12 @@ struct MessageView: View {
     @ViewBuilder
     private var reply: some View {
         if let reply = data.replyModel {
-            MessageReplyView(model: reply)
-                .onTapGesture {
-                    output?.didSelectReplyMessage(message: data)
-                }
+            Button {
+                output?.didSelectReplyMessage(message: data)
+            } label: {
+                MessageReplyView(model: reply)
+            }
+            .buttonStyle(.plain)
         }
     }
     

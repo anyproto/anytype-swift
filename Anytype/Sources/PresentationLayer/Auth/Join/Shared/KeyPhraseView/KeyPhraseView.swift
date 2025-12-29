@@ -56,16 +56,18 @@ struct KeyPhraseView: View {
     }
     
     private var readMore: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "plus.circle.fill")
-                .foregroundStyle(Color.Text.secondary)
-            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .button1Medium)
-                .foregroundStyle(Color.Text.secondary)
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.showMoreInfo.toggle()
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: "plus.circle.fill")
+                    .foregroundStyle(Color.Text.secondary)
+                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .button1Medium)
+                    .foregroundStyle(Color.Text.secondary)
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
     
     private var phraseTextView: some View {

@@ -54,10 +54,12 @@ struct ObjectSearchWithMetaView: View {
     }
     
     private func itemRow(for rowModel: SearchWithMetaModel) -> some View {
-        SearchWithMetaCell(model: rowModel)
-            .fixTappableArea()
-            .onTapGesture {
-                model.onSelect(searchData: rowModel)
-            }
+        Button {
+            model.onSelect(searchData: rowModel)
+        } label: {
+            SearchWithMetaCell(model: rowModel)
+                .fixTappableArea()
+        }
+        .buttonStyle(.plain)
     }
 }

@@ -11,11 +11,10 @@ struct SetPropertiesView: View {
     
     var body: some View {
         DragIndicator()
-        NavigationView {
+        NavigationStack {
             content
         }
         .background(Color.Background.secondary)
-        .navigationViewStyle(.stack)
     }
     
     private var content: some View {
@@ -24,8 +23,6 @@ struct SetPropertiesView: View {
                 .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
         .environment(\.editMode, $editMode)
-        
-        .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
         
         .listStyle(.plain)
