@@ -3,14 +3,18 @@ import SwiftUI
 import FloatingPanel
 
 @MainActor
-final class ObjectPreviewViewModel: ObservableObject {
+@Observable
+final class ObjectPreviewViewModel {
 
-    @Published private(set) var objectPreviewModel: ObjectPreviewModel
+    private(set) var objectPreviewModel: ObjectPreviewModel
 
     // MARK: - Private variables
 
+    @ObservationIgnored
     private let blockLinkState: BlockLinkState
+    @ObservationIgnored
     private let router: ObjectPreviewRouter
+    @ObservationIgnored
     private let onSelect: (BlockLink.Appearance) -> Void
 
     // MARK: - Initializer

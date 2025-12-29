@@ -2,15 +2,15 @@ import Foundation
 import SwiftUI
 
 struct PropertyOptionSettingsView: View {
-    
-    @StateObject var model: PropertyOptionSettingsViewModel
+
+    @State var model: PropertyOptionSettingsViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(
         configuration: PropertyOptionSettingsConfiguration,
         completion: @escaping (_ optionParams: PropertyOptionParameters) -> Void
     ) {
-        _model = StateObject(wrappedValue: PropertyOptionSettingsViewModel(
+        _model = State(initialValue: PropertyOptionSettingsViewModel(
             configuration: configuration,
             completion: completion
         ))

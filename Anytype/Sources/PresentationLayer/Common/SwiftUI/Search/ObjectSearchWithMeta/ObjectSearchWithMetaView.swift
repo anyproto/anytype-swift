@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct ObjectSearchWithMetaView: View {
-    
-    @StateObject private var model: ObjectSearchWithMetaViewModel
+
+    @State private var model: ObjectSearchWithMetaViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: ObjectSearchWithMetaModuleData) {
-        self._model = StateObject(wrappedValue: ObjectSearchWithMetaViewModel(data: data))
+        self._model = State(initialValue: ObjectSearchWithMetaViewModel(data: data))
     }
     
     var body: some View {

@@ -4,25 +4,34 @@ import AnytypeCore
 
 
 @MainActor
-final class PropertyCreationViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
-    
-    @Published var rows: [SearchDataSection<PropertySearchData>] = []
-    @Published var newPropertyData: PropertyInfoData?
-    
+@Observable
+final class PropertyCreationViewModel: PropertyInfoCoordinatorViewOutput {
+
+    var rows: [SearchDataSection<PropertySearchData>] = []
+    var newPropertyData: PropertyInfoData?
+
+    @ObservationIgnored
     var dismiss: DismissAction?
-    
+
+    @ObservationIgnored
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
+    @ObservationIgnored
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
+
+    @ObservationIgnored
     private let data: PropertiesSearchData
+    @ObservationIgnored
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     
