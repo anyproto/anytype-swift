@@ -12,28 +12,7 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: Loc.Settings.title) {
-                Button {
-                    model.onQRCodeTap()
-                } label: {
-                    Image(asset: .X24.qrCode)
-                        .renderingMode(.template)
-                        .foregroundStyle(Color.Control.primary)
-                        .frame(width: 24, height: 24)
-                }
-            } rightButton: {
-                Menu {
-                    if model.canDeleteVault {
-                        Button(Loc.deleteVault) { model.onDeleteAccountTap() }
-                    }
-                    Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
-                } label: {
-                    MoreIndicator()
-                }
-            }
-            .onTapGesture(count: 5) {
-                model.showDebugMenu.toggle()
-            }
+            titleBar
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -130,15 +109,48 @@ struct SettingsView: View {
         .onAppear {
             model.onAppear()
         }
-        .sheet(isPresented: $model.showDebugMenu) {
-            PublicDebugMenuView()
-        }
         .task {
             await model.startSubscriptions()
         }
         .onChange(of: model.profileName) {
             model.onProfileNameChange()
         }
+    }
+
+    private var titleBar: some View {
+        HStack {
+            Spacer()
+
+            AnyNameBadgeView(
+                state: model.anyNameBadgeState,
+                onTap: { model.onAnyIdBadgeTap() }
+            )
+
+            Spacer()
+        }
+        .overlay(alignment: .leading) {
+            Button {
+                model.onQRCodeTap()
+            } label: {
+                Image(asset: .X24.qrCode)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Control.primary)
+                    .frame(width: 24, height: 24)
+            }
+            .padding(.leading, 12)
+        }
+        .overlay(alignment: .trailing) {
+            Menu {
+                if model.canDeleteVault {
+                    Button(Loc.deleteVault) { model.onDeleteAccountTap() }
+                }
+                Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
+            } label: {
+                MoreIndicator()
+            }
+            .padding(.trailing, 12)
+        }
+        .frame(height: 48)
     }
 }
 

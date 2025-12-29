@@ -1147,6 +1147,13 @@ public enum Loc {
     public static let spaceType = Loc.tr("UI", "Settings.SpaceType", fallback: "Space type")
     public static let title = Loc.tr("UI", "Settings.Title", fallback: "Settings")
     public static let updated = Loc.tr("UI", "Settings.Updated", fallback: "Space information updated")
+    public enum AnyId {
+      public enum BottomSheet {
+        public static let button = Loc.tr("UI", "Settings.AnyId.BottomSheet.button", fallback: "Explore plans")
+        public static let description = Loc.tr("UI", "Settings.AnyId.BottomSheet.description", fallback: "Become a member to make your ID human-readable, so other members can easily find and connect with you.")
+        public static let title = Loc.tr("UI", "Settings.AnyId.BottomSheet.title", fallback: "This is your ANY ID")
+      }
+    }
   }
   public enum SimpleTableMenu {
     public enum Item {

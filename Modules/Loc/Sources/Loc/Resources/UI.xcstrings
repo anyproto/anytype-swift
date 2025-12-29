@@ -84042,6 +84042,39 @@
         }
       }
     },
+    "Settings.AnyId.BottomSheet.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore plans"
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is your ANY ID"
+          }
+        }
+      }
+    },
     "SetViewTypesPicker.New.Title" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -41,9 +41,16 @@ final class SettingsViewModel {
     var profileName: String = ""
     var profileIcon: Icon?
     var membership: MembershipStatus = .empty
-    var showDebugMenu = false
     var notificationsDenied = false
-    
+
+    var anyNameBadgeState: AnyNameBadgeState {
+        if membership.anyName.handle.isNotEmpty {
+            return .memberName(membership.anyName.formatted)
+        } else {
+            return .anytypeId(accountManager.account.id)
+        }
+    }
+
     init(output: some SettingsModuleOutput) {
         self.output = output
         
@@ -100,6 +107,10 @@ final class SettingsViewModel {
     
     func onMembershipTap() {
         output?.onMembershipSelected()
+    }
+
+    func onAnyIdBadgeTap() {
+        output?.onAnyIdBadgeTapped()
     }
 
     func onQRCodeTap() {
