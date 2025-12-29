@@ -23,21 +23,23 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
     }
     
     private var header: some View {
-        HStack {
-            AnytypeText(title, style: .uxTitle2Regular)
-                .foregroundStyle(Color.Text.secondary)
-            
-            Spacer()
-            
-            IconsGroupView(icons: icons)
-                .opacity(isExpanded ? 0 : 1)
-        }
-        .padding(.vertical, 4)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             withAnimation {
                 headerAction()
             }
+        } label: {
+            HStack {
+                AnytypeText(title, style: .uxTitle2Regular)
+                    .foregroundStyle(Color.Text.secondary)
+
+                Spacer()
+
+                IconsGroupView(icons: icons)
+                    .opacity(isExpanded ? 0 : 1)
+            }
+            .padding(.vertical, 4)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }

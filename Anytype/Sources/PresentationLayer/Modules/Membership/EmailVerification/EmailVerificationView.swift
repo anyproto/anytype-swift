@@ -55,22 +55,23 @@ struct EmailVerificationView: View {
     
     var textInput: some View {
         ZStack {
-            HStack (spacing: 8) {
-                numberView(number: model.number1)
-                numberView(number: model.number2)
-                numberView(number: model.number3)
-                numberView(number: model.number4)
-            }
-            .fixTappableArea()
-            .onTapGesture {
+            Button {
                 textFocused.toggle()
+            } label: {
+                HStack(spacing: 8) {
+                    numberView(number: model.number1)
+                    numberView(number: model.number2)
+                    numberView(number: model.number3)
+                    numberView(number: model.number4)
+                }
+                .fixTappableArea()
             }
+            .buttonStyle(.plain)
             .overlay {
                 TextField("", text: $model.text)
                     .focused($textFocused)
                     .textContentType(.oneTimeCode)
                     .keyboardType(.numberPad)
-                
                     .foregroundStyle(Color.clear)
                     .accentColor(.clear)
                     .background(Color.clear)

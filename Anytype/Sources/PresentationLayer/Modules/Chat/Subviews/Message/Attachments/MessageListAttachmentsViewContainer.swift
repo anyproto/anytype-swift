@@ -11,15 +11,18 @@ struct MessageListAttachmentsViewContainer: View {
     var body: some View {
         VStack(spacing: 4) {
             ForEach(objects, id: \.id) { details in
-                content(for: details)
-                    .onTapGesture {
-                        if !details.downloadingState {
-                            onTapObject(details)
-                        }
+                Button {
+                    if !details.downloadingState {
+                        onTapObject(details)
                     }
-                    .if(details.downloadingState) {
-                        $0.redacted(reason: .placeholder)
-                    }
+                } label: {
+                    content(for: details)
+                }
+                .buttonStyle(.plain)
+                .disabled(details.downloadingState)
+                .if(details.downloadingState) {
+                    $0.redacted(reason: .placeholder)
+                }
             }
         }
     }

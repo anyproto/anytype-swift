@@ -44,26 +44,28 @@ struct SetLayoutSettingsView: View {
     }
     
     private func viewTypeContent(_ configuration: SetViewTypeConfiguration) -> some View {
-        VStack(alignment: .center, spacing: 0) {
-            Image(asset: configuration.icon)
-            AnytypeText(
-                configuration.name,
-                style: configuration.isSelected ? .caption2Medium : .caption2Regular
-            )
-            .foregroundStyle(configuration.isSelected ? Color.Control.accent100 : Color.Text.secondary)
-        }
-        .frame(height: 96)
-        .frame(maxWidth: .infinity)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(
-                    configuration.isSelected ? Color.Control.accent50 : Color.Shape.primary,
-                    lineWidth: configuration.isSelected ? 2 : 0.5
-                )
-        )
-        .onTapGesture {
+        Button {
             configuration.onTap()
+        } label: {
+            VStack(alignment: .center, spacing: 0) {
+                Image(asset: configuration.icon)
+                AnytypeText(
+                    configuration.name,
+                    style: configuration.isSelected ? .caption2Medium : .caption2Regular
+                )
+                .foregroundStyle(configuration.isSelected ? Color.Control.accent100 : Color.Text.secondary)
+            }
+            .frame(height: 96)
+            .frame(maxWidth: .infinity)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(
+                        configuration.isSelected ? Color.Control.accent50 : Color.Shape.primary,
+                        lineWidth: configuration.isSelected ? 2 : 0.5
+                    )
+            )
         }
+        .buttonStyle(.plain)
     }
     
     private func columns() -> [GridItem] {

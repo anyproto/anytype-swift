@@ -61,14 +61,16 @@ struct SharingExtensionView: View {
         ScrollView(.vertical) {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(model.spaces) { space in
-                    SharingExtensionSpaceView(
-                        icon: space.objectIconImage,
-                        title: space.title,
-                        isSelected: model.selectedSpace?.id == space.id
-                    )
-                    .onTapGesture {
+                    Button {
                         model.onTapSpace(space)
+                    } label: {
+                        SharingExtensionSpaceView(
+                            icon: space.objectIconImage,
+                            title: space.title,
+                            isSelected: model.selectedSpace?.id == space.id
+                        )
                     }
+                    .buttonStyle(.plain)
                 }
             }
             if let debugItems = model.debugInfo?.items {

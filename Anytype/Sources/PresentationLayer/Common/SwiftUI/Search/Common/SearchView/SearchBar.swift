@@ -28,15 +28,17 @@ struct SearchBar: View {
                 .padding(.leading, 9)
         }
         .overlay(alignment: .trailing) {
-            Image(asset: .multiplyCircleFill)
-                .renderingMode(.template)
-                .foregroundStyle(Color.Control.secondary)
-                .padding(.trailing, 8)
-                .opacity(text.isEmpty ? 0 : 1)
-                .fixTappableArea()
-                .onTapGesture {
-                    text = ""
-                }
+            Button {
+                text = ""
+            } label: {
+                Image(asset: .multiplyCircleFill)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.Control.secondary)
+                    .padding(.trailing, 8)
+                    .fixTappableArea()
+            }
+            .buttonStyle(.plain)
+            .opacity(text.isEmpty ? 0 : 1)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)

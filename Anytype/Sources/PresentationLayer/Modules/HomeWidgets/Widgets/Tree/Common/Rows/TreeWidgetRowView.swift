@@ -29,21 +29,23 @@ struct TreeWidgetRowView: View {
             Spacer.fixedWidth(16 * CGFloat(model.level + 1))
             rowIcon
             Spacer.fixedWidth(8)
-            HStack(alignment: .center, spacing: 0) {
-                IconView(icon: model.icon)
-                    .frame(width: 18, height: 18)
-                Spacer.fixedWidth(12)
-
-                AnytypeText(model.title, style: .previewTitle2Medium)
-                    .foregroundStyle(Color.Text.primary)
-                    .lineLimit(1)
-                Spacer.fixedWidth(12)
-                Spacer()
-            }
-            .fixTappableArea()
-            .onTapGesture {
+            Button {
                 model.tapObject(model)
+            } label: {
+                HStack(alignment: .center, spacing: 0) {
+                    IconView(icon: model.icon)
+                        .frame(width: 18, height: 18)
+                    Spacer.fixedWidth(12)
+
+                    AnytypeText(model.title, style: .previewTitle2Medium)
+                        .foregroundStyle(Color.Text.primary)
+                        .lineLimit(1)
+                    Spacer.fixedWidth(12)
+                    Spacer()
+                }
+                .fixTappableArea()
             }
+            .buttonStyle(.plain)
         }
         .frame(height: 40)
         .if(showDivider) {
