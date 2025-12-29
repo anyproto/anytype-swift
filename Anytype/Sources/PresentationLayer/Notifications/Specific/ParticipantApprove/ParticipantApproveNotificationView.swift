@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct ParticipantApproveNotificationView: View {
-    
-    @StateObject private var model: ParticipantApproveNotificationViewModel
-    
+
+    @State private var model: ParticipantApproveNotificationViewModel
+
     init(notification: NotificationParticipantRequestApproved) {
-        _model = StateObject(wrappedValue: ParticipantApproveNotificationViewModel(notification: notification))
+        _model = State(initialValue: ParticipantApproveNotificationViewModel(notification: notification))
     }
     
     var body: some View {

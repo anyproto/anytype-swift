@@ -2,11 +2,12 @@ import Foundation
 import Services
 
 @MainActor
-final class ParticipantRemoveNotificationViewModel: ObservableObject {
-    
+@Observable
+final class ParticipantRemoveNotificationViewModel {
+
     private let notification: NotificationParticipantRemove
-    
-    @Published var message: String = ""
+
+    var message: String = ""
     
     init(notification: NotificationParticipantRemove) {
         self.notification = notification
