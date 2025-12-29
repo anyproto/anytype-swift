@@ -39,7 +39,11 @@ protocol UserDefaultsStorageProtocol: AnyObject, Sendable {
     func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
     func wallpaper(spaceId: String) -> SpaceWallpaperType
     func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType)
-    
+
+    func homeObjectId(spaceId: String) -> String?
+    func setHomeObjectId(spaceId: String, objectId: String?)
+    func homeObjectIdPublisher(spaceId: String) -> AnyPublisher<String?, Never>
+
     func cleanStateAfterLogout()
 }
 
@@ -112,12 +116,35 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol, @unchecked Sendabl
     func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType) {
         _wallpapers[spaceId] = wallpaper
     }
-    
-    
+
+    // MARK: - Home Object
+    @UserDefault("UserData.HomeObjects", defaultValue: [:])
+    private var _homeObjects: [String: String] {
+        didSet { homeObjectsSubject.send(_homeObjects) }
+    }
+
+    private lazy var homeObjectsSubject = CurrentValueSubject<[String: String], Never>(_homeObjects)
+
+    func homeObjectId(spaceId: String) -> String? {
+        _homeObjects[spaceId]
+    }
+
+    func setHomeObjectId(spaceId: String, objectId: String?) {
+        _homeObjects[spaceId] = objectId
+    }
+
+    func homeObjectIdPublisher(spaceId: String) -> AnyPublisher<String?, Never> {
+        homeObjectsSubject
+            .map { $0[spaceId] }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+
     // MARK: - Cleanup
     func cleanStateAfterLogout() {
         showUnstableMiddlewareError = true
         lastOpenedScreen = nil
+        _homeObjects = [:]
     }
     
 }

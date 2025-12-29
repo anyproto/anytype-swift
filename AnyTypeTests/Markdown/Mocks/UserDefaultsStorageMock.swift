@@ -32,7 +32,19 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     func setWallpaper(spaceId: String, wallpaper: Anytype.SpaceWallpaperType) {
         fatalError()
     }
-    
+
+    func homeObjectId(spaceId: String) -> String? {
+        fatalError()
+    }
+
+    func setHomeObjectId(spaceId: String, objectId: String?) {
+        fatalError()
+    }
+
+    func homeObjectIdPublisher(spaceId: String) -> AnyPublisher<String?, Never> {
+        fatalError()
+    }
+
     func cleanStateAfterLogout() {
         fatalError()
     }
