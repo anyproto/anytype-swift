@@ -24,26 +24,28 @@ public struct AnytypeCircleCheckbox: View {
     }
     
     public var body: some View {
-        ZStack {
-            if checked {
-                Circle()
-                    .foregroundStyle(backgroundCheckedColor)
-                Image(asset: .X18.tick)
-                    .resizable()
-                    .padding(3)
-                    .foregroundStyle(foregroundCheckedColor)
-
-            } else {
-                Circle()
-                    .stroke(foregroundUncheckedColor, lineWidth: 1)
-            }
-        }
-        .onTapGesture {
+        Button {
             UISelectionFeedbackGenerator().selectionChanged()
             withAnimation {
                 checked.toggle()
             }
+        } label: {
+            ZStack {
+                if checked {
+                    Circle()
+                        .foregroundStyle(backgroundCheckedColor)
+                    Image(asset: .X18.tick)
+                        .resizable()
+                        .padding(3)
+                        .foregroundStyle(foregroundCheckedColor)
+
+                } else {
+                    Circle()
+                        .stroke(foregroundUncheckedColor, lineWidth: 1)
+                }
+            }
         }
+        .buttonStyle(.plain)
         .allowsHitTesting(interactive)
         .frame(width: 24, height: 24)
     }

@@ -67,17 +67,19 @@ struct PropertyOptionSettingsView: View {
     }
     
     private func colorItem(with color: Color) -> some View {
-        Circle()
-            .fill(color)
-            .onTapGesture {
-                model.onColorSelected(color)
+        Button {
+            model.onColorSelected(color)
+        } label: {
+            Circle()
+                .fill(color)
+        }
+        .buttonStyle(.plain)
+        .if(color == model.selectedColor, transform: {
+            $0.overlay(alignment: .center) {
+                Image(asset: .X24.tick)
+                    .foregroundStyle(Color.Text.white)
             }
-            .if(color == model.selectedColor, transform: {
-                $0.overlay(alignment: .center) {
-                    Image(asset: .X24.tick)
-                        .foregroundStyle(Color.Text.white)
-                }
-            })
+        })
     }
     
     private func columns() -> [GridItem] {

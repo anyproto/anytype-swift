@@ -12,7 +12,7 @@ struct SetSortsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            NavigationView {
+            NavigationStack {
                 content
                     .navigationTitle(Loc.EditSet.Popup.Sorts.NavigationView.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -23,7 +23,6 @@ struct SetSortsListView: View {
                         }
                     }
             }
-            .navigationViewStyle(.stack)
         }
         .background(Color.Background.secondary)
     }

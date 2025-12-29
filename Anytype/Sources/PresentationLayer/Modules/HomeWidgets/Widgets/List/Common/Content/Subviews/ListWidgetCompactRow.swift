@@ -13,36 +13,38 @@ struct ListWidgetCompactRow: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            IconView(icon: model.icon)
-                .frame(width: 18, height: 18)
+        Button {
+            model.onTap()
+        } label: {
+            HStack(spacing: 12) {
+                IconView(icon: model.icon)
+                    .frame(width: 18, height: 18)
 
-            AnytypeText(model.title, style: .previewTitle2Medium)
-                .foregroundStyle(titleColor)
-                .lineLimit(1)
+                AnytypeText(model.title, style: .previewTitle2Medium)
+                    .foregroundStyle(titleColor)
+                    .lineLimit(1)
 
-            Spacer()
+                Spacer()
 
-            if let chatPreview = model.chatPreview, chatPreview.hasCounters {
-                HStack(spacing: 4) {
-                    if chatPreview.mentionCounter > 0 {
-                        MentionBadge(style: chatPreview.mentionCounterStyle)
-                    }
-                    if chatPreview.unreadCounter > 0 {
-                        CounterView(
-                            count: chatPreview.unreadCounter,
-                            style: chatPreview.unreadCounterStyle
-                        )
+                if let chatPreview = model.chatPreview, chatPreview.hasCounters {
+                    HStack(spacing: 4) {
+                        if chatPreview.mentionCounter > 0 {
+                            MentionBadge(style: chatPreview.mentionCounterStyle)
+                        }
+                        if chatPreview.unreadCounter > 0 {
+                            CounterView(
+                                count: chatPreview.unreadCounter,
+                                style: chatPreview.unreadCounterStyle
+                            )
+                        }
                     }
                 }
             }
+            .padding(.horizontal, 16)
+            .frame(height: 40)
+            .fixTappableArea()
         }
-        .padding(.horizontal, 16)
-        .frame(height: 40)
-        .fixTappableArea()
-        .onTapGesture {
-            model.onTap()
-        }
+        .buttonStyle(.plain)
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }

@@ -7,11 +7,13 @@ struct HomeUpdateSubmoduleView: View {
     
     var body: some View {
         if model.showUpdateAlert {
-            HomeUpdateView()
-                .onTapGesture {
-                    model.onTapUpdate()
-                }
-                .openUrl(url: $model.openUrl)
+            Button {
+                model.onTapUpdate()
+            } label: {
+                HomeUpdateView()
+            }
+            .buttonStyle(.plain)
+            .openUrl(url: $model.openUrl)
         }
     }
 }

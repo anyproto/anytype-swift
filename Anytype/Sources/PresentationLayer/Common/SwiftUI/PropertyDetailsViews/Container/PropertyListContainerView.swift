@@ -21,7 +21,7 @@ struct PropertyListContainerView<Content>: View where Content: View {
     }
     
     private var navigationView: some View {
-        NavigationView {
+        NavigationStack {
             content
                 .navigationTitle(title)
                 .navigationBarTitleDisplayMode(.inline)
@@ -40,7 +40,6 @@ struct PropertyListContainerView<Content>: View where Content: View {
                     }
                 })
         }
-        .navigationViewStyle(.stack)
     }
     
     private var content: some View {

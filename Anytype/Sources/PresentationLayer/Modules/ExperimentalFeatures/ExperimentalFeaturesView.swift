@@ -4,11 +4,15 @@ import SwiftUI
 struct ExperimentalFeaturesView: View {
 
     @State private var model = ExperimentalFeaturesViewModel()
-    
+    @State private var showDebugMenu = false
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             ModalNavigationHeader(title: Loc.experimentalFeatures)
+                .onTapGesture(count: 5) {
+                    showDebugMenu = true
+                }
             ScrollView {
                 VStack(spacing: 16) {
                     ExperimentalFeatureRow(
@@ -22,6 +26,9 @@ struct ExperimentalFeaturesView: View {
         }
         .onChange(of: model.newObjectCreationMenu) {
             model.onUpdateNewObjectCreationMenu()
+        }
+        .sheet(isPresented: $showDebugMenu) {
+            DebugMenuView()
         }
     }
 }

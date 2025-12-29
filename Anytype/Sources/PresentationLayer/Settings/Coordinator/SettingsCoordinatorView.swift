@@ -59,5 +59,10 @@ struct SettingsCoordinatorView: View {
             .sheet(isPresented: $model.showProfileQRCode) {
                 ProfileQRCodeView()
             }
+            .anytypeSheet(isPresented: $model.showAnyIdBottomSheet) {
+                AnyIdBottomSheetView {
+                    model.showMembership = true
+                }
+            }
     }
 }

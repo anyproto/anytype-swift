@@ -21,11 +21,13 @@ struct MembershipTierView: View {
 
     
     var body: some View {
-        content
-            .onTapGesture {
-                model.onTap()
-            }
-            .task {
+        Button {
+            model.onTap()
+        } label: {
+            content
+        }
+        .buttonStyle(.plain)
+        .task {
                 model.updateState()
             }
             .task {

@@ -17,7 +17,7 @@ struct SetFiltersListView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            NavigationView {
+            NavigationStack {
                 content
                     .navigationTitle(Loc.EditSet.Popup.Filters.NavigationView.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -28,7 +28,6 @@ struct SetFiltersListView: View {
                         }
                     }
             }
-            .navigationViewStyle(.stack)
         }
         .background(Color.Background.secondary)
     }

@@ -43,43 +43,49 @@ struct WallpaperColorsGridView: View {
     }
     
     private func colorView(_ color: CoverColor) -> some View {
-        DashboardWallpaper(wallpaper: .color(color), spaceIcon: spaceIcon)
-            .coverGridSelection(show: currentWallpaper == .color(color))
-            .coverGridAppearance()
-            .onTapGesture {
-                onCoverSelect(.color(color))
-            }
+        Button {
+            onCoverSelect(.color(color))
+        } label: {
+            DashboardWallpaper(wallpaper: .color(color), spaceIcon: spaceIcon)
+                .coverGridSelection(show: currentWallpaper == .color(color))
+                .coverGridAppearance()
+        }
+        .buttonStyle(.plain)
     }
     
     private func gradientView(_ gradient: CoverGradient) -> some View {
-        DashboardWallpaper(wallpaper: .gradient(gradient), spaceIcon: spaceIcon)
-            .coverGridSelection(show: currentWallpaper == .gradient(gradient))
-            .coverGridAppearance()
-            .onTapGesture {
-                onCoverSelect(.gradient(gradient))
-            }
+        Button {
+            onCoverSelect(.gradient(gradient))
+        } label: {
+            DashboardWallpaper(wallpaper: .gradient(gradient), spaceIcon: spaceIcon)
+                .coverGridSelection(show: currentWallpaper == .gradient(gradient))
+                .coverGridAppearance()
+        }
+        .buttonStyle(.plain)
     }
     
     private var blurredIconView: some View {
         Group {
             if let spaceIcon {
                 GeometryReader { geo in
-                    DashboardWallpaper(wallpaper: .blurredIcon, spaceIcon: spaceIcon)
-                        .frame(width: geo.size.width)
-                        .coverGridSelection(show: currentWallpaper == .blurredIcon)
-                        .coverGridAppearance()
-                        .onTapGesture {
-                            onCoverSelect(.blurredIcon)
-                        }
-                        .overlay(alignment: .center) {
-                            VStack(alignment: .center, spacing: 9) {
-                                Image(asset: .X24.blur)
-                                    .frame(width: 24, height: 24)
-                                    .foregroundStyle(Color.Text.primary)
-                                AnytypeText(Loc.blurredIcon, style: .caption2Regular)
-                                    .multilineTextAlignment(.center)
+                    Button {
+                        onCoverSelect(.blurredIcon)
+                    } label: {
+                        DashboardWallpaper(wallpaper: .blurredIcon, spaceIcon: spaceIcon)
+                            .frame(width: geo.size.width)
+                            .coverGridSelection(show: currentWallpaper == .blurredIcon)
+                            .coverGridAppearance()
+                            .overlay(alignment: .center) {
+                                VStack(alignment: .center, spacing: 9) {
+                                    Image(asset: .X24.blur)
+                                        .frame(width: 24, height: 24)
+                                        .foregroundStyle(Color.Text.primary)
+                                    AnytypeText(Loc.blurredIcon, style: .caption2Regular)
+                                        .multilineTextAlignment(.center)
+                                }
                             }
-                        }
+                    }
+                    .buttonStyle(.plain)
                 }
             } else {
                 EmptyView()

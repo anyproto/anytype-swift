@@ -42,11 +42,12 @@ struct DateView: View {
                 )
                 .frame(width: 28, height: 28)
                 
-                Image(asset: .X24.calendar)
-                    .foregroundStyle(Color.Control.secondary)
-                    .onTapGesture {
-                        model.onCalendarTap()
-                    }
+                Button {
+                    model.onCalendarTap()
+                } label: {
+                    Image(asset: .X24.calendar)
+                        .foregroundStyle(Color.Control.secondary)
+                }
             }
         }
     }
@@ -66,27 +67,30 @@ struct DateView: View {
                     .foregroundStyle(Color.Text.secondary)
             }
             HStack(alignment: .center) {
-                Image(asset: .X24.Arrow.left)
-                    .foregroundStyle(Color.Control.secondary)
-                    .onTapGesture {
-                        model.onPrevDayTap()
-                    }
-                    .opacity(model.hasPrevDay() ? 1 : 0)
+                Button {
+                    model.onPrevDayTap()
+                } label: {
+                    Image(asset: .X24.Arrow.left)
+                        .foregroundStyle(Color.Control.secondary)
+                }
+                .opacity(model.hasPrevDay() ? 1 : 0)
                 
                 Spacer()
-                AnytypeText(model.title, style: .title)
-                    .foregroundStyle(Color.Text.primary)
-                    .onTapGesture {
-                        model.onCalendarTap()
-                    }
+                Button {
+                    model.onCalendarTap()
+                } label: {
+                    AnytypeText(model.title, style: .title)
+                        .foregroundStyle(Color.Text.primary)
+                }
                 Spacer()
                 
-                Image(asset: .X24.Arrow.right)
-                    .foregroundStyle(Color.Control.secondary)
-                    .onTapGesture {
-                        model.onNextDayTap()
-                    }
-                    .opacity(model.hasNextDay() ? 1 : 0)
+                Button {
+                    model.onNextDayTap()
+                } label: {
+                    Image(asset: .X24.Arrow.right)
+                        .foregroundStyle(Color.Control.secondary)
+                }
+                .opacity(model.hasNextDay() ? 1 : 0)
             }
         }
         .padding(.top, 16)
