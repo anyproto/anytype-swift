@@ -1,22 +1,26 @@
-import Combine
 import Services
 import Foundation
 
 @MainActor
-final class SpaceLoadingContainerViewModel: ObservableObject {
-    
+@Observable
+final class SpaceLoadingContainerViewModel {
+
+    @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @ObservationIgnored
     private let workspacesStorage: any SpaceViewsStorageProtocol = Container.shared.spaceViewsStorage()
-    
+
     let spaceId: String
     let showBackground: Bool
+    @ObservationIgnored
     private var task: Task<Void, Never>?
+    @ObservationIgnored
     private var timeoutTask: Task<Void, any Error>?
-    
-    @Published var info: AccountInfo?
-    @Published var errorText: String?
-    @Published var spaceIcon: Icon?
+
+    var info: AccountInfo?
+    var errorText: String?
+    var spaceIcon: Icon?
     
     init(spaceId: String, showBackground: Bool) {
         self.spaceId = spaceId

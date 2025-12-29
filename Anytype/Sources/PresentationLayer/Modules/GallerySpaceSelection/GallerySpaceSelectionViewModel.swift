@@ -2,15 +2,19 @@ import Foundation
 
 
 @MainActor
-final class GallerySpaceSelectionViewModel: ObservableObject {
-    
+@Observable
+final class GallerySpaceSelectionViewModel {
+
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     private weak var output: (any GallerySpaceSelectionModuleOutput)?
-    
-    @Published var spaces: [SpaceView] = []
+
+    var spaces: [SpaceView] = []
     
     init(output: (any GallerySpaceSelectionModuleOutput)?) {
         self.output = output

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ExperimentalFeaturesView: View {
 
-    @StateObject private var model = ExperimentalFeaturesViewModel()
+    @State private var model = ExperimentalFeaturesViewModel()
     @State private var showDebugMenu = false
 
     var body: some View {

@@ -4,30 +4,32 @@ import AnytypeCore
 import Services
 
 @MainActor
-final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, PropertyValueCoordinatorOutput {
-    
+@Observable
+final class EditorPageCoordinatorViewModel: EditorPageModuleOutput, PropertyValueCoordinatorOutput {
+
     let data: EditorPageObject
     let showHeader: Bool
     private let setupEditorInput: (any EditorPageModuleInput, String) -> Void
+    @ObservationIgnored
     @Injected(\.propertyValueProcessingService)
     private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
-    
+
     var pageNavigation: PageNavigation?
-    @Published var dismiss = false
-    @Published var relationValueData: PropertyValueData?
-    @Published var toastBarData: ToastBarData?
-    @Published var codeLanguageData: CodeLanguageListData?
-    @Published var covertPickerData: BaseDocumentIdentifiable?
-    @Published var linkToObjectData: LinkToObjectSearchModuleData?
-    @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var textIconPickerData: TextIconPickerData?
-    @Published var blockObjectSearchData: BlockObjectSearchData?
-    @Published var undoRedoObjectId: StringIdentifiable?
-    @Published var relationsSearchData: PropertiesSearchData?
-    @Published var openUrlData: URL?
-    @Published var syncStatusSpaceId: StringIdentifiable?
-    @Published var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
-    @Published var cameraData: SimpleCameraData?
+    var dismiss = false
+    var relationValueData: PropertyValueData?
+    var toastBarData: ToastBarData?
+    var codeLanguageData: CodeLanguageListData?
+    var covertPickerData: BaseDocumentIdentifiable?
+    var linkToObjectData: LinkToObjectSearchModuleData?
+    var objectIconPickerData: ObjectIconPickerData?
+    var textIconPickerData: TextIconPickerData?
+    var blockObjectSearchData: BlockObjectSearchData?
+    var undoRedoObjectId: StringIdentifiable?
+    var relationsSearchData: PropertiesSearchData?
+    var openUrlData: URL?
+    var syncStatusSpaceId: StringIdentifiable?
+    var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
+    var cameraData: SimpleCameraData?
     
     init(
         data: EditorPageObject,

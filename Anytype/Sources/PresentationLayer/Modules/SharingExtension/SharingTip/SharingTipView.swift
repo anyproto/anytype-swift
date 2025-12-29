@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SharingTipView: View {
-    @StateObject private var viewModel = SharingTipViewModel()
+    @State private var viewModel = SharingTipViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {

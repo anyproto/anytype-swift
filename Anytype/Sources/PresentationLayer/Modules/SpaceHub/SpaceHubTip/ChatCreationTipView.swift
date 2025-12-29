@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ChatCreationTipView: View {
-    @StateObject private var viewModel = ChatCreationTipViewModel()
+    @State private var viewModel = ChatCreationTipViewModel()
     @Environment(\.dismiss) private var dismiss
     @State private var currentPage: Int = 1
     
