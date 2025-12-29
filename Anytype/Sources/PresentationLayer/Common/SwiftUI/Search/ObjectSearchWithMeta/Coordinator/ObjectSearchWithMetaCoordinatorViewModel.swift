@@ -2,11 +2,12 @@ import SwiftUI
 import Services
 
 @MainActor
-final class ObjectSearchWithMetaCoordinatorViewModel: ObservableObject {
-    
+@Observable
+final class ObjectSearchWithMetaCoordinatorViewModel {
+
     let data: ObjectSearchWithMetaModuleData
-    
-    @Published var dismiss = false
+
+    var dismiss = false
     
     init(data: ObjectSearchWithMetaModuleData) {
         self.data = data

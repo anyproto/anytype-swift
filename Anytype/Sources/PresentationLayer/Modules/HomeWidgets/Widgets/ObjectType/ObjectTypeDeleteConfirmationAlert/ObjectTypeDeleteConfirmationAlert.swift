@@ -8,12 +8,12 @@ struct ObjectTypeDeleteConfirmationAlertData: Identifiable {
 }
 
 struct ObjectTypeDeleteConfirmationAlert: View {
-    
+
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var model: ObjectTypeDeleteConfirmationAlertViewModel
-    
+    @State private var model: ObjectTypeDeleteConfirmationAlertViewModel
+
     init(data: ObjectTypeDeleteConfirmationAlertData) {
-        self._model = StateObject(wrappedValue: ObjectTypeDeleteConfirmationAlertViewModel(data: data))
+        self._model = State(initialValue: ObjectTypeDeleteConfirmationAlertViewModel(data: data))
     }
     
     var body: some View {

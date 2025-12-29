@@ -3,19 +3,22 @@ import Factory
 import Services
 
 @MainActor
-final class SpaceTypeChangeViewModel: ObservableObject {
-    
+@Observable
+final class SpaceTypeChangeViewModel {
+
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    
+
     private let data: SpaceTypeChangeData
     private var expectedSpaceType: SpaceUxType?
-    
-    @Published var chatIsSelected: Bool = false
-    @Published var dataIsSelected: Bool = false
-    @Published var showAlert: Bool = false
+
+    var chatIsSelected: Bool = false
+    var dataIsSelected: Bool = false
+    var showAlert: Bool = false
 
     init(data: SpaceTypeChangeData) {
         self.data = data

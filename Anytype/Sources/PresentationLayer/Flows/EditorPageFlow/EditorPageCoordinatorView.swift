@@ -3,17 +3,17 @@ import SwiftUI
 import AnytypeCore
 
 struct EditorPageCoordinatorView: View {
-    
-    @StateObject private var model: EditorPageCoordinatorViewModel
+
+    @State private var model: EditorPageCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
-    
+
     init(
         data: EditorPageObject,
         showHeader: Bool,
         setupEditorInput: @escaping (any EditorPageModuleInput, String) -> Void
     ) {
-        self._model = StateObject(wrappedValue: EditorPageCoordinatorViewModel(data: data, showHeader: showHeader, setupEditorInput: setupEditorInput))
+        self._model = State(initialValue: EditorPageCoordinatorViewModel(data: data, showHeader: showHeader, setupEditorInput: setupEditorInput))
     }
     
     var body: some View {

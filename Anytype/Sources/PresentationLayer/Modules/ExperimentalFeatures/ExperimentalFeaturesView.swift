@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 
 struct ExperimentalFeaturesView: View {
-    
-    @StateObject private var model = ExperimentalFeaturesViewModel()
+
+    @State private var model = ExperimentalFeaturesViewModel()
     
     var body: some View {
         VStack(spacing: 0) {

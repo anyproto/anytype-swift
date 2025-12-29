@@ -1,10 +1,11 @@
 import SwiftUI
 
 @MainActor
-final class SharingExtensionCoordinatorViewModel: ObservableObject, SharingExtensionModuleOutput, SharingExtensionShareToModuleOutput {
-    
-    @Published var showShareTo: SharingExtensionShareToData?
-    @Published var dismiss = false
+@Observable
+final class SharingExtensionCoordinatorViewModel: SharingExtensionModuleOutput, SharingExtensionShareToModuleOutput {
+
+    var showShareTo: SharingExtensionShareToData?
+    var dismiss = false
     
     // MARK: - SharingExtensionModuleOutput
     

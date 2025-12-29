@@ -9,14 +9,16 @@ struct MessageReactionPickerData: Identifiable, Hashable {
 }
 
 @MainActor
-final class MessageReactionPickerViewModel: ObservableObject {
-    
+@Observable
+final class MessageReactionPickerViewModel {
+
+    @ObservationIgnored
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
-    
+
     private let data: MessageReactionPickerData
-    
-    @Published var dismiss = false
+
+    var dismiss = false
     
     init(data: MessageReactionPickerData) {
         self.data = data

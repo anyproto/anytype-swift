@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct LinkToObjectSearchView: View {
-    
-    @StateObject private var model: LinkToObjectSearchViewModel
+
+    @State private var model: LinkToObjectSearchViewModel
     @Environment(\.openURL) private var openURL
-    
+
     init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: ScreenData) -> Void) {
-        self._model = StateObject(wrappedValue: LinkToObjectSearchViewModel(data: data, showEditorScreen: showEditorScreen))
+        self._model = State(initialValue: LinkToObjectSearchViewModel(data: data, showEditorScreen: showEditorScreen))
     }
     
     var body: some View {

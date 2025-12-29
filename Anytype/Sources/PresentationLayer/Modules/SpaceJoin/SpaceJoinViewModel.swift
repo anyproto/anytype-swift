@@ -15,7 +15,7 @@ enum SpaceJoinDataState {
     case inviteNotFound
     case spaceDeleted
     case limitReached
-    
+
     var inviteWithoutApprove: Bool {
         switch self {
         case let .invite(withoutApprove):
@@ -27,32 +27,37 @@ enum SpaceJoinDataState {
 }
 
 @MainActor
-final class SpaceJoinViewModel: ObservableObject {
-    
+@Observable
+final class SpaceJoinViewModel {
+
     private let data: SpaceJoinModuleData
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @ObservationIgnored
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    
+
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
     private var callManageSpaces = false
-    
-    @Published var errorMessage: String = ""
-    @Published var title: String = Loc.SpaceShare.Join.title
-    @Published var message: String = Loc.SpaceShare.Join.message("", "") // For Placeholder
-    @Published var button: String = Loc.SpaceShare.Join.button
-    @Published var state: ScreenState = .loading
-    @Published var dataState: SpaceJoinDataState = .invite(withoutApprove: false)
-    @Published var toast: ToastBarData?
-    @Published var showSuccessAlert = false
-    @Published var joinTaskId: String?
-    @Published var dismiss = false
+
+    var errorMessage: String = ""
+    var title: String = Loc.SpaceShare.Join.title
+    var message: String = Loc.SpaceShare.Join.message("", "") // For Placeholder
+    var button: String = Loc.SpaceShare.Join.button
+    var state: ScreenState = .loading
+    var dataState: SpaceJoinDataState = .invite(withoutApprove: false)
+    var toast: ToastBarData?
+    var showSuccessAlert = false
+    var joinTaskId: String?
+    var dismiss = false
     
     init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
         self.data = data

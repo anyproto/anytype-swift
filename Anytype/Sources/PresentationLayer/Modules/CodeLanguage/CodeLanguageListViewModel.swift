@@ -10,27 +10,29 @@ struct CodeLanguageListData: Identifiable, Hashable {
 }
 
 @MainActor
-final class CodeLanguageListViewModel: ObservableObject {
-    
+@Observable
+final class CodeLanguageListViewModel {
+
     // MARK: - DI
+    @ObservationIgnored
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.documentsProvider)
-    private var documentsProvider: any DocumentsProviderProtocol
-    
+
     private let data: CodeLanguageListData
-    private lazy var document: any BaseDocumentProtocol = {
-        documentsProvider.document(objectId: data.documentId, spaceId: data.spaceId)
-    }()
+    private let document: any BaseDocumentProtocol
     private var selectedLanguage: CodeLanguage?
-    
+
     // MARK: - State
-    
-    @Published var rows: [CodeLanguageRowModel] = []
-    @Published var dismiss: Bool = false
+
+    var rows: [CodeLanguageRowModel] = []
+    var dismiss: Bool = false
     
     init(data: CodeLanguageListData) {
         self.data = data
+        
+        let documentsProvider = Container.shared.documentsProvider()
+        self.document = documentsProvider.document(objectId: data.documentId, spaceId: data.spaceId)
+        
         let info = document.infoContainer.get(id: data.blockId)
         selectedLanguage = info?.fields.codeLanguage
         updateRows(searchText: "")
