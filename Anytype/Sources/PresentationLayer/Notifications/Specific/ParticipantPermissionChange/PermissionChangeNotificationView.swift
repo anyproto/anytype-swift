@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct PermissionChangeNotificationView: View {
-    
-    @StateObject private var model: PermissionChangeNotificationViewModel
-    
+
+    @State private var model: PermissionChangeNotificationViewModel
+
     init(notification: NotificationParticipantPermissionsChange) {
-        _model = StateObject(wrappedValue: PermissionChangeNotificationViewModel(notification: notification))
+        _model = State(initialValue: PermissionChangeNotificationViewModel(notification: notification))
     }
     
     var body: some View {

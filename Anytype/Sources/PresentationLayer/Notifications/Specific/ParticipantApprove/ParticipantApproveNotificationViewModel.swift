@@ -1,11 +1,12 @@
 import Foundation
 
 @MainActor
-final class ParticipantApproveNotificationViewModel: ObservableObject {
-    
+@Observable
+final class ParticipantApproveNotificationViewModel {
+
     private let notification: NotificationParticipantRequestApproved
-    
-    @Published var message: String = ""
+
+    var message: String = ""
     
     init(notification: NotificationParticipantRequestApproved) {
         self.notification = notification

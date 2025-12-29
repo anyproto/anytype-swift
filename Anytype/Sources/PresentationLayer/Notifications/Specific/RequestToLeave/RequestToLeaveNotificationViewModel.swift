@@ -2,17 +2,20 @@ import Foundation
 import Services
 
 @MainActor
-final class RequestToLeaveNotificationViewModel: ObservableObject {
-    
+@Observable
+final class RequestToLeaveNotificationViewModel {
+
     private let notification: NotificationRequestToLeave
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
+    @ObservationIgnored
     @Injected(\.notificationsService)
     private var notificationsService: any NotificationsServiceProtocol
-    
-    @Published var message: String = ""
-    @Published var toast: ToastBarData?
-    @Published var dismiss = false
+
+    var message: String = ""
+    var toast: ToastBarData?
+    var dismiss = false
     
     init(notification: NotificationRequestToLeave) {
         self.notification = notification

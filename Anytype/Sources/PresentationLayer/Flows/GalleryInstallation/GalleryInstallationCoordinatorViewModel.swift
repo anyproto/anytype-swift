@@ -4,18 +4,20 @@ import Services
 import AnytypeCore
 
 @MainActor
-final class GalleryInstallationCoordinatorViewModel: ObservableObject,
-                                                     GalleryInstallationPreviewModuleOutput, GallerySpaceSelectionModuleOutput {
-    
+@Observable
+final class GalleryInstallationCoordinatorViewModel: GalleryInstallationPreviewModuleOutput, GallerySpaceSelectionModuleOutput {
+
     let data: GalleryInstallationData
+    @ObservationIgnored
     @Injected(\.galleryService)
     private var galleryService: any GalleryServiceProtocol
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    
+
     private var manifest: GalleryManifest?
-    @Published var dismiss = false
-    @Published var showSpaceSelection = false
+    var dismiss = false
+    var showSpaceSelection = false
     
     init(data: GalleryInstallationData) {
         self.data = data
