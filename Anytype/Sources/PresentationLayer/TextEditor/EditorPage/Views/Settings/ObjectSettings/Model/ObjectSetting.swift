@@ -6,7 +6,7 @@ enum ObjectSettingsSectionType {
 }
 
 // Used in ObjectSettingBuilder
-enum ObjectSetting {
+enum ObjectSetting: Hashable {
     case icon
     case cover
     case description(isVisible: Bool)
