@@ -26,8 +26,9 @@ final class SettingsCoordinatorViewModel: SettingsModuleOutput,
     var showExperimentalFeatures = false
     var showKeychainPhraseForSettings = false
     var showProfileQRCode = false
+    var showAnyIdBottomSheet = false
     var objectIconPickerData: ObjectIconPickerData?
-    
+
     // MARK: - SettingsModuleOutput
     
     func onDebugMenuSelected() {
@@ -77,6 +78,10 @@ final class SettingsCoordinatorViewModel: SettingsModuleOutput,
 
     func onProfileQRCodeSelected() {
         showProfileQRCode = true
+    }
+
+    func onAnyIdBadgeTapped() {
+        showAnyIdBottomSheet = true
     }
 
     func onBackupTap() {
