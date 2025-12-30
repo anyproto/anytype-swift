@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct WidgetsHeaderView: View {
-    
-    @StateObject private var model: WidgetsHeaderViewModel
-    
+
+    @State private var model: WidgetsHeaderViewModel
+
     init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
+        _model = State(initialValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
     }
     
     var body: some View {

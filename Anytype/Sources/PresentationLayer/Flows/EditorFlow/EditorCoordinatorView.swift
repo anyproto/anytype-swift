@@ -3,12 +3,12 @@ import SwiftUI
 import AnytypeCore
 
 struct EditorCoordinatorView: View {
-    
-    @StateObject private var model: EditorCoordinatorViewModel
+
+    @State private var model: EditorCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
-    
+
     init(data: EditorScreenData) {
-        self._model = StateObject(wrappedValue: EditorCoordinatorViewModel(data: data))
+        _model = State(initialValue: EditorCoordinatorViewModel(data: data))
     }
     
     var body: some View {

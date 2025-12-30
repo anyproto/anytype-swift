@@ -3,12 +3,12 @@ import AnytypeCore
 
 
 struct PublishToWebView: View {
-    
-    @StateObject private var model: PublishToWebViewModel
+
+    @State private var model: PublishToWebViewModel
     private weak var output: (any PublishToWebModuleOutput)?
-    
+
     init(data: PublishToWebViewData, output: (any PublishToWebModuleOutput)?) {
-        _model = StateObject(wrappedValue: PublishToWebViewModel(data: data))
+        _model = State(initialValue: PublishToWebViewModel(data: data))
         self.output = output
     }
     

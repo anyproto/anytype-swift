@@ -1,25 +1,27 @@
 import Foundation
-import Combine
 import Services
 import SwiftUI
 
 @MainActor
-final class SpacesManagerViewModel: ObservableObject {
-    
+@Observable
+final class SpacesManagerViewModel {
+
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    
-    @Published var participantSpaces: [ParticipantSpaceViewData] = []
-    @Published var spaceForCancelRequestAlert: SpaceView?
-    @Published var spaceForStopSharingAlert: SpaceView?
-    @Published var spaceForLeaveAlert: SpaceView?
-    @Published var spaceViewForDelete: SpaceView?
-    @Published var spaceCreateData: SpaceCreateData?
-    @Published var exportSpaceUrl: URL?
-    @Published var showSpaceTypeForCreate = false
-    @Published var shouldScanQrCode = false
+
+    var participantSpaces: [ParticipantSpaceViewData] = []
+    var spaceForCancelRequestAlert: SpaceView?
+    var spaceForStopSharingAlert: SpaceView?
+    var spaceForLeaveAlert: SpaceView?
+    var spaceViewForDelete: SpaceView?
+    var spaceCreateData: SpaceCreateData?
+    var exportSpaceUrl: URL?
+    var showSpaceTypeForCreate = false
+    var shouldScanQrCode = false
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsSpaceList()

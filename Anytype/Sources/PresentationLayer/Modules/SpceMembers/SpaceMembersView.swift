@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct SpaceMembersView: View {
-    
-    @StateObject private var model: SpaceMembersViewModel
-    
+
+    @State private var model: SpaceMembersViewModel
+
     init(data: SpaceMembersData) {
-        _model = StateObject(wrappedValue: SpaceMembersViewModel(data: data))
+        _model = State(initialValue: SpaceMembersViewModel(data: data))
     }
     
     var body: some View {
