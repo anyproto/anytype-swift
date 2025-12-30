@@ -56,6 +56,7 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
+                topWidgets
                 blockWidgets
                 objectTypeWidgets
                 AnytypeNavigationSpacer()
@@ -64,7 +65,14 @@ private struct HomeWidgetsInternalView: View {
             .fitIPadToReadableContentGuide()
         }
     }
-    
+
+    @ViewBuilder
+    private var topWidgets: some View {
+        if let data = model.chatWidgetData {
+            SpaceChatWidgetView(data: data)
+        }
+    }
+
     @ViewBuilder
     private var blockWidgets: some View {
         if model.widgetBlocks.isNotEmpty {
