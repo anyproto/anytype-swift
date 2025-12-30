@@ -8,16 +8,20 @@ protocol GalleryInstallationPreviewModuleOutput: AnyObject {
 }
 
 @MainActor
-final class GalleryInstallationPreviewViewModel: ObservableObject {
-    
+@Observable
+final class GalleryInstallationPreviewViewModel {
+
     private let data: GalleryInstallationData
+    @ObservationIgnored
     @Injected(\.galleryService)
     private var galleryService: any GalleryServiceProtocol
+    @ObservationIgnored
     private let formatter = ByteCountFormatter.fileFormatter
     private weak var output: (any GalleryInstallationPreviewModuleOutput)?
-    
+
+    @ObservationIgnored
     private var manifest: GalleryManifest?
-    @Published var state: State = .loading(manifest: .placeholder)
+    var state: State = .loading(manifest: .placeholder)
     
     init(
         data: GalleryInstallationData,

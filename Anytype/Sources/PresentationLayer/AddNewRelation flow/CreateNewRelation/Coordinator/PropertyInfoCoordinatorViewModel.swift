@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import Services
-import Combine
 
 @MainActor
 protocol PropertyInfoCoordinatorViewOutput: AnyObject {
@@ -9,10 +8,11 @@ protocol PropertyInfoCoordinatorViewOutput: AnyObject {
 }
 
 @MainActor
-final class PropertyInfoCoordinatorViewModel: ObservableObject, PropertyInfoModuleOutput {
-    
-    @Published var propertyFormatsData: PropertyFormatsData?
-    @Published var searchData: ObjectTypesLimitedSearchData?
+@Observable
+final class PropertyInfoCoordinatorViewModel: PropertyInfoModuleOutput {
+
+    var propertyFormatsData: PropertyFormatsData?
+    var searchData: ObjectTypesLimitedSearchData?
     
     let data: PropertyInfoData
     

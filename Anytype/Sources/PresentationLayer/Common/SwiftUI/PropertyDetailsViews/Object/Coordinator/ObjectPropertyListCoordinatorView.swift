@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct ObjectPropertyListCoordinatorView: View {
-    
-    @StateObject var model: ObjectPropertyListCoordinatorViewModel
+
+    @State var model: ObjectPropertyListCoordinatorViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(data: ObjectPropertyListData, output: (any ObjectPropertyListCoordinatorModuleOutput)?) {
-        _model = StateObject(wrappedValue: ObjectPropertyListCoordinatorViewModel(data: data, output: output))
+        _model = State(initialValue: ObjectPropertyListCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {

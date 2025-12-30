@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 import SwiftUI
 import Services
 import AnytypeCore
@@ -12,18 +11,23 @@ enum PublishToWebViewModelState: Equatable {
 }
 
 @MainActor
-final class PublishToWebViewModel: ObservableObject {
-    @Published var state = PublishToWebViewModelState.initial
-    
+@Observable
+final class PublishToWebViewModel {
+    var state = PublishToWebViewModelState.initial
+
+    @ObservationIgnored
     @Injected(\.publishingService)
     private var publishingService: any PublishingServiceProtocol
+    @ObservationIgnored
     @Injected(\.participantsStorage)
     private var participantStorage: any ParticipantsStorageProtocol
+    @ObservationIgnored
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var activeWorkspaceStorage: any SpaceViewsStorageProtocol
-    
+
     private let spaceId: String
     private let objectId: String
     

@@ -2,46 +2,59 @@ import SwiftUI
 import Services
 
 @MainActor
-final class DateViewModel: ObservableObject {
-    
+@Observable
+final class DateViewModel {
+
     // MARK: - DI
-    
+
     private let spaceId: String
     private weak var output: (any DateModuleOutput)?
+    @ObservationIgnored
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.openedDocumentProvider()
+    @ObservationIgnored
     private let dateFormatter = DateFormatter.defaultDateFormatter
-    
+
+    @ObservationIgnored
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @ObservationIgnored
     @Injected(\.relationListWithValueService)
     private var relationListWithValueService: any PropertyListWithValueServiceProtocol
+    @ObservationIgnored
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
+    @ObservationIgnored
     @Injected(\.dateRelatedObjectsSubscriptionService)
     private var dateRelatedObjectsSubscriptionService: any DateRelatedObjectsSubscriptionServiceProtocol
+    @ObservationIgnored
     @Injected(\.objectDateByTimestampService)
     private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
+    @ObservationIgnored
     @Injected(\.participantsStorage)
     private var accountParticipantStorage: any ParticipantsStorageProtocol
-    
+
     // MARK: - State
-    
+
+    @ObservationIgnored
     private var objectsToLoad = 0
+    @ObservationIgnored
     private var lastSelectedRelation: PropertyDetails? = nil
+    @ObservationIgnored
     private var details = [ObjectDetails]()
-    
-    @Published var document: (any BaseDocumentProtocol)?
-    @Published var title = ""
-    @Published var relativeTag = ""
-    @Published var weekday = ""
-    @Published var objects = [ObjectCellData]()
-    @Published var relationItems = [PropertyItemData]()
-    @Published var state = DateModuleState()
-    @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
-    @Published var scrollToRelationId: String? = nil
-    @Published private var participantCanEdit = false
+
+    var document: (any BaseDocumentProtocol)?
+    var title = ""
+    var relativeTag = ""
+    var weekday = ""
+    var objects = [ObjectCellData]()
+    var relationItems = [PropertyItemData]()
+    var state = DateModuleState()
+    var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
+    var scrollToRelationId: String? = nil
+    private var participantCanEdit = false
     
     init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
         self.spaceId = spaceId

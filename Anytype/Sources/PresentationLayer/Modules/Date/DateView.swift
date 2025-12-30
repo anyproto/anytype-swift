@@ -2,11 +2,11 @@ import SwiftUI
 import Services
 
 struct DateView: View {
-    
-    @StateObject private var model: DateViewModel
-    
+
+    @State private var model: DateViewModel
+
     init(date: Date?, spaceId: String, output: (any DateModuleOutput)?) {
-        self._model = StateObject(wrappedValue: DateViewModel(date: date, spaceId: spaceId, output: output))
+        _model = State(initialValue: DateViewModel(date: date, spaceId: spaceId, output: output))
     }
     
     var body: some View {
