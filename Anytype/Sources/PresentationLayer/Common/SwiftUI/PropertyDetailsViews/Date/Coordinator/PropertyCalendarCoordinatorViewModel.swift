@@ -1,12 +1,13 @@
 import SwiftUI
 
 @MainActor
-final class PropertyCalendarCoordinatorViewModel: ObservableObject, PropertyCalendarOutput {
-    
+@Observable
+final class PropertyCalendarCoordinatorViewModel: PropertyCalendarOutput {
+
     let date: Date?
     let configuration: PropertyModuleConfiguration
-    
-    @Published var dateObjectData: DateObjectData?
+
+    var dateObjectData: DateObjectData?
     
     init(date: Date?, configuration: PropertyModuleConfiguration) {
         self.date = date

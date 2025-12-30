@@ -8,25 +8,27 @@ protocol PropertyValueCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class PropertyValueCoordinatorViewModel: 
-    ObservableObject,
+@Observable
+final class PropertyValueCoordinatorViewModel:
     ObjectPropertyListCoordinatorModuleOutput,
     TextPropertyActionButtonViewModelDelegate
 {
+    @ObservationIgnored
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @ObservationIgnored
     @Injected(\.objectDateByTimestampService)
     private var objectDateByTimestampService: any ObjectDateByTimestampServiceProtocol
-    
+
     var mediumDetent: Bool = false
-    
+
     private let relation: Property
     private let objectDetails: ObjectDetails
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: (any PropertyValueCoordinatorOutput)?
 
-    @Published var toastBarData: ToastBarData?
-    @Published var safariUrl: URL?
+    var toastBarData: ToastBarData?
+    var safariUrl: URL?
     
     init(data: PropertyValueData, output: (any PropertyValueCoordinatorOutput)?) {
         self.relation = data.relation

@@ -1,11 +1,12 @@
 import SwiftUI
 
 @MainActor
-final class SpaceCreateCoordinatorViewModel: ObservableObject, SpaceCreateModuleOutput {
-    
+@Observable
+final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
+
     let data: SpaceCreateData
-    
-    @Published var localObjectIconPickerData: LocalObjectIconPickerData?
+
+    var localObjectIconPickerData: LocalObjectIconPickerData?
     
     init(data: SpaceCreateData) {
         self.data = data
