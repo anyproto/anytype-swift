@@ -10,7 +10,7 @@ import SwiftUI
 import Services
 
 struct ObjectPreviewView: View {
-    @ObservedObject var viewModel: ObjectPreviewViewModel
+    var viewModel: ObjectPreviewViewModel
 
     var body: some View {
         VStack(spacing: 0) {

@@ -3,34 +3,40 @@ import Services
 import SwiftProtobuf
 import UIKit
 import AnytypeCore
-import Combine
 import SwiftUI
 
 @MainActor
-final class ObjectPropertiesViewModel: ObservableObject {
-    @Published var sections = [PropertiesSection]()
-    @Published var showConflictingInfo = false
-    @Published var expandedSections = Set<String>()
-    
+@Observable
+final class ObjectPropertiesViewModel {
+    var sections = [PropertiesSection]()
+    var showConflictingInfo = false
+    var expandedSections = Set<String>()
+
     var typeId: String? { document.details?.objectType.id }
-    
+
     var shouldShowEmptyState: Bool {
         guard let firstSection = sections.first else { return true }
         return firstSection.id != PropertiesSection.Constants.featuredPropertiesSectionId
     }
-    
+
     // MARK: - Private variables
-    
+
+    @ObservationIgnored
     private let document: any BaseDocumentProtocol
+    @ObservationIgnored
     private let sectionsBuilder = PropertiesSectionBuilder()
-    
+
+    @ObservationIgnored
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
+    @ObservationIgnored
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
+    @ObservationIgnored
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any PropertiesListModuleOutput)?
     
     // MARK: - Initializers

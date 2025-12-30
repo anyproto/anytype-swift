@@ -2,11 +2,11 @@ import SwiftUI
 import WrappingHStack
 
 struct ObjectPropertyListView: View {
-    
-    @StateObject var viewModel: ObjectPropertyListViewModel
-    
+
+    @State var viewModel: ObjectPropertyListViewModel
+
     init(data: ObjectPropertyListData, output: (any ObjectPropertyListModuleOutput)?) {
-        _viewModel = StateObject(wrappedValue: ObjectPropertyListViewModel(data: data, output: output))
+        _viewModel = State(initialValue: ObjectPropertyListViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -25,6 +25,9 @@ struct ObjectPropertyListView: View {
                 viewModel.onClear()
             }
         )
+        .task {
+            await viewModel.startSelectedOptionsSubscription()
+        }
         .task(id: viewModel.searchText) {
             await viewModel.searchTextChanged()
         }

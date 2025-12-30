@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct PropertyFormatsListView: View {
-    
-    @StateObject private var viewModel: PropertyFormatsListViewModel
+
+    @State private var viewModel: PropertyFormatsListViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(selectedFormat: SupportedPropertyFormat, onFormatSelect: @escaping (SupportedPropertyFormat) -> Void) {
-        _viewModel = StateObject(wrappedValue: PropertyFormatsListViewModel(selectedFormat: selectedFormat, onFormatSelect: onFormatSelect))
+        _viewModel = State(initialValue: PropertyFormatsListViewModel(selectedFormat: selectedFormat, onFormatSelect: onFormatSelect))
     }
     
     var body: some View {

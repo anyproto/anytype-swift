@@ -1,4 +1,3 @@
-import Combine
 import Foundation
 import Services
 import SwiftUI
@@ -9,29 +8,39 @@ struct ObjectPropertyTypeItem {
 }
 
 @MainActor
-final class ObjectPropertyListViewModel: ObservableObject {
-    
-    @Published var selectedOptionsIds: [String] = []
-    @Published var options: [ObjectPropertyOption] = []
-    @Published var isEmpty = false
-    @Published var searchText = ""
-    
+@Observable
+final class ObjectPropertyListViewModel {
+
+    var selectedOptionsIds: [String] = []
+    var options: [ObjectPropertyOption] = []
+    var isEmpty = false
+    var searchText = ""
+
     let configuration: PropertyModuleConfiguration
-    
+
+    @ObservationIgnored
     private let interactor: any ObjectPropertyListInteractorProtocol
+    @ObservationIgnored
     private let relationSelectedOptionsModel: any PropertySelectedOptionsModelProtocol
-    
+
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any ObjectPropertyListModuleOutput)?
-    
+
     init(data: ObjectPropertyListData, output: (any ObjectPropertyListModuleOutput)?) {
         self.configuration = data.configuration
         self.output = output
         self.interactor = data.interactor
         self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
-        self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.receiveOnMain().assign(to: &$selectedOptionsIds)
+    }
+
+    func startSelectedOptionsSubscription() async {
+        for await ids in relationSelectedOptionsModel.selectedOptionsIdsPublisher.values {
+            selectedOptionsIds = ids
+        }
     }
     
     func onClear() {

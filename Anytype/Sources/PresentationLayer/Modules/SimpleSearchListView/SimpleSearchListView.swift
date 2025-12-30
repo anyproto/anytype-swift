@@ -2,12 +2,12 @@ import SwiftUI
 import Services
 
 struct SimpleSearchListView: View {
-    
-    @StateObject private var model: SimpleSearchListViewModel
+
+    @State private var model: SimpleSearchListViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(items: [SimpleSearchListItem]) {
-        self._model = StateObject(wrappedValue: SimpleSearchListViewModel(items: items))
+        self._model = State(initialValue: SimpleSearchListViewModel(items: items))
     }
     
     var body: some View {

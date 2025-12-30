@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct PropertyCreationView: View {
-    @StateObject private var model: PropertyCreationViewModel
+    @State private var model: PropertyCreationViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: PropertiesSearchData) {
-        _model = StateObject(wrappedValue: PropertyCreationViewModel(data: data))
+        _model = State(initialValue: PropertyCreationViewModel(data: data))
     }
     
     var body: some View {

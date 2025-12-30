@@ -3,8 +3,8 @@ import SwiftUI
 // Dont use in new search screens
 // Make your own screen, see: GlobalSearchView
 struct LegacySearchView: View {
-    
-    @StateObject var viewModel: LegacySearchViewModel
+
+    @State var viewModel: LegacySearchViewModel
 
     @State private var searchText = ""
     

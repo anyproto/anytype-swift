@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct GlobalSearchView: View {
-    
-    @StateObject private var model: GlobalSearchViewModel
+
+    @State private var model: GlobalSearchViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: GlobalSearchModuleData) {
-        self._model = StateObject(wrappedValue: GlobalSearchViewModel(data: data))
+        self._model = State(initialValue: GlobalSearchViewModel(data: data))
     }
     
     var body: some View {

@@ -1,23 +1,23 @@
 import Foundation
 import SwiftUI
 import Services
-import Combine
 
 @MainActor
-final class PropertyInfoViewModel: ObservableObject {
-    
+@Observable
+final class PropertyInfoViewModel {
+
     var formatModel: NewPropertyFormatSectionView.Model {
         format.asViewModel
     }
-    
+
     var objectTypesRestrictionModel: [NewPropertyRestrictionsSectionView.ObjectTypeModel]? {
         objectTypes.flatMap { $0.asViewModel }
     }
-    
+
     var isSaveButtonActive: Bool {
         name.isNotEmpty
     }
-    
+
     var confirmButtonTitle: String {
         switch mode {
         case .create:
@@ -26,7 +26,7 @@ final class PropertyInfoViewModel: ObservableObject {
             Loc.save
         }
     }
-    
+
     var title: String {
         switch mode {
         case .create:
@@ -35,7 +35,7 @@ final class PropertyInfoViewModel: ObservableObject {
             Loc.editField
         }
     }
-    
+
     var canShowMenu: Bool {
         switch mode {
         case .create:
@@ -44,25 +44,32 @@ final class PropertyInfoViewModel: ObservableObject {
             !isReadOnly
         }
     }
-    
+
     let mode: PropertyInfoViewMode
     let isReadOnly: Bool
-    
-    @Published var name: String
-    @Published private var format: SupportedPropertyFormat
-    @Published private var objectTypes: [ObjectType]?
-    @Published var toastData: ToastBarData?
-    
+
+    var name: String
+    private var format: SupportedPropertyFormat
+    private var objectTypes: [ObjectType]?
+    var toastData: ToastBarData?
+
+    @ObservationIgnored
     private let target: PropertiesModuleTarget
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private let relationId: String
-    
+
+    @ObservationIgnored
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
-    
+
+    @ObservationIgnored
     private let relationsInteractor: any PropertiesInteractorProtocol
+    @ObservationIgnored
     private weak var output: (any PropertyInfoModuleOutput)?
     
     init(

@@ -4,21 +4,25 @@ import AnytypeCore
 
 
 @MainActor
-final class ObjectPropertiesLibraryViewModel: ObservableObject, PropertyInfoCoordinatorViewOutput {
-    
-    @Published var userProperties: [PropertyDetails] = []
-    @Published var systemProperties: [PropertyDetails] = []
-    @Published var propertyInfo: PropertyInfoData?
-    
+@Observable
+final class ObjectPropertiesLibraryViewModel: PropertyInfoCoordinatorViewOutput {
+
+    var userProperties: [PropertyDetails] = []
+    var systemProperties: [PropertyDetails] = []
+    var propertyInfo: PropertyInfoData?
+
+    @ObservationIgnored
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
-    
+
+    @ObservationIgnored
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
-    
+
+    @ObservationIgnored
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    
+
     let spaceId: String
     
     init(spaceId: String) {
