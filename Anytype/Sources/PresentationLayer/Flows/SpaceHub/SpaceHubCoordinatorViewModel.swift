@@ -111,10 +111,10 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.spaceFileUploadService) @ObservationIgnored
     private var spaceFileUploadService: any SpaceFileUploadServiceProtocol
-    @Injected(\.spaceHubPathUXTypeHelper) @ObservationIgnored
-    private var spaceHubPathUXTypeHelper: any SpaceHubPathUXTypeHelperProtocol
     @Injected(\.workspaceService) @ObservationIgnored
     private var workspaceService: any WorkspaceServiceProtocol
+    @Injected(\.searchService) @ObservationIgnored
+    private var searchService: any SearchServiceProtocol
 
     @ObservationIgnored
     private var needSetup = true
@@ -235,13 +235,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         }
     }
     
-    func startSpaceSubscription() async {
-        guard let spaceId = currentSpaceId else { return }
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
-            navigationPath = await spaceHubPathUXTypeHelper.updateNaivgationPathForUxType(spaceView: spaceView, path: navigationPath)
-        }
-    }
-    
     // MARK: - SpaceHubModuleOutput
     
     func onSelectCreateObject() {
@@ -249,7 +242,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     func onSelectSpace(spaceId: String) {
-        Task { try await openSpaceWithIntialScreen(spaceId: spaceId) }
+        Task { try await showSpace(spaceId: spaceId) }
     }
     
     func onOpenSpaceSettings(spaceId: String) {
@@ -309,32 +302,47 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         Task { try await showScreen(data: data) }
     }
     
-    private func openSpaceWithIntialScreen(spaceId: String) async throws {
-        let spaceView = try await setActiveSpace(spaceId: spaceId)
-        if spaceView.initialScreenIsChat {
-            let chatData = SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-            try await showScreen(data: .spaceChat(chatData))
-        } else {
-            let widgetData = HomeWidgetData(spaceId: spaceView.targetSpaceId)
-            try await showScreen(data: .widget(widgetData))
-        }
-    }
-    
-    private func showScreen(data: ScreenData) async throws {
-        
-        if let objectId = data.objectId { // validate in case of object
-            let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
-            try await document.open()
-            guard let details = document.details else { return }
-            guard details.isSupportedForOpening else {
-                toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .neutral)
-                return
+    private func homeObjectScreenData(spaceId: String) async -> AnyHashable {
+        if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
+            let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+            if let details, !details.isDeleted, !details.isArchived, let editorData = details.screenData().editorScreenData {
+                return editorData
             }
         }
+
+        if let spaceView = workspaceStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
+            return SpaceChatCoordinatorData(spaceId: spaceId)
+        } else {
+            return HomeWidgetData(spaceId: spaceId)
+        }
+    }
+
+    private func showSpace(spaceId: String) async throws {
+        guard currentSpaceId != spaceId else { return }
         
-        let setupNewPath = currentSpaceId != data.spaceId
-        let spaceView = try await setActiveSpace(spaceId: data.spaceId)
-        var currentPath = setupNewPath ? HomePath(initialPath: initialHomePath(spaceView: spaceView)) : navigationPath
+        _ = try await setActiveSpace(spaceId: spaceId)
+        let homeObject = await homeObjectScreenData(spaceId: spaceId)
+        
+        let path: [AnyHashable] = .builder {
+            SpaceHubNavigationItem()
+            homeObject
+        }
+        
+        let currentPath = HomePath(initialPath: path)
+        if navigationPath != currentPath {
+            await dismissAllPresented?()
+            navigationPath = currentPath
+        }
+        
+    }
+    
+    // main show screen logic
+    private func showScreen(data: ScreenData) async throws {
+        guard try await checkIsDataSupportedForOpening(data) else { return }
+        
+        try await showSpace(spaceId: data.spaceId)
+        
+        var currentPath = navigationPath
         
         await dismissAllPresented?()
         
@@ -371,6 +379,21 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         if navigationPath != currentPath {
             navigationPath = currentPath
         }
+    }
+    
+    // Checks is object supported for opening
+    private func checkIsDataSupportedForOpening(_ data: ScreenData) async throws -> Bool {
+        guard let objectId = data.objectId else { return true }
+        
+        let document = documentsProvider.document(objectId: objectId, spaceId: data.spaceId, mode: .preview)
+        try await document.open()
+        guard let details = document.details else { return false }
+        
+        if !details.isSupportedForOpening {
+            toastBarData = ToastBarData(Loc.openTypeError(details.objectType.displayName), type: .neutral)
+        }
+            
+        return details.isSupportedForOpening
     }
     
     private func showAlert(_ data: AlertScreenData) async {
@@ -427,7 +450,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         
         if let info {
             do {
-                try await openSpaceWithIntialScreen(spaceId: info.accountSpaceId)
+                try await showSpace(spaceId: info.accountSpaceId)
             } catch {
                 await dismissAllPresented?()
                 navigationPath.popToRoot()
@@ -435,17 +458,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         } else {
             await dismissAllPresented?()
             navigationPath.popToRoot()
-        }
-    }
-    
-    private func initialHomePath(spaceView: SpaceView) -> [AnyHashable] {
-        .builder {
-            SpaceHubNavigationItem()
-            if spaceView.initialScreenIsChat {
-                SpaceChatCoordinatorData(spaceId: spaceView.targetSpaceId)
-            } else {
-                HomeWidgetData(spaceId: spaceView.targetSpaceId)
-            }
         }
     }
 

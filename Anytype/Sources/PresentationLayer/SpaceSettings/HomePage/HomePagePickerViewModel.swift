@@ -18,10 +18,17 @@ final class HomePagePickerViewModel {
 
     private let spaceId: String
     let currentObjectId: String?
+    let isChatSpace: Bool
 
     init(spaceId: String) {
         self.spaceId = spaceId
+        let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
+        self.isChatSpace = spaceView?.initialScreenIsChat ?? false
         self.currentObjectId = Container.shared.userDefaultsStorage().homeObjectId(spaceId: spaceId)
+    }
+
+    var defaultOptionTitle: String {
+        isChatSpace ? Loc.chat : Loc.SpaceSettings.HomePage.widgets
     }
 
     func search() async {

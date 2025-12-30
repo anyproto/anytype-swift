@@ -20,9 +20,6 @@ struct SpaceHubCoordinatorView: View {
             .onChange(of: model.navigationPath) { model.onPathChange() }
         
             .taskWithMemoryScope { await model.setup() }
-            .task(id: model.currentSpaceId) {
-                await model.startSpaceSubscription()
-            }
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)

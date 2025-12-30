@@ -4,13 +4,13 @@ import UIKit
 import AnytypeCore
 
 enum HomePageState {
-    case widgets
+    case `default`(String)
     case object(icon: Icon?, name: String)
 
     var buttonDecoration: RoundedButtonDecoration {
         switch self {
-        case .widgets:
-            return .caption(Loc.SpaceSettings.HomePage.widgets)
+        case .default(let title):
+            return .caption(title)
         case .object(let icon, let name):
             return .object(icon: icon, name: name)
         }
@@ -51,6 +51,8 @@ final class SpaceSettingsViewModel {
     private var pushNotificationsSystemSettingsBroadcaster: any PushNotificationsSystemSettingsBroadcasterProtocol
     @ObservationIgnored @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @ObservationIgnored @Injected(\.spaceViewsStorage)
+    private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
     @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
@@ -83,7 +85,7 @@ final class SpaceSettingsViewModel {
     var membershipUpgradeReason: MembershipUpgradeReason?
     var storageInfo = RemoteStorageSegmentInfo()
     var defaultObjectType: ObjectType?
-    var homePageState: HomePageState = .widgets
+    var homePageState: HomePageState = .default("")
     var showIconPickerSpaceId: StringIdentifiable?
     var editingData: SettingsInfoEditingViewData?
     var pushNotificationsSettingsMode: SpaceNotificationsSettingsMode = .allActiviy
@@ -285,7 +287,7 @@ final class SpaceSettingsViewModel {
     private func loadHomePageState() async {
         let spaceId = workspaceInfo.accountSpaceId
         guard let objectId = userDefaults.homeObjectId(spaceId: spaceId) else {
-            homePageState = .widgets
+            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
             return
         }
 
@@ -293,7 +295,15 @@ final class SpaceSettingsViewModel {
         if let details, !details.isDeleted, !details.isArchived {
             homePageState = .object(icon: details.objectIconImage, name: details.name)
         } else {
-            homePageState = .widgets
+            homePageState = .default(defaultHomePageTitle(spaceId: spaceId))
+        }
+    }
+
+    private func defaultHomePageTitle(spaceId: String) -> String {
+        if let spaceView = spaceViewsStorage.spaceView(spaceId: spaceId), spaceView.initialScreenIsChat {
+            return Loc.chat
+        } else {
+            return Loc.SpaceSettings.HomePage.widgets
         }
     }
     

@@ -36,10 +36,10 @@ struct HomePagePickerView: View {
             model.onWidgetsSelected()
         } label: {
             HStack(spacing: 12) {
-                Image(systemName: "house")
+                Image(systemName: model.isChatSpace ? "bubble.left.and.bubble.right" : "house")
                     .foregroundStyle(Color.Control.primary)
 
-                AnytypeText(Loc.SpaceSettings.HomePage.widgets, style: .uxBodyRegular)
+                AnytypeText(model.defaultOptionTitle, style: .uxBodyRegular)
                     .foregroundStyle(Color.Text.primary)
 
                 Spacer()
