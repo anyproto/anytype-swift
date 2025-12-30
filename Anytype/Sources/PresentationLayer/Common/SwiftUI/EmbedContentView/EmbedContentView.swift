@@ -16,8 +16,8 @@ struct EmbedContentData {
 }
 
 struct EmbedContentView: View {
-    
-    @ObservedObject var model: EmbedContentViewModel
+
+    @Bindable var model: EmbedContentViewModel
     
     var body: some View {
         HStack(spacing: 0) {

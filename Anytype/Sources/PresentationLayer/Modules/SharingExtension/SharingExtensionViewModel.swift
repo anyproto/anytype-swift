@@ -4,32 +4,37 @@ import SharedContentManager
 import Services
 
 @MainActor
-final class SharingExtensionViewModel: ObservableObject {
-    
+@Observable
+final class SharingExtensionViewModel {
+
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     @Injected(\.sharedContentManager)
     private var contentManager: any SharedContentManagerProtocol
+    @ObservationIgnored
     @Injected(\.sharingExtensionActionService)
     private var sharingExtensionActionService: any SharingExtensionActionServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any SharingExtensionModuleOutput)?
-    @Published private var allSpaces: [SpaceView] = []
-    
-    @Published var spaces: [SpaceView] = []
-    @Published var selectedSpace: SpaceView?
-    @Published var comment: String = ""
-    @Published var dismiss = false
-    @Published var sendInProgress = false
-    @Published var searchText: String = ""
+    private var allSpaces: [SpaceView] = []
+
+    var spaces: [SpaceView] = []
+    var selectedSpace: SpaceView?
+    var comment: String = ""
+    var dismiss = false
+    var sendInProgress = false
+    var searchText: String = ""
     
     var withoutSpaceState: Bool { allSpaces.isEmpty }
     
     let commentLimit = ChatMessageGlobalLimits.textLimit
     let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
-    
+
     // Debug
-    @Published var debugInfo: SharedContentDebugInfo? = nil
+    var debugInfo: SharedContentDebugInfo? = nil
     
     init(output: (any SharingExtensionModuleOutput)?) {
         self.output = output

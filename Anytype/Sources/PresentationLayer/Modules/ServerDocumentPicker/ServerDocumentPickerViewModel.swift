@@ -1,16 +1,18 @@
 import Foundation
 
 @MainActor
-final class ServerDocumentPickerViewModel: ObservableObject {
-    
+@Observable
+final class ServerDocumentPickerViewModel {
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     @Injected(\.serverConfigurationStorage)
     private var storage: any ServerConfigurationStorageProtocol
-    
+
     // MARK: - State
-    
-    @Published var toast: ToastBarData?
+
+    var toast: ToastBarData?
     
     func onSelectFile(url: URL) {
         do {

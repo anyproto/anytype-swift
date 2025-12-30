@@ -2,13 +2,15 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class HomeUpdateSubmoduleViewModel: ObservableObject {
-    
+@Observable
+final class HomeUpdateSubmoduleViewModel {
+
+    @ObservationIgnored
     @Injected(\.appVersionUpdateService)
     private var appVersionUpdateService: any AppVersionUpdateServiceProtocol
-    
-    @Published var showUpdateAlert: Bool = false
-    @Published var openUrl: URL?
+
+    var showUpdateAlert: Bool = false
+    var openUrl: URL?
     
     init() {
         #if RELEASE_ANYTYPE

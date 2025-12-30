@@ -1,23 +1,26 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 
 @MainActor
-final class BinLinkWidgetViewModel: ObservableObject {
-    
+@Observable
+final class BinLinkWidgetViewModel {
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    
+
+    @ObservationIgnored
     private let spaceId: String
+    @ObservationIgnored
     private weak var output: (any CommonWidgetModuleOutput)?
-    
+
     // MARK: - State
-    
-    @Published var toastData: ToastBarData?
-    @Published var binAlertData: BinConfirmationAlertData? = nil
+
+    var toastData: ToastBarData?
+    var binAlertData: BinConfirmationAlertData? = nil
     
     init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId

@@ -2,8 +2,8 @@ import Foundation
 import SwiftUI
 
 struct HomeUpdateSubmoduleView: View {
-    
-    @StateObject private var model = HomeUpdateSubmoduleViewModel()
+
+    @State private var model = HomeUpdateSubmoduleViewModel()
     
     var body: some View {
         if model.showUpdateAlert {
