@@ -1,36 +1,41 @@
 import Foundation
-import Combine
 import Services
 import UIKit
 import AnytypeCore
 import SwiftUI
 
 @MainActor
-final class WidgetContainerViewModel: ObservableObject {
-    
+@Observable
+final class WidgetContainerViewModel {
+
     // MARK: - DI
-    
+
     let widgetBlockId: String
     let widgetObject: any BaseDocumentProtocol
     weak var output: (any CommonWidgetModuleOutput)?
-    
+
+    @ObservationIgnored
     private let expandedService: any ExpandedServiceProtocol
+    @ObservationIgnored
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
+    @ObservationIgnored
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
+    @ObservationIgnored
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @ObservationIgnored
     @Injected(\.widgetActionsViewCommonMenuProvider)
     private var widgetActionsViewCommonMenuProvider: any WidgetActionsViewCommonMenuProviderProtocol
-    
+
     // MARK: - State
-    
-    @Published var isExpanded: Bool {
+
+    var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
-    @Published var homeState: HomeWidgetsState = .readonly
-    @Published var toastData: ToastBarData?
+    var homeState: HomeWidgetsState = .readonly
+    var toastData: ToastBarData?
     let menuItems: [WidgetMenuItem]
     
     init(

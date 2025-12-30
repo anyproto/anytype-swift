@@ -8,12 +8,12 @@ struct SharingExtensionShareToData: Hashable, Identifiable {
 }
 
 struct SharingExtensionShareToView: View {
-    
-    @StateObject private var model: SharingExtensionShareToViewModel
+
+    @State private var model: SharingExtensionShareToViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SharingExtensionShareToViewModel(data: data, output: output))
+        self._model = State(initialValue: SharingExtensionShareToViewModel(data: data, output: output))
     }
     
     var body: some View {

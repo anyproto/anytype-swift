@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct SharingExtensionView: View {
-    
-    @StateObject private var model: SharingExtensionViewModel
+
+    @State private var model: SharingExtensionViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(output: (any SharingExtensionModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SharingExtensionViewModel(output: output))
+        self._model = State(initialValue: SharingExtensionViewModel(output: output))
     }
     
     private let columns = [

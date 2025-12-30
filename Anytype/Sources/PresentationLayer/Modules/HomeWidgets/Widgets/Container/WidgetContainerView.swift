@@ -3,8 +3,8 @@ import SwiftUI
 import AnytypeCore
 
 struct WidgetContainerView<Content: View>: View {
-    
-    @StateObject private var model: WidgetContainerViewModel
+
+    @State private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
     
     let name: String
@@ -37,8 +37,8 @@ struct WidgetContainerView<Content: View>: View {
         self.onCreateObjectTap = onCreateObjectTap
         self.onHeaderTap = onHeaderTap
         self.content = content()
-        self._model = StateObject(
-            wrappedValue: WidgetContainerViewModel(
+        self._model = State(
+            initialValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
                 expectedMenuItems: menuItems,
