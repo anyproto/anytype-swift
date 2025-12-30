@@ -264,7 +264,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Analytics ID: %@"
+            "value" : "ID аналитики: %@"
           }
         },
         "tr" : {
@@ -712,7 +712,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "App version: %@"
+            "value" : "Версия приложения: %@"
           }
         },
         "tr" : {
@@ -861,7 +861,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Build number: %@"
+            "value" : "Номер сборки: %@"
           }
         },
         "tr" : {
@@ -1159,7 +1159,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device: %@"
+            "value" : "Устройство: %@"
           }
         },
         "tr" : {
@@ -1308,7 +1308,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Device ID: %@"
+            "value" : "ID устройства: %@"
           }
         },
         "tr" : {
@@ -1904,7 +1904,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Library version: %@"
+            "value" : "Версия библиотеки: %@"
           }
         },
         "tr" : {
@@ -2053,7 +2053,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "\n\nTechnical information\n%@"
+            "value" : "\n\nТехническая информация\n%@"
           }
         },
         "tr" : {
@@ -2202,7 +2202,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Support request, Vault ID %@"
+            "value" : "Запрос на поддержку, ID хранилища %@"
           }
         },
         "tr" : {
@@ -2351,7 +2351,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "OS version: %@"
+            "value" : "Версия ОС: %@"
           }
         },
         "tr" : {
@@ -9649,7 +9649,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "Apakah Anda yakin ingin menghapus objek %#@@?"
           },
           "substitutions" : {
             "object" : {
@@ -9659,7 +9659,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg objek"
                     }
                   }
                 }
@@ -9913,7 +9913,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Are you sure you want to delete %#@object@?"
+            "value" : "Вы уверены, что хотите удалить %#@объект@?"
           },
           "substitutions" : {
             "object" : {
@@ -9923,25 +9923,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg объекта"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg объект"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg object"
+                      "value" : "%arg объект"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg объектов"
                     }
                   }
                 }
@@ -17541,7 +17541,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Channel Type"
+            "value" : "Tipe Saluran"
           }
         },
         "it" : {
@@ -20374,7 +20374,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Connect with me on Anytype"
+            "value" : "Terhubung denganku di Anytype"
           }
         },
         "it" : {
@@ -20970,7 +20970,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Yes, convert"
+            "value" : "Ya, ubah"
           }
         },
         "it" : {
@@ -21119,7 +21119,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Switching between Space and Chat will significantly change the experience."
+            "value" : "Beralih antara Ruang dan Obrolan akan secara signifikan mengubah pengalaman."
           }
         },
         "it" : {
@@ -21268,7 +21268,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Convert Channel Type?"
+            "value" : "Ubah Tipe Saluran?"
           }
         },
         "it" : {
@@ -21566,7 +21566,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ copied to clipboard"
+            "value" : "%@ telah disalin ke papan klip"
           }
         },
         "it" : {
@@ -21626,7 +21626,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ copied to clipboard"
+            "value" : "Скопирован(о) в буфер обмена: %@"
           }
         },
         "tr" : {
@@ -22759,7 +22759,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new object \"%@\""
+            "value" : "Buat objek baru \"%@\""
           }
         },
         "it" : {
@@ -22819,7 +22819,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create new object \"%@\""
+            "value" : "Создать новый объект \"%@\""
           }
         },
         "tr" : {
@@ -23355,7 +23355,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create option ‘%@’"
+            "value" : "Buat opsi ‘%@’"
           }
         },
         "it" : {
@@ -23415,7 +23415,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create option ‘%@’"
+            "value" : "Создать параметр '%@’"
           }
         },
         "tr" : {
@@ -23504,7 +23504,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create property ‘%@’"
+            "value" : "Buat atribut ‘%@’"
           }
         },
         "it" : {
@@ -23564,7 +23564,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create property ‘%@’"
+            "value" : "Создать свойство ‘%@’"
           }
         },
         "tr" : {
@@ -24249,7 +24249,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Customize URL"
+            "value" : "Sesuaikan Alamat web"
           }
         },
         "it" : {
@@ -26460,7 +26460,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This vault will be deleted %#@days@"
+            "value" : "Brankas ini akan dihapus dalam %#@ hari@"
           },
           "substitutions" : {
             "days" : {
@@ -27191,7 +27191,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mime Types - %@"
+            "value" : "Tipe Mime - %@"
           }
         },
         "it" : {
@@ -27340,7 +27340,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Release: %@, %@"
+            "value" : "Rilis: %@, %@"
           }
         },
         "it" : {
@@ -29631,7 +29631,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@perangkat@ terhubung"
           },
           "substitutions" : {
             "device" : {
@@ -29641,7 +29641,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg devices"
+                      "value" : "%arg perangkat"
                     }
                   }
                 }
@@ -31308,7 +31308,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Sunting properti"
+            "value" : "Sunting atribut"
           }
         },
         "it" : {
@@ -32202,7 +32202,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. This content is not available on mobile"
+            "value" : "%@ sematan. Konten ini tidak tersedia di perangkat seluler."
           }
         },
         "it" : {
@@ -32351,7 +32351,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. Opens in external app or browser"
+            "value" : "%@ sematan. Buka di aplikasi eksternal atau peramban"
           }
         },
         "it" : {
@@ -32500,7 +32500,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed is empty"
+            "value" : "%@ sematan kosong"
           }
         },
         "it" : {
@@ -36973,7 +36973,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Experimental Features"
+            "value" : "Fitur Percobaan"
           }
         },
         "it" : {
@@ -37122,7 +37122,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Always pick object type when creating"
+            "value" : "Selalu pilih jenis objek saat membuat"
           }
         },
         "it" : {
@@ -37271,7 +37271,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New Object Creation Menu"
+            "value" : "Menu Pembuatan Objek Baru"
           }
         },
         "it" : {
@@ -38842,7 +38842,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "%#@mengunggah berkas@"
           },
           "substitutions" : {
             "file" : {
@@ -38852,7 +38852,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%arg berkas"
                     }
                   }
                 }
@@ -40073,7 +40073,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Free | %@"
+            "value" : "Kosong | %@"
           }
         },
         "it" : {
@@ -40222,7 +40222,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Other spaces | %@"
+            "value" : "Ruang lain | %@"
           }
         },
         "it" : {
@@ -40669,7 +40669,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ used"
+            "value" : "%@ terpakai"
           }
         },
         "it" : {
@@ -41563,7 +41563,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ of %@ used"
+            "value" : "%@ dari %@ terpakai"
           }
         },
         "it" : {
@@ -42608,7 +42608,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Made by @%@"
+            "value" : "Dibuat oleh @%@"
           }
         },
         "it" : {
@@ -43204,7 +43204,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value" : "Maaf! “%@” tidak terpasang. Silakan periksa koneksi internet Anda dan coba lagi, atau posting laporan di forum."
           }
         },
         "it" : {
@@ -43353,7 +43353,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Experience was successfully installed to the \"%@\" space. You can now open and start using it."
+            "value" : "Pengalaman telah berhasil diinstal ke ruang “%@”. Anda sekarang dapat membukanya dan mulai menggunakannya."
           }
         },
         "it" : {
@@ -47106,7 +47106,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Image from Photo Library"
+            "value" : "Gambar dari perpustakaan foto"
           }
         },
         "it" : {
@@ -48503,7 +48503,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@sinkronisasi item@"
           },
           "substitutions" : {
             "item" : {
@@ -48513,7 +48513,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg items"
+                      "value" : "%arg item"
                     }
                   }
                 }
@@ -54566,25 +54566,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d участника"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d участников"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d участник"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d участники"
                 }
               }
             }
@@ -55029,7 +55029,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Min %@ characters"
+            "value" : "Minimal %@ karakter"
           }
         },
         "it" : {
@@ -58606,7 +58606,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No matches found.\nTry a different keyword or check your spelling."
+            "value" : "Tidak ditemukan hasil yang sesuai.\nCoba gunakan kata kunci yang berbeda atau periksa ejaan Anda."
           }
         },
         "it" : {
@@ -59053,7 +59053,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No type “%@” found. Change your request or create new type."
+            "value" : "Tidak ditemukan tipe “%@”. Ubah pencarian Anda atau buat tipe baru."
           }
         },
         "it" : {
@@ -60624,7 +60624,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "%#@objek@ terpilih"
           },
           "substitutions" : {
             "object" : {
@@ -60634,7 +60634,7 @@
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg objek"
                     }
                   }
                 }
@@ -60898,25 +60898,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg объекта"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg объект"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg object"
+                      "value" : "%arg объект"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg objects"
+                      "value" : "%arg объектов"
                     }
                   }
                 }
@@ -63519,7 +63519,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not supported type \"%@\". You can open it via desktop."
+            "value" : "Bukan tipe yang didukung “%@”. Anda dapat membukanya melalui desktop."
           }
         },
         "it" : {
@@ -64413,7 +64413,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Paid by %@"
+            "value" : "Dibayar oleh %@"
           }
         },
         "it" : {
@@ -66283,7 +66283,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "per %#@hari@"
           },
           "substitutions" : {
             "day" : {
@@ -66972,7 +66972,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "per %#@bulan@"
           },
           "substitutions" : {
             "month" : {
@@ -67661,7 +67661,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "per %#@minggu@"
           },
           "substitutions" : {
             "week" : {
@@ -68350,7 +68350,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "per %#@tahun@"
           },
           "substitutions" : {
             "year" : {
@@ -69580,7 +69580,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %d pinned spaces."
+            "value" : "Anda telah mencapai batas %d ruang yang disematkan."
           }
         },
         "it" : {
@@ -71220,7 +71220,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish"
+            "value" : "Terbitkan"
           }
         },
         "it" : {
@@ -71369,7 +71369,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Publish to Web"
+            "value" : "Publikasi ke Web"
           }
         },
         "it" : {
@@ -72264,7 +72264,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create %@"
+            "value" : "Buat %@"
           }
         },
         "it" : {
@@ -74975,7 +74975,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resend in %@ sec"
+            "value" : "Kirim ulang dalam %@ detik"
           }
         },
         "it" : {
@@ -77362,7 +77362,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Related to: %@"
+            "value" : "Berkaitan dengan: %@"
           }
         },
         "it" : {
@@ -79881,7 +79881,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected blocks"
+                  "value" : "%d blok terpiih"
                 }
               }
             }
@@ -82456,7 +82456,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Query of %@"
+            "value" : "Kueri %@"
           }
         },
         "it" : {
@@ -84038,6 +84038,453 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Space information updated"
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore plans"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explorar planes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Jelajahi paket-paket"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Изучить планы"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Planları keşfet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Explore plans"
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Suscríbete para que tu ID sea legible y otras personas puedan encontrarte y ponerse en contacto contigo fácilmente."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Menjadi anggota agar ID Anda dapat mudah dibaca oleh orang lain, sehingga anggota lain dapat dengan mudah menemukan dan terhubung dengan Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Станьте участником, чтобы сделать свой ID читаемым для людей — так другие участники смогут легко найти вас и связаться."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Üye olup kimliğini insanlar tarafından okunabilir hale getirebilirsin. Böylece diğer üyeler seni kolayca bulup seninle bağlantı kurabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Become a member to make your ID human-readable, so other members can easily find and connect with you."
+          }
+        }
+      }
+    },
+    "Settings.AnyId.BottomSheet.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Este es tu ID ANY"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Ini ANY ID-mu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Это Ваш ANY ID"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bu senin ANY ID'ndir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This is your ANY ID"
           }
         }
       }
@@ -89910,7 +90357,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ deleted successfully"
+            "value" : "%@ berhasil dihapus"
           }
         },
         "it" : {
@@ -94111,7 +94558,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New template was added to the type %@"
+            "value" : "Templat baru telah ditambahkan ke tipe %@"
           }
         },
         "it" : {
@@ -97242,7 +97689,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no object named %@"
+            "value" : "Tidak ada objek bernama %@"
           }
         },
         "it" : {
@@ -97391,7 +97838,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no property named %@"
+            "value" : "Tidak ada atribut bernama %@"
           }
         },
         "it" : {
@@ -97540,7 +97987,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no type named %@"
+            "value" : "Tidak ada tipe bernama %@"
           }
         },
         "it" : {
@@ -101564,7 +102011,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unset default"
+            "value" : "Batalkan sebagai bawaan"
           }
         },
         "it" : {
@@ -103203,7 +103650,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Valid until %@"
+            "value" : "Berlaku hingga %@"
           }
         },
         "it" : {
