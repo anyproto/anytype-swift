@@ -171,7 +171,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 
         switch userDefaults.lastOpenedScreen {
         case .editor(let editorData):
-            try? await showScreen(data: .editor(editorData))
+            try? await showScreen(data: .editor(editorData), showEditorObjectsOnlyOnce: true)
         case .widgets(let spaceId):
             try? await showScreen(data: .widget(HomeWidgetData(spaceId: spaceId)))
         case .chat(let data):
@@ -338,7 +338,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     }
     
     // main show screen logic
-    private func showScreen(data: ScreenData) async throws {
+    private func showScreen(data: ScreenData, showEditorObjectsOnlyOnce: Bool = false) async throws {
         guard try await checkIsDataSupportedForOpening(data) else { return }
         
         try await showSpace(spaceId: data.spaceId)
@@ -353,7 +353,11 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         case .preview(let mediaFileScreenData):
             await showMediaFile(mediaFileScreenData)
         case .editor(let editorScreenData):
-            currentPath.push(editorScreenData)
+            if showEditorObjectsOnlyOnce {
+                currentPath.openOnce(editorScreenData)
+            } else {
+                currentPath.push(editorScreenData)
+            }
         case .bookmark(let data):
             await dismissAllPresented?()
             bookmarkScreenData = data
