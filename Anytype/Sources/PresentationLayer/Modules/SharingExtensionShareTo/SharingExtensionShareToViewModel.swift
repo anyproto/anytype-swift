@@ -3,38 +3,50 @@ import Services
 import SharedContentManager
 
 @MainActor
-final class SharingExtensionShareToViewModel: ObservableObject {
-    
+@Observable
+final class SharingExtensionShareToViewModel {
+
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspacesStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
+    @ObservationIgnored
     @Injected(\.sharingExtensionActionService)
     private var sharingExtensionActionService: any SharingExtensionActionServiceProtocol
+    @ObservationIgnored
     @Injected(\.sharedContentManager)
     private var contentManager: any SharedContentManagerProtocol
-    
+
+    @ObservationIgnored
     private let data: SharingExtensionShareToData
+    @ObservationIgnored
     private weak var output: (any SharingExtensionShareToModuleOutput)?
-    
+
+    @ObservationIgnored
     private var details: [ObjectDetails] = []
+    @ObservationIgnored
     private var showChatRow = true
+    @ObservationIgnored
     private let chatRowTitle = Loc.Sharing.sendToChat
-    
+
+    @ObservationIgnored
     private var spaceView: SpaceView?
     var title: String { spaceView?.title ?? "" }
     var chatRowSelected: Bool { selectedObjectId == spaceView?.chatId }
-    
-    @Published var searchText: String = ""
-    @Published var rows: [SharingExtensionsShareRowData] = []
-    @Published var selectedObjectId: String?
-    @Published var dismiss = false
-    @Published var chatRow: SharingExtensionsChatRowData?
-    @Published var sendInProgress = false
-    
-    @Published var comment: String = ""
+
+    var searchText: String = ""
+    var rows: [SharingExtensionsShareRowData] = []
+    var selectedObjectId: String?
+    var dismiss = false
+    var chatRow: SharingExtensionsChatRowData?
+    var sendInProgress = false
+
+    var comment: String = ""
     let commentLimit = ChatMessageGlobalLimits.textLimit
     let commentWarningLimit = ChatMessageGlobalLimits.textLimitWarning
     

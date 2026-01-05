@@ -14,17 +14,17 @@ struct BinLinkWidgetView: View {
 }
 
 private struct BinLinkWidgetViewInternal: View {
-    
-    @StateObject private var model: BinLinkWidgetViewModel
+
+    @State private var model: BinLinkWidgetViewModel
     @Binding var homeState: HomeWidgetsState
-    
+
     init(
         spaceId: String,
         homeState: Binding<HomeWidgetsState>,
         output: (any CommonWidgetModuleOutput)?
     ) {
         self._homeState = homeState
-        self._model = StateObject(wrappedValue: BinLinkWidgetViewModel(spaceId: spaceId, output: output))
+        self._model = State(initialValue: BinLinkWidgetViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {
