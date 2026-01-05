@@ -1,9 +1,12 @@
 import SwiftUI
 import Services
 
-final class SetFiltersCheckboxViewModel: ObservableObject {
-    @Published var value: SetFiltersCheckboxValue = .checked
-    
+@MainActor
+@Observable
+final class SetFiltersCheckboxViewModel {
+    var value: SetFiltersCheckboxValue = .checked
+
+    @ObservationIgnored
     let onApplyCheckbox: (Bool) -> Void
     
     init(filter: SetFilter, onApplyCheckbox: @escaping (Bool) -> Void) {

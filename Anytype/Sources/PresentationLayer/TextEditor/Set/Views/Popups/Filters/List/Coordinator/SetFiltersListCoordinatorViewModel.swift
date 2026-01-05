@@ -8,11 +8,14 @@ protocol SetFiltersListCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersListCoordinatorOutput {
-    @Published var filtersSelectionData: FiltersSelectionData?
-    @Published var filtersSearchData: SetPropertiesDetailsLocalSearchData?
-    
+@Observable
+final class SetFiltersListCoordinatorViewModel: SetFiltersListCoordinatorOutput {
+    var filtersSelectionData: FiltersSelectionData?
+    var filtersSearchData: SetPropertiesDetailsLocalSearchData?
+
+    @ObservationIgnored
     let data: SetFiltersListModuleData
+    @ObservationIgnored
     let subscriptionDetailsStorage: ObjectDetailsStorage
     
     init(

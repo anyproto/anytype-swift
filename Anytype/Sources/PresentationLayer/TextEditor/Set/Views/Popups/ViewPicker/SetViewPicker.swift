@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct SetViewPicker: View {
-    @StateObject private var viewModel: SetViewPickerViewModel
+    @State private var viewModel: SetViewPickerViewModel
     @State private var editMode = EditMode.inactive
     @Environment(\.dismiss) private var dismiss
-    
+
     init(setDocument: some SetDocumentProtocol, output: (any SetViewPickerCoordinatorOutput)?) {
-        _viewModel = StateObject(wrappedValue: SetViewPickerViewModel(setDocument: setDocument, output: output))
+        _viewModel = State(initialValue: SetViewPickerViewModel(setDocument: setDocument, output: output))
     }
     
     var body: some View {

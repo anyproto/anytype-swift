@@ -2,10 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct SetSortTypesListView: View {
-    @StateObject private var model: SetSortTypesListViewModel
-    
+    @State private var model: SetSortTypesListViewModel
+
     init(data: SetSortTypesData) {
-        _model = StateObject(wrappedValue: SetSortTypesListViewModel(data: data))
+        _model = State(initialValue: SetSortTypesListViewModel(data: data))
     }
     
     var body: some View {

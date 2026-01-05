@@ -2,11 +2,15 @@ import SwiftUI
 import Services
 
 @MainActor
-final class SetFiltersSelectionHeaderViewModel: ObservableObject {
-    @Published var headerConfiguration: SetFiltersSelectionHeaderConfiguration
-    
+@Observable
+final class SetFiltersSelectionHeaderViewModel {
+    var headerConfiguration: SetFiltersSelectionHeaderConfiguration
+
+    @ObservationIgnored
     private var filter: SetFilter
+    @ObservationIgnored
     private weak var output: (any SetFiltersSelectionCoordinatorOutput)?
+    @ObservationIgnored
     private let onConditionChanged: (DataviewFilter.Condition) -> Void
     
     init(

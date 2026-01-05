@@ -6,20 +6,27 @@ import AnytypeCore
 import Combine
 
 @MainActor
-final class SetPropertiesViewModel: ObservableObject {
-    @Published var view: DataviewView = .empty
-    @Published var relations = [SetViewSettingsProperty]()
-    
+@Observable
+final class SetPropertiesViewModel {
+    var view: DataviewView = .empty
+    var relations = [SetViewSettingsProperty]()
+
+    @ObservationIgnored
     private let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     private let viewId: String
-    
+
+    @ObservationIgnored
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
+    @ObservationIgnored
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any SetPropertiesCoordinatorOutput)?
-    
+
+    @ObservationIgnored
     private var cancellable: (any Cancellable)?
     
     init(

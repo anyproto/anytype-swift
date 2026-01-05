@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SetLayoutSettingsView: View {
-    @StateObject private var model: SetLayoutSettingsViewModel
+    @State private var model: SetLayoutSettingsViewModel
 
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetLayoutSettingsCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetLayoutSettingsViewModel(
+        _model = State(initialValue: SetLayoutSettingsViewModel(
             setDocument: setDocument,
             viewId: viewId,
             output: output

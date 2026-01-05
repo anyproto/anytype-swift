@@ -1,13 +1,20 @@
 import Combine
 import Services
+import SwiftUI
 
-final class SetViewSettingsImagePreviewViewModel: ObservableObject {
+@MainActor
+@Observable
+final class SetViewSettingsImagePreviewViewModel {
+    @ObservationIgnored
     let title = Loc.Set.View.Settings.ImagePreview.title
-    @Published var coverRows: [SetViewSettingsImagePreviewRowConfiguration] = []
-    @Published var relationsRows: [SetViewSettingsImagePreviewRowConfiguration] = []
-    
+    var coverRows: [SetViewSettingsImagePreviewRowConfiguration] = []
+    var relationsRows: [SetViewSettingsImagePreviewRowConfiguration] = []
+
+    @ObservationIgnored
     private let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     private let onSelect: (String) -> Void
+    @ObservationIgnored
     private var cancellable: (any Cancellable)?
     
     init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {

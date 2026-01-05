@@ -1,16 +1,22 @@
 import Services
 import Combine
 import AnytypeCore
+import SwiftUI
 
 @MainActor
-final class SetSortTypesListViewModel: ObservableObject {
-    
-    let title: String
-    @Published private(set) var typeItems: [SetSortTypeItem] = []
-    @Published private(set) var emptyTypeItems: [SetSortTypeItem] = []
+@Observable
+final class SetSortTypesListViewModel {
 
+    @ObservationIgnored
+    let title: String
+    private(set) var typeItems: [SetSortTypeItem] = []
+    private(set) var emptyTypeItems: [SetSortTypeItem] = []
+
+    @ObservationIgnored
     private let sort: SetSort
+    @ObservationIgnored
     private var selectedSort: DataviewSort
+    @ObservationIgnored
     private let completion: (SetSort, String) -> Void
 
     // MARK: - Initializer

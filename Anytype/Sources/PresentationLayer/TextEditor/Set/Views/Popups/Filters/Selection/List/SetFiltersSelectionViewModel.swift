@@ -4,15 +4,26 @@ import Combine
 import SwiftProtobuf
 
 @MainActor
-final class SetFiltersSelectionViewModel: ObservableObject {
-    @Published var state: SetFiltersSelectionViewState
-    @Published var condition: DataviewFilter.Condition
-    
+@Observable
+final class SetFiltersSelectionViewModel {
+    var state: SetFiltersSelectionViewState
+    var condition: DataviewFilter.Condition {
+        didSet { onConditionChanged?(condition) }
+    }
+
+    @ObservationIgnored
+    var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
+
+    @ObservationIgnored
     private let filter: SetFilter
+    @ObservationIgnored
     private let contentHandler: any SetFiltersContentHandlerProtocol
+    @ObservationIgnored
     private let contentViewBuilder: SetFiltersContentViewBuilder
+    @ObservationIgnored
     private let onApply: (SetFilter) -> Void
-    
+
+    @ObservationIgnored
     private weak var output: (any SetFiltersSelectionCoordinatorOutput)?
     
     init(

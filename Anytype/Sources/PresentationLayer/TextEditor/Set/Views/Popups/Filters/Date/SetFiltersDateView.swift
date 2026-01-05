@@ -6,10 +6,10 @@ struct SetFiltersDateViewData {
 }
 
 struct SetFiltersDateView: View {
-    @StateObject private var viewModel: SetFiltersDateViewModel
-    
+    @State private var viewModel: SetFiltersDateViewModel
+
     init(data: SetFiltersDateViewData, setSelectionModel: SetFiltersSelectionViewModel?) {
-        _viewModel = StateObject(wrappedValue: SetFiltersDateViewModel(data: data, setSelectionModel: setSelectionModel))
+        _viewModel = State(initialValue: SetFiltersDateViewModel(data: data, setSelectionModel: setSelectionModel))
     }
     
     var body: some View {

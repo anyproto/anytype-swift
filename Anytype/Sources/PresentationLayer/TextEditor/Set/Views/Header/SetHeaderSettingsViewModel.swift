@@ -2,18 +2,27 @@ import Foundation
 import Combine
 import Services
 
-class SetHeaderSettingsViewModel: ObservableObject {
-    @Published var viewName = ""
-    @Published var isActiveCreateButton = true
-    @Published var isActiveHeader = true
-    @Published var showUnsupportedBanner = false
+@MainActor
+@Observable
+final class SetHeaderSettingsViewModel {
+    var viewName = ""
+    var isActiveCreateButton = true
+    var isActiveHeader = true
+    var showUnsupportedBanner = false
+    @ObservationIgnored
     let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     let output: (any ObjectSettingsCoordinatorOutput)?
+    @ObservationIgnored
     private var subscriptions = [AnyCancellable]()
 
+    @ObservationIgnored
     let onViewTap: () -> Void
+    @ObservationIgnored
     let onSettingsTap: () -> Void
+    @ObservationIgnored
     let onCreateTap: () -> Void
+    @ObservationIgnored
     let onSecondaryCreateTap: () -> Void
     
     var isObjectType: Bool { setDocument.details?.isObjectType ?? false }
