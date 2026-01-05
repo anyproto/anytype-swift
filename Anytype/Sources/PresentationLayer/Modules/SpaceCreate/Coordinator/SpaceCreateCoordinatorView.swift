@@ -16,5 +16,10 @@ struct SpaceCreateCoordinatorView: View {
         .sheet(item: $model.localObjectIconPickerData) {
             LocalObjectIconPickerView(data: $0)
         }
+        .sheet(item: $model.homePagePickerData) { data in
+            HomePagePickerView(spaceId: data.spaceId) {
+                model.onHomePagePickerFinished()
+            }.interactiveDismissDisabled(true)
+        }
     }
 }

@@ -6,8 +6,8 @@ struct HomePagePickerView: View {
     @State private var model: HomePagePickerViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(spaceId: String) {
-        _model = State(initialValue: HomePagePickerViewModel(spaceId: spaceId))
+    init(spaceId: String, onFinish: @escaping () -> Void = {}) {
+        _model = State(initialValue: HomePagePickerViewModel(spaceId: spaceId, onFinish: onFinish))
     }
 
     var body: some View {

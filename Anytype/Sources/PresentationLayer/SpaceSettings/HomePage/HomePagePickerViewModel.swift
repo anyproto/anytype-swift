@@ -16,12 +16,15 @@ final class HomePagePickerViewModel {
     var objects: [ObjectDetails] = []
     var dismiss = false
 
+    @ObservationIgnored
+    private let onFinish: () -> Void
     private let spaceId: String
     let currentObjectId: String?
     let isChatSpace: Bool
 
-    init(spaceId: String) {
+    init(spaceId: String, onFinish: @escaping () -> Void = {}) {
         self.spaceId = spaceId
+        self.onFinish = onFinish
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
         self.isChatSpace = spaceView?.initialScreenIsChat ?? false
         self.currentObjectId = Container.shared.userDefaultsStorage().homeObjectId(spaceId: spaceId)
@@ -49,11 +52,13 @@ final class HomePagePickerViewModel {
 
     func onWidgetsSelected() {
         userDefaults.setHomeObjectId(spaceId: spaceId, objectId: nil)
+        onFinish()
         dismiss = true
     }
 
     func onObjectSelected(_ details: ObjectDetails) {
         userDefaults.setHomeObjectId(spaceId: spaceId, objectId: details.id)
+        onFinish()
         dismiss = true
     }
 }

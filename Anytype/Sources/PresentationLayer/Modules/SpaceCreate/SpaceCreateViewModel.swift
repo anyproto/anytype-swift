@@ -6,6 +6,7 @@ import AnytypeCore
 @MainActor
 protocol SpaceCreateModuleOutput: AnyObject {
     func onIconPickerSelected(fileData: FileData?, output: any LocalObjectIconPickerOutput)
+    func onSpaceCreated(spaceId: String)
 }
 
 @MainActor
@@ -17,14 +18,10 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
     @ObservationIgnored
     let data: SpaceCreateData
 
-    @ObservationIgnored @Injected(\.activeSpaceManager)
-    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     @ObservationIgnored @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @ObservationIgnored @Injected(\.fileActionsService)
     private var fileActionsService: any FileActionsServiceProtocol
-    @ObservationIgnored @Injected(\.appActionStorage)
-    private var appActionStorage: AppActionStorage
 
     // MARK: - State
 
@@ -78,10 +75,10 @@ final class SpaceCreateViewModel: LocalObjectIconPickerOutput {
                     _ = try await workspaceService.generateInvite(spaceId: spaceId, inviteType: .withoutApprove, permissions: .writer)
                 } catch {}
             }
-            
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(spaceId: createResponse.spaceID, spaceUxType: uxType, route: .navigation)
+            output?.onSpaceCreated(spaceId: spaceId)
         }
     }
     
