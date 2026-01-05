@@ -10,19 +10,27 @@ struct SetFiltersListModuleData {
 }
 
 @MainActor
-final class SetFiltersListViewModel: ObservableObject {
-    @Published var rows: [SetFilterRowConfiguration] = []
-    
+@Observable
+final class SetFiltersListViewModel {
+    var rows: [SetFilterRowConfiguration] = []
+
+    @ObservationIgnored
     private let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     private let viewId: String
+    @ObservationIgnored
     private var cancellable: (any Cancellable)?
-    
+
+    @ObservationIgnored
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
-    
+
+    @ObservationIgnored
     private let relationFilterBuilder = PropertyFilterBuilder()
+    @ObservationIgnored
     private let subscriptionDetailsStorage: ObjectDetailsStorage
-    
+
+    @ObservationIgnored
     private weak var output: (any SetFiltersListCoordinatorOutput)?
     
     init(

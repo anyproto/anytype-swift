@@ -3,17 +3,22 @@ import Services
 import Combine
 
 @MainActor
-final class SetFiltersDateViewModel: ObservableObject {
-    @Published var quickOption: DataviewFilter.QuickOption
-    @Published var date: Date
-    @Published var numberOfDays: Int
-    @Published var condition: DataviewFilter.Condition
-    
-    @Published var filtersDaysData: SetTextViewData?
-    
+@Observable
+final class SetFiltersDateViewModel {
+    var quickOption: DataviewFilter.QuickOption
+    var date: Date
+    var numberOfDays: Int
+    var condition: DataviewFilter.Condition
+
+    var filtersDaysData: SetTextViewData?
+
+    @ObservationIgnored
     private let filter: SetFilter
+    @ObservationIgnored
     private weak var setSelectionModel: SetFiltersSelectionViewModel?
+    @ObservationIgnored
     private let onApplyDate: (SetFiltersDate) -> Void
+    @ObservationIgnored
     private var cancellable: AnyCancellable?
     
     var rows: [SetFiltersDateRowConfiguration] {

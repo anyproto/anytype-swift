@@ -1,9 +1,9 @@
 # @Observable Migration Status
 
 **Task**: IOS-5635
-**Last Updated**: 2025-12-30
-**Total ViewModels Migrated**: 131
-**Remaining ViewModels**: 70
+**Last Updated**: 2026-01-05
+**Total ViewModels Migrated**: 142
+**Remaining ViewModels**: 59
 
 ---
 
@@ -28,11 +28,11 @@ Migration from `ObservableObject` protocol + `@Published` to Swift's `@Observabl
 ### In Progress (Current Branch)
 | Branch | Title | ViewModels Migrated |
 |--------|-------|---------------------|
-| ios-5635-migrate-to-observable | Migrate batch 11 | 8 |
+| ios-5635-migrate-to-observable | Migrate batch 12 | 11 |
 
 ---
 
-## Migrated ViewModels (131 total)
+## Migrated ViewModels (142 total)
 
 ### PR #4403 - Settings (11 files)
 - [x] SettingsViewModel.swift
@@ -186,9 +186,22 @@ Migration from `ObservableObject` protocol + `@Published` to Swift's `@Observabl
 - [x] SharingExtensionViewModel.swift
 - [x] SharingExtensionShareToViewModel.swift
 
+### Batch 12 - Set Filters & Sorts (11 files)
+- [x] SetFiltersListViewModel.swift
+- [x] SetFiltersListCoordinatorViewModel.swift
+- [x] SetFiltersTextViewModel.swift
+- [x] SetFiltersCheckboxViewModel.swift
+- [x] SetFiltersDateViewModel.swift
+- [x] SetFiltersDateCoordinatorViewModel.swift
+- [x] SetFiltersSelectionViewModel.swift
+- [x] SetFiltersSelectionHeaderViewModel.swift
+- [x] SetFiltersSelectionCoordinatorViewModel.swift
+- [x] SetSortsListViewModel.swift
+- [x] SetSortsListCoordinatorViewModel.swift
+
 ---
 
-## Remaining ViewModels (70 total)
+## Remaining ViewModels (59 total)
 
 ### Simple Migrations (No complex Combine patterns)
 
@@ -201,23 +214,13 @@ These can be migrated with the standard pattern:
 - [ ] PinnedWidgetInternalViewModel.swift ⚠️ has .eraseToAnyPublisher()
 - [ ] RecentWidgetInternalViewModel.swift ⚠️ has .eraseToAnyPublisher()
 
-#### Set/Collection (17 files)
+#### Set/Collection (14 files)
 - [ ] EditorSetViewModel.swift
 - [ ] SetViewPickerViewModel.swift
 - [ ] SetViewPickerCoordinatorViewModel.swift
 - [ ] ObjectTypeTemplatePickerViewModel.swift
-- [ ] SetFiltersListViewModel.swift
-- [ ] SetFiltersListCoordinatorViewModel.swift
-- [ ] SetFiltersTextViewModel.swift
-- [ ] SetFiltersCheckboxViewModel.swift
-- [ ] SetFiltersDateViewModel.swift
-- [ ] SetFiltersDateCoordinatorViewModel.swift
-- [ ] SetFiltersSelectionViewModel.swift
-- [ ] SetFiltersSelectionHeaderViewModel.swift
-- [ ] SetFiltersSelectionCoordinatorViewModel.swift
-- [ ] SetSortsListViewModel.swift
-- [ ] SetSortsListCoordinatorViewModel.swift
 - [ ] SetSortTypesListViewModel.swift
+- [ ] SetSortsSearchViewModel.swift ⚠️ has .eraseToAnyPublisher()
 - [ ] SetPropertiesViewModel.swift
 - [ ] SetPropertiesCoordinatorViewModel.swift
 - [ ] SetHeaderSettingsViewModel.swift

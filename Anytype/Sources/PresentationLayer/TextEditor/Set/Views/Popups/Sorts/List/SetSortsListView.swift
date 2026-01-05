@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct SetSortsListView: View {
-    @StateObject private var viewModel: SetSortsListViewModel
-    
+    @State private var viewModel: SetSortsListViewModel
+
     @State private var editMode = EditMode.inactive
-    
+
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetSortsListCoordinatorOutput)?) {
-        _viewModel = StateObject(wrappedValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
+        _viewModel = State(initialValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {

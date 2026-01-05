@@ -8,11 +8,14 @@ protocol SetSortsListCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoordinatorOutput {
-    @Published var sortsSearchData: SetPropertiesDetailsLocalSearchData?
-    @Published var sortTypesData: SetSortTypesData?
-    
+@Observable
+final class SetSortsListCoordinatorViewModel: SetSortsListCoordinatorOutput {
+    var sortsSearchData: SetPropertiesDetailsLocalSearchData?
+    var sortTypesData: SetSortTypesData?
+
+    @ObservationIgnored
     let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     let viewId: String
     
     init(

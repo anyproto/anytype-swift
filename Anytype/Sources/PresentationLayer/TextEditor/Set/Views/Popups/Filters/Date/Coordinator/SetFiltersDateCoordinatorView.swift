@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SetFiltersDateCoordinatorView: View {
-    @StateObject private var model: SetFiltersDateCoordinatorViewModel
-    
+    @State private var model: SetFiltersDateCoordinatorViewModel
+
     init(data: SetFiltersDateViewData, setSelectionModel: SetFiltersSelectionViewModel?) {
-        _model = StateObject(wrappedValue: SetFiltersDateCoordinatorViewModel(data: data, setSelectionModel: setSelectionModel))
+        _model = State(initialValue: SetFiltersDateCoordinatorViewModel(data: data, setSelectionModel: setSelectionModel))
     }
     
     var body: some View {

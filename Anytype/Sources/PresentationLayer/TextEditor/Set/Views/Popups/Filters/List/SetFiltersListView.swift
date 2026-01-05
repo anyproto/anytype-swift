@@ -2,12 +2,12 @@ import SwiftUI
 import Services
 
 struct SetFiltersListView: View {
-    @StateObject private var viewModel: SetFiltersListViewModel
-    
+    @State private var viewModel: SetFiltersListViewModel
+
     @State private var editMode = EditMode.inactive
-    
+
     init(data: SetFiltersListModuleData, output: (any SetFiltersListCoordinatorOutput)?, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        _viewModel = StateObject(wrappedValue: SetFiltersListViewModel(
+        _viewModel = State(initialValue: SetFiltersListViewModel(
             data: data,
             output: output,
             subscriptionDetailsStorage: subscriptionDetailsStorage
