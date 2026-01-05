@@ -2,8 +2,8 @@
 
 **Task**: IOS-5635
 **Last Updated**: 2026-01-05
-**Total ViewModels Migrated**: 152
-**Remaining ViewModels**: 49
+**Total ViewModels Migrated**: 156
+**Remaining ViewModels**: 25
 
 ---
 
@@ -211,53 +211,53 @@ Migration from `ObservableObject` protocol + `@Published` to Swift's `@Observabl
 - [x] SetSortTypesListViewModel.swift
 - [x] SetHeaderSettingsViewModel.swift
 
+### Batch 14 - Simple ViewModels (4 files)
+- [x] SetKanbanColumnSettingsViewModel.swift
+- [x] PublishToWebInternalViewModel.swift
+- [x] FileDownloadingViewModel.swift
+- [x] ObjectVersionViewModel.swift
+
 ---
 
-## Remaining ViewModels (49 total)
+## Remaining ViewModels (25 total)
 
-### Simple Migrations (No complex Combine patterns)
+### Complex Migrations (External Publishers / Combine patterns)
 
-These can be migrated with the standard pattern:
+These require handling external publisher subscriptions:
 
 #### HomeWidgets (5 files)
-- [ ] TreeWidgetViewModel.swift
-- [ ] ListWidgetViewModel.swift
-- [ ] ObjectWidgetInternalViewModel.swift
-- [ ] PinnedWidgetInternalViewModel.swift ⚠️ has .eraseToAnyPublisher()
-- [ ] RecentWidgetInternalViewModel.swift ⚠️ has .eraseToAnyPublisher()
+- [ ] TreeWidgetViewModel.swift - uses `.assign(to:)` and `.sink`
+- [ ] ListWidgetViewModel.swift - uses `.assign(to:)` and `.sink`
+- [ ] ObjectWidgetInternalViewModel.swift - has `.eraseToAnyPublisher()`
+- [ ] PinnedWidgetInternalViewModel.swift - has `.eraseToAnyPublisher()`
+- [ ] RecentWidgetInternalViewModel.swift - has `.eraseToAnyPublisher()`
 
-#### Set/Collection (5 files)
-- [ ] EditorSetViewModel.swift
-- [ ] ObjectTypeTemplatePickerViewModel.swift
-- [ ] SetSortsSearchViewModel.swift ⚠️ has .eraseToAnyPublisher()
-- [ ] SetKanbanColumnSettingsViewModel.swift
-- [ ] SetObjectCreationSettingsViewModel.swift
-- [ ] SetViewSettingsGroupByViewModel.swift ⚠️ implements CheckPopupViewViewModelProtocol: ObservableObject
-- [ ] SetViewSettingsCardSizeViewModel.swift ⚠️ implements CheckPopupViewViewModelProtocol: ObservableObject
+#### Set/Collection (4 files)
+- [ ] EditorSetViewModel.swift - complex Combine patterns
+- [ ] ObjectTypeTemplatePickerViewModel.swift - async streams
+- [ ] SetObjectCreationSettingsViewModel.swift - external publisher `.sink`
+- [ ] TemplatePickerViewModel.swift - has `.eraseToAnyPublisher()`
 
 #### TextEditor (7 files)
-- [ ] EditorPageViewModel.swift (LARGE - complex)
-- [ ] ObjectHeaderViewModel.swift
-- [ ] SlashMenuViewModel.swift
-- [ ] MarkupAccessoryViewModel.swift
-- [ ] SelectionOptionsViewModel.swift
-- [ ] HorizonalTypeListViewModel.swift
-- [ ] GridItemViewModel.swift
+- [ ] EditorPageViewModel.swift (LARGE - very complex)
+- [ ] ObjectHeaderViewModel.swift - external publisher subscriptions
+- [ ] SlashMenuViewModel.swift - uses PassthroughSubject
+- [ ] MarkupAccessoryViewModel.swift - uses `objectWillChange.send()`
+- [ ] SelectionOptionsViewModel.swift - external publisher `.sink`
+- [ ] HorizonalTypeListViewModel.swift - external publisher `.sink`
+- [ ] GridItemViewModel.swift - Protocol with ObservableObject constraint
 
-#### Misc Modules (9 files)
-- [ ] BinListViewModel.swift
-- [ ] WidgetObjectListViewModel.swift
-- [ ] TemplatePickerViewModel.swift
-- [ ] PublishToWebInternalViewModel.swift
-- [ ] ServerConfigurationViewModel.swift
-- [ ] SyncStatusInfoViewModel.swift
-- [ ] FileDownloadingViewModel.swift
-- [ ] DebugMenuViewModel.swift
-- [ ] PublicDebugMenuViewModel.swift
+#### Misc Modules (5 files)
+- [ ] BinListViewModel.swift (BimListViewModel.swift) - has `.eraseToAnyPublisher()`
+- [ ] WidgetObjectListViewModel.swift - has `.eraseToAnyPublisher()`
+- [ ] ServerConfigurationViewModel.swift - external publisher `.sink`
+- [ ] SyncStatusInfoViewModel.swift - uses `.assign(to:)`
+- [ ] DebugMenuViewModel.swift - uses `.assign(to:)`
+- [ ] PublicDebugMenuViewModel.swift - uses `.assign(to:)`
 
 #### UIKit-based (2 files)
-- [ ] AnytypeAlertViewModel.swift
-- [ ] AnytypePopupViewModel.swift
+- [ ] AnytypeAlertViewModel.swift - implements AnytypePopupViewModelProtocol
+- [ ] AnytypePopupViewModel.swift - uses `@ObservedObject` in inner view
 
 ### Deferred (Special Handling Required)
 

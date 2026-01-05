@@ -7,16 +7,19 @@ protocol ObjectVersionModuleOutput: AnyObject {
 }
 
 @MainActor
-final class ObjectVersionViewModel: ObservableObject {
-    
-    @Published var screenData: EditorScreenData?
-    @Published var dismiss = false
-    
+@Observable
+final class ObjectVersionViewModel {
+
+    var screenData: EditorScreenData?
+    var dismiss = false
+
     let data: ObjectVersionData
-    
+
+    @ObservationIgnored
     @Injected(\.historyVersionsService)
     private var historyVersionsService: any HistoryVersionsServiceProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any ObjectVersionModuleOutput)?
     
     init(data: ObjectVersionData, output: (any ObjectVersionModuleOutput)?) {

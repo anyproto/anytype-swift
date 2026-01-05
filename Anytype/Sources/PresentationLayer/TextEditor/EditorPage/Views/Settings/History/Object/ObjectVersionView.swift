@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct ObjectVersionView: View {
-    
-    @StateObject private var model: ObjectVersionViewModel
+
+    @State private var model: ObjectVersionViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: ObjectVersionData, output: (any ObjectVersionModuleOutput)?) {
-        _model = StateObject(wrappedValue: ObjectVersionViewModel(data: data, output: output))
+        _model = State(initialValue: ObjectVersionViewModel(data: data, output: output))
     }
     
     var body: some View {
