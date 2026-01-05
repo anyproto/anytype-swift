@@ -19,6 +19,7 @@ final class HomePagePickerViewModel {
     @ObservationIgnored
     private let onFinish: () -> Void
     private let spaceId: String
+    private let spaceUxType: SpaceUxType?
     let currentObjectId: String?
     let isChatSpace: Bool
 
@@ -26,6 +27,7 @@ final class HomePagePickerViewModel {
         self.spaceId = spaceId
         self.onFinish = onFinish
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
+        self.spaceUxType = spaceView?.uxType
         self.isChatSpace = spaceView?.initialScreenIsChat ?? false
         self.currentObjectId = Container.shared.userDefaultsStorage().homeObjectId(spaceId: spaceId)
     }
@@ -36,7 +38,7 @@ final class HomePagePickerViewModel {
 
     func search() async {
         do {
-            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceUxType: .data)
+            let layouts: [DetailsLayout] = DetailsLayout.visibleLayoutsWithFiles(spaceUxType: spaceUxType)
             objects = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
                 layouts: layouts,
