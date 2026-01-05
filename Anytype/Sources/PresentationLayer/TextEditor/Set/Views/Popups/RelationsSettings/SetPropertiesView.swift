@@ -2,11 +2,11 @@ import SwiftUI
 import AnytypeCore
 
 struct SetPropertiesView: View {
-    @StateObject private var model: SetPropertiesViewModel
+    @State private var model: SetPropertiesViewModel
     @State private var editMode = EditMode.inactive
-    
+
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetPropertiesCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
+        _model = State(initialValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {

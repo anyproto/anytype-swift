@@ -7,7 +7,12 @@ import SwiftProtobuf
 @Observable
 final class SetFiltersSelectionViewModel {
     var state: SetFiltersSelectionViewState
-    var condition: DataviewFilter.Condition
+    var condition: DataviewFilter.Condition {
+        didSet { onConditionChanged?(condition) }
+    }
+
+    @ObservationIgnored
+    var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
 
     @ObservationIgnored
     private let filter: SetFilter

@@ -9,13 +9,13 @@ protocol SetPropertiesCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetPropertiesCoordinatorViewModel:
-    ObservableObject,
-    SetPropertiesCoordinatorOutput
-{
-    @Published var relationsSearchData: PropertiesSearchData?
-    
+@Observable
+final class SetPropertiesCoordinatorViewModel: SetPropertiesCoordinatorOutput {
+    var relationsSearchData: PropertiesSearchData?
+
+    @ObservationIgnored
     let setDocument: any SetDocumentProtocol
+    @ObservationIgnored
     let viewId: String
     
     init(setDocument: some SetDocumentProtocol, viewId: String) {

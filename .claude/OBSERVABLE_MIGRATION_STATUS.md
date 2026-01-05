@@ -2,8 +2,8 @@
 
 **Task**: IOS-5635
 **Last Updated**: 2026-01-05
-**Total ViewModels Migrated**: 142
-**Remaining ViewModels**: 59
+**Total ViewModels Migrated**: 152
+**Remaining ViewModels**: 49
 
 ---
 
@@ -28,11 +28,11 @@ Migration from `ObservableObject` protocol + `@Published` to Swift's `@Observabl
 ### In Progress (Current Branch)
 | Branch | Title | ViewModels Migrated |
 |--------|-------|---------------------|
-| ios-5635-migrate-to-observable | Migrate batch 12 | 11 |
+| ios-5635-migrate-to-observable | Migrate batches 12-13 | 21 |
 
 ---
 
-## Migrated ViewModels (142 total)
+## Migrated ViewModels (152 total)
 
 ### PR #4403 - Settings (11 files)
 - [x] SettingsViewModel.swift
@@ -199,9 +199,21 @@ Migration from `ObservableObject` protocol + `@Published` to Swift's `@Observabl
 - [x] SetSortsListViewModel.swift
 - [x] SetSortsListCoordinatorViewModel.swift
 
+### Batch 13 - Set View Settings (10 files)
+- [x] SetViewPickerViewModel.swift
+- [x] SetViewPickerCoordinatorViewModel.swift
+- [x] SetPropertiesViewModel.swift
+- [x] SetPropertiesCoordinatorViewModel.swift
+- [x] SetLayoutSettingsViewModel.swift
+- [x] SetLayoutSettingsCoordinatorViewModel.swift
+- [x] SetViewSettingsCoordinatorViewModel.swift
+- [x] SetViewSettingsImagePreviewViewModel.swift
+- [x] SetSortTypesListViewModel.swift
+- [x] SetHeaderSettingsViewModel.swift
+
 ---
 
-## Remaining ViewModels (59 total)
+## Remaining ViewModels (49 total)
 
 ### Simple Migrations (No complex Combine patterns)
 
@@ -214,22 +226,14 @@ These can be migrated with the standard pattern:
 - [ ] PinnedWidgetInternalViewModel.swift ⚠️ has .eraseToAnyPublisher()
 - [ ] RecentWidgetInternalViewModel.swift ⚠️ has .eraseToAnyPublisher()
 
-#### Set/Collection (14 files)
+#### Set/Collection (5 files)
 - [ ] EditorSetViewModel.swift
-- [ ] SetViewPickerViewModel.swift
-- [ ] SetViewPickerCoordinatorViewModel.swift
 - [ ] ObjectTypeTemplatePickerViewModel.swift
-- [ ] SetSortTypesListViewModel.swift
 - [ ] SetSortsSearchViewModel.swift ⚠️ has .eraseToAnyPublisher()
-- [ ] SetPropertiesViewModel.swift
-- [ ] SetPropertiesCoordinatorViewModel.swift
-- [ ] SetHeaderSettingsViewModel.swift
 - [ ] SetKanbanColumnSettingsViewModel.swift
-- [ ] SetLayoutSettingsViewModel.swift
-- [ ] SetLayoutSettingsCoordinatorViewModel.swift
-- [ ] SetViewSettingsCoordinatorViewModel.swift
-- [ ] SetViewSettingsImagePreviewViewModel.swift
 - [ ] SetObjectCreationSettingsViewModel.swift
+- [ ] SetViewSettingsGroupByViewModel.swift ⚠️ implements CheckPopupViewViewModelProtocol: ObservableObject
+- [ ] SetViewSettingsCardSizeViewModel.swift ⚠️ implements CheckPopupViewViewModelProtocol: ObservableObject
 
 #### TextEditor (7 files)
 - [ ] EditorPageViewModel.swift (LARGE - complex)

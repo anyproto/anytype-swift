@@ -2,10 +2,10 @@ import SwiftUI
 
 struct SetViewSettingsImagePreviewView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: SetViewSettingsImagePreviewViewModel
-    
+    @State private var viewModel: SetViewSettingsImagePreviewViewModel
+
     init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
-        _viewModel = StateObject(wrappedValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
+        _viewModel = State(initialValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
     }
 
     var body: some View {

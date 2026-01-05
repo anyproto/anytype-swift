@@ -2,8 +2,8 @@ import SwiftUI
 import AnytypeCore
 
 struct SetHeaderSettingsView: View {
-    
-    @StateObject var model: SetHeaderSettingsViewModel
+
+    @State var model: SetHeaderSettingsViewModel
     
     var body: some View {
         VStack(spacing: 0) {

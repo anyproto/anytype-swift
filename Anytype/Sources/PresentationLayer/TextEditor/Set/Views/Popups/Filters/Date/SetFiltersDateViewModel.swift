@@ -1,6 +1,5 @@
 import SwiftUI
 import Services
-import Combine
 
 @MainActor
 @Observable
@@ -18,8 +17,6 @@ final class SetFiltersDateViewModel {
     private weak var setSelectionModel: SetFiltersSelectionViewModel?
     @ObservationIgnored
     private let onApplyDate: (SetFiltersDate) -> Void
-    @ObservationIgnored
-    private var cancellable: AnyCancellable?
     
     var rows: [SetFiltersDateRowConfiguration] {
         DataviewFilter.QuickOption.orderedCases(for: condition).map { option in
@@ -73,7 +70,7 @@ final class SetFiltersDateViewModel {
     }
     
     private func setup() {
-        cancellable = setSelectionModel?.$condition.sink {  [weak self] condition in
+        setSelectionModel?.onConditionChanged = { [weak self] condition in
             self?.condition = condition
         }
     }
