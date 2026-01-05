@@ -5,10 +5,11 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
+    let navigationButtonType: PageNavigationButtonType
     let output: (any HomeWidgetsModuleOutput)?
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, output: output)
+        HomeWidgetsInternalView(info: info, navigationButtonType: navigationButtonType, output: output)
             .id(info.hashValue)
     }
 }
@@ -18,8 +19,11 @@ private struct HomeWidgetsInternalView: View {
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
 
-    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
+    let navigationButtonType: PageNavigationButtonType
+
+    init(info: AccountInfo, navigationButtonType: PageNavigationButtonType, output: (any HomeWidgetsModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+        self.navigationButtonType = navigationButtonType
     }
     
     var body: some View {
@@ -36,7 +40,7 @@ private struct HomeWidgetsInternalView: View {
             model.onAppear()
         }
         .safeAreaInset(edge: .top) {
-            WidgetsHeaderView(spaceId: model.spaceId) {
+            WidgetsHeaderView(spaceId: model.spaceId, navigationButtonType: navigationButtonType) {
                 model.onSpaceSelected()
             }
         }

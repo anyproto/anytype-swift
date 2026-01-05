@@ -2,15 +2,16 @@ import Foundation
 import SwiftUI
 
 struct WidgetsHeaderView: View {
-    
     @StateObject private var model: WidgetsHeaderViewModel
-    
-    init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
+    let navigationButtonType: PageNavigationButtonType
+
+    init(spaceId: String, navigationButtonType: PageNavigationButtonType, onSpaceSelected: @escaping () -> Void) {
         _model = StateObject(wrappedValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
+        self.navigationButtonType = navigationButtonType
     }
-    
+
     var body: some View {
-        PageNavigationHeader {
+        PageNavigationHeader(navigationButtonType: navigationButtonType) {
             HStack(spacing: 12) {
                 IconView(icon: model.spaceIcon)
                     .frame(width: 32, height: 32)

@@ -31,6 +31,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var spaceCreateData: SpaceCreateData?
     var chatCreateData: ChatCreateScreenData?
     var bookmarkCreateData: BookmarkCreateScreenData?
+    var overlayWidgetsData: HomeWidgetData?
     var showSpaceTypeForCreate = false
     var shouldScanQrCode = false
     var showAppSettings = false
@@ -372,7 +373,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
         case .spaceChat(let data):
             currentPath.openOnce(data)
         case .widget(let data):
-            let data = HomeWidgetData(spaceId: data.spaceId)
             currentPath.openOnce(data)
         }
         
@@ -406,6 +406,8 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             chatCreateData = chatData
         case .bookmarkCreate(let bookmarkData):
             bookmarkCreateData = bookmarkData
+        case .widgets(let widgetData):
+            overlayWidgetsData = widgetData
         }
     }
     
@@ -652,5 +654,9 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
         AnytypeAnalytics.instance().logClickQuote()
         chatProvider.addAttachment(attachment, clearInput: true)
         popToFirstInSpace()
+    }
+
+    func onShowWidgetsOverlay(spaceId: String) {
+        overlayWidgetsData = HomeWidgetData(spaceId: spaceId)
     }
 }

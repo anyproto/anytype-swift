@@ -122,7 +122,7 @@ final class HomeBottomNavigationPanelViewModel {
     
     func onTapHome() {
         AnytypeAnalytics.instance().logClickNavigationScreenHome()
-        output?.popToFirstInSpace()
+        output?.onShowWidgetsOverlay(spaceId: info.accountSpaceId)
     }
     
     func onTapCreateObject(type: ObjectType) {

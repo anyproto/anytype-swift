@@ -100,7 +100,8 @@ final class ChatCoordinatorViewModel: ChatModuleOutput {
     }
     
     func onWidgetsSelected() {
-        pageNavigation?.pushHome()
+        let widgetData = HomeWidgetData(spaceId: spaceId)
+        pageNavigation?.open(.alert(.widgets(widgetData)))
     }
 
     func onSpaceSettingsSelected() {
