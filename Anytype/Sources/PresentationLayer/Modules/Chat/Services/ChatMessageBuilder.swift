@@ -221,16 +221,14 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             return .bookmark(attachment)
         }
         
-        var attachmentsDetails = fullMessage.attachments.map { MessageAttachmentDetails(details: $0) }
-        
-        // Add empty objects
-        for attachment in fullMessage.message.attachments {
-            if !attachmentsDetails.contains(where: { $0.id == attachment.target }) {
-                attachmentsDetails.append(MessageAttachmentDetails.placeholder(tagetId: attachment.target))
+        // Preserve original order from message.attachments (middleware order)
+        let linkedObjectsDetails = fullMessage.message.attachments.map { attachment in
+            if let details = fullMessage.attachments.first(where: { $0.id == attachment.target }) {
+                return MessageAttachmentDetails(details: details)
+            } else {
+                return MessageAttachmentDetails.placeholder(tagetId: attachment.target)
             }
         }
-        
-        let linkedObjectsDetails = attachmentsDetails.sorted { $0.id < $1.id }
         
         let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.resolvedLayoutValue != .image && $0.resolvedLayoutValue != .video }
         

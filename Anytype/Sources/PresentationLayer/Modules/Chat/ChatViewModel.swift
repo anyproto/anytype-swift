@@ -585,7 +585,7 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
         editMessage = messageToEdit.message
         message = await chatInputConverter.convert(content: messageToEdit.message.message, spaceId: spaceId).value
         let attachments = await chatStorage.attachments(message: messageToEdit.message)
-        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }.sorted { $0.id < $1.id }
+        let messageAttachments = attachments.map { MessageAttachmentDetails(details: $0) }
         attachmentHandler.setLinkedObjects(messageAttachments.map { .uploadedObject($0) })
     }
     
@@ -722,9 +722,8 @@ final class ChatViewModel: MessageModuleOutput, ChatActionProviderHandler {
     
     private func didSelectAttachment(attachment: ObjectDetails, attachments: [ObjectDetails]) {
         if attachment.resolvedLayoutValue.isFileOrMedia {
-            let reorderedAttachments = attachments.sorted { $0.id < $1.id }
             output?.onObjectSelected(screenData: .preview(
-                MediaFileScreenData(selectedItem: attachment, allItems: reorderedAttachments, route: .chat)
+                MediaFileScreenData(selectedItem: attachment, allItems: attachments, route: .chat)
             ))
         } else {
             output?.onObjectSelected(screenData: attachment.screenData())
