@@ -230,7 +230,7 @@ actor ChatMessageBuilder: ChatMessageBuilderProtocol, Sendable {
             }
         }
         
-        let linkedObjectsDetails = attachmentsDetails.sorted { $0.id > $1.id }
+        let linkedObjectsDetails = attachmentsDetails.sorted { $0.id < $1.id }
         
         let containsNotOnlyMediaFiles = linkedObjectsDetails.contains { $0.resolvedLayoutValue != .image && $0.resolvedLayoutValue != .video }
         
