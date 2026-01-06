@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SetKanbanColumnSettingsView: View {
-    @ObservedObject var viewModel: SetKanbanColumnSettingsViewModel
+    var viewModel: SetKanbanColumnSettingsViewModel
 
     var body: some View {
         VStack(spacing: 0) {

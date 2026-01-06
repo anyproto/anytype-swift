@@ -4,11 +4,11 @@ import Services
 
 
 struct PublishToWebInternalView: View {
-    
-    @StateObject private var model: PublishToWebInternalViewModel
-    
+
+    @State private var model: PublishToWebInternalViewModel
+
     init(data: PublishToWebViewInternalData, output: (any PublishToWebModuleOutput)?) {
-        _model = StateObject(wrappedValue: PublishToWebInternalViewModel(data: data, output: output))
+        _model = State(initialValue: PublishToWebInternalViewModel(data: data, output: output))
     }
     
     var body: some View {
