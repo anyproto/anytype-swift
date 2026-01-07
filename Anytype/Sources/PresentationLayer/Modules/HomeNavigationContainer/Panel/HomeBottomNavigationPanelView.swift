@@ -17,6 +17,8 @@ struct HomeBottomNavigationPanelView: View {
 
 private struct HomeBottomNavigationPanelViewInternal: View {
 
+    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+
     let homePath: HomePath
     @State private var model: HomeBottomNavigationPanelViewModel
 
@@ -31,21 +33,34 @@ private struct HomeBottomNavigationPanelViewInternal: View {
 
     @ViewBuilder
     var buttons: some View {
-        HStack(alignment: .center, spacing: 40) {
-            navigation
+        VStack(spacing: 0) {
+            HStack {
+                if model.isWidgetsScreen {
+                    searchButton
+                    Spacer()
+                    createButton
+                } else {
+                    burgerButton
+                    Spacer()
+                    searchButton
+                    Spacer()
+                    createButton
+                }
+            }
+            .padding(.horizontal, 48)
+            .padding(.top, 16)
+            .padding(.bottom, 8)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-        .background(progressView)
-        .background(Color.Background.navigationPanel)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .frame(maxWidth: .infinity)
+        .background {
+            HomeBlurEffectView(direction: .bottomToTop)
+                .ignoresSafeArea()
+        }
         .overlay {
             if !model.newObjectPlusMenu {
                 HomeTipView()
             }
         }
-        .padding(.vertical, 10)
         .task {
             await model.startSubscriptions()
         }
@@ -62,10 +77,45 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     }
     
     @ViewBuilder
-    private var navigation: some View {
-        
-        leftButton
-        
+    private var burgerButton: some View {
+        if let widgetsNamespace, #available(iOS 26.0, *) {
+            burgerButtonView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
+        } else {
+            burgerButtonView
+        }
+    }
+
+    @ViewBuilder
+    private var burgerButtonView: some View {
+        Button {
+            model.onTapShowWidgets()
+        } label: {
+            Image(asset: .X24.burger)
+                .renderingMode(.template)
+                .navPanelDynamicForegroundStyle()
+                .padding(4)
+        }
+        .frame(width: 40, height: 40)
+        .background(Color.Shape.tertiary)
+        .clipShape(Circle())
+    }
+
+    private var searchButton: some View {
+        Button {
+            model.onTapSearch()
+        } label: {
+            Image(asset: .X24.search)
+                .renderingMode(.template)
+                .navPanelDynamicForegroundStyle()
+                .padding(4)
+        }
+        .frame(width: 40, height: 40)
+        .background(Color.Shape.tertiary)
+        .clipShape(Circle())
+    }
+
+    @ViewBuilder
+    private var createButton: some View {
         if model.newObjectPlusMenu {
             Menu {
                 if let type = model.pageObjectType {
@@ -117,82 +167,29 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
                 }
             } label: {
-                Image(asset: .X32.Island.addObject)
+                Image(asset: .X24.edit)
+                    .renderingMode(.template)
                     .navPanelDynamicForegroundStyle()
+                    .padding(4)
             }
+            .frame(width: 40, height: 40)
+            .background(Color.Shape.tertiary)
+            .clipShape(Circle())
             .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
         } else {
-            Image(asset: .X32.Island.addObject)
-                .onTapGesture {
-                    model.onTapNewObject()
-                }
-                .navPanelDynamicForegroundStyle()
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.3)
-                        .onEnded { _ in
-                            model.onPlusButtonLongtap()
-                        }
-                )
-                .disabled(!model.canCreateObject)
-        }
-        
-        Button {
-            model.onTapSearch()
-        } label: {
-            Image(asset: .X32.Island.search)
-                .navPanelDynamicForegroundStyle()
-        }
-    }
-    
-    @ViewBuilder
-    private var progressView: some View {
-        if let progress = model.progress {
-            GeometryReader { reader in
-                Color.VeryLight.orange
-                    .clipShape(.rect(cornerRadius: 2))
-                    .frame(width: max(reader.size.width * progress, 30), alignment: .leading)
-                    .animation(.linear, value: progress)
-            }
-            .transition(.opacity)
-        }
-    }
-    
-    @ViewBuilder
-    private var leftButton: some View {
-        switch model.leftButtonMode {
-        case .member:
             Button {
-                model.onTapMembers()
+                model.onTapNewObject()
             } label: {
-                Image(asset: .X32.Island.members)
+                Image(asset: .X24.edit)
+                    .renderingMode(.template)
                     .navPanelDynamicForegroundStyle()
+                    .padding(4)
             }
-        case .owner(let enable):
-            Button {
-                model.onTapShare()
-            } label: {
-                Image(asset: .X32.Island.addMember)
-                    .navPanelDynamicForegroundStyle()
-            }
-            .disabled(!enable)
-        case .chat(let enable):
-            Button {
-                model.onTapAddToSpaceLevelChat()
-            } label: {
-                Image(asset: .X32.Island.discuss)
-                    .navPanelDynamicForegroundStyle()
-            }
-            .disabled(!enable)
-        case .home:
-            Button {
-                model.onTapHome()
-            } label: {
-                Image(asset: .X32.Island.vault)
-                    .navPanelDynamicForegroundStyle()
-            }
-        case .none:
-            EmptyView()
+            .frame(width: 40, height: 40)
+            .background(Color.Shape.tertiary)
+            .clipShape(Circle())
+            .disabled(!model.canCreateObject)
         }
     }
 }
