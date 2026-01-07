@@ -37,7 +37,7 @@ struct ChatTextView: UIViewRepresentable {
         let textView = AnytypeUITextView(usingTextLayoutManager: true)
         textView.delegate = context.coordinator
         textView.anytypeDelegate = context.coordinator
-        textView.textContainerInset = UIEdgeInsets(top: 18, left: 0, bottom: 10, right: 10)
+        textView.textContainerInset = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 16)
         textView.textContainer.lineFragmentPadding = 0
         textView.notEditableAttributes = [.chatMention]
         textView.backgroundColor = .clear
