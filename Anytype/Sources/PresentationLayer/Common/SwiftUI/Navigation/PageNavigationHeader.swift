@@ -5,8 +5,8 @@ enum PageNavigationHeaderConstants {
 }
 
 enum PageNavigationButtonType: Hashable {
-    case burger
-    case arrowBack
+    case back
+    case dismiss
 }
 
 struct PageNavigationHeader<TitleView: View, RightView: View>: View {
@@ -18,7 +18,7 @@ struct PageNavigationHeader<TitleView: View, RightView: View>: View {
     let rightView: RightView
 
     init(
-        navigationButtonType: PageNavigationButtonType = .arrowBack,
+        navigationButtonType: PageNavigationButtonType = .back,
         @ViewBuilder titleView: () -> TitleView,
         @ViewBuilder rightView: () -> RightView
     ) {
@@ -42,10 +42,10 @@ struct PageNavigationHeader<TitleView: View, RightView: View>: View {
     @ViewBuilder
     private var leftButton: some View {
         switch navigationButtonType {
-        case .arrowBack:
+        case .back:
             PageNavigationBackButton()
-        case .burger:
-            PageNavigationBurgerButton()
+        case .dismiss:
+            PageNavigationDismissButton()
         }
     }
 }
@@ -53,7 +53,7 @@ struct PageNavigationHeader<TitleView: View, RightView: View>: View {
 extension PageNavigationHeader where TitleView == AnyView {
     init(
         title: String,
-        navigationButtonType: PageNavigationButtonType = .arrowBack,
+        navigationButtonType: PageNavigationButtonType = .back,
         @ViewBuilder rightView: () -> RightView
     ) {
         self.navigationButtonType = navigationButtonType
@@ -67,7 +67,7 @@ extension PageNavigationHeader where TitleView == AnyView {
 }
 
 extension PageNavigationHeader where TitleView == AnyView, RightView == AnyView {
-    init(title: String, navigationButtonType: PageNavigationButtonType = .arrowBack) {
+    init(title: String, navigationButtonType: PageNavigationButtonType = .back) {
         self.navigationButtonType = navigationButtonType
         self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
             .foregroundStyle(Color.Text.primary)
