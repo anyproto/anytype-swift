@@ -26,7 +26,7 @@ struct ChatHeaderView: View {
     var body: some View {
         PageNavigationHeader {
             ExpandedTapAreaButton {
-                model.tapOpenSpaceSettings()
+                model.tapOpenWidgets()
             } label: {
                 HStack(spacing: 6) {
                     if model.showLoading {

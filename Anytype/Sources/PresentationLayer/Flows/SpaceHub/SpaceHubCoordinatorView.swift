@@ -123,6 +123,7 @@ struct SpaceHubCoordinatorView: View {
             .fullScreenCover(item: $model.overlayWidgetsData) { data in
                 HomeWidgetsCoordinatorView(data: data, navigationButtonType: .dismiss)
                     .pageNavigation(model.pageNavigation)
+                    .navigationZoomTransition(sourceID: "widgetsOverlay", in: namespace)
             }
     }
     
@@ -170,6 +171,7 @@ struct SpaceHubCoordinatorView: View {
 
             NotificationCoordinatorView()
         }
+        .widgetsAnimationNamespace(namespace)
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)
         .chatActionProvider($model.chatProvider)

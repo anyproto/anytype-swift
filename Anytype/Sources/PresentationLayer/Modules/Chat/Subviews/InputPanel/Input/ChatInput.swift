@@ -2,7 +2,9 @@ import SwiftUI
 import Services
 
 struct ChatInput: View {
-    
+
+    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+
     @Binding var text: NSAttributedString
     @Binding var editing: Bool
     @Binding var mention: ChatTextMention
@@ -34,7 +36,17 @@ struct ChatInput: View {
         .padding(.horizontal, 16)
     }
     
+    @ViewBuilder
     private var burgerButton: some View {
+        if let widgetsNamespace, #available(iOS 26.0, *) {
+            burgerButtonView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
+        } else {
+            burgerButtonView
+        }
+    }
+    
+    @ViewBuilder
+    private var burgerButtonView: some View {
         Button {
             onTapBurger()
         } label: {
