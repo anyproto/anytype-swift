@@ -16,7 +16,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var profileData: ObjectInfo?
     var spaceProfileData: AccountInfo?
     var userWarningAlert: UserWarningAlert?
-    var typeSearchForObjectCreationSpaceId: StringIdentifiable?
     var showSharingExtension = false
     var membershipTierId: IntIdentifiable?
     var showGalleryImport: GalleryInstallationData?
@@ -24,8 +23,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
     var membershipNameFinalizationData: MembershipTier?
     var showGlobalSearchData: GlobalSearchModuleData?
     var toastBarData: ToastBarData?
-    var showSpaceShareData: SpaceShareData?
-    var showSpaceMembersData: SpaceMembersData?
     var chatProvider = ChatActionProvider()
     var bookmarkScreenData: BookmarkScreenData?
     var spaceCreateData: SpaceCreateData?
@@ -285,15 +282,6 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
             spaceFileUploadService.uploadFiles(files, spaceId: uploadSpaceId)
         case .failure:
             break
-        }
-    }
-    
-    // MARK: - Private
-
-    func typeSearchForObjectCreationModule(spaceId: String) -> TypeSearchForNewObjectCoordinatorView {
-        TypeSearchForNewObjectCoordinatorView(spaceId: spaceId) { [weak self] details in
-            guard let self else { return }
-            showScreenSync(data: details.screenData())
         }
     }
     
@@ -618,7 +606,7 @@ final class SpaceHubCoordinatorViewModel: SpaceHubModuleOutput {
 extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     func onSearchSelected() {
         guard let spaceInfo else { return }
-        
+
         showGlobalSearchData = GlobalSearchModuleData(
             spaceId: spaceInfo.accountSpaceId,
             onSelect: { [weak self] screenData in
@@ -626,41 +614,18 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
             }
         )
     }
-    
+
     func onCreateObjectSelected(screenData: ScreenData) {
         UISelectionFeedbackGenerator().selectionChanged()
         showScreenSync(data: screenData)
     }
 
+    func onShowWidgetsOverlay(spaceId: String) {
+        overlayWidgetsData = HomeWidgetData(spaceId: spaceId)
+    }
+
     func popToFirstInSpace() {
         guard !pathChanging else { return }
         navigationPath.popToFirstOpened()
-    }
-    
-    func onPickTypeForNewObjectSelected() {
-        guard let spaceInfo else { return }
-        
-        UISelectionFeedbackGenerator().selectionChanged()
-        typeSearchForObjectCreationSpaceId = spaceInfo.accountSpaceId.identifiable
-    }
-    
-    func onMembersSelected() {
-        guard let spaceInfo else { return }
-        showSpaceMembersData = SpaceMembersData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
-    }
-    
-    func onShareSelected() {
-        guard let spaceInfo else { return }
-        showSpaceShareData = SpaceShareData(spaceId: spaceInfo.accountSpaceId, route: .navigation)
-    }
-    
-    func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject) {
-        AnytypeAnalytics.instance().logClickQuote()
-        chatProvider.addAttachment(attachment, clearInput: true)
-        popToFirstInSpace()
-    }
-
-    func onShowWidgetsOverlay(spaceId: String) {
-        overlayWidgetsData = HomeWidgetData(spaceId: spaceId)
     }
 }

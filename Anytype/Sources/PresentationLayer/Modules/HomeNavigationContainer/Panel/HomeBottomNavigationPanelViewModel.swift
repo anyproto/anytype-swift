@@ -15,8 +15,6 @@ final class HomeBottomNavigationPanelViewModel {
     @ObservationIgnored
     private let info: AccountInfo
 
-    @ObservationIgnored @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @ObservationIgnored @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @ObservationIgnored @Injected(\.participantSpacesStorage)
@@ -32,8 +30,6 @@ final class HomeBottomNavigationPanelViewModel {
 
     @ObservationIgnored
     private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
-    @ObservationIgnored
-    private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
 
     @ObservationIgnored
     private var currentData: AnyHashable?
@@ -42,7 +38,6 @@ final class HomeBottomNavigationPanelViewModel {
 
     // MARK: - Public properties
 
-    var profileIcon: Icon?
     var canCreateObject: Bool = false
     var isWidgetsScreen: Bool = false
     var pageObjectType: ObjectType?
@@ -57,7 +52,6 @@ final class HomeBottomNavigationPanelViewModel {
     ) {
         self.info = info
         self.output = output
-        setupDataSubscription()
     }
     
     func onTapNewObject() {
@@ -186,23 +180,7 @@ final class HomeBottomNavigationPanelViewModel {
         guard let participantSpaceView else { return }
         canCreateObject = participantSpaceView.permissions.canEdit
     }
-    
-    private func setupDataSubscription() {
-        Task {
-            await subscriptionService.startSubscription(
-                subId: subId,
-                spaceId: info.techSpaceId,
-                objectId: info.profileObjectID
-            ) { [weak self] details in
-                await self?.handleProfileDetails(details: details)
-            }
-        }
-    }
-    
-    private func handleProfileDetails(details: ObjectDetails) {
-        profileIcon = details.objectIconImage
-    }
-    
+
     private func handleCreateObject() {
         Task { @MainActor in
             guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: info.accountSpaceId) else { return }
