@@ -70,8 +70,9 @@ public extension DetailsLayout {
     var isSet: Bool { self == .set }
     var isCollection: Bool { self == .collection }
     var isList: Bool { Self.listLayouts.contains(self) }
-    
+
     var isObjectType: Bool { self == .objectType }
+    var isChat: Bool { Self.chatLayouts.contains(self) }
 }
 
 public extension Optional where Wrapped == DetailsLayout {

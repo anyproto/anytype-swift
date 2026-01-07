@@ -51,6 +51,7 @@ final class ObjectSettingsViewModel: ObjectActionsOutput {
     let spaceId: String
     var settings: [ObjectSetting] = []
     var showConflictAlert = false
+    var isChat = false
     
     init(
         objectId: String,
@@ -69,6 +70,7 @@ final class ObjectSettingsViewModel: ObjectActionsOutput {
                     details: details,
                     permissions: document.permissions
                 )
+                isChat = details.resolvedLayoutValue.isChat
             }
         }
     }
