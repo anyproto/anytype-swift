@@ -35,6 +35,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
 
+    static let homePage = FeatureDescription(
+        title: "Home Page",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
+        defaultValue: false
+    )
+
     static let qrCodeCircularText = FeatureDescription(
         title: "QR Code Circular Text - IOS-5580",
         type: .feature(author: "vova@anytype.io", releaseVersion: "16"),

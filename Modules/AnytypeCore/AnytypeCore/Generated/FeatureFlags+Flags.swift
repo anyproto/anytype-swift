@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .chatSettings)
     }
 
+    static var homePage: Bool {
+        value(for: .homePage)
+    }
+
     static var qrCodeCircularText: Bool {
         value(for: .qrCodeCircularText)
     }
@@ -117,6 +121,7 @@ public extension FeatureFlags {
         .newObjectSettings,
         .oneToOneSpaces,
         .chatSettings,
+        .homePage,
         .qrCodeCircularText,
         .setKanbanView,
         .fullInlineSetImpl,
