@@ -8,7 +8,8 @@ struct ChatInput: View {
     @Binding var text: NSAttributedString
     @Binding var editing: Bool
     @Binding var mention: ChatTextMention
-    let hasAdditionalData: Bool
+    let isEditingMessage: Bool
+    let linkedObjects: [ChatLinkedObject]
     let disableSendButton: Bool
     let disableAddButton: Bool
     let sendButtonIsLoading: Bool
@@ -24,11 +25,17 @@ struct ChatInput: View {
     let onTapLinkTo: (_ range: NSRange) -> Void
     let onLinkAdded: (_ url: URL) -> Void
     let onPasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
+    let onTapCloseEdit: () -> Void
+    let onTapAttachment: (ChatLinkedObject) -> Void
+    let onTapRemoveAttachment: (ChatLinkedObject) -> Void
+    let replyToMessage: ChatInputReplyModel?
+    let onTapCloseReply: () -> Void
+    let disableHeaderAndAttachments: Bool
     
     private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
 
     private var showSendButton: Bool {
-        editing && (hasAdditionalData || !text.string.isEmpty)
+        linkedObjects.isNotEmpty || !text.string.isEmpty
     }
 
     var body: some View {
@@ -132,6 +139,28 @@ struct ChatInput: View {
     }
 
     private var inputBubble: some View {
+        VStack(spacing: 0) {
+            if isEditingMessage {
+                ChatInputEditView(onTapClose: onTapCloseEdit)
+                    .disabled(disableHeaderAndAttachments)
+            } else if let replyToMessage {
+                ChatInputReplyView(model: replyToMessage, onTapDelete: onTapCloseReply)
+                    .disabled(disableHeaderAndAttachments)
+            }
+            ChatInputAttachmentsViewContainer(
+                objects: linkedObjects,
+                onTapObject: onTapAttachment,
+                onTapRemove: onTapRemoveAttachment
+            )
+            .disabled(disableHeaderAndAttachments)
+            textInputArea
+        }
+        .background(Color.Background.navigationPanel)
+        .background(.ultraThinMaterial)
+        .clipShape(.rect(cornerRadius: 20))
+    }
+
+    private var textInputArea: some View {
         ZStack(alignment: .topLeading) {
             if text.string.isEmpty {
                 Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
@@ -153,9 +182,6 @@ struct ChatInput: View {
             )
         }
         .padding(.horizontal, 16)
-        .background(Color.Background.navigationPanel)
-        .background(.ultraThinMaterial)
-        .clipShape(.rect(cornerRadius: 28))
     }
     
     private var sendButton: some View {

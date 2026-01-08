@@ -75,30 +75,12 @@ struct ChatView: View {
     
     private var inputPanel: some View {
         VStack(spacing: 0) {
-            // For model.sendMessageTaskInProgress disable all view exclude input.
-            // If we disable input, the keyboard will hide and show. This causes bugs on the iPad.
-            if model.editMessage.isNotNil {
-                ChatInputEditView {
-                    model.onTapDeleteEdit()
-                }
-                .disabled(model.sendMessageTaskInProgress)
-            } else if let replyToMessage = model.replyToMessage {
-                ChatInputReplyView(model: replyToMessage) {
-                    model.onTapDeleteReply()
-                }
-                .disabled(model.sendMessageTaskInProgress)
-            }
-            ChatInputAttachmentsViewContainer(objects: model.linkedObjects) {
-                model.didSelectObject(linkedObject: $0)
-            } onTapRemove: {
-                model.onTapRemoveLinkedObject(linkedObject: $0)
-            }
-            .disabled(model.sendMessageTaskInProgress)
             ChatInput(
                 text: $model.message,
                 editing: $model.inputFocused,
                 mention: $model.mentionSearchState,
-                hasAdditionalData: model.linkedObjects.isNotEmpty,
+                isEditingMessage: model.editMessage.isNotNil,
+                linkedObjects: model.linkedObjects,
                 disableSendButton: model.attachmentsDownloading || model.textLimitReached || model.sendMessageTaskInProgress,
                 disableAddButton: model.sendMessageTaskInProgress,
                 sendButtonIsLoading: model.sendButtonIsLoading,
@@ -133,7 +115,21 @@ struct ChatView: View {
                 },
                 onPasteAttachmentsFromBuffer: { items in
                     model.onPasteAttachmentsFromBuffer(items: items)
-                }
+                },
+                onTapCloseEdit: {
+                    model.onTapDeleteEdit()
+                },
+                onTapAttachment: {
+                    model.didSelectObject(linkedObject: $0)
+                },
+                onTapRemoveAttachment: {
+                    model.onTapRemoveLinkedObject(linkedObject: $0)
+                },
+                replyToMessage: model.editMessage.isNil ? model.replyToMessage : nil,
+                onTapCloseReply: {
+                    model.onTapDeleteReply()
+                },
+                disableHeaderAndAttachments: model.sendMessageTaskInProgress
             )
             .overlay(alignment: .top) {
                 if let messageTextLimit = model.messageTextLimit {

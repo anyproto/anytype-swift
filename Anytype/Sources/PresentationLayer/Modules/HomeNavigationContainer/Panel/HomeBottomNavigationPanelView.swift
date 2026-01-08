@@ -167,7 +167,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
                 }
             } label: {
-                Image(asset: .X24.edit)
+                Image(systemName: "square.and.pencil")
                     .renderingMode(.template)
                     .navPanelDynamicForegroundStyle()
                     .padding(4)
