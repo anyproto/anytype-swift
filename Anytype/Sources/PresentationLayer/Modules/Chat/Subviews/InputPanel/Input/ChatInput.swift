@@ -79,12 +79,12 @@ struct ChatInput: View {
         } label: {
             Image(asset: .X24.burger)
                 .renderingMode(.template)
-                .navPanelDynamicForegroundStyle()
+                .foregroundStyle(Color.Control.primary)
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
         .clipShape(Circle())
+        .glassEffectIOS26()
     }
 
     private var plusMenu: some View {
@@ -128,12 +128,13 @@ struct ChatInput: View {
             }
         } label: {
             Image(asset: .X24.plus)
-                .navPanelDynamicForegroundStyle()
+                .foregroundStyle(Color.Control.primary)
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
         .clipShape(Circle())
+        .contentShape(Circle())
+        .glassEffectIOS26()
         .menuOrder(.fixed)
         .disabled(disableAddButton)
     }

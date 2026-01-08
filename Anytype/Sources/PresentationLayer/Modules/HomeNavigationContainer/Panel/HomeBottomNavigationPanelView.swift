@@ -92,11 +92,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         } label: {
             Image(asset: .X24.burger)
                 .renderingMode(.template)
-                .navPanelDynamicForegroundStyle()
+                .foregroundStyle(Color.Control.primary)
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
+        .glassEffectIOS26()
         .clipShape(Circle())
     }
 
@@ -106,12 +106,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         } label: {
             Image(asset: .X24.search)
                 .renderingMode(.template)
-                .navPanelDynamicForegroundStyle()
+                .foregroundStyle(Color.Control.primary)
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
         .clipShape(Circle())
+        .glassEffectIOS26()
     }
 
     @ViewBuilder
@@ -169,12 +169,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             } label: {
                 Image(systemName: "square.and.pencil")
                     .renderingMode(.template)
-                    .navPanelDynamicForegroundStyle()
+                    .foregroundStyle(Color.Control.primary)
                     .padding(4)
             }
             .frame(width: 40, height: 40)
-            .background(Color.Shape.tertiary)
             .clipShape(Circle())
+            .glassEffectIOS26()
             .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
         } else {
@@ -183,12 +183,12 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             } label: {
                 Image(asset: .X24.edit)
                     .renderingMode(.template)
-                    .navPanelDynamicForegroundStyle()
+                    .foregroundStyle(Color.Control.primary)
                     .padding(4)
             }
             .frame(width: 40, height: 40)
-            .background(Color.Shape.tertiary)
             .clipShape(Circle())
+            .glassEffectIOS26()
             .disabled(!model.canCreateObject)
         }
     }

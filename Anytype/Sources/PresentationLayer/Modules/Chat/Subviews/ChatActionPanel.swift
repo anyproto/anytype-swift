@@ -41,9 +41,8 @@ struct ChatActionPanelView: View {
         } label: {
             Image(asset: asset)
                 .frame(width: 48, height: 48)
-                .background(Color.Background.navigationPanel)
-                .background(.ultraThinMaterial)
                 .clipShape(.rect(cornerRadius: 16))
+                .glassEffectIOS26()
                 .overlay(alignment: .topTrailing) {
                     if count > 0 {
                         CounterView(count: count)

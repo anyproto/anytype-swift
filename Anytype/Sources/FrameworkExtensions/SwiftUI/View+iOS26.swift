@@ -19,6 +19,17 @@ extension View {
             self
         }
     }
+    
+    @ViewBuilder
+    nonisolated public func glassEffectIOS26() -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffect()
+        } else {
+            self
+                .background(Color.Background.navigationPanel)
+                .background(.ultraThinMaterial)
+        }
+    }
 }
 
 public enum ScrollEdgeEffectStyleIOS26 {
