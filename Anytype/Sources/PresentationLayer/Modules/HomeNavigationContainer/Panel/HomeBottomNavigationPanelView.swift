@@ -47,7 +47,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     createButton
                 }
             }
-            .padding(.horizontal, 48)
+            .padding(.horizontal, 24)
             .padding(.top, 16)
             .padding(.bottom, 8)
         }

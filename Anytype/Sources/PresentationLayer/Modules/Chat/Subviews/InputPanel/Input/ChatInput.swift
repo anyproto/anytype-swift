@@ -26,14 +26,34 @@ struct ChatInput: View {
     let onPasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
     
     private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
-    
+
+    private var showSendButton: Bool {
+        editing && (hasAdditionalData || !text.string.isEmpty)
+    }
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
-            burgerButton
-            input
-            plusButton
+            leftButton
+            inputBubble
+            if showSendButton {
+                sendButton
+                    .transition(.scale.combined(with: .opacity))
+            }
         }
         .padding(.horizontal, 16)
+        .animation(.easeInOut(duration: 0.2), value: editing)
+        .animation(.easeInOut(duration: 0.2), value: showSendButton)
+    }
+
+    @ViewBuilder
+    private var leftButton: some View {
+        if editing {
+            plusMenu
+                .transition(.scale.combined(with: .opacity))
+        } else {
+            burgerButton
+                .transition(.scale.combined(with: .opacity))
+        }
     }
     
     @ViewBuilder
@@ -60,7 +80,7 @@ struct ChatInput: View {
         .clipShape(Circle())
     }
 
-    private var plusButton: some View {
+    private var plusMenu: some View {
         Menu {
             Button { onTapAddMedia() } label: {
                 Label(Loc.photos, systemImage: "photo")
@@ -111,56 +131,48 @@ struct ChatInput: View {
         .disabled(disableAddButton)
     }
 
-    private var input: some View {
-        HStack(alignment: .bottom, spacing: 0) {
-            ZStack(alignment: .topLeading) {
-                if text.string.isEmpty {
-                    Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
-                        .anytypeStyle(.chatText)
-                        .foregroundStyle(Color.Text.tertiary)
-                        .padding(.top, 9)
-                        .allowsHitTesting(false)
-                        .lineLimit(1)
-                }
-                ChatTextView(
-                    text: $text,
-                    editing: $editing,
-                    mention: $mention,
-                    minHeight: 40,
-                    maxHeight: 156,
-                    linkTo: onTapLinkTo,
-                    linkParsed: onLinkAdded,
-                    pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
-                )
+    private var inputBubble: some View {
+        ZStack(alignment: .topLeading) {
+            if text.string.isEmpty {
+                Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
+                    .anytypeStyle(.chatText)
+                    .foregroundStyle(Color.Text.tertiary)
+                    .padding(.top, 9)
+                    .allowsHitTesting(false)
+                    .lineLimit(1)
             }
-            if hasAdditionalData || !text.string.isEmpty {
-                sendButton
-            }
+            ChatTextView(
+                text: $text,
+                editing: $editing,
+                mention: $mention,
+                minHeight: 40,
+                maxHeight: 156,
+                linkTo: onTapLinkTo,
+                linkParsed: onLinkAdded,
+                pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
+            )
         }
-        .padding(.leading, 16)
-        .padding(.trailing, 4)
+        .padding(.horizontal, 16)
         .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 28))
     }
     
-    @ViewBuilder
     private var sendButton: some View {
         Button {
             onTapSend()
         } label: {
             if sendButtonIsLoading {
                 CircleLoadingView()
-                    .frame(width: 32, height: 32)
+                    .frame(width: 24, height: 24)
             } else {
                 Image(asset: .Chat.SendMessage.active)
+                    .frame(width: 40, height: 40)
             }
         }
-        .buttonStyle(StandardPlainButtonStyle())
+        .frame(width: 40, height: 40)
+        .clipShape(Circle())
         .disabled(disableSendButton)
-        .frame(width: 32, height: 40)
-        // Store in layout for calculate correct textview height when user paste in empty textview
-        .opacity(hasAdditionalData || !text.string.isEmpty ? 1 : 0)
     }
 }
 
