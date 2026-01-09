@@ -21,9 +21,20 @@ extension View {
     }
     
     @ViewBuilder
-    nonisolated public func glassEffectIOS26() -> some View {
+    public func buttonStyleGlassIOS26() -> some View {
         if #available(iOS 26.0, *) {
-            self.glassEffect()
+            self.buttonStyle(.glass)
+        } else {
+            self
+                .background(Color.Background.navigationPanel)
+                .background(.ultraThinMaterial)
+        }
+    }
+    
+    @ViewBuilder
+    public func glassEffectIOS26(in shape: some Shape) -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffect(in: shape)
         } else {
             self
                 .background(Color.Background.navigationPanel)

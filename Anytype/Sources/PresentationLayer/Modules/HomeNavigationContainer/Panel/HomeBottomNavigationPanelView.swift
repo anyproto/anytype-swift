@@ -96,8 +96,8 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .glassEffectIOS26()
         .clipShape(Circle())
+        .buttonStyleGlassIOS26()
     }
 
     private var searchButton: some View {
@@ -111,7 +111,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         }
         .frame(width: 40, height: 40)
         .clipShape(Circle())
-        .glassEffectIOS26()
+        .buttonStyleGlassIOS26()
     }
 
     @ViewBuilder
@@ -174,7 +174,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
             .frame(width: 40, height: 40)
             .clipShape(Circle())
-            .glassEffectIOS26()
+            .buttonStyleGlassIOS26()
             .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
         } else {
@@ -188,7 +188,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
             .frame(width: 40, height: 40)
             .clipShape(Circle())
-            .glassEffectIOS26()
+            .buttonStyleGlassIOS26()
             .disabled(!model.canCreateObject)
         }
     }

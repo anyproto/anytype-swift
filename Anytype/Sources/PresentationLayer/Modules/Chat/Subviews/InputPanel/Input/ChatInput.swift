@@ -84,7 +84,7 @@ struct ChatInput: View {
         }
         .frame(width: 40, height: 40)
         .clipShape(Circle())
-        .glassEffectIOS26()
+        .buttonStyleGlassIOS26()
     }
 
     private var plusMenu: some View {
@@ -134,7 +134,7 @@ struct ChatInput: View {
         .frame(width: 40, height: 40)
         .clipShape(Circle())
         .contentShape(Circle())
-        .glassEffectIOS26()
+        .buttonStyleGlassIOS26()
         .menuOrder(.fixed)
         .disabled(disableAddButton)
     }
