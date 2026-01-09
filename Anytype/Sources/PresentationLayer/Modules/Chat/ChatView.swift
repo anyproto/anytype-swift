@@ -101,9 +101,6 @@ struct ChatView: View {
                 onTapCreateObject: {
                     model.onTapCreateObject(type: $0)
                 },
-                onTapBurger: {
-                    model.onTapWidgets()
-                },
                 onTapSend: {
                     model.onTapSendMessage()
                 },

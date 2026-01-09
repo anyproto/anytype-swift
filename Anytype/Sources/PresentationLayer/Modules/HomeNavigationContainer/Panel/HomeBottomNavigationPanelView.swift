@@ -17,7 +17,6 @@ struct HomeBottomNavigationPanelView: View {
 
 private struct HomeBottomNavigationPanelViewInternal: View {
 
-    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
     @Namespace private var glassNamespace
 
     let homePath: HomePath
@@ -37,22 +36,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         VStack(spacing: 0) {
             GlassEffectContainerIOS26(spacing: 20) {
                 HStack {
-                    if model.isWidgetsScreen {
-                        searchButton
-                            .glassEffectIDIOS26("search", in: glassNamespace)
-                        Spacer()
-                        createButton
-                            .glassEffectIDIOS26("create", in: glassNamespace)
-                    } else {
-                        burgerButton
-                            .glassEffectIDIOS26("burger", in: glassNamespace)
-                        Spacer()
-                        searchButton
-                            .glassEffectIDIOS26("search", in: glassNamespace)
-                        Spacer()
-                        createButton
-                            .glassEffectIDIOS26("create", in: glassNamespace)
-                    }
+                    createButton
+                        .glassEffectIDIOS26("create", in: glassNamespace)
+                    Spacer()
+                    searchButton
+                        .glassEffectIDIOS26("search", in: glassNamespace)
                 }
             }
             .padding(.horizontal, 24)
@@ -82,29 +70,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 model.updateVisibleScreen(data: last)
             }
         }
-    }
-    
-    @ViewBuilder
-    private var burgerButton: some View {
-        if let widgetsNamespace, #available(iOS 26.0, *) {
-            burgerButtonView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
-        } else {
-            burgerButtonView
-        }
-    }
-
-    @ViewBuilder
-    private var burgerButtonView: some View {
-        Button {
-            model.onTapShowWidgets()
-        } label: {
-            Image(asset: .X24.burger)
-                .renderingMode(.template)
-                .foregroundStyle(Color.Control.primary)
-                .padding(4)
-        }
-        .frame(width: 40, height: 40)
-        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     private var searchButton: some View {

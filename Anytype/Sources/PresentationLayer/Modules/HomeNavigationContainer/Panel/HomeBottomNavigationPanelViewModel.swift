@@ -76,11 +76,6 @@ final class HomeBottomNavigationPanelViewModel {
         updateState()
     }
 
-    func onTapShowWidgets() {
-        AnytypeAnalytics.instance().logClickNavigationScreenHome()
-        output?.onShowWidgetsOverlay(spaceId: info.accountSpaceId)
-    }
-    
     func onTapCreateObject(type: ObjectType) {
         AnytypeAnalytics.instance().logClickNavBarAddMenu(objectType: type.analyticsType, route: clickAddMenuAnalyticsRoute())
 

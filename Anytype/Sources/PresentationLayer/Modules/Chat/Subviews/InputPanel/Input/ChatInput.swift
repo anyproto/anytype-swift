@@ -3,7 +3,6 @@ import Services
 
 struct ChatInput: View {
 
-    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
     @Namespace private var glassNamespace
 
     @Binding var text: NSAttributedString
@@ -21,7 +20,6 @@ struct ChatInput: View {
     let onTapAddFiles: () -> Void
     let onTapCamera: () -> Void
     let onTapCreateObject: (_ type: ObjectType) -> Void
-    let onTapBurger: () -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     let onLinkAdded: (_ url: URL) -> Void
@@ -41,10 +39,7 @@ struct ChatInput: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
-            GlassEffectContainerIOS26 {
-                leftButton
-                    .glassEffectIDIOS26(editing ? "plus" : "burger", in: glassNamespace)
-            }
+            plusMenu
             inputBubble
             if showSendButton {
                 sendButton
@@ -52,42 +47,7 @@ struct ChatInput: View {
             }
         }
         .padding(.horizontal, 16)
-        .animation(.easeInOut(duration: 0.2), value: editing)
         .animation(.easeInOut(duration: 0.2), value: showSendButton)
-    }
-
-    @ViewBuilder
-    private var leftButton: some View {
-        if editing {
-            plusMenu
-                .transition(.scale.combined(with: .opacity))
-        } else {
-            burgerButton
-                .transition(.scale.combined(with: .opacity))
-        }
-    }
-    
-    @ViewBuilder
-    private var burgerButton: some View {
-        if let widgetsNamespace, #available(iOS 26.0, *) {
-            burgerButtonView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
-        } else {
-            burgerButtonView
-        }
-    }
-    
-    @ViewBuilder
-    private var burgerButtonView: some View {
-        Button {
-            onTapBurger()
-        } label: {
-            Image(asset: .X24.burger)
-                .renderingMode(.template)
-                .foregroundStyle(Color.Control.primary)
-                .padding(4)
-        }
-        .frame(width: 40, height: 40)
-        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     private var plusMenu: some View {
