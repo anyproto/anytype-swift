@@ -41,15 +41,15 @@ struct ChatActionPanelView: View {
         } label: {
             Image(asset: asset)
                 .frame(width: 48, height: 48)
-                .overlay(alignment: .topTrailing) {
-                    if count > 0 {
-                        CounterView(count: count)
-                            .offset(x: 6, y: -6)
-                    }
-                }
         }
         .frame(width: 48, height: 48)
         .clipShape(.rect(cornerRadius: 16))
         .glassEffectIOS26(in: .rect(cornerRadius: 16.0))
+        .overlay(alignment: .topTrailing) {
+            if count > 0 {
+                CounterView(count: count)
+                    .offset(x: 6, y: -6)
+            }
+        }
     }
 }
