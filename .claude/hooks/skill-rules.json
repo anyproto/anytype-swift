@@ -392,6 +392,57 @@
         ]
       }
     },
+    "liquid-glass-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to iOS 26 Liquid Glass patterns (→ liquid-glass-developer/SKILL.md). GlassEffectContainer, morphing, interactive effects",
+      "promptTriggers": {
+        "keywords": [
+          "glass",
+          "liquid glass",
+          "glassEffect",
+          "GlassEffectContainer",
+          "iOS 26",
+          "iOS26",
+          "glass effect",
+          "morphing",
+          "interactive glass",
+          "glassEffectID",
+          "navigation panel",
+          "floating button",
+          "translucent",
+          "blur effect",
+          "glass button",
+          "View+iOS26",
+          "buttonStyleGlass",
+          "glassEffectInteractive"
+        ],
+        "intentPatterns": [
+          "(add|create|implement|use).*?(glass|glass effect|liquid glass)",
+          "(morph|transition).*?(button|element|view)",
+          "(iOS 26|iOS26).*?(effect|style|design)",
+          "(floating|navigation).*?(button|panel|control)",
+          "(how to|best practice).*?(glass|liquid glass|morphing)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/View+iOS26.swift",
+          "**/HomeBottomNavigationPanelView.swift",
+          "**/ChatInput.swift",
+          "**/ChatActionPanel.swift"
+        ],
+        "contentPatterns": [
+          "GlassEffectContainerIOS26",
+          "glassEffectInteractiveIOS26",
+          "glassEffectIDIOS26",
+          "glassEffectIOS26",
+          "buttonStyleGlassIOS26",
+          "\\.glassEffect\\(",
+          "GlassEffectContainer"
+        ]
+      }
+    },
     "tests-developer": {
       "type": "domain",
       "priority": "high",
