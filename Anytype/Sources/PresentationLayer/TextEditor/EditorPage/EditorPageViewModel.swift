@@ -352,6 +352,10 @@ extension EditorPageViewModel {
     func showSyncStatusInfo() {
         output?.showSyncStatusInfo(spaceId: document.spaceId)
     }
+
+    func showWidgets() {
+        output?.onWidgetsSelected(spaceId: document.spaceId)
+    }
 }
 
 // Cursor

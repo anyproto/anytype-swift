@@ -35,6 +35,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         struct TitleModel {
             let icon: Icon?
             let title: String?
+            let onTap: (() -> Void)?
         }
         
         struct TemplatesModel {
@@ -52,7 +53,14 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         switch model {
         case let .title(titleModel):
             titleLabel.setText(titleModel.title ?? "", style: .uxCalloutRegular)
-            titleLabel.isUserInteractionEnabled = false
+            if let onTap = titleModel.onTap {
+                titleLabel.isUserInteractionEnabled = true
+                stackView.isUserInteractionEnabled = true
+                stackView.addTapGesture { _ in onTap() }
+            } else {
+                titleLabel.isUserInteractionEnabled = false
+                stackView.isUserInteractionEnabled = false
+            }
             iconImageView.isHidden = titleModel.icon.isNil
             iconImageView.icon = titleModel.icon
             arrowImageView.isHidden = true

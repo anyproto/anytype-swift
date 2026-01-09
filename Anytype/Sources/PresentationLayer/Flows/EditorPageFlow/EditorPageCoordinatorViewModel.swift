@@ -127,7 +127,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     func showCamera(_ data: SimpleCameraData) {
         cameraData = data
     }
-    
+
+    func onWidgetsSelected(spaceId: String) {
+        let widgetData = HomeWidgetData(spaceId: spaceId)
+        pageNavigation?.open(.alert(.widgets(widgetData)))
+    }
+
     // MARK: - Private
     
     private func handlePropertyValue(relation: Property, objectDetails: ObjectDetails) {

@@ -735,6 +735,10 @@ extension EditorSetViewModel {
         output?.showSyncStatusInfo(spaceId: setDocument.spaceId)
     }
 
+    func onTapWidgets() {
+        output?.onWidgetsSelected(spaceId: setDocument.spaceId)
+    }
+
     func showRelationValueEditingView(key: String) {
         if key == BundledPropertyKey.setOf.rawValue {
             showSetOfTypeSelection()
