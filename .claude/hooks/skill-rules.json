@@ -458,6 +458,57 @@
           "static func mock"
         ]
       }
+    },
+    "swift-concurrency-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to Swift concurrency patterns. Actors, isolation, Sendable, TaskGroup, async/await mental models",
+      "promptTriggers": {
+        "keywords": [
+          "actor",
+          "isolation",
+          "isolation domain",
+          "Sendable",
+          "@unchecked Sendable",
+          "nonisolated",
+          "Task",
+          "TaskGroup",
+          "async let",
+          "structured concurrency",
+          "data race",
+          "cooperative pool",
+          "Swift 6",
+          "Swift 6.2",
+          "approachable concurrency",
+          "@concurrent",
+          "Task.detached",
+          "MainActor.run",
+          "withThrowingTaskGroup",
+          "concurrency warning",
+          "sendable warning"
+        ],
+        "intentPatterns": [
+          "(fix|resolve|suppress).*?(sendable|isolation|race|concurrency)",
+          "(understand|explain).*?(actor|isolation|sendable|task)",
+          "(migrate|update).*?(swift 6|concurrency)",
+          "(how to|when to).*?(actor|sendable|task|concurrent)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift"
+        ],
+        "contentPatterns": [
+          "actor\\s+\\w+",
+          "nonisolated\\s+(func|var|let)",
+          "Task\\s*\\{",
+          "TaskGroup",
+          "@unchecked Sendable",
+          "withThrowingTaskGroup",
+          ": Sendable",
+          "@concurrent"
+        ]
+      }
     }
   },
   "config": {
