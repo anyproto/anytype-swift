@@ -12,22 +12,27 @@ extension ChatActionPanelModel {
 }
 
 struct ChatActionPanelView: View {
+    @Namespace private var glassNamespace
+
     let model: ChatActionPanelModel
     let onTapScrollToBottom: () -> Void
     let onTapMention: () -> Void
-    
+
     var body: some View {
-        VStack(spacing: 12) {
-            
-            if model.showMentions {
-                button(asset: .X24.mention, count: model.mentionsCounter) {
-                    onTapMention()
+        GlassEffectContainerIOS26(spacing: 12) {
+            VStack(spacing: 12) {
+                if model.showMentions {
+                    button(asset: .X24.mention, count: model.mentionsCounter) {
+                        onTapMention()
+                    }
+                    .glassEffectIDIOS26("mention", in: glassNamespace)
                 }
-            }
-            
-            if model.showScrollToBottom {
-                button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
-                    onTapScrollToBottom()
+
+                if model.showScrollToBottom {
+                    button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
+                        onTapScrollToBottom()
+                    }
+                    .glassEffectIDIOS26("scroll", in: glassNamespace)
                 }
             }
         }
@@ -43,8 +48,7 @@ struct ChatActionPanelView: View {
                 .frame(width: 48, height: 48)
         }
         .frame(width: 48, height: 48)
-        .clipShape(.rect(cornerRadius: 16))
-        .glassEffectIOS26(in: .rect(cornerRadius: 16.0))
+        .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 16.0))
         .overlay(alignment: .topTrailing) {
             if count > 0 {
                 CounterView(count: count)

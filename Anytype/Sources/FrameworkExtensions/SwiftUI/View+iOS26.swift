@@ -41,6 +41,49 @@ extension View {
                 .background(.ultraThinMaterial)
         }
     }
+
+    @ViewBuilder
+    public func glassEffectInteractiveIOS26(in shape: some Shape) -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffect(.regular.interactive(), in: shape)
+        } else {
+            self
+                .background(Color.Background.navigationPanel)
+                .background(.ultraThinMaterial)
+        }
+    }
+
+    @ViewBuilder
+    public func glassEffectIDIOS26<ID: Hashable>(_ id: ID, in namespace: Namespace.ID) -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffectID(id, in: namespace)
+        } else {
+            self
+        }
+    }
+}
+
+@available(iOS, deprecated: 26.0)
+public struct GlassEffectContainerIOS26<Content: View>: View {
+    let spacing: CGFloat?
+    @ViewBuilder let content: () -> Content
+
+    public init(spacing: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
+        self.spacing = spacing
+        self.content = content
+    }
+
+    public var body: some View {
+        if #available(iOS 26.0, *) {
+            if let spacing {
+                GlassEffectContainer(spacing: spacing) { content() }
+            } else {
+                GlassEffectContainer { content() }
+            }
+        } else {
+            content()
+        }
+    }
 }
 
 public enum ScrollEdgeEffectStyleIOS26 {

@@ -18,6 +18,7 @@ struct HomeBottomNavigationPanelView: View {
 private struct HomeBottomNavigationPanelViewInternal: View {
 
     @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+    @Namespace private var glassNamespace
 
     let homePath: HomePath
     @State private var model: HomeBottomNavigationPanelViewModel
@@ -34,17 +35,24 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     @ViewBuilder
     var buttons: some View {
         VStack(spacing: 0) {
-            HStack {
-                if model.isWidgetsScreen {
-                    searchButton
-                    Spacer()
-                    createButton
-                } else {
-                    burgerButton
-                    Spacer()
-                    searchButton
-                    Spacer()
-                    createButton
+            GlassEffectContainerIOS26(spacing: 20) {
+                HStack {
+                    if model.isWidgetsScreen {
+                        searchButton
+                            .glassEffectIDIOS26("search", in: glassNamespace)
+                        Spacer()
+                        createButton
+                            .glassEffectIDIOS26("create", in: glassNamespace)
+                    } else {
+                        burgerButton
+                            .glassEffectIDIOS26("burger", in: glassNamespace)
+                        Spacer()
+                        searchButton
+                            .glassEffectIDIOS26("search", in: glassNamespace)
+                        Spacer()
+                        createButton
+                            .glassEffectIDIOS26("create", in: glassNamespace)
+                    }
                 }
             }
             .padding(.horizontal, 24)
@@ -96,8 +104,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .clipShape(Circle())
-        .buttonStyleGlassIOS26()
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     private var searchButton: some View {
@@ -110,8 +117,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .clipShape(Circle())
-        .buttonStyleGlassIOS26()
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     @ViewBuilder
@@ -173,8 +179,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     .padding(4)
             }
             .frame(width: 40, height: 40)
-            .clipShape(Circle())
-            .buttonStyleGlassIOS26()
+            .glassEffectInteractiveIOS26(in: Circle())
             .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
         } else {
@@ -187,8 +192,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     .padding(4)
             }
             .frame(width: 40, height: 40)
-            .clipShape(Circle())
-            .buttonStyleGlassIOS26()
+            .glassEffectInteractiveIOS26(in: Circle())
             .disabled(!model.canCreateObject)
         }
     }

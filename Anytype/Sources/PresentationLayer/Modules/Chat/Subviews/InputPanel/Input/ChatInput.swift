@@ -4,6 +4,7 @@ import Services
 struct ChatInput: View {
 
     @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+    @Namespace private var glassNamespace
 
     @Binding var text: NSAttributedString
     @Binding var editing: Bool
@@ -40,7 +41,10 @@ struct ChatInput: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
-            leftButton
+            GlassEffectContainerIOS26 {
+                leftButton
+                    .glassEffectIDIOS26(editing ? "plus" : "burger", in: glassNamespace)
+            }
             inputBubble
             if showSendButton {
                 sendButton
@@ -83,8 +87,7 @@ struct ChatInput: View {
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .clipShape(Circle())
-        .buttonStyleGlassIOS26()
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     private var plusMenu: some View {
@@ -132,9 +135,8 @@ struct ChatInput: View {
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .clipShape(Circle())
         .contentShape(Circle())
-        .buttonStyleGlassIOS26()
+        .glassEffectInteractiveIOS26(in: Circle())
         .menuOrder(.fixed)
         .disabled(disableAddButton)
     }
