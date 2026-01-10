@@ -26784,7 +26784,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This vault will be deleted %#@days@"
+            "value" : "Это хранилище будет удалено через %#@дней@ "
           },
           "substitutions" : {
             "days" : {
@@ -27251,7 +27251,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Mime Types - %@"
+            "value" : "Типы Mime - %@"
           }
         },
         "tr" : {
@@ -27400,7 +27400,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Release: %@, %@"
+            "value" : "Версия: %@, %@"
           }
         },
         "tr" : {
@@ -29895,7 +29895,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@device@ connected"
+            "value" : "%#@устройство@ подключено"
           },
           "substitutions" : {
             "device" : {
@@ -29905,25 +29905,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg devices"
+                      "value" : "%a устройства организации"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg devices"
+                      "value" : "%a устройства организации"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg device"
+                      "value" : "%a устройство организации"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg devices"
+                      "value" : "%a устройства организации"
                     }
                   }
                 }
@@ -32262,7 +32262,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. This content is not available on mobile"
+            "value" : "%@ встраиваемый контент не доступен на мобильном устройстве"
           }
         },
         "tr" : {
@@ -32411,7 +32411,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed. Opens in external app or browser"
+            "value" : "%@ встроенный. Открывается во внешнем приложении или браузере"
           }
         },
         "tr" : {
@@ -32560,7 +32560,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ embed is empty"
+            "value" : "Встроенный элемент %@ пуст"
           }
         },
         "tr" : {
@@ -39106,7 +39106,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@file@ uploading"
+            "value" : "%#@файл@ загружается"
           },
           "substitutions" : {
             "file" : {
@@ -39116,25 +39116,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%a файлы организации"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%a файлы организации"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg file"
+                      "value" : "%a файл организации"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg files"
+                      "value" : "%a файлы организации"
                     }
                   }
                 }
@@ -40133,7 +40133,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Free | %@"
+            "value" : "Свободно | %@"
           }
         },
         "tr" : {
@@ -40282,7 +40282,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Other spaces | %@"
+            "value" : "Другие пространства | %@"
           }
         },
         "tr" : {
@@ -40729,7 +40729,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ used"
+            "value" : "%@ использовано"
           }
         },
         "tr" : {
@@ -41623,7 +41623,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ of %@ used"
+            "value" : "%@ из %@ используется"
           }
         },
         "tr" : {
@@ -42668,7 +42668,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Made by @%@"
+            "value" : "Сделано @%@"
           }
         },
         "tr" : {
@@ -43264,7 +43264,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum."
+            "value" : "Ой! \"%@\" не был установлен. Пожалуйста, проверьте подключение к Интернету и повторите попытку или оставьте сообщение на форуме."
           }
         },
         "tr" : {
@@ -43413,7 +43413,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Experience was successfully installed to the \"%@\" space. You can now open and start using it."
+            "value" : "Шаблон был успешно установлен в пространство \"%@\". Вы можете открыть и начать его использовать."
           }
         },
         "tr" : {
@@ -48767,7 +48767,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@item@ syncing..."
+            "value" : "%#@элемент@  синхронизируется..."
           },
           "substitutions" : {
             "item" : {
@@ -48777,25 +48777,25 @@
                   "few" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg items"
+                      "value" : "%a элементы организации"
                     }
                   },
                   "many" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg items"
+                      "value" : "%a элементы организации"
                     }
                   },
                   "one" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg item"
+                      "value" : "%a элемент организации"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "new",
-                      "value" : "%arg items"
+                      "value" : "%a элементы организации"
                     }
                   }
                 }
@@ -54392,7 +54392,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d anggota"
                 }
               }
             }
@@ -55089,7 +55089,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Min %@ characters"
+            "value" : "Минимум %@ символов"
           }
         },
         "tr" : {
@@ -59113,7 +59113,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "No type “%@” found. Change your request or create new type."
+            "value" : "Тип \"%@\" не найден. Измените ваш запрос или создайте новый тип."
           }
         },
         "tr" : {
@@ -60888,7 +60888,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%#@object@ selected"
+            "value" : "%#@объект@ выбран"
           },
           "substitutions" : {
             "object" : {
@@ -63579,7 +63579,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Not supported type \"%@\". You can open it via desktop."
+            "value" : "Не поддерживается тип \"%@\". Вы можете открыть его через рабочий стол."
           }
         },
         "tr" : {
@@ -64473,7 +64473,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Paid by %@"
+            "value" : "Оплачено %@"
           }
         },
         "tr" : {
@@ -66547,7 +66547,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@day@"
+            "value" : "за %#@день@"
           },
           "substitutions" : {
             "day" : {
@@ -67236,7 +67236,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@month@"
+            "value" : "за %#@месяц@"
           },
           "substitutions" : {
             "month" : {
@@ -67925,7 +67925,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@week@"
+            "value" : "за %#@неделю@"
           },
           "substitutions" : {
             "week" : {
@@ -68614,7 +68614,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "per %#@year@"
+            "value" : "за %#@год@"
           },
           "substitutions" : {
             "year" : {
@@ -69640,7 +69640,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %d pinned spaces."
+            "value" : "Вы достигли лимита в %d закреплённых пространств"
           }
         },
         "tr" : {
@@ -72324,7 +72324,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create %@"
+            "value" : "Создать %@"
           }
         },
         "tr" : {
@@ -75035,7 +75035,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Resend in %@ sec"
+            "value" : "Отправить повторно через %@ секунд"
           }
         },
         "tr" : {
@@ -77422,7 +77422,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Related to: %@"
+            "value" : "Связан с %@"
           }
         },
         "tr" : {
@@ -80055,25 +80055,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected blocks"
+                  "value" : "Выбраны %d блоки"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected blocks"
+                  "value" : "Выбраны %d блоки"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected block"
+                  "value" : "Выбран %d блок"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d selected blocks"
+                  "value" : "Выбраны %d блоки"
                 }
               }
             }
@@ -82516,7 +82516,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Query of %@"
+            "value" : "Запрос %@"
           }
         },
         "tr" : {
@@ -90417,7 +90417,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ deleted successfully"
+            "value" : "%@ успешно удален"
           }
         },
         "tr" : {
@@ -94618,7 +94618,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "New template was added to the type %@"
+            "value" : "Новый шаблон добавлен к типу %@"
           }
         },
         "tr" : {
@@ -97749,7 +97749,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no object named %@"
+            "value" : "Нет объекта с именем %@"
           }
         },
         "tr" : {
@@ -97898,7 +97898,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no property named %@"
+            "value" : "Нет свойства с именем %@"
           }
         },
         "tr" : {
@@ -98047,7 +98047,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "There is no type named %@"
+            "value" : "Нет типа с именем %@"
           }
         },
         "tr" : {
@@ -103710,7 +103710,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Valid until %@"
+            "value" : "Действителен до %@"
           }
         },
         "tr" : {
@@ -104545,7 +104545,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version %@ was restored"
+            "value" : "Versi %@ telah dipulihkan"
           }
         },
         "it" : {
@@ -104605,7 +104605,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Version %@ was restored"
+            "value" : "Версия %@ восстановлена"
           }
         },
         "tr" : {
@@ -108164,7 +108164,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget %@ was added"
+            "value" : "Gawit %@ telah ditambahkan"
           }
         },
         "it" : {
@@ -108224,7 +108224,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widget %@ was added"
+            "value" : "Виджет %@ добавлен"
           }
         },
         "tr" : {
@@ -111144,7 +111144,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "We’ve redesigned how widgets work, and this widget is no longer supported. Once deleted, this widget cannot be restored."
+            "value" : "Kami telah merancang ulang cara kerja gawit, dan gawit ini tidak lagi didukung. Setelah dihapus, gawit ini tidak dapat dipulihkan."
           }
         },
         "it" : {
@@ -111889,7 +111889,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You joined %@"
+            "value" : "Anda bergabung dalam %@"
           }
         },
         "it" : {
@@ -111949,7 +111949,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You joined %@"
+            "value" : "Вы присоединились к %@"
           }
         },
         "tr" : {
