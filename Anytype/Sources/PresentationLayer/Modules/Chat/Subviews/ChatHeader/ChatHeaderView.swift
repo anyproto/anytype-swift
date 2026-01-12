@@ -29,6 +29,9 @@ struct ChatHeaderView: View {
         GlassEffectContainerIOS26(spacing: 12) {
             HStack(spacing: 8) {
                 PageNavigationBackButton()
+                    .frame(width: 44, height: 44)
+                    .glassEffectInteractiveIOS26(in: Circle())
+                    .glassEffectIDIOS26("back", in: glassNamespace)
                 titlePill
                 
                 HStack(spacing: 8) {
