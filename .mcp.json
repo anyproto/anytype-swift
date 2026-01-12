@@ -1,20 +1,19 @@
 {
   "mcpServers": {
-    "linear": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.linear.app/sse"
-      ]
-    },
-    "figma": {
+    "linear-server": {
       "type": "sse",
-      "url": "http://127.0.0.1:3845/sse"
+      "url": "https://mcp.linear.app/sse"
+    },
+    "figma-remote-mcp": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
     },
     "context7": {
       "type": "http",
-      "url": "https://mcp.context7.com/mcp"
-    }
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "YOUR_API_KEY"
+      }
+    }  
   }
 }
