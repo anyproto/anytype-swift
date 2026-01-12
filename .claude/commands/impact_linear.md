@@ -5,7 +5,7 @@ USE EXTENDED THINKING
 ## Purpose
 This document guides the process of gathering comprehensive context from Linear for iOS release impact analysis and changelog generation, using a pre-configured Linear view to simplify project discovery.
 
-**CRITICAL: Use ONLY Linear MCP tools (`mcp__linear__*`). DO NOT use git, bash, or GitHub CLI commands. All information comes from Linear API.**
+**CRITICAL: Use ONLY Linear MCP tools (`mcp__linear-server__*`). DO NOT use git, bash, or GitHub CLI commands. All information comes from Linear API.**
 
 ## Process
 
@@ -20,7 +20,7 @@ Ask the user:
 ### Step 2: Get Projects from Linear View (SYSTEMATIC APPROACH)
 1. **Look at the Linear view screenshot/URL provided**
 2. **List every single project name visible in the view systematically**
-3. **Use `mcp__linear__get_project` for each project name to get full details**
+3. **Use `mcp__linear-server__get_project` for each project name to get full details**
 4. **Capture project descriptions, status, priority, and completion % for each**
 5. **Capture the Linear URL for each project/epic in the view**
 6. **Count total projects to validate completeness** - ensure no projects are missed
@@ -95,8 +95,8 @@ For each project/epic, find and analyze ALL sub-tasks:
 **CRITICAL: DO NOT use git commands. All data comes from Linear MCP tools.**
 
 For each project in the view:
-1. **Check sub-tasks** - Use `mcp__linear__list_issues` with project filter to find all issues. Each sub-task has an issue ID (IOS-XXXX)
-2. **Look at project description** - Project descriptions from `mcp__linear__get_project` often list related issue IDs
+1. **Check sub-tasks** - Use `mcp__linear-server__list_issues` with project filter to find all issues. Each sub-task has an issue ID (IOS-XXXX)
+2. **Look at project description** - Project descriptions from `mcp__linear-server__get_project` often list related issue IDs
 3. **Review attachments field** - Linear issues include PR attachments with GitHub URLs
 4. **Note implementation issues** - Main work is done in issue tasks, not project containers
 
@@ -294,7 +294,7 @@ Release [NUMBER] - [URL]
 2. **SYSTEMATIC PROJECT EXTRACTION:**
    - Look at the Linear view screenshot/URL provided
    - List every single project name visible in the view
-   - Use `mcp__linear__get_project` for each project name
+   - Use `mcp__linear-server__get_project` for each project name
    - Get full project descriptions, status, priority, completion %
 3. For each project in the view:
    - Gather comprehensive details from project description
@@ -317,7 +317,7 @@ Release [NUMBER] - [URL]
 ## Validation Checklist
 Before finalizing analysis:
 - [ ] **Project count matches Linear view display exactly**
-- [ ] **All projects from view analyzed using mcp__linear__get_project**
+- [ ] **All projects from view analyzed using mcp__linear-server__get_project**
 - [ ] **Every project has description, status, priority, completion %**
 - [ ] **Every issue has a Linear URL**
 - [ ] **All parent-child relationships have URLs**

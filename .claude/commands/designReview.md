@@ -132,7 +132,7 @@ Identify missing or unclear specifications in the design:
 **Future-proof:** When new documentation is added to CLAUDE.md Quick Reference, this command automatically uses it without needing updates.
 
 ### Step 1: Fetch Linear Context
-- Use `mcp__linear__get_issue` to fetch issue details
+- Use `mcp__linear-server__get_issue` to fetch issue details
 - Extract Figma URLs from issue description or attachments
 - Capture acceptance criteria and design requirements
 - Note any design-specific comments
@@ -150,9 +150,9 @@ Identify missing or unclear specifications in the design:
 - **Cross-reference with design documentation** loaded in Step 0 to understand what each constant means
 
 ### Step 3: Fetch Figma Design Context
-- Use `mcp__figma__get_design_context` to fetch design structure
-- Use `mcp__figma__get_screenshot` to get visual reference
-- Use `mcp__figma__get_code` (if available) for design specs
+- Use `mcp__figma-remote-mcp__get_design_context` to fetch design structure
+- Use `mcp__figma-remote-mcp__get_screenshot` to get visual reference
+- Use `mcp__figma-remote-mcp__get_code` (if available) for design specs
 - Extract:
   - Color tokens and values
   - Typography specs

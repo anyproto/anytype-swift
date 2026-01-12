@@ -277,7 +277,7 @@ Modules/                # Swift packages
 **⚠️ CRITICAL: This is the FIRST thing to do when starting any task**
 
 When receiving a Linear task ID (e.g., `IOS-5292`):
-1. **Fetch the Linear issue**: Use `mcp__linear__list_issues` with the task ID to get issue details
+1. **Fetch the Linear issue**: Use `mcp__linear-server__list_issues` with the task ID to get issue details
 2. **Get the branch name**: Extract `gitBranchName` field from the Linear issue (format: `ios-XXXX-description`)
 3. **Switch to the task branch IMMEDIATELY**: `git checkout ios-5292-update-space-hub-loading-state`
 
@@ -286,7 +286,7 @@ When receiving a Linear task ID (e.g., `IOS-5292`):
 **Example**:
 ```bash
 # Fetch issue details
-mcp__linear__list_issues(query: "IOS-5292", limit: 1)
+mcp__linear-server__list_issues(query: "IOS-5292", limit: 1)
 # Response includes: "gitBranchName": "ios-5292-update-space-hub-loading-state"
 
 # Use the exact branch name from Linear
