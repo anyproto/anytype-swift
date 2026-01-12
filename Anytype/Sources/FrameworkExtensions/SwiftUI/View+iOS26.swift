@@ -50,6 +50,7 @@ extension View {
             self
                 .background(Color.Background.navigationPanel)
                 .background(.ultraThinMaterial)
+                .clipShape(shape)
         }
     }
 

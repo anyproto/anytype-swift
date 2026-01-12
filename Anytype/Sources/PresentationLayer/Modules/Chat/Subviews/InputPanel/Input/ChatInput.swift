@@ -118,9 +118,7 @@ struct ChatInput: View {
             .disabled(disableHeaderAndAttachments)
             textInputArea
         }
-        .background(Color.Background.navigationPanel)
-        .background(.ultraThinMaterial)
-        .clipShape(.rect(cornerRadius: 20))
+        .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 20))
     }
 
     private var textInputArea: some View {
