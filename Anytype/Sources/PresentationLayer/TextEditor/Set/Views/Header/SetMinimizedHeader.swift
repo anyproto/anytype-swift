@@ -4,6 +4,7 @@ import AnytypeCore
 struct SetMinimizedHeader: View {
 
     @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+    @Namespace private var glassNamespace
 
     @ObservedObject var model: EditorSetViewModel
     var headerSize: CGSize
@@ -20,28 +21,25 @@ struct SetMinimizedHeader: View {
     }
 
     private var header: some View {
-        VStack(spacing: 0) {
-            NavigationHeaderContainer(spacing: 0) {
+        GlassEffectContainerIOS26(spacing: 12) {
+            HStack(spacing: 8) {
                 PageNavigationBackButton()
-            } titleView: {
-                title
-            } rightView: {
-                HStack(spacing: 12) {
-                    syncsStatusItem
+                titlePill
+
+                HStack(spacing: 8) {
+                    syncsStatusButton
                     if !model.hasTargetObjectId {
                         settingsButton
                     }
                 }
             }
-            .padding(.leading, 16)
-            .padding(.trailing, 2)
         }
+        .padding(.horizontal, 16)
         .frame(height: height)
-        .background(Color.Background.primary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
 
-    private var title: some View {
+    private var titlePill: some View {
         Button {
             model.onTapWidgets()
         } label: {
@@ -51,74 +49,65 @@ struct SetMinimizedHeader: View {
                         .frame(width: 18, height: 18)
                 }
                 model.details.flatMap {
-                    AnytypeText($0.pluralTitle, style: .bodyRegular)
+                    AnytypeText($0.pluralTitle, style: .uxTitle1Semibold)
                         .foregroundStyle(Color.Text.primary)
                         .lineLimit(1)
                 }
+                Spacer()
             }
-            .frame(maxWidth: .infinity).layoutPriority(1)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
-        .buttonStyle(.plain)
         .matchedTransitionSourceIOS26(id: "widgetsOverlay", in: widgetsNamespace)
+        .glassEffectInteractiveIOS26(in: Capsule())
+        .glassEffectIDIOS26("titlePill", in: glassNamespace)
+    }
+
+    private var syncsStatusButton: some View {
+        Button {
+            model.showSyncStatusInfo()
+        } label: {
+            SwiftUIEditorSyncStatusItem(
+                statusData: model.syncStatusData,
+                itemState: .initial,
+                onTap: {}
+            )
+            .frame(width: 28, height: 28)
+            .allowsHitTesting(false)
+        }
+        .frame(width: 44, height: 44)
+        .glassEffectInteractiveIOS26(in: Circle())
+        .glassEffectIDIOS26("syncStatus", in: glassNamespace)
     }
     
-    private var syncsStatusItem: some View {
-        SwiftUIEditorSyncStatusItem(
-            statusData: model.syncStatusData,
-            itemState: EditorBarItemState(
-                haveBackground: model.details?.documentCover.isNotNil ?? false,
-                opacity: opacity
-            ),
-            onTap: {
-                model.showSyncStatusInfo()
-            }
-        )
-        .frame(width: 28, height: 28)
-    }
     
+
     @ViewBuilder
     private var settingsButton: some View {
-        if FeatureFlags.newObjectSettings {
-            settingsMenuButton
-        } else {
-            settingsActionButton
-        }
-    }
-
-    private var settingsMenuButton: some View {
-        ObjectSettingsMenuContainer(
-            objectId: model.setDocument.objectId,
-            spaceId: model.setDocument.spaceId,
-            output: model.headerSettingsViewModel.output
-        )
-        .frame(width: 44, height: 44)
-    }
-
-    private var settingsActionButton: some View {
-        EditorBarButtonItem(
-            imageAsset: .X24.more,
-            state: EditorBarItemState(
-                haveBackground: model.details?.documentCover.isNotNil ?? false,
-                opacity: opacity
-            ),
-            action: {
-                UISelectionFeedbackGenerator().selectionChanged()
-                model.showObjectSettings()
+        Group {
+            if FeatureFlags.newObjectSettings {
+                ObjectSettingsMenuContainer(
+                    objectId: model.setDocument.objectId,
+                    spaceId: model.setDocument.spaceId,
+                    output: model.headerSettingsViewModel.output
+                ) {
+                    Image(asset: .X24.more)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: 44, height: 44)
+                }
+            } else {
+                Button {
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    model.showObjectSettings()
+                } label: {
+                    Image(asset: .X24.more)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: 44, height: 44)
+                }
             }
-        )
-        .frame(width: 44, height: 44)
-    }
-
-    private var opacity: Double {
-        guard tableViewOffset.y < 0 else { return 0 }
-
-        let startingOpacityHeight = headerSize.height - height
-        let opacity = abs(tableViewOffset.y) / startingOpacityHeight
-        return min(opacity, 1)
-    }
-    
-    private var syncStatusItemOpacity: Double {
-        min(opacity, 0.5) * 2
+        }
+        .glassEffectInteractiveIOS26(in: Circle())
+        .glassEffectIDIOS26("settings", in: glassNamespace)
     }
 }
 
