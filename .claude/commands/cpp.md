@@ -14,7 +14,7 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 ## Workflow
 
 ### 0. Determine Branch Name (if not provided)
-- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear__list_issues`
+- If user mentions a Linear task ID (e.g., IOS-5292), fetch the issue using `mcp__linear-server__list_issues`
 - Extract the `gitBranchName` field from the Linear issue response
 - Use this exact branch name for checkout/creation
 
@@ -50,7 +50,7 @@ When a branch name is provided:
 ## Prerequisites
 When working with Linear tasks, Claude should fetch the branch name before running `/cpp`:
 1. User mentions task ID (e.g., "Fix IOS-2532")
-2. Claude calls `mcp__linear__list_issues(query: "IOS-2532", limit: 1)`
+2. Claude calls `mcp__linear-server__list_issues(query: "IOS-2532", limit: 1)`
 3. Claude extracts `gitBranchName` field (e.g., "ios-2532-fix-comment-version-for-hotfix")
 4. Claude switches to that branch
 5. User runs `/cpp` on the correct branch
