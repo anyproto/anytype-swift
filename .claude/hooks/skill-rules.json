@@ -469,7 +469,7 @@
           "isolation",
           "isolation domain",
           "Sendable",
-          "@unchecked Sendable",
+          "@unchecked",
           "nonisolated",
           "Task",
           "TaskGroup",

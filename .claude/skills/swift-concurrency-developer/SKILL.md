@@ -174,5 +174,10 @@ The answer is usually obvious once you ask the right question.
 - [Matt Massicotte's Blog](https://www.massicotte.org/)
 - [Swift Concurrency Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/)
 
+## Related Skills & Docs
+
+- **ios-dev-guidelines** → `IOS_DEVELOPMENT_GUIDE.md` - General Swift/iOS patterns, MVVM, Coordinators
+- **tests-developer** → Testing async code with Swift Testing framework
+
 ---
 **Navigation**: This skill provides concurrency mental models. For general Swift/iOS patterns, see `ios-dev-guidelines`.
