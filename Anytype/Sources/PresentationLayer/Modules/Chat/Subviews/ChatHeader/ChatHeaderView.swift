@@ -7,6 +7,7 @@ struct ChatHeaderView: View {
 
     @State private var model: ChatHeaderViewModel
     @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+    @Namespace private var glassNamespace
 
     init(
         spaceId: String,
@@ -23,65 +24,32 @@ struct ChatHeaderView: View {
             onTapAddMembers: onTapAddMembers
         ))
     }
-    
+
     var body: some View {
-        PageNavigationHeader {
-            if let widgetsNamespace, #available(iOS 26.0, *) {
-                headerView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
-            } else {
-                headerView
-            }
-        } rightView: {
-            HStack(spacing: 16) {
-                if model.showAddMembersButton {
-                    ExpandedTapAreaButton {
-                        model.tapAddMembers()
-                    } label: {
-                        Image(systemName: "person.fill.badge.plus")
-                            .foregroundStyle(Color.Control.transparentSecondary)
-                            .frame(width: 28, height: 28)
-                    }
-                }
-                if FeatureFlags.chatSettings {
-                    if model.isMultiChatSpace {
-                        ObjectSettingsMenuContainer(
-                            objectId: model.chatId,
-                            spaceId: model.spaceId,
-                            output: nil
-                        ) {
-                            IconView(icon: model.icon)
-                                .frame(width: 28, height: 28)
-                        }
-                    } else {
-                        ExpandedTapAreaButton {
-                            model.tapOpenSpaceSettings()
-                        } label: {
-                            IconView(icon: model.icon)
-                                .frame(width: 28, height: 28)
-                        }
-                    }
-                } else {
-                    ExpandedTapAreaButton {
-                        model.tapOpenWidgets()
-                    } label: {
-                        IconView(icon: model.icon)
-                            .frame(width: 28, height: 28)
-                    }
+        GlassEffectContainerIOS26(spacing: 12) {
+            HStack(spacing: 8) {
+                PageNavigationBackButton()
+                titlePill
+                
+                HStack(spacing: 8) {
+                    addMembersButton
+                    avatarButton
                 }
             }
         }
-        .background {
-            HomeBlurEffectView(direction: .topToBottom)
-                .ignoresSafeArea()
-        }
+        .padding(.horizontal, 16)
+        .frame(height: PageNavigationHeaderConstants.height)
         .task {
             await model.startSubscriptions()
         }
-        .animation(.default, value: model.showLoading)
+        .animation(.bouncy, value: model.showLoading)
+        .animation(.bouncy, value: model.muted)
+        .animation(.bouncy, value: model.showAddMembersButton)
     }
-    
-    private var headerView: some View {
-        ExpandedTapAreaButton {
+
+    @ViewBuilder
+    private var titlePill: some View {
+        Button {
             model.tapOpenWidgets()
         } label: {
             HStack(spacing: 6) {
@@ -89,18 +57,69 @@ struct ChatHeaderView: View {
                     CircleLoadingView(.Text.primary)
                         .frame(width: 18, height: 18)
                         .transition(.scale.combined(with: .opacity))
-                } else {
-                    Spacer.fixedWidth(18)
                 }
                 AnytypeText(model.title, style: .uxTitle1Semibold)
                     .lineLimit(1)
                 if model.muted {
                     Image(asset: .X18.muted)
                         .foregroundStyle(Color.Text.primary)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+        }
+        .matchedTransitionSourceIOS26(id: "widgetsOverlay", in: widgetsNamespace)
+        .glassEffectInteractiveIOS26(in: Capsule())
+        .glassEffectIDIOS26("titlePill", in: glassNamespace)
+    }
+
+    @ViewBuilder
+    private var addMembersButton: some View {
+        if model.showAddMembersButton {
+            Button {
+                model.tapAddMembers()
+            } label: {
+                Image(systemName: "person.fill.badge.plus")
+                    .foregroundStyle(Color.Control.primary)
+                    .frame(width: 44, height: 44)
+            }
+            .glassEffectInteractiveIOS26(in: Circle())
+            .glassEffectIDIOS26("addMembers", in: glassNamespace)
+        }
+    }
+
+    @ViewBuilder
+    private var avatarButton: some View {
+        Group {
+            if FeatureFlags.chatSettings {
+                if model.isMultiChatSpace {
+                    ObjectSettingsMenuContainer(
+                        objectId: model.chatId,
+                        spaceId: model.spaceId,
+                        output: nil
+                    ) {
+                        IconView(icon: model.icon)
+                            .frame(width: 44, height: 44)
+                    }
                 } else {
-                    Spacer.fixedWidth(18)
+                    Button {
+                        model.tapOpenSpaceSettings()
+                    } label: {
+                        IconView(icon: model.icon)
+                            .frame(width: 44, height: 44)
+                    }
+                }
+            } else {
+                Button {
+                    model.tapOpenWidgets()
+                } label: {
+                    IconView(icon: model.icon)
+                        .frame(width: 44, height: 44)
                 }
             }
         }
+        .glassEffectInteractiveIOS26(in: Circle())
+        .glassEffectIDIOS26("avatar", in: glassNamespace)
     }
 }
