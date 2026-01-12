@@ -40,18 +40,8 @@ struct SetMinimizedHeader: View {
         .background(Color.Background.primary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
-    
-    @ViewBuilder
-    private var title: some View {
-        if let widgetsNamespace, #available(iOS 26.0, *) {
-            titleContent
-                .matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
-        } else {
-            titleContent
-        }
-    }
 
-    private var titleContent: some View {
+    private var title: some View {
         Button {
             model.onTapWidgets()
         } label: {
@@ -69,6 +59,7 @@ struct SetMinimizedHeader: View {
             .frame(maxWidth: .infinity).layoutPriority(1)
         }
         .buttonStyle(.plain)
+        .matchedTransitionSourceIOS26(id: "widgetsOverlay", in: widgetsNamespace)
     }
     
     private var syncsStatusItem: some View {

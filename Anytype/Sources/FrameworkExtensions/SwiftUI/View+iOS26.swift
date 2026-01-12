@@ -62,6 +62,15 @@ extension View {
             self
         }
     }
+
+    @ViewBuilder
+    public func matchedTransitionSourceIOS26<ID: Hashable>(id: ID, in namespace: Namespace.ID?) -> some View {
+        if let namespace, #available(iOS 26.0, *) {
+            self.matchedTransitionSource(id: id, in: namespace)
+        } else {
+            self
+        }
+    }
 }
 
 @available(iOS, deprecated: 26.0)
