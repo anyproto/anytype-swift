@@ -61,6 +61,7 @@ struct SettingsCoordinatorView: View {
             }
             .anytypeSheet(isPresented: $model.showAnyIdBottomSheet) {
                 AnyIdBottomSheetView {
+                    AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .identity, route: .identity)
                     model.showMembership = true
                 }
             }

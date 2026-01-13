@@ -348,6 +348,7 @@ enum ClickUpgradePlanTooltipType: String {
     case editors = "editors"
     case sharedSpaces = "sharedSpaces"
     case publish = "publish"
+    case identity = "identity"
 }
 
 enum ClickShareSpaceShareLinkRoute: String {
@@ -363,6 +364,7 @@ enum ClickUpgradePlanTooltipRoute: String {
     case remoteStorage = "ScreenRemoteStorage"
     case publish = "ScreenPublish"
     case incentiveBanner = "IncentiveBanner"
+    case identity = "ScreenSettingsIdentity"
 }
 
 enum ChangeObjectTypeRoute: String {
