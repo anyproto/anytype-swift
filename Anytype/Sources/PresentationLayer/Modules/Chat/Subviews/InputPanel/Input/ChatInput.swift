@@ -118,6 +118,7 @@ struct ChatInput: View {
             .disabled(disableHeaderAndAttachments)
             textInputArea
         }
+        .clipShape(.rect(cornerRadius: 20, style: .continuous))
         .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 20))
     }
 
