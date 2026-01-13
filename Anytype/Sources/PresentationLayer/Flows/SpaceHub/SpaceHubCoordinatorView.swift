@@ -39,9 +39,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.showGlobalSearchData) {
                 GlobalSearchView(data: $0)
             }
-            .sheet(item: $model.typeSearchForObjectCreationSpaceId) {
-                model.typeSearchForObjectCreationModule(spaceId: $0.value)
-            }
             .anytypeSheet(item: $model.spaceJoinData) {
                 SpaceJoinView(data: $0, onManageSpaces: {
                     model.onManageSpacesSelected()
@@ -52,14 +49,6 @@ struct SpaceHubCoordinatorView: View {
             }
             .anytypeSheet(isPresented: $model.showObjectIsNotAvailableAlert) {
                 ObjectIsNotAvailableAlert()
-            }
-            .sheet(item: $model.showSpaceShareData) {
-                SpaceShareCoordinatorView(data: $0)
-                    .pageNavigation(model.pageNavigation)
-            }
-            .sheet(item: $model.showSpaceMembersData) {
-                SpaceMembersView(data: $0)
-                    .pageNavigation(model.pageNavigation)
             }
             .anytypeSheet(item: $model.profileData) {
                 ProfileView(info: $0)
@@ -121,8 +110,9 @@ struct SpaceHubCoordinatorView: View {
 
             // widgets overlay
             .fullScreenCover(item: $model.overlayWidgetsData) { data in
-                HomeWidgetsCoordinatorView(data: data, navigationButtonType: .burger)
+                HomeWidgetsCoordinatorView(data: data, navigationButtonType: .dismiss)
                     .pageNavigation(model.pageNavigation)
+                    .navigationZoomTransition(sourceID: "widgetsOverlay", in: namespace)
             }
     }
     
@@ -135,7 +125,7 @@ struct SpaceHubCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: HomeWidgetData.self) { data in
-                            HomeWidgetsCoordinatorView(data: data, navigationButtonType: .arrowBack)
+                            HomeWidgetsCoordinatorView(data: data, navigationButtonType: .back)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)
@@ -170,6 +160,7 @@ struct SpaceHubCoordinatorView: View {
 
             NotificationCoordinatorView()
         }
+        .widgetsAnimationNamespace(namespace)
         .animation(.easeInOut, value: model.spaceInfo)
         .pageNavigation(model.pageNavigation)
         .chatActionProvider($model.chatProvider)

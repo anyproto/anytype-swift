@@ -1,13 +1,13 @@
 import SwiftUI
 
-struct PageNavigationBurgerButton: View {
+struct PageNavigationDismissButton: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ExpandedTapAreaButton {
             dismiss()
         } label: {
-            Image(asset: .X24.burger)
+            Image(asset: .X24.back)
                 .navPanelDynamicForegroundStyle()
         }
     }

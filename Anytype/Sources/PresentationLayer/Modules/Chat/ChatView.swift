@@ -119,6 +119,9 @@ struct ChatView: View {
                 onTapCreateObject: {
                     model.onTapCreateObject(type: $0)
                 },
+                onTapBurger: {
+                    model.onTapWidgets()
+                },
                 onTapSend: {
                     model.onTapSendMessage()
                 },
@@ -142,9 +145,6 @@ struct ChatView: View {
                 }
             }
         }
-        .background(Color.Background.navigationPanel)
-        .background(.ultraThinMaterial)
-        .clipShape(.rect(cornerRadius: 16))
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .chatActionStateTopProvider(state: $actionState)
