@@ -15,15 +15,18 @@ enum MessageParticipantsReactionState {
 }
 
 @MainActor
-final class MessageParticipantsReactionViewModel: ObservableObject {
-    
-    @Published var state: MessageParticipantsReactionState? = nil
-    @Published var title: String?
-    
+@Observable
+final class MessageParticipantsReactionViewModel {
+
+    var state: MessageParticipantsReactionState? = nil
+    var title: String?
+
     private let data: MessageParticipantsReactionData
-    
+
+    @ObservationIgnored
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
+    @ObservationIgnored
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
     
     init(data: MessageParticipantsReactionData) {

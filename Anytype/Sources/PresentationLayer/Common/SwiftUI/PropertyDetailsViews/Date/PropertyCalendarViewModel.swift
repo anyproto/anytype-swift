@@ -1,4 +1,3 @@
-import Combine
 import Services
 import Foundation
 
@@ -8,18 +7,22 @@ protocol PropertyCalendarOutput: AnyObject {
 }
 
 @MainActor
-final class PropertyCalendarViewModel: ObservableObject {
-    
+@Observable
+final class PropertyCalendarViewModel {
+
     var date: Date
-    @Published var dismiss = false
-    
+    var dismiss = false
+
     let config: PropertyModuleConfiguration
-    
+
+    @ObservationIgnored
     @Injected(\.propertiesService)
     private var propertiesService: any PropertiesServiceProtocol
+    @ObservationIgnored
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
-    
+
+    @ObservationIgnored
     private weak var output: (any PropertyCalendarOutput)?
     
     init(date: Date?, configuration: PropertyModuleConfiguration, output: (any PropertyCalendarOutput)?) {

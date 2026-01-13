@@ -2,49 +2,46 @@ import Foundation
 import SwiftUI
 
 struct WidgetsHeaderView: View {
-    @StateObject private var model: WidgetsHeaderViewModel
+    @State private var model: WidgetsHeaderViewModel
     let navigationButtonType: PageNavigationButtonType
 
     init(spaceId: String, navigationButtonType: PageNavigationButtonType, onSpaceSelected: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
+        _model = State(initialValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
         self.navigationButtonType = navigationButtonType
     }
 
     var body: some View {
-        PageNavigationHeader(navigationButtonType: navigationButtonType) {
-            HStack(spacing: 12) {
-                IconView(icon: model.spaceIcon)
-                    .frame(width: 32, height: 32)
-                VStack(alignment: .leading, spacing: 0) {
-                    AnytypeText(model.spaceName, style: .uxTitle2Semibold)
-                        .foregroundStyle(Color.Text.primary)
-                        .lineLimit(1)
-                    if model.sharedSpace, !model.isOneToOne {
-                        AnytypeText(model.spaceMembers, style: .relation2Regular)
-                            .foregroundStyle(Color.Control.transparentSecondary)
-                    } else {
-                        AnytypeText(model.spaceUxType, style: .relation2Regular)
-                            .foregroundStyle(Color.Control.transparentSecondary)
+        Button {
+            model.onTapSpaceSettings()
+        } label: {
+            PageNavigationHeader(navigationButtonType: navigationButtonType) {
+                HStack(spacing: 12) {
+                    IconView(icon: model.spaceIcon)
+                        .frame(width: 32, height: 32)
+                    VStack(alignment: .leading, spacing: 0) {
+                        AnytypeText(model.spaceName, style: .uxTitle2Semibold)
+                            .foregroundStyle(Color.Text.primary)
+                            .lineLimit(1)
+                        if model.sharedSpace, !model.isOneToOne {
+                            AnytypeText(model.spaceMembers, style: .relation2Regular)
+                                .foregroundStyle(Color.Control.transparentSecondary)
+                        } else {
+                            AnytypeText(model.spaceUxType, style: .relation2Regular)
+                                .foregroundStyle(Color.Control.transparentSecondary)
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
+            } rightView: {
+                if model.canEdit {
+                    Image(asset: .X24.spaceSettings)
+                        .foregroundStyle(Color.Control.transparentSecondary)
+                }
             }
-        } rightView: {
-            if model.canEdit {
-                Image(asset: .X24.spaceSettings)
-                    .foregroundStyle(Color.Control.transparentSecondary)
-            }
-        }
-        .background {
-            HomeBlurEffectView(direction: .topToBottom)
-                .ignoresSafeArea()
         }
         .fixTappableArea()
-        .onTapGesture {
-            model.onTapSpaceSettings()
-        }
-        .task {
-            await model.startSubscriptions()
-        }
+        .buttonStyle(.plain)
+        .background { HomeBlurEffectView(direction: .topToBottom).ignoresSafeArea() }
+        .task { await model.startSubscriptions() }
     }
 }

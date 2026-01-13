@@ -63,24 +63,26 @@ struct VersionHistoryView: View {
     }
     
     private func itemRow(for data: VersionHistoryItem) -> some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(data.time, style: .uxTitle2Medium)
-                    .foregroundStyle(Color.Text.primary)
-                AnytypeText(data.author, style: .caption1Regular)
-                    .foregroundStyle(Color.Text.secondary)
-                    .lineLimit(1)
-            }
-            
-            Spacer(minLength: 12)
-            
-            ObjectIconView(icon: data.icon)
-                .frame(width: 24, height: 24)
-        }
-        .padding(.vertical, 9)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.onVersionTap(data)
+        } label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    AnytypeText(data.time, style: .uxTitle2Medium)
+                        .foregroundStyle(Color.Text.primary)
+                    AnytypeText(data.author, style: .caption1Regular)
+                        .foregroundStyle(Color.Text.secondary)
+                        .lineLimit(1)
+                }
+
+                Spacer(minLength: 12)
+
+                ObjectIconView(icon: data.icon)
+                    .frame(width: 24, height: 24)
+            }
+            .padding(.vertical, 9)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }

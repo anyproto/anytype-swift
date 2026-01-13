@@ -2,14 +2,14 @@ import Foundation
 import SwiftUI
 
 struct EditorSetCoordinatorView: View {
-    
-    @StateObject private var model: EditorSetCoordinatorViewModel
+
+    @State private var model: EditorSetCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
-    
+
     init(data: EditorListObject, showHeader: Bool) {
-        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data, showHeader: showHeader))
+        _model = State(initialValue: EditorSetCoordinatorViewModel(data: data, showHeader: showHeader))
     }
     
     var body: some View {

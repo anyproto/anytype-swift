@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct SpaceJoinView: View {
-    
-    @StateObject private var model: SpaceJoinViewModel
+
+    @State private var model: SpaceJoinViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: SpaceJoinViewModel(data: data, onManageSpaces: onManageSpaces))
+        self._model = State(initialValue: SpaceJoinViewModel(data: data, onManageSpaces: onManageSpaces))
     }
     
     var body: some View {

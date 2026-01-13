@@ -3,11 +3,11 @@ import SwiftUI
 import Services
 
 struct HomeWallpaperView: View {
-    
-    @StateObject private var model: HomeWallpaperViewModel
-    
+
+    @State private var model: HomeWallpaperViewModel
+
     init(spaceId: String) {
-        self._model = StateObject(wrappedValue: HomeWallpaperViewModel(spaceId: spaceId))
+        self._model = State(initialValue: HomeWallpaperViewModel(spaceId: spaceId))
     }
     
     var body: some View {

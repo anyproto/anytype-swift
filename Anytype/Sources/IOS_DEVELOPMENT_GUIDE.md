@@ -424,6 +424,73 @@ Rectangle()
 - Top corners: `topLeadingRadius`, `topTrailingRadius`
 - Bottom corners: `bottomLeadingRadius`, `bottomTrailingRadius`
 
+#### Use `Button` instead of `onTapGesture` for Accessibility
+
+`onTapGesture` doesn't provide proper accessibility semantics. VoiceOver users cannot activate elements that only use `onTapGesture`. Always use `Button` for tap interactions:
+
+```swift
+// ❌ WRONG - Not accessible to VoiceOver users
+Text("Tap me")
+    .onTapGesture {
+        doSomething()
+    }
+
+// ✅ CORRECT - Accessible button
+Button {
+    doSomething()
+} label: {
+    Text("Tap me")
+}
+.buttonStyle(.plain)  // If no visual styling needed
+```
+
+**Only use `onTapGesture` when:**
+- Multi-tap detection is needed (e.g., `onTapGesture(count: 2)` for double-tap)
+- Tap location is required (using `coordinateSpace`)
+- Combined with other gestures (e.g., `onTapGesture` + `onLongPressGesture`)
+- Already inside a Button (nested gestures)
+
+**Example of legitimate `onTapGesture` use** (combined gesture):
+```swift
+// ✅ CORRECT - Combined tap + long press
+Image(asset: .X32.Island.addObject)
+    .onTapGesture {
+        model.onTapNewObject()
+    }
+    .simultaneousGesture(
+        LongPressGesture(minimumDuration: 0.3)
+            .onEnded { _ in model.onPlusButtonLongtap() }
+    )
+
+// ✅ CORRECT - Multi-tap debug trigger
+ContentView()
+    .onTapGesture(count: 5) {
+        showDebugMenu()
+    }
+```
+
+#### Use `NavigationStack` instead of `NavigationView`
+
+`NavigationView` is deprecated in iOS 16+. Always use `NavigationStack` for navigation containers:
+
+```swift
+// ❌ WRONG - Deprecated
+NavigationView {
+    content
+}
+.navigationViewStyle(.stack)
+
+// ✅ CORRECT - Modern API
+NavigationStack {
+    content
+}
+```
+
+**Notes:**
+- `NavigationStack` is always stack-based (no need for `.navigationViewStyle(.stack)`)
+- For complex navigation with path management, see `AnytypeNavigationView` custom wrapper
+- Existing `.navigationTitle()` and `.navigationBarTitleDisplayMode()` modifiers work unchanged
+
 ## 🧪 Testing & Mocks
 
 ### Always Update Tests When Refactoring

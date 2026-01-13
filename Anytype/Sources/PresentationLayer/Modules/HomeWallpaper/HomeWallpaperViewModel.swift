@@ -2,17 +2,20 @@ import Foundation
 import Services
 
 @MainActor
-final class HomeWallpaperViewModel: ObservableObject {
-    
+@Observable
+final class HomeWallpaperViewModel {
+
+    @ObservationIgnored
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
-    
+
     private let spaceId: String
-    
-    @Published var wallpaper: SpaceWallpaperType = .default
-    @Published var spaceIcon: Icon?
+
+    var wallpaper: SpaceWallpaperType = .default
+    var spaceIcon: Icon?
     
     init(spaceId: String) {
         self.spaceId = spaceId

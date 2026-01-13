@@ -6,19 +6,22 @@ struct HomePagePickerData: Identifiable, Equatable {
     var id: String { spaceId }
 }
 
-@MainActor
-final class SpaceCreateCoordinatorViewModel: ObservableObject, SpaceCreateModuleOutput {
-
+@Observable
+final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
+  
+    @ObservationIgnored
     @Injected(\.activeSpaceManager)
     private var activeSpaceManager: any ActiveSpaceManagerProtocol
 
+
     let data: SpaceCreateData
 
-    @Published var localObjectIconPickerData: LocalObjectIconPickerData?
-    @Published var homePagePickerData: HomePagePickerData?
+    var localObjectIconPickerData: LocalObjectIconPickerData?
+    var homePagePickerData: HomePagePickerData?
 
+    @ObservationIgnored
     private var pendingSpaceId: String?
-
+    
     init(data: SpaceCreateData) {
         self.data = data
     }

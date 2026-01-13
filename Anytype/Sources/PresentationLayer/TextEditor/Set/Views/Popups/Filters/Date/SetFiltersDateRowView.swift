@@ -16,19 +16,21 @@ struct SetFiltersDateRowView: View {
     }
     
     private var option: some View {
-        HStack(spacing: 0) {
-            AnytypeText(
-                configuration.title,
-                style: .uxBodyRegular
-            )
-            .foregroundStyle(Color.Text.primary)
-            .layoutPriority(1)
-            Spacer()
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             configuration.onTap()
+        } label: {
+            HStack(spacing: 0) {
+                AnytypeText(
+                    configuration.title,
+                    style: .uxBodyRegular
+                )
+                .foregroundStyle(Color.Text.primary)
+                .layoutPriority(1)
+                Spacer()
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
     
     private var valueView: some View {

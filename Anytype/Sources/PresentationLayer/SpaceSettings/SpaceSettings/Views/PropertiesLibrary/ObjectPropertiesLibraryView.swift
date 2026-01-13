@@ -3,11 +3,11 @@ import Services
 import Loc
 
 struct ObjectPropertiesLibraryView: View {
-    
-    @StateObject private var model: ObjectPropertiesLibraryViewModel
-    
+
+    @State private var model: ObjectPropertiesLibraryViewModel
+
     init(spaceId: String) {
-        _model = StateObject(wrappedValue: ObjectPropertiesLibraryViewModel(spaceId: spaceId))
+        _model = State(initialValue: ObjectPropertiesLibraryViewModel(spaceId: spaceId))
     }
     
     var body: some View {

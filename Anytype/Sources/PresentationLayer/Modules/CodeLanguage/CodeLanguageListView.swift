@@ -2,13 +2,13 @@ import Foundation
 import SwiftUI
 
 struct CodeLanguageListView: View {
-    
-    @StateObject private var model: CodeLanguageListViewModel
+
+    @State private var model: CodeLanguageListViewModel
     @State private var searchText: String = ""
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: CodeLanguageListData) {
-        self._model = StateObject(wrappedValue: CodeLanguageListViewModel(data: data))
+        self._model = State(initialValue: CodeLanguageListViewModel(data: data))
     }
     
     var body: some View {

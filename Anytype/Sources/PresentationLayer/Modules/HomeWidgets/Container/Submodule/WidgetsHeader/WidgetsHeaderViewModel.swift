@@ -1,30 +1,35 @@
 import Foundation
-import Combine
 import Services
 
 @MainActor
-final class WidgetsHeaderViewModel: ObservableObject {
-    
+@Observable
+final class WidgetsHeaderViewModel {
+
     // MARK: - DI
-    
+
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var workspaceStorage: any SpaceViewsStorageProtocol
+    @ObservationIgnored
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
+    @ObservationIgnored
     private let onSpaceSelected: () -> Void
-    
+
+    @ObservationIgnored
     private let accountSpaceId: String
+    @ObservationIgnored
     private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
-    
+
     // MARK: - State
-    
-    @Published var spaceName = ""
-    @Published var spaceIcon: Icon?
-    @Published var spaceUxType = ""
-    @Published var spaceMembers = ""
-    @Published var sharedSpace = false
-    @Published var isOneToOne = false
-    @Published var canEdit = false
+
+    var spaceName = ""
+    var spaceIcon: Icon?
+    var spaceUxType = ""
+    var spaceMembers = ""
+    var sharedSpace = false
+    var isOneToOne = false
+    var canEdit = false
     
     init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
         self.accountSpaceId = spaceId

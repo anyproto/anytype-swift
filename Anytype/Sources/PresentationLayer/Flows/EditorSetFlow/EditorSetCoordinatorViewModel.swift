@@ -20,8 +20,8 @@ struct LayoutPickerData: Identifiable {
 }
 
 @MainActor
+@Observable
 final class EditorSetCoordinatorViewModel:
-    ObservableObject,
     EditorSetModuleOutput,
     SetObjectCreationCoordinatorOutput,
     ObjectSettingsCoordinatorOutput,
@@ -30,42 +30,49 @@ final class EditorSetCoordinatorViewModel:
 {
     let data: EditorListObject
     let showHeader: Bool
+    @ObservationIgnored
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
+    @ObservationIgnored
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
     private var legacySetObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
+    @ObservationIgnored
     @Injected(\.propertyValueProcessingService)
     private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
+    @ObservationIgnored
     @Injected(\.templatesService)
     private var templatesService: any TemplatesServiceProtocol
+    @ObservationIgnored
     @Injected(\.detailsService)
     private var detailsService: any DetailsServiceProtocol
-    
+    @ObservationIgnored
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: any ToastPresenterProtocol
+    @ObservationIgnored
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @ObservationIgnored
     @Injected(\.legacyTemplatesCoordinator)
     private var templatesCoordinator: any TemplatesCoordinatorProtocol
-    
+
     var pageNavigation: PageNavigation?
     var dismissAllPresented: DismissAllPresented?
-    @Published var dismiss = false
-    
-    @Published var setViewPickerData: SetViewData?
-    @Published var setViewSettingsData: SetSettingsData?
-    @Published var setQueryData: SetQueryData?
-    @Published var relationValueData: PropertyValueData?
-    @Published var covertPickerData: BaseDocumentIdentifiable?
-    @Published var toastBarData: ToastBarData?
-    @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var syncStatusSpaceId: StringIdentifiable?
-    @Published var setObjectCreationData: SetObjectCreationData?
-    @Published var presentSettings = false
-    @Published var layoutPickerData: LayoutPickerData?
-    @Published var showTypePropertiesDocument: BaseDocumentIdentifiable?
-    @Published var templatesPickerDocument: BaseDocumentIdentifiable?
-    @Published var objectTypeInfo: ObjectTypeInfo?
+    var dismiss = false
+
+    var setViewPickerData: SetViewData?
+    var setViewSettingsData: SetSettingsData?
+    var setQueryData: SetQueryData?
+    var relationValueData: PropertyValueData?
+    var covertPickerData: BaseDocumentIdentifiable?
+    var toastBarData: ToastBarData?
+    var objectIconPickerData: ObjectIconPickerData?
+    var syncStatusSpaceId: StringIdentifiable?
+    var setObjectCreationData: SetObjectCreationData?
+    var presentSettings = false
+    var layoutPickerData: LayoutPickerData?
+    var showTypePropertiesDocument: BaseDocumentIdentifiable?
+    var templatesPickerDocument: BaseDocumentIdentifiable?
+    var objectTypeInfo: ObjectTypeInfo?
     
     init(data: EditorListObject, showHeader: Bool) {
         self.data = data

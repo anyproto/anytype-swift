@@ -34,13 +34,15 @@ struct PublishingPreview: View {
                 .stroke(Color.Shape.secondary, lineWidth: 1)
         )
         .if(isPublished) { view in
-            view
-                .onTapGesture {
-                    output?.onPreviewOpenWebPage()
-                }
-                .contextMenu {
-                    contextMenuContent
-                }
+            Button {
+                output?.onPreviewOpenWebPage()
+            } label: {
+                view
+            }
+            .buttonStyle(.plain)
+            .contextMenu {
+                contextMenuContent
+            }
         }
     }
     

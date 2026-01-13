@@ -49,11 +49,13 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
 
     private func sectionItems(items: [ViewModel.Item]) -> some View {
         ForEach(items) { item in
-            item.view
-                .applyCoverGridItemAppearance()
-                .onTapGesture {
-                    viewModel.didSelectItem(item: item)
-                }
+            Button {
+                viewModel.didSelectItem(item: item)
+            } label: {
+                item.view
+                    .applyCoverGridItemAppearance()
+            }
+            .buttonStyle(.plain)
         }
         .padding(.top, 16)
     }

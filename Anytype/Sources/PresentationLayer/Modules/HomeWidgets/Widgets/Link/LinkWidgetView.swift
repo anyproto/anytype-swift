@@ -12,14 +12,14 @@ struct LinkWidgetView: View {
 }
 
 struct LinkWidgetInternalView: View {
-    
+
     let data: WidgetSubmoduleData
-    
-    @StateObject private var model: LinkWidgetViewModel
-    
+
+    @State private var model: LinkWidgetViewModel
+
     init(data: WidgetSubmoduleData) {
         self.data = data
-        self._model = StateObject(wrappedValue: LinkWidgetViewModel(data: data))
+        _model = State(initialValue: LinkWidgetViewModel(data: data))
     }
     
     var body: some View {

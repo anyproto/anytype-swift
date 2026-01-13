@@ -8,12 +8,12 @@ struct SharingExtensionShareToData: Hashable, Identifiable {
 }
 
 struct SharingExtensionShareToView: View {
-    
-    @StateObject private var model: SharingExtensionShareToViewModel
+
+    @State private var model: SharingExtensionShareToViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: SharingExtensionShareToData, output: (any SharingExtensionShareToModuleOutput)?) {
-        self._model = StateObject(wrappedValue: SharingExtensionShareToViewModel(data: data, output: output))
+        self._model = State(initialValue: SharingExtensionShareToViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -46,18 +46,22 @@ struct SharingExtensionShareToView: View {
                 .newDivider()
                 .padding(.horizontal, 16)
             if let chatRow = model.chatRow {
-                SharingExtensionsChatRow(data: chatRow)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapChat()
-                    }
+                Button {
+                    model.onTapChat()
+                } label: {
+                    SharingExtensionsChatRow(data: chatRow)
+                        .fixTappableArea()
+                }
+                .buttonStyle(.plain)
             }
             ForEach(model.rows) { data in
-                SharingExtensionsShareRow(data: data)
-                    .fixTappableArea()
-                    .onTapGesture {
-                        model.onTapCell(data: data)
-                    }
+                Button {
+                    model.onTapCell(data: data)
+                } label: {
+                    SharingExtensionsShareRow(data: data)
+                        .fixTappableArea()
+                }
+                .buttonStyle(.plain)
             }
         }
         .safeAreaInset(edge: .bottom) {

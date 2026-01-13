@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct ObjectSettingsCoordinatorView: View {
-    
-    @StateObject private var model: ObjectSettingsCoordinatorViewModel
+
+    @State private var model: ObjectSettingsCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(objectId: String, spaceId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
-        self._model = StateObject(wrappedValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, spaceId: spaceId, output: output))
+        _model = State(initialValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, spaceId: spaceId, output: output))
     }
     
     var body: some View {

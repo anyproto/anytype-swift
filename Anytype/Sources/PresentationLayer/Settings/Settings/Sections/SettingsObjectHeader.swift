@@ -10,16 +10,18 @@ struct SettingsObjectHeader: View {
     
     var body: some View {
         Spacer.fixedHeight(16)
-        VStack {
-            if let iconImage {
-                IconView(icon: iconImage)
-            }
-        }
-        .frame(width: 96, height: 96)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             onTap()
+        } label: {
+            VStack {
+                if let iconImage {
+                    IconView(icon: iconImage)
+                }
+            }
+            .frame(width: 96, height: 96)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
         Spacer.fixedHeight(10)
         SettingsTextField(title: nameTitle, text: $name)
     }

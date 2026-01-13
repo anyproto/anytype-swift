@@ -3,10 +3,10 @@ import AnytypeCore
 
 
 struct SetPropertiesCoordinatorView: View {
-    @StateObject private var model: SetPropertiesCoordinatorViewModel
-    
+    @State private var model: SetPropertiesCoordinatorViewModel
+
     init(setDocument: some SetDocumentProtocol, viewId: String) {
-        _model = StateObject(wrappedValue: SetPropertiesCoordinatorViewModel(setDocument: setDocument, viewId: viewId))
+        _model = State(initialValue: SetPropertiesCoordinatorViewModel(setDocument: setDocument, viewId: viewId))
     }
     
     var body: some View {

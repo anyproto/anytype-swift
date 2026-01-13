@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct ObjectSearchWithMetaCoordinatorView: View {
-    
-    @StateObject private var model: ObjectSearchWithMetaCoordinatorViewModel
+
+    @State private var model: ObjectSearchWithMetaCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: ObjectSearchWithMetaModuleData) {
-        self._model = StateObject(wrappedValue: ObjectSearchWithMetaCoordinatorViewModel(data: data))
+        self._model = State(initialValue: ObjectSearchWithMetaCoordinatorViewModel(data: data))
     }
     
     var body: some View {

@@ -1,27 +1,32 @@
 import Services
-import Combine
 import Foundation
 import OrderedCollections
 import AnytypeCore
 
 @MainActor
-final class ObjectSearchWithMetaViewModel: ObservableObject {
-    
+@Observable
+final class ObjectSearchWithMetaViewModel {
+
+    @ObservationIgnored
     @Injected(\.searchWithMetaService)
     private var searchWithMetaService: any SearchWithMetaServiceProtocol
+    @ObservationIgnored
     @Injected(\.searchWithMetaModelBuilder)
     private var searchWithMetaModelBuilder: any SearchWithMetaModelBuilderProtocol
+    @ObservationIgnored
     @Injected(\.spaceViewsStorage)
     private var spaceViewsStorage: any SpaceViewsStorageProtocol
 
+    @ObservationIgnored
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
-    
-    @Published var searchText = ""
-    @Published var sections = [ListSectionData<String?, SearchWithMetaModel>]()
-    @Published var dismiss = false
-    
+
+    var searchText = ""
+    var sections = [ListSectionData<String?, SearchWithMetaModel>]()
+    var dismiss = false
+
+    @ObservationIgnored
     private var searchResult = [SearchResultWithMeta]()
-    
+
     let moduleData: ObjectSearchWithMetaModuleData
     var isInitial = true
     

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct FileDownloadingView: View {
-    
-    @ObservedObject var viewModel: FileDownloadingViewModel
+
+    var viewModel: FileDownloadingViewModel
         
     @State private var size: CGSize = .zero
     

@@ -2,12 +2,12 @@ import SwiftUI
 import Services
 
 struct SetFiltersListView: View {
-    @StateObject private var viewModel: SetFiltersListViewModel
-    
+    @State private var viewModel: SetFiltersListViewModel
+
     @State private var editMode = EditMode.inactive
-    
+
     init(data: SetFiltersListModuleData, output: (any SetFiltersListCoordinatorOutput)?, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        _viewModel = StateObject(wrappedValue: SetFiltersListViewModel(
+        _viewModel = State(initialValue: SetFiltersListViewModel(
             data: data,
             output: output,
             subscriptionDetailsStorage: subscriptionDetailsStorage
@@ -17,7 +17,7 @@ struct SetFiltersListView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            NavigationView {
+            NavigationStack {
                 content
                     .navigationTitle(Loc.EditSet.Popup.Filters.NavigationView.title)
                     .navigationBarTitleDisplayMode(.inline)
@@ -28,7 +28,6 @@ struct SetFiltersListView: View {
                         }
                     }
             }
-            .navigationViewStyle(.stack)
         }
         .background(Color.Background.secondary)
     }

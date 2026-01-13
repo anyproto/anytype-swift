@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SetFiltersSelectionHeaderView: View {
-    @StateObject private var viewModel: SetFiltersSelectionHeaderViewModel
-    
+    @State private var viewModel: SetFiltersSelectionHeaderViewModel
+
     init(data: SetFiltersSelectionHeaderData, output: (any SetFiltersSelectionCoordinatorOutput)?) {
-        _viewModel = StateObject(wrappedValue: SetFiltersSelectionHeaderViewModel(data: data, output: output))
+        _viewModel = State(initialValue: SetFiltersSelectionHeaderViewModel(data: data, output: output))
     }
     
     var body: some View {

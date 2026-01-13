@@ -8,27 +8,29 @@ struct WidgetObjectListRowView: View {
     @Environment(\.editMode) private var editMode
     
     var body: some View {
-        HStack(spacing: 12) {
-            if editMode?.wrappedValue == .active {
-                AnytypeCircleCheckbox(checked: model.isChecked)
-            }
-            
-            WidgetObjectListCommonRowView(
-                icon: model.icon,
-                title: model.title,
-                description: model.description,
-                subtitle: model.subtitle
-            )
-        }
-        .padding(.horizontal, 16)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             if isActiveEditMode {
                 model.onCheckboxTap?()
             } else {
                 model.onTap()
             }
+        } label: {
+            HStack(spacing: 12) {
+                if editMode?.wrappedValue == .active {
+                    AnytypeCircleCheckbox(checked: model.isChecked)
+                }
+
+                WidgetObjectListCommonRowView(
+                    icon: model.icon,
+                    title: model.title,
+                    description: model.description,
+                    subtitle: model.subtitle
+                )
+            }
+            .padding(.horizontal, 16)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
         .newDivider(leadingPadding: 16, trailingPadding: 16)
         .contextMenu {
             contextMenu()

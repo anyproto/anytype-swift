@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct SpaceCreateCoordinatorView: View {
-    
-    @StateObject private var model: SpaceCreateCoordinatorViewModel
-    
+
+    @State private var model: SpaceCreateCoordinatorViewModel
+
     init(data: SpaceCreateData) {
-        self._model = StateObject(wrappedValue: SpaceCreateCoordinatorViewModel(data: data))
+        _model = State(initialValue: SpaceCreateCoordinatorViewModel(data: data))
     }
     
     var body: some View {

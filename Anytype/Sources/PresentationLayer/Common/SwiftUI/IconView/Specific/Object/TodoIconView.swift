@@ -11,15 +11,17 @@ struct TodoIconView: View {
     let objectId: String?
     
     var body: some View {
-        Image(asset: checked ? .TaskLayout.done : .TaskLayout.empty)
-            .resizable()
-            .scaledToFit()
-            .buttonDynamicForegroundStyle()
-            .frame(maxWidth: 28, maxHeight: 28)
-            .onTapGesture {
-                guard let objectId else { return }
-                model.updateDone(objectId: objectId, checked: !checked)
-            }
+        Button {
+            guard let objectId else { return }
+            model.updateDone(objectId: objectId, checked: !checked)
+        } label: {
+            Image(asset: checked ? .TaskLayout.done : .TaskLayout.empty)
+                .resizable()
+                .scaledToFit()
+                .buttonDynamicForegroundStyle()
+                .frame(maxWidth: 28, maxHeight: 28)
+        }
+        .buttonStyle(.plain)
     }
 }
 

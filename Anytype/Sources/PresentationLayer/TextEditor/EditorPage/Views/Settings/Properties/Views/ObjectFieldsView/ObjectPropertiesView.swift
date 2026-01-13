@@ -5,11 +5,11 @@ import Loc
 
 
 struct ObjectPropertiesView: View {
-    
-    @StateObject private var model: ObjectPropertiesViewModel
-    
+
+    @State private var model: ObjectPropertiesViewModel
+
     init(document: some BaseDocumentProtocol, output: (any PropertiesListModuleOutput)?) {
-        _model = StateObject(wrappedValue: ObjectPropertiesViewModel(document: document, output: output))
+        _model = State(initialValue: ObjectPropertiesViewModel(document: document, output: output))
     }
     
     var body: some View {

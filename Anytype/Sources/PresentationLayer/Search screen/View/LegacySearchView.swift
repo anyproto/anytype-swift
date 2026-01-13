@@ -3,8 +3,8 @@ import SwiftUI
 // Dont use in new search screens
 // Make your own screen, see: GlobalSearchView
 struct LegacySearchView: View {
-    
-    @StateObject var viewModel: LegacySearchViewModel
+
+    @State var viewModel: LegacySearchViewModel
 
     @State private var searchText = ""
     
@@ -62,11 +62,13 @@ struct LegacySearchView: View {
     
     private func rowViews(rows: [ListRowConfiguration]) -> some View {
         ForEach(rows) { row in
-            row.makeView()
-                .fixTappableArea()
-                .onTapGesture {
-                    viewModel.didSelectRow(with: row.id)
-                }
+            Button {
+                viewModel.didSelectRow(with: row.id)
+            } label: {
+                row.makeView()
+                    .fixTappableArea()
+            }
+            .buttonStyle(.plain)
         }
     }
     

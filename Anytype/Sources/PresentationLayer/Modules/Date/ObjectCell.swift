@@ -5,24 +5,26 @@ struct ObjectCell: View {
     let data: ObjectCellData
 
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            IconView(icon: data.icon)
-                .frame(width: 48, height: 48)
-                .allowsHitTesting(false)
-            
-            Spacer.fixedWidth(12)
-            
-            content
-            
-            Spacer()
-        }
-        .padding(.vertical, 12)
-        .newDivider()
-        .padding(.horizontal, 16)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             data.onTap()
+        } label: {
+            HStack(alignment: .center, spacing: 0) {
+                IconView(icon: data.icon)
+                    .frame(width: 48, height: 48)
+                    .allowsHitTesting(false)
+
+                Spacer.fixedWidth(12)
+
+                content
+
+                Spacer()
+            }
+            .padding(.vertical, 12)
+            .newDivider()
+            .padding(.horizontal, 16)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
     
     private var content: some View {

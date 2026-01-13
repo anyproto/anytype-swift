@@ -32,7 +32,8 @@ public extension FeatureDescription {
     static let chatSettings = FeatureDescription(
         title: "Chat Settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
-        defaultValue: false
+        defaultValue: false,
+        debugValue: true
     )
 
     static let qrCodeCircularText = FeatureDescription(

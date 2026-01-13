@@ -55,18 +55,20 @@ struct SpaceCreateView: View {
     }
     
     private var iconSection: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
-            IconView(icon: model.spaceIcon)
-                .frame(width: 96, height: 96)
-            Spacer.fixedHeight(6)
-            AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
-                .foregroundStyle(Color.Control.secondary)
-            Spacer.fixedHeight(20)
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.onIconTapped()
+        } label: {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(8)
+                IconView(icon: model.spaceIcon)
+                    .frame(width: 96, height: 96)
+                Spacer.fixedHeight(6)
+                AnytypeText(Loc.changeIcon, style: .uxCalloutMedium)
+                    .foregroundStyle(Color.Control.secondary)
+                Spacer.fixedHeight(20)
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 }

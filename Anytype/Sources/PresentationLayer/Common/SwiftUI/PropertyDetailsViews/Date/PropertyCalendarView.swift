@@ -2,14 +2,14 @@ import SwiftUI
 import Services
 
 struct PropertyCalendarView: View {
-    
-    @StateObject var viewModel: PropertyCalendarViewModel
+
+    @State var viewModel: PropertyCalendarViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     @State private var clearButtonWidth: CGFloat = .zero
-    
+
     init(date: Date?, configuration: PropertyModuleConfiguration, output: (any PropertyCalendarOutput)?) {
-        _viewModel = StateObject(wrappedValue: PropertyCalendarViewModel(
+        _viewModel = State(initialValue: PropertyCalendarViewModel(
             date: date,
             configuration: configuration,
             output: output

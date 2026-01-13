@@ -2,10 +2,10 @@ import SwiftUI
 import AnytypeCore
 
 struct UndoRedoView: View {
-    @StateObject private var model: UndoRedoViewModel
+    @State private var model: UndoRedoViewModel
 
     init(objectId: String) {
-        self._model = StateObject(wrappedValue: UndoRedoViewModel(objectId: objectId))
+        self._model = State(initialValue: UndoRedoViewModel(objectId: objectId))
     }
     
     var body: some View {

@@ -28,6 +28,7 @@ struct ObjectPermissions: Equatable {
     var canRestoreVersionHistory: Bool = false
     var canEditDetails: Bool = false
     var canShowRelations: Bool = false
+    var canToggleDescription: Bool = false
     var editBlocks: EditBlocksPermission = .readonly(.restrictions)
 }
 
@@ -47,7 +48,8 @@ extension ObjectPermissions {
         let canEdit = canEditRelations && !details.resolvedLayoutValue.isFileOrMedia
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
-        let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant && !isObjectType
+        let isChat = details.resolvedLayoutValue.isChat
+        let specificTypes = !details.resolvedLayoutValue.isList && !details.resolvedLayoutValue.isParticipant && !isChat && !isObjectType
         
         self.canChangeType = !objectRestrictions.contains(.typeChange) && canEdit && !isTemplate
         self.canDelete = isArchive && participantCanEdit
@@ -68,7 +70,7 @@ extension ObjectPermissions {
                                 && canApplyUneditableActions
         
         self.canFavorite = canApplyUneditableActions && !isTemplate && !isObjectType
-        self.canLinkItself = canApplyUneditableActions && !isTemplate && !isObjectType
+        self.canLinkItself = canApplyUneditableActions && !isTemplate && !isObjectType && !isChat
         self.canLock = specificTypes && canApplyUneditableActions && !isTemplate
         self.canChangeIcon = details.resolvedLayoutValue.haveIcon && canEdit
         self.canChangeCover = details.resolvedLayoutValue.haveCover && canEdit && !isObjectType
@@ -97,9 +99,11 @@ extension ObjectPermissions {
         self.canEditBlocks = editBlocks.canEdit
         self.canShowVersionHistory = details.isVisibleLayout
                                     && details.resolvedLayoutValue != .participant
+                                    && !isChat
                                     && !details.templateIsBundled
                                     && !isObjectType
         self.canRestoreVersionHistory = !isLocked && !isArchive && participantCanEdit
+        self.canToggleDescription = !isChat
     }
 }
 

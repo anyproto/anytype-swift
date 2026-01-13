@@ -53,7 +53,7 @@ struct ObjectSettingsView: View {
                     .padding(.horizontal, Constants.edgeInset)
                 
                 VStack(spacing: 0) {
-                    ForEach(Array(layoutSettings.enumerated()), id: \.offset) { index, setting in
+                    ForEach(Array(layoutSettings.enumerated()), id: \.element) { index, setting in
                         settingRow(setting, showDivider: index != layoutSettings.count - 1)
                     }
                 }
@@ -71,7 +71,7 @@ struct ObjectSettingsView: View {
                     .padding(.horizontal, Constants.edgeInset)
                 
                 VStack(spacing: 0) {
-                    ForEach(Array(objectSettings.enumerated()), id: \.offset) { index, setting in
+                    ForEach(Array(objectSettings.enumerated()), id: \.element) { index, setting in
                         settingRow(setting, showDivider: index != objectSettings.count - 1)
                     }
                 }

@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct GalleryNotificationView: View {
-    
-    @StateObject private var model: GalleryNotificationViewModel
+
+    @State private var model: GalleryNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
-    
+
     init(notification: NotificationGalleryImport) {
-        _model = StateObject(wrappedValue: GalleryNotificationViewModel(notification: notification))
+        _model = State(initialValue: GalleryNotificationViewModel(notification: notification))
     }
     
     var body: some View {

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct SharingExtensionCoordinatorView: View {
-    
-    @StateObject private var model = SharingExtensionCoordinatorViewModel()
+
+    @State private var model = SharingExtensionCoordinatorViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {

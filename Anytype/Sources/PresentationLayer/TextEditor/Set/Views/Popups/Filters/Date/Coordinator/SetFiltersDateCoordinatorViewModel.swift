@@ -6,12 +6,15 @@ protocol SetFiltersDateCoordinatorOutput: AnyObject {
 }
 
 @MainActor
-final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDateCoordinatorOutput {
-    @Published var filtersDaysData: SetTextViewData?
-    
+@Observable
+final class SetFiltersDateCoordinatorViewModel: SetFiltersDateCoordinatorOutput {
+    var filtersDaysData: SetTextViewData?
+
+    @ObservationIgnored
     let data: SetFiltersDateViewData
-    
+
     // TODO: Needs refactoring
+    @ObservationIgnored
     weak var setSelectionModel: SetFiltersSelectionViewModel?
     
     init(

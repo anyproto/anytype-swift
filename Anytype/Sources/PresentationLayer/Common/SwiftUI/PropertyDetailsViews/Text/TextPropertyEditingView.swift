@@ -2,12 +2,12 @@ import SwiftUI
 import Services
 
 struct TextPropertyEditingView: View {
-    
-    @StateObject var viewModel: TextPropertyEditingViewModel
+
+    @State var viewModel: TextPropertyEditingViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     init(data: TextPropertyEditingViewData) {
-        _viewModel = StateObject(wrappedValue: TextPropertyEditingViewModel(data: data))
+        _viewModel = State(initialValue: TextPropertyEditingViewModel(data: data))
     }
     
     var body: some View {

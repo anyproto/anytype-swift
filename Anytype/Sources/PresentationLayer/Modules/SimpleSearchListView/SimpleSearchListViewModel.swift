@@ -2,15 +2,17 @@ import SwiftUI
 import Services
 
 @MainActor
-final class SimpleSearchListViewModel: ObservableObject {
-    
+@Observable
+final class SimpleSearchListViewModel {
+
     // MARK: - DI
+    @ObservationIgnored
     private let items: [SimpleSearchListItem]
-    
+
     // MARK: - State
-    @Published var searchedItems: [SimpleSearchListItem]
-    @Published var searchText = ""
-    
+    var searchedItems: [SimpleSearchListItem]
+    var searchText = ""
+
     init(items: [SimpleSearchListItem]) {
         self.items = items
         self.searchedItems = items

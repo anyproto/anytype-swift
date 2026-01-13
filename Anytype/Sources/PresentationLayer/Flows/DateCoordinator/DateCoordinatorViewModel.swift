@@ -1,13 +1,14 @@
 import SwiftUI
 
 @MainActor
-final class DateCoordinatorViewModel: ObservableObject, DateModuleOutput {
-    
+@Observable
+final class DateCoordinatorViewModel: DateModuleOutput {
+
     let initialData: EditorDateObject
-    
-    @Published var showSyncStatusInfo = false
-    @Published var searchData: SimpleSearchData?
-    @Published var calendarData: CalendarData?
+
+    var showSyncStatusInfo = false
+    var searchData: SimpleSearchData?
+    var calendarData: CalendarData?
     
     var pageNavigation: PageNavigation?
     var dismissAllPresented: DismissAllPresented?

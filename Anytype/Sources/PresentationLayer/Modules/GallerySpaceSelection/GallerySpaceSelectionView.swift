@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 struct GallerySpaceSelectionView: View {
-    
-    @StateObject private var model: GallerySpaceSelectionViewModel
-    
+
+    @State private var model: GallerySpaceSelectionViewModel
+
     init(output: (any GallerySpaceSelectionModuleOutput)?) {
-        _model = StateObject(wrappedValue: GallerySpaceSelectionViewModel(output: output))
+        _model = State(initialValue: GallerySpaceSelectionViewModel(output: output))
     }
     
     var body: some View {

@@ -2,12 +2,12 @@ import Foundation
 import SwiftUI
 
 struct GlobalSearchView: View {
-    
-    @StateObject private var model: GlobalSearchViewModel
+
+    @State private var model: GlobalSearchViewModel
     @Environment(\.dismiss) private var dismiss
-    
+
     init(data: GlobalSearchModuleData) {
-        self._model = StateObject(wrappedValue: GlobalSearchViewModel(data: data))
+        self._model = State(initialValue: GlobalSearchViewModel(data: data))
     }
     
     var body: some View {
@@ -72,20 +72,22 @@ struct GlobalSearchView: View {
     }
     
     func sectionView(_ section: ObjectTypeSection) -> some View {
-        AnytypeText(
-            section.title,
-            style: .uxTitle2Medium
-        )
-        .foregroundStyle(model.state.section == section ? Color.Text.inversion : Color.Text.secondary)
-        .padding(.vertical, 6)
-        .padding(.horizontal, 10)
-        .background(model.state.section == section ? Color.Control.secondary : .clear)
-        .clipShape(.rect(cornerRadius: 16))
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             UISelectionFeedbackGenerator().selectionChanged()
             model.onSectionChanged(section)
+        } label: {
+            AnytypeText(
+                section.title,
+                style: .uxTitle2Medium
+            )
+            .foregroundStyle(model.state.section == section ? Color.Text.inversion : Color.Text.secondary)
+            .padding(.vertical, 6)
+            .padding(.horizontal, 10)
+            .background(model.state.section == section ? Color.Control.secondary : .clear)
+            .clipShape(.rect(cornerRadius: 16))
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
         .animation(.easeInOut, value: model.state.section == section)
     }
     
@@ -117,18 +119,20 @@ struct GlobalSearchView: View {
     }
     
     private func itemRow(for rowModel: SearchWithMetaModel) -> some View {
-        SearchWithMetaCell(model: rowModel)
-            .fixTappableArea()
-            .onTapGesture {
-                model.onSelect(searchData: rowModel)
-            }
-            .if(rowModel.canArchive) {
-                $0.swipeActions {
-                    Button(Loc.toBin, role: .destructive) {
-                        model.onRemove(objectId: rowModel.id)
-                    }
+        Button {
+            model.onSelect(searchData: rowModel)
+        } label: {
+            SearchWithMetaCell(model: rowModel)
+                .fixTappableArea()
+        }
+        .buttonStyle(.plain)
+        .if(rowModel.canArchive) {
+            $0.swipeActions {
+                Button(Loc.toBin, role: .destructive) {
+                    model.onRemove(objectId: rowModel.id)
                 }
             }
+        }
     }
     
     private var emptyState: some View {

@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct DateCoordinatorView: View {
-    
-    @StateObject private var model: DateCoordinatorViewModel
+
+    @State private var model: DateCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismissAllPresented) private var dismissAllPresented
-    
+
     init(data: EditorDateObject) {
-        self._model = StateObject(wrappedValue: DateCoordinatorViewModel(data: data))
+        _model = State(initialValue: DateCoordinatorViewModel(data: data))
     }
     
     var body: some View {

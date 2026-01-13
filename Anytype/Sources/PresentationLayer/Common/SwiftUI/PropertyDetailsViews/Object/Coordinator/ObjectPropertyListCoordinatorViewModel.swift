@@ -8,17 +8,19 @@ protocol ObjectPropertyListCoordinatorModuleOutput: AnyObject {
 }
 
 @MainActor
-final class ObjectPropertyListCoordinatorViewModel: ObservableObject, ObjectPropertyListModuleOutput {
+@Observable
+final class ObjectPropertyListCoordinatorViewModel: ObjectPropertyListModuleOutput {
 
     let data: ObjectPropertyListData
-    
+
     private weak var output: (any ObjectPropertyListCoordinatorModuleOutput)?
-    
+
+    @ObservationIgnored
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    
-    @Published var deletionAlertData: DeletionAlertData?
-    @Published var dismiss = false
+
+    var deletionAlertData: DeletionAlertData?
+    var dismiss = false
     
     init(
         data: ObjectPropertyListData,

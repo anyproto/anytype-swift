@@ -2,20 +2,19 @@ import SwiftUI
 import AnytypeCore
 
 struct SetPropertiesView: View {
-    @StateObject private var model: SetPropertiesViewModel
+    @State private var model: SetPropertiesViewModel
     @State private var editMode = EditMode.inactive
-    
+
     init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetPropertiesCoordinatorOutput)?) {
-        _model = StateObject(wrappedValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
+        _model = State(initialValue: SetPropertiesViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     
     var body: some View {
         DragIndicator()
-        NavigationView {
+        NavigationStack {
             content
         }
         .background(Color.Background.secondary)
-        .navigationViewStyle(.stack)
     }
     
     private var content: some View {
@@ -24,8 +23,6 @@ struct SetPropertiesView: View {
                 .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
         }
         .environment(\.editMode, $editMode)
-        
-        .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
         
         .listStyle(.plain)

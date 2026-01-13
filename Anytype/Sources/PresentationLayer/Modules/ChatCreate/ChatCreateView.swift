@@ -73,19 +73,21 @@ struct ChatCreateView: View {
     }
 
     private var iconSection: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(8)
-            IconView(icon: model.chatIcon)
-                .frame(width: 96, height: 96)
-                .overlay(alignment: .bottomTrailing) {
-                    editIconButton
-                }
-            Spacer.fixedHeight(20)
-        }
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.onIconTapped()
+        } label: {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(8)
+                IconView(icon: model.chatIcon)
+                    .frame(width: 96, height: 96)
+                    .overlay(alignment: .bottomTrailing) {
+                        editIconButton
+                    }
+                Spacer.fixedHeight(20)
+            }
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
     }
 
     private var editIconButton: some View {

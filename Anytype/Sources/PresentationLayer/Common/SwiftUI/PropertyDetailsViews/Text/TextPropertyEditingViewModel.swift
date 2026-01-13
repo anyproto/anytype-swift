@@ -1,4 +1,3 @@
-import Combine
 import Services
 import Foundation
 
@@ -11,23 +10,28 @@ struct TextPropertyEditingViewData {
 }
 
 @MainActor
-final class TextPropertyEditingViewModel: ObservableObject {
-    
-    @Published var text: String
-    @Published var dismiss = false
-    @Published var textFocused = true
-    @Published var actionsViewModels: [any TextPropertyActionViewModelProtocol] = []
-    @Published var showPaste = false
-    
+@Observable
+final class TextPropertyEditingViewModel {
+
+    var text: String
+    var dismiss = false
+    var textFocused = true
+    var actionsViewModels: [any TextPropertyActionViewModelProtocol] = []
+    var showPaste = false
+
     let config: PropertyModuleConfiguration
     let type: TextPropertyViewType
-    
+
+    @ObservationIgnored
     @Injected(\.textRelationEditingService)
     private var service: any TextPropertyEditingServiceProtocol
+    @ObservationIgnored
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
+    @ObservationIgnored
     @Injected(\.textRelationActionViewModelBuilder)
     private var builder: TextPropertyActionViewModelBuilder
+    @ObservationIgnored
     @Injected(\.propertyDetailsStorage)
     private var propertyDetailsStorage: any PropertyDetailsStorageProtocol
     

@@ -9,26 +9,28 @@ struct ListWidgetRow: View {
     @Environment(\.editMode) private var editMode
     
     var body: some View {
-        HStack(spacing: 0) {
-            IconView(icon: model.icon)
-                .frame(width: 48, height: 48)
-            
-            Spacer.fixedWidth(12)
-
-            if let chatPreview = model.chatPreview {
-                chatContent(chatPreview: chatPreview)
-            } else {
-                regularContent
-            }
-
-            Spacer()
-        }
-        .padding(.horizontal, 16)
-        .frame(height: 72)
-        .fixTappableArea()
-        .onTapGesture {
+        Button {
             model.onTap()
+        } label: {
+            HStack(spacing: 0) {
+                IconView(icon: model.icon)
+                    .frame(width: 48, height: 48)
+
+                Spacer.fixedWidth(12)
+
+                if let chatPreview = model.chatPreview {
+                    chatContent(chatPreview: chatPreview)
+                } else {
+                    regularContent
+                }
+
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .frame(height: 72)
+            .fixTappableArea()
         }
+        .buttonStyle(.plain)
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
