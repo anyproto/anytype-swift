@@ -35,7 +35,6 @@ struct DateView: View {
             HStack(alignment: .center, spacing: 12) {
                 SwiftUIEditorSyncStatusItem(
                     statusData: model.syncStatusData,
-                    itemState: .initial,
                     onTap: {
                         model.onSyncStatusTap()
                     }

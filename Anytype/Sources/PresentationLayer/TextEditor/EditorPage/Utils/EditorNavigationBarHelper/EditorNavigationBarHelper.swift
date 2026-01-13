@@ -19,9 +19,12 @@ final class EditorNavigationBarHelper {
     private let settingsItem: UIEditorBarButtonItem
     private let settingsMenuView: UIView?
     private let syncStatusItem: EditorSyncStatusItem
+    private let syncStatusGlassContainer: GlassEffectViewIOS26
+    private let settingsGlassContainer: GlassEffectViewIOS26
     private let webBannerItem: EditorWebBannerItem
     private let rightContanerForEditing: UIView
     private let backButton: UIView
+    private let backButtonGlassContainer: GlassEffectViewIOS26
     
     private var contentOffsetObservation: NSKeyValueObservation?
     
@@ -65,14 +68,34 @@ final class EditorNavigationBarHelper {
             self.settingsMenuView = nil
         }
 
-        self.syncStatusItem = EditorSyncStatusItem(onTap: onSyncStatusTap)
+        let syncStatusItemLocal = EditorSyncStatusItem(onTap: onSyncStatusTap)
+        let syncStatusGlassContainerLocal = GlassEffectViewIOS26()
+        let settingsGlassContainerLocal = GlassEffectViewIOS26()
+
+        self.syncStatusItem = syncStatusItemLocal
+        self.syncStatusGlassContainer = syncStatusGlassContainerLocal
+        self.settingsGlassContainer = settingsGlassContainerLocal
         self.webBannerItem = EditorWebBannerItem(onTap: onWebBannerTap)
 
+        // Setup glass containers for buttons
+        syncStatusGlassContainerLocal.applyCircleShape(diameter: 44)
+        syncStatusGlassContainerLocal.layoutUsing.anchors {
+            $0.size(CGSize(width: 44, height: 44))
+        }
+        syncStatusGlassContainerLocal.glassContentView.addSubview(syncStatusItemLocal) {
+            $0.center(in: syncStatusGlassContainerLocal.glassContentView)
+        }
+
+        settingsGlassContainerLocal.applyCircleShape(diameter: 44)
+        settingsGlassContainerLocal.layoutUsing.anchors {
+            $0.size(CGSize(width: 44, height: 44))
+        }
+
         // Done button
-        var buttonConfig = UIButton.Configuration.plain()
-        buttonConfig.title = Loc.done
-        buttonConfig.baseForegroundColor = .Control.accent100
-        self.doneButton = UIButton(configuration: buttonConfig)
+        var doneButtonConfig = UIButton.Configuration.glassIOS26()
+        doneButtonConfig.title = Loc.done
+        doneButtonConfig.baseForegroundColor = .Control.accent100
+        self.doneButton = UIButton(configuration: doneButtonConfig)
         self.doneButton.addAction(
             UIAction(
                 handler: { _ in
@@ -92,12 +115,25 @@ final class EditorNavigationBarHelper {
         self.navigationBarTitleView.setAlphaForSubviews(1.0)
         
         self.rightContanerForEditing = UIView()
-        
-        self.backButton = UIHostingController(rootView: PageNavigationBackButton()).view
-        self.backButton.backgroundColor = .clear
+
+        let backButtonLocal = UIHostingController(rootView: PageNavigationBackButton()).view!
+        backButtonLocal.backgroundColor = .clear
+        let backButtonGlassContainerLocal = GlassEffectViewIOS26()
+
+        self.backButton = backButtonLocal
+        self.backButtonGlassContainer = backButtonGlassContainerLocal
+
+        // Setup back button glass container
+        backButtonGlassContainerLocal.applyCircleShape(diameter: 44)
+        backButtonGlassContainerLocal.layoutUsing.anchors {
+            $0.size(CGSize(width: 44, height: 44))
+        }
+        backButtonGlassContainerLocal.glassContentView.addSubview(backButtonLocal) {
+            $0.center(in: backButtonGlassContainerLocal.glassContentView)
+        }
         
         // Select all button
-        var selectAllConfig = UIButton.Configuration.plain()
+        var selectAllConfig = UIButton.Configuration.glassIOS26()
         selectAllConfig.baseForegroundColor = .Control.secondary
         self.selectAllButton = UIButton(configuration: selectAllConfig)
         self.selectAllButton.addAction(
@@ -110,27 +146,30 @@ final class EditorNavigationBarHelper {
             for: .touchUpInside
         )
         
-        self.rightContanerForEditing.layoutUsing.stack {
-            if FeatureFlags.newObjectSettings, let settingsMenuView {
-                $0.hStack(
-                    spacing: 12,
-                    syncStatusItem,
-                    settingsMenuView
-                )
-            } else {
-                $0.hStack(
-                    spacing: 12,
-                    syncStatusItem,
-                    settingsItem
-                )
+        // Add settings item/menu to glass container
+        if FeatureFlags.newObjectSettings, let settingsMenuView {
+            settingsGlassContainerLocal.glassContentView.addSubview(settingsMenuView) {
+                $0.center(in: settingsGlassContainerLocal.glassContentView)
             }
+        } else {
+            settingsGlassContainerLocal.glassContentView.addSubview(settingsItem) {
+                $0.center(in: settingsGlassContainerLocal.glassContentView)
+            }
+        }
+
+        self.rightContanerForEditing.layoutUsing.stack {
+            $0.hStack(
+                spacing: 8,
+                syncStatusGlassContainerLocal,
+                settingsGlassContainerLocal
+            )
         }
         
         navigationBarView.bannerView = webBannerItem
     }
     
     func setPageNavigationHiddenBackButton(_ hidden: Bool) {
-        backButton.isHidden = hidden
+        backButtonGlassContainer.isHidden = hidden
     }
 }
 
@@ -216,11 +255,11 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case .editing:
             navigationBarView.titleView = navigationBarTitleView
             navigationBarView.rightButton = rightContanerForEditing
-            navigationBarView.leftButton = backButton
+            navigationBarView.leftButton = backButtonGlassContainer
             lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(nil)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
-            settingsItem.isHidden = false
+            settingsGlassContainer.isHidden = false
         case .selecting(let blocks, let allSelected):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -240,11 +279,11 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case .readonly:
             navigationBarView.titleView = navigationBarTitleView
             navigationBarView.rightButton = rightContanerForEditing
-            navigationBarView.leftButton = backButton
+            navigationBarView.leftButton = backButtonGlassContainer
             lastMode.map { navigationBarTitleView.configure(model: $0) }
             navigationBarTitleView.setIsReadonly(readonlyReason)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
-            settingsItem.isHidden = false
+            settingsGlassContainer.isHidden = false
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -257,9 +296,9 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case .loading:
             navigationBarView.titleView = navigationBarTitleView
             navigationBarView.rightButton = rightContanerForEditing
-            navigationBarView.leftButton = backButton
+            navigationBarView.leftButton = backButtonGlassContainer
             navigationBarTitleView.setIsReadonly(nil)
-            settingsItem.isHidden = true
+            settingsGlassContainer.isHidden = true
         }
     }
 }
@@ -269,10 +308,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
 private extension EditorNavigationBarHelper {
     
     func updateBarButtonItemsBackground(opacity: CGFloat) {
-        let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, opacity: opacity)
-        settingsItem.changeState(state)
-        syncStatusItem.changeItemState(state)
-        webBannerItem.changeItemState(state)
+        // Glass containers handle their own appearance - no opacity updates needed
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {

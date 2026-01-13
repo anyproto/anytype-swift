@@ -72,7 +72,6 @@ struct SetMinimizedHeader: View {
         } label: {
             SwiftUIEditorSyncStatusItem(
                 statusData: model.syncStatusData,
-                itemState: .initial,
                 onTap: {}
             )
             .frame(width: 28, height: 28)
