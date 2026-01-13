@@ -5,7 +5,7 @@ Context-aware routing to iOS 26 Liquid Glass implementation patterns. Proper use
 
 ## When Auto-Activated
 - Working with glass effects or iOS 26 visual effects
-- Keywords: glass, liquid glass, glassEffect, GlassEffectContainer, iOS 26, morphing
+- Keywords: glass, liquid glass, glassEffect, GlassEffectContainer, iOS 26, morphing, UIGlassEffect, UIVisualEffectView, cornerConfiguration, GlassContainerViewIOS26, GlassEffectViewIOS26
 - Editing files with glass effect modifiers
 - Implementing navigation panels, floating buttons, or translucent UI
 
@@ -191,14 +191,142 @@ if #available(iOS 26.0, *) {
 }
 ```
 
+## 🔧 UIKit Implementation
+
+### Available Utilities (UIView+iOS26Glass.swift)
+
+```swift
+// Container for grouping glass elements (like GlassEffectContainerIOS26 in SwiftUI)
+let container = GlassContainerViewIOS26(spacing: 12)
+container.glassContentView.addSubview(yourContent)
+
+// Individual glass effect view (always interactive)
+let glassView = GlassEffectViewIOS26()
+glassView.glassContentView.addSubview(yourButton)
+
+// Glass button configuration
+let config = UIButton.Configuration.glassIOS26()
+let button = UIButton(configuration: config)
+```
+
+### UIKit Pattern Example
+
+```swift
+final class NavigationBarView: UIView {
+    private let glassContainer = GlassContainerViewIOS26(spacing: 12)
+    private let buttonGlass = GlassEffectViewIOS26()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    private func setup() {
+        // Add container to view
+        addSubview(glassContainer) {
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+            $0.height.equal(to: 44)
+        }
+
+        // Setup circular button with glass
+        buttonGlass.applyCircleShape(diameter: 44)
+        buttonGlass.layoutUsing.anchors {
+            $0.size(CGSize(width: 44, height: 44))
+        }
+
+        // Add button to glass content view (NOT directly to buttonGlass)
+        buttonGlass.glassContentView.addSubview(myButton) {
+            $0.center(in: buttonGlass.glassContentView)
+        }
+
+        // Add glass button to container's content view
+        glassContainer.glassContentView.addSubview(buttonGlass)
+    }
+}
+```
+
+### Shape Methods
+
+```swift
+// Circular buttons (44x44)
+glassView.applyCircleShape(diameter: 44)
+
+// Capsule/pill shape (e.g., for title views)
+glassView.applyCapsuleShape(height: 44)
+
+// iOS 26+: Uses cornerConfiguration = .capsule()
+// iOS < 26: Uses layer.cornerRadius fallback
+```
+
+### UIKit Critical Rules
+
+1. **Always add content to `glassContentView`** - Never add subviews directly to the glass view
+   ```swift
+   // ❌ WRONG
+   glassView.addSubview(button)
+
+   // ✅ CORRECT
+   glassView.glassContentView.addSubview(button)
+   ```
+
+2. **Call shape methods once in setup** - Not in `layoutSubviews` (unless height changes dynamically)
+   ```swift
+   // ❌ WRONG - Called every layout pass
+   override func layoutSubviews() {
+       super.layoutSubviews()
+       glassView.applyCapsuleShape(height: bounds.height)
+   }
+
+   // ✅ CORRECT - Called once with fixed height
+   func setup() {
+       glassView.applyCapsuleShape(height: 44)
+   }
+   ```
+
+3. **GlassEffectViewIOS26 is always interactive** - No property to set, touch feedback is built-in
+
+4. **Use glassIOS26() for text buttons**
+   ```swift
+   var config = UIButton.Configuration.glassIOS26()
+   config.title = "Done"
+   config.baseForegroundColor = .Control.accent100
+   let button = UIButton(configuration: config)
+   ```
+
+### iOS Version Handling (UIKit)
+
+```swift
+// GlassEffectViewIOS26 handles version checks internally:
+// iOS 26+: UIGlassEffect with cornerConfiguration
+// iOS < 26: UIBlurEffect(style: .systemUltraThinMaterial) + Background.navigationPanel
+
+// Example of internal implementation:
+private func setupGlassEffect() {
+    if #available(iOS 26.0, *) {
+        let glassEffect = UIGlassEffect()
+        glassEffect.isInteractive = true
+        let effectView = UIVisualEffectView(effect: glassEffect)
+        addSubview(effectView)
+        glassEffectView = effectView
+    } else {
+        backgroundColor = .Background.navigationPanel
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+        addSubview(blurView)
+    }
+}
+```
+
 ## 📁 Key Files
 
 | File | Purpose |
 |------|---------|
-| `View+iOS26.swift` | Glass effect utilities and wrappers |
+| `View+iOS26.swift` | SwiftUI glass effect utilities and wrappers |
+| `UIView+iOS26Glass.swift` | **UIKit glass effect utilities** |
 | `HomeBottomNavigationPanelView.swift` | Navigation panel with glass buttons |
 | `ChatInput.swift` | Chat input with morphing burger/plus button |
 | `ChatActionPanel.swift` | Action buttons with interactive glass |
+| `EditorNavigationBarView.swift` | **UIKit navigation bar with glass container** |
+| `EditorNavigationBarTitleView.swift` | **UIKit title view with capsule glass** |
 
 ## 🔗 External Resources
 
@@ -209,12 +337,23 @@ if #available(iOS 26.0, *) {
 
 ## ✅ Implementation Checklist
 
+### SwiftUI
 - [ ] Glass elements wrapped in `GlassEffectContainerIOS26`
 - [ ] Buttons use `glassEffectInteractiveIOS26` (not just `glassEffectIOS26`)
 - [ ] State-dependent elements have `glassEffectIDIOS26` for morphing
 - [ ] No redundant `clipShape()` before glass effects
 - [ ] Glass only on navigation/floating controls, not content
 - [ ] Animation wrapper for state changes (`withAnimation(.bouncy)` or `.animation()`)
+
+### UIKit
+- [ ] Glass elements wrapped in `GlassContainerViewIOS26`
+- [ ] Content added to `glassContentView` (not directly to glass view)
+- [ ] Shape methods called once in setup (not `layoutSubviews`)
+- [ ] Text buttons use `UIButton.Configuration.glassIOS26()`
+- [ ] Circular buttons use `applyCircleShape(diameter:)`
+- [ ] Pill/capsule shapes use `applyCapsuleShape(height:)`
+
+### Testing
 - [ ] Tested on iOS 26 simulator for glass appearance
 - [ ] Tested on iOS 18 simulator for fallback behavior
 
