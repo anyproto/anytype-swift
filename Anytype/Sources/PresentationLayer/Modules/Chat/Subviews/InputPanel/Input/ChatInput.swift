@@ -154,10 +154,10 @@ struct ChatInput: View {
                     .frame(width: 24, height: 24)
             } else {
                 Image(asset: .Chat.SendMessage.active)
-                    .frame(width: 40, height: 40)
+                    .frame(width: 44, height: 44)
             }
         }
-        .frame(width: 40, height: 40)
+        .frame(width: 44, height: 44)
         .clipShape(Circle())
         .disabled(disableSendButton)
     }
