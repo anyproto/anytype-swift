@@ -26,14 +26,17 @@ struct BookmarkCreateView: View {
         VStack(spacing: 0) {
             DragIndicator()
             HStack(spacing: 0) {
-                TextField(Loc.Set.Bookmark.Create.placeholder, text: $model.urlText)
-                    .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                    .foregroundStyle(Color.Text.primary)
-                    .keyboardType(.URL)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .submitLabel(.done)
-                    .onSubmit { model.onTapCreate() }
+                AutofocusedTextField(
+                    placeholder: Loc.Set.Bookmark.Create.placeholder,
+                    font: .uxBodyRegular,
+                    text: $model.urlText
+                )
+                .foregroundStyle(Color.Text.primary)
+                .keyboardType(.URL)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .submitLabel(.done)
+                .onSubmit { model.onTapCreate() }
 
                 Spacer(minLength: 8)
 
