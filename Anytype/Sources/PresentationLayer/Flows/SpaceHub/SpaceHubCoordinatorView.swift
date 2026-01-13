@@ -20,9 +20,6 @@ struct SpaceHubCoordinatorView: View {
             .onChange(of: model.navigationPath) { model.onPathChange() }
         
             .taskWithMemoryScope { await model.setup() }
-            .task(id: model.currentSpaceId) {
-                await model.startSpaceSubscription()
-            }
             .handleSharingTip()
             .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
@@ -121,6 +118,12 @@ struct SpaceHubCoordinatorView: View {
             ) { result in
                 model.fileImporterFinished(result: result)
             }
+
+            // widgets overlay
+            .fullScreenCover(item: $model.overlayWidgetsData) { data in
+                HomeWidgetsCoordinatorView(data: data, navigationButtonType: .burger)
+                    .pageNavigation(model.pageNavigation)
+            }
     }
     
     private var content: some View {
@@ -132,7 +135,7 @@ struct SpaceHubCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: HomeWidgetData.self) { data in
-                            HomeWidgetsCoordinatorView(data: data)
+                            HomeWidgetsCoordinatorView(data: data, navigationButtonType: .arrowBack)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)

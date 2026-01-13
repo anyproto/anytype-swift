@@ -2276,6 +2276,10 @@ public enum Loc {
         return Loc.tr("Workspace", "SpaceSettings.DeleteAlert.Title", String(describing: p1), fallback: "Delete ‘%@’ space")
       }
     }
+    public enum HomePage {
+      public static let title = Loc.tr("Workspace", "SpaceSettings.HomePage.Title", fallback: "Home page")
+      public static let widgets = Loc.tr("Workspace", "SpaceSettings.HomePage.Widgets", fallback: "Widgets")
+    }
     public enum LeaveAlert {
       public static func message(_ p1: Any) -> String {
         return Loc.tr("Workspace", "SpaceSettings.LeaveAlert.Message", String(describing: p1), fallback: "%@ space will be removed from your devices and you will no longer have access to it")

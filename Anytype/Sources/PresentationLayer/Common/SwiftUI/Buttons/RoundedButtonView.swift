@@ -8,6 +8,7 @@ enum RoundedButtonDecoration {
     case badge(Int)
     case alert
     case objectType(ObjectType)
+    case object(icon: Icon?, name: String)
     case toggle(isOn: Bool, onToggle: (Bool) -> Void)
 
     init?(objectType: ObjectType?) {
@@ -57,6 +58,7 @@ struct RoundedButtonView: View {
         case .caption(let caption):
             AnytypeText(caption, style: .bodyRegular)
                 .foregroundStyle(Color.Text.secondary)
+                .lineLimit(1)
             Spacer.fixedWidth(8)
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
         case .badge(let badge):
@@ -74,6 +76,15 @@ struct RoundedButtonView: View {
             HStack(spacing: 8) {
                 IconView(object: objectType.icon).frame(width: 20, height: 20)
                 AnytypeText(objectType.name, style: .previewTitle1Regular)
+                    .lineLimit(1)
+            }
+            Spacer.fixedWidth(8)
+            IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)
+        case let .object(icon, name):
+            HStack(spacing: 8) {
+                IconView(icon: icon).frame(width: 20, height: 20)
+                AnytypeText(name, style: .previewTitle1Regular)
+                    .lineLimit(1)
             }
             Spacer.fixedWidth(8)
             IconView(asset: .RightAttribute.disclosure).frame(width: 24, height: 24)

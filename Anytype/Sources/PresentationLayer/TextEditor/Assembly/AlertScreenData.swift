@@ -37,12 +37,13 @@ enum AlertScreenData: Hashable {
     case spaceMember(ObjectInfo)
     case chatCreate(ChatCreateScreenData)
     case bookmarkCreate(BookmarkCreateScreenData)
+    case widgets(HomeWidgetData)
 
     var objectId: String? {
         switch self {
         case .spaceMember(let info):
             info.objectId
-        case .chatCreate, .bookmarkCreate:
+        case .chatCreate, .bookmarkCreate, .widgets:
             nil
         }
     }
@@ -54,6 +55,8 @@ enum AlertScreenData: Hashable {
         case .chatCreate(let data):
             data.spaceId
         case .bookmarkCreate(let data):
+            data.spaceId
+        case .widgets(let data):
             data.spaceId
         }
     }

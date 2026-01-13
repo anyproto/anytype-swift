@@ -12,4 +12,5 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onAddFilesSelected(spaceId: String)
     func popToFirstInSpace()
     func onAddAttachmentToSpaceLevelChat(attachment: ChatLinkObject)
+    func onShowWidgetsOverlay(spaceId: String)
 }

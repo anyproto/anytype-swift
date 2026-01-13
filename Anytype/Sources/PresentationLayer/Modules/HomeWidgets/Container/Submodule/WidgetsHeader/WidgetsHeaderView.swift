@@ -2,18 +2,19 @@ import Foundation
 import SwiftUI
 
 struct WidgetsHeaderView: View {
-
     @State private var model: WidgetsHeaderViewModel
+    let navigationButtonType: PageNavigationButtonType
 
-    init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
+    init(spaceId: String, navigationButtonType: PageNavigationButtonType, onSpaceSelected: @escaping () -> Void) {
         _model = State(initialValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
+        self.navigationButtonType = navigationButtonType
     }
-    
+
     var body: some View {
         Button {
             model.onTapSpaceSettings()
         } label: {
-            PageNavigationHeader {
+            PageNavigationHeader(navigationButtonType: navigationButtonType) {
                 HStack(spacing: 12) {
                     IconView(icon: model.spaceIcon)
                         .frame(width: 32, height: 32)
@@ -37,15 +38,10 @@ struct WidgetsHeaderView: View {
                         .foregroundStyle(Color.Control.transparentSecondary)
                 }
             }
-            .background {
-                HomeBlurEffectView(direction: .topToBottom)
-                    .ignoresSafeArea()
-            }
-            .fixTappableArea()
         }
+        .fixTappableArea()
         .buttonStyle(.plain)
-        .task {
-            await model.startSubscriptions()
-        }
+        .background { HomeBlurEffectView(direction: .topToBottom).ignoresSafeArea() }
+        .task { await model.startSubscriptions() }
     }
 }

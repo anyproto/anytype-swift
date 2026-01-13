@@ -3,9 +3,10 @@
 ## Table of Contents
 1. [Architecture Overview](#architecture-overview)
 2. [Core Components](#core-components)
-3. [Path Item Types](#path-item-types)
-4. [Navigation Flows](#navigation-flows)
-5. [Key Files Reference](#key-files-reference)
+3. [Home Screen Selection](#home-screen-selection)
+4. [Path Item Types](#path-item-types)
+5. [Navigation Flows](#navigation-flows)
+6. [Key Files Reference](#key-files-reference)
 
 ---
 
@@ -141,54 +142,72 @@ The main navigation state manager. Holds:
 ```swift
 // Called when user taps a space in the grid
 func onSelectSpace(spaceId: String) {
-    Task { try await openSpaceWithIntialScreen(spaceId: spaceId) }
+    Task { try await showSpace(spaceId: spaceId) }
 }
 
-// Opens a space with its initial screen (widget or chat)
-private func openSpaceWithIntialScreen(spaceId: String) async throws
+// Opens a space with its home screen
+private func showSpace(spaceId: String) async throws
+
+// Determines home screen based on space type and user preference
+private func homeObjectScreenData(spaceId: String) async -> AnyHashable
 
 // Shows any screen, handling space changes and path updates
 private func showScreen(data: ScreenData) async throws
 
 // Called on every path change - persists last screen
 func onPathChange()
-
-// Builds initial path for a space
-private func initialHomePath(spaceView: SpaceView) -> [AnyHashable]
 ```
 
 ---
 
-### 5. SpaceHubPathUXTypeHelper
-**File**: `Anytype/Sources/PresentationLayer/Flows/SpaceHub/Support/SpaceHubPathManager.swift`
+## Home Screen Selection
 
-Automatically adjusts navigation path based on space UX type. Subscribed via `startSpaceSubscription()`.
+When opening a space, the system determines which screen to show at index 1 (the "home screen").
+
+### Selection Logic (`homeObjectScreenData`)
+
+The `homeObjectScreenData(spaceId:)` method returns the appropriate home screen:
+
+1. **Custom home object (ALL space types)**: Use `EditorScreenData` if object is valid
+2. **No custom home object**: Use default based on space type
+   - `initialScreenIsChat == true` → `SpaceChatCoordinatorData`
+   - `initialScreenIsChat == false` → `HomeWidgetData`
 
 ```swift
-protocol SpaceHubPathUXTypeHelperProtocol: AnyObject, Sendable {
-    func updateNaivgationPathForUxType(spaceView: SpaceView, path: HomePath) async -> HomePath
-}
-```
-
-**Behavior by space type**:
-- **Chat/OneToOne/Stream spaces**: Ensures `SpaceChatCoordinatorData` at index 1
-- **Data spaces**: Ensures `HomeWidgetData` at index 1
-- **None/Unrecognized**: No modification
-
-**How it's used**:
-```swift
-func startSpaceSubscription() async {
-    guard let spaceId = currentSpaceId else { return }
-    for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).values {
-        navigationPath = await spaceHubPathUXTypeHelper.updateNaivgationPathForUxType(
-            spaceView: spaceView,
-            path: navigationPath
-        )
+private func homeObjectScreenData(spaceId: String) async -> AnyHashable {
+    // 1. Check custom home object FIRST (for ALL space types)
+    if let objectId = userDefaults.homeObjectId(spaceId: spaceId) {
+        let details = try? await searchService.searchObjects(spaceId: spaceId, objectIds: [objectId]).first
+        if let details, !details.isDeleted, !details.isArchived,
+           let editorData = details.screenData().editorScreenData {
+            return editorData
+        }
     }
+
+    // 2. No custom home object - use default based on space type
+    if let spaceView = workspaceStorage.spaceView(spaceId: spaceId),
+       spaceView.initialScreenIsChat {
+        return SpaceChatCoordinatorData(spaceId: spaceId)
+    }
+
+    return HomeWidgetData(spaceId: spaceId)
 }
 ```
 
-**Important**: This helper runs continuously and modifies the path whenever the space's UX type changes. It forces widgets/chat at index 1.
+### Per-Space Home Object Preference
+
+Stored in UserDefaults via `homeObjectId(spaceId:)`:
+- Applies to ALL space types (data and chat spaces)
+- Must be validated (exists, not deleted, not archived)
+- Falls back to default if invalid
+- Changed via **Space Settings → Home Page**
+
+### HomePagePicker
+
+The `HomePagePickerView` allows users to customize their home screen for a space:
+- For **data spaces**: Shows "Widgets" as default option
+- For **chat spaces**: Shows "Chat" as default option
+- Users can select any valid object to open instead
 
 ---
 
@@ -265,26 +284,26 @@ enum LastOpenedScreen: Codable {
 ```
 1. SpaceHubView.onSelectSpace(spaceId:) → output delegate
 2. SpaceHubCoordinatorViewModel.onSelectSpace(spaceId:)
-3. openSpaceWithIntialScreen(spaceId:):
-   a. setActiveSpace(spaceId:) → validates space, returns SpaceView
-   b. Check spaceView.initialScreenIsChat:
-      - true → showScreen(.spaceChat(SpaceChatCoordinatorData))
-      - false → showScreen(.widget(HomeWidgetData))
+3. showSpace(spaceId:):
+   a. Guard: return if already in this space
+   b. setActiveSpace(spaceId:) → validates space exists
+   c. homeObjectScreenData(spaceId:) → determines home screen:
+      - Custom home object (all spaces) → EditorScreenData
+      - No custom + initialScreenIsChat → SpaceChatCoordinatorData
+      - No custom + !initialScreenIsChat → HomeWidgetData
+   d. Build path: [SpaceHubNavigationItem, homeObject]
+   e. Update navigationPath
 ```
 
 ### C. showScreen(data: ScreenData)
 
 ```
-1. Validate object exists (if data.objectId != nil):
-   - Open document in preview mode
+1. Validate object (checkIsDataSupportedForOpening):
+   - Open document in preview mode if objectId exists
    - Check details.isSupportedForOpening
-   - Show toast if unsupported
+   - Show toast and return if unsupported
 
-2. Check if space change needed:
-   - If currentSpaceId != data.spaceId:
-     - setActiveSpace(data.spaceId)
-     - Build new path: initialHomePath(spaceView)
-   - Else: use current navigationPath
+2. Call showSpace(spaceId:) to ensure correct space and home screen
 
 3. Dismiss any presented sheets
 
@@ -293,8 +312,8 @@ enum LastOpenedScreen: Codable {
    - .widget → currentPath.openOnce(HomeWidgetData)
    - .spaceChat → currentPath.openOnce(SpaceChatCoordinatorData)
    - .chat → currentPath.openOnce(ChatCoordinatorData)
-   - .spaceInfo → currentPath.push(data) or show sheet
-   - .alert → show sheet (profileData, chatCreateData)
+   - .spaceInfo → currentPath.push(data) or show sheet based on permissions
+   - .alert → show sheet (profileData, chatCreateData, bookmarkCreate)
    - .preview → present UIKit preview controller
    - .bookmark → show Safari bookmark sheet
 
@@ -332,19 +351,6 @@ enum LastOpenedScreen: Codable {
    - activeSpaceManager.setActiveSpace(nil)
 ```
 
-### F. Space Subscription (Auto Path Correction)
-
-```
-1. .task(id: model.currentSpaceId) { await model.startSpaceSubscription() }
-2. Subscribe to spaceViewPublisher(spaceId:)
-3. On each SpaceView update:
-   - spaceHubPathUXTypeHelper.updateNaivgationPathForUxType(spaceView, path)
-   - Updates navigationPath with corrected path
-4. Based on spaceView.uxType:
-   - .data → ensures HomeWidgetData at index 1
-   - .chat/.oneToOne/.stream → ensures SpaceChatCoordinatorData at index 1
-```
-
 ---
 
 ## Key Files Reference
@@ -352,13 +358,14 @@ enum LastOpenedScreen: Codable {
 | File | Purpose |
 |------|---------|
 | `SpaceHubCoordinatorView.swift` | Main coordinator view, registers all builders |
-| `SpaceHubCoordinatorViewModel.swift` | Navigation state, showScreen(), onPathChange() |
+| `SpaceHubCoordinatorViewModel.swift` | Navigation state, showSpace(), showScreen(), onPathChange() |
 | `HomePath.swift` | Custom navigation stack struct with manipulation methods |
 | `AnytypeNavigationView.swift` | SwiftUI → UIKit bridge via UIViewControllerRepresentable |
 | `AnytypeDestinationBuilderHolder.swift` | Type → View builder registry using reflection |
 | `ScreenData.swift` | High-level screen enum for navigation requests |
-| `UserDefaultsStorage.swift` | LastOpenedScreen persistence |
-| `SpaceHubPathManager.swift` | Auto path correction based on space UX type |
+| `UserDefaultsStorage.swift` | LastOpenedScreen + homeObjectId persistence |
+| `HomePagePickerView.swift` | UI for selecting custom home screen per space |
+| `HomePagePickerViewModel.swift` | Home screen selection logic |
 
 ### Builder Registration Location
 
