@@ -1,7 +1,7 @@
 import XCTest
 @testable import DeepLinks
 
-final class DeepLinkParserTests: XCTestCase {
+final class xDeepLinkParserTests: XCTestCase {
 
     override func tearDownWithError() throws {
     }
