@@ -39,7 +39,6 @@ final class HomeBottomNavigationPanelViewModel {
     // MARK: - Public properties
 
     var canCreateObject: Bool = false
-    var isWidgetsScreen: Bool = false
     var pageObjectType: ObjectType?
     var noteObjectType: ObjectType?
     var taskObjectType: ObjectType?
@@ -72,7 +71,6 @@ final class HomeBottomNavigationPanelViewModel {
     
     func updateVisibleScreen(data: AnyHashable) {
         currentData = data
-        isWidgetsScreen = (data as? HomeWidgetData) != nil
         updateState()
     }
 

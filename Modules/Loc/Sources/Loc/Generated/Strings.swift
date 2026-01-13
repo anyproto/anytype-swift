@@ -2495,6 +2495,9 @@ public enum Loc {
         return Loc.tr("Workspace", "TemplateSelection.Available.Title", p1, fallback: "Plural format key: TemplateSelection.Available.Title")
       }
     }
+    public enum Header {
+      public static let title = Loc.tr("Workspace", "TemplateSelection.Header.Title", fallback: "Choose template")
+    }
     public enum ObjectType {
       public static let subtitle = Loc.tr("Workspace", "TemplateSelection.ObjectType.Subtitle", fallback: "Object type")
     }

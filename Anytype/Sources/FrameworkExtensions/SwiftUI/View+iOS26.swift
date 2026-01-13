@@ -50,6 +50,7 @@ extension View {
             self
                 .background(Color.Background.navigationPanel)
                 .background(.ultraThinMaterial)
+                .clipShape(shape)
         }
     }
 
@@ -57,6 +58,15 @@ extension View {
     public func glassEffectIDIOS26<ID: Hashable>(_ id: ID, in namespace: Namespace.ID) -> some View {
         if #available(iOS 26.0, *) {
             self.glassEffectID(id, in: namespace)
+        } else {
+            self
+        }
+    }
+
+    @ViewBuilder
+    public func matchedTransitionSourceIOS26<ID: Hashable>(id: ID, in namespace: Namespace.ID?) -> some View {
+        if let namespace, #available(iOS 26.0, *) {
+            self.matchedTransitionSource(id: id, in: namespace)
         } else {
             self
         }

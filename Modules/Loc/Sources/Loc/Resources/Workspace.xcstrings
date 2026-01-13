@@ -75744,6 +75744,18 @@
         }
       }
     },
+    "TemplateSelection.Header.Title" : {
+      "comment" : "Header title for template selection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose template"
+          }
+        }
+      }
+    },
     "TemplateSelection.ObjectType.Subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

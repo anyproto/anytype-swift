@@ -8,9 +8,11 @@ enum EditorNavigationBarTitleMode {
 }
 
 final class EditorNavigationBarTitleView: UIView {
-    
+
+    private let glassBackground = GlassEffectViewIOS26()
     private let stackView = UIStackView()
-    
+    private let spacerView = UIView()
+
     private let iconImageView = IconViewUIKit()
     private let titleLabel = AnytypeLabel(style: .uxCalloutRegular)
     private let lockImageView = UIImageView()
@@ -50,6 +52,11 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 
     
     func configure(model: Mode) {
+        // Remove existing gesture recognizers to prevent accumulation
+        stackView.gestureRecognizers?.forEach { stackView.removeGestureRecognizer($0) }
+        titleLabel.gestureRecognizers?.forEach { titleLabel.removeGestureRecognizer($0) }
+        arrowImageView.gestureRecognizers?.forEach { arrowImageView.removeGestureRecognizer($0) }
+
         switch model {
         case let .title(titleModel):
             titleLabel.setText(titleModel.title ?? "", style: .uxCalloutRegular)
@@ -70,7 +77,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             iconImageView.isHidden = true
             arrowImageView.isHidden = true
         case let .templates(model):
-            titleLabel.setText(Loc.TemplateSelection.Available.title(model.count), style: .caption1Medium)
+            titleLabel.setText(Loc.TemplateSelection.Header.title, style: .caption1Medium)
             titleLabel.isUserInteractionEnabled = true
             titleLabel.addTapGesture { _ in model.onTap() }
             arrowImageView.isHidden = false
@@ -85,8 +92,9 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         lockImageView.image = isReadonly.flatMap { UIImage(asset: $0.barIcon) }
     }
     
-    /// Parents alpha sets automatically by system when it attaches to NavigationBar. 
+    /// Parents alpha sets automatically by system when it attaches to NavigationBar.
     func setAlphaForSubviews(_ alpha: CGFloat) {
+        glassBackground.alpha = alpha
         if case .templates = mode {
             titleLabel.alpha = 1
         } else {
@@ -108,6 +116,7 @@ private extension EditorNavigationBarTitleView {
         
         stackView.axis = .horizontal
         stackView.spacing = 8
+        stackView.distribution = .fill
         lockImageView.contentMode = .center
         lockImageView.tintColor = .Control.secondary
         
@@ -120,15 +129,29 @@ private extension EditorNavigationBarTitleView {
     }
     
     func setupLayout() {
-        addSubview(stackView) {
-            $0.width.lessThanOrEqual(to: 300)
+        layoutUsing.anchors {
+            $0.height.equal(to: 44)
+        }
+
+        glassBackground.applyCapsuleShape(height: 44)
+
+        addSubview(glassBackground) {
             $0.pinToSuperview()
+        }
+
+        glassBackground.glassContentView.addSubview(stackView) {
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
         }
 
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(lockImageView)
         stackView.addArrangedSubview(arrowImageView)
+        stackView.addArrangedSubview(spacerView)
+
+        // Spacer expands to push content left
+        spacerView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        spacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         iconImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 18, height: 18))
