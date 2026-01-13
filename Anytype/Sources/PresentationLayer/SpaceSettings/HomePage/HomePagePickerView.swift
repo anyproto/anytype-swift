@@ -6,7 +6,7 @@ struct HomePagePickerView: View {
     @State private var model: HomePagePickerViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(spaceId: String, onFinish: @escaping () -> Void = {}) {
+    init(spaceId: String, onFinish: @escaping () async throws -> Void = {}) {
         _model = State(initialValue: HomePagePickerViewModel(spaceId: spaceId, onFinish: onFinish))
     }
 
@@ -32,8 +32,8 @@ struct HomePagePickerView: View {
     }
 
     private var widgetsOption: some View {
-        Button {
-            model.onWidgetsSelected()
+        AsyncButton {
+            try await model.onWidgetsSelected()
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: model.isChatSpace ? "bubble.left.and.bubble.right" : "house")
@@ -76,8 +76,8 @@ struct HomePagePickerView: View {
     }
 
     private func objectRow(_ details: ObjectDetails) -> some View {
-        Button {
-            model.onObjectSelected(details)
+        AsyncButton {
+            try await model.onObjectSelected(details)
         } label: {
             HStack(spacing: 12) {
                 IconView(icon: details.objectIconImage)

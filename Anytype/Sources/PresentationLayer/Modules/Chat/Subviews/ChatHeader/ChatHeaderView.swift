@@ -6,6 +6,7 @@ import AnytypeCore
 struct ChatHeaderView: View {
 
     @State private var model: ChatHeaderViewModel
+    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
 
     init(
         spaceId: String,
@@ -25,26 +26,10 @@ struct ChatHeaderView: View {
     
     var body: some View {
         PageNavigationHeader {
-            ExpandedTapAreaButton {
-                model.tapOpenWidgets()
-            } label: {
-                HStack(spacing: 6) {
-                    if model.showLoading {
-                        CircleLoadingView(.Text.primary)
-                            .frame(width: 18, height: 18)
-                            .transition(.scale.combined(with: .opacity))
-                    } else {
-                        Spacer.fixedWidth(18)
-                    }
-                    AnytypeText(model.title, style: .uxTitle1Semibold)
-                        .lineLimit(1)
-                    if model.muted {
-                        Image(asset: .X18.muted)
-                            .foregroundStyle(Color.Text.primary)
-                    } else {
-                        Spacer.fixedWidth(18)
-                    }
-                }
+            if let widgetsNamespace, #available(iOS 26.0, *) {
+                headerView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
+            } else {
+                headerView
             }
         } rightView: {
             HStack(spacing: 16) {
@@ -93,5 +78,29 @@ struct ChatHeaderView: View {
             await model.startSubscriptions()
         }
         .animation(.default, value: model.showLoading)
+    }
+    
+    private var headerView: some View {
+        ExpandedTapAreaButton {
+            model.tapOpenWidgets()
+        } label: {
+            HStack(spacing: 6) {
+                if model.showLoading {
+                    CircleLoadingView(.Text.primary)
+                        .frame(width: 18, height: 18)
+                        .transition(.scale.combined(with: .opacity))
+                } else {
+                    Spacer.fixedWidth(18)
+                }
+                AnytypeText(model.title, style: .uxTitle1Semibold)
+                    .lineLimit(1)
+                if model.muted {
+                    Image(asset: .X18.muted)
+                        .foregroundStyle(Color.Text.primary)
+                } else {
+                    Spacer.fixedWidth(18)
+                }
+            }
+        }
     }
 }

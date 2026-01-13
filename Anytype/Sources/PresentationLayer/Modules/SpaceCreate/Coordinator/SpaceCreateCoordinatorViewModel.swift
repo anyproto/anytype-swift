@@ -1,5 +1,7 @@
 import SwiftUI
 import Factory
+import AnytypeCore
+
 
 struct HomePagePickerData: Identifiable, Equatable {
     let spaceId: String
@@ -26,12 +28,10 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
         self.data = data
     }
 
-    func onHomePagePickerFinished() {
+    func onHomePagePickerFinished() async throws {
         guard let spaceId = pendingSpaceId else { return }
         pendingSpaceId = nil
-        Task {
-            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
-        }
+        try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
     }
 
     // MARK: - SpaceCreateModuleOutput
@@ -43,8 +43,12 @@ final class SpaceCreateCoordinatorViewModel: SpaceCreateModuleOutput {
         )
     }
 
-    func onSpaceCreated(spaceId: String) {
-        pendingSpaceId = spaceId
-        homePagePickerData = HomePagePickerData(spaceId: spaceId)
+    func onSpaceCreated(spaceId: String) async throws {
+        if FeatureFlags.homePage {
+            pendingSpaceId = spaceId
+            homePagePickerData = HomePagePickerData(spaceId: spaceId)
+        } else {
+            try await activeSpaceManager.setActiveSpace(spaceId: spaceId)
+        }
     }
 }

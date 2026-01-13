@@ -57,6 +57,7 @@ The skills system provides context-aware guidance that auto-activates based on y
 - **code-review-developer** → Auto-activates when reviewing PRs or code changes
 - **analytics-developer** → Auto-activates for analytics events and route tracking
 - **feature-toggle-developer** → Auto-activates for feature flag removal
+- **liquid-glass-developer** → Auto-activates for iOS 26 glass effects and morphing
 - **skills-manager** → Auto-activates for skill system management
 
 **How it works**: When you start a task, the system analyzes your prompt and file context, then automatically suggests relevant skills. No manual loading needed.

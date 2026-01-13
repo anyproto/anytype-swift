@@ -12,22 +12,27 @@ extension ChatActionPanelModel {
 }
 
 struct ChatActionPanelView: View {
+    @Namespace private var glassNamespace
+
     let model: ChatActionPanelModel
     let onTapScrollToBottom: () -> Void
     let onTapMention: () -> Void
-    
+
     var body: some View {
-        VStack(spacing: 12) {
-            
-            if model.showMentions {
-                button(asset: .X24.mention, count: model.mentionsCounter) {
-                    onTapMention()
+        GlassEffectContainerIOS26(spacing: 12) {
+            VStack(spacing: 12) {
+                if model.showMentions {
+                    button(asset: .X24.mention, count: model.mentionsCounter) {
+                        onTapMention()
+                    }
+                    .glassEffectIDIOS26("mention", in: glassNamespace)
                 }
-            }
-            
-            if model.showScrollToBottom {
-                button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
-                    onTapScrollToBottom()
+
+                if model.showScrollToBottom {
+                    button(asset: .X24.Arrow.down, count: model.srollToBottomCounter) {
+                        onTapScrollToBottom()
+                    }
+                    .glassEffectIDIOS26("scroll", in: glassNamespace)
                 }
             }
         }
@@ -41,16 +46,14 @@ struct ChatActionPanelView: View {
         } label: {
             Image(asset: asset)
                 .frame(width: 48, height: 48)
-                .background(Color.Background.navigationPanel)
-                .background(.ultraThinMaterial)
-                .clipShape(.rect(cornerRadius: 16))
-                .overlay(alignment: .topTrailing) {
-                    if count > 0 {
-                        CounterView(count: count)
-                            .offset(x: 6, y: -6)
-                    }
-                }
         }
-        .buttonStyle(.plain)
+        .frame(width: 48, height: 48)
+        .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 16.0))
+        .overlay(alignment: .topTrailing) {
+            if count > 0 {
+                CounterView(count: count)
+                    .offset(x: 6, y: -6)
+            }
+        }
     }
 }

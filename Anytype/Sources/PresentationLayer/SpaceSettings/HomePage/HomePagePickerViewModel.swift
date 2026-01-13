@@ -17,13 +17,13 @@ final class HomePagePickerViewModel {
     var dismiss = false
 
     @ObservationIgnored
-    private let onFinish: () -> Void
+    private let onFinish: () async throws -> Void
     private let spaceId: String
     private let spaceUxType: SpaceUxType?
     let currentObjectId: String?
     let isChatSpace: Bool
 
-    init(spaceId: String, onFinish: @escaping () -> Void = {}) {
+    init(spaceId: String, onFinish: @escaping () async throws -> Void = {}) {
         self.spaceId = spaceId
         self.onFinish = onFinish
         let spaceView = Container.shared.spaceViewsStorage().spaceView(spaceId: spaceId)
@@ -52,15 +52,15 @@ final class HomePagePickerViewModel {
         }
     }
 
-    func onWidgetsSelected() {
+    func onWidgetsSelected() async throws {
         userDefaults.setHomeObjectId(spaceId: spaceId, objectId: nil)
-        onFinish()
+        try await onFinish()
         dismiss = true
     }
 
-    func onObjectSelected(_ details: ObjectDetails) {
+    func onObjectSelected(_ details: ObjectDetails) async throws {
         userDefaults.setHomeObjectId(spaceId: spaceId, objectId: details.id)
-        onFinish()
+        try await onFinish()
         dismiss = true
     }
 }

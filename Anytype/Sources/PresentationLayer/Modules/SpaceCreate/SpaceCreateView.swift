@@ -33,9 +33,9 @@ struct SpaceCreateView: View {
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 0) {
                     ThresholdCounter(usecase: .spaceName, count: model.spaceName.count)
-                    StandardButton(model: StandardButtonModel(text: Loc.create, inProgress: model.createLoadingState, style: .primaryLarge, action: {
-                        model.onTapCreate()
-                    }))
+                    AsyncStandardButton(Loc.create, style: .primaryLarge, action: {
+                        try await model.onTapCreate()
+                    })
                     .disabled(model.spaceName.count > ThresholdCounterUsecase.spaceName.threshold)
                 }
                 .padding(.bottom, 10)

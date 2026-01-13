@@ -3,12 +3,13 @@ import Services
 
 struct ChatInput: View {
 
-    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+    @Namespace private var glassNamespace
 
     @Binding var text: NSAttributedString
     @Binding var editing: Bool
     @Binding var mention: ChatTextMention
-    let hasAdditionalData: Bool
+    let isEditingMessage: Bool
+    let linkedObjects: [ChatLinkedObject]
     let disableSendButton: Bool
     let disableAddButton: Bool
     let sendButtonIsLoading: Bool
@@ -19,48 +20,37 @@ struct ChatInput: View {
     let onTapAddFiles: () -> Void
     let onTapCamera: () -> Void
     let onTapCreateObject: (_ type: ObjectType) -> Void
-    let onTapBurger: () -> Void
     let onTapSend: () -> Void
     let onTapLinkTo: (_ range: NSRange) -> Void
     let onLinkAdded: (_ url: URL) -> Void
     let onPasteAttachmentsFromBuffer: ((_ items: [NSItemProvider]) -> Void)
+    let onTapCloseEdit: () -> Void
+    let onTapAttachment: (ChatLinkedObject) -> Void
+    let onTapRemoveAttachment: (ChatLinkedObject) -> Void
+    let replyToMessage: ChatInputReplyModel?
+    let onTapCloseReply: () -> Void
+    let disableHeaderAndAttachments: Bool
     
     private let mainObjectTypeToCreateKey = ObjectTypeUniqueKey.page
-    
-    var body: some View {
-        HStack(alignment: .bottom, spacing: 8) {
-            burgerButton
-            input
-            plusButton
-        }
-        .padding(.horizontal, 16)
-    }
-    
-    @ViewBuilder
-    private var burgerButton: some View {
-        if let widgetsNamespace, #available(iOS 26.0, *) {
-            burgerButtonView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
-        } else {
-            burgerButtonView
-        }
-    }
-    
-    @ViewBuilder
-    private var burgerButtonView: some View {
-        Button {
-            onTapBurger()
-        } label: {
-            Image(asset: .X24.burger)
-                .renderingMode(.template)
-                .navPanelDynamicForegroundStyle()
-                .padding(4)
-        }
-        .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
-        .clipShape(Circle())
+
+    private var showSendButton: Bool {
+        linkedObjects.isNotEmpty || !text.string.isEmpty
     }
 
-    private var plusButton: some View {
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 8) {
+            plusMenu
+            inputBubble
+            if showSendButton {
+                sendButton
+                    .transition(.scale.combined(with: .opacity))
+            }
+        }
+        .padding(.horizontal, 16)
+        .animation(.easeInOut(duration: 0.2), value: showSendButton)
+    }
+
+    private var plusMenu: some View {
         Menu {
             Button { onTapAddMedia() } label: {
                 Label(Loc.photos, systemImage: "photo")
@@ -101,66 +91,77 @@ struct ChatInput: View {
             }
         } label: {
             Image(asset: .X24.plus)
-                .navPanelDynamicForegroundStyle()
+                .foregroundStyle(Color.Control.primary)
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
-        .clipShape(Circle())
+        .contentShape(Circle())
+        .glassEffectInteractiveIOS26(in: Circle())
         .menuOrder(.fixed)
         .disabled(disableAddButton)
     }
 
-    private var input: some View {
-        HStack(alignment: .bottom, spacing: 0) {
-            ZStack(alignment: .topLeading) {
-                if text.string.isEmpty {
-                    Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
-                        .anytypeStyle(.chatText)
-                        .foregroundStyle(Color.Text.tertiary)
-                        .padding(.top, 9)
-                        .allowsHitTesting(false)
-                        .lineLimit(1)
-                }
-                ChatTextView(
-                    text: $text,
-                    editing: $editing,
-                    mention: $mention,
-                    minHeight: 40,
-                    maxHeight: 156,
-                    linkTo: onTapLinkTo,
-                    linkParsed: onLinkAdded,
-                    pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
-                )
+    private var inputBubble: some View {
+        VStack(spacing: 0) {
+            if isEditingMessage {
+                ChatInputEditView(onTapClose: onTapCloseEdit)
+                    .disabled(disableHeaderAndAttachments)
+            } else if let replyToMessage {
+                ChatInputReplyView(model: replyToMessage, onTapDelete: onTapCloseReply)
+                    .disabled(disableHeaderAndAttachments)
             }
-            if hasAdditionalData || !text.string.isEmpty {
-                sendButton
-            }
+            ChatInputAttachmentsViewContainer(
+                objects: linkedObjects,
+                onTapObject: onTapAttachment,
+                onTapRemove: onTapRemoveAttachment
+            )
+            .disabled(disableHeaderAndAttachments)
+            textInputArea
         }
-        .padding(.leading, 16)
-        .padding(.trailing, 4)
         .background(Color.Background.navigationPanel)
         .background(.ultraThinMaterial)
-        .clipShape(.rect(cornerRadius: 28))
+        .clipShape(.rect(cornerRadius: 20))
+    }
+
+    private var textInputArea: some View {
+        ZStack(alignment: .topLeading) {
+            if text.string.isEmpty {
+                Text(spaceUxType.isStream ? Loc.Message.Input.Stream.emptyPlaceholder : Loc.Message.Input.Chat.emptyPlaceholder)
+                    .anytypeStyle(.chatText)
+                    .foregroundStyle(Color.Text.tertiary)
+                    .padding(.top, 9)
+                    .allowsHitTesting(false)
+                    .lineLimit(1)
+            }
+            ChatTextView(
+                text: $text,
+                editing: $editing,
+                mention: $mention,
+                minHeight: 40,
+                maxHeight: 156,
+                linkTo: onTapLinkTo,
+                linkParsed: onLinkAdded,
+                pasteAttachmentsFromBuffer: onPasteAttachmentsFromBuffer
+            )
+        }
+        .padding(.horizontal, 16)
     }
     
-    @ViewBuilder
     private var sendButton: some View {
         Button {
             onTapSend()
         } label: {
             if sendButtonIsLoading {
                 CircleLoadingView()
-                    .frame(width: 32, height: 32)
+                    .frame(width: 24, height: 24)
             } else {
                 Image(asset: .Chat.SendMessage.active)
+                    .frame(width: 40, height: 40)
             }
         }
-        .buttonStyle(StandardPlainButtonStyle())
+        .frame(width: 40, height: 40)
+        .clipShape(Circle())
         .disabled(disableSendButton)
-        .frame(width: 32, height: 40)
-        // Store in layout for calculate correct textview height when user paste in empty textview
-        .opacity(hasAdditionalData || !text.string.isEmpty ? 1 : 0)
     }
 }
 

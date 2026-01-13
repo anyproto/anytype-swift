@@ -19,8 +19,9 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showAddPropertyInfoView(document: some BaseDocumentProtocol, onSelect: @escaping (PropertyDetails, _ isNew: Bool) -> Void)
     func showObectSettings(output: any ObjectSettingsCoordinatorOutput)
     func showCamera(_ data: SimpleCameraData)
-    
-    
+    func onWidgetsSelected(spaceId: String)
+
+
     // TODO: Refactoring templates. Delete it
     func setModuleInput(input: some EditorPageModuleInput, objectId: String)
     // TODO: Open toast inside module

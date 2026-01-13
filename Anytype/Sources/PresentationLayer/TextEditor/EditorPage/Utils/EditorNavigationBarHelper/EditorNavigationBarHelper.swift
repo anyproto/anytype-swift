@@ -36,7 +36,8 @@ final class EditorNavigationBarHelper {
     private var readonlyReason: BlocksReadonlyReason?
 
     private let onTemplatesButtonTap: () -> Void
-        
+    private let onTitleTap: () -> Void
+
     init(
         navigationBarView: EditorNavigationBarView,
         navigationBarBackgroundView: UIView,
@@ -47,6 +48,7 @@ final class EditorNavigationBarHelper {
         onSelectAllBarButtonItemTap: @escaping (Bool) -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
         onTemplatesButtonTap: @escaping () -> Void,
+        onTitleTap: @escaping () -> Void,
         onSyncStatusTap: @escaping () -> Void,
         onWebBannerTap: @escaping () -> Void
     ) {
@@ -81,13 +83,13 @@ final class EditorNavigationBarHelper {
         )
         
         self.onTemplatesButtonTap = onTemplatesButtonTap
-
+        self.onTitleTap = onTitleTap
 
         self.fakeNavigationBarBackgroundView.backgroundColor = .Background.primary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         self.fakeNavigationBarBackgroundView.layer.zPosition = 1
         
-        self.navigationBarTitleView.setAlphaForSubviews(0.0)
+        self.navigationBarTitleView.setAlphaForSubviews(1.0)
         
         self.rightContanerForEditing = UIView()
         
@@ -181,7 +183,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         } else {
             let titleModel = EditorNavigationBarTitleView.Mode.TitleModel(
                 icon: details?.objectIconImage,
-                title: details?.title
+                title: details?.title,
+                onTap: onTitleTap
             )
             mode = .title(titleModel)
         }
@@ -283,9 +286,9 @@ private extension EditorNavigationBarHelper {
         
         // From 0 to 0.5 percent -> opacity 0..1
         let barButtonsOpacity = min(percent, 0.5) * 2
-        // From 0.5 to 1 percent -> alpha 0..1
-        let titleAlpha = (max(percent, 0.5) - 0.5) * 2
-        
+        // Title always visible
+        let titleAlpha: CGFloat = 1.0
+
         navigationBarTitleView.setAlphaForSubviews(titleAlpha)
         updateBarButtonItemsBackground(opacity: barButtonsOpacity)
 //        navigationBarView.setBackgroundAlpha(alpha: percent)

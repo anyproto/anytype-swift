@@ -10,9 +10,9 @@ struct ChatInputEditView: View {
                 .anytypeStyle(.caption1Medium)
                 .foregroundStyle(Color.Text.primary)
                 .lineLimit(1)
-            
+
             Spacer()
-            
+
             Button {
                 onTapClose()
             } label: {
@@ -21,8 +21,7 @@ struct ChatInputEditView: View {
             }
         }
         .padding(.horizontal, 12)
-        .frame(height: 40)
-        .background(Color.Background.highlightedLight)
+        .padding(.top, 8)
     }
 }
 

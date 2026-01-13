@@ -224,6 +224,11 @@ final class EditorSetCoordinatorViewModel:
         syncStatusSpaceId = spaceId.identifiable
     }
 
+    func onWidgetsSelected(spaceId: String) {
+        let widgetData = HomeWidgetData(spaceId: spaceId)
+        pageNavigation?.open(.alert(.widgets(widgetData)))
+    }
+
     // MARK: - ObjectSettingsCoordinatorOutput
     
     func didCreateTemplate(templateId: String) {

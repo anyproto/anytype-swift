@@ -17,7 +17,7 @@ struct HomeBottomNavigationPanelView: View {
 
 private struct HomeBottomNavigationPanelViewInternal: View {
 
-    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+    @Namespace private var glassNamespace
 
     let homePath: HomePath
     @State private var model: HomeBottomNavigationPanelViewModel
@@ -34,20 +34,16 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     @ViewBuilder
     var buttons: some View {
         VStack(spacing: 0) {
-            HStack {
-                if model.isWidgetsScreen {
-                    searchButton
-                    Spacer()
+            GlassEffectContainerIOS26(spacing: 20) {
+                HStack {
                     createButton
-                } else {
-                    burgerButton
+                        .glassEffectIDIOS26("create", in: glassNamespace)
                     Spacer()
                     searchButton
-                    Spacer()
-                    createButton
+                        .glassEffectIDIOS26("search", in: glassNamespace)
                 }
             }
-            .padding(.horizontal, 48)
+            .padding(.horizontal, 24)
             .padding(.top, 16)
             .padding(.bottom, 8)
         }
@@ -75,30 +71,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             }
         }
     }
-    
-    @ViewBuilder
-    private var burgerButton: some View {
-        if let widgetsNamespace, #available(iOS 26.0, *) {
-            burgerButtonView.matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
-        } else {
-            burgerButtonView
-        }
-    }
-
-    @ViewBuilder
-    private var burgerButtonView: some View {
-        Button {
-            model.onTapShowWidgets()
-        } label: {
-            Image(asset: .X24.burger)
-                .renderingMode(.template)
-                .navPanelDynamicForegroundStyle()
-                .padding(4)
-        }
-        .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
-        .clipShape(Circle())
-    }
 
     private var searchButton: some View {
         Button {
@@ -106,12 +78,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         } label: {
             Image(asset: .X24.search)
                 .renderingMode(.template)
-                .navPanelDynamicForegroundStyle()
+                .foregroundStyle(Color.Control.primary)
                 .padding(4)
         }
         .frame(width: 40, height: 40)
-        .background(Color.Shape.tertiary)
-        .clipShape(Circle())
+        .glassEffectInteractiveIOS26(in: Circle())
     }
 
     @ViewBuilder
@@ -167,14 +138,13 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
                 }
             } label: {
-                Image(asset: .X24.edit)
+                Image(systemName: "square.and.pencil")
                     .renderingMode(.template)
-                    .navPanelDynamicForegroundStyle()
+                    .foregroundStyle(Color.Control.primary)
                     .padding(4)
             }
             .frame(width: 40, height: 40)
-            .background(Color.Shape.tertiary)
-            .clipShape(Circle())
+            .glassEffectInteractiveIOS26(in: Circle())
             .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
         } else {
@@ -183,12 +153,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             } label: {
                 Image(asset: .X24.edit)
                     .renderingMode(.template)
-                    .navPanelDynamicForegroundStyle()
+                    .foregroundStyle(Color.Control.primary)
                     .padding(4)
             }
             .frame(width: 40, height: 40)
-            .background(Color.Shape.tertiary)
-            .clipShape(Circle())
+            .glassEffectInteractiveIOS26(in: Circle())
             .disabled(!model.canCreateObject)
         }
     }

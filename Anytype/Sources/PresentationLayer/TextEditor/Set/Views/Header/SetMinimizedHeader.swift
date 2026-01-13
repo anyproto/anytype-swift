@@ -2,7 +2,9 @@ import SwiftUI
 import AnytypeCore
 
 struct SetMinimizedHeader: View {
-    
+
+    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+
     @ObservedObject var model: EditorSetViewModel
     var headerSize: CGSize
     var tableViewOffset: CGPoint
@@ -39,20 +41,34 @@ struct SetMinimizedHeader: View {
         .readSize { headerMinimizedSize = $0 }
     }
     
+    @ViewBuilder
     private var title: some View {
-        HStack(spacing: 8) {
-            if let icon = model.details?.objectIconImage {
-                IconView(icon: icon)
-                    .frame(width: 18, height: 18)
-            }
-            model.details.flatMap {
-                AnytypeText($0.pluralTitle, style: .bodyRegular)
-                    .foregroundStyle(Color.Text.primary)
-                    .lineLimit(1)
-            }
+        if let widgetsNamespace, #available(iOS 26.0, *) {
+            titleContent
+                .matchedTransitionSource(id: "widgetsOverlay", in: widgetsNamespace)
+        } else {
+            titleContent
         }
-        .opacity(titleOpacity)
-        .frame(maxWidth: .infinity).layoutPriority(1)
+    }
+
+    private var titleContent: some View {
+        Button {
+            model.onTapWidgets()
+        } label: {
+            HStack(spacing: 8) {
+                if let icon = model.details?.objectIconImage {
+                    IconView(icon: icon)
+                        .frame(width: 18, height: 18)
+                }
+                model.details.flatMap {
+                    AnytypeText($0.pluralTitle, style: .bodyRegular)
+                        .foregroundStyle(Color.Text.primary)
+                        .lineLimit(1)
+                }
+            }
+            .frame(maxWidth: .infinity).layoutPriority(1)
+        }
+        .buttonStyle(.plain)
     }
     
     private var syncsStatusItem: some View {
@@ -108,10 +124,6 @@ struct SetMinimizedHeader: View {
         let startingOpacityHeight = headerSize.height - height
         let opacity = abs(tableViewOffset.y) / startingOpacityHeight
         return min(opacity, 1)
-    }
-    
-    private var titleOpacity: Double {
-        (max(opacity, 0.5) - 0.5) * 2
     }
     
     private var syncStatusItemOpacity: Double {
