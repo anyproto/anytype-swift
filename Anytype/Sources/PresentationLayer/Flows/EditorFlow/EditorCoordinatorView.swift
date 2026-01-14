@@ -36,7 +36,7 @@ struct EditorCoordinatorView: View {
         case let .bin(spaceId):
             BinListView(spaceId: spaceId, output: model)
         case let .page(data):
-            EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
+            EditorPageCoordinatorView(data: data, showHeader: true)
         case let .list(data):
             EditorSetCoordinatorView(data: data, showHeader: true)
         case let .date(data):

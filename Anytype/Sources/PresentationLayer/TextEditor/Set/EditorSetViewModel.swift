@@ -780,11 +780,7 @@ extension EditorSetViewModel {
         guard let detailsStorage = defaultSubscriptionDetailsStorage() else { return }
         output?.showSetViewSettings(document: setDocument, subscriptionDetailsStorage: detailsStorage)
     }
-    
-    func showObjectSettings() {
-        output?.showSettings()
-    }
-    
+
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
         Task { [weak self] in
             guard let self else { return }

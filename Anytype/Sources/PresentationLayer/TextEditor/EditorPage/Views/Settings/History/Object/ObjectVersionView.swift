@@ -44,7 +44,7 @@ struct ObjectVersionView: View {
     private var content: some View {
         switch model.screenData {
         case .page(let data):
-            EditorPageCoordinatorView(data: data, showHeader: false, setupEditorInput: {_,_ in })
+            EditorPageCoordinatorView(data: data, showHeader: false)
         case .list(let data):
             EditorSetCoordinatorView(data: data, showHeader: false)
         default:

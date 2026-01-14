@@ -1,12 +1,9 @@
 import UIKit
 import SwiftUI
-import AnytypeCore
 
 final class TemplateEditingViewController: UIViewController {
     private let titleLabel = UILabel()
-    private let settingsButton = UIButton()
     private let editorViewController: UIViewController
-    private let onSettingsTap: () -> Void
     private let onSelectTemplateTap: (() -> Void)?
     private let objectId: String
     private let spaceId: String
@@ -29,27 +26,18 @@ final class TemplateEditingViewController: UIViewController {
             }
         ).asUIView()
     }()
-    
-    private lazy var settingsNavigationButton = UIBarButtonItem(
-        image: .init(asset: .X24.more),
-        style: .plain,
-        target: self,
-        action: #selector(didTapSettingButton)
-    )
-    
+
     init(
         editorViewController: UIViewController,
         objectId: String,
         spaceId: String,
         output: any ObjectSettingsCoordinatorOutput,
-        onSettingsTap: @escaping () -> Void,
         onSelectTemplateTap: (() -> Void)?
     ) {
         self.editorViewController = editorViewController
         self.objectId = objectId
         self.spaceId = spaceId
         self.output = output
-        self.onSettingsTap = onSettingsTap
         self.onSelectTemplateTap = onSelectTemplateTap
         
         super.init(nibName: nil, bundle: nil)
@@ -67,24 +55,15 @@ final class TemplateEditingViewController: UIViewController {
         setupView()
         setupLayout()
     }
-    
-    @objc
-    private func didTapSettingButton() {
-        onSettingsTap()
-    }
-    
+
     private func setupView() {
         view.backgroundColor = .Background.primary
         
         titleLabel.text = Loc.TemplateEditing.title
         titleLabel.font = .uxTitle2Medium
         titleLabel.textColor = .Text.primary
-        
-        settingsButton.setImage(UIImage(asset: .X24.more), for: .normal)
-        settingsButton.addTarget(self, action: #selector(didTapSettingButton), for: .touchUpInside)
-        settingsButton.tintColor = .Control.secondary
 
-        if FeatureFlags.newObjectSettings, let output {
+        if let output {
             let menuContainer = ObjectSettingsMenuContainer(objectId: objectId, spaceId: spaceId, output: output)
             let hostingController = UIHostingController(rootView: menuContainer)
             hostingController.view.backgroundColor = .clear
@@ -106,13 +85,8 @@ final class TemplateEditingViewController: UIViewController {
             $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
         }
         
-        if FeatureFlags.newObjectSettings, let settingsMenuView {
+        if let settingsMenuView {
             fakeNavigationView.addSubview(settingsMenuView) {
-                $0.trailing.equal(to: fakeNavigationView.trailingAnchor, constant: -20)
-                $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
-            }
-        } else {
-            fakeNavigationView.addSubview(settingsButton) {
                 $0.trailing.equal(to: fakeNavigationView.trailingAnchor, constant: -20)
                 $0.centerY.equal(to: fakeNavigationView.centerYAnchor)
             }

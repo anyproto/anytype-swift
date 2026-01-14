@@ -68,7 +68,6 @@ final class EditorSetCoordinatorViewModel:
     var objectIconPickerData: ObjectIconPickerData?
     var syncStatusSpaceId: StringIdentifiable?
     var setObjectCreationData: SetObjectCreationData?
-    var presentSettings = false
     var layoutPickerData: LayoutPickerData?
     var showTypePropertiesDocument: BaseDocumentIdentifiable?
     var templatesPickerDocument: BaseDocumentIdentifiable?
@@ -175,11 +174,7 @@ final class EditorSetCoordinatorViewModel:
         )
         navigationContext.present(popup)
     }
-    
-    func showSettings() {
-        presentSettings = true
-    }
-    
+
     func showCoverPicker(document: some BaseDocumentProtocol) {
         covertPickerData = BaseDocumentIdentifiable(document: document)
     }

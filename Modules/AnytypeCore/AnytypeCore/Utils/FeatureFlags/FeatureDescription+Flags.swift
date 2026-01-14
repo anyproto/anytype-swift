@@ -17,12 +17,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let newObjectSettings = FeatureDescription(
-        title: "New Object Settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: true,
-    )
-    
     static let oneToOneSpaces = FeatureDescription(
         title: "1-1 Spaces - IOS-5531",
         type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
