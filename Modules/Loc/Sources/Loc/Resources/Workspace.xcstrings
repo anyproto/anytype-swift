@@ -565,13 +565,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachment at a time"
+                  "value" : "No puedes cargar más de %d adjunto al mismo tiempo."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "No puedes cargar más de %d adjuntos al mismo tiempo."
                 }
               }
             }
@@ -811,25 +811,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Вы можете загрузить только %d Вложений за раз"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Вы можете загрузить только %d Вложений за раз"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachment at a time"
+                  "value" : "Вы можете загрузить только %d Вложение за раз"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You can upload only %d attachments at a time"
+                  "value" : "Вы можете загрузить только %d Вложений за раз"
                 }
               }
             }
@@ -951,7 +951,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "Nombre del chat"
           }
         },
         "fa" : {
@@ -1035,7 +1035,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Chat Name"
+            "value" : "Имя чата"
           }
         },
         "tr" : {
@@ -4229,7 +4229,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachments (%@)"
+            "value" : "Adjuntos (%@)"
           }
         },
         "fa" : {
@@ -4313,7 +4313,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachments (%@)"
+            "value" : "Вложения (%@)"
           }
         },
         "tr" : {
@@ -4378,7 +4378,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Files (%@)"
+            "value" : "Archivos (%@)"
           }
         },
         "fa" : {
@@ -4462,7 +4462,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Files (%@)"
+            "value" : "Файлы (%@)"
           }
         },
         "tr" : {
@@ -4527,7 +4527,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Images (%@)"
+            "value" : "Imágenes (%@)"
           }
         },
         "fa" : {
@@ -4611,7 +4611,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Images (%@)"
+            "value" : "Изображения (%@)"
           }
         },
         "tr" : {
@@ -4677,7 +4677,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reply to %@"
+            "value" : "Responder a %@"
           }
         },
         "fa" : {
@@ -4761,7 +4761,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reply to %@"
+            "value" : "Ответить %@"
           }
         },
         "tr" : {
@@ -5148,7 +5148,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Anytype sekarang mendukung obrolan langsung di Ruang Terbagi—sehingga pikiran dan dialog kalian dapat berkembang bersama."
+            "value" : "Anytype kini mendukung obrolan langsung di Saluran Bersama — sehingga pemikiran dan percakapan Anda dapat berkembang bersama."
           }
         },
         "it" : {
@@ -15796,13 +15796,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day ago"
+                  "value" : "Hace %d día"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days ago"
+                  "value" : "Hace %d días"
                 }
               }
             }
@@ -16042,25 +16042,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days ago"
+                  "value" : "%d дней назад"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days ago"
+                  "value" : "%d дней назад"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day ago"
+                  "value" : "%d дней назад"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days ago"
+                  "value" : "%d дней назад"
                 }
               }
             }
@@ -16418,13 +16418,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day from now"
+                  "value" : "Dentro de %d día"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "Dentro de %d días"
                 }
               }
             }
@@ -16664,25 +16664,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "%d дней спустя"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "%d дней спустя"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d day from now"
+                  "value" : "%d дней спустя"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days from now"
+                  "value" : "%d дней спустя"
                 }
               }
             }
@@ -19340,7 +19340,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been created"
+            "value" : "Se ha creado la propiedad «%@»."
           }
         },
         "fa" : {
@@ -19364,7 +19364,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properti '%@' telah dibuat"
+            "value" : "Atribut '%@' telah dibuat"
           }
         },
         "it" : {
@@ -19424,7 +19424,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been created"
+            "value" : "Свойство ‘%@’ было создано"
           }
         },
         "tr" : {
@@ -20234,7 +20234,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been updated"
+            "value" : "Se ha actualizado la propiedad «%@»."
           }
         },
         "fa" : {
@@ -20258,7 +20258,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properti '%@' telah diperbarui"
+            "value" : "Atribut '%@' telah diperbarui"
           }
         },
         "it" : {
@@ -20318,7 +20318,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Property ‘%@’ has been updated"
+            "value" : "Свойство ‘%@’ было обновлено"
           }
         },
         "tr" : {
@@ -20705,7 +20705,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join Space Button"
+            "value" : "Tombol Gabung Ruang"
           }
         },
         "it" : {
@@ -23451,13 +23451,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared space"
+                  "value" : "Hasta %d espacio compartido"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared spaces"
+                  "value" : "Hasta %d espacios compartidos"
                 }
               }
             }
@@ -23697,25 +23697,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared spaces"
+                  "value" : "До %d Совместное пространство"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared spaces"
+                  "value" : "До %d общих пространств"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared space"
+                  "value" : "До %d Совместное пространство"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "Up to %d Shared spaces"
+                  "value" : "До %d общих пространств"
                 }
               }
             }
@@ -23924,13 +23924,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editor per shared space"
+                  "value" : "%d editor por espacio compartido"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editors per shared space"
+                  "value" : "%d editores por espacio compartido"
                 }
               }
             }
@@ -24170,25 +24170,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editors per shared space"
+                  "value" : "%d Редакторов на общее пространство"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editors per shared space"
+                  "value" : "%d Редакторов на общее пространство"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editor per shared space"
+                  "value" : "%d Редактор на общее пространство"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Editors per shared space"
+                  "value" : "%d Редакторов на общее пространство"
                 }
               }
             }
@@ -24310,7 +24310,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ GB of backup & sync space on the Anytype network"
+            "value" : "%@ GB de espacio de respaldo y sincronización en la red de Anytype"
           }
         },
         "fa" : {
@@ -24394,7 +24394,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ GB of backup & sync space on the Anytype network"
+            "value" : "%@ ГБ резервного копирования и синхронизации в сети Anytype"
           }
         },
         "tr" : {
@@ -24459,7 +24459,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unique Network name (%@+ characters)"
+            "value" : "Nombre de red único (%@ o más caracteres)"
           }
         },
         "fa" : {
@@ -24543,7 +24543,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Unique Network name (%@+ characters)"
+            "value" : "Уникальное имя сети (%@+ символов)"
           }
         },
         "tr" : {
@@ -24844,13 +24844,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewer for shared spaces"
+                  "value" : "%d visitante por espacio compartido"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewers for shared spaces"
+                  "value" : "%d visitantes por espacio compartido"
                 }
               }
             }
@@ -24916,7 +24916,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewers for shared spaces"
+                  "value" : "%d Pemirsa untuk ruang bersama"
                 }
               }
             }
@@ -25090,25 +25090,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewers for shared spaces"
+                  "value" : "%d Наблюдателей для общих пространств"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewers for shared spaces"
+                  "value" : "%d Наблюдателей для общих пространств"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewer for shared spaces"
+                  "value" : "%d Просмотрщик для общих пространств"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d Viewers for shared spaces"
+                  "value" : "%d Наблюдателей для общих пространств"
                 }
               }
             }
@@ -28210,7 +28210,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to the network, %@"
+            "value" : "Te damos la bienvenida a la red, %@"
           }
         },
         "fa" : {
@@ -28234,7 +28234,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to the network, %@"
+            "value" : "Selamat datang di jaringan, %@"
           }
         },
         "it" : {
@@ -28294,7 +28294,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to the network, %@"
+            "value" : "Добро пожаловать в сеть, %@"
           }
         },
         "tr" : {
@@ -29191,13 +29191,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d space that can be shared"
+                  "value" : "Has alcanzado el límite de %d espacio compartido."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d spaces that can be shared"
+                  "value" : "Has alcanzado el límite de %d espacios compartidos."
                 }
               }
             }
@@ -29263,7 +29263,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d spaces that can be shared"
+                  "value" : "Anda telah mencapai batas dari %d ruang yang dapat dibagikan."
                 }
               }
             }
@@ -29437,25 +29437,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d spaces that can be shared"
+                  "value" : "Вы достигли лимита в %d пространств, которыми можно поделиться."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d spaces that can be shared"
+                  "value" : "Вы достигли лимита в %d пространств, которыми можно поделиться."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d space that can be shared"
+                  "value" : "Вы достигли лимита в %d пространство, которым можно поделиться"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You’ve reached the limit of %d spaces that can be shared"
+                  "value" : "Вы достигли лимита в %d пространств, которыми можно поделиться."
                 }
               }
             }
@@ -31390,7 +31390,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properti Baru"
+            "value" : "Atribut Baru"
           }
         },
         "it" : {
@@ -31963,7 +31963,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type ‘%@’ has been created"
+            "value" : "Se ha creado el tipo «%@»."
           }
         },
         "fa" : {
@@ -31987,7 +31987,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type ‘%@’ has been created"
+            "value" : "Tipe ‘%@’ telah dibuat"
           }
         },
         "it" : {
@@ -32047,7 +32047,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Type ‘%@’ has been created"
+            "value" : "Тип ‘%@был создан"
           }
         },
         "tr" : {
@@ -33305,7 +33305,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You were removed from **%@** space, or the space has been deleted by the owner."
+            "value" : "Te han eliminado del espacio **%@**, o el propietario ha eliminado ese espacio."
           }
         },
         "fa" : {
@@ -33329,7 +33329,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You were removed from **%@** space, or the space has been deleted by the owner."
+            "value" : "Anda telah dikeluarkan dari ruang **%@**, atau ruang tersebut telah dihapus oleh pemiliknya."
           }
         },
         "it" : {
@@ -33389,7 +33389,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You were removed from **%@** space, or the space has been deleted by the owner."
+            "value" : "Вы были удалены из пространства  '%@', или оно было удалено владельцем."
           }
         },
         "tr" : {
@@ -33454,7 +33454,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon."
+            "value" : "Tu solicitud de acceso al espacio **%@** se ha aprobado con derechos de **%@**. El espacio estará pronto disponible en tu dispositivo."
           }
         },
         "fa" : {
@@ -33478,7 +33478,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon."
+            "value" : "Permintaan Anda untuk bergabung dengan ruang **%@** telah disetujui dengan hak akses **%@**. Ruang tersebut akan segera tersedia di perangkat Anda."
           }
         },
         "it" : {
@@ -33538,7 +33538,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon."
+            "value" : "Ваш запрос на присоединение к **%@** пространству был одобрен с **%@** правами доступа. Пространство будет доступно на вашем устройстве в ближайшее время."
           }
         },
         "tr" : {
@@ -33603,7 +33603,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your request to join the **%@** space has been declined."
+            "value" : "Tu solicitud de acceso al espacio **%@** se ha rechazado."
           }
         },
         "fa" : {
@@ -33627,7 +33627,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your request to join the **%@** space has been declined."
+            "value" : "Permintaan Anda untuk bergabung dengan ruang **%@** telah ditolak."
           }
         },
         "it" : {
@@ -33687,7 +33687,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your request to join the **%@** space has been declined."
+            "value" : "Ваш запрос присоединиться к пространству **%@** был отклонен."
           }
         },
         "tr" : {
@@ -33753,7 +33753,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your access rights were changed to **%@** in the **%@** space."
+            "value" : "Tus derechos de acceso han cambiado a **%@** en el espacio **%@**."
           }
         },
         "fa" : {
@@ -33777,7 +33777,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your access rights were changed to **%@** in the **%@** space."
+            "value" : "Hak akses Anda telah diubah menjadi **%@** di ruang **%@**."
           }
         },
         "it" : {
@@ -33837,7 +33837,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Your access rights were changed to **%@** in the **%@** space."
+            "value" : "Ваши права доступа были изменены на **%@** в пространстве **%@**."
           }
         },
         "tr" : {
@@ -38223,7 +38223,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create “%@”"
+            "value" : "Crear «%@»"
           }
         },
         "fa" : {
@@ -38247,7 +38247,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create “%@”"
+            "value" : "Buat “%@”"
           }
         },
         "it" : {
@@ -38307,7 +38307,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Create “%@”"
+            "value" : "Создать “%@”"
           }
         },
         "tr" : {
@@ -41054,7 +41054,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "From type %@"
+            "value" : "Del tipo %@"
           }
         },
         "fa" : {
@@ -41078,7 +41078,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "From type %@"
+            "value" : "Dari tipe %@"
           }
         },
         "it" : {
@@ -41138,7 +41138,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "From type %@"
+            "value" : "Из типа %@"
           }
         },
         "tr" : {
@@ -45974,7 +45974,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "**%@** requested to join the **%@** space."
+            "value" : "**%@** solicita acceder al espacio **%@**."
           }
         },
         "fa" : {
@@ -45998,7 +45998,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "**%@** requested to join the **%@** space."
+            "value" : "**%@** telah meminta untuk bergabung dengan ruang **%@**."
           }
         },
         "it" : {
@@ -46058,7 +46058,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "**%@** requested to join the **%@** space."
+            "value" : "**%@** сделал запрос на присоединение к пространству **%@**"
           }
         },
         "tr" : {
@@ -46272,7 +46272,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "**%@** wants to leave the **%@** space."
+            "value" : "**%@** quiere abandonar el espacio **%@**."
           }
         },
         "fa" : {
@@ -46296,7 +46296,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "**%@** wants to leave the **%@** space."
+            "value" : "**%@** ingin meninggalkan ruang **%@**."
           }
         },
         "it" : {
@@ -46356,7 +46356,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "**%@** wants to leave the **%@** space."
+            "value" : "**%@** хочет покинуть пространство **%@**."
           }
         },
         "tr" : {
@@ -46894,7 +46894,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Properti:"
+            "value" : "Atribut:"
           }
         },
         "it" : {
@@ -48661,7 +48661,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is checked"
+            "value" : "%@ está marcado"
           }
         },
         "fa" : {
@@ -48685,7 +48685,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is checked"
+            "value" : "%@ telah dicentang"
           }
         },
         "it" : {
@@ -48745,7 +48745,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is checked"
+            "value" : "%@ отмечено"
           }
         },
         "tr" : {
@@ -48960,7 +48960,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is unchecked"
+            "value" : "%@ no está marcado"
           }
         },
         "fa" : {
@@ -48984,7 +48984,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is unchecked"
+            "value" : "%@ tidak dicentang"
           }
         },
         "it" : {
@@ -49044,7 +49044,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ is unchecked"
+            "value" : "%@ не отмечено"
           }
         },
         "tr" : {
@@ -50600,7 +50600,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%d applied"
+            "value" : "%d aplicado"
           }
         },
         "fa" : {
@@ -50624,7 +50624,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%d applied"
+            "value" : "%d diterapkan"
           }
         },
         "it" : {
@@ -50684,7 +50684,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%d applied"
+            "value" : "%d применено"
           }
         },
         "tr" : {
@@ -53161,7 +53161,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade your membership to invite more members."
+            "value" : "Tingkatkan akun Anda untuk mengundang lebih banyak anggota."
           }
         },
         "it" : {
@@ -53286,7 +53286,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld editors."
+            "value" : "Has alcanzado el límite de %lld editores. "
           }
         },
         "fa" : {
@@ -53310,7 +53310,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld editors."
+            "value" : "Anda telah mencapai batas %lld editor."
           }
         },
         "it" : {
@@ -53370,7 +53370,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld editors."
+            "value" : "Вы достигли лимита редакторов %lld."
           }
         },
         "tr" : {
@@ -53459,7 +53459,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Upgrade for more or remove spaces."
+            "value" : "Tingkatkan akun untuk menambah atau menghapus ruang."
           }
         },
         "it" : {
@@ -53584,7 +53584,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld shared spaces."
+            "value" : "Has alcanzado el límite de %lld espacios compartidos."
           }
         },
         "fa" : {
@@ -53608,7 +53608,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld shared spaces."
+            "value" : "Anda telah mencapai batas %lld ruang bersama."
           }
         },
         "it" : {
@@ -53668,7 +53668,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've reached the limit of %lld shared spaces."
+            "value" : "Вы достигли лимита общих пробелов для %lld."
           }
         },
         "tr" : {
@@ -55012,13 +55012,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d miembro"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d miembros"
                 }
               }
             }
@@ -55084,7 +55084,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d anggota"
                 }
               }
             }
@@ -55258,25 +55258,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d участника"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d участников"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d member"
+                  "value" : "%d участник"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d участники"
                 }
               }
             }
@@ -59425,7 +59425,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Espacios"
+            "value" : "Canales"
           }
         },
         "fa" : {
@@ -59449,7 +59449,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Ruang"
+            "value" : "Saluran-saluran"
           }
         },
         "it" : {
@@ -59598,7 +59598,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Group chat with shared data. Best for small groups or a single ongoing conversation."
+            "value" : "Obrolan grup dengan informasi bersama. Cocok untuk kelompok kecil atau percakapan yang berlangsung secara berkelanjutan."
           }
         },
         "it" : {
@@ -60045,7 +60045,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Kanal langsung"
+            "value" : "Saluran langsung"
           }
         },
         "it" : {
@@ -60194,7 +60194,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams."
+            "value" : "Pusat pengelolaan data canggih. Obrolan multi-topik akan segera hadir. Ideal untuk tim yang lebih besar."
           }
         },
         "it" : {
@@ -61064,7 +61064,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete ‘%@’ space"
+            "value" : "Eliminar el espacio «%@»"
           }
         },
         "fa" : {
@@ -61088,7 +61088,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete ‘%@’ space"
+            "value" : "Hapus ruang ‘%@’"
           }
         },
         "it" : {
@@ -61148,7 +61148,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Delete ‘%@’ space"
+            "value" : "Удалить пространство \"%@\""
           }
         },
         "tr" : {
@@ -61511,7 +61511,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ space will be removed from your devices and you will no longer have access to it"
+            "value" : "El espacio %@ se eliminará de tus dispositivos y perderás el acceso a él."
           }
         },
         "fa" : {
@@ -61535,7 +61535,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ space will be removed from your devices and you will no longer have access to it"
+            "value" : "Ruang %@ akan dihapus dari perangkat Anda dan Anda tidak akan bisa mengaksesnya lagi."
           }
         },
         "it" : {
@@ -61595,7 +61595,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ space will be removed from your devices and you will no longer have access to it"
+            "value" : "%@ пространство будет удалено с ваших устройств и у вас больше не будет к ним доступа "
           }
         },
         "tr" : {
@@ -61660,7 +61660,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You left the %@."
+            "value" : "Has abandonado %@."
           }
         },
         "fa" : {
@@ -61684,7 +61684,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You left the %@."
+            "value" : "Anda meninggalkan %@"
           }
         },
         "it" : {
@@ -61744,7 +61744,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You left the %@."
+            "value" : "Вы покинули %@."
           }
         },
         "tr" : {
@@ -62525,6 +62525,304 @@
         }
       }
     },
+    "SpaceSettings.HomePage.Title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home page"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Home page"
+          }
+        }
+      }
+    },
+    "SpaceSettings.HomePage.Widgets" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widgets"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Widgets"
+          }
+        }
+      }
+    },
     "SpaceShare.AccessChanged" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -63300,7 +63598,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You approved %@'s request."
+            "value" : "Has aprobado la solicitud de %@."
           }
         },
         "fa" : {
@@ -63324,7 +63622,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You approved %@'s request."
+            "value" : "Kamu menerima permintaan %@"
           }
         },
         "it" : {
@@ -63384,7 +63682,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You approved %@'s request."
+            "value" : "Вы приняли запрос от %@"
           }
         },
         "tr" : {
@@ -63449,7 +63747,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ access to the space would become %@."
+            "value" : "%@ accederá al espacio como %@."
           }
         },
         "fa" : {
@@ -63473,7 +63771,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ access to the space would become %@."
+            "value" : "Hak akses %@ ke ruang ini akan menjadi %@."
           }
         },
         "it" : {
@@ -63533,7 +63831,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ access to the space would become %@."
+            "value" : "доступ %@ к пространству станет %@."
           }
         },
         "tr" : {
@@ -65318,13 +65616,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Has alcanzado el límite de %d miembros. No podrán acceder más miembros."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Has alcanzado el límite de %d miembros. No podrán acceder más miembros."
                 }
               }
             }
@@ -65390,7 +65688,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Anda telah mencapai batas %d anggota. Anggota baru tidak akan bisa bergabung."
                 }
               }
             }
@@ -65564,25 +65862,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Вы достигли лимита %d членов. Новые члены не смогут присоединиться."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Вы достигли лимита %d членов. Новые члены не смогут присоединиться."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Вы достигли лимита %d членов. Новые члены не смогут присоединиться."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "You have reached the limit of %d members. New members will not be able to join."
+                  "value" : "Вы достигли лимита %d членов. Новые члены не смогут присоединиться."
                 }
               }
             }
@@ -67045,7 +67343,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in."
+            "value" : "Tienes una invitación al espacio **%@**, creado por **%@**. Envía una solicitud para que el propietario del espacio te dé acceso."
           }
         },
         "fa" : {
@@ -67069,7 +67367,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in."
+            "value" : "Anda telah diundang untuk bergabung dengan ruang **%@**, yang dibuat oleh **%@**. Kirim permintaan agar pemilik ruang dapat mengizinkan Anda masuk."
           }
         },
         "it" : {
@@ -67129,7 +67427,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in."
+            "value" : "Вас пригласили присоединиться к пространству **%@**, созданному **%@**. Отправьте запрос, чтобы владелец пространства смог принять вас."
           }
         },
         "tr" : {
@@ -67492,7 +67790,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've been invited to join %@, created by %@"
+            "value" : "Tienes una invitación al espacio %@, creado por %@"
           }
         },
         "fa" : {
@@ -67516,7 +67814,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've been invited to join %@, created by %@"
+            "value" : "Anda telah diundang untuk bergabung dengan ruang **%@**, yang dibuat oleh **%@**"
           }
         },
         "it" : {
@@ -67576,7 +67874,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You've been invited to join %@, created by %@"
+            "value" : "Вы были приглашены присоединиться к %@ пространству, созданному %@"
           }
         },
         "tr" : {
@@ -67641,7 +67939,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join %@"
+            "value" : "Acceder a %@"
           }
         },
         "fa" : {
@@ -67665,7 +67963,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join %@"
+            "value" : "Gabung %@"
           }
         },
         "it" : {
@@ -67725,7 +68023,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Join %@"
+            "value" : "Присоединиться к «%@»"
           }
         },
         "tr" : {
@@ -68857,7 +69155,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make Private"
+            "value" : "Jadikan Rahasia"
           }
         },
         "it" : {
@@ -69131,7 +69429,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Making this space private will disable the current invite link, so it can no longer be used to join. You'll remain the only member. When you re-enable sharing, a new link will be generated."
+            "value" : "Hacer este espacio privado desactivará el enlace de invitación actual, que ya no servirá para acceder al espacio. Tú serás su único miembro. Si vuelves a compartirlo, se generará un enlace nuevo."
           }
         },
         "fa" : {
@@ -69280,7 +69578,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Make this space private?"
+            "value" : "¿Hacer privado este espacio?"
           }
         },
         "fa" : {
@@ -69429,7 +69727,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "You can make the space private after removing all members"
+            "value" : "Puedes hacer privado este espacio cuando no tenga ningún miembro."
           }
         },
         "fa" : {
@@ -71068,7 +71366,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ will be removed from the space."
+            "value" : "%@ se eliminará del espacio."
           }
         },
         "fa" : {
@@ -71092,7 +71390,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ will be removed from the space."
+            "value" : "%@ akan dihapus dari ruang."
           }
         },
         "it" : {
@@ -71152,7 +71450,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ will be removed from the space."
+            "value" : "%@ будет удален из пространства."
           }
         },
         "tr" : {
@@ -71453,13 +71751,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d request"
+                  "value" : "%d solicitud"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d solicitudes"
                 }
               }
             }
@@ -71525,7 +71823,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d permintaan"
                 }
               }
             }
@@ -71699,25 +71997,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d запросов"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d запроса"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d request"
+                  "value" : "%d запрос"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d requests"
+                  "value" : "%d запросов"
                 }
               }
             }
@@ -73628,7 +73926,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ requested to join %@ space"
+            "value" : "%@ solicita acceder al espacio %@"
           }
         },
         "fa" : {
@@ -73652,7 +73950,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ requested to join %@ space"
+            "value" : "%@ meminta untuk bergabung ke ruang %@"
           }
         },
         "it" : {
@@ -73712,7 +74010,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ requested to join %@ space"
+            "value" : "%@ запросил доступ к пространству \"%@\""
           }
         },
         "tr" : {
@@ -73926,7 +74224,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ (you)"
+            "value" : "%@ (tú)"
           }
         },
         "fa" : {
@@ -73950,7 +74248,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ (you)"
+            "value" : "%@ (anda)"
           }
         },
         "it" : {
@@ -74010,7 +74308,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ (you)"
+            "value" : "%@ (вы)"
           }
         },
         "tr" : {
@@ -75504,13 +75802,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d template"
+                  "value" : "Este tipo tiene %d plantilla"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Este tipo tiene %d plantillas"
                 }
               }
             }
@@ -75576,7 +75874,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Tipe ini memiliki %d templat"
                 }
               }
             }
@@ -75750,25 +76048,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Этот тип имеет %d шаблон(а/ов)"
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Этот тип имеет %d шаблон(а/ов)"
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d template"
+                  "value" : "Этот тип имеет шаблон %d"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "This type has %d templates"
+                  "value" : "Этот тип имеет %d шаблон(а/ов)"
                 }
               }
             }
@@ -75856,6 +76154,156 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "TemplateSelection.Header.Title" : {
+      "comment" : "Header title for template selection",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose template"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Выберыце шаблон"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Vorlage wählen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose template"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Elegir plantilla"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose template"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choose template"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Choisir un modèle"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pilih templat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Scegli modello"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "テンプレートを選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "템플릿 선택"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Velg mal"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sjabloon kiezen"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ଟେମ୍ପଲେଟ୍ ବାଛନ୍ତୁ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Wybierz szablon"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Escolher modelo"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Escolher modelo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Выберите шаблон"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Şablon seç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Виберіть шаблон"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chọn mẫu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "选择模板"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "選擇範本"
           }
         }
       }
