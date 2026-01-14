@@ -117,6 +117,7 @@ private extension EditorNavigationBarTitleView {
         stackView.axis = .horizontal
         stackView.spacing = 8
         stackView.distribution = .fill
+        stackView.alignment = .center
         lockImageView.contentMode = .center
         lockImageView.tintColor = .Control.secondary
         

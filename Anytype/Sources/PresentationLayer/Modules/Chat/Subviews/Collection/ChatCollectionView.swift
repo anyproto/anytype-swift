@@ -77,7 +77,7 @@ struct ChatCollectionView<
         actionView.safeAreaRegions = SafeAreaRegions()
 
         let container = ChatCollectionViewContainer(collectionView: collectionView, bottomPanel: bottomPanel, emptyView: emptyView, actionView: actionView)
-        container.contentInset = UIEdgeInsets(top: PageNavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
+        container.contentInset = UIEdgeInsets(top: NavigationHeaderConstants.height, left: 0, bottom: 10, right: 0)
         return container
     }
     

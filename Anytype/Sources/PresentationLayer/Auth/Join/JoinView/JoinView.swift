@@ -45,12 +45,12 @@ struct JoinView: View {
     }
     
     private var header: some View {
-        ModalNavigationHeader {
+        NavigationHeader {
             backButton
-        } titleView: {
+        } titleContent: {
             Image(asset: .logo)
                 .foregroundStyle(Color.Control.primary)
-        } rightView: {
+        } rightContent: {
             EmptyView()
         }
     }
@@ -63,6 +63,8 @@ struct JoinView: View {
                 .foregroundStyle(Color.Control.secondary)
         }
         .disabled(model.backButtonDisabled)
+        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+        .glassEffectInteractiveIOS26(in: Circle())
     }
     
     @ViewBuilder

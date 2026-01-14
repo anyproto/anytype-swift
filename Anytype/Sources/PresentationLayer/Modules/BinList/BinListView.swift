@@ -12,7 +12,7 @@ struct BinListView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                PageNavigationHeader(title: Loc.bin) {
+                NavigationHeader(title: Loc.bin) {
                     editButton
                 }
                 SearchBar(

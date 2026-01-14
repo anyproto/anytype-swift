@@ -47,16 +47,16 @@ struct LoginView: View {
     }
     
     private var header: some View {
-        ModalNavigationHeader {
+        NavigationHeader {
             backButton
-        } titleView: {
+        } titleContent: {
             Image(asset: .logo)
                 .foregroundStyle(Color.Control.primary)
                 .onTapGesture(count: 5) {
                     AudioServicesPlaySystemSound(1109)
                     model.openPublicDebugMenuTap()
                 }
-        } rightView: {
+        } rightContent: {
             EmptyView()
         }
     }
@@ -135,6 +135,8 @@ struct LoginView: View {
             Image(asset: .X24.back)
                 .foregroundStyle(Color.Control.secondary)
         }
+        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+        .glassEffectInteractiveIOS26(in: Circle())
         .disabled(model.backButtonDisabled)
     }
     

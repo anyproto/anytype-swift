@@ -13,7 +13,7 @@ struct SpaceTypeChangeView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: Loc.channelType)
+            NavigationHeader(title: Loc.channelType, navigationButtonType: .none)
             ScrollView {
                 VStack(spacing: 0) {
                     SpaceTypeChangeRow(

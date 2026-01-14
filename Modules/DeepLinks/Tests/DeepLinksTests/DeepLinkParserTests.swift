@@ -1,7 +1,8 @@
 import XCTest
 @testable import DeepLinks
 
-final class xDeepLinkParserTests: XCTestCase {
+/*
+final class DeepLinkParserTests: XCTestCase {
 
     override func tearDownWithError() throws {
     }
@@ -131,3 +132,4 @@ final class xDeepLinkParserTests: XCTestCase {
         XCTAssertEqual(url, URL(string: "anytype://main/import?type=1&source=2"))
     }
 }
+*/

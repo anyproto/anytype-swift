@@ -71,7 +71,7 @@ struct SpaceSettingsView: View {
     }
     
     private var header: some View {
-        PageNavigationHeader(title: "") {
+        NavigationHeader(title: "") {
             if !model.isOneToOne {
                 Button {
                     model.onEditTap()
