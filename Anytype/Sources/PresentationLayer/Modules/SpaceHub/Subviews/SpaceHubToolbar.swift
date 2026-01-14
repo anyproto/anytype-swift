@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct SpaceHubToolbar: ToolbarContent {
-    
+
     let profileIcon: Icon?
-    let notificationsDenied: Bool
+    let notificationsNotDetermined: Bool
     let namespace: Namespace.ID
-    
+
     let onTapCreateSpace: () -> Void
     let onTapSettings: () -> Void
     
@@ -27,7 +27,7 @@ struct SpaceHubToolbar: ToolbarContent {
                     .foregroundStyle(Color.Control.secondary)
                     .frame(width: 28, height: 28)
                     .overlay(alignment: .topTrailing) {
-                        if notificationsDenied {
+                        if notificationsNotDetermined {
                             attentionDotView
                         }
                     }
@@ -53,7 +53,7 @@ struct SpaceHubToolbar: ToolbarContent {
                     .foregroundStyle(Color.Control.secondary)
                     .frame(width: 44, height: 44)
                     .overlay(alignment: .topTrailing) {
-                        if notificationsDenied {
+                        if notificationsNotDetermined {
                             attentionDotView
                         }
                     }
@@ -71,9 +71,9 @@ struct SpaceHubToolbar: ToolbarContent {
         }
         .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)
     }
-    
+
     private var attentionDotView: some View {
         SpaceHubAttentionDotView()
-            .padding([.top, .trailing], 1)
+            .padding([.top, .trailing], 3)
     }
 }
