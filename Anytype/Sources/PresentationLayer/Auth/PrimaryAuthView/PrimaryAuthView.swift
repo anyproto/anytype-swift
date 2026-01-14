@@ -71,18 +71,18 @@ struct PrimaryAuthView: View {
     }
     
     private var header: some View {
-        ModalNavigationHeader {
-            EmptyView()
-        } titleView: {
+        NavigationHeader(navigationButtonType: .none) {
             Image(asset: .logo)
                 .foregroundStyle(Color.Control.primary)
-        } rightView: {
+        } rightContent: {
             Button {
                 model.onSettingsButtonTap()
             } label: {
                 Image(asset: .X24.spaceSettings)
                     .foregroundStyle(Color.Control.secondary)
             }
+            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+            .glassEffectInteractiveIOS26(in: Circle())
             .disabled(model.inProgress)
         }
     }

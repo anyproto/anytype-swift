@@ -31,7 +31,7 @@ struct DateView: View {
     }
     
     private var navigationBar: some View {
-        PageNavigationHeader(title: "") {
+        NavigationHeader(title: "") {
             HStack(alignment: .center, spacing: 12) {
                 SwiftUIEditorSyncStatusItem(
                     statusData: model.syncStatusData,
@@ -40,7 +40,7 @@ struct DateView: View {
                     }
                 )
                 .frame(width: 28, height: 28)
-                
+
                 Button {
                     model.onCalendarTap()
                 } label: {

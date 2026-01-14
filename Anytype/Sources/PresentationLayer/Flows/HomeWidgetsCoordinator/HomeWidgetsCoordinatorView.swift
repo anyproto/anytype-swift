@@ -10,7 +10,7 @@ struct HomeWidgetData: Hashable, Identifiable {
 
 struct HomeWidgetsCoordinatorView: View {
     let data: HomeWidgetData
-    let navigationButtonType: PageNavigationButtonType
+    let navigationButtonType: NavigationHeaderButtonType
 
     var body: some View {
         SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) {
@@ -24,9 +24,9 @@ private struct HomeWidgetsCoordinatorInternalView: View {
     @State private var model: HomeWidgetsCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
 
-    let navigationButtonType: PageNavigationButtonType
+    let navigationButtonType: NavigationHeaderButtonType
 
-    init(info: AccountInfo, navigationButtonType: PageNavigationButtonType) {
+    init(info: AccountInfo, navigationButtonType: NavigationHeaderButtonType) {
         self._model = State(wrappedValue: HomeWidgetsCoordinatorViewModel(info: info))
         self.navigationButtonType = navigationButtonType
     }

@@ -6,7 +6,6 @@ import AnytypeCore
 struct ChatHeaderView: View {
 
     @State private var model: ChatHeaderViewModel
-    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
     @Namespace private var glassNamespace
 
     init(
@@ -26,22 +25,17 @@ struct ChatHeaderView: View {
     }
 
     var body: some View {
-        GlassEffectContainerIOS26(spacing: 12) {
+        NavigationHeader(
+            navigationButtonType: .back,
+            isTitleInteractive: true
+        ) {
+            titleView
+        } rightContent: {
             HStack(spacing: 8) {
-                PageNavigationBackButton()
-                    .frame(width: 44, height: 44)
-                    .glassEffectInteractiveIOS26(in: Circle())
-                    .glassEffectIDIOS26("back", in: glassNamespace)
-                titlePill
-                
-                HStack(spacing: 8) {
-                    addMembersButton
-                    avatarButton
-                }
+                addMembersButton
+                avatarButton
             }
         }
-        .padding(.horizontal, 16)
-        .frame(height: PageNavigationHeaderConstants.height)
         .task {
             await model.startSubscriptions()
         }
@@ -50,8 +44,7 @@ struct ChatHeaderView: View {
         .animation(.bouncy, value: model.showAddMembersButton)
     }
 
-    @ViewBuilder
-    private var titlePill: some View {
+    private var titleView: some View {
         Button {
             model.tapOpenWidgets()
         } label: {
@@ -72,9 +65,6 @@ struct ChatHeaderView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
         }
-        .matchedTransitionSourceIOS26(id: "widgetsOverlay", in: widgetsNamespace)
-        .glassEffectInteractiveIOS26(in: Capsule())
-        .glassEffectIDIOS26("titlePill", in: glassNamespace)
     }
 
     @ViewBuilder
@@ -85,7 +75,7 @@ struct ChatHeaderView: View {
             } label: {
                 Image(systemName: "person.fill.badge.plus")
                     .foregroundStyle(Color.Control.primary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
             }
             .glassEffectInteractiveIOS26(in: Circle())
             .glassEffectIDIOS26("addMembers", in: glassNamespace)
@@ -103,14 +93,14 @@ struct ChatHeaderView: View {
                         output: nil
                     ) {
                         IconView(icon: model.icon)
-                            .frame(width: 44, height: 44)
+                            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                     }
                 } else {
                     Button {
                         model.tapOpenSpaceSettings()
                     } label: {
                         IconView(icon: model.icon)
-                            .frame(width: 44, height: 44)
+                            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                     }
                 }
             } else {
@@ -118,7 +108,7 @@ struct ChatHeaderView: View {
                     model.tapOpenWidgets()
                 } label: {
                     IconView(icon: model.icon)
-                        .frame(width: 44, height: 44)
+                        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                 }
             }
         }
