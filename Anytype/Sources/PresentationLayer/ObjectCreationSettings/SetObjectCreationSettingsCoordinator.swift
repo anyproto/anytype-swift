@@ -25,8 +25,7 @@ final class SetObjectCreationSettingsCoordinator:
     private var toastPresenter: any ToastPresenterProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
-    private var editorModuleInput: (any EditorPageModuleInput)?
-    
+
     nonisolated init() {}
     
     func showTemplateEditing(
@@ -40,24 +39,17 @@ final class SetObjectCreationSettingsCoordinator:
                 objectId: setting.templateId,
                 spaceId: setting.spaceId,
                 usecase: .embedded
-            ), 
-            showHeader: false,
-            setupEditorInput: { [weak self] input, _ in
-                self?.editorModuleInput = input
-            }
+            ),
+            showHeader: false
         )
-        
+
         self.useAsTemplateAction = onSetAsDefaultTemplate
-        
+
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: UIHostingController(rootView: editorView),
             objectId: setting.templateId,
             spaceId: setting.spaceId,
             output: self,
-            onSettingsTap: { [weak self] in
-                guard let self = self else { return }
-                editorModuleInput?.showSettings(output: self)
-            },
             onSelectTemplateTap: onTemplateSelection
         )
 

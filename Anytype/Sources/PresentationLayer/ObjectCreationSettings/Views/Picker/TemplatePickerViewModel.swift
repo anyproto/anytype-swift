@@ -5,7 +5,6 @@ import SwiftUI
 @MainActor
 protocol TemplatePickerViewModuleOutput: AnyObject, ObjectSettingsCoordinatorOutput {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void)
-    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item)
     func selectionOptionsView(_ provider: some OptionsItemProvider) -> AnyView
     func onClose()
 }
@@ -84,12 +83,7 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     func onCloseButtonTap() {
         output?.onClose()
     }
-    
-    func onSettingsButtonTap() {
-        let model = templateModel()
-        output?.onTemplateSettingsTap(model)
-    }
-    
+
     func selectedItem() -> Item {
         let index = selectedTab >= items.count ? items.count - 1 : selectedTab
         return items[index]

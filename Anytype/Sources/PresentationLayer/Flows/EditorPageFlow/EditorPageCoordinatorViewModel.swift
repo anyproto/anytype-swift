@@ -9,7 +9,6 @@ final class EditorPageCoordinatorViewModel: EditorPageModuleOutput, PropertyValu
 
     let data: EditorPageObject
     let showHeader: Bool
-    private let setupEditorInput: (any EditorPageModuleInput, String) -> Void
     @ObservationIgnored
     @Injected(\.propertyValueProcessingService)
     private var propertyValueProcessingService: any PropertyValueProcessingServiceProtocol
@@ -28,17 +27,14 @@ final class EditorPageCoordinatorViewModel: EditorPageModuleOutput, PropertyValu
     var relationsSearchData: PropertiesSearchData?
     var openUrlData: URL?
     var syncStatusSpaceId: StringIdentifiable?
-    var settingsOutput: ObjectSettingsCoordinatorOutputIdentifiable?
     var cameraData: SimpleCameraData?
     
     init(
         data: EditorPageObject,
-        showHeader: Bool,
-        setupEditorInput: @escaping (any EditorPageModuleInput, String) -> Void
+        showHeader: Bool
     ) {
         self.data = data
         self.showHeader = showHeader
-        self.setupEditorInput = setupEditorInput
     }
     
     // MARK: - EditorPageModuleOutput
@@ -55,9 +51,6 @@ final class EditorPageCoordinatorViewModel: EditorPageModuleOutput, PropertyValu
         dismiss.toggle()
     }
     
-    func setModuleInput(input: some EditorPageModuleInput, objectId: String) {
-        setupEditorInput(input, objectId)
-    }
     
     func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Property) {
         guard let objectDetails = document.details else {
@@ -121,11 +114,7 @@ final class EditorPageCoordinatorViewModel: EditorPageModuleOutput, PropertyValu
     func showSyncStatusInfo(spaceId: String) {
         syncStatusSpaceId = spaceId.identifiable
     }
-    
-    func showObectSettings(output: any ObjectSettingsCoordinatorOutput) {
-        settingsOutput = ObjectSettingsCoordinatorOutputIdentifiable(value: output)
-    }
-    
+
     func showCamera(_ data: SimpleCameraData) {
         cameraData = data
     }

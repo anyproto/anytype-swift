@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 import Services
 import SwiftUI
-import AnytypeCore
 
 @MainActor
 final class EditorNavigationBarHelper {
@@ -16,8 +15,7 @@ final class EditorNavigationBarHelper {
     private let doneButton: UIButton
     private let selectAllButton: UIButton
 
-    private let settingsItem: UIEditorBarButtonItem
-    private let settingsMenuView: UIView?
+    private let settingsMenuView: UIView
     private let syncStatusItem: EditorSyncStatusItem
     private let syncStatusGlassContainer: GlassEffectViewIOS26
     private let settingsGlassContainer: GlassEffectViewIOS26
@@ -47,7 +45,6 @@ final class EditorNavigationBarHelper {
         objectId: String,
         spaceId: String,
         output: (any ObjectSettingsCoordinatorOutput)?,
-        onSettingsBarButtonItemTap: @escaping () -> Void,
         onSelectAllBarButtonItemTap: @escaping (Bool) -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
         onTemplatesButtonTap: @escaping () -> Void,
@@ -57,16 +54,11 @@ final class EditorNavigationBarHelper {
     ) {
         self.navigationBarView = navigationBarView
         self.navigationBarBackgroundView = navigationBarBackgroundView
-        self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
 
-        if FeatureFlags.newObjectSettings {
-            let menuContainer = ObjectSettingsMenuContainer(objectId: objectId, spaceId: spaceId, output: output)
-            let hostingController = UIHostingController(rootView: menuContainer)
-            hostingController.view.backgroundColor = .clear
-            self.settingsMenuView = hostingController.view
-        } else {
-            self.settingsMenuView = nil
-        }
+        let menuContainer = ObjectSettingsMenuContainer(objectId: objectId, spaceId: spaceId, output: output)
+        let hostingController = UIHostingController(rootView: menuContainer)
+        hostingController.view.backgroundColor = .clear
+        self.settingsMenuView = hostingController.view
 
         let syncStatusItemLocal = EditorSyncStatusItem(onTap: onSyncStatusTap)
         let syncStatusGlassContainerLocal = GlassEffectViewIOS26()
@@ -146,15 +138,9 @@ final class EditorNavigationBarHelper {
             for: .touchUpInside
         )
         
-        // Add settings item/menu to glass container
-        if FeatureFlags.newObjectSettings, let settingsMenuView {
-            settingsGlassContainerLocal.glassContentView.addSubview(settingsMenuView) {
-                $0.center(in: settingsGlassContainerLocal.glassContentView)
-            }
-        } else {
-            settingsGlassContainerLocal.glassContentView.addSubview(settingsItem) {
-                $0.center(in: settingsGlassContainerLocal.glassContentView)
-            }
+        // Add settings menu to glass container
+        settingsGlassContainerLocal.glassContentView.addSubview(settingsMenuView) {
+            $0.center(in: settingsGlassContainerLocal.glassContentView)
         }
 
         self.rightContanerForEditing.layoutUsing.stack {

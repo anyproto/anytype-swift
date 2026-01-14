@@ -14,10 +14,6 @@ public extension FeatureFlags {
         value(for: .showUploadStatusIndicator)
     }
 
-    static var newObjectSettings: Bool {
-        value(for: .newObjectSettings)
-    }
-
     static var oneToOneSpaces: Bool {
         value(for: .oneToOneSpaces)
     }
@@ -118,7 +114,6 @@ public extension FeatureFlags {
     static let features: [FeatureDescription] = [
         .channelTypeSwitcher,
         .showUploadStatusIndicator,
-        .newObjectSettings,
         .oneToOneSpaces,
         .chatSettings,
         .homePage,

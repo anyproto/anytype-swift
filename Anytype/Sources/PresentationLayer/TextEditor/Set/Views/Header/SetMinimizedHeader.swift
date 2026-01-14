@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 struct SetMinimizedHeader: View {
 
@@ -84,29 +83,15 @@ struct SetMinimizedHeader: View {
     
     
 
-    @ViewBuilder
     private var settingsButton: some View {
-        Group {
-            if FeatureFlags.newObjectSettings {
-                ObjectSettingsMenuContainer(
-                    objectId: model.setDocument.objectId,
-                    spaceId: model.setDocument.spaceId,
-                    output: model.headerSettingsViewModel.output
-                ) {
-                    Image(asset: .X24.more)
-                        .foregroundStyle(Color.Control.primary)
-                        .frame(width: 44, height: 44)
-                }
-            } else {
-                Button {
-                    UISelectionFeedbackGenerator().selectionChanged()
-                    model.showObjectSettings()
-                } label: {
-                    Image(asset: .X24.more)
-                        .foregroundStyle(Color.Control.primary)
-                        .frame(width: 44, height: 44)
-                }
-            }
+        ObjectSettingsMenuContainer(
+            objectId: model.setDocument.objectId,
+            spaceId: model.setDocument.spaceId,
+            output: model.headerSettingsViewModel.output
+        ) {
+            Image(asset: .X24.more)
+                .foregroundStyle(Color.Control.primary)
+                .frame(width: 44, height: 44)
         }
         .glassEffectInteractiveIOS26(in: Circle())
         .glassEffectIDIOS26("settings", in: glassNamespace)

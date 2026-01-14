@@ -58,10 +58,6 @@ final class EditorPageController: UIViewController {
         objectId: viewModel.document.objectId,
         spaceId: viewModel.document.spaceId,
         output: viewModel.router,
-        onSettingsBarButtonItemTap: { [weak viewModel] in
-            UISelectionFeedbackGenerator().selectionChanged()
-            viewModel?.showSettings()
-        },
         onSelectAllBarButtonItemTap: { [weak self] allSelected in
             self?.handleSelectState(allSelected: allSelected)
         },

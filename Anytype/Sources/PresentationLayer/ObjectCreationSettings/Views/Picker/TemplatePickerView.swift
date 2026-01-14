@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 struct TemplatePickerView: View {
     @StateObject var viewModel: TemplatePickerViewModel
@@ -94,21 +93,12 @@ struct TemplatePickerView: View {
     
     @ViewBuilder
     private var settingsButton: some View {
-        if FeatureFlags.newObjectSettings {
-            if viewModel.items.isNotEmpty {
-                ObjectSettingsMenuContainer(
-                    objectId: viewModel.selectedItem().object.id,
-                    spaceId: viewModel.spaceId,
-                    output: viewModel.output
-                )
-            }
-        } else {
-            Button {
-                viewModel.onSettingsButtonTap()
-            } label: {
-                Image(asset: .X24.more)
-                    .foregroundStyle(Color.Control.secondary)
-            }
+        if viewModel.items.isNotEmpty {
+            ObjectSettingsMenuContainer(
+                objectId: viewModel.selectedItem().object.id,
+                spaceId: viewModel.spaceId,
+                output: viewModel.output
+            )
         }
     }
 }

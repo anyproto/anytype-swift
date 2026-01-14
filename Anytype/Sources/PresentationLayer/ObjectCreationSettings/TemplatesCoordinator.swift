@@ -24,8 +24,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
     private var navigationContext: any NavigationContextProtocol
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: any ToastPresenterProtocol
-    
-    private var editorModuleInputs = [String: any EditorPageModuleInput]()
+
     private var onSetAsDefaultTemplate: ((String) -> Void)?
     
     nonisolated init() {}
@@ -59,7 +58,6 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
 
 extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void) {
-        editorModuleInputs.removeAll()
         let editorsViews = templates.map { template in
             let editorView = EditorPageCoordinatorView(
                 data: EditorPageObject(
@@ -67,10 +65,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
                     spaceId: template.spaceId,
                     usecase: .embedded
                 ),
-                showHeader: false,
-                setupEditorInput: { [weak self] input, objectId in
-                    self?.editorModuleInputs[objectId] = input
-                }
+                showHeader: false
             ).eraseToAnyView()
             return TemplatePickerData(template: template, editorView: editorView)
         }
@@ -81,11 +76,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
         SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: provider))
             .eraseToAnyView()
     }
-    
-    func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item) {
-        editorModuleInputs[model.object.id]?.showSettings(output: self)
-    }
-    
+
     func onClose() {
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
