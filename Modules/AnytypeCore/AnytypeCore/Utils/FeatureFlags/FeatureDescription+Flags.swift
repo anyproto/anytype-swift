@@ -4,25 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    // should be disabled
-    static let channelTypeSwitcher = FeatureDescription(
-        title: "Channel type switcher - IOS-5378",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
-        defaultValue: false
-    )
-
-    static let showUploadStatusIndicator = FeatureDescription(
-        title: "Show visual indicator for uploading files - IOS-5054",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "14"),
-        defaultValue: false
-    )
-    
-    static let oneToOneSpaces = FeatureDescription(
-        title: "1-1 Spaces - IOS-5531",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "15"),
-        defaultValue: true,
-    )
-
     static let chatSettings = FeatureDescription(
         title: "Chat Settings",
         type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
@@ -44,6 +25,19 @@ public extension FeatureDescription {
     )
 
     // MARK: - Experemental
+    
+    // should be disabled
+    static let channelTypeSwitcher = FeatureDescription(
+        title: "Channel type switcher - IOS-5378",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false
+    )
+
+    static let showUploadStatusIndicator = FeatureDescription(
+        title: "Show visual indicator for uploading files - IOS-5054",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false
+    )
     
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
