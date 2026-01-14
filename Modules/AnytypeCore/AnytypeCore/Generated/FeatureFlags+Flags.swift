@@ -6,10 +6,6 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var chatSettings: Bool {
-        value(for: .chatSettings)
-    }
-
     static var homePage: Bool {
         value(for: .homePage)
     }
@@ -108,7 +104,6 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .chatSettings,
         .homePage,
         .qrCodeCircularText,
         .channelTypeSwitcher,

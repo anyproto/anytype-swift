@@ -4,13 +4,6 @@ import Foundation
 
 public extension FeatureDescription {
 
-    static let chatSettings = FeatureDescription(
-        title: "Chat Settings",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
-        defaultValue: false,
-        debugValue: true
-    )
-
     static let homePage = FeatureDescription(
         title: "Home Page",
         type: .feature(author: "vova@anytype.io", releaseVersion: "16"),
