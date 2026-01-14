@@ -16,8 +16,8 @@ final class SpaceHubViewModel {
     var animationsEnabled = false
     
     var wallpapers: [String: SpaceWallpaperType] = [:]
-    
-    var notificationsDenied = false
+
+    var notificationsNotDetermined = false
     var spaceMuteData: SpaceMuteData?
     var profileIcon: Icon?
     var spaceToDelete: StringIdentifiable?
@@ -106,9 +106,9 @@ final class SpaceHubViewModel {
         async let spacesSub: () = subscribeOnSpaces()
         async let wallpapersSub: () = subscribeOnWallpapers()
         async let profileSub: () = subscribeOnProfile()
-        async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
-    
-        _ = await (spacesSub, wallpapersSub, profileSub, pushNotificationsSystemSettingsSub)
+        async let notificationsSub: () = notificationsStatusSubscription()
+
+        _ = await (spacesSub, wallpapersSub, profileSub, notificationsSub)
     }
     
     func pushNotificationSetSpaceMode(data: SpaceMuteData) async {
@@ -206,13 +206,13 @@ final class SpaceHubViewModel {
             profileIcon = profile.icon
         }
     }
-    
-    private func pushNotificationsSystemSettingsSubscription() async {
+
+    private func notificationsStatusSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
-            notificationsDenied = status.isDenied
+            notificationsNotDetermined = status.isNotDetermined
         }
     }
-    
+
     private func updateFilteredSpaces() async {
         guard let spaces else {
             filteredSpaces = []
