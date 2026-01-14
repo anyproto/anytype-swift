@@ -17,31 +17,11 @@ struct WidgetsHeaderView: View {
             navigationButtonType: navigationButtonType,
             isTitleInteractive: false
         ) {
-            titleView
+            EmptyView()
         } rightContent: {
             settingsButton
         }
         .task { await model.startSubscriptions() }
-    }
-
-    private var titleView: some View {
-        HStack(spacing: 12) {
-            IconView(icon: model.spaceIcon)
-                .frame(width: 32, height: 32)
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.spaceName, style: .uxTitle2Semibold)
-                    .foregroundStyle(Color.Text.primary)
-                    .lineLimit(1)
-                if model.sharedSpace, !model.isOneToOne {
-                    AnytypeText(model.spaceMembers, style: .relation2Regular)
-                        .foregroundStyle(Color.Text.secondary)
-                } else {
-                    AnytypeText(model.spaceUxType, style: .relation2Regular)
-                        .foregroundStyle(Color.Text.secondary)
-                }
-            }
-            Spacer()
-        }
     }
 
     @ViewBuilder

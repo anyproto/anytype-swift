@@ -60,6 +60,7 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
+                SpaceInfoView(spaceId: model.spaceId)
                 topWidgets
                 blockWidgets
                 objectTypeWidgets
