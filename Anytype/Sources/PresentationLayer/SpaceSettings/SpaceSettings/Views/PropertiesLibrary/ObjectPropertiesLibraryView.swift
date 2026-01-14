@@ -35,7 +35,7 @@ struct ObjectPropertiesLibraryView: View {
     }
     
     private var navBar: some View {
-        PageNavigationHeader(title: Loc.properties) {
+        NavigationHeader(title: Loc.properties) {
             Button {
                 model.onNewPropertyTap()
             } label: {

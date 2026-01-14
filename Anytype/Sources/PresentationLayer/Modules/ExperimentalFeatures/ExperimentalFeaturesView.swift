@@ -9,7 +9,7 @@ struct ExperimentalFeaturesView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            ModalNavigationHeader(title: Loc.experimentalFeatures)
+            NavigationHeader(title: Loc.experimentalFeatures, navigationButtonType: .none)
                 .onTapGesture(count: 5) {
                     showDebugMenu = true
                 }

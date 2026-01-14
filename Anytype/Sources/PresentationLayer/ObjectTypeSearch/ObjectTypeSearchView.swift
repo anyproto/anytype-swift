@@ -79,7 +79,7 @@ struct ObjectTypeSearchView: View {
                 }
             }
         case .navbar:
-            PageNavigationHeader(title: title) {
+            NavigationHeader(title: title) {
                 if viewModel.settings.showPlusButton {
                     Button {
                         viewModel.createType(name: "")

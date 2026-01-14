@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let navigationButtonType: PageNavigationButtonType
+    let navigationButtonType: NavigationHeaderButtonType
     let output: (any HomeWidgetsModuleOutput)?
 
     var body: some View {
@@ -19,9 +19,9 @@ private struct HomeWidgetsInternalView: View {
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
 
-    let navigationButtonType: PageNavigationButtonType
+    let navigationButtonType: NavigationHeaderButtonType
 
-    init(info: AccountInfo, navigationButtonType: PageNavigationButtonType, output: (any HomeWidgetsModuleOutput)?) {
+    init(info: AccountInfo, navigationButtonType: NavigationHeaderButtonType, output: (any HomeWidgetsModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
         self.navigationButtonType = navigationButtonType
     }
@@ -60,6 +60,7 @@ private struct HomeWidgetsInternalView: View {
     private var widgets: some View {
         ScrollView {
             VStack(spacing: 0) {
+                SpaceInfoView(spaceId: model.spaceId)
                 topWidgets
                 blockWidgets
                 objectTypeWidgets

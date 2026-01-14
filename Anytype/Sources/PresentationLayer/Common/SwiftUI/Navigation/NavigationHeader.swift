@@ -1,50 +1,166 @@
 import SwiftUI
 
+enum NavigationHeaderConstants {
+    static let height: CGFloat = 44
+    static let buttonSize: CGFloat = 44
+}
 
-struct NavigationHeader<TitleView: View, RightView: View>: View {
-    
-    @Environment(\.dismiss) var dismiss
-    
-    @ViewBuilder
-    let titleView: TitleView
-    @ViewBuilder
-    let rightView: RightView
-    
+enum NavigationHeaderButtonType: Hashable {
+    case back
+    case dismiss
+    case none
+}
+
+struct NavigationHeader<LeftContent: View, TitleContent: View, RightContent: View>: View {
+
+    @ViewBuilder let leftContent: LeftContent
+    @ViewBuilder let titleContent: TitleContent
+    @ViewBuilder let rightContent: RightContent
+    let isTitleInteractive: Bool
+
+    @State private var leftWidth: CGFloat = 0
+    @State private var rightWidth: CGFloat = 0
+
+    @Namespace private var glassNamespace
+    @Environment(\.widgetsAnimationNamespace) private var widgetsNamespace
+
+    init(
+        isTitleInteractive: Bool = false,
+        @ViewBuilder leftContent: () -> LeftContent,
+        @ViewBuilder titleContent: () -> TitleContent,
+        @ViewBuilder rightContent: () -> RightContent
+    ) {
+        self.isTitleInteractive = isTitleInteractive
+        self.leftContent = leftContent()
+        self.titleContent = titleContent()
+        self.rightContent = rightContent()
+    }
+
     var body: some View {
-        NavigationHeaderContainer(spacing: 20) {
-            ExpandedTapAreaButton {
-                dismiss()
-            } label: {
-                Image(asset: .X24.back)
-                    .navPanelDynamicForegroundStyle()
+        GlassEffectContainerIOS26(spacing: 12) {
+            ZStack {
+                titleView
+                    .frame(maxWidth: .infinity)
+                    .padding(.leading, leftWidth + 8)
+                    .padding(.trailing, rightWidth + 8)
+
+                HStack {
+                    leftContent
+                        .readSize { leftWidth = $0.width }
+                    Spacer()
+                    rightContent
+                        .readSize { rightWidth = $0.width }
+                }
+                .frame(maxWidth: .infinity)
             }
-        } titleView: {
-            titleView
-        } rightView: {
-            rightView
+            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 16)
-        .frame(height: PageNavigationHeaderConstants.height)
-        .background {
-            HomeBlurEffectView(direction: .topToBottom)
-                .ignoresSafeArea()
+        .frame(height: NavigationHeaderConstants.height)
+    }
+
+    @ViewBuilder
+    private var titleView: some View {
+        if isTitleInteractive {
+            titleContent
+                .matchedTransitionSourceIOS26(id: "widgetsOverlay", in: widgetsNamespace)
+                .glassEffectInteractiveIOS26(in: Capsule())
+                .glassEffectIDIOS26("titlePill", in: glassNamespace)
+        } else {
+            titleContent
         }
     }
 }
 
-extension NavigationHeader where TitleView == AnyView {
-    init(title: String, @ViewBuilder rightView: () -> RightView) {
-        self.titleView = AnytypeText(title, style: .uxTitle1Semibold)
-            .foregroundStyle(Color.Text.primary)
-            .frame(height: 48)
-            .lineLimit(1)
-            .eraseToAnyView()
-        self.rightView = rightView()
+// MARK: - Back/Dismiss Button Convenience
+
+extension NavigationHeader where LeftContent == NavigationHeaderLeftButton {
+    init(
+        navigationButtonType: NavigationHeaderButtonType,
+        isTitleInteractive: Bool = false,
+        @ViewBuilder titleContent: () -> TitleContent,
+        @ViewBuilder rightContent: () -> RightContent
+    ) {
+        self.isTitleInteractive = isTitleInteractive
+        self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
+        self.titleContent = titleContent()
+        self.rightContent = rightContent()
     }
 }
 
-extension NavigationHeader where TitleView == AnyView, RightView == AnyView {
-    init(title: String) {
-        self.init(title: title, rightView: { EmptyView().eraseToAnyView() })
+// MARK: - Simple Title Convenience (Non-Interactive)
+
+extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, TitleContent == NavigationHeaderTitle {
+    init(
+        title: String,
+        navigationButtonType: NavigationHeaderButtonType = .back,
+        @ViewBuilder rightContent: () -> RightContent
+    ) {
+        self.isTitleInteractive = false
+        self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
+        self.titleContent = NavigationHeaderTitle(title: title)
+        self.rightContent = rightContent()
+    }
+}
+
+// MARK: - Simple Title, No Right Content
+
+extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, TitleContent == NavigationHeaderTitle, RightContent == EmptyView {
+    init(
+        title: String,
+        navigationButtonType: NavigationHeaderButtonType = .back
+    ) {
+        self.isTitleInteractive = false
+        self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
+        self.titleContent = NavigationHeaderTitle(title: title)
+        self.rightContent = EmptyView()
+    }
+}
+
+// MARK: - Interactive Title Convenience
+
+extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, TitleContent == NavigationHeaderInteractiveTitlePill {
+    init(
+        title: String,
+        icon: Icon? = nil,
+        onTitleTap: @escaping () -> Void,
+        navigationButtonType: NavigationHeaderButtonType = .back,
+        @ViewBuilder rightContent: () -> RightContent
+    ) {
+        self.isTitleInteractive = true
+        self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
+        self.titleContent = NavigationHeaderInteractiveTitlePill(title: title, icon: icon, onTap: onTitleTap)
+        self.rightContent = rightContent()
+    }
+}
+
+// MARK: - Custom Title, No Right Content
+
+extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, RightContent == EmptyView {
+    init(
+        navigationButtonType: NavigationHeaderButtonType,
+        isTitleInteractive: Bool = false,
+        @ViewBuilder titleContent: () -> TitleContent
+    ) {
+        self.isTitleInteractive = isTitleInteractive
+        self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
+        self.titleContent = titleContent()
+        self.rightContent = EmptyView()
+    }
+}
+
+// MARK: - Interactive Title, No Right Content
+
+extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, TitleContent == NavigationHeaderInteractiveTitlePill, RightContent == EmptyView {
+    init(
+        title: String,
+        icon: Icon? = nil,
+        onTitleTap: @escaping () -> Void,
+        navigationButtonType: NavigationHeaderButtonType = .back
+    ) {
+        self.isTitleInteractive = true
+        self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
+        self.titleContent = NavigationHeaderInteractiveTitlePill(title: title, icon: icon, onTap: onTitleTap)
+        self.rightContent = EmptyView()
     }
 }
