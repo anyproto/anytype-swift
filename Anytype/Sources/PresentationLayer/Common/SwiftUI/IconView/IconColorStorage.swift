@@ -32,24 +32,26 @@ final class IconColorStorage {
     ]
     
     static func iconBackgroundColor(iconOption: Int) -> Color {
-        let index = (iconOption - 1) % allBackgroundColors.count
-        
+        let optionWithGrayAsFallback = max(iconOption, 1)
+        let index = (optionWithGrayAsFallback - 1) % allBackgroundColors.count
+
         guard let color = allBackgroundColors[safe: index] else {
             anytypeAssertionFailure("Corrupted icon option", info: ["iconOption": "\(iconOption)"])
             return .Pure.sky
         }
-        
+
         return color
     }
     
     static func iconTextColor(iconOption: Int) -> Color {
-        let index = (iconOption - 1) % allFontColors.count
-        
+        let optionWithGrayAsFallback = max(iconOption, 1)
+        let index = (optionWithGrayAsFallback - 1) % allFontColors.count
+
         guard let color = allFontColors[safe: index] else {
             anytypeAssertionFailure("Corrupted icon option", info: ["iconOption": "\(iconOption)"])
             return .Light.sky
         }
-        
+
         return color
     }
     

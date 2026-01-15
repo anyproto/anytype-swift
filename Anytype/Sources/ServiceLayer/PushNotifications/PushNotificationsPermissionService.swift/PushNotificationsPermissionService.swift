@@ -12,9 +12,13 @@ enum PushNotificationsPermissionStatus: Codable {
     var isDenied: Bool {
         self == .denied
     }
-    
+
     var isAuthorized: Bool {
         self == .authorized
+    }
+
+    var isNotDetermined: Bool {
+        self == .notDetermined
     }
 }
 

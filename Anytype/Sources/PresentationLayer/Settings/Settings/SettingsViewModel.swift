@@ -42,6 +42,15 @@ final class SettingsViewModel {
     var profileIcon: Icon?
     var membership: MembershipStatus = .empty
     var notificationsDenied = false
+    var notificationsNotDetermined = false
+
+    var notificationsStatusText: String {
+        notificationsDenied ? Loc.disabled : ""
+    }
+
+    var notificationsNeedsAttention: Bool {
+        notificationsNotDetermined
+    }
 
     var anyNameBadgeState: AnyNameBadgeState {
         if membership.anyName.handle.isNotEmpty {
@@ -128,8 +137,8 @@ final class SettingsViewModel {
     func startSubscriptions() async {
         async let membershipSub: () = membershipSubscriotion()
         async let profileSub: () = profileSubscription()
-        async let pushNotificationsSystemSettingsSub: () = pushNotificationsSystemSettingsSubscription()
-        _ = await (membershipSub, profileSub, pushNotificationsSystemSettingsSub)
+        async let notificationsSub: () = notificationsStatusSubscription()
+        _ = await (membershipSub, profileSub, notificationsSub)
     }
     
     // MARK: - Private
@@ -145,13 +154,14 @@ final class SettingsViewModel {
             handleProfileDetails(profile: profile)
         }
     }
-    
-    private func pushNotificationsSystemSettingsSubscription() async {
+
+    private func notificationsStatusSubscription() async {
         for await status in pushNotificationsSystemSettingsBroadcaster.statusStream {
             notificationsDenied = status.isDenied
+            notificationsNotDetermined = status.isNotDetermined
         }
     }
-    
+
     private func handleProfileDetails(profile: Profile) {
         profileIcon = profile.icon
 

@@ -36,7 +36,7 @@ struct SpaceLoadingContainerView<Content: View>: View {
                 Color.Background.primary
             }
             VStack(spacing: 0) {
-                PageNavigationHeader(title: "")
+                NavigationHeader(title: "")
                 Spacer()
             }
             

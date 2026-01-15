@@ -19,7 +19,7 @@ struct SharingExtensionShareToView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            ModalNavigationHeader(title: model.title)
+            NavigationHeader(title: model.title, navigationButtonType: .none)
             SearchBar(
                 text: $model.searchText,
                 focused: false,
