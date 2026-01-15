@@ -94,7 +94,10 @@ struct WidgetObjectListView: View {
                 } label: {
                     AnytypeText(model.selectButtonText, style: .uxBodyRegular)
                         .foregroundStyle(Color.Control.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
             }
         }
     }

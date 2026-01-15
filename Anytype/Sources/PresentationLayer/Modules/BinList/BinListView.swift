@@ -53,21 +53,25 @@ struct BinListView: View {
                 } label: {
                     AnytypeText(Loc.done, style: .uxBodyRegular)
                         .foregroundStyle(Color.Control.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
             } else {
                 Menu {
                     Button(Loc.selectObjects) {
                         model.onTapSelecObjects()
                     }
-                    
+
                     AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
                         try await model.onTapEmptyBin()
                     }
-                    
+
                 } label: {
-                    AnytypeText("...", style: .uxBodyRegular)
-                        .foregroundStyle(Color.Control.secondary)
+                    MoreIndicator()
                 }
+                .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                .glassEffectInteractiveIOS26(in: Circle())
             }
         }
     }

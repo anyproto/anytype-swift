@@ -87,6 +87,8 @@ struct ObjectTypeSearchView: View {
                         Image(asset: .X32.plus)
                             .frame(width: 32, height: 32)
                     }
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                    .glassEffectInteractiveIOS26(in: Circle())
                 }
             }
         }

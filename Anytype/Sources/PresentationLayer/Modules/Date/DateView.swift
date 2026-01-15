@@ -47,6 +47,8 @@ struct DateView: View {
                     Image(asset: .X24.calendar)
                         .foregroundStyle(Color.Control.secondary)
                 }
+                .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
+                .glassEffectInteractiveIOS26(in: Circle())
             }
         }
     }
