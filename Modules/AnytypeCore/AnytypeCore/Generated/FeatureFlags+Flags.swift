@@ -6,28 +6,20 @@
 public extension FeatureFlags {
 
     // Static value reader
-    static var channelTypeSwitcher: Bool {
-        value(for: .channelTypeSwitcher)
-    }
-
-    static var showUploadStatusIndicator: Bool {
-        value(for: .showUploadStatusIndicator)
-    }
-
-    static var oneToOneSpaces: Bool {
-        value(for: .oneToOneSpaces)
-    }
-
-    static var chatSettings: Bool {
-        value(for: .chatSettings)
-    }
-
     static var homePage: Bool {
         value(for: .homePage)
     }
 
     static var qrCodeCircularText: Bool {
         value(for: .qrCodeCircularText)
+    }
+
+    static var channelTypeSwitcher: Bool {
+        value(for: .channelTypeSwitcher)
+    }
+
+    static var showUploadStatusIndicator: Bool {
+        value(for: .showUploadStatusIndicator)
     }
 
     static var setKanbanView: Bool {
@@ -112,12 +104,10 @@ public extension FeatureFlags {
 
     // All toggles
     static let features: [FeatureDescription] = [
-        .channelTypeSwitcher,
-        .showUploadStatusIndicator,
-        .oneToOneSpaces,
-        .chatSettings,
         .homePage,
         .qrCodeCircularText,
+        .channelTypeSwitcher,
+        .showUploadStatusIndicator,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
