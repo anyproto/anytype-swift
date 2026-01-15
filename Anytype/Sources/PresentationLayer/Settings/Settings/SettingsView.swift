@@ -118,7 +118,7 @@ struct SettingsView: View {
     }
 
     private var titleBar: some View {
-        NavigationHeader(isTitleInteractive: false) {
+        NavigationHeader(isTitleInteractive: false, enableBackroundBlur: false) {
             Button {
                 model.onQRCodeTap()
             } label: {
