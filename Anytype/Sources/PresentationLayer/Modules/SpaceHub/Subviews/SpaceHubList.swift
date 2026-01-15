@@ -20,14 +20,14 @@ struct SpaceHubList: View {
     }
     
     private var scrollView: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack(spacing: 8) {
                 HomeUpdateSubmoduleView().padding(8)
 
                 ForEach(model.filteredSpaces) {
                     spaceCard($0)
                 }
-                
+
                 Spacer.fixedHeight(40)
             }
         }
