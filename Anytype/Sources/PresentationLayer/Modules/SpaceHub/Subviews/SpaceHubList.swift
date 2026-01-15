@@ -30,6 +30,8 @@ struct SpaceHubList: View {
                 
                 Spacer.fixedHeight(40)
             }
+            // Prevents unwanted horizontal scrolling on iOS 26
+            .containerRelativeFrame(.horizontal)
         }
         .animation(model.animationsEnabled ? .default : nil, value: model.filteredSpaces)
         .onAppear { DispatchQueue.main.async { model.animationsEnabled = true } }
