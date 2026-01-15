@@ -76,8 +76,12 @@ struct SpaceSettingsView: View {
                 Button {
                     model.onEditTap()
                 } label: {
-                    AnytypeText(Loc.edit, style: .bodyRegular).foregroundStyle(Color.Control.secondary)
+                    AnytypeText(Loc.edit, style: .bodyRegular)
+                        .foregroundStyle(Color.Control.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
             }
         }
     }

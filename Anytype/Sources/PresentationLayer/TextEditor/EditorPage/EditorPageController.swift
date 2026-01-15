@@ -54,7 +54,6 @@ final class EditorPageController: UIViewController {
 
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
-        navigationBarBackgroundView: navigationBarBackgroundView,
         objectId: viewModel.document.objectId,
         spaceId: viewModel.document.spaceId,
         output: viewModel.router,
@@ -81,7 +80,7 @@ final class EditorPageController: UIViewController {
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     private let navigationBarView = EditorNavigationBarView()
-    private let navigationBarBackgroundView = UIView()
+    private let navigationBarBlurView = HomeBlurEffectUIView()
     private let showHeader: Bool
     var viewModel: (any EditorPageViewModelProtocol)! {
         didSet {
@@ -452,7 +451,6 @@ private extension EditorPageController {
     
     func setupView() {
         view.backgroundColor = .Background.primary
-        navigationBarBackgroundView.backgroundColor = .Background.primary
         setupCollectionView()
         setupInteractions()
         setupLayout()
@@ -484,13 +482,14 @@ private extension EditorPageController {
             $0.pinToSuperview()
         }
         if showHeader {
-            view.addSubview(navigationBarBackgroundView) {
+            navigationBarBlurView.direction = .topToBottom
+            view.addSubview(navigationBarBlurView) {
                 $0.pinToSuperview(excluding: [.bottom])
             }
             view.addSubview(navigationBarView) {
                 $0.pinToSuperview(excluding: [.bottom, .top])
                 $0.top.equal(to: view.safeAreaLayoutGuide.topAnchor)
-                $0.bottom.equal(to: navigationBarBackgroundView.bottomAnchor)
+                $0.bottom.equal(to: navigationBarBlurView.bottomAnchor)
             }
         }
         blocksSelectionOverlayView.isHidden = true
