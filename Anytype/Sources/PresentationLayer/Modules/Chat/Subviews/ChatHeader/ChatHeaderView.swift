@@ -55,11 +55,31 @@ struct ChatHeaderView: View {
                         .frame(width: 18, height: 18)
                         .transition(.scale.combined(with: .opacity))
                 }
-                AnytypeText(model.title, style: .uxTitle2Semibold)
-                    .lineLimit(1)
-                if model.muted {
-                    Image(asset: .X18.muted)
-                        .foregroundStyle(Color.Text.primary)
+                if model.isOneToOne {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(spacing: 4) {
+                            AnytypeText(model.title, style: .uxTitle2Semibold)
+                                .lineLimit(1)
+                            if model.hasMembership {
+                                Image(asset: .X18.membershipBadge)
+                                    .frame(width: 18, height: 18)
+                            }
+                            if model.muted {
+                                Image(asset: .X18.muted)
+                                    .foregroundStyle(Color.Text.primary)
+                            }
+                        }
+                        AnytypeText(model.anytypeName, style: .caption1Regular)
+                            .foregroundStyle(Color.Text.secondary)
+                            .lineLimit(1)
+                    }
+                } else {
+                    AnytypeText(model.title, style: .uxTitle2Semibold)
+                        .lineLimit(1)
+                    if model.muted {
+                        Image(asset: .X18.muted)
+                            .foregroundStyle(Color.Text.primary)
+                    }
                 }
                 Spacer()
             }

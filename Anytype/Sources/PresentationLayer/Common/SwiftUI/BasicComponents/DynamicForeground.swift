@@ -21,7 +21,7 @@ extension View {
     }
 
     func navPanelDynamicForegroundStyle() -> some View {
-        dynamicForegroundStyle(color: .Control.transparentSecondary, disabledColor: .Control.transparentTertiary)
+        dynamicForegroundStyle(color: .Control.primary, disabledColor: .Control.transparentTertiary)
     }
 
     func dynamicForegroundStyle(color: Color, disabledColor: Color) -> some View {
