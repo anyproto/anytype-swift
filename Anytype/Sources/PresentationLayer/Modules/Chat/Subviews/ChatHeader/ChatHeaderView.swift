@@ -6,7 +6,6 @@ import AnytypeCore
 struct ChatHeaderView: View {
 
     @State private var model: ChatHeaderViewModel
-    @Namespace private var glassNamespace
 
     init(
         spaceId: String,
@@ -78,7 +77,6 @@ struct ChatHeaderView: View {
                     .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
             }
             .glassEffectInteractiveIOS26(in: Circle())
-            .glassEffectIDIOS26("addMembers", in: glassNamespace)
         }
     }
 
@@ -113,6 +111,5 @@ struct ChatHeaderView: View {
             }
         }
         .glassEffectInteractiveIOS26(in: Circle())
-        .glassEffectIDIOS26("avatar", in: glassNamespace)
     }
 }

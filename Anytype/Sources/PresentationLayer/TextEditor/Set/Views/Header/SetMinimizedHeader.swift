@@ -2,8 +2,6 @@ import SwiftUI
 
 struct SetMinimizedHeader: View {
 
-    @Namespace private var rightContentGlassNamespace
-
     @ObservedObject var model: EditorSetViewModel
     var headerSize: CGSize
     var tableViewOffset: CGPoint
@@ -67,7 +65,6 @@ struct SetMinimizedHeader: View {
         }
         .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
         .glassEffectInteractiveIOS26(in: Circle())
-        .glassEffectIDIOS26("syncStatus", in: rightContentGlassNamespace)
     }
 
     private var settingsButton: some View {
@@ -81,7 +78,6 @@ struct SetMinimizedHeader: View {
                 .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
         }
         .glassEffectInteractiveIOS26(in: Circle())
-        .glassEffectIDIOS26("settings", in: rightContentGlassNamespace)
     }
 }
 

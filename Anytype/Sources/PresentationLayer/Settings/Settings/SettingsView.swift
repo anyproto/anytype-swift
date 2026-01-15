@@ -4,7 +4,6 @@ import AnytypeCore
 struct SettingsView: View {
 
     @State private var model: SettingsViewModel
-    @Namespace private var glassNamespace
 
     init(output: some SettingsModuleOutput) {
         _model = State(initialValue: SettingsViewModel(output: output))
@@ -129,7 +128,6 @@ struct SettingsView: View {
                     .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
             }
             .glassEffectInteractiveIOS26(in: Circle())
-            .glassEffectIDIOS26("qrCode", in: glassNamespace)
         } titleContent: {
             AnyNameBadgeView(
                 state: model.anyNameBadgeState,
@@ -146,7 +144,6 @@ struct SettingsView: View {
                     .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
             }
             .glassEffectInteractiveIOS26(in: Circle())
-            .glassEffectIDIOS26("more", in: glassNamespace)
         }
     }
 }

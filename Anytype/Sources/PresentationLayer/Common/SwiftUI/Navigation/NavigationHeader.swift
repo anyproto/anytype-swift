@@ -46,9 +46,11 @@ struct NavigationHeader<LeftContent: View, TitleContent: View, RightContent: Vie
 
                 HStack {
                     leftContent
+                        .glassEffectIDIOS26("leftContent", in: glassNamespace)
                         .readSize { leftWidth = $0.width }
                     Spacer()
                     rightContent
+                        .glassEffectIDIOS26("rightContent", in: glassNamespace)
                         .readSize { rightWidth = $0.width }
                 }
                 .frame(maxWidth: .infinity)
@@ -57,6 +59,10 @@ struct NavigationHeader<LeftContent: View, TitleContent: View, RightContent: Vie
         }
         .padding(.horizontal, 16)
         .frame(height: NavigationHeaderConstants.height)
+        .background {
+            HomeBlurEffectView(direction: .topToBottom)
+                .ignoresSafeArea()
+        }
     }
 
     @ViewBuilder
