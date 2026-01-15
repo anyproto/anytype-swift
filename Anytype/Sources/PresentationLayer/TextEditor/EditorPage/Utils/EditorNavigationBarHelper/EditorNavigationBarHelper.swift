@@ -7,8 +7,7 @@ import SwiftUI
 final class EditorNavigationBarHelper {
     
     private let navigationBarView: EditorNavigationBarView
-    private let navigationBarBackgroundView: UIView
-    
+
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
@@ -41,7 +40,6 @@ final class EditorNavigationBarHelper {
 
     init(
         navigationBarView: EditorNavigationBarView,
-        navigationBarBackgroundView: UIView,
         objectId: String,
         spaceId: String,
         output: (any ObjectSettingsCoordinatorOutput)?,
@@ -53,7 +51,6 @@ final class EditorNavigationBarHelper {
         onWebBannerTap: @escaping () -> Void
     ) {
         self.navigationBarView = navigationBarView
-        self.navigationBarBackgroundView = navigationBarBackgroundView
 
         let menuContainer = ObjectSettingsMenuContainer(objectId: objectId, spaceId: spaceId, output: output)
         let hostingController = UIHostingController(rootView: menuContainer)
@@ -249,7 +246,6 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case .selecting(let blocks, let allSelected):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
-            navigationBarBackgroundView.alpha = 1
             selectAllButton.setTitle(allSelected ? Loc.deselect : Loc.selectAll, for: .normal)
             navigationBarView.leftButton = selectAllButton
             navigationBarView.rightButton = doneButton
@@ -273,7 +269,6 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
-            navigationBarBackgroundView.alpha = 1
             navigationBarView.leftButton = selectAllButton
             navigationBarView.rightButton = doneButton
             let title = Loc.selectedBlocks(selectedBlocks.count)
@@ -313,8 +308,6 @@ private extension EditorNavigationBarHelper {
 
         navigationBarTitleView.setAlphaForSubviews(titleAlpha)
         updateBarButtonItemsBackground(opacity: barButtonsOpacity)
-//        navigationBarView.setBackgroundAlpha(alpha: percent)
-        navigationBarBackgroundView.alpha = percent
     }
     
     private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {
