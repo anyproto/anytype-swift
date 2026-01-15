@@ -167,10 +167,7 @@ final class ChatHeaderViewModel {
         guard let participant = participants.first(where: { $0.identity == oneToOneIdentity }) else { return }
 
         hasMembership = participant.globalName.isNotEmpty
-        let name = participant.displayGlobalName
-        anytypeName = name.count > 14
-            ? "\(name.prefix(6))...\(name.suffix(6))"
-            : name
+        anytypeName = participant.displayGlobalNameTruncated
     }
 
     private func updateHeaderDisplay() {
