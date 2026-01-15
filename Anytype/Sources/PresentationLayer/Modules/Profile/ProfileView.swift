@@ -1,6 +1,5 @@
 import SwiftUI
 import Services
-import AnytypeCore
 
 
 struct ProfileView: View {
@@ -101,7 +100,7 @@ struct ProfileView: View {
 
     @ViewBuilder
     private var connectButton: some View {
-        if FeatureFlags.oneToOneSpaces, !model.isOwner {
+        if !model.isOwner {
             Spacer.fixedHeight(24)
             AsyncStandardButton(Loc.sendMessage, style: .primaryLarge) {
                 try await model.onConnect()

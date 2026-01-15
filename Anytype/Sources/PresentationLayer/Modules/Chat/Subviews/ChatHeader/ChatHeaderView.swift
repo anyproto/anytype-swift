@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import Services
-import AnytypeCore
 
 struct ChatHeaderView: View {
 
@@ -105,29 +104,19 @@ struct ChatHeaderView: View {
     @ViewBuilder
     private var moreButton: some View {
         Group {
-            if FeatureFlags.chatSettings {
-                if model.isMultiChatSpace {
-                    ObjectSettingsMenuContainer(
-                        objectId: model.chatId,
-                        spaceId: model.spaceId,
-                        output: nil
-                    ) {
-                        Image(asset: .X24.more)
-                            .foregroundStyle(Color.Control.primary)
-                            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
-                    }
-                } else {
-                    Button {
-                        model.tapOpenSpaceSettings()
-                    } label: {
-                        Image(asset: .X24.more)
-                            .foregroundStyle(Color.Control.primary)
-                            .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
-                    }
+            if model.isMultiChatSpace {
+                ObjectSettingsMenuContainer(
+                    objectId: model.chatId,
+                    spaceId: model.spaceId,
+                    output: nil
+                ) {
+                    Image(asset: .X24.more)
+                        .foregroundStyle(Color.Control.primary)
+                        .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                 }
             } else {
                 Button {
-                    model.tapOpenWidgets()
+                    model.tapOpenSpaceSettings()
                 } label: {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)
