@@ -4,6 +4,7 @@ import AnytypeCore
 struct SettingsView: View {
 
     @State private var model: SettingsViewModel
+    @Namespace private var glassNamespace
 
     init(output: some SettingsModuleOutput) {
         _model = State(initialValue: SettingsViewModel(output: output))
@@ -118,28 +119,23 @@ struct SettingsView: View {
     }
 
     private var titleBar: some View {
-        HStack {
-            Spacer()
-
-            AnyNameBadgeView(
-                state: model.anyNameBadgeState,
-                onTap: { model.onAnyIdBadgeTap() }
-            )
-
-            Spacer()
-        }
-        .overlay(alignment: .leading) {
+        NavigationHeader(isTitleInteractive: false) {
             Button {
                 model.onQRCodeTap()
             } label: {
                 Image(asset: .X24.qrCode)
                     .renderingMode(.template)
                     .foregroundStyle(Color.Control.primary)
-                    .frame(width: 24, height: 24)
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
             }
-            .padding(.leading, 12)
-        }
-        .overlay(alignment: .trailing) {
+            .glassEffectInteractiveIOS26(in: Circle())
+            .glassEffectIDIOS26("qrCode", in: glassNamespace)
+        } titleContent: {
+            AnyNameBadgeView(
+                state: model.anyNameBadgeState,
+                onTap: { model.onAnyIdBadgeTap() }
+            )
+        } rightContent: {
             Menu {
                 if model.canDeleteVault {
                     Button(Loc.deleteVault) { model.onDeleteAccountTap() }
@@ -147,10 +143,11 @@ struct SettingsView: View {
                 Button(Loc.logOut, role: .destructive) { model.onLogoutTap() }
             } label: {
                 MoreIndicator()
+                    .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
             }
-            .padding(.trailing, 12)
+            .glassEffectInteractiveIOS26(in: Circle())
+            .glassEffectIDIOS26("more", in: glassNamespace)
         }
-        .frame(height: 48)
     }
 }
 

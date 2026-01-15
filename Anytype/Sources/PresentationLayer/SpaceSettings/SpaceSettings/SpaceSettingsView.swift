@@ -7,6 +7,7 @@ struct SpaceSettingsView: View {
 
     @State private var model: SpaceSettingsViewModel
     @Environment(\.dismiss) private var dismiss
+    @Namespace private var glassNamespace
 
     init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
         _model = State(initialValue: SpaceSettingsViewModel(workspaceInfo: workspaceInfo, output: output))
@@ -76,8 +77,13 @@ struct SpaceSettingsView: View {
                 Button {
                     model.onEditTap()
                 } label: {
-                    AnytypeText(Loc.edit, style: .bodyRegular).foregroundStyle(Color.Control.secondary)
+                    AnytypeText(Loc.edit, style: .bodyRegular)
+                        .foregroundStyle(Color.Control.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                 }
+                .glassEffectInteractiveIOS26(in: Capsule())
+                .glassEffectIDIOS26("edit", in: glassNamespace)
             }
         }
     }
