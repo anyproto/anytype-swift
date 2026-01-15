@@ -17,7 +17,7 @@ struct NavigationHeader<LeftContent: View, TitleContent: View, RightContent: Vie
     @ViewBuilder let titleContent: TitleContent
     @ViewBuilder let rightContent: RightContent
     let isTitleInteractive: Bool
-    let enableBackroundBlur: Bool
+    let enableBackgroundBlur: Bool
 
     @State private var leftWidth: CGFloat = 0
     @State private var rightWidth: CGFloat = 0
@@ -27,13 +27,13 @@ struct NavigationHeader<LeftContent: View, TitleContent: View, RightContent: Vie
 
     init(
         isTitleInteractive: Bool = false,
-        enableBackroundBlur: Bool = true,
+        enableBackgroundBlur: Bool = true,
         @ViewBuilder leftContent: () -> LeftContent,
         @ViewBuilder titleContent: () -> TitleContent,
         @ViewBuilder rightContent: () -> RightContent
     ) {
         self.isTitleInteractive = isTitleInteractive
-        self.enableBackroundBlur = enableBackroundBlur
+        self.enableBackgroundBlur = enableBackgroundBlur
         self.leftContent = leftContent()
         self.titleContent = titleContent()
         self.rightContent = rightContent()
@@ -63,7 +63,7 @@ struct NavigationHeader<LeftContent: View, TitleContent: View, RightContent: Vie
         .padding(.horizontal, 16)
         .frame(height: NavigationHeaderConstants.height)
         .background {
-            if enableBackroundBlur {
+            if enableBackgroundBlur {
                 HomeBlurEffectView(direction: .topToBottom)
                     .ignoresSafeArea()
             }
@@ -93,7 +93,7 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton {
         @ViewBuilder rightContent: () -> RightContent
     ) {
         self.isTitleInteractive = isTitleInteractive
-        self.enableBackroundBlur = true
+        self.enableBackgroundBlur = true
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = titleContent()
         self.rightContent = rightContent()
@@ -109,7 +109,7 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, Titl
         @ViewBuilder rightContent: () -> RightContent
     ) {
         self.isTitleInteractive = false
-        self.enableBackroundBlur = true
+        self.enableBackgroundBlur = true
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = NavigationHeaderTitle(title: title)
         self.rightContent = rightContent()
@@ -124,7 +124,7 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, Titl
         navigationButtonType: NavigationHeaderButtonType = .back
     ) {
         self.isTitleInteractive = false
-        self.enableBackroundBlur = true
+        self.enableBackgroundBlur = true
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = NavigationHeaderTitle(title: title)
         self.rightContent = EmptyView()
@@ -142,7 +142,7 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, Titl
         @ViewBuilder rightContent: () -> RightContent
     ) {
         self.isTitleInteractive = true
-        self.enableBackroundBlur = true
+        self.enableBackgroundBlur = true
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = NavigationHeaderInteractiveTitlePill(title: title, icon: icon, onTap: onTitleTap)
         self.rightContent = rightContent()
@@ -158,7 +158,7 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, Righ
         @ViewBuilder titleContent: () -> TitleContent
     ) {
         self.isTitleInteractive = isTitleInteractive
-        self.enableBackroundBlur = true
+        self.enableBackgroundBlur = true
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = titleContent()
         self.rightContent = EmptyView()
@@ -175,7 +175,7 @@ extension NavigationHeader where LeftContent == NavigationHeaderLeftButton, Titl
         navigationButtonType: NavigationHeaderButtonType = .back
     ) {
         self.isTitleInteractive = true
-        self.enableBackroundBlur = true
+        self.enableBackgroundBlur = true
         self.leftContent = NavigationHeaderLeftButton(type: navigationButtonType)
         self.titleContent = NavigationHeaderInteractiveTitlePill(title: title, icon: icon, onTap: onTitleTap)
         self.rightContent = EmptyView()
