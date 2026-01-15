@@ -32,7 +32,7 @@ struct ChatHeaderView: View {
         } rightContent: {
             HStack(spacing: 8) {
                 addMembersButton
-                avatarButton
+                moreButton
             }
         }
         .task {
@@ -47,13 +47,15 @@ struct ChatHeaderView: View {
         Button {
             model.tapOpenWidgets()
         } label: {
-            HStack(spacing: 6) {
+            HStack(alignment: .center, spacing: 8) {
+                IconView(icon: model.icon)
+                    .frame(width: 32, height: 32)
                 if model.showLoading {
                     CircleLoadingView(.Text.primary)
                         .frame(width: 18, height: 18)
                         .transition(.scale.combined(with: .opacity))
                 }
-                AnytypeText(model.title, style: .uxTitle1Semibold)
+                AnytypeText(model.title, style: .uxTitle2Semibold)
                     .lineLimit(1)
                 if model.muted {
                     Image(asset: .X18.muted)
@@ -61,9 +63,9 @@ struct ChatHeaderView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 6)
         }
+        .frame(height: NavigationHeaderConstants.height)
     }
 
     @ViewBuilder
@@ -81,7 +83,7 @@ struct ChatHeaderView: View {
     }
 
     @ViewBuilder
-    private var avatarButton: some View {
+    private var moreButton: some View {
         Group {
             if FeatureFlags.chatSettings {
                 if model.isMultiChatSpace {
@@ -90,14 +92,16 @@ struct ChatHeaderView: View {
                         spaceId: model.spaceId,
                         output: nil
                     ) {
-                        IconView(icon: model.icon)
+                        Image(asset: .X24.more)
+                            .foregroundStyle(Color.Control.primary)
                             .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                     }
                 } else {
                     Button {
                         model.tapOpenSpaceSettings()
                     } label: {
-                        IconView(icon: model.icon)
+                        Image(asset: .X24.more)
+                            .foregroundStyle(Color.Control.primary)
                             .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                     }
                 }
@@ -105,7 +109,8 @@ struct ChatHeaderView: View {
                 Button {
                     model.tapOpenWidgets()
                 } label: {
-                    IconView(icon: model.icon)
+                    Image(asset: .X24.more)
+                        .foregroundStyle(Color.Control.primary)
                         .frame(width: NavigationHeaderConstants.buttonSize, height: NavigationHeaderConstants.buttonSize)
                 }
             }
