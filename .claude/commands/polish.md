@@ -6,20 +6,49 @@ allowed-tools: Bash(git diff:*), Grep, Glob, Read, Edit
 
 Simplify and clean up code in the current changes.
 
+**⚠️ REQUIRES EXPLICIT USER APPROVAL before making any changes.**
+
 ## Git Context (Precomputed)
 - **Changed files**: !`git diff --name-only HEAD~1 -- "*.swift" 2>/dev/null | head -20`
 
 ## Process
 
-### Step 1: Identify Targets
-Review the changed Swift files listed above. For each file:
+### Step 1: Analyze (READ-ONLY)
+Review the changed Swift files listed above. **Do NOT edit yet.**
 
 ```bash
 # Get the actual changes
 git diff HEAD~1 -- "path/to/file.swift"
 ```
 
-### Step 2: Simplify Code
+### Step 2: Present Findings
+**Before making ANY changes**, present a summary:
+
+```
+## Polish Proposals
+
+### Simplifications Found:
+1. `File.swift:42` - Can use guard let instead of nested if
+2. `File.swift:78` - Can use \.keyPath shorthand
+3. ...
+
+### Unused Code Found:
+1. `OldHelper.swift` - No longer referenced after refactoring
+2. `Model.swift:15` - `unusedProperty` has no references
+3. ...
+
+### No Changes Needed:
+- `CleanFile.swift` - Already follows best practices
+
+**Apply these changes? (yes/no)**
+```
+
+### Step 3: Wait for Approval
+- **If user says yes/approved**: Proceed to Step 4
+- **If user says no/skip**: Exit without changes
+- **If user wants partial**: Apply only approved items
+
+### Step 4: Apply Changes (only after approval)
 
 Look for and fix:
 - **Unnecessary nesting** → Use `guard let` early returns
@@ -76,10 +105,15 @@ For any renamed/removed symbols in the diff:
 
 ## Output
 
-Report what was simplified/cleaned:
+After user approves and changes are applied:
 ```
-## Polish Summary
-- Simplified: [list of changes]
+## Polish Applied ✅
+- Simplified: [list of changes made]
 - Removed: [list of unused code removed]
-- No changes needed: [if code was already clean]
+```
+
+If user declines:
+```
+## Polish Skipped
+No changes made per user request.
 ```
