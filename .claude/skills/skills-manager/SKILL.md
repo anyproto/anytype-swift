@@ -134,7 +134,7 @@ echo "Update space settings localization for membership tiers" | .claude/hooks/u
 **What they do**:
 - `skill-activation-prompt.sh` - Suggests skills based on your prompt
 - `post-tool-use-tracker.sh` - Tracks file edits
-- `swiftformat-auto.sh` - Auto-formats Swift files
+- `swiftformat-post-edit.sh` - Auto-formats Swift files immediately after edit
 - `notification-alert.sh` - Sends macOS notifications when Claude needs input
 
 ### Skills (Routers)
