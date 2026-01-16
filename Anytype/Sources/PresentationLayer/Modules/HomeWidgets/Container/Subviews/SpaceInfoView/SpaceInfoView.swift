@@ -12,17 +12,17 @@ struct SpaceInfoView: View {
         HStack(spacing: 16) {
             IconView(icon: model.spaceIcon)
                 .frame(width: 64, height: 64)
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 3) {
                 AnytypeText(model.spaceName, style: .heading)
                     .foregroundStyle(Color.Text.primary)
                     .lineLimit(1)
                 if model.sharedSpace {
                     AnytypeText(model.spaceMembers, style: .relation2Regular)
-                        .foregroundStyle(Color.Text.secondary)
+                        .foregroundStyle(Color.Text.transparentSecondary)
                         .lineLimit(1)
                 } else {
                     AnytypeText(model.spaceUxType, style: .relation2Regular)
-                        .foregroundStyle(Color.Text.secondary)
+                        .foregroundStyle(Color.Text.transparentSecondary)
                         .lineLimit(1)
                 }
             }
