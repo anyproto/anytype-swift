@@ -98,14 +98,13 @@
             "command": ".claude/hooks/post-tool-use-tracker.sh"
           }
         ]
-      }
-    ],
-    "Stop": [
+      },
       {
+        "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/swiftformat-auto.sh"
+            "command": ".claude/hooks/swiftformat-post-edit.sh"
           }
         ]
       }
