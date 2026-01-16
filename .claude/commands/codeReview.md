@@ -1,23 +1,28 @@
+---
+allowed-tools: Bash(git branch:*), Bash(git diff:*), Bash(git fetch:*)
+---
+
 # Code Review Command
 
 Review local code changes on the current branch against the base branch (develop).
+
+## Git Context (Precomputed)
+- **Fetch**: !`git fetch origin develop 2>/dev/null`
+- **Current branch**: !`git branch --show-current`
+- **Changed files**: !`git diff --name-status origin/develop...HEAD`
+- **Diff stats**: !`git diff --stat origin/develop...HEAD`
 
 ## Usage
 Run `/codeReview` on your current branch to review changes against develop.
 
 ## Process
 
-### Step 1: Gather Current Branch Context
-Get the current branch name, list of changed files, and full diff against develop:
+### Step 1: Review the Precomputed Context
+The git context above shows the current branch and changed files. Now get the full diff:
 
 ```bash
-# Get current branch and changes summary
-git branch --show-current
-git diff --name-status develop...HEAD
-git diff --stat develop...HEAD
-
 # Get full diff for review
-git diff develop...HEAD
+git diff origin/develop...HEAD
 ```
 
 ### Step 2: Apply Review Standards
@@ -33,7 +38,7 @@ Follow all core rules, review sections, common mistakes, and analysis checklist 
 **Context adaptation for local reviews:**
 - This is a local review (not a GitHub PR)
 - Reference file:line locations from the git diff
-- Focus on changes between current branch and develop
+- Focus on changes between current branch and origin/develop
 - Output review directly (no need to post comments)
 
 ### Step 3: Review Focus Areas

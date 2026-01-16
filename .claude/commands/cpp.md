@@ -1,4 +1,15 @@
-Commit, review, push, pull request
+---
+allowed-tools: Bash(git branch:*), Bash(git status:*), Bash(git log:*), Bash(git diff:*), Bash(git fetch:*)
+---
+
+# Commit, review, push, pull request
+
+## Git Context (Precomputed)
+- **Fetch**: !`git fetch origin develop 2>/dev/null`
+- **Current branch**: !`git branch --show-current`
+- **Staged files**: !`git diff --cached --name-only`
+- **Unstaged changes**: !`git status --short`
+- **Recent commits**: !`git log --oneline -5`
 
 ## Usage
 ```

@@ -1,6 +1,15 @@
+---
+allowed-tools: Bash(git rev-parse:*), Bash(git diff:*), Bash(git fetch:*)
+---
+
 USE EXTENDED THINKING
 
 # Git Changes Gathering for iOS Release
+
+## Git Context (Precomputed)
+- **Main hash**: !`git rev-parse origin/main 2>/dev/null || echo "not found"`
+- **Develop hash**: !`git rev-parse origin/develop 2>/dev/null || echo "not found"`
+- **Files changed (main→develop)**: !`git diff --name-only origin/main...origin/develop 2>/dev/null | wc -l | tr -d ' '`
 
 ## Purpose
 This document guides the process of gathering all code changes between branches/commits for iOS release analysis.
@@ -8,17 +17,9 @@ This document guides the process of gathering all code changes between branches/
 ## Process
 
 ### Step 1: Identify Comparison Points
-Ask the user:
+The precomputed context above shows default hashes. Ask the user if they want different comparison points:
 - "Which two commits or branches would you like to compare?"
-- If no response, use defaults:
-  - Base: `origin/main` (latest)
-  - Target: `origin/develop` (latest)
-
-Get exact commit hashes:
-```bash
-git rev-parse origin/main    # For main branch
-git rev-parse origin/develop # For develop branch
-```
+- Defaults: `origin/main` → `origin/develop`
 
 ### Step 2: Gather Basic Statistics
 
