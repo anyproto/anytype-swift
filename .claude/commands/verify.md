@@ -27,7 +27,7 @@ Run SwiftLint on changed Swift files:
 swiftlint lint --config .swiftlint.yml -- path/to/file1.swift path/to/file2.swift
 
 # Or lint all changed files at once
-git diff --name-only origin/develop...HEAD -- "*.swift" | xargs swiftlint lint --config .swiftlint.yml --
+git diff --name-only -z origin/develop...HEAD -- "*.swift" | xargs -0 swiftlint lint --config .swiftlint.yml --
 ```
 
 ### Step 2: Report Results
@@ -63,7 +63,7 @@ If user requested full build:
    ```
 
 2. **If background (yes):**
-   - Use Task tool with `run_in_background: true`
+   - Use Bash tool with `run_in_background: true`
    - User can continue working
    - Check results later with TaskOutput
 
@@ -76,7 +76,7 @@ If user requested full build:
 xcodebuild build \
   -workspace Anytype.xcworkspace \
   -scheme Anytype \
-  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  -destination 'platform=iOS Simulator,name=iPhone 15' \
   -quiet \
   2>&1 | grep -E "(error:|warning:|BUILD)"
 ```
