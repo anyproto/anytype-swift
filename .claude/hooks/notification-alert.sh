@@ -28,6 +28,6 @@ case "$NOTIFICATION_TYPE" in
 esac
 
 # Escape quotes and backslashes for osascript
-MESSAGE=$(printf '%s' "$MESSAGE" | sed 's/\\/\\\\/g; s/"/\\"/g')
+MESSAGE=$(printf '%s' "$MESSAGE" | jq -Rs . | sed 's/^"//' | sed 's/"$//')
 
 osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\" sound name \"Submarine\"" 2>/dev/null || true
