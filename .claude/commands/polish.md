@@ -1,0 +1,85 @@
+---
+allowed-tools: Bash(git diff:*), Grep, Glob, Read, Edit
+---
+
+# Polish Code
+
+Simplify and clean up code in the current changes.
+
+## Git Context (Precomputed)
+- **Changed files**: !`git diff --name-only HEAD~1 -- "*.swift" 2>/dev/null | head -20`
+
+## Process
+
+### Step 1: Identify Targets
+Review the changed Swift files listed above. For each file:
+
+```bash
+# Get the actual changes
+git diff HEAD~1 -- "path/to/file.swift"
+```
+
+### Step 2: Simplify Code
+
+Look for and fix:
+- **Unnecessary nesting** → Use `guard let` early returns
+- **Verbose closures** → Use shorthand `$0`, `\.property`
+- **Repeated logic** → Extract to local variable or function
+- **Force unwraps** → Replace with safe unwrapping where possible
+- **Long functions** → Split if doing multiple distinct things
+
+**Swift idioms to apply:**
+```swift
+// ❌ Verbose
+if let x = optional {
+    return x
+} else {
+    return default
+}
+
+// ✅ Idiomatic
+return optional ?? default
+```
+
+```swift
+// ❌ Verbose
+array.filter { $0.isActive }.map { $0.name }
+
+// ✅ Idiomatic (if clearer)
+array.filter(\.isActive).map(\.name)
+```
+
+### Step 3: Clean Up Unused Code
+
+For any renamed/removed symbols in the diff:
+
+1. **Search for references**:
+   ```bash
+   rg "oldSymbolName" --type swift
+   ```
+
+2. **Check common locations**:
+   - `AnyTypeTests/` - Test files
+   - `*Mock*.swift` - Mock implementations
+   - `*Assembly*.swift` - DI registrations
+   - `PreviewMocks/` - Preview providers
+
+3. **Remove if unreferenced**:
+   - Delete unused properties, functions, files
+   - Update DI registrations
+   - Remove stale imports
+
+### Step 4: Final Check
+
+- Ensure no broken references introduced
+- Verify code still follows project patterns (check `IOS_DEVELOPMENT_GUIDE.md` if unsure)
+
+## Output
+
+Report what was simplified/cleaned:
+```
+## Polish Summary
+- Simplified: [list of changes]
+- Removed: [list of unused code removed]
+- No changes needed: [if code was already clean]
+```

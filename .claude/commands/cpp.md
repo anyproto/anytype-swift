@@ -29,6 +29,13 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 - Extract the `gitBranchName` field from the Linear issue response
 - Use this exact branch name for checkout/creation
 
+### 0.5. Polish Code (simplify + cleanup)
+- Review changed Swift files for simplification opportunities
+- Apply Swift idioms (guard let, shorthand closures, nil coalescing)
+- Remove any unused code from refactoring
+- Check for stale references in tests/mocks
+- See `/polish` command for full checklist
+
 ### 1. Commit Changes
 - Stage and commit all changes with a descriptive message
 - Follow CLAUDE.md commit message guidelines
