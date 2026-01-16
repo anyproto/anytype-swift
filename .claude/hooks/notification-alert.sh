@@ -27,7 +27,9 @@ case "$NOTIFICATION_TYPE" in
     ;;
 esac
 
-# Escape quotes and backslashes for osascript
-MESSAGE=$(printf '%s' "$MESSAGE" | jq -Rs . | sed 's/^"//' | sed 's/"$//')
-
-osascript -e "display notification \"$MESSAGE\" with title \"$TITLE\" sound name \"Submarine\"" 2>/dev/null || true
+# Pass message as argument to avoid command injection
+osascript - "$MESSAGE" "$TITLE" <<'EOF' 2>/dev/null || true
+on run argv
+  display notification (item 1 of argv) with title (item 2 of argv) sound name "Submarine"
+end run
+EOF
