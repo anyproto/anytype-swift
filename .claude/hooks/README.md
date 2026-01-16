@@ -8,11 +8,13 @@ Hooks are shell scripts that run at specific points during Claude Code execution
 - **UserPromptSubmit**: Before Claude sees your message
 - **PostToolUse**: After Claude uses a tool (Edit, Write, etc.)
 - **Stop**: After Claude finishes responding
+- **Notification**: When Claude sends notifications (permission prompts, idle alerts)
 
 These hooks enable:
 - Automatic skill suggestions
 - Tool usage logging
 - Automatic Swift code formatting
+- macOS notifications when Claude needs input
 - Real-time monitoring
 
 ## 🪝 Installed Hooks
@@ -119,6 +121,36 @@ Automatically formatted 3 Swift file(s)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+---
+
+### 4. notification-alert.sh (Notification)
+
+**Purpose**: Send native macOS notifications when Claude needs input
+
+**Event**: `Notification` (when Claude sends permission prompts, idle alerts, etc.)
+
+**What it does**:
+1. Receives notification event from Claude Code
+2. Parses notification type and message
+3. Sends macOS notification via `osascript`
+4. Different titles/sounds for different notification types
+
+**Notification Types**:
+| Type | Title | When |
+|------|-------|------|
+| `permission_prompt` | 🔐 Claude Permission Request | Claude needs permission for a tool |
+| `idle_prompt` | ⏳ Claude Waiting for Input | Claude is idle for 60+ seconds |
+| Other | 🤖 Claude Code | Any other notification |
+
+**Why use this**: When running multiple Claude sessions or working in another app, you'll get a macOS notification popup with sound when Claude needs attention.
+
+**Test manually**:
+```bash
+echo '{"notification_type":"idle_prompt","message":"Test notification"}' | .claude/hooks/notification-alert.sh
+```
+
+**No logs**: This hook doesn't create logs (it only sends notifications).
+
 ## 📂 Directory Structure
 
 ```
@@ -127,7 +159,9 @@ Automatically formatted 3 Swift file(s)
 ├── skill-rules.json              # Skill activation configuration
 ├── skill-activation-prompt.sh    # UserPromptSubmit hook
 ├── post-tool-use-tracker.sh      # PostToolUse hook
-└── swiftformat-auto.sh           # Stop hook
+├── swiftformat-auto.sh           # Stop hook
+├── notification-alert.sh         # Notification hook (macOS alerts)
+└── utils/                        # Helper scripts
 
 .claude/logs/                      # Generated logs (gitignored)
 ├── skill-activations.log
@@ -542,6 +576,7 @@ The hooks system provides:
 - ✅ **Automatic skill activation** - No manual skill loading needed
 - ✅ **Tool usage tracking** - Know what files were modified
 - ✅ **Code formatting** - Keep Swift files formatted (with token awareness)
+- ✅ **macOS notifications** - Get alerted when Claude needs input
 - ✅ **Comprehensive logging** - Debug issues and monitor activity
 - ✅ **Easy configuration** - skill-rules.json for fine-tuning
 
