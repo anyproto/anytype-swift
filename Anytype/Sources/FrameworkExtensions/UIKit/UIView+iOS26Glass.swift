@@ -110,6 +110,7 @@ extension UIButton.Configuration {
         } else {
             var config = UIButton.Configuration.plain()
             config.background.backgroundColor = .Background.navigationPanel
+            config.background.visualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
             return config
         }
     }
