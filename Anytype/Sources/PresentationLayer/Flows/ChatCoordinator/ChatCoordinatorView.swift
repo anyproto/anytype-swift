@@ -11,9 +11,7 @@ struct ChatCoordinatorView: View {
     }
     
     var body: some View {
-        SpaceLoadingContainerView(spaceId: model.spaceId, showBackground: true) { _ in
-            content
-        }
+        content
     }
     
     private var content: some View {

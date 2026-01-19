@@ -136,8 +136,12 @@ struct SpaceHubCoordinatorView: View {
                         builder.appendBuilder(for: SpaceChatCoordinatorData.self) {
                             SpaceChatCoordinatorView(data: $0)
                         }
-                        builder.appendBuilder(for: ChatCoordinatorData.self) {
-                            ChatCoordinatorView(data: $0)
+                        // Wrap here instead of inside ChatCoordinatorView to avoid nesting
+                        // SpaceLoadingContainerView (see comment in SpaceLoadingContainerView.swift)
+                        builder.appendBuilder(for: ChatCoordinatorData.self) { data in
+                            SpaceLoadingContainerView(spaceId: data.spaceId, showBackground: true) { _ in
+                                ChatCoordinatorView(data: data)
+                            }
                         }
                         builder.appendBuilder(for: SpaceInfoScreenData.self) { data in
                             switch data {

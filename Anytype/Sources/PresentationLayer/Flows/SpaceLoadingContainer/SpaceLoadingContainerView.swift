@@ -1,6 +1,20 @@
 import SwiftUI
 import Services
 
+// IMPORTANT: Never nest SpaceLoadingContainerView inside another SpaceLoadingContainerView.
+//
+// During navigation transitions (especially from push notifications), SwiftUI may create
+// and destroy views for both old and new spaces simultaneously. Each SpaceLoadingContainerViewModel
+// calls openSpace() in init, which triggers setActiveSpace(). With nested containers,
+// multiple ViewModels compete to set different active spaces, causing an infinite loop:
+//
+//   1. Navigation to space B triggers view creation
+//   2. Old space A views still being destroyed, their ViewModels call openSpace(A)
+//   3. activeSpaceManager emits change → navigation reacts → views recreated
+//   4. Repeat indefinitely → UI freeze
+//
+// Instead, wrap content at the navigation builder level (e.g., SpaceHubCoordinatorView)
+// so there's exactly one SpaceLoadingContainerView per navigation destination.
 struct SpaceLoadingContainerView<Content: View>: View {
 
     @State private var model: SpaceLoadingContainerViewModel
