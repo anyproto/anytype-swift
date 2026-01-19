@@ -34,6 +34,10 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
+    static var matchedTransitionSource: Bool {
+        value(for: .matchedTransitionSource)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -111,6 +115,7 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
+        .matchedTransitionSource,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
