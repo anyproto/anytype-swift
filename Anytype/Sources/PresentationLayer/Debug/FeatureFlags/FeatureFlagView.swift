@@ -19,12 +19,12 @@ struct FeatureFlagView: View {
                     Text(verbatim: model.description.title)
                         .font(AnytypeFontBuilder.font(anytypeFont: .bodyRegular))
                         .foregroundStyle(Color.Text.primary)
-                    switch model.description.type {
-                    case let .feature(author, releaseVersion):
-                        Text(verbatim: Loc.DebugMenu.toggleAuthor(releaseVersion, author))
+                    switch model.description.category {
+                    case let .productFeature(author, targetRelease):
+                        Text(verbatim: Loc.DebugMenu.toggleAuthor(targetRelease, author))
                             .font(AnytypeFontBuilder.font(anytypeFont: .calloutRegular))
                             .foregroundStyle(Color.Text.secondary)
-                    case .debug:
+                    case .developerTool:
                         EmptyView()
                     }
                 }
