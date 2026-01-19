@@ -91,8 +91,9 @@ struct ChatInput: View {
             }
         } label: {
             Image(asset: .X24.plus)
+                .frame(width: 24, height: 24)
                 .foregroundStyle(Color.Control.primary)
-                .padding(4)
+                .padding(8)
         }
         .frame(width: 40, height: 40)
         .contentShape(Circle())
@@ -155,10 +156,11 @@ struct ChatInput: View {
                     .frame(width: 24, height: 24)
             } else {
                 Image(asset: .Chat.SendMessage.active)
-                    .frame(width: 44, height: 44)
+                    .resizable()
+                    .frame(width: 40, height: 40)
             }
         }
-        .frame(width: 44, height: 44)
+        .frame(width: 40, height: 40)
         .clipShape(Circle())
         .disabled(disableSendButton)
     }
