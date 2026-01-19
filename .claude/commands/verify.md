@@ -7,7 +7,7 @@ allowed-tools: Bash(swiftlint:*), Bash(xcodebuild:*), Bash(git diff:*), Bash(git
 Run build verification on current changes.
 
 ## Context (Precomputed)
-- **Fetch**: !`git fetch origin develop 2>/dev/null`
+- **Fetch**: !`git fetch origin develop`
 - **Changed Swift files**: !`git diff --name-only origin/develop...HEAD -- "*.swift" 2>/dev/null | head -20`
 
 ## Usage
@@ -23,10 +23,7 @@ Run build verification on current changes.
 Run SwiftLint on changed Swift files:
 
 ```bash
-# Lint specific files
-swiftlint lint --config .swiftlint.yml -- path/to/file1.swift path/to/file2.swift
-
-# Or lint all changed files at once
+# Lint all changed files (handles spaces in paths)
 git diff --name-only -z origin/develop...HEAD -- "*.swift" | xargs -0 swiftlint lint --config .swiftlint.yml --
 ```
 
@@ -78,7 +75,7 @@ xcodebuild build \
   -scheme Anytype \
   -destination 'platform=iOS Simulator,name=iPhone 15' \
   -quiet \
-  2>&1 | grep -E "(error:|warning:|BUILD)"
+  2>&1 | grep -E "(error|warning|BUILD|FAILED|SUCCEEDED)"
 ```
 
 ## Output
