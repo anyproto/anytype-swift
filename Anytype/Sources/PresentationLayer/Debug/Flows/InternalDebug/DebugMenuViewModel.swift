@@ -141,22 +141,22 @@ final class DebugMenuViewModel: ObservableObject {
     
     private func updateFlags() {
         let allFlags = FeatureFlags.features.sorted { first, second in
-            switch (first.type, second.type) {
-            case (.feature, .debug):
-                // Features come before debug
+            switch (first.category, second.category) {
+            case (.productFeature, .developerTool):
+                // Features come before developer tools
                 return true
-            case (.debug, .feature):
-                // Debug comes after features
+            case (.developerTool, .productFeature):
+                // Developer tools come after features
                 return false
-            case (.debug, .debug):
-                // Both are debug, sort by title
+            case (.developerTool, .developerTool):
+                // Both are developer tools, sort by title
                 return first.title < second.title
-            case (.feature(let author1, let version1), .feature(let author2, let version2)):
-                // Both are features, sort by version first
-                if version1 != version2 {
-                    return version1 < version2
+            case (.productFeature(let author1, let release1), .productFeature(let author2, let release2)):
+                // Both are features, sort by target release first
+                if release1 != release2 {
+                    return release1 < release2
                 }
-                // If versions are the same, sort by author
+                // If releases are the same, sort by author
                 return author1 < author2
             }
         }
@@ -171,8 +171,8 @@ final class DebugMenuViewModel: ObservableObject {
                 )
             }
         
-        let productionRows = allFlags.filter { $0.description.type != .debug }
-        let debugRows = allFlags.filter { $0.description.type == .debug }
+        let productionRows = allFlags.filter { $0.description.category != .developerTool }
+        let debugRows = allFlags.filter { $0.description.category == .developerTool }
         
         flags = [
                 FeatureFlagSection(title: "Features", rows: productionRows),
@@ -211,10 +211,10 @@ final class DebugMenuViewModel: ObservableObject {
     
     private func matchesSearch(row: FeatureFlagViewModel, searchText: String) -> Bool {
         let description = row.description
-        
+
         return description.title.lowercased().contains(searchText) ||
-               description.type.author?.lowercased().contains(searchText) ?? false ||
-               description.type.releaseVersion?.lowercased().contains(searchText) ?? false
+               description.category.author?.lowercased().contains(searchText) ?? false ||
+               description.category.targetRelease?.lowercased().contains(searchText) ?? false
     }
     
     private func initializeSectionStates() {
