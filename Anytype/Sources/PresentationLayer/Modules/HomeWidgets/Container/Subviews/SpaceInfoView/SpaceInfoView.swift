@@ -56,7 +56,7 @@ struct SpaceInfoView: View {
                 .foregroundStyle(Color.Text.transparentSecondary)
                 .lineLimit(1)
         } else {
-            AnytypeText(model.spaceUxType, style: .relation2Regular)
+            AnytypeText(Loc.Spaces.UxType.Space.infoTitle, style: .relation2Regular)
                 .foregroundStyle(Color.Text.transparentSecondary)
                 .lineLimit(1)
         }
