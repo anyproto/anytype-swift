@@ -8,17 +8,28 @@ Simplify and clean up code in the current changes.
 
 **⚠️ REQUIRES EXPLICIT USER APPROVAL before making any changes.**
 
+## Usage
+```
+/polish [to branch <base>]
+```
+
+## Optional Arguments
+- `to branch <base>` - Specifies the base branch to compare against (default: `develop`)
+
 ## Git Context (Precomputed)
-- **Changed files**: !`git diff --name-only HEAD~1 -- "*.swift" 2>/dev/null | head -20`
+- **Current branch**: !`git branch --show-current`
 
 ## Process
 
 ### Step 1: Analyze (READ-ONLY)
-Review the changed Swift files listed above. **Do NOT edit yet.**
+Get changed Swift files and review them. **Do NOT edit yet.**
 
 ```bash
-# Get the actual changes
-git diff HEAD~1 -- "path/to/file.swift"
+# Use user-specified base branch, or "develop" if not specified
+git diff origin/<base>...HEAD --name-only -- "*.swift"
+
+# Get the actual changes for each file
+git diff origin/<base>...HEAD -- "path/to/file.swift"
 ```
 
 ### Step 2: Present Findings
@@ -71,20 +82,21 @@ return optional ?? default
 ```
 
 ```swift
-// ❌ Verbose
+// Option A - Closure syntax
 array.filter { $0.isActive }.map { $0.name }
 
-// ✅ Idiomatic (if clearer)
+// Option B - Keypath shorthand (when clearer)
 array.filter(\.isActive).map(\.name)
 ```
+**Use judgment**: Keypath is cleaner for simple properties; closures may be clearer for complex expressions.
 
-### Step 3: Clean Up Unused Code
+### Step 5: Clean Up Unused Code
 
 For any renamed/removed symbols in the diff:
 
-1. **Search for references**:
+1. **Search for references** (run from repo root):
    ```bash
-   rg "oldSymbolName" --type swift
+   rg "oldSymbolName" --type swift .
    ```
 
 2. **Check common locations**:
@@ -98,7 +110,7 @@ For any renamed/removed symbols in the diff:
    - Update DI registrations
    - Remove stale imports
 
-### Step 4: Final Check
+### Step 6: Final Check
 
 - Ensure no broken references introduced
 - Verify code still follows project patterns (check `IOS_DEVELOPMENT_GUIDE.md` if unsure)
