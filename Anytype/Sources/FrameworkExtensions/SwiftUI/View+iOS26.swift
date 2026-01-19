@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 @available(iOS, deprecated: 26.0)
 extension View {
@@ -65,7 +66,7 @@ extension View {
 
     @ViewBuilder
     public func matchedTransitionSourceIOS26<ID: Hashable>(id: ID, in namespace: Namespace.ID?) -> some View {
-        if let namespace, #available(iOS 26.0, *) {
+        if let namespace, #available(iOS 26.0, *), FeatureFlags.matchedTransitionSource {
             self.matchedTransitionSource(id: id, in: namespace)
         } else {
             self
