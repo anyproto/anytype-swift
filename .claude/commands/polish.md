@@ -26,7 +26,7 @@ Get changed Swift files and review them. **Do NOT edit yet.**
 
 ```bash
 # Use user-specified base branch, or "develop" if not specified
-git diff origin/<base>...HEAD --name-only -- "*.swift" | head -20
+git diff origin/<base>...HEAD --name-only -- "*.swift"
 
 # Get the actual changes for each file
 git diff origin/<base>...HEAD -- "path/to/file.swift"
@@ -82,20 +82,21 @@ return optional ?? default
 ```
 
 ```swift
-// ❌ Verbose
+// Option A - Closure syntax
 array.filter { $0.isActive }.map { $0.name }
 
-// ✅ Idiomatic (if clearer)
+// Option B - Keypath shorthand (when clearer)
 array.filter(\.isActive).map(\.name)
 ```
+**Use judgment**: Keypath is cleaner for simple properties; closures may be clearer for complex expressions.
 
 ### Step 5: Clean Up Unused Code
 
 For any renamed/removed symbols in the diff:
 
-1. **Search for references**:
+1. **Search for references** (run from repo root):
    ```bash
-   rg "oldSymbolName" --type swift
+   rg "oldSymbolName" --type swift .
    ```
 
 2. **Check common locations**:

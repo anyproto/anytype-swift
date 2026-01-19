@@ -5,7 +5,7 @@ allowed-tools: Bash(git branch:*), Bash(git status:*), Bash(git log:*), Bash(git
 # Commit, review, push, pull request
 
 ## Git Context (Precomputed)
-- **Fetch**: !`git fetch origin develop 2>/dev/null`
+- **Fetch**: !`git fetch origin develop 2>/dev/null || echo "(fetch failed)"`
 - **Current branch**: !`git branch --show-current`
 - **Staged files**: !`git diff --cached --name-only`
 - **Unstaged changes**: !`git status --short`
@@ -29,13 +29,16 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 - Extract the `gitBranchName` field from the Linear issue response
 - Use this exact branch name for checkout/creation
 
-### 0.5. Polish Code (simplify + cleanup) - REQUIRES APPROVAL
+### 0.5. Polish Code (simplify + cleanup) - BLOCKING STEP
+**⚠️ This step STOPS the workflow and requires user response before continuing.**
+Unlike Step 3 (which auto-proceeds on approval), this step ALWAYS waits for user input.
+
 - Review changed Swift files for simplification opportunities
 - **Present findings to user** - list what could be simplified/cleaned
 - **Wait for explicit approval** before making ANY changes
 - If user approves: apply changes, then continue to commit
 - If user declines: skip polish, proceed to commit as-is
-- See `/polish` command for full checklist
+- Key checks: guard-let early returns, keypath shorthand (where clearer), unused code removal
 
 ### 1. Commit Changes
 - Stage and commit all changes with a descriptive message

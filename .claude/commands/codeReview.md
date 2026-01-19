@@ -7,8 +7,10 @@ allowed-tools: Bash(git branch:*), Bash(git diff:*), Bash(git fetch:*)
 Review local code changes on the current branch against a base branch.
 
 ## Git Context (Precomputed)
-- **Fetch**: !`git fetch origin develop 2>/dev/null`
+- **Fetch**: !`git fetch origin develop 2>/dev/null || echo "(fetch failed - origin may not exist)"`
 - **Current branch**: !`git branch --show-current`
+
+> **Note**: If fetch fails (fresh clone, no remote), run `git fetch origin` first or use local branches.
 
 ## Usage
 ```
