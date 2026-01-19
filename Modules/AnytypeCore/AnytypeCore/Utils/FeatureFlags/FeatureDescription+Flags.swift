@@ -55,6 +55,12 @@ public extension FeatureDescription {
         category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
         defaultValue: false
     )
+    
+    static let matchedTransitionSource = FeatureDescription(
+        title: "iOS 26 - matchedTransitionSource (source view may disappear)",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "?"),
+        defaultValue: false
+    )
 
     // MARK: - Debug
     
