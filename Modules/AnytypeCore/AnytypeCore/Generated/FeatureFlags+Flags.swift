@@ -106,10 +106,6 @@ public extension FeatureFlags {
         value(for: .showHangedObjects)
     }
 
-    static var matchedTransitionSource: Bool {
-        value(for: .matchedTransitionSource)
-    }
-
     // All toggles
     static let features: [FeatureDescription] = [
         .homePage,
@@ -136,7 +132,6 @@ public extension FeatureFlags {
         .showPushMessagesInForeground,
         .skipOnboardingEmailCollection,
         .spaceHubAlwaysShowLoading,
-        .showHangedObjects,
-        .matchedTransitionSource
+        .showHangedObjects
     ]
 }
