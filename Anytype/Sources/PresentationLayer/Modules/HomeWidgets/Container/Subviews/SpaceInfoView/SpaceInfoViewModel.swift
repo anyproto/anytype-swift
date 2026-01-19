@@ -23,7 +23,6 @@ final class SpaceInfoViewModel {
 
     var spaceName = ""
     var spaceIcon: Icon?
-    var spaceUxType = ""
     var spaceMembers = ""
     var sharedSpace = false
     var isOneToOne = false
@@ -58,7 +57,6 @@ final class SpaceInfoViewModel {
             guard let space = spaces.first(where: { $0.targetSpaceId == spaceId }) else { continue }
             spaceName = space.title
             spaceIcon = space.objectIconImage
-            spaceUxType = space.uxType.name
             sharedSpace = space.isShared
             isOneToOne = space.uxType.isOneToOne
             oneToOneIdentity = space.oneToOneIdentity

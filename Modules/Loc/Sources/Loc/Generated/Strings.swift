@@ -2458,6 +2458,7 @@ public enum Loc {
       public enum Space {
         public static let changeDescription = Loc.tr("Workspace", "Spaces.UxType.Space.ChangeDescription", fallback: "Hub for advanced data management. Multi-chats by topic coming soon. Ideal for larger teams.")
         public static let description = Loc.tr("Workspace", "Spaces.UxType.Space.Description", fallback: "Hub for advanced data management")
+        public static let infoTitle = Loc.tr("Workspace", "Spaces.UxType.Space.InfoTitle", fallback: "Private Channel")
         public static let title = Loc.tr("Workspace", "Spaces.UxType.Space.Title", fallback: "Space")
       }
       public enum Stream {
