@@ -70,7 +70,7 @@ Example: `Shapes/Transparent Secondary` maps to `Color.Shape.transparentSecondar
 .foregroundStyle(Color.Text.primary)
 
 // Border color
-.border(Color.Control.active)
+.border(Color.control.primary)
 ```
 
 ### Gradient Colors
@@ -191,7 +191,7 @@ Example: `32/qr code` maps to `Image(asset: .X32.qrCode)`
 ```swift
 // Standard icon usage (use foregroundStyle, not foregroundColor)
 Image(asset: .X24.search)
-    .foregroundStyle(Color.Control.active)
+    .foregroundStyle(Color.control.primary)
 
 // With frame
 Image(asset: .X32.plus)
