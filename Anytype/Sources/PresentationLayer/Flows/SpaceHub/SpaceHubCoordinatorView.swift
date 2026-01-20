@@ -110,7 +110,7 @@ struct SpaceHubCoordinatorView: View {
 
             // widgets overlay
             .fullScreenCover(item: $model.overlayWidgetsData) { data in
-                HomeWidgetsCoordinatorView(data: data, navigationButtonType: .dismiss)
+                HomeWidgetsCoordinatorView(data: data, context: .overlay)
                     .pageNavigation(model.pageNavigation)
                     .navigationZoomTransition(sourceID: "widgetsOverlay", in: namespace)
             }
@@ -125,7 +125,7 @@ struct SpaceHubCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: HomeWidgetData.self) { data in
-                            HomeWidgetsCoordinatorView(data: data, navigationButtonType: .back)
+                            HomeWidgetsCoordinatorView(data: data, context: .navigation)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)

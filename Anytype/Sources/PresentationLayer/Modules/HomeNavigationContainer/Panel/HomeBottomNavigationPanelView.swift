@@ -76,12 +76,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         Button {
             model.onTapSearch()
         } label: {
-            Image(asset: .X24.search)
+            Image(asset: .X32.Island.search)
                 .renderingMode(.template)
                 .foregroundStyle(Color.Control.primary)
-                .padding(4)
         }
-        .frame(width: 40, height: 40)
+        .frame(width: 48, height: 48)
         .glassEffectInteractiveIOS26(in: Circle())
     }
 
@@ -138,12 +137,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                     }
                 }
             } label: {
-                Image(systemName: "square.and.pencil")
+                Image(asset: .X32.Island.create)
                     .renderingMode(.template)
                     .foregroundStyle(Color.Control.primary)
-                    .padding(4)
             }
-            .frame(width: 40, height: 40)
+            .frame(width: 48, height: 48)
             .glassEffectInteractiveIOS26(in: Circle())
             .menuOrder(.fixed)
             .disabled(!model.canCreateObject)
@@ -151,12 +149,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
             Button {
                 model.onTapNewObject()
             } label: {
-                Image(asset: .X24.edit)
+                Image(asset: .X32.Island.create)
                     .renderingMode(.template)
                     .foregroundStyle(Color.Control.primary)
-                    .padding(4)
             }
-            .frame(width: 40, height: 40)
+            .frame(width: 48, height: 48)
             .glassEffectInteractiveIOS26(in: Circle())
             .disabled(!model.canCreateObject)
         }

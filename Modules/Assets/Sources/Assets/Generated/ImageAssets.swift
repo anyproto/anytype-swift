@@ -736,6 +736,7 @@ extension ImageAsset {
       public static let addObject = ImageAsset.bundle(name: "x32/Island/add object")
       public static let add = ImageAsset.bundle(name: "x32/Island/add")
       public static let back = ImageAsset.bundle(name: "x32/Island/back")
+      public static let create = ImageAsset.bundle(name: "x32/Island/create")
       public static let members = ImageAsset.bundle(name: "x32/Island/members")
       public static let search = ImageAsset.bundle(name: "x32/Island/search")
     }

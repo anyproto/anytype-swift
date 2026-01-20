@@ -67,7 +67,10 @@ struct SpaceHubToolbar: ToolbarContent {
         ToolbarSpacer(placement: .bottomBar)
 
         ToolbarItem(placement: .bottomBar) {
-            Button { onTapCreateSpace() } label: { Label("", systemImage: "plus") }
+            Button { onTapCreateSpace() } label: {
+                Image(systemName: "plus")
+                    .foregroundStyle(Color.Control.primary)
+            }
         }
         .matchedTransitionSource(id: "SpaceCreateTypePickerView", in: namespace)
     }
