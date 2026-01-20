@@ -29,13 +29,10 @@ Commits the current changes, performs a code review, applies fixes if needed, th
 - Extract the `gitBranchName` field from the Linear issue response
 - Use this exact branch name for checkout/creation
 
-### 0.5. Polish Code (simplify + cleanup) - BLOCKING STEP
-**⚠️ This step STOPS the workflow and requires user response before continuing.**
-Unlike Step 3 (which auto-proceeds on approval), this step ALWAYS waits for user input.
-
+### 0.5. Polish Code (simplify + cleanup)
 - Review changed Swift files for simplification opportunities
-- **Present findings to user** - list what could be simplified/cleaned
-- **Wait for explicit approval** before making ANY changes
+- **If no opportunities found**: Auto-proceed to commit (no approval needed)
+- **If opportunities found**: Present findings, wait for explicit approval before making ANY changes
 - If user approves: apply changes, then continue to commit
 - If user declines: skip polish, proceed to commit as-is
 - Key checks: guard-let early returns, keypath shorthand (where clearer), unused code removal

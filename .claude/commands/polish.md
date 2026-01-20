@@ -35,6 +35,14 @@ git diff origin/<base>...HEAD -- "path/to/file.swift"
 ### Step 2: Present Findings
 **Before making ANY changes**, present a summary:
 
+**If NO polish opportunities found** (no simplifications AND no unused code):
+```
+## Polish Analysis ✅
+All files already follow best practices. No changes needed.
+```
+→ **Auto-proceed** - no approval needed, skip directly to final output.
+
+**If polish opportunities ARE found:**
 ```
 ## Polish Proposals
 
@@ -54,7 +62,8 @@ git diff origin/<base>...HEAD -- "path/to/file.swift"
 **Apply these changes? (yes/no)**
 ```
 
-### Step 3: Wait for Approval
+### Step 3: Wait for Approval (only if findings exist)
+- **If no findings**: Skip this step (auto-proceed)
 - **If user says yes/approved**: Proceed to Step 4
 - **If user says no/skip**: Exit without changes
 - **If user wants partial**: Apply only approved items
