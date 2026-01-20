@@ -1,10 +1,11 @@
 import SwiftUI
 
 struct ChatCoordinatorView: View {
-    
+
     @State private var model: ChatCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.chatActionProvider) private var chatActionProvider
+    @Environment(\.dismiss) private var dismiss
     
     init(data: ChatCoordinatorData) {
         self._model = State(wrappedValue: ChatCoordinatorViewModel(data: data))
@@ -15,9 +16,12 @@ struct ChatCoordinatorView: View {
     }
     
     private var content: some View {
-        ChatView(spaceId: model.spaceId, chatId: model.chatId, output: model)
+        ChatView(spaceId: model.spaceId, chatId: model.chatId, output: model, settingsOutput: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
+            }
+            .onChange(of: model.dismiss) {
+                dismiss()
             }
             .sheet(item: $model.objectToMessageSearchData) {
                 ObjectSearchWithMetaCoordinatorView(data: $0)
