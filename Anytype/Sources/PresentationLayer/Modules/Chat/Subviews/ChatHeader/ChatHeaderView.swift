@@ -5,10 +5,12 @@ import Services
 struct ChatHeaderView: View {
 
     @State private var model: ChatHeaderViewModel
+    private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
 
     init(
         spaceId: String,
         chatId: String,
+        settingsOutput: (any ObjectSettingsCoordinatorOutput)?,
         onTapOpenWidgets: @escaping () -> Void,
         onTapOpenSpaceSettings: @escaping () -> Void,
         onTapAddMembers: @escaping (() -> Void)
@@ -20,6 +22,7 @@ struct ChatHeaderView: View {
             onTapOpenSpaceSettings: onTapOpenSpaceSettings,
             onTapAddMembers: onTapAddMembers
         ))
+        self.settingsOutput = settingsOutput
     }
 
     var body: some View {
@@ -108,7 +111,7 @@ struct ChatHeaderView: View {
                 ObjectSettingsMenuContainer(
                     objectId: model.chatId,
                     spaceId: model.spaceId,
-                    output: nil
+                    output: settingsOutput
                 ) {
                     Image(asset: .X24.more)
                         .foregroundStyle(Color.Control.primary)

@@ -2,6 +2,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct ChatCoordinatorData: Hashable, Codable {
     let chatId: String
@@ -10,7 +11,7 @@ struct ChatCoordinatorData: Hashable, Codable {
 
 @MainActor
 @Observable
-final class ChatCoordinatorViewModel: ChatModuleOutput {
+final class ChatCoordinatorViewModel: ChatModuleOutput, ObjectSettingsCoordinatorOutput {
     
     @ObservationIgnored
     let chatId: String
@@ -34,7 +35,8 @@ final class ChatCoordinatorViewModel: ChatModuleOutput {
     var newLinkedObject: EditorScreenData?
     var spaceShareData: SpaceShareData?
     var qrCodeInviteLink: URL?
-    
+    var dismiss = false
+
     @ObservationIgnored
     private var filesPickerData: FilesPickerData?
     @ObservationIgnored
@@ -136,5 +138,35 @@ final class ChatCoordinatorViewModel: ChatModuleOutput {
             )
             newLinkedObject = object.screenData().editorScreenData
         }
+    }
+
+    // MARK: - ObjectSettingsCoordinatorOutput
+
+    func closeEditor() {
+        dismiss.toggle()
+    }
+
+    func showEditorScreen(data: ScreenData) {
+        pageNavigation?.open(data)
+    }
+
+    func didCreateLinkToItself(selfName: String, data: ScreenData) {
+        anytypeAssertionFailure("Unsupported method: didCreateLinkToItself")
+    }
+
+    func didCreateTemplate(templateId: String) {
+        anytypeAssertionFailure("Unsupported method: didCreateTemplate")
+    }
+
+    func didTapUseTemplateAsDefault(templateId: String) {
+        anytypeAssertionFailure("Unsupported method: didTapUseTemplateAsDefault")
+    }
+
+    func didUndoRedo() {
+        anytypeAssertionFailure("Unsupported method: didUndoRedo")
+    }
+
+    func versionRestored(_ text: String) {
+        anytypeAssertionFailure("Unsupported method: versionRestored")
     }
 }

@@ -3,14 +3,17 @@ import PhotosUI
 import AnytypeCore
 
 struct ChatView: View {
-    
+
     @State private var model: ChatViewModel
     @State private var actionState = ChatActionOverlayState()
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.chatActionProvider) private var chatActionProvider
-    
-    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?) {
+
+    private let settingsOutput: (any ObjectSettingsCoordinatorOutput)?
+
+    init(spaceId: String, chatId: String, output: (any ChatModuleOutput)?, settingsOutput: (any ObjectSettingsCoordinatorOutput)?) {
         self._model = State(wrappedValue: ChatViewModel(spaceId: spaceId, chatId: chatId, output: output))
+        self.settingsOutput = settingsOutput
     }
     
     var body: some View {
@@ -23,6 +26,7 @@ struct ChatView: View {
             ChatHeaderView(
                 spaceId: model.spaceId,
                 chatId: model.chatId,
+                settingsOutput: settingsOutput,
                 onTapOpenWidgets: {
                     model.onTapWidgets()
                 },
