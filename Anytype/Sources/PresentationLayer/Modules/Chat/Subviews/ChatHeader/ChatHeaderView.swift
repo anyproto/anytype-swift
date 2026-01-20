@@ -67,7 +67,7 @@ struct ChatHeaderView: View {
                             }
                             if model.muted {
                                 Image(asset: .X18.muted)
-                                    .foregroundStyle(Color.Text.primary)
+                                    .foregroundStyle(Color.Control.transparentSecondary)
                             }
                         }
                         AnytypeText(model.anytypeName, style: .caption1Regular)
@@ -80,7 +80,7 @@ struct ChatHeaderView: View {
                     if model.muted {
                         Spacer.fixedWidth(4)
                         Image(asset: .X18.muted)
-                            .foregroundStyle(Color.Text.primary)
+                            .foregroundStyle(Color.Control.transparentSecondary)
                     }
                 }
                 Spacer()
