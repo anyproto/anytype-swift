@@ -77,7 +77,7 @@ struct SpaceSettingsView: View {
                     model.onEditTap()
                 } label: {
                     AnytypeText(Loc.edit, style: .bodyRegular)
-                        .foregroundStyle(Color.Control.secondary)
+                        .foregroundStyle(Color.Text.primary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                 }
