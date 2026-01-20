@@ -105,7 +105,9 @@ struct SpaceJoinView: View {
         .padding(.bottom, 16)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear {
-            model.onInviewViewAppear()
+            if !placeholder {
+                model.onInviewViewAppear()
+            }
         }
     }
     
