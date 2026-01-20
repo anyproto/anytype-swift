@@ -8,7 +8,7 @@ struct NavigationHeaderInteractiveTitlePill: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 8) {
+            HStack(alignment: .center, spacing: 8) {
                 if let icon {
                     IconView(icon: icon)
                         .frame(width: 18, height: 18)
@@ -19,8 +19,8 @@ struct NavigationHeaderInteractiveTitlePill: View {
                 Spacer()
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 8)
         }
         .frame(maxWidth: .infinity)
+        .frame(height: NavigationHeaderConstants.height)
     }
 }
