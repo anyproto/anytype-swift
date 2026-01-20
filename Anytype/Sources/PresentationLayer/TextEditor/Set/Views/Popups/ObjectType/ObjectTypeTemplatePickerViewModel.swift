@@ -56,6 +56,7 @@ final class ObjectTypeTemplatePickerViewModel: ObservableObject {
             guard let self else { return }
             do {
                 let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: document.objectId, spaceId: document.spaceId)
+                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: document.objectId))
                 output?.onObjectTypeSingleTemplateTap(objectId: document.objectId, spaceId: document.spaceId, defaultTemplateId: templateId)
                 toastBarData = ToastBarData(Loc.Templates.Popup.WasAddedTo.title(document.details?.title ?? ""))
             } catch {
