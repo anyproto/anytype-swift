@@ -101,6 +101,6 @@ struct ConversationEmptyStateView: View {
                 .anytypeStyle(.previewTitle2Regular)
             Spacer()
         }
-        .padding(.horizontal, 45)
+        .padding(.horizontal, 32)
     }
 }
