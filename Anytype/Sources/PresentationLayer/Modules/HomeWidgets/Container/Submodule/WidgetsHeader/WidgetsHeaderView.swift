@@ -3,16 +3,16 @@ import SwiftUI
 
 struct WidgetsHeaderView: View {
     @State private var model: WidgetsHeaderViewModel
-    let navigationButtonType: NavigationHeaderButtonType
+    let context: WidgetScreenContext
 
-    init(spaceId: String, navigationButtonType: NavigationHeaderButtonType, onSpaceSelected: @escaping () -> Void) {
+    init(spaceId: String, context: WidgetScreenContext, onSpaceSelected: @escaping () -> Void) {
         _model = State(initialValue: WidgetsHeaderViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
-        self.navigationButtonType = navigationButtonType
+        self.context = context
     }
 
     var body: some View {
         NavigationHeader(
-            navigationButtonType: navigationButtonType,
+            navigationButtonType: context.navigationButtonType,
             isTitleInteractive: false
         ) {
             EmptyView()

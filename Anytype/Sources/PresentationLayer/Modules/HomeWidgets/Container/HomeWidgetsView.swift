@@ -5,11 +5,11 @@ import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let navigationButtonType: NavigationHeaderButtonType
-    let output: (any HomeWidgetsModuleOutput)?
+    let context: WidgetScreenContext
+    let output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?
 
     var body: some View {
-        HomeWidgetsInternalView(info: info, navigationButtonType: navigationButtonType, output: output)
+        HomeWidgetsInternalView(info: info, context: context, output: output)
             .id(info.hashValue)
     }
 }
@@ -19,19 +19,29 @@ private struct HomeWidgetsInternalView: View {
     @State var widgetsDndState = DragState()
     @State var typesDndState = DragState()
 
-    let navigationButtonType: NavigationHeaderButtonType
+    let context: WidgetScreenContext
+    weak var panelOutput: (any HomeBottomNavigationPanelModuleOutput)?
 
-    init(info: AccountInfo, navigationButtonType: NavigationHeaderButtonType, output: (any HomeWidgetsModuleOutput)?) {
+    init(info: AccountInfo, context: WidgetScreenContext, output: (any HomeWidgetsModuleOutput & HomeBottomNavigationPanelModuleOutput)?) {
         self._model = State(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
-        self.navigationButtonType = navigationButtonType
+        self.context = context
+        self.panelOutput = output
     }
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             HomeWallpaperView(spaceId: model.spaceId)
-            
+
             content
                 .animation(.default, value: model.widgetBlocks.count)
+
+            if context.showEmbeddedBottomPanel {
+                HomeBottomNavigationPanelView(
+                    homePath: HomePath(),
+                    info: model.info,
+                    output: panelOutput
+                )
+            }
         }
         .task {
             await model.startSubscriptions()
@@ -40,13 +50,13 @@ private struct HomeWidgetsInternalView: View {
             model.onAppear()
         }
         .safeAreaInset(edge: .top) {
-            WidgetsHeaderView(spaceId: model.spaceId, navigationButtonType: navigationButtonType) {
+            WidgetsHeaderView(spaceId: model.spaceId, context: context) {
                 model.onSpaceSelected()
             }
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .homeBottomPanelHidden(false)
+        .homeBottomPanelHidden(context.showEmbeddedBottomPanel)
     }
     
     private var content: some View {

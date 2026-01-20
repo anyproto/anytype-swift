@@ -15,6 +15,7 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     var showChangeTypeData: WidgetTypeChangeData?
     var createTypeData: CreateObjectTypeData?
     var deleteSystemWidgetConfirmationData: DeleteSystemWidgetConfirmationData?
+    var showGlobalSearchData: GlobalSearchModuleData?
     
     @Injected(\.legacySetObjectCreationCoordinator) @ObservationIgnored
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -63,8 +64,38 @@ final class HomeWidgetsCoordinatorViewModel: HomeWidgetsModuleOutput, SetObjectC
     }
     
     // MARK: - SetObjectCreationCoordinatorOutput
-    
+
     func showEditorScreen(data: ScreenData) {
         pageNavigation?.open(data)
+    }
+}
+
+// MARK: - HomeBottomNavigationPanelModuleOutput
+
+extension HomeWidgetsCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
+    func onSearchSelected() {
+        showGlobalSearchData = GlobalSearchModuleData(spaceId: spaceInfo.accountSpaceId) { [weak self] screenData in
+            self?.pageNavigation?.open(screenData)
+        }
+    }
+
+    func onCreateObjectSelected(screenData: ScreenData) {
+        pageNavigation?.open(screenData)
+    }
+
+    func onAddMediaSelected(spaceId: String) {
+        anytypeAssertionFailure("Unsupported method: onAddMediaSelected")
+    }
+
+    func onCameraSelected(spaceId: String) {
+        anytypeAssertionFailure("Unsupported method: onCameraSelected")
+    }
+
+    func onAddFilesSelected(spaceId: String) {
+        anytypeAssertionFailure("Unsupported method: onAddFilesSelected")
+    }
+
+    func onShowWidgetsOverlay(spaceId: String) {
+        anytypeAssertionFailure("Unsupported method: onShowWidgetsOverlay")
     }
 }
