@@ -148,12 +148,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let skipOnboardingEmailCollection = FeatureDescription(
-        title: "Skip mandatory onboarding email collection",
-        category: .developerTool,
-        defaultValue: false,
-        debugValue: true
-    )
     static let spaceHubAlwaysShowLoading = FeatureDescription(
         title: "Space Hub - Always show loading",
         category: .developerTool,

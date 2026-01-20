@@ -94,10 +94,6 @@ public extension FeatureFlags {
         value(for: .showPushMessagesInForeground)
     }
 
-    static var skipOnboardingEmailCollection: Bool {
-        value(for: .skipOnboardingEmailCollection)
-    }
-
     static var spaceHubAlwaysShowLoading: Bool {
         value(for: .spaceHubAlwaysShowLoading)
     }
@@ -130,7 +126,6 @@ public extension FeatureFlags {
         .networkHTTPSRequestsLogger,
         .logMiddlewareRequests,
         .showPushMessagesInForeground,
-        .skipOnboardingEmailCollection,
         .spaceHubAlwaysShowLoading,
         .showHangedObjects
     ]
