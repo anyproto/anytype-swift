@@ -10,8 +10,7 @@ on:
 
 jobs:
   unit-tests:
-    if: false  # Temporarily disabled - tests hanging on CI
-    name: Run Unit Tests
+    name: Build & Test
     runs-on: macos-26
 
     steps:
@@ -26,7 +25,7 @@ jobs:
           swiftpm-cache-key: spm-soucepackages-${{ hashFiles('Anytype.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
           swiftpm-cache-restore-keys: spm-soucepackages-
           cache-read-only: true
-          
+
       - name: Prepare deps
         uses: ./.github/actions/prepare-deps
 
@@ -40,7 +39,14 @@ jobs:
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
+      - name: Build for testing
+        run: bundle exec fastlane build_for_tests
+        env:
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+          FASTLANE_XCODE_LIST_TIMEOUT: 900
+
       - name: Run unit tests
+        if: false  # Temporarily disabled - tests hanging on CI
         run: bundle exec fastlane tests skip_notify:true
         env:
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
