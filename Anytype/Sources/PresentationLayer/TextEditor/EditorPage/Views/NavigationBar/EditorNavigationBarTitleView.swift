@@ -59,7 +59,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 
         switch model {
         case let .title(titleModel):
-            titleLabel.setText(titleModel.title ?? "", style: .uxCalloutRegular)
+            titleLabel.setText(titleModel.title ?? "", style: .uxTitle2Semibold)
             if let onTap = titleModel.onTap {
                 titleLabel.isUserInteractionEnabled = true
                 stackView.isUserInteractionEnabled = true
@@ -141,7 +141,7 @@ private extension EditorNavigationBarTitleView {
         }
 
         glassBackground.glassContentView.addSubview(stackView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6))
         }
 
         stackView.addArrangedSubview(iconImageView)
@@ -155,7 +155,7 @@ private extension EditorNavigationBarTitleView {
         spacerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         iconImageView.layoutUsing.anchors {
-            $0.size(CGSize(width: 18, height: 18))
+            $0.size(CGSize(width: 32, height: 32))
         }
 
         lockImageView.layoutUsing.anchors {
