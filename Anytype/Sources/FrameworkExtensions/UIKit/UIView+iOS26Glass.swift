@@ -30,12 +30,7 @@ final class GlassContainerViewIOS26: UIView {
             }
             containerEffectView = effectView
         } else {
-            backgroundColor = .Background.navigationPanel
-            let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
-            addSubview(blurView) {
-                $0.pinToSuperview()
-            }
-            blurView.contentView.addSubview(fallbackContentView) {
+            addSubview(fallbackContentView) {
                 $0.pinToSuperview()
             }
         }
