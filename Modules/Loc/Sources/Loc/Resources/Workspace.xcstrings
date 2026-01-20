@@ -4217,7 +4217,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Attachments (%@)"
+            "value" : "Anhänge (%@)"
           }
         },
         "en" : {
@@ -4366,7 +4366,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Files (%@)"
+            "value" : "Dateien (%@)"
           }
         },
         "en" : {
@@ -4515,7 +4515,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Images (%@)"
+            "value" : "Bilder (%@)"
           }
         },
         "en" : {
@@ -4665,7 +4665,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Reply to %@"
+            "value" : "Auf %@ antworten"
           }
         },
         "en" : {
@@ -15766,7 +15766,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d days ago"
+                  "value" : "vor %d Tagen"
                 }
               }
             }
@@ -54982,7 +54982,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "new",
-                  "value" : "%d members"
+                  "value" : "%d Mitglieder"
                 }
               }
             }
@@ -60438,6 +60438,155 @@
         }
       }
     },
+    "Spaces.UxType.Space.InfoTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private Channel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Canal privado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Gizli Kanal"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private Channel"
+          }
+        }
+      }
+    },
     "Spaces.UxType.Space.Title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -62555,7 +62704,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "Página de inicio"
           }
         },
         "fa" : {
@@ -62579,7 +62728,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "Halaman beranda"
           }
         },
         "it" : {
@@ -62639,13 +62788,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "Домашняя страница"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Home page"
+            "value" : "Ana sayfa"
           }
         },
         "uk" : {
@@ -62728,7 +62877,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widgets"
+            "value" : "Gawit"
           }
         },
         "it" : {
@@ -62788,13 +62937,13 @@
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widgets"
+            "value" : "Виджеты"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Widgets"
+            "value" : "Widgetlar"
           }
         },
         "uk" : {
@@ -74212,7 +74361,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%@ (you)"
+            "value" : "%@ (du)"
           }
         },
         "en" : {
