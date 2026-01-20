@@ -91,7 +91,6 @@ struct ChatInput: View {
             }
         } label: {
             Image(asset: .X24.plus)
-                .frame(width: 24, height: 24)
                 .foregroundStyle(Color.Control.primary)
                 .padding(8)
         }
