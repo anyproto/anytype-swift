@@ -1,5 +1,4 @@
 import SwiftUI
-import AnytypeCore
 
 struct EmailCollectionView: View {
 
@@ -88,15 +87,13 @@ struct EmailCollectionView: View {
             )
             .colorScheme(.light)
             
-            if FeatureFlags.skipOnboardingEmailCollection {
-                StandardButton(
-                    Loc.skip,
-                    style: .linkLarge,
-                    action: {
-                        model.onSkipAction()
-                    }
-                )
-            }
+            StandardButton(
+                Loc.skip,
+                style: .linkLarge,
+                action: {
+                    model.onSkipAction()
+                }
+            )
         }
     }
 }
