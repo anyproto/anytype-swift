@@ -260,7 +260,26 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     private func updateTemplatesList() {
         var templates = [TemplatePreviewModel]()
 
-        templates.append(contentsOf: userTemplates)
+        // Add synthetic blank template if no templates exist from middleware
+        if userTemplates.isEmpty {
+            let blankTemplate = TemplatePreviewModel(
+                mode: .installed(TemplateModel(
+                    id: "",
+                    title: Loc.untitled,
+                    header: nil,
+                    isBundled: true,
+                    isDefault: true,
+                    style: .none
+                )),
+                context: .list,
+                alignment: .left,
+                decoration: .border
+            )
+            templates.append(blankTemplate)
+        } else {
+            templates.append(contentsOf: userTemplates)
+        }
+
         if isTemplatesEditable {
             templates.append(TemplatePreviewModel(mode: .addTemplate, context: .list, alignment: .center))
         }
