@@ -48,6 +48,8 @@ final class ProfileViewModel {
             return
         }
 
+        AnytypeAnalytics.instance().logClickConnectOneToOne()
+
         if let existingSpace = spaceViewsStorage.oneToOneSpaceView(identity: details.identity) {
             pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: existingSpace.targetSpaceId)))
             return
@@ -57,6 +59,7 @@ final class ProfileViewModel {
             oneToOneIdentity: details.identity,
             metadataKey: details.oneToOneRequestMetadataKey
         )
+        AnytypeAnalytics.instance().logCreateSpace(spaceId: newSpaceId, spaceUxType: .oneToOne, route: .profile)
         pageNavigation?.open(.spaceChat(SpaceChatCoordinatorData(spaceId: newSpaceId)))
     }
 

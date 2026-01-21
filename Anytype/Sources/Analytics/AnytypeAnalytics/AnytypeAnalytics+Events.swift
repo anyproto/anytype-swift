@@ -1114,7 +1114,11 @@ extension AnytypeAnalytics {
     func logRejectInviteRequest() {
         logEvent("RejectInviteRequest")
     }
-    
+
+    func logClickConnectOneToOne() {
+        logEvent("ClickConnectOneToOne")
+    }
+
     func logChangeSpaceMemberPermissions(type: PermissionAnalyticsType) {
         logEvent(
             "ChangeSpaceMemberPermissions",
