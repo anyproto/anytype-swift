@@ -66,6 +66,7 @@ struct ChatHeaderView: View {
                                 .lineLimit(1)
                             if model.hasMembership {
                                 Image(asset: .X18.membershipBadge)
+                                    .resizable()
                                     .frame(width: 16, height: 16)
                             }
                             if model.muted {
