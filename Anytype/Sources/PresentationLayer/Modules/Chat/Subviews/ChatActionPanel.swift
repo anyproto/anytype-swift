@@ -46,7 +46,7 @@ struct ChatActionPanelView: View {
                 .frame(width: 40, height: 40)
         }
         .frame(width: 40, height: 40)
-        .glassEffectInteractiveIOS26(in: .rect(cornerRadius: 20.0))
+        .glassEffectInteractiveIOS26(in: Circle())
         .overlay(alignment: .top) {
             if count > 0 {
                 CounterView(count: count)
