@@ -45,24 +45,8 @@ struct SharingExtensionShareToView: View {
             ListSectionHeaderView(title: Loc.Sharing.ObjectList.title)
                 .newDivider()
                 .padding(.horizontal, 16)
-            if let chatRow = model.chatRow {
-                Button {
-                    model.onTapChat()
-                } label: {
-                    SharingExtensionsChatRow(data: chatRow)
-                        .fixTappableArea()
-                }
-                .buttonStyle(.plain)
-            }
-            ForEach(model.rows) { data in
-                Button {
-                    model.onTapCell(data: data)
-                } label: {
-                    SharingExtensionsShareRow(data: data)
-                        .fixTappableArea()
-                }
-                .buttonStyle(.plain)
-            }
+            chatSection
+            objectSection
         }
         .safeAreaInset(edge: .bottom) {
             Spacer.fixedHeight(150)
@@ -72,10 +56,48 @@ struct SharingExtensionShareToView: View {
     }
     
     @ViewBuilder
+    private var chatSection: some View {
+        switch model.chatDisplayMode {
+        case .sendToChat(let data):
+            Button {
+                model.onTapChat()
+            } label: {
+                SharingExtensionsChatRow(data: data)
+                    .fixTappableArea()
+            }
+            .buttonStyle(.plain)
+        case .individualChats(let rows):
+            ForEach(rows) { data in
+                Button {
+                    model.onTapCell(data: data)
+                } label: {
+                    SharingExtensionsShareRow(data: data)
+                        .fixTappableArea()
+                }
+                .buttonStyle(.plain)
+            }
+        case nil:
+            EmptyView()
+        }
+    }
+    
+    private var objectSection: some View {
+        ForEach(model.rows) { data in
+            Button {
+                model.onTapCell(data: data)
+            } label: {
+                SharingExtensionsShareRow(data: data)
+                    .fixTappableArea()
+            }
+            .buttonStyle(.plain)
+        }
+    }
+    
+    @ViewBuilder
     private var bottomPanel: some View {
         SharingExtensionBottomPanel(
             comment: $model.comment,
-            showComment: model.chatRowSelected,
+            showComment: model.chatSelected,
             commentLimit: model.commentLimit,
             commentWarningLimit: model.commentWarningLimit) {
                 try await model.onTapSend()

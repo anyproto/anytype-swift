@@ -2,6 +2,11 @@ import SwiftUI
 import Services
 import SharedContentManager
 
+enum SharingExtensionChatDisplayMode {
+    case sendToChat(SharingExtensionsChatRowData)
+    case individualChats([SharingExtensionsShareRowData])
+}
+
 @MainActor
 @Observable
 final class SharingExtensionShareToViewModel {
@@ -30,20 +35,34 @@ final class SharingExtensionShareToViewModel {
     @ObservationIgnored
     private var details: [ObjectDetails] = []
     @ObservationIgnored
-    private var showChatRow = true
+    private var individualChatDetails: [ObjectDetails] = []
     @ObservationIgnored
-    private let chatRowTitle = Loc.Sharing.sendToChat
+    private let sendToChatTitle = Loc.Sharing.sendToChat
 
     @ObservationIgnored
     private var spaceView: SpaceView?
     var title: String { spaceView?.title ?? "" }
-    var chatRowSelected: Bool { selectedObjectId == spaceView?.chatId }
+    var sendToChatSelected: Bool { selectedObjectId == spaceView?.chatId }
+    private var isMultiChatSpace: Bool { spaceView?.uxType.supportsMultiChats ?? false }
+
+    // Returns the selected chat ID (either from generic chat row or from individual chat selection)
+    private var selectedChatId: String? {
+        if sendToChatSelected {
+            return spaceView?.chatId
+        }
+        if let selectedObjectId, individualChatDetails.contains(where: { $0.id == selectedObjectId }) {
+            return selectedObjectId
+        }
+        return nil
+    }
+
+    var chatSelected: Bool { selectedChatId != nil }
 
     var searchText: String = ""
     var rows: [SharingExtensionsShareRowData] = []
+    var chatDisplayMode: SharingExtensionChatDisplayMode?
     var selectedObjectId: String?
     var dismiss = false
-    var chatRow: SharingExtensionsChatRowData?
     var sendInProgress = false
 
     var comment: String = ""
@@ -62,30 +81,34 @@ final class SharingExtensionShareToViewModel {
         await activeSpaceManager.prepareSpaceForPreview(spaceId: data.spaceId)
         
         do {
+            let layouts = DetailsLayout.supportedForSharingExtension(spaceUxType: spaceView?.uxType)
             let result = try await searchService.searchObjectsWithLayouts(
                 text: searchText,
-                layouts: DetailsLayout.supportedForSharingExtension,
+                layouts: layouts,
                 excludedIds: [],
                 spaceId: data.spaceId
             )
-            details = result
+
+            // Separate chats from other objects for multi-chat spaces
+            if isMultiChatSpace {
+                individualChatDetails = result.filter { $0.resolvedLayoutValue.isChat }
+                details = result.filter { !($0.resolvedLayoutValue.isChat) }
+            } else {
+                individualChatDetails = []
+                details = result
+            }
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
+            individualChatDetails = []
             details = []
         }
-        
-        if spaceView?.canAddChatWidget ?? false {
-            showChatRow = searchText.isNotEmpty ? chatRowTitle.lowercased().contains(searchText.lowercased()) : true
-        } else {
-            showChatRow = false
-        }
-        
+
         updateRows()
     }
     
     func onTapChat() {
-        selectedObjectId = chatRowSelected ? nil : spaceView?.chatId
+        selectedObjectId = sendToChatSelected ? nil : spaceView?.chatId
         updateRows()
     }
     
@@ -105,7 +128,7 @@ final class SharingExtensionShareToViewModel {
             spaceId: data.spaceId,
             content: content,
             linkToObjects: linkToDetails,
-            chatId: chatRowSelected ? spaceView?.chatId : nil,
+            chatId: selectedChatId,
             comment: comment
         )
         try await contentManager.clearSharedContent()
@@ -125,7 +148,26 @@ final class SharingExtensionShareToViewModel {
                 selected: selectedObjectId == details.id
             )
         }
-        
-        chatRow = showChatRow ? SharingExtensionsChatRowData(title: chatRowTitle, selected: chatRowSelected) : nil
+
+        if isMultiChatSpace {
+            let chatRows = individualChatDetails.map { details in
+                SharingExtensionsShareRowData(
+                    objectId: details.id,
+                    icon: details.objectIconImage,
+                    title: details.pluralTitle,
+                    subtitle: details.description,
+                    selected: selectedObjectId == details.id
+                )
+            }
+            chatDisplayMode = chatRows.isEmpty ? nil : .individualChats(chatRows)
+        } else {
+            let canShowSendToChat = spaceView?.canAddChatWidget ?? false
+            let matchesSearch = searchText.isEmpty || sendToChatTitle.lowercased().contains(searchText.lowercased())
+            if canShowSendToChat && matchesSearch {
+                chatDisplayMode = .sendToChat(SharingExtensionsChatRowData(title: sendToChatTitle, selected: sendToChatSelected))
+            } else {
+                chatDisplayMode = nil
+            }
+        }
     }
 }
