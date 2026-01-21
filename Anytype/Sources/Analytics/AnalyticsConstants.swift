@@ -283,6 +283,7 @@ enum ClickGalleryInstallSpaceType: String {
 enum CreateSpaceRoute: String {
     case navigation = "Navigation"
     case gallery = "Gallery"
+    case profile = "Profile"
 }
 
 enum ClickSettingsSpaceShareType: String {
