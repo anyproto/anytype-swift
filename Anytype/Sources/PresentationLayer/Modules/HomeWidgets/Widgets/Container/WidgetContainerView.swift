@@ -6,6 +6,7 @@ struct WidgetContainerView<Content: View>: View {
 
     @State private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
+    @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
     
     let name: String
     let icon: Icon?
@@ -80,6 +81,7 @@ struct WidgetContainerView<Content: View>: View {
                                         )
                                     }
                                 }
+                                .opacity(shouldHideChatBadges ? 0 : 1)
                             }
                         },
                         onTap: {

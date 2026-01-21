@@ -7,6 +7,7 @@ struct ListWidgetCompactRow: View {
     let showDivider: Bool
     
     @Environment(\.editMode) private var editMode
+    @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
 
     private var titleColor: Color {
         model.chatPreview?.titleColor ?? .Text.primary
@@ -38,6 +39,7 @@ struct ListWidgetCompactRow: View {
                             )
                         }
                     }
+                    .opacity(shouldHideChatBadges ? 0 : 1)
                 }
             }
             .padding(.horizontal, 16)

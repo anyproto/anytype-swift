@@ -78,6 +78,7 @@ private struct HomeWidgetsInternalView: View {
             }
             .padding(.horizontal, 20)
             .fitIPadToReadableContentGuide()
+            .shouldHideChatBadges(model.shouldHideChatBadges)
         }
     }
 
@@ -85,6 +86,17 @@ private struct HomeWidgetsInternalView: View {
     private var topWidgets: some View {
         if let data = model.chatWidgetData {
             SpaceChatWidgetView(data: data)
+        } else if model.shouldShowUnreadSection {
+            HomeWidgetsGroupView(title: Loc.unread) {
+                model.onTapUnreadHeader()
+            }
+            if model.unreadSectionIsExpanded {
+                VStack(spacing: 12) {
+                    ForEach(model.unreadChats) { chatData in
+                        UnreadChatWidgetView(data: chatData)
+                    }
+                }
+            }
         }
     }
 

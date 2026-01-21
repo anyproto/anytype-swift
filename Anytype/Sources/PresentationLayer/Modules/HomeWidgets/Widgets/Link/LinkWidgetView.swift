@@ -21,7 +21,7 @@ struct LinkWidgetInternalView: View {
         self.data = data
         _model = State(initialValue: LinkWidgetViewModel(data: data))
     }
-    
+
     var body: some View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
