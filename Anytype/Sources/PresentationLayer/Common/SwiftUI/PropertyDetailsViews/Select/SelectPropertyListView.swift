@@ -84,7 +84,7 @@ struct SelectPropertyListView: View {
                 config: TagView.Config(
                     text: option.text,
                     textColor: option.color,
-                    backgroundColor: option.color.veryLightColor(),
+                    backgroundColor: option.color.lightColor(),
                     textFont: .relation1Regular,
                     guidlines: TagView.Guidlines(textPadding: 6, cornerRadius: 3, tagHeight: 20)
                 )
