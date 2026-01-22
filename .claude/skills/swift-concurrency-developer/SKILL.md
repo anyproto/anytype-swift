@@ -1,3 +1,8 @@
+---
+name: swift-concurrency-developer
+description: Expert guidance on Swift concurrency using the Office Building mental model. Use when working with actors, isolation, Sendable, TaskGroups, or fixing concurrency warnings and data race issues.
+---
+
 # Swift Concurrency Developer (Smart Router)
 
 ## Purpose
