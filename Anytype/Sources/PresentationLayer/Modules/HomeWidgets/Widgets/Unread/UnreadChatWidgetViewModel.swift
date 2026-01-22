@@ -39,8 +39,9 @@ final class UnreadChatWidgetViewModel {
     func startSubscriptions() async {
         async let detailsSub: () = startDetailsSubscription()
         async let previewsSub: () = startPreviewsSubscription()
+        async let mutedSub: () = startMutedSubscription()
 
-        _ = await (detailsSub, previewsSub)
+        _ = await (detailsSub, previewsSub, mutedSub)
     }
 
     private func startDetailsSubscription() async {
@@ -48,9 +49,12 @@ final class UnreadChatWidgetViewModel {
             guard let chat = chats.first(where: { $0.id == data.id }) else { continue }
             name = chat.pluralTitle
             icon = chat.objectIconImage
+        }
+    }
 
-            let spaceView = spaceViewsStorage.spaceView(spaceId: data.spaceId)
-            muted = spaceView?.effectiveNotificationMode(for: data.id) != .all
+    private func startMutedSubscription() async {
+        for await spaceView in spaceViewsStorage.spaceViewPublisher(spaceId: data.spaceId).values {
+            muted = spaceView.effectiveNotificationMode(for: data.id) != .all
         }
     }
 

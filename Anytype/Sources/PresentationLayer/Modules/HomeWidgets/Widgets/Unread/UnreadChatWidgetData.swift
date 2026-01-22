@@ -1,5 +1,4 @@
 import Foundation
-import Services
 
 struct UnreadChatWidgetData: Identifiable, Equatable {
     let id: String
