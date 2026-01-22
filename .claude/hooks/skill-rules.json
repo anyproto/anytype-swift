@@ -598,6 +598,95 @@
           "Quick Start"
         ]
       }
+    },
+    "swiftui-performance-developer": {
+      "type": "domain",
+      "priority": "high",
+      "description": "Smart router to SwiftUI performance audit patterns. Diagnose slow rendering, view invalidation, layout thrash",
+      "promptTriggers": {
+        "keywords": [
+          "performance",
+          "slow",
+          "jank",
+          "hitch",
+          "laggy",
+          "stuttering",
+          "CPU",
+          "memory",
+          "view update",
+          "body update",
+          "invalidation",
+          "re-render",
+          "ForEach performance",
+          "list performance",
+          "scroll performance",
+          "instruments",
+          "profile",
+          "frame drop",
+          "layout thrash",
+          "_printChanges"
+        ],
+        "intentPatterns": [
+          "(diagnose|fix|optimize).*?(performance|slow|lag|jank|hitch)",
+          "(why is|debug).*?(slow|laggy|stuttering)",
+          "(profile|instrument).*?(swiftui|view|app)",
+          "(reduce|minimize).*?(update|render|body)",
+          "(improve|optimize).*?(list|scroll|animation)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/*.swift"
+        ],
+        "contentPatterns": [
+          "ForEach\\(",
+          "List\\s*\\{",
+          "@Observable",
+          "@State",
+          "\\.task\\(",
+          "body.*some View"
+        ]
+      }
+    },
+    "swiftui-patterns-developer": {
+      "type": "domain",
+      "priority": "medium",
+      "description": "Smart router to SwiftUI view structure and composition. View ordering, subview extraction, @ViewBuilder patterns",
+      "promptTriggers": {
+        "keywords": [
+          "view structure",
+          "view ordering",
+          "split view",
+          "extract subview",
+          "view organization",
+          "view file",
+          "body too long",
+          "large view",
+          "refactor view",
+          "ViewState",
+          "view composition",
+          "@ViewBuilder",
+          "subview extraction"
+        ],
+        "intentPatterns": [
+          "(organize|structure|order).*?(view|swiftui)",
+          "(split|extract|break).*?(view|body|subview)",
+          "(refactor|clean up).*?(view|swiftui)",
+          "(large|long|big).*?(view|body|file)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "**/PresentationLayer/**/*.swift"
+        ],
+        "contentPatterns": [
+          "struct.*View",
+          "var body.*some View",
+          "@Environment\\(",
+          "@State private var",
+          "enum ViewState"
+        ]
+      }
     }
   },
   "config": {

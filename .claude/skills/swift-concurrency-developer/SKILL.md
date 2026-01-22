@@ -174,6 +174,13 @@ Trace the isolation: Where did it come from? Where is code trying to run? What d
 
 The answer is usually obvious once you ask the right question.
 
+## References
+
+For detailed Swift 6.2 and approachable concurrency guidance:
+- `references/approachable-concurrency.md` - Approachable concurrency quick guide
+- `references/swift-6-2-concurrency.md` - Swift 6.2 concurrency updates
+- `references/swiftui-concurrency-tour.md` - SwiftUI-specific concurrency patterns
+
 ## Further Reading
 - Source: [Fucking Approachable Swift Concurrency](https://fuckingapproachableswiftconcurrency.com)
 - [Matt Massicotte's Blog](https://www.massicotte.org/)
@@ -183,6 +190,9 @@ The answer is usually obvious once you ask the right question.
 
 - **ios-dev-guidelines** → `IOS_DEVELOPMENT_GUIDE.md` - General Swift/iOS patterns, MVVM, Coordinators
 - **tests-developer** → Testing async code with Swift Testing framework
+- **swiftui-performance-developer** → Performance optimization in SwiftUI views
 
 ---
 **Navigation**: This skill provides concurrency mental models. For general Swift/iOS patterns, see `ios-dev-guidelines`.
+
+**Attribution**: References adapted from [Dimillian/Skills](https://github.com/Dimillian/Skills) repository.

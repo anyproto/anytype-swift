@@ -46,6 +46,8 @@ After making code changes, report them to the user who will verify compilation i
 | `analytics-developer` | Analytics events | Auto-activates |
 | `feature-toggle-developer` | Feature flags | Auto-activates |
 | `liquid-glass-developer` | iOS 26 glass effects | Auto-activates |
+| `swiftui-performance-developer` | Performance issues | Auto-activates (from Dimillian/Skills) |
+| `swiftui-patterns-developer` | View structure/MV | Auto-activates (from Dimillian/Skills) |
 
 **When you see "Relevant Skill: X"** in system reminders → Read `.claude/skills/X/SKILL.md` and apply its patterns.
 
