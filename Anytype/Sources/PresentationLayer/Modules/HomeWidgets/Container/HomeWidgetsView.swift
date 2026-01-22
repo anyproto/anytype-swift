@@ -91,11 +91,7 @@ private struct HomeWidgetsInternalView: View {
                 model.onTapUnreadHeader()
             }
             if model.unreadSectionIsExpanded {
-                VStack(spacing: 12) {
-                    ForEach(model.unreadChats) { chatData in
-                        UnreadChatWidgetView(data: chatData)
-                    }
-                }
+                UnreadChatsGroupedView(chats: model.unreadChats)
             }
         }
     }
