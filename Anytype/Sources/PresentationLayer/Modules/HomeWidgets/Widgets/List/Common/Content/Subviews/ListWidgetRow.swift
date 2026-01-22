@@ -7,7 +7,8 @@ struct ListWidgetRow: View {
     let showDivider: Bool
     
     @Environment(\.editMode) private var editMode
-    
+    @Environment(\.shouldHideChatBadges) private var shouldHideChatBadges
+
     var body: some View {
         Button {
             model.onTap()
@@ -86,6 +87,7 @@ struct ListWidgetRow: View {
                             )
                         }
                     }
+                    .opacity(shouldHideChatBadges ? 0 : 1)
                 }
             }
         }

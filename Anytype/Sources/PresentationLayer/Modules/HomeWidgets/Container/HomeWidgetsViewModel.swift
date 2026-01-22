@@ -11,6 +11,7 @@ final class HomeWidgetsViewModel {
     private enum Constants {
         static let pinnedSectionId = "HomePinnedSection"
         static let objectTypeSectionId = "HomeObjectTypeSection"
+        static let unreadSectionId = "HomeUnreadSection"
     }
     
     // MARK: - DI
@@ -34,7 +35,9 @@ final class HomeWidgetsViewModel {
     private var objectTypeService: any ObjectTypeServiceProtocol
     @Injected(\.expandedService) @ObservationIgnored
     private var expandedService: any ExpandedServiceProtocol
-    
+    @Injected(\.chatMessagesPreviewsStorage) @ObservationIgnored
+    private var chatMessagesPreviewsStorage: any ChatMessagesPreviewsStorageProtocol
+
     @ObservationIgnored
     weak var output: (any HomeWidgetsModuleOutput)?
     @ObservationIgnored
@@ -52,8 +55,19 @@ final class HomeWidgetsViewModel {
     var objectTypeSectionIsExpanded: Bool = false
     var canCreateObjectType: Bool = false
     var chatWidgetData: SpaceChatWidgetData?
+    var unreadSectionIsExpanded: Bool = false
+    var unreadChats: [UnreadChatWidgetData] = []
+    private var supportsMultiChats: Bool = false
 
     var spaceId: String { info.accountSpaceId }
+
+    var shouldShowUnreadSection: Bool {
+        supportsMultiChats && unreadChats.isNotEmpty
+    }
+
+    var shouldHideChatBadges: Bool {
+        shouldShowUnreadSection && unreadSectionIsExpanded
+    }
 
     init(
         info: AccountInfo,
@@ -64,6 +78,7 @@ final class HomeWidgetsViewModel {
         self.widgetObject = documentService.document(objectId: info.widgetsId, spaceId: info.accountSpaceId)
         self.pinnedSectionIsExpanded = expandedService.isExpanded(id: Constants.pinnedSectionId, defaultValue: true)
         self.objectTypeSectionIsExpanded = expandedService.isExpanded(id: Constants.objectTypeSectionId, defaultValue: true)
+        self.unreadSectionIsExpanded = expandedService.isExpanded(id: Constants.unreadSectionId, defaultValue: true)
     }
     
     func startSubscriptions() async {
@@ -71,8 +86,9 @@ final class HomeWidgetsViewModel {
         async let participantTask: () = startParticipantTask()
         async let objectTypesTask: () = startObjectTypesTask()
         async let spaceViewTask: () = startSpaceViewTask()
+        async let unreadChatsTask: () = startUnreadChatsTask()
 
-        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask)
+        _ = await (widgetObjectSub, participantTask, objectTypesTask, spaceViewTask, unreadChatsTask)
     }
 
     func onAppear() {
@@ -130,7 +146,14 @@ final class HomeWidgetsViewModel {
         }
         expandedService.setState(id: Constants.objectTypeSectionId, isExpanded: objectTypeSectionIsExpanded)
     }
-    
+
+    func onTapUnreadHeader() {
+        withAnimation {
+            unreadSectionIsExpanded = !unreadSectionIsExpanded
+        }
+        expandedService.setState(id: Constants.unreadSectionId, isExpanded: unreadSectionIsExpanded)
+    }
+
     // MARK: - Private
     
     private func startWidgetObjectTask() async {
@@ -177,8 +200,26 @@ final class HomeWidgetsViewModel {
     }
 
     private func startSpaceViewTask() async {
-        for await showChat in workspaceStorage.spaceViewPublisher(spaceId: spaceId).map(\.canShowChatWidget).removeDuplicates().values {
-            chatWidgetData = showChat ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: spaceId).removeDuplicates().values {
+            chatWidgetData = spaceView.canShowChatWidget ? SpaceChatWidgetData(spaceId: spaceId, output: output) : nil
+            supportsMultiChats = spaceView.uxType.supportsMultiChats
+        }
+    }
+
+    private func startUnreadChatsTask() async {
+        let spaceId = spaceId
+        let spaceView = workspaceStorage.spaceView(spaceId: spaceId)
+        guard spaceView?.uxType.supportsMultiChats ?? false else { return }
+
+        let previewsSequence = await chatMessagesPreviewsStorage.previewsSequenceWithEmpty
+
+        for await previews in previewsSequence {
+            let newUnreadChats = previews
+                .filter { $0.spaceId == spaceId && $0.unreadCounter > 0 }
+                .map { UnreadChatWidgetData(id: $0.chatId, spaceId: spaceId, output: output) }
+
+            guard unreadChats != newUnreadChats else { continue }
+            unreadChats = newUnreadChats
         }
     }
 }
