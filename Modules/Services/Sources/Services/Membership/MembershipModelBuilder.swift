@@ -128,9 +128,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         return .external(info: info)
     }
     
-    private func buildPaymentUrl(tier: Anytype_Model_MembershipTierData) -> URL {
-        anytypeAssert(tier.iosManageURL.isNotEmpty, "Empty iosManageURL", info: ["tier": tier.debugDescription])
-        
+    private func buildPaymentUrl(tier: Anytype_Model_MembershipTierData) -> URL {        
         return URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
     }
 }
