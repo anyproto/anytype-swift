@@ -1,3 +1,8 @@
+---
+name: code-review-developer
+description: Context-aware routing to code review guidelines. Use when reviewing pull requests, providing code feedback, or discussing review standards.
+---
+
 # Code Review Developer (Smart Router)
 
 ## Purpose

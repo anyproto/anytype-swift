@@ -1,3 +1,8 @@
+---
+name: ios-dev-guidelines
+description: Context-aware routing to Swift/iOS development patterns, architecture, and best practices. Use when working with .swift files, ViewModels, Coordinators, refactoring, or discussing Swift/SwiftUI patterns.
+---
+
 # iOS Development Guidelines (Smart Router)
 
 ## Purpose

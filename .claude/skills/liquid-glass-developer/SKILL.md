@@ -1,3 +1,8 @@
+---
+name: liquid-glass-developer
+description: Context-aware routing to iOS 26 Liquid Glass implementation patterns. Use when working with glass effects, GlassEffectContainer, morphing transitions, or iOS 26 visual effects.
+---
+
 # Liquid Glass Developer (iOS 26)
 
 ## Purpose

@@ -1,3 +1,8 @@
+---
+name: analytics-developer
+description: Context-aware routing to the Anytype iOS analytics system. Use when adding analytics events, tracking user routes, or working with AnytypeAnalytics and AnalyticsConstants.
+---
+
 # Analytics Developer (Smart Router)
 
 ## Purpose

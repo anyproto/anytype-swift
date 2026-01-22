@@ -1,3 +1,8 @@
+---
+name: code-generation-developer
+description: Context-aware routing to code generation workflows including SwiftGen, Sourcery, Feature Flags, and Protobuf. Use when running make generate, adding feature flags, or working with generated files.
+---
+
 # Code Generation Developer (Smart Router)
 
 ## Purpose
