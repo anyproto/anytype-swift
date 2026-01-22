@@ -6,31 +6,31 @@ public extension FeatureDescription {
 
     static let homePage = FeatureDescription(
         title: "Home Page",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "16"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
         defaultValue: false
     )
 
     static let qrCodeCircularText = FeatureDescription(
         title: "QR Code Circular Text - IOS-5580",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "16"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
         defaultValue: false,
         debugValue: true
     )
-
-    // MARK: - Experemental
     
     // should be disabled
     static let channelTypeSwitcher = FeatureDescription(
         title: "Channel type switcher - IOS-5378",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
+        defaultValue: false
+    )
+    
+    static let showUploadStatusIndicator = FeatureDescription(
+        title: "Show visual indicator for uploading files - IOS-5054",
+        category: .productFeature(author: "vova@anytype.io", targetRelease: "17"),
         defaultValue: false
     )
 
-    static let showUploadStatusIndicator = FeatureDescription(
-        title: "Show visual indicator for uploading files - IOS-5054",
-        category: .productFeature(author: "vova@anytype.io", targetRelease: "?"),
-        defaultValue: false
-    )
+    // MARK: - Experemental
     
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
