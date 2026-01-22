@@ -378,6 +378,66 @@ Questions? Reach out in the community or support channels.
 - Anything that changes existing behavior
 - Known issues to watch for
 
+## Output 5: App Store "What's New"
+
+Generate polished App Store release notes optimized for the "What's New" section.
+
+**Requirements:**
+- Maximum 4000 characters (App Store limit)
+- 5-10 benefit-focused bullets maximum
+- One sentence per bullet, starts with action verb
+- NO technical jargon, ticket IDs, or file paths
+- Focus on user benefits, not features
+- Plain text with bullet points (•)
+
+**Template Structure:**
+```
+What's New in [VERSION]
+
+• [Benefit-focused bullet 1]
+• [Benefit-focused bullet 2]
+• [Benefit-focused bullet 3]
+• [Benefit-focused bullet 4]
+• [Benefit-focused bullet 5]
+
+Thank you for using Anytype!
+```
+
+**Content Guidelines:**
+- **Lead with action verbs**: "Added", "Improved", "Fixed", "Enhanced", "Redesigned"
+- **Focus on benefits over features**:
+  - ✅ "Added quick access to your recent files"
+  - ❌ "Implemented FileManager caching system"
+- **Be specific but concise**:
+  - ✅ "Fixed an issue where links in chat messages wouldn't open"
+  - ❌ "Bug fixes and improvements"
+- **Use plain language**:
+  - ✅ "Your spaces now load faster"
+  - ❌ "Optimized ObjectStore query performance"
+
+**What to Include:**
+- New features users will notice
+- Visible UI changes and improvements
+- Bug fixes that affected users significantly
+- Performance improvements users can feel
+
+**What to Exclude:**
+- Refactoring and code cleanup
+- CI/CD and build changes
+- Dependency updates (unless user-facing)
+- Internal tools and developer features
+- Feature flags and configuration
+- Technical debt reduction
+- Test additions/fixes
+
+**QA Checklist Before Submitting:**
+- [ ] Under 4000 characters?
+- [ ] 5-10 bullets maximum?
+- [ ] All bullets start with action verbs?
+- [ ] No technical jargon or ticket IDs?
+- [ ] Benefits-focused, not features-focused?
+- [ ] Would a non-technical user understand every bullet?
+
 ## Usage Instructions
 1. Load both context files from Parts 1 & 2
 2. Cross-reference Linear stories with Git changes
@@ -386,11 +446,13 @@ Questions? Reach out in the community or support channels.
 5. Create clean changelog focused on user value (not technical details)
 6. Create team message
 7. Create TestFlight release notes
-8. Save outputs:
+8. Create App Store "What's New" notes
+9. Save outputs:
    - `impact_analysis_release_[NUMBER].md`
    - `clean_changelog_release_[NUMBER].md`
    - `team_message_release_[NUMBER].txt`
    - `testflight_notes_release_[NUMBER].txt`
+   - `appstore_notes_release_[NUMBER].txt`
 
 ## Tips for Creating Clean Changelog
 - Focus on WHAT users can do, not HOW it was built
