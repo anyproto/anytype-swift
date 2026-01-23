@@ -18,8 +18,13 @@ mkdir -p "$LOG_DIR"
 # Read event data from stdin
 EVENT_DATA=$(cat)
 
+# Validate EVENT_DATA is valid JSON before parsing
+if ! echo "$EVENT_DATA" | jq -e . >/dev/null 2>&1; then
+    exit 0
+fi
+
 # Extract user prompt from event data
-USER_PROMPT=$(echo "$EVENT_DATA" | jq -r '.prompt // empty')
+USER_PROMPT=$(echo "$EVENT_DATA" | jq -r '.prompt // empty' 2>/dev/null)
 
 # Exit silently if no prompt
 if [ -z "$USER_PROMPT" ]; then
@@ -36,23 +41,25 @@ PROMPT_LOWER=$(echo "$USER_PROMPT" | tr '[:upper:]' '[:lower:]')
 MATCHED_SKILLS=()
 MATCHED_SCORES=()
 
-# Scoring weights
-KEYWORD_WEIGHT=2
-INTENT_WEIGHT=3
-CONFIDENCE_THRESHOLD=3  # Minimum score to activate
+# Load scoring configuration from skill-rules.json (with defaults)
+KEYWORD_WEIGHT=$(jq -r '.config.scoring.keywordWeight // 2' "$SKILL_RULES")
+INTENT_WEIGHT=$(jq -r '.config.scoring.intentWeight // 3' "$SKILL_RULES")
+CONFIDENCE_THRESHOLD=$(jq -r '.config.scoring.confidenceThreshold // 3' "$SKILL_RULES")
+HIGH_CONFIDENCE=$(jq -r '.config.scoring.highConfidenceScore // 6' "$SKILL_RULES")
+MEDIUM_CONFIDENCE=$(jq -r '.config.scoring.mediumConfidenceScore // 4' "$SKILL_RULES")
 
 # Function to count keyword matches (returns count via global variable)
 KEYWORD_MATCH_COUNT=0
 count_keyword_matches() {
     local skill_name=$1
     KEYWORD_MATCH_COUNT=0
-    local keywords=$(jq -r ".skills[\"$skill_name\"].promptTriggers.keywords[]" "$SKILL_RULES" 2>/dev/null)
+    local keywords=$(jq -r --arg name "$skill_name" '.skills[$name].promptTriggers.keywords[]' "$SKILL_RULES" 2>/dev/null)
 
     while IFS= read -r keyword; do
         if [ -n "$keyword" ]; then
             keyword_lower=$(echo "$keyword" | tr '[:upper:]' '[:lower:]')
             if echo "$PROMPT_LOWER" | grep -qi "$keyword_lower"; then
-                ((KEYWORD_MATCH_COUNT++))
+                ((KEYWORD_MATCH_COUNT++)) || true
             fi
         fi
     done <<< "$keywords"
@@ -70,7 +77,7 @@ INTENT_MATCH_COUNT=0
 count_intent_matches() {
     local skill_name=$1
     INTENT_MATCH_COUNT=0
-    local patterns=$(jq -r ".skills[\"$skill_name\"].promptTriggers.intentPatterns[]" "$SKILL_RULES" 2>/dev/null)
+    local patterns=$(jq -r --arg name "$skill_name" '.skills[$name].promptTriggers.intentPatterns[]' "$SKILL_RULES" 2>/dev/null)
 
     if [ -z "$patterns" ]; then
         return
@@ -79,7 +86,7 @@ count_intent_matches() {
     while IFS= read -r pattern; do
         if [ -n "$pattern" ]; then
             if echo "$PROMPT_LOWER" | grep -qiE "$pattern"; then
-                ((INTENT_MATCH_COUNT++))
+                ((INTENT_MATCH_COUNT++)) || true
             fi
         fi
     done <<< "$patterns"
@@ -95,7 +102,7 @@ matches_intent() {
 # Function to check if prompt matches any exclusion pattern
 matches_exclusion() {
     local skill_name=$1
-    local patterns=$(jq -r ".skills[\"$skill_name\"].promptTriggers.excludePatterns[]?" "$SKILL_RULES" 2>/dev/null)
+    local patterns=$(jq -r --arg name "$skill_name" '.skills[$name].promptTriggers.excludePatterns[]?' "$SKILL_RULES" 2>/dev/null)
 
     if [ -z "$patterns" ]; then
         return 1  # No exclusions defined
@@ -143,9 +150,9 @@ done
 # Sort matched skills by score (highest first) using parallel arrays
 if [ ${#MATCHED_SKILLS[@]} -gt 1 ]; then
     # Create array of "score:index" pairs for sorting
-    SORTED_PAIRS=""
+    SORT_INPUT=()
     for i in "${!MATCHED_SKILLS[@]}"; do
-        SORTED_PAIRS="$SORTED_PAIRS${MATCHED_SCORES[$i]}:$i\n"
+        SORT_INPUT+=("${MATCHED_SCORES[$i]}:$i")
     done
 
     # Sort and rebuild arrays
@@ -156,7 +163,7 @@ if [ ${#MATCHED_SKILLS[@]} -gt 1 ]; then
             SORTED_SKILLS+=("${MATCHED_SKILLS[$idx]}")
             SORTED_SCORES+=("$score")
         fi
-    done < <(printf "$SORTED_PAIRS" | sort -t: -k1 -rn)
+    done < <(printf '%s\n' "${SORT_INPUT[@]}" | sort -t: -k1 -rn)
 
     MATCHED_SKILLS=("${SORTED_SKILLS[@]}")
     MATCHED_SCORES=("${SORTED_SCORES[@]}")
@@ -194,7 +201,7 @@ if [ ${#MATCHED_SKILLS[@]} -eq 0 ]; then
 
         # List all skills
         for skill in $(jq -r '.skills | keys[]' "$SKILL_RULES"); do
-            description=$(jq -r ".skills[\"$skill\"].description" "$SKILL_RULES")
+            description=$(jq -r --arg name "$skill" '.skills[$name].description' "$SKILL_RULES")
             echo "   • $skill"
             echo "     $description"
             echo ""
@@ -244,14 +251,14 @@ echo ""
 for i in "${!MATCHED_SKILLS[@]}"; do
     skill="${MATCHED_SKILLS[$i]}"
     score="${MATCHED_SCORES[$i]}"
-    description=$(jq -r ".skills[\"$skill\"].description" "$SKILL_RULES")
-    related=$(jq -r ".skills[\"$skill\"].relatedSkills // [] | join(\", \")" "$SKILL_RULES")
+    description=$(jq -r --arg name "$skill" '.skills[$name].description' "$SKILL_RULES")
+    related=$(jq -r --arg name "$skill" '.skills[$name].relatedSkills // [] | join(", ")' "$SKILL_RULES")
 
-    # Determine confidence level
-    if [ "$score" -ge 6 ]; then
+    # Determine confidence level (using configurable thresholds)
+    if [ "$score" -ge "$HIGH_CONFIDENCE" ]; then
         confidence="HIGH"
         emoji="🟢"
-    elif [ "$score" -ge 4 ]; then
+    elif [ "$score" -ge "$MEDIUM_CONFIDENCE" ]; then
         confidence="MEDIUM"
         emoji="🟡"
     else
@@ -262,7 +269,7 @@ for i in "${!MATCHED_SKILLS[@]}"; do
     echo "📚 Relevant Skill: $skill"
     echo "   Description: $description"
     echo "   Confidence: $emoji $confidence (score: $score)"
-    if [ -n "$related" ] && [ "$related" != "" ]; then
+    if [ -n "$related" ]; then
         echo "   Related: $related"
     fi
     echo ""

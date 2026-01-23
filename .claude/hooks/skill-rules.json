@@ -86,14 +86,15 @@
           "(how to|where).*?(localization|string|text)"
         ],
         "excludePatterns": [
-          "text style",
-          "text view",
-          "text field",
-          "text input",
-          "text editor",
-          "typography",
-          "font",
-          "AnytypeText"
+          "text style.*font",
+          "text view.*component",
+          "text field.*input",
+          "UITextField",
+          "UITextView",
+          "TextField(",
+          "TextEditor(",
+          "custom font",
+          "font family"
         ]
       },
       "fileTriggers": {
@@ -739,6 +740,13 @@
   "config": {
     "maxSkillsPerPrompt": 2,
     "logActivations": true,
-    "logPath": ".claude/logs/skill-activations.log"
+    "logPath": ".claude/logs/skill-activations.log",
+    "scoring": {
+      "keywordWeight": 2,
+      "intentWeight": 3,
+      "confidenceThreshold": 3,
+      "highConfidenceScore": 6,
+      "mediumConfidenceScore": 4
+    }
   }
 }
