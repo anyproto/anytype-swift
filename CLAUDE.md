@@ -60,6 +60,7 @@ After making code changes, report them to the user who will verify compilation i
 | `analytics-developer` | Analytics events | Auto-activates |
 | `feature-toggle-developer` | Feature flags | Auto-activates |
 | `liquid-glass-developer` | iOS 26 glass effects | Auto-activates |
+| `swift-concurrency-developer` | Concurrency/actors | Auto-activates (from Dimillian/Skills + AvdLee) |
 | `swiftui-performance-developer` | Performance issues | Auto-activates (from Dimillian/Skills) |
 | `swiftui-patterns-developer` | View structure/MV | Auto-activates (from Dimillian/Skills) |
 | `confidence-check` | Implementation tasks | Auto-activates (from SuperClaude) |
